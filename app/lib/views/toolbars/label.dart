@@ -215,14 +215,24 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             GestureDetector(
                               child: const Icon(PhosphorIcons.textBolderLight),
                               onLongPressEnd: (details) {
+                                final RenderObject? overlay =
+                                    Overlay.of(context)
+                                        ?.context
+                                        .findRenderObject();
+                                final RenderBox referenceBox =
+                                    context.findRenderObject() as RenderBox;
+                                var tapPosition = referenceBox
+                                    .globalToLocal(details.globalPosition);
                                 showMenu(
                                   context: context,
-                                  position: RelativeRect.fromLTRB(
-                                    details.globalPosition.dx,
-                                    details.globalPosition.dy,
-                                    details.globalPosition.dx,
-                                    details.globalPosition.dy,
-                                  ),
+                                  position: RelativeRect.fromRect(
+                                      Rect.fromLTWH(tapPosition.dx,
+                                          tapPosition.dy, 30, 30),
+                                      Rect.fromLTWH(
+                                          0,
+                                          0,
+                                          overlay!.paintBounds.size.width,
+                                          overlay.paintBounds.size.height)),
                                   initialValue:
                                       FontWeight.values[span.fontWeight],
                                   items: List.generate(FontWeight.values.length,
@@ -235,9 +245,17 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                       text = AppLocalizations.of(context).bold;
                                     }
                                     return PopupMenuItem(
-                                      value: FontWeight.values[index],
-                                      child: Text(text),
-                                    );
+                                        value: FontWeight.values[index],
+                                        child: Text(text),
+                                        onTap: () {
+                                          _changeValue(_value.copyWith(
+                                            forcedProperty: property.copyWith(
+                                              span: span.copyWith(
+                                                fontWeight: index,
+                                              ),
+                                            ),
+                                          ));
+                                        });
                                   }),
                                 );
                               },

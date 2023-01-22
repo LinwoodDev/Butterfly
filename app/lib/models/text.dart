@@ -15,7 +15,7 @@ enum HorizontalAlignment { left, center, right, justify }
 enum VerticalAlignment { top, center, bottom }
 
 const kFontWeightNormal = 3;
-const kFontWeightBold = 2;
+const kFontWeightBold = 6;
 
 @freezed
 class SpanProperty with _$SpanProperty {

@@ -57,9 +57,9 @@ class _TextStyleViewState extends State<TextStyleView> {
                 value: FontWeight.values[widget.value.fontWeight],
                 items: List.generate(FontWeight.values.length, (index) {
                   var text = ((index + 1) * 100).toString();
-                  if (index == 3) {
+                  if (index == kFontWeightNormal) {
                     text = AppLocalizations.of(context).normal;
-                  } else if (index == 6) {
+                  } else if (index == kFontWeightBold) {
                     text = AppLocalizations.of(context).bold;
                   }
                   return DropdownMenuItem(

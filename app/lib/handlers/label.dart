@@ -6,6 +6,16 @@ class LabelHandler extends Handler<LabelPainter> with HandlerWithCursor {
   LabelHandler(super.data) : _context = text.TextContext(painter: data);
 
   @override
+  List<Renderer> createForegrounds(
+          CurrentIndexCubit currentIndexCubit, AppDocument document,
+          [Area? currentArea]) =>
+      [
+        ...super.createForegrounds(currentIndexCubit, document, currentArea),
+        if (_context.renderer != null && _context.isCreating)
+          _context.renderer!,
+      ];
+
+  @override
   Future<void> onTapUp(TapUpDetails details, EventContext context) async {
     final pixelRatio = context.devicePixelRatio;
     final newElement = await openDialog(context, details.localPosition);
@@ -54,7 +64,8 @@ class LabelHandler extends Handler<LabelPainter> with HandlerWithCursor {
 
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    if (context.renderer == value.renderer || value.renderer == null) return;
+    if (value.renderer == null) return;
+
     state.currentIndexCubit.refresh(state.document);
     if (!value.isCreating) {
       bloc.add(ElementsChanged({
