@@ -867,8 +867,8 @@ mixin _$PadElement {
   String get layer => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)
+    required TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)
         pen,
     required TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)
@@ -906,8 +906,8 @@ mixin _$PadElement {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult? Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
@@ -941,8 +941,8 @@ mixin _$PadElement {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
@@ -1053,7 +1053,11 @@ abstract class _$$PenElementCopyWith<$Res>
       __$$PenElementCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String layer, List<PathPoint> points, PenProperty property});
+  $Res call(
+      {String layer,
+      double zoom,
+      List<PathPoint> points,
+      PenProperty property});
 }
 
 /// @nodoc
@@ -1068,6 +1072,7 @@ class __$$PenElementCopyWithImpl<$Res>
   @override
   $Res call({
     Object? layer = null,
+    Object? zoom = null,
     Object? points = null,
     Object? property = freezed,
   }) {
@@ -1076,6 +1081,10 @@ class __$$PenElementCopyWithImpl<$Res>
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
+      zoom: null == zoom
+          ? _value.zoom
+          : zoom // ignore: cast_nullable_to_non_nullable
+              as double,
       points: null == points
           ? _value._points
           : points // ignore: cast_nullable_to_non_nullable
@@ -1093,6 +1102,7 @@ class __$$PenElementCopyWithImpl<$Res>
 class _$PenElement implements PenElement {
   const _$PenElement(
       {this.layer = '',
+      this.zoom = 0.0,
       final List<PathPoint> points = const [],
       this.property = const PenProperty(),
       final String? $type})
@@ -1105,6 +1115,9 @@ class _$PenElement implements PenElement {
   @override
   @JsonKey()
   final String layer;
+  @override
+  @JsonKey()
+  final double zoom;
   final List<PathPoint> _points;
   @override
   @JsonKey()
@@ -1123,7 +1136,7 @@ class _$PenElement implements PenElement {
 
   @override
   String toString() {
-    return 'PadElement.pen(layer: $layer, points: $points, property: $property)';
+    return 'PadElement.pen(layer: $layer, zoom: $zoom, points: $points, property: $property)';
   }
 
   @JsonKey(ignore: true)
@@ -1135,8 +1148,8 @@ class _$PenElement implements PenElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)
+    required TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)
         pen,
     required TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)
@@ -1171,14 +1184,14 @@ class _$PenElement implements PenElement {
             ShapeProperty property)
         shape,
   }) {
-    return pen(layer, points, property);
+    return pen(layer, zoom, points, property);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult? Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
@@ -1209,14 +1222,14 @@ class _$PenElement implements PenElement {
             ShapeProperty property)?
         shape,
   }) {
-    return pen?.call(layer, points, property);
+    return pen?.call(layer, zoom, points, property);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
@@ -1249,7 +1262,7 @@ class _$PenElement implements PenElement {
     required TResult orElse(),
   }) {
     if (pen != null) {
-      return pen(layer, points, property);
+      return pen(layer, zoom, points, property);
     }
     return orElse();
   }
@@ -1308,6 +1321,7 @@ class _$PenElement implements PenElement {
 abstract class PenElement implements PadElement, PathElement {
   const factory PenElement(
       {final String layer,
+      final double zoom,
       final List<PathPoint> points,
       final PenProperty property}) = _$PenElement;
 
@@ -1316,6 +1330,7 @@ abstract class PenElement implements PadElement, PathElement {
 
   @override
   String get layer;
+  double get zoom;
   List<PathPoint> get points;
   PenProperty get property;
   @override
@@ -1414,8 +1429,8 @@ class _$EraserElement implements EraserElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)
+    required TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)
         pen,
     required TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)
@@ -1456,8 +1471,8 @@ class _$EraserElement implements EraserElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult? Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
@@ -1494,8 +1509,8 @@ class _$EraserElement implements EraserElement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
@@ -1720,8 +1735,8 @@ class _$LabelElement implements LabelElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)
+    required TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)
         pen,
     required TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)
@@ -1762,8 +1777,8 @@ class _$LabelElement implements LabelElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult? Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
@@ -1800,8 +1815,8 @@ class _$LabelElement implements LabelElement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
@@ -2043,8 +2058,8 @@ class _$ImageElement implements ImageElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)
+    required TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)
         pen,
     required TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)
@@ -2085,8 +2100,8 @@ class _$ImageElement implements ImageElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult? Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
@@ -2123,8 +2138,8 @@ class _$ImageElement implements ImageElement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
@@ -2368,8 +2383,8 @@ class _$SvgElement implements SvgElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)
+    required TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)
         pen,
     required TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)
@@ -2410,8 +2425,8 @@ class _$SvgElement implements SvgElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult? Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
@@ -2448,8 +2463,8 @@ class _$SvgElement implements SvgElement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?
@@ -2662,8 +2677,8 @@ class _$ShapeElement implements ShapeElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)
+    required TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)
         pen,
     required TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)
@@ -2704,8 +2719,8 @@ class _$ShapeElement implements ShapeElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult? Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult? Function(
             String layer, List<PathPoint> points, EraserProperty property)?
@@ -2742,8 +2757,8 @@ class _$ShapeElement implements ShapeElement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String layer, List<PathPoint> points, PenProperty property)?
+    TResult Function(String layer, double zoom, List<PathPoint> points,
+            PenProperty property)?
         pen,
     TResult Function(
             String layer, List<PathPoint> points, EraserProperty property)?

@@ -1,3 +1,4 @@
+import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:perfect_freehand/perfect_freehand.dart' show Point;
@@ -27,4 +28,7 @@ class PathPoint with _$PathPoint {
 
   Point toFreehandPoint(double strokeMultiplier) =>
       Point(x, y, pressure * strokeMultiplier);
+
+  PathPoint scale(double zoom, Offset center) =>
+      PathPoint.fromOffset(toOffset().scaleFromCenter(zoom, center), pressure);
 }
