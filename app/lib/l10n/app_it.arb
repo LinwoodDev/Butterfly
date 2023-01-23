@@ -434,5 +434,19 @@
   "components": "Componenti",
   "waypoint": "Waypoint",
   "actions": "Azioni",
-  "painters": "Pittori"
+  "painters": "Pittori",
+  "breakingChangesTitle": "Cambiamenti di rottura",
+  "breakingChangesMessage": "Ci sono modifiche in corso in questa versione. Si prega di leggere il changelog prima di aggiornare. La versione corrente del file è {version}, la nuova versione è {newVersion}.",
+  "@breakingChangesMessage": {
+    "placeholders": {
+      "version": {
+        "type": "int",
+        "example": "1"
+      },
+      "newVersion": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  }
 }
