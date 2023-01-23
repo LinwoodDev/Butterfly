@@ -38,6 +38,9 @@ class TextCursor extends Renderer<TextCursorData> {
           package: icon.fontPackage,
           fontSize: iconSize,
           color: iconColor,
+          fontStyle: property?.span.italic == true
+              ? FontStyle.italic
+              : FontStyle.normal,
         ),
       ),
       textAlign: TextAlign.center,

@@ -151,8 +151,12 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context).size,
                               filled: true,
+                              floatingLabelAlignment:
+                                  FloatingLabelAlignment.center,
+                              alignLabelWithHint: true,
                             ),
                             textAlign: TextAlign.center,
+                            keyboardType: TextInputType.number,
                             initialValue: span.size.toString(),
                             onChanged: (value) => _changeValue(
                               _value.copyWith(
