@@ -434,5 +434,19 @@
   "components": "Komponenten",
   "waypoint": "Wegpunkt",
   "actions": "Aktionen",
-  "painters": "Maler"
+  "painters": "Maler",
+  "breakingChangesTitle": "Änderungen brechen",
+  "breakingChangesMessage": "Es gibt ungültige Änderungen in dieser Version. Bitte lesen Sie das Changelog vor der Aktualisierung. Die aktuelle Dateiversion ist {version}, die neue Version ist {newVersion}.",
+  "@breakingChangesMessage": {
+    "placeholders": {
+      "version": {
+        "type": "int",
+        "example": "1"
+      },
+      "newVersion": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  }
 }

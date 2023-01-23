@@ -5,6 +5,14 @@ sidebar_position: 2
 
 Questa guida ti mostrerà come migrare all'ultima versione.
 
-## 1,0,0-beta.0
+## 7 (Breaking change) {#7}
 
-Funziona automaticamente. Per aggiungere la tavolozza di colori predefinita, fare clic sul pulsante reset nella finestra di dialogo dei colori.
+**Versione: 2.0**
+
+### Cambiamenti di rottura
+
+Il livello della gomma verrà rimosso. Durante la migrazione, il livello della gomma verrà rimosso.
+
+## Versioni più vecchie
+
+Tutte le migrazioni prima saranno effettuate automaticamente. Leggi la migrazione completa nel codice [qui](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
