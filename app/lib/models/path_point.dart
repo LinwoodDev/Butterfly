@@ -26,7 +26,7 @@ class PathPoint with _$PathPoint {
 
   Vector2 toVector() => Vector2(x, y);
 
-  Point toFreehandPoint(double strokeMultiplier) =>
+  Point toFreehandPoint([double strokeMultiplier = 1]) =>
       Point(x, y, pressure * strokeMultiplier);
 
   PathPoint scale(double zoom, Offset center) =>

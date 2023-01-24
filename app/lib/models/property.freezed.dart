@@ -18,8 +18,6 @@ Property _$PropertyFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'label':
       return LabelProperty.fromJson(json);
-    case 'eraser':
-      return EraserProperty.fromJson(json);
     case 'pen':
       return PenProperty.fromJson(json);
     case 'shape':
@@ -33,6 +31,7 @@ Property _$PropertyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Property {
+  int get color => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -50,10 +49,8 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(double strokeWidth, double strokeMultiplier)
-        eraser,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)
+    required TResult Function(double strokeWidth, double strokeMultiplier,
+            int color, bool fill, double smoothing, double streamline)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
@@ -76,9 +73,8 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult? Function(double strokeWidth, double strokeMultiplier)? eraser,
-    TResult? Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult? Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult? Function(double strokeWidth, PathShape shape, int color)? shape,
   }) =>
@@ -100,9 +96,8 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
-    TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
@@ -111,7 +106,6 @@ mixin _$Property {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LabelProperty value) label,
-    required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
     required TResult Function(ShapeProperty value) shape,
   }) =>
@@ -119,7 +113,6 @@ mixin _$Property {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LabelProperty value)? label,
-    TResult? Function(EraserProperty value)? eraser,
     TResult? Function(PenProperty value)? pen,
     TResult? Function(ShapeProperty value)? shape,
   }) =>
@@ -127,19 +120,23 @@ mixin _$Property {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LabelProperty value)? label,
-    TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
     TResult Function(ShapeProperty value)? shape,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PropertyCopyWith<Property> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $PropertyCopyWith<$Res> {
   factory $PropertyCopyWith(Property value, $Res Function(Property) then) =
       _$PropertyCopyWithImpl<$Res, Property>;
+  @useResult
+  $Res call({int color});
 }
 
 /// @nodoc
@@ -151,13 +148,28 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? color = null,
+  }) {
+    return _then(_value.copyWith(
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$LabelPropertyCopyWith<$Res> {
+abstract class _$$LabelPropertyCopyWith<$Res>
+    implements $PropertyCopyWith<$Res> {
   factory _$$LabelPropertyCopyWith(
           _$LabelProperty value, $Res Function(_$LabelProperty) then) =
       __$$LabelPropertyCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
       {double size,
@@ -400,10 +412,8 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(double strokeWidth, double strokeMultiplier)
-        eraser,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)
+    required TResult Function(double strokeWidth, double strokeMultiplier,
+            int color, bool fill, double smoothing, double streamline)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
@@ -442,9 +452,8 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult? Function(double strokeWidth, double strokeMultiplier)? eraser,
-    TResult? Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult? Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult? Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
@@ -482,9 +491,8 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
-    TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
@@ -512,7 +520,6 @@ class _$LabelProperty implements LabelProperty {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LabelProperty value) label,
-    required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
     required TResult Function(ShapeProperty value) shape,
   }) {
@@ -523,7 +530,6 @@ class _$LabelProperty implements LabelProperty {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LabelProperty value)? label,
-    TResult? Function(EraserProperty value)? eraser,
     TResult? Function(PenProperty value)? pen,
     TResult? Function(ShapeProperty value)? shape,
   }) {
@@ -534,7 +540,6 @@ class _$LabelProperty implements LabelProperty {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LabelProperty value)? label,
-    TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
     TResult Function(ShapeProperty value)? shape,
     required TResult orElse(),
@@ -573,6 +578,7 @@ abstract class LabelProperty implements Property {
       _$LabelProperty.fromJson;
 
   double get size;
+  @override
   int get color;
   int get fontWeight;
   bool get lineThrough;
@@ -585,248 +591,26 @@ abstract class LabelProperty implements Property {
   double get decorationThickness;
   HorizontalAlignment get horizontalAlignment;
   VerticalAlignment get verticalAlignment;
+  @override
   @JsonKey(ignore: true)
   _$$LabelPropertyCopyWith<_$LabelProperty> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$EraserPropertyCopyWith<$Res> {
-  factory _$$EraserPropertyCopyWith(
-          _$EraserProperty value, $Res Function(_$EraserProperty) then) =
-      __$$EraserPropertyCopyWithImpl<$Res>;
-  @useResult
-  $Res call({double strokeWidth, double strokeMultiplier});
-}
-
-/// @nodoc
-class __$$EraserPropertyCopyWithImpl<$Res>
-    extends _$PropertyCopyWithImpl<$Res, _$EraserProperty>
-    implements _$$EraserPropertyCopyWith<$Res> {
-  __$$EraserPropertyCopyWithImpl(
-      _$EraserProperty _value, $Res Function(_$EraserProperty) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? strokeWidth = null,
-    Object? strokeMultiplier = null,
-  }) {
-    return _then(_$EraserProperty(
-      strokeWidth: null == strokeWidth
-          ? _value.strokeWidth
-          : strokeWidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      strokeMultiplier: null == strokeMultiplier
-          ? _value.strokeMultiplier
-          : strokeMultiplier // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$EraserProperty implements EraserProperty {
-  const _$EraserProperty(
-      {this.strokeWidth = 5, this.strokeMultiplier = 10, final String? $type})
-      : $type = $type ?? 'eraser';
-
-  factory _$EraserProperty.fromJson(Map<String, dynamic> json) =>
-      _$$EraserPropertyFromJson(json);
-
-  @override
-  @JsonKey()
-  final double strokeWidth;
-  @override
-  @JsonKey()
-  final double strokeMultiplier;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'Property.eraser(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$EraserProperty &&
-            (identical(other.strokeWidth, strokeWidth) ||
-                other.strokeWidth == strokeWidth) &&
-            (identical(other.strokeMultiplier, strokeMultiplier) ||
-                other.strokeMultiplier == strokeMultiplier));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, strokeWidth, strokeMultiplier);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$EraserPropertyCopyWith<_$EraserProperty> get copyWith =>
-      __$$EraserPropertyCopyWithImpl<_$EraserProperty>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)
-        label,
-    required TResult Function(double strokeWidth, double strokeMultiplier)
-        eraser,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)
-        pen,
-    required TResult Function(double strokeWidth, PathShape shape, int color)
-        shape,
-  }) {
-    return eraser(strokeWidth, strokeMultiplier);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)?
-        label,
-    TResult? Function(double strokeWidth, double strokeMultiplier)? eraser,
-    TResult? Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
-        pen,
-    TResult? Function(double strokeWidth, PathShape shape, int color)? shape,
-  }) {
-    return eraser?.call(strokeWidth, strokeMultiplier);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)?
-        label,
-    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
-    TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
-        pen,
-    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
-    required TResult orElse(),
-  }) {
-    if (eraser != null) {
-      return eraser(strokeWidth, strokeMultiplier);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LabelProperty value) label,
-    required TResult Function(EraserProperty value) eraser,
-    required TResult Function(PenProperty value) pen,
-    required TResult Function(ShapeProperty value) shape,
-  }) {
-    return eraser(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LabelProperty value)? label,
-    TResult? Function(EraserProperty value)? eraser,
-    TResult? Function(PenProperty value)? pen,
-    TResult? Function(ShapeProperty value)? shape,
-  }) {
-    return eraser?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LabelProperty value)? label,
-    TResult Function(EraserProperty value)? eraser,
-    TResult Function(PenProperty value)? pen,
-    TResult Function(ShapeProperty value)? shape,
-    required TResult orElse(),
-  }) {
-    if (eraser != null) {
-      return eraser(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EraserPropertyToJson(
-      this,
-    );
-  }
-}
-
-abstract class EraserProperty implements Property, PathProperty {
-  const factory EraserProperty(
-      {final double strokeWidth,
-      final double strokeMultiplier}) = _$EraserProperty;
-
-  factory EraserProperty.fromJson(Map<String, dynamic> json) =
-      _$EraserProperty.fromJson;
-
-  double get strokeWidth;
-  double get strokeMultiplier;
-  @JsonKey(ignore: true)
-  _$$EraserPropertyCopyWith<_$EraserProperty> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$PenPropertyCopyWith<$Res> {
+abstract class _$$PenPropertyCopyWith<$Res> implements $PropertyCopyWith<$Res> {
   factory _$$PenPropertyCopyWith(
           _$PenProperty value, $Res Function(_$PenProperty) then) =
       __$$PenPropertyCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
-      {double strokeWidth, double strokeMultiplier, int color, bool fill});
+      {double strokeWidth,
+      double strokeMultiplier,
+      int color,
+      bool fill,
+      double smoothing,
+      double streamline});
 }
 
 /// @nodoc
@@ -844,6 +628,8 @@ class __$$PenPropertyCopyWithImpl<$Res>
     Object? strokeMultiplier = null,
     Object? color = null,
     Object? fill = null,
+    Object? smoothing = null,
+    Object? streamline = null,
   }) {
     return _then(_$PenProperty(
       strokeWidth: null == strokeWidth
@@ -862,6 +648,14 @@ class __$$PenPropertyCopyWithImpl<$Res>
           ? _value.fill
           : fill // ignore: cast_nullable_to_non_nullable
               as bool,
+      smoothing: null == smoothing
+          ? _value.smoothing
+          : smoothing // ignore: cast_nullable_to_non_nullable
+              as double,
+      streamline: null == streamline
+          ? _value.streamline
+          : streamline // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -874,6 +668,8 @@ class _$PenProperty implements PenProperty {
       this.strokeMultiplier = 10,
       this.color = kColorBlack,
       this.fill = false,
+      this.smoothing = 0.5,
+      this.streamline = 0.3,
       final String? $type})
       : $type = $type ?? 'pen';
 
@@ -892,13 +688,19 @@ class _$PenProperty implements PenProperty {
   @override
   @JsonKey()
   final bool fill;
+  @override
+  @JsonKey()
+  final double smoothing;
+  @override
+  @JsonKey()
+  final double streamline;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Property.pen(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier, color: $color, fill: $fill)';
+    return 'Property.pen(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier, color: $color, fill: $fill, smoothing: $smoothing, streamline: $streamline)';
   }
 
   @override
@@ -911,13 +713,17 @@ class _$PenProperty implements PenProperty {
             (identical(other.strokeMultiplier, strokeMultiplier) ||
                 other.strokeMultiplier == strokeMultiplier) &&
             (identical(other.color, color) || other.color == color) &&
-            (identical(other.fill, fill) || other.fill == fill));
+            (identical(other.fill, fill) || other.fill == fill) &&
+            (identical(other.smoothing, smoothing) ||
+                other.smoothing == smoothing) &&
+            (identical(other.streamline, streamline) ||
+                other.streamline == streamline));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, strokeWidth, strokeMultiplier, color, fill);
+  int get hashCode => Object.hash(runtimeType, strokeWidth, strokeMultiplier,
+      color, fill, smoothing, streamline);
 
   @JsonKey(ignore: true)
   @override
@@ -943,15 +749,14 @@ class _$PenProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(double strokeWidth, double strokeMultiplier)
-        eraser,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)
+    required TResult Function(double strokeWidth, double strokeMultiplier,
+            int color, bool fill, double smoothing, double streamline)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
   }) {
-    return pen(strokeWidth, strokeMultiplier, color, fill);
+    return pen(
+        strokeWidth, strokeMultiplier, color, fill, smoothing, streamline);
   }
 
   @override
@@ -972,13 +777,13 @@ class _$PenProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult? Function(double strokeWidth, double strokeMultiplier)? eraser,
-    TResult? Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult? Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult? Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
-    return pen?.call(strokeWidth, strokeMultiplier, color, fill);
+    return pen?.call(
+        strokeWidth, strokeMultiplier, color, fill, smoothing, streamline);
   }
 
   @override
@@ -999,15 +804,15 @@ class _$PenProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
-    TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
   }) {
     if (pen != null) {
-      return pen(strokeWidth, strokeMultiplier, color, fill);
+      return pen(
+          strokeWidth, strokeMultiplier, color, fill, smoothing, streamline);
     }
     return orElse();
   }
@@ -1016,7 +821,6 @@ class _$PenProperty implements PenProperty {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LabelProperty value) label,
-    required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
     required TResult Function(ShapeProperty value) shape,
   }) {
@@ -1027,7 +831,6 @@ class _$PenProperty implements PenProperty {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LabelProperty value)? label,
-    TResult? Function(EraserProperty value)? eraser,
     TResult? Function(PenProperty value)? pen,
     TResult? Function(ShapeProperty value)? shape,
   }) {
@@ -1038,7 +841,6 @@ class _$PenProperty implements PenProperty {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LabelProperty value)? label,
-    TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
     TResult Function(ShapeProperty value)? shape,
     required TResult orElse(),
@@ -1062,25 +864,33 @@ abstract class PenProperty implements Property, PathProperty {
       {final double strokeWidth,
       final double strokeMultiplier,
       final int color,
-      final bool fill}) = _$PenProperty;
+      final bool fill,
+      final double smoothing,
+      final double streamline}) = _$PenProperty;
 
   factory PenProperty.fromJson(Map<String, dynamic> json) =
       _$PenProperty.fromJson;
 
   double get strokeWidth;
   double get strokeMultiplier;
+  @override
   int get color;
   bool get fill;
+  double get smoothing;
+  double get streamline;
+  @override
   @JsonKey(ignore: true)
   _$$PenPropertyCopyWith<_$PenProperty> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ShapePropertyCopyWith<$Res> {
+abstract class _$$ShapePropertyCopyWith<$Res>
+    implements $PropertyCopyWith<$Res> {
   factory _$$ShapePropertyCopyWith(
           _$ShapeProperty value, $Res Function(_$ShapeProperty) then) =
       __$$ShapePropertyCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call({double strokeWidth, PathShape shape, int color});
 
@@ -1196,10 +1006,8 @@ class _$ShapeProperty implements ShapeProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(double strokeWidth, double strokeMultiplier)
-        eraser,
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)
+    required TResult Function(double strokeWidth, double strokeMultiplier,
+            int color, bool fill, double smoothing, double streamline)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
@@ -1225,9 +1033,8 @@ class _$ShapeProperty implements ShapeProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult? Function(double strokeWidth, double strokeMultiplier)? eraser,
-    TResult? Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult? Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult? Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
@@ -1252,9 +1059,8 @@ class _$ShapeProperty implements ShapeProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier)? eraser,
-    TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
@@ -1269,7 +1075,6 @@ class _$ShapeProperty implements ShapeProperty {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LabelProperty value) label,
-    required TResult Function(EraserProperty value) eraser,
     required TResult Function(PenProperty value) pen,
     required TResult Function(ShapeProperty value) shape,
   }) {
@@ -1280,7 +1085,6 @@ class _$ShapeProperty implements ShapeProperty {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LabelProperty value)? label,
-    TResult? Function(EraserProperty value)? eraser,
     TResult? Function(PenProperty value)? pen,
     TResult? Function(ShapeProperty value)? shape,
   }) {
@@ -1291,7 +1095,6 @@ class _$ShapeProperty implements ShapeProperty {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LabelProperty value)? label,
-    TResult Function(EraserProperty value)? eraser,
     TResult Function(PenProperty value)? pen,
     TResult Function(ShapeProperty value)? shape,
     required TResult orElse(),
@@ -1321,7 +1124,9 @@ abstract class ShapeProperty implements Property {
 
   double get strokeWidth;
   PathShape get shape;
+  @override
   int get color;
+  @override
   @JsonKey(ignore: true)
   _$$ShapePropertyCopyWith<_$ShapeProperty> get copyWith =>
       throw _privateConstructorUsedError;

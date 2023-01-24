@@ -52,9 +52,13 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       var outlinePoints = getStroke(
         points
             .map((e) => e.scale(zoom, center))
-            .map((e) => e.toFreehandPoint(property.strokeMultiplier))
+            .map((e) => e.toFreehandPoint())
             .toList(),
         size: property.strokeWidth * zoom,
+        thinning: property.strokeMultiplier,
+        smoothing: property.smoothing,
+        streamline: property.streamline,
+        simulatePressure: true,
       );
 
       // Unscale the points
