@@ -74,7 +74,7 @@ const _$VerticalAlignmentEnumMap = {
 
 _$PenProperty _$$PenPropertyFromJson(Map json) => _$PenProperty(
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
-      strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 10,
+      strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 0.5,
       color: json['color'] as int? ?? kColorBlack,
       fill: json['fill'] as bool? ?? false,
       smoothing: (json['smoothing'] as num?)?.toDouble() ?? 0.5,

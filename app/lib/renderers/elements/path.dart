@@ -55,9 +55,9 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
             .map((e) => e.toFreehandPoint())
             .toList(),
         size: property.strokeWidth * zoom,
-        thinning: property.strokeMultiplier,
-        smoothing: property.smoothing,
-        streamline: property.streamline,
+        thinning: property.strokeMultiplier.clamp(0, 1),
+        smoothing: property.smoothing.clamp(0, 1),
+        streamline: property.streamline.clamp(0, 1),
         simulatePressure: true,
       );
 

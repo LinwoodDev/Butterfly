@@ -665,7 +665,7 @@ class __$$PenPropertyCopyWithImpl<$Res>
 class _$PenProperty implements PenProperty {
   const _$PenProperty(
       {this.strokeWidth = 5,
-      this.strokeMultiplier = 10,
+      this.strokeMultiplier = 0.5,
       this.color = kColorBlack,
       this.fill = false,
       this.smoothing = 0.5,
