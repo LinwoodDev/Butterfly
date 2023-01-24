@@ -1,6 +1,7 @@
 part of 'handler.dart';
 
-class LabelHandler extends Handler<LabelPainter> with HandlerWithCursor {
+class LabelHandler extends Handler<LabelPainter>
+    with HandlerWithCursor, TextInputClient {
   text.TextContext _context;
 
   LabelHandler(super.data) : _context = text.TextContext(painter: data);
@@ -15,16 +16,33 @@ class LabelHandler extends Handler<LabelPainter> with HandlerWithCursor {
           _context.renderer!,
       ];
 
+  TextInputConnection? _connection;
+
   @override
   Future<void> onTapUp(TapUpDetails details, EventContext context) async {
     final pixelRatio = context.devicePixelRatio;
-    final newElement = await openDialog(context, details.localPosition);
-    if (newElement != null) {
-      context.addDocumentEvent(ElementsCreated([newElement]));
-      context
-          .getDocumentBloc()
-          .bake(viewportSize: context.viewportSize, pixelRatio: pixelRatio);
-    }
+    FocusScope.of(context.buildContext).unfocus();
+    final style = Theme.of(context.buildContext).textTheme.bodyText1!;
+    _connection = TextInput.attach(
+        this,
+        const TextInputConfiguration(
+          inputType: TextInputType.text,
+          obscureText: false,
+          autocorrect: true,
+          inputAction: TextInputAction.done,
+          keyboardAppearance: Brightness.light,
+          textCapitalization: TextCapitalization.sentences,
+        ))
+      ..setEditingState(const TextEditingValue(text: 'A'))
+      ..setStyle(
+        fontFamily: style.fontFamily,
+        fontSize: style.fontSize! * pixelRatio,
+        fontWeight: style.fontWeight,
+        textDirection: TextDirection.ltr,
+        textAlign: TextAlign.left,
+      );
+    await Future.delayed(const Duration(seconds: 1));
+    _connection?.show();
   }
 
   Future<TextElement?> openDialog(
@@ -91,4 +109,32 @@ class LabelHandler extends Handler<LabelPainter> with HandlerWithCursor {
       bloc.add(ElementsCreated.renderers([renderer]));
     }
   }
+
+  @override
+  void connectionClosed() {
+    _connection = null;
+  }
+
+  @override
+  // TODO: implement currentAutofillScope
+  AutofillScope? get currentAutofillScope => null;
+
+  @override
+  // TODO: implement currentTextEditingValue
+  TextEditingValue? get currentTextEditingValue => const TextEditingValue();
+
+  @override
+  void performAction(TextInputAction action) {}
+
+  @override
+  void performPrivateCommand(String action, Map<String, dynamic> data) {}
+
+  @override
+  void showAutocorrectionPromptRect(int start, int end) {}
+
+  @override
+  void updateEditingValue(TextEditingValue value) {}
+
+  @override
+  void updateFloatingCursor(RawFloatingCursorPoint point) {}
 }
