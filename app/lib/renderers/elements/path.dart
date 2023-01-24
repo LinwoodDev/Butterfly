@@ -57,7 +57,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
         size: property.strokeWidth * zoom,
         thinning: property.strokeMultiplier.clamp(0, 1),
         smoothing: property.smoothing.clamp(0, 1),
-        streamline: property.streamline.clamp(0, 1),
+        streamline: property.streamline.clamp(.1, 1),
         simulatePressure: true,
       );
 

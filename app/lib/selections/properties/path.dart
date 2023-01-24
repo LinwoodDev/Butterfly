@@ -37,7 +37,7 @@ class PathPropertySelection<T extends PathProperty> with PropertySelection<T> {
         ExactSlider(
             header: Text(AppLocalizations.of(context)!.streamline),
             value: property.streamline,
-            min: 0,
+            min: .1,
             max: 1,
             defaultValue: .5,
             onChangeEnd: (value) => onChanged(
