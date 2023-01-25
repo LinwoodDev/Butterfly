@@ -22,7 +22,7 @@ class LabelHandler extends Handler<LabelPainter>
   Future<void> onTapUp(TapUpDetails details, EventContext context) async {
     final pixelRatio = context.devicePixelRatio;
     FocusScope.of(context.buildContext).unfocus();
-    final style = Theme.of(context.buildContext).textTheme.bodyText1!;
+    final style = Theme.of(context.buildContext).textTheme.bodyLarge!;
     _connection = TextInput.attach(
         this,
         const TextInputConfiguration(

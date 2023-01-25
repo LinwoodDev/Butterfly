@@ -85,7 +85,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(AppLocalizations.of(context).decoration,
-                                  style: Theme.of(context).textTheme.subtitle1),
+                                  style: Theme.of(context).textTheme.titleMedium),
                             ],
                           ),
                       body: Column(children: [

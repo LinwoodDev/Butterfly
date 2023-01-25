@@ -63,7 +63,7 @@ class MouseBehaviorSettings extends StatelessWidget {
                             children: [
                               Text(
                                 AppLocalizations.of(context).shortcuts,
-                                style: Theme.of(context).textTheme.headline5,
+                                style: Theme.of(context).textTheme.headlineSmall,
                               ),
                               IconButton(
                                 icon: const Icon(

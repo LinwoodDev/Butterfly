@@ -331,7 +331,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         headerBuilder: ((context, isExpanded) => Align(
                               alignment: Alignment.center,
                               child: Text(AppLocalizations.of(context).advanced,
-                                  style: Theme.of(context).textTheme.headline6,
+                                  style: Theme.of(context).textTheme.titleLarge,
                                   textAlign: TextAlign.center),
                             )),
                         canTapOnHeader: true,

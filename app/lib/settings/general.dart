@@ -81,7 +81,7 @@ class GeneralSettingsPage extends StatelessWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context).update,
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 16),
                       FutureBuilder<Meta>(

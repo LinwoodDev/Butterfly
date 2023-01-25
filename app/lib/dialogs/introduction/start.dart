@@ -28,7 +28,7 @@ class StartIntroductionDialog extends StatelessWidget {
             return Column(mainAxisSize: MainAxisSize.min, children: [
               Text(
                 AppLocalizations.of(context).start,
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 16),
               Flexible(
@@ -78,7 +78,7 @@ class _CreateStartViewState extends State<_CreateStartView> {
           children: [
             Text(
               AppLocalizations.of(context).create,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             Flexible(
               child: Material(
@@ -93,7 +93,7 @@ class _CreateStartViewState extends State<_CreateStartView> {
                         children: [
                           Text(
                             AppLocalizations.of(context).error,
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           Text(
                             snapshot.error.toString(),
@@ -208,7 +208,7 @@ class _RecentStartView extends StatelessWidget {
           children: [
             Text(
               AppLocalizations.of(context).recentFiles,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             Flexible(
               child: Material(
@@ -217,7 +217,7 @@ class _RecentStartView extends StatelessWidget {
                     ? Center(
                         child: Text(
                         AppLocalizations.of(context).noRecentFiles,
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ))
                     : ListView(
                         shrinkWrap: true,

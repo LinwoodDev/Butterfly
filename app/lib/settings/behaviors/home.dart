@@ -42,7 +42,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(AppLocalizations.of(context).connection,
-                                style: Theme.of(context).textTheme.headline5),
+                                style: Theme.of(context).textTheme.headlineSmall),
                             const SizedBox(height: 16),
                             ListTile(
                               title:
@@ -62,7 +62,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(AppLocalizations.of(context).inputs,
-                              style: Theme.of(context).textTheme.headline5),
+                              style: Theme.of(context).textTheme.headlineSmall),
                           const SizedBox(height: 16),
                           ListTile(
                             leading: const Icon(PhosphorIcons.mouseLight),
@@ -113,7 +113,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                 child: Text(
                   AppLocalizations.of(context).syncMode,
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
               ),

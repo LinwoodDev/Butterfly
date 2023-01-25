@@ -221,7 +221,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                               onLongPressEnd: (details) {
                                 final RenderObject? overlay =
                                     Overlay.of(context)
-                                        ?.context
+                                        .context
                                         .findRenderObject();
                                 final RenderBox referenceBox =
                                     context.findRenderObject() as RenderBox;

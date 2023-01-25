@@ -147,7 +147,7 @@ class _GeneralRemoteSettingsView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(AppLocalizations.of(context).manage,
-                        style: Theme.of(context).textTheme.headline5),
+                        style: Theme.of(context).textTheme.headlineSmall),
                     const SizedBox(height: 16),
                     BlocBuilder<SettingsCubit, ButterflySettings>(
                         builder: (context, state) {

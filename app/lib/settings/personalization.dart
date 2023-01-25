@@ -179,7 +179,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
                         horizontal: 10, vertical: 20),
                     child: Text(
                       AppLocalizations.of(context).theme,
-                      style: Theme.of(context).textTheme.headline5,
+                      style: Theme.of(context).textTheme.headlineSmall,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -221,7 +221,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Text(
                     AppLocalizations.of(context).theme,
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headlineSmall,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -266,7 +266,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Text(
                     AppLocalizations.of(context).locale,
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headlineSmall,
                     textAlign: TextAlign.center,
                   ),
                 ),
