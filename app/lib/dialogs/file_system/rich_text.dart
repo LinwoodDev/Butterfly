@@ -17,9 +17,9 @@ class FileSystemFileRichText extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (info.createdAt != null)
-            Text(AppLocalizations.of(context)!.createdAt(info.createdAt!)),
+            Text(AppLocalizations.of(context).createdAt(info.createdAt!)),
           if (info.updatedAt != null)
-            Text(AppLocalizations.of(context)!.updatedAt(info.updatedAt!)),
+            Text(AppLocalizations.of(context).updatedAt(info.updatedAt!)),
         ]);
   }
 }

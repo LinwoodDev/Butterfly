@@ -5,7 +5,7 @@ class HandSelection extends PainterSelection<HandPainter> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.hand;
+      AppLocalizations.of(context).hand;
 
   @override
   buildProperties(BuildContext context) {
@@ -15,7 +15,7 @@ class HandSelection extends PainterSelection<HandPainter> {
     return [
       CheckboxListTile(
           value: selected.first.includeEraser,
-          title: Text(AppLocalizations.of(context)!.includeEraser),
+          title: Text(AppLocalizations.of(context).includeEraser),
           onChanged: (value) => update(
               context,
               selected

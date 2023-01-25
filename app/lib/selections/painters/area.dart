@@ -9,7 +9,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
     return [
       ...super.buildProperties(context),
       ExactSlider(
-          header: Text(AppLocalizations.of(context)!.width),
+          header: Text(AppLocalizations.of(context).width),
           value: painter.constrainedWidth,
           min: 0,
           max: 500,
@@ -20,7 +20,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
                   .map((e) => e.copyWith(constrainedWidth: value))
                   .toList())),
       ExactSlider(
-          header: Text(AppLocalizations.of(context)!.height),
+          header: Text(AppLocalizations.of(context).height),
           value: painter.constrainedHeight,
           min: 0,
           max: 500,
@@ -35,7 +35,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
             children: [
               Expanded(
                 child: Text(
-                  AppLocalizations.of(context)!.aspectRatio,
+                  AppLocalizations.of(context).aspectRatio,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -52,7 +52,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
                         .map((e) =>
                             e.copyWith(constrainedAspectRatio: preset.ratio))
                         .toList()),
-                tooltip: AppLocalizations.of(context)!.presets,
+                tooltip: AppLocalizations.of(context).presets,
               )
             ],
           ),
@@ -66,7 +66,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
                   .map((e) => e.copyWith(constrainedAspectRatio: value))
                   .toList())),
       CheckboxListTile(
-        title: Text(AppLocalizations.of(context)!.askForName),
+        title: Text(AppLocalizations.of(context).askForName),
         value: painter.askForName,
         onChanged: (value) => update(
             context,
@@ -87,7 +87,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.area;
+      AppLocalizations.of(context).area;
 
   @override
   IconData getIcon({bool filled = false}) =>

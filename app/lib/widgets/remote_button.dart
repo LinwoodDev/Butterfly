@@ -53,7 +53,7 @@ class _RemoteButtonState extends State<RemoteButton> {
         itemBuilder: (context) => [
           PopupMenuItem(
             value: null,
-            child: Text(AppLocalizations.of(context)!.local),
+            child: Text(AppLocalizations.of(context).local),
             onTap: () {
               setState(() {
                 _currentRemote = null;

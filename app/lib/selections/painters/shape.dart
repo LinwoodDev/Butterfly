@@ -12,7 +12,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
     return [
       ...super.buildProperties(context),
       ExactSlider(
-          header: Text(AppLocalizations.of(context)!.width),
+          header: Text(AppLocalizations.of(context).width),
           value: painter.constrainedWidth,
           min: 0,
           max: 500,
@@ -23,7 +23,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
                   .map((e) => e.copyWith(constrainedWidth: value))
                   .toList())),
       ExactSlider(
-          header: Text(AppLocalizations.of(context)!.height),
+          header: Text(AppLocalizations.of(context).height),
           value: painter.constrainedHeight,
           min: 0,
           max: 500,
@@ -38,7 +38,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
             children: [
               Expanded(
                 child: Text(
-                  AppLocalizations.of(context)!.aspectRatio,
+                  AppLocalizations.of(context).aspectRatio,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -55,7 +55,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
                         .map((e) =>
                             e.copyWith(constrainedAspectRatio: preset.ratio))
                         .toList()),
-                tooltip: AppLocalizations.of(context)!.presets,
+                tooltip: AppLocalizations.of(context).presets,
               )
             ],
           ),
@@ -69,7 +69,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
                   .map((e) => e.copyWith(constrainedAspectRatio: value))
                   .toList())),
       ExactSlider(
-          header: Text(AppLocalizations.of(context)!.strokeWidth),
+          header: Text(AppLocalizations.of(context).strokeWidth),
           value: painter.property.strokeWidth,
           min: 0,
           max: 70,
@@ -89,7 +89,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
                 .map((e) => e.copyWith(
                     property: e.property.copyWith(color: color.value)))
                 .toList()),
-        title: Text(AppLocalizations.of(context)!.color),
+        title: Text(AppLocalizations.of(context).color),
       ),
       ShapeView(
           shape: property.shape,
@@ -98,7 +98,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
       const SizedBox(height: 15),
       CheckboxListTile(
           value: painter.zoomDependent,
-          title: Text(AppLocalizations.of(context)!.zoomDependent),
+          title: Text(AppLocalizations.of(context).zoomDependent),
           onChanged: (value) => update(
               context,
               selected
@@ -118,7 +118,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.shape;
+      AppLocalizations.of(context).shape;
 
   @override
   IconData getIcon({bool filled = false}) =>
@@ -178,7 +178,7 @@ class _ShapeViewState extends State<ShapeView> {
         ExpansionPanel(
           isExpanded: oShapeed,
           headerBuilder: (context, expanded) => ListTile(
-            title: Text(AppLocalizations.of(context)!.shape),
+            title: Text(AppLocalizations.of(context).shape),
             trailing: DropdownButton<String>(
               value: currentShape.runtimeType.toString(),
               items: [PathShape.circle, PathShape.rectangle, PathShape.line]
@@ -214,7 +214,7 @@ class _CircleShapeView extends StatelessWidget {
     return Column(children: [
       ColorField(
         value: Color(shape.fillColor),
-        title: Text(AppLocalizations.of(context)!.fill),
+        title: Text(AppLocalizations.of(context).fill),
         leading: const Icon(PhosphorIcons.paintBucketLight),
         defaultColor: Colors.transparent,
         onChanged: (color) => onChanged(shape.copyWith(fillColor: color.value)),
@@ -238,7 +238,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
   Widget build(BuildContext context) {
     return Column(children: [
       ColorField(
-        title: Text(AppLocalizations.of(context)!.fill),
+        title: Text(AppLocalizations.of(context).fill),
         leading: const Icon(PhosphorIcons.paintBucketLight),
         value: Color(widget.shape.fillColor),
         defaultColor: Colors.transparent,
@@ -254,7 +254,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
         children: [
           ExpansionPanel(
             headerBuilder: (context, isExpanded) => ListTile(
-              title: Text(AppLocalizations.of(context)!.cornerRadius),
+              title: Text(AppLocalizations.of(context).cornerRadius),
             ),
             isExpanded: cornerOShapeed,
             body: Column(children: [
@@ -263,7 +263,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
                 min: 0,
                 max: 100,
                 value: widget.shape.topLeftCornerRadius,
-                header: Text(AppLocalizations.of(context)!.topLeft),
+                header: Text(AppLocalizations.of(context).topLeft),
                 onChangeEnd: (value) => widget.onChanged(
                     widget.shape.copyWith(topLeftCornerRadius: value)),
               ),
@@ -272,7 +272,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
                 min: 0,
                 max: 100,
                 value: widget.shape.topRightCornerRadius,
-                header: Text(AppLocalizations.of(context)!.topRight),
+                header: Text(AppLocalizations.of(context).topRight),
                 onChangeEnd: (value) => widget.onChanged(
                     widget.shape.copyWith(topRightCornerRadius: value)),
               ),
@@ -281,7 +281,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
                 min: 0,
                 max: 100,
                 value: widget.shape.bottomLeftCornerRadius,
-                header: Text(AppLocalizations.of(context)!.bottomLeft),
+                header: Text(AppLocalizations.of(context).bottomLeft),
                 onChangeEnd: (value) => widget.onChanged(
                     widget.shape.copyWith(bottomLeftCornerRadius: value)),
               ),
@@ -290,7 +290,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
                 min: 0,
                 max: 100,
                 value: widget.shape.bottomRightCornerRadius,
-                header: Text(AppLocalizations.of(context)!.bottomRight),
+                header: Text(AppLocalizations.of(context).bottomRight),
                 onChangeEnd: (value) => widget.onChanged(
                     widget.shape.copyWith(bottomRightCornerRadius: value)),
               ),

@@ -24,13 +24,13 @@ class InsertDialog extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Icon(PhosphorIcons.plusLight),
           ),
-          Text(AppLocalizations.of(context)!.insert),
+          Text(AppLocalizations.of(context).insert),
         ],
       ),
       scrollable: true,
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         ListTile(
-          title: Text(AppLocalizations.of(context)!.image),
+          title: Text(AppLocalizations.of(context).image),
           leading: const Icon(PhosphorIcons.imageLight),
           onTap: () async {
             Navigator.of(context).pop();
@@ -50,7 +50,7 @@ class InsertDialog extends StatelessWidget {
             Platform.isAndroid ||
             Platform.isIOS)
           ListTile(
-              title: Text(AppLocalizations.of(context)!.camera),
+              title: Text(AppLocalizations.of(context).camera),
               leading: const Icon(PhosphorIcons.cameraLight),
               onTap: () async {
                 Navigator.of(context).pop();
@@ -61,7 +61,7 @@ class InsertDialog extends StatelessWidget {
                 importService.importImage(content, position);
               }),
         ListTile(
-          title: Text(AppLocalizations.of(context)!.svg),
+          title: Text(AppLocalizations.of(context).svg),
           leading: const Icon(PhosphorIcons.sunLight),
           onTap: () async {
             Navigator.of(context).pop();
@@ -80,7 +80,7 @@ class InsertDialog extends StatelessWidget {
           },
         ),
         ListTile(
-            title: Text(AppLocalizations.of(context)!.pdf),
+            title: Text(AppLocalizations.of(context).pdf),
             leading: const Icon(PhosphorIcons.filePdfLight),
             onTap: () async {
               Navigator.of(context).pop();
@@ -98,7 +98,7 @@ class InsertDialog extends StatelessWidget {
               importService.importPdf(content, position);
             }),
         ListTile(
-            title: Text(AppLocalizations.of(context)!.document),
+            title: Text(AppLocalizations.of(context).document),
             leading: const Icon(PhosphorIcons.fileTextLight),
             onTap: () async {
               Navigator.of(context).pop();
@@ -119,7 +119,7 @@ class InsertDialog extends StatelessWidget {
       actions: [
         TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel)),
+            child: Text(AppLocalizations.of(context).cancel)),
       ],
     );
   }

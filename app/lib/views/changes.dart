@@ -18,18 +18,18 @@ FutureOr<AppDocument?> checkFileChanges(
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.breakingChangesTitle),
+        title: Text(AppLocalizations.of(context).breakingChangesTitle),
         scrollable: true,
         content: SizedBox(
           width: 400,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(AppLocalizations.of(context)!
+              Text(AppLocalizations.of(context)
                   .breakingChangesMessage(version, kFileVersion)),
               const SizedBox(height: 8),
               OutlinedButton.icon(
-                label: Text(AppLocalizations.of(context)!.documentation),
+                label: Text(AppLocalizations.of(context).documentation),
                 icon: const Icon(PhosphorIcons.bookOpenLight),
                 onPressed: () => openHelp(['migrating']),
               ),
@@ -39,10 +39,10 @@ FutureOr<AppDocument?> checkFileChanges(
         actions: [
           TextButton(
               onPressed: () => Navigator.of(context).pop(null),
-              child: Text(AppLocalizations.of(context)!.cancel)),
+              child: Text(AppLocalizations.of(context).cancel)),
           TextButton(
               onPressed: () => Navigator.of(context).pop(info.load()),
-              child: Text(AppLocalizations.of(context)!.ok)),
+              child: Text(AppLocalizations.of(context).ok)),
         ],
       ),
     );

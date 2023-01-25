@@ -15,10 +15,10 @@ class ImageElementSelection extends ElementSelection<ImageElement> {
             elements.map((e) => e.copyWith(constraints: constraints)).toList()),
       ),
       ListTile(
-        title: Text(AppLocalizations.of(context)!.export),
+        title: Text(AppLocalizations.of(context).export),
         leading: const Icon(PhosphorIcons.exportLight),
         onTap: () async {
-          final localization = AppLocalizations.of(context)!;
+          final localization = AppLocalizations.of(context);
           final data = element.pixels;
           if (!kIsWeb &&
               (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
@@ -56,5 +56,5 @@ class ImageElementSelection extends ElementSelection<ImageElement> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.image;
+      AppLocalizations.of(context).image;
 }

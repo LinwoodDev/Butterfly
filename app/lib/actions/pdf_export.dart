@@ -16,7 +16,8 @@ class PdfExportAction extends Action<PdfExportIntent> {
 
   @override
   Future<void> invoke(PdfExportIntent intent) async {
-    var bloc = intent.context.read<DocumentBloc>();
+    final context = intent.context;
+    final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     var areas = <String>[];
@@ -29,13 +30,15 @@ class PdfExportAction extends Action<PdfExportIntent> {
       if (preset == null) return;
       areas = preset.areas.map((a) => a.name).toList();
     }
-    return showDialog<void>(
-        builder: (context) => BlocProvider.value(
-              value: bloc,
-              child: PdfExportDialog(
-                areas: areas,
+    if (context.mounted) {
+      return showDialog<void>(
+          builder: (context) => BlocProvider.value(
+                value: bloc,
+                child: PdfExportDialog(
+                  areas: areas,
+                ),
               ),
-            ),
-        context: intent.context);
+          context: context);
+    }
   }
 }

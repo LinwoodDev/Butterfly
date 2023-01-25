@@ -16,7 +16,7 @@ class PenBehaviorSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.pen),
+        title: Text(AppLocalizations.of(context).pen),
       ),
       body: Align(
         alignment: Alignment.center,
@@ -41,7 +41,7 @@ class PenBehaviorSettings extends StatelessWidget {
                               header: Row(children: [
                                 const Icon(PhosphorIcons.lightningLight),
                                 const SizedBox(width: 8),
-                                Text(AppLocalizations.of(context)!.sensitivity),
+                                Text(AppLocalizations.of(context).sensitivity),
                               ]),
                               onChangeEnd: (value) {
                                 final cubit = context.read<SettingsCubit>();
@@ -50,8 +50,8 @@ class PenBehaviorSettings extends StatelessWidget {
                           const SizedBox(height: 8),
                           CheckboxListTile(
                             value: state.penOnlyInput,
-                            title: Text(
-                                AppLocalizations.of(context)!.penOnlyInput),
+                            title:
+                                Text(AppLocalizations.of(context).penOnlyInput),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
                                 .changepenOnlyInput(value ?? false),
@@ -71,8 +71,9 @@ class PenBehaviorSettings extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                AppLocalizations.of(context)!.shortcuts,
-                                style: Theme.of(context).textTheme.headline5,
+                                AppLocalizations.of(context).shortcuts,
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
                               ),
                               IconButton(
                                 icon: const Icon(
@@ -85,7 +86,7 @@ class PenBehaviorSettings extends StatelessWidget {
                           const SizedBox(height: 16),
                           AdvancedTextField(
                             initialValue: config.pen?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context)!.pen,
+                            label: AppLocalizations.of(context).pen,
                             icon: const Icon(PhosphorIcons.penLight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
@@ -97,7 +98,7 @@ class PenBehaviorSettings extends StatelessWidget {
                           AdvancedTextField(
                             initialValue:
                                 config.firstPenButton?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context)!.first,
+                            label: AppLocalizations.of(context).first,
                             icon:
                                 const Icon(PhosphorIcons.numberCircleOneLight),
                             onChanged: (value) {
@@ -112,7 +113,7 @@ class PenBehaviorSettings extends StatelessWidget {
                             initialValue:
                                 config.secondPenButton?.add(1)?.toString() ??
                                     '',
-                            label: AppLocalizations.of(context)!.second,
+                            label: AppLocalizations.of(context).second,
                             icon:
                                 const Icon(PhosphorIcons.numberCircleTwoLight),
                             onChanged: (value) {

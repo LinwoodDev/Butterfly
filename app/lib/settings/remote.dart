@@ -37,7 +37,7 @@ class _RemoteSettingsPageState extends State<RemoteSettingsPage>
         null,
         FloatingActionButton.extended(
           onPressed: _showCreateDialog,
-          label: Text(AppLocalizations.of(context)!.createCache),
+          label: Text(AppLocalizations.of(context).createCache),
           icon: const Icon(PhosphorIcons.plusLight),
         )
       ];
@@ -57,14 +57,14 @@ class _RemoteSettingsPageState extends State<RemoteSettingsPage>
                   child: Row(children: [
                     const Icon(PhosphorIcons.gearLight),
                     const SizedBox(width: 8),
-                    Text(AppLocalizations.of(context)!.general),
+                    Text(AppLocalizations.of(context).general),
                   ]),
                 ),
                 Tab(
                   child: Row(children: [
                     const Icon(PhosphorIcons.filesLight),
                     const SizedBox(width: 8),
-                    Text(AppLocalizations.of(context)!.caches),
+                    Text(AppLocalizations.of(context).caches),
                   ]),
                 ),
               ],
@@ -78,7 +78,7 @@ class _RemoteSettingsPageState extends State<RemoteSettingsPage>
             ],
           ),
           body: storage == null
-              ? Center(child: Text(AppLocalizations.of(context)!.noRemotes))
+              ? Center(child: Text(AppLocalizations.of(context).noRemotes))
               : TabBarView(
                   controller: _tabController,
                   children: [
@@ -98,21 +98,21 @@ class _RemoteSettingsPageState extends State<RemoteSettingsPage>
     final success = await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text(AppLocalizations.of(context)!.createCache),
+            title: Text(AppLocalizations.of(context).createCache),
             content: TextField(
               controller: pathController,
               onSubmitted: (value) => Navigator.of(context).pop(true),
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.path,
+                labelText: AppLocalizations.of(context).path,
               ),
             ),
             actions: [
               TextButton(
-                child: Text(AppLocalizations.of(context)!.cancel),
+                child: Text(AppLocalizations.of(context).cancel),
                 onPressed: () => Navigator.of(context).pop(false),
               ),
               ElevatedButton(
-                child: Text(AppLocalizations.of(context)!.create),
+                child: Text(AppLocalizations.of(context).create),
                 onPressed: () => Navigator.of(context).pop(true),
               ),
             ],
@@ -146,8 +146,8 @@ class _GeneralRemoteSettingsView extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(AppLocalizations.of(context)!.manage,
-                        style: Theme.of(context).textTheme.headline5),
+                    Text(AppLocalizations.of(context).manage,
+                        style: Theme.of(context).textTheme.headlineSmall),
                     const SizedBox(height: 16),
                     BlocBuilder<SettingsCubit, ButterflySettings>(
                         builder: (context, state) {
@@ -169,19 +169,19 @@ class _GeneralRemoteSettingsView extends StatelessWidget {
                           }
                         },
                         title: Text(
-                            AppLocalizations.of(context)!.syncRootDirectory),
+                            AppLocalizations.of(context).syncRootDirectory),
                         secondary: const Icon(PhosphorIcons.folderLight),
                       );
                     }),
                     ListTile(
-                      title: Text(AppLocalizations.of(context)!.clearCaches),
+                      title: Text(AppLocalizations.of(context).clearCaches),
                       leading: const Icon(PhosphorIcons.fileXLight),
                       onTap: () {
                         context.read<SettingsCubit>().clearCaches(storage);
                       },
                     ),
                     ListTile(
-                      title: Text(AppLocalizations.of(context)!.delete),
+                      title: Text(AppLocalizations.of(context).delete),
                       leading: const Icon(PhosphorIcons.trashLight),
                       onTap: () {
                         context

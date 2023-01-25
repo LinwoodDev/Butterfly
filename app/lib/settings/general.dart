@@ -60,7 +60,7 @@ class GeneralSettingsPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: inView ? Colors.transparent : null,
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.general),
+          title: Text(AppLocalizations.of(context).general),
           backgroundColor: inView ? Colors.transparent : null,
           automaticallyImplyLeading: !inView,
           actions: [
@@ -80,8 +80,8 @@ class GeneralSettingsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        AppLocalizations.of(context)!.update,
-                        style: Theme.of(context).textTheme.headline5,
+                        AppLocalizations.of(context).update,
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       const SizedBox(height: 16),
                       FutureBuilder<Meta>(
@@ -114,41 +114,41 @@ class GeneralSettingsPage extends StatelessWidget {
                             return Column(children: [
                               ListTile(
                                 title:
-                                    Text(AppLocalizations.of(context)!.stable),
+                                    Text(AppLocalizations.of(context).stable),
                                 subtitle: Text(stableVersion),
                               ),
                               ListTile(
                                 title:
-                                    Text(AppLocalizations.of(context)!.nightly),
+                                    Text(AppLocalizations.of(context).nightly),
                                 subtitle: Text(nightlyVersion),
                               ),
                               ListTile(
-                                title: Text(AppLocalizations.of(context)!
+                                title: Text(AppLocalizations.of(context)
                                     .currentVersion),
                                 subtitle: Text(currentVersion),
                               ),
                               const Divider(),
                               if (isStable) ...[
                                 ListTile(
-                                  title: Text(AppLocalizations.of(context)!
+                                  title: Text(AppLocalizations.of(context)
                                       .usingLatestStable),
                                 ),
                               ] else if (isNightly || isDevelop || isMain) ...[
                                 ListTile(
-                                  title: Text(AppLocalizations.of(context)!
+                                  title: Text(AppLocalizations.of(context)
                                       .usingLatestNightly),
                                 )
                               ] else if (isError) ...[
                                 ListTile(
                                   title:
-                                      Text(AppLocalizations.of(context)!.error),
+                                      Text(AppLocalizations.of(context).error),
                                 ),
                               ] else if (isUpdateAvailable)
                                 ListTile(
-                                  title: Text(AppLocalizations.of(context)!
+                                  title: Text(AppLocalizations.of(context)
                                       .updateAvailable),
                                   subtitle: Text(
-                                      AppLocalizations.of(context)!.updateNow),
+                                      AppLocalizations.of(context).updateNow),
                                   leading:
                                       const Icon(PhosphorIcons.arrowRightLight),
                                   onTap: () async {
@@ -173,14 +173,13 @@ class GeneralSettingsPage extends StatelessWidget {
                   children: [
                     ListTile(
                         leading: const Icon(PhosphorIcons.articleLight),
-                        title:
-                            Text(AppLocalizations.of(context)!.documentation),
+                        title: Text(AppLocalizations.of(context).documentation),
                         onTap: () => launchUrl(
                             Uri.https('docs.butterfly.linwood.dev', ''),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
                         leading: const Icon(PhosphorIcons.flagLight),
-                        title: Text(AppLocalizations.of(context)!.releaseNotes),
+                        title: Text(AppLocalizations.of(context).releaseNotes),
                         onTap: () => openReleaseNotes()),
                     ListTile(
                         leading: const Icon(PhosphorIcons.usersLight),
@@ -202,14 +201,14 @@ class GeneralSettingsPage extends StatelessWidget {
                             mode: LaunchMode.externalApplication)),
                     ListTile(
                         leading: const Icon(PhosphorIcons.codeLight),
-                        title: Text(AppLocalizations.of(context)!.source),
+                        title: Text(AppLocalizations.of(context).source),
                         onTap: () => launchUrl(
                             Uri.https('go.linwood.dev', 'butterfly/source'),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
                         leading: const Icon(
                             PhosphorIcons.arrowCounterClockwiseLight),
-                        title: Text(AppLocalizations.of(context)!.changelog),
+                        title: Text(AppLocalizations.of(context).changelog),
                         onTap: () => launchUrl(
                             Uri.https(
                                 'docs.butterfly.linwood.dev', 'changelog'),
@@ -226,28 +225,27 @@ class GeneralSettingsPage extends StatelessWidget {
                   children: [
                     ListTile(
                         leading: const Icon(PhosphorIcons.stackLight),
-                        title: Text(AppLocalizations.of(context)!.license),
+                        title: Text(AppLocalizations.of(context).license),
                         onTap: () => launchUrl(
                             Uri.https('go.linwood.dev', 'butterfly/license'),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
                         leading:
                             const Icon(PhosphorIcons.identificationCardLight),
-                        title: Text(AppLocalizations.of(context)!.imprint),
+                        title: Text(AppLocalizations.of(context).imprint),
                         onTap: () => launchUrl(
                             Uri.https('go.linwood.dev', 'impress'),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
                         leading: const Icon(PhosphorIcons.shieldLight),
-                        title:
-                            Text(AppLocalizations.of(context)!.privacypolicy),
+                        title: Text(AppLocalizations.of(context).privacypolicy),
                         onTap: () => launchUrl(
                             Uri.https(
                                 'docs.butterfly.linwood.dev', 'privacypolicy'),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
-                      title: Text(
-                          AppLocalizations.of(context)!.thirdPartyLicenses),
+                      title:
+                          Text(AppLocalizations.of(context).thirdPartyLicenses),
                       leading: const Icon(PhosphorIcons.fileLight),
                       onTap: () => showLicensePage(context: context),
                     )

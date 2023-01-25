@@ -25,14 +25,14 @@ class _ImportDialogState extends State<ImportDialog> {
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Icon(PhosphorIcons.arrowSquareInLight),
           ),
-          Text(AppLocalizations.of(context)!.import),
+          Text(AppLocalizations.of(context).import),
         ],
       ),
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         ListTile(
             onTap: () => Clipboard.getData('text/plain')
                 .then((value) => Navigator.of(context).pop(value?.text)),
-            title: Text(AppLocalizations.of(context)!.clipboard)),
+            title: Text(AppLocalizations.of(context).clipboard)),
         ListTile(
             onTap: () {
               FilePicker.platform
@@ -47,12 +47,12 @@ class _ImportDialogState extends State<ImportDialog> {
                 Navigator.of(context).pop(content);
               });
             },
-            title: Text(AppLocalizations.of(context)!.file)),
+            title: Text(AppLocalizations.of(context).file)),
       ]),
       actions: [
         TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel)),
+            child: Text(AppLocalizations.of(context).cancel)),
       ],
     );
   }

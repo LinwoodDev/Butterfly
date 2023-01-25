@@ -39,7 +39,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
       ...super.buildProperties(context),
       OffsetPropertyView(
         value: position,
-        title: Text(AppLocalizations.of(context)!.position),
+        title: Text(AppLocalizations.of(context).position),
         clearValue: selected.length > 1,
         onChanged: (value) {
           updateElements(
@@ -110,7 +110,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.element;
+      AppLocalizations.of(context).element;
 
   @override
   IconData getIcon({bool filled = false}) =>
@@ -143,7 +143,7 @@ class OffsetPropertyView extends StatelessWidget {
     return LayoutBuilder(builder: (context, constrained) {
       final isRow = constrained.maxWidth > 100;
       final title = DefaultTextStyle(
-          style: Theme.of(context).textTheme.subtitle1 ?? const TextStyle(),
+          style: Theme.of(context).textTheme.titleMedium ?? const TextStyle(),
           child: this.title);
       final controls = Row(mainAxisAlignment: MainAxisAlignment.end, children: [
         Expanded(

@@ -48,5 +48,5 @@ class LabelElementSelection extends ElementSelection<LabelElement> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.label;
+      AppLocalizations.of(context).label;
 }

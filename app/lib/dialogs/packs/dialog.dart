@@ -56,7 +56,7 @@ class _PacksDialogState extends State<PacksDialog>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Header(
-                      title: Text(AppLocalizations.of(context)!.packs),
+                      title: Text(AppLocalizations.of(context).packs),
                     ),
                     if (widget.showDocument)
                       TabBar(
@@ -64,11 +64,11 @@ class _PacksDialogState extends State<PacksDialog>
                         tabs: [
                           Tab(
                             icon: const Icon(PhosphorIcons.fileLight),
-                            text: AppLocalizations.of(context)!.document,
+                            text: AppLocalizations.of(context).document,
                           ),
                           Tab(
                             icon: const Icon(PhosphorIcons.appWindowLight),
-                            text: AppLocalizations.of(context)!.local,
+                            text: AppLocalizations.of(context).local,
                           ),
                         ],
                       ),
@@ -103,9 +103,9 @@ class _PacksDialogState extends State<PacksDialog>
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(AppLocalizations.of(context)!
+                                        Text(AppLocalizations.of(context)
                                             .byAuthor(pack.author)),
-                                        Text(AppLocalizations.of(context)!
+                                        Text(AppLocalizations.of(context)
                                             .packDescription(
                                                 pack.components.length)),
                                       ],
@@ -130,7 +130,7 @@ class _PacksDialogState extends State<PacksDialog>
                                             leading: const Icon(
                                                 PhosphorIcons.appWindowLight),
                                             title: Text(
-                                                AppLocalizations.of(context)!
+                                                AppLocalizations.of(context)
                                                     .local),
                                             onTap: () async {
                                               Navigator.of(context).pop();
@@ -144,7 +144,7 @@ class _PacksDialogState extends State<PacksDialog>
                                             leading: const Icon(
                                                 PhosphorIcons.downloadLight),
                                             title: Text(
-                                                AppLocalizations.of(context)!
+                                                AppLocalizations.of(context)
                                                     .export),
                                             onTap: () async {
                                               Navigator.of(context).pop();
@@ -158,7 +158,7 @@ class _PacksDialogState extends State<PacksDialog>
                                             leading: const Icon(
                                                 PhosphorIcons.trashLight),
                                             title: Text(
-                                                AppLocalizations.of(context)!
+                                                AppLocalizations.of(context)
                                                     .delete),
                                             onTap: () {
                                               Navigator.of(context).pop();
@@ -210,9 +210,9 @@ class _PacksDialogState extends State<PacksDialog>
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(AppLocalizations.of(context)!
+                                        Text(AppLocalizations.of(context)
                                             .byAuthor(pack.author)),
-                                        Text(AppLocalizations.of(context)!
+                                        Text(AppLocalizations.of(context)
                                             .packDescription(
                                                 pack.components.length)),
                                       ],
@@ -226,7 +226,7 @@ class _PacksDialogState extends State<PacksDialog>
                                               leading: const Icon(
                                                   PhosphorIcons.fileLight),
                                               title: Text(
-                                                  AppLocalizations.of(context)!
+                                                  AppLocalizations.of(context)
                                                       .document),
                                               onTap: () async {
                                                 Navigator.of(context).pop();
@@ -240,7 +240,7 @@ class _PacksDialogState extends State<PacksDialog>
                                             leading: const Icon(
                                                 PhosphorIcons.pencilLight),
                                             title: Text(
-                                                AppLocalizations.of(context)!
+                                                AppLocalizations.of(context)
                                                     .edit),
                                             onTap: () async {
                                               Navigator.of(context).pop();
@@ -266,7 +266,7 @@ class _PacksDialogState extends State<PacksDialog>
                                             leading: const Icon(
                                                 PhosphorIcons.downloadLight),
                                             title: Text(
-                                                AppLocalizations.of(context)!
+                                                AppLocalizations.of(context)
                                                     .export),
                                             onTap: () async {
                                               Navigator.of(context).pop();
@@ -280,7 +280,7 @@ class _PacksDialogState extends State<PacksDialog>
                                             leading: const Icon(
                                                 PhosphorIcons.trashLight),
                                             title: Text(
-                                                AppLocalizations.of(context)!
+                                                AppLocalizations.of(context)
                                                     .delete),
                                             onTap: () async {
                                               await _fileSystem
@@ -311,7 +311,7 @@ class _PacksDialogState extends State<PacksDialog>
                     padding: const EdgeInsets.all(16.0),
                     child: FloatingActionButton.extended(
                       icon: const Icon(PhosphorIcons.plusLight),
-                      label: Text(AppLocalizations.of(context)!.add),
+                      label: Text(AppLocalizations.of(context).add),
                       onPressed: () {
                         showModalBottomSheet<ThemeMode>(
                           context: context,
@@ -322,14 +322,15 @@ class _PacksDialogState extends State<PacksDialog>
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 20),
                                 child: Text(
-                                  AppLocalizations.of(context)!.add,
-                                  style: Theme.of(context).textTheme.headline5,
+                                  AppLocalizations.of(context).add,
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
                                   textAlign: TextAlign.center,
                                 ),
                               ),
                               ListTile(
                                 title:
-                                    Text(AppLocalizations.of(context)!.import),
+                                    Text(AppLocalizations.of(context).import),
                                 leading: const Icon(
                                     PhosphorIcons.arrowSquareInLight),
                                 onTap: () async {
@@ -345,7 +346,7 @@ class _PacksDialogState extends State<PacksDialog>
                                         context: this.context,
                                         builder: (context) => AlertDialog(
                                           title: Text(
-                                              AppLocalizations.of(context)!
+                                              AppLocalizations.of(context)
                                                   .sureImportPack),
                                           scrollable: true,
                                           content: Column(
@@ -354,11 +355,11 @@ class _PacksDialogState extends State<PacksDialog>
                                               Text(pack.name,
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .headline6),
-                                              Text(AppLocalizations.of(context)!
+                                                      .titleLarge),
+                                              Text(AppLocalizations.of(context)
                                                   .byAuthor(pack.author)),
                                               Text(pack.description),
-                                              Text(AppLocalizations.of(context)!
+                                              Text(AppLocalizations.of(context)
                                                   .packDescription(
                                                       pack.components.length)),
                                             ],
@@ -368,7 +369,7 @@ class _PacksDialogState extends State<PacksDialog>
                                               onPressed: () =>
                                                   Navigator.of(context).pop(),
                                               child: Text(
-                                                  AppLocalizations.of(context)!
+                                                  AppLocalizations.of(context)
                                                       .cancel),
                                             ),
                                             ElevatedButton(
@@ -376,7 +377,7 @@ class _PacksDialogState extends State<PacksDialog>
                                                   Navigator.of(context)
                                                       .pop(true),
                                               child: Text(
-                                                  AppLocalizations.of(context)!
+                                                  AppLocalizations.of(context)
                                                       .import),
                                             ),
                                           ],
@@ -389,7 +390,7 @@ class _PacksDialogState extends State<PacksDialog>
                               ),
                               ListTile(
                                 title:
-                                    Text(AppLocalizations.of(context)!.create),
+                                    Text(AppLocalizations.of(context).create),
                                 leading:
                                     const Icon(PhosphorIcons.plusCircleLight),
                                 onTap: () async {
@@ -419,7 +420,7 @@ class _PacksDialogState extends State<PacksDialog>
                 children: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: Text(AppLocalizations.of(context)!.close),
+                    child: Text(AppLocalizations.of(context).close),
                   ),
                 ],
               ),

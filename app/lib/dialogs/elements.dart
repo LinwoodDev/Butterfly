@@ -28,7 +28,7 @@ class ElementsDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           ListTile(
-            title: Text(AppLocalizations.of(context)!.move),
+            title: Text(AppLocalizations.of(context).move),
             leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
             onTap: () {
               Navigator.of(context).pop(true);
@@ -39,7 +39,7 @@ class ElementsDialog extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text(AppLocalizations.of(context)!.duplicate),
+            title: Text(AppLocalizations.of(context).duplicate),
             leading: const Icon(PhosphorIcons.copyLight),
             onTap: () {
               Navigator.of(context).pop(true);
@@ -50,7 +50,7 @@ class ElementsDialog extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text(AppLocalizations.of(context)!.scale),
+            title: Text(AppLocalizations.of(context).scale),
             leading: const Icon(PhosphorIcons.arrowsOutLight),
             onTap: () {
               Navigator.of(context).pop(false);
@@ -66,7 +66,7 @@ class ElementsDialog extends StatelessWidget {
                 context.read<DocumentBloc>().add(
                     ElementsRemoved(renderers.map((r) => r.element).toList()));
               },
-              title: Text(AppLocalizations.of(context)!.delete),
+              title: Text(AppLocalizations.of(context).delete),
               leading: const Icon(PhosphorIcons.trashLight)),
           ListTile(
             onTap: () {
@@ -75,7 +75,7 @@ class ElementsDialog extends StatelessWidget {
               cubit.changeSelection(renderers.first);
               renderers.sublist(1).forEach((r) => cubit.insertSelection(r));
             },
-            title: Text(AppLocalizations.of(context)!.properties),
+            title: Text(AppLocalizations.of(context).properties),
             leading: const Icon(PhosphorIcons.fadersLight),
           ),
           ListTile(
@@ -113,7 +113,7 @@ class ElementsDialog extends StatelessWidget {
                             )),
                       ));
             },
-            title: Text(AppLocalizations.of(context)!.document),
+            title: Text(AppLocalizations.of(context).document),
             leading: const Icon(PhosphorIcons.fileTextLight),
           ),
         ],

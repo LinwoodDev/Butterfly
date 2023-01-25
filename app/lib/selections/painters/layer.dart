@@ -21,10 +21,10 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
             ExpansionPanel(
               isExpanded: opened,
               headerBuilder: (context, isExpanded) => ListTile(
-                  title: Text(AppLocalizations.of(context)!.layers),
+                  title: Text(AppLocalizations.of(context).layers),
                   trailing: IconButton(
                       icon: const Icon(PhosphorIcons.selectionLight),
-                      tooltip: AppLocalizations.of(context)!.selectCustomLayer,
+                      tooltip: AppLocalizations.of(context).selectCustomLayer,
                       onPressed: () async {
                         final bloc = context.read<DocumentBloc>();
                         final state = bloc.state as DocumentLoadSuccess;
@@ -33,8 +33,8 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
                         final success = await showDialog<bool>(
                               context: context,
                               builder: (ctx) => AlertDialog(
-                                title: Text(AppLocalizations.of(ctx)!
-                                    .selectCustomLayer),
+                                title: Text(
+                                    AppLocalizations.of(ctx).selectCustomLayer),
                                 content: TextField(
                                   controller: nameController,
                                   autofocus: true,
@@ -43,17 +43,17 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
                                   decoration: InputDecoration(
                                       filled: true,
                                       hintText:
-                                          AppLocalizations.of(context)!.name),
+                                          AppLocalizations.of(context).name),
                                 ),
                                 actions: [
                                   TextButton(
                                     child:
-                                        Text(AppLocalizations.of(ctx)!.cancel),
+                                        Text(AppLocalizations.of(ctx).cancel),
                                     onPressed: () =>
                                         Navigator.of(ctx).pop(false),
                                   ),
                                   ElevatedButton(
-                                    child: Text(AppLocalizations.of(ctx)!.ok),
+                                    child: Text(AppLocalizations.of(ctx).ok),
                                     onPressed: () {
                                       Navigator.of(ctx).pop(true);
                                     },
@@ -126,7 +126,7 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
                                 },
                               ),
                               title: Text(
-                                  AppLocalizations.of(context)!.defaultLayer)),
+                                  AppLocalizations.of(context).defaultLayer)),
                           const Divider(),
                           ...List.generate(
                               layers.length,
@@ -188,7 +188,7 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.layer;
+      AppLocalizations.of(context).layer;
 
   @override
   IconData getIcon({bool filled = false}) =>

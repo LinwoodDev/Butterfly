@@ -20,7 +20,7 @@ class AreasDialog extends StatelessWidget {
             child: Column(
               children: [
                 Header(
-                  title: Text(AppLocalizations.of(context)!.areas),
+                  title: Text(AppLocalizations.of(context).areas),
                   leading: IconButton(
                     icon: const Icon(PhosphorIcons.xLight),
                     onPressed: () => Navigator.of(context).pop(),
@@ -74,9 +74,8 @@ class AreasDialog extends StatelessWidget {
                                               const CurrentAreaChanged.exit());
                                           Navigator.of(context).pop();
                                         },
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .exitArea)),
+                                        title: Text(AppLocalizations.of(context)
+                                            .exitArea)),
                                     const Divider(),
                                   ],
                                   ...List.generate(areas.length, (index) {
@@ -131,7 +130,7 @@ class _AreaPopupMenu extends StatelessWidget {
               padding: EdgeInsets.zero,
               child: ListTile(
                   leading: const Icon(PhosphorIcons.textTLight),
-                  title: Text(AppLocalizations.of(context)!.rename),
+                  title: Text(AppLocalizations.of(context).rename),
                   onTap: () async {
                     final TextEditingController nameController =
                         TextEditingController(text: area.name);
@@ -144,11 +143,11 @@ class _AreaPopupMenu extends StatelessWidget {
                                   key: formKey,
                                   child: AlertDialog(
                                     title: Text(
-                                        AppLocalizations.of(context)!.rename),
+                                        AppLocalizations.of(context).rename),
                                     content: TextFormField(
                                       validator: (value) {
                                         if (value?.isEmpty ?? true) {
-                                          return AppLocalizations.of(context)!
+                                          return AppLocalizations.of(context)
                                               .shouldNotEmpty;
                                         }
                                         final state =
@@ -159,7 +158,7 @@ class _AreaPopupMenu extends StatelessWidget {
                                         if (state.document
                                                 .getAreaByName(value!) !=
                                             null) {
-                                          return AppLocalizations.of(context)!
+                                          return AppLocalizations.of(context)
                                               .alreadyExists;
                                         }
                                         return null;
@@ -176,15 +175,14 @@ class _AreaPopupMenu extends StatelessWidget {
                                     ),
                                     actions: [
                                       TextButton(
-                                        child: Text(
-                                            AppLocalizations.of(context)!
-                                                .cancel),
+                                        child: Text(AppLocalizations.of(context)
+                                            .cancel),
                                         onPressed: () =>
                                             Navigator.of(context).pop(false),
                                       ),
                                       ElevatedButton(
                                         child: Text(
-                                            AppLocalizations.of(context)!.ok),
+                                            AppLocalizations.of(context).ok),
                                         onPressed: () {
                                           if (!(formKey.currentState
                                                   ?.validate() ??

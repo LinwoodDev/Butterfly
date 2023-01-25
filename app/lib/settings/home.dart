@@ -43,7 +43,7 @@ class _SettingsPageState extends State<SettingsPage> {
           final isMobile = constraints.maxWidth < 600;
           var navigation = Column(children: [
             Header(
-              title: Text(AppLocalizations.of(context)!.settings),
+              title: Text(AppLocalizations.of(context).settings),
               leading: IconButton(
                 icon: const Icon(PhosphorIcons.xLight),
                 onPressed: () => Navigator.of(context).pop(),
@@ -57,7 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     shrinkWrap: true,
                     children: [
                       ListTile(
-                        title: Text(AppLocalizations.of(context)!.general),
+                        title: Text(AppLocalizations.of(context).general),
                         leading: const Icon(PhosphorIcons.gearLight),
                         selected:
                             !isMobile ? _view == SettingsView.general : false,
@@ -73,7 +73,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         },
                       ),
                       ListTile(
-                        title: Text(AppLocalizations.of(context)!.data),
+                        title: Text(AppLocalizations.of(context).data),
                         leading: const Icon(PhosphorIcons.databaseLight),
                         selected:
                             !isMobile ? _view == SettingsView.data : false,
@@ -89,7 +89,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         },
                       ),
                       ListTile(
-                        title: Text(AppLocalizations.of(context)!.behaviors),
+                        title: Text(AppLocalizations.of(context).behaviors),
                         leading: const Icon(PhosphorIcons.fadersLight),
                         selected:
                             !isMobile ? _view == SettingsView.behaviors : false,
@@ -107,7 +107,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ListTile(
                           leading: const Icon(PhosphorIcons.monitorLight),
                           title: Text(
-                              AppLocalizations.of(context)!.personalization),
+                              AppLocalizations.of(context).personalization),
                           selected: !isMobile
                               ? _view == SettingsView.personalization
                               : false,
@@ -125,7 +125,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       if (!kIsWeb)
                         ListTile(
                             leading: const Icon(PhosphorIcons.cloudLight),
-                            title: Text(AppLocalizations.of(context)!.remotes),
+                            title: Text(AppLocalizations.of(context).remotes),
                             selected: !isMobile
                                 ? _view == SettingsView.remotes
                                 : false,

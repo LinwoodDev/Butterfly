@@ -19,7 +19,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: inView ? Colors.transparent : null,
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.behaviors),
+          title: Text(AppLocalizations.of(context).behaviors),
           backgroundColor: inView ? Colors.transparent : null,
           automaticallyImplyLeading: !inView,
           actions: [
@@ -41,12 +41,13 @@ class BehaviorsSettingsPage extends StatelessWidget {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Text(AppLocalizations.of(context)!.connection,
-                                style: Theme.of(context).textTheme.headline5),
+                            Text(AppLocalizations.of(context).connection,
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall),
                             const SizedBox(height: 16),
                             ListTile(
                               title:
-                                  Text(AppLocalizations.of(context)!.syncMode),
+                                  Text(AppLocalizations.of(context).syncMode),
                               leading: Icon(state.syncMode.getIcon()),
                               subtitle: Text(
                                   state.syncMode.getLocalizedName(context)),
@@ -61,30 +62,30 @@ class BehaviorsSettingsPage extends StatelessWidget {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text(AppLocalizations.of(context)!.inputs,
-                              style: Theme.of(context).textTheme.headline5),
+                          Text(AppLocalizations.of(context).inputs,
+                              style: Theme.of(context).textTheme.headlineSmall),
                           const SizedBox(height: 16),
                           ListTile(
                             leading: const Icon(PhosphorIcons.mouseLight),
-                            title: Text(AppLocalizations.of(context)!.mouse),
+                            title: Text(AppLocalizations.of(context).mouse),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/mouse'),
                           ),
                           ListTile(
                             leading: const Icon(PhosphorIcons.handLight),
-                            title: Text(AppLocalizations.of(context)!.touch),
+                            title: Text(AppLocalizations.of(context).touch),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/touch'),
                           ),
                           ListTile(
                             leading: const Icon(PhosphorIcons.keyboardLight),
-                            title: Text(AppLocalizations.of(context)!.keyboard),
+                            title: Text(AppLocalizations.of(context).keyboard),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/keyboard'),
                           ),
                           ListTile(
                             leading: const Icon(PhosphorIcons.penLight),
-                            title: Text(AppLocalizations.of(context)!.pen),
+                            title: Text(AppLocalizations.of(context).pen),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/pen'),
                           ),
@@ -111,8 +112,8 @@ class BehaviorsSettingsPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                 child: Text(
-                  AppLocalizations.of(context)!.syncMode,
-                  style: Theme.of(context).textTheme.headline5,
+                  AppLocalizations.of(context).syncMode,
+                  style: Theme.of(context).textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
               ),
