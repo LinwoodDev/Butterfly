@@ -100,6 +100,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       onPressed: () async {
                         await showModalBottomSheet<ThemeMode>(
                             context: context,
+                            constraints: const BoxConstraints(maxWidth: 640),
                             builder: (context) {
                               return Container(
                                   margin: const EdgeInsets.only(bottom: 20),

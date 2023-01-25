@@ -109,36 +109,36 @@ class PersonalizationSettingsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
-                        CheckboxListTile(
+                        SwitchListTile(
                           value: state.nativeWindowTitleBar,
                           title: Text(AppLocalizations.of(context)
                               .nativeWindowTitleBar),
                           secondary: const Icon(PhosphorIcons.appWindowLight),
                           onChanged: (value) => context
                               .read<SettingsCubit>()
-                              .changeNativeWindowTitleBar(value ?? false),
+                              .changeNativeWindowTitleBar(value),
                         ),
-                      CheckboxListTile(
+                      SwitchListTile(
                         secondary: const Icon(PhosphorIcons.squaresFourLight),
                         title: Text(AppLocalizations.of(context).start),
                         value: state.startEnabled,
                         onChanged: (value) => context
                             .read<SettingsCubit>()
-                            .changeStartEnabled(value ?? true),
+                            .changeStartEnabled(value),
                       ),
-                      CheckboxListTile(
+                      SwitchListTile(
                         secondary: const Icon(PhosphorIcons.paletteLight),
                         title: Text(AppLocalizations.of(context).color),
                         value: state.colorEnabled,
                         onChanged: (value) => context
                             .read<SettingsCubit>()
-                            .changeColorEnabled(value ?? true),
+                            .changeColorEnabled(value),
                       ),
-                      CheckboxListTile(
+                      SwitchListTile(
                         value: state.startInFullScreen,
                         onChanged: (value) => context
                             .read<SettingsCubit>()
-                            .changeStartInFullScreen(value ?? true),
+                            .changeStartInFullScreen(value),
                         title: Text(
                             AppLocalizations.of(context).startInFullScreen),
                         secondary: const Icon(PhosphorIcons.arrowsOutLight),
@@ -161,6 +161,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
     final currentDesign = getCurrentDesign(context);
 
     showModalBottomSheet(
+        constraints: const BoxConstraints(maxWidth: 640),
         context: context,
         builder: (context) {
           void changeDesign(String design) {
@@ -204,6 +205,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
     final currentTheme = cubit.state.theme;
 
     showModalBottomSheet(
+        constraints: const BoxConstraints(maxWidth: 640),
         context: context,
         builder: (ctx) {
           void changeTheme(ThemeMode themeMode) {
@@ -248,6 +250,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
     var currentLocale = cubit.state.localeTag;
     var locales = getLocales();
     showModalBottomSheet<String>(
+        constraints: const BoxConstraints(maxWidth: 640),
         context: context,
         builder: (context) {
           void changeLocale(Locale? locale) {
