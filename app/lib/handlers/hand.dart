@@ -349,9 +349,10 @@ class HandHandler extends Handler<HandPainter> {
     }
     context.refresh();
     final actions = context.getActions();
-    if (_selected.isEmpty) {
+    final buildContext = context.buildContext;
+    if (_selected.isEmpty && buildContext.mounted) {
       await showContextMenu(
-        context: context.buildContext,
+        context: buildContext,
         position: localPosition,
         builder: (ctx) => MultiBlocProvider(
           providers: providers,
@@ -368,21 +369,25 @@ class HandHandler extends Handler<HandPainter> {
       );
       return;
     }
-    if (await showContextMenu<bool>(
-            context: context.buildContext,
-            position: localPosition,
-            builder: (ctx) => MultiBlocProvider(
-                providers: context.getProviders(),
-                child: RepositoryProvider.value(
-                  value: context.getImportService(),
-                  child: Actions(
-                    actions: context.getActions(),
-                    child: ElementsDialog(
-                        position: localPosition, renderers: _selected),
-                  ),
-                ))) ??
-        false) {
-      _selected.clear();
+    if (buildContext.mounted) {
+      final result = await showContextMenu<bool>(
+        context: buildContext,
+        position: localPosition,
+        builder: (ctx) => MultiBlocProvider(
+          providers: context.getProviders(),
+          child: RepositoryProvider.value(
+            value: context.getImportService(),
+            child: Actions(
+              actions: context.getActions(),
+              child:
+                  ElementsDialog(position: localPosition, renderers: _selected),
+            ),
+          ),
+        ),
+      );
+      if (result ?? false) {
+        _selected.clear();
+      }
     }
     context.refresh();
   }

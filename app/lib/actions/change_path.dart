@@ -17,22 +17,25 @@ class ChangePathAction extends Action<ChangePathIntent> {
 
   @override
   Future<void> invoke(ChangePathIntent intent) async {
-    var bloc = intent.context.read<DocumentBloc>();
-    var state = bloc.state;
+    final context = intent.context;
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
     if (state is! DocumentLoadSuccess || state.location.path == '') return;
     final location = state.location;
-    final settings = intent.context.read<SettingsCubit>().state;
+    final settings = context.read<SettingsCubit>().state;
     final fileSystem = DocumentFileSystem.fromPlatform(
         remote: settings.getRemote(location.remote));
     var asset = await fileSystem.getAsset(location.path);
     if (asset == null) return;
-    var newPath = await showDialog<String?>(
-        context: intent.context,
-        builder: (context) => FileSystemAssetMoveDialog(
-              asset: asset,
-              fileSystem: fileSystem,
-            ));
-    if (newPath == null) return;
-    bloc.add(DocumentPathChanged(newPath));
+    if (context.mounted) {
+      var newPath = await showDialog<String?>(
+          context: context,
+          builder: (context) => FileSystemAssetMoveDialog(
+                asset: asset,
+                fileSystem: fileSystem,
+              ));
+      if (newPath == null) return;
+      bloc.add(DocumentPathChanged(newPath));
+    }
   }
 }
