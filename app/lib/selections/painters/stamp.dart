@@ -20,10 +20,10 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
                 DropdownMenuItem<String>(value: e.name, child: Text(e.name)))
             .toList(),
         decoration: InputDecoration(
-          labelText: AppLocalizations.of(context)!.pack,
+          labelText: AppLocalizations.of(context).pack,
           filled: true,
           counterText:
-              packs.isEmpty ? AppLocalizations.of(context)!.noPacks : null,
+              packs.isEmpty ? AppLocalizations.of(context).noPacks : null,
         ),
         value: currentPack?.name,
         onChanged: (pack) {
@@ -74,7 +74,7 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.stamp;
+      AppLocalizations.of(context).stamp;
 
   @override
   IconData getIcon({bool filled = false}) =>

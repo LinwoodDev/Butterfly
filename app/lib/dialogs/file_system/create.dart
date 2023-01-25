@@ -23,13 +23,13 @@ class FileSystemAssetCreateDialog extends StatelessWidget {
       key: _formKey,
       child: AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        title: Text(AppLocalizations.of(context)!.create),
+        title: Text(AppLocalizations.of(context).create),
         content: TextFormField(
           decoration: InputDecoration(
-              filled: true, labelText: AppLocalizations.of(context)!.name),
+              filled: true, labelText: AppLocalizations.of(context).name),
           validator: (value) {
             if (value?.isEmpty ?? true) {
-              return AppLocalizations.of(context)!.shouldNotEmpty;
+              return AppLocalizations.of(context).shouldNotEmpty;
             }
             return null;
           },
@@ -38,11 +38,11 @@ class FileSystemAssetCreateDialog extends StatelessWidget {
         ),
         actions: [
           TextButton(
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(AppLocalizations.of(context).cancel),
             onPressed: () => Navigator.of(context).pop(),
           ),
           ElevatedButton(
-            child: Text(AppLocalizations.of(context)!.create),
+            child: Text(AppLocalizations.of(context).create),
             onPressed: () async {
               final navigator = Navigator.of(context);
               if (_formKey.currentState?.validate() ?? false) {

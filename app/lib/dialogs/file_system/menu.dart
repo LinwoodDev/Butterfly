@@ -39,14 +39,14 @@ class FileSystemAssetMenu extends StatelessWidget {
             builder: (context) => Form(
                   key: formKey,
                   child: AlertDialog(
-                    title: Text(AppLocalizations.of(context)!.rename),
+                    title: Text(AppLocalizations.of(context).rename),
                     content: TextFormField(
                       decoration: InputDecoration(
                           filled: true,
-                          labelText: AppLocalizations.of(context)!.name),
+                          labelText: AppLocalizations.of(context).name),
                       validator: (value) {
                         if (value?.isEmpty ?? true) {
-                          return AppLocalizations.of(context)!.shouldNotEmpty;
+                          return AppLocalizations.of(context).shouldNotEmpty;
                         }
                         return null;
                       },
@@ -60,11 +60,11 @@ class FileSystemAssetMenu extends StatelessWidget {
                     ),
                     actions: [
                       TextButton(
-                        child: Text(AppLocalizations.of(context)!.cancel),
+                        child: Text(AppLocalizations.of(context).cancel),
                         onPressed: () => Navigator.of(context).pop(false),
                       ),
                       ElevatedButton(
-                        child: Text(AppLocalizations.of(context)!.rename),
+                        child: Text(AppLocalizations.of(context).rename),
                         onPressed: () async {
                           if (!(formKey.currentState?.validate() ?? false)) {
                             return;
@@ -112,7 +112,7 @@ class FileSystemAssetMenu extends StatelessWidget {
             padding: EdgeInsets.zero,
             child: ListTile(
               leading: const Icon(PhosphorIcons.folderOpenLight),
-              title: Text(AppLocalizations.of(context)!.open),
+              title: Text(AppLocalizations.of(context).open),
               onTap: () {
                 Navigator.of(context).pop();
                 onOpened(asset);
@@ -124,10 +124,10 @@ class FileSystemAssetMenu extends StatelessWidget {
               padding: EdgeInsets.zero,
               child: ListTile(
                 title: Text(hasSynced == null
-                    ? AppLocalizations.of(context)!.folderSynced
+                    ? AppLocalizations.of(context).folderSynced
                     : hasSynced
-                        ? AppLocalizations.of(context)!.synced
-                        : AppLocalizations.of(context)!.notSynced),
+                        ? AppLocalizations.of(context).synced
+                        : AppLocalizations.of(context).notSynced),
                 leading: hasSynced == null
                     ? const Icon(PhosphorIcons.cloudBold)
                     : hasSynced
@@ -150,7 +150,7 @@ class FileSystemAssetMenu extends StatelessWidget {
             padding: EdgeInsets.zero,
             child: ListTile(
                 leading: const Icon(PhosphorIcons.copyLight),
-                title: Text(AppLocalizations.of(context)!.duplicate),
+                title: Text(AppLocalizations.of(context).duplicate),
                 onTap: () async {
                   Navigator.of(context).pop();
                   var newPath = await showDialog<String>(
@@ -168,7 +168,7 @@ class FileSystemAssetMenu extends StatelessWidget {
             padding: EdgeInsets.zero,
             child: ListTile(
                 leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
-                title: Text(AppLocalizations.of(context)!.move),
+                title: Text(AppLocalizations.of(context).move),
                 onTap: () async {
                   final bloc = context.read<DocumentBloc>();
                   Navigator.of(context).pop();
@@ -195,7 +195,7 @@ class FileSystemAssetMenu extends StatelessWidget {
             padding: EdgeInsets.zero,
             child: ListTile(
                 leading: const Icon(PhosphorIcons.textTLight),
-                title: Text(AppLocalizations.of(context)!.rename),
+                title: Text(AppLocalizations.of(context).rename),
                 onTap: () {
                   Navigator.of(context).pop();
                   _showRenameDialog(context, asset.pathWithLeadingSlash);
@@ -205,7 +205,7 @@ class FileSystemAssetMenu extends StatelessWidget {
             padding: EdgeInsets.zero,
             child: ListTile(
               leading: const Icon(PhosphorIcons.trashLight),
-              title: Text(AppLocalizations.of(context)!.delete),
+              title: Text(AppLocalizations.of(context).delete),
               onTap: () async {
                 Navigator.of(context).pop();
                 var success = await showDialog<bool>(

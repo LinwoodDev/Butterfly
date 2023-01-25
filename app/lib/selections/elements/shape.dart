@@ -9,7 +9,7 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
     return [
       ...super.buildProperties(context),
       ColorField(
-        title: Text(AppLocalizations.of(context)!.color),
+        title: Text(AppLocalizations.of(context).color),
         value: Color(element.property.color),
         onChanged: (color) => updateElements(
             context,
@@ -44,5 +44,5 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.shape;
+      AppLocalizations.of(context).shape;
 }

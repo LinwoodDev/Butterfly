@@ -5,13 +5,13 @@ extension ShortcutHelper on BuildContext {
   String getShortcut(String key,
       {bool shiftKey = false, bool altKey = false, bool ctrlKey = true}) {
     if (shiftKey) {
-      key = '${AppLocalizations.of(this)!.shiftKey} + $key';
+      key = '${AppLocalizations.of(this).shiftKey} + $key';
     }
     if (altKey) {
-      key = '${AppLocalizations.of(this)!.altKey} + $key';
+      key = '${AppLocalizations.of(this).altKey} + $key';
     }
     if (ctrlKey) {
-      key = '${AppLocalizations.of(this)!.ctrlKey} + $key';
+      key = '${AppLocalizations.of(this).ctrlKey} + $key';
     }
     return key;
   }

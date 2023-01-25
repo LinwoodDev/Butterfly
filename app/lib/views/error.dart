@@ -13,7 +13,7 @@ class ErrorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.error),
+        title: Text(AppLocalizations.of(context).error),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -37,7 +37,7 @@ class ErrorPage extends StatelessWidget {
                           Flexible(
                             child: Text(
                               message,
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context).textTheme.titleLarge,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -58,12 +58,12 @@ class ErrorPage extends StatelessWidget {
                         OutlinedButton(
                           onPressed: () => launchUrl(
                               Uri.https('go.linwood.dev', '/butterfly/report')),
-                          child: Text(AppLocalizations.of(context)!.report),
+                          child: Text(AppLocalizations.of(context).report),
                         ),
                         const SizedBox(width: 8),
                         ElevatedButton(
                           onPressed: () => GoRouter.of(context).pop(),
-                          child: Text(AppLocalizations.of(context)!.back),
+                          child: Text(AppLocalizations.of(context).back),
                         ),
                       ],
                     ),

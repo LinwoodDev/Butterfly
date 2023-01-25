@@ -63,7 +63,7 @@ class _ConstraintsViewState extends State<ConstraintsView> {
           headerBuilder: (context, isExpanded) => Wrap(
             children: [
               ListTile(
-                title: Text(AppLocalizations.of(context)!.constraints),
+                title: Text(AppLocalizations.of(context).constraints),
                 leading: const Icon(PhosphorIcons.selectionLight),
                 onTap: () => setState(() {
                   opened = !isExpanded;
@@ -114,7 +114,7 @@ class _FixedConstraintsContent extends StatelessWidget {
     return ListView(shrinkWrap: true, children: [
       TextFormField(
           decoration: InputDecoration(
-              filled: true, labelText: AppLocalizations.of(context)!.width),
+              filled: true, labelText: AppLocalizations.of(context).width),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
             onChanged(constraints.copyWith(width: double.parse(value)));
@@ -123,7 +123,7 @@ class _FixedConstraintsContent extends StatelessWidget {
       const SizedBox(height: 8),
       TextFormField(
           decoration: InputDecoration(
-              filled: true, labelText: AppLocalizations.of(context)!.height),
+              filled: true, labelText: AppLocalizations.of(context).height),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
             onChanged(constraints.copyWith(height: double.parse(value)));
@@ -173,7 +173,7 @@ class _DynamicConstraintsContent extends StatelessWidget {
     return ListView(shrinkWrap: true, children: [
       TextFormField(
           decoration: InputDecoration(
-              filled: true, labelText: AppLocalizations.of(context)!.width),
+              filled: true, labelText: AppLocalizations.of(context).width),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
             onChanged(constraints.copyWith(width: double.parse(value)));
@@ -182,7 +182,7 @@ class _DynamicConstraintsContent extends StatelessWidget {
       const SizedBox(height: 8),
       TextFormField(
           decoration: InputDecoration(
-              filled: true, labelText: AppLocalizations.of(context)!.height),
+              filled: true, labelText: AppLocalizations.of(context).height),
           keyboardType: TextInputType.number,
           onFieldSubmitted: (value) {
             onChanged(constraints.copyWith(height: double.parse(value)));
@@ -191,7 +191,7 @@ class _DynamicConstraintsContent extends StatelessWidget {
       const SizedBox(height: 8),
       TextFormField(
         decoration: InputDecoration(
-            filled: true, labelText: AppLocalizations.of(context)!.aspectRatio),
+            filled: true, labelText: AppLocalizations.of(context).aspectRatio),
         keyboardType: TextInputType.number,
         onFieldSubmitted: (value) {
           onChanged(constraints.copyWith(aspectRatio: double.parse(value)));
@@ -205,7 +205,7 @@ class _DynamicConstraintsContent extends StatelessWidget {
             onChanged(constraints.copyWith(
                 includeArea: value ?? constraints.includeArea));
           },
-          title: Text(AppLocalizations.of(context)!.includeArea)),
+          title: Text(AppLocalizations.of(context).includeArea)),
     ]);
   }
 }
@@ -245,8 +245,8 @@ class _ConstraintViewState extends State<ConstraintView> {
       padding: const EdgeInsets.all(8.0),
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         Text(
-          AppLocalizations.of(context)!.constraint,
-          style: Theme.of(context).textTheme.headline6,
+          AppLocalizations.of(context).constraint,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         const Divider(),
         ListView(
@@ -254,7 +254,7 @@ class _ConstraintViewState extends State<ConstraintView> {
           children: [
             TextFormField(
               decoration: InputDecoration(
-                  filled: true, labelText: AppLocalizations.of(context)!.size),
+                  filled: true, labelText: AppLocalizations.of(context).size),
               keyboardType: TextInputType.number,
               onFieldSubmitted: (value) {
                 _onChanged(constraint.copyWith(size: double.parse(value)));
@@ -264,8 +264,7 @@ class _ConstraintViewState extends State<ConstraintView> {
             const SizedBox(height: 8),
             TextFormField(
               decoration: InputDecoration(
-                  filled: true,
-                  labelText: AppLocalizations.of(context)!.length),
+                  filled: true, labelText: AppLocalizations.of(context).length),
               keyboardType: TextInputType.number,
               onFieldSubmitted: (value) {
                 _onChanged(constraint.copyWith(length: double.parse(value)));
@@ -279,7 +278,7 @@ class _ConstraintViewState extends State<ConstraintView> {
                 _onChanged(constraint.copyWith(
                     includeArea: value ?? constraint.includeArea));
               },
-              title: Text(AppLocalizations.of(context)!.includeArea),
+              title: Text(AppLocalizations.of(context).includeArea),
             ),
           ],
         ),

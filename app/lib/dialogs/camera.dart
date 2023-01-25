@@ -122,7 +122,7 @@ class _CameraDialogState extends State<CameraDialog>
         })
       : Align(
           alignment: Alignment.center,
-          child: Text(AppLocalizations.of(context)!.selectCamera));
+          child: Text(AppLocalizations.of(context).selectCamera));
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +132,7 @@ class _CameraDialogState extends State<CameraDialog>
         child: Column(
           children: [
             Header(
-                title: Text(AppLocalizations.of(context)!.camera),
+                title: Text(AppLocalizations.of(context).camera),
                 leading: const Icon(PhosphorIcons.cameraLight)),
             Flexible(
               child: Padding(
@@ -165,11 +165,11 @@ class _CameraDialogState extends State<CameraDialog>
                             children: [
                               TextButton(
                                 child:
-                                    Text(AppLocalizations.of(context)!.cancel),
+                                    Text(AppLocalizations.of(context).cancel),
                                 onPressed: () => Navigator.of(context).pop(),
                               ),
                               ElevatedButton(
-                                child: Text(AppLocalizations.of(context)!.ok),
+                                child: Text(AppLocalizations.of(context).ok),
                                 // Capture image on button press.
                                 onPressed: () async {
                                   final navigator = Navigator.of(context);

@@ -9,7 +9,7 @@ class ToolSelection extends Selection<ToolState> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.tools;
+      AppLocalizations.of(context).tools;
 
   @override
   List<Widget> buildProperties(BuildContext context) {
@@ -77,9 +77,9 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
       TabBar(
         controller: _tabController,
         tabs: <List<dynamic>>[
-          [PhosphorIcons.gridFourLight, AppLocalizations.of(context)!.grid],
-          [PhosphorIcons.rulerLight, AppLocalizations.of(context)!.ruler],
-          [PhosphorIcons.cameraLight, AppLocalizations.of(context)!.camera],
+          [PhosphorIcons.gridFourLight, AppLocalizations.of(context).grid],
+          [PhosphorIcons.rulerLight, AppLocalizations.of(context).ruler],
+          [PhosphorIcons.cameraLight, AppLocalizations.of(context).camera],
         ]
             .map((e) => Tab(
                     child: Row(
@@ -96,7 +96,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
           builder: (context) => [
                 Column(children: [
                   CheckboxListTile(
-                    title: Text(AppLocalizations.of(context)!.showGrid),
+                    title: Text(AppLocalizations.of(context).showGrid),
                     value: widget.state.gridEnabled,
                     onChanged: (value) => widget.onStateChanged(
                       widget.state.copyWith(gridEnabled: value ?? false),
@@ -106,7 +106,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                   OffsetPropertyView(
                     value: Offset(
                         widget.option.gridXSize, widget.option.gridYSize),
-                    title: Text(AppLocalizations.of(context)!.size),
+                    title: Text(AppLocalizations.of(context).size),
                     onChanged: (value) => widget.onToolChanged(
                       widget.option
                           .copyWith(gridXSize: value.dx, gridYSize: value.dy),
@@ -114,7 +114,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                   ),
                   const SizedBox(height: 8),
                   ColorField(
-                    title: Text(AppLocalizations.of(context)!.color),
+                    title: Text(AppLocalizations.of(context).color),
                     value: Color(widget.option.gridColor),
                     onChanged: (value) => widget.onToolChanged(
                       widget.option.copyWith(gridColor: value.value),
@@ -123,21 +123,21 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                 ]),
                 Column(children: [
                   CheckboxListTile(
-                    title: Text(AppLocalizations.of(context)!.ruler),
+                    title: Text(AppLocalizations.of(context).ruler),
                     value: widget.state.rulerEnabled,
                     onChanged: (value) => widget.onStateChanged(
                         widget.state.copyWith(rulerEnabled: value ?? false)),
                   ),
                   const SizedBox(height: 8),
                   OffsetPropertyView(
-                    title: Text(AppLocalizations.of(context)!.position),
+                    title: Text(AppLocalizations.of(context).position),
                     onChanged: (value) => widget.onStateChanged(
                         widget.state.copyWith(rulerPosition: value)),
                     value: widget.state.rulerPosition,
                   ),
                   const SizedBox(height: 8),
                   ExactSlider(
-                    header: Text(AppLocalizations.of(context)!.angle),
+                    header: Text(AppLocalizations.of(context).angle),
                     value: widget.state.rulerAngle,
                     defaultValue: 0,
                     min: 0,
@@ -149,7 +149,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                 Column(children: [
                   const SizedBox(height: 16),
                   OffsetPropertyView(
-                    title: Text(AppLocalizations.of(context)!.position),
+                    title: Text(AppLocalizations.of(context).position),
                     value: context.read<TransformCubit>().state.position,
                     round: 2,
                     onChanged: (value) =>
@@ -157,7 +157,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                   ),
                   const SizedBox(height: 8),
                   ExactSlider(
-                    header: Text(AppLocalizations.of(context)!.zoom),
+                    header: Text(AppLocalizations.of(context).zoom),
                     value: context.read<TransformCubit>().state.size,
                     defaultValue: 1,
                     min: 0.1,

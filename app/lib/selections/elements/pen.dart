@@ -9,7 +9,7 @@ class PenElementSelection extends ElementSelection<PenElement> {
     return [
       ...super.buildProperties(context),
       ColorField(
-        title: Text(AppLocalizations.of(context)!.color),
+        title: Text(AppLocalizations.of(context).color),
         value: Color(element.property.color),
         onChanged: (color) => updateElements(
             context,
@@ -35,5 +35,5 @@ class PenElementSelection extends ElementSelection<PenElement> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.pen;
+      AppLocalizations.of(context).pen;
 }

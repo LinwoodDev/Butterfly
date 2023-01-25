@@ -15,35 +15,35 @@ class AreaLabelDialog extends StatelessWidget {
     return Form(
       key: _formKey,
       child: AlertDialog(
-        title: Text(AppLocalizations.of(context)!.enterName),
+        title: Text(AppLocalizations.of(context).enterName),
         content: TextFormField(
           autofocus: true,
           decoration: InputDecoration(
-            hintText: AppLocalizations.of(context)!.name,
+            hintText: AppLocalizations.of(context).name,
             filled: true,
           ),
           controller: _controller,
           validator: (value) {
             if (value?.isEmpty ?? true) {
-              return AppLocalizations.of(context)!.shouldNotEmpty;
+              return AppLocalizations.of(context).shouldNotEmpty;
             }
             final state = context.read<DocumentBloc>().state;
             if (state is! DocumentLoadSuccess) {
-              return AppLocalizations.of(context)!.error;
+              return AppLocalizations.of(context).error;
             }
             if (state.document.getAreaByName(value!) != null) {
-              return AppLocalizations.of(context)!.alreadyExists;
+              return AppLocalizations.of(context).alreadyExists;
             }
             return null;
           },
         ),
         actions: [
           TextButton(
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(AppLocalizations.of(context).cancel),
             onPressed: () => Navigator.pop(context, null),
           ),
           ElevatedButton(
-            child: Text(AppLocalizations.of(context)!.ok),
+            child: Text(AppLocalizations.of(context).ok),
             onPressed: () {
               if (_formKey.currentState?.validate() ?? false) {
                 Navigator.pop(context, _controller.text);

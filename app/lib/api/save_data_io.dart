@@ -32,14 +32,14 @@ Future<void> saveData(BuildContext context, String data) async {
     await showDialog<void>(
         context: context,
         builder: (context) => AlertDialog(
-              title: Text(AppLocalizations.of(context)!.areYouSure),
-              content: Text(AppLocalizations.of(context)!.existOverride),
+              title: Text(AppLocalizations.of(context).areYouSure),
+              content: Text(AppLocalizations.of(context).existOverride),
               actions: [
                 TextButton(
-                    child: Text(AppLocalizations.of(context)!.no),
+                    child: Text(AppLocalizations.of(context).no),
                     onPressed: () => Navigator.of(context).pop()),
                 ElevatedButton(
-                    child: Text(AppLocalizations.of(context)!.yes),
+                    child: Text(AppLocalizations.of(context).yes),
                     onPressed: () async {
                       final navigator = Navigator.of(context);
                       await write();

@@ -46,7 +46,7 @@ class PainterSelection<T extends Painter> extends Selection<T> {
     return [
       TextFormField(
           decoration: InputDecoration(
-              filled: true, labelText: AppLocalizations.of(context)!.name),
+              filled: true, labelText: AppLocalizations.of(context).name),
           initialValue: initialName,
           onChanged: (value) => update(context,
               selected.map((e) => e.copyWith(name: value) as T).toList())),
@@ -82,7 +82,7 @@ class PainterSelection<T extends Painter> extends Selection<T> {
     if (selected.every((e) => e.runtimeType == type)) {
       return selected.first.getLocalizedName(context);
     }
-    return AppLocalizations.of(context)!.painter;
+    return AppLocalizations.of(context).painter;
   }
 
   @override

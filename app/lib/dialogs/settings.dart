@@ -26,8 +26,7 @@ class PadSettingsDialog extends StatelessWidget {
               child: Column(
                 children: [
                   Header(
-                      title:
-                          Text(AppLocalizations.of(context)!.projectSettings),
+                      title: Text(AppLocalizations.of(context).projectSettings),
                       leading: const Icon(PhosphorIcons.wrenchLight)),
                   Flexible(
                     child: Padding(
@@ -41,7 +40,7 @@ class PadSettingsDialog extends StatelessWidget {
                               TextFormField(
                                   validator: (value) {
                                     if (value?.isEmpty ?? true) {
-                                      return AppLocalizations.of(context)!
+                                      return AppLocalizations.of(context)
                                           .shouldNotEmpty;
                                     }
                                     return null;
@@ -49,7 +48,7 @@ class PadSettingsDialog extends StatelessWidget {
                                   controller: _nameController,
                                   decoration: InputDecoration(
                                       labelText:
-                                          AppLocalizations.of(context)!.name,
+                                          AppLocalizations.of(context).name,
                                       filled: true)),
                               const SizedBox(height: 20),
                               TextField(
@@ -57,7 +56,7 @@ class PadSettingsDialog extends StatelessWidget {
                                   maxLines: 5,
                                   controller: _descriptionController,
                                   decoration: InputDecoration(
-                                      labelText: AppLocalizations.of(context)!
+                                      labelText: AppLocalizations.of(context)
                                           .description,
                                       border: const OutlineInputBorder())),
                             ]),
@@ -71,7 +70,7 @@ class PadSettingsDialog extends StatelessWidget {
                               TextButton(
                                   onPressed: () => Navigator.of(context).pop(),
                                   child: Text(
-                                      AppLocalizations.of(context)!.cancel)),
+                                      AppLocalizations.of(context).cancel)),
                               ElevatedButton(
                                   onPressed: () {
                                     if (!(_formKey.currentState?.validate() ??
@@ -85,7 +84,7 @@ class PadSettingsDialog extends StatelessWidget {
                                                 _descriptionController.text));
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text(AppLocalizations.of(context)!.ok))
+                                  child: Text(AppLocalizations.of(context).ok))
                             ])
                       ]),
                     ),

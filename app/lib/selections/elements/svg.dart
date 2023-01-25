@@ -15,10 +15,10 @@ class SvgElementSelection extends ElementSelection<SvgElement> {
             elements.map((e) => e.copyWith(constraints: constraints)).toList()),
       ),
       ListTile(
-        title: Text(AppLocalizations.of(context)!.export),
+        title: Text(AppLocalizations.of(context).export),
         leading: const Icon(PhosphorIcons.exportLight),
         onTap: () async {
-          final localization = AppLocalizations.of(context)!;
+          final localization = AppLocalizations.of(context);
           final data = element.data;
           if (!kIsWeb &&
               (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
@@ -57,5 +57,5 @@ class SvgElementSelection extends ElementSelection<SvgElement> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.svg;
+      AppLocalizations.of(context).svg;
 }

@@ -223,7 +223,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                         PainterReordered(oldIndex, newIndex))),
                               const VerticalDivider(),
                               PopupMenuButton<Painter>(
-                                  tooltip: AppLocalizations.of(context)!.more,
+                                  tooltip: AppLocalizations.of(context).more,
                                   onSelected: (value) {
                                     context
                                         .read<DocumentBloc>()

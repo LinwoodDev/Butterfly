@@ -53,7 +53,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
             child: Column(
               children: [
                 Header(
-                  title: Text(AppLocalizations.of(context)!.templates),
+                  title: Text(AppLocalizations.of(context).templates),
                   leading: IconButton(
                     icon: const Icon(PhosphorIcons.xLight),
                     onPressed: () => Navigator.of(context).pop(),
@@ -71,23 +71,23 @@ class _TemplateDialogState extends State<TemplateDialog> {
                     IconButton(
                       icon:
                           const Icon(PhosphorIcons.clockCounterClockwiseLight),
-                      tooltip: AppLocalizations.of(context)!.defaultTemplate,
+                      tooltip: AppLocalizations.of(context).defaultTemplate,
                       onPressed: () {
                         showDialog<void>(
                           context: context,
                           builder: (context) => AlertDialog(
                             title: Text(
-                                AppLocalizations.of(context)!.defaultTemplate),
+                                AppLocalizations.of(context).defaultTemplate),
                             content:
-                                Text(AppLocalizations.of(context)!.reallyReset),
+                                Text(AppLocalizations.of(context).reallyReset),
                             actions: [
                               TextButton(
                                 child:
-                                    Text(AppLocalizations.of(context)!.cancel),
+                                    Text(AppLocalizations.of(context).cancel),
                                 onPressed: () => Navigator.of(context).pop(),
                               ),
                               TextButton(
-                                child: Text(AppLocalizations.of(context)!.ok),
+                                child: Text(AppLocalizations.of(context).ok),
                                 onPressed: () async {
                                   final navigator = Navigator.of(context);
                                   await _fileSystem.createDefault(this.context,
@@ -106,7 +106,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                             IconButton(
                               onPressed: () =>
                                   _showCreateDialog(widget.currentDocument!),
-                              tooltip: AppLocalizations.of(context)!.create,
+                              tooltip: AppLocalizations.of(context).create,
                               icon: const Icon(PhosphorIcons.plusLight),
                             )
                           ],
@@ -173,15 +173,15 @@ class _TemplateDialogState extends State<TemplateDialog> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text(AppLocalizations.of(context)!.createTemplate),
-            content: Text(AppLocalizations.of(context)!.createTemplateContent),
+            title: Text(AppLocalizations.of(context).createTemplate),
+            content: Text(AppLocalizations.of(context).createTemplateContent),
             actions: <Widget>[
               TextButton(
-                child: Text(AppLocalizations.of(context)!.cancel),
+                child: Text(AppLocalizations.of(context).cancel),
                 onPressed: () => Navigator.of(context).pop(),
               ),
               ElevatedButton(
-                child: Text(AppLocalizations.of(context)!.create),
+                child: Text(AppLocalizations.of(context).create),
                 onPressed: () async {
                   this
                       .context
@@ -224,7 +224,7 @@ class _TemplateItem extends StatelessWidget {
             child: CheckboxListTile(
                 value: isDefault,
                 controlAffinity: ListTileControlAffinity.leading,
-                title: Text(AppLocalizations.of(context)!.defaultTemplate),
+                title: Text(AppLocalizations.of(context).defaultTemplate),
                 onChanged: (value) async {
                   if (value ?? true) {
                     prefs.setString('default_template', template.name);
@@ -239,7 +239,7 @@ class _TemplateItem extends StatelessWidget {
             padding: EdgeInsets.zero,
             child: ListTile(
                 leading: const Icon(PhosphorIcons.textTLight),
-                title: Text(AppLocalizations.of(context)!.rename),
+                title: Text(AppLocalizations.of(context).rename),
                 onTap: () async {
                   Navigator.of(context).pop();
                   final TextEditingController nameController =
@@ -248,12 +248,12 @@ class _TemplateItem extends StatelessWidget {
                           context: context,
                           builder: (context) => AlertDialog(
                                 title:
-                                    Text(AppLocalizations.of(context)!.rename),
+                                    Text(AppLocalizations.of(context).rename),
                                 content: TextField(
                                   decoration: InputDecoration(
                                       filled: true,
                                       hintText:
-                                          AppLocalizations.of(context)!.name),
+                                          AppLocalizations.of(context).name),
                                   autofocus: true,
                                   controller: nameController,
                                   onSubmitted: (value) => Navigator.of(context)
@@ -262,12 +262,12 @@ class _TemplateItem extends StatelessWidget {
                                 actions: [
                                   TextButton(
                                       child: Text(
-                                          AppLocalizations.of(context)!.cancel),
+                                          AppLocalizations.of(context).cancel),
                                       onPressed: () =>
                                           Navigator.of(context).pop(true)),
                                   ElevatedButton(
-                                      child: Text(
-                                          AppLocalizations.of(context)!.ok),
+                                      child:
+                                          Text(AppLocalizations.of(context).ok),
                                       onPressed: () async =>
                                           Navigator.of(context).pop(true))
                                 ],
@@ -285,24 +285,24 @@ class _TemplateItem extends StatelessWidget {
               padding: EdgeInsets.zero,
               child: ListTile(
                   leading: const Icon(PhosphorIcons.clipboardLight),
-                  title: Text(AppLocalizations.of(context)!.replace),
+                  title: Text(AppLocalizations.of(context).replace),
                   onTap: () {
                     Navigator.of(context).pop();
                     if (document == null) return;
                     showDialog<void>(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: Text(AppLocalizations.of(context)!.replace),
+                        title: Text(AppLocalizations.of(context).replace),
                         content:
-                            Text(AppLocalizations.of(context)!.reallyReplace),
+                            Text(AppLocalizations.of(context).reallyReplace),
                         actions: [
                           TextButton(
-                              child: Text(AppLocalizations.of(context)!.no),
+                              child: Text(AppLocalizations.of(context).no),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               }),
                           ElevatedButton(
-                              child: Text(AppLocalizations.of(context)!.yes),
+                              child: Text(AppLocalizations.of(context).yes),
                               onPressed: () async {
                                 Navigator.of(context).pop();
                                 await fileSystem.updateTemplate(
@@ -319,25 +319,25 @@ class _TemplateItem extends StatelessWidget {
               padding: EdgeInsets.zero,
               child: ListTile(
                   leading: const Icon(PhosphorIcons.trashLight),
-                  title: Text(AppLocalizations.of(context)!.delete),
+                  title: Text(AppLocalizations.of(context).delete),
                   onTap: () async {
                     Navigator.of(context).pop();
                     showDialog<void>(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text(AppLocalizations.of(context)!.delete),
-                            content: Text(
-                                AppLocalizations.of(context)!.reallyDelete),
+                            title: Text(AppLocalizations.of(context).delete),
+                            content:
+                                Text(AppLocalizations.of(context).reallyDelete),
                             actions: <Widget>[
                               TextButton(
                                 child:
-                                    Text(AppLocalizations.of(context)!.cancel),
+                                    Text(AppLocalizations.of(context).cancel),
                                 onPressed: () => Navigator.of(context).pop(),
                               ),
                               ElevatedButton(
                                 child:
-                                    Text(AppLocalizations.of(context)!.delete),
+                                    Text(AppLocalizations.of(context).delete),
                                 onPressed: () async {
                                   Navigator.of(context).pop();
                                   await fileSystem

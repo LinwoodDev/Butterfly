@@ -106,7 +106,7 @@ class _RemoteSyncView extends StatelessWidget {
         if (!snapshot.hasData) {
           return Align(
               alignment: Alignment.center,
-              child: Text(AppLocalizations.of(context)!.noElements));
+              child: Text(AppLocalizations.of(context).noElements));
         }
         final files = snapshot.data!;
         return ListView.builder(
@@ -130,7 +130,7 @@ class _RemoteSyncView extends StatelessWidget {
                           sync.resolve(file.location.pathWithLeadingSlash,
                               FileSyncStatus.localLatest);
                         },
-                        child: Text(AppLocalizations.of(context)!.keepLocal),
+                        child: Text(AppLocalizations.of(context).keepLocal),
                       ),
                       const SizedBox(width: 8),
                       TextButton(
@@ -138,7 +138,7 @@ class _RemoteSyncView extends StatelessWidget {
                           sync.resolve(file.location.pathWithLeadingSlash,
                               FileSyncStatus.remoteLatest);
                         },
-                        child: Text(AppLocalizations.of(context)!.keepRemote),
+                        child: Text(AppLocalizations.of(context).keepRemote),
                       ),
                       const SizedBox(width: 8),
                       TextButton(
@@ -146,7 +146,7 @@ class _RemoteSyncView extends StatelessWidget {
                           sync.resolve(file.location.pathWithLeadingSlash,
                               FileSyncStatus.conflict);
                         },
-                        child: Text(AppLocalizations.of(context)!.keepBoth),
+                        child: Text(AppLocalizations.of(context).keepBoth),
                       ),
                     ],
                   ),

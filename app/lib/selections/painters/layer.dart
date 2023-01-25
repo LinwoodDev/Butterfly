@@ -11,14 +11,14 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
       const SizedBox(height: 16),
       TextFormField(
           decoration: InputDecoration(
-              filled: true, labelText: AppLocalizations.of(context)!.layer),
+              filled: true, labelText: AppLocalizations.of(context).layer),
           initialValue: painter.layer,
           onChanged: (value) => update(
               context, selected.map((e) => e.copyWith(layer: value)).toList())),
       const SizedBox(height: 10),
       CheckboxListTile(
           value: painter.includeEraser,
-          title: Text(AppLocalizations.of(context)!.includeEraser),
+          title: Text(AppLocalizations.of(context).includeEraser),
           onChanged: (value) => update(
               context,
               selected
@@ -38,7 +38,7 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.layer;
+      AppLocalizations.of(context).layer;
 
   @override
   IconData getIcon({bool filled = false}) =>
