@@ -303,6 +303,7 @@ class _PacksDialogState extends State<PacksDialog>
                       onPressed: () {
                         showModalBottomSheet<ThemeMode>(
                           context: context,
+                          constraints: const BoxConstraints(maxWidth: 640),
                           builder: (context) => Container(
                             margin: const EdgeInsets.only(bottom: 20),
                             child: ListView(shrinkWrap: true, children: [

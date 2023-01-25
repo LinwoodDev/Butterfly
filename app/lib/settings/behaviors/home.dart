@@ -96,6 +96,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
   }
 
   Future<void> _openSyncModeModal(BuildContext context) => showModalBottomSheet(
+      constraints: const BoxConstraints(maxWidth: 640),
       context: context,
       builder: (ctx) {
         final settingsCubit = context.read<SettingsCubit>();

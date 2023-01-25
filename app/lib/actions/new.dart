@@ -25,31 +25,30 @@ class NewAction extends Action<NewIntent> {
 
   @override
   Future<void> invoke(NewIntent intent) async {
-    final bloc = intent.context.read<DocumentBloc>();
-    final settingsCubit = intent.context.read<SettingsCubit>();
+    final context = intent.context;
+    final bloc = context.read<DocumentBloc>();
+    final settingsCubit = context.read<SettingsCubit>();
     final settings = settingsCubit.state;
-    final transformCubit = intent.context.read<TransformCubit>();
-    final currentIndexCubit = intent.context.read<CurrentIndexCubit>();
+    final transformCubit = context.read<TransformCubit>();
+    final currentIndexCubit = context.read<CurrentIndexCubit>();
     var document = AppDocument(
         name: await formatCurrentDateTime(
-            intent.context.read<SettingsCubit>().state.locale),
+            context.read<SettingsCubit>().state.locale),
         createdAt: DateTime.now(),
         painters: createDefaultPainters(),
-        palettes: ColorPalette.getMaterialPalette(intent.context));
+        palettes: ColorPalette.getMaterialPalette(context));
     final prefs = await SharedPreferences.getInstance();
     final remote = settings.getDefaultRemote();
-    if (intent.fromTemplate) {
+    if (intent.fromTemplate && context.mounted) {
       var state = bloc.state;
       if (state is DocumentLoadSuccess) document = state.document;
       var template = await showDialog<DocumentTemplate>(
-          context: intent.context,
+          context: context,
           builder: (context) => MultiBlocProvider(
                 providers: [
                   BlocProvider.value(value: bloc),
-                  BlocProvider.value(
-                      value: intent.context.read<TransformCubit>()),
-                  BlocProvider.value(
-                      value: intent.context.read<CurrentIndexCubit>())
+                  BlocProvider.value(value: transformCubit),
+                  BlocProvider.value(value: currentIndexCubit),
                 ],
                 child: TemplateDialog(
                   currentDocument: document,

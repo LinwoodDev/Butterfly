@@ -220,7 +220,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   if (e != null)
                     Text(
                       e.toString(),
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                 ],
               ),

@@ -32,6 +32,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
   void _showColorOperation(int index) {
     showModalBottomSheet(
         context: context,
+        constraints: const BoxConstraints(maxWidth: 640),
         builder: (ctx) => BlocProvider.value(
               value: context.read<DocumentBloc>(),
               child: BlocBuilder<DocumentBloc, DocumentState>(

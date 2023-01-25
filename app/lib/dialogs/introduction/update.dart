@@ -29,7 +29,7 @@ class UpdateIntroductionDialog extends StatelessWidget {
                           AppLocalizations.of(context)
                               .updated(snapshot.data?.version ?? ''),
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline6),
+                          style: Theme.of(context).textTheme.titleLarge),
                       const SizedBox(height: 10),
                       const Divider(),
                       TextButton(

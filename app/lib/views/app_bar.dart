@@ -132,10 +132,10 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                         style: area == null
                                             ? Theme.of(context)
                                                 .textTheme
-                                                .headline6
+                                                .titleLarge
                                             : Theme.of(context)
                                                 .textTheme
-                                                .headline4,
+                                                .headlineMedium,
                                         onChanged: (value) {
                                           if (area == null ||
                                               areaName == null) {
@@ -155,10 +155,10 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                           hintStyle: area == null
                                               ? Theme.of(context)
                                                   .textTheme
-                                                  .headline6
+                                                  .titleLarge
                                               : Theme.of(context)
                                                   .textTheme
-                                                  .headline4,
+                                                  .headlineMedium,
                                           border: InputBorder.none,
                                         ),
                                       ),
@@ -177,7 +177,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                                 .document,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .caption
+                                            .bodySmall
                                             ?.copyWith(
                                               decoration:
                                                   currentIndex.location.absolute

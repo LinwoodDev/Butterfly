@@ -228,13 +228,15 @@ class _ProjectPageState extends State<ProjectPage> {
       await settingsCubit.updateLastVersion();
       await settingsCubit.save();
     } else if (await settingsCubit.hasNewerVersion()) {
-      await showDialog<void>(
-          context: context,
-          builder: (context) => const UpdateIntroductionDialog());
+      if (mounted) {
+        await showDialog<void>(
+            context: context,
+            builder: (context) => const UpdateIntroductionDialog());
+      }
       await settingsCubit.updateLastVersion();
       await settingsCubit.save();
     }
-    if (!documentOpened && settingsCubit.state.startEnabled) {
+    if (!documentOpened && settingsCubit.state.startEnabled && mounted) {
       await showDialog<void>(
           context: context,
           builder: (context) => MultiBlocProvider(providers: [

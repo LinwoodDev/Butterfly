@@ -185,7 +185,7 @@ class BackgroundDialog extends StatelessWidget {
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
-                                                                  .headline6),
+                                                                  .titleLarge),
                                                     ],
                                                   ),
                                               body: Padding(
@@ -296,7 +296,7 @@ class BackgroundDialog extends StatelessWidget {
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
-                                                                  .headline6),
+                                                                  .titleLarge),
                                                     ],
                                                   ),
                                               body: Padding(

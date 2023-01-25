@@ -1,2 +1,3 @@
 * Fix new button
 * Fix ruler gestures
+* Upgrade to flutter 3.7

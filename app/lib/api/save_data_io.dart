@@ -28,7 +28,7 @@ Future<void> saveData(BuildContext context, String data) async {
 
   if (!file.existsSync()) {
     write();
-  } else {
+  } else if (context.mounted) {
     await showDialog<void>(
         context: context,
         builder: (context) => AlertDialog(

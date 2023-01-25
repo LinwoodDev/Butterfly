@@ -143,7 +143,7 @@ class OffsetPropertyView extends StatelessWidget {
     return LayoutBuilder(builder: (context, constrained) {
       final isRow = constrained.maxWidth > 100;
       final title = DefaultTextStyle(
-          style: Theme.of(context).textTheme.subtitle1 ?? const TextStyle(),
+          style: Theme.of(context).textTheme.titleMedium ?? const TextStyle(),
           child: this.title);
       final controls = Row(mainAxisAlignment: MainAxisAlignment.end, children: [
         Expanded(

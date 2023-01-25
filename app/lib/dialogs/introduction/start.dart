@@ -97,7 +97,7 @@ class _CreateStartViewState extends State<_CreateStartView> {
                           ),
                           Text(
                             snapshot.error.toString(),
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           OutlinedButton.icon(
                             label: Text(

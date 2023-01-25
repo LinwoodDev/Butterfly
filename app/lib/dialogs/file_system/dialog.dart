@@ -100,6 +100,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                       onPressed: () async {
                         await showModalBottomSheet<ThemeMode>(
                             context: context,
+                            constraints: const BoxConstraints(maxWidth: 640),
                             builder: (context) {
                               return Container(
                                   margin: const EdgeInsets.only(bottom: 20),
@@ -111,7 +112,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                         AppLocalizations.of(context).create,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5,
+                                            .headlineSmall,
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
@@ -277,13 +278,13 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                           AppLocalizations.of(context).error,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline6,
+                                              .titleLarge,
                                         ),
                                         Text(
                                           snapshot.error.toString(),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline6,
+                                              .titleLarge,
                                         ),
                                       ]);
                                     }

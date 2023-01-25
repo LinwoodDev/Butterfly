@@ -22,7 +22,7 @@ class AppIntroductionDialog extends StatelessWidget {
                 Image.asset('images/logo.png', height: 150),
                 Text(AppLocalizations.of(context).welcome,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline6),
+                    style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 10),
                 const Divider(),
                 const SizedBox(height: 10),
