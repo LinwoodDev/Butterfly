@@ -198,6 +198,8 @@ abstract class Handler<T> {
   Widget? getToolbar(BuildContext context) => null;
 
   void dispose(DocumentBloc bloc) {}
+
+  Map<Type, Action<Intent>> getActions(BuildContext context) => {};
 }
 
 mixin HandlerWithCursor<T> on Handler<T> {

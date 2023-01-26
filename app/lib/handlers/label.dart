@@ -4,6 +4,8 @@ class LabelHandler extends Handler<LabelPainter>
     with HandlerWithCursor, TextInputClient {
   text.TextContext _context;
 
+  bool get isCurrentlyEditing => _context.area != null;
+
   LabelHandler(super.data) : _context = text.TextContext(painter: data);
 
   @override
@@ -22,6 +24,8 @@ class LabelHandler extends Handler<LabelPainter>
   Future<void> onTapUp(TapUpDetails details, EventContext context) async {
     final pixelRatio = context.devicePixelRatio;
     FocusScope.of(context.buildContext).unfocus();
+    FocusScope.of(context.buildContext)
+        .requestFocus(Focus.of(context.buildContext));
     final style = Theme.of(context.buildContext).textTheme.bodyLarge!;
     _connection = TextInput.attach(
         this,
@@ -124,17 +128,68 @@ class LabelHandler extends Handler<LabelPainter>
   TextEditingValue? get currentTextEditingValue => const TextEditingValue();
 
   @override
-  void performAction(TextInputAction action) {}
+  void performAction(TextInputAction action) {
+    if (kDebugMode) {
+      print(action.name);
+    }
+  }
 
   @override
-  void performPrivateCommand(String action, Map<String, dynamic> data) {}
+  void performPrivateCommand(String action, Map<String, dynamic> data) {
+    if (kDebugMode) {
+      print('Private command: $action; $data');
+    }
+  }
 
   @override
-  void showAutocorrectionPromptRect(int start, int end) {}
+  void showAutocorrectionPromptRect(int start, int end) {
+    if (kDebugMode) {
+      print('Autocorrection prompt: $start, $end');
+    }
+  }
 
   @override
-  void updateEditingValue(TextEditingValue value) {}
+  void updateEditingValue(TextEditingValue value) {
+    if (kDebugMode) {
+      print('Editing value: $value');
+    }
+  }
 
   @override
-  void updateFloatingCursor(RawFloatingCursorPoint point) {}
+  void updateFloatingCursor(RawFloatingCursorPoint point) {
+    if (kDebugMode) {
+      print('Floating cursor: $point');
+    }
+  }
+
+  @override
+  void didChangeInputControl(
+      TextInputControl? oldControl, TextInputControl? newControl) {
+    if (isCurrentlyEditing) {
+      oldControl?.hide();
+      newControl?.show();
+    }
+  }
+
+  @override
+  Map<Type, Action<Intent>> getActions(BuildContext context) {
+    return {
+      DeleteCharacterIntent: CallbackAction<DeleteCharacterIntent>(
+        onInvoke: (intent) {
+          if (kDebugMode) {
+            print('Delete character');
+          }
+          return null;
+        },
+      ),
+      SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
+        onInvoke: (intent) {
+          if (kDebugMode) {
+            print('Select all');
+          }
+          return null;
+        },
+      ),
+    };
+  }
 }

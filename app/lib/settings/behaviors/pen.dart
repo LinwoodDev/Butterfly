@@ -72,7 +72,8 @@ class PenBehaviorSettings extends StatelessWidget {
                             children: [
                               Text(
                                 AppLocalizations.of(context).shortcuts,
-                                style: Theme.of(context).textTheme.headlineSmall,
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
                               ),
                               IconButton(
                                 icon: const Icon(

@@ -69,7 +69,7 @@ class _ProjectPageState extends State<ProjectPage> {
   CurrentIndexCubit? _currentIndexCubit;
   late final ImportService _importService;
   final GlobalKey _viewportKey = GlobalKey();
-  final actions = <Type, Action<Intent>>{
+  final _actions = <Type, Action<Intent>>{
     UndoIntent: UndoAction(),
     RedoIntent: RedoAction(),
     NewIntent: NewAction(),
@@ -291,7 +291,7 @@ class _ProjectPageState extends State<ProjectPage> {
               value: _importService,
               child: Builder(builder: (context) {
                 return Actions(
-                  actions: actions,
+                  actions: _actions,
                   child: Shortcuts(
                     shortcuts: {
                       LogicalKeySet(LogicalKeyboardKey.control,
@@ -384,7 +384,7 @@ class _ProjectPageState extends State<ProjectPage> {
                               viewportKey: _viewportKey,
                             ),
                             body: Actions(
-                                actions: actions,
+                                actions: _actions,
                                 child: LayoutBuilder(
                                     builder: (context, constraints) {
                                   final isMobile =

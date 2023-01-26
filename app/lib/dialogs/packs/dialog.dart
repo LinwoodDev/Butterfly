@@ -312,7 +312,8 @@ class _PacksDialogState extends State<PacksDialog>
                                     horizontal: 10, vertical: 20),
                                 child: Text(
                                   AppLocalizations.of(context).add,
-                                  style: Theme.of(context).textTheme.headlineSmall,
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
                                   textAlign: TextAlign.center,
                                 ),
                               ),
