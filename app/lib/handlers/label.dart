@@ -23,7 +23,6 @@ class LabelHandler extends Handler<LabelPainter>
   @override
   Future<void> onTapUp(TapUpDetails details, EventContext context) async {
     final pixelRatio = context.devicePixelRatio;
-    FocusScope.of(context.buildContext).unfocus();
     FocusScope.of(context.buildContext)
         .requestFocus(Focus.of(context.buildContext));
     final style = Theme.of(context.buildContext).textTheme.bodyLarge!;
@@ -187,6 +186,17 @@ class LabelHandler extends Handler<LabelPainter>
           if (kDebugMode) {
             print('Select all');
           }
+          return null;
+        },
+      ),
+      ExtendSelectionByCharacterIntent:
+          CallbackAction<ExtendSelectionByCharacterIntent>(
+        onInvoke: (intent) {
+          if (kDebugMode) {
+            print('Extend selection by character');
+          }
+          _context = _context.copyWith(
+          );
           return null;
         },
       ),
