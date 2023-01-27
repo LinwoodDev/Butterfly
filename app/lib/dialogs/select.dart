@@ -25,16 +25,16 @@ class _SelectElementDialogState extends State<SelectElementDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        title: Text(AppLocalizations.of(context)!.selectElement),
+        title: Text(AppLocalizations.of(context).selectElement),
         actions: [
           TextButton(
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(AppLocalizations.of(context).cancel),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           ElevatedButton(
-            child: Text(AppLocalizations.of(context)!.ok),
+            child: Text(AppLocalizations.of(context).ok),
             onPressed: () => Navigator.of(context).pop(current),
           ),
         ],

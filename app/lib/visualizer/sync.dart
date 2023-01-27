@@ -9,17 +9,17 @@ extension FileSyncStatusVisualizer on FileSyncStatus? {
   String getLocalizedName(BuildContext context) {
     switch (this) {
       case FileSyncStatus.localLatest:
-        return AppLocalizations.of(context)!.localLatest;
+        return AppLocalizations.of(context).localLatest;
       case FileSyncStatus.remoteLatest:
-        return AppLocalizations.of(context)!.remoteLatest;
+        return AppLocalizations.of(context).remoteLatest;
       case FileSyncStatus.synced:
-        return AppLocalizations.of(context)!.synced;
+        return AppLocalizations.of(context).synced;
       case FileSyncStatus.conflict:
-        return AppLocalizations.of(context)!.conflict;
+        return AppLocalizations.of(context).conflict;
       case FileSyncStatus.offline:
-        return AppLocalizations.of(context)!.offline;
+        return AppLocalizations.of(context).offline;
       default:
-        return AppLocalizations.of(context)!.loading;
+        return AppLocalizations.of(context).loading;
     }
   }
 
@@ -45,13 +45,13 @@ extension SyncStatusVisualizer on SyncStatus? {
   String getLocalizedName(BuildContext context) {
     switch (this) {
       case SyncStatus.syncing:
-        return AppLocalizations.of(context)!.syncing;
+        return AppLocalizations.of(context).syncing;
       case SyncStatus.synced:
-        return AppLocalizations.of(context)!.synced;
+        return AppLocalizations.of(context).synced;
       case SyncStatus.error:
-        return AppLocalizations.of(context)!.error;
+        return AppLocalizations.of(context).error;
       default:
-        return AppLocalizations.of(context)!.loading;
+        return AppLocalizations.of(context).loading;
     }
   }
 
@@ -73,11 +73,11 @@ extension SyncModeVisualizer on SyncMode {
   String getLocalizedName(BuildContext context) {
     switch (this) {
       case SyncMode.always:
-        return AppLocalizations.of(context)!.always;
+        return AppLocalizations.of(context).always;
       case SyncMode.noMobile:
-        return AppLocalizations.of(context)!.noMobile;
+        return AppLocalizations.of(context).noMobile;
       case SyncMode.manual:
-        return AppLocalizations.of(context)!.manual;
+        return AppLocalizations.of(context).manual;
     }
   }
 

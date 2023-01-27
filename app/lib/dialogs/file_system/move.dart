@@ -55,32 +55,32 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
     String title;
     switch (widget.moveMode) {
       case MoveMode.duplicate:
-        title = AppLocalizations.of(context)!.duplicate;
+        title = AppLocalizations.of(context).duplicate;
         break;
       case MoveMode.move:
-        title = AppLocalizations.of(context)!.move;
+        title = AppLocalizations.of(context).move;
         break;
       default:
-        title = AppLocalizations.of(context)!.changeDocumentPath;
+        title = AppLocalizations.of(context).changeDocumentPath;
     }
     return AlertDialog(
         actions: [
           TextButton(
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(AppLocalizations.of(context).cancel),
             onPressed: () => Navigator.of(context).pop(),
           ),
           if (widget.moveMode != null)
             ElevatedButton(
-              child: Text(AppLocalizations.of(context)!.ok),
+              child: Text(AppLocalizations.of(context).ok),
               onPressed: () => _move(widget.moveMode == MoveMode.duplicate),
             ),
           if (widget.moveMode == null) ...[
             ElevatedButton(
                 onPressed: () => _move(true),
-                child: Text(AppLocalizations.of(context)!.duplicate)),
+                child: Text(AppLocalizations.of(context).duplicate)),
             ElevatedButton(
                 onPressed: () => _move(false),
-                child: Text(AppLocalizations.of(context)!.move)),
+                child: Text(AppLocalizations.of(context).move)),
           ]
         ],
         title: Text(title),
@@ -97,7 +97,7 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
             const SizedBox(height: 16),
             TextField(
               decoration: InputDecoration(
-                  filled: true, hintText: AppLocalizations.of(context)!.name),
+                  filled: true, hintText: AppLocalizations.of(context).name),
               autofocus: true,
               controller: _nameController,
             ),

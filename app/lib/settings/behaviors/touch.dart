@@ -16,7 +16,7 @@ class TouchBehaviorSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.touch),
+          title: Text(AppLocalizations.of(context).touch),
         ),
         body: Align(
           alignment: Alignment.center,
@@ -42,7 +42,7 @@ class TouchBehaviorSettings extends StatelessWidget {
                               header: Row(children: [
                                 const Icon(PhosphorIcons.lightningLight),
                                 const SizedBox(width: 8),
-                                Text(AppLocalizations.of(context)!.sensitivity),
+                                Text(AppLocalizations.of(context).sensitivity),
                               ]),
                               onChangeEnd: (value) {
                                 final cubit = context.read<SettingsCubit>();
@@ -52,7 +52,7 @@ class TouchBehaviorSettings extends StatelessWidget {
                           CheckboxListTile(
                             value: state.inputGestures,
                             title: Text(
-                                AppLocalizations.of(context)!.inputGestures),
+                                AppLocalizations.of(context).inputGestures),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
                                 .changeinputGestures(value ?? true),
@@ -72,8 +72,9 @@ class TouchBehaviorSettings extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                AppLocalizations.of(context)!.shortcuts,
-                                style: Theme.of(context).textTheme.headline5,
+                                AppLocalizations.of(context).shortcuts,
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
                               ),
                               IconButton(
                                 icon: const Icon(
@@ -87,7 +88,7 @@ class TouchBehaviorSettings extends StatelessWidget {
                           AdvancedTextField(
                             initialValue:
                                 config.touch?.add(1)?.toString() ?? '',
-                            label: AppLocalizations.of(context)!.touch,
+                            label: AppLocalizations.of(context).touch,
                             icon: const Icon(PhosphorIcons.handLight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();

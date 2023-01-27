@@ -29,14 +29,14 @@ class Header extends StatelessWidget {
         const SizedBox(width: 16),
         Expanded(
           child: DefaultTextStyle(
-              style: Theme.of(context).textTheme.headline5 ??
+              style: Theme.of(context).textTheme.headlineSmall ??
                   const TextStyle(fontSize: 20),
               child: title),
         ),
         ...actions,
         if (help != null)
           IconButton(
-              tooltip: AppLocalizations.of(context)!.help,
+              tooltip: AppLocalizations.of(context).help,
               icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
               onPressed: () => openHelp(help!)),
       ]),

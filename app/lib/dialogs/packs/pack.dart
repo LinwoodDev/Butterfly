@@ -33,8 +33,8 @@ class _PackDialogState extends State<PackDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(widget.pack == null
-          ? AppLocalizations.of(context)!.createPack
-          : AppLocalizations.of(context)!.editPack),
+          ? AppLocalizations.of(context).createPack
+          : AppLocalizations.of(context).editPack),
       content: SizedBox(
         width: 400,
         height: 400,
@@ -47,11 +47,11 @@ class _PackDialogState extends State<PackDialog> {
                     tabs: <dynamic>[
                   [
                     PhosphorIcons.gearLight,
-                    AppLocalizations.of(context)!.general
+                    AppLocalizations.of(context).general
                   ],
                   [
                     PhosphorIcons.puzzlePieceLight,
-                    AppLocalizations.of(context)!.components
+                    AppLocalizations.of(context).components
                   ]
                 ]
                         .map((e) => Tab(
@@ -75,7 +75,7 @@ class _PackDialogState extends State<PackDialog> {
                         TextField(
                           controller: _nameController,
                           decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.name,
+                            labelText: AppLocalizations.of(context).name,
                             icon: const Icon(Icons.title_outlined),
                             filled: true,
                           ),
@@ -84,7 +84,7 @@ class _PackDialogState extends State<PackDialog> {
                         TextField(
                           controller: _authorController,
                           decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.author,
+                            labelText: AppLocalizations.of(context).author,
                             icon: const Icon(Icons.person_outline),
                             filled: true,
                           ),
@@ -92,8 +92,7 @@ class _PackDialogState extends State<PackDialog> {
                         const SizedBox(height: 8),
                         TextField(
                           decoration: InputDecoration(
-                            labelText:
-                                AppLocalizations.of(context)!.description,
+                            labelText: AppLocalizations.of(context).description,
                             icon: const Icon(Icons.description_outlined),
                             border: const OutlineInputBorder(),
                           ),
@@ -135,7 +134,7 @@ class _PackDialogState extends State<PackDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: () => Navigator.of(context).pop(ButterflyPack(
@@ -147,8 +146,8 @@ class _PackDialogState extends State<PackDialog> {
             components: _components,
           )),
           child: Text(widget.pack == null
-              ? AppLocalizations.of(context)!.create
-              : AppLocalizations.of(context)!.save),
+              ? AppLocalizations.of(context).create
+              : AppLocalizations.of(context).save),
         ),
       ],
     );

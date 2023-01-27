@@ -134,12 +134,12 @@ class FileSystemDirectoryTreeViewState
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: Text(AppLocalizations.of(context)!.newFolder),
+                title: Text(AppLocalizations.of(context).newFolder),
                 content: TextField(
                   autofocus: true,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
-                    labelText: AppLocalizations.of(context)!.name,
+                    labelText: AppLocalizations.of(context).name,
                   ),
                   controller: controller,
                   onSubmitted: (value) {
@@ -149,10 +149,10 @@ class FileSystemDirectoryTreeViewState
                 actions: [
                   TextButton(
                       onPressed: () => Navigator.of(context).pop(false),
-                      child: Text(AppLocalizations.of(context)!.cancel)),
+                      child: Text(AppLocalizations.of(context).cancel)),
                   ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(true),
-                      child: Text(AppLocalizations.of(context)!.create))
+                      child: Text(AppLocalizations.of(context).create))
                 ],
               );
             }) ??

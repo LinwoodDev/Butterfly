@@ -225,7 +225,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                         PainterReordered(oldIndex, newIndex))),
                               const VerticalDivider(),
                               IconButton(
-                                tooltip: AppLocalizations.of(context)!.add,
+                                tooltip: AppLocalizations.of(context).add,
                                 onPressed: () {
                                   showDialog(
                                     context: context,

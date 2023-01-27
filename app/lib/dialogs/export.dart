@@ -18,13 +18,13 @@ class ExportDialog extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Icon(PhosphorIcons.exportLight),
             ),
-            Text(AppLocalizations.of(context)!.export),
+            Text(AppLocalizations.of(context).export),
           ],
         ),
         actions: [
           TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text(AppLocalizations.of(context)!.cancel)),
+              child: Text(AppLocalizations.of(context).cancel)),
         ],
         content: Column(mainAxisSize: MainAxisSize.min, children: [
           ListTile(
@@ -32,14 +32,14 @@ class ExportDialog extends StatelessWidget {
                 Clipboard.setData(ClipboardData(text: data));
                 Navigator.of(context).pop();
               },
-              title: Text(AppLocalizations.of(context)!.clipboard)),
+              title: Text(AppLocalizations.of(context).clipboard)),
           ListTile(
               onTap: () async {
                 final navigator = Navigator.of(context);
                 await saveData(context, data);
                 navigator.pop();
               },
-              title: Text(AppLocalizations.of(context)!.file)),
+              title: Text(AppLocalizations.of(context).file)),
         ]));
   }
 }

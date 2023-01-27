@@ -8,11 +8,11 @@ extension AssetFileTypeVisualizer on AssetFileType? {
   String getLocalizedName(BuildContext context) {
     switch (this) {
       case AssetFileType.note:
-        return AppLocalizations.of(context)!.note;
+        return AppLocalizations.of(context).note;
       case AssetFileType.image:
-        return AppLocalizations.of(context)!.image;
+        return AppLocalizations.of(context).image;
       case AssetFileType.pdf:
-        return AppLocalizations.of(context)!.pdf;
+        return AppLocalizations.of(context).pdf;
       default:
         return '';
     }

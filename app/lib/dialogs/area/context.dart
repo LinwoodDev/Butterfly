@@ -40,8 +40,8 @@ class AreaContextMenu extends StatelessWidget {
                   : const Icon(PhosphorIcons.signOutLight),
               title: Text(
                 area.name == state.currentAreaName
-                    ? AppLocalizations.of(context)!.exitArea
-                    : AppLocalizations.of(context)!.enterArea,
+                    ? AppLocalizations.of(context).exitArea
+                    : AppLocalizations.of(context).enterArea,
               ),
               onTap: () {
                 Navigator.of(context).pop();
@@ -55,7 +55,7 @@ class AreaContextMenu extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(PhosphorIcons.textTLight),
-              title: Text(AppLocalizations.of(context)!.name),
+              title: Text(AppLocalizations.of(context).name),
               subtitle: Text(area.name),
               onTap: () async {
                 final nameController = TextEditingController(text: area.name);
@@ -66,16 +66,16 @@ class AreaContextMenu extends StatelessWidget {
                       builder: (context) => Form(
                         key: formKey,
                         child: AlertDialog(
-                          title: Text(AppLocalizations.of(context)!.enterName),
+                          title: Text(AppLocalizations.of(context).enterName),
                           content: TextFormField(
                             validator: (value) {
                               if (value?.isEmpty ?? true) {
-                                return AppLocalizations.of(context)!
+                                return AppLocalizations.of(context)
                                     .shouldNotEmpty;
                               }
                               if (state.document.getAreaByName(value!) !=
                                   null) {
-                                return AppLocalizations.of(context)!
+                                return AppLocalizations.of(context)
                                     .alreadyExists;
                               }
                               return null;
@@ -91,11 +91,11 @@ class AreaContextMenu extends StatelessWidget {
                           ),
                           actions: [
                             TextButton(
-                              child: Text(AppLocalizations.of(context)!.cancel),
+                              child: Text(AppLocalizations.of(context).cancel),
                               onPressed: () => Navigator.of(context).pop(false),
                             ),
                             ElevatedButton(
-                              child: Text(AppLocalizations.of(context)!.ok),
+                              child: Text(AppLocalizations.of(context).ok),
                               onPressed: () {
                                 Navigator.of(context).pop(true);
                               },
@@ -116,7 +116,7 @@ class AreaContextMenu extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(PhosphorIcons.exportLight),
-              title: Text(AppLocalizations.of(context)!.export),
+              title: Text(AppLocalizations.of(context).export),
               onTap: () {
                 final bloc = context.read<DocumentBloc>();
                 Navigator.of(context).pop();
@@ -124,12 +124,12 @@ class AreaContextMenu extends StatelessWidget {
                   context: context,
                   builder: (context) => AlertDialog(
                     scrollable: true,
-                    title: Text(AppLocalizations.of(context)!.export),
+                    title: Text(AppLocalizations.of(context).export),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ListTile(
-                          title: Text(AppLocalizations.of(context)!.image),
+                          title: Text(AppLocalizations.of(context).image),
                           onTap: () {
                             Navigator.of(context).pop();
                             showDialog<void>(
@@ -147,7 +147,7 @@ class AreaContextMenu extends StatelessWidget {
                           },
                         ),
                         ListTile(
-                          title: Text(AppLocalizations.of(context)!.svg),
+                          title: Text(AppLocalizations.of(context).svg),
                           onTap: () {
                             Navigator.of(context).pop();
                             showDialog<void>(
@@ -163,7 +163,7 @@ class AreaContextMenu extends StatelessWidget {
                           },
                         ),
                         ListTile(
-                          title: Text(AppLocalizations.of(context)!.pdf),
+                          title: Text(AppLocalizations.of(context).pdf),
                           onTap: () {
                             Navigator.of(context).pop();
                             showDialog<void>(
@@ -177,7 +177,7 @@ class AreaContextMenu extends StatelessWidget {
                     ),
                     actions: [
                       TextButton(
-                        child: Text(AppLocalizations.of(context)!.cancel),
+                        child: Text(AppLocalizations.of(context).cancel),
                         onPressed: () => Navigator.pop(context),
                       ),
                     ],
@@ -187,7 +187,7 @@ class AreaContextMenu extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(PhosphorIcons.trashLight),
-              title: Text(AppLocalizations.of(context)!.delete),
+              title: Text(AppLocalizations.of(context).delete),
               onTap: () {
                 final bloc = context.read<DocumentBloc>();
                 final state = bloc.state;
@@ -198,7 +198,7 @@ class AreaContextMenu extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(PhosphorIcons.plusCircleLight),
-              title: Text(AppLocalizations.of(context)!.addToPack),
+              title: Text(AppLocalizations.of(context).addToPack),
               onTap: () {
                 final settingsCubit = context.read<SettingsCubit>();
                 final bloc = context.read<DocumentBloc>();

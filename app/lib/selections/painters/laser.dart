@@ -8,7 +8,7 @@ class LaserPainterSelection extends PainterSelection<LaserPainter> {
     return [
       ...super.buildProperties(context),
       ExactSlider(
-        header: Text(AppLocalizations.of(context)!.strokeWidth),
+        header: Text(AppLocalizations.of(context).strokeWidth),
         value: selected.first.strokeWidth,
         min: 0,
         max: 70,
@@ -19,7 +19,7 @@ class LaserPainterSelection extends PainterSelection<LaserPainter> {
         ),
       ),
       ExactSlider(
-        header: Text(AppLocalizations.of(context)!.strokeMultiplier),
+        header: Text(AppLocalizations.of(context).strokeMultiplier),
         value: selected.first.strokeMultiplier,
         min: 0,
         max: 1,
@@ -35,14 +35,14 @@ class LaserPainterSelection extends PainterSelection<LaserPainter> {
           context,
           selected.map((e) => e.copyWith(color: value.value)).toList(),
         ),
-        title: Text(AppLocalizations.of(context)!.color),
+        title: Text(AppLocalizations.of(context).color),
       ),
       ExactSlider(
         value: selected.first.duration,
         min: 1,
         max: 20,
         defaultValue: 5,
-        header: Text(AppLocalizations.of(context)!.duration),
+        header: Text(AppLocalizations.of(context).duration),
         onChangeEnd: (value) => update(
           context,
           selected.map((e) => e.copyWith(duration: value)).toList(),
@@ -62,7 +62,7 @@ class LaserPainterSelection extends PainterSelection<LaserPainter> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.laser;
+      AppLocalizations.of(context).laser;
 
   @override
   IconData getIcon({bool filled = false}) =>

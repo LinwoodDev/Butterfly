@@ -19,36 +19,36 @@ class PersonalizationSettingsPage extends StatelessWidget {
   String _getThemeName(BuildContext context, ThemeMode mode) {
     switch (mode) {
       case ThemeMode.system:
-        return AppLocalizations.of(context)!.systemTheme;
+        return AppLocalizations.of(context).systemTheme;
       case ThemeMode.light:
-        return AppLocalizations.of(context)!.lightTheme;
+        return AppLocalizations.of(context).lightTheme;
       case ThemeMode.dark:
-        return AppLocalizations.of(context)!.darkTheme;
+        return AppLocalizations.of(context).darkTheme;
       default:
-        return AppLocalizations.of(context)!.systemTheme;
+        return AppLocalizations.of(context).systemTheme;
     }
   }
 
   String _getLocaleName(BuildContext context, String? locale) {
     switch (locale ?? '') {
       case 'fr':
-        return AppLocalizations.of(context)!.french;
+        return AppLocalizations.of(context).french;
       case 'de':
-        return AppLocalizations.of(context)!.german;
+        return AppLocalizations.of(context).german;
       case 'en':
-        return AppLocalizations.of(context)!.english;
+        return AppLocalizations.of(context).english;
       case 'es':
-        return AppLocalizations.of(context)!.spanish;
+        return AppLocalizations.of(context).spanish;
       case 'it':
-        return AppLocalizations.of(context)!.italian;
+        return AppLocalizations.of(context).italian;
       case 'pt-BR':
-        return AppLocalizations.of(context)!.portugueseBrazil;
+        return AppLocalizations.of(context).portugueseBrazil;
       case 'tr':
-        return AppLocalizations.of(context)!.turkish;
+        return AppLocalizations.of(context).turkish;
       case 'th':
-        return AppLocalizations.of(context)!.thai;
+        return AppLocalizations.of(context).thai;
       case '':
-        return AppLocalizations.of(context)!.defaultLocale;
+        return AppLocalizations.of(context).defaultLocale;
       default:
         return locale ?? '';
     }
@@ -61,7 +61,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: !inView,
           backgroundColor: inView ? Colors.transparent : null,
-          title: Text(AppLocalizations.of(context)!.personalization),
+          title: Text(AppLocalizations.of(context).personalization),
           actions: [
             if (!inView && !kIsWeb && isWindow()) ...[
               const VerticalDivider(),
@@ -80,12 +80,12 @@ class PersonalizationSettingsPage extends StatelessWidget {
                     children: [
                       ListTile(
                           leading: const Icon(PhosphorIcons.eyeLight),
-                          title: Text(AppLocalizations.of(context)!.theme),
+                          title: Text(AppLocalizations.of(context).theme),
                           subtitle: Text(_getThemeName(context, state.theme)),
                           onTap: () => _openThemeModal(context)),
                       ListTile(
                         leading: const Icon(PhosphorIcons.paletteLight),
-                        title: Text(AppLocalizations.of(context)!.design),
+                        title: Text(AppLocalizations.of(context).design),
                         subtitle:
                             Text(getCurrentDesign(context).toDisplayString()),
                         trailing: _ThemeBox(
@@ -94,7 +94,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
                       ),
                       ListTile(
                           leading: const Icon(PhosphorIcons.translateLight),
-                          title: Text(AppLocalizations.of(context)!.locale),
+                          title: Text(AppLocalizations.of(context).locale),
                           subtitle:
                               Text(_getLocaleName(context, state.localeTag)),
                           onTap: () => _openLocaleModal(context)),
@@ -109,38 +109,38 @@ class PersonalizationSettingsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
-                        CheckboxListTile(
+                        SwitchListTile(
                           value: state.nativeWindowTitleBar,
-                          title: Text(AppLocalizations.of(context)!
+                          title: Text(AppLocalizations.of(context)
                               .nativeWindowTitleBar),
                           secondary: const Icon(PhosphorIcons.appWindowLight),
                           onChanged: (value) => context
                               .read<SettingsCubit>()
-                              .changeNativeWindowTitleBar(value ?? false),
+                              .changeNativeWindowTitleBar(value),
                         ),
-                      CheckboxListTile(
+                      SwitchListTile(
                         secondary: const Icon(PhosphorIcons.squaresFourLight),
-                        title: Text(AppLocalizations.of(context)!.start),
+                        title: Text(AppLocalizations.of(context).start),
                         value: state.startEnabled,
                         onChanged: (value) => context
                             .read<SettingsCubit>()
-                            .changeStartEnabled(value ?? true),
+                            .changeStartEnabled(value),
                       ),
-                      CheckboxListTile(
+                      SwitchListTile(
                         secondary: const Icon(PhosphorIcons.paletteLight),
-                        title: Text(AppLocalizations.of(context)!.color),
+                        title: Text(AppLocalizations.of(context).color),
                         value: state.colorEnabled,
                         onChanged: (value) => context
                             .read<SettingsCubit>()
-                            .changeColorEnabled(value ?? true),
+                            .changeColorEnabled(value),
                       ),
-                      CheckboxListTile(
+                      SwitchListTile(
                         value: state.startInFullScreen,
                         onChanged: (value) => context
                             .read<SettingsCubit>()
-                            .changeStartInFullScreen(value ?? true),
+                            .changeStartInFullScreen(value),
                         title: Text(
-                            AppLocalizations.of(context)!.startInFullScreen),
+                            AppLocalizations.of(context).startInFullScreen),
                         secondary: const Icon(PhosphorIcons.arrowsOutLight),
                       ),
                     ]),
@@ -161,6 +161,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
     final currentDesign = getCurrentDesign(context);
 
     showModalBottomSheet(
+        constraints: const BoxConstraints(maxWidth: 640),
         context: context,
         builder: (context) {
           void changeDesign(String design) {
@@ -177,8 +178,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 20),
                     child: Text(
-                      AppLocalizations.of(context)!.theme,
-                      style: Theme.of(context).textTheme.headline5,
+                      AppLocalizations.of(context).theme,
+                      style: Theme.of(context).textTheme.headlineSmall,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -204,6 +205,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
     final currentTheme = cubit.state.theme;
 
     showModalBottomSheet(
+        constraints: const BoxConstraints(maxWidth: 640),
         context: context,
         builder: (ctx) {
           void changeTheme(ThemeMode themeMode) {
@@ -218,23 +220,23 @@ class PersonalizationSettingsPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Text(
-                    AppLocalizations.of(context)!.theme,
-                    style: Theme.of(context).textTheme.headline5,
+                    AppLocalizations.of(context).theme,
+                    style: Theme.of(context).textTheme.headlineSmall,
                     textAlign: TextAlign.center,
                   ),
                 ),
                 ListTile(
-                    title: Text(AppLocalizations.of(context)!.systemTheme),
+                    title: Text(AppLocalizations.of(context).systemTheme),
                     selected: currentTheme == ThemeMode.system,
                     leading: const Icon(PhosphorIcons.powerLight),
                     onTap: () => changeTheme(ThemeMode.system)),
                 ListTile(
-                    title: Text(AppLocalizations.of(context)!.lightTheme),
+                    title: Text(AppLocalizations.of(context).lightTheme),
                     selected: currentTheme == ThemeMode.light,
                     leading: const Icon(PhosphorIcons.sunLight),
                     onTap: () => changeTheme(ThemeMode.light)),
                 ListTile(
-                    title: Text(AppLocalizations.of(context)!.darkTheme),
+                    title: Text(AppLocalizations.of(context).darkTheme),
                     selected: currentTheme == ThemeMode.dark,
                     leading: const Icon(PhosphorIcons.moonLight),
                     onTap: () => changeTheme(ThemeMode.dark)),
@@ -248,6 +250,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
     var currentLocale = cubit.state.localeTag;
     var locales = getLocales();
     showModalBottomSheet<String>(
+        constraints: const BoxConstraints(maxWidth: 640),
         context: context,
         builder: (context) {
           void changeLocale(Locale? locale) {
@@ -262,13 +265,13 @@ class PersonalizationSettingsPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: Text(
-                    AppLocalizations.of(context)!.locale,
-                    style: Theme.of(context).textTheme.headline5,
+                    AppLocalizations.of(context).locale,
+                    style: Theme.of(context).textTheme.headlineSmall,
                     textAlign: TextAlign.center,
                   ),
                 ),
                 ListTile(
-                    title: Text(AppLocalizations.of(context)!.defaultLocale),
+                    title: Text(AppLocalizations.of(context).defaultLocale),
                     selected: currentLocale.isEmpty,
                     onTap: () => changeLocale(null)),
                 ...locales

@@ -11,15 +11,15 @@ class FileSystemAssetDeleteDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.areYouSure),
-      content: Text(AppLocalizations.of(context)!.reallyDelete),
+      title: Text(AppLocalizations.of(context).areYouSure),
+      content: Text(AppLocalizations.of(context).reallyDelete),
       actions: [
         TextButton(
-          child: Text(AppLocalizations.of(context)!.no),
+          child: Text(AppLocalizations.of(context).no),
           onPressed: () => Navigator.of(context).pop(),
         ),
         ElevatedButton(
-          child: Text(AppLocalizations.of(context)!.yes),
+          child: Text(AppLocalizations.of(context).yes),
           onPressed: () async {
             final navigator = Navigator.of(context);
             await fileSystem.deleteAsset(path);

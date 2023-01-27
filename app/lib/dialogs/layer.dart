@@ -32,14 +32,14 @@ class LayerDialog extends StatelessWidget {
       actions: [
         TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel)),
+            child: Text(AppLocalizations.of(context).cancel)),
       ],
     );
   }
 
   List<Widget> _buildListTiles(BuildContext context) => [
         ListTile(
-          title: Text(AppLocalizations.of(context)!.rename),
+          title: Text(AppLocalizations.of(context).rename),
           leading: const Icon(PhosphorIcons.textTLight),
           onTap: () async {
             final bloc = context.read<DocumentBloc>();
@@ -47,22 +47,22 @@ class LayerDialog extends StatelessWidget {
             final success = await showDialog<bool>(
                     context: context,
                     builder: (ctx) => AlertDialog(
-                          title: Text(AppLocalizations.of(ctx)!.rename),
+                          title: Text(AppLocalizations.of(ctx).rename),
                           content: TextField(
                             controller: nameController,
                             autofocus: true,
                             onSubmitted: (value) => Navigator.of(ctx).pop(true),
                             decoration: InputDecoration(
                                 filled: true,
-                                hintText: AppLocalizations.of(context)!.name),
+                                hintText: AppLocalizations.of(context).name),
                           ),
                           actions: [
                             TextButton(
-                              child: Text(AppLocalizations.of(ctx)!.cancel),
+                              child: Text(AppLocalizations.of(ctx).cancel),
                               onPressed: () => Navigator.of(ctx).pop(false),
                             ),
                             ElevatedButton(
-                              child: Text(AppLocalizations.of(ctx)!.ok),
+                              child: Text(AppLocalizations.of(ctx).ok),
                               onPressed: () => Navigator.of(ctx).pop(true),
                             ),
                           ],
@@ -75,22 +75,22 @@ class LayerDialog extends StatelessWidget {
           },
         ),
         ListTile(
-          title: Text(AppLocalizations.of(context)!.deleteElements),
+          title: Text(AppLocalizations.of(context).deleteElements),
           leading: const Icon(PhosphorIcons.trashLight),
           onTap: () {
             showDialog<void>(
                 context: context,
                 builder: (ctx) => AlertDialog(
-                      title: Text(AppLocalizations.of(ctx)!.deleteElements),
+                      title: Text(AppLocalizations.of(ctx).deleteElements),
                       content:
-                          Text(AppLocalizations.of(ctx)!.deleteElementsConfirm),
+                          Text(AppLocalizations.of(ctx).deleteElementsConfirm),
                       actions: [
                         TextButton(
-                          child: Text(AppLocalizations.of(ctx)!.no),
+                          child: Text(AppLocalizations.of(ctx).no),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                         ElevatedButton(
-                          child: Text(AppLocalizations.of(ctx)!.yes),
+                          child: Text(AppLocalizations.of(ctx).yes),
                           onPressed: () {
                             Navigator.pop(ctx);
                             context
@@ -104,7 +104,7 @@ class LayerDialog extends StatelessWidget {
           },
         ),
         ListTile(
-          title: Text(AppLocalizations.of(context)!.remove),
+          title: Text(AppLocalizations.of(context).remove),
           leading: const Icon(PhosphorIcons.xLight),
           onTap: () {
             context.read<DocumentBloc>().add(LayerRemoved(layer));

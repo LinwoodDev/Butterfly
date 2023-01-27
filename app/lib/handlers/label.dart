@@ -41,16 +41,19 @@ class LabelHandler extends Handler<LabelPainter> {
       return;
     }
     final bloc = context.getDocumentBloc();
-    final newElement = await showDialog<LabelElement>(
-        context: context.buildContext,
-        builder: (_) => BlocProvider.value(
-            value: bloc, child: EditLabelElementDialog(element: label)));
-    if (newElement == null) {
-      return;
+    final buildContext = context.buildContext;
+    if (buildContext.mounted) {
+      final newElement = await showDialog<LabelElement>(
+          context: buildContext,
+          builder: (_) => BlocProvider.value(
+              value: bloc, child: EditLabelElementDialog(element: label)));
+      if (newElement == null) {
+        return;
+      }
+      bloc.add(ElementsChanged({
+        label: [newElement]
+      }));
     }
-    bloc.add(ElementsChanged({
-      label: [newElement]
-    }));
   }
 
   @override
@@ -80,7 +83,7 @@ class EditLabelElementDialog extends StatelessWidget {
         children: [
           Header(
             leading: const Icon(PhosphorIcons.textTLight),
-            title: Text(AppLocalizations.of(context)!.enterText),
+            title: Text(AppLocalizations.of(context).enterText),
           ),
           Flexible(
             child: Padding(
@@ -103,12 +106,12 @@ class EditLabelElementDialog extends StatelessWidget {
                 const Divider(),
                 Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                   TextButton(
-                    child: Text(AppLocalizations.of(context)!.cancel),
+                    child: Text(AppLocalizations.of(context).cancel),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   ElevatedButton(
                       onPressed: submit,
-                      child: Text(AppLocalizations.of(context)!.ok))
+                      child: Text(AppLocalizations.of(context).ok))
                 ])
               ]),
             ),

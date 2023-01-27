@@ -124,7 +124,7 @@ class _PropertyViewState extends State<PropertyView>
                                       }),
                                 if (help.isNotEmpty)
                                   IconButton(
-                                    tooltip: AppLocalizations.of(context)!.help,
+                                    tooltip: AppLocalizations.of(context).help,
                                     icon: const Icon(
                                         PhosphorIcons.circleWavyQuestionLight),
                                     onPressed: () => openHelp(help),
@@ -134,8 +134,8 @@ class _PropertyViewState extends State<PropertyView>
                                 if (!isMobile)
                                   IconButton(
                                     tooltip: pinned
-                                        ? AppLocalizations.of(context)!.unpin
-                                        : AppLocalizations.of(context)!.pin,
+                                        ? AppLocalizations.of(context).unpin
+                                        : AppLocalizations.of(context).pin,
                                     icon: pinned
                                         ? const Icon(PhosphorIcons.mapPinFill)
                                         : const Icon(PhosphorIcons.mapPinLight),
@@ -143,7 +143,7 @@ class _PropertyViewState extends State<PropertyView>
                                         setState(() => pinned = !pinned),
                                   ),
                                 IconButton(
-                                  tooltip: AppLocalizations.of(context)!.close,
+                                  tooltip: AppLocalizations.of(context).close,
                                   icon: const Icon(PhosphorIcons.xLight),
                                   onPressed: _closeView,
                                 ),

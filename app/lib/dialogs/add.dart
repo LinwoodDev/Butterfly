@@ -31,11 +31,11 @@ class AddDialog extends StatelessWidget {
     }
 
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.add),
+      title: Text(AppLocalizations.of(context).add),
       scrollable: true,
       actions: [
         TextButton(
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ],
@@ -47,7 +47,7 @@ class AddDialog extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                AppLocalizations.of(context)!.import,
+                AppLocalizations.of(context).import,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const SizedBox(height: 16),
@@ -55,7 +55,7 @@ class AddDialog extends StatelessWidget {
                 alignment: WrapAlignment.start,
                 children: [
                   BoxTile(
-                    title: Text(AppLocalizations.of(context)!.image),
+                    title: Text(AppLocalizations.of(context).image),
                     icon: const Icon(PhosphorIcons.imageLight),
                     onTap: () async {
                       var files = await FilePicker.platform.pickFiles(
@@ -76,7 +76,7 @@ class AddDialog extends StatelessWidget {
                       Platform.isAndroid ||
                       Platform.isIOS)
                     BoxTile(
-                      title: Text(AppLocalizations.of(context)!.camera),
+                      title: Text(AppLocalizations.of(context).camera),
                       icon: const Icon(PhosphorIcons.cameraLight),
                       onTap: () async {
                         var content = await showDialog<Uint8List>(
@@ -88,7 +88,7 @@ class AddDialog extends StatelessWidget {
                       },
                     ),
                   BoxTile(
-                    title: Text(AppLocalizations.of(context)!.svg),
+                    title: Text(AppLocalizations.of(context).svg),
                     icon: const Icon(PhosphorIcons.sunLight),
                     onTap: () async {
                       final files = await FilePicker.platform.pickFiles(
@@ -106,7 +106,7 @@ class AddDialog extends StatelessWidget {
                     },
                   ),
                   BoxTile(
-                    title: Text(AppLocalizations.of(context)!.pdf),
+                    title: Text(AppLocalizations.of(context).pdf),
                     icon: const Icon(PhosphorIcons.filePdfLight),
                     onTap: () async {
                       final files = await FilePicker.platform.pickFiles(
@@ -124,7 +124,7 @@ class AddDialog extends StatelessWidget {
                     },
                   ),
                   BoxTile(
-                      title: Text(AppLocalizations.of(context)!.document),
+                      title: Text(AppLocalizations.of(context).document),
                       icon: const Icon(PhosphorIcons.fileTextLight),
                       onTap: () async {
                         final files = await FilePicker.platform.pickFiles(
@@ -144,7 +144,7 @@ class AddDialog extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               Text(
-                AppLocalizations.of(context)!.painters,
+                AppLocalizations.of(context).painters,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const SizedBox(height: 16),
@@ -175,7 +175,7 @@ class AddDialog extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               Text(
-                AppLocalizations.of(context)!.actions,
+                AppLocalizations.of(context).actions,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const SizedBox(height: 16),

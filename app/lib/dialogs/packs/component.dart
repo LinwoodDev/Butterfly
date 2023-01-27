@@ -59,8 +59,8 @@ class _PackComponentDialogState extends State<PackComponentDialog> {
     return AlertDialog(
       title: Text(
         widget.component == null
-            ? AppLocalizations.of(context)!.addComponent
-            : AppLocalizations.of(context)!.editComponent,
+            ? AppLocalizations.of(context).addComponent
+            : AppLocalizations.of(context).editComponent,
       ),
       scrollable: true,
       content: Column(
@@ -94,7 +94,7 @@ class _PackComponentDialogState extends State<PackComponentDialog> {
                   });
                 },
                 decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.pack,
+                  labelText: AppLocalizations.of(context).pack,
                   filled: true,
                   icon: const Icon(PhosphorIcons.packageLight),
                 ),
@@ -104,7 +104,7 @@ class _PackComponentDialogState extends State<PackComponentDialog> {
           ],
           TextField(
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context)!.name,
+              labelText: AppLocalizations.of(context).name,
               icon: const Icon(Icons.title_outlined),
               filled: true,
             ),
@@ -116,14 +116,14 @@ class _PackComponentDialogState extends State<PackComponentDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: _submit,
           child: Text(
             widget.component == null
-                ? AppLocalizations.of(context)!.add
-                : AppLocalizations.of(context)!.save,
+                ? AppLocalizations.of(context).add
+                : AppLocalizations.of(context).save,
           ),
         ),
       ],

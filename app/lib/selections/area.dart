@@ -9,7 +9,7 @@ class AreaSelection extends Selection<Area> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.area;
+      AppLocalizations.of(context).area;
 
   @override
   List<Widget> buildProperties(BuildContext context) {

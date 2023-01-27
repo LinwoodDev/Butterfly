@@ -8,7 +8,7 @@ class EraserPainterSelection extends PainterSelection<EraserPainter> {
     return [
       ...super.buildProperties(context),
       ExactSlider(
-        header: Text(AppLocalizations.of(context)!.strokeWidth),
+        header: Text(AppLocalizations.of(context).strokeWidth),
         value: selected.first.strokeWidth,
         min: 0,
         max: 70,
@@ -29,7 +29,7 @@ class EraserPainterSelection extends PainterSelection<EraserPainter> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context)!.eraser;
+      AppLocalizations.of(context).eraser;
 
   @override
   IconData getIcon({bool filled = false}) =>

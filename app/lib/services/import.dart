@@ -142,44 +142,49 @@ class ImportService {
       [Offset? position, bool createAreas = false]) async {
     final firstPos = position ?? Offset.zero;
     final elements = <Uint8List>[];
-    final localizations = AppLocalizations.of(context)!;
+    final localizations = AppLocalizations.of(context);
     await for (var page in Printing.raster(bytes)) {
       final png = await page.toPng();
       elements.add(png);
     }
-    final callback = await showDialog<PageDialogCallback>(
-        context: context, builder: (context) => PagesDialog(pages: elements));
-    if (callback == null) return;
-    final selectedElements = <ImageElement>[];
-    final areas = <Area>[];
-    var y = firstPos.dx;
-    await for (var page in Printing.raster(bytes,
-        pages: callback.pages, dpi: PdfPageFormat.inch * callback.quality)) {
-      final png = await page.toPng();
-      final scale = 1 / callback.quality;
-      final height = page.height;
-      final width = page.width;
-      selectedElements.add(ImageElement(
-          height: height.toDouble(),
-          width: width.toDouble(),
-          pixels: png,
-          constraints: ElementConstraints.scaled(scaleX: scale, scaleY: scale),
-          position: Offset(firstPos.dx, y)));
-      if (createAreas) {
-        areas.add(Area(
-          height: height * scale,
-          width: width * scale,
-          position: Offset(firstPos.dx, y),
-          name: localizations.pageIndex(areas.length + 1),
-        ));
+    if (context.mounted) {
+      final callback = await showDialog<PageDialogCallback>(
+          context: context, builder: (context) => PagesDialog(pages: elements));
+      if (callback == null) return;
+      final selectedElements = <ImageElement>[];
+      final areas = <Area>[];
+      var y = firstPos.dx;
+      await for (var page in Printing.raster(bytes,
+          pages: callback.pages, dpi: PdfPageFormat.inch * callback.quality)) {
+        final png = await page.toPng();
+        final scale = 1 / callback.quality;
+        final height = page.height;
+        final width = page.width;
+        selectedElements.add(ImageElement(
+            height: height.toDouble(),
+            width: width.toDouble(),
+            pixels: png,
+            constraints:
+                ElementConstraints.scaled(scaleX: scale, scaleY: scale),
+            position: Offset(firstPos.dx, y)));
+        if (createAreas) {
+          areas.add(Area(
+            height: height * scale,
+            width: width * scale,
+            position: Offset(firstPos.dx, y),
+            name: localizations.pageIndex(areas.length + 1),
+          ));
+        }
+        if (createAreas) {
+          bloc.add(AreasCreated(areas));
+        }
       }
-      y += page.height;
+      _submit(
+        elements: selectedElements,
+        areas: createAreas ? areas : [],
+        choosePosition: position == null,
+      );
     }
-    _submit(
-      elements: selectedElements,
-      areas: createAreas ? areas : [],
-      choosePosition: position == null,
-    );
   }
 
   Future<void> export() async {

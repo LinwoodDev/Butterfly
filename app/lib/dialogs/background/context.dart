@@ -33,7 +33,7 @@ class BackgroundContextMenu extends StatelessWidget {
             if (state.embedding?.editable ?? true)
               ListTile(
                 leading: const Icon(PhosphorIcons.plusLight),
-                title: Text(AppLocalizations.of(context)!.insert),
+                title: Text(AppLocalizations.of(context).insert),
                 subtitle: Text(context.getShortcut('N', altKey: true)),
                 onTap: () {
                   var transformCubit = context.read<TransformCubit>();
@@ -46,7 +46,7 @@ class BackgroundContextMenu extends StatelessWidget {
               ),
             ListTile(
                 leading: const Icon(PhosphorIcons.squaresFourLight),
-                title: Text(AppLocalizations.of(context)!.layers),
+                title: Text(AppLocalizations.of(context).layers),
                 subtitle: Text(context.getShortcut('L')),
                 onTap: () {
                   Navigator.of(context).pop();
@@ -55,7 +55,7 @@ class BackgroundContextMenu extends StatelessWidget {
                 }),
             ListTile(
               leading: const Icon(PhosphorIcons.monitorLight),
-              title: Text(AppLocalizations.of(context)!.areas),
+              title: Text(AppLocalizations.of(context).areas),
               subtitle: Text(context.getShortcut('A', shiftKey: true)),
               onTap: () {
                 Navigator.of(context).pop();
@@ -64,7 +64,7 @@ class BackgroundContextMenu extends StatelessWidget {
             ),
             ListTile(
                 leading: const Icon(PhosphorIcons.imageLight),
-                title: Text(AppLocalizations.of(context)!.background),
+                title: Text(AppLocalizations.of(context).background),
                 subtitle: Text(context.getShortcut('B')),
                 onTap: () {
                   Navigator.of(context).pop();
@@ -73,7 +73,7 @@ class BackgroundContextMenu extends StatelessWidget {
                 }),
             ListTile(
                 leading: const Icon(PhosphorIcons.mapPinLight),
-                title: Text(AppLocalizations.of(context)!.waypoints),
+                title: Text(AppLocalizations.of(context).waypoints),
                 subtitle: Text(context.getShortcut('P', shiftKey: true)),
                 onTap: () {
                   Navigator.of(context).pop();
@@ -83,7 +83,7 @@ class BackgroundContextMenu extends StatelessWidget {
             if (state.embedding?.editable ?? true)
               ListTile(
                   leading: const Icon(PhosphorIcons.paletteLight),
-                  title: Text(AppLocalizations.of(context)!.color),
+                  title: Text(AppLocalizations.of(context).color),
                   subtitle: Text(context.getShortcut('P')),
                   onTap: () {
                     Navigator.of(context).pop();

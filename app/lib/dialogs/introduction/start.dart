@@ -27,8 +27,8 @@ class StartIntroductionDialog extends StatelessWidget {
             final isMobile = constraints.maxWidth < 600;
             return Column(mainAxisSize: MainAxisSize.min, children: [
               Text(
-                AppLocalizations.of(context)!.start,
-                style: Theme.of(context).textTheme.headline5,
+                AppLocalizations.of(context).start,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 16),
               Flexible(
@@ -77,8 +77,8 @@ class _CreateStartViewState extends State<_CreateStartView> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              AppLocalizations.of(context)!.create,
-              style: Theme.of(context).textTheme.headline6,
+              AppLocalizations.of(context).create,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             Flexible(
               child: Material(
@@ -92,35 +92,35 @@ class _CreateStartViewState extends State<_CreateStartView> {
                       return ListView(
                         children: [
                           Text(
-                            AppLocalizations.of(context)!.error,
-                            style: Theme.of(context).textTheme.headline6,
+                            AppLocalizations.of(context).error,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           Text(
                             snapshot.error.toString(),
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           OutlinedButton.icon(
                             label: Text(
-                                AppLocalizations.of(context)!.defaultTemplate),
+                                AppLocalizations.of(context).defaultTemplate),
                             icon: const Icon(
                                 PhosphorIcons.clockCounterClockwiseLight),
                             onPressed: () => showDialog<void>(
                               context: context,
                               builder: (context) => AlertDialog(
-                                title: Text(AppLocalizations.of(context)!
+                                title: Text(AppLocalizations.of(context)
                                     .defaultTemplate),
                                 content: Text(
-                                    AppLocalizations.of(context)!.reallyReset),
+                                    AppLocalizations.of(context).reallyReset),
                                 actions: [
                                   TextButton(
                                     child: Text(
-                                        AppLocalizations.of(context)!.cancel),
+                                        AppLocalizations.of(context).cancel),
                                     onPressed: () =>
                                         Navigator.of(context).pop(),
                                   ),
                                   TextButton(
                                     child:
-                                        Text(AppLocalizations.of(context)!.ok),
+                                        Text(AppLocalizations.of(context).ok),
                                     onPressed: () async {
                                       final navigator = Navigator.of(context);
                                       await templateSystem.createDefault(
@@ -207,8 +207,8 @@ class _RecentStartView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              AppLocalizations.of(context)!.recentFiles,
-              style: Theme.of(context).textTheme.headline6,
+              AppLocalizations.of(context).recentFiles,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             Flexible(
               child: Material(
@@ -216,8 +216,8 @@ class _RecentStartView extends StatelessWidget {
                 child: recents.isEmpty
                     ? Center(
                         child: Text(
-                        AppLocalizations.of(context)!.noRecentFiles,
-                        style: Theme.of(context).textTheme.bodyText2,
+                        AppLocalizations.of(context).noRecentFiles,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ))
                     : ListView(
                         shrinkWrap: true,

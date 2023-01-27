@@ -12,14 +12,14 @@ class LabelPropertySelection extends PropertySelection<LabelProperty> {
   ) {
     return [
       ExactSlider(
-          header: Text(AppLocalizations.of(context)!.size),
+          header: Text(AppLocalizations.of(context).size),
           value: property.size,
           defaultValue: 12,
           min: 6,
           max: 512,
           onChangeEnd: (value) => onChanged(property.copyWith(size: value))),
       ExactSlider(
-          header: Text(AppLocalizations.of(context)!.spacing),
+          header: Text(AppLocalizations.of(context).spacing),
           value: property.letterSpacing,
           defaultValue: 0,
           min: 0,
@@ -73,15 +73,15 @@ class LabelPropertySelection extends PropertySelection<LabelProperty> {
           ]),
       const SizedBox(height: 16),
       ListTile(
-          title: Text(AppLocalizations.of(context)!.fontWeight),
+          title: Text(AppLocalizations.of(context).fontWeight),
           trailing: DropdownButton<FontWeight>(
               value: FontWeight.values[property.fontWeight],
               items: List.generate(FontWeight.values.length, (index) {
                 var text = ((index + 1) * 100).toString();
                 if (index == 3) {
-                  text = AppLocalizations.of(context)!.normal;
+                  text = AppLocalizations.of(context).normal;
                 } else if (index == 6) {
-                  text = AppLocalizations.of(context)!.bold;
+                  text = AppLocalizations.of(context).bold;
                 }
                 return DropdownMenuItem(
                     value: FontWeight.values[index], child: Text(text));
@@ -89,7 +89,7 @@ class LabelPropertySelection extends PropertySelection<LabelProperty> {
               onChanged: (value) => onChanged(property.copyWith(
                   fontWeight: value?.index ?? property.fontWeight)))),
       CheckboxListTile(
-          title: Text(AppLocalizations.of(context)!.italic),
+          title: Text(AppLocalizations.of(context).italic),
           value: property.italic,
           onChanged: (value) =>
               onChanged(property.copyWith(italic: value ?? property.italic))),
@@ -105,29 +105,28 @@ class LabelPropertySelection extends PropertySelection<LabelProperty> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(AppLocalizations.of(context)!.decoration,
-                                style: Theme.of(context).textTheme.subtitle1),
+                            Text(AppLocalizations.of(context).decoration,
+                                style: Theme.of(context).textTheme.titleMedium),
                           ],
                         ),
                     body: Column(children: [
                       CheckboxListTile(
-                          title:
-                              Text(AppLocalizations.of(context)!.lineThrough),
+                          title: Text(AppLocalizations.of(context).lineThrough),
                           value: property.lineThrough,
                           onChanged: (value) => onChanged(property.copyWith(
                               lineThrough: value ?? property.lineThrough))),
                       CheckboxListTile(
-                          title: Text(AppLocalizations.of(context)!.underline),
+                          title: Text(AppLocalizations.of(context).underline),
                           value: property.underline,
                           onChanged: (value) => onChanged(property.copyWith(
                               underline: value ?? property.underline))),
                       CheckboxListTile(
-                          title: Text(AppLocalizations.of(context)!.overline),
+                          title: Text(AppLocalizations.of(context).overline),
                           value: property.overline,
                           onChanged: (value) => onChanged(property.copyWith(
                               overline: value ?? property.overline))),
                       ListTile(
-                          title: Text(AppLocalizations.of(context)!.style),
+                          title: Text(AppLocalizations.of(context).style),
                           trailing: DropdownButton<TextDecorationStyle>(
                               value: property.decorationStyle,
                               items: List.generate(
@@ -136,19 +135,19 @@ class LabelPropertySelection extends PropertySelection<LabelProperty> {
                                 var style = TextDecorationStyle.values[index];
                                 switch (style) {
                                   case TextDecorationStyle.solid:
-                                    text = AppLocalizations.of(context)!.solid;
+                                    text = AppLocalizations.of(context).solid;
                                     break;
                                   case TextDecorationStyle.dashed:
-                                    text = AppLocalizations.of(context)!.dashed;
+                                    text = AppLocalizations.of(context).dashed;
                                     break;
                                   case TextDecorationStyle.dotted:
-                                    text = AppLocalizations.of(context)!.dotted;
+                                    text = AppLocalizations.of(context).dotted;
                                     break;
                                   case TextDecorationStyle.double:
-                                    text = AppLocalizations.of(context)!.double;
+                                    text = AppLocalizations.of(context).double;
                                     break;
                                   case TextDecorationStyle.wavy:
-                                    text = AppLocalizations.of(context)!.wavy;
+                                    text = AppLocalizations.of(context).wavy;
                                 }
                                 return DropdownMenuItem(
                                     value: TextDecorationStyle.values[index],
@@ -158,7 +157,7 @@ class LabelPropertySelection extends PropertySelection<LabelProperty> {
                                   decorationStyle:
                                       value ?? property.decorationStyle)))),
                       ColorField(
-                          title: Text(AppLocalizations.of(context)!.color),
+                          title: Text(AppLocalizations.of(context).color),
                           value: Color(property.decorationColor),
                           onChanged: (value) => onChanged(
                               property.copyWith(decorationColor: value.value))),
@@ -166,7 +165,7 @@ class LabelPropertySelection extends PropertySelection<LabelProperty> {
                         padding: const EdgeInsets.all(16.0),
                         child: ExactSlider(
                             header:
-                                Text(AppLocalizations.of(context)!.thickness),
+                                Text(AppLocalizations.of(context).thickness),
                             defaultValue: 1,
                             value: property.decorationThickness,
                             min: 0.1,
@@ -180,7 +179,7 @@ class LabelPropertySelection extends PropertySelection<LabelProperty> {
       ),
       const SizedBox(height: 32),
       ColorField(
-          title: Text(AppLocalizations.of(context)!.color),
+          title: Text(AppLocalizations.of(context).color),
           value: Color(property.color),
           onChanged: (value) =>
               onChanged(property.copyWith(color: value.value))),

@@ -96,8 +96,8 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                                 ? PhosphorIcons.pushPinFill
                                 : PhosphorIcons.pushPinLight),
                             tooltip: alwaysOnTop
-                                ? AppLocalizations.of(context)!.exitAlwaysOnTop
-                                : AppLocalizations.of(context)!.alwaysOnTop,
+                                ? AppLocalizations.of(context).exitAlwaysOnTop
+                                : AppLocalizations.of(context).alwaysOnTop,
                             onPressed: () async {
                               await windowManager.setAlwaysOnTop(!alwaysOnTop);
                               setState(() => alwaysOnTop = !alwaysOnTop);
@@ -108,8 +108,8 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                               ? PhosphorIcons.arrowsInLight
                               : PhosphorIcons.arrowsOutLight),
                           tooltip: fullScreen
-                              ? AppLocalizations.of(context)!.exitFullScreen
-                              : AppLocalizations.of(context)!.enterFullScreen,
+                              ? AppLocalizations.of(context).exitFullScreen
+                              : AppLocalizations.of(context).enterFullScreen,
                           onPressed: () async {
                             setState(() => fullScreen = !fullScreen);
                             await windowManager.setFullScreen(fullScreen);
@@ -119,7 +119,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                           const VerticalDivider(),
                           IconButton(
                             icon: const Icon(PhosphorIcons.minusLight),
-                            tooltip: AppLocalizations.of(context)!.minimize,
+                            tooltip: AppLocalizations.of(context).minimize,
                             splashRadius: 20,
                             onPressed: () => windowManager.minimize(),
                           ),
@@ -127,8 +127,8 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                             icon: Icon(PhosphorIcons.squareLight,
                                 size: maximized ? 14 : 20),
                             tooltip: maximized
-                                ? AppLocalizations.of(context)!.restore
-                                : AppLocalizations.of(context)!.maximize,
+                                ? AppLocalizations.of(context).restore
+                                : AppLocalizations.of(context).maximize,
                             splashRadius: 20,
                             onPressed: () async =>
                                 await windowManager.isMaximized()
@@ -137,7 +137,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                           ),
                           IconButton(
                             icon: const Icon(PhosphorIcons.xLight),
-                            tooltip: AppLocalizations.of(context)!.close,
+                            tooltip: AppLocalizations.of(context).close,
                             hoverColor: Colors.red,
                             splashRadius: 20,
                             onPressed: () => windowManager.close(),
