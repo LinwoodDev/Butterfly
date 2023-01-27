@@ -4,7 +4,7 @@ class PenRenderer extends PathRenderer<PenElement> {
   PenRenderer(super.element, [super.rect = Rect.zero]);
 
   @override
-  double get zoom => element.zoom;
+  double? get zoom => element.zoom;
 
   @override
   void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {

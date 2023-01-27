@@ -51,7 +51,7 @@ class PadElement with _$PadElement {
   @Implements<PathElement>()
   const factory PadElement.pen({
     @Default('') String layer,
-    @Default(0.0) double zoom,
+    double? zoom,
     @Default([]) List<PathPoint> points,
     @Default(PenProperty()) PenProperty property,
   }) = PenElement;

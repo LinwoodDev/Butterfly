@@ -865,8 +865,8 @@ mixin _$PadElement {
   String get layer => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String layer, double zoom, List<PathPoint> points,
-            PenProperty property)
+    required TResult Function(String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)
         pen,
     required TResult Function(
             String layer,
@@ -901,7 +901,7 @@ mixin _$PadElement {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String layer, double zoom, List<PathPoint> points,
+    TResult? Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
     TResult? Function(String layer, @OffsetJsonConverter() Offset position,
@@ -933,7 +933,7 @@ mixin _$PadElement {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String layer, double zoom, List<PathPoint> points,
+    TResult Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
@@ -1041,7 +1041,7 @@ abstract class _$$PenElementCopyWith<$Res>
   @useResult
   $Res call(
       {String layer,
-      double zoom,
+      double? zoom,
       List<PathPoint> points,
       PenProperty property});
 }
@@ -1058,7 +1058,7 @@ class __$$PenElementCopyWithImpl<$Res>
   @override
   $Res call({
     Object? layer = null,
-    Object? zoom = null,
+    Object? zoom = freezed,
     Object? points = null,
     Object? property = freezed,
   }) {
@@ -1067,10 +1067,10 @@ class __$$PenElementCopyWithImpl<$Res>
           ? _value.layer
           : layer // ignore: cast_nullable_to_non_nullable
               as String,
-      zoom: null == zoom
+      zoom: freezed == zoom
           ? _value.zoom
           : zoom // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       points: null == points
           ? _value._points
           : points // ignore: cast_nullable_to_non_nullable
@@ -1088,7 +1088,7 @@ class __$$PenElementCopyWithImpl<$Res>
 class _$PenElement implements PenElement {
   const _$PenElement(
       {this.layer = '',
-      this.zoom = 0.0,
+      this.zoom,
       final List<PathPoint> points = const [],
       this.property = const PenProperty(),
       final String? $type})
@@ -1102,8 +1102,7 @@ class _$PenElement implements PenElement {
   @JsonKey()
   final String layer;
   @override
-  @JsonKey()
-  final double zoom;
+  final double? zoom;
   final List<PathPoint> _points;
   @override
   @JsonKey()
@@ -1134,8 +1133,8 @@ class _$PenElement implements PenElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String layer, double zoom, List<PathPoint> points,
-            PenProperty property)
+    required TResult Function(String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)
         pen,
     required TResult Function(
             String layer,
@@ -1173,7 +1172,7 @@ class _$PenElement implements PenElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String layer, double zoom, List<PathPoint> points,
+    TResult? Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
     TResult? Function(String layer, @OffsetJsonConverter() Offset position,
@@ -1208,7 +1207,7 @@ class _$PenElement implements PenElement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String layer, double zoom, List<PathPoint> points,
+    TResult Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
@@ -1295,7 +1294,7 @@ class _$PenElement implements PenElement {
 abstract class PenElement implements PadElement, PathElement {
   const factory PenElement(
       {final String layer,
-      final double zoom,
+      final double? zoom,
       final List<PathPoint> points,
       final PenProperty property}) = _$PenElement;
 
@@ -1304,7 +1303,7 @@ abstract class PenElement implements PadElement, PathElement {
 
   @override
   String get layer;
-  double get zoom;
+  double? get zoom;
   List<PathPoint> get points;
   PenProperty get property;
   @override
@@ -1430,8 +1429,8 @@ class _$LabelElement implements LabelElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String layer, double zoom, List<PathPoint> points,
-            PenProperty property)
+    required TResult Function(String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)
         pen,
     required TResult Function(
             String layer,
@@ -1469,7 +1468,7 @@ class _$LabelElement implements LabelElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String layer, double zoom, List<PathPoint> points,
+    TResult? Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
     TResult? Function(String layer, @OffsetJsonConverter() Offset position,
@@ -1504,7 +1503,7 @@ class _$LabelElement implements LabelElement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String layer, double zoom, List<PathPoint> points,
+    TResult Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
@@ -1741,8 +1740,8 @@ class _$ImageElement implements ImageElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String layer, double zoom, List<PathPoint> points,
-            PenProperty property)
+    required TResult Function(String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)
         pen,
     required TResult Function(
             String layer,
@@ -1780,7 +1779,7 @@ class _$ImageElement implements ImageElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String layer, double zoom, List<PathPoint> points,
+    TResult? Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
     TResult? Function(String layer, @OffsetJsonConverter() Offset position,
@@ -1815,7 +1814,7 @@ class _$ImageElement implements ImageElement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String layer, double zoom, List<PathPoint> points,
+    TResult Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
@@ -2054,8 +2053,8 @@ class _$SvgElement implements SvgElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String layer, double zoom, List<PathPoint> points,
-            PenProperty property)
+    required TResult Function(String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)
         pen,
     required TResult Function(
             String layer,
@@ -2093,7 +2092,7 @@ class _$SvgElement implements SvgElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String layer, double zoom, List<PathPoint> points,
+    TResult? Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
     TResult? Function(String layer, @OffsetJsonConverter() Offset position,
@@ -2128,7 +2127,7 @@ class _$SvgElement implements SvgElement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String layer, double zoom, List<PathPoint> points,
+    TResult Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,
@@ -2336,8 +2335,8 @@ class _$ShapeElement implements ShapeElement {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String layer, double zoom, List<PathPoint> points,
-            PenProperty property)
+    required TResult Function(String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)
         pen,
     required TResult Function(
             String layer,
@@ -2375,7 +2374,7 @@ class _$ShapeElement implements ShapeElement {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String layer, double zoom, List<PathPoint> points,
+    TResult? Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
     TResult? Function(String layer, @OffsetJsonConverter() Offset position,
@@ -2410,7 +2409,7 @@ class _$ShapeElement implements ShapeElement {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String layer, double zoom, List<PathPoint> points,
+    TResult Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
     TResult Function(String layer, @OffsetJsonConverter() Offset position,

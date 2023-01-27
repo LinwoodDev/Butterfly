@@ -6,7 +6,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
 
   PathRenderer(super.element, [this.rect = Rect.zero]);
 
-  double get zoom => 1.0;
+  double? get zoom => null;
 
   Paint buildPaint([AppDocument? document, bool foreground = false]);
 
@@ -36,6 +36,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       [ColorScheme? colorScheme, bool foreground = false]) {
     final current = element as PathElement;
     final points = current.points;
+    final currentZoom = zoom ?? kMaxZoom;
     final property = current.property;
     final paint = buildPaint(document, foreground);
     if (points.isNotEmpty) {
@@ -51,10 +52,10 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       // 1. Get the outline points from the input points
       var outlinePoints = getStroke(
         points
-            .map((e) => e.scale(zoom, center))
+            .map((e) => e.scale(zoom ?? kMaxZoom, center))
             .map((e) => e.toFreehandPoint())
             .toList(),
-        size: property.strokeWidth * zoom,
+        size: property.strokeWidth * currentZoom,
         thinning: property.strokeMultiplier.clamp(0, 1),
         smoothing: property.smoothing.clamp(0, 1),
         streamline: property.streamline.clamp(.1, 1),
@@ -64,7 +65,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       // Unscale the points
       outlinePoints = outlinePoints.map((e) {
         var point = Offset(e.x, e.y);
-        point = point.scaleFromCenter(1 / zoom, center);
+        point = point.scaleFromCenter(1 / currentZoom, center);
         return Point(point.dx, point.dy, e.p);
       }).toList();
 

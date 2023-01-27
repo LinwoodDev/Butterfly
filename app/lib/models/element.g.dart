@@ -72,7 +72,7 @@ Map<String, dynamic> _$$DynamicElementConstraintsToJson(
 
 _$PenElement _$$PenElementFromJson(Map json) => _$PenElement(
       layer: json['layer'] as String? ?? '',
-      zoom: (json['zoom'] as num?)?.toDouble() ?? 0.0,
+      zoom: (json['zoom'] as num?)?.toDouble(),
       points: (json['points'] as List<dynamic>?)
               ?.map((e) =>
                   PathPoint.fromJson(Map<String, dynamic>.from(e as Map)))
