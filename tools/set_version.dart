@@ -53,7 +53,6 @@ Future<void> main(List<String> args) async {
 
   await updateAppImageVersion(version);
   await updateDebianVersion(version);
-  await updateSnapcraftVersion(version);
   if (results['changelog']) {
     var changelogFile =
         File('fastlane/metadata/android/en-US/changelogs/$newBuildNumber.txt');
@@ -81,15 +80,6 @@ Future<void> updateDebianVersion(String version) async {
   lines.add('');
   await file.writeAsString(lines.join('\r\n'));
   print('Successfully updated debian version to $version');
-}
-
-Future<void> updateSnapcraftVersion(String version) async {
-  var file = File('app/snap/snapcraft.yaml');
-  var lines = await file.readAsLines();
-  lines[1] = 'version: $version';
-  lines.add('');
-  await file.writeAsString(lines.join('\r\n'));
-  print('Successfully updated snapcraft version to $version');
 }
 
 bool isPreRelease(String version) {

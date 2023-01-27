@@ -33,8 +33,8 @@ mixin _$Property {
   int get color => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)
+    required TResult Function(double strokeWidth, double strokeMultiplier,
+            int color, bool fill, double smoothing, double streamline)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
@@ -42,16 +42,16 @@ mixin _$Property {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult? Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult? Function(double strokeWidth, PathShape shape, int color)? shape,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
@@ -127,7 +127,12 @@ abstract class _$$PenPropertyCopyWith<$Res> implements $PropertyCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {double strokeWidth, double strokeMultiplier, int color, bool fill});
+      {double strokeWidth,
+      double strokeMultiplier,
+      int color,
+      bool fill,
+      double smoothing,
+      double streamline});
 }
 
 /// @nodoc
@@ -145,6 +150,8 @@ class __$$PenPropertyCopyWithImpl<$Res>
     Object? strokeMultiplier = null,
     Object? color = null,
     Object? fill = null,
+    Object? smoothing = null,
+    Object? streamline = null,
   }) {
     return _then(_$PenProperty(
       strokeWidth: null == strokeWidth
@@ -163,6 +170,14 @@ class __$$PenPropertyCopyWithImpl<$Res>
           ? _value.fill
           : fill // ignore: cast_nullable_to_non_nullable
               as bool,
+      smoothing: null == smoothing
+          ? _value.smoothing
+          : smoothing // ignore: cast_nullable_to_non_nullable
+              as double,
+      streamline: null == streamline
+          ? _value.streamline
+          : streamline // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -172,9 +187,11 @@ class __$$PenPropertyCopyWithImpl<$Res>
 class _$PenProperty implements PenProperty {
   const _$PenProperty(
       {this.strokeWidth = 5,
-      this.strokeMultiplier = 10,
+      this.strokeMultiplier = 0.5,
       this.color = kColorBlack,
       this.fill = false,
+      this.smoothing = 0.5,
+      this.streamline = 0.3,
       final String? $type})
       : $type = $type ?? 'pen';
 
@@ -193,13 +210,19 @@ class _$PenProperty implements PenProperty {
   @override
   @JsonKey()
   final bool fill;
+  @override
+  @JsonKey()
+  final double smoothing;
+  @override
+  @JsonKey()
+  final double streamline;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Property.pen(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier, color: $color, fill: $fill)';
+    return 'Property.pen(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier, color: $color, fill: $fill, smoothing: $smoothing, streamline: $streamline)';
   }
 
   @override
@@ -212,13 +235,17 @@ class _$PenProperty implements PenProperty {
             (identical(other.strokeMultiplier, strokeMultiplier) ||
                 other.strokeMultiplier == strokeMultiplier) &&
             (identical(other.color, color) || other.color == color) &&
-            (identical(other.fill, fill) || other.fill == fill));
+            (identical(other.fill, fill) || other.fill == fill) &&
+            (identical(other.smoothing, smoothing) ||
+                other.smoothing == smoothing) &&
+            (identical(other.streamline, streamline) ||
+                other.streamline == streamline));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, strokeWidth, strokeMultiplier, color, fill);
+  int get hashCode => Object.hash(runtimeType, strokeWidth, strokeMultiplier,
+      color, fill, smoothing, streamline);
 
   @JsonKey(ignore: true)
   @override
@@ -229,37 +256,40 @@ class _$PenProperty implements PenProperty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)
+    required TResult Function(double strokeWidth, double strokeMultiplier,
+            int color, bool fill, double smoothing, double streamline)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
   }) {
-    return pen(strokeWidth, strokeMultiplier, color, fill);
+    return pen(
+        strokeWidth, strokeMultiplier, color, fill, smoothing, streamline);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult? Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult? Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
-    return pen?.call(strokeWidth, strokeMultiplier, color, fill);
+    return pen?.call(
+        strokeWidth, strokeMultiplier, color, fill, smoothing, streamline);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
   }) {
     if (pen != null) {
-      return pen(strokeWidth, strokeMultiplier, color, fill);
+      return pen(
+          strokeWidth, strokeMultiplier, color, fill, smoothing, streamline);
     }
     return orElse();
   }
@@ -308,7 +338,9 @@ abstract class PenProperty implements Property, PathProperty {
       {final double strokeWidth,
       final double strokeMultiplier,
       final int color,
-      final bool fill}) = _$PenProperty;
+      final bool fill,
+      final double smoothing,
+      final double streamline}) = _$PenProperty;
 
   factory PenProperty.fromJson(Map<String, dynamic> json) =
       _$PenProperty.fromJson;
@@ -319,6 +351,8 @@ abstract class PenProperty implements Property, PathProperty {
   @override
   int get color;
   bool get fill;
+  double get smoothing;
+  double get streamline;
   @override
   @JsonKey(ignore: true)
   _$$PenPropertyCopyWith<_$PenProperty> get copyWith =>
@@ -432,8 +466,8 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)
+    required TResult Function(double strokeWidth, double strokeMultiplier,
+            int color, bool fill, double smoothing, double streamline)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
@@ -444,8 +478,8 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult? Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult? Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
@@ -455,8 +489,8 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            double strokeWidth, double strokeMultiplier, int color, bool fill)?
+    TResult Function(double strokeWidth, double strokeMultiplier, int color,
+            bool fill, double smoothing, double streamline)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),

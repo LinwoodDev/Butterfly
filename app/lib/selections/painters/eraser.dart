@@ -8,13 +8,14 @@ class EraserPainterSelection extends PainterSelection<EraserPainter> {
     return [
       ...super.buildProperties(context),
       ExactSlider(
-          header: Text(AppLocalizations.of(context).strokeWidth),
-          value: selected.first.strokeWidth,
-          min: 0,
-          max: 70,
-          defaultValue: 5,
-          onChangeEnd: (value) => update(context,
-              selected.map((e) => e.copyWith(strokeWidth: value)).toList())),
+        header: Text(AppLocalizations.of(context).strokeWidth),
+        value: selected.first.strokeWidth,
+        min: 0,
+        max: 70,
+        defaultValue: 5,
+        onChangeEnd: (value) => update(context,
+            selected.map((e) => e.copyWith(strokeWidth: value)).toList()),
+      ),
     ];
   }
 

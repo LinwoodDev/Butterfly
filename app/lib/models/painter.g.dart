@@ -112,7 +112,7 @@ Map<String, dynamic> _$$LabelPainterToJson(_$LabelPainter instance) =>
 
 _$PenPainter _$$PenPainterFromJson(Map json) => _$PenPainter(
       name: json['name'] as String? ?? '',
-      zoomDependent: json['zoomDependent'] as bool? ?? false,
+      zoomDependent: json['zoomDependent'] as bool? ?? true,
       property: json['property'] == null
           ? const PenProperty()
           : PenProperty.fromJson(
@@ -145,7 +145,6 @@ _$PathEraserPainter _$$PathEraserPainterFromJson(Map json) =>
     _$PathEraserPainter(
       name: json['name'] as String? ?? '',
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
-      deleteWholeStroke: json['deleteWholeStroke'] as bool? ?? false,
       $type: json['type'] as String?,
     );
 
@@ -153,7 +152,6 @@ Map<String, dynamic> _$$PathEraserPainterToJson(_$PathEraserPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
       'strokeWidth': instance.strokeWidth,
-      'deleteWholeStroke': instance.deleteWholeStroke,
       'type': instance.$type,
     };
 
@@ -222,7 +220,7 @@ Map<String, dynamic> _$$LaserPainterToJson(_$LaserPainter instance) =>
 
 _$ShapePainter _$$ShapePainterFromJson(Map json) => _$ShapePainter(
       name: json['name'] as String? ?? '',
-      zoomDependent: json['zoomDependent'] as bool? ?? false,
+      zoomDependent: json['zoomDependent'] as bool? ?? true,
       constrainedWidth: (json['constrainedWidth'] as num?)?.toDouble() ?? 0,
       constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
       constrainedAspectRatio:

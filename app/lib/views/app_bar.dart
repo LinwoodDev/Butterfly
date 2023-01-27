@@ -149,9 +149,12 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                           }
                                         },
                                         decoration: InputDecoration(
-                                          contentPadding: EdgeInsets.zero,
                                           hintText: AppLocalizations.of(context)
                                               .untitled,
+                                          filled: true,
+                                          fillColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
                                           hintStyle: area == null
                                               ? Theme.of(context)
                                                   .textTheme

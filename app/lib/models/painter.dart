@@ -92,7 +92,7 @@ class Painter with _$Painter {
 
   factory Painter.pen({
     @Default('') String name,
-    @Default(false) bool zoomDependent,
+    @Default(true) bool zoomDependent,
     @Default(PenProperty()) PenProperty property,
   }) = PenPainter;
 
@@ -104,7 +104,6 @@ class Painter with _$Painter {
   factory Painter.pathEraser({
     @Default('') String name,
     @Default(5) double strokeWidth,
-    @Default(false) bool deleteWholeStroke,
   }) = PathEraserPainter;
 
   factory Painter.layer({
@@ -134,7 +133,7 @@ class Painter with _$Painter {
 
   factory Painter.shape({
     @Default('') String name,
-    @Default(false) bool zoomDependent,
+    @Default(true) bool zoomDependent,
     @Default(0) double constrainedWidth,
     @Default(0) double constrainedHeight,
     @Default(0) double constrainedAspectRatio,

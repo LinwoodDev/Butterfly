@@ -15,6 +15,7 @@ import 'package:butterfly/visualizer/int.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:perfect_freehand/perfect_freehand.dart';
 import 'package:xml/xml.dart';
 
 import '../cubits/current_index.dart';

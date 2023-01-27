@@ -12,4 +12,9 @@ extension OffsetHelper on Offset {
       x * sinA + y * cosA + pivot.dy,
     );
   }
+
+  Offset scaleFromCenter(double zoom, Offset center) => Offset(
+        (dx - center.dx) * zoom + center.dx,
+        (dy - center.dy) * zoom + center.dy,
+      );
 }

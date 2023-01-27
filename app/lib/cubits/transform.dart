@@ -3,6 +3,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+const kMinZoom = 0.1;
+const kMaxZoom = 1000.0;
+
 @immutable
 class CameraTransform extends Equatable {
   final Offset position;
@@ -15,7 +18,7 @@ class CameraTransform extends Equatable {
 
   CameraTransform withSize(double size, [Offset cursor = Offset.zero]) {
     // Set size and focus on cursor if provided
-    final double newSize = size.clamp(0.1, 1000);
+    final double newSize = size.clamp(kMinZoom, kMaxZoom);
     var mx = localToGlobal(cursor);
     mx = (mx + position) * newSize;
 
