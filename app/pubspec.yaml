@@ -1,6 +1,8 @@
 name: butterfly
 description: Powerful, minimalistic, cross-platform, opensource note-taking app
 
+publish_to: none
+
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
 # followed by an optional build number separated by a +.
@@ -60,6 +62,10 @@ dependencies:
   connectivity_plus: ^3.0.2
   cross_file: ^0.3.3+2
   args: ^2.3.2
+  perfect_freehand:
+    git:
+      url: https://github.com/CodeDoctorDE/perfect-freehand-dart.git
+      ref: 066461ee27342559e5731a03e3371c0537f1abcb
 dev_dependencies:
   flutter_native_splash: ^2.2.16
   flutter_launcher_icons: ^0.11.0

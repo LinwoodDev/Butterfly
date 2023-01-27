@@ -16,16 +16,6 @@ class PathEraserPainterSelection extends PainterSelection<PathEraserPainter> {
           defaultValue: 5,
           onChangeEnd: (value) => update(context,
               selected.map((e) => e.copyWith(strokeWidth: value)).toList())),
-      const SizedBox(height: 10),
-      CheckboxListTile(
-          value: painter.includeEraser,
-          title: Text(AppLocalizations.of(context).includeEraser),
-          onChanged: (value) => update(
-              context,
-              selected
-                  .map((e) =>
-                      e.copyWith(includeEraser: value ?? painter.includeEraser))
-                  .toList())),
     ];
   }
 

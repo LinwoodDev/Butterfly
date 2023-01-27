@@ -72,24 +72,13 @@ const _$VerticalAlignmentEnumMap = {
   VerticalAlignment.bottom: 'bottom',
 };
 
-_$EraserProperty _$$EraserPropertyFromJson(Map json) => _$EraserProperty(
-      strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
-      strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 10,
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$EraserPropertyToJson(_$EraserProperty instance) =>
-    <String, dynamic>{
-      'strokeWidth': instance.strokeWidth,
-      'strokeMultiplier': instance.strokeMultiplier,
-      'type': instance.$type,
-    };
-
 _$PenProperty _$$PenPropertyFromJson(Map json) => _$PenProperty(
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
-      strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 10,
+      strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 0.5,
       color: json['color'] as int? ?? kColorBlack,
       fill: json['fill'] as bool? ?? false,
+      smoothing: (json['smoothing'] as num?)?.toDouble() ?? 0.5,
+      streamline: (json['streamline'] as num?)?.toDouble() ?? 0.3,
       $type: json['type'] as String?,
     );
 
@@ -99,6 +88,8 @@ Map<String, dynamic> _$$PenPropertyToJson(_$PenProperty instance) =>
       'strokeMultiplier': instance.strokeMultiplier,
       'color': instance.color,
       'fill': instance.fill,
+      'smoothing': instance.smoothing,
+      'streamline': instance.streamline,
       'type': instance.$type,
     };
 

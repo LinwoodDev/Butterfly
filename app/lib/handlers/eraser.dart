@@ -35,7 +35,7 @@ class EraserHandler extends Handler<EraserPainter> {
 
   Future<void> _changeElement(Offset position, EventContext context) async {
     final globalPos = context.getCameraTransform().localToGlobal(position);
-    final size = data.property.strokeWidth;
+    final size = data.strokeWidth;
     if (!_currentlyErasing) {
       _currentlyErasing = true;
       // Raycast

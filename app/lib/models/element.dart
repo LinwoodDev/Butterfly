@@ -49,10 +49,12 @@ abstract class PathElement {
 @Freezed(equal: false)
 class PadElement with _$PadElement {
   @Implements<PathElement>()
-  const factory PadElement.pen(
-      {@Default('') String layer,
-      @Default([]) List<PathPoint> points,
-      @Default(PenProperty()) PenProperty property}) = PenElement;
+  const factory PadElement.pen({
+    @Default('') String layer,
+    double? zoom,
+    @Default([]) List<PathPoint> points,
+    @Default(PenProperty()) PenProperty property,
+  }) = PenElement;
 
   const factory PadElement.label({
     @Default('') String layer,

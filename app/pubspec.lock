@@ -823,6 +823,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.8.4"
+  perfect_freehand:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "066461ee27342559e5731a03e3371c0537f1abcb"
+      resolved-ref: "066461ee27342559e5731a03e3371c0537f1abcb"
+      url: "https://github.com/CodeDoctorDE/perfect-freehand-dart.git"
+    source: git
+    version: "1.0.4"
   petitparser:
     dependency: transitive
     description:

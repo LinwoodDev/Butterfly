@@ -6,6 +6,8 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
 
   PathRenderer(super.element, [this.rect = Rect.zero]);
 
+  double? get zoom => null;
+
   Paint buildPaint([AppDocument? document, bool foreground = false]);
 
   @override
@@ -34,6 +36,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       [ColorScheme? colorScheme, bool foreground = false]) {
     final current = element as PathElement;
     final points = current.points;
+    final currentZoom = zoom ?? kMaxZoom;
     final property = current.property;
     final paint = buildPaint(document, foreground);
     if (points.isNotEmpty) {
@@ -45,17 +48,51 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
         canvas.drawPath(path, paint);
         return;
       }
-      var first = points.first;
-      var previous = first;
-      for (var element in points) {
-        canvas.drawLine(
-            previous.toOffset(),
-            element.toOffset(),
-            paint
-              ..strokeWidth = property.strokeWidth +
-                  element.pressure * property.strokeMultiplier);
-        previous = element;
+      final center = rect.center;
+      // 1. Get the outline points from the input points
+      var outlinePoints = getStroke(
+        points
+            .map((e) => e.scale(zoom ?? kMaxZoom, center))
+            .map((e) => e.toFreehandPoint())
+            .toList(),
+        size: property.strokeWidth * currentZoom,
+        thinning: property.strokeMultiplier.clamp(0, 1),
+        smoothing: property.smoothing.clamp(0, 1),
+        streamline: property.streamline.clamp(.1, 1),
+        simulatePressure: true,
+      );
+
+      // Unscale the points
+      outlinePoints = outlinePoints.map((e) {
+        var point = Offset(e.x, e.y);
+        point = point.scaleFromCenter(1 / currentZoom, center);
+        return Point(point.dx, point.dy, e.p);
+      }).toList();
+
+      // 2. Render the points as a path
+      final path = Path();
+
+      if (outlinePoints.isEmpty) {
+        // If the list is empty, don't do anything.
+        return;
+      } else if (outlinePoints.length < 2) {
+        // If the list only has one point, draw a dot.
+        path.addOval(Rect.fromCircle(
+            center: Offset(outlinePoints[0].x, outlinePoints[0].y), radius: 1));
+      } else {
+        // Otherwise, draw a line that connects each point with a bezier curve segment.
+        path.moveTo(outlinePoints[0].x, outlinePoints[0].y);
+
+        for (int i = 1; i < outlinePoints.length - 1; ++i) {
+          final p0 = outlinePoints[i];
+          final p1 = outlinePoints[i + 1];
+          path.quadraticBezierTo(
+              p0.x, p0.y, (p0.x + p1.x) / 2, (p0.y + p1.y) / 2);
+        }
       }
+
+      // 3. Draw the path to the canvas
+      canvas.drawPath(path, paint..style = PaintingStyle.fill);
     }
   }
 

@@ -32,7 +32,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     final shape = element.property.shape;
     final strokeWidth = element.property.strokeWidth;
     final paint = _buildPaint();
-    final drawRect = rect.inflate(-strokeWidth);
+    final drawRect = rect.inflate(-strokeWidth / 2);
     if (shape is RectangleShape) {
       // Percentage-based radius
       final topLeftCornerRadius = Radius.circular(
@@ -56,7 +56,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       if (strokeWidth > 0) {
         canvas.drawRRect(
           RRect.fromRectAndCorners(
-            drawRect,
+            rect,
             topLeft: topLeftCornerRadius,
             topRight: topRightCornerRadius,
             bottomLeft: bottomLeftCornerRadius,
@@ -71,7 +71,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
           _buildPaint(
               color: Color(shape.fillColor), style: PaintingStyle.fill));
       if (strokeWidth > 0) {
-        canvas.drawOval(drawRect, paint);
+        canvas.drawOval(rect, paint);
       }
     } else if (shape is LineShape) {
       canvas.drawLine(element.firstPosition, element.secondPosition, paint);

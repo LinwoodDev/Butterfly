@@ -78,6 +78,7 @@ class PenHandler extends Handler<PenPainter> {
 
     final element = elements[pointer] ??
         PenElement(
+          zoom: transform.size,
           layer: state.currentLayer,
           property: data.property
               .copyWith(strokeWidth: data.property.strokeWidth / zoom),

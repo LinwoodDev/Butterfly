@@ -8,21 +8,11 @@ class HandSelection extends PainterSelection<HandPainter> {
       AppLocalizations.of(context).hand;
 
   @override
-  buildProperties(BuildContext context) {
+  List<Widget> buildProperties(BuildContext context) {
     final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return [];
 
-    return [
-      CheckboxListTile(
-          value: selected.first.includeEraser,
-          title: Text(AppLocalizations.of(context).includeEraser),
-          onChanged: (value) => update(
-              context,
-              selected
-                  .map((e) =>
-                      e.copyWith(includeEraser: value ?? e.includeEraser))
-                  .toList())),
-    ];
+    return [];
   }
 
   @override
