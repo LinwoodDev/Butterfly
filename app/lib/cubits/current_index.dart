@@ -88,6 +88,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     state.handler.dispose(bloc);
     state.temporaryHandler?.dispose(bloc);
     if (currentHandler.onSelected(bloc, this, justAdded)) {
+      _disposeForegrounds();
       emit(state.copyWith(
         index: index,
         handler: currentHandler,
@@ -106,6 +107,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     state.handler.dispose(bloc);
     final handler = Handler.fromPainter(painter);
     state.handler.dispose(bloc);
+    _disposeForegrounds(false);
     emit(state.copyWith(
       index: state.index,
       handler: handler,
@@ -119,6 +121,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (docState is! DocumentLoadSuccess) return;
     state.temporaryHandler?.dispose(bloc);
     final handler = Handler.fromPainter(painter);
+    _disposeTemporaryForegrounds();
     emit(state.copyWith(
       temporaryHandler: handler,
       temporaryForegrounds: handler.createForegrounds(
@@ -132,8 +135,24 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return null;
   }
 
+  void _disposeForegrounds([bool disposeTemporary = true]) {
+    for (final r in state.foregrounds) {
+      r.dispose();
+    }
+    if (disposeTemporary) {
+      _disposeTemporaryForegrounds();
+    }
+  }
+
+  void _disposeTemporaryForegrounds() {
+    for (final r in state.temporaryForegrounds ?? []) {
+      r.dispose();
+    }
+  }
+
   void refresh(AppDocument document, [Area? currentArea]) {
     if (!isClosed) {
+      _disposeForegrounds();
       emit(state.copyWith(
         temporaryForegrounds: state.temporaryHandler
             ?.createForegrounds(this, document, currentArea),
@@ -168,6 +187,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     state.handler.dispose(bloc);
     state.temporaryHandler?.dispose(bloc);
+    _disposeForegrounds();
     emit(state.copyWith(
       index: null,
       handler: MoveHandler(),
@@ -208,6 +228,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final currentArea = blocState.currentArea;
     state.temporaryHandler?.dispose(bloc);
     if (handler.onSelected(bloc, this, false)) {
+      _disposeTemporaryForegrounds();
       emit(state.copyWith(
         temporaryHandler: handler,
         temporaryForegrounds:
@@ -225,6 +246,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return;
     }
     state.temporaryHandler?.dispose(bloc);
+    _disposeTemporaryForegrounds();
     emit(state.copyWith(
       temporaryHandler: null,
       temporaryForegrounds: null,

@@ -26,26 +26,27 @@ class LabelHandler extends Handler<LabelPainter>
     FocusScope.of(context.buildContext)
         .requestFocus(Focus.of(context.buildContext));
     final style = Theme.of(context.buildContext).textTheme.bodyLarge!;
-    _connection = TextInput.attach(
-        this,
-        const TextInputConfiguration(
-          inputType: TextInputType.text,
-          obscureText: false,
-          autocorrect: true,
-          inputAction: TextInputAction.done,
-          keyboardAppearance: Brightness.light,
-          textCapitalization: TextCapitalization.sentences,
-        ))
-      ..setEditingState(const TextEditingValue(text: 'A'))
-      ..setStyle(
-        fontFamily: style.fontFamily,
-        fontSize: style.fontSize! * pixelRatio,
-        fontWeight: style.fontWeight,
-        textDirection: TextDirection.ltr,
-        textAlign: TextAlign.left,
-      );
-    await Future.delayed(const Duration(seconds: 1));
-    _connection?.show();
+    if (!(_connection?.attached ?? false)) {
+      _connection = TextInput.attach(
+          this,
+          const TextInputConfiguration(
+            inputType: TextInputType.text,
+            obscureText: false,
+            autocorrect: true,
+            inputAction: TextInputAction.done,
+            keyboardAppearance: Brightness.light,
+            textCapitalization: TextCapitalization.sentences,
+          ))
+        ..setEditingState(const TextEditingValue(text: 'A'))
+        ..setStyle(
+          fontFamily: style.fontFamily,
+          fontSize: style.fontSize! * pixelRatio,
+          fontWeight: style.fontWeight,
+          textDirection: TextDirection.ltr,
+          textAlign: TextAlign.left,
+        );
+    }
+    _connection!.show();
   }
 
   Future<TextElement?> openDialog(
@@ -99,6 +100,8 @@ class LabelHandler extends Handler<LabelPainter>
 
   @override
   void dispose(DocumentBloc bloc) {
+    _connection?.close();
+    _connection = null;
     _submit(bloc);
   }
 
@@ -195,8 +198,7 @@ class LabelHandler extends Handler<LabelPainter>
           if (kDebugMode) {
             print('Extend selection by character');
           }
-          _context = _context.copyWith(
-          );
+          _context = _context.copyWith();
           return null;
         },
       ),
