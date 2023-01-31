@@ -21,7 +21,7 @@
   "name": "Name",
   "strokeWidth": "Strichbreite",
   "includeEraser": "Löschvorrichtung einbeziehen?",
-  "strokeMultiplier": "Strichmultiplikator",
+  "thinning": "Thinning",
   "pen": "Stift",
   "eraser": "Eraser",
   "pathEraser": "Pfadlöscher",
