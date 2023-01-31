@@ -21,7 +21,7 @@
   "name": "İsim",
   "strokeWidth": "Kontur genişliği",
   "includeEraser": "Dahili silgi?",
-  "strokeMultiplier": "Kontur çarpanı",
+  "thinning": "Thinning",
   "pen": "Kalem",
   "eraser": "Silgi",
   "pathEraser": "Yol silici",
