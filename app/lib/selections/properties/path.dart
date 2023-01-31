@@ -19,13 +19,13 @@ class PathPropertySelection<T extends PathProperty> with PropertySelection<T> {
             onChangeEnd: (value) => onChanged(
                 (property as dynamic).copyWith(strokeWidth: value) as T)),
         ExactSlider(
-            header: Text(AppLocalizations.of(context).strokeMultiplier),
-            value: property.strokeMultiplier,
+            header: Text(AppLocalizations.of(context).thinning),
+            value: property.thinning,
             min: 0,
             max: 1,
             defaultValue: .5,
             onChangeEnd: (value) => onChanged(
-                (property as dynamic).copyWith(strokeMultiplier: value) as T)),
+                (property as dynamic).copyWith(thinning: value) as T)),
         ExactSlider(
             header: Text(AppLocalizations.of(context).smoothing),
             value: property.smoothing,

@@ -21,7 +21,7 @@
   "name": "Nome",
   "strokeWidth": "Larghezza tratto",
   "includeEraser": "Includere la gomma?",
-  "strokeMultiplier": "Moltiplicatore tratto",
+  "thinning": "Moltiplicatore tratto",
   "pen": "Penna",
   "eraser": "Gomma",
   "pathEraser": "Cancella tratto",

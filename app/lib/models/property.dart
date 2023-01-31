@@ -7,7 +7,7 @@ part 'property.freezed.dart';
 
 abstract class PathProperty implements Property {
   double get strokeWidth;
-  double get strokeMultiplier;
+  double get thinning;
   double get smoothing;
   double get streamline;
 }
@@ -49,7 +49,7 @@ class Property with _$Property {
   @Implements<PathProperty>()
   const factory Property.pen({
     @Default(5) double strokeWidth,
-    @Default(0.5) double strokeMultiplier,
+    @Default(0.4) double thinning,
     @Default(kColorBlack) int color,
     @Default(false) bool fill,
     @Default(0.5) double smoothing,

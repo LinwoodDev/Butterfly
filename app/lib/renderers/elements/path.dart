@@ -18,8 +18,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     var topLeftCorner = points.first.toOffset();
     var bottomRightCorner = points.first.toOffset();
     for (var element in points) {
-      final width =
-          property.strokeWidth + element.pressure * property.strokeMultiplier;
+      final width = property.strokeWidth + element.pressure * property.thinning;
       topLeftCorner = Offset(min(topLeftCorner.dx, element.x - width),
           min(topLeftCorner.dy, element.y - width));
       bottomRightCorner = Offset(max(bottomRightCorner.dx, element.x + width),
@@ -56,7 +55,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
             .map((e) => e.toFreehandPoint())
             .toList(),
         size: property.strokeWidth * currentZoom,
-        thinning: property.strokeMultiplier.clamp(0, 1),
+        thinning: property.thinning.clamp(0, 1),
         smoothing: property.smoothing.clamp(0, 1),
         streamline: property.streamline.clamp(.1, 1),
         simulatePressure: true,

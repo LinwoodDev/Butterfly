@@ -21,7 +21,7 @@
   "name": "Name",
   "strokeWidth": "Stroke width",
   "includeEraser": "Include eraser?",
-  "strokeMultiplier": "Stroke multiplier",
+  "thinning": "Thinning",
   "pen": "Pen",
   "eraser": "Eraser",
   "pathEraser": "Path eraser",

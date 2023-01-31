@@ -26,8 +26,8 @@ class PathPoint with _$PathPoint {
 
   Vector2 toVector() => Vector2(x, y);
 
-  Point toFreehandPoint([double strokeMultiplier = 1]) =>
-      Point(x, y, pressure * strokeMultiplier);
+  Point toFreehandPoint([double thinning = 1]) =>
+      Point(x, y, pressure * thinning);
 
   PathPoint scale(double zoom, Offset center) =>
       PathPoint.fromOffset(toOffset().scaleFromCenter(zoom, center), pressure);

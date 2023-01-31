@@ -108,7 +108,7 @@ class Painter with _$Painter {
     @Default('') String name,
     @Default(5) double duration,
     @Default(5) double strokeWidth,
-    @Default(10) double strokeMultiplier,
+    @Default(0.4) double thinning,
     @Default(kColorRed) int color,
   }) = LaserPainter;
 

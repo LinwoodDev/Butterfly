@@ -49,8 +49,8 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(double strokeWidth, double strokeMultiplier,
-            int color, bool fill, double smoothing, double streamline)
+    required TResult Function(double strokeWidth, double thinning, int color,
+            bool fill, double smoothing, double streamline)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
@@ -73,8 +73,8 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult? Function(double strokeWidth, double strokeMultiplier, int color,
-            bool fill, double smoothing, double streamline)?
+    TResult? Function(double strokeWidth, double thinning, int color, bool fill,
+            double smoothing, double streamline)?
         pen,
     TResult? Function(double strokeWidth, PathShape shape, int color)? shape,
   }) =>
@@ -96,8 +96,8 @@ mixin _$Property {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color,
-            bool fill, double smoothing, double streamline)?
+    TResult Function(double strokeWidth, double thinning, int color, bool fill,
+            double smoothing, double streamline)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
@@ -412,8 +412,8 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(double strokeWidth, double strokeMultiplier,
-            int color, bool fill, double smoothing, double streamline)
+    required TResult Function(double strokeWidth, double thinning, int color,
+            bool fill, double smoothing, double streamline)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
@@ -452,8 +452,8 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult? Function(double strokeWidth, double strokeMultiplier, int color,
-            bool fill, double smoothing, double streamline)?
+    TResult? Function(double strokeWidth, double thinning, int color, bool fill,
+            double smoothing, double streamline)?
         pen,
     TResult? Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
@@ -491,8 +491,8 @@ class _$LabelProperty implements LabelProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color,
-            bool fill, double smoothing, double streamline)?
+    TResult Function(double strokeWidth, double thinning, int color, bool fill,
+            double smoothing, double streamline)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
@@ -606,7 +606,7 @@ abstract class _$$PenPropertyCopyWith<$Res> implements $PropertyCopyWith<$Res> {
   @useResult
   $Res call(
       {double strokeWidth,
-      double strokeMultiplier,
+      double thinning,
       int color,
       bool fill,
       double smoothing,
@@ -625,7 +625,7 @@ class __$$PenPropertyCopyWithImpl<$Res>
   @override
   $Res call({
     Object? strokeWidth = null,
-    Object? strokeMultiplier = null,
+    Object? thinning = null,
     Object? color = null,
     Object? fill = null,
     Object? smoothing = null,
@@ -636,9 +636,9 @@ class __$$PenPropertyCopyWithImpl<$Res>
           ? _value.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
               as double,
-      strokeMultiplier: null == strokeMultiplier
-          ? _value.strokeMultiplier
-          : strokeMultiplier // ignore: cast_nullable_to_non_nullable
+      thinning: null == thinning
+          ? _value.thinning
+          : thinning // ignore: cast_nullable_to_non_nullable
               as double,
       color: null == color
           ? _value.color
@@ -665,7 +665,7 @@ class __$$PenPropertyCopyWithImpl<$Res>
 class _$PenProperty implements PenProperty {
   const _$PenProperty(
       {this.strokeWidth = 5,
-      this.strokeMultiplier = 0.5,
+      this.thinning = 0.4,
       this.color = kColorBlack,
       this.fill = false,
       this.smoothing = 0.5,
@@ -681,7 +681,7 @@ class _$PenProperty implements PenProperty {
   final double strokeWidth;
   @override
   @JsonKey()
-  final double strokeMultiplier;
+  final double thinning;
   @override
   @JsonKey()
   final int color;
@@ -700,7 +700,7 @@ class _$PenProperty implements PenProperty {
 
   @override
   String toString() {
-    return 'Property.pen(strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier, color: $color, fill: $fill, smoothing: $smoothing, streamline: $streamline)';
+    return 'Property.pen(strokeWidth: $strokeWidth, thinning: $thinning, color: $color, fill: $fill, smoothing: $smoothing, streamline: $streamline)';
   }
 
   @override
@@ -710,8 +710,8 @@ class _$PenProperty implements PenProperty {
             other is _$PenProperty &&
             (identical(other.strokeWidth, strokeWidth) ||
                 other.strokeWidth == strokeWidth) &&
-            (identical(other.strokeMultiplier, strokeMultiplier) ||
-                other.strokeMultiplier == strokeMultiplier) &&
+            (identical(other.thinning, thinning) ||
+                other.thinning == thinning) &&
             (identical(other.color, color) || other.color == color) &&
             (identical(other.fill, fill) || other.fill == fill) &&
             (identical(other.smoothing, smoothing) ||
@@ -722,8 +722,8 @@ class _$PenProperty implements PenProperty {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, strokeWidth, strokeMultiplier,
-      color, fill, smoothing, streamline);
+  int get hashCode => Object.hash(
+      runtimeType, strokeWidth, thinning, color, fill, smoothing, streamline);
 
   @JsonKey(ignore: true)
   @override
@@ -749,14 +749,13 @@ class _$PenProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(double strokeWidth, double strokeMultiplier,
-            int color, bool fill, double smoothing, double streamline)
+    required TResult Function(double strokeWidth, double thinning, int color,
+            bool fill, double smoothing, double streamline)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
   }) {
-    return pen(
-        strokeWidth, strokeMultiplier, color, fill, smoothing, streamline);
+    return pen(strokeWidth, thinning, color, fill, smoothing, streamline);
   }
 
   @override
@@ -777,13 +776,12 @@ class _$PenProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult? Function(double strokeWidth, double strokeMultiplier, int color,
-            bool fill, double smoothing, double streamline)?
+    TResult? Function(double strokeWidth, double thinning, int color, bool fill,
+            double smoothing, double streamline)?
         pen,
     TResult? Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
-    return pen?.call(
-        strokeWidth, strokeMultiplier, color, fill, smoothing, streamline);
+    return pen?.call(strokeWidth, thinning, color, fill, smoothing, streamline);
   }
 
   @override
@@ -804,15 +802,14 @@ class _$PenProperty implements PenProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color,
-            bool fill, double smoothing, double streamline)?
+    TResult Function(double strokeWidth, double thinning, int color, bool fill,
+            double smoothing, double streamline)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),
   }) {
     if (pen != null) {
-      return pen(
-          strokeWidth, strokeMultiplier, color, fill, smoothing, streamline);
+      return pen(strokeWidth, thinning, color, fill, smoothing, streamline);
     }
     return orElse();
   }
@@ -862,7 +859,7 @@ class _$PenProperty implements PenProperty {
 abstract class PenProperty implements Property, PathProperty {
   const factory PenProperty(
       {final double strokeWidth,
-      final double strokeMultiplier,
+      final double thinning,
       final int color,
       final bool fill,
       final double smoothing,
@@ -872,7 +869,7 @@ abstract class PenProperty implements Property, PathProperty {
       _$PenProperty.fromJson;
 
   double get strokeWidth;
-  double get strokeMultiplier;
+  double get thinning;
   @override
   int get color;
   bool get fill;
@@ -1006,8 +1003,8 @@ class _$ShapeProperty implements ShapeProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         label,
-    required TResult Function(double strokeWidth, double strokeMultiplier,
-            int color, bool fill, double smoothing, double streamline)
+    required TResult Function(double strokeWidth, double thinning, int color,
+            bool fill, double smoothing, double streamline)
         pen,
     required TResult Function(double strokeWidth, PathShape shape, int color)
         shape,
@@ -1033,8 +1030,8 @@ class _$ShapeProperty implements ShapeProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult? Function(double strokeWidth, double strokeMultiplier, int color,
-            bool fill, double smoothing, double streamline)?
+    TResult? Function(double strokeWidth, double thinning, int color, bool fill,
+            double smoothing, double streamline)?
         pen,
     TResult? Function(double strokeWidth, PathShape shape, int color)? shape,
   }) {
@@ -1059,8 +1056,8 @@ class _$ShapeProperty implements ShapeProperty {
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)?
         label,
-    TResult Function(double strokeWidth, double strokeMultiplier, int color,
-            bool fill, double smoothing, double streamline)?
+    TResult Function(double strokeWidth, double thinning, int color, bool fill,
+            double smoothing, double streamline)?
         pen,
     TResult Function(double strokeWidth, PathShape shape, int color)? shape,
     required TResult orElse(),

@@ -78,7 +78,7 @@ mixin _$Painter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -113,7 +113,7 @@ mixin _$Painter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -148,7 +148,7 @@ mixin _$Painter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -338,7 +338,7 @@ class _$HandPainter implements HandPainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -376,7 +376,7 @@ class _$HandPainter implements HandPainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -414,7 +414,7 @@ class _$HandPainter implements HandPainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -638,7 +638,7 @@ class _$ImportPainter implements ImportPainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -676,7 +676,7 @@ class _$ImportPainter implements ImportPainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -714,7 +714,7 @@ class _$ImportPainter implements ImportPainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -911,7 +911,7 @@ class _$UndoPainter implements UndoPainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -949,7 +949,7 @@ class _$UndoPainter implements UndoPainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -987,7 +987,7 @@ class _$UndoPainter implements UndoPainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -1179,7 +1179,7 @@ class _$RedoPainter implements RedoPainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -1217,7 +1217,7 @@ class _$RedoPainter implements RedoPainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -1255,7 +1255,7 @@ class _$RedoPainter implements RedoPainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -1458,7 +1458,7 @@ class _$LabelPainter implements LabelPainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -1496,7 +1496,7 @@ class _$LabelPainter implements LabelPainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -1534,7 +1534,7 @@ class _$LabelPainter implements LabelPainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -1748,7 +1748,7 @@ class _$PenPainter implements PenPainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -1786,7 +1786,7 @@ class _$PenPainter implements PenPainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -1824,7 +1824,7 @@ class _$PenPainter implements PenPainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -2030,7 +2030,7 @@ class _$EraserPainter implements EraserPainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -2068,7 +2068,7 @@ class _$EraserPainter implements EraserPainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -2106,7 +2106,7 @@ class _$EraserPainter implements EraserPainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -2310,7 +2310,7 @@ class _$PathEraserPainter implements PathEraserPainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -2348,7 +2348,7 @@ class _$PathEraserPainter implements PathEraserPainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -2386,7 +2386,7 @@ class _$PathEraserPainter implements PathEraserPainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -2588,7 +2588,7 @@ class _$LayerPainter implements LayerPainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -2626,7 +2626,7 @@ class _$LayerPainter implements LayerPainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -2664,7 +2664,7 @@ class _$LayerPainter implements LayerPainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -2901,7 +2901,7 @@ class _$AreaPainter implements AreaPainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -2940,7 +2940,7 @@ class _$AreaPainter implements AreaPainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -2979,7 +2979,7 @@ class _$AreaPainter implements AreaPainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -3182,7 +3182,7 @@ class _$WaypointPainter implements WaypointPainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -3220,7 +3220,7 @@ class _$WaypointPainter implements WaypointPainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -3258,7 +3258,7 @@ class _$WaypointPainter implements WaypointPainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -3377,7 +3377,7 @@ abstract class _$$LaserPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
       {String name,
       double duration,
       double strokeWidth,
-      double strokeMultiplier,
+      double thinning,
       int color});
 }
 
@@ -3395,7 +3395,7 @@ class __$$LaserPainterCopyWithImpl<$Res>
     Object? name = null,
     Object? duration = null,
     Object? strokeWidth = null,
-    Object? strokeMultiplier = null,
+    Object? thinning = null,
     Object? color = null,
   }) {
     return _then(_$LaserPainter(
@@ -3411,9 +3411,9 @@ class __$$LaserPainterCopyWithImpl<$Res>
           ? _value.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
               as double,
-      strokeMultiplier: null == strokeMultiplier
-          ? _value.strokeMultiplier
-          : strokeMultiplier // ignore: cast_nullable_to_non_nullable
+      thinning: null == thinning
+          ? _value.thinning
+          : thinning // ignore: cast_nullable_to_non_nullable
               as double,
       color: null == color
           ? _value.color
@@ -3430,7 +3430,7 @@ class _$LaserPainter implements LaserPainter {
       {this.name = '',
       this.duration = 5,
       this.strokeWidth = 5,
-      this.strokeMultiplier = 10,
+      this.thinning = 0.3,
       this.color = kColorRed,
       final String? $type})
       : $type = $type ?? 'laser';
@@ -3449,7 +3449,7 @@ class _$LaserPainter implements LaserPainter {
   final double strokeWidth;
   @override
   @JsonKey()
-  final double strokeMultiplier;
+  final double thinning;
   @override
   @JsonKey()
   final int color;
@@ -3459,7 +3459,7 @@ class _$LaserPainter implements LaserPainter {
 
   @override
   String toString() {
-    return 'Painter.laser(name: $name, duration: $duration, strokeWidth: $strokeWidth, strokeMultiplier: $strokeMultiplier, color: $color)';
+    return 'Painter.laser(name: $name, duration: $duration, strokeWidth: $strokeWidth, thinning: $thinning, color: $color)';
   }
 
   @JsonKey(ignore: true)
@@ -3493,7 +3493,7 @@ class _$LaserPainter implements LaserPainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -3505,7 +3505,7 @@ class _$LaserPainter implements LaserPainter {
         shape,
     required TResult Function(String name, String pack, int component) stamp,
   }) {
-    return laser(name, duration, strokeWidth, strokeMultiplier, color);
+    return laser(name, duration, strokeWidth, thinning, color);
   }
 
   @override
@@ -3531,7 +3531,7 @@ class _$LaserPainter implements LaserPainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -3543,7 +3543,7 @@ class _$LaserPainter implements LaserPainter {
         shape,
     TResult? Function(String name, String pack, int component)? stamp,
   }) {
-    return laser?.call(name, duration, strokeWidth, strokeMultiplier, color);
+    return laser?.call(name, duration, strokeWidth, thinning, color);
   }
 
   @override
@@ -3569,7 +3569,7 @@ class _$LaserPainter implements LaserPainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -3583,7 +3583,7 @@ class _$LaserPainter implements LaserPainter {
     required TResult orElse(),
   }) {
     if (laser != null) {
-      return laser(name, duration, strokeWidth, strokeMultiplier, color);
+      return laser(name, duration, strokeWidth, thinning, color);
     }
     return orElse();
   }
@@ -3668,7 +3668,7 @@ abstract class LaserPainter implements Painter {
       {final String name,
       final double duration,
       final double strokeWidth,
-      final double strokeMultiplier,
+      final double thinning,
       final int color}) = _$LaserPainter;
 
   factory LaserPainter.fromJson(Map<String, dynamic> json) =
@@ -3678,7 +3678,7 @@ abstract class LaserPainter implements Painter {
   String get name;
   double get duration;
   double get strokeWidth;
-  double get strokeMultiplier;
+  double get thinning;
   int get color;
   @override
   @JsonKey(ignore: true)
@@ -3823,7 +3823,7 @@ class _$ShapePainter implements ShapePainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -3862,7 +3862,7 @@ class _$ShapePainter implements ShapePainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -3901,7 +3901,7 @@ class _$ShapePainter implements ShapePainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
@@ -4122,7 +4122,7 @@ class _$StampPainter implements StampPainter {
         area,
     required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)
+            double thinning, int color)
         laser,
     required TResult Function(
             String name,
@@ -4160,7 +4160,7 @@ class _$StampPainter implements StampPainter {
         area,
     TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult? Function(
             String name,
@@ -4198,7 +4198,7 @@ class _$StampPainter implements StampPainter {
         area,
     TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
-            double strokeMultiplier, int color)?
+            double thinning, int color)?
         laser,
     TResult Function(
             String name,
