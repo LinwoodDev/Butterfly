@@ -21,7 +21,7 @@
   "name": "ชื่อ",
   "strokeWidth": "ความกว้างของเส้นขีด",
   "includeEraser": "Include eraser?",
-  "strokeMultiplier": "Stroke multiplier",
+  "thinning": "Thinning",
   "pen": "ปากกา",
   "eraser": "ยางลบ",
   "pathEraser": "Path eraser",
