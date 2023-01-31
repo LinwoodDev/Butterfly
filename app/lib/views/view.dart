@@ -241,12 +241,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                       scale = -(dx + dy / 2) / sensitivity / 100 + 1;
                       cubit.zoom(scale, pointerSignal.localPosition);
                     } else {
-                      cubit
-                        ..move((_mouseState == _MouseState.inverse
-                                ? Offset(-dy, -dx)
-                                : Offset(-dx, -dy)) /
-                            cubit.state.size)
-                        ..zoom(scale, pointerSignal.localPosition);
+                      cubit.move((_mouseState == _MouseState.inverse
+                              ? Offset(dy, dx)
+                              : Offset(dx, dy)) /
+                          cubit.state.size);
                     }
                     delayBake();
                   }

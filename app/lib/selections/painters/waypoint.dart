@@ -11,6 +11,9 @@ class WaypointSelection extends PainterSelection<WaypointPainter> {
 
     return [
       ...super.buildProperties(context),
+      const SizedBox(height: 8),
+      const Divider(),
+      const SizedBox(height: 8),
       ListView.builder(
         itemCount: waypoints.length,
         physics: const NeverScrollableScrollPhysics(),
@@ -23,6 +26,10 @@ class WaypointSelection extends PainterSelection<WaypointPainter> {
               icon: const Icon(PhosphorIcons.xLight),
               onPressed: () {},
             ),
+            onTap: () {
+              context.read<TransformCubit>().moveToWaypoint(waypoint);
+              context.read<DocumentBloc>().bake();
+            },
           );
         },
       )

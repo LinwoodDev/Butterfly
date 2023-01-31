@@ -20,16 +20,16 @@ class CameraTransform extends Equatable {
     // Set size and focus on cursor if provided
     final double newSize = size.clamp(kMinZoom, kMaxZoom);
     var mx = localToGlobal(cursor);
-    mx = (mx + position) * newSize;
+    mx = (mx - position) * newSize;
 
     return CameraTransform(
-      position + (cursor - mx) / newSize,
+      position - (cursor - mx) / newSize,
       newSize,
     );
   }
 
-  Offset localToGlobal(Offset local) => local / size - position;
-  Offset globalToLocal(Offset global) => (global + position) * size;
+  Offset localToGlobal(Offset local) => local / size + position;
+  Offset globalToLocal(Offset global) => (global - position) * size;
 
   Rect get rect => Rect.fromLTWH(
         position.dx,

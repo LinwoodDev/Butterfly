@@ -29,15 +29,17 @@ class WaypointForegroundRenderer extends Renderer<Waypoint> {
         style: TextStyle(
           color: Colors.black,
           fontSize: radius,
+          backgroundColor: Colors.white,
         ),
       ),
+      textAlign: TextAlign.center,
     );
     painter.layout();
     painter.paint(
       canvas,
       Offset(
         element.position.dx - painter.width / 2,
-        element.position.dy + radius,
+        element.position.dy + radius * 2,
       ),
     );
   }

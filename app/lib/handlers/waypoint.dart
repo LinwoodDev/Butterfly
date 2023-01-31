@@ -38,10 +38,6 @@ class WaypointHandler extends Handler<WaypointPainter> {
           shrinkWrap: true,
           children: [
             ListTile(
-              title: Text(AppLocalizations.of(context).edit),
-              leading: const Icon(PhosphorIcons.pencilLight),
-            ),
-            ListTile(
               title: Text(AppLocalizations.of(context).delete),
               leading: const Icon(PhosphorIcons.trashLight),
               onTap: () {
