@@ -40,6 +40,8 @@ class CameraTransform extends Equatable {
 
   @override
   List<Object?> get props => [position, size];
+
+  bool inViewport(Offset position) => rect.contains(position);
 }
 
 class TransformCubit extends Cubit<CameraTransform> {

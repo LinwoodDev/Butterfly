@@ -49,6 +49,7 @@ part 'painters/path_eraser.dart';
 part 'painters/pen.dart';
 part 'painters/shape.dart';
 part 'painters/stamp.dart';
+part 'painters/waypoint.dart';
 
 part 'properties/property.dart';
 part 'properties/label.dart';

@@ -12,11 +12,11 @@ class AreaHandler extends Handler<AreaPainter> {
       [
         if (currentArea == null) ...[
           if (currentRect != null)
-            AreaRenderer(Area(
+            AreaForegroundRenderer(Area(
                 width: currentRect!.width,
                 height: currentRect!.height,
                 position: currentRect!.topLeft)),
-          ...document.areas.map((e) => AreaRenderer(e)).toList()
+          ...document.areas.map((e) => AreaForegroundRenderer(e)).toList()
         ],
       ];
 

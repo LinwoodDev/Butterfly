@@ -4,10 +4,10 @@ import 'package:butterfly/models/area.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:flutter/material.dart';
 
-import '../models/document.dart';
+import '../../models/document.dart';
 
-class AreaRenderer extends Renderer<Area> {
-  AreaRenderer(super.element);
+class AreaForegroundRenderer extends Renderer<Area> {
+  AreaForegroundRenderer(super.element);
 
   @override
   void build(Canvas canvas, Size size, AppDocument? document,
