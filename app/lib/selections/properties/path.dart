@@ -23,7 +23,7 @@ class PathPropertySelection<T extends PathProperty> with PropertySelection<T> {
             value: property.thinning,
             min: 0,
             max: 1,
-            defaultValue: .5,
+            defaultValue: .4,
             onChangeEnd: (value) => onChanged(
                 (property as dynamic).copyWith(thinning: value) as T)),
         ExactSlider(

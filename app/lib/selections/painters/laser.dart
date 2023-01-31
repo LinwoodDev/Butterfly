@@ -23,7 +23,7 @@ class LaserPainterSelection extends PainterSelection<LaserPainter> {
         value: selected.first.thinning,
         min: 0,
         max: 1,
-        defaultValue: .5,
+        defaultValue: .4,
         onChangeEnd: (value) => update(
           context,
           selected.map((e) => e.copyWith(thinning: value)).toList(),
