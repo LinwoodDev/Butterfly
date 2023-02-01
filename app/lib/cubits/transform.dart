@@ -62,6 +62,6 @@ class TransformCubit extends Cubit<CameraTransform> {
       emit(state.withSize(size, cursor));
 
   void moveToWaypoint(Waypoint waypoint) => emit(state
-      .withPosition(waypoint.position)
+      .withPosition(-waypoint.position)
       .withSize(waypoint.scale ?? state.size));
 }
