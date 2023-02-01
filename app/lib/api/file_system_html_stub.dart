@@ -1,9 +1,6 @@
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/template.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
-
-import '../models/pack.dart';
 
 class WebDocumentFileSystem extends DocumentFileSystem {
   @override

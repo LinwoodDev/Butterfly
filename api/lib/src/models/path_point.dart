@@ -1,8 +1,5 @@
-import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:perfect_freehand/perfect_freehand.dart' show Point;
-import 'package:vector_math/vector_math.dart' show Vector2;
 
 part 'path_point.g.dart';
 part 'path_point.freezed.dart';
@@ -16,19 +13,8 @@ class PathPoint with _$PathPoint {
   factory PathPoint.fromOffset(Offset offset, [double pressure = 1]) =>
       PathPoint(offset.dx, offset.dy, pressure);
 
-  factory PathPoint.fromVector(Vector2 vector, [double pressure = 1]) =>
-      PathPoint(vector.x, vector.y, pressure);
-
   factory PathPoint.fromJson(Map<String, dynamic> json) =>
       _$PathPointFromJson(json);
 
   Offset toOffset() => Offset(x, y);
-
-  Vector2 toVector() => Vector2(x, y);
-
-  Point toFreehandPoint([double thinning = 1]) =>
-      Point(x, y, pressure * thinning);
-
-  PathPoint scale(double zoom, Offset center) =>
-      PathPoint.fromOffset(toOffset().scaleFromCenter(zoom, center), pressure);
 }

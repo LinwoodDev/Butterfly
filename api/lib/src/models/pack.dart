@@ -1,5 +1,5 @@
-import 'package:butterfly/models/converter.dart';
-import 'package:butterfly/models/element.dart';
+import 'converter.dart';
+import 'element.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'pack.g.dart';

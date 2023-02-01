@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'palette.g.dart';
-part 'palette.freezed.dart';
-
-@freezed
-class ColorPalette with _$ColorPalette {
+class DocumentDefaults {
   static const materialColors = [
     Colors.white,
     Colors.pink,
@@ -36,8 +32,20 @@ class ColorPalette with _$ColorPalette {
             colors:
                 materialColors.map((e) => e.withOpacity(0.25).value).toList())
       ];
-  const factory ColorPalette(
-      {required String name, @Default([]) List<int> colors}) = _ColorPalette;
-  factory ColorPalette.fromJson(Map<String, dynamic> json) =>
-      _$ColorPaletteFromJson(json);
+  static List<DocumentTemplate> getDefaults(BuildContext context) => [
+        DocumentTemplate(
+            document: AppDocument(
+                name: AppLocalizations.of(context).plain,
+                createdAt: DateTime.now(),
+                painters: createDefaultPainters(),
+                palettes: DocumentDefaults.getMaterialPalette(context),
+                background: BackgroundTemplate.plain.create())),
+        DocumentTemplate(
+            document: AppDocument(
+                name: AppLocalizations.of(context).plainDark,
+                createdAt: DateTime.now(),
+                painters: createDefaultPainters(),
+                palettes: DocumentDefaults.getMaterialPalette(context),
+                background: BackgroundTemplate.plainDark.create()))
+      ];
 }

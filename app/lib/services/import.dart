@@ -5,10 +5,8 @@ import 'dart:ui' as ui;
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
-import 'package:butterfly/models/area.dart';
-import 'package:butterfly/models/element.dart';
-import 'package:butterfly/models/painter.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/parser.dart';
@@ -21,8 +19,6 @@ import '../dialogs/image_export.dart';
 import '../dialogs/pages.dart';
 import '../dialogs/pdf_export.dart';
 import '../dialogs/svg_export.dart';
-import '../models/converter.dart';
-import '../models/document.dart';
 
 class ImportService {
   final DocumentBloc bloc;

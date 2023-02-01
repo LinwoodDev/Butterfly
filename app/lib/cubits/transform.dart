@@ -1,4 +1,4 @@
-import 'package:butterfly/models/waypoint.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

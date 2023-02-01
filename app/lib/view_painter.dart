@@ -1,11 +1,9 @@
 import 'package:butterfly/models/viewport.dart';
-import 'package:butterfly/models/document.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 
 import 'cubits/transform.dart';
-import 'models/area.dart';
-import 'models/tool.dart';
 import 'selections/selection.dart';
 
 class ForegroundPainter extends CustomPainter {

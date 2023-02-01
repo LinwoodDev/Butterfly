@@ -1,10 +1,8 @@
-import 'package:butterfly/models/document.dart';
 import 'package:butterfly/cubits/transform.dart';
 
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
-
-import '../../models/waypoint.dart';
 
 class WaypointForegroundRenderer extends Renderer<Waypoint> {
   final double size;

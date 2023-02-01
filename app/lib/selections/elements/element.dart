@@ -8,10 +8,6 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
       return ImageElementSelection([selected as Renderer<ImageElement>])
           as ElementSelection<T>;
     }
-    if (selected is Renderer<ImageElement>) {
-      return ImageElementSelection([selected as Renderer<ImageElement>])
-          as ElementSelection<T>;
-    }
     if (selected is Renderer<LabelElement>) {
       return LabelElementSelection([selected as Renderer<LabelElement>])
           as ElementSelection<T>;

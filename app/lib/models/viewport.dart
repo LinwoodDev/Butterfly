@@ -1,11 +1,9 @@
 import 'dart:ui' as ui;
 
-import 'package:butterfly/models/background.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-
-import 'element.dart';
 
 @immutable
 class CameraViewport extends Equatable {

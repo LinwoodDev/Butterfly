@@ -23,6 +23,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  butterfly_api:
+    path: ../api
   flutter_svg: ^1.1.6
   flutter_bloc: ^8.1.1
   image: ^3.3.0

@@ -2,15 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/template.dart';
+import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/converter.dart';
-import '../models/pack.dart';
 import 'file_system.dart';
 
 Future<String> getButterflyDirectory() async {
@@ -216,7 +214,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
 class IOTemplateFileSystem extends TemplateFileSystem {
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
-    var defaults = DocumentTemplate.getDefaults(context);
+    var defaults = DocumentDefaults.getDefaults(context);
     final path = await getDirectory();
     final dir = Directory(path);
     if (await dir.exists()) {

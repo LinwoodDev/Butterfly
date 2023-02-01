@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:butterfly/api/open.dart';
-import 'package:butterfly/main.dart';
-import 'package:butterfly/models/document.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';

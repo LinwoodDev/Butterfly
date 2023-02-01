@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -10,10 +12,6 @@ import 'package:xml/xml.dart';
 import 'package:path/path.dart' as p;
 
 import '../cubits/settings.dart';
-import '../models/converter.dart';
-import '../models/document.dart';
-import '../models/pack.dart';
-import '../models/template.dart';
 import 'file_system.dart';
 import 'file_system_io.dart';
 
@@ -521,7 +519,7 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     try {
-      var defaults = DocumentTemplate.getDefaults(context);
+      var defaults = DocumentDefaults.getDefaults(context);
       // test if directory exists
       final response = await _createRequest('', method: 'PROPFIND');
       if (response.statusCode != 404 && !force) {

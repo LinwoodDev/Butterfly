@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/file_system_remote.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
 
 import '../cubits/settings.dart';
-import '../models/document.dart';
 
 class SyncService {
   final BuildContext context;

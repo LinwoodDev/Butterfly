@@ -1,7 +1,5 @@
-import 'package:butterfly/models/colors.dart';
-import 'package:flutter/material.dart';
+import 'colors.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'background.g.dart';
 part 'background.freezed.dart';
@@ -64,27 +62,6 @@ extension BackgroundTemplateExtension on BackgroundTemplate {
             boxHeight: 20,
             boxYSpace: 30,
             boxYCount: 5);
-    }
-  }
-
-  String getLocalizedName(BuildContext context) {
-    switch (this) {
-      case BackgroundTemplate.plain:
-        return AppLocalizations.of(context).plain;
-      case BackgroundTemplate.ruled:
-        return AppLocalizations.of(context).ruled;
-      case BackgroundTemplate.quad:
-        return AppLocalizations.of(context).quad;
-      case BackgroundTemplate.music:
-        return AppLocalizations.of(context).music;
-      case BackgroundTemplate.plainDark:
-        return AppLocalizations.of(context).plainDark;
-      case BackgroundTemplate.ruledDark:
-        return AppLocalizations.of(context).ruledDark;
-      case BackgroundTemplate.quadDark:
-        return AppLocalizations.of(context).quadDark;
-      case BackgroundTemplate.musicDark:
-        return AppLocalizations.of(context).musicDark;
     }
   }
 }
