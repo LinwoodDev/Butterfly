@@ -8,16 +8,6 @@ class TextElementSelection extends ElementSelection<TextElement> {
     final element = selected.first.element;
     return [
       ...super.buildProperties(context),
-      TextFormField(
-        initialValue: element.text,
-        autofocus: true,
-        keyboardType: TextInputType.multiline,
-        minLines: 3,
-        maxLines: 5,
-        decoration: const InputDecoration(filled: true),
-        onFieldSubmitted: (value) => updateElements(
-            context, elements.map((e) => e.copyWith(text: value)).toList()),
-      ),
       ConstraintView(
         initialConstraint: element.constraint,
         onChanged: (constraint) => updateElements(context,

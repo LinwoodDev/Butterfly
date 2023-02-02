@@ -2,11 +2,22 @@ part of 'handler.dart';
 
 class LabelHandler extends Handler<LabelPainter>
     with HandlerWithCursor, TextInputClient {
-  text.TextContext _context;
+  text.TextContext? _context;
 
-  bool get isCurrentlyEditing => _context.area != null;
+  bool get isCurrentlyEditing => _context?.area != null;
 
-  LabelHandler(super.data) : _context = text.TextContext(painter: data);
+  LabelHandler(super.data);
+
+  text.TextContext _createContext() {
+    return text.TextContext(
+      painter: data,
+      element: const TextElement(
+        area: TextArea(
+          paragraph: TextParagraph.text(),
+        ),
+      ),
+    );
+  }
 
   @override
   List<Renderer> createForegrounds(
@@ -14,8 +25,8 @@ class LabelHandler extends Handler<LabelPainter>
           [Area? currentArea]) =>
       [
         ...super.createForegrounds(currentIndexCubit, document, currentArea),
-        if (_context.renderer != null && _context.isCreating)
-          _context.renderer!,
+        if (_context?.isCreating ?? false)
+          TextRenderer(_context!.element, _context!.selection)
       ];
 
   TextInputConnection? _connection;
@@ -69,8 +80,9 @@ class LabelHandler extends Handler<LabelPainter>
   @override
   Widget? getToolbar(BuildContext context) {
     final cubit = context.read<DocumentBloc>();
+    _context = _createContext();
     return LabelToolbarView(
-      value: _context,
+      value: _context!,
       onChanged: (value) => _change(cubit, value),
     );
   }
@@ -84,16 +96,14 @@ class LabelHandler extends Handler<LabelPainter>
     final context = _context;
     _context = value.copyWith();
 
+    if (context == null) return;
+
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    if (value.renderer == null) return;
-
     state.currentIndexCubit.refresh(state.document);
     if (!value.isCreating) {
       bloc.add(ElementsChanged({
-        value.renderer!.element: [
-          context.renderer?.element ?? value.renderer!.element
-        ]
+        context.element: [value.element]
       }));
     }
   }
@@ -107,12 +117,10 @@ class LabelHandler extends Handler<LabelPainter>
 
   void _submit(DocumentBloc bloc) {
     final context = _context;
-    _context = TextContext(painter: data);
-    if (context.isEmpty ?? true) return;
-    final renderer = context.renderer;
-    if (renderer == null) return;
+    if (context == null) return;
+    final element = context.element;
     if (context.isCreating) {
-      bloc.add(ElementsCreated.renderers([renderer]));
+      bloc.add(ElementsCreated([element]));
     }
   }
 
@@ -198,7 +206,7 @@ class LabelHandler extends Handler<LabelPainter>
           if (kDebugMode) {
             print('Extend selection by character');
           }
-          _context = _context.copyWith();
+          _context = _context?.copyWith();
           return null;
         },
       ),

@@ -2,11 +2,11 @@ part of '../renderer.dart';
 
 class TextRenderer extends Renderer<TextElement> {
   @override
-  Rect rect;
+  Rect rect = Rect.zero;
   TextPainter? _tp;
   TextSelection? selection;
 
-  TextRenderer(super.element, [this.rect = Rect.zero, this.selection]);
+  TextRenderer(super.element, [this.selection]);
 
   TextAlign _convertAlignment(text.HorizontalAlignment alignment) {
     switch (alignment) {
@@ -139,67 +139,7 @@ class TextRenderer extends Renderer<TextElement> {
   @override
   void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
-    final style = _getStyle(document);
-    final property =
-        style?.resolveParagraphProperty(element.area.paragraph.textProperty) ??
-            const text.DefinedParagraphProperty();
-    final span = property.span;
-    String textDecoration = '';
-    if (span.underline) textDecoration += 'underline ';
-    if (span.lineThrough) textDecoration += 'line-through ';
-    if (span.overline) textDecoration += 'overline ';
-    textDecoration +=
-        '${span.decorationStyle.name} ${span.decorationThickness}px ${span.decorationColor.toHexColor()}';
-    final foreignObject =
-        xml.getElement('svg')?.createElement('foreignObject', attributes: {
-      'x': '${rect.left}px',
-      'y': '${rect.top}px',
-      'width': '${rect.width}px',
-      'height': '${min(rect.height, rect.bottom)}px',
-    });
-    String alignItems = 'center';
-    switch (element.area.areaProperty.alignment) {
-      case text.VerticalAlignment.top:
-        alignItems = 'flex-start';
-        break;
-      case text.VerticalAlignment.bottom:
-        alignItems = 'flex-end';
-        break;
-      case text.VerticalAlignment.center:
-        alignItems = 'center';
-        break;
-    }
-    String alignContent = 'center';
-    switch (property.alignment) {
-      case text.HorizontalAlignment.left:
-        alignContent = 'flex-start';
-        break;
-      case text.HorizontalAlignment.right:
-        alignContent = 'flex-end';
-        break;
-      case text.HorizontalAlignment.center:
-        alignContent = 'center';
-        break;
-      case text.HorizontalAlignment.justify:
-        alignContent = 'space-between';
-        break;
-    }
-    final div = foreignObject?.createElement('div', attributes: {
-      'style': 'font-size: ${span.size}px;'
-          'font-style: ${span.italic ? 'italic' : 'normal'};'
-          'font-weight: ${span.fontWeight};'
-          'font-family: Roboto;'
-          'letter-spacing: ${span.letterSpacing}px;'
-          'color: #${span.color.toHexColor()};'
-          'text-decoration: $textDecoration;'
-          'display: flex;'
-          'align-items: $alignItems;'
-          'justify-content: $alignContent;'
-          'height: ${rect.height}px;'
-          'width: ${rect.width}px;',
-      'xmlns': 'http://www.w3.org/1999/xhtml',
-    });
-    div?.innerText = element.text;
+    // TODO: implement buildSvg
   }
 
   @override
@@ -208,14 +148,14 @@ class TextRenderer extends Renderer<TextElement> {
       double scaleX = 1,
       double scaleY = 1,
       bool relative = false}) {
-    final size = Size(rect.width * scaleX, rect.height * scaleY);
+    // final size = Size(rect.width * scaleX, rect.height * scaleY);
     final next = relative ? element.position + position : position;
-    return TextRenderer(element.copyWith(position: next), next & size);
+    return TextRenderer(element.copyWith(position: next), selection);
   }
 
   @override
   void dispose() {
-    // Add _tp.dispose() after flutter upgrade
+    _tp?.dispose();
   }
 
   InlineSpan? get span => _tp?.text;

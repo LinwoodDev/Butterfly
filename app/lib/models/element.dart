@@ -61,7 +61,6 @@ class PadElement with _$PadElement {
   const factory PadElement.text({
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
-    @Default('') String text,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
     required TextArea area,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,

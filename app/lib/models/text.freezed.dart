@@ -2492,8 +2492,9 @@ abstract class _TextStyleSheet extends TextStyleSheet {
 /// @nodoc
 mixin _$TextContext {
   LabelPainter get painter => throw _privateConstructorUsedError;
-  TextRenderer? get renderer => throw _privateConstructorUsedError;
+  TextElement get element => throw _privateConstructorUsedError;
   bool get isCreating => throw _privateConstructorUsedError;
+  TextSelection? get selection => throw _privateConstructorUsedError;
   ParagraphProperty? get forcedProperty => throw _privateConstructorUsedError;
   bool? get forceParagraph => throw _privateConstructorUsedError;
 
@@ -2510,8 +2511,9 @@ abstract class $TextContextCopyWith<$Res> {
   @useResult
   $Res call(
       {LabelPainter painter,
-      TextRenderer? renderer,
+      TextElement element,
       bool isCreating,
+      TextSelection? selection,
       ParagraphProperty? forcedProperty,
       bool? forceParagraph});
 
@@ -2532,8 +2534,9 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
   @override
   $Res call({
     Object? painter = freezed,
-    Object? renderer = freezed,
+    Object? element = freezed,
     Object? isCreating = null,
+    Object? selection = freezed,
     Object? forcedProperty = freezed,
     Object? forceParagraph = freezed,
   }) {
@@ -2542,14 +2545,18 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
           ? _value.painter
           : painter // ignore: cast_nullable_to_non_nullable
               as LabelPainter,
-      renderer: freezed == renderer
-          ? _value.renderer
-          : renderer // ignore: cast_nullable_to_non_nullable
-              as TextRenderer?,
+      element: freezed == element
+          ? _value.element
+          : element // ignore: cast_nullable_to_non_nullable
+              as TextElement,
       isCreating: null == isCreating
           ? _value.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
               as bool,
+      selection: freezed == selection
+          ? _value.selection
+          : selection // ignore: cast_nullable_to_non_nullable
+              as TextSelection?,
       forcedProperty: freezed == forcedProperty
           ? _value.forcedProperty
           : forcedProperty // ignore: cast_nullable_to_non_nullable
@@ -2584,8 +2591,9 @@ abstract class _$$_TextContextCopyWith<$Res>
   @useResult
   $Res call(
       {LabelPainter painter,
-      TextRenderer? renderer,
+      TextElement element,
       bool isCreating,
+      TextSelection? selection,
       ParagraphProperty? forcedProperty,
       bool? forceParagraph});
 
@@ -2605,8 +2613,9 @@ class __$$_TextContextCopyWithImpl<$Res>
   @override
   $Res call({
     Object? painter = freezed,
-    Object? renderer = freezed,
+    Object? element = freezed,
     Object? isCreating = null,
+    Object? selection = freezed,
     Object? forcedProperty = freezed,
     Object? forceParagraph = freezed,
   }) {
@@ -2615,14 +2624,18 @@ class __$$_TextContextCopyWithImpl<$Res>
           ? _value.painter
           : painter // ignore: cast_nullable_to_non_nullable
               as LabelPainter,
-      renderer: freezed == renderer
-          ? _value.renderer
-          : renderer // ignore: cast_nullable_to_non_nullable
-              as TextRenderer?,
+      element: freezed == element
+          ? _value.element
+          : element // ignore: cast_nullable_to_non_nullable
+              as TextElement,
       isCreating: null == isCreating
           ? _value.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
               as bool,
+      selection: freezed == selection
+          ? _value.selection
+          : selection // ignore: cast_nullable_to_non_nullable
+              as TextSelection?,
       forcedProperty: freezed == forcedProperty
           ? _value.forcedProperty
           : forcedProperty // ignore: cast_nullable_to_non_nullable
@@ -2640,8 +2653,9 @@ class __$$_TextContextCopyWithImpl<$Res>
 class _$_TextContext extends _TextContext {
   const _$_TextContext(
       {required this.painter,
-      this.renderer,
+      required this.element,
       this.isCreating = false,
+      this.selection,
       this.forcedProperty,
       this.forceParagraph})
       : super._();
@@ -2649,10 +2663,12 @@ class _$_TextContext extends _TextContext {
   @override
   final LabelPainter painter;
   @override
-  final TextRenderer? renderer;
+  final TextElement element;
   @override
   @JsonKey()
   final bool isCreating;
+  @override
+  final TextSelection? selection;
   @override
   final ParagraphProperty? forcedProperty;
   @override
@@ -2660,7 +2676,7 @@ class _$_TextContext extends _TextContext {
 
   @override
   String toString() {
-    return 'TextContext(painter: $painter, renderer: $renderer, isCreating: $isCreating, forcedProperty: $forcedProperty, forceParagraph: $forceParagraph)';
+    return 'TextContext(painter: $painter, element: $element, isCreating: $isCreating, selection: $selection, forcedProperty: $forcedProperty, forceParagraph: $forceParagraph)';
   }
 
   @override
@@ -2669,10 +2685,11 @@ class _$_TextContext extends _TextContext {
         (other.runtimeType == runtimeType &&
             other is _$_TextContext &&
             const DeepCollectionEquality().equals(other.painter, painter) &&
-            (identical(other.renderer, renderer) ||
-                other.renderer == renderer) &&
+            const DeepCollectionEquality().equals(other.element, element) &&
             (identical(other.isCreating, isCreating) ||
                 other.isCreating == isCreating) &&
+            (identical(other.selection, selection) ||
+                other.selection == selection) &&
             (identical(other.forcedProperty, forcedProperty) ||
                 other.forcedProperty == forcedProperty) &&
             (identical(other.forceParagraph, forceParagraph) ||
@@ -2683,8 +2700,9 @@ class _$_TextContext extends _TextContext {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(painter),
-      renderer,
+      const DeepCollectionEquality().hash(element),
       isCreating,
+      selection,
       forcedProperty,
       forceParagraph);
 
@@ -2698,8 +2716,9 @@ class _$_TextContext extends _TextContext {
 abstract class _TextContext extends TextContext {
   const factory _TextContext(
       {required final LabelPainter painter,
-      final TextRenderer? renderer,
+      required final TextElement element,
       final bool isCreating,
+      final TextSelection? selection,
       final ParagraphProperty? forcedProperty,
       final bool? forceParagraph}) = _$_TextContext;
   const _TextContext._() : super._();
@@ -2707,9 +2726,11 @@ abstract class _TextContext extends TextContext {
   @override
   LabelPainter get painter;
   @override
-  TextRenderer? get renderer;
+  TextElement get element;
   @override
   bool get isCreating;
+  @override
+  TextSelection? get selection;
   @override
   ParagraphProperty? get forcedProperty;
   @override

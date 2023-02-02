@@ -99,7 +99,6 @@ _$TextElement _$$TextElementFromJson(Map json) => _$TextElement(
       position: json['position'] == null
           ? Offset.zero
           : const OffsetJsonConverter().fromJson(json['position'] as Map),
-      text: json['text'] as String? ?? '',
       styleSheet: json['styleSheet'] == null
           ? const PackAssetLocation()
           : PackAssetLocation.fromJson(
@@ -116,7 +115,6 @@ Map<String, dynamic> _$$TextElementToJson(_$TextElement instance) =>
     <String, dynamic>{
       'layer': instance.layer,
       'position': const OffsetJsonConverter().toJson(instance.position),
-      'text': instance.text,
       'styleSheet': instance.styleSheet.toJson(),
       'area': instance.area.toJson(),
       'constraint': instance.constraint.toJson(),

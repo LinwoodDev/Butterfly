@@ -1,10 +1,10 @@
 import 'package:butterfly/models/pack.dart';
-import 'package:butterfly/renderers/renderer.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'colors.dart';
 import 'document.dart';
+import 'element.dart';
 import 'painter.dart';
 
 part 'text.freezed.dart';
@@ -174,25 +174,22 @@ class TextContext with _$TextContext {
   const TextContext._();
   const factory TextContext(
       {required LabelPainter painter,
-      TextRenderer? renderer,
+      required TextElement element,
       @Default(false) bool isCreating,
+      TextSelection? selection,
       ParagraphProperty? forcedProperty,
       bool? forceParagraph}) = _TextContext;
 
-  TextArea? get area => renderer?.element.area;
-  PackAssetLocation get styleSheet =>
-      renderer?.element.styleSheet ?? painter.styleSheet;
+  TextArea? get area => element.area;
+  PackAssetLocation get styleSheet => element.styleSheet;
 
-  int? length() => renderer?.span?.toPlainText().length ?? 0;
-
-  TextSelection? get selection => renderer?.selection;
+  int length() => 0;
 
   bool isParagraph() =>
       forceParagraph ??
-      ((selection?.start ?? 0) <= 0 &&
-          (selection?.end ?? 0) >= (length() ?? 0));
+      ((selection?.start ?? 0) <= 0 && (selection?.end ?? 0) >= length());
 
-  bool? get isEmpty => renderer?.element.text.isEmpty;
+  bool? get isEmpty => length() == 0;
 
   ParagraphProperty getProperty(AppDocument document) {
     return forcedProperty ??
