@@ -2492,7 +2492,7 @@ abstract class _TextStyleSheet extends TextStyleSheet {
 /// @nodoc
 mixin _$TextContext {
   LabelPainter get painter => throw _privateConstructorUsedError;
-  TextElement get element => throw _privateConstructorUsedError;
+  TextElement? get element => throw _privateConstructorUsedError;
   bool get isCreating => throw _privateConstructorUsedError;
   TextSelection? get selection => throw _privateConstructorUsedError;
   ParagraphProperty? get forcedProperty => throw _privateConstructorUsedError;
@@ -2511,7 +2511,7 @@ abstract class $TextContextCopyWith<$Res> {
   @useResult
   $Res call(
       {LabelPainter painter,
-      TextElement element,
+      TextElement? element,
       bool isCreating,
       TextSelection? selection,
       ParagraphProperty? forcedProperty,
@@ -2548,7 +2548,7 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
       element: freezed == element
           ? _value.element
           : element // ignore: cast_nullable_to_non_nullable
-              as TextElement,
+              as TextElement?,
       isCreating: null == isCreating
           ? _value.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
@@ -2591,7 +2591,7 @@ abstract class _$$_TextContextCopyWith<$Res>
   @useResult
   $Res call(
       {LabelPainter painter,
-      TextElement element,
+      TextElement? element,
       bool isCreating,
       TextSelection? selection,
       ParagraphProperty? forcedProperty,
@@ -2627,7 +2627,7 @@ class __$$_TextContextCopyWithImpl<$Res>
       element: freezed == element
           ? _value.element
           : element // ignore: cast_nullable_to_non_nullable
-              as TextElement,
+              as TextElement?,
       isCreating: null == isCreating
           ? _value.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
@@ -2653,7 +2653,7 @@ class __$$_TextContextCopyWithImpl<$Res>
 class _$_TextContext extends _TextContext {
   const _$_TextContext(
       {required this.painter,
-      required this.element,
+      this.element,
       this.isCreating = false,
       this.selection,
       this.forcedProperty,
@@ -2663,7 +2663,7 @@ class _$_TextContext extends _TextContext {
   @override
   final LabelPainter painter;
   @override
-  final TextElement element;
+  final TextElement? element;
   @override
   @JsonKey()
   final bool isCreating;
@@ -2716,7 +2716,7 @@ class _$_TextContext extends _TextContext {
 abstract class _TextContext extends TextContext {
   const factory _TextContext(
       {required final LabelPainter painter,
-      required final TextElement element,
+      final TextElement? element,
       final bool isCreating,
       final TextSelection? selection,
       final ParagraphProperty? forcedProperty,
@@ -2726,7 +2726,7 @@ abstract class _TextContext extends TextContext {
   @override
   LabelPainter get painter;
   @override
-  TextElement get element;
+  TextElement? get element;
   @override
   bool get isCreating;
   @override

@@ -29,7 +29,6 @@ import '../models/pack.dart';
 import '../models/path_point.dart';
 import '../models/property.dart';
 import '../models/text.dart' as text;
-import '../models/text.dart';
 import '../models/viewport.dart';
 import '../renderers/cursors/eraser.dart';
 import '../renderers/cursors/text.dart';

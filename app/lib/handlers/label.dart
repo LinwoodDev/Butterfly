@@ -3,19 +3,23 @@ part of 'handler.dart';
 class LabelHandler extends Handler<LabelPainter>
     with HandlerWithCursor, TextInputClient {
   text.TextContext? _context;
+  DocumentBloc? _bloc;
 
   bool get isCurrentlyEditing => _context?.area != null;
 
   LabelHandler(super.data);
 
-  text.TextContext _createContext() {
+  text.TextContext _createContext([Offset? position]) {
     return text.TextContext(
       painter: data,
-      element: const TextElement(
-        area: TextArea(
-          paragraph: TextParagraph.text(),
-        ),
-      ),
+      element: position == null
+          ? null
+          : TextElement(
+              position: position,
+              area: const text.TextArea(
+                paragraph: text.TextParagraph.text(),
+              ),
+            ),
     );
   }
 
@@ -25,8 +29,8 @@ class LabelHandler extends Handler<LabelPainter>
           [Area? currentArea]) =>
       [
         ...super.createForegrounds(currentIndexCubit, document, currentArea),
-        if (_context?.isCreating ?? false)
-          TextRenderer(_context!.element, _context!.selection)
+        if (_context?.element == null && (_context?.isCreating ?? false))
+          TextRenderer(_context!.element!, _context!.selection)
       ];
 
   TextInputConnection? _connection;
@@ -57,7 +61,12 @@ class LabelHandler extends Handler<LabelPainter>
           textAlign: TextAlign.left,
         );
     }
+    _bloc = context.getDocumentBloc();
     _connection!.show();
+
+    _context = _createContext(
+        context.getCameraTransform().localToGlobal(details.localPosition));
+    context.refresh();
   }
 
   Future<TextElement?> openDialog(
@@ -79,11 +88,11 @@ class LabelHandler extends Handler<LabelPainter>
 
   @override
   Widget? getToolbar(BuildContext context) {
-    final cubit = context.read<DocumentBloc>();
+    final bloc = context.read<DocumentBloc>();
     _context = _createContext();
     return LabelToolbarView(
       value: _context!,
-      onChanged: (value) => _change(cubit, value),
+      onChanged: (value) => _change(bloc, value),
     );
   }
 
@@ -92,18 +101,20 @@ class LabelHandler extends Handler<LabelPainter>
     return TextCursor(TextCursorData(data, position, _context));
   }
 
-  void _change(DocumentBloc bloc, TextContext value) {
+  void _change(DocumentBloc bloc, text.TextContext value) {
     final context = _context;
     _context = value.copyWith();
 
-    if (context == null) return;
+    if (context == null || context.element == null || value.element == null) {
+      return;
+    }
 
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     state.currentIndexCubit.refresh(state.document);
     if (!value.isCreating) {
       bloc.add(ElementsChanged({
-        context.element: [value.element]
+        context.element!: [value.element!]
       }));
     }
   }
@@ -119,7 +130,7 @@ class LabelHandler extends Handler<LabelPainter>
     final context = _context;
     if (context == null) return;
     final element = context.element;
-    if (context.isCreating) {
+    if (context.isCreating && element != null) {
       bloc.add(ElementsCreated([element]));
     }
   }
@@ -135,7 +146,10 @@ class LabelHandler extends Handler<LabelPainter>
 
   @override
   // TODO: implement currentTextEditingValue
-  TextEditingValue? get currentTextEditingValue => const TextEditingValue();
+  TextEditingValue? get currentTextEditingValue => TextEditingValue(
+        selection:
+            _context?.selection ?? const TextSelection.collapsed(offset: 0),
+      );
 
   @override
   void performAction(TextInputAction action) {
@@ -160,7 +174,20 @@ class LabelHandler extends Handler<LabelPainter>
 
   @override
   void updateEditingValue(TextEditingValue value) {
+    if (_context?.element == null) return;
+    _context = _context!.copyWith(
+      element: _context!.element!.copyWith(
+        area: _context!.element!.area.copyWith(
+          paragraph: _context!.element!.area.paragraph.copyWith(textSpans: [
+            text.TextSpan.text(
+              text: value.text,
+            ),
+          ]),
+        ),
+      ),
+    );
     if (kDebugMode) {
+      _bloc?.refresh();
       print('Editing value: $value');
     }
   }

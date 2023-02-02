@@ -174,14 +174,14 @@ class TextContext with _$TextContext {
   const TextContext._();
   const factory TextContext(
       {required LabelPainter painter,
-      required TextElement element,
+      TextElement? element,
       @Default(false) bool isCreating,
       TextSelection? selection,
       ParagraphProperty? forcedProperty,
       bool? forceParagraph}) = _TextContext;
 
-  TextArea? get area => element.area;
-  PackAssetLocation get styleSheet => element.styleSheet;
+  TextArea? get area => element?.area;
+  PackAssetLocation? get styleSheet => element?.styleSheet;
 
   int length() => 0;
 
@@ -199,7 +199,10 @@ class TextContext with _$TextContext {
 
   DefinedParagraphProperty? getDefinedProperty(AppDocument document) {
     final property = getProperty(document);
-    return document.getStyle(styleSheet)?.resolveParagraphProperty(property) ??
+    if (styleSheet == null) {
+      return null;
+    }
+    return document.getStyle(styleSheet!)?.resolveParagraphProperty(property) ??
         forcedProperty?.maybeMap(defined: (value) => value, orElse: () => null);
   }
 }
