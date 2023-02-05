@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'dart:ui' show Image;
+import 'dart:ui' as ui;
 
 import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/helpers/path_point.dart';
