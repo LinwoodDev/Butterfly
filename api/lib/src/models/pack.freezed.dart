@@ -184,7 +184,7 @@ class _$_ButterflyPack extends _ButterflyPack {
       this.description = '',
       this.author = '',
       final List<ButterflyComponent> components = const <ButterflyComponent>[],
-      final List<TextStyleSheet> styles = const <TextStyleSheet>[],
+      final List<TextStyleSheet> styles = const <text.TextStyleSheet>[],
       @DateTimeJsonConverter() required this.createdAt,
       @DateTimeJsonConverter() required this.updatedAt})
       : _components = components,

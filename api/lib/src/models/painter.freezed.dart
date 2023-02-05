@@ -103,6 +103,8 @@ abstract class _$$TextOptionCopyWith<$Res> {
       __$$TextOptionCopyWithImpl<$Res>;
   @useResult
   $Res call({AreaProperty property});
+
+  $AreaPropertyCopyWith<$Res> get property;
 }
 
 /// @nodoc
@@ -116,14 +118,22 @@ class __$$TextOptionCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? property = freezed,
+    Object? property = null,
   }) {
     return _then(_$TextOption(
-      property: freezed == property
+      property: null == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
               as AreaProperty,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AreaPropertyCopyWith<$Res> get property {
+    return $AreaPropertyCopyWith<$Res>(_value.property, (value) {
+      return _then(_value.copyWith(property: value));
+    });
   }
 }
 
@@ -154,13 +164,13 @@ class _$TextOption implements TextOption {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TextOption &&
-            const DeepCollectionEquality().equals(other.property, property));
+            (identical(other.property, property) ||
+                other.property == property));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(property));
+  int get hashCode => Object.hash(runtimeType, property);
 
   @JsonKey(ignore: true)
   @override
@@ -1929,6 +1939,8 @@ abstract class _$$LabelPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
   @override
   @useResult
   $Res call({String name, PackAssetLocation styleSheet});
+
+  $PackAssetLocationCopyWith<$Res> get styleSheet;
 }
 
 /// @nodoc
@@ -1943,18 +1955,26 @@ class __$$LabelPainterCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? styleSheet = freezed,
+    Object? styleSheet = null,
   }) {
     return _then(_$LabelPainter(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      styleSheet: freezed == styleSheet
+      styleSheet: null == styleSheet
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
               as PackAssetLocation,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PackAssetLocationCopyWith<$Res> get styleSheet {
+    return $PackAssetLocationCopyWith<$Res>(_value.styleSheet, (value) {
+      return _then(_value.copyWith(styleSheet: value));
+    });
   }
 }
 
@@ -4587,6 +4607,8 @@ abstract class _$$StampPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
   @override
   @useResult
   $Res call({String name, PackAssetLocation component});
+
+  $PackAssetLocationCopyWith<$Res> get component;
 }
 
 /// @nodoc
@@ -4601,18 +4623,26 @@ class __$$StampPainterCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? component = freezed,
+    Object? component = null,
   }) {
     return _then(_$StampPainter(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      component: freezed == component
+      component: null == component
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
               as PackAssetLocation,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PackAssetLocationCopyWith<$Res> get component {
+    return $PackAssetLocationCopyWith<$Res>(_value.component, (value) {
+      return _then(_value.copyWith(component: value));
+    });
   }
 }
 

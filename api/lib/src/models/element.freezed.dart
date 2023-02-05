@@ -872,7 +872,7 @@ mixin _$PadElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)
         text,
     required TResult Function(
@@ -908,7 +908,7 @@ mixin _$PadElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)?
         text,
     TResult? Function(
@@ -944,7 +944,7 @@ mixin _$PadElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)?
         text,
     TResult Function(
@@ -1148,7 +1148,7 @@ class _$PenElement implements PenElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)
         text,
     required TResult Function(
@@ -1187,7 +1187,7 @@ class _$PenElement implements PenElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)?
         text,
     TResult? Function(
@@ -1226,7 +1226,7 @@ class _$PenElement implements PenElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)?
         text,
     TResult Function(
@@ -1340,9 +1340,11 @@ abstract class _$$TextElementCopyWith<$Res>
       {String layer,
       @OffsetJsonConverter() Offset position,
       PackAssetLocation styleSheet,
-      TextArea area,
+      text.TextArea area,
       ElementConstraint constraint});
 
+  $PackAssetLocationCopyWith<$Res> get styleSheet;
+  $TextAreaCopyWith<$Res> get area;
   $ElementConstraintCopyWith<$Res> get constraint;
 }
 
@@ -1359,8 +1361,8 @@ class __$$TextElementCopyWithImpl<$Res>
   $Res call({
     Object? layer = null,
     Object? position = null,
-    Object? styleSheet = freezed,
-    Object? area = freezed,
+    Object? styleSheet = null,
+    Object? area = null,
     Object? constraint = null,
   }) {
     return _then(_$TextElement(
@@ -1372,19 +1374,35 @@ class __$$TextElementCopyWithImpl<$Res>
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as Offset,
-      styleSheet: freezed == styleSheet
+      styleSheet: null == styleSheet
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
               as PackAssetLocation,
-      area: freezed == area
+      area: null == area
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
-              as TextArea,
+              as text.TextArea,
       constraint: null == constraint
           ? _value.constraint
           : constraint // ignore: cast_nullable_to_non_nullable
               as ElementConstraint,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PackAssetLocationCopyWith<$Res> get styleSheet {
+    return $PackAssetLocationCopyWith<$Res>(_value.styleSheet, (value) {
+      return _then(_value.copyWith(styleSheet: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TextAreaCopyWith<$Res> get area {
+    return $TextAreaCopyWith<$Res>(_value.area, (value) {
+      return _then(_value.copyWith(area: value));
+    });
   }
 
   @override
@@ -1422,7 +1440,7 @@ class _$TextElement implements TextElement {
   @JsonKey()
   final PackAssetLocation styleSheet;
   @override
-  final TextArea area;
+  final text.TextArea area;
   @override
   @JsonKey()
   final ElementConstraint constraint;
@@ -1451,7 +1469,7 @@ class _$TextElement implements TextElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)
         text,
     required TResult Function(
@@ -1490,7 +1508,7 @@ class _$TextElement implements TextElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)?
         text,
     TResult? Function(
@@ -1529,7 +1547,7 @@ class _$TextElement implements TextElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)?
         text,
     TResult Function(
@@ -1615,7 +1633,7 @@ abstract class TextElement implements PadElement {
       {final String layer,
       @OffsetJsonConverter() final Offset position,
       final PackAssetLocation styleSheet,
-      required final TextArea area,
+      required final text.TextArea area,
       final ElementConstraint constraint}) = _$TextElement;
 
   factory TextElement.fromJson(Map<String, dynamic> json) =
@@ -1626,7 +1644,7 @@ abstract class TextElement implements PadElement {
   @OffsetJsonConverter()
   Offset get position;
   PackAssetLocation get styleSheet;
-  TextArea get area;
+  text.TextArea get area;
   ElementConstraint get constraint;
   @override
   @JsonKey(ignore: true)
@@ -1770,7 +1788,7 @@ class _$ImageElement implements ImageElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)
         text,
     required TResult Function(
@@ -1809,7 +1827,7 @@ class _$ImageElement implements ImageElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)?
         text,
     TResult? Function(
@@ -1848,7 +1866,7 @@ class _$ImageElement implements ImageElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)?
         text,
     TResult Function(
@@ -2091,7 +2109,7 @@ class _$SvgElement implements SvgElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)
         text,
     required TResult Function(
@@ -2130,7 +2148,7 @@ class _$SvgElement implements SvgElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)?
         text,
     TResult? Function(
@@ -2169,7 +2187,7 @@ class _$SvgElement implements SvgElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)?
         text,
     TResult Function(
@@ -2381,7 +2399,7 @@ class _$ShapeElement implements ShapeElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)
         text,
     required TResult Function(
@@ -2420,7 +2438,7 @@ class _$ShapeElement implements ShapeElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)?
         text,
     TResult? Function(
@@ -2459,7 +2477,7 @@ class _$ShapeElement implements ShapeElement {
             String layer,
             @OffsetJsonConverter() Offset position,
             PackAssetLocation styleSheet,
-            TextArea area,
+            text.TextArea area,
             ElementConstraint constraint)?
         text,
     TResult Function(
