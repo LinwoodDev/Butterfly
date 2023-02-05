@@ -21,7 +21,7 @@
   "name": "Nombre",
   "strokeWidth": "Ancho del trazo",
   "includeEraser": "¿Incluye borrador?",
-  "strokeMultiplier": "Multiplicador de trazo",
+  "thinning": "Multiplicador de trazo",
   "pen": "Pen",
   "eraser": "Eraser",
   "pathEraser": "Borrador de ruta",

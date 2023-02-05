@@ -1,4 +1,4 @@
-import 'package:butterfly/models/text.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -6,8 +6,8 @@ import '../../../widgets/color_field.dart';
 import '../../../widgets/exact_slider.dart';
 
 class TextStyleView extends StatefulWidget {
-  final DefinedSpanProperty value;
-  final ValueChanged<DefinedSpanProperty> onChanged;
+  final text.DefinedSpanProperty value;
+  final ValueChanged<text.DefinedSpanProperty> onChanged;
   const TextStyleView({
     super.key,
     required this.value,
@@ -56,14 +56,14 @@ class _TextStyleViewState extends State<TextStyleView> {
             trailing: DropdownButton<FontWeight>(
                 value: FontWeight.values[widget.value.fontWeight],
                 items: List.generate(FontWeight.values.length, (index) {
-                  var text = ((index + 1) * 100).toString();
-                  if (index == kFontWeightNormal) {
-                    text = AppLocalizations.of(context).normal;
-                  } else if (index == kFontWeightBold) {
-                    text = AppLocalizations.of(context).bold;
+                  var current = ((index + 1) * 100).toString();
+                  if (index == text.kFontWeightNormal) {
+                    current = AppLocalizations.of(context).normal;
+                  } else if (index == text.kFontWeightBold) {
+                    current = AppLocalizations.of(context).bold;
                   }
                   return DropdownMenuItem(
-                      value: FontWeight.values[index], child: Text(text));
+                      value: FontWeight.values[index], child: Text(current));
                 }),
                 onChanged: (weight) => widget.onChanged(widget.value.copyWith(
                     fontWeight: weight?.index ?? widget.value.fontWeight)))),

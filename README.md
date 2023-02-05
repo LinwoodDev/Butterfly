@@ -60,3 +60,4 @@ To get started, visit [the contributing guide](CONTRIBUTING.md).
 
 The code is open source and licensed under the [AGPL-3.0](./LICENSE) license.
 All images in `app/images/` except `powered-by-vercel.svg` and all images in `docs/` are licensed under the [CC-BY-4.0](./BRANDING_LICENSE) license.
+The files in `api` are licensed under the [Apache-2.0](./api/LICENSE) license instead of the AGPL-3.0 license to allow the use of the API without the need to open source the code (for example for extensions or other external services).

@@ -126,7 +126,7 @@ class LaserHandler extends Handler {
           layer: state.currentLayer,
           property: PenProperty(
               strokeWidth: data.strokeWidth,
-              strokeMultiplier: data.strokeMultiplier,
+              thinning: data.thinning,
               color: data.color),
         );
 

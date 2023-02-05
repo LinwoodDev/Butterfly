@@ -15,8 +15,7 @@ class PenRenderer extends PathRenderer<PenElement> {
     // Paint multiple paths
     var last = points.first;
     for (var element in points) {
-      final width =
-          property.strokeWidth + element.pressure * property.strokeMultiplier;
+      final width = property.strokeWidth + element.pressure * property.thinning;
       xml.getElement('svg')?.createElement('path', attributes: {
         'd': 'M${element.x} ${element.y} '
             'L${last.x} ${last.y} ',

@@ -1,10 +1,10 @@
-import 'package:butterfly/dialogs/packs/general.dart';
-import 'package:butterfly/models/pack.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'components.dart';
+import 'general.dart';
 import 'styles/view.dart';
 
 class PackDialog extends StatefulWidget {

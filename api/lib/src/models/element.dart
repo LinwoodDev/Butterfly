@@ -1,13 +1,11 @@
 import 'dart:typed_data';
 
-import 'package:butterfly/models/converter.dart';
-import 'package:butterfly/models/pack.dart';
-import 'package:butterfly/models/text.dart';
+import 'package:butterfly_api/butterfly_api.dart';
+
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'path_point.dart';
-import 'property.dart';
+import 'text.dart' as text;
 
 part 'element.freezed.dart';
 part 'element.g.dart';
@@ -62,7 +60,7 @@ class PadElement with _$PadElement {
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
-    required TextArea area,
+    required text.TextArea area,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
   }) = TextElement;
 

@@ -1,8 +1,9 @@
-import 'package:butterfly/models/converter.dart';
-import 'package:butterfly/models/element.dart';
-import 'package:butterfly/models/text.dart';
 import 'package:collection/collection.dart';
+
+import 'converter.dart';
+import 'element.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'text.dart' as text;
 
 import 'document.dart';
 
@@ -18,7 +19,7 @@ class ButterflyPack with _$ButterflyPack {
     @Default('') String description,
     @Default('') String author,
     @Default(<ButterflyComponent>[]) List<ButterflyComponent> components,
-    @Default(<TextStyleSheet>[]) List<TextStyleSheet> styles,
+    @Default(<text.TextStyleSheet>[]) List<text.TextStyleSheet> styles,
     @DateTimeJsonConverter() required DateTime createdAt,
     @DateTimeJsonConverter() required DateTime updatedAt,
   }) = _ButterflyPack;
@@ -30,7 +31,7 @@ class ButterflyPack with _$ButterflyPack {
     return components.firstWhereOrNull((e) => e.name == name);
   }
 
-  TextStyleSheet? getStyle(String name) {
+  text.TextStyleSheet? getStyle(String name) {
     return styles.firstWhereOrNull((e) => e.name == name);
   }
 }
@@ -98,7 +99,7 @@ extension PackDocumentException on AppDocument {
     return getPack(location.pack)?.getComponent(location.name);
   }
 
-  TextStyleSheet? getStyle(PackAssetLocation location) {
+  text.TextStyleSheet? getStyle(PackAssetLocation location) {
     return getPack(location.pack)?.getStyle(location.name);
   }
 }

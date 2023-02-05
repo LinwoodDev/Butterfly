@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:butterfly/models/document.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/painter.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../api/open.dart';
 import '../bloc/document_bloc.dart';
-import '../models/painter.dart';
 import '../widgets/box_tile.dart';
 import 'camera.dart';
 
@@ -31,7 +31,16 @@ class AddDialog extends StatelessWidget {
     }
 
     return AlertDialog(
-      title: Text(AppLocalizations.of(context).add),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(AppLocalizations.of(context).add),
+          IconButton(
+            onPressed: () => openHelp(['painters']),
+            icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+          ),
+        ],
+      ),
       scrollable: true,
       actions: [
         TextButton(
@@ -40,7 +49,7 @@ class AddDialog extends StatelessWidget {
         ),
       ],
       content: SizedBox(
-        width: 600,
+        width: 800,
         child: Material(
           color: Colors.transparent,
           child: Column(

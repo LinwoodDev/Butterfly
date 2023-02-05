@@ -1,15 +1,9 @@
 import 'dart:math';
 
-import 'package:butterfly/models/colors.dart';
-import 'package:butterfly/models/pack.dart';
-import 'package:butterfly/models/text.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/butterfly_text.dart';
 
-import 'area.dart';
-import 'element.dart';
-import 'property.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'painter.g.dart';
 part 'painter.freezed.dart';
@@ -33,17 +27,6 @@ extension RatioPresetExtension on AspectRatioPreset {
         return _kAPortraitRatio;
       case AspectRatioPreset.landscape:
         return _kLandscapeRatio;
-    }
-  }
-
-  String getLocalizedName(BuildContext context) {
-    switch (this) {
-      case AspectRatioPreset.square:
-        return AppLocalizations.of(context).square;
-      case AspectRatioPreset.portrait:
-        return AppLocalizations.of(context).pagePortrait;
-      case AspectRatioPreset.landscape:
-        return AppLocalizations.of(context).pageLandscape;
     }
   }
 }
@@ -127,7 +110,7 @@ class Painter with _$Painter {
     @Default('') String name,
     @Default(5) double duration,
     @Default(5) double strokeWidth,
-    @Default(10) double strokeMultiplier,
+    @Default(0.4) double thinning,
     @Default(kColorRed) int color,
   }) = LaserPainter;
 

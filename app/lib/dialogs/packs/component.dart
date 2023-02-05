@@ -1,14 +1,13 @@
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/dialogs/packs/pack.dart';
-import 'package:butterfly/models/pack.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../cubits/settings.dart';
-import '../../models/element.dart';
+import 'pack.dart';
 
 class PackComponentDialog extends StatefulWidget {
   final MapEntry<bool, ButterflyPack>? pack;

@@ -1,14 +1,14 @@
 import 'package:butterfly/dialogs/packs/styles/general.dart';
 import 'package:butterfly/dialogs/packs/styles/paragraphs.dart';
 import 'package:butterfly/dialogs/packs/styles/texts.dart';
-import 'package:butterfly/models/text.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class StyleDialog extends StatefulWidget {
-  final TextStyleSheet value;
-  final ValueChanged<TextStyleSheet> onChanged;
+  final text.TextStyleSheet value;
+  final ValueChanged<text.TextStyleSheet> onChanged;
 
   const StyleDialog({
     super.key,
@@ -21,7 +21,7 @@ class StyleDialog extends StatefulWidget {
 }
 
 class _StyleDialogState extends State<StyleDialog> {
-  late TextStyleSheet _style;
+  late text.TextStyleSheet _style;
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _StyleDialogState extends State<StyleDialog> {
     }
   }
 
-  void _onChanged(TextStyleSheet style) => setState(() => _style = style);
+  void _onChanged(text.TextStyleSheet style) => setState(() => _style = style);
 
   @override
   Widget build(BuildContext context) {

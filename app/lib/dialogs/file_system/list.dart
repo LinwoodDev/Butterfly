@@ -2,8 +2,8 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/dialogs/file_system/dialog.dart';
 import 'package:butterfly/dialogs/file_system/menu.dart';
 import 'package:butterfly/dialogs/file_system/rich_text.dart';
-import 'package:butterfly/models/document.dart';
 import 'package:butterfly/visualizer/asset.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 

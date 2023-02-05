@@ -1,5 +1,5 @@
 import 'package:butterfly/dialogs/packs/styles/text.dart';
-import 'package:butterfly/models/text.dart';
+import 'package:butterfly_api/butterfly_text.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 

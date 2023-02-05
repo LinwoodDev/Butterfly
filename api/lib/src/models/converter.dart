@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/template.dart';
+import 'document.dart';
+import 'template.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../main.dart';
 import 'pack.dart';
 import 'palette.dart';
 

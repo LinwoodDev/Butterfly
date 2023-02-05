@@ -1,4 +1,4 @@
-import 'package:butterfly/models/waypoint.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +40,8 @@ class CameraTransform extends Equatable {
 
   @override
   List<Object?> get props => [position, size];
+
+  bool inViewport(Offset position) => rect.contains(position);
 }
 
 class TransformCubit extends Cubit<CameraTransform> {
@@ -60,6 +62,6 @@ class TransformCubit extends Cubit<CameraTransform> {
       emit(state.withSize(size, cursor));
 
   void moveToWaypoint(Waypoint waypoint) => emit(state
-      .withPosition(waypoint.position)
+      .withPosition(-waypoint.position)
       .withSize(waypoint.scale ?? state.size));
 }

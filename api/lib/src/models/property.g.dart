@@ -8,7 +8,7 @@ part of 'property.dart';
 
 _$PenProperty _$$PenPropertyFromJson(Map json) => _$PenProperty(
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
-      strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 0.5,
+      thinning: (json['thinning'] as num?)?.toDouble() ?? 0.4,
       color: json['color'] as int? ?? kColorBlack,
       fill: json['fill'] as bool? ?? false,
       smoothing: (json['smoothing'] as num?)?.toDouble() ?? 0.5,
@@ -19,7 +19,7 @@ _$PenProperty _$$PenPropertyFromJson(Map json) => _$PenProperty(
 Map<String, dynamic> _$$PenPropertyToJson(_$PenProperty instance) =>
     <String, dynamic>{
       'strokeWidth': instance.strokeWidth,
-      'strokeMultiplier': instance.strokeMultiplier,
+      'thinning': instance.thinning,
       'color': instance.color,
       'fill': instance.fill,
       'smoothing': instance.smoothing,

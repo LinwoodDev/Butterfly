@@ -1,8 +1,7 @@
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/template.dart';
 import 'package:butterfly/widgets/header.dart';
 import 'package:butterfly/widgets/remote_button.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -4,6 +4,7 @@ import 'package:args/args.dart';
 import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/settings/behaviors/mouse.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,8 +18,6 @@ import 'api/file_system.dart';
 import 'api/full_screen.dart';
 import 'cubits/settings.dart';
 import 'embed/embedding.dart';
-import 'models/converter.dart';
-import 'models/document.dart';
 import 'settings/behaviors/home.dart';
 import 'settings/behaviors/keyboard.dart';
 import 'settings/behaviors/pen.dart';
@@ -35,8 +34,6 @@ import 'views/error.dart';
 import 'views/main.dart';
 import 'views/window.dart';
 
-const kFileVersion = 7;
-const kBreakingChangesVersion = 7;
 const kMobileWidth = 600.0;
 
 Future<void> main([List<String> args = const []]) async {

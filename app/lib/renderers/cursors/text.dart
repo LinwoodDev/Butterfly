@@ -1,11 +1,10 @@
-import 'package:butterfly/models/document.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/models/text.dart' as text;
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../models/cursor.dart';
-import '../../models/painter.dart';
 import '../renderer.dart';
 
 @immutable

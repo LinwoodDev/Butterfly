@@ -3,13 +3,8 @@ import 'dart:async';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
-import 'package:butterfly/models/background.dart';
-import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/pack.dart';
-import 'package:butterfly/models/painter.dart';
-import 'package:butterfly/models/palette.dart';
-import 'package:butterfly/models/tool.dart';
-import 'package:butterfly/models/waypoint.dart';
+import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +12,6 @@ import 'package:replay_bloc/replay_bloc.dart';
 
 import '../cubits/settings.dart';
 import '../embed/embedding.dart';
-import '../models/area.dart';
-import '../models/element.dart';
-import '../models/export.dart';
 import '../models/viewport.dart';
 import '../renderers/renderer.dart';
 
@@ -329,11 +321,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(
-            emit,
-            current.copyWith(
-                document: current.document.copyWith(
-                    waypoints: List<Waypoint>.from(current.document.waypoints)
-                      ..add(event.waypoint))));
+                emit,
+                current.copyWith(
+                    document: current.document.copyWith(
+                        waypoints:
+                            List<Waypoint>.from(current.document.waypoints)
+                              ..add(event.waypoint))))
+            .then((value) {
+          final handler = current.currentIndexCubit.getHandler();
+          if (handler is WaypointHandler) refresh();
+        });
       }
     });
     on<WaypointRemoved>((event, emit) async {
@@ -341,11 +338,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
         return _saveDocument(
-            emit,
-            current.copyWith(
-                document: current.document.copyWith(
-                    waypoints: List<Waypoint>.from(current.document.waypoints)
-                      ..removeAt(event.index))));
+                emit,
+                current.copyWith(
+                    document: current.document.copyWith(
+                        waypoints:
+                            List<Waypoint>.from(current.document.waypoints)
+                              ..removeAt(event.index))))
+            .then((value) {
+          final handler = current.currentIndexCubit.getHandler();
+          if (handler is WaypointHandler) refresh();
+        });
       }
     });
 

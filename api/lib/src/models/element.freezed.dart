@@ -1343,8 +1343,6 @@ abstract class _$$TextElementCopyWith<$Res>
       TextArea area,
       ElementConstraint constraint});
 
-  $PackAssetLocationCopyWith<$Res> get styleSheet;
-  $TextAreaCopyWith<$Res> get area;
   $ElementConstraintCopyWith<$Res> get constraint;
 }
 
@@ -1361,8 +1359,8 @@ class __$$TextElementCopyWithImpl<$Res>
   $Res call({
     Object? layer = null,
     Object? position = null,
-    Object? styleSheet = null,
-    Object? area = null,
+    Object? styleSheet = freezed,
+    Object? area = freezed,
     Object? constraint = null,
   }) {
     return _then(_$TextElement(
@@ -1374,11 +1372,11 @@ class __$$TextElementCopyWithImpl<$Res>
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as Offset,
-      styleSheet: null == styleSheet
+      styleSheet: freezed == styleSheet
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
               as PackAssetLocation,
-      area: null == area
+      area: freezed == area
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
               as TextArea,
@@ -1387,22 +1385,6 @@ class __$$TextElementCopyWithImpl<$Res>
           : constraint // ignore: cast_nullable_to_non_nullable
               as ElementConstraint,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $PackAssetLocationCopyWith<$Res> get styleSheet {
-    return $PackAssetLocationCopyWith<$Res>(_value.styleSheet, (value) {
-      return _then(_value.copyWith(styleSheet: value));
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $TextAreaCopyWith<$Res> get area {
-    return $TextAreaCopyWith<$Res>(_value.area, (value) {
-      return _then(_value.copyWith(area: value));
-    });
   }
 
   @override

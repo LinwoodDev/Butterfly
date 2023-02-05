@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:butterfly/models/area.dart';
-import 'package:butterfly/models/background.dart';
-import 'package:butterfly/models/converter.dart';
-import 'package:butterfly/models/export.dart';
 import 'package:collection/collection.dart';
+
+import 'area.dart';
+import 'background.dart';
+import 'converter.dart';
+import 'export.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -18,6 +19,9 @@ import 'waypoint.dart';
 
 part 'document.freezed.dart';
 part 'document.g.dart';
+
+const kFileVersion = 7;
+const kBreakingChangesVersion = 7;
 
 enum AssetFileType { note, image, pdf, svg }
 

@@ -203,7 +203,7 @@ _$LaserPainter _$$LaserPainterFromJson(Map json) => _$LaserPainter(
       name: json['name'] as String? ?? '',
       duration: (json['duration'] as num?)?.toDouble() ?? 5,
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
-      strokeMultiplier: (json['strokeMultiplier'] as num?)?.toDouble() ?? 10,
+      thinning: (json['thinning'] as num?)?.toDouble() ?? 0.3,
       color: json['color'] as int? ?? kColorRed,
       $type: json['type'] as String?,
     );
@@ -213,7 +213,7 @@ Map<String, dynamic> _$$LaserPainterToJson(_$LaserPainter instance) =>
       'name': instance.name,
       'duration': instance.duration,
       'strokeWidth': instance.strokeWidth,
-      'strokeMultiplier': instance.strokeMultiplier,
+      'thinning': instance.thinning,
       'color': instance.color,
       'type': instance.$type,
     };

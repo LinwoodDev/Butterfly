@@ -1,4 +1,4 @@
-import 'package:butterfly/models/text.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -6,8 +6,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'text.dart';
 
 class TextsStyleView extends StatelessWidget {
-  final TextStyleSheet value;
-  final ValueChanged<TextStyleSheet> onChanged;
+  final text.TextStyleSheet value;
+  final ValueChanged<text.TextStyleSheet> onChanged;
 
   const TextsStyleView({
     super.key,
@@ -100,7 +100,7 @@ class TextsStyleView extends StatelessWidget {
                           onChanged(value.copyWith(
                             spanProperties: {
                               ...value.spanProperties,
-                              name: const DefinedSpanProperty(),
+                              name: const text.DefinedSpanProperty(),
                             },
                           ));
                         },
@@ -164,7 +164,7 @@ class TextsStyleView extends StatelessWidget {
                             currentStyle = name;
                             onChanged(value.copyWith(
                               spanProperties:
-                                  Map<String, DefinedSpanProperty>.from(
+                                  Map<String, text.DefinedSpanProperty>.from(
                                       value.spanProperties)
                                     ..remove(lastStyle)
                                     ..[name] = value.spanProperties[lastStyle]!,
@@ -206,7 +206,7 @@ class TextsStyleView extends StatelessWidget {
                             currentStyle = null;
                             onChanged(value.copyWith(
                               spanProperties:
-                                  Map<String, DefinedSpanProperty>.from(
+                                  Map<String, text.DefinedSpanProperty>.from(
                                       value.spanProperties)
                                     ..remove(lastStyle),
                             ));

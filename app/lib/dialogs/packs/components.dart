@@ -1,6 +1,5 @@
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
-
-import '../../models/pack.dart';
 
 class ComponentsPackView extends StatelessWidget {
   final ButterflyPack value;

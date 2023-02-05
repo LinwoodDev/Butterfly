@@ -1,10 +1,9 @@
 import 'package:butterfly/dialogs/packs/styles/style.dart';
+import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../../../models/pack.dart';
-import '../../../models/text.dart';
 
 class StylesPackView extends StatelessWidget {
   final ButterflyPack value;
@@ -35,7 +34,7 @@ class StylesPackView extends StatelessWidget {
                         key: ValueKey(e.key),
                         onDismissed: (direction) {
                           onChanged(value.copyWith(
-                            styles: List<TextStyleSheet>.from(value.styles)
+                            styles: List<text.TextStyleSheet>.from(value.styles)
                               ..remove(e.value),
                           ));
                         },
@@ -54,8 +53,9 @@ class StylesPackView extends StatelessWidget {
                             );
                             if (result != true) return;
                             onChanged(value.copyWith(
-                              styles: List<TextStyleSheet>.from(value.styles)
-                                ..[e.key] = styleSheet,
+                              styles:
+                                  List<text.TextStyleSheet>.from(value.styles)
+                                    ..[e.key] = styleSheet,
                             ));
                           },
                         ),
@@ -69,7 +69,7 @@ class StylesPackView extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: FloatingActionButton.extended(
               onPressed: () async {
-                var styleSheet = const TextStyleSheet();
+                var styleSheet = const text.TextStyleSheet();
                 final result = await showDialog<bool>(
                   context: context,
                   builder: (context) => StyleDialog(
@@ -81,7 +81,7 @@ class StylesPackView extends StatelessWidget {
                 );
                 if (result != true) return;
                 onChanged(value.copyWith(
-                  styles: List<TextStyleSheet>.from(value.styles)
+                  styles: List<text.TextStyleSheet>.from(value.styles)
                     ..add(styleSheet),
                 ));
               },

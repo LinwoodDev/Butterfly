@@ -19,14 +19,14 @@ class LaserPainterSelection extends PainterSelection<LaserPainter> {
         ),
       ),
       ExactSlider(
-        header: Text(AppLocalizations.of(context).strokeMultiplier),
-        value: selected.first.strokeMultiplier,
+        header: Text(AppLocalizations.of(context).thinning),
+        value: selected.first.thinning,
         min: 0,
         max: 1,
-        defaultValue: .5,
+        defaultValue: .4,
         onChangeEnd: (value) => update(
           context,
-          selected.map((e) => e.copyWith(strokeMultiplier: value)).toList(),
+          selected.map((e) => e.copyWith(thinning: value)).toList(),
         ),
       ),
       ColorField(

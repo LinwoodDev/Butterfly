@@ -1,4 +1,4 @@
-import 'package:butterfly/models/painter.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 

@@ -1,4 +1,4 @@
-import 'package:butterfly/models/document.dart';
+import '../models/document.dart';
 import 'package:collection/collection.dart';
 
 extension AssetFileTypeHelper on AssetFileType {

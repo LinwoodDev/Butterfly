@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/export.dart';
-import 'package:butterfly/models/converter.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

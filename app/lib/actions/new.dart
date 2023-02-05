@@ -3,9 +3,8 @@ import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/palette.dart';
-import 'package:butterfly/models/template.dart';
+import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,7 +35,7 @@ class NewAction extends Action<NewIntent> {
             context.read<SettingsCubit>().state.locale),
         createdAt: DateTime.now(),
         painters: createDefaultPainters(),
-        palettes: ColorPalette.getMaterialPalette(context));
+        palettes: DocumentDefaults.getMaterialPalette(context));
     final prefs = await SharedPreferences.getInstance();
     final remote = settings.getDefaultRemote();
     if (intent.fromTemplate && context.mounted) {

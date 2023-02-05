@@ -1,10 +1,10 @@
-import 'package:butterfly/models/pack.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'colors.dart';
 import 'document.dart';
 import 'element.dart';
+import 'pack.dart';
 import 'painter.dart';
 
 part 'text.freezed.dart';
