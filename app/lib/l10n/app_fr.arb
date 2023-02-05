@@ -21,7 +21,7 @@
   "name": "Nom",
   "strokeWidth": "Largeur du trait",
   "includeEraser": "Inclure la gomme ?",
-  "thinning": "Multiplicateur de traits",
+  "thinning": "Ralentissement",
   "pen": "Stylo",
   "eraser": "Eraser",
   "pathEraser": "Effacer le chemin d'accès",
@@ -448,5 +448,7 @@
         "example": "2"
       }
     }
-  }
+  },
+  "smoothing": "Lissage",
+  "streamline": "Streamline"
 }
