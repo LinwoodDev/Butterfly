@@ -1,4 +1,4 @@
-import 'package:butterfly/models/colors.dart';
+import 'colors.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import.dart';
-import 'package:butterfly/main.dart';
-import 'package:butterfly/models/palette.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/visualizer/int.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -501,7 +501,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                       onPressed: () {
                         selected = 0;
                         context.read<DocumentBloc>().add(DocumentPaletteChanged(
-                            ColorPalette.getMaterialPalette(context)));
+                            DocumentDefaults.getMaterialPalette(context)));
                         Navigator.of(ctx).pop();
                       },
                       child: Text(AppLocalizations.of(context).yes))

@@ -51,6 +51,14 @@ Future<void> main(List<String> args) async {
   print(
       'Updating the version in the pubspec.yaml from $lastVersion to $newVersion');
 
+  // Update api
+  final apiPubspec = File('api/pubspec.yaml');
+  final apiContent = await apiPubspec.readAsString();
+  apiContent.replaceAll(exp, 'version: $newVersion');
+  await apiPubspec.writeAsString(apiContent);
+  print(
+      'Updating the version in the api pubspec.yaml from $lastVersion to $newVersion');
+
   await updateAppImageVersion(version);
   await updateDebianVersion(version);
   if (results['changelog']) {

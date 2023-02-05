@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 
-import '../models/converter.dart';
 import 'action.dart';
 
 class EmbedHandler {

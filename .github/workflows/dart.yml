@@ -5,12 +5,18 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        projects: [app, api, tools]
+    defaults:
+      run:
+        working-directory: ${{ matrix.projects }}
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v3
       - name: Get flutter version
         run: |
-          FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
+          FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
@@ -23,7 +29,6 @@ jobs:
           flutter --version
       - name: Install dependencies
         run: |
-          cd app
           flutter pub get
       # Uncomment this step to verify the use of 'dart format' on each commit.
       - name: Verify formatting
@@ -32,7 +37,6 @@ jobs:
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
         run: |
-          cd app
           flutter analyze --fatal-infos
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will

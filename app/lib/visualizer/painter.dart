@@ -1,11 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:butterfly/visualizer/property.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../models/painter.dart';
 
 extension PainterVisualizer on Painter {
   String getLocalizedName(BuildContext context) {

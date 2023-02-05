@@ -3430,7 +3430,7 @@ class _$LaserPainter implements LaserPainter {
       {this.name = '',
       this.duration = 5,
       this.strokeWidth = 5,
-      this.thinning = 0.3,
+      this.thinning = 0.4,
       this.color = kColorRed,
       final String? $type})
       : $type = $type ?? 'laser';

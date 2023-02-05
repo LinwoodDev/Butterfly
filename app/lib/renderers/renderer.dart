@@ -1,16 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'dart:ui' show Image;
+import 'dart:ui' as ui;
 
 import 'package:butterfly/helpers/offset_helper.dart';
-import 'package:butterfly/helpers/rect_helper.dart';
-import 'package:butterfly/models/area.dart';
-import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/element.dart';
-import 'package:butterfly/models/tool.dart';
+import 'package:butterfly/helpers/path_point.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/int.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,9 +17,6 @@ import 'package:xml/xml.dart';
 import '../cubits/current_index.dart';
 import '../cubits/transform.dart';
 import '../helpers/xml_helper.dart';
-import '../models/background.dart';
-import '../models/path_point.dart';
-import '../models/property.dart';
 
 part 'backgrounds/box.dart';
 part 'backgrounds/empty.dart';

@@ -1,7 +1,7 @@
 part of '../renderer.dart';
 
 class ImageRenderer extends Renderer<ImageElement> {
-  Image? image;
+  ui.Image? image;
 
   ImageRenderer(super.element, [this.image]);
 

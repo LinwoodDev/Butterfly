@@ -4,9 +4,8 @@ import 'dart:async';
 import 'dart:html' as html;
 import 'dart:js_util';
 
-import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/pack.dart';
-import 'package:butterfly/models/template.dart';
+import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:idb_shim/idb.dart';
@@ -14,7 +13,6 @@ import 'package:idb_shim/idb_browser.dart';
 import 'package:js/js.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/converter.dart';
 import 'file_system.dart';
 
 @JS()
@@ -346,7 +344,7 @@ class WebTemplateFileSystem extends TemplateFileSystem {
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     var shouldCreate = force;
-    var defaults = DocumentTemplate.getDefaults(context);
+    var defaults = DocumentDefaults.getDefaults(context);
     var prefs = await SharedPreferences.getInstance();
     if (!shouldCreate) {
       shouldCreate = !prefs.containsKey('defaultTemplate');

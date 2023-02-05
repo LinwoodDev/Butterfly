@@ -1,9 +1,8 @@
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/models/cursor.dart';
-import 'package:butterfly/models/document.dart';
-import 'package:butterfly/models/painter.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/cursor.dart';
 import '../renderer.dart';
 
 class EraserCursor extends Renderer<PainterCursor<EraserPainter>> {

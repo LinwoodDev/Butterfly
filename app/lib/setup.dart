@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'api/file_system_io.dart';
 import 'api/full_screen.dart';
-import 'models/converter.dart';
 
 Future<void> setup() async {
   // Convert old file system to new file system
