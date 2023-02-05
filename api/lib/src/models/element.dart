@@ -5,7 +5,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'text.dart' as text;
+import 'text.dart';
 
 part 'element.freezed.dart';
 part 'element.g.dart';
@@ -60,7 +60,7 @@ class PadElement with _$PadElement {
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
-    required text.TextArea area,
+    required TextArea area,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
   }) = TextElement;
 
