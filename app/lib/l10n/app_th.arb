@@ -21,7 +21,7 @@
   "name": "ชื่อ",
   "strokeWidth": "ความกว้างของเส้นขีด",
   "includeEraser": "Include eraser?",
-  "thinning": "Stroke multiplier",
+  "thinning": "Thinning",
   "pen": "ปากกา",
   "eraser": "ยางลบ",
   "pathEraser": "Path eraser",
@@ -448,5 +448,7 @@
         "example": "2"
       }
     }
-  }
+  },
+  "smoothing": "Smoothing",
+  "streamline": "Streamline"
 }

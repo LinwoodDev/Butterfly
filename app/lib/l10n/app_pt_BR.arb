@@ -21,7 +21,7 @@
   "name": "Nome:",
   "strokeWidth": "Espessura do traço",
   "includeEraser": "Incluir borracha?",
-  "thinning": "Multiplicador de traço",
+  "thinning": "Pensamento",
   "pen": "Caneta",
   "eraser": "Eraser",
   "pathEraser": "Erro de caminho",
@@ -448,5 +448,7 @@
         "example": "2"
       }
     }
-  }
+  },
+  "smoothing": "Suavização",
+  "streamline": "Simplificar"
 }
