@@ -13,7 +13,7 @@ class TextContext with _$TextContext {
       required TextPainter textPainter,
       TextElement? element,
       @Default(false) bool isCreating,
-      TextSelection? selection,
+      @Default(TextSelection.collapsed(offset: 0)) TextSelection selection,
       ParagraphProperty? forcedProperty,
       bool? forceParagraph}) = _TextContext;
 

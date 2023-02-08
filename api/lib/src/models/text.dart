@@ -72,6 +72,16 @@ class TextSpan with _$TextSpan {
       _$TextSpanFromJson(json);
 
   int get length => text.length;
+
+  TextSpan subSpan([int start = 0, int? length]) {
+    length ??= this.length;
+    return copyWith(
+      text: text.substring(start, start + length),
+    );
+  }
+
+  bool get isEmpty => text.isEmpty;
+  bool get isNotEmpty => text.isNotEmpty;
 }
 
 @freezed
@@ -87,6 +97,32 @@ class TextParagraph with _$TextParagraph {
 
   int get length =>
       textSpans.fold(0, (value, element) => value + element.length);
+
+  bool get isEmpty => textSpans.every((element) => element.isEmpty);
+  bool get isNotEmpty => textSpans.any((element) => element.isNotEmpty);
+
+  TextParagraph subParagraph([int start = 0, int? length]) {
+    length ??= this.length;
+    var subSpans = <TextSpan>[];
+    var currentLength = 0;
+    final end = start + length;
+    for (var span in textSpans) {
+      if (currentLength + span.length > start) {
+        if (currentLength >= end) {
+          break;
+        }
+        final subSpan = span.subSpan(
+          start - currentLength,
+          end - currentLength,
+        );
+        if (subSpan.isNotEmpty) {
+          subSpans.add(subSpan);
+        }
+      }
+      currentLength += span.length;
+    }
+    return copyWith(textSpans: subSpans);
+  }
 }
 
 @freezed

@@ -79,18 +79,15 @@ class TextSelectionCursor extends Renderer<TextContext> {
       );
     }
     // Paint cursor
-    final cursor = selection.baseOffset;
-    final cursorBox = element.textPainter
-        .getBoxesForSelection(
-          TextSelection.collapsed(offset: cursor),
-        )
-        .first;
-    final cursorRect = cursorBox.toRect().translate(
-          textElement.position.dx,
-          textElement.position.dy,
-        );
+    final cursorBox =
+        element.textPainter.getOffsetForCaret(selection.base, Rect.zero);
     canvas.drawRect(
-      cursorRect,
+      Rect.fromLTWH(
+        textElement.position.dx + cursorBox.dx,
+        textElement.position.dy + cursorBox.dy,
+        6,
+        element.textPainter.preferredLineHeight,
+      ),
       Paint()..color = color,
     );
   }

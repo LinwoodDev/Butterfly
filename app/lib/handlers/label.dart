@@ -260,8 +260,8 @@ class LabelHandler extends Handler<LabelPainter>
           }
           _context = _context?.copyWith(
             selection: TextSelection(
-              baseOffset: 0,
-              extentOffset: _context?.area?.length ?? 0,
+              baseOffset: _context?.area?.length ?? 0,
+              extentOffset: 0,
             ),
           );
           bloc.refresh();
@@ -274,7 +274,25 @@ class LabelHandler extends Handler<LabelPainter>
           if (kDebugMode) {
             print('Extend selection by character');
           }
-          _context = _context?.copyWith();
+          final maxLength = _context?.area?.length ?? 0;
+          var selection =
+              _context?.selection ?? const TextSelection.collapsed(offset: 0);
+          if (intent.collapseSelection) {
+            selection = TextSelection.collapsed(
+              offset: (selection.baseOffset + (intent.forward ? 1 : -1))
+                  .clamp(0, maxLength),
+            );
+          } else {
+            selection = TextSelection(
+              baseOffset: (selection.baseOffset + (intent.forward ? 1 : -1))
+                  .clamp(0, maxLength),
+              extentOffset: selection.extentOffset,
+            );
+          }
+          _context = _context?.copyWith(
+            selection: selection,
+          );
+          bloc.refresh();
           return null;
         },
       ),
