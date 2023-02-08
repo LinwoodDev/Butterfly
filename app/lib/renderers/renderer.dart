@@ -19,6 +19,7 @@ import 'package:xml/xml.dart';
 import '../cubits/current_index.dart';
 import '../cubits/transform.dart';
 import '../helpers/xml_helper.dart';
+import '../models/text.dart';
 
 part 'backgrounds/box.dart';
 part 'backgrounds/empty.dart';

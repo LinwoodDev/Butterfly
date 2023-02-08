@@ -1706,9 +1706,10 @@ class __$$_TextSpanCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TextSpan implements _TextSpan {
+class _$_TextSpan extends _TextSpan {
   const _$_TextSpan(
-      {this.text = '', this.property = const SpanProperty.undefined()});
+      {this.text = '', this.property = const SpanProperty.undefined()})
+      : super._();
 
   factory _$_TextSpan.fromJson(Map<String, dynamic> json) =>
       _$$_TextSpanFromJson(json);
@@ -1809,9 +1810,10 @@ class _$_TextSpan implements _TextSpan {
   }
 }
 
-abstract class _TextSpan implements TextSpan {
+abstract class _TextSpan extends TextSpan {
   const factory _TextSpan({final String text, final SpanProperty property}) =
       _$_TextSpan;
+  const _TextSpan._() : super._();
 
   factory _TextSpan.fromJson(Map<String, dynamic> json) = _$_TextSpan.fromJson;
 
@@ -1966,11 +1968,12 @@ class __$$_ParagraphPropertyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ParagraphProperty implements _ParagraphProperty {
+class _$_ParagraphProperty extends _ParagraphProperty {
   const _$_ParagraphProperty(
       {this.property = const ParagraphProperty.undefined(),
       final List<TextSpan> textSpans = const []})
-      : _textSpans = textSpans;
+      : _textSpans = textSpans,
+        super._();
 
   factory _$_ParagraphProperty.fromJson(Map<String, dynamic> json) =>
       _$$_ParagraphPropertyFromJson(json);
@@ -2083,10 +2086,11 @@ class _$_ParagraphProperty implements _ParagraphProperty {
   }
 }
 
-abstract class _ParagraphProperty implements TextParagraph {
+abstract class _ParagraphProperty extends TextParagraph {
   const factory _ParagraphProperty(
       {final ParagraphProperty property,
       final List<TextSpan> textSpans}) = _$_ParagraphProperty;
+  const _ParagraphProperty._() : super._();
 
   factory _ParagraphProperty.fromJson(Map<String, dynamic> json) =
       _$_ParagraphProperty.fromJson;
@@ -2216,9 +2220,10 @@ class __$$_TextAreaCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TextArea implements _TextArea {
+class _$_TextArea extends _TextArea {
   const _$_TextArea(
-      {this.areaProperty = const AreaProperty(), required this.paragraph});
+      {this.areaProperty = const AreaProperty(), required this.paragraph})
+      : super._();
 
   factory _$_TextArea.fromJson(Map<String, dynamic> json) =>
       _$$_TextAreaFromJson(json);
@@ -2263,10 +2268,11 @@ class _$_TextArea implements _TextArea {
   }
 }
 
-abstract class _TextArea implements TextArea {
+abstract class _TextArea extends TextArea {
   const factory _TextArea(
       {final AreaProperty areaProperty,
       required final TextParagraph paragraph}) = _$_TextArea;
+  const _TextArea._() : super._();
 
   factory _TextArea.fromJson(Map<String, dynamic> json) = _$_TextArea.fromJson;
 

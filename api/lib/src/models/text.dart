@@ -62,6 +62,7 @@ class AreaProperty with _$AreaProperty {
 
 @freezed
 class TextSpan with _$TextSpan {
+  const TextSpan._();
   const factory TextSpan.text({
     @Default('') String text,
     @Default(SpanProperty.undefined()) SpanProperty property,
@@ -69,10 +70,13 @@ class TextSpan with _$TextSpan {
 
   factory TextSpan.fromJson(Map<String, dynamic> json) =>
       _$TextSpanFromJson(json);
+
+  int get length => text.length;
 }
 
 @freezed
 class TextParagraph with _$TextParagraph {
+  const TextParagraph._();
   const factory TextParagraph.text({
     @Default(ParagraphProperty.undefined()) ParagraphProperty property,
     @Default([]) List<TextSpan> textSpans,
@@ -80,16 +84,23 @@ class TextParagraph with _$TextParagraph {
 
   factory TextParagraph.fromJson(Map<String, dynamic> json) =>
       _$TextParagraphFromJson(json);
+
+  int get length =>
+      textSpans.fold(0, (value, element) => value + element.length);
 }
 
 @freezed
 class TextArea with _$TextArea {
+  const TextArea._();
   const factory TextArea({
     @Default(AreaProperty()) AreaProperty areaProperty,
     required TextParagraph paragraph,
   }) = _TextArea;
+
   factory TextArea.fromJson(Map<String, dynamic> json) =>
       _$TextAreaFromJson(json);
+
+  int get length => paragraph.length;
 }
 
 @freezed

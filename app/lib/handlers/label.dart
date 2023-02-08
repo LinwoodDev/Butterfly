@@ -44,8 +44,11 @@ class LabelHandler extends Handler<LabelPainter>
           [Area? currentArea]) =>
       [
         ...super.createForegrounds(currentIndexCubit, document, currentArea),
-        if (_context?.element != null && (_context?.isCreating ?? false))
-          TextRenderer(_context!.element!, _context!.selection)
+        if (_context?.element != null) ...[
+          if (_context?.isCreating ?? false)
+            TextRenderer(_context!.element!, _context),
+          TextSelectionCursor(_context!)
+        ],
       ];
 
   TextInputConnection? _connection;
@@ -240,6 +243,7 @@ class LabelHandler extends Handler<LabelPainter>
 
   @override
   Map<Type, Action<Intent>> getActions(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
     return {
       DeleteCharacterIntent: CallbackAction<DeleteCharacterIntent>(
         onInvoke: (intent) {
@@ -254,6 +258,13 @@ class LabelHandler extends Handler<LabelPainter>
           if (kDebugMode) {
             print('Select all');
           }
+          _context = _context?.copyWith(
+            selection: TextSelection(
+              baseOffset: 0,
+              extentOffset: _context?.area?.length ?? 0,
+            ),
+          );
+          bloc.refresh();
           return null;
         },
       ),

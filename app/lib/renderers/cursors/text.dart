@@ -54,28 +54,44 @@ class TextCursor extends Renderer<TextCursorData> {
   }
 }
 
-@immutable
-class TextSelectionCursorData extends PainterCursorData<LabelPainter> {
-  final int size;
-
-  const TextSelectionCursorData(super.painter, super.position, this.size);
-}
-
-class TextSelectionCursor extends Renderer<TextSelectionCursorData> {
+class TextSelectionCursor extends Renderer<TextContext> {
   TextSelectionCursor(super.element);
 
   @override
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
+    final color = colorScheme?.primary ?? Colors.blue;
     // Paint vertical line
-    final paint = Paint()
-      ..color = colorScheme?.primary ?? Colors.black
-      ..strokeWidth = 1 / transform.size;
-    canvas.drawLine(
-      element.position.translate(0, -element.size.toDouble()),
-      element.position.translate(0, element.size.toDouble()),
-      paint,
+    final selection =
+        element.selection ?? const TextSelection.collapsed(offset: 0);
+    final textElement = element.element;
+    if (textElement == null) return;
+    final boxes = element.textPainter.getBoxesForSelection(selection);
+    for (final box in boxes) {
+      final rect = box.toRect().translate(
+            textElement.position.dx,
+            textElement.position.dy,
+          );
+      canvas.drawRect(
+        rect,
+        Paint()..color = color.withOpacity(0.5),
+      );
+    }
+    // Paint cursor
+    final cursor = selection.baseOffset;
+    final cursorBox = element.textPainter
+        .getBoxesForSelection(
+          TextSelection.collapsed(offset: cursor),
+        )
+        .first;
+    final cursorRect = cursorBox.toRect().translate(
+          textElement.position.dx,
+          textElement.position.dy,
+        );
+    canvas.drawRect(
+      cursorRect,
+      Paint()..color = color,
     );
   }
 }

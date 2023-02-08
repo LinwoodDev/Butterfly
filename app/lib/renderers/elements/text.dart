@@ -4,9 +4,9 @@ class TextRenderer extends Renderer<TextElement> {
   @override
   Rect rect = Rect.zero;
   TextPainter? _tp;
-  TextSelection? selection;
+  TextContext? context;
 
-  TextRenderer(super.element, [this.selection]);
+  TextRenderer(super.element, [this.context]);
 
   TextAlign _convertAlignment(text.HorizontalAlignment alignment) {
     switch (alignment) {
@@ -21,17 +21,16 @@ class TextRenderer extends Renderer<TextElement> {
     }
   }
 
-  TextPainter _createPainter(AppDocument document) {
+  void _createPainter(AppDocument document) {
     final paragraph = element.area.paragraph;
     final styleSheet = document.getStyle(element.styleSheet);
     final style = styleSheet.resolveParagraphProperty(paragraph.property) ??
         const text.DefinedParagraphProperty();
-    return TextPainter(
-      text: _createParagraphSpan(document, paragraph),
-      textDirection: TextDirection.ltr,
-      textScaleFactor: 1.0,
-      textAlign: _convertAlignment(style.alignment),
-    );
+    _tp ??= context?.textPainter ?? TextPainter();
+    _tp?.text = _createParagraphSpan(document, paragraph);
+    _tp?.textDirection = TextDirection.ltr;
+    _tp?.textScaleFactor = 1.0;
+    _tp?.textAlign = _convertAlignment(style.alignment);
   }
 
   TextSpan _createParagraphSpan(
@@ -80,7 +79,7 @@ class TextRenderer extends Renderer<TextElement> {
 
   @override
   FutureOr<void> setup(AppDocument document) async {
-    _tp = _createPainter(document);
+    _createPainter(document);
     _updateRect(document);
     await super.setup(document);
     _updateRect(document);
@@ -148,12 +147,12 @@ class TextRenderer extends Renderer<TextElement> {
       bool relative = false}) {
     // final size = Size(rect.width * scaleX, rect.height * scaleY);
     final next = relative ? element.position + position : position;
-    return TextRenderer(element.copyWith(position: next), selection);
+    return TextRenderer(element.copyWith(position: next), context);
   }
 
   @override
   void dispose() {
-    _tp?.dispose();
+    if (context == null) _tp?.dispose();
   }
 
   InlineSpan? get span => _tp?.text;
