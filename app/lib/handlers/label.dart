@@ -2,14 +2,14 @@ part of 'handler.dart';
 
 class LabelHandler extends Handler<LabelPainter>
     with HandlerWithCursor, TextInputClient {
-  text.TextContext? _context;
+  TextContext? _context;
   DocumentBloc? _bloc;
 
   bool get isCurrentlyEditing => _context?.area != null;
 
   LabelHandler(super.data);
 
-  text.TextContext _createContext([Offset? position]) {
+  TextContext _createContext([Offset? position]) {
     if (_context != null) {
       return _context!.copyWith(
         isCreating: true,
@@ -23,7 +23,7 @@ class LabelHandler extends Handler<LabelPainter>
               ),
       );
     }
-    return text.TextContext(
+    return TextContext(
       painter: data,
       isCreating: true,
       element: position == null
@@ -34,6 +34,7 @@ class LabelHandler extends Handler<LabelPainter>
                 paragraph: text.TextParagraph.text(),
               ),
             ),
+      textPainter: TextPainter(),
     );
   }
 
@@ -115,7 +116,7 @@ class LabelHandler extends Handler<LabelPainter>
     return TextCursor(TextCursorData(data, position, _context));
   }
 
-  void _change(DocumentBloc bloc, text.TextContext value) {
+  void _change(DocumentBloc bloc, TextContext value) {
     final context = _context;
     _context = value.copyWith();
 

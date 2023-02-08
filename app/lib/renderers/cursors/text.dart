@@ -5,11 +5,12 @@ import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../models/cursor.dart';
+import '../../models/text.dart';
 import '../renderer.dart';
 
 @immutable
 class TextCursorData extends PainterCursorData<LabelPainter> {
-  final text.TextContext? context;
+  final TextContext? context;
 
   const TextCursorData(super.painter, super.position, this.context);
 }

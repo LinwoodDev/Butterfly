@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'colors.dart';
-import 'document.dart';
-import 'element.dart';
-import 'pack.dart';
-import 'painter.dart';
 
 part 'text.g.dart';
 part 'text.freezed.dart';
@@ -168,45 +164,5 @@ extension ResolveProperty on TextStyleSheet? {
       named: (value) => this?.paragraphProperties[value],
       undefined: (value) => null,
     );
-  }
-}
-
-@freezed
-class TextContext with _$TextContext {
-  const TextContext._();
-  const factory TextContext(
-      {required LabelPainter painter,
-      TextElement? element,
-      @Default(false) bool isCreating,
-      TextSelection? selection,
-      ParagraphProperty? forcedProperty,
-      bool? forceParagraph}) = _TextContext;
-
-  TextArea? get area => element?.area;
-  PackAssetLocation? get styleSheet => element?.styleSheet;
-
-  int length() => 0;
-
-  bool isParagraph() =>
-      forceParagraph ??
-      ((selection?.start ?? 0) <= 0 && (selection?.end ?? 0) >= length());
-
-  bool? get isEmpty => length() == 0;
-
-  ParagraphProperty getProperty(AppDocument document) {
-    return forcedProperty ??
-        area?.paragraph.property ??
-        const ParagraphProperty.undefined();
-  }
-
-  DefinedParagraphProperty? getDefinedProperty(AppDocument document) {
-    final property = getProperty(document);
-    if (property is DefinedParagraphProperty) {
-      return property;
-    }
-    if (styleSheet == null) {
-      return null;
-    }
-    return document.getStyle(styleSheet!)?.resolveParagraphProperty(property);
   }
 }

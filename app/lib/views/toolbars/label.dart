@@ -6,10 +6,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
+import '../../models/text.dart';
 
 class LabelToolbarView extends StatelessWidget {
-  final text.TextContext value;
-  final ValueChanged<text.TextContext> onChanged;
+  final TextContext value;
+  final ValueChanged<TextContext> onChanged;
   final ScrollController _scrollController = ScrollController();
 
   LabelToolbarView({

@@ -24,7 +24,7 @@ class TextRenderer extends Renderer<TextElement> {
   TextPainter _createPainter(AppDocument document) {
     final paragraph = element.area.paragraph;
     final styleSheet = document.getStyle(element.styleSheet);
-    final style = styleSheet?.resolveParagraphProperty(paragraph.property) ??
+    final style = styleSheet.resolveParagraphProperty(paragraph.property) ??
         const text.DefinedParagraphProperty();
     return TextPainter(
       text: _createParagraphSpan(document, paragraph),
@@ -52,7 +52,7 @@ class TextRenderer extends Renderer<TextElement> {
 
   InlineSpan _createSpan(AppDocument document, text.TextSpan span) {
     final styleSheet = _getStyle(document);
-    final style = styleSheet?.resolveSpanProperty(span.property);
+    final style = styleSheet.resolveSpanProperty(span.property);
     return TextSpan(
       text: span.text,
       style: style == null ? null : _buildSpanStyle(style),
