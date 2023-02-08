@@ -7,8 +7,8 @@ import 'element.dart';
 import 'pack.dart';
 import 'painter.dart';
 
-part 'text.freezed.dart';
 part 'text.g.dart';
+part 'text.freezed.dart';
 
 enum HorizontalAlignment { left, center, right, justify }
 
@@ -78,7 +78,7 @@ class TextSpan with _$TextSpan {
 @freezed
 class TextParagraph with _$TextParagraph {
   const factory TextParagraph.text({
-    @Default(ParagraphProperty.undefined()) ParagraphProperty textProperty,
+    @Default(ParagraphProperty.undefined()) ParagraphProperty property,
     @Default([]) List<TextSpan> textSpans,
   }) = _ParagraphProperty;
 
@@ -150,11 +150,13 @@ class TextStyleSheet with _$TextStyleSheet {
   DefinedParagraphProperty? getParagraphProperty(String name) {
     return paragraphProperties[name];
   }
+}
 
+extension ResolveProperty on TextStyleSheet? {
   DefinedSpanProperty? resolveSpanProperty(SpanProperty? property) {
     return property?.map(
       defined: (value) => value,
-      named: (value) => spanProperties[value],
+      named: (value) => this?.spanProperties[value],
       undefined: (value) => null,
     );
   }
@@ -163,7 +165,7 @@ class TextStyleSheet with _$TextStyleSheet {
       ParagraphProperty? property) {
     return property?.map(
       defined: (value) => value,
-      named: (value) => paragraphProperties[value],
+      named: (value) => this?.paragraphProperties[value],
       undefined: (value) => null,
     );
   }
@@ -193,16 +195,18 @@ class TextContext with _$TextContext {
 
   ParagraphProperty getProperty(AppDocument document) {
     return forcedProperty ??
-        area?.paragraph.textProperty ??
+        area?.paragraph.property ??
         const ParagraphProperty.undefined();
   }
 
   DefinedParagraphProperty? getDefinedProperty(AppDocument document) {
     final property = getProperty(document);
+    if (property is DefinedParagraphProperty) {
+      return property;
+    }
     if (styleSheet == null) {
       return null;
     }
-    return document.getStyle(styleSheet!)?.resolveParagraphProperty(property) ??
-        forcedProperty?.maybeMap(defined: (value) => value, orElse: () => null);
+    return document.getStyle(styleSheet!)?.resolveParagraphProperty(property);
   }
 }

@@ -25,7 +25,7 @@ import '../view_painter.dart';
 
 part 'current_index.freezed.dart';
 
-@freezed
+@Freezed(equal: false)
 class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
   const factory CurrentIndex(
@@ -110,16 +110,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ));
   }
 
-  void updateTemporaryPainter(DocumentBloc bloc, Painter painter) {
+  Future<void> updateTemporaryPainter(
+      DocumentBloc bloc, Painter painter) async {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     state.temporaryHandler?.dispose(bloc);
     final handler = Handler.fromPainter(painter);
     _disposeTemporaryForegrounds();
+    final temporaryForegrounds = handler.createForegrounds(
+        this, docState.document, docState.currentArea);
+    await Future.wait(temporaryForegrounds
+        .map((r) async => await r.setup(docState.document)));
     emit(state.copyWith(
       temporaryHandler: handler,
-      temporaryForegrounds: handler.createForegrounds(
-          this, docState.document, docState.currentArea),
+      temporaryForegrounds: temporaryForegrounds,
     ));
   }
 
@@ -144,14 +148,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  void refresh(AppDocument document, [Area? currentArea]) {
+  Future<void> refresh(AppDocument document, [Area? currentArea]) async {
     if (!isClosed) {
       _disposeForegrounds();
+      final temporaryForegrounds = state.temporaryHandler
+          ?.createForegrounds(this, document, currentArea);
+      if (temporaryForegrounds != null) {
+        await Future.wait(
+            temporaryForegrounds.map((e) async => await e.setup(document)));
+      }
+      final foregrounds =
+          state.handler.createForegrounds(this, document, currentArea);
+      await Future.wait(foregrounds.map((e) async => await e.setup(document)));
       emit(state.copyWith(
-        temporaryForegrounds: state.temporaryHandler
-            ?.createForegrounds(this, document, currentArea),
-        foregrounds:
-            state.handler.createForegrounds(this, document, currentArea),
+        temporaryForegrounds: temporaryForegrounds,
+        foregrounds: foregrounds,
       ));
     }
   }
@@ -204,7 +215,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(pointers: state.pointers.toList()..remove(pointer)));
   }
 
-  Handler? changeTemporaryHandlerIndex(DocumentBloc bloc, int index) {
+  Future<Handler?> changeTemporaryHandlerIndex(
+      DocumentBloc bloc, int index) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     if (index < 0 || index >= blocState.document.painters.length) {
@@ -214,7 +226,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return changeTemporaryHandler(bloc, painter);
   }
 
-  Handler? changeTemporaryHandler(DocumentBloc bloc, Painter painter) {
+  Future<Handler?> changeTemporaryHandler(
+      DocumentBloc bloc, Painter painter) async {
     final handler = Handler.fromPainter(painter);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
@@ -223,10 +236,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     state.temporaryHandler?.dispose(bloc);
     if (handler.onSelected(bloc, this, false)) {
       _disposeTemporaryForegrounds();
+      final temporaryForegrounds =
+          handler.createForegrounds(this, document, currentArea);
+      await Future.wait(
+          temporaryForegrounds.map((e) async => await e.setup(document)));
       emit(state.copyWith(
         temporaryHandler: handler,
-        temporaryForegrounds:
-            handler.createForegrounds(this, document, currentArea),
+        temporaryForegrounds: temporaryForegrounds,
       ));
     }
     return handler;

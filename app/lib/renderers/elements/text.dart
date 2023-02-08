@@ -24,9 +24,8 @@ class TextRenderer extends Renderer<TextElement> {
   TextPainter _createPainter(AppDocument document) {
     final paragraph = element.area.paragraph;
     final styleSheet = document.getStyle(element.styleSheet);
-    final style =
-        styleSheet?.resolveParagraphProperty(paragraph.textProperty) ??
-            const text.DefinedParagraphProperty();
+    final style = styleSheet?.resolveParagraphProperty(paragraph.property) ??
+        const text.DefinedParagraphProperty();
     return TextPainter(
       text: _createParagraphSpan(document, paragraph),
       textDirection: TextDirection.ltr,
@@ -38,9 +37,8 @@ class TextRenderer extends Renderer<TextElement> {
   TextSpan _createParagraphSpan(
       AppDocument document, text.TextParagraph paragraph) {
     final styleSheet = document.getStyle(element.styleSheet);
-    final style =
-        styleSheet?.resolveParagraphProperty(paragraph.textProperty) ??
-            const text.DefinedParagraphProperty();
+    final style = styleSheet.resolveParagraphProperty(paragraph.property) ??
+        const text.DefinedParagraphProperty();
     return paragraph.map(
       text: (p) => TextSpan(
         children: p.textSpans.map((e) => _createSpan(document, e)).toList(),

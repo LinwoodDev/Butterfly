@@ -1831,24 +1831,24 @@ TextParagraph _$TextParagraphFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TextParagraph {
-  ParagraphProperty get textProperty => throw _privateConstructorUsedError;
+  ParagraphProperty get property => throw _privateConstructorUsedError;
   List<TextSpan> get textSpans => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            ParagraphProperty textProperty, List<TextSpan> textSpans)
+            ParagraphProperty property, List<TextSpan> textSpans)
         text,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ParagraphProperty textProperty, List<TextSpan> textSpans)?
+    TResult? Function(ParagraphProperty property, List<TextSpan> textSpans)?
         text,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ParagraphProperty textProperty, List<TextSpan> textSpans)?
+    TResult Function(ParagraphProperty property, List<TextSpan> textSpans)?
         text,
     required TResult orElse(),
   }) =>
@@ -1881,9 +1881,9 @@ abstract class $TextParagraphCopyWith<$Res> {
           TextParagraph value, $Res Function(TextParagraph) then) =
       _$TextParagraphCopyWithImpl<$Res, TextParagraph>;
   @useResult
-  $Res call({ParagraphProperty textProperty, List<TextSpan> textSpans});
+  $Res call({ParagraphProperty property, List<TextSpan> textSpans});
 
-  $ParagraphPropertyCopyWith<$Res> get textProperty;
+  $ParagraphPropertyCopyWith<$Res> get property;
 }
 
 /// @nodoc
@@ -1899,13 +1899,13 @@ class _$TextParagraphCopyWithImpl<$Res, $Val extends TextParagraph>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? textProperty = null,
+    Object? property = null,
     Object? textSpans = null,
   }) {
     return _then(_value.copyWith(
-      textProperty: null == textProperty
-          ? _value.textProperty
-          : textProperty // ignore: cast_nullable_to_non_nullable
+      property: null == property
+          ? _value.property
+          : property // ignore: cast_nullable_to_non_nullable
               as ParagraphProperty,
       textSpans: null == textSpans
           ? _value.textSpans
@@ -1916,9 +1916,9 @@ class _$TextParagraphCopyWithImpl<$Res, $Val extends TextParagraph>
 
   @override
   @pragma('vm:prefer-inline')
-  $ParagraphPropertyCopyWith<$Res> get textProperty {
-    return $ParagraphPropertyCopyWith<$Res>(_value.textProperty, (value) {
-      return _then(_value.copyWith(textProperty: value) as $Val);
+  $ParagraphPropertyCopyWith<$Res> get property {
+    return $ParagraphPropertyCopyWith<$Res>(_value.property, (value) {
+      return _then(_value.copyWith(property: value) as $Val);
     });
   }
 }
@@ -1931,10 +1931,10 @@ abstract class _$$_ParagraphPropertyCopyWith<$Res>
       __$$_ParagraphPropertyCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ParagraphProperty textProperty, List<TextSpan> textSpans});
+  $Res call({ParagraphProperty property, List<TextSpan> textSpans});
 
   @override
-  $ParagraphPropertyCopyWith<$Res> get textProperty;
+  $ParagraphPropertyCopyWith<$Res> get property;
 }
 
 /// @nodoc
@@ -1948,13 +1948,13 @@ class __$$_ParagraphPropertyCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? textProperty = null,
+    Object? property = null,
     Object? textSpans = null,
   }) {
     return _then(_$_ParagraphProperty(
-      textProperty: null == textProperty
-          ? _value.textProperty
-          : textProperty // ignore: cast_nullable_to_non_nullable
+      property: null == property
+          ? _value.property
+          : property // ignore: cast_nullable_to_non_nullable
               as ParagraphProperty,
       textSpans: null == textSpans
           ? _value._textSpans
@@ -1968,7 +1968,7 @@ class __$$_ParagraphPropertyCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ParagraphProperty implements _ParagraphProperty {
   const _$_ParagraphProperty(
-      {this.textProperty = const ParagraphProperty.undefined(),
+      {this.property = const ParagraphProperty.undefined(),
       final List<TextSpan> textSpans = const []})
       : _textSpans = textSpans;
 
@@ -1977,7 +1977,7 @@ class _$_ParagraphProperty implements _ParagraphProperty {
 
   @override
   @JsonKey()
-  final ParagraphProperty textProperty;
+  final ParagraphProperty property;
   final List<TextSpan> _textSpans;
   @override
   @JsonKey()
@@ -1989,7 +1989,7 @@ class _$_ParagraphProperty implements _ParagraphProperty {
 
   @override
   String toString() {
-    return 'TextParagraph.text(textProperty: $textProperty, textSpans: $textSpans)';
+    return 'TextParagraph.text(property: $property, textSpans: $textSpans)';
   }
 
   @override
@@ -1997,16 +1997,16 @@ class _$_ParagraphProperty implements _ParagraphProperty {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ParagraphProperty &&
-            (identical(other.textProperty, textProperty) ||
-                other.textProperty == textProperty) &&
+            (identical(other.property, property) ||
+                other.property == property) &&
             const DeepCollectionEquality()
                 .equals(other._textSpans, _textSpans));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, textProperty,
-      const DeepCollectionEquality().hash(_textSpans));
+  int get hashCode => Object.hash(
+      runtimeType, property, const DeepCollectionEquality().hash(_textSpans));
 
   @JsonKey(ignore: true)
   @override
@@ -2019,30 +2019,30 @@ class _$_ParagraphProperty implements _ParagraphProperty {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            ParagraphProperty textProperty, List<TextSpan> textSpans)
+            ParagraphProperty property, List<TextSpan> textSpans)
         text,
   }) {
-    return text(textProperty, textSpans);
+    return text(property, textSpans);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ParagraphProperty textProperty, List<TextSpan> textSpans)?
+    TResult? Function(ParagraphProperty property, List<TextSpan> textSpans)?
         text,
   }) {
-    return text?.call(textProperty, textSpans);
+    return text?.call(property, textSpans);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ParagraphProperty textProperty, List<TextSpan> textSpans)?
+    TResult Function(ParagraphProperty property, List<TextSpan> textSpans)?
         text,
     required TResult orElse(),
   }) {
     if (text != null) {
-      return text(textProperty, textSpans);
+      return text(property, textSpans);
     }
     return orElse();
   }
@@ -2085,14 +2085,14 @@ class _$_ParagraphProperty implements _ParagraphProperty {
 
 abstract class _ParagraphProperty implements TextParagraph {
   const factory _ParagraphProperty(
-      {final ParagraphProperty textProperty,
+      {final ParagraphProperty property,
       final List<TextSpan> textSpans}) = _$_ParagraphProperty;
 
   factory _ParagraphProperty.fromJson(Map<String, dynamic> json) =
       _$_ParagraphProperty.fromJson;
 
   @override
-  ParagraphProperty get textProperty;
+  ParagraphProperty get property;
   @override
   List<TextSpan> get textSpans;
   @override

@@ -10,8 +10,22 @@ class LabelHandler extends Handler<LabelPainter>
   LabelHandler(super.data);
 
   text.TextContext _createContext([Offset? position]) {
+    if (_context != null) {
+      return _context!.copyWith(
+        isCreating: true,
+        element: position == null
+            ? null
+            : TextElement(
+                position: position,
+                area: const text.TextArea(
+                  paragraph: text.TextParagraph.text(),
+                ),
+              ),
+      );
+    }
     return text.TextContext(
       painter: data,
+      isCreating: true,
       element: position == null
           ? null
           : TextElement(
@@ -29,7 +43,7 @@ class LabelHandler extends Handler<LabelPainter>
           [Area? currentArea]) =>
       [
         ...super.createForegrounds(currentIndexCubit, document, currentArea),
-        if (_context?.element == null && (_context?.isCreating ?? false))
+        if (_context?.element != null && (_context?.isCreating ?? false))
           TextRenderer(_context!.element!, _context!.selection)
       ];
 
@@ -89,7 +103,7 @@ class LabelHandler extends Handler<LabelPainter>
   @override
   Widget? getToolbar(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
-    _context = _createContext();
+    _context ??= _createContext();
     return LabelToolbarView(
       value: _context!,
       onChanged: (value) => _change(bloc, value),
@@ -105,18 +119,14 @@ class LabelHandler extends Handler<LabelPainter>
     final context = _context;
     _context = value.copyWith();
 
-    if (context == null || context.element == null || value.element == null) {
-      return;
+    if (context != null && context.element != null && value.element != null) {
+      if (!value.isCreating) {
+        bloc.add(ElementsChanged({
+          context.element!: [value.element!]
+        }));
+      }
     }
-
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return;
-    state.currentIndexCubit.refresh(state.document);
-    if (!value.isCreating) {
-      bloc.add(ElementsChanged({
-        context.element!: [value.element!]
-      }));
-    }
+    bloc.refresh();
   }
 
   @override
@@ -174,20 +184,39 @@ class LabelHandler extends Handler<LabelPainter>
 
   @override
   void updateEditingValue(TextEditingValue value) {
-    if (_context?.element == null) return;
-    _context = _context!.copyWith(
-      element: _context!.element!.copyWith(
-        area: _context!.element!.area.copyWith(
-          paragraph: _context!.element!.area.paragraph.copyWith(textSpans: [
-            text.TextSpan.text(
-              text: value.text,
-            ),
-          ]),
-        ),
+    if (_context == null) return;
+    final textSpans = [
+      text.TextSpan.text(
+        text: value.text,
       ),
+    ];
+    TextElement element;
+    final old = _context?.element;
+    if (old != null) {
+      final paragraph = old.area.paragraph.copyWith(
+        textSpans: textSpans,
+        property: _context!.forcedProperty ?? old.area.paragraph.property,
+      );
+      final area = old.area.copyWith(
+        paragraph: paragraph,
+      );
+      element = old.copyWith(area: area);
+    } else {
+      final paragraph = text.TextParagraph.text(
+        textSpans: textSpans,
+        property: _context!.forcedProperty ??
+            const text.ParagraphProperty.undefined(),
+      );
+      final area = text.TextArea(
+        paragraph: paragraph,
+      );
+      element = TextElement(area: area);
+    }
+    _context = _context!.copyWith(
+      element: element,
     );
+    _bloc?.refresh();
     if (kDebugMode) {
-      _bloc?.refresh();
       print('Editing value: $value');
     }
   }

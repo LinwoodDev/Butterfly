@@ -33,10 +33,10 @@ class _ToolbarViewState extends State<ToolbarView> {
           buildWhen: (previous, current) =>
               previous.colorEnabled != current.colorEnabled,
           builder: (context, settings) {
-            return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-              builder: (context, currentIndex) =>
-                  BlocBuilder<DocumentBloc, DocumentState>(
-                      builder: (context, state) {
+            return BlocBuilder<DocumentBloc, DocumentState>(
+              builder: (context, state) =>
+                  BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                      builder: (context, currentIndex) {
                 Widget? child;
                 if (!settings.colorEnabled) {
                   _setOpened(false);

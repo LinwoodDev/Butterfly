@@ -16,6 +16,7 @@ dependencies:
 dependency_overrides: 
   collection: 1.17.1
 dev_dependencies:
+  json_serializable: ^6.6.1
   build_runner: ^2.3.3
   freezed: ^2.3.2
   lints: ^2.0.0
