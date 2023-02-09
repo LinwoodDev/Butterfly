@@ -21,7 +21,7 @@
   "name": "Nombre",
   "strokeWidth": "Ancho del trazo",
   "includeEraser": "¿Incluye borrador?",
-  "thinning": "Multiplicador de trazo",
+  "thinning": "Lanzamiento",
   "pen": "Pen",
   "eraser": "Eraser",
   "pathEraser": "Borrador de ruta",
@@ -448,5 +448,7 @@
         "example": "2"
       }
     }
-  }
+  },
+  "smoothing": "Suavizado",
+  "streamline": "Streamline"
 }

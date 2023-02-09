@@ -77,18 +77,18 @@ packages:
     dependency: transitive
     description:
       name: bloc
-      sha256: bd4f8027bfa60d96c8046dec5ce74c463b2c918dce1b0d36593575995344534a
+      sha256: "658a5ae59edcf1e58aac98b000a71c762ad8f46f1394c34a52050cafb3e11a80"
       url: "https://pub.dev"
     source: hosted
-    version: "8.1.0"
+    version: "8.1.1"
   bloc_concurrency:
     dependency: "direct main"
     description:
       name: bloc_concurrency
-      sha256: "0af76bfdbdcf21d897c743bb376fbe0d356e2b9e76dc787397077391074d985d"
+      sha256: "9a94e05be7754ec9cfc6e7a68b340be63381a54cadabee25ec3296838646ad3e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0"
+    version: "0.2.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -196,10 +196,10 @@ packages:
     dependency: transitive
     description:
       name: camera_platform_interface
-      sha256: "0eedd642d905ca24f1c483fe9ea0d0e7287b86a402845c28d24df28cc7b0ee6e"
+      sha256: b632be28e61d00a233f67d98ea90fd7041956f27a1c65500188ee459be60e15f
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.4"
+    version: "2.4.0"
   camera_web:
     dependency: transitive
     description:
@@ -332,10 +332,10 @@ packages:
     dependency: "direct dev"
     description:
       name: espresso
-      sha256: "2ad1db723477355dd0d70c4271c1e1b705926c0d1e9f40186dcce2148cf69dbb"
+      sha256: "84615044b48a7a82e7ee7014c59fb988055306bfbf37c37237760d9f59b450cb"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0+6"
+    version: "0.2.0+7"
   fake_async:
     dependency: transitive
     description:
@@ -401,10 +401,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_bloc
-      sha256: "890c51c8007f0182360e523518a0c732efb89876cb4669307af7efada5b55557"
+      sha256: "434951eea948dbe87f737b674281465f610b8259c16c097b8163ce138749a775"
       url: "https://pub.dev"
     source: hosted
-    version: "8.1.1"
+    version: "8.1.2"
   flutter_driver:
     dependency: "direct dev"
     description: flutter
@@ -546,10 +546,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "9e8cee9969a9f33821a5594e5822d9a7ef3ae8528e5258f5178436e3deb0e095"
+      sha256: "313e5899851b43de7e779c4a054e8d489fb61caf95fe786bc301b13120557f03"
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.3"
+    version: "6.0.5"
   graphs:
     dependency: transitive
     description:
@@ -931,10 +931,10 @@ packages:
     dependency: "direct main"
     description:
       name: replay_bloc
-      sha256: c4ed8c11e3ad0f1b270ccf9a4e1acae9821460c01be2e732660033ff0f33672a
+      sha256: "803581ed2adcf1890e328ab6a8b3774a0dd136a85cd229e8be10f48a6424062d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.2"
+    version: "0.2.3"
   rxdart:
     dependency: "direct main"
     description:
@@ -947,10 +947,10 @@ packages:
     dependency: transitive
     description:
       name: screen_retriever
-      sha256: "9c3839c4eb80807cd8210afa3c84a177ba00aef9f9b7b74ad92d3a0ab1d7e7ed"
+      sha256: "4931f226ca158123ccd765325e9fbf360bfed0af9b460a10f960f9bb13d58323"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.5"
+    version: "0.1.6"
   sembast:
     dependency: transitive
     description:
@@ -1168,10 +1168,10 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: "698fa0b4392effdc73e9e184403b627362eb5fbf904483ac9defbb1c2191d809"
+      sha256: e8f2efc804810c0f2f5b485f49e7942179f56eabcfe81dce3387fec4bb55876b
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.8"
+    version: "6.1.9"
   url_launcher_android:
     dependency: transitive
     description:
@@ -1184,10 +1184,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_ios
-      sha256: bb328b24d3bccc20bdf1024a0990ac4f869d57663660de9c936fb8c043edefe3
+      sha256: "0a5af0aefdd8cf820dd739886efb1637f1f24489900204f50984634c07a54815"
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.18"
+    version: "6.1.0"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -1360,10 +1360,10 @@ packages:
     dependency: transitive
     description:
       name: yaru_colors
-      sha256: b2e87cac6629a301644b2e4577b8274937b56c8799ac1df852ba5689f7f213ae
+      sha256: a530baed905e56069dddfb4ca8df7f12e24a8bcf037508c6c8151497472a1fa5
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.2"
+    version: "0.1.3"
 sdks:
   dart: ">=2.19.0 <3.0.0"
   flutter: ">=3.7.0"

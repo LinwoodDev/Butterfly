@@ -19,4 +19,4 @@ dev_dependencies:
   build_runner: ^2.3.3
   freezed: ^2.3.2
   flutter_lints: ^2.0.1
-  test: ^1.21.0
+  test: ^1.23.0

@@ -161,7 +161,7 @@ jobs:
       #    mv linwood-butterfly*.rpm linwood-butterfly-linux.rpm
       - name: Build .AppImage executable
         run: |
-          wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.0.0-beta.1/appimage-builder-1.0.0-677acbd-x86_64.AppImage
+          wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
           chmod +x appimage-builder-x86_64.AppImage
           sudo mv appimage-builder-x86_64.AppImage /usr/local/bin/appimage-builder
           appimage-builder --recipe AppImageBuilder.yml --skip-test
@@ -172,7 +172,8 @@ jobs:
           cp -r linux/debian/usr/share build/linux/x64/release/bundle/usr
       - name: Rename AppImage
         run: |
-          mv ./*.AppImage* linwood-butterfly-linux.AppImage
+          ls
+          mv ./*.AppImage linwood-butterfly-linux.AppImage
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -491,7 +492,7 @@ jobs:
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1.3"
+          ruby-version: "3.2.1"
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store

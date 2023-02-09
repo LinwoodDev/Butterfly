@@ -26,22 +26,22 @@ dependencies:
   butterfly_api:
     path: ../api
   flutter_svg: ^2.0.0+1
-  flutter_bloc: ^8.1.1
+  flutter_bloc: ^8.1.2
   image: ^4.0.13
   intl: ^0.17.0
   path_provider: ^2.0.11
   shared_preferences: ^2.0.17
-  url_launcher: ^6.1.8
+  url_launcher: ^6.1.9
   file_picker: ^5.2.5
   phosphor_flutter: ^1.4.0
-  replay_bloc: ^0.2.2
+  replay_bloc: ^0.2.3
   share_plus: ^6.3.0
   package_info_plus: ^3.0.2
   idb_shim: ^2.3.0+1
-  go_router: ^6.0.3
+  go_router: ^6.0.5
   xml: ^6.2.2
   collection: ^1.17.1
-  bloc_concurrency: ^0.2.0
+  bloc_concurrency: ^0.2.1
   camera: ^0.10.3
   camera_windows: ^0.2.1+4
   window_manager: ^0.3.0
@@ -50,7 +50,7 @@ dependencies:
   json_annotation: ^4.8.0
   path: ^1.8.2
   printing: ^5.10.1
-  js: ^0.6.4
+  js: ^0.6.5
   pdf: ^3.9.0
   http: ^0.13.5
   flutter_secure_storage: ^7.0.1
@@ -80,7 +80,7 @@ dev_dependencies:
   freezed: ^2.3.2
   build_runner: ^2.3.3
   json_serializable: ^6.6.1
-  espresso: ^0.2.0+6
+  espresso: ^0.2.0+7
 dependency_overrides:
   archive: 3.3.6
   collection: 1.17.1
