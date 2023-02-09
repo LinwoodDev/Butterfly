@@ -173,7 +173,7 @@ jobs:
       - name: Rename AppImage
         run: |
           ls
-          mv ./Linwood*.AppImage* linwood-butterfly-linux.AppImage
+          mv ./*.AppImage linwood-butterfly-linux.AppImage
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
