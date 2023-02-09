@@ -172,7 +172,8 @@ jobs:
           cp -r linux/debian/usr/share build/linux/x64/release/bundle/usr
       - name: Rename AppImage
         run: |
-          mv ./*.AppImage* linwood-butterfly-linux.AppImage
+          ls
+          mv ./Linwood*.AppImage* linwood-butterfly-linux.AppImage
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
