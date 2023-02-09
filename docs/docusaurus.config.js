@@ -200,7 +200,7 @@ module.exports = {
                             path: "2.0",
                         },
                         "1.6": {
-                            label: "1.6.0",
+                            label: "1.6.1",
                             path: "1.6",
                         },
                         "1.5": {
