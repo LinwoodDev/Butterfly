@@ -75,8 +75,11 @@ class TextSpan with _$TextSpan {
 
   TextSpan subSpan([int start = 0, int? length]) {
     length ??= this.length;
+    length = length.clamp(0, this.length);
+    start = start.clamp(0, length);
+    length = length.clamp(0, this.length - start);
     return copyWith(
-      text: text.substring(start, start + length),
+      text: text.substring(start, length),
     );
   }
 
@@ -101,6 +104,37 @@ class TextParagraph with _$TextParagraph {
   bool get isEmpty => textSpans.every((element) => element.isEmpty);
   bool get isNotEmpty => textSpans.any((element) => element.isNotEmpty);
 
+  TextSpan? getSpan(int index) {
+    var currentLength = 0;
+    for (var span in textSpans) {
+      if (currentLength + span.length > index) {
+        return span;
+      }
+      currentLength += span.length;
+    }
+    return null;
+  }
+
+  List<TextSpan> getSpans([int start = 0, int? length]) {
+    length ??= this.length;
+    var spans = <TextSpan>[];
+    var currentLength = 0;
+    final end = start + length;
+    for (var span in textSpans) {
+      if (currentLength + span.length > start) {
+        if (currentLength >= end) {
+          break;
+        }
+        spans.add(span.subSpan(
+          start - currentLength,
+          end - currentLength,
+        ));
+      }
+      currentLength += span.length;
+    }
+    return spans;
+  }
+
   TextParagraph subParagraph([int start = 0, int? length]) {
     length ??= this.length;
     var subSpans = <TextSpan>[];
@@ -121,6 +155,49 @@ class TextParagraph with _$TextParagraph {
       }
       currentLength += span.length;
     }
+    return copyWith(textSpans: subSpans);
+  }
+
+  TextParagraph insert(TextSpan span, int offset) {
+    List<TextSpan> spans = [];
+    spans.addAll(getSpans(0, offset));
+    spans.add(span);
+    spans.addAll(getSpans(offset));
+    return copyWith(textSpans: spans);
+  }
+
+  TextParagraph insertText(String text, int offset) {
+    List<TextSpan> spans = [];
+    // Merge spans
+    final span = getSpan(offset) ?? const TextSpan.text();
+    var newSpan = span.copyWith(text: span.text + text);
+    final before = getSpans(0, offset);
+    before.removeLast();
+    spans.addAll(before);
+    spans.add(newSpan);
+    spans.addAll(getSpans(offset + newSpan.length));
+    return copyWith(textSpans: spans);
+  }
+
+  TextParagraph replace(TextSpan span, [int start = 0, int? length]) {
+    var subSpans = <TextSpan>[];
+    final end = start + (length ?? 0);
+
+    subSpans.addAll(getSpans(0, start));
+    subSpans.add(span);
+    subSpans.addAll(getSpans(end));
+    return copyWith(textSpans: subSpans);
+  }
+
+  TextParagraph replaceText(String text, [int start = 0, int? length]) {
+    var subSpans = <TextSpan>[];
+    final end = start + (length ?? 0);
+
+    final span = getSpan(start) ?? const TextSpan.text();
+    final newSpan = span.copyWith(text: text);
+    subSpans.addAll(getSpans(0, start));
+    subSpans.add(newSpan);
+    subSpans.addAll(getSpans(end));
     return copyWith(textSpans: subSpans);
   }
 }

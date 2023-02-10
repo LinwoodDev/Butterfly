@@ -70,7 +70,7 @@ class LabelHandler extends Handler<LabelPainter>
             keyboardAppearance: Brightness.light,
             textCapitalization: TextCapitalization.sentences,
           ))
-        ..setEditingState(const TextEditingValue(text: 'A'))
+        ..setEditingState(const TextEditingValue())
         ..setStyle(
           fontFamily: style.fontFamily,
           fontSize: style.fontSize! * pixelRatio,
@@ -189,25 +189,22 @@ class LabelHandler extends Handler<LabelPainter>
   @override
   void updateEditingValue(TextEditingValue value) {
     if (_context == null) return;
-    final textSpans = [
-      text.TextSpan.text(
-        text: value.text,
-      ),
-    ];
     TextElement element;
     final old = _context?.element;
+
     if (old != null) {
-      final paragraph = old.area.paragraph.copyWith(
-        textSpans: textSpans,
-        property: _context!.forcedProperty ?? old.area.paragraph.property,
-      );
+      final selection = value.selection;
+      final start = selection.start;
+      final length = selection.end - start;
+      final paragraph =
+          old.area.paragraph.replaceText(value.text, start, length);
       final area = old.area.copyWith(
         paragraph: paragraph,
       );
       element = old.copyWith(area: area);
     } else {
       final paragraph = text.TextParagraph.text(
-        textSpans: textSpans,
+        textSpans: [text.TextSpan.text(text: value.text)],
         property: _context!.forcedProperty ??
             const text.ParagraphProperty.undefined(),
       );
@@ -219,6 +216,11 @@ class LabelHandler extends Handler<LabelPainter>
     _context = _context!.copyWith(
       element: element,
     );
+    _connection?.setEditingState(TextEditingValue(
+      text: '',
+      selection: TextSelection.collapsed(
+          offset: value.selection.start.clamp(0, element.area.length - 1)),
+    ));
     _bloc?.refresh();
     if (kDebugMode) {
       print('Editing value: $value');
@@ -250,6 +252,22 @@ class LabelHandler extends Handler<LabelPainter>
           if (kDebugMode) {
             print('Delete character');
           }
+          final element = _context?.element;
+          final selection = _context?.selection;
+          if (element == null || selection == null) return null;
+          var area = element.area;
+          var paragraph = area.paragraph;
+          paragraph = paragraph.subParagraph(
+            selection.baseOffset,
+            selection.extentOffset,
+          );
+          area = area.copyWith(paragraph: paragraph);
+          final newElement = element.copyWith(area: area);
+
+          _context = _context!.copyWith(
+            element: newElement,
+          );
+          bloc.refresh();
           return null;
         },
       ),
@@ -259,11 +277,10 @@ class LabelHandler extends Handler<LabelPainter>
             print('Select all');
           }
           _context = _context?.copyWith(
-            selection: TextSelection(
-              baseOffset: _context?.area?.length ?? 0,
-              extentOffset: 0,
-            ),
-          );
+              selection: TextSelection(
+            baseOffset: _context?.area?.length ?? 0,
+            extentOffset: 0,
+          ));
           bloc.refresh();
           return null;
         },
