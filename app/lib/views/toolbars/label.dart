@@ -3,6 +3,7 @@ import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
@@ -57,19 +58,15 @@ class LabelToolbarView extends StatelessWidget {
                         const SizedBox(width: 8),
                         SizedBox(
                           width: 200,
-                          child: DropdownButtonFormField<String>(
-                            items: const [
-                              DropdownMenuItem(
-                                child: Text('Heading 1'),
+                          child: DropdownMenu<String>(
+                            dropdownMenuEntries: const [
+                              DropdownMenuEntry(
+                                label: 'Heading 1',
+                                value: 'Heading 1',
                               ),
                             ],
-                            onChanged: (value) {},
-                            decoration: InputDecoration(
-                              suffixText:
-                                  value.forcedProperty == null ? null : '*',
-                              border: const OutlineInputBorder(),
-                              labelText: AppLocalizations.of(context).style,
-                            ),
+                            onSelected: (value) {},
+                            label: Text(AppLocalizations.of(context).style),
                           ),
                         ),
                       ],
@@ -112,21 +109,28 @@ class LabelToolbarView extends StatelessWidget {
                           },
                         ),
                         const SizedBox(width: 32),
-                        SizedBox(
-                          width: 200,
-                          child: DropdownButtonFormField<String>(
-                            items: const [
-                              DropdownMenuItem(
-                                child: Text('Roboto'),
-                              ),
-                            ],
-                            onChanged: (value) {},
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              labelText:
-                                  AppLocalizations.of(context).fontFamily,
-                            ),
-                          ),
+                        FutureBuilder<List<String>?>(
+                          future: Future.value(SysInfo.getFonts()),
+                          builder: (context, snapshot) {
+                            return DropdownMenu<String>(
+                              dropdownMenuEntries: snapshot.data
+                                      ?.map((e) => DropdownMenuEntry<String>(
+                                            value: e,
+                                            label: e,
+                                          ))
+                                      .toList() ??
+                                  [],
+                              enableFilter: true,
+                              onSelected: (value) {
+                                print(value);
+                              },
+                              width: 200,
+                              label:
+                                  Text(AppLocalizations.of(context).fontFamily),
+                              inputDecorationTheme:
+                                  const InputDecorationTheme(filled: true),
+                            );
+                          },
                         ),
                         const SizedBox(width: 8),
                         SizedBox(
