@@ -39,7 +39,7 @@ Map<String, dynamic> _$$DavRemoteStorageToJson(_$DavRemoteStorage instance) =>
 _$_InputConfiguration _$$_InputConfigurationFromJson(Map json) =>
     _$_InputConfiguration(
       leftMouse: json['leftMouse'] as int?,
-      middleMouse: json['middleMouse'] as int? ?? 0,
+      middleMouse: json['middleMouse'] as int? ?? -1,
       rightMouse: json['rightMouse'] as int? ?? 1,
       pen: json['pen'] as int?,
       firstPenButton: json['firstPenButton'] as int? ?? 2,

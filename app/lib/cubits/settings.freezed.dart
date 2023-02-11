@@ -658,7 +658,7 @@ class __$$_InputConfigurationCopyWithImpl<$Res>
 class _$_InputConfiguration implements _InputConfiguration {
   const _$_InputConfiguration(
       {this.leftMouse,
-      this.middleMouse = 0,
+      this.middleMouse = -1,
       this.rightMouse = 1,
       this.pen,
       this.firstPenButton = 2,
