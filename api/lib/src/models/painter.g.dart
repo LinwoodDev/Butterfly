@@ -167,7 +167,7 @@ _$LaserPainter _$$LaserPainterFromJson(Map json) => _$LaserPainter(
       name: json['name'] as String? ?? '',
       duration: (json['duration'] as num?)?.toDouble() ?? 5,
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
-      thinning: (json['thinning'] as num?)?.toDouble() ?? 0.3,
+      thinning: (json['thinning'] as num?)?.toDouble() ?? 0.4,
       color: json['color'] as int? ?? kColorRed,
       $type: json['type'] as String?,
     );
@@ -219,5 +219,18 @@ Map<String, dynamic> _$$StampPainterToJson(_$StampPainter instance) =>
       'name': instance.name,
       'pack': instance.pack,
       'component': instance.component,
+      'type': instance.$type,
+    };
+
+_$PresentationPainter _$$PresentationPainterFromJson(Map json) =>
+    _$PresentationPainter(
+      name: json['name'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$PresentationPainterToJson(
+        _$PresentationPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
       'type': instance.$type,
     };

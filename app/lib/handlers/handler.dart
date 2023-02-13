@@ -39,6 +39,7 @@ part 'laser.dart';
 part 'layer.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
+part 'presentation.dart';
 part 'redo.dart';
 part 'shape.dart';
 part 'stamp.dart';
@@ -187,6 +188,7 @@ abstract class Handler<T> {
       laser: (value) => LaserHandler(value),
       shape: (value) => ShapeHandler(value),
       stamp: (value) => StampHandler(value),
+      presentation: (value) => PresentationHandler(value),
     );
   }
 }

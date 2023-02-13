@@ -27,7 +27,7 @@ dependencies:
     path: ../api
   flutter_svg: ^2.0.0+1
   flutter_bloc: ^8.1.2
-  image: ^4.0.13
+  image: ^4.0.15
   intl: ^0.17.0
   path_provider: ^2.0.11
   shared_preferences: ^2.0.17

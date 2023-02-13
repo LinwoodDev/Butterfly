@@ -114,6 +114,10 @@ class Painter with _$Painter {
     @Default(0) int component,
   }) = StampPainter;
 
+  factory Painter.presentation({
+    @Default('') String name,
+  }) = PresentationPainter;
+
   factory Painter.fromJson(Map<String, dynamic> json) =>
       _$PainterFromJson(json);
 }

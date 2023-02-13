@@ -171,6 +171,7 @@ class AddDialog extends StatelessWidget {
                   Painter.layer,
                   Painter.waypoint,
                   Painter.area,
+                  Painter.presentation,
                 ].map(
                   (e) {
                     final painter = e();
