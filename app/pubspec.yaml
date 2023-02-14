@@ -70,8 +70,8 @@ dependencies:
       ref: 066461ee27342559e5731a03e3371c0537f1abcb
   lw_sysinfo:
     git:
-      url: https://github.com/LinwoodCloud/dart_pkgs
-      ref: b5709c5b4bb1f026f4173ceafbc086217c39763a
+      url: https://github.com/LinwoodCloud/dart_pkgs.git
+      ref: 6aaa333947699dd999d0bde3890fd7f0015b72c4
       path: packages/lw_sysinfo
 dev_dependencies:
   flutter_native_splash: ^2.2.16

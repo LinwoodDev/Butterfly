@@ -1,5 +1,6 @@
 import 'package:butterfly/dialogs/color_pick.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -122,7 +123,9 @@ class LabelToolbarView extends StatelessWidget {
                                   [],
                               enableFilter: true,
                               onSelected: (value) {
-                                print(value);
+                                if (kDebugMode) {
+                                  print(value);
+                                }
                               },
                               width: 200,
                               label:
