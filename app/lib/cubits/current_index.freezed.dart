@@ -354,54 +354,6 @@ class _$_CurrentIndex extends _CurrentIndex {
     return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, temporaryForegrounds: $temporaryForegrounds, pointers: $pointers, buttons: $buttons, cameraViewport: $cameraViewport, location: $location, embedding: $embedding, saved: $saved)';
   }
 
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_CurrentIndex &&
-            (identical(other.index, index) || other.index == index) &&
-            (identical(other.handler, handler) || other.handler == handler) &&
-            (identical(other.settingsCubit, settingsCubit) ||
-                other.settingsCubit == settingsCubit) &&
-            (identical(other.transformCubit, transformCubit) ||
-                other.transformCubit == transformCubit) &&
-            (identical(other.temporaryHandler, temporaryHandler) ||
-                other.temporaryHandler == temporaryHandler) &&
-            const DeepCollectionEquality()
-                .equals(other._foregrounds, _foregrounds) &&
-            (identical(other.selection, selection) ||
-                other.selection == selection) &&
-            const DeepCollectionEquality()
-                .equals(other._temporaryForegrounds, _temporaryForegrounds) &&
-            const DeepCollectionEquality().equals(other._pointers, _pointers) &&
-            (identical(other.buttons, buttons) || other.buttons == buttons) &&
-            (identical(other.cameraViewport, cameraViewport) ||
-                other.cameraViewport == cameraViewport) &&
-            (identical(other.location, location) ||
-                other.location == location) &&
-            (identical(other.embedding, embedding) ||
-                other.embedding == embedding) &&
-            (identical(other.saved, saved) || other.saved == saved));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      index,
-      handler,
-      settingsCubit,
-      transformCubit,
-      temporaryHandler,
-      const DeepCollectionEquality().hash(_foregrounds),
-      selection,
-      const DeepCollectionEquality().hash(_temporaryForegrounds),
-      const DeepCollectionEquality().hash(_pointers),
-      buttons,
-      cameraViewport,
-      location,
-      embedding,
-      saved);
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')

@@ -216,6 +216,20 @@ class _PacksDialogState extends State<PacksDialog>
                                                 pack.components.length)),
                                       ],
                                     ),
+                                    onTap: () async {
+                                      Navigator.of(context).pop();
+                                      final newPack =
+                                          await showDialog<ButterflyPack>(
+                                              context: context,
+                                              builder: (context) =>
+                                                  PackDialog(pack: pack));
+                                      if (newPack == null) return;
+                                      if (pack.name != newPack.name) {
+                                        await _fileSystem.deletePack(pack.name);
+                                      }
+                                      await _fileSystem.updatePack(newPack);
+                                      setState(() {});
+                                    },
                                     trailing: PopupMenuButton(
                                       itemBuilder: (context) => [
                                         if (widget.showDocument)
@@ -233,32 +247,6 @@ class _PacksDialogState extends State<PacksDialog>
                                               },
                                             ),
                                           ),
-                                        PopupMenuItem(
-                                          padding: EdgeInsets.zero,
-                                          child: ListTile(
-                                            leading: const Icon(
-                                                PhosphorIcons.pencilLight),
-                                            title: Text(
-                                                AppLocalizations.of(context)
-                                                    .edit),
-                                            onTap: () async {
-                                              Navigator.of(context).pop();
-                                              final newPack = await showDialog<
-                                                      ButterflyPack>(
-                                                  context: context,
-                                                  builder: (context) =>
-                                                      PackDialog(pack: pack));
-                                              if (newPack == null) return;
-                                              if (pack.name != newPack.name) {
-                                                await _fileSystem
-                                                    .deletePack(pack.name);
-                                              }
-                                              await _fileSystem
-                                                  .updatePack(newPack);
-                                              setState(() {});
-                                            },
-                                          ),
-                                        ),
                                         PopupMenuItem(
                                           padding: EdgeInsets.zero,
                                           child: ListTile(

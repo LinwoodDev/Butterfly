@@ -17,7 +17,8 @@ class EraserHandler extends Handler<EraserPainter> {
           CurrentIndexCubit currentIndexCubit, AppDocument document,
           [Area? currentArea]) =>
       [
-        if (_currentPos != null) EraserCursor(PainterCursor(data, _currentPos!))
+        if (_currentPos != null)
+          EraserCursor(PainterCursorData(data, _currentPos!))
       ];
 
   @override

@@ -14,6 +14,574 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+LabelOption _$LabelOptionFromJson(Map<String, dynamic> json) {
+  switch (json['type']) {
+    case 'text':
+      return TextOption.fromJson(json);
+    case 'markdown':
+      return MarkdownOption.fromJson(json);
+    case 'richText':
+      return RichTextOption.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(
+          json, 'type', 'LabelOption', 'Invalid union type "${json['type']}"!');
+  }
+}
+
+/// @nodoc
+mixin _$LabelOption {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AreaProperty property) text,
+    required TResult Function(String? styleSheet) markdown,
+    required TResult Function(String? styleSheet) richText,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AreaProperty property)? text,
+    TResult? Function(String? styleSheet)? markdown,
+    TResult? Function(String? styleSheet)? richText,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AreaProperty property)? text,
+    TResult Function(String? styleSheet)? markdown,
+    TResult Function(String? styleSheet)? richText,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(TextOption value) text,
+    required TResult Function(MarkdownOption value) markdown,
+    required TResult Function(RichTextOption value) richText,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(TextOption value)? text,
+    TResult? Function(MarkdownOption value)? markdown,
+    TResult? Function(RichTextOption value)? richText,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(TextOption value)? text,
+    TResult Function(MarkdownOption value)? markdown,
+    TResult Function(RichTextOption value)? richText,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LabelOptionCopyWith<$Res> {
+  factory $LabelOptionCopyWith(
+          LabelOption value, $Res Function(LabelOption) then) =
+      _$LabelOptionCopyWithImpl<$Res, LabelOption>;
+}
+
+/// @nodoc
+class _$LabelOptionCopyWithImpl<$Res, $Val extends LabelOption>
+    implements $LabelOptionCopyWith<$Res> {
+  _$LabelOptionCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$TextOptionCopyWith<$Res> {
+  factory _$$TextOptionCopyWith(
+          _$TextOption value, $Res Function(_$TextOption) then) =
+      __$$TextOptionCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AreaProperty property});
+
+  $AreaPropertyCopyWith<$Res> get property;
+}
+
+/// @nodoc
+class __$$TextOptionCopyWithImpl<$Res>
+    extends _$LabelOptionCopyWithImpl<$Res, _$TextOption>
+    implements _$$TextOptionCopyWith<$Res> {
+  __$$TextOptionCopyWithImpl(
+      _$TextOption _value, $Res Function(_$TextOption) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? property = null,
+  }) {
+    return _then(_$TextOption(
+      property: null == property
+          ? _value.property
+          : property // ignore: cast_nullable_to_non_nullable
+              as AreaProperty,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AreaPropertyCopyWith<$Res> get property {
+    return $AreaPropertyCopyWith<$Res>(_value.property, (value) {
+      return _then(_value.copyWith(property: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$TextOption implements TextOption {
+  const _$TextOption(
+      {this.property = const AreaProperty(), final String? $type})
+      : $type = $type ?? 'text';
+
+  factory _$TextOption.fromJson(Map<String, dynamic> json) =>
+      _$$TextOptionFromJson(json);
+
+  @override
+  @JsonKey()
+  final AreaProperty property;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LabelOption.text(property: $property)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TextOption &&
+            (identical(other.property, property) ||
+                other.property == property));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, property);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TextOptionCopyWith<_$TextOption> get copyWith =>
+      __$$TextOptionCopyWithImpl<_$TextOption>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AreaProperty property) text,
+    required TResult Function(String? styleSheet) markdown,
+    required TResult Function(String? styleSheet) richText,
+  }) {
+    return text(property);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AreaProperty property)? text,
+    TResult? Function(String? styleSheet)? markdown,
+    TResult? Function(String? styleSheet)? richText,
+  }) {
+    return text?.call(property);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AreaProperty property)? text,
+    TResult Function(String? styleSheet)? markdown,
+    TResult Function(String? styleSheet)? richText,
+    required TResult orElse(),
+  }) {
+    if (text != null) {
+      return text(property);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(TextOption value) text,
+    required TResult Function(MarkdownOption value) markdown,
+    required TResult Function(RichTextOption value) richText,
+  }) {
+    return text(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(TextOption value)? text,
+    TResult? Function(MarkdownOption value)? markdown,
+    TResult? Function(RichTextOption value)? richText,
+  }) {
+    return text?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(TextOption value)? text,
+    TResult Function(MarkdownOption value)? markdown,
+    TResult Function(RichTextOption value)? richText,
+    required TResult orElse(),
+  }) {
+    if (text != null) {
+      return text(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TextOptionToJson(
+      this,
+    );
+  }
+}
+
+abstract class TextOption implements LabelOption {
+  const factory TextOption({final AreaProperty property}) = _$TextOption;
+
+  factory TextOption.fromJson(Map<String, dynamic> json) =
+      _$TextOption.fromJson;
+
+  AreaProperty get property;
+  @JsonKey(ignore: true)
+  _$$TextOptionCopyWith<_$TextOption> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MarkdownOptionCopyWith<$Res> {
+  factory _$$MarkdownOptionCopyWith(
+          _$MarkdownOption value, $Res Function(_$MarkdownOption) then) =
+      __$$MarkdownOptionCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? styleSheet});
+}
+
+/// @nodoc
+class __$$MarkdownOptionCopyWithImpl<$Res>
+    extends _$LabelOptionCopyWithImpl<$Res, _$MarkdownOption>
+    implements _$$MarkdownOptionCopyWith<$Res> {
+  __$$MarkdownOptionCopyWithImpl(
+      _$MarkdownOption _value, $Res Function(_$MarkdownOption) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? styleSheet = freezed,
+  }) {
+    return _then(_$MarkdownOption(
+      styleSheet: freezed == styleSheet
+          ? _value.styleSheet
+          : styleSheet // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MarkdownOption implements MarkdownOption {
+  const _$MarkdownOption({this.styleSheet, final String? $type})
+      : $type = $type ?? 'markdown';
+
+  factory _$MarkdownOption.fromJson(Map<String, dynamic> json) =>
+      _$$MarkdownOptionFromJson(json);
+
+  @override
+  final String? styleSheet;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LabelOption.markdown(styleSheet: $styleSheet)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MarkdownOption &&
+            (identical(other.styleSheet, styleSheet) ||
+                other.styleSheet == styleSheet));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, styleSheet);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MarkdownOptionCopyWith<_$MarkdownOption> get copyWith =>
+      __$$MarkdownOptionCopyWithImpl<_$MarkdownOption>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AreaProperty property) text,
+    required TResult Function(String? styleSheet) markdown,
+    required TResult Function(String? styleSheet) richText,
+  }) {
+    return markdown(styleSheet);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AreaProperty property)? text,
+    TResult? Function(String? styleSheet)? markdown,
+    TResult? Function(String? styleSheet)? richText,
+  }) {
+    return markdown?.call(styleSheet);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AreaProperty property)? text,
+    TResult Function(String? styleSheet)? markdown,
+    TResult Function(String? styleSheet)? richText,
+    required TResult orElse(),
+  }) {
+    if (markdown != null) {
+      return markdown(styleSheet);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(TextOption value) text,
+    required TResult Function(MarkdownOption value) markdown,
+    required TResult Function(RichTextOption value) richText,
+  }) {
+    return markdown(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(TextOption value)? text,
+    TResult? Function(MarkdownOption value)? markdown,
+    TResult? Function(RichTextOption value)? richText,
+  }) {
+    return markdown?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(TextOption value)? text,
+    TResult Function(MarkdownOption value)? markdown,
+    TResult Function(RichTextOption value)? richText,
+    required TResult orElse(),
+  }) {
+    if (markdown != null) {
+      return markdown(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MarkdownOptionToJson(
+      this,
+    );
+  }
+}
+
+abstract class MarkdownOption implements LabelOption {
+  const factory MarkdownOption({final String? styleSheet}) = _$MarkdownOption;
+
+  factory MarkdownOption.fromJson(Map<String, dynamic> json) =
+      _$MarkdownOption.fromJson;
+
+  String? get styleSheet;
+  @JsonKey(ignore: true)
+  _$$MarkdownOptionCopyWith<_$MarkdownOption> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RichTextOptionCopyWith<$Res> {
+  factory _$$RichTextOptionCopyWith(
+          _$RichTextOption value, $Res Function(_$RichTextOption) then) =
+      __$$RichTextOptionCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? styleSheet});
+}
+
+/// @nodoc
+class __$$RichTextOptionCopyWithImpl<$Res>
+    extends _$LabelOptionCopyWithImpl<$Res, _$RichTextOption>
+    implements _$$RichTextOptionCopyWith<$Res> {
+  __$$RichTextOptionCopyWithImpl(
+      _$RichTextOption _value, $Res Function(_$RichTextOption) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? styleSheet = freezed,
+  }) {
+    return _then(_$RichTextOption(
+      styleSheet: freezed == styleSheet
+          ? _value.styleSheet
+          : styleSheet // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$RichTextOption implements RichTextOption {
+  const _$RichTextOption({this.styleSheet, final String? $type})
+      : $type = $type ?? 'richText';
+
+  factory _$RichTextOption.fromJson(Map<String, dynamic> json) =>
+      _$$RichTextOptionFromJson(json);
+
+  @override
+  final String? styleSheet;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'LabelOption.richText(styleSheet: $styleSheet)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RichTextOption &&
+            (identical(other.styleSheet, styleSheet) ||
+                other.styleSheet == styleSheet));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, styleSheet);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RichTextOptionCopyWith<_$RichTextOption> get copyWith =>
+      __$$RichTextOptionCopyWithImpl<_$RichTextOption>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AreaProperty property) text,
+    required TResult Function(String? styleSheet) markdown,
+    required TResult Function(String? styleSheet) richText,
+  }) {
+    return richText(styleSheet);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AreaProperty property)? text,
+    TResult? Function(String? styleSheet)? markdown,
+    TResult? Function(String? styleSheet)? richText,
+  }) {
+    return richText?.call(styleSheet);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AreaProperty property)? text,
+    TResult Function(String? styleSheet)? markdown,
+    TResult Function(String? styleSheet)? richText,
+    required TResult orElse(),
+  }) {
+    if (richText != null) {
+      return richText(styleSheet);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(TextOption value) text,
+    required TResult Function(MarkdownOption value) markdown,
+    required TResult Function(RichTextOption value) richText,
+  }) {
+    return richText(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(TextOption value)? text,
+    TResult? Function(MarkdownOption value)? markdown,
+    TResult? Function(RichTextOption value)? richText,
+  }) {
+    return richText?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(TextOption value)? text,
+    TResult Function(MarkdownOption value)? markdown,
+    TResult Function(RichTextOption value)? richText,
+    required TResult orElse(),
+  }) {
+    if (richText != null) {
+      return richText(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$RichTextOptionToJson(
+      this,
+    );
+  }
+}
+
+abstract class RichTextOption implements LabelOption {
+  const factory RichTextOption({final String? styleSheet}) = _$RichTextOption;
+
+  factory RichTextOption.fromJson(Map<String, dynamic> json) =
+      _$RichTextOption.fromJson;
+
+  String? get styleSheet;
+  @JsonKey(ignore: true)
+  _$$RichTextOptionCopyWith<_$RichTextOption> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 Painter _$PainterFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'hand':
@@ -64,7 +632,7 @@ mixin _$Painter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -90,7 +658,7 @@ mixin _$Painter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) =>
       throw _privateConstructorUsedError;
@@ -101,7 +669,7 @@ mixin _$Painter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -126,7 +694,7 @@ mixin _$Painter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) =>
       throw _privateConstructorUsedError;
@@ -137,7 +705,7 @@ mixin _$Painter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -162,7 +730,7 @@ mixin _$Painter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) =>
@@ -330,7 +898,7 @@ class _$HandPainter implements HandPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -356,7 +924,7 @@ class _$HandPainter implements HandPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
     return hand(name);
@@ -370,7 +938,7 @@ class _$HandPainter implements HandPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -395,7 +963,7 @@ class _$HandPainter implements HandPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
     return hand?.call(name);
@@ -409,7 +977,7 @@ class _$HandPainter implements HandPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -434,7 +1002,7 @@ class _$HandPainter implements HandPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
@@ -636,7 +1204,7 @@ class _$ImportPainter implements ImportPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -662,7 +1230,7 @@ class _$ImportPainter implements ImportPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
     return import(name, elements, areas);
@@ -676,7 +1244,7 @@ class _$ImportPainter implements ImportPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -701,7 +1269,7 @@ class _$ImportPainter implements ImportPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
     return import?.call(name, elements, areas);
@@ -715,7 +1283,7 @@ class _$ImportPainter implements ImportPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -740,7 +1308,7 @@ class _$ImportPainter implements ImportPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
@@ -915,7 +1483,7 @@ class _$UndoPainter implements UndoPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -941,7 +1509,7 @@ class _$UndoPainter implements UndoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
     return undo(name);
@@ -955,7 +1523,7 @@ class _$UndoPainter implements UndoPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -980,7 +1548,7 @@ class _$UndoPainter implements UndoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
     return undo?.call(name);
@@ -994,7 +1562,7 @@ class _$UndoPainter implements UndoPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -1019,7 +1587,7 @@ class _$UndoPainter implements UndoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
@@ -1189,7 +1757,7 @@ class _$RedoPainter implements RedoPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -1215,7 +1783,7 @@ class _$RedoPainter implements RedoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
     return redo(name);
@@ -1229,7 +1797,7 @@ class _$RedoPainter implements RedoPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -1254,7 +1822,7 @@ class _$RedoPainter implements RedoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
     return redo?.call(name);
@@ -1268,7 +1836,7 @@ class _$RedoPainter implements RedoPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -1293,7 +1861,7 @@ class _$RedoPainter implements RedoPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
@@ -1402,7 +1970,9 @@ abstract class _$$LabelPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
       __$$LabelPainterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, LabelProperty property});
+  $Res call({String name, PackAssetLocation styleSheet});
+
+  $PackAssetLocationCopyWith<$Res> get styleSheet;
 }
 
 /// @nodoc
@@ -1417,18 +1987,26 @@ class __$$LabelPainterCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? property = freezed,
+    Object? styleSheet = null,
   }) {
     return _then(_$LabelPainter(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      property: freezed == property
-          ? _value.property
-          : property // ignore: cast_nullable_to_non_nullable
-              as LabelProperty,
+      styleSheet: null == styleSheet
+          ? _value.styleSheet
+          : styleSheet // ignore: cast_nullable_to_non_nullable
+              as PackAssetLocation,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PackAssetLocationCopyWith<$Res> get styleSheet {
+    return $PackAssetLocationCopyWith<$Res>(_value.styleSheet, (value) {
+      return _then(_value.copyWith(styleSheet: value));
+    });
   }
 }
 
@@ -1437,7 +2015,7 @@ class __$$LabelPainterCopyWithImpl<$Res>
 class _$LabelPainter implements LabelPainter {
   _$LabelPainter(
       {this.name = '',
-      this.property = const LabelProperty(),
+      this.styleSheet = const PackAssetLocation(),
       final String? $type})
       : $type = $type ?? 'label';
 
@@ -1449,14 +2027,14 @@ class _$LabelPainter implements LabelPainter {
   final String name;
   @override
   @JsonKey()
-  final LabelProperty property;
+  final PackAssetLocation styleSheet;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Painter.label(name: $name, property: $property)';
+    return 'Painter.label(name: $name, styleSheet: $styleSheet)';
   }
 
   @JsonKey(ignore: true)
@@ -1474,7 +2052,7 @@ class _$LabelPainter implements LabelPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -1500,10 +2078,10 @@ class _$LabelPainter implements LabelPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
-    return label(name, property);
+    return label(name, styleSheet);
   }
 
   @override
@@ -1514,7 +2092,7 @@ class _$LabelPainter implements LabelPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -1539,10 +2117,10 @@ class _$LabelPainter implements LabelPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
-    return label?.call(name, property);
+    return label?.call(name, styleSheet);
   }
 
   @override
@@ -1553,7 +2131,7 @@ class _$LabelPainter implements LabelPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -1578,12 +2156,12 @@ class _$LabelPainter implements LabelPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
     if (label != null) {
-      return label(name, property);
+      return label(name, styleSheet);
     }
     return orElse();
   }
@@ -1667,15 +2245,15 @@ class _$LabelPainter implements LabelPainter {
 }
 
 abstract class LabelPainter implements Painter {
-  factory LabelPainter({final String name, final LabelProperty property}) =
-      _$LabelPainter;
+  factory LabelPainter(
+      {final String name, final PackAssetLocation styleSheet}) = _$LabelPainter;
 
   factory LabelPainter.fromJson(Map<String, dynamic> json) =
       _$LabelPainter.fromJson;
 
   @override
   String get name;
-  LabelProperty get property;
+  PackAssetLocation get styleSheet;
   @override
   @JsonKey(ignore: true)
   _$$LabelPainterCopyWith<_$LabelPainter> get copyWith =>
@@ -1770,7 +2348,7 @@ class _$PenPainter implements PenPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -1796,7 +2374,7 @@ class _$PenPainter implements PenPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
     return pen(name, zoomDependent, property);
@@ -1810,7 +2388,7 @@ class _$PenPainter implements PenPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -1835,7 +2413,7 @@ class _$PenPainter implements PenPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
     return pen?.call(name, zoomDependent, property);
@@ -1849,7 +2427,7 @@ class _$PenPainter implements PenPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -1874,7 +2452,7 @@ class _$PenPainter implements PenPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
@@ -2058,7 +2636,7 @@ class _$EraserPainter implements EraserPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -2084,7 +2662,7 @@ class _$EraserPainter implements EraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
     return eraser(name, strokeWidth);
@@ -2098,7 +2676,7 @@ class _$EraserPainter implements EraserPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -2123,7 +2701,7 @@ class _$EraserPainter implements EraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
     return eraser?.call(name, strokeWidth);
@@ -2137,7 +2715,7 @@ class _$EraserPainter implements EraserPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -2162,7 +2740,7 @@ class _$EraserPainter implements EraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
@@ -2344,7 +2922,7 @@ class _$PathEraserPainter implements PathEraserPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -2370,7 +2948,7 @@ class _$PathEraserPainter implements PathEraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
     return pathEraser(name, strokeWidth);
@@ -2384,7 +2962,7 @@ class _$PathEraserPainter implements PathEraserPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -2409,7 +2987,7 @@ class _$PathEraserPainter implements PathEraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
     return pathEraser?.call(name, strokeWidth);
@@ -2423,7 +3001,7 @@ class _$PathEraserPainter implements PathEraserPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -2448,7 +3026,7 @@ class _$PathEraserPainter implements PathEraserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
@@ -2628,7 +3206,7 @@ class _$LayerPainter implements LayerPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -2654,7 +3232,7 @@ class _$LayerPainter implements LayerPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
     return layer(name, strokeWidth);
@@ -2668,7 +3246,7 @@ class _$LayerPainter implements LayerPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -2693,7 +3271,7 @@ class _$LayerPainter implements LayerPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
     return layer?.call(name, strokeWidth);
@@ -2707,7 +3285,7 @@ class _$LayerPainter implements LayerPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -2732,7 +3310,7 @@ class _$LayerPainter implements LayerPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
@@ -2947,7 +3525,7 @@ class _$AreaPainter implements AreaPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -2973,7 +3551,7 @@ class _$AreaPainter implements AreaPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
     return area(name, constrainedWidth, constrainedHeight,
@@ -2988,7 +3566,7 @@ class _$AreaPainter implements AreaPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -3013,7 +3591,7 @@ class _$AreaPainter implements AreaPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
     return area?.call(name, constrainedWidth, constrainedHeight,
@@ -3028,7 +3606,7 @@ class _$AreaPainter implements AreaPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -3053,7 +3631,7 @@ class _$AreaPainter implements AreaPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
@@ -3234,7 +3812,7 @@ class _$WaypointPainter implements WaypointPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -3260,7 +3838,7 @@ class _$WaypointPainter implements WaypointPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
     return waypoint(name);
@@ -3274,7 +3852,7 @@ class _$WaypointPainter implements WaypointPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -3299,7 +3877,7 @@ class _$WaypointPainter implements WaypointPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
     return waypoint?.call(name);
@@ -3313,7 +3891,7 @@ class _$WaypointPainter implements WaypointPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -3338,7 +3916,7 @@ class _$WaypointPainter implements WaypointPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
@@ -3551,7 +4129,7 @@ class _$LaserPainter implements LaserPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -3577,7 +4155,7 @@ class _$LaserPainter implements LaserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
     return laser(name, duration, strokeWidth, thinning, color);
@@ -3591,7 +4169,7 @@ class _$LaserPainter implements LaserPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -3616,7 +4194,7 @@ class _$LaserPainter implements LaserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
     return laser?.call(name, duration, strokeWidth, thinning, color);
@@ -3630,7 +4208,7 @@ class _$LaserPainter implements LaserPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -3655,7 +4233,7 @@ class _$LaserPainter implements LaserPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
@@ -3887,7 +4465,7 @@ class _$ShapePainter implements ShapePainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -3913,7 +4491,7 @@ class _$ShapePainter implements ShapePainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
     return shape(name, zoomDependent, constrainedWidth, constrainedHeight,
@@ -3928,7 +4506,7 @@ class _$ShapePainter implements ShapePainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -3953,7 +4531,7 @@ class _$ShapePainter implements ShapePainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
     return shape?.call(name, zoomDependent, constrainedWidth, constrainedHeight,
@@ -3968,7 +4546,7 @@ class _$ShapePainter implements ShapePainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -3993,7 +4571,7 @@ class _$ShapePainter implements ShapePainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
@@ -4114,7 +4692,9 @@ abstract class _$$StampPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
       __$$StampPainterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String pack, int component});
+  $Res call({String name, PackAssetLocation component});
+
+  $PackAssetLocationCopyWith<$Res> get component;
 }
 
 /// @nodoc
@@ -4129,7 +4709,6 @@ class __$$StampPainterCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? pack = null,
     Object? component = null,
   }) {
     return _then(_$StampPainter(
@@ -4137,15 +4716,19 @@ class __$$StampPainterCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      pack: null == pack
-          ? _value.pack
-          : pack // ignore: cast_nullable_to_non_nullable
-              as String,
       component: null == component
           ? _value.component
           : component // ignore: cast_nullable_to_non_nullable
-              as int,
+              as PackAssetLocation,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PackAssetLocationCopyWith<$Res> get component {
+    return $PackAssetLocationCopyWith<$Res>(_value.component, (value) {
+      return _then(_value.copyWith(component: value));
+    });
   }
 }
 
@@ -4153,7 +4736,9 @@ class __$$StampPainterCopyWithImpl<$Res>
 @JsonSerializable()
 class _$StampPainter implements StampPainter {
   _$StampPainter(
-      {this.name = '', this.pack = '', this.component = 0, final String? $type})
+      {this.name = '',
+      this.component = const PackAssetLocation(),
+      final String? $type})
       : $type = $type ?? 'stamp';
 
   factory _$StampPainter.fromJson(Map<String, dynamic> json) =>
@@ -4164,17 +4749,14 @@ class _$StampPainter implements StampPainter {
   final String name;
   @override
   @JsonKey()
-  final String pack;
-  @override
-  @JsonKey()
-  final int component;
+  final PackAssetLocation component;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Painter.stamp(name: $name, pack: $pack, component: $component)';
+    return 'Painter.stamp(name: $name, component: $component)';
   }
 
   @JsonKey(ignore: true)
@@ -4192,7 +4774,7 @@ class _$StampPainter implements StampPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -4218,10 +4800,10 @@ class _$StampPainter implements StampPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
-    return stamp(name, pack, component);
+    return stamp(name, component);
   }
 
   @override
@@ -4232,7 +4814,7 @@ class _$StampPainter implements StampPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -4257,10 +4839,10 @@ class _$StampPainter implements StampPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
-    return stamp?.call(name, pack, component);
+    return stamp?.call(name, component);
   }
 
   @override
@@ -4271,7 +4853,7 @@ class _$StampPainter implements StampPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -4296,12 +4878,12 @@ class _$StampPainter implements StampPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {
     if (stamp != null) {
-      return stamp(name, pack, component);
+      return stamp(name, component);
     }
     return orElse();
   }
@@ -4385,18 +4967,15 @@ class _$StampPainter implements StampPainter {
 }
 
 abstract class StampPainter implements Painter {
-  factory StampPainter(
-      {final String name,
-      final String pack,
-      final int component}) = _$StampPainter;
+  factory StampPainter({final String name, final PackAssetLocation component}) =
+      _$StampPainter;
 
   factory StampPainter.fromJson(Map<String, dynamic> json) =
       _$StampPainter.fromJson;
 
   @override
   String get name;
-  String get pack;
-  int get component;
+  PackAssetLocation get component;
   @override
   @JsonKey(ignore: true)
   _$$StampPainterCopyWith<_$StampPainter> get copyWith =>
@@ -4473,7 +5052,7 @@ class _$PresentationPainter implements PresentationPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, LabelProperty property) label,
+    required TResult Function(String name, PackAssetLocation styleSheet) label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -4499,7 +5078,7 @@ class _$PresentationPainter implements PresentationPainter {
             double constrainedAspectRatio,
             ShapeProperty property)
         shape,
-    required TResult Function(String name, String pack, int component) stamp,
+    required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
     return presentation(name);
@@ -4513,7 +5092,7 @@ class _$PresentationPainter implements PresentationPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelProperty property)? label,
+    TResult? Function(String name, PackAssetLocation styleSheet)? label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -4538,7 +5117,7 @@ class _$PresentationPainter implements PresentationPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult? Function(String name, String pack, int component)? stamp,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
     return presentation?.call(name);
@@ -4552,7 +5131,7 @@ class _$PresentationPainter implements PresentationPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, LabelProperty property)? label,
+    TResult Function(String name, PackAssetLocation styleSheet)? label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -4577,7 +5156,7 @@ class _$PresentationPainter implements PresentationPainter {
             double constrainedAspectRatio,
             ShapeProperty property)?
         shape,
-    TResult Function(String name, String pack, int component)? stamp,
+    TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     required TResult orElse(),
   }) {

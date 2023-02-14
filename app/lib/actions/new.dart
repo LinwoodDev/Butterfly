@@ -71,7 +71,7 @@ class NewAction extends Action<NewIntent> {
 
     bloc.clearHistory();
     transformCubit.reset();
-    currentIndexCubit.reset(document);
+    currentIndexCubit.reset(bloc);
     final state = DocumentLoadSuccess(
       document,
       currentIndexCubit: currentIndexCubit,

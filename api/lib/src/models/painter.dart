@@ -1,11 +1,9 @@
 import 'dart:math';
 
-import 'colors.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/butterfly_text.dart';
 
-import 'area.dart';
-import 'element.dart';
-import 'property.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'painter.g.dart';
 part 'painter.freezed.dart';
@@ -33,6 +31,23 @@ extension RatioPresetExtension on AspectRatioPreset {
   }
 }
 
+@freezed
+class LabelOption with _$LabelOption {
+  const factory LabelOption.text({
+    @Default(AreaProperty()) AreaProperty property,
+  }) = TextOption;
+  const factory LabelOption.markdown({
+    String? styleSheet,
+  }) = MarkdownOption;
+
+  const factory LabelOption.richText({
+    String? styleSheet,
+  }) = RichTextOption;
+
+  factory LabelOption.fromJson(Map<String, dynamic> json) =>
+      _$LabelOptionFromJson(json);
+}
+
 @Freezed(equal: false)
 class Painter with _$Painter {
   factory Painter.hand({
@@ -55,7 +70,7 @@ class Painter with _$Painter {
 
   factory Painter.label({
     @Default('') String name,
-    @Default(LabelProperty()) LabelProperty property,
+    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
   }) = LabelPainter;
 
   factory Painter.pen({
@@ -110,8 +125,7 @@ class Painter with _$Painter {
 
   factory Painter.stamp({
     @Default('') String name,
-    @Default('') String pack,
-    @Default(0) int component,
+    @Default(PackAssetLocation()) PackAssetLocation component,
   }) = StampPainter;
 
   factory Painter.presentation({

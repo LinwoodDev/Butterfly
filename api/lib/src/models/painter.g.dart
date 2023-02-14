@@ -6,6 +6,42 @@ part of 'painter.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$TextOption _$$TextOptionFromJson(Map json) => _$TextOption(
+      property: json['property'] == null
+          ? const AreaProperty()
+          : AreaProperty.fromJson(
+              Map<String, dynamic>.from(json['property'] as Map)),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$TextOptionToJson(_$TextOption instance) =>
+    <String, dynamic>{
+      'property': instance.property.toJson(),
+      'type': instance.$type,
+    };
+
+_$MarkdownOption _$$MarkdownOptionFromJson(Map json) => _$MarkdownOption(
+      styleSheet: json['styleSheet'] as String?,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$MarkdownOptionToJson(_$MarkdownOption instance) =>
+    <String, dynamic>{
+      'styleSheet': instance.styleSheet,
+      'type': instance.$type,
+    };
+
+_$RichTextOption _$$RichTextOptionFromJson(Map json) => _$RichTextOption(
+      styleSheet: json['styleSheet'] as String?,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$RichTextOptionToJson(_$RichTextOption instance) =>
+    <String, dynamic>{
+      'styleSheet': instance.styleSheet,
+      'type': instance.$type,
+    };
+
 _$HandPainter _$$HandPainterFromJson(Map json) => _$HandPainter(
       name: json['name'] as String? ?? '',
       $type: json['type'] as String?,
@@ -60,17 +96,17 @@ Map<String, dynamic> _$$RedoPainterToJson(_$RedoPainter instance) =>
 
 _$LabelPainter _$$LabelPainterFromJson(Map json) => _$LabelPainter(
       name: json['name'] as String? ?? '',
-      property: json['property'] == null
-          ? const LabelProperty()
-          : LabelProperty.fromJson(
-              Map<String, dynamic>.from(json['property'] as Map)),
+      styleSheet: json['styleSheet'] == null
+          ? const PackAssetLocation()
+          : PackAssetLocation.fromJson(
+              Map<String, dynamic>.from(json['styleSheet'] as Map)),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$LabelPainterToJson(_$LabelPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'property': instance.property.toJson(),
+      'styleSheet': instance.styleSheet.toJson(),
       'type': instance.$type,
     };
 
@@ -209,16 +245,17 @@ Map<String, dynamic> _$$ShapePainterToJson(_$ShapePainter instance) =>
 
 _$StampPainter _$$StampPainterFromJson(Map json) => _$StampPainter(
       name: json['name'] as String? ?? '',
-      pack: json['pack'] as String? ?? '',
-      component: json['component'] as int? ?? 0,
+      component: json['component'] == null
+          ? const PackAssetLocation()
+          : PackAssetLocation.fromJson(
+              Map<String, dynamic>.from(json['component'] as Map)),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$StampPainterToJson(_$StampPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'pack': instance.pack,
-      'component': instance.component,
+      'component': instance.component.toJson(),
       'type': instance.$type,
     };
 

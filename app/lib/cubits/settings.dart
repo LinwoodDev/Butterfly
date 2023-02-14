@@ -161,6 +161,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(false) bool startInFullScreen,
     @Default(SyncMode.noMobile) SyncMode syncMode,
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
+    @Default('') String fallbackPack,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
@@ -211,6 +212,7 @@ class ButterflySettings with _$ButterflySettings {
       inputConfiguration: InputConfiguration.fromJson(
         json.decode(prefs.getString('input_configuration') ?? '{}'),
       ),
+      fallbackPack: prefs.getString('fallback_pack') ?? '',
     );
   }
 
@@ -254,6 +256,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('sync_mode', syncMode.name);
     await prefs.setString(
         'input_configuration', json.encode(inputConfiguration.toJson()));
+    await prefs.setString('fallback_pack', fallbackPack);
     await prefs.setInt('version', 0);
   }
 

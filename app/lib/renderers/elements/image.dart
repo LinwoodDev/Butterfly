@@ -110,4 +110,9 @@ class ImageRenderer extends Renderer<ImageElement> {
         ),
         image);
   }
+
+  @override
+  void dispose() {
+    image?.dispose();
+  }
 }

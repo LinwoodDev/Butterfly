@@ -1,23 +1,97 @@
 part of 'handler.dart';
 
-class LabelHandler extends Handler<LabelPainter> {
+class LabelHandler extends Handler<LabelPainter>
+    with HandlerWithCursor, TextInputClient {
+  TextContext? _context;
+  DocumentBloc? _bloc;
+
+  bool get isCurrentlyEditing => _context?.area != null;
+
   LabelHandler(super.data);
+
+  TextContext _createContext([Offset? position]) {
+    if (_context != null) {
+      return _context!.copyWith(
+        isCreating: true,
+        element: position == null
+            ? null
+            : TextElement(
+                position: position,
+                area: const text.TextArea(
+                  paragraph: text.TextParagraph.text(),
+                ),
+              ),
+      );
+    }
+    return TextContext(
+      painter: data,
+      isCreating: true,
+      element: position == null
+          ? null
+          : TextElement(
+              position: position,
+              area: const text.TextArea(
+                paragraph: text.TextParagraph.text(),
+              ),
+            ),
+      textPainter: TextPainter(),
+    );
+  }
+
+  @override
+  List<Renderer> createForegrounds(
+          CurrentIndexCubit currentIndexCubit, AppDocument document,
+          [Area? currentArea]) =>
+      [
+        ...super.createForegrounds(currentIndexCubit, document, currentArea),
+        if (_context?.element != null) ...[
+          if (_context?.isCreating ?? false)
+            TextRenderer(_context!.element!, _context),
+          TextSelectionCursor(_context!)
+        ],
+      ];
+
+  TextInputConnection? _connection;
 
   @override
   Future<void> onTapUp(TapUpDetails details, EventContext context) async {
     final pixelRatio = context.devicePixelRatio;
-    final newElement = await openDialog(context, details.localPosition);
-    if (newElement != null) {
-      context.addDocumentEvent(ElementsCreated([newElement]));
-      context
-          .getDocumentBloc()
-          .bake(viewportSize: context.viewportSize, pixelRatio: pixelRatio);
+    FocusScope.of(context.buildContext)
+        .requestFocus(Focus.of(context.buildContext));
+    final style = Theme.of(context.buildContext).textTheme.bodyLarge!;
+    if (!(_connection?.attached ?? false)) {
+      _connection = TextInput.attach(
+          this,
+          const TextInputConfiguration(
+            inputType: TextInputType.text,
+            obscureText: false,
+            autocorrect: true,
+            inputAction: TextInputAction.done,
+            keyboardAppearance: Brightness.light,
+            textCapitalization: TextCapitalization.sentences,
+          ))
+        ..setEditingState(const TextEditingValue())
+        ..setStyle(
+          fontFamily: style.fontFamily,
+          fontSize: style.fontSize! * pixelRatio,
+          fontWeight: style.fontWeight,
+          textDirection: TextDirection.ltr,
+          textAlign: TextAlign.left,
+        );
     }
+    _bloc = context.getDocumentBloc();
+    _connection!.show();
+
+    _context = _createContext(
+        context.getCameraTransform().localToGlobal(details.localPosition));
+    context.refresh();
   }
 
-  Future<LabelElement?> openDialog(
+  Future<TextElement?> openDialog(
       EventContext context, Offset localPosition) async {
-    final bloc = context.getDocumentBloc();
+    return null;
+
+    /*final bloc = context.getDocumentBloc();
     final transform = context.getCameraTransform();
     return showDialog<LabelElement>(
         context: context.buildContext,
@@ -25,99 +99,220 @@ class LabelHandler extends Handler<LabelPainter> {
             value: bloc,
             child: EditLabelElementDialog(
               element: LabelElement(
-                property: data.property,
                 position: transform.localToGlobal(localPosition),
               ),
-            )));
+            )));*/
   }
 
   @override
-  void onLongPressEnd(LongPressEndDetails details, EventContext context) async {
-    final position =
-        context.getCameraTransform().localToGlobal(details.localPosition);
-    final elements = await rayCast(position, context.buildContext, 0.0);
-    final label = elements.whereType<LabelRenderer>().firstOrNull?.element;
-    if (label == null) {
-      return;
-    }
-    final bloc = context.getDocumentBloc();
-    final buildContext = context.buildContext;
-    if (buildContext.mounted) {
-      final newElement = await showDialog<LabelElement>(
-          context: buildContext,
-          builder: (_) => BlocProvider.value(
-              value: bloc, child: EditLabelElementDialog(element: label)));
-      if (newElement == null) {
-        return;
+  Widget? getToolbar(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
+    _context ??= _createContext();
+    return LabelToolbarView(
+      value: _context!,
+      onChanged: (value) => _change(bloc, value),
+    );
+  }
+
+  @override
+  Renderer createCursor(Offset position) {
+    return TextCursor(TextCursorData(data, position, _context));
+  }
+
+  void _change(DocumentBloc bloc, TextContext value) {
+    final context = _context;
+    _context = value.copyWith();
+
+    if (context != null && context.element != null && value.element != null) {
+      if (!value.isCreating) {
+        bloc.add(ElementsChanged({
+          context.element!: [value.element!]
+        }));
       }
-      bloc.add(ElementsChanged({
-        label: [newElement]
-      }));
+    }
+    bloc.refresh();
+  }
+
+  @override
+  void dispose(DocumentBloc bloc) {
+    _connection?.close();
+    _connection = null;
+    _submit(bloc);
+  }
+
+  void _submit(DocumentBloc bloc) {
+    final context = _context;
+    if (context == null) return;
+    final element = context.element;
+    if (context.isCreating && element != null) {
+      bloc.add(ElementsCreated([element]));
     }
   }
 
   @override
-  int? getColor(DocumentBloc bloc) => data.property.color;
+  void connectionClosed() {
+    _connection = null;
+  }
 
   @override
-  LabelPainter? setColor(DocumentBloc bloc, int color) =>
-      data.copyWith(property: data.property.copyWith(color: color));
-}
-
-class EditLabelElementDialog extends StatelessWidget {
-  final LabelElement element;
-  final _propertySelection = LabelPropertySelection();
-  final TextEditingController _textController = TextEditingController();
-  EditLabelElementDialog({super.key, this.element = const LabelElement()});
+  // TODO: implement currentAutofillScope
+  AutofillScope? get currentAutofillScope => null;
 
   @override
-  Widget build(BuildContext context) {
-    var property = element.property;
-    _textController.text = element.text;
-    void submit() => Navigator.of(context)
-        .pop(element.copyWith(text: _textController.text, property: property));
-    return Dialog(
-        child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 500, maxHeight: 500),
-      child: Column(
-        children: [
-          Header(
-            leading: const Icon(PhosphorIcons.textTLight),
-            title: Text(AppLocalizations.of(context).enterText),
-          ),
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              child: Column(mainAxisSize: MainAxisSize.min, children: [
-                Expanded(
-                    child: ListView(shrinkWrap: true, children: [
-                  TextField(
-                    controller: _textController,
-                    autofocus: true,
-                    keyboardType: TextInputType.multiline,
-                    minLines: 3,
-                    maxLines: 5,
-                    decoration: const InputDecoration(filled: true),
-                    onSubmitted: (value) => submit(),
-                  ),
-                  ..._propertySelection.build(
-                      context, property, (value) => property = value),
-                ])),
-                const Divider(),
-                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  TextButton(
-                    child: Text(AppLocalizations.of(context).cancel),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                  ElevatedButton(
-                      onPressed: submit,
-                      child: Text(AppLocalizations.of(context).ok))
-                ])
-              ]),
-            ),
-          ),
-        ],
-      ),
+  // TODO: implement currentTextEditingValue
+  TextEditingValue? get currentTextEditingValue => TextEditingValue(
+        selection:
+            _context?.selection ?? const TextSelection.collapsed(offset: 0),
+      );
+
+  @override
+  void performAction(TextInputAction action) {
+    if (kDebugMode) {
+      print(action.name);
+    }
+  }
+
+  @override
+  void performPrivateCommand(String action, Map<String, dynamic> data) {
+    if (kDebugMode) {
+      print('Private command: $action; $data');
+    }
+  }
+
+  @override
+  void showAutocorrectionPromptRect(int start, int end) {
+    if (kDebugMode) {
+      print('Autocorrection prompt: $start, $end');
+    }
+  }
+
+  @override
+  void updateEditingValue(TextEditingValue value) {
+    if (_context == null) return;
+    TextElement element;
+    final old = _context?.element;
+
+    if (old != null) {
+      final selection = value.selection;
+      final start = selection.start;
+      final length = selection.end - start;
+      final paragraph =
+          old.area.paragraph.replaceText(value.text, start, length);
+      final area = old.area.copyWith(
+        paragraph: paragraph,
+      );
+      element = old.copyWith(area: area);
+    } else {
+      final paragraph = text.TextParagraph.text(
+        textSpans: [text.TextSpan.text(text: value.text)],
+        property: _context!.forcedProperty ??
+            const text.ParagraphProperty.undefined(),
+      );
+      final area = text.TextArea(
+        paragraph: paragraph,
+      );
+      element = TextElement(area: area);
+    }
+    _context = _context!.copyWith(
+      element: element,
+    );
+    _connection?.setEditingState(TextEditingValue(
+      text: '',
+      selection: TextSelection.collapsed(
+          offset: value.selection.start.clamp(0, element.area.length - 1)),
     ));
+    _bloc?.refresh();
+    if (kDebugMode) {
+      print('Editing value: $value');
+    }
+  }
+
+  @override
+  void updateFloatingCursor(RawFloatingCursorPoint point) {
+    if (kDebugMode) {
+      print('Floating cursor: $point');
+    }
+  }
+
+  @override
+  void didChangeInputControl(
+      TextInputControl? oldControl, TextInputControl? newControl) {
+    if (isCurrentlyEditing) {
+      oldControl?.hide();
+      newControl?.show();
+    }
+  }
+
+  @override
+  Map<Type, Action<Intent>> getActions(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
+    return {
+      DeleteCharacterIntent: CallbackAction<DeleteCharacterIntent>(
+        onInvoke: (intent) {
+          if (kDebugMode) {
+            print('Delete character');
+          }
+          final element = _context?.element;
+          final selection = _context?.selection;
+          if (element == null || selection == null) return null;
+          var area = element.area;
+          var paragraph = area.paragraph;
+          paragraph = paragraph.subParagraph(
+            selection.baseOffset,
+            selection.extentOffset,
+          );
+          area = area.copyWith(paragraph: paragraph);
+          final newElement = element.copyWith(area: area);
+
+          _context = _context!.copyWith(
+            element: newElement,
+          );
+          bloc.refresh();
+          return null;
+        },
+      ),
+      SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
+        onInvoke: (intent) {
+          if (kDebugMode) {
+            print('Select all');
+          }
+          _context = _context?.copyWith(
+              selection: TextSelection(
+            baseOffset: _context?.area?.length ?? 0,
+            extentOffset: 0,
+          ));
+          bloc.refresh();
+          return null;
+        },
+      ),
+      ExtendSelectionByCharacterIntent:
+          CallbackAction<ExtendSelectionByCharacterIntent>(
+        onInvoke: (intent) {
+          if (kDebugMode) {
+            print('Extend selection by character');
+          }
+          final maxLength = _context?.area?.length ?? 0;
+          var selection =
+              _context?.selection ?? const TextSelection.collapsed(offset: 0);
+          if (intent.collapseSelection) {
+            selection = TextSelection.collapsed(
+              offset: (selection.baseOffset + (intent.forward ? 1 : -1))
+                  .clamp(0, maxLength),
+            );
+          } else {
+            selection = TextSelection(
+              baseOffset: (selection.baseOffset + (intent.forward ? 1 : -1))
+                  .clamp(0, maxLength),
+              extentOffset: selection.extentOffset,
+            );
+          }
+          _context = _context?.copyWith(
+            selection: selection,
+          );
+          bloc.refresh();
+          return null;
+        },
+      ),
+    };
   }
 }

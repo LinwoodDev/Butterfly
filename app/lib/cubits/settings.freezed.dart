@@ -788,6 +788,7 @@ mixin _$ButterflySettings {
   SyncMode get syncMode => throw _privateConstructorUsedError;
   InputConfiguration get inputConfiguration =>
       throw _privateConstructorUsedError;
+  String get fallbackPack => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -821,7 +822,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       bool nativeWindowTitleBar,
       bool startInFullScreen,
       SyncMode syncMode,
-      InputConfiguration inputConfiguration});
+      InputConfiguration inputConfiguration,
+      String fallbackPack});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
 }
@@ -860,6 +862,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? startInFullScreen = null,
     Object? syncMode = null,
     Object? inputConfiguration = null,
+    Object? fallbackPack = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -946,6 +949,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.inputConfiguration
           : inputConfiguration // ignore: cast_nullable_to_non_nullable
               as InputConfiguration,
+      fallbackPack: null == fallbackPack
+          ? _value.fallbackPack
+          : fallbackPack // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -988,7 +995,8 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       bool nativeWindowTitleBar,
       bool startInFullScreen,
       SyncMode syncMode,
-      InputConfiguration inputConfiguration});
+      InputConfiguration inputConfiguration,
+      String fallbackPack});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -1026,6 +1034,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? startInFullScreen = null,
     Object? syncMode = null,
     Object? inputConfiguration = null,
+    Object? fallbackPack = null,
   }) {
     return _then(_$_ButterflySettings(
       theme: null == theme
@@ -1112,6 +1121,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.inputConfiguration
           : inputConfiguration // ignore: cast_nullable_to_non_nullable
               as InputConfiguration,
+      fallbackPack: null == fallbackPack
+          ? _value.fallbackPack
+          : fallbackPack // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -1140,7 +1153,8 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.nativeWindowTitleBar = false,
       this.startInFullScreen = false,
       this.syncMode = SyncMode.noMobile,
-      this.inputConfiguration = const InputConfiguration()})
+      this.inputConfiguration = const InputConfiguration(),
+      this.fallbackPack = ''})
       : _history = history,
         _remotes = remotes,
         super._();
@@ -1219,10 +1233,13 @@ class _$_ButterflySettings extends _ButterflySettings {
   @override
   @JsonKey()
   final InputConfiguration inputConfiguration;
+  @override
+  @JsonKey()
+  final String fallbackPack;
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack)';
   }
 
   @override
@@ -1267,7 +1284,9 @@ class _$_ButterflySettings extends _ButterflySettings {
             (identical(other.syncMode, syncMode) ||
                 other.syncMode == syncMode) &&
             (identical(other.inputConfiguration, inputConfiguration) ||
-                other.inputConfiguration == inputConfiguration));
+                other.inputConfiguration == inputConfiguration) &&
+            (identical(other.fallbackPack, fallbackPack) ||
+                other.fallbackPack == fallbackPack));
   }
 
   @override
@@ -1293,7 +1312,8 @@ class _$_ButterflySettings extends _ButterflySettings {
         nativeWindowTitleBar,
         startInFullScreen,
         syncMode,
-        inputConfiguration
+        inputConfiguration,
+        fallbackPack
       ]);
 
   @JsonKey(ignore: true)
@@ -1326,7 +1346,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final bool nativeWindowTitleBar,
       final bool startInFullScreen,
       final SyncMode syncMode,
-      final InputConfiguration inputConfiguration}) = _$_ButterflySettings;
+      final InputConfiguration inputConfiguration,
+      final String fallbackPack}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
   @override
@@ -1371,6 +1392,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   SyncMode get syncMode;
   @override
   InputConfiguration get inputConfiguration;
+  @override
+  String get fallbackPack;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>

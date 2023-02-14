@@ -2,16 +2,81 @@ part of '../selection.dart';
 
 class LabelPainterSelection extends PainterSelection<LabelPainter> {
   LabelPainterSelection(super.selected);
-  final _propertySelection = LabelPropertySelection();
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final property = selected.first.property;
-    void updateProperty(LabelProperty property) => update(
-        context, selected.map((e) => e.copyWith(property: property)).toList());
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return [];
+    final packs = state.document.packs;
+    final currentPack =
+        packs.firstWhereOrNull((e) => e.name == selected.first.styleSheet.pack);
     return [
       ...super.buildProperties(context),
-      ..._propertySelection.build(context, property, updateProperty),
+      const SizedBox(height: 16),
+      DropdownButtonFormField<String>(
+        items: packs
+            .map((e) =>
+                DropdownMenuItem<String>(value: e.name, child: Text(e.name)))
+            .toList(),
+        decoration: InputDecoration(
+          labelText: AppLocalizations.of(context).pack,
+          filled: true,
+          counterText:
+              packs.isEmpty ? AppLocalizations.of(context).noPacks : null,
+          suffixIcon: IconButton(
+            icon: const Icon(PhosphorIcons.packageLight),
+            tooltip: AppLocalizations.of(context).packs,
+            onPressed: () {
+              Actions.maybeInvoke<PacksIntent>(context, PacksIntent(context));
+            },
+          ),
+        ),
+        value: currentPack?.name,
+        onChanged: (pack) {
+          if (pack == null) return;
+          update(
+              context,
+              selected
+                  .map((e) =>
+                      e.copyWith(styleSheet: PackAssetLocation(pack: pack)))
+                  .toList());
+        },
+      ),
+      const SizedBox(height: 8),
+      const Divider(),
+      const SizedBox(height: 8),
+      Column(
+          children: currentPack?.styles
+                  .asMap()
+                  .entries
+                  .map((style) => Dismissible(
+                      key: ValueKey(style.key),
+                      background: Container(color: Colors.red),
+                      onDismissed: (direction) {
+                        final newPack = currentPack.copyWith(
+                          styles:
+                              List<text.TextStyleSheet>.from(currentPack.styles)
+                                ..removeAt(style.key),
+                        );
+                        bloc.add(DocumentPackUpdated(newPack.name, newPack));
+                      },
+                      child: ListTile(
+                        title: Text(style.value.name),
+                        selected:
+                            style.value.name == selected.first.styleSheet.name,
+                        onTap: () => update(
+                            context,
+                            selected
+                                .map((e) => e.copyWith(
+                                        styleSheet: PackAssetLocation(
+                                      pack: currentPack.name,
+                                      name: style.value.name,
+                                    )))
+                                .toList()),
+                      )))
+                  .toList() ??
+              []),
     ];
   }
 
@@ -30,7 +95,6 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
   @override
   IconData getIcon({bool filled = false}) =>
       filled ? PhosphorIcons.textTFill : PhosphorIcons.textTLight;
-
   @override
   List<String> get help => ['painters', 'label'];
 }

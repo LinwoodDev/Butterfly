@@ -5,9 +5,11 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/helpers/path_point.dart';
+import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/int.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,11 +19,12 @@ import 'package:xml/xml.dart';
 import '../cubits/current_index.dart';
 import '../cubits/transform.dart';
 import '../helpers/xml_helper.dart';
+import '../models/text.dart';
 
 part 'backgrounds/box.dart';
 part 'backgrounds/empty.dart';
 part 'elements/image.dart';
-part 'elements/label.dart';
+part 'elements/text.dart';
 part 'elements/path.dart';
 part 'elements/pen.dart';
 part 'elements/shape.dart';
@@ -50,6 +53,8 @@ abstract class Renderer<T> {
   @mustCallSuper
   FutureOr<void> setup(AppDocument document) async => _updateArea(document);
 
+  void dispose() {}
+
   void _updateArea(AppDocument document) => area = rect == null
       ? null
       : document.areas.firstWhereOrNull((area) => area.rect.overlaps(rect!));
@@ -71,7 +76,7 @@ abstract class Renderer<T> {
     if (element is PadElement) {
       return element.map(
         pen: (value) => PenRenderer(value),
-        label: (value) => LabelRenderer(value),
+        text: (value) => TextRenderer(value),
         image: (value) => ImageRenderer(value),
         svg: (value) => SvgRenderer(value),
         shape: (value) => ShapeRenderer(value),

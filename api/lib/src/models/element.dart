@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 
-import 'converter.dart';
+import 'package:butterfly_api/butterfly_api.dart';
+
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'path_point.dart';
-import 'property.dart';
+import 'text.dart';
 
 part 'element.freezed.dart';
 part 'element.g.dart';
@@ -56,13 +56,13 @@ class PadElement with _$PadElement {
     @Default(PenProperty()) PenProperty property,
   }) = PenElement;
 
-  const factory PadElement.label({
+  const factory PadElement.text({
     @Default('') String layer,
     @OffsetJsonConverter() @Default(Offset.zero) Offset position,
-    @Default('') String text,
-    @Default(LabelProperty()) LabelProperty property,
+    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    required TextArea area,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
-  }) = LabelElement;
+  }) = TextElement;
 
   const factory PadElement.image({
     @Default('') String layer,

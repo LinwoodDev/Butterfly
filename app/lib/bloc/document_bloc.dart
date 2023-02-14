@@ -74,10 +74,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final renderers = event.renderers ??
           event.elements?.map((e) => Renderer.fromInstance(e)).toList();
       if (renderers == null) return;
-      if (event.renderers == null) {
-        await Future.wait(
-            renderers.map((e) async => await e.setup(current.document)));
-      }
       return _saveDocument(
           emit,
           current.copyWith(
@@ -97,6 +93,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           if (index == null) {
             renderers.addAll(current);
           } else {
+            renderers[index].dispose();
             renderers.removeAt(index);
             renderers.insertAll(index, current);
           }
@@ -123,6 +120,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               newRenderer = Renderer.fromInstance(element);
               await newRenderer.setup(current.document);
               oldRenderer = renderer;
+              oldRenderer.dispose();
               renderers.add(newRenderer);
             }
           } else {
@@ -164,11 +162,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final document = current.document;
         final renderers = current.renderers;
         current.currentIndexCubit.unbake(
-          unbakedElements: renderers
-              .where((element) => !event.elements.contains(
-                    element.element,
-                  ))
-              .toList(),
+          unbakedElements: renderers.where((element) {
+            final remaining = !event.elements.contains(
+              element.element,
+            );
+            if (!remaining) element.dispose();
+            return remaining;
+          }).toList(),
         );
         await _saveDocument(
             emit,
@@ -240,14 +240,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final updatedCurrent =
             event.updatedPainters[current.currentIndexCubit.state.handler.data];
         if (updatedCurrent != null) {
-          current.currentIndexCubit.updatePainter(
-              current.document, current.currentArea, updatedCurrent);
+          current.currentIndexCubit.updatePainter(this, updatedCurrent);
         }
         final updatedTempCurrent = event.updatedPainters[
             current.currentIndexCubit.state.temporaryHandler?.data];
         if (updatedTempCurrent != null) {
-          current.currentIndexCubit.updateTemporaryPainter(
-              current.document, current.currentArea, updatedTempCurrent);
+          current.currentIndexCubit
+              .updateTemporaryPainter(this, updatedTempCurrent);
         }
       }
     });
@@ -264,7 +263,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                           ..removeWhere(
                               (element) => event.painters.contains(element)))))
             .then((value) {
-          cubit.updateIndex(current.document);
+          cubit.updateIndex(this);
         });
       }
     });

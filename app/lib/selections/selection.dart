@@ -9,6 +9,7 @@ import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/visualizer/preset.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -29,7 +30,7 @@ import '../widgets/exact_slider.dart';
 
 part 'elements/element.dart';
 part 'elements/image.dart';
-part 'elements/label.dart';
+part 'elements/text.dart';
 part 'elements/pen.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
@@ -48,7 +49,6 @@ part 'painters/stamp.dart';
 part 'painters/waypoint.dart';
 
 part 'properties/property.dart';
-part 'properties/label.dart';
 part 'properties/path.dart';
 part 'properties/pen.dart';
 

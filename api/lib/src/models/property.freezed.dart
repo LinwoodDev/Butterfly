@@ -16,8 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 Property _$PropertyFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
-    case 'label':
-      return LabelProperty.fromJson(json);
     case 'pen':
       return PenProperty.fromJson(json);
     case 'shape':
@@ -31,24 +29,10 @@ Property _$PropertyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Property {
+  double get strokeWidth => throw _privateConstructorUsedError;
   int get color => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)
-        label,
     required TResult Function(double strokeWidth, double thinning, int color,
             bool fill, double smoothing, double streamline)
         pen,
@@ -58,21 +42,6 @@ mixin _$Property {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)?
-        label,
     TResult? Function(double strokeWidth, double thinning, int color, bool fill,
             double smoothing, double streamline)?
         pen,
@@ -81,21 +50,6 @@ mixin _$Property {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)?
-        label,
     TResult Function(double strokeWidth, double thinning, int color, bool fill,
             double smoothing, double streamline)?
         pen,
@@ -105,21 +59,18 @@ mixin _$Property {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(LabelProperty value) label,
     required TResult Function(PenProperty value) pen,
     required TResult Function(ShapeProperty value) shape,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LabelProperty value)? label,
     TResult? Function(PenProperty value)? pen,
     TResult? Function(ShapeProperty value)? shape,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(LabelProperty value)? label,
     TResult Function(PenProperty value)? pen,
     TResult Function(ShapeProperty value)? shape,
     required TResult orElse(),
@@ -136,7 +87,7 @@ abstract class $PropertyCopyWith<$Res> {
   factory $PropertyCopyWith(Property value, $Res Function(Property) then) =
       _$PropertyCopyWithImpl<$Res, Property>;
   @useResult
-  $Res call({int color});
+  $Res call({double strokeWidth, int color});
 }
 
 /// @nodoc
@@ -152,449 +103,20 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? strokeWidth = null,
     Object? color = null,
   }) {
     return _then(_value.copyWith(
+      strokeWidth: null == strokeWidth
+          ? _value.strokeWidth
+          : strokeWidth // ignore: cast_nullable_to_non_nullable
+              as double,
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
   }
-}
-
-/// @nodoc
-abstract class _$$LabelPropertyCopyWith<$Res>
-    implements $PropertyCopyWith<$Res> {
-  factory _$$LabelPropertyCopyWith(
-          _$LabelProperty value, $Res Function(_$LabelProperty) then) =
-      __$$LabelPropertyCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {double size,
-      int color,
-      int fontWeight,
-      bool lineThrough,
-      bool underline,
-      bool overline,
-      bool italic,
-      double letterSpacing,
-      int decorationColor,
-      TextDecorationStyle decorationStyle,
-      double decorationThickness,
-      HorizontalAlignment horizontalAlignment,
-      VerticalAlignment verticalAlignment});
-}
-
-/// @nodoc
-class __$$LabelPropertyCopyWithImpl<$Res>
-    extends _$PropertyCopyWithImpl<$Res, _$LabelProperty>
-    implements _$$LabelPropertyCopyWith<$Res> {
-  __$$LabelPropertyCopyWithImpl(
-      _$LabelProperty _value, $Res Function(_$LabelProperty) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? size = null,
-    Object? color = null,
-    Object? fontWeight = null,
-    Object? lineThrough = null,
-    Object? underline = null,
-    Object? overline = null,
-    Object? italic = null,
-    Object? letterSpacing = null,
-    Object? decorationColor = null,
-    Object? decorationStyle = null,
-    Object? decorationThickness = null,
-    Object? horizontalAlignment = null,
-    Object? verticalAlignment = null,
-  }) {
-    return _then(_$LabelProperty(
-      size: null == size
-          ? _value.size
-          : size // ignore: cast_nullable_to_non_nullable
-              as double,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as int,
-      fontWeight: null == fontWeight
-          ? _value.fontWeight
-          : fontWeight // ignore: cast_nullable_to_non_nullable
-              as int,
-      lineThrough: null == lineThrough
-          ? _value.lineThrough
-          : lineThrough // ignore: cast_nullable_to_non_nullable
-              as bool,
-      underline: null == underline
-          ? _value.underline
-          : underline // ignore: cast_nullable_to_non_nullable
-              as bool,
-      overline: null == overline
-          ? _value.overline
-          : overline // ignore: cast_nullable_to_non_nullable
-              as bool,
-      italic: null == italic
-          ? _value.italic
-          : italic // ignore: cast_nullable_to_non_nullable
-              as bool,
-      letterSpacing: null == letterSpacing
-          ? _value.letterSpacing
-          : letterSpacing // ignore: cast_nullable_to_non_nullable
-              as double,
-      decorationColor: null == decorationColor
-          ? _value.decorationColor
-          : decorationColor // ignore: cast_nullable_to_non_nullable
-              as int,
-      decorationStyle: null == decorationStyle
-          ? _value.decorationStyle
-          : decorationStyle // ignore: cast_nullable_to_non_nullable
-              as TextDecorationStyle,
-      decorationThickness: null == decorationThickness
-          ? _value.decorationThickness
-          : decorationThickness // ignore: cast_nullable_to_non_nullable
-              as double,
-      horizontalAlignment: null == horizontalAlignment
-          ? _value.horizontalAlignment
-          : horizontalAlignment // ignore: cast_nullable_to_non_nullable
-              as HorizontalAlignment,
-      verticalAlignment: null == verticalAlignment
-          ? _value.verticalAlignment
-          : verticalAlignment // ignore: cast_nullable_to_non_nullable
-              as VerticalAlignment,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$LabelProperty implements LabelProperty {
-  const _$LabelProperty(
-      {this.size = 12,
-      this.color = kColorBlack,
-      this.fontWeight = 3,
-      this.lineThrough = false,
-      this.underline = false,
-      this.overline = false,
-      this.italic = false,
-      this.letterSpacing = 0,
-      this.decorationColor = kColorBlack,
-      this.decorationStyle = TextDecorationStyle.solid,
-      this.decorationThickness = 1,
-      this.horizontalAlignment = HorizontalAlignment.left,
-      this.verticalAlignment = VerticalAlignment.top,
-      final String? $type})
-      : $type = $type ?? 'label';
-
-  factory _$LabelProperty.fromJson(Map<String, dynamic> json) =>
-      _$$LabelPropertyFromJson(json);
-
-  @override
-  @JsonKey()
-  final double size;
-  @override
-  @JsonKey()
-  final int color;
-  @override
-  @JsonKey()
-  final int fontWeight;
-  @override
-  @JsonKey()
-  final bool lineThrough;
-  @override
-  @JsonKey()
-  final bool underline;
-  @override
-  @JsonKey()
-  final bool overline;
-  @override
-  @JsonKey()
-  final bool italic;
-  @override
-  @JsonKey()
-  final double letterSpacing;
-  @override
-  @JsonKey()
-  final int decorationColor;
-  @override
-  @JsonKey()
-  final TextDecorationStyle decorationStyle;
-  @override
-  @JsonKey()
-  final double decorationThickness;
-  @override
-  @JsonKey()
-  final HorizontalAlignment horizontalAlignment;
-  @override
-  @JsonKey()
-  final VerticalAlignment verticalAlignment;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'Property.label(size: $size, color: $color, fontWeight: $fontWeight, lineThrough: $lineThrough, underline: $underline, overline: $overline, italic: $italic, letterSpacing: $letterSpacing, decorationColor: $decorationColor, decorationStyle: $decorationStyle, decorationThickness: $decorationThickness, horizontalAlignment: $horizontalAlignment, verticalAlignment: $verticalAlignment)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LabelProperty &&
-            (identical(other.size, size) || other.size == size) &&
-            (identical(other.color, color) || other.color == color) &&
-            (identical(other.fontWeight, fontWeight) ||
-                other.fontWeight == fontWeight) &&
-            (identical(other.lineThrough, lineThrough) ||
-                other.lineThrough == lineThrough) &&
-            (identical(other.underline, underline) ||
-                other.underline == underline) &&
-            (identical(other.overline, overline) ||
-                other.overline == overline) &&
-            (identical(other.italic, italic) || other.italic == italic) &&
-            (identical(other.letterSpacing, letterSpacing) ||
-                other.letterSpacing == letterSpacing) &&
-            (identical(other.decorationColor, decorationColor) ||
-                other.decorationColor == decorationColor) &&
-            (identical(other.decorationStyle, decorationStyle) ||
-                other.decorationStyle == decorationStyle) &&
-            (identical(other.decorationThickness, decorationThickness) ||
-                other.decorationThickness == decorationThickness) &&
-            (identical(other.horizontalAlignment, horizontalAlignment) ||
-                other.horizontalAlignment == horizontalAlignment) &&
-            (identical(other.verticalAlignment, verticalAlignment) ||
-                other.verticalAlignment == verticalAlignment));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      size,
-      color,
-      fontWeight,
-      lineThrough,
-      underline,
-      overline,
-      italic,
-      letterSpacing,
-      decorationColor,
-      decorationStyle,
-      decorationThickness,
-      horizontalAlignment,
-      verticalAlignment);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LabelPropertyCopyWith<_$LabelProperty> get copyWith =>
-      __$$LabelPropertyCopyWithImpl<_$LabelProperty>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)
-        label,
-    required TResult Function(double strokeWidth, double thinning, int color,
-            bool fill, double smoothing, double streamline)
-        pen,
-    required TResult Function(double strokeWidth, PathShape shape, int color)
-        shape,
-  }) {
-    return label(
-        size,
-        color,
-        fontWeight,
-        lineThrough,
-        underline,
-        overline,
-        italic,
-        letterSpacing,
-        decorationColor,
-        decorationStyle,
-        decorationThickness,
-        horizontalAlignment,
-        verticalAlignment);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)?
-        label,
-    TResult? Function(double strokeWidth, double thinning, int color, bool fill,
-            double smoothing, double streamline)?
-        pen,
-    TResult? Function(double strokeWidth, PathShape shape, int color)? shape,
-  }) {
-    return label?.call(
-        size,
-        color,
-        fontWeight,
-        lineThrough,
-        underline,
-        overline,
-        italic,
-        letterSpacing,
-        decorationColor,
-        decorationStyle,
-        decorationThickness,
-        horizontalAlignment,
-        verticalAlignment);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)?
-        label,
-    TResult Function(double strokeWidth, double thinning, int color, bool fill,
-            double smoothing, double streamline)?
-        pen,
-    TResult Function(double strokeWidth, PathShape shape, int color)? shape,
-    required TResult orElse(),
-  }) {
-    if (label != null) {
-      return label(
-          size,
-          color,
-          fontWeight,
-          lineThrough,
-          underline,
-          overline,
-          italic,
-          letterSpacing,
-          decorationColor,
-          decorationStyle,
-          decorationThickness,
-          horizontalAlignment,
-          verticalAlignment);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LabelProperty value) label,
-    required TResult Function(PenProperty value) pen,
-    required TResult Function(ShapeProperty value) shape,
-  }) {
-    return label(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LabelProperty value)? label,
-    TResult? Function(PenProperty value)? pen,
-    TResult? Function(ShapeProperty value)? shape,
-  }) {
-    return label?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LabelProperty value)? label,
-    TResult Function(PenProperty value)? pen,
-    TResult Function(ShapeProperty value)? shape,
-    required TResult orElse(),
-  }) {
-    if (label != null) {
-      return label(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LabelPropertyToJson(
-      this,
-    );
-  }
-}
-
-abstract class LabelProperty implements Property {
-  const factory LabelProperty(
-      {final double size,
-      final int color,
-      final int fontWeight,
-      final bool lineThrough,
-      final bool underline,
-      final bool overline,
-      final bool italic,
-      final double letterSpacing,
-      final int decorationColor,
-      final TextDecorationStyle decorationStyle,
-      final double decorationThickness,
-      final HorizontalAlignment horizontalAlignment,
-      final VerticalAlignment verticalAlignment}) = _$LabelProperty;
-
-  factory LabelProperty.fromJson(Map<String, dynamic> json) =
-      _$LabelProperty.fromJson;
-
-  double get size;
-  @override
-  int get color;
-  int get fontWeight;
-  bool get lineThrough;
-  bool get underline;
-  bool get overline;
-  bool get italic;
-  double get letterSpacing;
-  int get decorationColor;
-  TextDecorationStyle get decorationStyle;
-  double get decorationThickness;
-  HorizontalAlignment get horizontalAlignment;
-  VerticalAlignment get verticalAlignment;
-  @override
-  @JsonKey(ignore: true)
-  _$$LabelPropertyCopyWith<_$LabelProperty> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -734,21 +256,6 @@ class _$PenProperty implements PenProperty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)
-        label,
     required TResult Function(double strokeWidth, double thinning, int color,
             bool fill, double smoothing, double streamline)
         pen,
@@ -761,21 +268,6 @@ class _$PenProperty implements PenProperty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)?
-        label,
     TResult? Function(double strokeWidth, double thinning, int color, bool fill,
             double smoothing, double streamline)?
         pen,
@@ -787,21 +279,6 @@ class _$PenProperty implements PenProperty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)?
-        label,
     TResult Function(double strokeWidth, double thinning, int color, bool fill,
             double smoothing, double streamline)?
         pen,
@@ -817,7 +294,6 @@ class _$PenProperty implements PenProperty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(LabelProperty value) label,
     required TResult Function(PenProperty value) pen,
     required TResult Function(ShapeProperty value) shape,
   }) {
@@ -827,7 +303,6 @@ class _$PenProperty implements PenProperty {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LabelProperty value)? label,
     TResult? Function(PenProperty value)? pen,
     TResult? Function(ShapeProperty value)? shape,
   }) {
@@ -837,7 +312,6 @@ class _$PenProperty implements PenProperty {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(LabelProperty value)? label,
     TResult Function(PenProperty value)? pen,
     TResult Function(ShapeProperty value)? shape,
     required TResult orElse(),
@@ -868,6 +342,7 @@ abstract class PenProperty implements Property, PathProperty {
   factory PenProperty.fromJson(Map<String, dynamic> json) =
       _$PenProperty.fromJson;
 
+  @override
   double get strokeWidth;
   double get thinning;
   @override
@@ -988,21 +463,6 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)
-        label,
     required TResult Function(double strokeWidth, double thinning, int color,
             bool fill, double smoothing, double streamline)
         pen,
@@ -1015,21 +475,6 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)?
-        label,
     TResult? Function(double strokeWidth, double thinning, int color, bool fill,
             double smoothing, double streamline)?
         pen,
@@ -1041,21 +486,6 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness,
-            HorizontalAlignment horizontalAlignment,
-            VerticalAlignment verticalAlignment)?
-        label,
     TResult Function(double strokeWidth, double thinning, int color, bool fill,
             double smoothing, double streamline)?
         pen,
@@ -1071,7 +501,6 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(LabelProperty value) label,
     required TResult Function(PenProperty value) pen,
     required TResult Function(ShapeProperty value) shape,
   }) {
@@ -1081,7 +510,6 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LabelProperty value)? label,
     TResult? Function(PenProperty value)? pen,
     TResult? Function(ShapeProperty value)? shape,
   }) {
@@ -1091,7 +519,6 @@ class _$ShapeProperty implements ShapeProperty {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(LabelProperty value)? label,
     TResult Function(PenProperty value)? pen,
     TResult Function(ShapeProperty value)? shape,
     required TResult orElse(),
@@ -1119,6 +546,7 @@ abstract class ShapeProperty implements Property {
   factory ShapeProperty.fromJson(Map<String, dynamic> json) =
       _$ShapeProperty.fromJson;
 
+  @override
   double get strokeWidth;
   PathShape get shape;
   @override

@@ -166,9 +166,13 @@ class ShapeHandler extends Handler {
       event.kind);
 
   @override
-  int? getColor(DocumentBloc bloc) => data.property.color;
-
-  @override
-  ShapePainter? setColor(DocumentBloc bloc, int color) =>
-      data.copyWith(property: data.property.copyWith(color: color));
+  Widget getToolbar(BuildContext context) => ColorToolbarView(
+        color: data.property.color,
+        onChanged: (value) {
+          final bloc = context.read<DocumentBloc>();
+          bloc.add(PaintersChanged({
+            data: data.copyWith(property: data.property.copyWith(color: value)),
+          }));
+        },
+      );
 }
