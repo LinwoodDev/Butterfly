@@ -167,7 +167,7 @@ _$LaserPainter _$$LaserPainterFromJson(Map json) => _$LaserPainter(
       name: json['name'] as String? ?? '',
       duration: (json['duration'] as num?)?.toDouble() ?? 5,
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
-      thinning: (json['thinning'] as num?)?.toDouble() ?? 0.3,
+      thinning: (json['thinning'] as num?)?.toDouble() ?? 0.4,
       color: json['color'] as int? ?? kColorRed,
       $type: json['type'] as String?,
     );
