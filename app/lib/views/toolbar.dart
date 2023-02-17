@@ -28,7 +28,7 @@ class _ToolbarViewState extends State<ToolbarView> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return Card(
       child: BlocBuilder<SettingsCubit, ButterflySettings>(
           buildWhen: (previous, current) =>
               previous.colorEnabled != current.colorEnabled,
