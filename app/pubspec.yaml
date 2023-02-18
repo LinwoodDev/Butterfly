@@ -27,7 +27,7 @@ dependencies:
     path: ../api
   flutter_svg: ^2.0.1
   flutter_bloc: ^8.1.2
-  image: ^4.0.13
+  image: ^4.0.15
   intl: ^0.17.0
   path_provider: ^2.0.11
   shared_preferences: ^2.0.17
@@ -63,7 +63,7 @@ dependencies:
   animations: ^2.0.7
   connectivity_plus: ^3.0.3
   cross_file: ^0.3.3+4
-  args: ^2.3.2
+  args: ^2.4.0
   perfect_freehand:
     git:
       url: https://github.com/CodeDoctorDE/perfect-freehand-dart.git
@@ -76,7 +76,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  analyzer: ^5.4.0
+  analyzer: ^5.5.0
   freezed: ^2.3.2
   build_runner: ^2.3.3
   json_serializable: ^6.6.1
