@@ -1,16 +1,16 @@
 part of '../renderer.dart';
 
 class SvgRenderer extends Renderer<SvgElement> {
-  DrawableRoot? svgRoot;
+  PictureInfo? info;
 
-  SvgRenderer(super.element, [this.svgRoot]);
+  SvgRenderer(super.element, [this.info]);
 
   @override
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final rect = this.rect;
-    if (svgRoot == null) {
+    if (info == null) {
       // Render placeholder
       final paint = Paint()
         ..color = Colors.grey
@@ -18,11 +18,15 @@ class SvgRenderer extends Renderer<SvgElement> {
       canvas.drawRect(rect, paint);
       return;
     }
-    final size = rect.size;
     canvas.save();
     canvas.translate(element.position.dx, element.position.dy);
-    final picture = svgRoot!.toPicture(size: size);
+    final picture = info!.picture;
+    final sx = rect.width / info!.size.width;
+    final sy = rect.height / info!.size.height;
+    canvas.scale(sx, sy);
     canvas.drawPicture(picture);
+    canvas.scale(1 / sx, 1 / sy);
+
     canvas.translate(-element.position.dx, -element.position.dx);
     canvas.restore();
   }
@@ -41,21 +45,19 @@ class SvgRenderer extends Renderer<SvgElement> {
       'width': '${rect.width}px',
       'height': '${rect.height}px',
       'xlink:href': dataUrl,
-      'mask': 'url(#eraser-mask)',
     });
   }
 
   @override
   FutureOr<void> setup(AppDocument document) async {
-    svgRoot = await svg.fromSvgString(element.data, element.data);
+    info = await vg.loadPicture(SvgStringLoader(element.data), null);
     super.setup(document);
   }
 
   @override
   Rect get rect {
     final constraints = element.constraints;
-    final size =
-        svgRoot?.viewport.viewBox ?? Size(element.width, element.height);
+    final size = info?.size ?? Size(element.width, element.height);
     if (constraints is ScaledElementConstraints) {
       final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
       final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;
@@ -95,6 +97,11 @@ class SvgRenderer extends Renderer<SvgElement> {
     }
   }
 
+  /*@override
+  void dispose() {
+    info?.picture.dispose();
+  }*/
+
   @override
   SvgRenderer transform(
       {Offset position = Offset.zero,
@@ -107,16 +114,16 @@ class SvgRenderer extends Renderer<SvgElement> {
             position: element.position + position,
             constraints: element.constraints.scale(scaleX, scaleY),
           ),
-          svgRoot);
+          info);
     }
     final rect = this.rect;
-    final size = svgRoot?.viewport.viewBox;
+    final size = info?.size;
     return SvgRenderer(
         element.copyWith(
           position: position - Offset(rect.width / 2, rect.height / 2),
           width: (size?.width ?? element.width) * scaleX,
           height: (size?.height ?? element.height) * scaleY,
         ),
-        svgRoot);
+        info);
   }
 }

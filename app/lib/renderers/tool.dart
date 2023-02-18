@@ -29,31 +29,35 @@ class ToolRenderer extends Renderer<ToolState> {
       [ColorScheme? colorScheme, bool foreground = false]) {
     final option = document.tool;
     if (element.gridEnabled) {
-      double x = 0;
-      while (x < size.width) {
-        final localX = x / transform.size;
-        canvas.drawLine(
-          Offset(localX - transform.position.dx, -transform.position.dy),
-          Offset(localX - transform.position.dx,
-              size.height / transform.size - transform.position.dy),
-          Paint()
-            ..strokeWidth = 1 / transform.size
-            ..color = Color(option.gridColor),
-        );
-        x += option.gridXSize;
+      if (option.gridXSize > 0) {
+        double x = 0;
+        while (x < size.width) {
+          final localX = x / transform.size;
+          canvas.drawLine(
+            Offset(localX - transform.position.dx, -transform.position.dy),
+            Offset(localX - transform.position.dx,
+                size.height / transform.size - transform.position.dy),
+            Paint()
+              ..strokeWidth = 1 / transform.size
+              ..color = Color(option.gridColor),
+          );
+          x += option.gridXSize;
+        }
       }
-      double y = 0;
-      while (y < size.height) {
-        final localY = y / transform.size;
-        canvas.drawLine(
-          Offset(-transform.position.dx, -transform.position.dy + localY),
-          Offset(-transform.position.dx + size.width / transform.size,
-              -transform.position.dy + localY),
-          Paint()
-            ..strokeWidth = 1 / transform.size
-            ..color = Color(option.gridColor),
-        );
-        y += option.gridYSize;
+      if (option.gridYSize > 0) {
+        double y = 0;
+        while (y < size.height) {
+          final localY = y / transform.size;
+          canvas.drawLine(
+            Offset(-transform.position.dx, -transform.position.dy + localY),
+            Offset(-transform.position.dx + size.width / transform.size,
+                -transform.position.dy + localY),
+            Paint()
+              ..strokeWidth = 1 / transform.size
+              ..color = Color(option.gridColor),
+          );
+          y += option.gridYSize;
+        }
       }
     }
     if (element.rulerEnabled) {
