@@ -10,7 +10,7 @@ import 'package:butterfly/models/element.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/parser.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -107,14 +107,12 @@ class ImportService {
     ]);
   }
 
-  Future<void> importSvg(Uint8List bytes,
-      [Offset position = Offset.zero]) async {
-    var contentString = String.fromCharCodes(bytes);
-    final SvgParser parser = SvgParser();
+  Future<void> importSvg(Uint8List bytes, [Offset? position]) async {
+    final firstPos = position ?? Offset.zero;
+    final contentString = String.fromCharCodes(bytes);
     try {
-      var document = await parser.parse(contentString,
-          warningsAsErrors: true, key: contentString);
-      final size = document.viewport.viewBox;
+      var document = await vg.loadPicture(SvgStringLoader(contentString), null);
+      final size = document.size;
       var height = size.height, width = size.width;
       if (!height.isFinite) height = 0;
       if (!width.isFinite) width = 0;
@@ -123,7 +121,7 @@ class ImportService {
           width: width,
           height: height,
           data: contentString,
-          position: position,
+          position: firstPos,
         ),
       ]);
     } catch (e, stackTrace) {
