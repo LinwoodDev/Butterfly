@@ -1,5 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/helpers/offset_helper.dart';
+import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,8 +99,9 @@ class WaypointsDialog extends StatelessWidget {
                                               onTap: () {
                                                 context
                                                     .read<TransformCubit>()
-                                                    .setPosition(
-                                                        -currentArea.position);
+                                                    .setPosition(-currentArea
+                                                        .position
+                                                        .toOffset());
                                                 bake();
                                                 Navigator.of(context).pop(true);
                                               },
@@ -180,7 +183,11 @@ class WaypointsDialog extends StatelessWidget {
                         context.read<DocumentBloc>().add(WaypointCreated(
                             Waypoint(
                                 nameController.text,
-                                context.read<TransformCubit>().state.position,
+                                context
+                                    .read<TransformCubit>()
+                                    .state
+                                    .position
+                                    .toPoint(),
                                 saveScale
                                     ? context.read<TransformCubit>().state.size
                                     : null)));

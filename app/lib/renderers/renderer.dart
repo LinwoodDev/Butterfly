@@ -4,14 +4,15 @@ import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/helpers/offset_helper.dart';
-import 'package:butterfly/helpers/path_point.dart';
+import 'package:butterfly/helpers/rect_helper.dart';
+import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/int.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:perfect_freehand/perfect_freehand.dart';
+import 'package:perfect_freehand/perfect_freehand.dart' as freehand;
 import 'package:xml/xml.dart';
 
 import '../cubits/current_index.dart';

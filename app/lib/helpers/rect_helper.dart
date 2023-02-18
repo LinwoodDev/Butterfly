@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 
 bool lineIntersectsLine(Offset l1p1, Offset l1p2, Offset l2p1, Offset l2p2) {
@@ -17,6 +18,28 @@ bool lineIntersectsLine(Offset l1p1, Offset l1p2, Offset l2p1, Offset l2p2) {
           .toDouble() /
       demon;
   return ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1;
+}
+
+extension AreaHelper on Area {
+  Rect get rect {
+    final topLeft = Offset(
+      width < 0 ? position.x + width : position.x,
+      height < 0 ? position.y + height : position.y,
+    );
+    return Rect.fromLTWH(topLeft.dx, topLeft.dy, width.abs(), height.abs());
+  }
+
+  bool hit(Offset offset) => rect.contains(offset);
+}
+
+extension DocumentAreaHelper on AppDocument {
+  Area? getAreaByRect(Rect rect) {
+    return areas.firstWhereOrNull((e) => rect.overlaps(e.rect));
+  }
+
+  Area? getArea(Offset offset) {
+    return areas.firstWhereOrNull((e) => e.hit(offset));
+  }
 }
 
 extension RectHelper on Rect {

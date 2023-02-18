@@ -21,8 +21,8 @@ Waypoint _$WaypointFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Waypoint {
   String get name => throw _privateConstructorUsedError;
-  @OffsetJsonConverter()
-  Offset get position => throw _privateConstructorUsedError;
+  @DoublePointJsonConverter()
+  Point<double> get position => throw _privateConstructorUsedError;
   double? get scale => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -37,7 +37,9 @@ abstract class $WaypointCopyWith<$Res> {
       _$WaypointCopyWithImpl<$Res, Waypoint>;
   @useResult
   $Res call(
-      {String name, @OffsetJsonConverter() Offset position, double? scale});
+      {String name,
+      @DoublePointJsonConverter() Point<double> position,
+      double? scale});
 }
 
 /// @nodoc
@@ -65,7 +67,7 @@ class _$WaypointCopyWithImpl<$Res, $Val extends Waypoint>
       position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
-              as Offset,
+              as Point<double>,
       scale: freezed == scale
           ? _value.scale
           : scale // ignore: cast_nullable_to_non_nullable
@@ -82,7 +84,9 @@ abstract class _$$_WaypointCopyWith<$Res> implements $WaypointCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String name, @OffsetJsonConverter() Offset position, double? scale});
+      {String name,
+      @DoublePointJsonConverter() Point<double> position,
+      double? scale});
 }
 
 /// @nodoc
@@ -108,7 +112,7 @@ class __$$_WaypointCopyWithImpl<$Res>
       null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
-              as Offset,
+              as Point<double>,
       freezed == scale
           ? _value.scale
           : scale // ignore: cast_nullable_to_non_nullable
@@ -120,7 +124,7 @@ class __$$_WaypointCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Waypoint implements _Waypoint {
-  const _$_Waypoint(this.name, @OffsetJsonConverter() this.position,
+  const _$_Waypoint(this.name, @DoublePointJsonConverter() this.position,
       [this.scale]);
 
   factory _$_Waypoint.fromJson(Map<String, dynamic> json) =>
@@ -129,8 +133,8 @@ class _$_Waypoint implements _Waypoint {
   @override
   final String name;
   @override
-  @OffsetJsonConverter()
-  final Offset position;
+  @DoublePointJsonConverter()
+  final Point<double> position;
   @override
   final double? scale;
 
@@ -169,8 +173,8 @@ class _$_Waypoint implements _Waypoint {
 }
 
 abstract class _Waypoint implements Waypoint {
-  const factory _Waypoint(
-      final String name, @OffsetJsonConverter() final Offset position,
+  const factory _Waypoint(final String name,
+      @DoublePointJsonConverter() final Point<double> position,
       [final double? scale]) = _$_Waypoint;
 
   factory _Waypoint.fromJson(Map<String, dynamic> json) = _$_Waypoint.fromJson;
@@ -178,8 +182,8 @@ abstract class _Waypoint implements Waypoint {
   @override
   String get name;
   @override
-  @OffsetJsonConverter()
-  Offset get position;
+  @DoublePointJsonConverter()
+  Point<double> get position;
   @override
   double? get scale;
   @override

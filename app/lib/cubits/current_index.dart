@@ -380,8 +380,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       final image = await render(appDocument,
           width: width.ceil(),
           height: height.ceil(),
-          x: area.position.dx,
-          y: area.position.dy,
+          x: area.position.x,
+          y: area.position.y,
           scale: scale,
           renderBackground: renderBackground);
       if (image == null) continue;

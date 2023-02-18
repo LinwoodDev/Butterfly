@@ -870,14 +870,14 @@ mixin _$PadElement {
         pen,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             String text,
             LabelProperty property,
             ElementConstraint constraint)
         label,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -885,7 +885,7 @@ mixin _$PadElement {
         image,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -893,8 +893,8 @@ mixin _$PadElement {
         svg,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
   }) =>
@@ -904,12 +904,16 @@ mixin _$PadElement {
     TResult? Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            String text,
+            LabelProperty property,
+            ElementConstraint constraint)?
         label,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -917,7 +921,7 @@ mixin _$PadElement {
         image,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -925,8 +929,8 @@ mixin _$PadElement {
         svg,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
   }) =>
@@ -936,12 +940,16 @@ mixin _$PadElement {
     TResult Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            String text,
+            LabelProperty property,
+            ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -949,7 +957,7 @@ mixin _$PadElement {
         image,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -957,8 +965,8 @@ mixin _$PadElement {
         svg,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
     required TResult orElse(),
@@ -1138,14 +1146,14 @@ class _$PenElement implements PenElement {
         pen,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             String text,
             LabelProperty property,
             ElementConstraint constraint)
         label,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1153,7 +1161,7 @@ class _$PenElement implements PenElement {
         image,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -1161,8 +1169,8 @@ class _$PenElement implements PenElement {
         svg,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
   }) {
@@ -1175,12 +1183,16 @@ class _$PenElement implements PenElement {
     TResult? Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            String text,
+            LabelProperty property,
+            ElementConstraint constraint)?
         label,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1188,7 +1200,7 @@ class _$PenElement implements PenElement {
         image,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -1196,8 +1208,8 @@ class _$PenElement implements PenElement {
         svg,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
   }) {
@@ -1210,12 +1222,16 @@ class _$PenElement implements PenElement {
     TResult Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            String text,
+            LabelProperty property,
+            ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1223,7 +1239,7 @@ class _$PenElement implements PenElement {
         image,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -1231,8 +1247,8 @@ class _$PenElement implements PenElement {
         svg,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
     required TResult orElse(),
@@ -1322,7 +1338,7 @@ abstract class _$$LabelElementCopyWith<$Res>
   @useResult
   $Res call(
       {String layer,
-      @OffsetJsonConverter() Offset position,
+      @DoublePointJsonConverter() Point<double> position,
       String text,
       LabelProperty property,
       ElementConstraint constraint});
@@ -1355,7 +1371,7 @@ class __$$LabelElementCopyWithImpl<$Res>
       position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
-              as Offset,
+              as Point<double>,
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -1385,7 +1401,7 @@ class __$$LabelElementCopyWithImpl<$Res>
 class _$LabelElement implements LabelElement {
   const _$LabelElement(
       {this.layer = '',
-      @OffsetJsonConverter() this.position = Offset.zero,
+      @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.text = '',
       this.property = const LabelProperty(),
       this.constraint = const ElementConstraint(size: 1000),
@@ -1400,8 +1416,8 @@ class _$LabelElement implements LabelElement {
   final String layer;
   @override
   @JsonKey()
-  @OffsetJsonConverter()
-  final Offset position;
+  @DoublePointJsonConverter()
+  final Point<double> position;
   @override
   @JsonKey()
   final String text;
@@ -1434,14 +1450,14 @@ class _$LabelElement implements LabelElement {
         pen,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             String text,
             LabelProperty property,
             ElementConstraint constraint)
         label,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1449,7 +1465,7 @@ class _$LabelElement implements LabelElement {
         image,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -1457,8 +1473,8 @@ class _$LabelElement implements LabelElement {
         svg,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
   }) {
@@ -1471,12 +1487,16 @@ class _$LabelElement implements LabelElement {
     TResult? Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            String text,
+            LabelProperty property,
+            ElementConstraint constraint)?
         label,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1484,7 +1504,7 @@ class _$LabelElement implements LabelElement {
         image,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -1492,8 +1512,8 @@ class _$LabelElement implements LabelElement {
         svg,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
   }) {
@@ -1506,12 +1526,16 @@ class _$LabelElement implements LabelElement {
     TResult Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            String text,
+            LabelProperty property,
+            ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1519,7 +1543,7 @@ class _$LabelElement implements LabelElement {
         image,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -1527,8 +1551,8 @@ class _$LabelElement implements LabelElement {
         svg,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
     required TResult orElse(),
@@ -1590,7 +1614,7 @@ class _$LabelElement implements LabelElement {
 abstract class LabelElement implements PadElement {
   const factory LabelElement(
       {final String layer,
-      @OffsetJsonConverter() final Offset position,
+      @DoublePointJsonConverter() final Point<double> position,
       final String text,
       final LabelProperty property,
       final ElementConstraint constraint}) = _$LabelElement;
@@ -1600,8 +1624,8 @@ abstract class LabelElement implements PadElement {
 
   @override
   String get layer;
-  @OffsetJsonConverter()
-  Offset get position;
+  @DoublePointJsonConverter()
+  Point<double> get position;
   String get text;
   LabelProperty get property;
   ElementConstraint get constraint;
@@ -1621,7 +1645,7 @@ abstract class _$$ImageElementCopyWith<$Res>
   @useResult
   $Res call(
       {String layer,
-      @OffsetJsonConverter() Offset position,
+      @DoublePointJsonConverter() Point<double> position,
       ElementConstraints? constraints,
       @Uint8ListJsonConverter() Uint8List pixels,
       double width,
@@ -1656,7 +1680,7 @@ class __$$ImageElementCopyWithImpl<$Res>
       position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
-              as Offset,
+              as Point<double>,
       constraints: freezed == constraints
           ? _value.constraints
           : constraints // ignore: cast_nullable_to_non_nullable
@@ -1694,7 +1718,7 @@ class __$$ImageElementCopyWithImpl<$Res>
 class _$ImageElement implements ImageElement {
   const _$ImageElement(
       {this.layer = '',
-      @OffsetJsonConverter() this.position = Offset.zero,
+      @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1),
       @Uint8ListJsonConverter() required this.pixels,
       required this.width,
@@ -1710,8 +1734,8 @@ class _$ImageElement implements ImageElement {
   final String layer;
   @override
   @JsonKey()
-  @OffsetJsonConverter()
-  final Offset position;
+  @DoublePointJsonConverter()
+  final Point<double> position;
   @override
   @JsonKey()
   final ElementConstraints? constraints;
@@ -1745,14 +1769,14 @@ class _$ImageElement implements ImageElement {
         pen,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             String text,
             LabelProperty property,
             ElementConstraint constraint)
         label,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1760,7 +1784,7 @@ class _$ImageElement implements ImageElement {
         image,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -1768,8 +1792,8 @@ class _$ImageElement implements ImageElement {
         svg,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
   }) {
@@ -1782,12 +1806,16 @@ class _$ImageElement implements ImageElement {
     TResult? Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            String text,
+            LabelProperty property,
+            ElementConstraint constraint)?
         label,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1795,7 +1823,7 @@ class _$ImageElement implements ImageElement {
         image,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -1803,8 +1831,8 @@ class _$ImageElement implements ImageElement {
         svg,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
   }) {
@@ -1817,12 +1845,16 @@ class _$ImageElement implements ImageElement {
     TResult Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            String text,
+            LabelProperty property,
+            ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1830,7 +1862,7 @@ class _$ImageElement implements ImageElement {
         image,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -1838,8 +1870,8 @@ class _$ImageElement implements ImageElement {
         svg,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
     required TResult orElse(),
@@ -1901,7 +1933,7 @@ class _$ImageElement implements ImageElement {
 abstract class ImageElement implements PadElement {
   const factory ImageElement(
       {final String layer,
-      @OffsetJsonConverter() final Offset position,
+      @DoublePointJsonConverter() final Point<double> position,
       final ElementConstraints? constraints,
       @Uint8ListJsonConverter() required final Uint8List pixels,
       required final double width,
@@ -1912,8 +1944,8 @@ abstract class ImageElement implements PadElement {
 
   @override
   String get layer;
-  @OffsetJsonConverter()
-  Offset get position;
+  @DoublePointJsonConverter()
+  Point<double> get position;
   ElementConstraints? get constraints;
   @Uint8ListJsonConverter()
   Uint8List get pixels;
@@ -1935,7 +1967,7 @@ abstract class _$$SvgElementCopyWith<$Res>
   @useResult
   $Res call(
       {String layer,
-      @OffsetJsonConverter() Offset position,
+      @DoublePointJsonConverter() Point<double> position,
       ElementConstraints? constraints,
       String data,
       double width,
@@ -1970,7 +2002,7 @@ class __$$SvgElementCopyWithImpl<$Res>
       position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
-              as Offset,
+              as Point<double>,
       constraints: freezed == constraints
           ? _value.constraints
           : constraints // ignore: cast_nullable_to_non_nullable
@@ -2008,7 +2040,7 @@ class __$$SvgElementCopyWithImpl<$Res>
 class _$SvgElement implements SvgElement {
   const _$SvgElement(
       {this.layer = '',
-      @OffsetJsonConverter() this.position = Offset.zero,
+      @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1),
       required this.data,
       required this.width,
@@ -2024,8 +2056,8 @@ class _$SvgElement implements SvgElement {
   final String layer;
   @override
   @JsonKey()
-  @OffsetJsonConverter()
-  final Offset position;
+  @DoublePointJsonConverter()
+  final Point<double> position;
   @override
   @JsonKey()
   final ElementConstraints? constraints;
@@ -2058,14 +2090,14 @@ class _$SvgElement implements SvgElement {
         pen,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             String text,
             LabelProperty property,
             ElementConstraint constraint)
         label,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -2073,7 +2105,7 @@ class _$SvgElement implements SvgElement {
         image,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -2081,8 +2113,8 @@ class _$SvgElement implements SvgElement {
         svg,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
   }) {
@@ -2095,12 +2127,16 @@ class _$SvgElement implements SvgElement {
     TResult? Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            String text,
+            LabelProperty property,
+            ElementConstraint constraint)?
         label,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -2108,7 +2144,7 @@ class _$SvgElement implements SvgElement {
         image,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -2116,8 +2152,8 @@ class _$SvgElement implements SvgElement {
         svg,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
   }) {
@@ -2130,12 +2166,16 @@ class _$SvgElement implements SvgElement {
     TResult Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            String text,
+            LabelProperty property,
+            ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -2143,7 +2183,7 @@ class _$SvgElement implements SvgElement {
         image,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -2151,8 +2191,8 @@ class _$SvgElement implements SvgElement {
         svg,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
     required TResult orElse(),
@@ -2214,7 +2254,7 @@ class _$SvgElement implements SvgElement {
 abstract class SvgElement implements PadElement {
   const factory SvgElement(
       {final String layer,
-      @OffsetJsonConverter() final Offset position,
+      @DoublePointJsonConverter() final Point<double> position,
       final ElementConstraints? constraints,
       required final String data,
       required final double width,
@@ -2225,8 +2265,8 @@ abstract class SvgElement implements PadElement {
 
   @override
   String get layer;
-  @OffsetJsonConverter()
-  Offset get position;
+  @DoublePointJsonConverter()
+  Point<double> get position;
   ElementConstraints? get constraints;
   String get data;
   double get width;
@@ -2247,8 +2287,8 @@ abstract class _$$ShapeElementCopyWith<$Res>
   @useResult
   $Res call(
       {String layer,
-      @OffsetJsonConverter() Offset firstPosition,
-      @OffsetJsonConverter() Offset secondPosition,
+      @DoublePointJsonConverter() Point<double> firstPosition,
+      @DoublePointJsonConverter() Point<double> secondPosition,
       ShapeProperty property});
 }
 
@@ -2276,11 +2316,11 @@ class __$$ShapeElementCopyWithImpl<$Res>
       firstPosition: null == firstPosition
           ? _value.firstPosition
           : firstPosition // ignore: cast_nullable_to_non_nullable
-              as Offset,
+              as Point<double>,
       secondPosition: null == secondPosition
           ? _value.secondPosition
           : secondPosition // ignore: cast_nullable_to_non_nullable
-              as Offset,
+              as Point<double>,
       property: freezed == property
           ? _value.property
           : property // ignore: cast_nullable_to_non_nullable
@@ -2294,8 +2334,8 @@ class __$$ShapeElementCopyWithImpl<$Res>
 class _$ShapeElement implements ShapeElement {
   const _$ShapeElement(
       {this.layer = '',
-      @OffsetJsonConverter() this.firstPosition = Offset.zero,
-      @OffsetJsonConverter() this.secondPosition = Offset.zero,
+      @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
+      @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0),
       this.property = const ShapeProperty(shape: RectangleShape()),
       final String? $type})
       : $type = $type ?? 'shape';
@@ -2308,12 +2348,12 @@ class _$ShapeElement implements ShapeElement {
   final String layer;
   @override
   @JsonKey()
-  @OffsetJsonConverter()
-  final Offset firstPosition;
+  @DoublePointJsonConverter()
+  final Point<double> firstPosition;
   @override
   @JsonKey()
-  @OffsetJsonConverter()
-  final Offset secondPosition;
+  @DoublePointJsonConverter()
+  final Point<double> secondPosition;
   @override
   @JsonKey()
   final ShapeProperty property;
@@ -2340,14 +2380,14 @@ class _$ShapeElement implements ShapeElement {
         pen,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             String text,
             LabelProperty property,
             ElementConstraint constraint)
         label,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -2355,7 +2395,7 @@ class _$ShapeElement implements ShapeElement {
         image,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -2363,8 +2403,8 @@ class _$ShapeElement implements ShapeElement {
         svg,
     required TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
   }) {
@@ -2377,12 +2417,16 @@ class _$ShapeElement implements ShapeElement {
     TResult? Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult? Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            String text,
+            LabelProperty property,
+            ElementConstraint constraint)?
         label,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -2390,7 +2434,7 @@ class _$ShapeElement implements ShapeElement {
         image,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -2398,8 +2442,8 @@ class _$ShapeElement implements ShapeElement {
         svg,
     TResult? Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
   }) {
@@ -2412,12 +2456,16 @@ class _$ShapeElement implements ShapeElement {
     TResult Function(String layer, double? zoom, List<PathPoint> points,
             PenProperty property)?
         pen,
-    TResult Function(String layer, @OffsetJsonConverter() Offset position,
-            String text, LabelProperty property, ElementConstraint constraint)?
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            String text,
+            LabelProperty property,
+            ElementConstraint constraint)?
         label,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -2425,7 +2473,7 @@ class _$ShapeElement implements ShapeElement {
         image,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset position,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             String data,
             double width,
@@ -2433,8 +2481,8 @@ class _$ShapeElement implements ShapeElement {
         svg,
     TResult Function(
             String layer,
-            @OffsetJsonConverter() Offset firstPosition,
-            @OffsetJsonConverter() Offset secondPosition,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
     required TResult orElse(),
@@ -2496,8 +2544,8 @@ class _$ShapeElement implements ShapeElement {
 abstract class ShapeElement implements PadElement {
   const factory ShapeElement(
       {final String layer,
-      @OffsetJsonConverter() final Offset firstPosition,
-      @OffsetJsonConverter() final Offset secondPosition,
+      @DoublePointJsonConverter() final Point<double> firstPosition,
+      @DoublePointJsonConverter() final Point<double> secondPosition,
       final ShapeProperty property}) = _$ShapeElement;
 
   factory ShapeElement.fromJson(Map<String, dynamic> json) =
@@ -2505,10 +2553,10 @@ abstract class ShapeElement implements PadElement {
 
   @override
   String get layer;
-  @OffsetJsonConverter()
-  Offset get firstPosition;
-  @OffsetJsonConverter()
-  Offset get secondPosition;
+  @DoublePointJsonConverter()
+  Point<double> get firstPosition;
+  @DoublePointJsonConverter()
+  Point<double> get secondPosition;
   ShapeProperty get property;
   @override
   @JsonKey(ignore: true)

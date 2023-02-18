@@ -26,7 +26,7 @@ class LabelHandler extends Handler<LabelPainter> {
             child: EditLabelElementDialog(
               element: LabelElement(
                 property: data.property,
-                position: transform.localToGlobal(localPosition),
+                position: transform.localToGlobal(localPosition).toPoint(),
               ),
             )));
   }

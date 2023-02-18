@@ -47,7 +47,7 @@ class ImportHandler extends Handler<ImportPainter> {
         .toList()));
     context.addDocumentEvent(AreasCreated(data.areas
         .map((e) => e.copyWith(
-              position: e.position + _position,
+              position: e.position + _position.toPoint(),
             ))
         .toList()));
     context.getCurrentIndexCubit().resetTemporaryHandler();

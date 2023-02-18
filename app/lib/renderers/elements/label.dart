@@ -30,7 +30,8 @@ class LabelRenderer extends Renderer<LabelElement> {
               fontWeight: FontWeight.values[element.property.fontWeight],
               letterSpacing: element.property.letterSpacing,
               decorationColor: Color(element.property.decorationColor),
-              decorationStyle: element.property.decorationStyle,
+              decorationStyle:
+                  getDecorationStyle(element.property.decorationStyle),
               decorationThickness: element.property.decorationThickness,
               decoration: TextDecoration.combine([
                 if (element.property.underline) TextDecoration.underline,
@@ -61,8 +62,8 @@ class LabelRenderer extends Renderer<LabelElement> {
     final constraints = element.constraint;
     if (constraints.size > 0) maxWidth = constraints.size;
     if (constraints.includeArea && area != null) {
-      maxWidth = min(maxWidth + element.position.dx, area!.rect.right) -
-          element.position.dx;
+      maxWidth = min(maxWidth + element.position.x, area!.rect.right) -
+          element.position.x;
     }
     final tp = _createPainter();
     tp.layout(maxWidth: maxWidth);
@@ -70,10 +71,10 @@ class LabelRenderer extends Renderer<LabelElement> {
     if (height < constraints.length) {
       height = constraints.length;
     } else if (constraints.includeArea && area != null) {
-      height = max(height, area!.rect.bottom - element.position.dy);
+      height = max(height, area!.rect.bottom - element.position.y);
     }
-    rect = Rect.fromLTWH(
-        element.position.dx, element.position.dy, tp.width, height);
+    rect =
+        Rect.fromLTWH(element.position.x, element.position.y, tp.width, height);
   }
 
   @override
@@ -86,17 +87,16 @@ class LabelRenderer extends Renderer<LabelElement> {
     // Change vertical alignment
     final align = element.property.verticalAlignment;
     switch (align) {
-      case VerticalAlignment.top:
-        current = current.translate(0, 0);
-        break;
       case VerticalAlignment.bottom:
-        current = current.translate(0, rect.height - tp.height);
+        current = current + Point(0, rect.height - tp.height);
         break;
       case VerticalAlignment.center:
-        current = current.translate(0, (rect.height - tp.height) / 2);
+        current = current + Point(0, (rect.height - tp.height) / 2);
+        break;
+      case VerticalAlignment.top:
         break;
     }
-    tp.paint(canvas, current);
+    tp.paint(canvas, current.toOffset());
   }
 
   @override
@@ -168,7 +168,25 @@ class LabelRenderer extends Renderer<LabelElement> {
       double scaleY = 1,
       bool relative = false}) {
     final size = Size(rect.width * scaleX, rect.height * scaleY);
-    final next = relative ? element.position + position : position;
-    return LabelRenderer(element.copyWith(position: next), next & size);
+    final next =
+        relative ? element.position + position.toPoint() : position.toPoint();
+    return LabelRenderer(
+        element.copyWith(position: next), next.toOffset() & size);
+  }
+
+  ui.TextDecorationStyle getDecorationStyle(
+      TextDecorationStyle decorationStyle) {
+    switch (decorationStyle) {
+      case TextDecorationStyle.solid:
+        return ui.TextDecorationStyle.solid;
+      case TextDecorationStyle.double:
+        return ui.TextDecorationStyle.double;
+      case TextDecorationStyle.dotted:
+        return ui.TextDecorationStyle.dotted;
+      case TextDecorationStyle.dashed:
+        return ui.TextDecorationStyle.dashed;
+      case TextDecorationStyle.wavy:
+        return ui.TextDecorationStyle.wavy;
+    }
   }
 }

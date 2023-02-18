@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +18,9 @@ class CameraTransform extends Equatable {
 
   CameraTransform withPosition(Offset position) =>
       CameraTransform(position, size);
+
+  CameraTransform withPointPosition(Point<double> position) =>
+      CameraTransform(position.toOffset(), size);
 
   CameraTransform withSize(double size, [Offset cursor = Offset.zero]) {
     // Set size and focus on cursor if provided
@@ -62,6 +68,6 @@ class TransformCubit extends Cubit<CameraTransform> {
       emit(state.withSize(size, cursor));
 
   void moveToWaypoint(Waypoint waypoint) => emit(state
-      .withPosition(-waypoint.position)
+      .withPointPosition(-waypoint.position)
       .withSize(waypoint.scale ?? state.size));
 }

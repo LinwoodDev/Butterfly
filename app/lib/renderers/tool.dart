@@ -16,10 +16,12 @@ class ToolRenderer extends Renderer<ToolState> {
   bool hitRuler(Offset position, Size size) {
     if (!element.rulerEnabled) return false;
     final rulerRect = getRulerRect(size).translate(
-        size.width / 2 + element.rulerPosition.dx,
-        size.height / 2 + element.rulerPosition.dy);
+        size.width / 2 + element.rulerPosition.x,
+        size.height / 2 + element.rulerPosition.y);
     return rulerRect.contains(position.rotate(
-        element.rulerPosition.translate(size.width / 2, size.height / 2),
+        element.rulerPosition
+            .toOffset()
+            .translate(size.width / 2, size.height / 2),
         -element.rulerAngle * pi / 180));
   }
 
@@ -79,8 +81,8 @@ class ToolRenderer extends Renderer<ToolState> {
       canvas.save();
       canvas.translate(-transform.position.dx, -transform.position.dy);
       canvas.scale(1 / transform.size, 1 / transform.size);
-      canvas.translate(size.width / 2 + element.rulerPosition.dx,
-          size.height / 2 + element.rulerPosition.dy);
+      canvas.translate(size.width / 2 + element.rulerPosition.x,
+          size.height / 2 + element.rulerPosition.y);
       canvas.rotate(element.rulerAngle * pi / 180);
       canvas.drawRect(rulerRect, rulerBackgroundPaint);
       canvas.drawLine(
@@ -143,10 +145,11 @@ class ToolRenderer extends Renderer<ToolState> {
     if (!element.rulerEnabled) return position;
     final size = cubit.state.cameraViewport.toSize();
     final rulerRect = getRulerRect(size).translate(
-        size.width / 2 + element.rulerPosition.dx,
-        size.height / 2 + element.rulerPosition.dy);
-    final pivot =
-        element.rulerPosition.translate(size.width / 2, size.height / 2);
+        size.width / 2 + element.rulerPosition.x,
+        size.height / 2 + element.rulerPosition.y);
+    final pivot = element.rulerPosition
+        .toOffset()
+        .translate(size.width / 2, size.height / 2);
     final angle = element.rulerAngle * pi / 180;
 
     final rotatedPosition = position.rotate(pivot, -angle);

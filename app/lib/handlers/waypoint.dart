@@ -19,13 +19,14 @@ class WaypointHandler extends Handler<WaypointPainter> {
     final document = context.getDocument();
     if (document == null) return;
     final transform = context.getCameraTransform();
-    final globalPosition = transform.localToGlobal(details.localPosition);
+    final globalPosition =
+        transform.localToGlobal(details.localPosition).toPoint();
     final scale = transform.size;
 
     final waypoints = document.waypoints;
     final clickedWaypoint = waypoints.asMap().entries.firstWhereOrNull(
         (waypoint) =>
-            (waypoint.value.position - globalPosition).distance <
+            (waypoint.value.position - globalPosition).magnitude <
             radius / transform.size);
 
     if (clickedWaypoint == null) {
@@ -57,7 +58,7 @@ class WaypointHandler extends Handler<WaypointPainter> {
   }
 
   Future<void> _showCreateDialog(
-      EventContext context, Offset position, double size) {
+      EventContext context, Point<double> position, double size) {
     var saveScale = true;
     var nameController = TextEditingController();
     return showDialog<void>(

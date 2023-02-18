@@ -185,8 +185,8 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                   OffsetPropertyView(
                     title: Text(AppLocalizations.of(context).position),
                     onChanged: (value) => widget.onStateChanged(
-                        widget.state.copyWith(rulerPosition: value)),
-                    value: widget.state.rulerPosition,
+                        widget.state.copyWith(rulerPosition: value.toPoint())),
+                    value: widget.state.rulerPosition.toOffset(),
                   ),
                   const SizedBox(height: 8),
                   ExactSlider(

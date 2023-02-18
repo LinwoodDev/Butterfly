@@ -57,8 +57,8 @@ class ImageRenderer extends Renderer<ImageElement> {
       final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
       final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;
       return Rect.fromLTWH(
-          element.position.dx,
-          element.position.dy,
+          element.position.x,
+          element.position.y,
           (element.width * scaleX).toDouble(),
           (element.height * scaleY).toDouble());
     } else if (constraints is FixedElementConstraints) {
@@ -67,7 +67,7 @@ class ImageRenderer extends Renderer<ImageElement> {
       if (height <= 0) height = element.height.toDouble();
       if (width <= 0) width = element.width.toDouble();
       return Rect.fromLTWH(
-          element.position.dx, element.position.dy, width, height);
+          element.position.x, element.position.y, width, height);
     } else if (constraints is DynamicElementConstraints) {
       var width = constraints.width;
       var height = constraints.height;
@@ -79,18 +79,18 @@ class ImageRenderer extends Renderer<ImageElement> {
       if (constraints.includeArea) {
         final areaRect = area?.rect;
         final rightArea = areaRect?.right ?? 0;
-        final right = element.position.dx + element.width;
-        width = min(rightArea, right) - element.position.dx;
+        final right = element.position.x + element.width;
+        width = min(rightArea, right) - element.position.x;
         final bottomArea = areaRect?.bottom ?? 0;
-        final bottom = element.position.dy + element.height;
-        height = min(bottomArea, bottom) - element.position.dy;
+        final bottom = element.position.y + element.height;
+        height = min(bottomArea, bottom) - element.position.y;
       }
       if (height <= 0) height = element.height.toDouble();
       if (width <= 0) width = element.width.toDouble();
       return Rect.fromLTWH(
-          element.position.dx, element.position.dy, width, height);
+          element.position.x, element.position.y, width, height);
     } else {
-      return Rect.fromLTWH(element.position.dx, element.position.dy,
+      return Rect.fromLTWH(element.position.x, element.position.y,
           element.width.toDouble(), element.height.toDouble());
     }
   }
@@ -104,8 +104,8 @@ class ImageRenderer extends Renderer<ImageElement> {
     return ImageRenderer(
         element.copyWith(
           position: relative
-              ? element.position + position
-              : position - Offset(rect.width / 2, rect.height / 2),
+              ? element.position + position.toPoint()
+              : position.toPoint() - Point(rect.width / 2, rect.height / 2),
           constraints: element.constraints.scale(scaleX, scaleY),
         ),
         image);

@@ -440,10 +440,11 @@ class HandHandler extends Handler<HandPainter> {
       }
       angle %= 360;
       toolState = toolState.copyWith(
-        rulerPosition: toolState.rulerPosition.translate(
-          details.focalPointDelta.dx,
-          details.focalPointDelta.dy,
-        ),
+        rulerPosition: toolState.rulerPosition +
+            Point(
+              details.focalPointDelta.dx,
+              details.focalPointDelta.dy,
+            ),
         rulerAngle: angle,
       );
       _rotation = currentRotation;

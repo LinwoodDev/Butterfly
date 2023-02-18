@@ -1,5 +1,4 @@
 import 'colors.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'property.g.dart';
@@ -15,6 +14,8 @@ abstract class PathProperty implements Property {
 enum HorizontalAlignment { left, center, right, justify }
 
 enum VerticalAlignment { top, center, bottom }
+
+enum TextDecorationStyle { solid, double, dotted, dashed, wavy }
 
 @freezed
 class Property with _$Property {
