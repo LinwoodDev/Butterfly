@@ -172,7 +172,7 @@ class __$$DefinedSpanPropertyCopyWithImpl<$Res>
     Object? italic = null,
     Object? letterSpacing = null,
     Object? decorationColor = null,
-    Object? decorationStyle = null,
+    Object? decorationStyle = freezed,
     Object? decorationThickness = null,
   }) {
     return _then(_$DefinedSpanProperty(
@@ -212,7 +212,7 @@ class __$$DefinedSpanPropertyCopyWithImpl<$Res>
           ? _value.decorationColor
           : decorationColor // ignore: cast_nullable_to_non_nullable
               as int,
-      decorationStyle: null == decorationStyle
+      decorationStyle: freezed == decorationStyle
           ? _value.decorationStyle
           : decorationStyle // ignore: cast_nullable_to_non_nullable
               as TextDecorationStyle,
@@ -307,8 +307,8 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
                 other.letterSpacing == letterSpacing) &&
             (identical(other.decorationColor, decorationColor) ||
                 other.decorationColor == decorationColor) &&
-            (identical(other.decorationStyle, decorationStyle) ||
-                other.decorationStyle == decorationStyle) &&
+            const DeepCollectionEquality()
+                .equals(other.decorationStyle, decorationStyle) &&
             (identical(other.decorationThickness, decorationThickness) ||
                 other.decorationThickness == decorationThickness));
   }
@@ -326,7 +326,7 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
       italic,
       letterSpacing,
       decorationColor,
-      decorationStyle,
+      const DeepCollectionEquality().hash(decorationStyle),
       decorationThickness);
 
   @JsonKey(ignore: true)

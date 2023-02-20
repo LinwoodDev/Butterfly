@@ -88,6 +88,9 @@ jobs:
           Get-Content pubspec.yaml | Select-String -Pattern 'version:\s(.+)\+'  | % {Set-Item -Path Env:BUTTERFLY_VERSION -Value "$($_.matches.groups[1])"}
           & 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' /DMyAppVersion=$Env:BUTTERFLY_VERSION ButterflySetup.iss
         # flutter pub run msix:create
+      - name: Copy portable start script
+        run: |
+          cp scripts/start.bat build/windows/runner/Release/
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
@@ -174,6 +177,9 @@ jobs:
         run: |
           ls
           mv ./*.AppImage linwood-butterfly-linux.AppImage
+      - name: Copy portable start script
+        run: |
+          cp scripts/start.sh build/linux/x64/release/bundle
       - name: Archive
         uses: actions/upload-artifact@v3
         with:

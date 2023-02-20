@@ -198,10 +198,7 @@ class ButterflyApp extends StatelessWidget {
               name: 'local',
               path: '/local/:path(.*)',
               builder: (context, state) {
-                final path = state.params['path']
-                    ?.split('/')
-                    .map((e) => Uri.decodeComponent(e))
-                    .join('/');
+                final path = state.params['path'];
                 return ProjectPage(
                     data: state.extra,
                     location: AssetLocation.local(path ?? ''));
@@ -213,10 +210,7 @@ class ButterflyApp extends StatelessWidget {
               builder: (context, state) {
                 final remote =
                     Uri.decodeComponent(state.params['remote'] ?? '');
-                final path = state.params['path']
-                    ?.split('/')
-                    .map((e) => Uri.decodeComponent(e))
-                    .join('/');
+                final path = state.params['path'];
                 return ProjectPage(
                     data: state.extra,
                     location: AssetLocation(remote: remote, path: path ?? ''));

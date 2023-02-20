@@ -19,7 +19,7 @@ class SvgRenderer extends Renderer<SvgElement> {
       return;
     }
     canvas.save();
-    canvas.translate(element.position.dx, element.position.dy);
+    canvas.translate(element.position.x, element.position.y);
     final picture = info!.picture;
     final sx = rect.width / info!.size.width;
     final sy = rect.height / info!.size.height;
@@ -27,7 +27,7 @@ class SvgRenderer extends Renderer<SvgElement> {
     canvas.drawPicture(picture);
     canvas.scale(1 / sx, 1 / sy);
 
-    canvas.translate(-element.position.dx, -element.position.dx);
+    canvas.translate(-element.position.x, -element.position.x);
     canvas.restore();
   }
 
@@ -61,7 +61,7 @@ class SvgRenderer extends Renderer<SvgElement> {
     if (constraints is ScaledElementConstraints) {
       final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
       final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;
-      return Rect.fromLTWH(element.position.dx, element.position.dy,
+      return Rect.fromLTWH(element.position.x, element.position.y,
           (size.width * scaleX).toDouble(), (size.height * scaleY).toDouble());
     } else if (constraints is FixedElementConstraints) {
       var height = constraints.height;
@@ -69,7 +69,7 @@ class SvgRenderer extends Renderer<SvgElement> {
       if (height <= 0) height = size.height.toDouble();
       if (width <= 0) width = size.width.toDouble();
       return Rect.fromLTWH(
-          element.position.dx, element.position.dy, width, height);
+          element.position.x, element.position.y, width, height);
     } else if (constraints is DynamicElementConstraints) {
       var width = constraints.width;
       var height = constraints.height;
@@ -81,18 +81,18 @@ class SvgRenderer extends Renderer<SvgElement> {
       if (constraints.includeArea) {
         final areaRect = area?.rect;
         final rightArea = areaRect?.right ?? 0;
-        final right = element.position.dx + element.width;
-        width = min(rightArea, right) - element.position.dx;
+        final right = element.position.x + element.width;
+        width = min(rightArea, right) - element.position.x;
         final bottomArea = areaRect?.bottom ?? 0;
-        final bottom = element.position.dy + size.height;
-        height = min(bottomArea, bottom) - element.position.dy;
+        final bottom = element.position.y + size.height;
+        height = min(bottomArea, bottom) - element.position.y;
       }
       if (height <= 0) height = size.height.toDouble();
       if (width <= 0) width = size.width.toDouble();
       return Rect.fromLTWH(
-          element.position.dx, element.position.dy, width, height);
+          element.position.x, element.position.y, width, height);
     } else {
-      return Rect.fromLTWH(element.position.dx, element.position.dy,
+      return Rect.fromLTWH(element.position.x, element.position.y,
           size.width.toDouble(), size.height.toDouble());
     }
   }
@@ -111,7 +111,7 @@ class SvgRenderer extends Renderer<SvgElement> {
     if (relative) {
       return SvgRenderer(
           element.copyWith(
-            position: element.position + position,
+            position: element.position + position.toPoint(),
             constraints: element.constraints.scale(scaleX, scaleY),
           ),
           info);
@@ -120,7 +120,7 @@ class SvgRenderer extends Renderer<SvgElement> {
     final size = info?.size;
     return SvgRenderer(
         element.copyWith(
-          position: position - Offset(rect.width / 2, rect.height / 2),
+          position: position.toPoint() - Point(rect.width / 2, rect.height / 2),
           width: (size?.width ?? element.width) * scaleX,
           height: (size?.height ?? element.height) * scaleY,
         ),

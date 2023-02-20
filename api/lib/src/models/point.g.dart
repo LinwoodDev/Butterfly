@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'path_point.dart';
+part of 'point.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

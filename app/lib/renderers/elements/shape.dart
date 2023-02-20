@@ -21,7 +21,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   }
 
   void _updateRect() {
-    rect = Rect.fromPoints(element.firstPosition, element.secondPosition);
+    rect = Rect.fromPoints(
+        element.firstPosition.toOffset(), element.secondPosition.toOffset());
   }
 
   @override
@@ -74,7 +75,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         canvas.drawOval(rect, paint);
       }
     } else if (shape is LineShape) {
-      canvas.drawLine(element.firstPosition, element.secondPosition, paint);
+      canvas.drawLine(element.firstPosition.toOffset(),
+          element.secondPosition.toOffset(), paint);
     }
   }
 
@@ -145,10 +147,10 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       xml.getElement('svg')?.createElement(
         'line',
         attributes: {
-          'x1': '${element.firstPosition.dx}px',
-          'y1': '${element.firstPosition.dy}px',
-          'x2': '${element.secondPosition.dx}px',
-          'y2': '${element.secondPosition.dy}px',
+          'x1': '${element.firstPosition.x}px',
+          'y1': '${element.firstPosition.y}px',
+          'x2': '${element.secondPosition.x}px',
+          'y2': '${element.secondPosition.y}px',
           'stroke-width': '${element.property.strokeWidth}px',
           'stroke': element.property.color.toHexColor(),
           'fill': 'none',
@@ -165,8 +167,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       bool relative = false}) {
     var rect = this.rect;
     if (relative) {
-      var newFirstPos = element.firstPosition + position;
-      var newSecondPos = element.secondPosition + position;
+      var newFirstPos = element.firstPosition.toOffset() + position;
+      var newSecondPos = element.secondPosition.toOffset() + position;
       var newRect = rect.translate(position.dx, position.dy);
       final topLeft = newRect.topLeft;
 
@@ -180,23 +182,27 @@ class ShapeRenderer extends Renderer<ShapeElement> {
           );
       return ShapeRenderer(
         element.copyWith(
-          firstPosition: newFirstPos,
-          secondPosition: newSecondPos,
+          firstPosition: newFirstPos.toPoint(),
+          secondPosition: newSecondPos.toPoint(),
         ),
         newRect,
       );
     }
     // Center of firstPosition and secondPosition
-    final center = (element.firstPosition + element.secondPosition) / 2;
+    final center =
+        (element.firstPosition.toOffset() + element.secondPosition.toOffset()) /
+            2;
     // Apply scale
-    final newFirstPos = (element.firstPosition - center) * scaleX + center;
-    final newSecondPos = (element.secondPosition - center) * scaleY + center;
+    final newFirstPos =
+        (element.firstPosition.toOffset() - center) * scaleX + center;
+    final newSecondPos =
+        (element.secondPosition.toOffset() - center) * scaleY + center;
     rect = Rect.fromPoints(newFirstPos, newSecondPos).normalized();
     rect = rect.topLeft & Size(rect.width * scaleX, rect.height * scaleY);
     return ShapeRenderer(
         element.copyWith(
-          firstPosition: rect.topLeft,
-          secondPosition: rect.bottomRight,
+          firstPosition: rect.topLeft.toPoint(),
+          secondPosition: rect.bottomRight.toPoint(),
         ),
         rect);
   }
@@ -251,10 +257,10 @@ class ShapeHitCalculator extends HitCalculator {
           (bottomRight - circleCenter).distance <= circleRadius;
     }
     if (shape is LineShape) {
-      final firstX = min(element.firstPosition.dx, element.secondPosition.dx);
-      final firstY = min(element.firstPosition.dy, element.secondPosition.dy);
-      final secondX = max(element.firstPosition.dx, element.secondPosition.dx);
-      final secondY = max(element.firstPosition.dy, element.secondPosition.dy);
+      final firstX = min(element.firstPosition.x, element.secondPosition.x);
+      final firstY = min(element.firstPosition.y, element.secondPosition.y);
+      final secondX = max(element.firstPosition.x, element.secondPosition.x);
+      final secondY = max(element.firstPosition.y, element.secondPosition.y);
       final firstPos = Offset(firstX, firstY);
       final secondPos = Offset(secondX, secondY);
       return rect.containsLine(firstPos, secondPos);

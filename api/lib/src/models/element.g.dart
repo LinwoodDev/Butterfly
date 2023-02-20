@@ -97,12 +97,9 @@ Map<String, dynamic> _$$PenElementToJson(_$PenElement instance) =>
 _$TextElement _$$TextElementFromJson(Map json) => _$TextElement(
       layer: json['layer'] as String? ?? '',
       position: json['position'] == null
-          ? Offset.zero
-          : const OffsetJsonConverter().fromJson(json['position'] as Map),
-      styleSheet: json['styleSheet'] == null
-          ? const PackAssetLocation()
-          : PackAssetLocation.fromJson(
-              Map<String, dynamic>.from(json['styleSheet'] as Map)),
+          ? const Point(0.0, 0.0)
+          : const DoublePointJsonConverter().fromJson(json['position'] as Map),
+      styleSheet: json['styleSheet'] ?? const PackAssetLocation(),
       area: TextArea.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
       constraint: json['constraint'] == null
           ? const ElementConstraint(size: 1000)
@@ -114,8 +111,8 @@ _$TextElement _$$TextElementFromJson(Map json) => _$TextElement(
 Map<String, dynamic> _$$TextElementToJson(_$TextElement instance) =>
     <String, dynamic>{
       'layer': instance.layer,
-      'position': const OffsetJsonConverter().toJson(instance.position),
-      'styleSheet': instance.styleSheet.toJson(),
+      'position': const DoublePointJsonConverter().toJson(instance.position),
+      'styleSheet': instance.styleSheet,
       'area': instance.area.toJson(),
       'constraint': instance.constraint.toJson(),
       'type': instance.$type,
@@ -124,8 +121,8 @@ Map<String, dynamic> _$$TextElementToJson(_$TextElement instance) =>
 _$ImageElement _$$ImageElementFromJson(Map json) => _$ImageElement(
       layer: json['layer'] as String? ?? '',
       position: json['position'] == null
-          ? Offset.zero
-          : const OffsetJsonConverter().fromJson(json['position'] as Map),
+          ? const Point(0.0, 0.0)
+          : const DoublePointJsonConverter().fromJson(json['position'] as Map),
       constraints: json['constraints'] == null
           ? const ScaledElementConstraints(scaleX: 1, scaleY: 1)
           : ElementConstraints.fromJson(
@@ -139,7 +136,7 @@ _$ImageElement _$$ImageElementFromJson(Map json) => _$ImageElement(
 Map<String, dynamic> _$$ImageElementToJson(_$ImageElement instance) =>
     <String, dynamic>{
       'layer': instance.layer,
-      'position': const OffsetJsonConverter().toJson(instance.position),
+      'position': const DoublePointJsonConverter().toJson(instance.position),
       'constraints': instance.constraints?.toJson(),
       'pixels': const Uint8ListJsonConverter().toJson(instance.pixels),
       'width': instance.width,
@@ -150,8 +147,8 @@ Map<String, dynamic> _$$ImageElementToJson(_$ImageElement instance) =>
 _$SvgElement _$$SvgElementFromJson(Map json) => _$SvgElement(
       layer: json['layer'] as String? ?? '',
       position: json['position'] == null
-          ? Offset.zero
-          : const OffsetJsonConverter().fromJson(json['position'] as Map),
+          ? const Point(0.0, 0.0)
+          : const DoublePointJsonConverter().fromJson(json['position'] as Map),
       constraints: json['constraints'] == null
           ? const ScaledElementConstraints(scaleX: 1, scaleY: 1)
           : ElementConstraints.fromJson(
@@ -165,7 +162,7 @@ _$SvgElement _$$SvgElementFromJson(Map json) => _$SvgElement(
 Map<String, dynamic> _$$SvgElementToJson(_$SvgElement instance) =>
     <String, dynamic>{
       'layer': instance.layer,
-      'position': const OffsetJsonConverter().toJson(instance.position),
+      'position': const DoublePointJsonConverter().toJson(instance.position),
       'constraints': instance.constraints?.toJson(),
       'data': instance.data,
       'width': instance.width,
@@ -176,11 +173,13 @@ Map<String, dynamic> _$$SvgElementToJson(_$SvgElement instance) =>
 _$ShapeElement _$$ShapeElementFromJson(Map json) => _$ShapeElement(
       layer: json['layer'] as String? ?? '',
       firstPosition: json['firstPosition'] == null
-          ? Offset.zero
-          : const OffsetJsonConverter().fromJson(json['firstPosition'] as Map),
+          ? const Point(0.0, 0.0)
+          : const DoublePointJsonConverter()
+              .fromJson(json['firstPosition'] as Map),
       secondPosition: json['secondPosition'] == null
-          ? Offset.zero
-          : const OffsetJsonConverter().fromJson(json['secondPosition'] as Map),
+          ? const Point(0.0, 0.0)
+          : const DoublePointJsonConverter()
+              .fromJson(json['secondPosition'] as Map),
       property: json['property'] == null
           ? const ShapeProperty(shape: RectangleShape())
           : ShapeProperty.fromJson(
@@ -192,9 +191,9 @@ Map<String, dynamic> _$$ShapeElementToJson(_$ShapeElement instance) =>
     <String, dynamic>{
       'layer': instance.layer,
       'firstPosition':
-          const OffsetJsonConverter().toJson(instance.firstPosition),
+          const DoublePointJsonConverter().toJson(instance.firstPosition),
       'secondPosition':
-          const OffsetJsonConverter().toJson(instance.secondPosition),
+          const DoublePointJsonConverter().toJson(instance.secondPosition),
       'property': instance.property.toJson(),
       'type': instance.$type,
     };

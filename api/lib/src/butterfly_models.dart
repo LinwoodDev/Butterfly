@@ -8,7 +8,7 @@ export 'models/export.dart';
 export 'models/pack.dart';
 export 'models/painter.dart';
 export 'models/palette.dart';
-export 'models/path_point.dart';
+export 'models/point.dart';
 export 'models/property.dart';
 export 'models/template.dart';
 export 'models/tool.dart';

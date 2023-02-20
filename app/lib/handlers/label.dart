@@ -9,7 +9,7 @@ class LabelHandler extends Handler<LabelPainter>
 
   LabelHandler(super.data);
 
-  TextContext _createContext([Offset? position]) {
+  TextContext _createContext([Point<double>? position]) {
     if (_context != null) {
       return _context!.copyWith(
         isCreating: true,

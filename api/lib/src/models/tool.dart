@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'dart:math';
 
 import 'converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -23,7 +23,9 @@ class ToolState with _$ToolState {
   const factory ToolState({
     @Default(false) bool rulerEnabled,
     @Default(false) bool gridEnabled,
-    @Default(Offset.zero) @OffsetJsonConverter() Offset rulerPosition,
+    @DoublePointJsonConverter()
+    @Default(Point(0.0, 0.0))
+        Point<double> rulerPosition,
     @Default(0) double rulerAngle,
   }) = _ToolState;
 

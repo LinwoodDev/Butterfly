@@ -15,7 +15,7 @@ class AreaHandler extends Handler<AreaPainter> {
             AreaForegroundRenderer(Area(
                 width: currentRect!.width,
                 height: currentRect!.height,
-                position: currentRect!.topLeft)),
+                position: currentRect!.topLeft.toPoint())),
           ...document.areas.map((e) => AreaForegroundRenderer(e)).toList()
         ],
       ];
@@ -183,7 +183,7 @@ class AreaHandler extends Handler<AreaPainter> {
           name: name,
           width: currentRect!.width,
           height: currentRect!.height,
-          position: currentRect!.topLeft)
+          position: currentRect!.topLeft.toPoint())
     ]));
     context.refresh();
     currentRect = null;

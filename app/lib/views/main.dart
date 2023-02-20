@@ -164,7 +164,7 @@ class _ProjectPageState extends State<ProjectPage> {
           : await formatCurrentDateTime(
               context.read<SettingsCubit>().state.locale);
       var documentOpened = document != null;
-      if (documentOpened) {
+      if (!documentOpened) {
         location = null;
       }
       if (document == null && prefs.containsKey('default_template')) {

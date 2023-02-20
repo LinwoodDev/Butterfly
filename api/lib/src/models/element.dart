@@ -1,10 +1,11 @@
+import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:butterfly_api/butterfly_api.dart';
-
-import 'package:flutter/material.dart';
+import 'converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'point.dart';
+import 'property.dart';
 import 'text.dart';
 
 part 'element.freezed.dart';
@@ -58,7 +59,9 @@ class PadElement with _$PadElement {
 
   const factory PadElement.text({
     @Default('') String layer,
-    @OffsetJsonConverter() @Default(Offset.zero) Offset position,
+    @DoublePointJsonConverter()
+    @Default(Point(0.0, 0.0))
+        Point<double> position,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
     required TextArea area,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
@@ -66,7 +69,9 @@ class PadElement with _$PadElement {
 
   const factory PadElement.image({
     @Default('') String layer,
-    @OffsetJsonConverter() @Default(Offset.zero) Offset position,
+    @DoublePointJsonConverter()
+    @Default(Point(0.0, 0.0))
+        Point<double> position,
     @Default(ScaledElementConstraints(scaleX: 1, scaleY: 1))
         ElementConstraints? constraints,
     @Uint8ListJsonConverter() required Uint8List pixels,
@@ -76,7 +81,9 @@ class PadElement with _$PadElement {
 
   const factory PadElement.svg({
     @Default('') String layer,
-    @OffsetJsonConverter() @Default(Offset.zero) Offset position,
+    @DoublePointJsonConverter()
+    @Default(Point(0.0, 0.0))
+        Point<double> position,
     @Default(ScaledElementConstraints(scaleX: 1, scaleY: 1))
         ElementConstraints? constraints,
     required String data,
@@ -86,8 +93,12 @@ class PadElement with _$PadElement {
 
   const factory PadElement.shape({
     @Default('') String layer,
-    @OffsetJsonConverter() @Default(Offset.zero) Offset firstPosition,
-    @OffsetJsonConverter() @Default(Offset.zero) Offset secondPosition,
+    @DoublePointJsonConverter()
+    @Default(Point(0.0, 0.0))
+        Point<double> firstPosition,
+    @DoublePointJsonConverter()
+    @Default(Point(0.0, 0.0))
+        Point<double> secondPosition,
     @Default(ShapeProperty(shape: RectangleShape())) ShapeProperty property,
   }) = ShapeElement;
 

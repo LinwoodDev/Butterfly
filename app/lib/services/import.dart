@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +74,7 @@ class ImportService {
       bloc.add(DocumentUpdated(doc));
     }
     final areas = doc.areas
-        .map((e) => e.copyWith(position: e.position + firstPos))
+        .map((e) => e.copyWith(position: e.position + firstPos.toPoint()))
         .toList();
     final content = doc.content
         .map((e) =>
@@ -101,7 +103,7 @@ class ImportService {
           width: image.width.toDouble(),
           layer: state.currentLayer,
           pixels: newBytes?.buffer.asUint8List() ?? Uint8List(0),
-          position: firstPos)
+          position: firstPos.toPoint())
     ], choosePosition: position == null);
   }
 
@@ -119,7 +121,7 @@ class ImportService {
           width: width,
           height: height,
           data: contentString,
-          position: firstPos,
+          position: firstPos.toPoint(),
         ),
       ], choosePosition: position == null);
     } catch (e, stackTrace) {
@@ -160,12 +162,12 @@ class ImportService {
             pixels: png,
             constraints:
                 ElementConstraints.scaled(scaleX: scale, scaleY: scale),
-            position: Offset(firstPos.dx, y)));
+            position: Point(firstPos.dx, y)));
         if (createAreas) {
           areas.add(Area(
             height: height * scale,
             width: width * scale,
-            position: Offset(firstPos.dx, y),
+            position: Point(firstPos.dx, y),
             name: localizations.pageIndex(areas.length + 1),
           ));
         }

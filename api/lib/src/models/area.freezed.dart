@@ -23,8 +23,8 @@ mixin _$Area {
   String get name => throw _privateConstructorUsedError;
   double get width => throw _privateConstructorUsedError;
   double get height => throw _privateConstructorUsedError;
-  @OffsetJsonConverter()
-  ui.Offset get position => throw _privateConstructorUsedError;
+  @DoublePointJsonConverter()
+  Point<double> get position => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,7 +40,7 @@ abstract class $AreaCopyWith<$Res> {
       {String name,
       double width,
       double height,
-      @OffsetJsonConverter() ui.Offset position});
+      @DoublePointJsonConverter() Point<double> position});
 }
 
 /// @nodoc
@@ -77,7 +77,7 @@ class _$AreaCopyWithImpl<$Res, $Val extends Area>
       position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
-              as ui.Offset,
+              as Point<double>,
     ) as $Val);
   }
 }
@@ -92,7 +92,7 @@ abstract class _$$_AreaCopyWith<$Res> implements $AreaCopyWith<$Res> {
       {String name,
       double width,
       double height,
-      @OffsetJsonConverter() ui.Offset position});
+      @DoublePointJsonConverter() Point<double> position});
 }
 
 /// @nodoc
@@ -125,7 +125,7 @@ class __$$_AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res, _$_Area>
       position: null == position
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
-              as ui.Offset,
+              as Point<double>,
     ));
   }
 }
@@ -137,7 +137,7 @@ class _$_Area extends _Area {
       {this.name = '',
       required this.width,
       required this.height,
-      @OffsetJsonConverter() required this.position})
+      @DoublePointJsonConverter() required this.position})
       : super._();
 
   factory _$_Area.fromJson(Map<String, dynamic> json) => _$$_AreaFromJson(json);
@@ -150,8 +150,8 @@ class _$_Area extends _Area {
   @override
   final double height;
   @override
-  @OffsetJsonConverter()
-  final ui.Offset position;
+  @DoublePointJsonConverter()
+  final Point<double> position;
 
   @override
   String toString() {
@@ -190,10 +190,11 @@ class _$_Area extends _Area {
 
 abstract class _Area extends Area {
   const factory _Area(
-      {final String name,
-      required final double width,
-      required final double height,
-      @OffsetJsonConverter() required final ui.Offset position}) = _$_Area;
+          {final String name,
+          required final double width,
+          required final double height,
+          @DoublePointJsonConverter() required final Point<double> position}) =
+      _$_Area;
   const _Area._() : super._();
 
   factory _Area.fromJson(Map<String, dynamic> json) = _$_Area.fromJson;
@@ -205,8 +206,8 @@ abstract class _Area extends Area {
   @override
   double get height;
   @override
-  @OffsetJsonConverter()
-  ui.Offset get position;
+  @DoublePointJsonConverter()
+  Point<double> get position;
   @override
   @JsonKey(ignore: true)
   _$$_AreaCopyWith<_$_Area> get copyWith => throw _privateConstructorUsedError;

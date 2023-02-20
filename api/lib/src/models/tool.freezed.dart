@@ -200,8 +200,8 @@ ToolState _$ToolStateFromJson(Map<String, dynamic> json) {
 mixin _$ToolState {
   bool get rulerEnabled => throw _privateConstructorUsedError;
   bool get gridEnabled => throw _privateConstructorUsedError;
-  @OffsetJsonConverter()
-  Offset get rulerPosition => throw _privateConstructorUsedError;
+  @DoublePointJsonConverter()
+  Point<double> get rulerPosition => throw _privateConstructorUsedError;
   double get rulerAngle => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -218,7 +218,7 @@ abstract class $ToolStateCopyWith<$Res> {
   $Res call(
       {bool rulerEnabled,
       bool gridEnabled,
-      @OffsetJsonConverter() Offset rulerPosition,
+      @DoublePointJsonConverter() Point<double> rulerPosition,
       double rulerAngle});
 }
 
@@ -252,7 +252,7 @@ class _$ToolStateCopyWithImpl<$Res, $Val extends ToolState>
       rulerPosition: null == rulerPosition
           ? _value.rulerPosition
           : rulerPosition // ignore: cast_nullable_to_non_nullable
-              as Offset,
+              as Point<double>,
       rulerAngle: null == rulerAngle
           ? _value.rulerAngle
           : rulerAngle // ignore: cast_nullable_to_non_nullable
@@ -271,7 +271,7 @@ abstract class _$$_ToolStateCopyWith<$Res> implements $ToolStateCopyWith<$Res> {
   $Res call(
       {bool rulerEnabled,
       bool gridEnabled,
-      @OffsetJsonConverter() Offset rulerPosition,
+      @DoublePointJsonConverter() Point<double> rulerPosition,
       double rulerAngle});
 }
 
@@ -303,7 +303,7 @@ class __$$_ToolStateCopyWithImpl<$Res>
       rulerPosition: null == rulerPosition
           ? _value.rulerPosition
           : rulerPosition // ignore: cast_nullable_to_non_nullable
-              as Offset,
+              as Point<double>,
       rulerAngle: null == rulerAngle
           ? _value.rulerAngle
           : rulerAngle // ignore: cast_nullable_to_non_nullable
@@ -318,7 +318,7 @@ class _$_ToolState implements _ToolState {
   const _$_ToolState(
       {this.rulerEnabled = false,
       this.gridEnabled = false,
-      @OffsetJsonConverter() this.rulerPosition = Offset.zero,
+      @DoublePointJsonConverter() this.rulerPosition = const Point(0.0, 0.0),
       this.rulerAngle = 0});
 
   factory _$_ToolState.fromJson(Map<String, dynamic> json) =>
@@ -332,8 +332,8 @@ class _$_ToolState implements _ToolState {
   final bool gridEnabled;
   @override
   @JsonKey()
-  @OffsetJsonConverter()
-  final Offset rulerPosition;
+  @DoublePointJsonConverter()
+  final Point<double> rulerPosition;
   @override
   @JsonKey()
   final double rulerAngle;
@@ -381,7 +381,7 @@ abstract class _ToolState implements ToolState {
   const factory _ToolState(
       {final bool rulerEnabled,
       final bool gridEnabled,
-      @OffsetJsonConverter() final Offset rulerPosition,
+      @DoublePointJsonConverter() final Point<double> rulerPosition,
       final double rulerAngle}) = _$_ToolState;
 
   factory _ToolState.fromJson(Map<String, dynamic> json) =
@@ -392,8 +392,8 @@ abstract class _ToolState implements ToolState {
   @override
   bool get gridEnabled;
   @override
-  @OffsetJsonConverter()
-  Offset get rulerPosition;
+  @DoublePointJsonConverter()
+  Point<double> get rulerPosition;
   @override
   double get rulerAngle;
   @override

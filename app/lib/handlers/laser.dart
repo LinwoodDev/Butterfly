@@ -132,8 +132,8 @@ class LaserHandler extends Handler {
 
     elements[pointer] = element.copyWith(
         points: List<PathPoint>.from(element.points)
-          ..add(PathPoint.fromOffset(
-              transform.localToGlobal(localPosition), pressure)));
+          ..add(PathPoint.fromPoint(
+              transform.localToGlobal(localPosition).toPoint(), pressure)));
     bloc.refresh();
     _startTimer(bloc);
   }

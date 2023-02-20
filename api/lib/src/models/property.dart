@@ -12,6 +12,12 @@ abstract class PathProperty implements Property {
   double get streamline;
 }
 
+enum HorizontalAlignment { left, center, right, justify }
+
+enum VerticalAlignment { top, center, bottom }
+
+enum TextDecorationStyle { solid, double, dotted, dashed, wavy }
+
 @freezed
 class Property with _$Property {
   @Implements<PathProperty>()

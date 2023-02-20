@@ -3,6 +3,7 @@ import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/packs/component.dart';
 import 'package:butterfly/dialogs/svg_export.dart';
+import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -136,8 +137,8 @@ class AreaContextMenu extends StatelessWidget {
                                       child: ImageExportDialog(
                                         width: area.width.round(),
                                         height: area.height.round(),
-                                        x: area.position.dx,
-                                        y: area.position.dy,
+                                        x: area.position.x,
+                                        y: area.position.y,
                                         scale: 1,
                                       ),
                                     ),
@@ -154,8 +155,8 @@ class AreaContextMenu extends StatelessWidget {
                                     child: SvgExportDialog(
                                       width: area.width.round(),
                                       height: area.height.round(),
-                                      x: area.position.dx,
-                                      y: area.position.dy,
+                                      x: area.position.x,
+                                      y: area.position.y,
                                     )),
                                 context: context);
                           },
@@ -202,8 +203,8 @@ class AreaContextMenu extends StatelessWidget {
                 final bloc = context.read<DocumentBloc>();
                 final elements = state.renderers
                     .where((e) => e.area == area)
-                    .map((e) =>
-                        e.transform(position: -area.position, relative: true))
+                    .map((e) => e.transform(
+                        position: -area.position.toOffset(), relative: true))
                     .map((e) => e?.element)
                     .whereType<PadElement>()
                     .toList();

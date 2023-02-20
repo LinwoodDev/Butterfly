@@ -4,6 +4,8 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/constraints.dart';
 import 'package:butterfly/helpers/num_helper.dart';
+import 'package:butterfly/helpers/offset_helper.dart';
+import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly/helpers/shortcut_helper.dart';
 import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/visualizer/preset.dart';
