@@ -67,7 +67,7 @@ class TextRenderer extends Renderer<TextElement> {
       fontWeight: FontWeight.values[property.fontWeight],
       letterSpacing: property.letterSpacing,
       decorationColor: Color(property.decorationColor),
-      decorationStyle: property.decorationStyle,
+      decorationStyle: getDecorationStyle(property.decorationStyle),
       decorationThickness: property.decorationThickness,
       decoration: TextDecoration.combine([
         if (property.underline) TextDecoration.underline,
@@ -75,6 +75,22 @@ class TextRenderer extends Renderer<TextElement> {
         if (property.overline) TextDecoration.overline,
       ]),
     );
+  }
+
+  TextDecorationStyle getDecorationStyle(
+      text.TextDecorationStyle decorationStyle) {
+    switch (decorationStyle) {
+      case text.TextDecorationStyle.solid:
+        return TextDecorationStyle.solid;
+      case text.TextDecorationStyle.double:
+        return TextDecorationStyle.double;
+      case text.TextDecorationStyle.dotted:
+        return TextDecorationStyle.dotted;
+      case text.TextDecorationStyle.dashed:
+        return TextDecorationStyle.dashed;
+      case text.TextDecorationStyle.wavy:
+        return TextDecorationStyle.wavy;
+    }
   }
 
   @override
@@ -97,18 +113,18 @@ class TextRenderer extends Renderer<TextElement> {
     final constraints = element.constraint;
     if (constraints.size > 0) maxWidth = constraints.size;
     if (constraints.includeArea && area != null) {
-      maxWidth = min(maxWidth + element.position.dx, area!.rect.right) -
-          element.position.dx;
+      maxWidth = min(maxWidth + element.position.x, area!.rect.right) -
+          element.position.x;
     }
     _tp?.layout(maxWidth: maxWidth);
     var height = _tp?.height ?? 0;
     if (height < constraints.length) {
       height = constraints.length;
     } else if (constraints.includeArea && area != null) {
-      height = max(height, area!.rect.bottom - element.position.dy);
+      height = max(height, area!.rect.bottom - element.position.y);
     }
     rect = Rect.fromLTWH(
-        element.position.dx, element.position.dy, _tp?.width ?? 0, height);
+        element.position.x, element.position.y, _tp?.width ?? 0, height);
   }
 
   @override
@@ -121,16 +137,15 @@ class TextRenderer extends Renderer<TextElement> {
     final align = element.area.areaProperty.alignment;
     switch (align) {
       case text.VerticalAlignment.top:
-        current = current.translate(0, 0);
         break;
       case text.VerticalAlignment.bottom:
-        current = current.translate(0, rect.height - (_tp?.height ?? 0));
+        current = current + Point(0, rect.height - (_tp?.height ?? 0));
         break;
       case text.VerticalAlignment.center:
-        current = current.translate(0, (rect.height - (_tp?.height ?? 0)) / 2);
+        current = current + Point(0, (rect.height - (_tp?.height ?? 0)) / 2);
         break;
     }
-    _tp?.paint(canvas, current);
+    _tp?.paint(canvas, current.toOffset());
   }
 
   @override
@@ -146,7 +161,8 @@ class TextRenderer extends Renderer<TextElement> {
       double scaleY = 1,
       bool relative = false}) {
     // final size = Size(rect.width * scaleX, rect.height * scaleY);
-    final next = relative ? element.position + position : position;
+    final next =
+        relative ? element.position + position.toPoint() : position.toPoint();
     return TextRenderer(element.copyWith(position: next), context);
   }
 

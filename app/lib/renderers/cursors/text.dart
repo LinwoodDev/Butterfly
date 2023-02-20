@@ -70,8 +70,8 @@ class TextSelectionCursor extends Renderer<TextContext> {
     final boxes = element.textPainter.getBoxesForSelection(selection);
     for (final box in boxes) {
       final rect = box.toRect().translate(
-            textElement.position.dx,
-            textElement.position.dy,
+            textElement.position.x,
+            textElement.position.y,
           );
       canvas.drawRect(
         rect,
@@ -83,8 +83,8 @@ class TextSelectionCursor extends Renderer<TextContext> {
         element.textPainter.getOffsetForCaret(selection.base, Rect.zero);
     canvas.drawRect(
       Rect.fromLTWH(
-        textElement.position.dx + cursorBox.dx,
-        textElement.position.dy + cursorBox.dy,
+        textElement.position.x + cursorBox.dx,
+        textElement.position.y + cursorBox.dy,
         6,
         element.textPainter.preferredLineHeight,
       ),

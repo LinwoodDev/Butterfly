@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'pack.dart';
 import 'point.dart';
 import 'property.dart';
 import 'text.dart';

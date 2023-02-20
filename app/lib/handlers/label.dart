@@ -82,8 +82,10 @@ class LabelHandler extends Handler<LabelPainter>
     _bloc = context.getDocumentBloc();
     _connection!.show();
 
-    _context = _createContext(
-        context.getCameraTransform().localToGlobal(details.localPosition));
+    _context = _createContext(context
+        .getCameraTransform()
+        .localToGlobal(details.localPosition)
+        .toPoint());
     context.refresh();
   }
 

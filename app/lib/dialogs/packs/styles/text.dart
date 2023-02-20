@@ -114,35 +114,33 @@ class _TextStyleViewState extends State<TextStyleView> {
                                         overline ?? widget.value.overline))),
                         ListTile(
                             title: Text(AppLocalizations.of(context).style),
-                            trailing: DropdownButton<TextDecorationStyle>(
+                            trailing: DropdownButton<text.TextDecorationStyle>(
                                 value: widget.value.decorationStyle,
-                                items: List.generate(
-                                    TextDecorationStyle.values.length, (index) {
-                                  String text;
-                                  var style = TextDecorationStyle.values[index];
+                                items: text.TextDecorationStyle.values
+                                    .map((style) {
+                                  String name;
                                   switch (style) {
-                                    case TextDecorationStyle.solid:
-                                      text = AppLocalizations.of(context).solid;
+                                    case text.TextDecorationStyle.solid:
+                                      name = AppLocalizations.of(context).solid;
                                       break;
-                                    case TextDecorationStyle.dashed:
-                                      text =
+                                    case text.TextDecorationStyle.dashed:
+                                      name =
                                           AppLocalizations.of(context).dashed;
                                       break;
-                                    case TextDecorationStyle.dotted:
-                                      text =
+                                    case text.TextDecorationStyle.dotted:
+                                      name =
                                           AppLocalizations.of(context).dotted;
                                       break;
-                                    case TextDecorationStyle.double:
-                                      text =
+                                    case text.TextDecorationStyle.double:
+                                      name =
                                           AppLocalizations.of(context).double;
                                       break;
-                                    case TextDecorationStyle.wavy:
-                                      text = AppLocalizations.of(context).wavy;
+                                    case text.TextDecorationStyle.wavy:
+                                      name = AppLocalizations.of(context).wavy;
                                   }
                                   return DropdownMenuItem(
-                                      value: TextDecorationStyle.values[index],
-                                      child: Text(text));
-                                }),
+                                      value: style, child: Text(name));
+                                }).toList(),
                                 onChanged: (decorationStyle) =>
                                     widget.onChanged(widget.value.copyWith(
                                         decorationStyle: decorationStyle ??

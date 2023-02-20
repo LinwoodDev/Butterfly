@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'colors.dart';
@@ -12,6 +11,8 @@ enum VerticalAlignment { top, center, bottom }
 
 const kFontWeightNormal = 3;
 const kFontWeightBold = 6;
+
+enum TextDecorationStyle { solid, double, dotted, dashed, wavy }
 
 @freezed
 class SpanProperty with _$SpanProperty {
