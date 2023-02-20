@@ -22,3 +22,4 @@ Alle anderen Lizenzen finden Sie in den Einstellungen.
 
 * [GitHub](https://github.com/LinwoodCloud/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
+* [Matrix](https://go.linwood.dev/matrix)
