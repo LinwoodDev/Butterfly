@@ -1,44 +1,44 @@
 ---
-title: Branding
+title: Брендинг
 ---
 
-These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Эти активы лицензированы на условиях [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
 
-## Logo
+## Логотип
 
-![Logo](/img/logo.svg)
+![Логотип](/img/logo.svg)
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nightly Logo
+## Ночной логотип
 
-![Logo](/img/nightly.svg)
+![Логотип](/img/nightly.svg)
 
 [SVG](/img/nightly.svg) [PNG](/img/nightly.png)
 
-## Banner
+## Баннер
 
-![Banner](/img/banner.svg)
+![Баннер](/img/banner.svg)
 
 [SVG](/img/banner.svg) [PNG](/img/banner.png)
 
-## Documentation
+## Документация
 
-![Documentation](/img/docs.svg)
+![Документация](/img/docs.svg)
 
 [SVG](/img/docs.svg) [PNG](/img/docs.png)
 
-## Colors
+## Цвета
 
-* Primary: `#f2b138`
-* Primary Dark: `#f0a61c`
-* Primary Darker: `#eea010`
-* Primary Darkest: `#c4840d`
-* Primary Light: `#f4bc54`
-* Primary Lighter: `#f5c162`
-* Primary Lightest: `#f7d28c`
-* Accent: `#00469E`
+* Основное: `#f2b138`
+* Основная тьма: `#f0a61c`
+* Первичный Даркер: `#eea010`
+* Основная темнота: `#c4840d`
+* Основной свет: `#f4bc54`
+* Основной свет: `#f5c162`
+* Первичный свет: `#f7d28c`
+* Доступ: `#00469E`
 
-## Fonts
+## Шрифты
 
 * `Roboto`
