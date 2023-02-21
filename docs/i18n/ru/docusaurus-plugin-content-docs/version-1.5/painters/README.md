@@ -1,6 +1,6 @@
 ---
 title: "Художники"
-slug: /художники
+slug: /painters
 sidebar_label: "Введение"
 sidebar_position: 1
 ---
