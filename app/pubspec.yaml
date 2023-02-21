@@ -69,7 +69,7 @@ dependencies:
       url: https://github.com/CodeDoctorDE/perfect-freehand-dart.git
       ref: 066461ee27342559e5731a03e3371c0537f1abcb
 dev_dependencies:
-  flutter_native_splash: ^2.2.16
+  flutter_native_splash: ^2.2.18
   #flutter_launcher_icons: ^0.11.0
   flutter_lints: ^2.0.1
   flutter_test:
@@ -80,7 +80,7 @@ dev_dependencies:
   freezed: ^2.3.2
   build_runner: ^2.3.3
   json_serializable: ^6.6.1
-  espresso: ^0.2.0+7
+  espresso: ^0.2.0+8
 dependency_overrides:
   archive: 3.3.6
   collection: 1.17.1

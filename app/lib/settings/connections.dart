@@ -62,7 +62,7 @@ class ConnectionsSettingsPage extends StatelessWidget {
               builder: (context, state) {
             if (state.remotes.isEmpty) {
               return Center(
-                child: Text(AppLocalizations.of(context).noRemotes),
+                child: Text(AppLocalizations.of(context).noConnections),
               );
             }
             return Material(

@@ -332,10 +332,10 @@ packages:
     dependency: "direct dev"
     description:
       name: espresso
-      sha256: "84615044b48a7a82e7ee7014c59fb988055306bfbf37c37237760d9f59b450cb"
+      sha256: "05be3f362809108fccf96043538a1c2bd3ad06b1cc6013fc844471dd8a3d3dc5"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0+7"
+    version: "0.2.0+8"
   fake_async:
     dependency: transitive
     description:
@@ -427,10 +427,10 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_native_splash
-      sha256: "048bd1f1dc0e5ea25899f702815934d9a9e916fe23451c320e7dd94d5e3ad933"
+      sha256: e301ae206ff0fb09b67d3716009c6c28c2da57a0ad164827b178421bb9d601f7
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.17"
+    version: "2.2.18"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
