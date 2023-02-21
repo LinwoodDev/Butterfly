@@ -1,13 +1,13 @@
 ---
-title: "Hand"
-sidebar_label: "Hand"
+title: "Рука"
+sidebar_label: "Рука"
 ---
 
 
-With this tool you can select elements and access the background context menu to access the [insert menu](../insert).
+С помощью этого инструмента вы можете выбрать элементы и получить доступ к контекстному меню [вставить меню](../insert).
 
-## Configuration
+## Конфигурация
 
-|       Property | Default | Description                                                             |
-| --------------:|:-------:|:----------------------------------------------------------------------- |
-| Include eraser |  false  | This setting controls if you can click on the eraser layer and edit it. |
+|        Свойства | По умолчанию | Описание                                                                              |
+| ---------------:|:------------:|:------------------------------------------------------------------------------------- |
+| Включить ластик |     ложь     | Этот параметр управляет, если вы можете нажать на слой ластика и отредактировать его. |
