@@ -1,7 +1,7 @@
 ---
-title: "Undo painter"
-sidebar_label: "Undo"
+title: "Отменить художника"
+sidebar_label: "Отменить"
 sidebar_position: 2
 ---
 
-When clicking on this painter you can undo your last action. See the [redo painter](redo) for redoing your last action.
+При нажатии на этого художника вы можете отменить ваше последнее действие. Смотрите [redo painter](redo) для повторного выполнения вашего последнего действия.
