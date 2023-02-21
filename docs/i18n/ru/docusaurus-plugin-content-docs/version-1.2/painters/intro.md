@@ -1,13 +1,13 @@
 ---
-title: "Painters"
-sidebar_label: "Introduction"
+title: "Художники"
+sidebar_label: "Введение"
 sidebar_position: 1
 ---
 
-Painters can edit the paper.
+Художники могут редактировать бумагу.
 
-Use the sidebar to learn more about the painters.
+Используйте боковую панель, чтобы узнать больше о художниках.
 
-Create a new painter by clicking on the plus icon. Change the painter order by dragging and change the painter by clicking. If you click on a selected painter you can configure it.
+Создайте нового художника, нажав на значок "плюс". Измените порядок художника, перетаскивая и изменяя картину, щелкнув мышкой. Если вы нажмете на выбранного художника, вы можете настроить его.
 
-The name of the painter will be displayed as tooltip on hover on the painter.
+Имя художника будет отображаться как подсказка при наведении курсора.
