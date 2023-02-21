@@ -1,5 +1,5 @@
 ---
-title: "Windows"
+title: "Окна"
 sidebar_position: 2
 ---
 
@@ -7,26 +7,26 @@ sidebar_position: 2
 import DownloadButton from '@site/src/components/DownloadButton.tsx';
 ```
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Стабильная версия релиза](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Ночной релиз версии](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-## Minimum system requirements
+## Минимальные системные требования
 
-* Windows 10 or higher.
+* Windows 10 или выше.
 
-## Binaries
+## Бинары
 
 <div className="row margin-bottom--lg padding--sm">
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--info button--lg">Stable</button>
+  <button className="button button--outline button--info button--lg">Конюшня</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-windows-setup.exe">
-        Setup
+        Настройка
       </DownloadButton>
     </li>
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-windows.zip">
-        Portable
+        Портативный
       </DownloadButton>
     </li>
   </ul>
@@ -36,51 +36,51 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
   <ul className="dropdown__menu">
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-windows-setup.exe">
-        Setup
+        Настройка
       </DownloadButton>
     </li>
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-windows.zip">
-        Portable
+        Портативный
       </DownloadButton>
     </li>
   </ul>
 </div>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+Подробнее о ночной версии Butterfly [здесь](/nightly).
 
-## Install using winget
+## Установить с помощью Winget
 
 ```powershell
 winget install LinwoodCloud.Butterfly
 ```
 
-To upgrade the winget package, run:
+Для обновления пакета winget, запустите:
 
 ```powershell
 winget upgrade LinwoodCloud.Butterfly
 ```
 
-To uninstall the winget package, run:
+Чтобы удалить пакет winget, запустите:
 
 ```powershell
 winget uninstall LinwoodCloud.Butterfly
 ```
 
-### Nightly version
+### Ночная версия
 
 ```powershell
 winget install LinwoodCloud.Butterfly.Nightly
 ```
 
-To upgrade the winget package, run:
+Для обновления пакета winget, запустите:
 
 ```powershell
 winget upgrade LinwoodCloud.Butterfly.Nightly
 ```
 
-To uninstall the winget package, run:
+Чтобы удалить пакет winget, запустите:
 
 ```powershell
 winget uninstall LinwoodCloud.Butterfly.Nightly
