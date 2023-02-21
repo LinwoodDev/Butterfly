@@ -1,12 +1,12 @@
 ---
-title: "Tools"
+title: "Инструменты"
 sidebar_position: 3
 ---
 
-## Grid
+## Сетка
 
-The grid allows you to exactly position elements. You can use it to move elements or create shapes.
+Сетка позволяет точно позиционировать элементы. Вы можете использовать его для перемещения элементов или создания фигур.
 
-## Ruler
+## Линейка
 
-The ruler allows you to measure the distance between two points. Additionally you can use it to create a line with the pen tool.
+линейка позволяет измерить расстояние между двумя точками. Кроме того, вы можете использовать его для создания строки с помощью инструмента ручки.
