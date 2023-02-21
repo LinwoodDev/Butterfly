@@ -1,11 +1,11 @@
 ---
-title: "Image painter"
-sidebar_label: "Image"
+title: "Изображение художника"
+sidebar_label: "Изображение"
 sidebar_position: 3
 ---
 
-With this painter you can add image to your paper. Click on a position and select an image.
+С помощью этого художника вы можете добавить изображение к вашей бумаге. Нажмите на позицию и выберите изображение.
 
-## Configuration
+## Конфигурация
 
-Currently, nothing to configure
+В настоящее время нечего настраивать
