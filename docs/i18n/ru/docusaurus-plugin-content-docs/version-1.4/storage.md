@@ -1,38 +1,38 @@
 ---
-title: "Storage"
+title: "Хранилище"
 sidebar_position: 2
 ---
 
-## Web
+## Веб
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+Данные приложения хранятся в Вашем браузере. Он хранится в локальном хранилище. Откройте инструменты разработчика в вашем браузере, и вы увидите данные.
 
-## Native platforms
+## Родной платформы
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+По умолчанию приложение сохраняет данные в папке документов в подпапке под названием "Linwood/Butterfly". Эта папка создается при сохранении первых данных. Эта папка может быть изменена в настройках.
 
-## Remote storage {#remote}
+## Удаленное хранилище {#remote}
 
 :::note
 
-This feature is not available on the web.
+Эта функция недоступна в Интернете.
 
 :::
 
-The application can be saved in a remote server. This is useful if you want to share the data with other people or if you have multiple computers. Currently only the `WebDAV` protocol is supported.
+Приложение может быть сохранено на удаленном сервере. Это полезно, если вы хотите поделиться данными с другими людьми или у вас есть несколько компьютеров. В настоящее время поддерживается только протокол `WebDAV`.
 
-To add a remote server, go to the settings and click on `Remotes`. Then click on `Add remote`. Add the URL of the remote server and the username and password. After that you can specify the folder where the data is stored.
+Чтобы добавить удаленный сервер, перейдите в настройки и нажмите `Удалителей`. Затем нажмите на `Добавить пульт`. Добавьте URL удаленного сервера и имя пользователя и пароль. После этого можно указать папку, в которой хранятся данные.
 
-To get the webdav url, please visit the documentation:
+Для получения адреса webdav посетите документацию:
 
-* [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (it should look like this: `https://nextcloud.example.com/remote.php/dav/files/username/`, replace `username` and `nextcloud.example.com` with the correct values)
+* [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (должно выглядеть так: `https://nextcloud.example.com/remote.php/dav/files/username/`, замените `имя пользователя` и `nextcloud.example.com` правильными значениями)
 
-### Offline sync {#offline}
+### Автономная синхронизация {#offline}
 
-This feature allows you to edit your files on remote servers while you are offline. Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
+Эта функция позволяет вам редактировать ваши файлы на удаленных серверах в автономном режиме. Откройте всплывающее меню в файле или папке и нажмите на `Синхронизировать`. Это позволит загрузить файл или папку и сохранить его локально. Для синхронизации всего корневого каталога, установите флажок в диалоговом окне создания или нажмите на пульте дистанционного управления и нажмите на флажке в разделе Управление.
 
-There are a few limitations:
+Существует несколько ограничений:
 
-* You can only sync the top level of a directory. For example if you have a directory `a/b/test.bfly`, this file will not be synced.
-* You cannot delete a file or folder while you are offline.
-* You cannot add, edit or delete templates while you are offline.
+* Вы можете синхронизировать только верхний уровень каталога. Например, если у вас есть каталог `a/b/test.bfly`, этот файл не будет синхронизирован.
+* Вы не можете удалить файл или папку, пока вы не в сети.
+* Нельзя добавлять, редактировать или удалять шаблоны пока вы не в сети.
