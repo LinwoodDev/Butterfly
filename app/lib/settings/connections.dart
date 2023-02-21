@@ -14,16 +14,16 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../views/window.dart';
 import '../widgets/header.dart';
 
-class RemotesSettingsPage extends StatelessWidget {
+class ConnectionsSettingsPage extends StatelessWidget {
   final bool inView;
-  const RemotesSettingsPage({super.key, this.inView = false});
+  const ConnectionsSettingsPage({super.key, this.inView = false});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: inView ? Colors.transparent : null,
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context).remotes),
+          title: Text(AppLocalizations.of(context).connections),
           backgroundColor: inView ? Colors.transparent : null,
           automaticallyImplyLeading: !inView,
           actions: [
@@ -84,7 +84,7 @@ class RemotesSettingsPage extends StatelessWidget {
                             : Image.memory(remote.icon),
                         onTap: () {
                           GoRouter.of(context).push(
-                              '/settings/remotes/${Uri.encodeComponent(remote.identifier)}');
+                              '/settings/connections/${Uri.encodeComponent(remote.identifier)}');
                         },
                         trailing: IconButton(
                           icon: remote.identifier == state.defaultRemote

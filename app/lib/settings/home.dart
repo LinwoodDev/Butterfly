@@ -11,7 +11,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'general.dart';
-import 'remotes.dart';
+import 'connections.dart';
 
 enum SettingsView { general, data, behaviors, personalization, remotes }
 
@@ -125,14 +125,14 @@ class _SettingsPageState extends State<SettingsPage> {
                       if (!kIsWeb)
                         ListTile(
                             leading: const Icon(PhosphorIcons.cloudLight),
-                            title: Text(AppLocalizations.of(context).remotes),
+                            title: Text(AppLocalizations.of(context).connections),
                             selected: !isMobile
                                 ? _view == SettingsView.remotes
                                 : false,
                             onTap: () {
                               if (isMobile) {
                                 Navigator.of(context).pop();
-                                GoRouter.of(context).go('/settings/remotes');
+                                GoRouter.of(context).go('/settings/connections');
                               } else {
                                 setState(() {
                                   _view = SettingsView.remotes;
@@ -188,7 +188,7 @@ class _SettingsPageState extends State<SettingsPage> {
               content = const PersonalizationSettingsPage(inView: true);
               break;
             case SettingsView.remotes:
-              content = const RemotesSettingsPage(inView: true);
+              content = const ConnectionsSettingsPage(inView: true);
               break;
           }
           return Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [

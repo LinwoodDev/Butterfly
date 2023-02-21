@@ -8,15 +8,15 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../views/window.dart';
 
-class RemoteSettingsPage extends StatefulWidget {
+class ConnectionSettingsPage extends StatefulWidget {
   final String remote;
-  const RemoteSettingsPage({super.key, required this.remote});
+  const ConnectionSettingsPage({super.key, required this.remote});
 
   @override
-  State<RemoteSettingsPage> createState() => _RemoteSettingsPageState();
+  State<ConnectionSettingsPage> createState() => _ConnectionSettingsPageState();
 }
 
-class _RemoteSettingsPageState extends State<RemoteSettingsPage>
+class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
     with TickerProviderStateMixin {
   late TabController _tabController;
 
@@ -78,12 +78,12 @@ class _RemoteSettingsPageState extends State<RemoteSettingsPage>
             ],
           ),
           body: storage == null
-              ? Center(child: Text(AppLocalizations.of(context).noRemotes))
+              ? Center(child: Text(AppLocalizations.of(context).noConnections))
               : TabBarView(
                   controller: _tabController,
                   children: [
-                    _GeneralRemoteSettingsView(storage: storage),
-                    _CachesRemoteSettingsView(storage: storage),
+                    _GeneralConnectionSettingsView(storage: storage),
+                    _CachesConnectionSettingsView(storage: storage),
                   ],
                 ),
           floatingActionButton: _createFab()[_tabController.index],
@@ -128,9 +128,9 @@ class _RemoteSettingsPageState extends State<RemoteSettingsPage>
   }
 }
 
-class _GeneralRemoteSettingsView extends StatelessWidget {
+class _GeneralConnectionSettingsView extends StatelessWidget {
   final RemoteStorage storage;
-  const _GeneralRemoteSettingsView({required this.storage});
+  const _GeneralConnectionSettingsView({required this.storage});
 
   @override
   Widget build(BuildContext context) {
@@ -199,9 +199,9 @@ class _GeneralRemoteSettingsView extends StatelessWidget {
   }
 }
 
-class _CachesRemoteSettingsView extends StatelessWidget {
+class _CachesConnectionSettingsView extends StatelessWidget {
   final RemoteStorage storage;
-  const _CachesRemoteSettingsView({required this.storage});
+  const _CachesConnectionSettingsView({required this.storage});
 
   @override
   Widget build(BuildContext context) {

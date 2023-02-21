@@ -26,8 +26,8 @@ import 'settings/data.dart';
 import 'settings/general.dart';
 import 'settings/home.dart';
 import 'settings/personalization.dart';
-import 'settings/remote.dart';
-import 'settings/remotes.dart';
+import 'settings/connection.dart';
+import 'settings/connections.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme/manager.dart';
 import 'views/error.dart';
@@ -178,14 +178,14 @@ class ButterflyApp extends StatelessWidget {
                         builder: (context, state) => const DataSettingsPage(),
                       ),
                       GoRoute(
-                        path: 'remotes',
+                        path: 'connections',
                         builder: (context, state) =>
-                            const RemotesSettingsPage(),
+                            const ConnectionsSettingsPage(),
                         routes: [
                           GoRoute(
                             path: ':id',
-                            builder: (context, state) =>
-                                RemoteSettingsPage(remote: state.params['id']!),
+                            builder: (context, state) => ConnectionSettingsPage(
+                                remote: state.params['id']!),
                           )
                         ],
                       ),
