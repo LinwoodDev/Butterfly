@@ -1,7 +1,7 @@
 ---
-title: "Redo painter"
-sidebar_label: "Redo"
+title: "Повторный художник"
+sidebar_label: "Повторить"
 sidebar_position: 2
 ---
 
-When clicking on this painter you can redo your last action. See the [undo painter](undo) for undoing your last action.
+Нажав на этого художника, вы сможете повторить свое последнее действие. Смотри [художника](undo) , чтобы отменить ваше последнее действие.
