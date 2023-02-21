@@ -1,16 +1,16 @@
 ---
-title: "Nightly Builds"
+title: "Ночные сборки"
 slug: "/nightly"
 ---
 
 :::warning
 
-Do not use the nightly version of Butterfly for production.
+Не используйте ночную версию Butterfly для производства.
 
 :::
 
-Nightly builds are designed to give you the option to test the latest version and get the newest features and give feedback.
+Ночные сборки предназначены для того, чтобы дать вам возможность протестировать последнюю версию и получить новейшие возможности и оставить отзыв.
 
-## Get the builds
+## Получить сборки
 
-Go to the download pages of your platform. All nightly builds get also published as pre-release on github.
+Перейдите на страницы загрузки вашей платформы. Все ночные сборки также публикуются в качестве предварительного релиза на github.
