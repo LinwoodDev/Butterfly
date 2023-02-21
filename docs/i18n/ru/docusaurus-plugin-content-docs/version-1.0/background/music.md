@@ -1,14 +1,14 @@
 ---
-title: "Music paper"
+title: "Музыкальная бумага"
 ---
 
-| Property | Value |
-| --------:|:----- |
-|    Width | 200   |
-|   Height | 5     |
-|  Count X | 1     |
-|  Count Y | 5     |
-|  Space X | 10    |
-|  Space Y | 60    |
+|       Свойства | Значение |
+| --------------:|:-------- |
+|          Width | 200      |
+|         Высота | 5        |
+|      Счетчик X | 1        |
+|      Счетчик Y | 5        |
+| Пространство X | 10       |
+| Пространство Y | 60       |
 
-See [the introduction](intro) for more information.
+Смотрите [введение](intro) для дополнительной информации.
