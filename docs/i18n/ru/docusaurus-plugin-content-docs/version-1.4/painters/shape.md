@@ -1,39 +1,39 @@
 ---
-title: "Shape painter"
-sidebar_label: "Shape"
+title: "Фигурка"
+sidebar_label: "Форма"
 sidebar_position: 3
 ---
 
 
-Use this painter to draw shapes on the paper. You can draw rectangles, circles, and other shapes.
+Используйте этот художник, чтобы нарисовать фигуры на бумаге. Можно рисовать прямоугольники, круги и другие фигуры.
 
-## Configuration
+## Конфигурация
 
-|       Property |  Default  | Description                                                                                                                                      |
-| --------------:|:---------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
-|          Color |   Black   | The color that will be drawn                                                                                                                     |
-|   Stroke width |     5     | The width of the stroke                                                                                                                          |
-| Zoom dependent |   false   | This will change the stroke width based on the zoom level.                                                                                       |
-|          Shape | rectangle | The shape that will be drawn                                                                                                                     |
-|          Width |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
-|         Height |     0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
-|   Aspect ratio |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|                Свойства | По умолчанию  | Описание                                                                                                                                                                           |
+| -----------------------:|:-------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|                    Цвет |    Черный     | Цвет нарисованного                                                                                                                                                                 |
+|           Ширина штриха |       5       | Ширина штриха                                                                                                                                                                      |
+| Зависимость от масштаба |     ложь      | Это изменит ширину штриха в зависимости от масштаба масштаба.                                                                                                                      |
+|                   Форма | прямоугольник | Форма, которая будет рисоваться                                                                                                                                                    |
+|                   Width |       0       | Фиксированная ширина области. Если установлено значение 0, то ширина будет рассчитываться автоматически.                                                                           |
+|                  Высота |       0       | Фиксированная высота участка. Если установлено значение 0, высота будет рассчитываться автоматически.                                                                              |
+|      Соотношение сторон |       0       | Фиксированное соотношение сторон участка. Если установлено значение 0, соотношение сторон будет рассчитываться автоматически. Соотношение сторон определяется как ширина / высота. |
 
-### Shape types
+### Типы форм
 
-#### Rectangle
+#### Прямоугольник
 
-|      Property |   Default   | Description                                       |
-| -------------:|:-----------:|:------------------------------------------------- |
-|          Fill | Transparent | The color that will be drawn inside the rectangle |
-| Corner radius | 0, 0, 0, 0  | The radius of the corners of the rectangle        |
+|      Свойства | По умолчанию | Описание                                             |
+| -------------:|:------------:|:---------------------------------------------------- |
+|     Заполнить |  Прозрачный  | Цвет, который будет рисоваться внутри прямоугольника |
+| Corner radius |  0, 0, 0, 0  | Радиус углов прямоугольника                          |
 
-#### Circle
+#### Круг
 
-| Property |   Default   | Description                                       |
-| --------:|:-----------:|:------------------------------------------------- |
-|     Fill | Transparent | The color that will be drawn inside the rectangle |
+|  Свойства | По умолчанию | Описание                                             |
+| ---------:|:------------:|:---------------------------------------------------- |
+| Заполнить |  Прозрачный  | Цвет, который будет рисоваться внутри прямоугольника |
 
-#### Line
+#### Линия
 
-*No configuration available.*
+*Конфигурация недоступна.*
