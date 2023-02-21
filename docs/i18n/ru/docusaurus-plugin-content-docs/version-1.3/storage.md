@@ -1,12 +1,12 @@
 ---
-title: "Storage"
+title: "Хранилище"
 sidebar_position: 2
 ---
 
-## Web
+## Веб
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+Данные приложения хранятся в Вашем браузере. Он хранится в локальном хранилище. Откройте инструменты разработчика в вашем браузере, и вы увидите данные.
 
-## Native platforms
+## Родной платформы
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+По умолчанию приложение сохраняет данные в папке документов в подпапке под названием "Linwood/Butterfly". Эта папка создается при сохранении первых данных. Эта папка может быть изменена в настройках.
