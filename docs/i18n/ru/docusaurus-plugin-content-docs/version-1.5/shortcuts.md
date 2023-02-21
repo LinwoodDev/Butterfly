@@ -1,44 +1,44 @@
 ---
-title: "Shortcuts"
+title: "Ярлыки"
 sidebar_position: 2
 ---
 
 
 ## Keyboard
 
-There are a few shortcuts that you can use in the editor. Some of them are written below the buttons.
+Есть несколько ярлыков, которые вы можете использовать в редакторе. Некоторые из них написаны под кнопками.
 
-### General
+### Общие положения
 
-* `Ctrl` + `N`: New file
-* `Ctrl` + `Shift` + `N`: New file from template
-* `Ctrl` + `O`: Open file
-* `Ctrl` + `I`: Import file
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `N`: Новый файл
+* `Ctrl` + `Shift` + `N`: Новый файл из шаблона
+* `Ctrl` + `O`: Открыть файл
+* `Ctrl` + `I`: Импорт файла
+* `Ctrl` + `E`: Экспорт файла
+* `Ctrl` + `Shift` + `E`: Экспорт файла как изображения
+* `Ctrl` + `Alt` + `E`: Экспорт файла как svg
+* `Ctrl` + `Alt` + `S`: Открыть настройки
 
-### Project
+### Проект
 
-* `Ctrl` + `Z`: Undo
-* `Ctrl` + `Y`: Redo
+* `Ctrl` + `Z`: Отменить
+* `Ctrl` + `Y`: Повтор
 * `Ctrl` + `Alt` + `N`: Open insert dialog
-* `Ctrl` + `Alt` + `Shift` + `S`: Open project settings
+* `Ctrl` + `Alt` + `Shift` + `S`: Открыть настройки проекта
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
-* `Ctrl` + (`1` - `0`): Switch to painter
+* `Ctrl` + `P`: Открыть диалог цветовой палитры
+* `Ctrl` + `B`: Открыть фон диалога
+* `Ctrl` + `Shift` + `A`: Открыть диалог областей
+* `Ctrl` + `L`: Открыть диалог слоёв
+* `Ctrl` + `S`: Сохранить
+* `Alt` + `S`: Изменить путь
+* `Ctrl` + (`1` - `0`): Переключиться на живопись
 
 ## Stylus
 
-* `Primary button`: Change to hand tool
-* `Secondary button`: Change to second painter
+* `Основная кнопка`: Изменить руку на инструмент
+* `Дополнительная кнопка`: Изменить на второй художник
 
-## Configure {#configure}
+## Настроить {#configure}
 
-Customize the controls by giving every control a painter index. The painter index starts at 1 and are ordered from left to right. An empty painter index will disable the painter switch on this control. Insert `0` to enable moving with this control.
+Настройте элементы управления, предоставляя каждому управлению индексом художника. Индекс художника начинается с 1 и упорядочен слева направо. Пустой индекс живописца отключит этот элемент управления. Вставьте `0` чтобы включить перемещение с этим контролем.
