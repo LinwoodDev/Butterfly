@@ -1,6 +1,6 @@
 ---
 title: "Araçlar"
-slug: araçlar
+slug: /painters
 sidebar_label: "Giriş"
 sidebar_position: 1
 ---
