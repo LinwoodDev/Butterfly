@@ -1,13 +1,13 @@
 ---
-title: "Undo painter"
-sidebar_label: "Undo"
+title: "Отменить художника"
+sidebar_label: "Отменить"
 sidebar_position: 0
 ---
 
-:::note ⚡ Action painter
+::note ⚡ Мастер действий
 
-This is a special painter. You can't select it and it will run the action if you click on it.
+Это особый художник. Вы не можете выбрать его и действие будет выполнено, если вы нажмете на него.
 
 :::
 
-When clicking on this painter you can undo your last action. See the [redo painter](redo) for redoing your last action.
+При нажатии на этого художника вы можете отменить ваше последнее действие. Смотрите [redo painter](redo) для повторного выполнения вашего последнего действия.
