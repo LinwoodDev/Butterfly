@@ -1,18 +1,18 @@
 ---
 slug: /tools
-title: "Tools"
-sidebar_label: "Introduction"
+title: "Инструменты"
+sidebar_label: "Введение"
 sidebar_position: 0
 ---
 
 
-Tools can change the camera or select objects.
+Инструменты могут изменять камеру или выбирать объекты.
 
-Use the sidebar to learn more about the tools.
+Используйте боковую панель, чтобы узнать больше о инструментах.
 
-If you click on a selected tool you can configure it.
+Если вы нажмете на выбранный инструмент, вы можете настроить его.
 
-## Available tools
+## Доступные инструменты
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';
