@@ -1,18 +1,18 @@
 ---
-title: "Migrating"
+title: "Миграция"
 sidebar_position: 2
 ---
 
-This guide will show you how to migrate to the latest version.
+Это руководство покажет вам, как перейти на последнюю версию.
 
-## 7 (Breaking change) {#7}
+## 7 (Перерыв изменений) {#7}
 
-**Version: 2.0**
+**Версия: 2.0**
 
-### Breaking changes
+### Делать изменения
 
-The eraser layer will be removed. On migration, the eraser layer will be removed.
+Слой ластика будет удален. При миграции слой ластика будет удален.
 
-## Older versions
+## Старые версии
 
-All migrations before will be done automatically. Read the full migration in code [here](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Все переходы до этого будут выполнены автоматически. Прочтите полную миграцию в коде [здесь](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
