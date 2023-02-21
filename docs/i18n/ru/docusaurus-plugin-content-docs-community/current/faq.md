@@ -1,42 +1,42 @@
 ---
 id: "faq"
 slug: "/faq"
-title: "Frequently Asked Questions"
-sidebar_label: "FAQ"
+title: "Часто задаваемые вопросы"
+sidebar_label: "ЧАВО"
 ---
 
-Here are some frequently asked questions.
+Вот некоторые часто задаваемые вопросы.
 
-## Web
+## Веб
 
-### How do I install the web version?
+### Как установить веб-версию?
 
-You can install the web version by clicking on the install button in the title bar. After that you can use this app offline.
+Вы можете установить веб-версию, нажав на кнопку установки в заголовке. После этого вы можете использовать это приложение оффлайн.
 
-### Cannot insert images in web
+### Невозможно вставить изображения в веб
 
 > [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
 
-Currently decoding images does not work with canvaskit. Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!
+В настоящее время декодирование изображений не работает с canvaskit. Пожалуйста, голосуйте [за эту задачу](https://github.com/flutter/flutter/issues/102683) , если вы хотите эту опцию!
 
-### Butterfly does not load on Brave
+### Бабочка не загружается на Brave
 
-Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'. Click on the shield icon in the address bar to change the setting. Try updating your browser to the latest version.
+Brave Пользователи, которые установили параметр щита 'Блокировать отпечатки' на агрессивный, должны изменить его на 'Стандартный' или просто 'Блокировать отпечатки пальцев'. Нажмите на значок щита в адресной строке, чтобы изменить настройки. Попробуйте обновить браузер до последней версии.
 
-## Mobile
+## Мобильный
 
-### Crashes on Z Fold 3 when holding side button of S Pen
+### Вылетает на Z Fold 3 при удерживании боковой кнопки S Pen
 
 > [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
 
-This is a known issue with flutter and the Samsung Z Fold 3. Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!
+Это известная проблема с flutter и Samsung Z Fold 3. Пожалуйста, голосуйте [эту проблему](https://github.com/flutter/flutter/issues/111068) , чтобы исправить ее!
 
-## Desktop
+## Рабочий стол
 
-### Stylus input are not recognized
+### Ввод Stylus не распознан
 
 > [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
 
-I'm using the input provided by the flutter framework. There are already issues to track it: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
+Я использую вход, предоставленный флэттер. Уже есть проблемы для отслеживания: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) и [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
-These issues are a bit older. The web version should work fine for now.
+Эти проблемы несколько выше. Теперь веб-версия должна работать нормально.
