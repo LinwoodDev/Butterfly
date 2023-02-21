@@ -5,10 +5,10 @@ slug: "/insert"
 sidebar_position: 3
 ---
 
-You can insert different things in your notes:
+Вы можете вставить различные вещи в ваши заметки:
 
-* Images (from the gallery or the camera)
-* PDFs
-* SVGs
+* Изображения (из галереи или камеры)
+* PDF-файлы
+* SVG
 
-To access the insert menu, use the hand tool and double tap on the place where you want to insert something. Click on "Insert" to open the menu.
+Для доступа к меню вставки, используйте ручной инструмент и дважды коснитесь места, где вы хотите что-то вставить. Нажмите "Вставка", чтобы открыть меню.
