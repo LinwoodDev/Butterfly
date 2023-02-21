@@ -1,5 +1,5 @@
 ---
-title: Thank you for downloading
+title: Спасибо за загрузку
 hide_title: true
 hide_table_of_contents: true
 slug: "/downloads/post-windows"
@@ -7,14 +7,14 @@ slug: "/downloads/post-windows"
 
 <div className="text-center margin-top--xl">
 
-# Thank you for downloading
+# Спасибо за загрузку
 
 <div className="row margin-bottom--lg padding--sm flex-center">
 <a className="button button--outline button--warning button--lg margin--sm" href="/contributing">
-  Contribute to the project
+  Внести вклад в проект
 </a>
 <a className="button button--outline button--info button--lg margin--sm" href="https://linwood.dev/matrix">
-  Join the community
+  Присоединиться к сообществу
 </a>
 
 </div>
@@ -22,14 +22,14 @@ slug: "/downloads/post-windows"
 ## Windows SmartScreen
 
 
-Windows warns users when installing software without a certificate.
+Windows предупреждает пользователей при установке программного обеспечения без сертификата.
 
-![Smart screen](/img/smart-screen.png)
+![Умный экран](/img/smart-screen.png)
 
-To install the app, you need to click on "More info".
+Чтобы установить приложение, нажмите на "Подробнее".
 
-![Smart screen more info](/img/smart-screen-more-info.png)
+![Больше информации о умном экране](/img/smart-screen-more-info.png)
 
-Then, click on "Run anyway".
+Затем нажмите на кнопку "В любом случае".
 
 </div>
