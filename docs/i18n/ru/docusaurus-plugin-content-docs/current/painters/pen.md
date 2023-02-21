@@ -1,17 +1,17 @@
 ---
-title: "Pen painter"
-sidebar_label: "Pen"
+title: "Кровавый художник"
+sidebar_label: "Перо"
 sidebar_position: 2
 ---
 
 
-With this painter you can draw on this paper.
+С помощью этого художника можно рисовать на этой бумаге.
 
-## Configuration
+## Конфигурация
 
-|          Property | Default | Description                                                                      |
-| -----------------:|:-------:|:-------------------------------------------------------------------------------- |
-|             Color |  Black  | The color that will be drawn                                                     |
-|      Stroke width |    5    | The width of the stroke                                                          |
-| Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
-|    Zoom dependent |  false  | This will change the stroke width based on the zoom level.                       |
+|                Свойства | По умолчанию | Описание                                                                      |
+| -----------------------:|:------------:|:----------------------------------------------------------------------------- |
+|                    Цвет |    Черный    | Цвет нарисованного                                                            |
+|           Ширина штриха |      5       | Ширина штриха                                                                 |
+|       Множитель штрихов |      1       | Если у вас есть стилус, это мультипликатор, который будет добавлен к давлению |
+| Зависимость от масштаба |     ложь     | Это изменит ширину штриха в зависимости от масштаба масштаба.                 |
