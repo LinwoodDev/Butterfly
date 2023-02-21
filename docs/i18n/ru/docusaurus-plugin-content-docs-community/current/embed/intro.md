@@ -1,62 +1,62 @@
 ---
-title: Embed
-sidebar_label: Intro
+title: Вставить
+sidebar_label: Введение
 ---
 
-Embedding is a simple way to include the app in your website. Add the following code to your website:
+Встраивание - это простой способ включить приложение на ваш сайт. Добавьте следующий код на ваш сайт:
 
 ```html
 <iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
-## Options
+## Варианты
 
-| Option   | Type                       | Default | Description                                                                                                                                 |
-| -------- | -------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)      | true    | Enable save. If disabled, only an exit button will be shown                                                                                 |
-| editable | Boolean (true, false)      | true    | Enable editing. If disabled, the document will be read-only                                                                                 |
-| language | String (..., system, user) | system  | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
+| Вариант  | Тип                                 | По умолчанию | Описание                                                                                                                                 |
+| -------- | ----------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| save     | Boolean (true, false)               | true         | Включить сохранение. Если отключено, будет показана только кнопка выхода                                                                 |
+| editable | Boolean (true, false)               | true         | Включить редактирование. Если отключено, документ будет доступен только для чтения                                                       |
+| language | Строка (..., система, пользователь) | system       | Язык документа. Если система, то язык будет обнаружен из браузера. Если пользователь, язык будет установлен в предпочтение пользователей |
 
-## Events
+## События
 
-Examples how to use it:
+Примеры его использования:
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
 embedElement.addEventListener('message', (data) => {
   if(data.detail.type === 'save') {
-    console.log('Saving...', data.detail.message);
+    console.log('Сохранение...', data.detail.message);
   }
 });
 ```
 
 ### save
 
-> The `save` event is emitted when the user clicks the save button.
+> Событие `сохранить` производится, когда пользователь нажимает кнопку Сохранить.
 
-Parameters:
+Параметры:
 
-* `data` (Type `String`): The data of the document.
+* `данные` (Тип `Строка`): Данные документа.
 
 ### exit
 
-> The `exit` event is emitted when the user clicks the exit button.
+> Событие `выхода` выдается, когда пользователь нажимает кнопку выхода.
 
-Parameters:
+Параметры:
 
-* `data` (Type `String`): The data of the document.
+* `данные` (Тип `Строка`): Данные документа.
 
 ### change
 
-> The `change` event is emitted when the user changes the document.
+> Событие `изменения` создается при изменении пользователем.
 
-Parameters:
+Параметры:
 
-* `data` (Type `String`): The data of the document.
+* `данные` (Тип `Строка`): Данные документа.
 
-## Methods
+## Методы
 
-Example how to use it:
+Пример его использования:
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
@@ -70,39 +70,39 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> Метод `getData` возвращает данные документа.
 
-No parameters. Returns: `String`
+Нет параметров. Возвращение: `Строка`
 
 ### setData
 
-> The `setData` method sets the data of the document.
+> Метод `setData` устанавливает данные документа.
 
-Parameters:
+Параметры:
 
-* `data` (Type `String`): The data of the document.
+* `данные` (Тип `Строка`): Данные документа.
 
 ### render
 
-> The `render` method renders the document to a png image.
+> Метод `превращает документ` в изображение png.
 
-Parameters:
+Параметры:
 
-* `width` (Type `Number`): The width of the image.
-* `height` (Type `Number`): The height of the image.
-* `scale` (Type `Number`): The scale of the image.
-* `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+* `Ширина` (Тип `Номер`): Ширина изображения.
+* `Высота` (Тип `Номер`): Высота изображения.
+* `масштаб` (Тип `Номер`): Масштаб изображения.
+* `renderBackground` (Тип `Логическое`): Если введено значение true, фон будет отображен.
 
-Returns: `String` (Base64 encoded image)
+Возвращается: `Строка` (изображение с кодировкой Base64)
 
 ### renderSVG
 
-> The `renderSVG` method renders the document to a svg image.
+> Метод `renderSVG` отображает документ на изображение в svg.
 
-Parameters:
+Параметры:
 
-* `width` (Type `Number`): The width of the image.
-* `height` (Type `Number`): The height of the image.
-* `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+* `Ширина` (Тип `Номер`): Ширина изображения.
+* `Высота` (Тип `Номер`): Высота изображения.
+* `renderBackground` (Тип `Логическое`): Если введено значение true, фон будет отображен.
 
-Returns: `String` (SVG)
+Возврат: `Строка` (SVG)
