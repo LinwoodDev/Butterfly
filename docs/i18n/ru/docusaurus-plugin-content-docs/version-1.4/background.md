@@ -1,13 +1,13 @@
 ---
-sidebar_label: "Background"
+sidebar_label: "Справочная информация"
 sidebar_position: 2
-title: Background
+title: Справочная информация
 ---
 
-You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+Вы можете настроить фон бумаги. Нажмите на значок фона в диалоговом окне просмотра, чтобы добавить его. Доступны 8 различных фоновых шаблонов.
 
-## Configuration
+## Конфигурация
 
-Width and height are the general settings of the box.
+Ширина и высота являются общими настройками коробки.
 
-Additionally, you can customize the color of the background.
+Кроме того, можно настроить цвет фона.
