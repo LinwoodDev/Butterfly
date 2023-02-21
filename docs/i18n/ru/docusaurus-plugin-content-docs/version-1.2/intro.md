@@ -1,25 +1,25 @@
 ---
-title: "Introduction"
+title: "Введение"
 sidebar_position: 1
 ---
 
-![Banner](/img/banner.png)
+![Баннер](/img/banner.png)
 
 ---
 
-> Welcome to Butterfly, the opensource note app. Use the sidebar to navigate through the wiki.
+> Добро пожаловать в приложение заметок от Баттерфли. Используйте боковую панель для навигации по вики.
 
-## Getting started
+## Приступая к работе
 
-Visit [the downloads](/downloads) to download the app for your platform. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+Посетите [загрузок](/downloads) для загрузки приложения для вашей платформы. Используйте [веб-версию](https://butterfly.linwood.dev) , если вы не можете найти свою платформу.
 
-## Main view
+## Основной вид
 
-![Main view](main.png)
+![Основной вид](main.png)
 
-With the top left button you can go back to the document list. The document name will be displayed on the right of it. Undo, redo and file options are in the top right corner.
+Верхняя левая кнопка позволяет вернуться к списку документов. Название документа будет отображаться справа. Отменить, redo и параметры файла находятся в правом верхнем углу.
 
-Below it, you can find the toolbar. Left, you can switch between view and edit mode. Right to it, there you find the zoom options. In the top right corner there are the tool options.
+Ниже вы можете найти панель инструментов. Слева, вы можете переключаться между режимом просмотра и редактирования. Справа от него, там вы найдете варианты масштабирования. В правом верхнем углу находятся опции инструментов.
 
-- The view toolbar options are background, export and save.
-- The edit toolbar options are the painters. You can find [here](background) more.
+- Параметры панели инструментов просмотра являются фоном, экспортом и сохранением.
+- Опции панели редактирования инструментов это художники. Вы можете найти [здесь](background) больше.
