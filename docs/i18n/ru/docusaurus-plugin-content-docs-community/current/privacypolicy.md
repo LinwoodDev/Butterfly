@@ -1,61 +1,61 @@
 ---
-title: "Privacy Policy"
+title: "Политика конфиденциальности"
 slug: /privacypolicy
 ---
 
-This is the privacy policy of the app. Please read it carefully. Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+Это политика конфиденциальности приложения. Пожалуйста, внимательно прочитайте его. Нажмите [здесь](https://go.linwood.dev/privacypolicy) для ознакомления с политикой конфиденциальности сайта.
 
-CodeDoctor built the Butterfly app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
+CodeDoctor создал приложение Butterfly в качестве приложения с открытым исходным кодом. Этот СЕРВИС предоставляется CodeDoctor бесплатно, и предназначен для использования как есть.
 
-This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
+Эта страница используется для информирования посетителей о моих политиках с коллекцией, Использование и разглашение Личной информации, если кто-либо решит использовать мою Услугу.
 
-If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+Если вы решите воспользоваться моим Сервисом, вы соглашаетесь со сбором и использованием информации в связи с этой политикой. Личная информация, которую я собираю, используется для предоставления и улучшения Сервиса . Я не буду использовать ваши данные и не передавать их никому, кроме как описано в настоящей Политике конфиденциальности.
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Butterfly unless otherwise defined in this Privacy Policy.
+Термины, используемые в настоящей Политике конфиденциальности, имеют те же значения, что и в наших Правилах и Условиях, , который доступен на Butterfly если в настоящей Политике конфиденциальности не указано иное.
 
-**Information Collection and Use**
+**Сбор и использование информации**
 
-For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.
+Для получения более качественного опыта, при использовании нашего Сервиса, я могу потребовать от вас предоставить нам определенную личную информацию. Информация, которую я запрашиваю, будет сохранена на вашем устройстве и не собирается мной никоим образом.
 
-The app does use third party services that may collect information used to identify you.
+Приложение использует сторонние сервисы, которые могут собирать информацию, используемую для идентификации вас.
 
-Link to privacy policy of third party service providers used by the app
+Ссылка на политику конфиденциальности сторонних поставщиков услуг, используемых приложением
 
-* [Google Play Services](https://www.google.com/policies/privacy/)
+* [Сервисы Google Play](https://www.google.com/policies/privacy/)
 
-**Cookies**
+**Печенье**
 
-Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.
+Cookies - это файлы с небольшим количеством данных, которые обычно используются в качестве анонимных уникальных идентификаторов. Они отправляются в ваш браузер с сайтов, которые вы посещаете и хранятся на внутренней памяти вашего устройства.
 
-This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
+Данная Сервис не использует эти «cookies» явно. Однако приложение может использовать сторонний код и библиотеки, использующие «cookies» для сбора информации и улучшения их сервисов. У вас есть возможность принять или отклонить эти cookies и знать, когда cookie отправляется на ваше устройство. Если вы решите отказать в наших куках, вы можете не использовать некоторые части данного сервиса.
 
-**Service Providers**
+**Поставщики услуг**
 
-I may employ third-party companies and individuals due to the following reasons:
+Я могу использовать компании и физические лица третьих сторон по следующим причинам:
 
-* To facilitate our Service;
-* To provide the Service on our behalf;
-* To perform Service-related services; or
-* To assist us in analyzing how our Service is used.
+* оказывать содействие нашей службе;
+* Предоставление Услуг от нашего имени;
+* Выполнение сервисных услуг; или
+* Чтобы помочь нам в анализе использования нашего Сервиса.
 
-I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
+Я хочу сообщить пользователям об этом Сервисе, что эти третьи лица имеют доступ к вашим персональным данным. Причина заключается в выполнении задач, возложенных на них от нашего имени. Тем не менее, они обязаны не разглашать или не использовать эту информацию в других целях.
 
-**Security**
+**Безопасность**
 
-I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
+Я высоко ценю Ваше доверие к нам в предоставлении Вашей Личной информации, поэтому мы стремимся использовать коммерчески приемлемые средства ее защиты. Но помните, что ни один из способов передачи через интернет, или метод электронного хранилища на 100% надежный, и я не могу гарантировать его абсолютную безопасность.
 
-**Links to Other Sites**
+**Ссылки на другие сайты**
 
-This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+Сервис может содержать ссылки на другие сайты. Нажав на ссылку, вы будете перенаправлены на этот сайт. Обратите внимание, что эти внешние сайты не управляются мной. Therefore, I strongly advise you to review the Privacy Policy of these websites. Я не контролирую и не беру на себя ответственность за содержание, политику конфиденциальности или практику каких-либо сторонних сайтов или услуг.
 
-**Changes to This Privacy Policy**
+**Изменения в Политике конфиденциальности**
 
-I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.
+Я могу периодически обновлять нашу политику конфиденциальности. Таким образом, вам периодически рекомендуется просматривать эту страницу о любых изменениях. Я сообщу вам о любых изменениях, разместив новую Политику конфиденциальности на этой странице.
 
-This policy is effective as of 2021-02-07
+Эта политика действует начиная с 2021-02-07
 
-**Contact Us**
+**Свяжитесь с нами**
 
-If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at contact@linwood.dev.
+Если у вас есть какие-либо вопросы или предложения по моей Политике конфиденциальности, не стесняйтесь связаться со мной по адресу contact@linwood.dev.
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+Эта страница политики конфиденциальности была создана на [privacypolicytemplate.net](https://privacypolicytemplate.net) и изменена/сгенерирована [Генератором Политики Конфиденциальности Приложения](https://app-privacy-policy-generator.nisrulz.com/)
