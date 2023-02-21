@@ -1,20 +1,20 @@
 ---
-title: "Eraser painter"
+title: "Ластик"
 sidebar_label: "Eraser"
 sidebar_position: 3
 ---
 
-:::warning It is not recommended to use the eraser.
+::warning использовать ластик не рекомендуется.
 
-Please use the [path eraser](path_eraser) if it is possible.
+Пожалуйста, используйте [ластик пути](path_eraser) , если это возможно.
 
 :::
 
-With this painter you can erase the elements on the paper.
+С помощью этого художника вы можете стереть элементы на бумаге.
 
-## Configuration
+## Конфигурация
 
-|          Property | Default | Description                                                                      |
-| -----------------:|:-------:|:-------------------------------------------------------------------------------- |
-|      Stroke width |    5    | The width of the stroke                                                          |
-| Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
+|          Свойства | По умолчанию | Описание                                                                      |
+| -----------------:|:------------:|:----------------------------------------------------------------------------- |
+|     Ширина штриха |      5       | Ширина штриха                                                                 |
+| Множитель штрихов |      1       | Если у вас есть стилус, это мультипликатор, который будет добавлен к давлению |
