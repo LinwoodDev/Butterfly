@@ -1,9 +1,9 @@
 ---
-title: Embed playground
-sidebar_label: Playground
+title: Вставить игровую площадку
+sidebar_label: Игровая площадка
 ---
 
-Read the [docs](intro) to learn how to use the embedding feature.
+Прочитайте [документацию](intro) , чтобы узнать, как использовать встроенную функцию.
 
 ```mdx-code-block
 import EmbedPlayground from "@site/src/components/EmbedPlayground.tsx"
