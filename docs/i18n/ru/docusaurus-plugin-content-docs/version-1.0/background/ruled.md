@@ -1,14 +1,14 @@
 ---
-title: "Ruled paper"
+title: "Правильная бумага"
 ---
 
-| Property | Value |
-| --------:|:----- |
-|    Width | 0     |
-|   Height | 25    |
-|  Count X | 0     |
-|  Count Y | 1     |
-|  Space X | 0     |
-|  Space Y | 0     |
+|       Свойства | Значение |
+| --------------:|:-------- |
+|          Width | 0        |
+|         Высота | 25       |
+|      Счетчик X | 0        |
+|      Счетчик Y | 1        |
+| Пространство X | 0        |
+| Пространство Y | 0        |
 
-See [the introduction](intro) for more information.
+Смотрите [введение](intro) для дополнительной информации.
