@@ -1,16 +1,16 @@
 ---
-sidebar_label: "Arguments"
-title: Arguments
+sidebar_label: "Аргументы"
+title: Аргументы
 ---
 
-You can start the app with arguments.
+Вы можете запустить приложение с аргументами.
 
 `butterfly.exe <Path>`
 
-Path is the path to the file you want to open.
+Путь к файлу, который вы хотите открыть.
 
-## Options
+## Варианты
 
-|         Option | Description                                                      |
-| --------------:|:---------------------------------------------------------------- |
-| `--path`, `-p` | Choose the data directory where all data of Butterfly is stored. |
+|        Вариант | Описание                                                        |
+| --------------:|:--------------------------------------------------------------- |
+| `--path`, `-p` | Выберите каталог данных, в котором хранятся все данные Бабочки. |
