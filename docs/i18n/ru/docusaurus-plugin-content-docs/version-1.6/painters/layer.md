@@ -1,12 +1,12 @@
 ---
-title: Layer
+title: Слой
 ---
 
-With this tool you can change the layer of multiple objects. Read more about layers [here](../layers.md). When you click on an object, the layer of the object will be changed to the layer set in the configuration. Leaving the layer field empty will set the layer to the default layer.
+С помощью этого инструмента вы можете изменить слой нескольких объектов. Подробнее о слоях [здесь](../layers.md). При нажатии на объект слой объекта будет изменен на слой, установленный в конфигурации. Если оставить поле слоя пустым, слой установит стандартный слой.
 
-## Configuration
+## Конфигурация
 
-|       Property | Default | Description                                                             |
-| --------------:|:-------:|:----------------------------------------------------------------------- |
-|          Layer |         | Elements will change to this layer if clicking on them                  |
-| Include eraser |  false  | This setting controls if you can click on the eraser layer and edit it. |
+|        Свойства | По умолчанию | Описание                                                                              |
+| ---------------:|:------------:|:------------------------------------------------------------------------------------- |
+|            Слой |              | Элементы будут изменены на этот слой, если нажмете на них                             |
+| Включить ластик |     ложь     | Этот параметр управляет, если вы можете нажать на слой ластика и отредактировать его. |
