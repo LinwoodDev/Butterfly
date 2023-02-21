@@ -1,28 +1,28 @@
 ---
-title: Shortcuts
+title: Ярлыки
 ---
 
-There are a few shortcuts that you can use in the editor. Some of them are written below the buttons.
+Есть несколько ярлыков, которые вы можете использовать в редакторе. Некоторые из них написаны под кнопками.
 
-## General
+## Общие положения
 
-* `Ctrl` + `N`: New file
-* `Ctrl` + `Shift` + `N`: New file from template
-* `Ctrl` + `O`: Open file
-* `Ctrl` + `I`: Import file
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `N`: Новый файл
+* `Ctrl` + `Shift` + `N`: Новый файл из шаблона
+* `Ctrl` + `O`: Открыть файл
+* `Ctrl` + `I`: Импорт файла
+* `Ctrl` + `E`: Экспорт файла
+* `Ctrl` + `Shift` + `E`: Экспорт файла как изображения
+* `Ctrl` + `Alt` + `E`: Экспорт файла как svg
+* `Ctrl` + `Alt` + `S`: Открыть настройки
 
-## Project
+## Проект
 
-* `Ctrl` + `Z`: Undo
-* `Ctrl` + `Y`: Redo
+* `Ctrl` + `Z`: Отменить
+* `Ctrl` + `Y`: Повтор
 * `Ctrl` + `Alt` + `N`: Open insert dialog
-* `Ctrl` + `Alt` + `Shift` + `S`: Open project settings
+* `Ctrl` + `Alt` + `Shift` + `S`: Открыть настройки проекта
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Change path
+* `Ctrl` + `P`: Открыть диалог цветовой палитры
+* `Ctrl` + `B`: Открыть фон диалога
+* `Ctrl` + `L`: Открыть диалог слоёв
+* `Ctrl` + `S`: Изменить путь
