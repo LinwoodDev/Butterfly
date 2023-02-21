@@ -1,13 +1,13 @@
 ---
-title: "Label painter"
-sidebar_label: "Label"
+title: "Метка художника"
+sidebar_label: "Метка"
 sidebar_position: 5
 ---
 
-With this painter you can add text to the paper.
+С помощью этого художника можно добавить к бумаге текст.
 
-## Configuration
+## Конфигурация
 
-| Property | Default | Description          |
-| --------:|:-------:|:-------------------- |
-|     Size |   12    | The size of the text |
+| Свойства | По умолчанию | Описание      |
+| --------:|:------------:|:------------- |
+|   Размер |      12      | Размер текста |
