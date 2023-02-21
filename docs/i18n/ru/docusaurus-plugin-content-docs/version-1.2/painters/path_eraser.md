@@ -1,15 +1,15 @@
 ---
-title: "Path eraser painter"
-sidebar_label: "Path eraser"
+title: "Лазерный художник"
+sidebar_label: "Ластик пути"
 sidebar_position: 4
 ---
 
-With this painter you can delete the whole path on the paper.
+С помощью этого художника вы можете удалить весь путь на бумаге.
 
-## Configuration
+## Конфигурация
 
-|          Property | Default | Description                                                                                                     |
-| -----------------:|:-------:|:--------------------------------------------------------------------------------------------------------------- |
-|      Stroke width |    5    | The width of the stroke                                                                                         |
-| Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure                                |
-|    Include eraser |  false  | This setting controls if you can remove the path of the eraser. The path under the removed eraser will be shown |
+|          Свойства | По умолчанию | Описание                                                                                             |
+| -----------------:|:------------:|:---------------------------------------------------------------------------------------------------- |
+|     Ширина штриха |      5       | Ширина штриха                                                                                        |
+| Множитель штрихов |      1       | Если у вас есть стилус, это мультипликатор, который будет добавлен к давлению                        |
+|   Включить ластик |     ложь     | Этот параметр определяет, можно ли удалить путь к ластику. Путь под удаленным ластиком будет показан |
