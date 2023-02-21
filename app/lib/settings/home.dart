@@ -125,14 +125,16 @@ class _SettingsPageState extends State<SettingsPage> {
                       if (!kIsWeb)
                         ListTile(
                             leading: const Icon(PhosphorIcons.cloudLight),
-                            title: Text(AppLocalizations.of(context).connections),
+                            title:
+                                Text(AppLocalizations.of(context).connections),
                             selected: !isMobile
                                 ? _view == SettingsView.remotes
                                 : false,
                             onTap: () {
                               if (isMobile) {
                                 Navigator.of(context).pop();
-                                GoRouter.of(context).go('/settings/connections');
+                                GoRouter.of(context)
+                                    .go('/settings/connections');
                               } else {
                                 setState(() {
                                   _view = SettingsView.remotes;
