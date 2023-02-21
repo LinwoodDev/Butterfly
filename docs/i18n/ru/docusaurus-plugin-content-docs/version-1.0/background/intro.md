@@ -1,13 +1,13 @@
 ---
-title: "Background"
-sidebar_label: "Introduction"
+title: "Справочная информация"
+sidebar_label: "Введение"
 ---
 
 
-You can customize the background of the paper. Click on the background icon in the view tool to add it.
+Вы можете настроить фон бумаги. Нажмите на значок фона в окне просмотра для его добавления.
 
-## Configuration
+## Конфигурация
 
-Width and height are the general settings of the box. Space and count are important if you want to add a complex structure.
+Ширина и высота являются общими настройками коробки. Пространство и количество важны, если вы хотите добавить сложную структуру.
 
-Additionally you can customize the color of the background.
+Дополнительно можно настроить цвет фона.
