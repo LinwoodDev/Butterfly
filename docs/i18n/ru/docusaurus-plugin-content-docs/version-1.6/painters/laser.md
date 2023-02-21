@@ -1,17 +1,17 @@
 ---
-title: "Laser painter"
-sidebar_label: "Laser"
+title: "Лазерный художник"
+sidebar_label: "Лазер"
 sidebar_position: 3
 ---
 
 
-With this painter you can draw on this paper temporarily. After a while, the drawing fades away. Add a new drawing to the paper to make it cancel.
+С помощью этого художника можно временно нарисовать эту бумагу. Через некоторое время рисунок исчезает. Добавьте новый рисунок на бумагу, чтобы отменить его.
 
-## Configuration
+## Конфигурация
 
-|          Property | Default | Description                                                                      |
-| -----------------:|:-------:|:-------------------------------------------------------------------------------- |
-|             Color |  Black  | The color that will be drawn                                                     |
-|      Stroke width |    5    | The width of the stroke                                                          |
-| Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
-|          Duration |    5    | The duration in seconds that the drawing will be visible                         |
+|          Свойства | По умолчанию | Описание                                                                      |
+| -----------------:|:------------:|:----------------------------------------------------------------------------- |
+|              Цвет |    Черный    | Цвет нарисованного                                                            |
+|     Ширина штриха |      5       | Ширина штриха                                                                 |
+| Множитель штрихов |      1       | Если у вас есть стилус, это мультипликатор, который будет добавлен к давлению |
+| Продолжительность |      5       | Продолжительность отображения рисунка в секундах                              |
