@@ -1,9 +1,9 @@
 ---
-title: Migrating
+title: Миграция
 ---
 
-This guide will show you how to migrate to the latest version.
+Это руководство покажет вам, как перейти на последнюю версию.
 
 ## 1.0.0-beta.0
 
-This works automatically. To add the default color palette, simply click on the reset button in the color dialog.
+Это работает автоматически. Чтобы добавить цветовую палитру по умолчанию, просто нажмите на кнопку сброса в диалоге цветов.
