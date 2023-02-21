@@ -1,28 +1,28 @@
 ---
-sidebar_label: "Area"
-title: "Area painter"
+sidebar_label: "Область"
+title: "Местный художник"
 ---
 
-The area painter allows you to create, edit and remove areas.
+Мастер области позволяет создавать, редактировать и удалять участки.
 
-## Actions
+## Действия
 
-|        Mouse        |    Touch     |      Action       |
-|:-------------------:|:------------:|:-----------------:|
-| Left click and drag | Tap and drag | Create a new area |
-|    Middle click     | Two fingers  |    Move canvas    |
-|     Right click     |   Long tap   |     Edit area     |
+|                   Мышь                   |    Прикосновение     |       Действие        |
+|:----------------------------------------:|:--------------------:|:---------------------:|
+| Щелкните левой кнопкой мыши и перетащите | Нажмите и перетащите | Создать новую область |
+|               Средний клик               |      Два пальца      |   Переместить холст   |
+|               Правый клик                |    Долгое нажатие    | Редактировать область |
 
-## Configuration
+## Конфигурация
 
-|     Property | Default | Description                                                                                                                                      |
-| ------------:|:-------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
-|        Width |    0    | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
-|       Height |    0    | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
-| Aspect ratio |    0    | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|           Свойства | По умолчанию | Описание                                                                                                                                                                           |
+| ------------------:|:------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|              Width |      0       | Фиксированная ширина области. Если установлено значение 0, то ширина будет рассчитываться автоматически.                                                                           |
+|             Высота |      0       | Фиксированная высота участка. Если установлено значение 0, высота будет рассчитываться автоматически.                                                                              |
+| Соотношение сторон |      0       | Фиксированное соотношение сторон участка. Если установлено значение 0, соотношение сторон будет рассчитываться автоматически. Соотношение сторон определяется как ширина / высота. |
 
-There are three aspect ratio presets:
+Предустановки о соотношении трех частей:
 
-* Square (1:1)
-* Page portrait (sqrt(2)) - This is the default aspect ratio of an A4 page in portrait mode.
-* Page landscape (1/sqrt(2)) - This is the default aspect ratio of an A4 page in landscape mode.
+* Квадрат (1:1)
+* Портрет страницы (sqrt(2)) - Соотношение сторон страницы A4 по умолчанию в портретном режиме.
+* Горизонтальный (1/sqrt(2)) - По умолчанию это соотношение сторон страницы A4 в ландшафтном режиме.
