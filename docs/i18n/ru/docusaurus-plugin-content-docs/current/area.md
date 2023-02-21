@@ -1,23 +1,23 @@
 ---
-title: "Area"
+title: "Область"
 sidebar_position: 2
 ---
 
-## Introduction
+## Введение
 
-![Area](area.png)
+![Область](area.png)
 
-Areas are a way to restrict the size of the canvas. You can create areas by using the [area painter](painters/area.md). If you click on the background you can open the area list dialog using the context menu.
+Площади - это способ ограничить размер холста. Вы можете создать области с помощью [художника области](painters/area.md). При нажатии на фон вы можете открыть диалоговое окно списка области с помощью контекстного меню.
 
-## Creating and deleting areas
+## Создание и удаление областей
 
-Use the [area painter](painters/area.md) to create an area. Areas cannot overlap. After you created an area you need to name it.
+Используйте художник области [](painters/area.md) , чтобы создать область. Области не могут перекрываться. После того, как вы создали область, вам нужно назвать её.
 
-Click on the area if you want to modify it. You can also use the area dialog.
+Нажмите на область, если вы хотите изменить ее. Вы также можете использовать диалоговое окно области.
 
-You have a few options in this menu:
+У вас есть несколько вариантов в этом меню:
 
-* `Enter area`: Enter the area. You cannot paint outside of the area. Exit the area by clicking on the background with the area painter.
-* `Name`: Change the name of the current area
-* `Export`: Export this part of the canvas as an image
-* `Delete`: Delete this area
+* `Войти в область`: Войдите в зону. Вы не можете рисовать вне зоны. Выйти из области нажав на фон с изображением художника.
+* `Имя`: Изменить название текущей области
+* `Экспорт`: Экспорт этой части холста в качестве изображения
+* `Удалить`: Удалить эту область
