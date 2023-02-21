@@ -1,14 +1,14 @@
 ---
-title: "Stamp"
-sidebar_label: "Shape"
+title: "Орден"
+sidebar_label: "Форма"
 sidebar_position: 3
 ---
 
-The stamp painter allows you to add components to your canvas. Use an existing pack, create your own or import a pack to use it. Read more [here](../pack).
+Художник штамповки позволяет добавить в холст компоненты для вас. Используйте существующий пакет, создайте свой собственный или импортируйте пакет, чтобы его использовать. Подробнее о [здесь](../pack).
 
-## Configuration
+## Конфигурация
 
-|  Property | Default | Description                                     |
-| ---------:|:-------:|:----------------------------------------------- |
-|      Pack |  None   | The pack where the component is located.        |
-| Component |  None   | The component that will be added to the canvas. |
+|  Свойства | По умолчанию | Описание                                   |
+| ---------:|:------------:|:------------------------------------------ |
+|     Набор |     Нет      | Пакет, в котором находится компонент.      |
+| Компонент |     Нет      | Компонент, который будет добавлен в холст. |
