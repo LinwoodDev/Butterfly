@@ -1,12 +1,12 @@
 ---
 slug: "/downloads"
 sidebar_position: 0
-title: Downloads
+title: Загрузки
 ---
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Стабильная версия релиза](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Ночной релиз версии](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-## Choose your platform
+## Выберите платформу
 
 <div className="grid">
   <a className="grid-button button--panel button--windows" href="/downloads/windows">
@@ -39,9 +39,9 @@ title: Downloads
   </a>
 </div>
 
-## Useful links
+## Полезные ссылки
 
-- [Changelog](changelog)
-- [Older releases](https://github.com/LinwoodCloud/butterfly/releases)
-- [Latest release](https://github.com/LinwoodCloud/butterfly/releases/latest)
-- [Support](https://discord.linwood.dev)
+- [Список изменений](changelog)
+- [Старые релизы](https://github.com/LinwoodCloud/butterfly/releases)
+- [Последний релиз](https://github.com/LinwoodCloud/butterfly/releases/latest)
+- [Поддержка](https://discord.linwood.dev)
