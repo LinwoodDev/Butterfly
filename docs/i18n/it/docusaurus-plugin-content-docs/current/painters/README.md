@@ -1,6 +1,6 @@
 ---
 title: "Pittori"
-slug: /pittori
+slug: /painters
 sidebar_label: "Introduzione"
 sidebar_position: 1
 ---
