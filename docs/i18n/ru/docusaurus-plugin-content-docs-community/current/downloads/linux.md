@@ -15,11 +15,11 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
 
 :::
 
-## Бинары
+## Сборки
 
 <div className="row margin-bottom--lg padding--sm">
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--info button--lg">Конюшня</button>
+  <button className="button button--outline button--info button--lg">Стабильная</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-linux.tar.gz">
