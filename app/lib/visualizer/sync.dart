@@ -11,7 +11,7 @@ extension FileSyncStatusVisualizer on FileSyncStatus? {
       case FileSyncStatus.localLatest:
         return AppLocalizations.of(context).localLatest;
       case FileSyncStatus.remoteLatest:
-        return AppLocalizations.of(context).remoteLatest;
+        return AppLocalizations.of(context).connectionLatest;
       case FileSyncStatus.synced:
         return AppLocalizations.of(context).synced;
       case FileSyncStatus.conflict:

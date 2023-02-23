@@ -50,7 +50,7 @@ class ConnectionsSettingsPage extends StatelessWidget {
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () => showDialog<void>(
               context: context, builder: (context) => const _AddRemoteDialog()),
-          label: Text(AppLocalizations.of(context).addRemote),
+          label: Text(AppLocalizations.of(context).addConnection),
           icon: const Icon(PhosphorIcons.plusLight),
         ),
         body: Builder(builder: (context) {
@@ -139,12 +139,12 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
             'Basic ${base64Encode(utf8.encode('${_usernameController.text}:${_passwordController.text}'))}',
       });
       if (response.statusCode != 200) {
-        _showCreatingError(loc.cannotConnectToRemote);
+        _showCreatingError(loc.cannotConnect);
         return;
       }
       setState(() => _isConnected = true);
     } catch (e) {
-      _showCreatingError(AppLocalizations.of(context).cannotConnectToRemote, e);
+      _showCreatingError(AppLocalizations.of(context).cannotConnect, e);
     }
   }
 
@@ -180,8 +180,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     } catch (e) {
       if (kDebugMode) {
         print(e);
-        _showCreatingError(
-            AppLocalizations.of(context).cannotConnectToRemote, e);
+        _showCreatingError(AppLocalizations.of(context).cannotConnect, e);
       }
     }
     return Uint8List(0);
@@ -211,8 +210,8 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
     return showDialog<void>(
         context: context,
         builder: (context) => AlertDialog(
-              title:
-                  Text(AppLocalizations.of(context).errorWhileCreatingRemote),
+              title: Text(
+                  AppLocalizations.of(context).errorWhileCreatingConnection),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -242,7 +241,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
           padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
           child: Column(children: [
             Header(
-              title: Text(AppLocalizations.of(context).addRemote),
+              title: Text(AppLocalizations.of(context).addConnection),
             ),
             const SizedBox(height: 16.0),
             Flexible(
