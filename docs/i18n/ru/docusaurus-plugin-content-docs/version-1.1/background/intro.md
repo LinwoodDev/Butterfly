@@ -1,5 +1,5 @@
 ---
-title: "Background"
+title: "Фон"
 sidebar_label: "Введение"
 ---
 
