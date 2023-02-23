@@ -290,7 +290,7 @@
   "quality": "Качество",
   "exportPdf": "Экспорт PDF",
   "local": "Локальный",
-  "addRemote": "Добавить пульт",
+  "addConnection": "Add connection",
   "connections": "Соединения",
   "noConnections": "Нет подключений",
   "url": "URL",
@@ -302,10 +302,9 @@
   "directory": "Каталог",
   "documentsDirectory": "Каталог документов",
   "templatesDirectory": "Каталог шаблонов",
-  "errorWhileCreatingRemote": "Ошибка при создании пульта",
-  "cannotConnectToRemote": "Не удается подключиться к удалённому",
+  "errorWhileCreatingConnection": "Error while creating connection",
+  "cannotConnect": "Cannot connect",
   "urlNotValid": "URL недействителен",
-  "remote": "Удалённый",
   "icon": "Иконка",
   "update": "Обновить",
   "updateAvailable": "Доступно обновление",
@@ -335,25 +334,25 @@
   "notSynced": "Не синхронизировано",
   "conflict": "Конфликт",
   "keepLocal": "Сохранить локально",
-  "keepRemote": "Держать удаленно",
+  "keepConnection": "Keep connection",
   "keepBoth": "Оставить оба",
   "forAll": "Для всех",
-  "fileConflict": "{file} в {remote} имеет конфликт",
+  "fileConflict": "{file} in {connection} has a conflict",
   "@fileConflict": {
     "placeholders": {
       "file": {
         "type": "String",
         "example": "file.txt"
       },
-      "remote": {
+      "connection": {
         "type": "String",
-        "example": "remote"
+        "example": "localhost"
       }
     }
   },
   "offline": "Оффлайн",
   "localLatest": "Локальный последний",
-  "remoteLatest": "Удалённый последний",
+  "connectionLatest": "Connection latest",
   "path": "Путь",
   "folderSynced": "Папка синхронизирована",
   "syncRootDirectory": "Корневой каталог синхронизации",
