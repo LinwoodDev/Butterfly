@@ -290,7 +290,7 @@
   "quality": "Qualité",
   "exportPdf": "Exporter en PDF",
   "local": "Locale",
-  "addRemote": "Ajouter à distance",
+  "addConnection": "Add connection",
   "connections": "Connexions",
   "noConnections": "Aucune connexion",
   "url": "URL",
@@ -302,10 +302,9 @@
   "directory": "Répertoire",
   "documentsDirectory": "Répertoire des documents",
   "templatesDirectory": "Répertoire des modèles",
-  "errorWhileCreatingRemote": "Erreur lors de la création à distance",
-  "cannotConnectToRemote": "Impossible de se connecter à distance",
+  "errorWhileCreatingConnection": "Error while creating connection",
+  "cannotConnect": "Cannot connect",
   "urlNotValid": "URL non valide",
-  "remote": "Distante",
   "icon": "Icône",
   "update": "Mise à jour",
   "updateAvailable": "Mise à jour disponible",
@@ -335,25 +334,25 @@
   "notSynced": "Non synchronisé",
   "conflict": "Conflit",
   "keepLocal": "Garder en local",
-  "keepRemote": "Garder distante",
+  "keepConnection": "Keep connection",
   "keepBoth": "Garder les deux",
   "forAll": "Pour tous",
-  "fileConflict": "{file} dans {remote} a un conflit",
+  "fileConflict": "{file} in {connection} has a conflict",
   "@fileConflict": {
     "placeholders": {
       "file": {
         "type": "String",
         "example": "file.txt"
       },
-      "remote": {
+      "connection": {
         "type": "String",
-        "example": "remote"
+        "example": "localhost"
       }
     }
   },
   "offline": "Hors ligne",
   "localLatest": "Dernier jour local",
-  "remoteLatest": "Dernier jour à distance",
+  "connectionLatest": "Connection latest",
   "path": "Chemin d'accès",
   "folderSynced": "Dossier synchronisé",
   "syncRootDirectory": "Synchroniser le répertoire racine",
