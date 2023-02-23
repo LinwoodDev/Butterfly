@@ -1,6 +1,6 @@
 ---
 title: "Лазерный художник"
-sidebar_label: "Ластик для стирания контуров"
+sidebar_label: "Контурный ластик"
 sidebar_position: 5
 ---
 
