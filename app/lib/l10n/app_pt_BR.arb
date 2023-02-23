@@ -290,7 +290,7 @@
   "quality": "Qualidade",
   "exportPdf": "Exportar PDF",
   "local": "Localização",
-  "addRemote": "Adicionar controle",
+  "addConnection": "Add connection",
   "connections": "Conexões",
   "noConnections": "Sem conexões",
   "url": "URL:",
@@ -302,10 +302,9 @@
   "directory": "Diretório",
   "documentsDirectory": "Diretório de documentos",
   "templatesDirectory": "Diretório de templates",
-  "errorWhileCreatingRemote": "Erro ao criar o controle",
-  "cannotConnectToRemote": "Não é possível conectar-se ao controle",
+  "errorWhileCreatingConnection": "Error while creating connection",
+  "cannotConnect": "Cannot connect",
   "urlNotValid": "URL não é válida",
-  "remote": "Remoto",
   "icon": "Ícone",
   "update": "Atualização",
   "updateAvailable": "Atualização disponível",
@@ -335,25 +334,25 @@
   "notSynced": "Não sincronizado",
   "conflict": "Conflito",
   "keepLocal": "Manter localmente",
-  "keepRemote": "Manter remoto",
+  "keepConnection": "Keep connection",
   "keepBoth": "Manter ambos",
   "forAll": "Para todos",
-  "fileConflict": "{file} em {remote} tem um conflito",
+  "fileConflict": "{file} in {connection} has a conflict",
   "@fileConflict": {
     "placeholders": {
       "file": {
         "type": "String",
         "example": "file.txt"
       },
-      "remote": {
+      "connection": {
         "type": "String",
-        "example": "remote"
+        "example": "localhost"
       }
     }
   },
   "offline": "Desconectado",
   "localLatest": "Recente local",
-  "remoteLatest": "Última remota",
+  "connectionLatest": "Connection latest",
   "path": "Caminho",
   "folderSynced": "Pasta sincronizada",
   "syncRootDirectory": "Sincronizar diretório raiz",
