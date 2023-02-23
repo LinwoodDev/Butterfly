@@ -290,7 +290,7 @@
   "quality": "Qualität",
   "exportPdf": "PDF exportieren",
   "local": "Lokal",
-  "addRemote": "Remote hinzufügen",
+  "addConnection": "Add connection",
   "connections": "Verbindungen",
   "noConnections": "Keine Verbindungen",
   "url": "URL",
@@ -302,10 +302,9 @@
   "directory": "Verzeichnis",
   "documentsDirectory": "Dokumentenverzeichnis",
   "templatesDirectory": "Vorlagenverzeichnis",
-  "errorWhileCreatingRemote": "Fehler beim Erstellen des Remote",
-  "cannotConnectToRemote": "Kann nicht mit Remote verbinden",
+  "errorWhileCreatingConnection": "Error while creating connection",
+  "cannotConnect": "Cannot connect",
   "urlNotValid": "URL ungültig",
-  "remote": "Entfernt",
   "icon": "Symbol",
   "update": "Aktualisieren",
   "updateAvailable": "Update verfügbar",
@@ -335,25 +334,25 @@
   "notSynced": "Nicht synchronisiert",
   "conflict": "Konflikt",
   "keepLocal": "Lokal behalten",
-  "keepRemote": "Behalte externe Änderungen",
+  "keepConnection": "Keep connection",
   "keepBoth": "Beides behalten",
   "forAll": "Für alle",
-  "fileConflict": "{file} in {remote} hat einen Konflikt",
+  "fileConflict": "{file} in {connection} has a conflict",
   "@fileConflict": {
     "placeholders": {
       "file": {
         "type": "String",
         "example": "file.txt"
       },
-      "remote": {
+      "connection": {
         "type": "String",
-        "example": "remote"
+        "example": "localhost"
       }
     }
   },
   "offline": "Offline",
   "localLatest": "Lokale neueste",
-  "remoteLatest": "Remote-neueste",
+  "connectionLatest": "Connection latest",
   "path": "Pfad",
   "folderSynced": "Ordner synchronisiert",
   "syncRootDirectory": "Sync-Stammverzeichnis",
