@@ -405,7 +405,7 @@
   "editPack": "Изменить набор",
   "packsDirectory": "Каталог наборов",
   "stamp": "Орден",
-  "addToPack": "Добавить в пак",
+  "addToPack": "Добавить в набор",
   "packDescription": "{count,plural, =0{Нет элементов} =1{1 элемент} other{{count} элементов}}",
   "@packDescription": {
     "placeholders": {
