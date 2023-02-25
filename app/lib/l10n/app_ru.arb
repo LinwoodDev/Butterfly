@@ -191,7 +191,7 @@
   "defaultTemplate": "Шаблон по умолчанию",
   "insert": "Insert",
   "document": "Документ",
-  "camera": "Камера",
+  "camera": "Снимок",
   "printout": "Печать",
   "selectCamera": "Выбор камеры",
   "changeDocumentPath": "Изменить путь к документу",
@@ -217,7 +217,7 @@
   "textField": "Текстовое поле",
   "selectSensitivity": "Выберите чувствительность",
   "welcome": "Добро пожаловать в Linwood Butterfly",
-  "welcomeContent": "Бабочка - это приложение для заметок, в котором сначала приходят ваши идеи. Вы можете рисовать, добавлять тексты и легко экспортировать их на любое устройство. Это приложение работает на Android, Windows, Linux и в Интернете.",
+  "welcomeContent": "Butterfly — это приложение для заметок, в котором ваши идеи стоят на первом месте. Вы можете рисовать, добавлять тексты и легко экспортировать их на любое устройство. Это приложение работает на Android, Windows, Linux и в Интернете.",
   "updated": "Приложение обновлено до версии {version}",
   "@updated": {
     "placeholders": {
@@ -228,7 +228,7 @@
     },
     "description": "This message is shown when the app is updated"
   },
-  "releaseNotes": "Примечания к выпуску",
+  "releaseNotes": "Заметки о выпуске",
   "constraints": "Ограничения",
   "scaled": "Масштаб",
   "fixed": "Исправлено",
@@ -290,8 +290,8 @@
   "quality": "Качество",
   "exportPdf": "Экспорт в PDF",
   "local": "Локальный",
-  "addConnection": "Добавить соединение",
-  "connections": "Соединения",
+  "addConnection": "Добавить подключение",
+  "connections": "Подключения",
   "noConnections": "Нет подключений",
   "url": "URL",
   "connect": "Подключиться",
@@ -304,7 +304,7 @@
   "templatesDirectory": "Каталог шаблонов",
   "errorWhileCreatingConnection": "Ошибка при создании соединения",
   "cannotConnect": "Не удается подключиться",
-  "urlNotValid": "URL недействителен",
+  "urlNotValid": "Неправильный URL",
   "icon": "Иконка",
   "update": "Обновить",
   "updateAvailable": "Доступно обновление",
@@ -434,8 +434,8 @@
   "waypoint": "Путевая точка",
   "actions": "Действия",
   "painters": "Художники",
-  "breakingChangesTitle": "Делать изменения",
-  "breakingChangesMessage": "В этой версии произошли изменения. Пожалуйста, перед обновлением прочтите список изменений. Текущая версия файла {version}, новая версия {newVersion}.",
+  "breakingChangesTitle": "Важные изменения",
+  "breakingChangesMessage": "В этой версии есть важные изменения. Пожалуйста, ознакомьтесь со списком изменений перед обновлением. Текущая версия файла - {version}, новая версия - {newVersion}.",
   "@breakingChangesMessage": {
     "placeholders": {
       "version": {
