@@ -319,7 +319,7 @@
   "circle": "Круг",
   "rectangle": "Прямоугольник",
   "line": "Линия",
-  "cornerRadius": "Corner radius",
+  "cornerRadius": "Радиус скругления",
   "topLeft": "Вверху слева",
   "topRight": "Вверху справа",
   "bottomLeft": "Внизу слева",
