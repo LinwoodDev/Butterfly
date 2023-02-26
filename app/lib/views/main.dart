@@ -47,6 +47,7 @@ import '../actions/packs.dart';
 import '../main.dart';
 import 'changes.dart';
 import 'view.dart';
+import 'zoom.dart';
 
 class ProjectPage extends StatefulWidget {
   final AssetLocation? location;
@@ -422,6 +423,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                                       child: EditToolbar(
                                                           isMobile: isMobile))),
                                           ]),
+                                      const ZoomView(),
                                       if (isLandscape) property
                                     ],
                                   );
