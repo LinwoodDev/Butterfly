@@ -130,13 +130,17 @@ class LabelHandler extends Handler<LabelPainter>
   void _change(DocumentBloc bloc, TextContext value) {
     final context = _context;
     _context = value.copyWith();
+    if (context == null) return;
 
-    if (context != null && context.element != null && value.element != null) {
+    if (context.element != null && value.element != null) {
       if (!value.isCreating) {
         bloc.add(ElementsChanged({
           context.element!: [value.element!]
         }));
       }
+    }
+    if (context.painter.styleSheet != data.styleSheet) {
+      bloc.add(PaintersChanged({data: value.painter}));
     }
     bloc.refresh();
   }

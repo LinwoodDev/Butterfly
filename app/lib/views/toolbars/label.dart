@@ -1,4 +1,3 @@
-import 'package:butterfly/actions/packs.dart';
 import 'package:butterfly/dialogs/color_pick.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
@@ -10,6 +9,7 @@ import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
+import '../../dialogs/packs/select.dart';
 import '../../models/text.dart';
 
 class LabelToolbarView extends StatelessWidget {
@@ -32,6 +32,8 @@ class LabelToolbarView extends StatelessWidget {
     final paragraph = value.getDefinedProperty(document) ??
         const text.DefinedParagraphProperty();
     final span = value.getDefinedSpanProperty(document);
+    final styleSheet = value.element?.styleSheet ?? value.painter.styleSheet;
+    final style = document.getStyle(styleSheet);
     void updateSpan(text.DefinedSpanProperty property) {
       final selection = value.selection;
       var element = value.element;
@@ -89,6 +91,37 @@ class LabelToolbarView extends StatelessWidget {
                     child: Row(
                       children: [
                         IconButton(
+                          icon: const Icon(PhosphorIcons.packageLight),
+                          onPressed: () async {
+                            final result = await showDialog<PackAssetLocation>(
+                              context: context,
+                              builder: (context) => SelectPackAssetDialog(
+                                document: document,
+                                type: PackAssetType.style,
+                                selected: styleSheet,
+                              ),
+                            );
+                            if (result == null) return;
+                            if (value.element == null) {
+                              onChanged(value.copyWith(
+                                painter: LabelPainter(
+                                  styleSheet: result,
+                                ),
+                              ));
+                              return;
+                            }
+                            onChanged(value.copyWith(
+                              painter: LabelPainter(
+                                styleSheet: result,
+                              ),
+                              element: value.element!.copyWith(
+                                styleSheet: result,
+                              ),
+                            ));
+                          },
+                        ),
+                        const SizedBox(width: 16),
+                        IconButton(
                           icon: const Icon(PhosphorIcons.articleLight),
                           isSelected: value.isParagraph(),
                           onPressed: value.area == null
@@ -96,42 +129,17 @@ class LabelToolbarView extends StatelessWidget {
                               : () => onChanged(value.copyWith(
                                   forceParagraph: !value.isParagraph())),
                         ),
-                        const SizedBox(width: 16),
-                        PopupMenuButton(
-                          icon: const Icon(PhosphorIcons.packageLight),
-                          tooltip: AppLocalizations.of(context).pack,
-                          initialValue: value.styleSheet?.pack,
-                          itemBuilder: (ctx) => <PopupMenuEntry>[
-                            ...document.packs.map((e) {
-                              return PopupMenuItem(
-                                value: e.name,
-                                child: Text(e.name),
-                              );
-                            }).toList(),
-                            const PopupMenuDivider(),
-                            PopupMenuItem(
-                              value: null,
-                              onTap: () {
-                                Navigator.pop(ctx);
-                                Actions.invoke(
-                                  context,
-                                  PacksIntent(context),
-                                );
-                              },
-                              child: Text(AppLocalizations.of(context).packs),
-                            ),
-                          ],
-                        ),
                         const SizedBox(width: 8),
                         SizedBox(
                           width: 200,
                           child: DropdownMenu<String>(
-                            dropdownMenuEntries: const [
-                              DropdownMenuEntry(
-                                label: 'Heading 1',
-                                value: 'Heading 1',
-                              ),
-                            ],
+                            dropdownMenuEntries: style?.paragraphProperties.keys
+                                    .map((e) => DropdownMenuEntry<String>(
+                                          value: e,
+                                          label: e,
+                                        ))
+                                    .toList() ??
+                                <DropdownMenuEntry<String>>[],
                             onSelected: (value) {},
                             label: Text(AppLocalizations.of(context).style),
                           ),

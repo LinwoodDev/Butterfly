@@ -452,5 +452,6 @@
   "paragraph": "Paragraph",
   "fontFamily": "Font family",
   "smoothing": "Smoothing",
-  "streamline": "Streamline"
+  "streamline": "Streamline",
+  "selectAsset": "Select asset"
 }
