@@ -1,4 +1,5 @@
 import 'package:butterfly/dialogs/color_pick.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +28,47 @@ class LabelToolbarView extends StatelessWidget {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return Container();
     final document = state.document;
-    final property = value.getDefinedProperty(document) ??
+    final paragraph = value.getDefinedProperty(document) ??
         const text.DefinedParagraphProperty();
-    final span = property.span;
+    final span = value.getDefinedSpanProperty(document);
+    void updateSpan(text.DefinedSpanProperty property) {
+      final selection = value.selection;
+      var element = value.element;
+      if (element == null) {
+        onChanged(value.copyWith(
+            forcedProperty: text.ParagraphProperty.defined(
+          span: property,
+        )));
+        return;
+      }
+      if (selection == null || selection.start == selection.end) {
+        final currentParagraphProperty =
+            document.getStyle(element.styleSheet).resolveParagraphProperty(
+                  element.area.paragraph.property,
+                );
+        element = element.copyWith(
+          area: element.area.copyWith(
+            paragraph: element.area.paragraph.copyWith(
+              property: currentParagraphProperty?.copyWith(
+                    span: property,
+                  ) ??
+                  element.area.paragraph.property,
+            ),
+          ),
+        );
+      } else {
+        element = element.copyWith(
+          area: element.area.copyWith(
+            paragraph: element.area.paragraph.updateSpans(
+                selection.start, selection.end - selection.start, (span) {
+              return span.copyWith(property: property);
+            }),
+          ),
+        );
+      }
+      onChanged(value.copyWith(element: element));
+    }
+
     return LayoutBuilder(
       builder: (context, constraints) => Scrollbar(
         controller: _scrollController,
@@ -92,7 +131,7 @@ class LabelToolbarView extends StatelessWidget {
                         const SizedBox(width: 16),
                         ToggleButtons(
                           isSelected: text.HorizontalAlignment.values
-                              .map((e) => e == property.alignment)
+                              .map((e) => e == paragraph.alignment)
                               .toList(),
                           children: const [
                             Icon(PhosphorIcons.textAlignLeftLight),
@@ -102,7 +141,7 @@ class LabelToolbarView extends StatelessWidget {
                           ],
                           onPressed: (current) {
                             onChanged(value.copyWith(
-                              forcedProperty: property.copyWith(
+                              forcedProperty: paragraph.copyWith(
                                 alignment:
                                     text.HorizontalAlignment.values[current],
                               ),
@@ -151,7 +190,7 @@ class LabelToolbarView extends StatelessWidget {
                             initialValue: span.size.toString(),
                             onChanged: (current) => onChanged(
                               value.copyWith(
-                                forcedProperty: property.copyWith(
+                                forcedProperty: paragraph.copyWith(
                                   span: span.copyWith(
                                     size: double.tryParse(current) ?? span.size,
                                   ),
@@ -191,7 +230,7 @@ class LabelToolbarView extends StatelessWidget {
                             );
                             if (result == null) return;
                             onChanged(value.copyWith(
-                              forcedProperty: property.copyWith(
+                              forcedProperty: paragraph.copyWith(
                                 span: span.copyWith(
                                   color: result,
                                 ),
@@ -243,13 +282,12 @@ class LabelToolbarView extends StatelessWidget {
                                         value: FontWeight.values[index],
                                         child: Text(text),
                                         onTap: () {
-                                          onChanged(value.copyWith(
-                                            forcedProperty: property.copyWith(
-                                              span: span.copyWith(
-                                                fontWeight: index,
-                                              ),
+                                          updateSpan(
+                                            span.copyWith(
+                                              fontWeight: index,
                                             ),
-                                          ));
+                                          );
+                                          Navigator.pop(context);
                                         });
                                   }),
                                 );
@@ -259,41 +297,32 @@ class LabelToolbarView extends StatelessWidget {
                             const Icon(PhosphorIcons.textUnderlineLight),
                           ],
                           onPressed: (current) {
-                            var next = value;
                             switch (current) {
                               case 0:
-                                next = next.copyWith(
-                                  forcedProperty: property.copyWith(
-                                    span: span.copyWith(
-                                      fontWeight: span.fontWeight ==
-                                              text.kFontWeightNormal
-                                          ? text.kFontWeightBold
-                                          : text.kFontWeightNormal,
-                                    ),
+                                updateSpan(
+                                  span.copyWith(
+                                    fontWeight: span.fontWeight ==
+                                            text.kFontWeightNormal
+                                        ? text.kFontWeightBold
+                                        : text.kFontWeightNormal,
                                   ),
                                 );
                                 break;
                               case 1:
-                                next = next.copyWith(
-                                  forcedProperty: property.copyWith(
-                                    span: span.copyWith(
-                                      italic: !span.italic,
-                                    ),
+                                updateSpan(
+                                  span.copyWith(
+                                    italic: !span.italic,
                                   ),
                                 );
                                 break;
                               case 2:
-                                next = next.copyWith(
-                                  forcedProperty: property.copyWith(
-                                    span: span.copyWith(
-                                      underline: !span.underline,
-                                    ),
+                                updateSpan(
+                                  span.copyWith(
+                                    underline: !span.underline,
                                   ),
                                 );
                                 break;
                             }
-
-                            onChanged(next);
                           },
                         ),
                       ],

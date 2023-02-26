@@ -79,8 +79,9 @@ class TextSpan with _$TextSpan {
     length = length.clamp(0, this.length);
     start = start.clamp(0, length);
     length = length.clamp(0, this.length - start);
+    final end = start + length;
     return copyWith(
-      text: text.substring(start, length),
+      text: text.substring(start, end),
     );
   }
 
@@ -104,6 +105,7 @@ class TextParagraph with _$TextParagraph {
 
   bool get isEmpty => textSpans.every((element) => element.isEmpty);
   bool get isNotEmpty => textSpans.any((element) => element.isNotEmpty);
+  String get text => textSpans.map((e) => e.text).join();
 
   TextSpan? getSpan(int index) {
     var currentLength = 0;
@@ -200,6 +202,34 @@ class TextParagraph with _$TextParagraph {
     subSpans.add(newSpan);
     subSpans.addAll(getSpans(end));
     return copyWith(textSpans: subSpans);
+  }
+
+  TextParagraph remove([int start = 0, int? length]) {
+    var subSpans = <TextSpan>[];
+    final end = start + (length ?? 0);
+
+    subSpans.addAll(getSpans(0, start));
+    subSpans.addAll(getSpans(end));
+    return copyWith(textSpans: subSpans);
+  }
+
+  TextParagraph updateSpans(
+      int start, int? length, TextSpan Function(TextSpan) update) {
+    var subSpans = <TextSpan>[];
+    final end = start + (length ?? 0);
+
+    subSpans.addAll(getSpans(0, start));
+    subSpans.addAll(getSpans(start, length).map(update));
+    subSpans.addAll(getSpans(end));
+    return copyWith(textSpans: subSpans);
+  }
+
+  int nextWordIndex(int index) {
+    return text.substring(index).indexOf(RegExp(r'\w')) + index;
+  }
+
+  int previousWordIndex(int index) {
+    return text.substring(0, index).lastIndexOf(RegExp(r'\w'));
   }
 }
 

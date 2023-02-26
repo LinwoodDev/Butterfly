@@ -19,6 +19,7 @@ class TextContext with _$TextContext {
 
   TextArea? get area => element?.area;
   PackAssetLocation? get styleSheet => element?.styleSheet;
+  TextParagraph? get paragraph => area?.paragraph;
 
   int length() => 0;
 
@@ -28,14 +29,14 @@ class TextContext with _$TextContext {
 
   bool? get isEmpty => length() == 0;
 
-  ParagraphProperty getProperty(AppDocument document) {
+  ParagraphProperty getProperty() {
     return forcedProperty ??
-        area?.paragraph.property ??
+        paragraph?.property ??
         const ParagraphProperty.undefined();
   }
 
   DefinedParagraphProperty? getDefinedProperty(AppDocument document) {
-    final property = getProperty(document);
+    final property = getProperty();
     if (property is DefinedParagraphProperty) {
       return property;
     }
@@ -43,5 +44,24 @@ class TextContext with _$TextContext {
       return null;
     }
     return document.getStyle(styleSheet!)?.resolveParagraphProperty(property);
+  }
+
+  SpanProperty? getSpanProperty(AppDocument document) {
+    final index = selection?.baseOffset ?? 0;
+    return paragraph?.getSpan(index)?.property.mapOrNull(
+              undefined: (_) => null,
+              defined: (p) => p,
+              named: (p) => p,
+            ) ??
+        getDefinedProperty(document)?.span;
+  }
+
+  DefinedSpanProperty getDefinedSpanProperty(AppDocument document) {
+    return getSpanProperty(document)?.map(
+          defined: (p) => p,
+          undefined: (_) => null,
+          named: (p) => document.getStyle(styleSheet!)?.resolveSpanProperty(p),
+        ) ??
+        const DefinedSpanProperty();
   }
 }

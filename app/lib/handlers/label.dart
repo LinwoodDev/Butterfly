@@ -62,12 +62,12 @@ class LabelHandler extends Handler<LabelPainter>
     if (!(_connection?.attached ?? false)) {
       _connection = TextInput.attach(
           this,
-          const TextInputConfiguration(
+          TextInputConfiguration(
             inputType: TextInputType.text,
             obscureText: false,
             autocorrect: true,
-            inputAction: TextInputAction.done,
-            keyboardAppearance: Brightness.light,
+            inputAction: TextInputAction.newline,
+            keyboardAppearance: Theme.of(context.buildContext).brightness,
             textCapitalization: TextCapitalization.sentences,
           ))
         ..setEditingState(const TextEditingValue())
@@ -146,8 +146,11 @@ class LabelHandler extends Handler<LabelPainter>
     final context = _context;
     if (context == null) return;
     final element = context.element;
+    final isEmpty = element?.area.paragraph.isEmpty ?? true;
     if (context.isCreating && element != null) {
       bloc.add(ElementsCreated([element]));
+    } else if (isEmpty) {
+      bloc.add(ElementsRemoved([element!]));
     }
   }
 
@@ -157,20 +160,22 @@ class LabelHandler extends Handler<LabelPainter>
   }
 
   @override
-  // TODO: implement currentAutofillScope
   AutofillScope? get currentAutofillScope => null;
 
   @override
-  // TODO: implement currentTextEditingValue
-  TextEditingValue? get currentTextEditingValue => TextEditingValue(
-        selection:
-            _context?.selection ?? const TextSelection.collapsed(offset: 0),
-      );
+  TextEditingValue? get currentTextEditingValue => null;
 
   @override
   void performAction(TextInputAction action) {
     if (kDebugMode) {
       print(action.name);
+    }
+    switch (action) {
+      case TextInputAction.newline:
+      case TextInputAction.done:
+        _updateText('\n');
+        break;
+      default:
     }
   }
 
@@ -191,22 +196,32 @@ class LabelHandler extends Handler<LabelPainter>
   @override
   void updateEditingValue(TextEditingValue value) {
     if (_context == null) return;
+    if (kDebugMode) {
+      print('Editing value: $value');
+    }
+    _updateText(value.text);
+  }
+
+  void _updateText(String value) {
     TextElement element;
     final old = _context?.element;
 
+    var newIndex = value.length;
+
     if (old != null) {
-      final selection = value.selection;
+      final selection =
+          _context!.selection ?? const TextSelection.collapsed(offset: 0);
       final start = selection.start;
       final length = selection.end - start;
-      final paragraph =
-          old.area.paragraph.replaceText(value.text, start, length);
+      final paragraph = old.area.paragraph.replaceText(value, start, length);
       final area = old.area.copyWith(
         paragraph: paragraph,
       );
       element = old.copyWith(area: area);
+      newIndex += min(selection.start, paragraph.length);
     } else {
       final paragraph = text.TextParagraph.text(
-        textSpans: [text.TextSpan.text(text: value.text)],
+        textSpans: [text.TextSpan.text(text: value)],
         property: _context!.forcedProperty ??
             const text.ParagraphProperty.undefined(),
       );
@@ -217,16 +232,12 @@ class LabelHandler extends Handler<LabelPainter>
     }
     _context = _context!.copyWith(
       element: element,
+      selection: TextSelection.collapsed(offset: newIndex),
     );
-    _connection?.setEditingState(TextEditingValue(
+    _connection?.setEditingState(const TextEditingValue(
       text: '',
-      selection: TextSelection.collapsed(
-          offset: value.selection.start.clamp(0, element.area.length - 1)),
     ));
     _bloc?.refresh();
-    if (kDebugMode) {
-      print('Editing value: $value');
-    }
   }
 
   @override
@@ -259,15 +270,25 @@ class LabelHandler extends Handler<LabelPainter>
           if (element == null || selection == null) return null;
           var area = element.area;
           var paragraph = area.paragraph;
-          paragraph = paragraph.subParagraph(
-            selection.baseOffset,
-            selection.extentOffset,
+          var start = selection.start;
+          var length = selection.end - start;
+          if (length == 0) {
+            if (start == 0) return null;
+            if (!intent.forward) {
+              start--;
+            }
+            length = 1;
+          }
+          paragraph = paragraph.remove(
+            start,
+            length,
           );
           area = area.copyWith(paragraph: paragraph);
           final newElement = element.copyWith(area: area);
 
           _context = _context!.copyWith(
             element: newElement,
+            selection: TextSelection.collapsed(offset: start),
           );
           bloc.refresh();
           return null;
@@ -312,6 +333,69 @@ class LabelHandler extends Handler<LabelPainter>
             selection: selection,
           );
           bloc.refresh();
+          return null;
+        },
+      ),
+      DeleteToNextWordBoundaryIntent:
+          CallbackAction<DeleteToNextWordBoundaryIntent>(
+        onInvoke: (intent) {
+          if (kDebugMode) {
+            print('Delete to next word boundary');
+          }
+          final element = _context?.element;
+          final selection = _context?.selection;
+          if (element == null || selection == null) return null;
+          var index = selection.baseOffset;
+          var wordIndex = element.area.paragraph.previousWordIndex(index);
+          if (wordIndex > 0) wordIndex--;
+          if (wordIndex < 0) {
+            index = wordIndex;
+          }
+          var area = element.area;
+          var paragraph = area.paragraph;
+          final length = selection.end - wordIndex;
+          paragraph = paragraph.remove(
+            wordIndex,
+            length.abs(),
+          );
+          area = area.copyWith(paragraph: paragraph);
+          final newElement = element.copyWith(area: area);
+
+          _context = _context!.copyWith(
+            element: newElement,
+            selection: TextSelection.collapsed(offset: wordIndex),
+          );
+
+          bloc.refresh();
+          return null;
+        },
+      ),
+      CopySelectionTextIntent: CallbackAction<CopySelectionTextIntent>(
+        onInvoke: (intent) {
+          if (kDebugMode) {
+            print('Copy selection');
+          }
+          final selection = _context?.selection;
+          if (selection == null) return null;
+          final text = _context?.area?.paragraph.text;
+          if (text == null) return null;
+          Clipboard.setData(ClipboardData(
+              text: text.substring(selection.start, selection.end)));
+          if (intent.collapseSelection) {
+            _updateText('');
+          }
+          return null;
+        },
+      ),
+      PasteTextIntent: CallbackAction<PasteTextIntent>(
+        onInvoke: (intent) {
+          if (kDebugMode) {
+            print('Paste text');
+          }
+          Clipboard.getData(Clipboard.kTextPlain).then((value) {
+            if (value == null) return;
+            _updateText(value.text ?? '');
+          });
           return null;
         },
       ),
