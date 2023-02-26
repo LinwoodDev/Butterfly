@@ -1,6 +1,6 @@
 ---
 title: "Ластик"
-sidebar_label: "Eraser"
+sidebar_label: "Ластик"
 sidebar_position: 4
 ---
 
