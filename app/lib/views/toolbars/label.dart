@@ -1,3 +1,4 @@
+import 'package:butterfly/actions/packs.dart';
 import 'package:butterfly/dialogs/color_pick.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
@@ -95,6 +96,32 @@ class LabelToolbarView extends StatelessWidget {
                               : () => onChanged(value.copyWith(
                                   forceParagraph: !value.isParagraph())),
                         ),
+                        const SizedBox(width: 16),
+                        PopupMenuButton(
+                          icon: const Icon(PhosphorIcons.packageLight),
+                          tooltip: AppLocalizations.of(context).pack,
+                          initialValue: value.styleSheet?.pack,
+                          itemBuilder: (ctx) => <PopupMenuEntry>[
+                            ...document.packs.map((e) {
+                              return PopupMenuItem(
+                                value: e.name,
+                                child: Text(e.name),
+                              );
+                            }).toList(),
+                            const PopupMenuDivider(),
+                            PopupMenuItem(
+                              value: null,
+                              onTap: () {
+                                Navigator.pop(ctx);
+                                Actions.invoke(
+                                  context,
+                                  PacksIntent(context),
+                                );
+                              },
+                              child: Text(AppLocalizations.of(context).packs),
+                            ),
+                          ],
+                        ),
                         const SizedBox(width: 8),
                         SizedBox(
                           width: 200,
@@ -188,13 +215,9 @@ class LabelToolbarView extends StatelessWidget {
                             textAlign: TextAlign.center,
                             keyboardType: TextInputType.number,
                             initialValue: span.size.toString(),
-                            onChanged: (current) => onChanged(
-                              value.copyWith(
-                                forcedProperty: paragraph.copyWith(
-                                  span: span.copyWith(
-                                    size: double.tryParse(current) ?? span.size,
-                                  ),
-                                ),
+                            onChanged: (current) => updateSpan(
+                              span.copyWith(
+                                size: double.tryParse(current) ?? span.size,
                               ),
                             ),
                           ),

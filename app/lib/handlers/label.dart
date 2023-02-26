@@ -17,8 +17,11 @@ class LabelHandler extends Handler<LabelPainter>
             ? null
             : TextElement(
                 position: position,
-                area: const text.TextArea(
-                  paragraph: text.TextParagraph.text(),
+                area: text.TextArea(
+                  paragraph: text.TextParagraph.text(
+                    property: _context?.forcedProperty ??
+                        const text.ParagraphProperty.undefined(),
+                  ),
                 ),
               ),
       );
@@ -56,8 +59,9 @@ class LabelHandler extends Handler<LabelPainter>
   @override
   Future<void> onTapUp(TapUpDetails details, EventContext context) async {
     final pixelRatio = context.devicePixelRatio;
-    FocusScope.of(context.buildContext)
-        .requestFocus(Focus.of(context.buildContext));
+    final focusNode = Focus.of(context.buildContext);
+    final hadFocus = focusNode.hasFocus;
+    FocusScope.of(context.buildContext).requestFocus(focusNode);
     final style = Theme.of(context.buildContext).textTheme.bodyLarge!;
     if (!(_connection?.attached ?? false)) {
       _connection = TextInput.attach(
@@ -81,11 +85,13 @@ class LabelHandler extends Handler<LabelPainter>
     }
     _bloc = context.getDocumentBloc();
     _connection!.show();
-
-    _context = _createContext(context
-        .getCameraTransform()
-        .localToGlobal(details.localPosition)
-        .toPoint());
+    final globalPos =
+        context.getCameraTransform().localToGlobal(details.localPosition);
+    if (hadFocus || _context?.element == null) {
+      if (_context?.element != null) _submit(context.getDocumentBloc());
+      _context = null;
+      _context = _createContext(globalPos.toPoint());
+    }
     context.refresh();
   }
 
@@ -147,10 +153,12 @@ class LabelHandler extends Handler<LabelPainter>
     if (context == null) return;
     final element = context.element;
     final isEmpty = element?.area.paragraph.isEmpty ?? true;
-    if (context.isCreating && element != null) {
-      bloc.add(ElementsCreated([element]));
-    } else if (isEmpty) {
-      bloc.add(ElementsRemoved([element!]));
+    if (element != null) {
+      if (context.isCreating) {
+        bloc.add(ElementsCreated([element]));
+      } else if (isEmpty) {
+        bloc.add(ElementsRemoved([element]));
+      }
     }
   }
 

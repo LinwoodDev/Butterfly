@@ -17,7 +17,9 @@ _$DefinedSpanProperty _$$DefinedSpanPropertyFromJson(Map json) =>
       italic: json['italic'] as bool? ?? false,
       letterSpacing: (json['letterSpacing'] as num?)?.toDouble() ?? 0,
       decorationColor: json['decorationColor'] as int? ?? kColorBlack,
-      decorationStyle: json['decorationStyle'] ?? TextDecorationStyle.solid,
+      decorationStyle: $enumDecodeNullable(
+              _$TextDecorationStyleEnumMap, json['decorationStyle']) ??
+          TextDecorationStyle.solid,
       decorationThickness:
           (json['decorationThickness'] as num?)?.toDouble() ?? 1,
       $type: json['type'] as String?,
@@ -35,10 +37,19 @@ Map<String, dynamic> _$$DefinedSpanPropertyToJson(
       'italic': instance.italic,
       'letterSpacing': instance.letterSpacing,
       'decorationColor': instance.decorationColor,
-      'decorationStyle': instance.decorationStyle,
+      'decorationStyle':
+          _$TextDecorationStyleEnumMap[instance.decorationStyle]!,
       'decorationThickness': instance.decorationThickness,
       'type': instance.$type,
     };
+
+const _$TextDecorationStyleEnumMap = {
+  TextDecorationStyle.solid: 'solid',
+  TextDecorationStyle.double: 'double',
+  TextDecorationStyle.dotted: 'dotted',
+  TextDecorationStyle.dashed: 'dashed',
+  TextDecorationStyle.wavy: 'wavy',
+};
 
 _$NamedSpanProperty _$$NamedSpanPropertyFromJson(Map json) =>
     _$NamedSpanProperty(

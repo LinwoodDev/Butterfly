@@ -5,13 +5,16 @@ import 'colors.dart';
 part 'text.g.dart';
 part 'text.freezed.dart';
 
+@JsonEnum()
 enum HorizontalAlignment { left, center, right, justify }
 
+@JsonEnum()
 enum VerticalAlignment { top, center, bottom }
 
 const kFontWeightNormal = 3;
 const kFontWeightBold = 6;
 
+@JsonEnum()
 enum TextDecorationStyle { solid, double, dotted, dashed, wavy }
 
 @freezed

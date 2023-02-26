@@ -81,12 +81,14 @@ class TextSelectionCursor extends Renderer<TextContext> {
     // Paint cursor
     final cursorBox =
         element.textPainter.getOffsetForCaret(selection.base, Rect.zero);
+    final height =
+        element.textPainter.getFullHeightForCaret(selection.base, Rect.zero);
     canvas.drawRect(
       Rect.fromLTWH(
         textElement.position.x + cursorBox.dx - 1,
         textElement.position.y + cursorBox.dy,
         2,
-        element.textPainter.preferredLineHeight,
+        height ?? element.textPainter.preferredLineHeight,
       ),
       Paint()..color = color,
     );

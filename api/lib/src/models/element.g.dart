@@ -99,7 +99,10 @@ _$TextElement _$$TextElementFromJson(Map json) => _$TextElement(
       position: json['position'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
-      styleSheet: json['styleSheet'] ?? const PackAssetLocation(),
+      styleSheet: json['styleSheet'] == null
+          ? const PackAssetLocation()
+          : PackAssetLocation.fromJson(
+              Map<String, dynamic>.from(json['styleSheet'] as Map)),
       area: TextArea.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
       constraint: json['constraint'] == null
           ? const ElementConstraint(size: 1000)
@@ -112,7 +115,7 @@ Map<String, dynamic> _$$TextElementToJson(_$TextElement instance) =>
     <String, dynamic>{
       'layer': instance.layer,
       'position': const DoublePointJsonConverter().toJson(instance.position),
-      'styleSheet': instance.styleSheet,
+      'styleSheet': instance.styleSheet.toJson(),
       'area': instance.area.toJson(),
       'constraint': instance.constraint.toJson(),
       'type': instance.$type,

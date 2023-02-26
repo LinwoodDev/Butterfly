@@ -47,7 +47,7 @@ class TextContext with _$TextContext {
   }
 
   SpanProperty? getSpanProperty(AppDocument document) {
-    final index = selection?.baseOffset ?? 0;
+    final index = selection?.start ?? 0;
     return paragraph?.getSpan(index)?.property.mapOrNull(
               undefined: (_) => null,
               defined: (p) => p,

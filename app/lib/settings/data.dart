@@ -132,7 +132,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                   BlocProvider.value(
                                       value: context.read<SettingsCubit>()),
                                 ],
-                                child: const PacksDialog(showDocument: false),
+                                child: const PacksDialog(globalOnly: true),
                               ),
                             );
                           },
