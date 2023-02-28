@@ -125,6 +125,5 @@ class PenHandler extends Handler<PenPainter> {
 
   @override
   PenPainter? _setColor(DocumentBloc bloc, int color) =>
-      //int to color, color hat eine alpah methode, data.prop.color.withalpha.value
       data.copyWith(property: data.property.copyWith(color: color));
 }

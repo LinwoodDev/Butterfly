@@ -91,7 +91,6 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
                 .toList()),
         title: Text(AppLocalizations.of(context).color),
       ),
-      // changed
       ExactSlider(
         value: Color(property.color).alpha.toDouble(),
         header: Text(AppLocalizations.of(context).alpha),
@@ -234,7 +233,7 @@ class _CircleShapeView extends StatelessWidget {
         leading: const Icon(PhosphorIcons.paintBucketLight),
         defaultColor: Colors.transparent,
         onChanged: (color) => onChanged(shape.copyWith(fillColor: color.value)),
-      ), // changed
+      ),
       ExactSlider(
         value: Color(shape.fillColor).alpha.toDouble(),
         header: Text(AppLocalizations.of(context).alpha),
