@@ -10,22 +10,6 @@ class LabelHandler extends Handler<LabelPainter>
   LabelHandler(super.data);
 
   TextContext _createContext([Point<double>? position]) {
-    if (_context != null) {
-      return _context!.copyWith(
-        isCreating: true,
-        element: position == null
-            ? null
-            : TextElement(
-                position: position,
-                area: text.TextArea(
-                  paragraph: text.TextParagraph.text(
-                    property: _context?.forcedProperty ??
-                        const text.ParagraphProperty.undefined(),
-                  ),
-                ),
-              ),
-      );
-    }
     return TextContext(
       painter: data,
       isCreating: true,
@@ -33,11 +17,16 @@ class LabelHandler extends Handler<LabelPainter>
           ? null
           : TextElement(
               position: position,
-              area: const text.TextArea(
-                paragraph: text.TextParagraph.text(),
+              area: text.TextArea(
+                paragraph: text.TextParagraph.text(
+                  property: _context?.forcedProperty ??
+                      const text.ParagraphProperty.undefined(),
+                ),
               ),
+              styleSheet: data.styleSheet,
             ),
       textPainter: TextPainter(),
+      forcedProperty: _context?.forcedProperty,
     );
   }
 
@@ -89,7 +78,6 @@ class LabelHandler extends Handler<LabelPainter>
         context.getCameraTransform().localToGlobal(details.localPosition);
     if (hadFocus || _context?.element == null) {
       if (_context?.element != null) _submit(context.getDocumentBloc());
-      _context = null;
       _context = _createContext(globalPos.toPoint());
     }
     context.refresh();
@@ -217,15 +205,28 @@ class LabelHandler extends Handler<LabelPainter>
   void _updateText(String value) {
     TextElement element;
     final old = _context?.element;
+    final state = _bloc?.state;
+    if (state is! DocumentLoadSuccess) return;
+    final document = state.document;
 
     var newIndex = value.length;
 
     if (old != null) {
-      final selection =
-          _context!.selection ?? const TextSelection.collapsed(offset: 0);
+      final selection = _context!.selection;
       final start = selection.start;
       final length = selection.end - start;
-      final paragraph = old.area.paragraph.replaceText(value, start, length);
+      final newSpan =
+          _context!.forcedSpanProperty != _context!.getSpanProperty(document);
+      final paragraph = newSpan
+          ? old.area.paragraph.replace(
+              text.TextSpan.text(
+                text: value,
+                property: _context?.forcedSpanProperty ??
+                    const text.SpanProperty.undefined(),
+              ),
+              start,
+              length)
+          : old.area.paragraph.replaceText(value, start, length);
       final area = old.area.copyWith(
         paragraph: paragraph,
       );
@@ -311,11 +312,17 @@ class LabelHandler extends Handler<LabelPainter>
           if (kDebugMode) {
             print('Select all');
           }
+          final length = _context?.area?.length ?? 0;
           _context = _context?.copyWith(
-              selection: TextSelection(
-            baseOffset: _context?.area?.length ?? 0,
-            extentOffset: 0,
-          ));
+            selection: TextSelection(
+              baseOffset: length,
+              extentOffset: 0,
+            ),
+            forcedSpanProperty:
+                _context?.element?.area.paragraph.getSpan(length)?.property ??
+                    _context?.forcedSpanProperty,
+            forceParagraph: null,
+          );
           bloc.refresh();
           return null;
         },
@@ -343,6 +350,11 @@ class LabelHandler extends Handler<LabelPainter>
           }
           _context = _context?.copyWith(
             selection: selection,
+            forcedSpanProperty: _context?.element?.area.paragraph
+                    .getSpan(selection.baseOffset)
+                    ?.property ??
+                _context?.forcedSpanProperty,
+            forceParagraph: null,
           );
           bloc.refresh();
           return null;

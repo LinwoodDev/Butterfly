@@ -16,6 +16,7 @@ class LabelToolbarView extends StatelessWidget {
   final TextContext value;
   final ValueChanged<TextContext> onChanged;
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController _sizeController = TextEditingController();
 
   LabelToolbarView({
     super.key,
@@ -31,29 +32,33 @@ class LabelToolbarView extends StatelessWidget {
     final document = state.document;
     final paragraph = value.getDefinedProperty(document) ??
         const text.DefinedParagraphProperty();
-    final span = value.getDefinedSpanProperty(document);
+    final span = value.getDefinedForcedSpanProperty(document);
     final styleSheet = value.element?.styleSheet ?? value.painter.styleSheet;
     final style = document.getStyle(styleSheet);
-    void updateSpan(text.DefinedSpanProperty property) {
+    _sizeController.text = span.size.toString();
+    void updateSpan(
+        text.DefinedSpanProperty Function(text.DefinedSpanProperty) update) {
       final selection = value.selection;
       var element = value.element;
       if (element == null) {
+        final newSpan = update(span);
         onChanged(value.copyWith(
-            forcedProperty: text.ParagraphProperty.defined(
-          span: property,
-        )));
+          forcedProperty: text.ParagraphProperty.defined(
+            span: newSpan,
+          ),
+          forcedSpanProperty: newSpan,
+        ));
         return;
       }
-      if (selection == null || selection.start == selection.end) {
-        final currentParagraphProperty =
-            document.getStyle(element.styleSheet).resolveParagraphProperty(
-                  element.area.paragraph.property,
-                );
+      if (value.isParagraph()) {
+        final currentParagraphProperty = style.resolveParagraphProperty(
+          element.area.paragraph.property,
+        );
         element = element.copyWith(
           area: element.area.copyWith(
             paragraph: element.area.paragraph.copyWith(
               property: currentParagraphProperty?.copyWith(
-                    span: property,
+                    span: update(currentParagraphProperty.span),
                   ) ??
                   element.area.paragraph.property,
             ),
@@ -64,12 +69,17 @@ class LabelToolbarView extends StatelessWidget {
           area: element.area.copyWith(
             paragraph: element.area.paragraph.updateSpans(
                 selection.start, selection.end - selection.start, (span) {
-              return span.copyWith(property: property);
+              return span.copyWith(
+                  property: update(style.resolveSpanProperty(span.property) ??
+                      const text.DefinedSpanProperty()));
             }),
           ),
         );
       }
-      onChanged(value.copyWith(element: element));
+      onChanged(value.copyWith(
+        element: element,
+        forcedSpanProperty: update(span),
+      ));
     }
 
     return LayoutBuilder(
@@ -133,8 +143,10 @@ class LabelToolbarView extends StatelessWidget {
                         SizedBox(
                           width: 200,
                           child: DropdownMenu<String>(
-                            dropdownMenuEntries: style?.paragraphProperties.keys
-                                    .map((e) => DropdownMenuEntry<String>(
+                            dropdownMenuEntries: (value.isParagraph()
+                                        ? style?.paragraphProperties.keys
+                                        : style?.spanProperties.keys)
+                                    ?.map((e) => DropdownMenuEntry<String>(
                                           value: e,
                                           label: e,
                                         ))
@@ -222,9 +234,9 @@ class LabelToolbarView extends StatelessWidget {
                             ),
                             textAlign: TextAlign.center,
                             keyboardType: TextInputType.number,
-                            initialValue: span.size.toString(),
-                            onChanged: (current) => updateSpan(
-                              span.copyWith(
+                            controller: _sizeController,
+                            onFieldSubmitted: (current) => updateSpan(
+                              (value) => value.copyWith(
                                 size: double.tryParse(current) ?? span.size,
                               ),
                             ),
@@ -260,13 +272,8 @@ class LabelToolbarView extends StatelessWidget {
                               ),
                             );
                             if (result == null) return;
-                            onChanged(value.copyWith(
-                              forcedProperty: paragraph.copyWith(
-                                span: span.copyWith(
-                                  color: result,
-                                ),
-                              ),
-                            ));
+                            updateSpan(
+                                (value) => value.copyWith(color: result));
                           },
                         ),
                         const SizedBox(width: 16),
@@ -314,7 +321,7 @@ class LabelToolbarView extends StatelessWidget {
                                         child: Text(text),
                                         onTap: () {
                                           updateSpan(
-                                            span.copyWith(
+                                            (value) => value.copyWith(
                                               fontWeight: index,
                                             ),
                                           );
@@ -331,7 +338,7 @@ class LabelToolbarView extends StatelessWidget {
                             switch (current) {
                               case 0:
                                 updateSpan(
-                                  span.copyWith(
+                                  (value) => value.copyWith(
                                     fontWeight: span.fontWeight ==
                                             text.kFontWeightNormal
                                         ? text.kFontWeightBold
@@ -341,14 +348,14 @@ class LabelToolbarView extends StatelessWidget {
                                 break;
                               case 1:
                                 updateSpan(
-                                  span.copyWith(
+                                  (value) => value.copyWith(
                                     italic: !span.italic,
                                   ),
                                 );
                                 break;
                               case 2:
                                 updateSpan(
-                                  span.copyWith(
+                                  (value) => value.copyWith(
                                     underline: !span.underline,
                                   ),
                                 );

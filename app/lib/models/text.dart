@@ -15,6 +15,7 @@ class TextContext with _$TextContext {
       @Default(false) bool isCreating,
       @Default(TextSelection.collapsed(offset: 0)) TextSelection selection,
       ParagraphProperty? forcedProperty,
+      SpanProperty? forcedSpanProperty,
       bool? forceParagraph}) = _TextContext;
 
   TextArea? get area => element?.area;
@@ -24,8 +25,7 @@ class TextContext with _$TextContext {
   int length() => 0;
 
   bool isParagraph() =>
-      forceParagraph ??
-      ((selection?.start ?? 0) <= 0 && (selection?.end ?? 0) >= length());
+      forceParagraph ?? (selection.start <= 0 && selection.end >= length());
 
   bool? get isEmpty => length() == 0;
 
@@ -47,7 +47,7 @@ class TextContext with _$TextContext {
   }
 
   SpanProperty? getSpanProperty(AppDocument document) {
-    final index = selection?.start ?? 0;
+    final index = selection.start;
     return paragraph?.getSpan(index)?.property.mapOrNull(
               undefined: (_) => null,
               defined: (p) => p,
@@ -63,5 +63,27 @@ class TextContext with _$TextContext {
           named: (p) => document.getStyle(styleSheet!)?.resolveSpanProperty(p),
         ) ??
         const DefinedSpanProperty();
+  }
+
+  DefinedParagraphProperty getDefinedForcedProperty(AppDocument document) {
+    return forcedProperty?.map(
+          defined: (p) => p,
+          undefined: (_) => null,
+          named: (p) =>
+              document.getStyle(styleSheet!)?.resolveParagraphProperty(p),
+        ) ??
+        const DefinedParagraphProperty();
+  }
+
+  DefinedSpanProperty getDefinedForcedSpanProperty(AppDocument document,
+      [bool fallback = true]) {
+    return forcedSpanProperty?.map(
+          defined: (p) => p,
+          undefined: (_) => null,
+          named: (p) => document.getStyle(styleSheet!)?.resolveSpanProperty(p),
+        ) ??
+        (fallback
+            ? getDefinedSpanProperty(document)
+            : const DefinedSpanProperty());
   }
 }

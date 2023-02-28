@@ -63,8 +63,7 @@ class TextSelectionCursor extends Renderer<TextContext> {
       [ColorScheme? colorScheme, bool foreground = false]) {
     final color = colorScheme?.primary ?? Colors.blue;
     // Paint vertical line
-    final selection =
-        element.selection ?? const TextSelection.collapsed(offset: 0);
+    final selection = element.selection;
     final textElement = element.element;
     if (textElement == null) return;
     final boxes = element.textPainter.getBoxesForSelection(selection);
