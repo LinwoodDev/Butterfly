@@ -25,6 +25,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../cubits/current_index.dart';
 import '../dialogs/area/label.dart';
+import '../helpers/num_helper.dart';
 import '../models/viewport.dart';
 import '../renderers/cursors/eraser.dart';
 import '../renderers/renderer.dart';
@@ -163,7 +164,16 @@ abstract class Handler<T> {
 
   int? getColor(DocumentBloc bloc) => null;
 
-  T? setColor(DocumentBloc bloc, int color) => null;
+  T? setColor(DocumentBloc bloc, int color, [bool alpha = false]) => _setColor(
+      bloc,
+      alpha
+          ? color
+          : convertColor(
+              getColor(bloc) ?? 0, Color(getColor(bloc) ?? 0).alpha));
+
+  T? setAlpha(DocumentBloc bloc, int alpha) =>
+      _setColor(bloc, convertColor(getColor(bloc) ?? 0, alpha));
+  T? _setColor(DocumentBloc bloc, int color) => null;
 
   void resetInput(DocumentBloc bloc) {}
 
