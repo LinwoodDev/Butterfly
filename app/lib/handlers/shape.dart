@@ -170,6 +170,6 @@ class ShapeHandler extends Handler {
   int? getColor(DocumentBloc bloc) => data.property.color;
 
   @override
-  ShapePainter? setColor(DocumentBloc bloc, int color) =>
+  ShapePainter? _setColor(DocumentBloc bloc, int color) =>
       data.copyWith(property: data.property.copyWith(color: color));
 }

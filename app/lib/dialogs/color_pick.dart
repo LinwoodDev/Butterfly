@@ -543,10 +543,9 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
     super.initState();
   }
 
-  void _changeColor({int? red, int? green, int? blue, int? alpha}) =>
-      setState(() {
-        color = Color.fromARGB(alpha ?? color.alpha, red ?? color.red,
-            green ?? color.green, blue ?? color.blue);
+  void _changeColor({int? red, int? green, int? blue}) => setState(() {
+        color = Color.fromARGB(
+            255, red ?? color.red, green ?? color.green, blue ?? color.blue);
       });
 
   @override
@@ -718,15 +717,6 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
           color: Colors.blue,
           value: color.blue.toDouble(),
           onChanged: (value) => _changeColor(blue: value.toInt()),
-        ),
-        ExactSlider(
-          header: Text(AppLocalizations.of(context).alpha),
-          fractionDigits: 0,
-          defaultValue: 255,
-          min: 0,
-          max: 255,
-          value: color.alpha.toDouble(),
-          onChanged: (value) => _changeColor(alpha: value.toInt()),
         ),
       ]);
 }

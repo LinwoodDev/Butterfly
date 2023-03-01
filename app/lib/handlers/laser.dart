@@ -169,7 +169,7 @@ class LaserHandler extends Handler {
   int? getColor(DocumentBloc bloc) => data.color;
 
   @override
-  LaserPainter? setColor(DocumentBloc bloc, int color) {
+  LaserPainter? _setColor(DocumentBloc bloc, int color) {
     return data.copyWith(color: color);
   }
 }

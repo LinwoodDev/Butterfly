@@ -60,7 +60,7 @@ class LabelHandler extends Handler<LabelPainter> {
   int? getColor(DocumentBloc bloc) => data.property.color;
 
   @override
-  LabelPainter? setColor(DocumentBloc bloc, int color) =>
+  LabelPainter? _setColor(DocumentBloc bloc, int color) =>
       data.copyWith(property: data.property.copyWith(color: color));
 }
 
