@@ -21,7 +21,7 @@
   "name": "Имя",
   "strokeWidth": "Ширина штриха",
   "includeEraser": "Включить ластик?",
-  "thinning": "Прокрутка",
+  "thinning": "Утончение",
   "pen": "Перо",
   "eraser": "Ластик",
   "pathEraser": "Контурный ластик",
@@ -249,7 +249,7 @@
   "pdf": "PDF",
   "selectPages": "Выберите страницы",
   "recentFiles": "Последние файлы",
-  "start": "Начать",
+  "start": "Стартовый диалог",
   "noRecentFiles": "Нет недавних файлов",
   "countPages": "{count,plural, =0{Нет страниц} =1{1 страница} other{{count} страницы}}",
   "@countPages": {
