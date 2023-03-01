@@ -1,6 +1,6 @@
 ---
 title: "Штамп"
-sidebar_label: "Форма"
+sidebar_label: "Фигура"
 sidebar_position: 3
 ---
 
