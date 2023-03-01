@@ -199,7 +199,7 @@
   "red": "Красный",
   "green": "Зелёный",
   "blue": "Синий",
-  "alpha": "Альфа",
+  "alpha": "Прозрачность",
   "area": "Область",
   "selectArea": "Выберите область",
   "aspectRatio": "Соотношение сторон",
@@ -404,7 +404,7 @@
   "createPack": "Создать набор",
   "editPack": "Изменить набор",
   "packsDirectory": "Каталог наборов",
-  "stamp": "Орден",
+  "stamp": "Штамп",
   "addToPack": "Добавить в набор",
   "packDescription": "{count,plural, =0{Нет элементов} =1{1 элемент} other{{count} элементов}}",
   "@packDescription": {
