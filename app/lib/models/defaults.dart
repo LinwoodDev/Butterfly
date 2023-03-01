@@ -27,10 +27,6 @@ class DocumentDefaults {
         ColorPalette(
             name: AppLocalizations.of(context).defaultPalette,
             colors: materialColors.map((e) => e.value).toList()),
-        ColorPalette(
-            name: AppLocalizations.of(context).highlighter,
-            colors:
-                materialColors.map((e) => e.withOpacity(0.25).value).toList())
       ];
   static List<DocumentTemplate> getDefaults(BuildContext context) => [
         DocumentTemplate(

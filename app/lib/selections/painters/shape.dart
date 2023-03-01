@@ -91,6 +91,21 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
                 .toList()),
         title: Text(AppLocalizations.of(context).color),
       ),
+      ExactSlider(
+        value: Color(property.color).alpha.toDouble(),
+        header: Text(AppLocalizations.of(context).alpha),
+        fractionDigits: 0,
+        max: 255,
+        min: 0,
+        defaultValue: 255,
+        onChangeEnd: (value) => update(
+            context,
+            selected
+                .map((e) => e.copyWith(
+                    property: e.property.copyWith(
+                        color: convertColor(property.color, value.toInt()))))
+                .toList()),
+      ),
       ShapeView(
           shape: property.shape,
           onChanged: (shape) =>
@@ -219,6 +234,16 @@ class _CircleShapeView extends StatelessWidget {
         defaultColor: Colors.transparent,
         onChanged: (color) => onChanged(shape.copyWith(fillColor: color.value)),
       ),
+      ExactSlider(
+        value: Color(shape.fillColor).alpha.toDouble(),
+        header: Text(AppLocalizations.of(context).alpha),
+        fractionDigits: 0,
+        max: 255,
+        min: 0,
+        defaultValue: 255,
+        onChangeEnd: (value) => onChanged(shape.copyWith(
+            fillColor: convertColor(shape.fillColor, value.toInt()))),
+      )
     ]);
   }
 }
@@ -244,6 +269,16 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
         defaultColor: Colors.transparent,
         onChanged: (color) =>
             widget.onChanged(widget.shape.copyWith(fillColor: color.value)),
+      ),
+      ExactSlider(
+        value: Color(widget.shape.fillColor).alpha.toDouble(),
+        header: Text(AppLocalizations.of(context).alpha),
+        fractionDigits: 0,
+        max: 255,
+        min: 0,
+        defaultValue: 255,
+        onChangeEnd: (value) => widget.onChanged(widget.shape.copyWith(
+            fillColor: convertColor(widget.shape.fillColor, value.toInt()))),
       ),
       ExpansionPanelList(
         expansionCallback: (index, isExpanded) {

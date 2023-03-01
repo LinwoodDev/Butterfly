@@ -126,7 +126,9 @@ class PenHandler extends Handler<PenPainter> {
         onChanged: (value) {
           final bloc = context.read<DocumentBloc>();
           bloc.add(PaintersChanged({
-            data: data.copyWith(property: data.property.copyWith(color: value)),
+            data: data.copyWith(
+                property: data.property.copyWith(
+                    color: convertOldColor(value, data.property.color))),
           }));
         },
       );

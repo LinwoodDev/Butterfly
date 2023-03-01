@@ -17,6 +17,16 @@ class PenPropertySelection extends PathPropertySelection<PenProperty> {
               onChanged(property.copyWith(color: value.value)),
           title: Text(AppLocalizations.of(context).color),
         ),
+        ExactSlider(
+          value: Color(property.color).alpha.toDouble(),
+          header: Text(AppLocalizations.of(context).alpha),
+          fractionDigits: 0,
+          max: 255,
+          min: 0,
+          defaultValue: 255,
+          onChangeEnd: (value) => onChanged(property.copyWith(
+              color: convertColor(property.color, value.toInt()))),
+        ),
         CheckboxListTile(
             value: property.fill,
             title: Text(AppLocalizations.of(context).fill),
