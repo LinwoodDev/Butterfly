@@ -25,7 +25,7 @@ class TextCursor extends Renderer<TextCursorData> {
     const icon = PhosphorIcons.cursorTextLight;
     final property = element.context?.getDefinedProperty(document);
     final iconSize =
-        (property ?? const text.DefinedParagraphProperty()).span.size;
+        (property ?? const text.DefinedParagraphProperty()).span.getSize();
     final iconColor = Color(property?.span.color ??
         colorScheme?.primary.value ??
         Colors.black.value);

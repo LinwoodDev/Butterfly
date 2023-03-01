@@ -34,17 +34,17 @@ mixin _$SpanProperty {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness)
+            double? size,
+            int? color,
+            int? fontWeight,
+            bool? lineThrough,
+            bool? underline,
+            bool? overline,
+            bool? italic,
+            double? letterSpacing,
+            int? decorationColor,
+            TextDecorationStyle? decorationStyle,
+            double? decorationThickness)
         defined,
     required TResult Function(String name) named,
     required TResult Function() undefined,
@@ -53,17 +53,17 @@ mixin _$SpanProperty {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double? size,
+            int? color,
+            int? fontWeight,
+            bool? lineThrough,
+            bool? underline,
+            bool? overline,
+            bool? italic,
+            double? letterSpacing,
+            int? decorationColor,
+            TextDecorationStyle? decorationStyle,
+            double? decorationThickness)?
         defined,
     TResult? Function(String name)? named,
     TResult? Function()? undefined,
@@ -72,17 +72,17 @@ mixin _$SpanProperty {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double? size,
+            int? color,
+            int? fontWeight,
+            bool? lineThrough,
+            bool? underline,
+            bool? overline,
+            bool? italic,
+            double? letterSpacing,
+            int? decorationColor,
+            TextDecorationStyle? decorationStyle,
+            double? decorationThickness)?
         defined,
     TResult Function(String name)? named,
     TResult Function()? undefined,
@@ -139,17 +139,17 @@ abstract class _$$DefinedSpanPropertyCopyWith<$Res> {
       __$$DefinedSpanPropertyCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {double size,
-      int color,
-      int fontWeight,
-      bool lineThrough,
-      bool underline,
-      bool overline,
-      bool italic,
-      double letterSpacing,
-      int decorationColor,
-      TextDecorationStyle decorationStyle,
-      double decorationThickness});
+      {double? size,
+      int? color,
+      int? fontWeight,
+      bool? lineThrough,
+      bool? underline,
+      bool? overline,
+      bool? italic,
+      double? letterSpacing,
+      int? decorationColor,
+      TextDecorationStyle? decorationStyle,
+      double? decorationThickness});
 }
 
 /// @nodoc
@@ -163,63 +163,63 @@ class __$$DefinedSpanPropertyCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? size = null,
-    Object? color = null,
-    Object? fontWeight = null,
-    Object? lineThrough = null,
-    Object? underline = null,
-    Object? overline = null,
-    Object? italic = null,
-    Object? letterSpacing = null,
-    Object? decorationColor = null,
-    Object? decorationStyle = null,
-    Object? decorationThickness = null,
+    Object? size = freezed,
+    Object? color = freezed,
+    Object? fontWeight = freezed,
+    Object? lineThrough = freezed,
+    Object? underline = freezed,
+    Object? overline = freezed,
+    Object? italic = freezed,
+    Object? letterSpacing = freezed,
+    Object? decorationColor = freezed,
+    Object? decorationStyle = freezed,
+    Object? decorationThickness = freezed,
   }) {
     return _then(_$DefinedSpanProperty(
-      size: null == size
+      size: freezed == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
-              as double,
-      color: null == color
+              as double?,
+      color: freezed == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as int,
-      fontWeight: null == fontWeight
+              as int?,
+      fontWeight: freezed == fontWeight
           ? _value.fontWeight
           : fontWeight // ignore: cast_nullable_to_non_nullable
-              as int,
-      lineThrough: null == lineThrough
+              as int?,
+      lineThrough: freezed == lineThrough
           ? _value.lineThrough
           : lineThrough // ignore: cast_nullable_to_non_nullable
-              as bool,
-      underline: null == underline
+              as bool?,
+      underline: freezed == underline
           ? _value.underline
           : underline // ignore: cast_nullable_to_non_nullable
-              as bool,
-      overline: null == overline
+              as bool?,
+      overline: freezed == overline
           ? _value.overline
           : overline // ignore: cast_nullable_to_non_nullable
-              as bool,
-      italic: null == italic
+              as bool?,
+      italic: freezed == italic
           ? _value.italic
           : italic // ignore: cast_nullable_to_non_nullable
-              as bool,
-      letterSpacing: null == letterSpacing
+              as bool?,
+      letterSpacing: freezed == letterSpacing
           ? _value.letterSpacing
           : letterSpacing // ignore: cast_nullable_to_non_nullable
-              as double,
-      decorationColor: null == decorationColor
+              as double?,
+      decorationColor: freezed == decorationColor
           ? _value.decorationColor
           : decorationColor // ignore: cast_nullable_to_non_nullable
-              as int,
-      decorationStyle: null == decorationStyle
+              as int?,
+      decorationStyle: freezed == decorationStyle
           ? _value.decorationStyle
           : decorationStyle // ignore: cast_nullable_to_non_nullable
-              as TextDecorationStyle,
-      decorationThickness: null == decorationThickness
+              as TextDecorationStyle?,
+      decorationThickness: freezed == decorationThickness
           ? _value.decorationThickness
           : decorationThickness // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
     ));
   }
 }
@@ -228,17 +228,17 @@ class __$$DefinedSpanPropertyCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DefinedSpanProperty implements DefinedSpanProperty {
   const _$DefinedSpanProperty(
-      {this.size = 12,
-      this.color = kColorBlack,
-      this.fontWeight = kFontWeightNormal,
-      this.lineThrough = false,
-      this.underline = false,
-      this.overline = false,
-      this.italic = false,
-      this.letterSpacing = 0,
-      this.decorationColor = kColorBlack,
-      this.decorationStyle = TextDecorationStyle.solid,
-      this.decorationThickness = 1,
+      {this.size,
+      this.color,
+      this.fontWeight,
+      this.lineThrough,
+      this.underline,
+      this.overline,
+      this.italic,
+      this.letterSpacing,
+      this.decorationColor,
+      this.decorationStyle,
+      this.decorationThickness,
       final String? $type})
       : $type = $type ?? 'defined';
 
@@ -246,38 +246,27 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
       _$$DefinedSpanPropertyFromJson(json);
 
   @override
-  @JsonKey()
-  final double size;
+  final double? size;
   @override
-  @JsonKey()
-  final int color;
+  final int? color;
   @override
-  @JsonKey()
-  final int fontWeight;
+  final int? fontWeight;
   @override
-  @JsonKey()
-  final bool lineThrough;
+  final bool? lineThrough;
   @override
-  @JsonKey()
-  final bool underline;
+  final bool? underline;
   @override
-  @JsonKey()
-  final bool overline;
+  final bool? overline;
   @override
-  @JsonKey()
-  final bool italic;
+  final bool? italic;
   @override
-  @JsonKey()
-  final double letterSpacing;
+  final double? letterSpacing;
   @override
-  @JsonKey()
-  final int decorationColor;
+  final int? decorationColor;
   @override
-  @JsonKey()
-  final TextDecorationStyle decorationStyle;
+  final TextDecorationStyle? decorationStyle;
   @override
-  @JsonKey()
-  final double decorationThickness;
+  final double? decorationThickness;
 
   @JsonKey(name: 'type')
   final String $type;
@@ -340,17 +329,17 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness)
+            double? size,
+            int? color,
+            int? fontWeight,
+            bool? lineThrough,
+            bool? underline,
+            bool? overline,
+            bool? italic,
+            double? letterSpacing,
+            int? decorationColor,
+            TextDecorationStyle? decorationStyle,
+            double? decorationThickness)
         defined,
     required TResult Function(String name) named,
     required TResult Function() undefined,
@@ -373,17 +362,17 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double? size,
+            int? color,
+            int? fontWeight,
+            bool? lineThrough,
+            bool? underline,
+            bool? overline,
+            bool? italic,
+            double? letterSpacing,
+            int? decorationColor,
+            TextDecorationStyle? decorationStyle,
+            double? decorationThickness)?
         defined,
     TResult? Function(String name)? named,
     TResult? Function()? undefined,
@@ -406,17 +395,17 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double? size,
+            int? color,
+            int? fontWeight,
+            bool? lineThrough,
+            bool? underline,
+            bool? overline,
+            bool? italic,
+            double? letterSpacing,
+            int? decorationColor,
+            TextDecorationStyle? decorationStyle,
+            double? decorationThickness)?
         defined,
     TResult Function(String name)? named,
     TResult Function()? undefined,
@@ -483,32 +472,32 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
 
 abstract class DefinedSpanProperty implements SpanProperty {
   const factory DefinedSpanProperty(
-      {final double size,
-      final int color,
-      final int fontWeight,
-      final bool lineThrough,
-      final bool underline,
-      final bool overline,
-      final bool italic,
-      final double letterSpacing,
-      final int decorationColor,
-      final TextDecorationStyle decorationStyle,
-      final double decorationThickness}) = _$DefinedSpanProperty;
+      {final double? size,
+      final int? color,
+      final int? fontWeight,
+      final bool? lineThrough,
+      final bool? underline,
+      final bool? overline,
+      final bool? italic,
+      final double? letterSpacing,
+      final int? decorationColor,
+      final TextDecorationStyle? decorationStyle,
+      final double? decorationThickness}) = _$DefinedSpanProperty;
 
   factory DefinedSpanProperty.fromJson(Map<String, dynamic> json) =
       _$DefinedSpanProperty.fromJson;
 
-  double get size;
-  int get color;
-  int get fontWeight;
-  bool get lineThrough;
-  bool get underline;
-  bool get overline;
-  bool get italic;
-  double get letterSpacing;
-  int get decorationColor;
-  TextDecorationStyle get decorationStyle;
-  double get decorationThickness;
+  double? get size;
+  int? get color;
+  int? get fontWeight;
+  bool? get lineThrough;
+  bool? get underline;
+  bool? get overline;
+  bool? get italic;
+  double? get letterSpacing;
+  int? get decorationColor;
+  TextDecorationStyle? get decorationStyle;
+  double? get decorationThickness;
   @JsonKey(ignore: true)
   _$$DefinedSpanPropertyCopyWith<_$DefinedSpanProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -587,17 +576,17 @@ class _$NamedSpanProperty implements NamedSpanProperty {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness)
+            double? size,
+            int? color,
+            int? fontWeight,
+            bool? lineThrough,
+            bool? underline,
+            bool? overline,
+            bool? italic,
+            double? letterSpacing,
+            int? decorationColor,
+            TextDecorationStyle? decorationStyle,
+            double? decorationThickness)
         defined,
     required TResult Function(String name) named,
     required TResult Function() undefined,
@@ -609,17 +598,17 @@ class _$NamedSpanProperty implements NamedSpanProperty {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double? size,
+            int? color,
+            int? fontWeight,
+            bool? lineThrough,
+            bool? underline,
+            bool? overline,
+            bool? italic,
+            double? letterSpacing,
+            int? decorationColor,
+            TextDecorationStyle? decorationStyle,
+            double? decorationThickness)?
         defined,
     TResult? Function(String name)? named,
     TResult? Function()? undefined,
@@ -631,17 +620,17 @@ class _$NamedSpanProperty implements NamedSpanProperty {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double? size,
+            int? color,
+            int? fontWeight,
+            bool? lineThrough,
+            bool? underline,
+            bool? overline,
+            bool? italic,
+            double? letterSpacing,
+            int? decorationColor,
+            TextDecorationStyle? decorationStyle,
+            double? decorationThickness)?
         defined,
     TResult Function(String name)? named,
     TResult Function()? undefined,
@@ -754,17 +743,17 @@ class _$UndefinedSpanProperty implements UndefinedSpanProperty {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness)
+            double? size,
+            int? color,
+            int? fontWeight,
+            bool? lineThrough,
+            bool? underline,
+            bool? overline,
+            bool? italic,
+            double? letterSpacing,
+            int? decorationColor,
+            TextDecorationStyle? decorationStyle,
+            double? decorationThickness)
         defined,
     required TResult Function(String name) named,
     required TResult Function() undefined,
@@ -776,17 +765,17 @@ class _$UndefinedSpanProperty implements UndefinedSpanProperty {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double? size,
+            int? color,
+            int? fontWeight,
+            bool? lineThrough,
+            bool? underline,
+            bool? overline,
+            bool? italic,
+            double? letterSpacing,
+            int? decorationColor,
+            TextDecorationStyle? decorationStyle,
+            double? decorationThickness)?
         defined,
     TResult? Function(String name)? named,
     TResult? Function()? undefined,
@@ -798,17 +787,17 @@ class _$UndefinedSpanProperty implements UndefinedSpanProperty {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            double size,
-            int color,
-            int fontWeight,
-            bool lineThrough,
-            bool underline,
-            bool overline,
-            bool italic,
-            double letterSpacing,
-            int decorationColor,
-            TextDecorationStyle decorationStyle,
-            double decorationThickness)?
+            double? size,
+            int? color,
+            int? fontWeight,
+            bool? lineThrough,
+            bool? underline,
+            bool? overline,
+            bool? italic,
+            double? letterSpacing,
+            int? decorationColor,
+            TextDecorationStyle? decorationStyle,
+            double? decorationThickness)?
         defined,
     TResult Function(String name)? named,
     TResult Function()? undefined,

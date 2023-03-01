@@ -22,6 +22,7 @@ import '../actions/image_export.dart';
 import '../actions/import.dart';
 import '../actions/new.dart';
 import '../actions/open.dart';
+import '../actions/packs.dart';
 import '../actions/pdf_export.dart';
 import '../actions/save.dart';
 import '../actions/settings.dart';
@@ -385,8 +386,20 @@ class _MainPopupMenu extends StatelessWidget {
                 },
               ),
             ),
-            const PopupMenuDivider(),
           ],
+          PopupMenuItem(
+            padding: EdgeInsets.zero,
+            child: ListTile(
+              leading: const Icon(PhosphorIcons.packageLight),
+              title: Text(AppLocalizations.of(context).packs),
+              subtitle: Text(context.getShortcut('P', ctrlKey: true)),
+              onTap: () {
+                Navigator.of(context).pop();
+                Actions.maybeInvoke<PacksIntent>(context, PacksIntent(context));
+              },
+            ),
+          ),
+          const PopupMenuDivider(),
           if (state.embedding == null) ...[
             PopupMenuItem(
                 padding: EdgeInsets.zero,

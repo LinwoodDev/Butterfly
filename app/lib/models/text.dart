@@ -1,7 +1,11 @@
+import 'dart:math';
+
+import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 
 part 'text.freezed.dart';
 
@@ -85,5 +89,50 @@ class TextContext with _$TextContext {
         (fallback
             ? getDefinedSpanProperty(document)
             : const DefinedSpanProperty());
+  }
+
+  bool modified(AppDocument document) {
+    if (isParagraph()) {
+      return getProperty().maybeMap(orElse: () => true, named: (p) => false);
+    }
+    return getSpanProperty(document)?.maybeMap(
+          orElse: () => true,
+          named: (p) => false,
+        ) ??
+        true;
+  }
+}
+
+extension TextElementLayouter on TextElement {
+  double getMaxWidth([Area? area]) {
+    var maxWidth = double.infinity;
+    if (constraint.size > 0) maxWidth = constraint.size;
+    if (constraint.includeArea && area != null) {
+      maxWidth = min(maxWidth + position.x, area.rect.right) - position.x;
+    }
+    return maxWidth;
+  }
+
+  double getHeight(double textHeight, [Area? area]) {
+    var height = textHeight;
+    if (height < constraint.length) {
+      height = constraint.length;
+    } else if (constraint.includeArea && area != null) {
+      height = max(height, area.rect.bottom - position.y);
+    }
+    return height;
+  }
+
+  Point<double> getOffset(double height) {
+    final align = area.areaProperty.alignment;
+    final current = position;
+    switch (align) {
+      case text.VerticalAlignment.top:
+        return current;
+      case text.VerticalAlignment.bottom:
+        return current + Point(0, height);
+      case text.VerticalAlignment.center:
+        return current + Point(0, height / 2);
+    }
   }
 }

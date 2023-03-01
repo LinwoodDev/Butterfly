@@ -21,25 +21,24 @@ class ParagraphsStyleView extends StatefulWidget {
 }
 
 class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
-  String? currentStyle;
+  String? _currentStyle;
 
   @override
   void initState() {
     super.initState();
 
-    currentStyle = widget.value.paragraphProperties.keys.firstOrNull;
+    _currentStyle = widget.value.paragraphProperties.keys.firstOrNull;
   }
 
   @override
   void didUpdateWidget(covariant ParagraphsStyleView oldWidget) {
     super.didUpdateWidget(oldWidget);
-
     if (oldWidget.value != widget.value) {
-      if (widget.value.paragraphProperties.containsKey(currentStyle)) {
-        setState(() {});
-      } else {
-        currentStyle = widget.value.paragraphProperties.keys.firstOrNull;
-      }
+      setState(() {
+        if (!widget.value.spanProperties.containsKey(_currentStyle!)) {
+          _currentStyle = widget.value.spanProperties.keys.firstOrNull;
+        }
+      });
     }
   }
 
@@ -62,10 +61,10 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                               ),
                             ),
                           ],
-                          value: currentStyle,
+                          value: _currentStyle,
                           onChanged: (value) {
                             setState(() {
-                              currentStyle = value;
+                              _currentStyle = value;
                             });
                           },
                         ),
@@ -132,12 +131,12 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                           ));
                         },
                       ),
-                      if (currentStyle != null) ...[
+                      if (_currentStyle != null) ...[
                         IconButton(
                           icon: const Icon(PhosphorIcons.pencilLight),
                           onPressed: () async {
                             final textController =
-                                TextEditingController(text: currentStyle);
+                                TextEditingController(text: _currentStyle);
                             final formKey = GlobalKey<FormState>();
                             final result = await showDialog<bool>(
                               context: context,
@@ -187,8 +186,8 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                             if (result != true) {
                               return;
                             }
-                            final lastStyle = currentStyle;
-                            currentStyle = name;
+                            final lastStyle = _currentStyle;
+                            _currentStyle = name;
                             widget.onChanged(widget.value.copyWith(
                               paragraphProperties:
                                   Map<String, DefinedParagraphProperty>.from(
@@ -230,8 +229,8 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                             if (result != true) {
                               return;
                             }
-                            final lastStyle = currentStyle;
-                            currentStyle = null;
+                            final lastStyle = _currentStyle;
+                            _currentStyle = null;
                             widget.onChanged(widget.value.copyWith(
                               paragraphProperties:
                                   Map<String, DefinedParagraphProperty>.from(
@@ -245,27 +244,32 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                   ),
                 ),
                 Flexible(
-                  child: Builder(
-                    builder: (context) {
-                      final currentParagraph =
-                          widget.value.paragraphProperties[currentStyle];
-                      if (currentParagraph == null) {
-                        return const SizedBox();
-                      }
-                      return SingleChildScrollView(
-                        child: ParagraphStyleView(
-                          value: currentParagraph,
-                          onChanged: (paragraph) {
-                            widget.onChanged(widget.value.copyWith(
-                              paragraphProperties: {
-                                ...widget.value.paragraphProperties,
-                                currentStyle!: paragraph,
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Builder(
+                        builder: (context) {
+                          final currentParagraph =
+                              widget.value.paragraphProperties[_currentStyle];
+                          if (currentParagraph == null) {
+                            return const SizedBox();
+                          }
+                          return SingleChildScrollView(
+                            child: ParagraphStyleView(
+                              value: currentParagraph,
+                              onChanged: (paragraph) {
+                                widget.onChanged(widget.value.copyWith(
+                                  paragraphProperties: {
+                                    ...widget.value.paragraphProperties,
+                                    _currentStyle!: paragraph,
+                                  },
+                                ));
                               },
-                            ));
-                          },
-                        ),
-                      );
-                    },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   ),
                 ),
               ],

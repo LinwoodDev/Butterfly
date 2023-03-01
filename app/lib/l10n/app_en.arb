@@ -453,5 +453,6 @@
   "fontFamily": "Font family",
   "smoothing": "Smoothing",
   "streamline": "Streamline",
-  "selectAsset": "Select asset"
+  "selectAsset": "Select asset",
+  "clearStyle": "Clear style"
 }

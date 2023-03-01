@@ -40,7 +40,8 @@ class TextRenderer extends Renderer<TextElement> {
         const text.DefinedParagraphProperty();
     return paragraph.map(
       text: (p) => TextSpan(
-        children: p.textSpans.map((e) => _createSpan(document, e)).toList(),
+        children:
+            p.textSpans.map((e) => _createSpan(document, e, style)).toList(),
         style: _buildSpanStyle(style.span),
       ),
     );
@@ -49,30 +50,33 @@ class TextRenderer extends Renderer<TextElement> {
   text.TextStyleSheet? _getStyle(AppDocument document) =>
       document.getStyle(element.styleSheet);
 
-  InlineSpan _createSpan(AppDocument document, text.TextSpan span) {
+  InlineSpan _createSpan(AppDocument document, text.TextSpan span,
+      [text.DefinedParagraphProperty? parent]) {
     final styleSheet = _getStyle(document);
     final style = styleSheet.resolveSpanProperty(span.property);
     return TextSpan(
       text: span.text,
-      style: style == null ? null : _buildSpanStyle(style),
+      style: style == null ? null : _buildSpanStyle(style, parent),
     );
   }
 
-  TextStyle _buildSpanStyle(text.DefinedSpanProperty property) {
+  TextStyle _buildSpanStyle(text.DefinedSpanProperty property,
+      [text.DefinedParagraphProperty? parent]) {
     return TextStyle(
-      fontSize: property.size,
-      color: Color(property.color),
+      fontSize: property.getSize(parent),
+      color: Color(property.getColor(parent)),
       fontFamily: 'Roboto',
-      fontStyle: property.italic ? FontStyle.italic : FontStyle.normal,
-      fontWeight: FontWeight.values[property.fontWeight],
-      letterSpacing: property.letterSpacing,
-      decorationColor: Color(property.decorationColor),
-      decorationStyle: getDecorationStyle(property.decorationStyle),
-      decorationThickness: property.decorationThickness,
+      fontStyle:
+          property.getItalic(parent) ? FontStyle.italic : FontStyle.normal,
+      fontWeight: FontWeight.values[property.getFontWeight(parent)],
+      letterSpacing: property.getLetterSpacing(parent),
+      decorationColor: Color(property.getDecorationColor(parent)),
+      decorationStyle: getDecorationStyle(property.getDecorationStyle(parent)),
+      decorationThickness: property.getDecorationThickness(parent),
       decoration: TextDecoration.combine([
-        if (property.underline) TextDecoration.underline,
-        if (property.lineThrough) TextDecoration.lineThrough,
-        if (property.overline) TextDecoration.overline,
+        if (property.getUnderline(parent)) TextDecoration.underline,
+        if (property.getLineThrough(parent)) TextDecoration.lineThrough,
+        if (property.getOverline(parent)) TextDecoration.overline,
       ]),
     );
   }
@@ -103,28 +107,17 @@ class TextRenderer extends Renderer<TextElement> {
 
   @override
   FutureOr<bool> onAreaUpdate(AppDocument document, Area? area) async {
-    await super.onAreaUpdate(document, area);
+    if (context != null) {
+      await super.onAreaUpdate(document, area);
+    }
     _updateRect(document);
     return true;
   }
 
   void _updateRect(AppDocument document) {
-    var maxWidth = double.infinity;
-    final constraints = element.constraint;
-    if (constraints.size > 0) maxWidth = constraints.size;
-    if (constraints.includeArea && area != null) {
-      maxWidth = min(maxWidth + element.position.x, area!.rect.right) -
-          element.position.x;
-    }
-    _tp?.layout(maxWidth: maxWidth);
-    var height = _tp?.height ?? 0;
-    if (height < constraints.length) {
-      height = constraints.length;
-    } else if (constraints.includeArea && area != null) {
-      height = max(height, area!.rect.bottom - element.position.y);
-    }
-    rect = Rect.fromLTWH(
-        element.position.x, element.position.y, _tp?.width ?? 0, height);
+    _tp?.layout(maxWidth: element.getMaxWidth(area));
+    rect = Rect.fromLTWH(element.position.x, element.position.y,
+        _tp?.width ?? 0, element.getHeight(_tp?.height ?? 0));
   }
 
   @override
@@ -132,20 +125,7 @@ class TextRenderer extends Renderer<TextElement> {
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     _tp?.layout(maxWidth: rect.width);
-    var current = element.position;
-    // Change vertical alignment
-    final align = element.area.areaProperty.alignment;
-    switch (align) {
-      case text.VerticalAlignment.top:
-        break;
-      case text.VerticalAlignment.bottom:
-        current = current + Point(0, rect.height - (_tp?.height ?? 0));
-        break;
-      case text.VerticalAlignment.center:
-        current = current + Point(0, (rect.height - (_tp?.height ?? 0)) / 2);
-        break;
-    }
-    _tp?.paint(canvas, current.toOffset());
+    _tp?.paint(canvas, element.getOffset(rect.height).toOffset());
   }
 
   @override

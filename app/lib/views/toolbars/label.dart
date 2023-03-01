@@ -36,6 +36,24 @@ class LabelToolbarView extends StatelessWidget {
     final styleSheet = value.element?.styleSheet ?? value.painter.styleSheet;
     final style = document.getStyle(styleSheet);
     _sizeController.text = span.size.toString();
+    var selection = value.modified(document)
+        ? ''
+        : (value.isParagraph()
+                ? paragraph.mapOrNull(named: (value) => value.name)
+                : value
+                    .getSpanProperty(document)
+                    ?.mapOrNull(named: (value) => value.name)) ??
+            '';
+    final selections = [
+      ...(value.isParagraph()
+              ? style?.paragraphProperties.keys
+              : style?.spanProperties.keys) ??
+          <String>[],
+      ''
+    ];
+    if (!selections.contains(selection)) {
+      selection = '';
+    }
     void updateSpan(
         text.DefinedSpanProperty Function(text.DefinedSpanProperty) update) {
       final selection = value.selection;
@@ -140,21 +158,89 @@ class LabelToolbarView extends StatelessWidget {
                                   forceParagraph: !value.isParagraph())),
                         ),
                         const SizedBox(width: 8),
-                        SizedBox(
-                          width: 200,
-                          child: DropdownMenu<String>(
-                            dropdownMenuEntries: (value.isParagraph()
-                                        ? style?.paragraphProperties.keys
-                                        : style?.spanProperties.keys)
-                                    ?.map((e) => DropdownMenuEntry<String>(
-                                          value: e,
-                                          label: e,
-                                        ))
-                                    .toList() ??
-                                <DropdownMenuEntry<String>>[],
-                            onSelected: (value) {},
-                            label: Text(AppLocalizations.of(context).style),
-                          ),
+                        DropdownMenu<String>(
+                          dropdownMenuEntries: selections
+                              .map((e) => DropdownMenuEntry<String>(
+                                    value: e,
+                                    label: e,
+                                  ))
+                              .toList(),
+                          initialSelection: selection,
+                          onSelected: (name) {
+                            if (name == null) return;
+                            if (value.isParagraph()) {
+                              onChanged(value.copyWith(
+                                forcedProperty:
+                                    text.ParagraphProperty.named(name),
+                                element: value.element?.copyWith(
+                                  area: value.element!.area.copyWith(
+                                    paragraph:
+                                        value.element!.area.paragraph.copyWith(
+                                      property:
+                                          text.ParagraphProperty.named(name),
+                                    ),
+                                  ),
+                                ),
+                              ));
+                            } else {
+                              onChanged(value.copyWith(
+                                forcedSpanProperty: text.SpanProperty.named(
+                                  name,
+                                ),
+                                element: value.element?.copyWith(
+                                  area: value.element!.area.copyWith(
+                                    paragraph: value.element!.area.paragraph
+                                        .applyStyle(
+                                      value.selection.start,
+                                      value.selection.end -
+                                          value.selection.start,
+                                      text.SpanProperty.named(name),
+                                    ),
+                                  ),
+                                ),
+                              ));
+                            }
+                          },
+                          label: Text(AppLocalizations.of(context).style),
+                          trailingIcon: value.modified(document)
+                              ? const Icon(PhosphorIcons.starLight)
+                              : null,
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: const Icon(PhosphorIcons.eraserLight),
+                          tooltip: AppLocalizations.of(context).clearStyle,
+                          onPressed: () async {
+                            if (value.isParagraph()) {
+                              onChanged(value.copyWith(
+                                forcedProperty: null,
+                                element: value.element?.copyWith(
+                                  area: value.element!.area.copyWith(
+                                    paragraph:
+                                        value.element!.area.paragraph.copyWith(
+                                      property: const text
+                                          .ParagraphProperty.undefined(),
+                                    ),
+                                  ),
+                                ),
+                              ));
+                            } else {
+                              onChanged(value.copyWith(
+                                forcedSpanProperty: null,
+                                element: value.element?.copyWith(
+                                  area: value.element!.area.copyWith(
+                                    paragraph: value.element!.area.paragraph
+                                        .applyStyle(
+                                      value.selection.start,
+                                      value.selection.end -
+                                          value.selection.start,
+                                      const text.SpanProperty.undefined(),
+                                    ),
+                                  ),
+                                ),
+                              ));
+                            }
+                          },
                         ),
                       ],
                     ),
@@ -163,19 +249,34 @@ class LabelToolbarView extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: Row(
                       children: [
-                        ToggleButtons(
+                        /*ToggleButtons(
                           isSelected: text.VerticalAlignment.values
                               .map((e) =>
                                   e == value.area?.areaProperty.alignment)
                               .toList(),
-                          onPressed: value.area == null ? null : (value) {},
+                          onPressed: value.element == null
+                              ? null
+                              : (align) {
+                                  onChanged(value.copyWith(
+                                    element: value.element!.copyWith(
+                                      area: value.element!.area.copyWith(
+                                        areaProperty: value
+                                            .element!.area.areaProperty
+                                            .copyWith(
+                                          alignment: text
+                                              .VerticalAlignment.values[align],
+                                        ),
+                                      ),
+                                    ),
+                                  ));
+                                },
                           children: const [
                             Icon(PhosphorIcons.alignTopLight),
                             Icon(PhosphorIcons.alignCenterVerticalLight),
                             Icon(PhosphorIcons.alignBottomLight),
                           ],
                         ),
-                        const SizedBox(width: 16),
+                        const SizedBox(width: 16),*/
                         ToggleButtons(
                           isSelected: text.HorizontalAlignment.values
                               .map((e) => e == paragraph.alignment)
@@ -251,7 +352,7 @@ class LabelToolbarView extends StatelessWidget {
                             width: 42,
                             height: 42,
                             decoration: BoxDecoration(
-                              color: Color(span.color),
+                              color: Color(span.getColor(paragraph)),
                               border: Border.all(
                                 color: Theme.of(context).primaryColor,
                                 width: 2,
@@ -267,7 +368,7 @@ class LabelToolbarView extends StatelessWidget {
                               builder: (_) => BlocProvider.value(
                                 value: context.read<DocumentBloc>(),
                                 child: ColorPickerDialog(
-                                  defaultColor: Color(span.color),
+                                  defaultColor: Color(span.getColor(paragraph)),
                                 ),
                               ),
                             );
@@ -279,9 +380,10 @@ class LabelToolbarView extends StatelessWidget {
                         const SizedBox(width: 16),
                         ToggleButtons(
                           isSelected: [
-                            span.fontWeight != text.kFontWeightNormal,
-                            span.italic,
-                            span.underline,
+                            span.getFontWeight(paragraph) !=
+                                text.kFontWeightNormal,
+                            span.getItalic(paragraph),
+                            span.getUnderline(paragraph),
                           ],
                           children: [
                             GestureDetector(
@@ -305,8 +407,8 @@ class LabelToolbarView extends StatelessWidget {
                                           0,
                                           overlay!.paintBounds.size.width,
                                           overlay.paintBounds.size.height)),
-                                  initialValue:
-                                      FontWeight.values[span.fontWeight],
+                                  initialValue: FontWeight
+                                      .values[span.getFontWeight(paragraph)],
                                   items: List.generate(FontWeight.values.length,
                                       (index) {
                                     var text = ((index + 1) * 100).toString();
@@ -349,14 +451,14 @@ class LabelToolbarView extends StatelessWidget {
                               case 1:
                                 updateSpan(
                                   (value) => value.copyWith(
-                                    italic: !span.italic,
+                                    italic: !span.getItalic(paragraph),
                                   ),
                                 );
                                 break;
                               case 2:
                                 updateSpan(
                                   (value) => value.copyWith(
-                                    underline: !span.underline,
+                                    underline: !span.getUnderline(paragraph),
                                   ),
                                 );
                                 break;

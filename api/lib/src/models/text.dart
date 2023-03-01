@@ -20,18 +20,32 @@ enum TextDecorationStyle { solid, double, dotted, dashed, wavy }
 @freezed
 class SpanProperty with _$SpanProperty {
   const factory SpanProperty.defined({
-    @Default(12) double size,
-    @Default(kColorBlack) int color,
-    @Default(kFontWeightNormal) int fontWeight,
-    @Default(false) bool lineThrough,
-    @Default(false) bool underline,
-    @Default(false) bool overline,
-    @Default(false) bool italic,
-    @Default(0) double letterSpacing,
-    @Default(kColorBlack) int decorationColor,
-    @Default(TextDecorationStyle.solid) TextDecorationStyle decorationStyle,
-    @Default(1) double decorationThickness,
+    double? size,
+    int? color,
+    int? fontWeight,
+    bool? lineThrough,
+    bool? underline,
+    bool? overline,
+    bool? italic,
+    double? letterSpacing,
+    int? decorationColor,
+    TextDecorationStyle? decorationStyle,
+    double? decorationThickness,
   }) = DefinedSpanProperty;
+
+  static const kDefault = DefinedSpanProperty(
+    size: 12,
+    color: kColorBlack,
+    fontWeight: kFontWeightNormal,
+    lineThrough: false,
+    underline: false,
+    overline: false,
+    italic: false,
+    letterSpacing: 0,
+    decorationColor: kColorBlack,
+    decorationStyle: TextDecorationStyle.solid,
+    decorationThickness: 1,
+  );
 
   const factory SpanProperty.named(String name) = NamedSpanProperty;
 
@@ -109,6 +123,7 @@ class TextParagraph with _$TextParagraph {
   bool get isEmpty => textSpans.every((element) => element.isEmpty);
   bool get isNotEmpty => textSpans.any((element) => element.isNotEmpty);
   String get text => textSpans.map((e) => e.text).join();
+  String substring(int start, [int? end]) => text.substring(start, end);
 
   TextSpan? getSpan(int index) {
     var currentLength = 0;
@@ -227,6 +242,14 @@ class TextParagraph with _$TextParagraph {
     return copyWith(textSpans: subSpans);
   }
 
+  TextParagraph applyStyle(int start, int? length, SpanProperty property) =>
+      replace(
+        getSpan(start)!.copyWith(
+            property: property, text: substring(start, start + (length ?? 0))),
+        start,
+        length,
+      );
+
   int nextWordIndex(int index) {
     return text.substring(index).indexOf(RegExp(r'\w')) + index;
   }
@@ -323,4 +346,47 @@ extension ResolveProperty on TextStyleSheet? {
       undefined: (value) => null,
     );
   }
+}
+
+extension SpanPropertyGetter on DefinedSpanProperty {
+  double getSize([DefinedParagraphProperty? paragraphProperty]) =>
+      size ?? paragraphProperty?.span.size ?? SpanProperty.kDefault.size!;
+  int getColor([DefinedParagraphProperty? paragraphProperty]) =>
+      color ?? paragraphProperty?.span.color ?? SpanProperty.kDefault.color!;
+  int getFontWeight([DefinedParagraphProperty? paragraphProperty]) =>
+      fontWeight ??
+      paragraphProperty?.span.fontWeight ??
+      SpanProperty.kDefault.fontWeight!;
+  bool getLineThrough([DefinedParagraphProperty? paragraphProperty]) =>
+      lineThrough ??
+      paragraphProperty?.span.lineThrough ??
+      SpanProperty.kDefault.lineThrough!;
+  bool getUnderline([DefinedParagraphProperty? paragraphProperty]) =>
+      underline ??
+      paragraphProperty?.span.underline ??
+      SpanProperty.kDefault.underline!;
+  bool getOverline([DefinedParagraphProperty? paragraphProperty]) =>
+      overline ??
+      paragraphProperty?.span.overline ??
+      SpanProperty.kDefault.overline!;
+  bool getItalic([DefinedParagraphProperty? paragraphProperty]) =>
+      italic ?? paragraphProperty?.span.italic ?? SpanProperty.kDefault.italic!;
+  double getLetterSpacing([DefinedParagraphProperty? paragraphProperty]) =>
+      letterSpacing ??
+      paragraphProperty?.span.letterSpacing ??
+      SpanProperty.kDefault.letterSpacing!;
+  int getDecorationColor([DefinedParagraphProperty? paragraphProperty]) =>
+      decorationColor ??
+      paragraphProperty?.span.decorationColor ??
+      SpanProperty.kDefault.decorationColor!;
+  TextDecorationStyle getDecorationStyle(
+          [DefinedParagraphProperty? paragraphProperty]) =>
+      decorationStyle ??
+      paragraphProperty?.span.decorationStyle ??
+      SpanProperty.kDefault.decorationStyle!;
+  double getDecorationThickness(
+          [DefinedParagraphProperty? paragraphProperty]) =>
+      decorationThickness ??
+      paragraphProperty?.span.decorationThickness ??
+      SpanProperty.kDefault.decorationThickness!;
 }
