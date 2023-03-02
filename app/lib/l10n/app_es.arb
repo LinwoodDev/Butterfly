@@ -214,7 +214,7 @@
   "currentArea": "Área actual",
   "fullScreen": "Pantalla completa",
   "design": "Diseño",
-  "text": "Text",
+  "text": "Texto",
   "selectSensitivity": "Seleccionar sensibilidad",
   "welcome": "Bienvenido a Linwood Butterfly",
   "welcomeContent": "La mariposa es una aplicación de notas donde sus ideas son primordiales. Puede pintar, añadir textos y exportarlos fácilmente en cada dispositivo. Esta aplicación funciona en Android, Windows, Linux y en la web.",
@@ -449,10 +449,10 @@
     }
   },
   "styles": "Styles",
-  "paragraph": "Paragraph",
-  "fontFamily": "Font family",
+  "paragraph": "Párrafo",
+  "fontFamily": "Familia de fuente",
   "smoothing": "Suavizado",
   "streamline": "Streamline",
-  "selectAsset": "Select asset",
-  "clearStyle": "Clear style"
+  "selectAsset": "Seleccionar recurso",
+  "clearStyle": "Borrar estilo"
 }
