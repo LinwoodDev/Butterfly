@@ -332,10 +332,10 @@ packages:
     dependency: "direct dev"
     description:
       name: espresso
-      sha256: "67727c96f1b44ef92d38b4961e3e539f6966c790c9f2283ede475ab901546141"
+      sha256: "2eac828618defb910729094eac236a4511189ba8e19754e16bf836300d7e351d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0+9"
+    version: "0.2.0+10"
   fake_async:
     dependency: transitive
     description:
@@ -435,10 +435,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: "4bef634684b2c7f3468c77c766c831229af829a0cd2d4ee6c1b99558bd14e5d2"
+      sha256: c224ac897bed083dabf11f238dd11a239809b446740be0c2044608c50029ffdf
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.8"
+    version: "2.0.9"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -1353,10 +1353,10 @@ packages:
     dependency: "direct main"
     description:
       name: yaru
-      sha256: "2c68c31e8bdc6437e8eab9aa6d8e59944b3d51034a237e87dbdfaa15f2647f1a"
+      sha256: "77e7b2096aca6b67edafeec4589f6af171d77735e0999bfc21728195057feab8"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.5"
+    version: "0.5.6"
   yaru_color_generator:
     dependency: transitive
     description:
