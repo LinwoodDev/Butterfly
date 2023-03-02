@@ -29,7 +29,8 @@ class TextContext with _$TextContext {
   int length() => 0;
 
   bool isParagraph() =>
-      forceParagraph ?? (selection.start <= 0 && selection.end >= length());
+      element == null ||
+      (forceParagraph ?? (selection.start <= 0 && selection.end >= length()));
 
   bool? get isEmpty => length() == 0;
 
@@ -91,16 +92,18 @@ class TextContext with _$TextContext {
             : const DefinedSpanProperty());
   }
 
-  bool modified(AppDocument document) {
-    if (isParagraph()) {
-      return getProperty().maybeMap(orElse: () => true, named: (p) => false);
-    }
-    return getSpanProperty(document)?.maybeMap(
-          orElse: () => true,
-          named: (p) => false,
-        ) ??
-        true;
-  }
+  bool paragraphModified() =>
+      getProperty().maybeMap(orElse: () => true, named: (p) => false);
+
+  bool spanModified(AppDocument document) =>
+      getSpanProperty(document)?.maybeMap(
+        orElse: () => true,
+        named: (p) => false,
+      ) ??
+      true;
+
+  bool modified(AppDocument document) =>
+      isParagraph() ? paragraphModified() : spanModified(document);
 }
 
 extension TextElementLayouter on TextElement {

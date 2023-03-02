@@ -35,8 +35,8 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.value != widget.value) {
       setState(() {
-        if (!widget.value.spanProperties.containsKey(_currentStyle!)) {
-          _currentStyle = widget.value.spanProperties.keys.firstOrNull;
+        if (!widget.value.paragraphProperties.containsKey(_currentStyle!)) {
+          _currentStyle = widget.value.paragraphProperties.keys.firstOrNull;
         }
       });
     }

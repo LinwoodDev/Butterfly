@@ -34,6 +34,23 @@ class _TextStyleViewState extends State<TextStyleView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        ColorField(
+            title: Text(AppLocalizations.of(context).color),
+            subtitle: widget.value.color == null
+                ? Text(AppLocalizations.of(context).notSet)
+                : null,
+            value: widget.value.color == null
+                ? Colors.transparent
+                : Color(widget.value.color!),
+            leading: widget.value.color == null
+                ? null
+                : IconButton(
+                    icon: const Icon(PhosphorIcons.eraserLight),
+                    onPressed: () =>
+                        widget.onChanged(widget.value.copyWith(color: null))),
+            defaultColor: null,
+            onChanged: (color) =>
+                widget.onChanged(widget.value.copyWith(color: color.value))),
         ExactSlider(
             header: Text(AppLocalizations.of(context).size),
             label: widget.value.size == null

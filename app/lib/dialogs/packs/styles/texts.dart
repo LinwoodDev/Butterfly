@@ -27,7 +27,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
   void initState() {
     super.initState();
 
-    _currentStyle = widget.value.paragraphProperties.keys.firstOrNull;
+    _currentStyle = widget.value.spanProperties.keys.firstOrNull;
   }
 
   @override

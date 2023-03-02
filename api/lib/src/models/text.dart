@@ -242,13 +242,18 @@ class TextParagraph with _$TextParagraph {
     return copyWith(textSpans: subSpans);
   }
 
-  TextParagraph applyStyle(int start, int? length, SpanProperty property) =>
-      replace(
-        getSpan(start)!.copyWith(
-            property: property, text: substring(start, start + (length ?? 0))),
-        start,
-        length,
-      );
+  TextParagraph applyStyle(int start, int? length, SpanProperty property) {
+    final span = getSpan(start)?.copyWith(
+        property: property, text: substring(start, start + (length ?? 0)));
+    if (span == null) {
+      return this;
+    }
+    return replace(
+      span,
+      start,
+      length,
+    );
+  }
 
   int nextWordIndex(int index) {
     return text.substring(index).indexOf(RegExp(r'\w')) + index;
@@ -333,7 +338,7 @@ extension ResolveProperty on TextStyleSheet? {
   DefinedSpanProperty? resolveSpanProperty(SpanProperty? property) {
     return property?.map(
       defined: (value) => value,
-      named: (value) => this?.spanProperties[value],
+      named: (value) => this?.spanProperties[value.name],
       undefined: (value) => null,
     );
   }
@@ -342,7 +347,7 @@ extension ResolveProperty on TextStyleSheet? {
       ParagraphProperty? property) {
     return property?.map(
       defined: (value) => value,
-      named: (value) => this?.paragraphProperties[value],
+      named: (value) => this?.paragraphProperties[value.name],
       undefined: (value) => null,
     );
   }

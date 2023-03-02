@@ -115,7 +115,10 @@ class _PacksDialogState extends State<PacksDialog>
                                           await showDialog<ButterflyPack>(
                                               context: context,
                                               builder: (context) =>
-                                                  PackDialog(pack: pack));
+                                                  BlocProvider.value(
+                                                      value: bloc,
+                                                      child: PackDialog(
+                                                          pack: pack)));
                                       if (newPack == null) return;
                                       bloc.add(DocumentPackUpdated(
                                           pack.name, newPack));

@@ -12,17 +12,35 @@ import '../../bloc/document_bloc.dart';
 import '../../dialogs/packs/select.dart';
 import '../../models/text.dart';
 
-class LabelToolbarView extends StatelessWidget {
+class LabelToolbarView extends StatefulWidget {
   final TextContext value;
   final ValueChanged<TextContext> onChanged;
-  final ScrollController _scrollController = ScrollController();
-  final TextEditingController _sizeController = TextEditingController();
 
-  LabelToolbarView({
+  const LabelToolbarView({
     super.key,
     required this.value,
     required this.onChanged,
   });
+
+  @override
+  State<LabelToolbarView> createState() => _LabelToolbarViewState();
+}
+
+class _LabelToolbarViewState extends State<LabelToolbarView> {
+  final ScrollController _scrollController = ScrollController();
+
+  final TextEditingController _sizeController = TextEditingController();
+
+  final GlobalKey _paragraphKey = GlobalKey(), _spanKey = GlobalKey();
+
+  @override
+  void didUpdateWidget(covariant LabelToolbarView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.value != oldWidget.value) {
+      _scrollController.jumpTo(0);
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,37 +48,42 @@ class LabelToolbarView extends StatelessWidget {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return Container();
     final document = state.document;
-    final paragraph = value.getDefinedProperty(document) ??
+    final paragraph = widget.value.getDefinedProperty(document) ??
         const text.DefinedParagraphProperty();
-    final span = value.getDefinedForcedSpanProperty(document);
-    final styleSheet = value.element?.styleSheet ?? value.painter.styleSheet;
+    final span = widget.value.getDefinedForcedSpanProperty(document);
+    final styleSheet =
+        widget.value.element?.styleSheet ?? widget.value.painter.styleSheet;
     final style = document.getStyle(styleSheet);
-    _sizeController.text = span.size.toString();
-    var selection = value.modified(document)
+    _sizeController.text = span.getSize(paragraph).toString();
+    var paragraphSelection = widget.value.paragraphModified()
         ? ''
-        : (value.isParagraph()
-                ? paragraph.mapOrNull(named: (value) => value.name)
-                : value
-                    .getSpanProperty(document)
-                    ?.mapOrNull(named: (value) => value.name)) ??
-            '';
-    final selections = [
-      ...(value.isParagraph()
-              ? style?.paragraphProperties.keys
-              : style?.spanProperties.keys) ??
-          <String>[],
+        : paragraph.mapOrNull(named: (value) => value.name);
+    final paragraphSelections = [
+      ...style?.paragraphProperties.keys ?? <String>[],
       ''
     ];
-    if (!selections.contains(selection)) {
-      selection = '';
+    if (!paragraphSelections.contains(paragraphSelection)) {
+      paragraphSelection = '';
     }
+
+    var spanSelection = widget.value.spanModified(document)
+        ? ''
+        : widget.value
+                .getSpanProperty(document)
+                ?.mapOrNull(named: (value) => value.name) ??
+            '';
+    final spanSelections = [...style?.spanProperties.keys ?? <String>[], ''];
+    if (!spanSelections.contains(spanSelection)) {
+      spanSelection = '';
+    }
+
     void updateSpan(
         text.DefinedSpanProperty Function(text.DefinedSpanProperty) update) {
-      final selection = value.selection;
-      var element = value.element;
+      final selection = widget.value.selection;
+      var element = widget.value.element;
       if (element == null) {
         final newSpan = update(span);
-        onChanged(value.copyWith(
+        widget.onChanged(widget.value.copyWith(
           forcedProperty: text.ParagraphProperty.defined(
             span: newSpan,
           ),
@@ -68,7 +91,7 @@ class LabelToolbarView extends StatelessWidget {
         ));
         return;
       }
-      if (value.isParagraph()) {
+      if (widget.value.isParagraph()) {
         final currentParagraphProperty = style.resolveParagraphProperty(
           element.area.paragraph.property,
         );
@@ -94,7 +117,7 @@ class LabelToolbarView extends StatelessWidget {
           ),
         );
       }
-      onChanged(value.copyWith(
+      widget.onChanged(widget.value.copyWith(
         element: element,
         forcedSpanProperty: update(span),
       ));
@@ -130,19 +153,19 @@ class LabelToolbarView extends StatelessWidget {
                               ),
                             );
                             if (result == null) return;
-                            if (value.element == null) {
-                              onChanged(value.copyWith(
+                            if (widget.value.element == null) {
+                              widget.onChanged(widget.value.copyWith(
                                 painter: LabelPainter(
                                   styleSheet: result,
                                 ),
                               ));
                               return;
                             }
-                            onChanged(value.copyWith(
+                            widget.onChanged(widget.value.copyWith(
                               painter: LabelPainter(
                                 styleSheet: result,
                               ),
-                              element: value.element!.copyWith(
+                              element: widget.value.element!.copyWith(
                                 styleSheet: result,
                               ),
                             ));
@@ -151,73 +174,93 @@ class LabelToolbarView extends StatelessWidget {
                         const SizedBox(width: 16),
                         IconButton(
                           icon: const Icon(PhosphorIcons.articleLight),
-                          isSelected: value.isParagraph(),
-                          onPressed: value.area == null
+                          isSelected: widget.value.isParagraph(),
+                          onPressed: widget.value.area == null
                               ? null
-                              : () => onChanged(value.copyWith(
-                                  forceParagraph: !value.isParagraph())),
+                              : () => widget.onChanged(widget.value.copyWith(
+                                  forceParagraph: !widget.value.isParagraph())),
                         ),
                         const SizedBox(width: 8),
-                        DropdownMenu<String>(
-                          dropdownMenuEntries: selections
-                              .map((e) => DropdownMenuEntry<String>(
-                                    value: e,
-                                    label: e,
-                                  ))
-                              .toList(),
-                          initialSelection: selection,
-                          onSelected: (name) {
-                            if (name == null) return;
-                            if (value.isParagraph()) {
-                              onChanged(value.copyWith(
-                                forcedProperty:
-                                    text.ParagraphProperty.named(name),
-                                element: value.element?.copyWith(
-                                  area: value.element!.area.copyWith(
-                                    paragraph:
-                                        value.element!.area.paragraph.copyWith(
-                                      property:
-                                          text.ParagraphProperty.named(name),
+                        widget.value.isParagraph()
+                            ? DropdownMenu<String>(
+                                key: _paragraphKey,
+                                dropdownMenuEntries: paragraphSelections
+                                    .map((e) => DropdownMenuEntry<String>(
+                                          value: e,
+                                          label: e,
+                                        ))
+                                    .toList(),
+                                initialSelection: paragraphSelection,
+                                onSelected: (name) {
+                                  if (name == null) return;
+                                  widget.onChanged(widget.value.copyWith(
+                                    forcedProperty:
+                                        text.ParagraphProperty.named(name),
+                                    element: widget.value.element?.copyWith(
+                                      area: widget.value.element!.area.copyWith(
+                                        paragraph: widget
+                                            .value.element!.area.paragraph
+                                            .copyWith(
+                                          property:
+                                              text.ParagraphProperty.named(
+                                                  name),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ));
-                            } else {
-                              onChanged(value.copyWith(
-                                forcedSpanProperty: text.SpanProperty.named(
-                                  name,
-                                ),
-                                element: value.element?.copyWith(
-                                  area: value.element!.area.copyWith(
-                                    paragraph: value.element!.area.paragraph
-                                        .applyStyle(
-                                      value.selection.start,
-                                      value.selection.end -
-                                          value.selection.start,
-                                      text.SpanProperty.named(name),
+                                  ));
+                                },
+                                label: Text(AppLocalizations.of(context).style),
+                                trailingIcon: widget.value.modified(document)
+                                    ? const Icon(PhosphorIcons.starLight)
+                                    : null,
+                              )
+                            : DropdownMenu<String>(
+                                key: _spanKey,
+                                dropdownMenuEntries: spanSelections
+                                    .map((e) => DropdownMenuEntry<String>(
+                                          value: e,
+                                          label: e,
+                                        ))
+                                    .toList(),
+                                initialSelection: spanSelection,
+                                onSelected: (name) {
+                                  if (name == null) return;
+                                  widget.onChanged(widget.value.copyWith(
+                                    forcedSpanProperty: text.SpanProperty.named(
+                                      name,
                                     ),
-                                  ),
-                                ),
-                              ));
-                            }
-                          },
-                          label: Text(AppLocalizations.of(context).style),
-                          trailingIcon: value.modified(document)
-                              ? const Icon(PhosphorIcons.starLight)
-                              : null,
-                        ),
+                                    element: widget.value.element?.copyWith(
+                                      area: widget.value.element!.area.copyWith(
+                                        paragraph: widget
+                                            .value.element!.area.paragraph
+                                            .applyStyle(
+                                          widget.value.selection.start,
+                                          widget.value.selection.end -
+                                              widget.value.selection.start,
+                                          text.SpanProperty.named(name),
+                                        ),
+                                      ),
+                                    ),
+                                  ));
+                                },
+                                label: Text(AppLocalizations.of(context).style),
+                                trailingIcon: widget.value.modified(document)
+                                    ? const Icon(PhosphorIcons.starLight)
+                                    : null,
+                              ),
                         const SizedBox(width: 8),
                         IconButton(
                           icon: const Icon(PhosphorIcons.eraserLight),
                           tooltip: AppLocalizations.of(context).clearStyle,
                           onPressed: () async {
-                            if (value.isParagraph()) {
-                              onChanged(value.copyWith(
+                            if (widget.value.isParagraph()) {
+                              widget.onChanged(widget.value.copyWith(
                                 forcedProperty: null,
-                                element: value.element?.copyWith(
-                                  area: value.element!.area.copyWith(
-                                    paragraph:
-                                        value.element!.area.paragraph.copyWith(
+                                element: widget.value.element?.copyWith(
+                                  area: widget.value.element!.area.copyWith(
+                                    paragraph: widget
+                                        .value.element!.area.paragraph
+                                        .copyWith(
                                       property: const text
                                           .ParagraphProperty.undefined(),
                                     ),
@@ -225,15 +268,16 @@ class LabelToolbarView extends StatelessWidget {
                                 ),
                               ));
                             } else {
-                              onChanged(value.copyWith(
+                              widget.onChanged(widget.value.copyWith(
                                 forcedSpanProperty: null,
-                                element: value.element?.copyWith(
-                                  area: value.element!.area.copyWith(
-                                    paragraph: value.element!.area.paragraph
+                                element: widget.value.element?.copyWith(
+                                  area: widget.value.element!.area.copyWith(
+                                    paragraph: widget
+                                        .value.element!.area.paragraph
                                         .applyStyle(
-                                      value.selection.start,
-                                      value.selection.end -
-                                          value.selection.start,
+                                      widget.value.selection.start,
+                                      widget.value.selection.end -
+                                          widget.value.selection.start,
                                       const text.SpanProperty.undefined(),
                                     ),
                                   ),
@@ -288,7 +332,7 @@ class LabelToolbarView extends StatelessWidget {
                             Icon(PhosphorIcons.textAlignJustifyLight),
                           ],
                           onPressed: (current) {
-                            onChanged(value.copyWith(
+                            widget.onChanged(widget.value.copyWith(
                               forcedProperty: paragraph.copyWith(
                                 alignment:
                                     text.HorizontalAlignment.values[current],
