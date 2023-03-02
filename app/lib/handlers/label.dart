@@ -167,9 +167,6 @@ class LabelHandler extends Handler<LabelPainter>
 
   @override
   void performAction(TextInputAction action) {
-    if (kDebugMode) {
-      print(action.name);
-    }
     switch (action) {
       case TextInputAction.newline:
       case TextInputAction.done:
@@ -180,25 +177,14 @@ class LabelHandler extends Handler<LabelPainter>
   }
 
   @override
-  void performPrivateCommand(String action, Map<String, dynamic> data) {
-    if (kDebugMode) {
-      print('Private command: $action; $data');
-    }
-  }
+  void performPrivateCommand(String action, Map<String, dynamic> data) {}
 
   @override
-  void showAutocorrectionPromptRect(int start, int end) {
-    if (kDebugMode) {
-      print('Autocorrection prompt: $start, $end');
-    }
-  }
+  void showAutocorrectionPromptRect(int start, int end) {}
 
   @override
   void updateEditingValue(TextEditingValue value) {
     if (_context == null) return;
-    if (kDebugMode) {
-      print('Editing value: $value');
-    }
     _updateText(value.text);
   }
 
@@ -254,11 +240,7 @@ class LabelHandler extends Handler<LabelPainter>
   }
 
   @override
-  void updateFloatingCursor(RawFloatingCursorPoint point) {
-    if (kDebugMode) {
-      print('Floating cursor: $point');
-    }
-  }
+  void updateFloatingCursor(RawFloatingCursorPoint point) {}
 
   @override
   void didChangeInputControl(
@@ -275,9 +257,6 @@ class LabelHandler extends Handler<LabelPainter>
     return {
       DeleteCharacterIntent: CallbackAction<DeleteCharacterIntent>(
         onInvoke: (intent) {
-          if (kDebugMode) {
-            print('Delete character');
-          }
           final element = _context?.element;
           final selection = _context?.selection;
           if (element == null || selection == null) return null;
@@ -309,9 +288,6 @@ class LabelHandler extends Handler<LabelPainter>
       ),
       SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
         onInvoke: (intent) {
-          if (kDebugMode) {
-            print('Select all');
-          }
           final length = _context?.area?.length ?? 0;
           _context = _context?.copyWith(
             selection: TextSelection(
@@ -330,9 +306,6 @@ class LabelHandler extends Handler<LabelPainter>
       ExtendSelectionByCharacterIntent:
           CallbackAction<ExtendSelectionByCharacterIntent>(
         onInvoke: (intent) {
-          if (kDebugMode) {
-            print('Extend selection by character');
-          }
           final maxLength = _context?.area?.length ?? 0;
           var selection =
               _context?.selection ?? const TextSelection.collapsed(offset: 0);
@@ -363,9 +336,6 @@ class LabelHandler extends Handler<LabelPainter>
       DeleteToNextWordBoundaryIntent:
           CallbackAction<DeleteToNextWordBoundaryIntent>(
         onInvoke: (intent) {
-          if (kDebugMode) {
-            print('Delete to next word boundary');
-          }
           final element = _context?.element;
           final selection = _context?.selection;
           if (element == null || selection == null) return null;
@@ -396,9 +366,6 @@ class LabelHandler extends Handler<LabelPainter>
       ),
       CopySelectionTextIntent: CallbackAction<CopySelectionTextIntent>(
         onInvoke: (intent) {
-          if (kDebugMode) {
-            print('Copy selection');
-          }
           final selection = _context?.selection;
           if (selection == null) return null;
           final text = _context?.area?.paragraph.text;
@@ -413,9 +380,6 @@ class LabelHandler extends Handler<LabelPainter>
       ),
       PasteTextIntent: CallbackAction<PasteTextIntent>(
         onInvoke: (intent) {
-          if (kDebugMode) {
-            print('Paste text');
-          }
           Clipboard.getData(Clipboard.kTextPlain).then((value) {
             if (value == null) return;
             _updateText(value.text ?? '');

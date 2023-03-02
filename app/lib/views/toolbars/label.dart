@@ -55,9 +55,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         widget.value.element?.styleSheet ?? widget.value.painter.styleSheet;
     final style = document.getStyle(styleSheet);
     _sizeController.text = span.getSize(paragraph).toString();
-    var paragraphSelection = widget.value.paragraphModified()
-        ? ''
-        : paragraph.mapOrNull(named: (value) => value.name);
+    var paragraphSelection = paragraph.mapOrNull(named: (value) => value.name);
     final paragraphSelections = [
       ...style?.paragraphProperties.keys ?? <String>[],
       ''
@@ -66,12 +64,10 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
       paragraphSelection = '';
     }
 
-    var spanSelection = widget.value.spanModified(document)
-        ? ''
-        : widget.value
-                .getSpanProperty(document)
-                ?.mapOrNull(named: (value) => value.name) ??
-            '';
+    var spanSelection = widget.value
+            .getSpanProperty(document)
+            ?.mapOrNull(named: (value) => value.name) ??
+        '';
     final spanSelections = [...style?.spanProperties.keys ?? <String>[], ''];
     if (!spanSelections.contains(spanSelection)) {
       spanSelection = '';
@@ -252,6 +248,15 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         IconButton(
                           icon: const Icon(PhosphorIcons.eraserLight),
                           tooltip: AppLocalizations.of(context).clearStyle,
+                          isSelected: widget.value.isParagraph()
+                              ? widget.value.getProperty().maybeMap(
+                                  orElse: () => false, undefined: (_) => true)
+                              : widget.value.paragraph
+                                  ?.getSpan(widget.value.selection.start)
+                                  ?.property
+                                  .maybeMap(
+                                      orElse: () => false,
+                                      undefined: (_) => true),
                           onPressed: () async {
                             if (widget.value.isParagraph()) {
                               widget.onChanged(widget.value.copyWith(
