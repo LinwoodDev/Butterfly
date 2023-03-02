@@ -81,7 +81,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  analyzer: ^5.6.0
+  analyzer: ^5.7.1
   freezed: ^2.3.2
   build_runner: ^2.3.3
   json_serializable: ^6.6.1

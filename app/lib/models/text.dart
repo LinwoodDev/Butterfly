@@ -23,7 +23,8 @@ class TextContext with _$TextContext {
       bool? forceParagraph}) = _TextContext;
 
   TextArea? get area => element?.area;
-  PackAssetLocation? get styleSheet => element?.styleSheet;
+  PackAssetLocation? get styleSheet =>
+      element?.styleSheet ?? painter.styleSheet;
   TextParagraph? get paragraph => area?.paragraph;
 
   int length() => 0;

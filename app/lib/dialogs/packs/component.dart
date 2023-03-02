@@ -111,7 +111,9 @@ class _PackComponentDialogState extends State<PackComponentDialog> {
                     onPressed: () async {
                       final pack = await showDialog<ButterflyPack>(
                           context: context,
-                          builder: (context) => const PackDialog());
+                          builder: (context) => BlocProvider.value(
+                              value: context.read<DocumentBloc>(),
+                              child: const PackDialog()));
                       if (pack == null) return;
                       await _fileSystem.updatePack(pack);
                       setState(() {

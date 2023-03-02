@@ -133,6 +133,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                   BlocProvider.value(
                                       value: context.read<SettingsCubit>()),
                                   BlocProvider(
+                                    lazy: false,
                                     create: (ctx) => DocumentBloc.placeholder(),
                                   ),
                                 ],

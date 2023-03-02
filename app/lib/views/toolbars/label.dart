@@ -1,11 +1,9 @@
 import 'package:butterfly/dialogs/color_pick.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
@@ -346,7 +344,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           },
                         ),
                         const SizedBox(width: 32),
-                        FutureBuilder<List<String>?>(
+                        /*FutureBuilder<List<String>?>(
                           future: Future.value(SysInfo.getFonts()),
                           builder: (context, snapshot) {
                             return DropdownMenu<String>(
@@ -371,7 +369,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             );
                           },
                         ),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 8),*/
                         SizedBox(
                           width: 100,
                           child: TextFormField(

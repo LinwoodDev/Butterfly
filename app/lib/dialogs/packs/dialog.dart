@@ -219,11 +219,16 @@ class _PacksDialogState extends State<PacksDialog>
                                       ],
                                     ),
                                     onTap: () async {
+                                      final bloc = context.read<DocumentBloc>();
                                       final newPack =
                                           await showDialog<ButterflyPack>(
                                               context: context,
                                               builder: (context) =>
-                                                  PackDialog(pack: pack));
+                                                  BlocProvider.value(
+                                                    value: bloc,
+                                                    child:
+                                                        PackDialog(pack: pack),
+                                                  ));
                                       if (newPack == null) return;
                                       if (pack.name != newPack.name) {
                                         await _fileSystem.deletePack(pack.name);

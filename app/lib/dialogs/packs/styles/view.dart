@@ -45,10 +45,11 @@ class StylesPackView extends StatelessWidget {
                           title: Text(e.value.name),
                           onTap: () async {
                             var styleSheet = e.value;
+                            final bloc = context.read<DocumentBloc>();
                             final result = await showDialog<bool>(
                               context: context,
                               builder: (ctx) => BlocProvider.value(
-                                value: context.read<DocumentBloc>(),
+                                value: bloc,
                                 child: StyleDialog(
                                   value: styleSheet,
                                   onChanged: (value) {
