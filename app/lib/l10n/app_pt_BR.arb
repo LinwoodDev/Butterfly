@@ -214,7 +214,7 @@
   "currentArea": "Área atual",
   "fullScreen": "Tela cheia",
   "design": "Projetar",
-  "textField": "Campo de texto",
+  "text": "Text",
   "selectSensitivity": "Selecione a sensibilidade",
   "welcome": "Bem-vindo à Borboleta Linwood",
   "welcomeContent": "A Borboleta é um aplicativo de notas, onde suas ideias vêm primeiro. Você pode pintar, adicionar textos e exportá-los facilmente em cada dispositivo. Este app funciona no Android, Windows, Linux e na web.",
@@ -448,6 +448,11 @@
       }
     }
   },
+  "styles": "Styles",
+  "paragraph": "Paragraph",
+  "fontFamily": "Font family",
   "smoothing": "Suavização",
-  "streamline": "Simplificar"
+  "streamline": "Simplificar",
+  "selectAsset": "Select asset",
+  "clearStyle": "Clear style"
 }
