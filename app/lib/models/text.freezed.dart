@@ -21,8 +21,10 @@ mixin _$TextContext {
   TextElement? get element => throw _privateConstructorUsedError;
   bool get isCreating => throw _privateConstructorUsedError;
   TextSelection get selection => throw _privateConstructorUsedError;
-  ParagraphProperty? get forcedProperty => throw _privateConstructorUsedError;
-  SpanProperty? get forcedSpanProperty => throw _privateConstructorUsedError;
+  text.ParagraphProperty? get forcedProperty =>
+      throw _privateConstructorUsedError;
+  text.SpanProperty? get forcedSpanProperty =>
+      throw _privateConstructorUsedError;
   bool? get forceParagraph => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -42,8 +44,8 @@ abstract class $TextContextCopyWith<$Res> {
       TextElement? element,
       bool isCreating,
       TextSelection selection,
-      ParagraphProperty? forcedProperty,
-      SpanProperty? forcedSpanProperty,
+      text.ParagraphProperty? forcedProperty,
+      text.SpanProperty? forcedSpanProperty,
       bool? forceParagraph});
 
   $ParagraphPropertyCopyWith<$Res>? get forcedProperty;
@@ -96,11 +98,11 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
       forcedProperty: freezed == forcedProperty
           ? _value.forcedProperty
           : forcedProperty // ignore: cast_nullable_to_non_nullable
-              as ParagraphProperty?,
+              as text.ParagraphProperty?,
       forcedSpanProperty: freezed == forcedSpanProperty
           ? _value.forcedSpanProperty
           : forcedSpanProperty // ignore: cast_nullable_to_non_nullable
-              as SpanProperty?,
+              as text.SpanProperty?,
       forceParagraph: freezed == forceParagraph
           ? _value.forceParagraph
           : forceParagraph // ignore: cast_nullable_to_non_nullable
@@ -147,8 +149,8 @@ abstract class _$$_TextContextCopyWith<$Res>
       TextElement? element,
       bool isCreating,
       TextSelection selection,
-      ParagraphProperty? forcedProperty,
-      SpanProperty? forcedSpanProperty,
+      text.ParagraphProperty? forcedProperty,
+      text.SpanProperty? forcedSpanProperty,
       bool? forceParagraph});
 
   @override
@@ -201,11 +203,11 @@ class __$$_TextContextCopyWithImpl<$Res>
       forcedProperty: freezed == forcedProperty
           ? _value.forcedProperty
           : forcedProperty // ignore: cast_nullable_to_non_nullable
-              as ParagraphProperty?,
+              as text.ParagraphProperty?,
       forcedSpanProperty: freezed == forcedSpanProperty
           ? _value.forcedSpanProperty
           : forcedSpanProperty // ignore: cast_nullable_to_non_nullable
-              as SpanProperty?,
+              as text.SpanProperty?,
       forceParagraph: freezed == forceParagraph
           ? _value.forceParagraph
           : forceParagraph // ignore: cast_nullable_to_non_nullable
@@ -241,9 +243,9 @@ class _$_TextContext extends _TextContext {
   @JsonKey()
   final TextSelection selection;
   @override
-  final ParagraphProperty? forcedProperty;
+  final text.ParagraphProperty? forcedProperty;
   @override
-  final SpanProperty? forcedSpanProperty;
+  final text.SpanProperty? forcedSpanProperty;
   @override
   final bool? forceParagraph;
 
@@ -299,8 +301,8 @@ abstract class _TextContext extends TextContext {
       final TextElement? element,
       final bool isCreating,
       final TextSelection selection,
-      final ParagraphProperty? forcedProperty,
-      final SpanProperty? forcedSpanProperty,
+      final text.ParagraphProperty? forcedProperty,
+      final text.SpanProperty? forcedSpanProperty,
       final bool? forceParagraph}) = _$_TextContext;
   const _TextContext._() : super._();
 
@@ -315,9 +317,9 @@ abstract class _TextContext extends TextContext {
   @override
   TextSelection get selection;
   @override
-  ParagraphProperty? get forcedProperty;
+  text.ParagraphProperty? get forcedProperty;
   @override
-  SpanProperty? get forcedSpanProperty;
+  text.SpanProperty? get forcedSpanProperty;
   @override
   bool? get forceParagraph;
   @override
