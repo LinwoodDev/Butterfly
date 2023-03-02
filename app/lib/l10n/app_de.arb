@@ -214,7 +214,7 @@
   "currentArea": "Aktueller Bereich",
   "fullScreen": "Vollbild",
   "design": "Design",
-  "textField": "Textfeld",
+  "text": "Text",
   "selectSensitivity": "Empfindlichkeit auswählen",
   "welcome": "Willkommen bei Linwood Butterfly",
   "welcomeContent": "Schmetterling ist eine Notiz-App, bei der Ihre Ideen an erster Stelle stehen. Sie können Texte malen, hinzufügen und auf jedem Gerät einfach exportieren. Diese App funktioniert auf Android, Windows, Linux und im Web.",
@@ -448,6 +448,11 @@
       }
     }
   },
+  "styles": "Styles",
+  "paragraph": "Paragraph",
+  "fontFamily": "Font family",
   "smoothing": "Glättung",
-  "streamline": "Streamline"
+  "streamline": "Streamline",
+  "selectAsset": "Select asset",
+  "clearStyle": "Clear style"
 }
