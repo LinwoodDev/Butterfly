@@ -214,7 +214,7 @@
   "currentArea": "Mevcut alan",
   "fullScreen": "Tam ekran",
   "design": "Tasarım",
-  "textField": "Metin alanı",
+  "text": "Text",
   "selectSensitivity": "Hassasiyet seçimi",
   "welcome": "Linwood Butterfly'a hoşgeldiniz",
   "welcomeContent": "Butterfly, fikirlerinizin ön planda tutulduğu bir not uygulamasıdır. Her cihazda kolayca boyayabilir, metin ekleyebilir ve dışa aktarabilirsiniz. Bu uygulama Android, Windows, Linux ve web'de çalışabilmektedir.",
@@ -448,6 +448,11 @@
       }
     }
   },
+  "styles": "Styles",
+  "paragraph": "Paragraph",
+  "fontFamily": "Font family",
   "smoothing": "Smoothing",
-  "streamline": "Streamline"
+  "streamline": "Streamline",
+  "selectAsset": "Select asset",
+  "clearStyle": "Clear style"
 }
