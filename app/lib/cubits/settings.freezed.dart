@@ -779,7 +779,6 @@ mixin _$ButterflySettings {
   String get design => throw _privateConstructorUsedError;
   List<AssetLocation> get history => throw _privateConstructorUsedError;
   bool get startEnabled => throw _privateConstructorUsedError;
-  bool get colorEnabled => throw _privateConstructorUsedError;
   String? get lastVersion => throw _privateConstructorUsedError;
   List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
   String get defaultRemote => throw _privateConstructorUsedError;
@@ -788,6 +787,7 @@ mixin _$ButterflySettings {
   SyncMode get syncMode => throw _privateConstructorUsedError;
   InputConfiguration get inputConfiguration =>
       throw _privateConstructorUsedError;
+  String get fallbackPack => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -814,14 +814,14 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       String design,
       List<AssetLocation> history,
       bool startEnabled,
-      bool colorEnabled,
       String? lastVersion,
       List<RemoteStorage> remotes,
       String defaultRemote,
       bool nativeWindowTitleBar,
       bool startInFullScreen,
       SyncMode syncMode,
-      InputConfiguration inputConfiguration});
+      InputConfiguration inputConfiguration,
+      String fallbackPack});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
 }
@@ -852,7 +852,6 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? design = null,
     Object? history = null,
     Object? startEnabled = null,
-    Object? colorEnabled = null,
     Object? lastVersion = freezed,
     Object? remotes = null,
     Object? defaultRemote = null,
@@ -860,6 +859,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? startInFullScreen = null,
     Object? syncMode = null,
     Object? inputConfiguration = null,
+    Object? fallbackPack = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -914,10 +914,6 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.startEnabled
           : startEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
-      colorEnabled: null == colorEnabled
-          ? _value.colorEnabled
-          : colorEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
       lastVersion: freezed == lastVersion
           ? _value.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
@@ -946,6 +942,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.inputConfiguration
           : inputConfiguration // ignore: cast_nullable_to_non_nullable
               as InputConfiguration,
+      fallbackPack: null == fallbackPack
+          ? _value.fallbackPack
+          : fallbackPack // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -981,14 +981,14 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       String design,
       List<AssetLocation> history,
       bool startEnabled,
-      bool colorEnabled,
       String? lastVersion,
       List<RemoteStorage> remotes,
       String defaultRemote,
       bool nativeWindowTitleBar,
       bool startInFullScreen,
       SyncMode syncMode,
-      InputConfiguration inputConfiguration});
+      InputConfiguration inputConfiguration,
+      String fallbackPack});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -1018,7 +1018,6 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? design = null,
     Object? history = null,
     Object? startEnabled = null,
-    Object? colorEnabled = null,
     Object? lastVersion = freezed,
     Object? remotes = null,
     Object? defaultRemote = null,
@@ -1026,6 +1025,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? startInFullScreen = null,
     Object? syncMode = null,
     Object? inputConfiguration = null,
+    Object? fallbackPack = null,
   }) {
     return _then(_$_ButterflySettings(
       theme: null == theme
@@ -1080,10 +1080,6 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.startEnabled
           : startEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
-      colorEnabled: null == colorEnabled
-          ? _value.colorEnabled
-          : colorEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
       lastVersion: freezed == lastVersion
           ? _value.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
@@ -1112,6 +1108,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.inputConfiguration
           : inputConfiguration // ignore: cast_nullable_to_non_nullable
               as InputConfiguration,
+      fallbackPack: null == fallbackPack
+          ? _value.fallbackPack
+          : fallbackPack // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -1133,14 +1133,14 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.design = '',
       final List<AssetLocation> history = const [],
       this.startEnabled = true,
-      this.colorEnabled = true,
       this.lastVersion,
       final List<RemoteStorage> remotes = const [],
       this.defaultRemote = '',
       this.nativeWindowTitleBar = false,
       this.startInFullScreen = false,
       this.syncMode = SyncMode.noMobile,
-      this.inputConfiguration = const InputConfiguration()})
+      this.inputConfiguration = const InputConfiguration(),
+      this.fallbackPack = ''})
       : _history = history,
         _remotes = remotes,
         super._();
@@ -1191,9 +1191,6 @@ class _$_ButterflySettings extends _ButterflySettings {
   @JsonKey()
   final bool startEnabled;
   @override
-  @JsonKey()
-  final bool colorEnabled;
-  @override
   final String? lastVersion;
   final List<RemoteStorage> _remotes;
   @override
@@ -1219,10 +1216,13 @@ class _$_ButterflySettings extends _ButterflySettings {
   @override
   @JsonKey()
   final InputConfiguration inputConfiguration;
+  @override
+  @JsonKey()
+  final String fallbackPack;
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack)';
   }
 
   @override
@@ -1253,8 +1253,6 @@ class _$_ButterflySettings extends _ButterflySettings {
             const DeepCollectionEquality().equals(other._history, _history) &&
             (identical(other.startEnabled, startEnabled) ||
                 other.startEnabled == startEnabled) &&
-            (identical(other.colorEnabled, colorEnabled) ||
-                other.colorEnabled == colorEnabled) &&
             (identical(other.lastVersion, lastVersion) ||
                 other.lastVersion == lastVersion) &&
             const DeepCollectionEquality().equals(other._remotes, _remotes) &&
@@ -1267,7 +1265,9 @@ class _$_ButterflySettings extends _ButterflySettings {
             (identical(other.syncMode, syncMode) ||
                 other.syncMode == syncMode) &&
             (identical(other.inputConfiguration, inputConfiguration) ||
-                other.inputConfiguration == inputConfiguration));
+                other.inputConfiguration == inputConfiguration) &&
+            (identical(other.fallbackPack, fallbackPack) ||
+                other.fallbackPack == fallbackPack));
   }
 
   @override
@@ -1286,14 +1286,14 @@ class _$_ButterflySettings extends _ButterflySettings {
         design,
         const DeepCollectionEquality().hash(_history),
         startEnabled,
-        colorEnabled,
         lastVersion,
         const DeepCollectionEquality().hash(_remotes),
         defaultRemote,
         nativeWindowTitleBar,
         startInFullScreen,
         syncMode,
-        inputConfiguration
+        inputConfiguration,
+        fallbackPack
       ]);
 
   @JsonKey(ignore: true)
@@ -1319,14 +1319,14 @@ abstract class _ButterflySettings extends ButterflySettings {
       final String design,
       final List<AssetLocation> history,
       final bool startEnabled,
-      final bool colorEnabled,
       final String? lastVersion,
       final List<RemoteStorage> remotes,
       final String defaultRemote,
       final bool nativeWindowTitleBar,
       final bool startInFullScreen,
       final SyncMode syncMode,
-      final InputConfiguration inputConfiguration}) = _$_ButterflySettings;
+      final InputConfiguration inputConfiguration,
+      final String fallbackPack}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
   @override
@@ -1356,8 +1356,6 @@ abstract class _ButterflySettings extends ButterflySettings {
   @override
   bool get startEnabled;
   @override
-  bool get colorEnabled;
-  @override
   String? get lastVersion;
   @override
   List<RemoteStorage> get remotes;
@@ -1371,6 +1369,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   SyncMode get syncMode;
   @override
   InputConfiguration get inputConfiguration;
+  @override
+  String get fallbackPack;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>

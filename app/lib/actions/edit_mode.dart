@@ -16,8 +16,6 @@ class EditModeAction extends Action<EditModeIntent> {
   void invoke(EditModeIntent intent) {
     final cubit = intent.context.read<CurrentIndexCubit>();
     final bloc = intent.context.read<DocumentBloc>();
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return;
-    cubit.reset(state.document);
+    cubit.reset(bloc);
   }
 }

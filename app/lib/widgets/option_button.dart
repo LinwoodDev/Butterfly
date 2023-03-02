@@ -45,6 +45,7 @@ class OptionButton extends StatelessWidget {
                         ? Theme.of(context).colorScheme.primary
                         : null),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     selected ? selectedIcon : icon,
                     if (selected)

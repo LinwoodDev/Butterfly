@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../models/cursor.dart';
 import '../renderer.dart';
 
-class EraserCursor extends Renderer<PainterCursor<EraserPainter>> {
+class EraserCursor extends Renderer<PainterCursorData<EraserPainter>> {
   EraserCursor(super.element);
 
   @override

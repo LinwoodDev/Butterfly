@@ -31,7 +31,7 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
-import 'package:butterfly/views/color.dart';
+import 'package:butterfly/views/toolbar.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/error.dart';
 import 'package:butterfly/views/property.dart';
@@ -44,6 +44,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../actions/change_painter.dart';
 import '../actions/packs.dart';
+import '../main.dart';
 import 'changes.dart';
 import 'view.dart';
 import 'zoom.dart';
@@ -68,7 +69,7 @@ class _ProjectPageState extends State<ProjectPage> {
   CurrentIndexCubit? _currentIndexCubit;
   late final ImportService _importService;
   final GlobalKey _viewportKey = GlobalKey();
-  final actions = <Type, Action<Intent>>{
+  final _actions = <Type, Action<Intent>>{
     UndoIntent: UndoAction(),
     RedoIntent: RedoAction(),
     NewIntent: NewAction(),
@@ -290,7 +291,7 @@ class _ProjectPageState extends State<ProjectPage> {
               value: _importService,
               child: Builder(builder: (context) {
                 return Actions(
-                  actions: actions,
+                  actions: _actions,
                   child: Shortcuts(
                     shortcuts: {
                       LogicalKeySet(LogicalKeyboardKey.control,
@@ -383,11 +384,12 @@ class _ProjectPageState extends State<ProjectPage> {
                               viewportKey: _viewportKey,
                             ),
                             body: Actions(
-                                actions: actions,
+                                actions: _actions,
                                 child: LayoutBuilder(
                                     builder: (context, constraints) {
                                   final isMobile =
-                                      MediaQuery.of(context).size.width < 800;
+                                      MediaQuery.of(context).size.width <
+                                          kMobileWidth;
                                   final isLandscape =
                                       MediaQuery.of(context).size.height < 400;
                                   const property = PropertyView();
@@ -406,7 +408,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                                         mainAxisSize:
                                                             MainAxisSize.min,
                                                         children: const [
-                                                          ColorView(),
+                                                          ToolbarView(),
                                                         ]),
                                                     if (!isLandscape) property
                                                   ],

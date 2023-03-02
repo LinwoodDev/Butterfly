@@ -34,6 +34,8 @@ import 'views/error.dart';
 import 'views/main.dart';
 import 'views/window.dart';
 
+const kMobileWidth = 600.0;
+
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();

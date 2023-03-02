@@ -71,6 +71,22 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
       if (fileVersion < 7) {
         json['content'] = List.from(json['content'] as List).where((e) {
           return e['type'] != 'eraser';
+        }).map((e) {
+          if (e['type'] == 'label') {
+            return {
+              'type': 'text',
+              'property': {
+                'type': 'defined',
+                'paragraph': {
+                  'type': 'defined',
+                  'alignment': e['horizontalAlignment'],
+                  'span': e,
+                },
+                'alignment': e['verticalAlignment'],
+              },
+            };
+          }
+          return e;
         }).toList();
       }
     }

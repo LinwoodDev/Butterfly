@@ -1,23 +1,93 @@
 part of 'handler.dart';
 
-class LabelHandler extends Handler<LabelPainter> {
+class LabelHandler extends Handler<LabelPainter>
+    with HandlerWithCursor, TextInputClient {
+  TextContext? _context;
+  DocumentBloc? _bloc;
+
+  bool get isCurrentlyEditing => _context?.area != null;
+
   LabelHandler(super.data);
+
+  TextContext _createContext([Point<double>? position]) {
+    return TextContext(
+      painter: data,
+      isCreating: true,
+      element: position == null
+          ? null
+          : TextElement(
+              position: position,
+              area: text.TextArea(
+                paragraph: text.TextParagraph.text(
+                  property: _context?.forcedProperty ??
+                      const text.ParagraphProperty.undefined(),
+                ),
+              ),
+              styleSheet: data.styleSheet,
+            ),
+      textPainter: TextPainter(),
+      forcedProperty: _context?.forcedProperty,
+    );
+  }
+
+  @override
+  List<Renderer> createForegrounds(
+          CurrentIndexCubit currentIndexCubit, AppDocument document,
+          [Area? currentArea]) =>
+      [
+        ...super.createForegrounds(currentIndexCubit, document, currentArea),
+        if (_context?.element != null) ...[
+          if (_context?.isCreating ?? false)
+            TextRenderer(_context!.element!, _context),
+          TextSelectionCursor(_context!)
+        ],
+      ];
+
+  TextInputConnection? _connection;
 
   @override
   Future<void> onTapUp(TapUpDetails details, EventContext context) async {
     final pixelRatio = context.devicePixelRatio;
-    final newElement = await openDialog(context, details.localPosition);
-    if (newElement != null) {
-      context.addDocumentEvent(ElementsCreated([newElement]));
-      context
-          .getDocumentBloc()
-          .bake(viewportSize: context.viewportSize, pixelRatio: pixelRatio);
+    final focusNode = Focus.of(context.buildContext);
+    final hadFocus = focusNode.hasFocus;
+    FocusScope.of(context.buildContext).requestFocus(focusNode);
+    final style = Theme.of(context.buildContext).textTheme.bodyLarge!;
+    if (!(_connection?.attached ?? false)) {
+      _connection = TextInput.attach(
+          this,
+          TextInputConfiguration(
+            inputType: TextInputType.text,
+            obscureText: false,
+            autocorrect: true,
+            inputAction: TextInputAction.newline,
+            keyboardAppearance: Theme.of(context.buildContext).brightness,
+            textCapitalization: TextCapitalization.sentences,
+          ))
+        ..setEditingState(const TextEditingValue())
+        ..setStyle(
+          fontFamily: style.fontFamily,
+          fontSize: style.fontSize! * pixelRatio,
+          fontWeight: style.fontWeight,
+          textDirection: TextDirection.ltr,
+          textAlign: TextAlign.left,
+        );
     }
+    _bloc = context.getDocumentBloc();
+    _connection!.show();
+    final globalPos =
+        context.getCameraTransform().localToGlobal(details.localPosition);
+    if (hadFocus || _context?.element == null) {
+      if (_context?.element != null) _submit(context.getDocumentBloc());
+      _context = _createContext(globalPos.toPoint());
+    }
+    context.refresh();
   }
 
-  Future<LabelElement?> openDialog(
+  Future<TextElement?> openDialog(
       EventContext context, Offset localPosition) async {
-    final bloc = context.getDocumentBloc();
+    return null;
+
+    /*final bloc = context.getDocumentBloc();
     final transform = context.getCameraTransform();
     return showDialog<LabelElement>(
         context: context.buildContext,
@@ -25,99 +95,298 @@ class LabelHandler extends Handler<LabelPainter> {
             value: bloc,
             child: EditLabelElementDialog(
               element: LabelElement(
-                property: data.property,
-                position: transform.localToGlobal(localPosition).toPoint(),
+                position: transform.localToGlobal(localPosition),
               ),
-            )));
+            )));*/
   }
 
   @override
-  void onLongPressEnd(LongPressEndDetails details, EventContext context) async {
-    final position =
-        context.getCameraTransform().localToGlobal(details.localPosition);
-    final elements = await rayCast(position, context.buildContext, 0.0);
-    final label = elements.whereType<LabelRenderer>().firstOrNull?.element;
-    if (label == null) {
-      return;
-    }
-    final bloc = context.getDocumentBloc();
-    final buildContext = context.buildContext;
-    if (buildContext.mounted) {
-      final newElement = await showDialog<LabelElement>(
-          context: buildContext,
-          builder: (_) => BlocProvider.value(
-              value: bloc, child: EditLabelElementDialog(element: label)));
-      if (newElement == null) {
-        return;
+  Widget? getToolbar(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
+    _context ??= _createContext();
+    return LabelToolbarView(
+      value: _context!,
+      onChanged: (value) => _change(bloc, value),
+    );
+  }
+
+  @override
+  Renderer createCursor(Offset position) {
+    return TextCursor(TextCursorData(data, position, _context));
+  }
+
+  void _change(DocumentBloc bloc, TextContext value) {
+    final context = _context;
+    _context = value.copyWith();
+    if (context == null) return;
+
+    if (context.element != null && value.element != null) {
+      if (!value.isCreating) {
+        bloc.add(ElementsChanged({
+          context.element!: [value.element!]
+        }));
       }
-      bloc.add(ElementsChanged({
-        label: [newElement]
-      }));
+    }
+    if (context.painter.styleSheet != data.styleSheet) {
+      bloc.add(PaintersChanged({data: value.painter}));
+    }
+    bloc.refresh();
+  }
+
+  @override
+  void dispose(DocumentBloc bloc) {
+    _connection?.close();
+    _connection = null;
+    _submit(bloc);
+  }
+
+  void _submit(DocumentBloc bloc) {
+    final context = _context;
+    if (context == null) return;
+    final element = context.element;
+    final isEmpty = element?.area.paragraph.isEmpty ?? true;
+    if (element != null) {
+      if (context.isCreating) {
+        bloc.add(ElementsCreated([element]));
+      } else if (isEmpty) {
+        bloc.add(ElementsRemoved([element]));
+      }
     }
   }
 
   @override
-  int? getColor(DocumentBloc bloc) => data.property.color;
+  void connectionClosed() {
+    _connection = null;
+  }
 
   @override
-  LabelPainter? _setColor(DocumentBloc bloc, int color) =>
-      data.copyWith(property: data.property.copyWith(color: color));
-}
-
-class EditLabelElementDialog extends StatelessWidget {
-  final LabelElement element;
-  final _propertySelection = LabelPropertySelection();
-  final TextEditingController _textController = TextEditingController();
-  EditLabelElementDialog({super.key, this.element = const LabelElement()});
+  AutofillScope? get currentAutofillScope => null;
 
   @override
-  Widget build(BuildContext context) {
-    var property = element.property;
-    _textController.text = element.text;
-    void submit() => Navigator.of(context)
-        .pop(element.copyWith(text: _textController.text, property: property));
-    return Dialog(
-        child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 500, maxHeight: 500),
-      child: Column(
-        children: [
-          Header(
-            leading: const Icon(PhosphorIcons.textTLight),
-            title: Text(AppLocalizations.of(context).enterText),
-          ),
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              child: Column(mainAxisSize: MainAxisSize.min, children: [
-                Expanded(
-                    child: ListView(shrinkWrap: true, children: [
-                  TextField(
-                    controller: _textController,
-                    autofocus: true,
-                    keyboardType: TextInputType.multiline,
-                    minLines: 3,
-                    maxLines: 5,
-                    decoration: const InputDecoration(filled: true),
-                    onSubmitted: (value) => submit(),
-                  ),
-                  ..._propertySelection.build(
-                      context, property, (value) => property = value),
-                ])),
-                const Divider(),
-                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  TextButton(
-                    child: Text(AppLocalizations.of(context).cancel),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                  ElevatedButton(
-                      onPressed: submit,
-                      child: Text(AppLocalizations.of(context).ok))
-                ])
-              ]),
-            ),
-          ),
-        ],
-      ),
+  TextEditingValue? get currentTextEditingValue => null;
+
+  @override
+  void performAction(TextInputAction action) {
+    switch (action) {
+      case TextInputAction.newline:
+      case TextInputAction.done:
+        _updateText('\n');
+        break;
+      default:
+    }
+  }
+
+  @override
+  void performPrivateCommand(String action, Map<String, dynamic> data) {}
+
+  @override
+  void showAutocorrectionPromptRect(int start, int end) {}
+
+  @override
+  void updateEditingValue(TextEditingValue value) {
+    if (_context == null) return;
+    _updateText(value.text);
+  }
+
+  void _updateText(String value) {
+    TextElement element;
+    final old = _context?.element;
+    final state = _bloc?.state;
+    if (state is! DocumentLoadSuccess) return;
+    final document = state.document;
+
+    var newIndex = value.length;
+
+    if (old != null) {
+      final selection = _context!.selection;
+      final start = selection.start;
+      final length = selection.end - start;
+      final newSpan =
+          _context!.forcedSpanProperty != _context!.getSpanProperty(document);
+      final paragraph = newSpan
+          ? old.area.paragraph.replace(
+              text.TextSpan.text(
+                text: value,
+                property: _context?.forcedSpanProperty ??
+                    const text.SpanProperty.undefined(),
+              ),
+              start,
+              length)
+          : old.area.paragraph.replaceText(value, start, length);
+      final area = old.area.copyWith(
+        paragraph: paragraph,
+      );
+      element = old.copyWith(area: area);
+      newIndex += min(selection.start, paragraph.length);
+    } else {
+      final paragraph = text.TextParagraph.text(
+        textSpans: [text.TextSpan.text(text: value)],
+        property: _context!.forcedProperty ??
+            const text.ParagraphProperty.undefined(),
+      );
+      final area = text.TextArea(
+        paragraph: paragraph,
+      );
+      element = TextElement(area: area);
+    }
+    _context = _context!.copyWith(
+      element: element,
+      selection: TextSelection.collapsed(offset: newIndex),
+    );
+    _connection?.setEditingState(const TextEditingValue(
+      text: '',
     ));
+    _bloc?.refresh();
+  }
+
+  @override
+  void updateFloatingCursor(RawFloatingCursorPoint point) {}
+
+  @override
+  void didChangeInputControl(
+      TextInputControl? oldControl, TextInputControl? newControl) {
+    if (isCurrentlyEditing) {
+      oldControl?.hide();
+      newControl?.show();
+    }
+  }
+
+  @override
+  Map<Type, Action<Intent>> getActions(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
+    return {
+      DeleteCharacterIntent: CallbackAction<DeleteCharacterIntent>(
+        onInvoke: (intent) {
+          final element = _context?.element;
+          final selection = _context?.selection;
+          if (element == null || selection == null) return null;
+          var area = element.area;
+          var paragraph = area.paragraph;
+          var start = selection.start;
+          var length = selection.end - start;
+          if (length == 0) {
+            if (start == 0) return null;
+            if (!intent.forward) {
+              start--;
+            }
+            length = 1;
+          }
+          paragraph = paragraph.remove(
+            start,
+            length,
+          );
+          area = area.copyWith(paragraph: paragraph);
+          final newElement = element.copyWith(area: area);
+
+          _context = _context!.copyWith(
+            element: newElement,
+            selection: TextSelection.collapsed(offset: start),
+          );
+          bloc.refresh();
+          return null;
+        },
+      ),
+      SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
+        onInvoke: (intent) {
+          final length = _context?.area?.length ?? 0;
+          _context = _context?.copyWith(
+            selection: TextSelection(
+              baseOffset: length,
+              extentOffset: 0,
+            ),
+            forcedSpanProperty:
+                _context?.element?.area.paragraph.getSpan(length)?.property ??
+                    _context?.forcedSpanProperty,
+            forceParagraph: null,
+          );
+          bloc.refresh();
+          return null;
+        },
+      ),
+      ExtendSelectionByCharacterIntent:
+          CallbackAction<ExtendSelectionByCharacterIntent>(
+        onInvoke: (intent) {
+          final maxLength = _context?.area?.length ?? 0;
+          var selection =
+              _context?.selection ?? const TextSelection.collapsed(offset: 0);
+          if (intent.collapseSelection) {
+            selection = TextSelection.collapsed(
+              offset: (selection.baseOffset + (intent.forward ? 1 : -1))
+                  .clamp(0, maxLength),
+            );
+          } else {
+            selection = TextSelection(
+              baseOffset: (selection.baseOffset + (intent.forward ? 1 : -1))
+                  .clamp(0, maxLength),
+              extentOffset: selection.extentOffset,
+            );
+          }
+          _context = _context?.copyWith(
+            selection: selection,
+            forcedSpanProperty: _context?.element?.area.paragraph
+                    .getSpan(selection.baseOffset)
+                    ?.property ??
+                _context?.forcedSpanProperty,
+            forceParagraph: null,
+          );
+          bloc.refresh();
+          return null;
+        },
+      ),
+      DeleteToNextWordBoundaryIntent:
+          CallbackAction<DeleteToNextWordBoundaryIntent>(
+        onInvoke: (intent) {
+          final element = _context?.element;
+          final selection = _context?.selection;
+          if (element == null || selection == null) return null;
+          var index = selection.baseOffset;
+          var wordIndex = element.area.paragraph.previousWordIndex(index);
+          if (wordIndex > 0) wordIndex--;
+          if (wordIndex < 0) {
+            index = wordIndex;
+          }
+          var area = element.area;
+          var paragraph = area.paragraph;
+          final length = selection.end - wordIndex;
+          paragraph = paragraph.remove(
+            wordIndex,
+            length.abs(),
+          );
+          area = area.copyWith(paragraph: paragraph);
+          final newElement = element.copyWith(area: area);
+
+          _context = _context!.copyWith(
+            element: newElement,
+            selection: TextSelection.collapsed(offset: wordIndex),
+          );
+
+          bloc.refresh();
+          return null;
+        },
+      ),
+      CopySelectionTextIntent: CallbackAction<CopySelectionTextIntent>(
+        onInvoke: (intent) {
+          final selection = _context?.selection;
+          if (selection == null) return null;
+          final text = _context?.area?.paragraph.text;
+          if (text == null) return null;
+          Clipboard.setData(ClipboardData(
+              text: text.substring(selection.start, selection.end)));
+          if (intent.collapseSelection) {
+            _updateText('');
+          }
+          return null;
+        },
+      ),
+      PasteTextIntent: CallbackAction<PasteTextIntent>(
+        onInvoke: (intent) {
+          Clipboard.getData(Clipboard.kTextPlain).then((value) {
+            if (value == null) return;
+            _updateText(value.text ?? '');
+          });
+          return null;
+        },
+      ),
+    };
   }
 }

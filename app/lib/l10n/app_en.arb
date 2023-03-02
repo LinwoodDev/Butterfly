@@ -214,7 +214,7 @@
   "currentArea": "Current area",
   "fullScreen": "Full screen",
   "design": "Design",
-  "textField": "Text field",
+  "text": "Text",
   "selectSensitivity": "Select sensitivity",
   "welcome": "Welcome to Linwood Butterfly",
   "welcomeContent": "Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device. This app works on Android, Windows, Linux and in the web.",
@@ -448,6 +448,11 @@
       }
     }
   },
+  "styles": "Styles",
+  "paragraph": "Paragraph",
+  "fontFamily": "Font family",
   "smoothing": "Smoothing",
-  "streamline": "Streamline"
+  "streamline": "Streamline",
+  "selectAsset": "Select asset",
+  "clearStyle": "Clear style"
 }

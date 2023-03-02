@@ -15,8 +15,8 @@ import '../import.dart';
 import 'pack.dart';
 
 class PacksDialog extends StatefulWidget {
-  final bool showDocument;
-  const PacksDialog({super.key, this.showDocument = true});
+  final bool globalOnly;
+  const PacksDialog({super.key, this.globalOnly = false});
 
   @override
   State<PacksDialog> createState() => _PacksDialogState();
@@ -29,8 +29,7 @@ class _PacksDialogState extends State<PacksDialog>
 
   @override
   initState() {
-    _controller =
-        TabController(length: widget.showDocument ? 2 : 1, vsync: this);
+    _controller = TabController(length: widget.globalOnly ? 1 : 2, vsync: this);
     _fileSystem = PackFileSystem.fromPlatform(
         remote: context.read<SettingsCubit>().state.getDefaultRemote());
     super.initState();
@@ -57,7 +56,7 @@ class _PacksDialogState extends State<PacksDialog>
                     Header(
                       title: Text(AppLocalizations.of(context).packs),
                     ),
-                    if (widget.showDocument)
+                    if (!widget.globalOnly)
                       TabBar(
                         controller: _controller,
                         tabs: [
@@ -73,7 +72,7 @@ class _PacksDialogState extends State<PacksDialog>
                       ),
                     Flexible(
                       child: TabBarView(controller: _controller, children: [
-                        if (widget.showDocument)
+                        if (!widget.globalOnly)
                           BlocBuilder<DocumentBloc, DocumentState>(
                               builder: (context, state) {
                             if (state is! DocumentLoadSuccess) {
@@ -116,7 +115,10 @@ class _PacksDialogState extends State<PacksDialog>
                                           await showDialog<ButterflyPack>(
                                               context: context,
                                               builder: (context) =>
-                                                  PackDialog(pack: pack));
+                                                  BlocProvider.value(
+                                                      value: bloc,
+                                                      child: PackDialog(
+                                                          pack: pack)));
                                       if (newPack == null) return;
                                       bloc.add(DocumentPackUpdated(
                                           pack.name, newPack));
@@ -216,9 +218,22 @@ class _PacksDialogState extends State<PacksDialog>
                                                 pack.components.length)),
                                       ],
                                     ),
+                                    onTap: () async {
+                                      final newPack =
+                                          await showDialog<ButterflyPack>(
+                                              context: context,
+                                              builder: (context) =>
+                                                  PackDialog(pack: pack));
+                                      if (newPack == null) return;
+                                      if (pack.name != newPack.name) {
+                                        await _fileSystem.deletePack(pack.name);
+                                      }
+                                      await _fileSystem.updatePack(newPack);
+                                      setState(() {});
+                                    },
                                     trailing: PopupMenuButton(
                                       itemBuilder: (context) => [
-                                        if (widget.showDocument)
+                                        if (!widget.globalOnly)
                                           PopupMenuItem(
                                             padding: EdgeInsets.zero,
                                             child: ListTile(
@@ -233,32 +248,6 @@ class _PacksDialogState extends State<PacksDialog>
                                               },
                                             ),
                                           ),
-                                        PopupMenuItem(
-                                          padding: EdgeInsets.zero,
-                                          child: ListTile(
-                                            leading: const Icon(
-                                                PhosphorIcons.pencilLight),
-                                            title: Text(
-                                                AppLocalizations.of(context)
-                                                    .edit),
-                                            onTap: () async {
-                                              Navigator.of(context).pop();
-                                              final newPack = await showDialog<
-                                                      ButterflyPack>(
-                                                  context: context,
-                                                  builder: (context) =>
-                                                      PackDialog(pack: pack));
-                                              if (newPack == null) return;
-                                              if (pack.name != newPack.name) {
-                                                await _fileSystem
-                                                    .deletePack(pack.name);
-                                              }
-                                              await _fileSystem
-                                                  .updatePack(newPack);
-                                              setState(() {});
-                                            },
-                                          ),
-                                        ),
                                         PopupMenuItem(
                                           padding: EdgeInsets.zero,
                                           child: ListTile(
@@ -433,7 +422,7 @@ class _PacksDialogState extends State<PacksDialog>
 
   Future<void> _addPack(ButterflyPack pack, [bool? global]) async {
     global ??= (_controller.index == 1);
-    if (global) {
+    if (global || widget.globalOnly) {
       await _fileSystem.updatePack(pack);
       setState(() {});
     } else {

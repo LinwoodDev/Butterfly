@@ -94,16 +94,16 @@ Map<String, dynamic> _$$PenElementToJson(_$PenElement instance) =>
       'type': instance.$type,
     };
 
-_$LabelElement _$$LabelElementFromJson(Map json) => _$LabelElement(
+_$TextElement _$$TextElementFromJson(Map json) => _$TextElement(
       layer: json['layer'] as String? ?? '',
       position: json['position'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
-      text: json['text'] as String? ?? '',
-      property: json['property'] == null
-          ? const LabelProperty()
-          : LabelProperty.fromJson(
-              Map<String, dynamic>.from(json['property'] as Map)),
+      styleSheet: json['styleSheet'] == null
+          ? const PackAssetLocation()
+          : PackAssetLocation.fromJson(
+              Map<String, dynamic>.from(json['styleSheet'] as Map)),
+      area: TextArea.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
       constraint: json['constraint'] == null
           ? const ElementConstraint(size: 1000)
           : ElementConstraint.fromJson(
@@ -111,12 +111,12 @@ _$LabelElement _$$LabelElementFromJson(Map json) => _$LabelElement(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$LabelElementToJson(_$LabelElement instance) =>
+Map<String, dynamic> _$$TextElementToJson(_$TextElement instance) =>
     <String, dynamic>{
       'layer': instance.layer,
       'position': const DoublePointJsonConverter().toJson(instance.position),
-      'text': instance.text,
-      'property': instance.property.toJson(),
+      'styleSheet': instance.styleSheet.toJson(),
+      'area': instance.area.toJson(),
       'constraint': instance.constraint.toJson(),
       'type': instance.$type,
     };

@@ -121,9 +121,15 @@ class PenHandler extends Handler<PenPainter> {
   }
 
   @override
-  int? getColor(DocumentBloc bloc) => data.property.color;
-
-  @override
-  PenPainter? _setColor(DocumentBloc bloc, int color) =>
-      data.copyWith(property: data.property.copyWith(color: color));
+  Widget getToolbar(BuildContext context) => ColorToolbarView(
+        color: data.property.color,
+        onChanged: (value) {
+          final bloc = context.read<DocumentBloc>();
+          bloc.add(PaintersChanged({
+            data: data.copyWith(
+                property: data.property.copyWith(
+                    color: convertOldColor(value, data.property.color))),
+          }));
+        },
+      );
 }

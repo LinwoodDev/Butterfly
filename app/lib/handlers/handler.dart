@@ -15,24 +15,28 @@ import 'package:butterfly/renderers/foregrounds/area.dart';
 import 'package:butterfly/renderers/foregrounds/waypoint.dart';
 import 'package:butterfly/theme/manager.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../cubits/current_index.dart';
 import '../dialogs/area/label.dart';
 import '../helpers/num_helper.dart';
+import '../models/text.dart';
 import '../models/viewport.dart';
 import '../renderers/cursors/eraser.dart';
+import '../renderers/cursors/text.dart';
 import '../renderers/renderer.dart';
-import '../selections/selection.dart';
 import '../services/import.dart';
+import '../views/toolbars/color.dart';
+import '../views/toolbars/label.dart';
 import '../widgets/context_menu.dart';
-import '../widgets/header.dart';
 
 part 'area.dart';
 part 'eraser.dart';
@@ -162,19 +166,6 @@ abstract class Handler<T> {
 
   bool canChange(PointerDownEvent event, EventContext context) => true;
 
-  int? getColor(DocumentBloc bloc) => null;
-
-  T? setColor(DocumentBloc bloc, int color, [bool alpha = false]) => _setColor(
-      bloc,
-      alpha
-          ? color
-          : convertColor(
-              getColor(bloc) ?? 0, Color(getColor(bloc) ?? 0).alpha));
-
-  T? setAlpha(DocumentBloc bloc, int alpha) =>
-      _setColor(bloc, convertColor(getColor(bloc) ?? 0, alpha));
-  T? _setColor(DocumentBloc bloc, int color) => null;
-
   void resetInput(DocumentBloc bloc) {}
 
   PainterStatus getStatus(DocumentBloc bloc) => PainterStatus.normal;
@@ -201,6 +192,44 @@ abstract class Handler<T> {
       shape: (value) => ShapeHandler(value),
       stamp: (value) => StampHandler(value),
     );
+  }
+
+  Widget? getToolbar(BuildContext context) => null;
+
+  void dispose(DocumentBloc bloc) {}
+
+  Map<Type, Action<Intent>> getActions(BuildContext context) => {};
+}
+
+mixin HandlerWithCursor<T> on Handler<T> {
+  Offset? _currentPos;
+
+  Renderer createCursor(Offset position);
+
+  @mustCallSuper
+  @override
+  List<Renderer> createForegrounds(
+      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      [Area? currentArea]) {
+    final renderers = super.createForegrounds(currentIndexCubit, document);
+    if (_currentPos != null) {
+      renderers.add(createCursor(_currentPos!));
+    }
+    return renderers;
+  }
+
+  @mustCallSuper
+  @override
+  void onPointerMove(PointerMoveEvent event, EventContext context) {
+    _currentPos = event.localPosition;
+    context.refresh();
+  }
+
+  @mustCallSuper
+  @override
+  void onPointerHover(PointerHoverEvent event, EventContext context) {
+    _currentPos = event.localPosition;
+    context.refresh();
   }
 }
 

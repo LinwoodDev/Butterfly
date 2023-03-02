@@ -163,29 +163,25 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                       scrollDirection: Axis.horizontal,
                                       child: Row(
                                         children: [
-                                          DropdownButton<int>(
-                                            alignment: Alignment.center,
-                                            value:
+                                          DropdownMenu<int>(
+                                            initialSelection:
                                                 state.document.palettes.isEmpty
                                                     ? null
                                                     : selected,
-                                            onChanged: (value) {
+                                            onSelected: (value) {
                                               setState(() {
                                                 selected = value ?? selected;
                                               });
                                             },
-                                            items: state.document.palettes
+                                            dropdownMenuEntries: state
+                                                .document.palettes
                                                 .asMap()
-                                                .map((index, palette) {
-                                                  return MapEntry(
-                                                      index,
-                                                      DropdownMenuItem<int>(
-                                                        value: index,
-                                                        child:
-                                                            Text(palette.name),
-                                                      ));
-                                                })
-                                                .values
+                                                .entries
+                                                .map((e) =>
+                                                    DropdownMenuEntry<int>(
+                                                      value: e.key,
+                                                      label: e.value.name,
+                                                    ))
                                                 .toList(),
                                           ),
                                           IconButton(

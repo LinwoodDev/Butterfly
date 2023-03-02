@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class LaserHandler extends Handler {
+class LaserHandler extends Handler<LaserPainter> {
   Map<int, PenElement> elements = {};
   List<PenElement> submittedElements = [];
   DateTime? _lastChanged;
@@ -166,10 +166,13 @@ class LaserHandler extends Handler {
   }
 
   @override
-  int? getColor(DocumentBloc bloc) => data.color;
-
-  @override
-  LaserPainter? _setColor(DocumentBloc bloc, int color) {
-    return data.copyWith(color: color);
-  }
+  Widget getToolbar(BuildContext context) => ColorToolbarView(
+        color: data.color,
+        onChanged: (value) {
+          final bloc = context.read<DocumentBloc>();
+          bloc.add(PaintersChanged({
+            data: data.copyWith(color: convertOldColor(value, data.color)),
+          }));
+        },
+      );
 }

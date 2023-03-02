@@ -4,8 +4,10 @@ import 'dart:typed_data';
 import 'converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'pack.dart';
 import 'point.dart';
 import 'property.dart';
+import 'text.dart';
 
 part 'element.freezed.dart';
 part 'element.g.dart';
@@ -56,15 +58,15 @@ class PadElement with _$PadElement {
     @Default(PenProperty()) PenProperty property,
   }) = PenElement;
 
-  const factory PadElement.label({
+  const factory PadElement.text({
     @Default('') String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> position,
-    @Default('') String text,
-    @Default(LabelProperty()) LabelProperty property,
+    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    required TextArea area,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
-  }) = LabelElement;
+  }) = TextElement;
 
   const factory PadElement.image({
     @Default('') String layer,

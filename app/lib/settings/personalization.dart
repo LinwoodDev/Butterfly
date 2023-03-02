@@ -129,14 +129,6 @@ class PersonalizationSettingsPage extends StatelessWidget {
                             .changeStartEnabled(value),
                       ),
                       SwitchListTile(
-                        secondary: const Icon(PhosphorIcons.paletteLight),
-                        title: Text(AppLocalizations.of(context).color),
-                        value: state.colorEnabled,
-                        onChanged: (value) => context
-                            .read<SettingsCubit>()
-                            .changeColorEnabled(value),
-                      ),
-                      SwitchListTile(
                         value: state.startInFullScreen,
                         onChanged: (value) => context
                             .read<SettingsCubit>()
