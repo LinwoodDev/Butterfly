@@ -449,10 +449,10 @@
     }
   },
   "styles": "Styles",
-  "paragraph": "Paragraph",
-  "fontFamily": "Font family",
+  "paragraph": "Absatz",
+  "fontFamily": "Schriftfamilie",
   "smoothing": "Glättung",
   "streamline": "Streamline",
-  "selectAsset": "Select asset",
-  "clearStyle": "Clear style"
+  "selectAsset": "Asset auswählen",
+  "clearStyle": "Stil löschen"
 }
