@@ -454,5 +454,7 @@
   "smoothing": "Lissage",
   "streamline": "Streamline",
   "selectAsset": "Sélectionner une ressource",
-  "clearStyle": "Vider le style"
+  "clearStyle": "Vider le style",
+  "unknownImportType": "Unknown import type",
+  "sureImportTemplate": "Are you sure you want to import the template?"
 }
