@@ -454,5 +454,7 @@
   "smoothing": "Suavização",
   "streamline": "Simplificar",
   "selectAsset": "Selecionar arquivo",
-  "clearStyle": "Limpar estilo"
+  "clearStyle": "Limpar estilo",
+  "unknownImportType": "Unknown import type",
+  "sureImportTemplate": "Are you sure you want to import the template?"
 }
