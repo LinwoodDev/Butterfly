@@ -214,7 +214,7 @@
   "currentArea": "Текущая область",
   "fullScreen": "На весь экран",
   "design": "Дизайн",
-  "text": "Text",
+  "text": "Текст",
   "selectSensitivity": "Выберите чувствительность",
   "welcome": "Добро пожаловать в Linwood Butterfly",
   "welcomeContent": "Butterfly — это приложение для заметок, в котором ваши идеи стоят на первом месте. Вы можете рисовать, добавлять тексты и легко экспортировать их на любое устройство. Это приложение работает на Android, Windows, Linux и в Интернете.",
@@ -449,10 +449,10 @@
     }
   },
   "styles": "Styles",
-  "paragraph": "Paragraph",
-  "fontFamily": "Font family",
+  "paragraph": "Пункт 2",
+  "fontFamily": "Семейство шрифтов",
   "smoothing": "Сглаживание",
   "streamline": "Трансляция",
-  "selectAsset": "Select asset",
-  "clearStyle": "Clear style"
+  "selectAsset": "Выберите актив",
+  "clearStyle": "Очистить стиль"
 }
