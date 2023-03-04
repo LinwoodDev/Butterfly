@@ -25,7 +25,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../cubits/current_index.dart';
-import '../dialogs/area/label.dart';
+import '../dialogs/name.dart';
 import '../helpers/num_helper.dart';
 import '../models/text.dart';
 import '../models/viewport.dart';

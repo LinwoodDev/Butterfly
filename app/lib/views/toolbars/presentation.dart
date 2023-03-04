@@ -106,32 +106,32 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           ),
                           MenuItemButton(
                             leadingIcon: const Icon(PhosphorIcons.copyLight),
-                            onPressed: () {},
+                            onPressed: animation == null ? null : () {},
                             child: Text(AppLocalizations.of(context).duplicate),
                           ),
                           MenuItemButton(
                             leadingIcon: const Icon(PhosphorIcons.pencilLight),
-                            onPressed: () {},
+                            onPressed: animation == null ? null : () {},
                             child: Text(AppLocalizations.of(context).edit),
                           ),
                           MenuItemButton(
                             leadingIcon: const Icon(PhosphorIcons.trashLight),
-                            onPressed: () {},
+                            onPressed: animation == null ? null : () {},
                             child: Text(AppLocalizations.of(context).delete),
                           ),
                         ],
                       ),
                       IconButton(
                         icon: const Icon(PhosphorIcons.playLight),
-                        onPressed: () {},
+                        onPressed: animation == null ? null : () {},
                       ),
                       IconButton(
                         icon: const Icon(PhosphorIcons.stopLight),
-                        onPressed: () {},
+                        onPressed: animation == null ? null : () {},
                       ),
                       IconButton(
                         icon: const Icon(PhosphorIcons.recordLight),
-                        onPressed: () {},
+                        onPressed: animation == null ? null : () {},
                       ),
                     ],
                   ),
@@ -190,9 +190,54 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                             ),
                             controller: _durationController,
                             textAlign: TextAlign.center,
-                            onEditingComplete: () {},
-                            onChanged: (value) {},
+                            onEditingComplete: () {
+                              final value =
+                                  int.tryParse(_durationController.text.trim());
+                              if (value != null && value > 0) {
+                                context.read<DocumentBloc>().add(
+                                      DocumentAnimationUpdated(
+                                        animation.name,
+                                        animation.copyWith(duration: value),
+                                      ),
+                                    );
+                              }
+                            },
                           ),
+                        ),
+                        const SizedBox(width: 8),
+                        MenuAnchor(
+                          builder: (context, controller, child) => IconButton(
+                            onPressed: () {
+                              if (controller.isOpen) {
+                                controller.close();
+                              } else {
+                                controller.open();
+                              }
+                            },
+                            icon: const Icon(PhosphorIcons.presentationLight),
+                          ),
+                          menuChildren: [
+                            MenuItemButton(
+                              leadingIcon:
+                                  const Icon(PhosphorIcons.playCircleLight),
+                              child: Text(AppLocalizations.of(context).play),
+                            ),
+                            const Divider(),
+                            MenuItemButton(
+                              leadingIcon:
+                                  const Icon(PhosphorIcons.videoCameraLight),
+                              child: Text(AppLocalizations.of(context).video),
+                            ),
+                            MenuItemButton(
+                              leadingIcon:
+                                  const Icon(PhosphorIcons.filmStripLight),
+                              child: Text(AppLocalizations.of(context).image),
+                            ),
+                            MenuItemButton(
+                              leadingIcon: const Icon(PhosphorIcons.fileLight),
+                              child: Text(AppLocalizations.of(context).pdf),
+                            ),
+                          ],
                         ),
                       ],
                     ),

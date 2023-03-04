@@ -310,3 +310,31 @@ class DocumentPackRemoved extends DocumentEvent {
   @override
   List<Object?> get props => [pack];
 }
+
+class DocumentAnimationAdded extends DocumentEvent {
+  final AnimationTrack animation;
+
+  const DocumentAnimationAdded(this.animation);
+
+  @override
+  List<Object?> get props => [animation];
+}
+
+class DocumentAnimationUpdated extends DocumentEvent {
+  final String name;
+  final AnimationTrack animation;
+
+  const DocumentAnimationUpdated(this.name, this.animation);
+
+  @override
+  List<Object?> get props => [name, animation];
+}
+
+class DocumentAnimationRemoved extends DocumentEvent {
+  final String animation;
+
+  const DocumentAnimationRemoved(this.animation);
+
+  @override
+  List<Object?> get props => [animation];
+}

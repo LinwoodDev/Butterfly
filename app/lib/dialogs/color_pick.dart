@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/import.dart';
+import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/visualizer/int.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -386,35 +387,19 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
 
   Future<void> _createPalette() async {
     final bloc = context.read<DocumentBloc>();
-    final nameController = TextEditingController();
-    final success = await showDialog<bool>(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            actions: [
-              TextButton(
-                  onPressed: () => Navigator.of(ctx).pop(false),
-                  child: Text(AppLocalizations.of(context).cancel)),
-              ElevatedButton(
-                  onPressed: () => Navigator.of(ctx).pop(true),
-                  child: Text(AppLocalizations.of(context).create)),
-            ],
-            title: Text(AppLocalizations.of(context).enterName),
-            content: TextField(
-              decoration: InputDecoration(
-                  filled: true, hintText: AppLocalizations.of(context).name),
-              autofocus: true,
-              controller: nameController,
-              onSubmitted: (value) => Navigator.of(ctx).pop(true),
-            ),
-          ),
-        ) ??
-        false;
-    if (!success) return;
+    final palettes = (bloc.state as DocumentLoadSuccess).document.palettes;
+    final name = await showDialog<String>(
+        context: context,
+        builder: (context) => NameDialog(
+              validator: defaultNameValidator(
+                  context, null, palettes.map((e) => e.name).toList()),
+            ));
+    if (name == null) return;
 
     bloc.add(DocumentPaletteChanged(
       List<ColorPalette>.from(
           (bloc.state as DocumentLoadSuccess).document.palettes)
-        ..add(ColorPalette(name: nameController.text)),
+        ..add(ColorPalette(name: name)),
     ));
   }
 
@@ -422,34 +407,14 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state as DocumentLoadSuccess;
     if (selected >= state.document.palettes.length || selected < 0) return;
-    final nameController =
-        TextEditingController(text: state.document.palettes[selected].name);
-    final success = await showDialog<bool>(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            actions: [
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: Text(AppLocalizations.of(context).cancel)),
-              ElevatedButton(
-                  onPressed: () => Navigator.of(context).pop(true),
-                  child: Text(AppLocalizations.of(context).ok)),
-            ],
-            title: Text(AppLocalizations.of(context).enterName),
-            content: TextField(
-              decoration: InputDecoration(
-                  filled: true, hintText: AppLocalizations.of(context).name),
-              autofocus: true,
-              controller: nameController,
-              onSubmitted: (value) => Navigator.of(ctx).pop(true),
-            ),
-          ),
-        ) ??
-        false;
-    if (!success) return;
     var newPalettes = List<ColorPalette>.from(state.document.palettes);
-    newPalettes[selected] =
-        newPalettes[selected].copyWith(name: nameController.text);
+    final name = await showDialog<String>(
+        context: context,
+        builder: (context) => NameDialog(
+            validator: defaultNameValidator(context, newPalettes[selected].name,
+                newPalettes.map((e) => e.name).toList())));
+    if (name == null) return;
+    newPalettes[selected] = newPalettes[selected].copyWith(name: name);
     bloc.add(DocumentPaletteChanged(newPalettes));
   }
 
