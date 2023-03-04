@@ -37,10 +37,10 @@ FutureOr<AppDocument?> checkFileChanges(
         ),
         actions: [
           TextButton(
-              onPressed: () => Navigator.of(context).pop(null),
+              onPressed: () => Navigator.of(context).pop(false),
               child: Text(AppLocalizations.of(context).cancel)),
           TextButton(
-              onPressed: () => Navigator.of(context).pop(info.load()),
+              onPressed: () => Navigator.of(context).pop(true),
               child: Text(AppLocalizations.of(context).ok)),
         ],
       ),

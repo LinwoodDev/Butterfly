@@ -163,29 +163,25 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                       scrollDirection: Axis.horizontal,
                                       child: Row(
                                         children: [
-                                          DropdownButton<int>(
-                                            alignment: Alignment.center,
-                                            value:
+                                          DropdownMenu<int>(
+                                            initialSelection:
                                                 state.document.palettes.isEmpty
                                                     ? null
                                                     : selected,
-                                            onChanged: (value) {
+                                            onSelected: (value) {
                                               setState(() {
                                                 selected = value ?? selected;
                                               });
                                             },
-                                            items: state.document.palettes
+                                            dropdownMenuEntries: state
+                                                .document.palettes
                                                 .asMap()
-                                                .map((index, palette) {
-                                                  return MapEntry(
-                                                      index,
-                                                      DropdownMenuItem<int>(
-                                                        value: index,
-                                                        child:
-                                                            Text(palette.name),
-                                                      ));
-                                                })
-                                                .values
+                                                .entries
+                                                .map((e) =>
+                                                    DropdownMenuEntry<int>(
+                                                      value: e.key,
+                                                      label: e.value.name,
+                                                    ))
                                                 .toList(),
                                           ),
                                           IconButton(
@@ -543,10 +539,9 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
     super.initState();
   }
 
-  void _changeColor({int? red, int? green, int? blue, int? alpha}) =>
-      setState(() {
-        color = Color.fromARGB(alpha ?? color.alpha, red ?? color.red,
-            green ?? color.green, blue ?? color.blue);
+  void _changeColor({int? red, int? green, int? blue}) => setState(() {
+        color = Color.fromARGB(
+            255, red ?? color.red, green ?? color.green, blue ?? color.blue);
       });
 
   @override
@@ -718,15 +713,6 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
           color: Colors.blue,
           value: color.blue.toDouble(),
           onChanged: (value) => _changeColor(blue: value.toInt()),
-        ),
-        ExactSlider(
-          header: Text(AppLocalizations.of(context).alpha),
-          fractionDigits: 0,
-          defaultValue: 255,
-          min: 0,
-          max: 255,
-          value: color.alpha.toDouble(),
-          onChanged: (value) => _changeColor(alpha: value.toInt()),
         ),
       ]);
 }

@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/dialogs/confirmation.dart';
+import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +52,7 @@ class ImportService {
       {Offset? position, bool meta = true}) async {
     switch (type) {
       case AssetFileType.note:
-        return importNote(bytes, position, meta);
+        return importBfly(bytes, position, meta);
       case AssetFileType.image:
         return importImage(bytes, position);
       case AssetFileType.svg:
@@ -61,18 +64,47 @@ class ImportService {
     }
   }
 
-  void importNote(Uint8List bytes, [Offset? position, bool meta = true]) {
-    final firstPos = position ?? Offset.zero;
-    final doc = const DocumentJsonConverter().fromJson(
-      json.decode(
+  void importBfly(Uint8List bytes, [Offset? position, bool meta = true]) {
+    try {
+      final data = json.decode(
         String.fromCharCodes(bytes),
-      ),
-    );
+      );
+      final type = data['type'];
+      switch (type) {
+        case 'document':
+          _importDocument(data, position, meta);
+          break;
+        case 'template':
+          _importTemplate(data, position, meta);
+          break;
+        case 'pack':
+          _importPack(data, position, meta);
+          break;
+        default:
+          showDialog(
+            context: context,
+            builder: (context) => UnknownImportConfirmationDialog(
+                message: AppLocalizations.of(context).unknownImportType),
+          );
+      }
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
+    }
+  }
+
+  void _importDocument(Map<String, dynamic> data,
+      [Offset? position, bool meta = true]) {
+    final firstPos = position ?? Offset.zero;
+    final doc = const DocumentJsonConverter().fromJson(data);
     if (meta) {
       bloc.add(DocumentUpdated(doc));
     }
     final areas = doc.areas
-        .map((e) => e.copyWith(position: e.position + firstPos))
+        .map((e) => e.copyWith(position: e.position + firstPos.toPoint()))
         .toList();
     final content = doc.content
         .map((e) =>
@@ -86,97 +118,151 @@ class ImportService {
       ..add(ElementsCreated(content));
   }
 
-  Future<void> importImage(Uint8List bytes, [Offset? position]) async {
-    final firstPos = position ?? Offset.zero;
-    final codec = await ui.instantiateImageCodec(bytes);
-    final frame = await codec.getNextFrame();
-    final image = frame.image.clone();
+  Future<void> _importTemplate(Map<String, dynamic> data,
+      [Offset? position, bool meta = true]) async {
+    final template = const TemplateJsonConverter().fromJson(data);
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) =>
+          TemplateImportConfirmationDialog(template: template),
+    );
+    if (result != true) return;
+    if (context.mounted) {
+      context.read<TemplateFileSystem>().updateTemplate(template);
+    }
+  }
 
-    final newBytes = await image.toByteData(format: ui.ImageByteFormat.png);
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return;
-    _submit(elements: [
-      ImageElement(
-          height: image.height.toDouble(),
-          width: image.width.toDouble(),
-          layer: state.currentLayer,
-          pixels: newBytes?.buffer.asUint8List() ?? Uint8List(0),
-          position: firstPos)
-    ], choosePosition: position == null);
+  Future<void> _importPack(Map<String, dynamic> data,
+      [Offset? position, bool meta = true]) async {
+    final pack = const PackJsonConverter().fromJson(data);
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) => PackImportConfirmationDialog(pack: pack),
+    );
+    if (result != true) return;
+    if (context.mounted) {
+      context.read<PackFileSystem>().updatePack(pack);
+    }
+  }
+
+  Future<void> importImage(Uint8List bytes, [Offset? position]) async {
+    try {
+      final firstPos = position ?? Offset.zero;
+      final codec = await ui.instantiateImageCodec(bytes);
+      final frame = await codec.getNextFrame();
+      final image = frame.image.clone();
+
+      final newBytes = await image.toByteData(format: ui.ImageByteFormat.png);
+      final state = bloc.state;
+      if (state is! DocumentLoadSuccess) return;
+      _submit(elements: [
+        ImageElement(
+            height: image.height.toDouble(),
+            width: image.width.toDouble(),
+            layer: state.currentLayer,
+            pixels: newBytes?.buffer.asUint8List() ?? Uint8List(0),
+            position: firstPos.toPoint())
+      ], choosePosition: position == null);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
+    }
   }
 
   Future<void> importSvg(Uint8List bytes, [Offset? position]) async {
-    final firstPos = position ?? Offset.zero;
-    final contentString = String.fromCharCodes(bytes);
     try {
-      var document = await vg.loadPicture(SvgStringLoader(contentString), null);
-      final size = document.size;
-      var height = size.height, width = size.width;
-      if (!height.isFinite) height = 0;
-      if (!width.isFinite) width = 0;
-      _submit(elements: [
-        SvgElement(
-          width: width,
-          height: height,
-          data: contentString,
-          position: firstPos,
-        ),
-      ], choosePosition: position == null);
-    } catch (e, stackTrace) {
-      showDialog<void>(
-          context: context,
-          builder: (context) => ErrorDialog(
-                error: e,
-                stackTrace: stackTrace,
-              ));
+      final firstPos = position ?? Offset.zero;
+      final contentString = String.fromCharCodes(bytes);
+      try {
+        var document =
+            await vg.loadPicture(SvgStringLoader(contentString), null);
+        final size = document.size;
+        var height = size.height, width = size.width;
+        if (!height.isFinite) height = 0;
+        if (!width.isFinite) width = 0;
+        _submit(elements: [
+          SvgElement(
+            width: width,
+            height: height,
+            data: contentString,
+            position: firstPos.toPoint(),
+          ),
+        ], choosePosition: position == null);
+      } catch (e, stackTrace) {
+        showDialog<void>(
+            context: context,
+            builder: (context) => ErrorDialog(
+                  error: e,
+                  stackTrace: stackTrace,
+                ));
+      }
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
     }
   }
 
   Future<void> importPdf(Uint8List bytes,
       [Offset? position, bool createAreas = false]) async {
-    final firstPos = position ?? Offset.zero;
-    final elements = <Uint8List>[];
-    final localizations = AppLocalizations.of(context);
-    await for (var page in Printing.raster(bytes)) {
-      final png = await page.toPng();
-      elements.add(png);
-    }
-    if (context.mounted) {
-      final callback = await showDialog<PageDialogCallback>(
-          context: context, builder: (context) => PagesDialog(pages: elements));
-      if (callback == null) return;
-      final selectedElements = <ImageElement>[];
-      final areas = <Area>[];
-      var y = firstPos.dx;
-      await for (var page in Printing.raster(bytes,
-          pages: callback.pages, dpi: PdfPageFormat.inch * callback.quality)) {
+    try {
+      final firstPos = position ?? Offset.zero;
+      final elements = <Uint8List>[];
+      final localizations = AppLocalizations.of(context);
+      await for (var page in Printing.raster(bytes)) {
         final png = await page.toPng();
-        final scale = 1 / callback.quality;
-        final height = page.height;
-        final width = page.width;
-        selectedElements.add(ImageElement(
-            height: height.toDouble(),
-            width: width.toDouble(),
-            pixels: png,
-            constraints:
-                ElementConstraints.scaled(scaleX: scale, scaleY: scale),
-            position: Offset(firstPos.dx, y)));
-        if (createAreas) {
-          areas.add(Area(
-            height: height * scale,
-            width: width * scale,
-            position: Offset(firstPos.dx, y),
-            name: localizations.pageIndex(areas.length + 1),
-          ));
-        }
-        if (createAreas) {
-          bloc.add(AreasCreated(areas));
-        }
+        elements.add(png);
       }
-      _submit(
-        elements: selectedElements,
-        areas: createAreas ? areas : [],
-        choosePosition: position == null,
+      if (context.mounted) {
+        final callback = await showDialog<PageDialogCallback>(
+            context: context,
+            builder: (context) => PagesDialog(pages: elements));
+        if (callback == null) return;
+        final selectedElements = <ImageElement>[];
+        final areas = <Area>[];
+        var y = firstPos.dx;
+        await for (var page in Printing.raster(bytes,
+            pages: callback.pages,
+            dpi: PdfPageFormat.inch * callback.quality)) {
+          final png = await page.toPng();
+          final scale = 1 / callback.quality;
+          final height = page.height;
+          final width = page.width;
+          selectedElements.add(ImageElement(
+              height: height.toDouble(),
+              width: width.toDouble(),
+              pixels: png,
+              constraints:
+                  ElementConstraints.scaled(scaleX: scale, scaleY: scale),
+              position: Point(firstPos.dx, y)));
+          if (createAreas) {
+            areas.add(Area(
+              height: height * scale,
+              width: width * scale,
+              position: Point(firstPos.dx, y),
+              name: localizations.pageIndex(areas.length + 1),
+            ));
+          }
+          if (createAreas) {
+            bloc.add(AreasCreated(areas));
+          }
+        }
+        _submit(
+          elements: selectedElements,
+          areas: createAreas ? areas : [],
+          choosePosition: position == null,
+        );
+      }
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
       );
     }
   }

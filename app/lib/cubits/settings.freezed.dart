@@ -779,7 +779,6 @@ mixin _$ButterflySettings {
   String get design => throw _privateConstructorUsedError;
   List<AssetLocation> get history => throw _privateConstructorUsedError;
   bool get startEnabled => throw _privateConstructorUsedError;
-  bool get colorEnabled => throw _privateConstructorUsedError;
   String? get lastVersion => throw _privateConstructorUsedError;
   List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
   String get defaultRemote => throw _privateConstructorUsedError;
@@ -815,7 +814,6 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       String design,
       List<AssetLocation> history,
       bool startEnabled,
-      bool colorEnabled,
       String? lastVersion,
       List<RemoteStorage> remotes,
       String defaultRemote,
@@ -854,7 +852,6 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? design = null,
     Object? history = null,
     Object? startEnabled = null,
-    Object? colorEnabled = null,
     Object? lastVersion = freezed,
     Object? remotes = null,
     Object? defaultRemote = null,
@@ -916,10 +913,6 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
       startEnabled: null == startEnabled
           ? _value.startEnabled
           : startEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      colorEnabled: null == colorEnabled
-          ? _value.colorEnabled
-          : colorEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       lastVersion: freezed == lastVersion
           ? _value.lastVersion
@@ -988,7 +981,6 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       String design,
       List<AssetLocation> history,
       bool startEnabled,
-      bool colorEnabled,
       String? lastVersion,
       List<RemoteStorage> remotes,
       String defaultRemote,
@@ -1026,7 +1018,6 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? design = null,
     Object? history = null,
     Object? startEnabled = null,
-    Object? colorEnabled = null,
     Object? lastVersion = freezed,
     Object? remotes = null,
     Object? defaultRemote = null,
@@ -1089,10 +1080,6 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.startEnabled
           : startEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
-      colorEnabled: null == colorEnabled
-          ? _value.colorEnabled
-          : colorEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
       lastVersion: freezed == lastVersion
           ? _value.lastVersion
           : lastVersion // ignore: cast_nullable_to_non_nullable
@@ -1146,7 +1133,6 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.design = '',
       final List<AssetLocation> history = const [],
       this.startEnabled = true,
-      this.colorEnabled = true,
       this.lastVersion,
       final List<RemoteStorage> remotes = const [],
       this.defaultRemote = '',
@@ -1205,9 +1191,6 @@ class _$_ButterflySettings extends _ButterflySettings {
   @JsonKey()
   final bool startEnabled;
   @override
-  @JsonKey()
-  final bool colorEnabled;
-  @override
   final String? lastVersion;
   final List<RemoteStorage> _remotes;
   @override
@@ -1239,7 +1222,7 @@ class _$_ButterflySettings extends _ButterflySettings {
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, colorEnabled: $colorEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack)';
   }
 
   @override
@@ -1270,8 +1253,6 @@ class _$_ButterflySettings extends _ButterflySettings {
             const DeepCollectionEquality().equals(other._history, _history) &&
             (identical(other.startEnabled, startEnabled) ||
                 other.startEnabled == startEnabled) &&
-            (identical(other.colorEnabled, colorEnabled) ||
-                other.colorEnabled == colorEnabled) &&
             (identical(other.lastVersion, lastVersion) ||
                 other.lastVersion == lastVersion) &&
             const DeepCollectionEquality().equals(other._remotes, _remotes) &&
@@ -1305,7 +1286,6 @@ class _$_ButterflySettings extends _ButterflySettings {
         design,
         const DeepCollectionEquality().hash(_history),
         startEnabled,
-        colorEnabled,
         lastVersion,
         const DeepCollectionEquality().hash(_remotes),
         defaultRemote,
@@ -1339,7 +1319,6 @@ abstract class _ButterflySettings extends ButterflySettings {
       final String design,
       final List<AssetLocation> history,
       final bool startEnabled,
-      final bool colorEnabled,
       final String? lastVersion,
       final List<RemoteStorage> remotes,
       final String defaultRemote,
@@ -1376,8 +1355,6 @@ abstract class _ButterflySettings extends ButterflySettings {
   List<AssetLocation> get history;
   @override
   bool get startEnabled;
-  @override
-  bool get colorEnabled;
   @override
   String? get lastVersion;
   @override

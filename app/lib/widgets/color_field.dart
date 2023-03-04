@@ -6,7 +6,7 @@ import '../bloc/document_bloc.dart';
 import '../dialogs/color_pick.dart';
 
 class ColorField extends StatelessWidget {
-  final bool enabled;
+  final bool enabled, custom;
   final Color value;
   final Color? defaultColor;
   final Widget? title;
@@ -19,6 +19,7 @@ class ColorField extends StatelessWidget {
       {super.key,
       this.value = Colors.white,
       this.defaultColor,
+      this.custom = false,
       this.enabled = true,
       this.leading,
       this.title,
@@ -31,12 +32,23 @@ class ColorField extends StatelessWidget {
     return ListTile(
       onTap: () async {
         onOpen?.call();
-        var nextColor = await showDialog<int>(
+        int? nextColor;
+        if (custom) {
+          final response = await showDialog<ColorPickerResponse>(
             context: context,
-            builder: (ctx) => BlocProvider.value(
-                  value: context.read<DocumentBloc>(),
-                  child: ColorPickerDialog(defaultColor: value),
-                ));
+            builder: (ctx) => CustomColorPicker(
+              defaultColor: value,
+            ),
+          );
+          nextColor = response?.color;
+        } else {
+          nextColor = await showDialog<int>(
+              context: context,
+              builder: (ctx) => BlocProvider.value(
+                    value: context.read<DocumentBloc>(),
+                    child: ColorPickerDialog(defaultColor: value),
+                  ));
+        }
         if (nextColor != null) {
           onChanged?.call(Color(nextColor));
         }

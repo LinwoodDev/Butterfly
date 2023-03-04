@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class LaserHandler extends Handler {
+class LaserHandler extends Handler<LaserPainter> {
   Map<int, PenElement> elements = {};
   List<PenElement> submittedElements = [];
   DateTime? _lastChanged;
@@ -132,8 +132,8 @@ class LaserHandler extends Handler {
 
     elements[pointer] = element.copyWith(
         points: List<PathPoint>.from(element.points)
-          ..add(PathPoint.fromOffset(
-              transform.localToGlobal(localPosition), pressure)));
+          ..add(PathPoint.fromPoint(
+              transform.localToGlobal(localPosition).toPoint(), pressure)));
     bloc.refresh();
     _startTimer(bloc);
   }
@@ -171,7 +171,7 @@ class LaserHandler extends Handler {
         onChanged: (value) {
           final bloc = context.read<DocumentBloc>();
           bloc.add(PaintersChanged({
-            data: data.copyWith(color: value),
+            data: data.copyWith(color: convertOldColor(value, data.color)),
           }));
         },
       );

@@ -1,9 +1,9 @@
 import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'document.dart';
 import 'template.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'pack.dart';
@@ -138,30 +138,23 @@ class PackJsonConverter extends JsonConverter<ButterflyPack, Map> {
   }
 }
 
-class OffsetJsonConverter extends JsonConverter<Offset, Map> {
-  const OffsetJsonConverter();
+class DoublePointJsonConverter extends JsonConverter<Point<double>, Map> {
+  const DoublePointJsonConverter();
 
   @override
-  Offset fromJson(Map json) {
-    double x = 0, y = 0;
+  Point<double> fromJson(Map json) {
     final xJson = json['x'];
     final yJson = json['y'];
-    if (xJson is num) {
-      x = xJson.toDouble();
-    } else if (xJson is String) {
-      x = double.parse(xJson);
+    if (xJson is double) {
+      if (yJson is double) {
+        return Point(xJson, yJson);
+      }
     }
-    if (yJson is num) {
-      y = yJson.toDouble();
-    } else if (yJson is String) {
-      y = double.parse(yJson);
-    }
-
-    return Offset(x, y);
+    return Point(0, 0);
   }
 
   @override
-  Map toJson(Offset object) => {'x': object.dx, 'y': object.dy};
+  Map toJson(Point<double> object) => {'x': object.x, 'y': object.y};
 }
 
 class Uint8ListJsonConverter extends JsonConverter<Uint8List, String> {

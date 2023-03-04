@@ -31,5 +31,5 @@ class AreaForegroundRenderer extends Renderer<Area> {
 
   @override
   Rect get rect => Rect.fromLTWH(
-      element.position.dx, element.position.dy, element.width, element.height);
+      element.position.x, element.position.y, element.width, element.height);
 }

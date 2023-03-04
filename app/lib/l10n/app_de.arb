@@ -55,6 +55,7 @@
   "turkish": "Türkisch",
   "portugueseBrazil": "Portugiesisch (Brasilien)",
   "thai": "Thailändisch",
+  "russian": "Russisch",
   "defaultLocale": "Standardsprache",
   "information": "Informationen",
   "license": "Lizenz",
@@ -213,7 +214,7 @@
   "currentArea": "Aktueller Bereich",
   "fullScreen": "Vollbild",
   "design": "Design",
-  "textField": "Textfeld",
+  "text": "Text",
   "selectSensitivity": "Empfindlichkeit auswählen",
   "welcome": "Willkommen bei Linwood Butterfly",
   "welcomeContent": "Schmetterling ist eine Notiz-App, bei der Ihre Ideen an erster Stelle stehen. Sie können Texte malen, hinzufügen und auf jedem Gerät einfach exportieren. Diese App funktioniert auf Android, Windows, Linux und im Web.",
@@ -230,7 +231,7 @@
   "releaseNotes": "Versionshinweise",
   "constraints": "Einschränkungen",
   "scaled": "Skaliert",
-  "fixed": "Feste",
+  "fixed": "Fixiert",
   "dynamicContent": "Dynamisch",
   "none": "Keine",
   "includeArea": "Bereich einbeziehen",
@@ -289,10 +290,9 @@
   "quality": "Qualität",
   "exportPdf": "PDF exportieren",
   "local": "Lokal",
-  "addRemote": "Remote hinzufügen",
-  "remotes": "Entfernte",
-  "noRemotes": "Keine Fernbedienungen",
-  "configureRemotes": "Remotes konfigurieren",
+  "addConnection": "Verbindung hinzufügen",
+  "connections": "Verbindungen",
+  "noConnections": "Keine Verbindungen",
   "url": "URL",
   "connect": "Verbinden",
   "username": "Benutzername",
@@ -302,10 +302,9 @@
   "directory": "Verzeichnis",
   "documentsDirectory": "Dokumentenverzeichnis",
   "templatesDirectory": "Vorlagenverzeichnis",
-  "errorWhileCreatingRemote": "Fehler beim Erstellen des Remote",
-  "cannotConnectToRemote": "Kann nicht mit Remote verbinden",
+  "errorWhileCreatingConnection": "Fehler beim Erstellen der Verbindung",
+  "cannotConnect": "Verbindung nicht möglich",
   "urlNotValid": "URL ungültig",
-  "remote": "Entfernt",
   "icon": "Symbol",
   "update": "Aktualisieren",
   "updateAvailable": "Update verfügbar",
@@ -335,25 +334,25 @@
   "notSynced": "Nicht synchronisiert",
   "conflict": "Konflikt",
   "keepLocal": "Lokal behalten",
-  "keepRemote": "Behalte externe Änderungen",
+  "keepConnection": "Verbindung behalten",
   "keepBoth": "Beides behalten",
   "forAll": "Für alle",
-  "fileConflict": "{file} in {remote} hat einen Konflikt",
+  "fileConflict": "{file} in {connection} hat einen Konflikt",
   "@fileConflict": {
     "placeholders": {
       "file": {
         "type": "String",
         "example": "file.txt"
       },
-      "remote": {
+      "connection": {
         "type": "String",
-        "example": "remote"
+        "example": "localhost"
       }
     }
   },
   "offline": "Offline",
   "localLatest": "Lokale neueste",
-  "remoteLatest": "Remote-neueste",
+  "connectionLatest": "Neueste Verbindung",
   "path": "Pfad",
   "folderSynced": "Ordner synchronisiert",
   "syncRootDirectory": "Sync-Stammverzeichnis",
@@ -449,6 +448,13 @@
       }
     }
   },
+  "styles": "Styles",
+  "paragraph": "Absatz",
+  "fontFamily": "Schriftfamilie",
   "smoothing": "Glättung",
-  "streamline": "Streamline"
+  "streamline": "Streamline",
+  "selectAsset": "Asset auswählen",
+  "clearStyle": "Stil löschen",
+  "unknownImportType": "Unknown import type",
+  "sureImportTemplate": "Are you sure you want to import the template?"
 }

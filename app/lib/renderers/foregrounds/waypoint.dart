@@ -1,4 +1,5 @@
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly/helpers/point_helper.dart';
 
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -19,7 +20,7 @@ class WaypointForegroundRenderer extends Renderer<Waypoint> {
     final paint = Paint()
       ..style = PaintingStyle.fill
       ..color = colorScheme?.primary ?? Colors.blue;
-    canvas.drawCircle(element.position, radius, paint);
+    canvas.drawCircle(element.position.toOffset(), radius, paint);
     final painter = TextPainter(
       textDirection: TextDirection.ltr,
       text: TextSpan(
@@ -34,8 +35,8 @@ class WaypointForegroundRenderer extends Renderer<Waypoint> {
     painter.paint(
       canvas,
       Offset(
-        element.position.dx - painter.width / 2,
-        element.position.dy + radius,
+        element.position.x - painter.width / 2,
+        element.position.y + radius,
       ),
     );
   }

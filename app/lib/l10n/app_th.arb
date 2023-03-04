@@ -55,6 +55,7 @@
   "turkish": "ภาษาตุรกี",
   "portugueseBrazil": "ภาษาโปรตุเกส (บราซิล)",
   "thai": "ภาษาไทย",
+  "russian": "Russian",
   "defaultLocale": "ภาษาเริ่มต้น",
   "information": "ข้อมูล",
   "license": "ใบอนุญาต",
@@ -213,7 +214,7 @@
   "currentArea": "Current area",
   "fullScreen": "เต็มหน้าจอ",
   "design": "การออกแบบ",
-  "textField": "ฟิลด์ข้อความ",
+  "text": "Text",
   "selectSensitivity": "Select sensitivity",
   "welcome": "Welcome to Linwood Butterfly",
   "welcomeContent": "Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device. This app works on Android, Windows, Linux and in the web.",
@@ -289,10 +290,9 @@
   "quality": "คุณภาพ",
   "exportPdf": "ส่งออกเป็น PDF",
   "local": "ภาษาท้องถิ่น",
-  "addRemote": "เพิ่มการควบคุมระยะไกล",
-  "remotes": "ระยะไกล",
-  "noRemotes": "ไม่มีรีโมท",
-  "configureRemotes": "Configure remotes",
+  "addConnection": "Add connection",
+  "connections": "Connections",
+  "noConnections": "No connections",
   "url": "URL",
   "connect": "เชื่อมต่อ",
   "username": "ชื่อผู้ใช้",
@@ -302,10 +302,9 @@
   "directory": "ไดเรกทรอรี",
   "documentsDirectory": "Documents directory",
   "templatesDirectory": "Templates directory",
-  "errorWhileCreatingRemote": "Error while creating remote",
-  "cannotConnectToRemote": "Cannot connect to remote",
+  "errorWhileCreatingConnection": "Error while creating connection",
+  "cannotConnect": "Cannot connect",
   "urlNotValid": "URL not valid",
-  "remote": "Remote",
   "icon": "ไอคอน",
   "update": "อัพเดต",
   "updateAvailable": "Update available",
@@ -335,25 +334,25 @@
   "notSynced": "Not synced",
   "conflict": "Conflict",
   "keepLocal": "Keep local",
-  "keepRemote": "Keep remote",
+  "keepConnection": "Keep connection",
   "keepBoth": "Keep both",
   "forAll": "For all",
-  "fileConflict": "{file} in {remote} has a conflict",
+  "fileConflict": "{file} in {connection} has a conflict",
   "@fileConflict": {
     "placeholders": {
       "file": {
         "type": "String",
         "example": "file.txt"
       },
-      "remote": {
+      "connection": {
         "type": "String",
-        "example": "remote"
+        "example": "localhost"
       }
     }
   },
   "offline": "Offline",
   "localLatest": "Local latest",
-  "remoteLatest": "Remote latest",
+  "connectionLatest": "Connection latest",
   "path": "Path",
   "folderSynced": "Folder synced",
   "syncRootDirectory": "Sync root directory",
@@ -449,6 +448,13 @@
       }
     }
   },
+  "styles": "Styles",
+  "paragraph": "Paragraph",
+  "fontFamily": "Font family",
   "smoothing": "Smoothing",
-  "streamline": "Streamline"
+  "streamline": "Streamline",
+  "selectAsset": "Select asset",
+  "clearStyle": "Clear style",
+  "unknownImportType": "Unknown import type",
+  "sureImportTemplate": "Are you sure you want to import the template?"
 }

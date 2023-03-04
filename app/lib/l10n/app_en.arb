@@ -55,6 +55,7 @@
   "turkish": "Turkish",
   "portugueseBrazil": "Portuguese (Brazil)",
   "thai": "Thai",
+  "russian": "Russian",
   "defaultLocale": "Default locale",
   "information": "Information",
   "license": "License",
@@ -289,10 +290,9 @@
   "quality": "Quality",
   "exportPdf": "Export PDF",
   "local": "Local",
-  "addRemote": "Add remote",
-  "remotes": "Remotes",
-  "noRemotes": "No remotes",
-  "configureRemotes": "Configure remotes",
+  "addConnection": "Add connection",
+  "connections": "Connections",
+  "noConnections": "No connections",
   "url": "URL",
   "connect": "Connect",
   "username": "Username",
@@ -302,10 +302,9 @@
   "directory": "Directory",
   "documentsDirectory": "Documents directory",
   "templatesDirectory": "Templates directory",
-  "errorWhileCreatingRemote": "Error while creating remote",
-  "cannotConnectToRemote": "Cannot connect to remote",
+  "errorWhileCreatingConnection": "Error while creating connection",
+  "cannotConnect": "Cannot connect",
   "urlNotValid": "URL not valid",
-  "remote": "Remote",
   "icon": "Icon",
   "update": "Update",
   "updateAvailable": "Update available",
@@ -335,25 +334,25 @@
   "notSynced": "Not synced",
   "conflict": "Conflict",
   "keepLocal": "Keep local",
-  "keepRemote": "Keep remote",
+  "keepConnection": "Keep connection",
   "keepBoth": "Keep both",
   "forAll": "For all",
-  "fileConflict": "{file} in {remote} has a conflict",
+  "fileConflict": "{file} in {connection} has a conflict",
   "@fileConflict": {
     "placeholders": {
       "file": {
         "type": "String",
         "example": "file.txt"
       },
-      "remote": {
+      "connection": {
         "type": "String",
-        "example": "remote"
+        "example": "localhost"
       }
     }
   },
   "offline": "Offline",
   "localLatest": "Local latest",
-  "remoteLatest": "Remote latest",
+  "connectionLatest": "Connection latest",
   "path": "Path",
   "folderSynced": "Folder synced",
   "syncRootDirectory": "Sync root directory",
@@ -454,5 +453,9 @@
   "fontFamily": "Font family",
   "smoothing": "Smoothing",
   "streamline": "Streamline",
-  "presentation": "Presentation"
+  "presentation": "Presentation",
+  "selectAsset": "Select asset",
+  "clearStyle": "Clear style",
+  "unknownImportType": "Unknown import type",
+  "sureImportTemplate": "Are you sure you want to import the template?"
 }

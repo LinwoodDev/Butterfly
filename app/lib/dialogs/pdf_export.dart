@@ -107,8 +107,8 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                             future: currentIndex.render(state.document,
                                 width: area.width.ceil(),
                                 height: area.height.ceil(),
-                                x: area.position.dx,
-                                y: area.position.dy),
+                                x: area.position.x,
+                                y: area.position.y),
                             builder: (context, snapshot) => _AreaPreview(
                               area: area,
                               quality: e.quality,

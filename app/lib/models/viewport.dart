@@ -47,6 +47,8 @@ class CameraViewport extends Equatable {
       this.x = 0,
       this.y = 0});
 
+  get center => null;
+
   ui.Offset toOffset() => ui.Offset(x, y);
 
   ui.Size toSize() => ui.Size(width?.toDouble() ?? 0, height?.toDouble() ?? 0);

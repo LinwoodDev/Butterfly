@@ -127,24 +127,27 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                     const SizedBox(height: 8),
                     const Divider(),
                     const SizedBox(height: 8),
-                    ListTile(
-                      leading: const Icon(PhosphorIcons.imageLight),
-                      title: Text(AppLocalizations.of(context).background),
-                      subtitle: Text(context.getShortcut('B')),
-                      onTap: () {
+                    MenuItemButton(
+                      leadingIcon: const Icon(PhosphorIcons.imageLight),
+                      shortcut: const SingleActivator(LogicalKeyboardKey.keyB,
+                          control: true),
+                      onPressed: () {
                         Actions.maybeInvoke<BackgroundIntent>(
                             context, BackgroundIntent(context));
                       },
+                      child: Text(AppLocalizations.of(context).background),
                     ),
                     if (state.embedding?.editable ?? true)
-                      ListTile(
-                          leading: const Icon(PhosphorIcons.paletteLight),
-                          title: Text(AppLocalizations.of(context).color),
-                          subtitle: Text(context.getShortcut('P')),
-                          onTap: () {
-                            Actions.maybeInvoke<ColorPaletteIntent>(
-                                context, ColorPaletteIntent(context));
-                          }),
+                      MenuItemButton(
+                        leadingIcon: const Icon(PhosphorIcons.paletteLight),
+                        shortcut: const SingleActivator(LogicalKeyboardKey.keyP,
+                            control: true),
+                        onPressed: () {
+                          Actions.maybeInvoke<ColorPaletteIntent>(
+                              context, ColorPaletteIntent(context));
+                        },
+                        child: Text(AppLocalizations.of(context).color),
+                      ),
                   ],
                 ),
                 Column(children: [
@@ -185,8 +188,8 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                   OffsetPropertyView(
                     title: Text(AppLocalizations.of(context).position),
                     onChanged: (value) => widget.onStateChanged(
-                        widget.state.copyWith(rulerPosition: value)),
-                    value: widget.state.rulerPosition,
+                        widget.state.copyWith(rulerPosition: value.toPoint())),
+                    value: widget.state.rulerPosition.toOffset(),
                   ),
                   const SizedBox(height: 8),
                   ExactSlider(

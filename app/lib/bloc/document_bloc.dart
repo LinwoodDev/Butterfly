@@ -37,6 +37,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
   DocumentBloc.error(String message) : super(DocumentLoadFailure(message));
 
+  DocumentBloc.placeholder() : super(const DocumentLoadFailure(''));
+
   void _init() {
     on<DocumentUpdated>((event, emit) async {
       final current = state;

@@ -24,7 +24,7 @@ class PacksAction extends Action<PacksIntent> {
       builder: (context) => MultiBlocProvider(providers: [
         BlocProvider.value(value: transformCubit),
         BlocProvider.value(value: bloc),
-      ], child: PacksDialog(showDocument: intent.showDocument)),
+      ], child: PacksDialog(globalOnly: !intent.showDocument)),
     );
   }
 }

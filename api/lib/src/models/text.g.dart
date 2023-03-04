@@ -8,20 +8,18 @@ part of 'text.dart';
 
 _$DefinedSpanProperty _$$DefinedSpanPropertyFromJson(Map json) =>
     _$DefinedSpanProperty(
-      size: (json['size'] as num?)?.toDouble() ?? 12,
-      color: json['color'] as int? ?? kColorBlack,
-      fontWeight: json['fontWeight'] as int? ?? kFontWeightNormal,
-      lineThrough: json['lineThrough'] as bool? ?? false,
-      underline: json['underline'] as bool? ?? false,
-      overline: json['overline'] as bool? ?? false,
-      italic: json['italic'] as bool? ?? false,
-      letterSpacing: (json['letterSpacing'] as num?)?.toDouble() ?? 0,
-      decorationColor: json['decorationColor'] as int? ?? kColorBlack,
+      size: (json['size'] as num?)?.toDouble(),
+      color: json['color'] as int?,
+      fontWeight: json['fontWeight'] as int?,
+      lineThrough: json['lineThrough'] as bool?,
+      underline: json['underline'] as bool?,
+      overline: json['overline'] as bool?,
+      italic: json['italic'] as bool?,
+      letterSpacing: (json['letterSpacing'] as num?)?.toDouble(),
+      decorationColor: json['decorationColor'] as int?,
       decorationStyle: $enumDecodeNullable(
-              _$TextDecorationStyleEnumMap, json['decorationStyle']) ??
-          TextDecorationStyle.solid,
-      decorationThickness:
-          (json['decorationThickness'] as num?)?.toDouble() ?? 1,
+          _$TextDecorationStyleEnumMap, json['decorationStyle']),
+      decorationThickness: (json['decorationThickness'] as num?)?.toDouble(),
       $type: json['type'] as String?,
     );
 
@@ -37,8 +35,7 @@ Map<String, dynamic> _$$DefinedSpanPropertyToJson(
       'italic': instance.italic,
       'letterSpacing': instance.letterSpacing,
       'decorationColor': instance.decorationColor,
-      'decorationStyle':
-          _$TextDecorationStyleEnumMap[instance.decorationStyle]!,
+      'decorationStyle': _$TextDecorationStyleEnumMap[instance.decorationStyle],
       'decorationThickness': instance.decorationThickness,
       'type': instance.$type,
     };

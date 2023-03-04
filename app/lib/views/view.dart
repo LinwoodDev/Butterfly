@@ -160,6 +160,7 @@ class _MainViewViewportState extends State<MainViewViewport>
 
         var openView = false;
         final CurrentIndexCubit cubit = context.read<CurrentIndexCubit>();
+        var point = Offset.zero;
 
         return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
             builder: (context, currentIndex) => Actions(
@@ -210,7 +211,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                               .read<SettingsCubit>()
                               .state
                               .touchSensitivity;
-                          var point = details.localFocalPoint;
                           transformCubit.zoom(
                               (1 - current) / -sensitivity + 1, point);
                           size = details.scale;
@@ -224,11 +224,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                           cubit
                               .getHandler()
                               .onScaleEnd(details, getEventContext());
-                          final currentIndex =
-                              context.read<CurrentIndexCubit>();
-                          final handler = currentIndex.getHandler();
-                          if (handler is! HandHandler &&
-                              !cubit.state.moveEnabled) return;
                           if (!_isScalingDisabled) delayBake();
                           _isScalingDisabled = false;
                         },
@@ -237,6 +232,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                               .getHandler()
                               .onScaleStart(details, getEventContext());
                           size = 1;
+                          point = details.localFocalPoint;
                         },
                         onDoubleTapDown: (details) {
                           cubit

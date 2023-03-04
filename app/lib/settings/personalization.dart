@@ -47,6 +47,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
         return AppLocalizations.of(context).turkish;
       case 'th':
         return AppLocalizations.of(context).thai;
+      case 'ru':
+        return AppLocalizations.of(context).russian;
       case '':
         return AppLocalizations.of(context).defaultLocale;
       default:
@@ -125,14 +127,6 @@ class PersonalizationSettingsPage extends StatelessWidget {
                         onChanged: (value) => context
                             .read<SettingsCubit>()
                             .changeStartEnabled(value),
-                      ),
-                      SwitchListTile(
-                        secondary: const Icon(PhosphorIcons.paletteLight),
-                        title: Text(AppLocalizations.of(context).color),
-                        value: state.colorEnabled,
-                        onChanged: (value) => context
-                            .read<SettingsCubit>()
-                            .changeColorEnabled(value),
                       ),
                       SwitchListTile(
                         value: state.startInFullScreen,

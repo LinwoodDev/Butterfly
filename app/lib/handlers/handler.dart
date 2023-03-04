@@ -5,8 +5,9 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/area/context.dart';
-import 'package:butterfly/dialogs/background/context.dart';
 import 'package:butterfly/dialogs/elements.dart';
+import 'package:butterfly/helpers/offset_helper.dart';
+import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
@@ -25,6 +26,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../cubits/current_index.dart';
 import '../dialogs/area/label.dart';
+import '../helpers/num_helper.dart';
 import '../models/text.dart';
 import '../models/viewport.dart';
 import '../renderers/cursors/eraser.dart';

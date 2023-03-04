@@ -25,7 +25,7 @@ class TextCursor extends Renderer<TextCursorData> {
     const icon = PhosphorIcons.cursorTextLight;
     final property = element.context?.getDefinedProperty(document);
     final iconSize =
-        (property ?? const text.DefinedParagraphProperty()).span.size;
+        (property ?? const text.DefinedParagraphProperty()).span.getSize();
     final iconColor = Color(property?.span.color ??
         colorScheme?.primary.value ??
         Colors.black.value);
@@ -63,15 +63,14 @@ class TextSelectionCursor extends Renderer<TextContext> {
       [ColorScheme? colorScheme, bool foreground = false]) {
     final color = colorScheme?.primary ?? Colors.blue;
     // Paint vertical line
-    final selection =
-        element.selection ?? const TextSelection.collapsed(offset: 0);
+    final selection = element.selection;
     final textElement = element.element;
     if (textElement == null) return;
     final boxes = element.textPainter.getBoxesForSelection(selection);
     for (final box in boxes) {
       final rect = box.toRect().translate(
-            textElement.position.dx,
-            textElement.position.dy,
+            textElement.position.x,
+            textElement.position.y,
           );
       canvas.drawRect(
         rect,
@@ -81,12 +80,14 @@ class TextSelectionCursor extends Renderer<TextContext> {
     // Paint cursor
     final cursorBox =
         element.textPainter.getOffsetForCaret(selection.base, Rect.zero);
+    final height =
+        element.textPainter.getFullHeightForCaret(selection.base, Rect.zero);
     canvas.drawRect(
       Rect.fromLTWH(
-        textElement.position.dx + cursorBox.dx,
-        textElement.position.dy + cursorBox.dy,
-        6,
-        element.textPainter.preferredLineHeight,
+        textElement.position.x + cursorBox.dx - 1,
+        textElement.position.y + cursorBox.dy,
+        2,
+        height ?? element.textPainter.preferredLineHeight,
       ),
       Paint()..color = color,
     );

@@ -1,0 +1,54 @@
+{
+  "title": {
+    "message": "Butterfly",
+    "description": "The title in the navbar"
+  },
+  "item.label.Tutorial": {
+    "message": "Обучение",
+    "description": "Navbar item with label Tutorial"
+  },
+  "item.label.Downloads": {
+    "message": "Загрузки",
+    "description": "Navbar item with label Downloads"
+  },
+  "item.label.Community": {
+    "message": "Сообщество",
+    "description": "Navbar item with label Community"
+  },
+  "item.label.Blog": {
+    "message": "Блог",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.More": {
+    "message": "Ещё",
+    "description": "Navbar item with label More"
+  },
+  "item.label.Discord": {
+    "message": "Discord",
+    "description": "Navbar item with label Discord"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  },
+  "item.label.Crowdin": {
+    "message": "Crowdin",
+    "description": "Navbar item with label Crowdin"
+  },
+  "item.label.Twitter": {
+    "message": "Твиттер",
+    "description": "Navbar item with label Twitter"
+  },
+  "item.label.License": {
+    "message": "Лицензия",
+    "description": "Navbar item with label License"
+  },
+  "item.label.Matrix": {
+    "message": "Матрица",
+    "description": "Navbar item with label Matrix"
+  },
+  "item.label.Mastodon": {
+    "message": "Mastodon",
+    "description": "Navbar item with label Mastodon"
+  }
+}

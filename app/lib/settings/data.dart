@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:archive/archive.dart';
+import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -131,8 +132,12 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                 providers: [
                                   BlocProvider.value(
                                       value: context.read<SettingsCubit>()),
+                                  BlocProvider(
+                                    lazy: false,
+                                    create: (ctx) => DocumentBloc.placeholder(),
+                                  ),
                                 ],
-                                child: const PacksDialog(showDocument: false),
+                                child: const PacksDialog(globalOnly: true),
                               ),
                             );
                           },

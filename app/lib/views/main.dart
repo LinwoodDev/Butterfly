@@ -47,6 +47,7 @@ import '../actions/packs.dart';
 import '../main.dart';
 import 'changes.dart';
 import 'view.dart';
+import 'zoom.dart';
 
 class ProjectPage extends StatefulWidget {
   final AssetLocation? location;
@@ -164,7 +165,7 @@ class _ProjectPageState extends State<ProjectPage> {
           : await formatCurrentDateTime(
               context.read<SettingsCubit>().state.locale);
       var documentOpened = document != null;
-      if (documentOpened) {
+      if (!documentOpened) {
         location = null;
       }
       if (document == null && prefs.containsKey('default_template')) {
@@ -422,6 +423,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                                       child: EditToolbar(
                                                           isMobile: isMobile))),
                                           ]),
+                                      const ZoomView(),
                                       if (isLandscape) property
                                     ],
                                   );

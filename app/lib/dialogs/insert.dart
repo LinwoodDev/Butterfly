@@ -113,7 +113,7 @@ class InsertDialog extends StatelessWidget {
               if (!kIsWeb) {
                 content = await File(e.path ?? '').readAsBytes();
               }
-              importService.importNote(content, position, false);
+              importService.importBfly(content, position, false);
             }),
       ]),
       actions: [

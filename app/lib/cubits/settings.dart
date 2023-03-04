@@ -153,7 +153,6 @@ class ButterflySettings with _$ButterflySettings {
     @Default('') String design,
     @Default([]) List<AssetLocation> history,
     @Default(true) bool startEnabled,
-    @Default(true) bool colorEnabled,
     String? lastVersion,
     @Default([]) List<RemoteStorage> remotes,
     @Default('') String defaultRemote,
@@ -202,7 +201,6 @@ class ButterflySettings with _$ButterflySettings {
           [],
       startEnabled: prefs.getBool('start_enabled') ?? true,
       lastVersion: prefs.getString('last_version'),
-      colorEnabled: prefs.getBool('color_enabled') ?? true,
       remotes: remotes,
       defaultRemote: prefs.getString('default_remote') ?? '',
       nativeWindowTitleBar: prefs.getBool('native_window_title_bar') ?? false,
@@ -242,7 +240,6 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setStringList(
         'history', history.map((e) => json.encode(e.toJson())).toList());
     await prefs.setBool('start_enabled', startEnabled);
-    await prefs.setBool('color_enabled', colorEnabled);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');
     } else if (lastVersion != null) {
@@ -421,13 +418,6 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> resetStartEnabled() => changeStartEnabled(true);
-
-  Future<void> changeColorEnabled(bool value) {
-    emit(state.copyWith(colorEnabled: value));
-    return save();
-  }
-
-  Future<void> resetColorEnabled() => changeColorEnabled(true);
 
   Future<void> changeStartInFullScreen(bool value) {
     emit(state.copyWith(startInFullScreen: value));

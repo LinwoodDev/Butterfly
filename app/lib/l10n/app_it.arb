@@ -55,6 +55,7 @@
   "turkish": "Turco",
   "portugueseBrazil": "Portoghese (Brasile)",
   "thai": "Tailandese",
+  "russian": "Russo",
   "defaultLocale": "Lingua predefinita",
   "information": "Informazioni",
   "license": "Licenza",
@@ -213,7 +214,7 @@
   "currentArea": "Area attuale",
   "fullScreen": "Schermo intero",
   "design": "Design",
-  "textField": "Campo di testo",
+  "text": "Testo",
   "selectSensitivity": "Seleziona sensibilità",
   "welcome": "Benvenuti su Linwood Butterfly",
   "welcomeContent": "Butterfly è un'applicazione per le note dove le tue idee vengono per prime. Puoi dipingere, aggiungere testi ed esportarli facilmente su ogni dispositivo. Questa app funziona su Android, Windows, Linux e sul web.",
@@ -289,10 +290,9 @@
   "quality": "Qualità",
   "exportPdf": "Esporta PDF",
   "local": "Locale",
-  "addRemote": "Aggiungi remoto",
-  "remotes": "Remoti",
-  "noRemotes": "Nessun remoto",
-  "configureRemotes": "Configura i remoti",
+  "addConnection": "Aggiungi connessione",
+  "connections": "Connections",
+  "noConnections": "Nessuna connessione",
   "url": "URL",
   "connect": "Connetti",
   "username": "Username",
@@ -302,10 +302,9 @@
   "directory": "Directory",
   "documentsDirectory": "Directory documenti",
   "templatesDirectory": "Directory template",
-  "errorWhileCreatingRemote": "Errore durante la creazione del remoto",
-  "cannotConnectToRemote": "Impossibile connettersi al remoto",
+  "errorWhileCreatingConnection": "Errore durante la creazione della connessione",
+  "cannotConnect": "Impossibile connettersi",
   "urlNotValid": "URL non valido",
-  "remote": "Remoto",
   "icon": "Icona",
   "update": "Aggiorna",
   "updateAvailable": "Aggiornamento disponibile",
@@ -335,25 +334,25 @@
   "notSynced": "Non sincronizzato",
   "conflict": "Conflitto",
   "keepLocal": "Mantieni locale",
-  "keepRemote": "Mantieni remoto",
+  "keepConnection": "Mantieni connessione",
   "keepBoth": "Mantieni entrambi",
   "forAll": "Per tutti",
-  "fileConflict": "{file} in {remote} ha un conflitto",
+  "fileConflict": "{file} in {connection} ha un conflitto",
   "@fileConflict": {
     "placeholders": {
       "file": {
         "type": "String",
         "example": "file.txt"
       },
-      "remote": {
+      "connection": {
         "type": "String",
-        "example": "remote"
+        "example": "localhost"
       }
     }
   },
   "offline": "Offline",
   "localLatest": "Più recente locale",
-  "remoteLatest": "Più recente remoto",
+  "connectionLatest": "Connessione più recente",
   "path": "Percorso",
   "folderSynced": "Cartella sincronizzata",
   "syncRootDirectory": "Sincronizza directory root",
@@ -449,6 +448,13 @@
       }
     }
   },
+  "styles": "Styles",
+  "paragraph": "Paragrafo",
+  "fontFamily": "Famiglia di caratteri",
   "smoothing": "Levigatura",
-  "streamline": "Affusolare"
+  "streamline": "Affusolare",
+  "selectAsset": "Seleziona asset",
+  "clearStyle": "Cancella stile",
+  "unknownImportType": "Unknown import type",
+  "sureImportTemplate": "Are you sure you want to import the template?"
 }

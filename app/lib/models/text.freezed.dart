@@ -20,8 +20,11 @@ mixin _$TextContext {
   TextPainter get textPainter => throw _privateConstructorUsedError;
   TextElement? get element => throw _privateConstructorUsedError;
   bool get isCreating => throw _privateConstructorUsedError;
-  TextSelection? get selection => throw _privateConstructorUsedError;
-  ParagraphProperty? get forcedProperty => throw _privateConstructorUsedError;
+  TextSelection get selection => throw _privateConstructorUsedError;
+  text.ParagraphProperty? get forcedProperty =>
+      throw _privateConstructorUsedError;
+  text.SpanProperty? get forcedSpanProperty =>
+      throw _privateConstructorUsedError;
   bool? get forceParagraph => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -40,11 +43,13 @@ abstract class $TextContextCopyWith<$Res> {
       TextPainter textPainter,
       TextElement? element,
       bool isCreating,
-      TextSelection? selection,
-      ParagraphProperty? forcedProperty,
+      TextSelection selection,
+      text.ParagraphProperty? forcedProperty,
+      text.SpanProperty? forcedSpanProperty,
       bool? forceParagraph});
 
   $ParagraphPropertyCopyWith<$Res>? get forcedProperty;
+  $SpanPropertyCopyWith<$Res>? get forcedSpanProperty;
 }
 
 /// @nodoc
@@ -64,8 +69,9 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
     Object? textPainter = null,
     Object? element = freezed,
     Object? isCreating = null,
-    Object? selection = freezed,
+    Object? selection = null,
     Object? forcedProperty = freezed,
+    Object? forcedSpanProperty = freezed,
     Object? forceParagraph = freezed,
   }) {
     return _then(_value.copyWith(
@@ -85,14 +91,18 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
           ? _value.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
               as bool,
-      selection: freezed == selection
+      selection: null == selection
           ? _value.selection
           : selection // ignore: cast_nullable_to_non_nullable
-              as TextSelection?,
+              as TextSelection,
       forcedProperty: freezed == forcedProperty
           ? _value.forcedProperty
           : forcedProperty // ignore: cast_nullable_to_non_nullable
-              as ParagraphProperty?,
+              as text.ParagraphProperty?,
+      forcedSpanProperty: freezed == forcedSpanProperty
+          ? _value.forcedSpanProperty
+          : forcedSpanProperty // ignore: cast_nullable_to_non_nullable
+              as text.SpanProperty?,
       forceParagraph: freezed == forceParagraph
           ? _value.forceParagraph
           : forceParagraph // ignore: cast_nullable_to_non_nullable
@@ -111,6 +121,18 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
       return _then(_value.copyWith(forcedProperty: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SpanPropertyCopyWith<$Res>? get forcedSpanProperty {
+    if (_value.forcedSpanProperty == null) {
+      return null;
+    }
+
+    return $SpanPropertyCopyWith<$Res>(_value.forcedSpanProperty!, (value) {
+      return _then(_value.copyWith(forcedSpanProperty: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -126,12 +148,15 @@ abstract class _$$_TextContextCopyWith<$Res>
       TextPainter textPainter,
       TextElement? element,
       bool isCreating,
-      TextSelection? selection,
-      ParagraphProperty? forcedProperty,
+      TextSelection selection,
+      text.ParagraphProperty? forcedProperty,
+      text.SpanProperty? forcedSpanProperty,
       bool? forceParagraph});
 
   @override
   $ParagraphPropertyCopyWith<$Res>? get forcedProperty;
+  @override
+  $SpanPropertyCopyWith<$Res>? get forcedSpanProperty;
 }
 
 /// @nodoc
@@ -149,8 +174,9 @@ class __$$_TextContextCopyWithImpl<$Res>
     Object? textPainter = null,
     Object? element = freezed,
     Object? isCreating = null,
-    Object? selection = freezed,
+    Object? selection = null,
     Object? forcedProperty = freezed,
+    Object? forcedSpanProperty = freezed,
     Object? forceParagraph = freezed,
   }) {
     return _then(_$_TextContext(
@@ -170,14 +196,18 @@ class __$$_TextContextCopyWithImpl<$Res>
           ? _value.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
               as bool,
-      selection: freezed == selection
+      selection: null == selection
           ? _value.selection
           : selection // ignore: cast_nullable_to_non_nullable
-              as TextSelection?,
+              as TextSelection,
       forcedProperty: freezed == forcedProperty
           ? _value.forcedProperty
           : forcedProperty // ignore: cast_nullable_to_non_nullable
-              as ParagraphProperty?,
+              as text.ParagraphProperty?,
+      forcedSpanProperty: freezed == forcedSpanProperty
+          ? _value.forcedSpanProperty
+          : forcedSpanProperty // ignore: cast_nullable_to_non_nullable
+              as text.SpanProperty?,
       forceParagraph: freezed == forceParagraph
           ? _value.forceParagraph
           : forceParagraph // ignore: cast_nullable_to_non_nullable
@@ -194,8 +224,9 @@ class _$_TextContext extends _TextContext {
       required this.textPainter,
       this.element,
       this.isCreating = false,
-      this.selection,
+      this.selection = const TextSelection.collapsed(offset: 0),
       this.forcedProperty,
+      this.forcedSpanProperty,
       this.forceParagraph})
       : super._();
 
@@ -209,15 +240,18 @@ class _$_TextContext extends _TextContext {
   @JsonKey()
   final bool isCreating;
   @override
-  final TextSelection? selection;
+  @JsonKey()
+  final TextSelection selection;
   @override
-  final ParagraphProperty? forcedProperty;
+  final text.ParagraphProperty? forcedProperty;
+  @override
+  final text.SpanProperty? forcedSpanProperty;
   @override
   final bool? forceParagraph;
 
   @override
   String toString() {
-    return 'TextContext(painter: $painter, textPainter: $textPainter, element: $element, isCreating: $isCreating, selection: $selection, forcedProperty: $forcedProperty, forceParagraph: $forceParagraph)';
+    return 'TextContext(painter: $painter, textPainter: $textPainter, element: $element, isCreating: $isCreating, selection: $selection, forcedProperty: $forcedProperty, forcedSpanProperty: $forcedSpanProperty, forceParagraph: $forceParagraph)';
   }
 
   @override
@@ -235,13 +269,23 @@ class _$_TextContext extends _TextContext {
                 other.selection == selection) &&
             (identical(other.forcedProperty, forcedProperty) ||
                 other.forcedProperty == forcedProperty) &&
+            (identical(other.forcedSpanProperty, forcedSpanProperty) ||
+                other.forcedSpanProperty == forcedSpanProperty) &&
             (identical(other.forceParagraph, forceParagraph) ||
                 other.forceParagraph == forceParagraph));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, painter, textPainter, element,
-      isCreating, selection, forcedProperty, forceParagraph);
+  int get hashCode => Object.hash(
+      runtimeType,
+      painter,
+      textPainter,
+      element,
+      isCreating,
+      selection,
+      forcedProperty,
+      forcedSpanProperty,
+      forceParagraph);
 
   @JsonKey(ignore: true)
   @override
@@ -256,8 +300,9 @@ abstract class _TextContext extends TextContext {
       required final TextPainter textPainter,
       final TextElement? element,
       final bool isCreating,
-      final TextSelection? selection,
-      final ParagraphProperty? forcedProperty,
+      final TextSelection selection,
+      final text.ParagraphProperty? forcedProperty,
+      final text.SpanProperty? forcedSpanProperty,
       final bool? forceParagraph}) = _$_TextContext;
   const _TextContext._() : super._();
 
@@ -270,9 +315,11 @@ abstract class _TextContext extends TextContext {
   @override
   bool get isCreating;
   @override
-  TextSelection? get selection;
+  TextSelection get selection;
   @override
-  ParagraphProperty? get forcedProperty;
+  text.ParagraphProperty? get forcedProperty;
+  @override
+  text.SpanProperty? get forcedSpanProperty;
   @override
   bool? get forceParagraph;
   @override

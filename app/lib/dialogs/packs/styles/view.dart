@@ -2,8 +2,11 @@ import 'package:butterfly/dialogs/packs/styles/style.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import '../../../bloc/document_bloc.dart';
 
 class StylesPackView extends StatelessWidget {
   final ButterflyPack value;
@@ -42,13 +45,17 @@ class StylesPackView extends StatelessWidget {
                           title: Text(e.value.name),
                           onTap: () async {
                             var styleSheet = e.value;
+                            final bloc = context.read<DocumentBloc>();
                             final result = await showDialog<bool>(
                               context: context,
-                              builder: (context) => StyleDialog(
-                                value: styleSheet,
-                                onChanged: (value) {
-                                  styleSheet = value;
-                                },
+                              builder: (ctx) => BlocProvider.value(
+                                value: bloc,
+                                child: StyleDialog(
+                                  value: styleSheet,
+                                  onChanged: (value) {
+                                    styleSheet = value;
+                                  },
+                                ),
                               ),
                             );
                             if (result != true) return;

@@ -85,7 +85,8 @@ class PenHandler extends Handler<PenPainter> {
         );
     elements[pointer] = element.copyWith(
         points: List<PathPoint>.from(element.points)
-          ..add(PathPoint.fromOffset(transform.localToGlobal(localPosition),
+          ..add(PathPoint.fromPoint(
+              transform.localToGlobal(localPosition).toPoint(),
               (createNew ? 0 : pressure) / zoom)));
     if (refresh) bloc.refresh();
   }
@@ -125,7 +126,9 @@ class PenHandler extends Handler<PenPainter> {
         onChanged: (value) {
           final bloc = context.read<DocumentBloc>();
           bloc.add(PaintersChanged({
-            data: data.copyWith(property: data.property.copyWith(color: value)),
+            data: data.copyWith(
+                property: data.property.copyWith(
+                    color: convertOldColor(value, data.property.color))),
           }));
         },
       );

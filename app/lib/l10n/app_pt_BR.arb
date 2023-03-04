@@ -55,6 +55,7 @@
   "turkish": "Turco",
   "portugueseBrazil": "Português (Brasil)",
   "thai": "Tailandês",
+  "russian": "Russo",
   "defaultLocale": "Idioma padrão",
   "information": "Informacao",
   "license": "Tipo:",
@@ -213,7 +214,7 @@
   "currentArea": "Área atual",
   "fullScreen": "Tela cheia",
   "design": "Projetar",
-  "textField": "Campo de texto",
+  "text": "texto",
   "selectSensitivity": "Selecione a sensibilidade",
   "welcome": "Bem-vindo à Borboleta Linwood",
   "welcomeContent": "A Borboleta é um aplicativo de notas, onde suas ideias vêm primeiro. Você pode pintar, adicionar textos e exportá-los facilmente em cada dispositivo. Este app funciona no Android, Windows, Linux e na web.",
@@ -289,10 +290,9 @@
   "quality": "Qualidade",
   "exportPdf": "Exportar PDF",
   "local": "Localização",
-  "addRemote": "Adicionar controle",
-  "remotes": "Remotos",
-  "noRemotes": "Sem controles",
-  "configureRemotes": "Configurar controles remotos",
+  "addConnection": "Adicionar conexão",
+  "connections": "Conexões",
+  "noConnections": "Sem conexões",
   "url": "URL:",
   "connect": "Conectar",
   "username": "Usuário:",
@@ -302,10 +302,9 @@
   "directory": "Diretório",
   "documentsDirectory": "Diretório de documentos",
   "templatesDirectory": "Diretório de templates",
-  "errorWhileCreatingRemote": "Erro ao criar o controle",
-  "cannotConnectToRemote": "Não é possível conectar-se ao controle",
+  "errorWhileCreatingConnection": "Erro ao criar a conexão",
+  "cannotConnect": "Impossível conectar",
   "urlNotValid": "URL não é válida",
-  "remote": "Remoto",
   "icon": "Ícone",
   "update": "Atualização",
   "updateAvailable": "Atualização disponível",
@@ -335,25 +334,25 @@
   "notSynced": "Não sincronizado",
   "conflict": "Conflito",
   "keepLocal": "Manter localmente",
-  "keepRemote": "Manter remoto",
+  "keepConnection": "Manter conexão",
   "keepBoth": "Manter ambos",
   "forAll": "Para todos",
-  "fileConflict": "{file} em {remote} tem um conflito",
+  "fileConflict": "{file} em {connection} tem um conflito",
   "@fileConflict": {
     "placeholders": {
       "file": {
         "type": "String",
         "example": "file.txt"
       },
-      "remote": {
+      "connection": {
         "type": "String",
-        "example": "remote"
+        "example": "localhost"
       }
     }
   },
   "offline": "Desconectado",
   "localLatest": "Recente local",
-  "remoteLatest": "Última remota",
+  "connectionLatest": "Conexão mais recente",
   "path": "Caminho",
   "folderSynced": "Pasta sincronizada",
   "syncRootDirectory": "Sincronizar diretório raiz",
@@ -449,6 +448,13 @@
       }
     }
   },
+  "styles": "Styles",
+  "paragraph": "Parágrafo",
+  "fontFamily": "Família da fonte",
   "smoothing": "Suavização",
-  "streamline": "Simplificar"
+  "streamline": "Simplificar",
+  "selectAsset": "Selecionar arquivo",
+  "clearStyle": "Limpar estilo",
+  "unknownImportType": "Unknown import type",
+  "sureImportTemplate": "Are you sure you want to import the template?"
 }

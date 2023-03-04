@@ -1,3 +1,4 @@
+import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';

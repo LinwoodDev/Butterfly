@@ -1,0 +1,1 @@
+* Add check if ruler size is greater than 0

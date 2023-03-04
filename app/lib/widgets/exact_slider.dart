@@ -6,7 +6,7 @@ typedef OnValueChanged = void Function(double value);
 class ExactSlider extends StatefulWidget {
   final String? label;
   final int fractionDigits;
-  final Widget? header;
+  final Widget? header, leading;
   final double defaultValue, min, max;
   final double? value;
   final OnValueChanged? onChanged, onChangeEnd;
@@ -15,6 +15,7 @@ class ExactSlider extends StatefulWidget {
   const ExactSlider(
       {super.key,
       this.label,
+      this.leading,
       this.fractionDigits = 2,
       this.defaultValue = 1,
       this.min = 0,
@@ -116,6 +117,7 @@ class _ExactSliderState extends State<ExactSlider> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.max,
                             children: [
+                              if (widget.leading != null) widget.leading!,
                               Flexible(child: textField),
                               const SizedBox(width: 8),
                               resetButton,
@@ -125,6 +127,7 @@ class _ExactSliderState extends State<ExactSlider> {
                     );
                   }
                   return Row(children: [
+                    if (widget.leading != null) widget.leading!,
                     ConstrainedBox(
                         constraints: const BoxConstraints(maxWidth: 75),
                         child: textField),

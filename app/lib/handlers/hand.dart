@@ -338,7 +338,6 @@ class HandHandler extends Handler<HandPainter> {
       return;
     }
     final position = context.getCameraTransform().localToGlobal(localPosition);
-    final providers = context.getProviders();
     final hits = await rayCast(position, context.buildContext, 0.0);
     final hit = hits.firstOrNull;
     final rect = hit?.rect;
@@ -348,25 +347,8 @@ class HandHandler extends Handler<HandPainter> {
       if (hit != null) _selected.add(hit);
     }
     context.refresh();
-    final actions = context.getActions();
     final buildContext = context.buildContext;
     if (_selected.isEmpty && buildContext.mounted) {
-      await showContextMenu(
-        context: buildContext,
-        position: localPosition,
-        builder: (ctx) => MultiBlocProvider(
-          providers: providers,
-          child: Actions(
-            actions: actions,
-            child: RepositoryProvider.value(
-              value: context.getImportService(),
-              child: BackgroundContextMenu(
-                position: localPosition,
-              ),
-            ),
-          ),
-        ),
-      );
       return;
     }
     if (buildContext.mounted) {
@@ -440,10 +422,11 @@ class HandHandler extends Handler<HandPainter> {
       }
       angle %= 360;
       toolState = toolState.copyWith(
-        rulerPosition: toolState.rulerPosition.translate(
-          details.focalPointDelta.dx,
-          details.focalPointDelta.dy,
-        ),
+        rulerPosition: toolState.rulerPosition +
+            Point(
+              details.focalPointDelta.dx,
+              details.focalPointDelta.dy,
+            ),
         rulerAngle: angle,
       );
       _rotation = currentRotation;

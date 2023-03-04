@@ -26,8 +26,8 @@ import 'settings/data.dart';
 import 'settings/general.dart';
 import 'settings/home.dart';
 import 'settings/personalization.dart';
-import 'settings/remote.dart';
-import 'settings/remotes.dart';
+import 'settings/connection.dart';
+import 'settings/connections.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme/manager.dart';
 import 'views/error.dart';
@@ -180,14 +180,14 @@ class ButterflyApp extends StatelessWidget {
                         builder: (context, state) => const DataSettingsPage(),
                       ),
                       GoRoute(
-                        path: 'remotes',
+                        path: 'connections',
                         builder: (context, state) =>
-                            const RemotesSettingsPage(),
+                            const ConnectionsSettingsPage(),
                         routes: [
                           GoRoute(
                             path: ':id',
-                            builder: (context, state) =>
-                                RemoteSettingsPage(remote: state.params['id']!),
+                            builder: (context, state) => ConnectionSettingsPage(
+                                remote: state.params['id']!),
                           )
                         ],
                       ),
@@ -198,10 +198,7 @@ class ButterflyApp extends StatelessWidget {
               name: 'local',
               path: '/local/:path(.*)',
               builder: (context, state) {
-                final path = state.params['path']
-                    ?.split('/')
-                    .map((e) => Uri.decodeComponent(e))
-                    .join('/');
+                final path = state.params['path'];
                 return ProjectPage(
                     data: state.extra,
                     location: AssetLocation.local(path ?? ''));
@@ -213,10 +210,7 @@ class ButterflyApp extends StatelessWidget {
               builder: (context, state) {
                 final remote =
                     Uri.decodeComponent(state.params['remote'] ?? '');
-                final path = state.params['path']
-                    ?.split('/')
-                    .map((e) => Uri.decodeComponent(e))
-                    .join('/');
+                final path = state.params['path'];
                 return ProjectPage(
                     data: state.extra,
                     location: AssetLocation(remote: remote, path: path ?? ''));

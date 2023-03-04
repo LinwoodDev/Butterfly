@@ -33,8 +33,8 @@ class ShapeHandler extends Handler {
   void _setRect(Offset nextPosition, int index) {
     final element = elements[index];
     if (element == null) return;
-    final currentRect =
-        Rect.fromPoints(element.firstPosition, element.secondPosition);
+    final currentRect = Rect.fromPoints(
+        element.firstPosition.toOffset(), element.secondPosition.toOffset());
     double width = 0, height = 0;
     final nextWidth = nextPosition.dx - currentRect.left;
     final nextHeight = nextPosition.dy - currentRect.top;
@@ -70,15 +70,16 @@ class ShapeHandler extends Handler {
         Offset(currentRect.left + width, currentRect.top + height);
 
     elements[index] = element.copyWith(
-        firstPosition: element.firstPosition, secondPosition: secondPosition);
+        firstPosition: element.firstPosition,
+        secondPosition: secondPosition.toPoint());
   }
 
   ShapeElement _normalizeElement(ShapeElement element) {
     if (element.property.shape is LineShape) return element;
-    var firstX = element.firstPosition.dx;
-    var firstY = element.firstPosition.dy;
-    var secondX = element.secondPosition.dx;
-    var secondY = element.secondPosition.dy;
+    var firstX = element.firstPosition.x;
+    var firstY = element.firstPosition.y;
+    var secondX = element.secondPosition.x;
+    var secondY = element.secondPosition.y;
     if (firstX > secondX) {
       final temp = firstX;
       firstX = secondX;
@@ -90,8 +91,8 @@ class ShapeHandler extends Handler {
       secondY = temp;
     }
     return element.copyWith(
-      firstPosition: Offset(firstX, firstY),
-      secondPosition: Offset(secondX, secondY),
+      firstPosition: Point(firstX, firstY),
+      secondPosition: Point(secondX, secondY),
     );
   }
 
@@ -134,8 +135,8 @@ class ShapeHandler extends Handler {
     if (createNew) {
       elements[pointer] = ShapeElement(
         layer: state.currentLayer,
-        firstPosition: globalPosition,
-        secondPosition: globalPosition,
+        firstPosition: globalPosition.toPoint(),
+        secondPosition: globalPosition.toPoint(),
         property: data.property.copyWith(
           strokeWidth: data.property.strokeWidth / zoom,
         ),
@@ -171,7 +172,9 @@ class ShapeHandler extends Handler {
         onChanged: (value) {
           final bloc = context.read<DocumentBloc>();
           bloc.add(PaintersChanged({
-            data: data.copyWith(property: data.property.copyWith(color: value)),
+            data: data.copyWith(
+                property: data.property.copyWith(
+                    color: convertOldColor(value, data.property.color))),
           }));
         },
       );

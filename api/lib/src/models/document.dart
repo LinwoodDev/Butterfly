@@ -7,7 +7,6 @@ import 'area.dart';
 import 'background.dart';
 import 'converter.dart';
 import 'export.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'element.dart';
@@ -191,14 +190,6 @@ class AppDocument with _$AppDocument {
 
   factory AppDocument.fromJson(Map<String, dynamic> json) =>
       _$AppDocumentFromJson(json);
-
-  Area? getArea(Offset offset) {
-    return areas.firstWhereOrNull((e) => e.hit(offset));
-  }
-
-  Area? getAreaByRect(Rect rect) {
-    return areas.firstWhereOrNull((e) => rect.overlaps(e.rect));
-  }
 
   Area? getAreaByName(String value) {
     return areas.firstWhereOrNull((e) => e.name == value);

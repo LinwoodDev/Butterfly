@@ -17,4 +17,6 @@ extension OffsetHelper on Offset {
         (dx - center.dx) * zoom + center.dx,
         (dy - center.dy) * zoom + center.dy,
       );
+
+  Point<double> toPoint() => Point(dx, dy);
 }

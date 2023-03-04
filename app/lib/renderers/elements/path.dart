@@ -49,7 +49,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       }
       final center = rect.center;
       // 1. Get the outline points from the input points
-      var outlinePoints = getStroke(
+      var outlinePoints = freehand.getStroke(
         points
             .map((e) => e.scale(zoom ?? kMaxZoom, center))
             .map((e) => e.toFreehandPoint())
@@ -65,7 +65,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       outlinePoints = outlinePoints.map((e) {
         var point = Offset(e.x, e.y);
         point = point.scaleFromCenter(1 / currentZoom, center);
-        return Point(point.dx, point.dy, e.p);
+        return freehand.Point(point.dx, point.dy, e.p);
       }).toList();
 
       // 2. Render the points as a path
