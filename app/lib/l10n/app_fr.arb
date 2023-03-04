@@ -214,7 +214,7 @@
   "currentArea": "Zone actuelle",
   "fullScreen": "Plein écran",
   "design": "Conception",
-  "textField": "Champ de texte",
+  "text": "Texte du texte",
   "selectSensitivity": "Sélectionner la sensibilité",
   "welcome": "Bienvenue sur Linwood Butterfly",
   "welcomeContent": "Butterfly est une application de note où vos idées viennent en premier. Vous pouvez peindre, ajouter des textes et les exporter facilement sur chaque appareil. Cette application fonctionne sur Android, Windows, Linux et sur le Web.",
@@ -290,7 +290,7 @@
   "quality": "Qualité",
   "exportPdf": "Exporter en PDF",
   "local": "Locale",
-  "addRemote": "Ajouter à distance",
+  "addConnection": "Ajouter une connexion",
   "connections": "Connexions",
   "noConnections": "Aucune connexion",
   "url": "URL",
@@ -302,10 +302,9 @@
   "directory": "Répertoire",
   "documentsDirectory": "Répertoire des documents",
   "templatesDirectory": "Répertoire des modèles",
-  "errorWhileCreatingRemote": "Erreur lors de la création à distance",
-  "cannotConnectToRemote": "Impossible de se connecter à distance",
+  "errorWhileCreatingConnection": "Erreur lors de la création de la connexion",
+  "cannotConnect": "Impossible de se connecter",
   "urlNotValid": "URL non valide",
-  "remote": "Distante",
   "icon": "Icône",
   "update": "Mise à jour",
   "updateAvailable": "Mise à jour disponible",
@@ -335,25 +334,25 @@
   "notSynced": "Non synchronisé",
   "conflict": "Conflit",
   "keepLocal": "Garder en local",
-  "keepRemote": "Garder distante",
+  "keepConnection": "Garder la connexion",
   "keepBoth": "Garder les deux",
   "forAll": "Pour tous",
-  "fileConflict": "{file} dans {remote} a un conflit",
+  "fileConflict": "{file} dans {connection} a un conflit",
   "@fileConflict": {
     "placeholders": {
       "file": {
         "type": "String",
         "example": "file.txt"
       },
-      "remote": {
+      "connection": {
         "type": "String",
-        "example": "remote"
+        "example": "localhost"
       }
     }
   },
   "offline": "Hors ligne",
   "localLatest": "Dernier jour local",
-  "remoteLatest": "Dernier jour à distance",
+  "connectionLatest": "Dernière connexion",
   "path": "Chemin d'accès",
   "folderSynced": "Dossier synchronisé",
   "syncRootDirectory": "Synchroniser le répertoire racine",
@@ -449,6 +448,13 @@
       }
     }
   },
+  "styles": "Styles",
+  "paragraph": "Paragraphe",
+  "fontFamily": "Famille de police",
   "smoothing": "Lissage",
-  "streamline": "Streamline"
+  "streamline": "Streamline",
+  "selectAsset": "Sélectionner une ressource",
+  "clearStyle": "Vider le style",
+  "unknownImportType": "Unknown import type",
+  "sureImportTemplate": "Are you sure you want to import the template?"
 }

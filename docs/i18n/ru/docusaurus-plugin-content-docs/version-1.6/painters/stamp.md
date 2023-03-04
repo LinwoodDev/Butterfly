@@ -1,6 +1,6 @@
 ---
-title: "Орден"
-sidebar_label: "Форма"
+title: "Штамп"
+sidebar_label: "Фигура"
 sidebar_position: 3
 ---
 

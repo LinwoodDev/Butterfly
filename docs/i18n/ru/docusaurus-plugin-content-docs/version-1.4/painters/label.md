@@ -1,6 +1,6 @@
 ---
 title: "Метка художника"
-sidebar_label: "Метка"
+sidebar_label: "Подпись"
 sidebar_position: 6
 ---
 
