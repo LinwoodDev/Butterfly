@@ -455,6 +455,6 @@
   "streamline": "Трансляция",
   "selectAsset": "Выберите актив",
   "clearStyle": "Очистить стиль",
-  "unknownImportType": "Unknown import type",
-  "sureImportTemplate": "Are you sure you want to import the template?"
+  "unknownImportType": "Неизвестный тип импорта",
+  "sureImportTemplate": "Вы уверены, что хотите импортировать шаблон?"
 }
