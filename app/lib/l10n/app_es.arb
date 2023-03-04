@@ -455,6 +455,6 @@
   "streamline": "Streamline",
   "selectAsset": "Seleccionar recurso",
   "clearStyle": "Borrar estilo",
-  "unknownImportType": "Unknown import type",
-  "sureImportTemplate": "Are you sure you want to import the template?"
+  "unknownImportType": "Tipo de importación desconocido",
+  "sureImportTemplate": "¿Está seguro que desea importar la plantilla?"
 }
