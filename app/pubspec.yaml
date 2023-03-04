@@ -85,7 +85,7 @@ dev_dependencies:
   freezed: ^2.3.2
   build_runner: ^2.3.3
   json_serializable: ^6.6.1
-  espresso: ^0.2.0+10
+  espresso: ^0.2.1
 dependency_overrides:
   archive: 3.3.6
   collection: 1.17.1
