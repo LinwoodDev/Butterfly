@@ -455,6 +455,6 @@
   "streamline": "Affusolare",
   "selectAsset": "Seleziona asset",
   "clearStyle": "Cancella stile",
-  "unknownImportType": "Unknown import type",
-  "sureImportTemplate": "Are you sure you want to import the template?"
+  "unknownImportType": "Tipo di importazione sconosciuto",
+  "sureImportTemplate": "Sei sicuro di voler importare il modello?"
 }
