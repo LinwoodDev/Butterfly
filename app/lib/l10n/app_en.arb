@@ -460,5 +460,6 @@
   "sureImportTemplate": "Are you sure you want to import the template?",
   "frame": "Frame",
   "play": "Play",
-  "video": "Video"
+  "video": "Video",
+  "fps": "FPS"
 }

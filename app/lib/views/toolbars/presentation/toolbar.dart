@@ -1,16 +1,28 @@
 import 'dart:math';
 
+import 'package:butterfly/dialogs/name.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../bloc/document_bloc.dart';
+import '../../../bloc/document_bloc.dart';
+import 'timeline.dart';
 
 class PresentationToolbarView extends StatefulWidget {
+  final ValueChanged<int>? onFrameChanged;
+  final ValueChanged<String?>? onAnimationChanged;
+  final int frame;
+  final String? animation;
+
   const PresentationToolbarView({
     super.key,
+    this.onFrameChanged,
+    this.onAnimationChanged,
+    this.animation,
+    this.frame = 0,
   });
 
   @override
@@ -21,14 +33,45 @@ class PresentationToolbarView extends StatefulWidget {
 class _PresentationToolbarViewState extends State<PresentationToolbarView> {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _frameController = TextEditingController(),
-      _durationController = TextEditingController();
+      _durationController = TextEditingController(),
+      _fpsController = TextEditingController();
   String? _selected;
+  int _frame = 0;
   @override
   void initState() {
     super.initState();
+    _frame = widget.frame;
+    if (widget.animation != null) {
+      _selected = widget.animation;
+    } else {
+      _resetSelection();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant PresentationToolbarView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.frame != widget.frame) {
+      setState(() => _frameController.text = widget.frame.toString());
+    } else if (oldWidget.animation != widget.animation) {
+      setState(() => _selected = widget.animation);
+    }
+  }
+
+  void _setAnimation(String? value) {
+    setState(() => _selected = value);
+    widget.onAnimationChanged?.call(value);
+  }
+
+  void _setFrame(int value) {
+    setState(() => _frame = value);
+    widget.onFrameChanged?.call(value);
+  }
+
+  void _resetSelection() {
     final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return;
-    _selected = state.document.animations.firstOrNull?.name;
+    _setAnimation(state.document.animations.firstOrNull?.name);
   }
 
   @override
@@ -37,17 +80,19 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     _scrollController.dispose();
     _frameController.dispose();
     _durationController.dispose();
+    _fpsController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return const SizedBox();
-    final colorScheme = Theme.of(context).colorScheme;
     final animation =
         _selected == null ? null : state.document.getAnimation(_selected!);
     if (animation != null) {
       _durationController.text = animation.duration.toString();
+      _fpsController.text = animation.fps.toString();
+      _frameController.text = _frame.toString();
     }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -70,6 +115,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                     children: [
                       DropdownMenu<String>(
                         width: 200,
+                        key: UniqueKey(),
                         inputDecorationTheme:
                             const InputDecorationTheme(filled: true),
                         dropdownMenuEntries: state.document.animations
@@ -78,11 +124,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   label: e.name,
                                 ))
                             .toList(),
-                        onSelected: (value) {
-                          setState(() {
-                            _selected = value;
-                          });
-                        },
+                        onSelected: _setAnimation,
                         initialSelection: _selected,
                       ),
                       MenuAnchor(
@@ -101,22 +143,96 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                         menuChildren: [
                           MenuItemButton(
                             leadingIcon: const Icon(PhosphorIcons.plusLight),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final bloc = context.read<DocumentBloc>();
+                              final name = await showDialog<String>(
+                                context: context,
+                                builder: (context) => NameDialog(
+                                  validator: defaultNameValidator(
+                                      context,
+                                      null,
+                                      state.document.animations
+                                          .map((e) => e.name)
+                                          .toList()),
+                                ),
+                              );
+                              if (name == null) return;
+                              bloc.add(
+                                DocumentAnimationAdded(AnimationTrack(
+                                  name: name,
+                                )),
+                              );
+                              _setAnimation(name);
+                            },
                             child: Text(AppLocalizations.of(context).create),
                           ),
                           MenuItemButton(
                             leadingIcon: const Icon(PhosphorIcons.copyLight),
-                            onPressed: animation == null ? null : () {},
+                            onPressed: animation == null
+                                ? null
+                                : () async {
+                                    final bloc = context.read<DocumentBloc>();
+                                    final name = await showDialog<String>(
+                                      context: context,
+                                      builder: (context) => NameDialog(
+                                        validator: defaultNameValidator(
+                                            context,
+                                            null,
+                                            state.document.animations
+                                                .map((e) => e.name)
+                                                .toList()),
+                                      ),
+                                    );
+                                    if (name == null) return;
+                                    bloc.add(
+                                      DocumentAnimationAdded(
+                                          animation.copyWith(name: name)),
+                                    );
+                                    _setAnimation(name);
+                                    _setFrame(0);
+                                  },
                             child: Text(AppLocalizations.of(context).duplicate),
                           ),
                           MenuItemButton(
                             leadingIcon: const Icon(PhosphorIcons.pencilLight),
-                            onPressed: animation == null ? null : () {},
-                            child: Text(AppLocalizations.of(context).edit),
+                            onPressed: animation == null
+                                ? null
+                                : () async {
+                                    final bloc = context.read<DocumentBloc>();
+                                    final name = await showDialog<String>(
+                                      context: context,
+                                      builder: (context) => NameDialog(
+                                        validator: defaultNameValidator(
+                                            context,
+                                            animation.name,
+                                            state.document.animations
+                                                .map((e) => e.name)
+                                                .toList()),
+                                      ),
+                                    );
+                                    if (name == null) return;
+                                    bloc.add(
+                                      DocumentAnimationAdded(animation.copyWith(
+                                        name: name,
+                                      )),
+                                    );
+                                    _setAnimation(name);
+                                  },
+                            child: Text(AppLocalizations.of(context).rename),
                           ),
                           MenuItemButton(
                             leadingIcon: const Icon(PhosphorIcons.trashLight),
-                            onPressed: animation == null ? null : () {},
+                            onPressed: animation == null
+                                ? null
+                                : () {
+                                    final bloc = context.read<DocumentBloc>();
+                                    bloc.add(
+                                      DocumentAnimationRemoved(animation.name),
+                                    );
+                                    setState(() {
+                                      _resetSelection();
+                                    });
+                                  },
                             child: Text(AppLocalizations.of(context).delete),
                           ),
                         ],
@@ -144,6 +260,22 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           child: TextField(
                             decoration: InputDecoration(
                               filled: true,
+                              labelText: AppLocalizations.of(context).fps,
+                              floatingLabelAlignment:
+                                  FloatingLabelAlignment.center,
+                            ),
+                            controller: _fpsController,
+                            textAlign: TextAlign.center,
+                            onEditingComplete: () {},
+                            onChanged: (value) {},
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        SizedBox(
+                          width: 100,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              filled: true,
                               labelText: AppLocalizations.of(context).frame,
                               floatingLabelAlignment:
                                   FloatingLabelAlignment.center,
@@ -155,27 +287,13 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Container(
+                        SizedBox(
                           width: max(200, constraints.maxWidth * 0.25),
-                          height: 50,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: colorScheme.onBackground.withOpacity(0.2),
-                            ),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          padding: const EdgeInsets.all(2),
-                          child: CustomPaint(
-                            painter: PresentationTimelinePainter(
-                              animationKeys: animation.keys.keys.toList(),
-                              currentFrame: 10,
-                              duration: animation.duration,
-                              zoom: 1,
-                              position: 0,
-                              cursorColor: colorScheme.primary,
-                              keyColor: colorScheme.secondary,
-                              backgroundColor: colorScheme.background,
-                            ),
+                          child: PresentationTimelineView(
+                            animationKeys: animation.keys.keys.toList(),
+                            currentFrame: _frame,
+                            duration: animation.duration,
+                            onFrameChanged: _setFrame,
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -248,65 +366,5 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
         ),
       ),
     );
-  }
-}
-
-class PresentationTimelinePainter extends CustomPainter {
-  final List<int> animationKeys;
-  final int currentFrame;
-  final int duration;
-  final double zoom;
-  final double position;
-  final Color cursorColor, keyColor, backgroundColor;
-
-  PresentationTimelinePainter({
-    required this.animationKeys,
-    required this.currentFrame,
-    required this.duration,
-    required this.zoom,
-    required this.position,
-    required this.cursorColor,
-    required this.keyColor,
-    required this.backgroundColor,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // set zoom relative to duration
-    final currentZoom = zoom * size.width / duration;
-    canvas.scale(currentZoom, 1);
-    canvas.translate(position, 0);
-    final backgroundPaint = Paint()
-      ..color = backgroundColor
-      ..strokeWidth = 1 / currentZoom
-      ..style = PaintingStyle.fill;
-    canvas.drawRect(
-        Offset.zero & Size(duration.toDouble(), size.height), backgroundPaint);
-    final cursorPaint = Paint()
-      ..color = cursorColor
-      ..strokeWidth = 1 / currentZoom
-      ..style = PaintingStyle.stroke;
-    canvas.drawLine(Offset(currentFrame.toDouble(), 0),
-        Offset(currentFrame.toDouble(), size.height), cursorPaint);
-    final keyPaint = Paint()
-      ..color = keyColor
-      ..strokeWidth = 1 / currentZoom
-      ..style = PaintingStyle.fill;
-    for (final key in animationKeys) {
-      canvas.drawLine(Offset(key.toDouble(), 0),
-          Offset(key.toDouble(), size.height * 0.5), keyPaint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant PresentationTimelinePainter oldDelegate) {
-    return oldDelegate.animationKeys != animationKeys ||
-        oldDelegate.currentFrame != currentFrame ||
-        oldDelegate.duration != duration ||
-        oldDelegate.zoom != zoom ||
-        oldDelegate.position != position ||
-        oldDelegate.cursorColor != cursorColor ||
-        oldDelegate.keyColor != keyColor ||
-        oldDelegate.backgroundColor != backgroundColor;
   }
 }

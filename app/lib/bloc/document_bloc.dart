@@ -621,6 +621,39 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               .toList());
       _saveDocument(emit, current.copyWith(document: currentDocument));
     });
+    on<DocumentAnimationAdded>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      if (current.document.getAnimation(event.animation.name) != null) return;
+      final currentDocument = current.document.copyWith(
+          animations: List<AnimationTrack>.from(current.document.animations)
+            ..add(event.animation));
+      _saveDocument(emit, current.copyWith(document: currentDocument));
+    });
+    on<DocumentAnimationUpdated>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final currentDocument = current.document.copyWith(
+          animations: current.document.animations.map((e) {
+        if (e.name == event.animation.name) {
+          return event.animation;
+        }
+        return e;
+      }).toList());
+      _saveDocument(emit, current.copyWith(document: currentDocument));
+    });
+    on<DocumentAnimationRemoved>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final currentDocument = current.document.copyWith(
+          animations: current.document.animations
+              .where((element) => element.name != event.animation)
+              .toList());
+      _saveDocument(emit, current.copyWith(document: currentDocument));
+    });
     on<DocumentSaved>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
