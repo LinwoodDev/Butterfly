@@ -91,17 +91,17 @@ class AnimationTrack with _$AnimationTrack {
     return result.first.cameraZoom! + delta * progress;
   }
 
-  bool isBreakpoint(int frame) => keys[frame]?.breakPoint ?? false;
+  bool isBreakpoint(int frame) => keys[frame]?.breakpoint ?? false;
 }
 
 @freezed
 class AnimationKey with _$AnimationKey {
   const AnimationKey._();
 
-  const factory AnimationKey.camera({
+  const factory AnimationKey({
     @DoublePointJsonConverter() Point<double>? cameraPosition,
     double? cameraZoom,
-    @Default(false) bool breakPoint,
+    @Default(false) bool breakpoint,
   }) = _AnimationKey;
 
   factory AnimationKey.fromJson(Map<String, dynamic> json) =>

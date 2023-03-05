@@ -230,47 +230,8 @@ mixin _$AnimationKey {
   @DoublePointJsonConverter()
   Point<double>? get cameraPosition => throw _privateConstructorUsedError;
   double? get cameraZoom => throw _privateConstructorUsedError;
-  bool get breakPoint => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            @DoublePointJsonConverter() Point<double>? cameraPosition,
-            double? cameraZoom,
-            bool breakPoint)
-        camera,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@DoublePointJsonConverter() Point<double>? cameraPosition,
-            double? cameraZoom, bool breakPoint)?
-        camera,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@DoublePointJsonConverter() Point<double>? cameraPosition,
-            double? cameraZoom, bool breakPoint)?
-        camera,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_AnimationKey value) camera,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AnimationKey value)? camera,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AnimationKey value)? camera,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  bool get breakpoint => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AnimationKeyCopyWith<AnimationKey> get copyWith =>
@@ -286,7 +247,7 @@ abstract class $AnimationKeyCopyWith<$Res> {
   $Res call(
       {@DoublePointJsonConverter() Point<double>? cameraPosition,
       double? cameraZoom,
-      bool breakPoint});
+      bool breakpoint});
 }
 
 /// @nodoc
@@ -304,7 +265,7 @@ class _$AnimationKeyCopyWithImpl<$Res, $Val extends AnimationKey>
   $Res call({
     Object? cameraPosition = freezed,
     Object? cameraZoom = freezed,
-    Object? breakPoint = null,
+    Object? breakpoint = null,
   }) {
     return _then(_value.copyWith(
       cameraPosition: freezed == cameraPosition
@@ -315,9 +276,9 @@ class _$AnimationKeyCopyWithImpl<$Res, $Val extends AnimationKey>
           ? _value.cameraZoom
           : cameraZoom // ignore: cast_nullable_to_non_nullable
               as double?,
-      breakPoint: null == breakPoint
-          ? _value.breakPoint
-          : breakPoint // ignore: cast_nullable_to_non_nullable
+      breakpoint: null == breakpoint
+          ? _value.breakpoint
+          : breakpoint // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -334,7 +295,7 @@ abstract class _$$_AnimationKeyCopyWith<$Res>
   $Res call(
       {@DoublePointJsonConverter() Point<double>? cameraPosition,
       double? cameraZoom,
-      bool breakPoint});
+      bool breakpoint});
 }
 
 /// @nodoc
@@ -350,7 +311,7 @@ class __$$_AnimationKeyCopyWithImpl<$Res>
   $Res call({
     Object? cameraPosition = freezed,
     Object? cameraZoom = freezed,
-    Object? breakPoint = null,
+    Object? breakpoint = null,
   }) {
     return _then(_$_AnimationKey(
       cameraPosition: freezed == cameraPosition
@@ -361,9 +322,9 @@ class __$$_AnimationKeyCopyWithImpl<$Res>
           ? _value.cameraZoom
           : cameraZoom // ignore: cast_nullable_to_non_nullable
               as double?,
-      breakPoint: null == breakPoint
-          ? _value.breakPoint
-          : breakPoint // ignore: cast_nullable_to_non_nullable
+      breakpoint: null == breakpoint
+          ? _value.breakpoint
+          : breakpoint // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -375,7 +336,7 @@ class _$_AnimationKey extends _AnimationKey {
   const _$_AnimationKey(
       {@DoublePointJsonConverter() this.cameraPosition,
       this.cameraZoom,
-      this.breakPoint = false})
+      this.breakpoint = false})
       : super._();
 
   factory _$_AnimationKey.fromJson(Map<String, dynamic> json) =>
@@ -388,11 +349,11 @@ class _$_AnimationKey extends _AnimationKey {
   final double? cameraZoom;
   @override
   @JsonKey()
-  final bool breakPoint;
+  final bool breakpoint;
 
   @override
   String toString() {
-    return 'AnimationKey.camera(cameraPosition: $cameraPosition, cameraZoom: $cameraZoom, breakPoint: $breakPoint)';
+    return 'AnimationKey(cameraPosition: $cameraPosition, cameraZoom: $cameraZoom, breakpoint: $breakpoint)';
   }
 
   @override
@@ -404,84 +365,20 @@ class _$_AnimationKey extends _AnimationKey {
                 other.cameraPosition == cameraPosition) &&
             (identical(other.cameraZoom, cameraZoom) ||
                 other.cameraZoom == cameraZoom) &&
-            (identical(other.breakPoint, breakPoint) ||
-                other.breakPoint == breakPoint));
+            (identical(other.breakpoint, breakpoint) ||
+                other.breakpoint == breakpoint));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, cameraPosition, cameraZoom, breakPoint);
+      Object.hash(runtimeType, cameraPosition, cameraZoom, breakpoint);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_AnimationKeyCopyWith<_$_AnimationKey> get copyWith =>
       __$$_AnimationKeyCopyWithImpl<_$_AnimationKey>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            @DoublePointJsonConverter() Point<double>? cameraPosition,
-            double? cameraZoom,
-            bool breakPoint)
-        camera,
-  }) {
-    return camera(cameraPosition, cameraZoom, breakPoint);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@DoublePointJsonConverter() Point<double>? cameraPosition,
-            double? cameraZoom, bool breakPoint)?
-        camera,
-  }) {
-    return camera?.call(cameraPosition, cameraZoom, breakPoint);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@DoublePointJsonConverter() Point<double>? cameraPosition,
-            double? cameraZoom, bool breakPoint)?
-        camera,
-    required TResult orElse(),
-  }) {
-    if (camera != null) {
-      return camera(cameraPosition, cameraZoom, breakPoint);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_AnimationKey value) camera,
-  }) {
-    return camera(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AnimationKey value)? camera,
-  }) {
-    return camera?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AnimationKey value)? camera,
-    required TResult orElse(),
-  }) {
-    if (camera != null) {
-      return camera(this);
-    }
-    return orElse();
-  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -495,7 +392,7 @@ abstract class _AnimationKey extends AnimationKey {
   const factory _AnimationKey(
       {@DoublePointJsonConverter() final Point<double>? cameraPosition,
       final double? cameraZoom,
-      final bool breakPoint}) = _$_AnimationKey;
+      final bool breakpoint}) = _$_AnimationKey;
   const _AnimationKey._() : super._();
 
   factory _AnimationKey.fromJson(Map<String, dynamic> json) =
@@ -507,7 +404,7 @@ abstract class _AnimationKey extends AnimationKey {
   @override
   double? get cameraZoom;
   @override
-  bool get breakPoint;
+  bool get breakpoint;
   @override
   @JsonKey(ignore: true)
   _$$_AnimationKeyCopyWith<_$_AnimationKey> get copyWith =>

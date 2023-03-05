@@ -461,5 +461,6 @@
   "frame": "Frame",
   "play": "Play",
   "video": "Video",
-  "fps": "FPS"
+  "fps": "FPS",
+  "breakpoint": "Breakpoint"
 }

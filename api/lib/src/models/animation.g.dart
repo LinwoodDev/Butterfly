@@ -31,7 +31,7 @@ _$_AnimationKey _$$_AnimationKeyFromJson(Map json) => _$_AnimationKey(
               json['cameraPosition'],
               const DoublePointJsonConverter().fromJson),
       cameraZoom: (json['cameraZoom'] as num?)?.toDouble(),
-      breakPoint: json['breakPoint'] as bool? ?? false,
+      breakpoint: json['breakpoint'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_AnimationKeyToJson(_$_AnimationKey instance) =>
@@ -40,7 +40,7 @@ Map<String, dynamic> _$$_AnimationKeyToJson(_$_AnimationKey instance) =>
           _$JsonConverterToJson<Map<dynamic, dynamic>, Point<double>>(
               instance.cameraPosition, const DoublePointJsonConverter().toJson),
       'cameraZoom': instance.cameraZoom,
-      'breakPoint': instance.breakPoint,
+      'breakpoint': instance.breakpoint,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(
