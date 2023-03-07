@@ -102,6 +102,11 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
       key = animation.keys[_frame];
     }
     final defaultKey = key ?? const AnimationKey();
+    final keyframeEnabled = defaultKey.cameraPosition != null &&
+        defaultKey.cameraZoom != null &&
+        defaultKey.breakpoint;
+    final cameraEnabled =
+        defaultKey.cameraPosition != null && defaultKey.cameraZoom != null;
     void setKey(AnimationKey key) {
       final bloc = context.read<DocumentBloc>();
       bloc.add(
@@ -286,20 +291,50 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           menuChildren: [
                             MenuItemButton(
                               leadingIcon:
-                                  const Icon(PhosphorIcons.flowArrowLight),
+                                  const Icon(PhosphorIcons.recordLight),
                               child: Text(
-                                AppLocalizations.of(context).camera,
+                                AppLocalizations.of(context).keyframe,
                                 style: TextStyle(
-                                  color: defaultKey.cameraPosition != null &&
-                                          defaultKey.cameraZoom != null
+                                  color: keyframeEnabled
                                       ? colorScheme.primary
                                       : null,
                                 ),
                               ),
-                              onPressed: () => setKey(defaultKey.copyWith(
-                                cameraPosition: transform.position.toPoint(),
-                                cameraZoom: transform.size,
-                              )),
+                              onPressed: () => setKey(keyframeEnabled
+                                  ? defaultKey.copyWith(
+                                      cameraPosition: null,
+                                      cameraZoom: null,
+                                      breakpoint: false,
+                                    )
+                                  : defaultKey.copyWith(
+                                      cameraPosition:
+                                          transform.position.toPoint(),
+                                      cameraZoom: transform.size,
+                                      breakpoint: true,
+                                    )),
+                            ),
+                            const Divider(),
+                            MenuItemButton(
+                              leadingIcon:
+                                  const Icon(PhosphorIcons.flowArrowLight),
+                              child: Text(
+                                AppLocalizations.of(context).camera,
+                                style: TextStyle(
+                                  color: cameraEnabled
+                                      ? colorScheme.primary
+                                      : null,
+                                ),
+                              ),
+                              onPressed: () => setKey(cameraEnabled
+                                  ? defaultKey.copyWith(
+                                      cameraPosition: null,
+                                      cameraZoom: null,
+                                    )
+                                  : defaultKey.copyWith(
+                                      cameraPosition:
+                                          transform.position.toPoint(),
+                                      cameraZoom: transform.size,
+                                    )),
                             ),
                             MenuItemButton(
                               leadingIcon:

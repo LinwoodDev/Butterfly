@@ -48,3 +48,80 @@ class PresentationHandler extends Handler<PresentationPainter> {
     cubit.bake(state.document);
   }
 }
+
+enum PresentationRunningState { running, reversed, paused }
+
+class PresentationStateHandler extends Handler<AnimationTrack> {
+  DocumentBloc bloc;
+  Timer? _timer;
+  PresentationRunningState _state = PresentationRunningState.paused;
+
+  PresentationStateHandler(super.data, this.bloc) {
+    setup();
+  }
+
+  void setup() {
+    final fps = data.fps;
+    final milliseconds = 1000 ~/ fps;
+    _timer = Timer.periodic(Duration(milliseconds: milliseconds), _tick);
+  }
+
+  @override
+  void dispose(DocumentBloc bloc) {
+    super.dispose(bloc);
+    _timer?.cancel();
+  }
+
+  void _tick(Timer timer) {
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    int tick = 0;
+    switch (_state) {
+      case PresentationRunningState.running:
+        tick = 1;
+        break;
+      case PresentationRunningState.reversed:
+        tick = -1;
+        break;
+      case PresentationRunningState.paused:
+        return;
+    }
+    bloc.add(PresentationTick(tick));
+  }
+
+  @override
+  void onScaleEnd(ScaleEndDetails details, EventContext context) {
+    _checkSlideChange(details, context);
+    _checkStateChange(details, context);
+  }
+
+  void _checkSlideChange(ScaleEndDetails details, EventContext context) {
+    final dx = details.velocity.pixelsPerSecond.dx;
+    if (dx.abs() < 50) return;
+    if (dx < 0) {
+      _nextSlide(context);
+    } else {
+      _previousSlide(context);
+    }
+  }
+
+  void _nextSlide(EventContext context) {
+    _state = PresentationRunningState.running;
+  }
+
+  void _previousSlide(EventContext context) {
+    _state = PresentationRunningState.reversed;
+  }
+
+  void _checkStateChange(ScaleEndDetails details, EventContext context) {
+    final dy = details.velocity.pixelsPerSecond.dy;
+    if (dy.abs() < 50) return;
+    if (dy < 0) {
+      _exitPresentation(context);
+    }
+  }
+
+  void _exitPresentation(EventContext context) {
+    context.getDocumentBloc().add(const PresentationModeExited());
+  }
+}

@@ -664,12 +664,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PresentationModeEntered>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      emit(DocumentPresentationState(current, event.track));
+      emit(DocumentPresentationState(this, current, event.track));
     });
     on<PresentationModeExited>((event, emit) {
       final current = state;
       if (current is! DocumentPresentationState) return;
       emit(current.oldState);
+    });
+    on<PresentationTick>((event, emit) {
+      final current = state;
+      if (current is! DocumentPresentationState) return;
+      final frame = current.frame + event.tick;
+      emit(current.copyWith(frame: frame));
     });
   }
 

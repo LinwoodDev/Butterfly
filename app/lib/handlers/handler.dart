@@ -72,6 +72,14 @@ class EventContext {
     return state;
   }
 
+  DocumentPresentationState? getPresentationState() {
+    final state = getDocumentBloc().state;
+    if (state is! DocumentPresentationState) {
+      return null;
+    }
+    return state;
+  }
+
   void addDocumentEvent(DocumentEvent event) => getDocumentBloc().add(event);
   double get devicePixelRatio => MediaQuery.of(buildContext).devicePixelRatio;
 

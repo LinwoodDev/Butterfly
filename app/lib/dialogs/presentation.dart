@@ -1,3 +1,4 @@
+import 'package:butterfly/api/full_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -12,29 +13,45 @@ class PresentationControlsDialog extends StatelessWidget {
       scrollable: true,
       content: Column(
         mainAxisSize: MainAxisSize.min,
-        children: <dynamic>[
-          [
-            PhosphorIcons.arrowRightLight,
-            AppLocalizations.of(context).nextSlide,
-            AppLocalizations.of(context).nextSlideDescription,
-          ],
-          [
-            PhosphorIcons.arrowLeftLight,
-            AppLocalizations.of(context).previousSlide,
-            AppLocalizations.of(context).previousSlideDescription,
-          ],
-          [
-            PhosphorIcons.doorLight,
-            AppLocalizations.of(context).exitPresentation,
-            AppLocalizations.of(context).exitPresentationDescription,
-          ]
-        ]
-            .map((e) => ListTile(
-                  leading: Icon(e[0]),
-                  title: Text(e[1]),
-                  subtitle: Text(e[2]),
-                ))
-            .toList(),
+        children: [
+          ...<dynamic>[
+            [
+              PhosphorIcons.arrowRightLight,
+              AppLocalizations.of(context).nextSlide,
+              AppLocalizations.of(context).nextSlideDescription,
+            ],
+            [
+              PhosphorIcons.arrowLeftLight,
+              AppLocalizations.of(context).previousSlide,
+              AppLocalizations.of(context).previousSlideDescription,
+            ],
+            [
+              PhosphorIcons.doorLight,
+              AppLocalizations.of(context).exitPresentation,
+              AppLocalizations.of(context).exitPresentationDescription,
+            ]
+          ].map((e) => ListTile(
+                leading: Icon(e[0]),
+                title: Text(e[1]),
+                subtitle: Text(e[2]),
+              )),
+          FutureBuilder<bool>(
+            future: isFullScreen(),
+            builder: (context, snapshot) {
+              var fullscreen = snapshot.data ?? false;
+              return StatefulBuilder(
+                builder: (context, setState) => SwitchListTile(
+                  value: fullscreen,
+                  title: Text(AppLocalizations.of(context).fullScreen),
+                  onChanged: (value) {
+                    setFullScreen(value);
+                    fullscreen = value;
+                  },
+                ),
+              );
+            },
+          ),
+        ],
       ),
       actions: [
         TextButton(

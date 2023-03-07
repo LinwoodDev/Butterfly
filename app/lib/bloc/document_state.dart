@@ -143,12 +143,25 @@ class DocumentPresentationState extends DocumentLoaded {
   final DocumentLoadSuccess oldState;
   final int frame;
   final AnimationTrack track;
+  final PresentationStateHandler handler;
 
-  const DocumentPresentationState(this.oldState, this.track, [this.frame = 0]);
+  DocumentPresentationState(DocumentBloc bloc, this.oldState, this.track,
+      [this.frame = 0])
+      : handler = PresentationStateHandler(track, bloc);
+
+  const DocumentPresentationState.withHandler(
+      this.handler, this.oldState, this.track,
+      [this.frame = 0]);
 
   @override
   List<Object?> get props => [oldState, frame, track];
 
   @override
   AppDocument get document => oldState.document;
+
+  DocumentPresentationState copyWith({
+    int? frame,
+  }) =>
+      DocumentPresentationState.withHandler(
+          handler, oldState, track, frame ?? this.frame);
 }

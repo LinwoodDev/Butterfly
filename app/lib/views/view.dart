@@ -162,9 +162,14 @@ class _MainViewViewportState extends State<MainViewViewport>
         final CurrentIndexCubit cubit = context.read<CurrentIndexCubit>();
         var point = Offset.zero;
 
+        Handler getHandler() {
+          if (state is DocumentPresentationState) return state.handler;
+          return cubit.getHandler();
+        }
+
         return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
             builder: (context, currentIndex) => Actions(
-                actions: cubit.getHandler().getActions(context),
+                actions: getHandler().getActions(context),
                 child: DefaultTextEditingShortcuts(
                   child: Focus(
                     child: Builder(builder: (context) {
@@ -175,22 +180,17 @@ class _MainViewViewportState extends State<MainViewViewport>
 
                       return GestureDetector(
                         onTapUp: (details) {
-                          cubit
-                              .getHandler()
-                              .onTapUp(details, getEventContext());
+                          getHandler().onTapUp(details, getEventContext());
                         },
                         onTapDown: (details) {
-                          cubit
-                              .getHandler()
-                              .onTapDown(details, getEventContext());
+                          getHandler().onTapDown(details, getEventContext());
                         },
                         onSecondaryTapUp: (details) {
-                          cubit
-                              .getHandler()
+                          getHandler()
                               .onSecondaryTapUp(details, getEventContext());
                         },
                         onScaleUpdate: (details) {
-                          final handler = cubit.getHandler();
+                          final handler = getHandler();
                           handler.onScaleUpdate(details, getEventContext());
                           if (_isScalingDisabled) return;
                           final currentIndex =
@@ -216,14 +216,11 @@ class _MainViewViewportState extends State<MainViewViewport>
                           size = details.scale;
                         },
                         onLongPressEnd: (details) {
-                          cubit
-                              .getHandler()
+                          getHandler()
                               .onLongPressEnd(details, getEventContext());
                         },
                         onScaleEnd: (details) {
-                          cubit
-                              .getHandler()
-                              .onScaleEnd(details, getEventContext());
+                          getHandler().onScaleEnd(details, getEventContext());
                           if (!_isScalingDisabled) delayBake();
                           _isScalingDisabled = false;
                         },
@@ -235,16 +232,14 @@ class _MainViewViewportState extends State<MainViewViewport>
                           point = details.localFocalPoint;
                         },
                         onDoubleTapDown: (details) {
-                          cubit
-                              .getHandler()
+                          getHandler()
                               .onDoubleTapDown(details, getEventContext());
                         },
                         onDoubleTap: () {
-                          cubit.getHandler().onDoubleTap(getEventContext());
+                          getHandler().onDoubleTap(getEventContext());
                         },
                         onLongPressDown: (details) {
-                          cubit
-                              .getHandler()
+                          getHandler()
                               .onLongPressDown(details, getEventContext());
                         },
                         child: Listener(
@@ -281,25 +276,21 @@ class _MainViewViewportState extends State<MainViewViewport>
                           onPointerDown: (PointerDownEvent event) {
                             cubit.addPointer(event.pointer);
                             cubit.setButtons(event.buttons);
-                            final handler = cubit.getHandler();
+                            final handler = getHandler();
                             if (handler.canChange(event, getEventContext())) {
                               changeTemporaryPainter(event.kind, event.buttons);
                             }
-                            cubit
-                                .getHandler()
+                            getHandler()
                                 .onPointerDown(event, getEventContext());
                           },
                           onPointerUp: (PointerUpEvent event) async {
-                            cubit
-                                .getHandler()
-                                .onPointerUp(event, getEventContext());
+                            getHandler().onPointerUp(event, getEventContext());
                             cubit.removePointer(event.pointer);
                             cubit.removeButtons();
                           },
                           behavior: HitTestBehavior.translucent,
                           onPointerHover: (event) {
-                            cubit
-                                .getHandler()
+                            getHandler()
                                 .onPointerHover(event, getEventContext());
                           },
                           onPointerMove: (PointerMoveEvent event) async {
@@ -312,12 +303,11 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     event.delta / transformCubit.state.size);
                                 delayBake();
                               }
-                              cubit.getHandler().onPointerGestureMove(
+                              getHandler().onPointerGestureMove(
                                   event, getEventContext());
                               return;
                             }
-                            cubit
-                                .getHandler()
+                            getHandler()
                                 .onPointerMove(event, getEventContext());
                           },
                           child: BlocBuilder<TransformCubit, CameraTransform>(

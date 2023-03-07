@@ -354,3 +354,12 @@ class PresentationModeExited extends DocumentEvent {
   @override
   List<Object?> get props => [];
 }
+
+class PresentationTick extends DocumentEvent {
+  final int tick;
+
+  const PresentationTick(this.tick);
+
+  @override
+  List<Object?> get props => [tick];
+}
