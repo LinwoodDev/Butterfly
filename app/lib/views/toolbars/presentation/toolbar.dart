@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/name.dart';
+import 'package:butterfly/dialogs/presentation.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -11,6 +12,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../bloc/document_bloc.dart';
+import '../../../dialogs/pdf_export.dart';
 import 'timeline.dart';
 
 class PresentationToolbarView extends StatefulWidget {
@@ -460,8 +462,21 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 leadingIcon:
                                     const Icon(PhosphorIcons.playCircleLight),
                                 child: Text(AppLocalizations.of(context).play),
+                                onPressed: () async {
+                                  final bloc = context.read<DocumentBloc>();
+                                  final result = await showDialog<bool>(
+                                    context: context,
+                                    builder: (context) =>
+                                        const PresentationControlsDialog(),
+                                  );
+                                  if (result != true) return;
+                                  bloc.add(PresentationModeEntered(
+                                    animation,
+                                  ));
+                                },
                               ),
                               const Divider(),
+                              /*
                               MenuItemButton(
                                 leadingIcon:
                                     const Icon(PhosphorIcons.videoCameraLight),
@@ -471,11 +486,43 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 leadingIcon:
                                     const Icon(PhosphorIcons.filmStripLight),
                                 child: Text(AppLocalizations.of(context).image),
-                              ),
+                              ),*/
                               MenuItemButton(
                                 leadingIcon:
                                     const Icon(PhosphorIcons.fileLight),
                                 child: Text(AppLocalizations.of(context).pdf),
+                                onPressed: () {
+                                  final size = MediaQuery.of(context).size;
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => ExportPresetsDialog(
+                                      areas: {
+                                        0,
+                                        ...animation.keys.entries
+                                            .where((element) =>
+                                                element.value.breakpoint)
+                                            .map((e) => e.key)
+                                      }.map(
+                                        (e) {
+                                          final zoom = animation
+                                                  .interpolateCameraZoom(e) ??
+                                              transform.size;
+                                          return AreaPreset(
+                                            name: e.toString(),
+                                            area: Area(
+                                              position: animation
+                                                      .interpolateCameraPosition(
+                                                          e) ??
+                                                  transform.position.toPoint(),
+                                              height: size.height / zoom,
+                                              width: size.width / zoom,
+                                            ),
+                                          );
+                                        },
+                                      ).toList(),
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),

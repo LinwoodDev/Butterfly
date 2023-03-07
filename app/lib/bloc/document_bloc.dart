@@ -661,6 +661,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       current.currentIndexCubit
           .setSaveState(saved: true, location: event.location);
     });
+    on<PresentationModeEntered>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      emit(DocumentPresentationState(current, event.track));
+    });
+    on<PresentationModeExited>((event, emit) {
+      final current = state;
+      if (current is! DocumentPresentationState) return;
+      emit(current.oldState);
+    });
   }
 
   Future<void> _saveDocument(

@@ -338,3 +338,19 @@ class DocumentAnimationRemoved extends DocumentEvent {
   @override
   List<Object?> get props => [animation];
 }
+
+class PresentationModeEntered extends DocumentEvent {
+  final AnimationTrack track;
+
+  const PresentationModeEntered(this.track);
+
+  @override
+  List<Object?> get props => [track];
+}
+
+class PresentationModeExited extends DocumentEvent {
+  const PresentationModeExited();
+
+  @override
+  List<Object?> get props => [];
+}

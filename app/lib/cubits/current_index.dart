@@ -423,7 +423,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     for (final preset in areas) {
       final areaName = preset.name;
       final quality = preset.quality;
-      final area = appDocument.getAreaByName(areaName);
+      final area = preset.area ?? appDocument.getAreaByName(areaName);
       if (area == null) {
         continue;
       }

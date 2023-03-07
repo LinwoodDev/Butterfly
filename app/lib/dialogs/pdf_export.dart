@@ -16,7 +16,7 @@ import '../widgets/exact_slider.dart';
 import 'name.dart';
 
 class PdfExportDialog extends StatefulWidget {
-  final List<String> areas;
+  final List<AreaPreset> areas;
 
   const PdfExportDialog({
     super.key,
@@ -34,7 +34,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
   @override
   void initState() {
     super.initState();
-    areas.addAll(widget.areas.map((e) => AreaPreset(name: e)));
+    areas.addAll(widget.areas);
   }
 
   @override

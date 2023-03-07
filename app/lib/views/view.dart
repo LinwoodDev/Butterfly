@@ -154,7 +154,7 @@ class _MainViewViewportState extends State<MainViewViewport>
       }
       return BlocBuilder<DocumentBloc, DocumentState>(
           builder: (context, state) {
-        if (state is! DocumentLoadSuccess) {
+        if (state is! DocumentLoaded) {
           return const Center(child: CircularProgressIndicator());
         }
 
@@ -249,6 +249,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                         },
                         child: Listener(
                           onPointerSignal: (pointerSignal) {
+                            if (state is! DocumentLoadSuccess) return;
                             if (pointerSignal is PointerScrollEvent) {
                               // dx and dy are the delta between the last scroll event
                               var dx = pointerSignal.scrollDelta.dx;

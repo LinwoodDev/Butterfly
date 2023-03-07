@@ -23,11 +23,23 @@ class DocumentLoadFailure extends DocumentState {
   List<Object?> get props => [message];
 }
 
-class DocumentLoadSuccess extends DocumentState {
+abstract class DocumentLoaded extends DocumentState {
+  AppDocument get document;
+
+  const DocumentLoaded();
+
+  List<String> get invisibleLayers => [];
+
+  Area? get currentArea => null;
+}
+
+class DocumentLoadSuccess extends DocumentLoaded {
+  @override
   final AppDocument document;
   final StorageType storageType;
   final String currentLayer;
   final String currentAreaName;
+  @override
   final List<String> invisibleLayers;
   final SettingsCubit settingsCubit;
   final CurrentIndexCubit currentIndexCubit;
@@ -55,6 +67,7 @@ class DocumentLoadSuccess extends DocumentState {
         currentIndexCubit,
       ];
 
+  @override
   Area? get currentArea {
     return document.getAreaByName(currentAreaName);
   }
@@ -124,4 +137,18 @@ class DocumentLoadSuccess extends DocumentState {
           viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
 
   Painter? get painter => currentIndexCubit.state.handler.data;
+}
+
+class DocumentPresentationState extends DocumentLoaded {
+  final DocumentLoadSuccess oldState;
+  final int frame;
+  final AnimationTrack track;
+
+  const DocumentPresentationState(this.oldState, this.track, [this.frame = 0]);
+
+  @override
+  List<Object?> get props => [oldState, frame, track];
+
+  @override
+  AppDocument get document => oldState.document;
 }

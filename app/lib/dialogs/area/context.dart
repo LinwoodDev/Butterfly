@@ -132,7 +132,9 @@ class AreaContextMenu extends StatelessWidget {
                             showDialog<void>(
                                 builder: (context) => BlocProvider.value(
                                     value: bloc,
-                                    child: PdfExportDialog(areas: [area.name])),
+                                    child: PdfExportDialog(areas: [
+                                      AreaPreset(area: area, name: area.name)
+                                    ])),
                                 context: context);
                           },
                         )
