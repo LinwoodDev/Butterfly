@@ -106,7 +106,7 @@ abstract class GeneralPresentationHandler {
   }
 }
 
-class PresentationHandler extends Handler<PresentationPainter>
+class PresentationHandler extends GeneralMoveHandler<PresentationPainter>
     with GeneralPresentationHandler {
   int _currentFrame = 0;
   String? _currentAnimation;

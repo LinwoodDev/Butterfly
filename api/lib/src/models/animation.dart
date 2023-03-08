@@ -33,24 +33,25 @@ class AnimationTrack with _$AnimationTrack {
 
   _InterpolationResult? _interpolate(
       int frame, bool Function(AnimationKey) where) {
-    if (keys.isEmpty) {
+    final entries = keys.entries
+        .where((entry) => where(entry.value))
+        .sorted((a, b) => a.key.compareTo(b.key));
+    if (entries.isEmpty) {
       return null;
     }
-    if (keys.length == 1) {
-      final result = keys.values.first;
-      final firstFrame = keys.keys.first;
+    if (entries.length == 1) {
+      final result = entries.first.value;
+      final firstFrame = entries.first.key;
       return _InterpolationResult(result, result, firstFrame, firstFrame);
     }
-    final first = keys.entries.firstWhereOrNull(
-        (entry) => entry.key <= frame && (entry.value.cameraPosition != null));
+    final first = entries.lastWhereOrNull((entry) => entry.key < frame);
 
     if (first == null) {
-      final result = keys.values.last;
-      final firstFrame = keys.keys.last;
+      final result = entries.last.value;
+      final firstFrame = entries.last.key;
       return _InterpolationResult(result, result, firstFrame, firstFrame);
     }
-    final second = keys.entries.firstWhereOrNull(
-        (entry) => entry.key > frame && (entry.value.cameraPosition != null));
+    final second = entries.firstWhereOrNull((entry) => entry.key >= frame);
     if (second == null) {
       return _InterpolationResult(
           first.value, first.value, first.key, first.key);
