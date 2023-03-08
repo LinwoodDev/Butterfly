@@ -49,7 +49,7 @@ class FileSystemAssetCreateDialog extends StatelessWidget {
                 if (!isFolder) {
                   await fileSystem.createDocument(_nameController.text,
                       path: path,
-                      palettes: DocumentDefaults.getMaterialPalette(context));
+                    );
                 } else {
                   await fileSystem
                       .createDirectory('$path/${_nameController.text}');

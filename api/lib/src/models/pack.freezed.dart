@@ -25,6 +25,7 @@ mixin _$ButterflyPack {
   String get author => throw _privateConstructorUsedError;
   List<ButterflyComponent> get components => throw _privateConstructorUsedError;
   List<TextStyleSheet> get styles => throw _privateConstructorUsedError;
+  List<ColorPalette> get palettes => throw _privateConstructorUsedError;
   @DateTimeJsonConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
   @DateTimeJsonConverter()
@@ -48,6 +49,7 @@ abstract class $ButterflyPackCopyWith<$Res> {
       String author,
       List<ButterflyComponent> components,
       List<TextStyleSheet> styles,
+      List<ColorPalette> palettes,
       @DateTimeJsonConverter() DateTime createdAt,
       @DateTimeJsonConverter() DateTime updatedAt});
 }
@@ -70,6 +72,7 @@ class _$ButterflyPackCopyWithImpl<$Res, $Val extends ButterflyPack>
     Object? author = null,
     Object? components = null,
     Object? styles = null,
+    Object? palettes = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -94,6 +97,10 @@ class _$ButterflyPackCopyWithImpl<$Res, $Val extends ButterflyPack>
           ? _value.styles
           : styles // ignore: cast_nullable_to_non_nullable
               as List<TextStyleSheet>,
+      palettes: null == palettes
+          ? _value.palettes
+          : palettes // ignore: cast_nullable_to_non_nullable
+              as List<ColorPalette>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -120,6 +127,7 @@ abstract class _$$_ButterflyPackCopyWith<$Res>
       String author,
       List<ButterflyComponent> components,
       List<TextStyleSheet> styles,
+      List<ColorPalette> palettes,
       @DateTimeJsonConverter() DateTime createdAt,
       @DateTimeJsonConverter() DateTime updatedAt});
 }
@@ -140,6 +148,7 @@ class __$$_ButterflyPackCopyWithImpl<$Res>
     Object? author = null,
     Object? components = null,
     Object? styles = null,
+    Object? palettes = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -164,6 +173,10 @@ class __$$_ButterflyPackCopyWithImpl<$Res>
           ? _value._styles
           : styles // ignore: cast_nullable_to_non_nullable
               as List<TextStyleSheet>,
+      palettes: null == palettes
+          ? _value._palettes
+          : palettes // ignore: cast_nullable_to_non_nullable
+              as List<ColorPalette>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -185,10 +198,12 @@ class _$_ButterflyPack extends _ButterflyPack {
       this.author = '',
       final List<ButterflyComponent> components = const <ButterflyComponent>[],
       final List<TextStyleSheet> styles = const <TextStyleSheet>[],
+      final List<ColorPalette> palettes = const <ColorPalette>[],
       @DateTimeJsonConverter() required this.createdAt,
       @DateTimeJsonConverter() required this.updatedAt})
       : _components = components,
         _styles = styles,
+        _palettes = palettes,
         super._();
 
   factory _$_ButterflyPack.fromJson(Map<String, dynamic> json) =>
@@ -221,6 +236,15 @@ class _$_ButterflyPack extends _ButterflyPack {
     return EqualUnmodifiableListView(_styles);
   }
 
+  final List<ColorPalette> _palettes;
+  @override
+  @JsonKey()
+  List<ColorPalette> get palettes {
+    if (_palettes is EqualUnmodifiableListView) return _palettes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_palettes);
+  }
+
   @override
   @DateTimeJsonConverter()
   final DateTime createdAt;
@@ -230,7 +254,7 @@ class _$_ButterflyPack extends _ButterflyPack {
 
   @override
   String toString() {
-    return 'ButterflyPack(name: $name, description: $description, author: $author, components: $components, styles: $styles, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ButterflyPack(name: $name, description: $description, author: $author, components: $components, styles: $styles, palettes: $palettes, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @JsonKey(ignore: true)
@@ -254,6 +278,7 @@ abstract class _ButterflyPack extends ButterflyPack {
           final String author,
           final List<ButterflyComponent> components,
           final List<TextStyleSheet> styles,
+          final List<ColorPalette> palettes,
           @DateTimeJsonConverter() required final DateTime createdAt,
           @DateTimeJsonConverter() required final DateTime updatedAt}) =
       _$_ButterflyPack;
@@ -272,6 +297,8 @@ abstract class _ButterflyPack extends ButterflyPack {
   List<ButterflyComponent> get components;
   @override
   List<TextStyleSheet> get styles;
+  @override
+  List<ColorPalette> get palettes;
   @override
   @DateTimeJsonConverter()
   DateTime get createdAt;

@@ -53,10 +53,10 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
   Future<AppDocumentDirectory> createDirectory(String name);
 
   Future<AppDocumentFile> createDocument(String name,
-          {String path = '/', List<ColorPalette> palettes = const []}) =>
+          {String path = '/'}) =>
       importDocument(
           AppDocument(
-              name: name, palettes: palettes, createdAt: DateTime.now()),
+              name: name,  createdAt: DateTime.now()),
           path: path);
 
   Future<bool> hasAsset(String path);

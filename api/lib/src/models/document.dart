@@ -177,7 +177,6 @@ class AppDocument with _$AppDocument {
     @Default('') String description,
     @Default([]) List<PadElement> content,
     @Default(Background.empty()) Background background,
-    @Default([]) List<ColorPalette> palettes,
     @Default([]) List<Waypoint> waypoints,
     @Default([]) List<Area> areas,
     @Default([]) List<ExportPreset> exportPresets,
@@ -203,9 +202,7 @@ class AppDocument with _$AppDocument {
     return content.map((e) => e.layer).toSet();
   }
 
-  ColorPalette? getPalette(String name) {
-    return palettes.firstWhereOrNull((e) => e.name == name);
-  }
+
 
   ExportPreset? getExportPreset(String name) {
     return exportPresets.firstWhereOrNull((e) => e.name == name);

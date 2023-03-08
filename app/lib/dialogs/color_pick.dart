@@ -27,7 +27,12 @@ class ColorPickerDialog extends StatefulWidget {
 }
 
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
-  int selected = 0;
+  PackAssetLocation? selected;
+  @override 
+  void initState(){
+    super.initState() ; 
+    
+  }
 
   void _showColorOperation(int index) {
     showModalBottomSheet(
@@ -153,114 +158,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                               child: ConstrainedBox(
                                 constraints: BoxConstraints(
                                     minWidth: constraints.maxWidth),
-                                child: Wrap(
-                                  verticalDirection: VerticalDirection.up,
-                                  runAlignment: WrapAlignment.end,
-                                  alignment: WrapAlignment.spaceAround,
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: [
-                                    SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(
-                                        children: [
-                                          DropdownMenu<int>(
-                                            initialSelection:
-                                                state.document.palettes.isEmpty
-                                                    ? null
-                                                    : selected,
-                                            onSelected: (value) {
-                                              setState(() {
-                                                selected = value ?? selected;
-                                              });
-                                            },
-                                            dropdownMenuEntries: state
-                                                .document.palettes
-                                                .asMap()
-                                                .entries
-                                                .map((e) =>
-                                                    DropdownMenuEntry<int>(
-                                                      value: e.key,
-                                                      label: e.value.name,
-                                                    ))
-                                                .toList(),
-                                          ),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .add,
-                                              icon: const Icon(
-                                                  PhosphorIcons.plusLight),
-                                              onPressed: _createPalette),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .edit,
-                                              icon: const Icon(
-                                                  PhosphorIcons.penLight),
-                                              onPressed:
-                                                  empty ? null : _editPalette),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .remove,
-                                              icon: const Icon(
-                                                  PhosphorIcons.minusLight),
-                                              onPressed: empty
-                                                  ? null
-                                                  : _deletePalette),
-                                        ],
-                                      ),
-                                    ),
-                                    SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          const VerticalDivider(),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .import,
-                                              icon: const Icon(PhosphorIcons
-                                                  .arrowSquareInLight),
-                                              onPressed: _importPalette),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .export,
-                                              icon: const Icon(
-                                                  PhosphorIcons.exportLight),
-                                              onPressed: _exportPalette),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .help,
-                                              icon: const Icon(PhosphorIcons
-                                                  .circleWavyQuestionLight),
-                                              onPressed: () =>
-                                                  openHelp(['color_picker'])),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .resetPalette,
-                                              icon: const Icon(PhosphorIcons
-                                                  .clockClockwiseLight),
-                                              onPressed: _resetPalette),
-                                          const VerticalDivider(),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .close,
-                                              icon: const Icon(
-                                                  PhosphorIcons.xLight),
-                                              onPressed: () =>
-                                                  Navigator.of(context).pop()),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                child: Row (children: [IconButton(onPressed: () async{
+                                  
+                                } , icon: Icon(PhosphorIcons.packageLight))],)
                               ),
                             );
                           }),
@@ -483,26 +383,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             ));
   }
 
-  Future<void> _resetPalette() {
-    return showDialog<void>(
-        context: context,
-        builder: (ctx) => AlertDialog(
-                title: Text(AppLocalizations.of(ctx).areYouSure),
-                content: Text(AppLocalizations.of(ctx).reallyReset),
-                actions: [
-                  TextButton(
-                      onPressed: () => Navigator.of(ctx).pop(),
-                      child: Text(AppLocalizations.of(ctx).no)),
-                  ElevatedButton(
-                      onPressed: () {
-                        selected = 0;
-                        context.read<DocumentBloc>().add(DocumentPaletteChanged(
-                            DocumentDefaults.getMaterialPalette(context)));
-                        Navigator.of(ctx).pop();
-                      },
-                      child: Text(AppLocalizations.of(context).yes))
-                ]));
-  }
+  
 }
 
 class ColorPickerResponse {

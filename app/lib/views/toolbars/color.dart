@@ -1,8 +1,10 @@
+import 'package:butterfly/dialogs/packs/select.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:image/image.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
@@ -24,13 +26,17 @@ class ColorToolbarView extends StatefulWidget {
 
 class _ColorToolbarViewState extends State<ColorToolbarView> {
   final ScrollController _scrollController = ScrollController();
-  String? currentPalette;
+  PackAssetLocation? currentPalette;
   @override
   void initState() {
     super.initState();
     final state = context.read<DocumentBloc>().state;
     if (state is DocumentLoadSuccess) {
-      currentPalette = state.document.palettes.firstOrNull?.name;
+      final pack = state.document.packs.firstOrNull; 
+      final palette = pack?.palettes.firstOrNull; 
+      if(palette  != null ) {
+        currentPalette = PackAssetLocation(pack: pack!.name, name: palette.name ) ;
+      }
     }
   }
 
@@ -73,32 +79,8 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                       color: widget.color,
                       current: current,
                       onChanged: (value) {
-                        var newPalettes =
-                            List<ColorPalette>.from(state.document.palettes)
-                                .map((e) {
-                          if (e.name == currentPalette) {
-                            return e.copyWith(
-                              colors: List<int>.from(e.colors)..[index] = value,
-                            );
-                          }
-                          return e;
-                        }).toList();
-                        bloc.add(DocumentPaletteChanged(newPalettes));
                         widget.onChanged(value);
-                      },
-                      onDeleted: () {
-                        var newPalettes =
-                            List<ColorPalette>.from(state.document.palettes)
-                                .map((e) {
-                          if (e.name == currentPalette) {
-                            return e.copyWith(
-                              colors: List<int>.from(e.colors)..removeAt(index),
-                            );
-                          }
-                          return e;
-                        }).toList();
-                        bloc.add(DocumentPaletteChanged(newPalettes));
-                      },
+                      },                 
                     );
                   }),
                   Padding(
@@ -137,72 +119,19 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                   ),
                 ]),
           )),
-          PopupMenuButton(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            itemBuilder: (context) {
-              final palettes = state.document.palettes;
-              return <PopupMenuEntry>[
-                for (final palette in palettes)
-                  PopupMenuItem(
-                    padding: EdgeInsets.zero,
-                    value: palette.name,
-                    child: ListTile(
-                      mouseCursor: MouseCursor.defer,
-                      title: Text(palette.name),
-                      selected: palette.name == currentPalette,
-                      onTap: () {
-                        setState(() {
-                          currentPalette = palette.name;
-                        });
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                if (palettes.isNotEmpty) const PopupMenuDivider(),
-                PopupMenuItem(
-                  padding: EdgeInsets.zero,
-                  child: ListTile(
-                    mouseCursor: MouseCursor.defer,
-                    leading: const Icon(PhosphorIcons.plusLight),
-                    title: Text(AppLocalizations.of(context).add),
-                    onTap: _newPalette,
-                  ),
-                ),
-                if (palettes.isNotEmpty) ...[
-                  PopupMenuItem(
-                    padding: EdgeInsets.zero,
-                    child: ListTile(
-                      mouseCursor: MouseCursor.defer,
-                      title: const Text('Rename'),
-                      leading: Icon(PhosphorIcons.pencilLight,
-                          color: Theme.of(context).iconTheme.color),
-                      onTap: _renamePalette,
-                    ),
-                  ),
-                  PopupMenuItem(
-                    padding: EdgeInsets.zero,
-                    child: ListTile(
-                      mouseCursor: MouseCursor.defer,
-                      title: const Text('Delete'),
-                      leading: Icon(PhosphorIcons.trashLight,
-                          color: Theme.of(context).iconTheme.color),
-                      onTap: () {
-                        final newPalettes =
-                            List<ColorPalette>.from(state.document.palettes)
-                                .where((e) => e.name != currentPalette)
-                                .toList();
-                        context
-                            .read<DocumentBloc>()
-                            .add(DocumentPaletteChanged(newPalettes));
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-                ],
-              ];
-            },
-          ),
+IconButton(onPressed: () async{
+  final document = state.document;
+   final result = await showDialog<PackAssetLocation>( context: context,  builder: (context) =>
+                                              SelectPackAssetDialog(
+                                                  type: PackAssetType.palette,
+                                                  document: document));
+
+  if (result == null) return; 
+  setState(() {
+    currentPalette = result; 
+  });
+
+}, icon: Icon(PhosphorIcons.packageLight))
         ],
       );
     });

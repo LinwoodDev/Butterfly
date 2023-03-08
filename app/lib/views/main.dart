@@ -116,7 +116,6 @@ class _ProjectPageState extends State<ProjectPage> {
       final document = AppDocument(
           createdAt: DateTime.now(),
           painters: createDefaultPainters(),
-          palettes: DocumentDefaults.getMaterialPalette(context),
           name: '');
       var language = embedding.language;
       if (language == 'system') {
@@ -185,7 +184,7 @@ class _ProjectPageState extends State<ProjectPage> {
           name: name,
           createdAt: DateTime.now(),
           painters: createDefaultPainters(),
-          palettes: DocumentDefaults.getMaterialPalette(context));
+         );
       final renderers =
           document.content.map((e) => Renderer.fromInstance(e)).toList();
       await Future.wait(renderers.map((e) async => await e.setup(document!)));

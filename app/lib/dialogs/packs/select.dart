@@ -2,12 +2,13 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-enum PackAssetType { component, style }
+enum PackAssetType { component, style, palette}
 
 class SelectPackAssetDialog extends StatelessWidget {
   final PackAssetType type;
   final PackAssetLocation? selected;
   final AppDocument document;
+
 
   const SelectPackAssetDialog({
     super.key,
@@ -27,6 +28,11 @@ class SelectPackAssetDialog extends StatelessWidget {
       case PackAssetType.style:
         return packs
             .expand((pack) => pack.styles
+                .map((e) => PackAssetLocation(pack: pack.name, name: e.name)))
+            .toList();
+      case PackAssetType.palette: 
+      return packs
+            .expand((pack) => pack.palettes
                 .map((e) => PackAssetLocation(pack: pack.name, name: e.name)))
             .toList();
     }

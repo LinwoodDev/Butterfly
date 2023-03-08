@@ -195,17 +195,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                         event.description ?? current.document.description)));
       }
     });
-
-    on<DocumentPaletteChanged>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        return _saveDocument(
-            emit,
-            current.copyWith(
-                document: current.document.copyWith(palettes: event.palette)));
-      }
-    });
     on<PainterCreated>((event, emit) async {
       final current = state;
       if (current is DocumentLoadSuccess) {

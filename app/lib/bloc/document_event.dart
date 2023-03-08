@@ -74,14 +74,6 @@ class DocumentPathChanged extends DocumentEvent {
   List<Object?> get props => [location];
 }
 
-class DocumentPaletteChanged extends DocumentEvent {
-  final List<ColorPalette> palette;
-
-  const DocumentPaletteChanged(this.palette);
-  @override
-  List<Object?> get props => [palette];
-}
-
 class DocumentSaved extends DocumentEvent {
   final AssetLocation? location;
 

@@ -20,6 +20,11 @@ _$_ButterflyPack _$$_ButterflyPackFromJson(Map json) => _$_ButterflyPack(
                   TextStyleSheet.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const <TextStyleSheet>[],
+      palettes: (json['palettes'] as List<dynamic>?)
+              ?.map((e) =>
+                  ColorPalette.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const <ColorPalette>[],
       createdAt:
           const DateTimeJsonConverter().fromJson(json['createdAt'] as int),
       updatedAt:
@@ -33,6 +38,7 @@ Map<String, dynamic> _$$_ButterflyPackToJson(_$_ButterflyPack instance) =>
       'author': instance.author,
       'components': instance.components.map((e) => e.toJson()).toList(),
       'styles': instance.styles.map((e) => e.toJson()).toList(),
+      'palettes': instance.palettes.map((e) => e.toJson()).toList(),
       'createdAt': const DateTimeJsonConverter().toJson(instance.createdAt),
       'updatedAt': const DateTimeJsonConverter().toJson(instance.updatedAt),
     };
