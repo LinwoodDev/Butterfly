@@ -1,92 +1,191 @@
 part of 'handler.dart';
 
-class PresentationHandler extends Handler<PresentationPainter> {
+abstract class GeneralPresentationHandler {
+  Timer? _timer;
+  PresentationRunningState _state = PresentationRunningState.paused;
+
+  int get currentFrame;
+
+  AnimationTrack? getAnimation(DocumentBloc bloc);
+
+  void _createTimer(DocumentBloc bloc) {
+    final animation = getAnimation(bloc);
+    if (animation == null) return;
+    _timer ??= Timer.periodic(const Duration(milliseconds: 100), (timer) {
+      if (_state == PresentationRunningState.running) {
+        onTick(bloc, animation);
+      }
+    });
+  }
+
+  void _onStateChange(DocumentBloc bloc) {}
+
+  void play(DocumentBloc bloc) {
+    _state = PresentationRunningState.running;
+    _createTimer(bloc);
+    _onStateChange(bloc);
+  }
+
+  void playReverse(DocumentBloc bloc) {
+    _state = PresentationRunningState.reversed;
+    _createTimer(bloc);
+    _onStateChange(bloc);
+  }
+
+  void toggle(DocumentBloc bloc) {
+    switch (_state) {
+      case PresentationRunningState.running:
+      case PresentationRunningState.reversed:
+        pause(bloc);
+        break;
+      case PresentationRunningState.paused:
+        play(bloc);
+        break;
+    }
+  }
+
+  void onTick(DocumentBloc bloc, AnimationTrack animation) {
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return;
+    _applyAnimation(
+        animation, bloc, state.currentIndexCubit, state.transformCubit);
+
+    var frame = currentFrame;
+    switch (_state) {
+      case PresentationRunningState.running:
+        if (frame < animation.duration) {
+          frame++;
+        }
+        break;
+      case PresentationRunningState.reversed:
+        if (frame > 0) {
+          frame--;
+        }
+        break;
+      case PresentationRunningState.paused:
+        return;
+    }
+    changeFrame(bloc, animation, frame);
+    if (animation.keys[frame]?.breakpoint ?? false) {
+      pause(bloc);
+    }
+  }
+
+  void changeFrame(DocumentBloc bloc, AnimationTrack animation, int frame);
+
+  void pause(DocumentBloc bloc) {
+    _state = PresentationRunningState.paused;
+    _onStateChange(bloc);
+  }
+
+  void stop(DocumentBloc bloc) {
+    _state = PresentationRunningState.paused;
+    _timer?.cancel();
+    _onStateChange(bloc);
+  }
+
+  void _applyAnimation(AnimationTrack animation, DocumentBloc bloc,
+      CurrentIndexCubit cubit, TransformCubit transformCubit) {
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return;
+    final position = animation.interpolateCameraPosition(currentFrame);
+    final zoom = animation.interpolateCameraZoom(currentFrame);
+    if (position == null && zoom == null) return;
+    if (position != null) transformCubit.setPosition(position.toOffset());
+    if (zoom != null) transformCubit.size(zoom);
+    cubit.bake(state.document);
+  }
+
+  void _applyAnimationFromBloc(DocumentBloc bloc) {
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return;
+    final animation = getAnimation(bloc);
+    if (animation == null) return;
+    _applyAnimation(
+        animation, bloc, state.currentIndexCubit, state.transformCubit);
+  }
+}
+
+class PresentationHandler extends Handler<PresentationPainter>
+    with GeneralPresentationHandler {
   int _currentFrame = 0;
   String? _currentAnimation;
 
   PresentationHandler(super.data);
 
   @override
-  Widget? getToolbar(BuildContext context) => PresentationToolbarView(
+  Widget? getToolbar(DocumentBloc bloc) => PresentationToolbarView(
         animation: _currentAnimation,
         frame: _currentFrame,
         onAnimationChanged: (animation) {
           _currentAnimation = animation;
-          _applyAnimationFromContext(context);
+          _refreshToolbar(bloc);
+          _applyAnimationFromBloc(bloc);
         },
         onFrameChanged: (frame) {
           _currentFrame = frame;
-          _applyAnimationFromContext(context);
+          _refreshToolbar(bloc);
+          _applyAnimationFromBloc(bloc);
+        },
+        runningState: _state,
+        onRunningStateChanged: (value) {
+          switch (value) {
+            case PresentationRunningState.running:
+              play(bloc);
+              break;
+            case PresentationRunningState.reversed:
+              playReverse(bloc);
+              break;
+            case PresentationRunningState.paused:
+              pause(bloc);
+              break;
+          }
         },
       );
 
-  AnimationTrack? _getAnimation(DocumentBloc bloc) {
+  @override
+  AnimationTrack? getAnimation(DocumentBloc bloc) {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess || _currentAnimation == null) return null;
     final animation = state.document.getAnimation(_currentAnimation!);
     return animation;
   }
 
-  void _applyAnimationFromContext(BuildContext context) {
-    final bloc = context.read<DocumentBloc>();
-    final cubit = context.read<CurrentIndexCubit>();
-    final transformCubit = context.read<TransformCubit>();
-    _applyAnimation(bloc, cubit, transformCubit);
+  @override
+  int get currentFrame => _currentFrame;
+
+  @override
+  void changeFrame(DocumentBloc bloc, AnimationTrack animation, int frame) {
+    _currentFrame = frame;
+    _refreshToolbar(bloc);
   }
 
-  void _applyAnimation(DocumentBloc bloc, CurrentIndexCubit cubit,
-      TransformCubit transformCubit) {
-    final animation = _getAnimation(bloc);
-    if (animation == null) return;
+  @override
+  void _onStateChange(DocumentBloc bloc) {
+    _refreshToolbar(bloc);
+  }
+
+  void _refreshToolbar(DocumentBloc bloc) {
     final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return;
-    final position = animation.interpolateCameraPosition(_currentFrame);
-    final zoom = animation.interpolateCameraZoom(_currentFrame);
-    if (position == null && zoom == null) return;
-    if (position != null) transformCubit.setPosition(position.toOffset());
-    if (zoom != null) transformCubit.zoom(zoom);
-    cubit.bake(state.document);
+    if (state is! DocumentLoaded) return;
+    state.currentIndexCubit.refreshToolbar(bloc);
   }
 }
 
 enum PresentationRunningState { running, reversed, paused }
 
-class PresentationStateHandler extends Handler<AnimationTrack> {
+class PresentationStateHandler extends Handler<AnimationTrack>
+    with GeneralPresentationHandler {
   DocumentBloc bloc;
-  Timer? _timer;
-  PresentationRunningState _state = PresentationRunningState.paused;
 
   PresentationStateHandler(super.data, this.bloc) {
-    setup();
-  }
-
-  void setup() {
-    final fps = data.fps;
-    final milliseconds = 1000 ~/ fps;
-    _timer = Timer.periodic(Duration(milliseconds: milliseconds), _tick);
+    play(bloc);
   }
 
   @override
   void dispose(DocumentBloc bloc) {
     super.dispose(bloc);
-    _timer?.cancel();
-  }
-
-  void _tick(Timer timer) {
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return;
-    int tick = 0;
-    switch (_state) {
-      case PresentationRunningState.running:
-        tick = 1;
-        break;
-      case PresentationRunningState.reversed:
-        tick = -1;
-        break;
-      case PresentationRunningState.paused:
-        return;
-    }
-    bloc.add(PresentationTick(tick));
+    stop(bloc);
   }
 
   @override
@@ -99,18 +198,10 @@ class PresentationStateHandler extends Handler<AnimationTrack> {
     final dx = details.velocity.pixelsPerSecond.dx;
     if (dx.abs() < 50) return;
     if (dx < 0) {
-      _nextSlide(context);
+      play(bloc);
     } else {
-      _previousSlide(context);
+      playReverse(bloc);
     }
-  }
-
-  void _nextSlide(EventContext context) {
-    _state = PresentationRunningState.running;
-  }
-
-  void _previousSlide(EventContext context) {
-    _state = PresentationRunningState.reversed;
   }
 
   void _checkStateChange(ScaleEndDetails details, EventContext context) {
@@ -123,5 +214,20 @@ class PresentationStateHandler extends Handler<AnimationTrack> {
 
   void _exitPresentation(EventContext context) {
     context.getDocumentBloc().add(const PresentationModeExited());
+  }
+
+  @override
+  int get currentFrame {
+    final state = bloc.state;
+    if (state is! DocumentPresentationState) return 0;
+    return state.frame;
+  }
+
+  @override
+  AnimationTrack? getAnimation(DocumentBloc bloc) => data;
+
+  @override
+  void changeFrame(DocumentBloc bloc, AnimationTrack animation, int frame) {
+    bloc.add(PresentationTick(frame));
   }
 }

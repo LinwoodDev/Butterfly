@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
 import '../cubits/settings.dart';
+import '../cubits/transform.dart';
 import '../embed/embedding.dart';
 import '../models/viewport.dart';
 import '../renderers/renderer.dart';
@@ -674,8 +675,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PresentationTick>((event, emit) {
       final current = state;
       if (current is! DocumentPresentationState) return;
-      final frame = current.frame + event.tick;
-      emit(current.copyWith(frame: frame));
+      emit(current.copyWith(frame: event.tick));
     });
   }
 

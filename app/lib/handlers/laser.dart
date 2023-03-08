@@ -166,10 +166,9 @@ class LaserHandler extends Handler<LaserPainter> {
   }
 
   @override
-  Widget getToolbar(BuildContext context) => ColorToolbarView(
+  Widget getToolbar(DocumentBloc bloc) => ColorToolbarView(
         color: data.color,
         onChanged: (value) {
-          final bloc = context.read<DocumentBloc>();
           bloc.add(PaintersChanged({
             data: data.copyWith(color: convertOldColor(value, data.color)),
           }));

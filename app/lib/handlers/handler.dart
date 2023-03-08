@@ -204,7 +204,7 @@ abstract class Handler<T> {
     );
   }
 
-  Widget? getToolbar(BuildContext context) => null;
+  Widget? getToolbar(DocumentBloc bloc) => null;
 
   void dispose(DocumentBloc bloc) {}
 

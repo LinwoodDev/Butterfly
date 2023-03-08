@@ -43,6 +43,8 @@ class CurrentIndex with _$CurrentIndex {
     @Default(AssetLocation(path: '')) AssetLocation location,
     Embedding? embedding,
     @Default(false) bool saved,
+    Widget? toolbar,
+    Widget? temporaryToolbar,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -88,8 +90,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         handler: currentHandler,
         foregrounds: currentHandler.createForegrounds(
             this, document, blocState.currentArea),
+        toolbar: currentHandler.getToolbar(bloc),
         temporaryForegrounds: null,
         temporaryHandler: null,
+        temporaryToolbar: null,
       ));
     }
     return handler;
@@ -107,6 +111,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       handler: handler,
       foregrounds: handler.createForegrounds(
           this, docState.document, docState.currentArea),
+      toolbar: handler.getToolbar(bloc),
     ));
   }
 
@@ -124,6 +129,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
       temporaryHandler: handler,
       temporaryForegrounds: temporaryForegrounds,
+      temporaryToolbar: handler.getToolbar(bloc),
     ));
   }
 
@@ -163,6 +169,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       emit(state.copyWith(
         temporaryForegrounds: temporaryForegrounds,
         foregrounds: foregrounds,
+      ));
+    }
+  }
+
+  Future<void> refreshToolbar(DocumentBloc bloc) async {
+    if (!isClosed) {
+      final toolbar = state.handler.getToolbar(bloc);
+      final temporaryToolbar = state.temporaryHandler?.getToolbar(bloc);
+      emit(state.copyWith(
+        toolbar: toolbar,
+        temporaryToolbar: temporaryToolbar,
       ));
     }
   }

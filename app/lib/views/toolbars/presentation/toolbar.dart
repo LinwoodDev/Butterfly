@@ -13,6 +13,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../bloc/document_bloc.dart';
 import '../../../dialogs/pdf_export.dart';
+import '../../../handlers/handler.dart';
 import 'timeline.dart';
 
 class PresentationToolbarView extends StatefulWidget {
@@ -20,6 +21,8 @@ class PresentationToolbarView extends StatefulWidget {
   final ValueChanged<String?>? onAnimationChanged;
   final int frame;
   final String? animation;
+  final PresentationRunningState runningState;
+  final ValueChanged<PresentationRunningState>? onRunningStateChanged;
 
   const PresentationToolbarView({
     super.key,
@@ -27,6 +30,8 @@ class PresentationToolbarView extends StatefulWidget {
     this.onAnimationChanged,
     this.animation,
     this.frame = 0,
+    this.runningState = PresentationRunningState.paused,
+    this.onRunningStateChanged,
   });
 
   @override
@@ -56,9 +61,11 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
   void didUpdateWidget(covariant PresentationToolbarView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.frame != widget.frame) {
-      setState(() => _frameController.text = widget.frame.toString());
+      setState(() => _frame = widget.frame);
     } else if (oldWidget.animation != widget.animation) {
       setState(() => _selected = widget.animation);
+    } else if (oldWidget.runningState != widget.runningState) {
+      setState(() {});
     }
   }
 
@@ -268,12 +275,32 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           ],
                         ),
                         IconButton(
-                          icon: const Icon(PhosphorIcons.playLight),
-                          onPressed: animation == null ? null : () {},
+                          icon: widget.runningState !=
+                                  PresentationRunningState.running
+                              ? const Icon(PhosphorIcons.playLight)
+                              : const Icon(PhosphorIcons.pauseLight),
+                          onPressed: animation == null
+                              ? null
+                              : () {
+                                  if (widget.runningState ==
+                                      PresentationRunningState.running) {
+                                    widget.onRunningStateChanged
+                                        ?.call(PresentationRunningState.paused);
+                                  } else {
+                                    widget.onRunningStateChanged?.call(
+                                        PresentationRunningState.running);
+                                  }
+                                },
                         ),
                         IconButton(
                           icon: const Icon(PhosphorIcons.stopLight),
-                          onPressed: animation == null ? null : () {},
+                          onPressed: animation == null
+                              ? null
+                              : () {
+                                  _setFrame(0);
+                                  widget.onRunningStateChanged
+                                      ?.call(PresentationRunningState.paused);
+                                },
                         ),
                         MenuAnchor(
                           builder: (context, controller, child) => IconButton(

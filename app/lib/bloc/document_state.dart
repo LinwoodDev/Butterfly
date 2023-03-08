@@ -31,6 +31,11 @@ abstract class DocumentLoaded extends DocumentState {
   List<String> get invisibleLayers => [];
 
   Area? get currentArea => null;
+
+  CurrentIndexCubit get currentIndexCubit;
+  SettingsCubit get settingsCubit;
+
+  TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
 }
 
 class DocumentLoadSuccess extends DocumentLoaded {
@@ -41,7 +46,9 @@ class DocumentLoadSuccess extends DocumentLoaded {
   final String currentAreaName;
   @override
   final List<String> invisibleLayers;
+  @override
   final SettingsCubit settingsCubit;
+  @override
   final CurrentIndexCubit currentIndexCubit;
 
   DocumentLoadSuccess(this.document,
@@ -164,4 +171,10 @@ class DocumentPresentationState extends DocumentLoaded {
   }) =>
       DocumentPresentationState.withHandler(
           handler, oldState, track, frame ?? this.frame);
+
+  @override
+  CurrentIndexCubit get currentIndexCubit => oldState.currentIndexCubit;
+
+  @override
+  SettingsCubit get settingsCubit => oldState.settingsCubit;
 }
