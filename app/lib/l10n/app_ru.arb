@@ -249,7 +249,7 @@
   "pdf": "PDF",
   "selectPages": "Выберите страницы",
   "recentFiles": "Последние файлы",
-  "start": "Стартовый диалог",
+  "start": "Начальный экран",
   "noRecentFiles": "Нет недавних файлов",
   "countPages": "{count,plural, =0{Нет страниц} =1{1 страница} other{{count} страницы}}",
   "@countPages": {
