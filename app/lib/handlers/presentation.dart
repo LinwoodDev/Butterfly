@@ -11,10 +11,9 @@ abstract class GeneralPresentationHandler {
   void _createTimer(DocumentBloc bloc) {
     final animation = getAnimation(bloc);
     if (animation == null) return;
-    _timer ??= Timer.periodic(const Duration(milliseconds: 100), (timer) {
-      if (_state == PresentationRunningState.running) {
-        onTick(bloc, animation);
-      }
+    final milliseconds = 1000 ~/ animation.fps;
+    _timer ??= Timer.periodic(Duration(milliseconds: milliseconds), (timer) {
+      onTick(bloc, animation);
     });
   }
 
@@ -81,6 +80,7 @@ abstract class GeneralPresentationHandler {
   void stop(DocumentBloc bloc) {
     _state = PresentationRunningState.paused;
     _timer?.cancel();
+    _timer = null;
     _onStateChange(bloc);
   }
 
@@ -179,7 +179,7 @@ class PresentationStateHandler extends Handler<AnimationTrack>
   DocumentBloc bloc;
 
   PresentationStateHandler(super.data, this.bloc) {
-    play(bloc);
+    _applyAnimationFromBloc(bloc);
   }
 
   @override
@@ -190,23 +190,50 @@ class PresentationStateHandler extends Handler<AnimationTrack>
 
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) {
-    _checkSlideChange(details, context);
-    _checkStateChange(details, context);
+    if (!_checkSlideChange(details, context)) {
+      _checkStateChange(details, context);
+    }
   }
 
-  void _checkSlideChange(ScaleEndDetails details, EventContext context) {
+  @override
+  void onTapUp(TapUpDetails details, EventContext context) {
+    toggle(bloc);
+  }
+
+  bool _checkSlideChange(ScaleEndDetails details, EventContext context) {
     final dx = details.velocity.pixelsPerSecond.dx;
-    if (dx.abs() < 50) return;
+    if (dx.abs() < 100) return false;
     if (dx < 0) {
-      play(bloc);
+      if (currentFrame >= data.duration) {
+        ScaffoldMessenger.of(context.buildContext).showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context.buildContext).endOfPresentation,
+            ),
+          ),
+        );
+      } else {
+        play(bloc);
+      }
     } else {
-      playReverse(bloc);
+      if (currentFrame <= 0) {
+        ScaffoldMessenger.of(context.buildContext).showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context.buildContext).startOfPresentation,
+            ),
+          ),
+        );
+      } else {
+        playReverse(bloc);
+      }
     }
+    return true;
   }
 
   void _checkStateChange(ScaleEndDetails details, EventContext context) {
     final dy = details.velocity.pixelsPerSecond.dy;
-    if (dy.abs() < 50) return;
+    if (dy.abs() < 100) return;
     if (dy < 0) {
       _exitPresentation(context);
     }

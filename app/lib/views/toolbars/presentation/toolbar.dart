@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../api/full_screen.dart';
 import '../../../bloc/document_bloc.dart';
 import '../../../dialogs/pdf_export.dart';
 import '../../../handlers/handler.dart';
@@ -526,15 +527,17 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 child: Text(AppLocalizations.of(context).play),
                                 onPressed: () async {
                                   final bloc = context.read<DocumentBloc>();
-                                  final result = await showDialog<bool>(
-                                    context: context,
-                                    builder: (context) =>
-                                        const PresentationControlsDialog(),
-                                  );
-                                  if (result != true) return;
-                                  bloc.add(PresentationModeEntered(
-                                    animation,
-                                  ));
+                                  final fullScreen = await isFullScreen();
+                                  if (context.mounted) {
+                                    final result = await showDialog<bool>(
+                                      context: context,
+                                      builder: (context) =>
+                                          const PresentationControlsDialog(),
+                                    );
+                                    if (result != true) return;
+                                    bloc.add(PresentationModeEntered(
+                                        animation, fullScreen));
+                                  }
                                 },
                               ),
                               const Divider(),

@@ -45,7 +45,7 @@ class PresentationControlsDialog extends StatelessWidget {
                   title: Text(AppLocalizations.of(context).fullScreen),
                   onChanged: (value) {
                     setFullScreen(value);
-                    fullscreen = value;
+                    setState(() => fullscreen = value);
                   },
                 ),
               );

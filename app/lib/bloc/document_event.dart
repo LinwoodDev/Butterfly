@@ -341,11 +341,12 @@ class DocumentAnimationRemoved extends DocumentEvent {
 
 class PresentationModeEntered extends DocumentEvent {
   final AnimationTrack track;
+  final bool fullScreen;
 
-  const PresentationModeEntered(this.track);
+  const PresentationModeEntered(this.track, this.fullScreen);
 
   @override
-  List<Object?> get props => [track];
+  List<Object?> get props => [track, fullScreen];
 }
 
 class PresentationModeExited extends DocumentEvent {

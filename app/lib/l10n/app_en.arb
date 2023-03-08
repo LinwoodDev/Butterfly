@@ -470,5 +470,7 @@
   "previousSlideDescription": "Swipe to the left or press the left arrow key to go to the previous slide",
   "exitPresentation": "Exit presentation",
   "exitPresentationDescription": "Press the escape key or swipe down to exit the presentation",
-  "keyframe": "Keyframe"
+  "keyframe": "Keyframe",
+  "endOfPresentation": "You have reached the end of the presentation",
+  "startOfPresentation": "You have reached the start of the presentation"
 }

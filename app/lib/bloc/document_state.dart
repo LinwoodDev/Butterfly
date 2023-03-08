@@ -151,13 +151,15 @@ class DocumentPresentationState extends DocumentLoaded {
   final int frame;
   final AnimationTrack track;
   final PresentationStateHandler handler;
+  final bool fullScreen;
 
-  DocumentPresentationState(DocumentBloc bloc, this.oldState, this.track,
+  DocumentPresentationState(
+      DocumentBloc bloc, this.oldState, this.track, this.fullScreen,
       [this.frame = 0])
       : handler = PresentationStateHandler(track, bloc);
 
   const DocumentPresentationState.withHandler(
-      this.handler, this.oldState, this.track,
+      this.handler, this.oldState, this.track, this.fullScreen,
       [this.frame = 0]);
 
   @override
@@ -170,7 +172,7 @@ class DocumentPresentationState extends DocumentLoaded {
     int? frame,
   }) =>
       DocumentPresentationState.withHandler(
-          handler, oldState, track, frame ?? this.frame);
+          handler, oldState, track, fullScreen, frame ?? this.frame);
 
   @override
   CurrentIndexCubit get currentIndexCubit => oldState.currentIndexCubit;
