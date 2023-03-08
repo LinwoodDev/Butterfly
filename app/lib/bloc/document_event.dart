@@ -310,3 +310,57 @@ class DocumentPackRemoved extends DocumentEvent {
   @override
   List<Object?> get props => [pack];
 }
+
+class DocumentAnimationAdded extends DocumentEvent {
+  final AnimationTrack animation;
+
+  const DocumentAnimationAdded(this.animation);
+
+  @override
+  List<Object?> get props => [animation];
+}
+
+class DocumentAnimationUpdated extends DocumentEvent {
+  final String name;
+  final AnimationTrack animation;
+
+  const DocumentAnimationUpdated(this.name, this.animation);
+
+  @override
+  List<Object?> get props => [name, animation];
+}
+
+class DocumentAnimationRemoved extends DocumentEvent {
+  final String animation;
+
+  const DocumentAnimationRemoved(this.animation);
+
+  @override
+  List<Object?> get props => [animation];
+}
+
+class PresentationModeEntered extends DocumentEvent {
+  final AnimationTrack track;
+  final bool fullScreen;
+
+  const PresentationModeEntered(this.track, this.fullScreen);
+
+  @override
+  List<Object?> get props => [track, fullScreen];
+}
+
+class PresentationModeExited extends DocumentEvent {
+  const PresentationModeExited();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class PresentationTick extends DocumentEvent {
+  final int tick;
+
+  const PresentationTick(this.tick);
+
+  @override
+  List<Object?> get props => [tick];
+}

@@ -31,6 +31,8 @@ mixin _$CurrentIndex {
   AssetLocation get location => throw _privateConstructorUsedError;
   Embedding? get embedding => throw _privateConstructorUsedError;
   bool get saved => throw _privateConstructorUsedError;
+  Widget? get toolbar => throw _privateConstructorUsedError;
+  Widget? get temporaryToolbar => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CurrentIndexCopyWith<CurrentIndex> get copyWith =>
@@ -57,7 +59,9 @@ abstract class $CurrentIndexCopyWith<$Res> {
       CameraViewport cameraViewport,
       AssetLocation location,
       Embedding? embedding,
-      bool saved});
+      bool saved,
+      Widget? toolbar,
+      Widget? temporaryToolbar});
 
   $AssetLocationCopyWith<$Res> get location;
 }
@@ -89,6 +93,8 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? location = null,
     Object? embedding = freezed,
     Object? saved = null,
+    Object? toolbar = freezed,
+    Object? temporaryToolbar = freezed,
   }) {
     return _then(_value.copyWith(
       index: freezed == index
@@ -147,6 +153,14 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
               as bool,
+      toolbar: freezed == toolbar
+          ? _value.toolbar
+          : toolbar // ignore: cast_nullable_to_non_nullable
+              as Widget?,
+      temporaryToolbar: freezed == temporaryToolbar
+          ? _value.temporaryToolbar
+          : temporaryToolbar // ignore: cast_nullable_to_non_nullable
+              as Widget?,
     ) as $Val);
   }
 
@@ -181,7 +195,9 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
       CameraViewport cameraViewport,
       AssetLocation location,
       Embedding? embedding,
-      bool saved});
+      bool saved,
+      Widget? toolbar,
+      Widget? temporaryToolbar});
 
   @override
   $AssetLocationCopyWith<$Res> get location;
@@ -212,6 +228,8 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
     Object? location = null,
     Object? embedding = freezed,
     Object? saved = null,
+    Object? toolbar = freezed,
+    Object? temporaryToolbar = freezed,
   }) {
     return _then(_$_CurrentIndex(
       freezed == index
@@ -270,6 +288,14 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
               as bool,
+      toolbar: freezed == toolbar
+          ? _value.toolbar
+          : toolbar // ignore: cast_nullable_to_non_nullable
+              as Widget?,
+      temporaryToolbar: freezed == temporaryToolbar
+          ? _value.temporaryToolbar
+          : temporaryToolbar // ignore: cast_nullable_to_non_nullable
+              as Widget?,
     ));
   }
 }
@@ -288,7 +314,9 @@ class _$_CurrentIndex extends _CurrentIndex {
       this.cameraViewport = const CameraViewport.unbaked(),
       this.location = const AssetLocation(path: ''),
       this.embedding,
-      this.saved = false})
+      this.saved = false,
+      this.toolbar,
+      this.temporaryToolbar})
       : _foregrounds = foregrounds,
         _temporaryForegrounds = temporaryForegrounds,
         _pointers = pointers,
@@ -348,10 +376,14 @@ class _$_CurrentIndex extends _CurrentIndex {
   @override
   @JsonKey()
   final bool saved;
+  @override
+  final Widget? toolbar;
+  @override
+  final Widget? temporaryToolbar;
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, temporaryForegrounds: $temporaryForegrounds, pointers: $pointers, buttons: $buttons, cameraViewport: $cameraViewport, location: $location, embedding: $embedding, saved: $saved)';
+    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, temporaryForegrounds: $temporaryForegrounds, pointers: $pointers, buttons: $buttons, cameraViewport: $cameraViewport, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar)';
   }
 
   @JsonKey(ignore: true)
@@ -373,7 +405,9 @@ abstract class _CurrentIndex extends CurrentIndex {
       final CameraViewport cameraViewport,
       final AssetLocation location,
       final Embedding? embedding,
-      final bool saved}) = _$_CurrentIndex;
+      final bool saved,
+      final Widget? toolbar,
+      final Widget? temporaryToolbar}) = _$_CurrentIndex;
   const _CurrentIndex._() : super._();
 
   @override
@@ -404,6 +438,10 @@ abstract class _CurrentIndex extends CurrentIndex {
   Embedding? get embedding;
   @override
   bool get saved;
+  @override
+  Widget? get toolbar;
+  @override
+  Widget? get temporaryToolbar;
   @override
   @JsonKey(ignore: true)
   _$$_CurrentIndexCopyWith<_$_CurrentIndex> get copyWith =>

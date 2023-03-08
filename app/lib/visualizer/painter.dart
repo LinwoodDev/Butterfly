@@ -24,6 +24,7 @@ extension PainterVisualizer on Painter {
       laser: (_) => loc.laser,
       shape: (_) => loc.shape,
       stamp: (_) => loc.stamp,
+      presentation: (_) => loc.presentation,
     );
   }
 
@@ -56,6 +57,9 @@ extension PainterVisualizer on Painter {
           filled ? PhosphorIcons.cursorFill : PhosphorIcons.cursorLight,
       shape: (painter) => painter.property.shape.getIcon(filled: filled),
       stamp: (_) => filled ? PhosphorIcons.stampFill : PhosphorIcons.stampLight,
+      presentation: (_) => filled
+          ? PhosphorIcons.presentationFill
+          : PhosphorIcons.presentationLight,
     );
   }
 

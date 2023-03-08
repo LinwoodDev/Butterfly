@@ -298,7 +298,9 @@ class ImportService {
             builder: (context) => BlocProvider.value(
                 value: bloc,
                 child: PdfExportDialog(
-                    areas: state.document.getAreaNames().toList())));
+                    areas: state.document.areas
+                        .map((e) => AreaPreset(name: e.name, area: e))
+                        .toList())));
       case AssetFileType.svg:
         return showDialog<void>(
             context: context,

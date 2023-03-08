@@ -20,7 +20,7 @@ class PdfExportAction extends Action<PdfExportIntent> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    var areas = <String>[];
+    var areas = <AreaPreset>[];
     if (state.document.exportPresets.isNotEmpty) {
       final preset = await showDialog<ExportPreset>(
         context: intent.context,
@@ -28,7 +28,7 @@ class PdfExportAction extends Action<PdfExportIntent> {
             BlocProvider.value(value: bloc, child: const ExportPresetsDialog()),
       );
       if (preset == null) return;
-      areas = preset.areas.map((a) => a.name).toList();
+      areas = preset.areas;
     }
     if (context.mounted) {
       return showDialog<void>(

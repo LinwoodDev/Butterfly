@@ -43,6 +43,8 @@ class CurrentIndex with _$CurrentIndex {
     @Default(AssetLocation(path: '')) AssetLocation location,
     Embedding? embedding,
     @Default(false) bool saved,
+    Widget? toolbar,
+    Widget? temporaryToolbar,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -88,8 +90,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         handler: currentHandler,
         foregrounds: currentHandler.createForegrounds(
             this, document, blocState.currentArea),
+        toolbar: currentHandler.getToolbar(bloc),
         temporaryForegrounds: null,
         temporaryHandler: null,
+        temporaryToolbar: null,
       ));
     }
     return handler;
@@ -107,6 +111,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       handler: handler,
       foregrounds: handler.createForegrounds(
           this, docState.document, docState.currentArea),
+      toolbar: handler.getToolbar(bloc),
     ));
   }
 
@@ -124,6 +129,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
       temporaryHandler: handler,
       temporaryForegrounds: temporaryForegrounds,
+      temporaryToolbar: handler.getToolbar(bloc),
     ));
   }
 
@@ -163,6 +169,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       emit(state.copyWith(
         temporaryForegrounds: temporaryForegrounds,
         foregrounds: foregrounds,
+      ));
+    }
+  }
+
+  Future<void> refreshToolbar(DocumentBloc bloc) async {
+    if (!isClosed) {
+      final toolbar = state.handler.getToolbar(bloc);
+      final temporaryToolbar = state.temporaryHandler?.getToolbar(bloc);
+      emit(state.copyWith(
+        toolbar: toolbar,
+        temporaryToolbar: temporaryToolbar,
       ));
     }
   }
@@ -349,21 +366,26 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Future<ByteData?> render(AppDocument document,
-      {required int width,
-      required int height,
+      {required double width,
+      required double height,
       double x = 0,
       double y = 0,
       double scale = 1,
+      double quality = 1,
       bool renderBackground = true}) async {
-    var recorder = ui.PictureRecorder();
-    var canvas = Canvas(recorder);
-    var painter = ViewPainter(document,
+    final realWidth = (width * quality).ceil();
+    final realHeight = (height * quality).ceil();
+    final realZoom = scale * quality;
+    final recorder = ui.PictureRecorder();
+    final canvas = Canvas(recorder);
+    final painter = ViewPainter(document,
         renderBackground: renderBackground,
-        cameraViewport: state.cameraViewport.withUnbaked(renderers),
-        transform: CameraTransform(-Offset(x.toDouble(), y.toDouble()), scale));
-    painter.paint(canvas, Size(width.toDouble(), height.toDouble()));
-    var picture = recorder.endRecording();
-    var image = await picture.toImage(width, height);
+        cameraViewport: state.cameraViewport.unbake(unbakedElements: renderers),
+        transform:
+            CameraTransform(-Offset(x.toDouble(), y.toDouble()), realZoom));
+    painter.paint(canvas, Size(realWidth.toDouble(), realHeight.toDouble()));
+    final picture = recorder.endRecording();
+    final image = await picture.toImage(realWidth, realHeight);
     return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 
@@ -423,20 +445,18 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     for (final preset in areas) {
       final areaName = preset.name;
       final quality = preset.quality;
-      final area = appDocument.getAreaByName(areaName);
+      final area = preset.area ?? appDocument.getAreaByName(areaName);
       if (area == null) {
         continue;
       }
-      final pageFormat = PdfPageFormat(area.width, area.height);
-      final width = area.width * quality;
-      final height = area.height * quality;
-      final scale = quality;
+      final pageFormat =
+          PdfPageFormat(area.width * quality, area.height * quality);
       final image = await render(appDocument,
-          width: width.ceil(),
-          height: height.ceil(),
+          width: area.width,
+          height: area.height,
           x: area.position.x,
           y: area.position.y,
-          scale: scale,
+          quality: quality,
           renderBackground: renderBackground);
       if (image == null) continue;
       document.addPage(pw.Page(

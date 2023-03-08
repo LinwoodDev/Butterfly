@@ -10,7 +10,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
+import '../api/full_screen.dart';
 import '../cubits/settings.dart';
+import '../cubits/transform.dart';
 import '../embed/embedding.dart';
 import '../models/viewport.dart';
 import '../renderers/renderer.dart';
@@ -621,12 +623,62 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               .toList());
       _saveDocument(emit, current.copyWith(document: currentDocument));
     });
+    on<DocumentAnimationAdded>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      if (current.document.getAnimation(event.animation.name) != null) return;
+      final currentDocument = current.document.copyWith(
+          animations: List<AnimationTrack>.from(current.document.animations)
+            ..add(event.animation));
+      _saveDocument(emit, current.copyWith(document: currentDocument));
+    });
+    on<DocumentAnimationUpdated>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final currentDocument = current.document.copyWith(
+          animations: current.document.animations.map((e) {
+        if (e.name == event.animation.name) {
+          return event.animation;
+        }
+        return e;
+      }).toList());
+      _saveDocument(emit, current.copyWith(document: currentDocument));
+    });
+    on<DocumentAnimationRemoved>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final currentDocument = current.document.copyWith(
+          animations: current.document.animations
+              .where((element) => element.name != event.animation)
+              .toList());
+      _saveDocument(emit, current.copyWith(document: currentDocument));
+    });
     on<DocumentSaved>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       current.currentIndexCubit
           .setSaveState(saved: true, location: event.location);
+    });
+    on<PresentationModeEntered>((event, emit) {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      emit(DocumentPresentationState(
+          this, current, event.track, event.fullScreen));
+    });
+    on<PresentationModeExited>((event, emit) {
+      final current = state;
+      if (current is! DocumentPresentationState) return;
+      emit(current.oldState);
+      setFullScreen(current.fullScreen);
+    });
+    on<PresentationTick>((event, emit) {
+      final current = state;
+      if (current is! DocumentPresentationState) return;
+      emit(current.copyWith(frame: event.tick));
     });
   }
 

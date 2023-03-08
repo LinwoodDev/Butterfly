@@ -1,6 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/dialogs/packs/component.dart';
 import 'package:butterfly/dialogs/svg_export.dart';
 import 'package:butterfly/helpers/point_helper.dart';
@@ -57,58 +58,21 @@ class AreaContextMenu extends StatelessWidget {
               title: Text(AppLocalizations.of(context).name),
               subtitle: Text(area.name),
               onTap: () async {
-                final nameController = TextEditingController(text: area.name);
-                final formKey = GlobalKey<FormState>();
                 Navigator.of(context).pop();
-                final success = await showDialog<bool>(
-                      context: context,
-                      builder: (context) => Form(
-                        key: formKey,
-                        child: AlertDialog(
-                          title: Text(AppLocalizations.of(context).enterName),
-                          content: TextFormField(
-                            validator: (value) {
-                              if (value?.isEmpty ?? true) {
-                                return AppLocalizations.of(context)
-                                    .shouldNotEmpty;
-                              }
-                              if (state.document.getAreaByName(value!) !=
-                                  null) {
-                                return AppLocalizations.of(context)
-                                    .alreadyExists;
-                              }
-                              return null;
-                            },
-                            onFieldSubmitted: (value) {
-                              if (formKey.currentState!.validate()) {
-                                Navigator.of(context).pop(true);
-                              }
-                            },
-                            decoration: const InputDecoration(filled: true),
-                            controller: nameController,
-                            autofocus: true,
+                final name = await showDialog<String>(
+                    context: context,
+                    builder: (context) => NameDialog(
+                          validator: defaultNameValidator(
+                            context,
+                            area.name,
+                            state.document.getAreaNames().toList(),
                           ),
-                          actions: [
-                            TextButton(
-                              child: Text(AppLocalizations.of(context).cancel),
-                              onPressed: () => Navigator.of(context).pop(false),
-                            ),
-                            ElevatedButton(
-                              child: Text(AppLocalizations.of(context).ok),
-                              onPressed: () {
-                                Navigator.of(context).pop(true);
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ) ??
-                    false;
-                if (!success) return;
+                        ));
+                if (name == null) return;
                 bloc.add(
                   AreaChanged(
                     area.name,
-                    area.copyWith(name: nameController.text),
+                    area.copyWith(name: name),
                   ),
                 );
               },
@@ -168,7 +132,9 @@ class AreaContextMenu extends StatelessWidget {
                             showDialog<void>(
                                 builder: (context) => BlocProvider.value(
                                     value: bloc,
-                                    child: PdfExportDialog(areas: [area.name])),
+                                    child: PdfExportDialog(areas: [
+                                      AreaPreset(area: area, name: area.name)
+                                    ])),
                                 context: context);
                           },
                         )
