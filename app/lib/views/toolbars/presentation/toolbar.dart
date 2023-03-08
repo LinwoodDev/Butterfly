@@ -560,31 +560,37 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   final size = MediaQuery.of(context).size;
                                   showDialog(
                                     context: context,
-                                    builder: (context) => ExportPresetsDialog(
-                                      areas: {
-                                        0,
-                                        ...animation.keys.entries
-                                            .where((element) =>
-                                                element.value.breakpoint)
-                                            .map((e) => e.key)
-                                      }.map(
-                                        (e) {
-                                          final zoom = animation
-                                                  .interpolateCameraZoom(e) ??
-                                              transform.size;
-                                          return AreaPreset(
-                                            name: e.toString(),
-                                            area: Area(
-                                              position: animation
-                                                      .interpolateCameraPosition(
-                                                          e) ??
-                                                  transform.position.toPoint(),
-                                              height: size.height / zoom,
-                                              width: size.width / zoom,
-                                            ),
-                                          );
-                                        },
-                                      ).toList(),
+                                    builder: (ctx) => BlocProvider.value(
+                                      value: context.read<DocumentBloc>(),
+                                      child: PdfExportDialog(
+                                        areas: {
+                                          0,
+                                          ...animation.keys.entries
+                                              .where((element) =>
+                                                  element.value.breakpoint)
+                                              .map((e) => e.key)
+                                              .sorted((a, b) => a.compareTo(b))
+                                        }.map(
+                                          (e) {
+                                            final zoom = animation
+                                                    .interpolateCameraZoom(e) ??
+                                                transform.size;
+                                            final position = animation
+                                                    .interpolateCameraPosition(
+                                                        e) ??
+                                                transform.position.toPoint();
+                                            return AreaPreset(
+                                              name: e.toString(),
+                                              area: Area(
+                                                position: -position,
+                                                height: size.height / zoom,
+                                                width: size.width / zoom,
+                                              ),
+                                              quality: zoom,
+                                            );
+                                          },
+                                        ).toList(),
+                                      ),
                                     ),
                                   );
                                 },

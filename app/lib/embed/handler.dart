@@ -40,7 +40,7 @@ class EmbedHandler {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
         double x = 0, y = 0, scale = 1;
-        int width = 100, height = 100;
+        double width = 100, height = 100;
         bool renderBackground = true;
         if (message is Map) {
           x = message['x'] ?? 0;

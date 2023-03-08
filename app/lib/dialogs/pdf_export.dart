@@ -100,14 +100,16 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                         alignment: WrapAlignment.center,
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: areas.mapIndexed((i, e) {
-                          final area = state.document.getAreaByName(e.name);
+                          final area =
+                              e.area ?? state.document.getAreaByName(e.name);
                           if (area == null) {
                             return Container();
                           }
                           return FutureBuilder<ByteData?>(
                             future: currentIndex.render(state.document,
-                                width: area.width.ceil(),
-                                height: area.height.ceil(),
+                                width: area.width,
+                                height: area.height,
+                                quality: e.quality,
                                 x: area.position.x,
                                 y: area.position.y),
                             builder: (context, snapshot) => _AreaPreview(

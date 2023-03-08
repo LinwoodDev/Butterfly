@@ -44,7 +44,7 @@ class AnimationTrack with _$AnimationTrack {
       final firstFrame = entries.first.key;
       return _InterpolationResult(result, result, firstFrame, firstFrame);
     }
-    final first = entries.lastWhereOrNull((entry) => entry.key < frame);
+    final first = entries.lastWhereOrNull((entry) => entry.key <= frame);
 
     if (first == null) {
       final result = entries.last.value;
