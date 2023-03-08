@@ -74,7 +74,7 @@ dependencies:
       ref: 6aaa333947699dd999d0bde3890fd7f0015b72c4
       path: packages/lw_sysinfo
 dev_dependencies:
-  flutter_native_splash: ^2.2.18
+  flutter_native_splash: ^2.2.19
   #flutter_launcher_icons: ^0.11.0
   flutter_lints: ^2.0.1
   flutter_test:
