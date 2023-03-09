@@ -13,9 +13,10 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../api/open.dart';
 import '../bloc/document_bloc.dart';
 import '../widgets/exact_slider.dart';
+import 'name.dart';
 
 class PdfExportDialog extends StatefulWidget {
-  final List<String> areas;
+  final List<AreaPreset> areas;
 
   const PdfExportDialog({
     super.key,
@@ -33,7 +34,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
   @override
   void initState() {
     super.initState();
-    areas.addAll(widget.areas.map((e) => AreaPreset(name: e)));
+    areas.addAll(widget.areas);
   }
 
   @override
@@ -99,14 +100,16 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                         alignment: WrapAlignment.center,
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: areas.mapIndexed((i, e) {
-                          final area = state.document.getAreaByName(e.name);
+                          final area =
+                              e.area ?? state.document.getAreaByName(e.name);
                           if (area == null) {
                             return Container();
                           }
                           return FutureBuilder<ByteData?>(
                             future: currentIndex.render(state.document,
-                                width: area.width.ceil(),
-                                height: area.height.ceil(),
+                                width: area.width,
+                                height: area.height,
+                                quality: e.quality,
                                 x: area.position.x,
                                 y: area.position.y),
                             builder: (context, snapshot) => _AreaPreview(
@@ -307,65 +310,21 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
               IconButton(
                 onPressed: () async {
                   final bloc = context.read<DocumentBloc>();
-                  final nameController = TextEditingController();
-                  final formKey = GlobalKey<FormState>();
-                  final success = await showDialog<bool>(
-                        builder: (ctx) => Form(
-                          key: formKey,
-                          child: AlertDialog(
-                            title: Text(AppLocalizations.of(ctx).enterName),
-                            content: TextFormField(
-                              controller: nameController,
-                              decoration: InputDecoration(
-                                filled: true,
-                                labelText: AppLocalizations.of(ctx).name,
-                              ),
-                              onFieldSubmitted: (value) {
-                                if (formKey.currentState!.validate()) {
-                                  Navigator.of(ctx).pop(true);
-                                }
-                              },
-                              validator: (value) {
-                                if (value?.isEmpty ?? true) {
-                                  return AppLocalizations.of(context)
-                                      .shouldNotEmpty;
-                                }
-                                final state =
-                                    context.read<DocumentBloc>().state;
-                                if (state is! DocumentLoadSuccess) {
-                                  return AppLocalizations.of(context).error;
-                                }
-                                if (state.document.getExportPreset(value!) !=
-                                    null) {
-                                  return AppLocalizations.of(context)
-                                      .alreadyExists;
-                                }
-                                return null;
-                              },
-                            ),
-                            actions: [
-                              TextButton(
-                                child: Text(AppLocalizations.of(ctx).cancel),
-                                onPressed: () => Navigator.of(ctx).pop(false),
-                              ),
-                              ElevatedButton(
-                                child: Text(AppLocalizations.of(ctx).create),
-                                onPressed: () {
-                                  if (formKey.currentState?.validate() ??
-                                      false) {
-                                    Navigator.of(ctx).pop(true);
-                                  }
-                                },
-                              )
-                            ],
-                          ),
-                        ),
-                        context: context,
-                      ) ??
-                      false;
-                  if (!success) return;
-                  bloc.add(
-                      ExportPresetCreated(nameController.text, widget.areas!));
+                  final state = bloc.state;
+                  if (state is! DocumentLoadSuccess) return;
+                  final name = await showDialog<String>(
+                    context: context,
+                    builder: (context) => NameDialog(
+                      validator: defaultNameValidator(
+                          context,
+                          null,
+                          state.document.exportPresets
+                              .map((e) => e.name)
+                              .toList()),
+                    ),
+                  );
+                  if (name == null) return;
+                  bloc.add(ExportPresetCreated(name, widget.areas!));
                 },
                 icon: const Icon(PhosphorIcons.plusLight),
                 tooltip: AppLocalizations.of(context).create,

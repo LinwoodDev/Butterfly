@@ -214,7 +214,7 @@
   "currentArea": "Mevcut alan",
   "fullScreen": "Tam ekran",
   "design": "Tasarım",
-  "textField": "Metin alanı",
+  "text": "Text",
   "selectSensitivity": "Hassasiyet seçimi",
   "welcome": "Linwood Butterfly'a hoşgeldiniz",
   "welcomeContent": "Butterfly, fikirlerinizin ön planda tutulduğu bir not uygulamasıdır. Her cihazda kolayca boyayabilir, metin ekleyebilir ve dışa aktarabilirsiniz. Bu uygulama Android, Windows, Linux ve web'de çalışabilmektedir.",
@@ -290,7 +290,7 @@
   "quality": "Kalite",
   "exportPdf": "PDF dışa aktar",
   "local": "Dil",
-  "addRemote": "Yayın ekle",
+  "addConnection": "Add connection",
   "connections": "Connections",
   "noConnections": "No connections",
   "url": "URL",
@@ -302,10 +302,9 @@
   "directory": "Dizin",
   "documentsDirectory": "Belge dizini",
   "templatesDirectory": "Şablon dizini",
-  "errorWhileCreatingRemote": "Yayın oluşturulurken hata oluştu",
-  "cannotConnectToRemote": "Yayına bağlanılamıyor",
+  "errorWhileCreatingConnection": "Error while creating connection",
+  "cannotConnect": "Cannot connect",
   "urlNotValid": "URL geçerli değil",
-  "remote": "Yayın",
   "icon": "Simge",
   "update": "Güncelleme",
   "updateAvailable": "Güncelleme mevcut",
@@ -335,25 +334,25 @@
   "notSynced": "Eşitlenmedi",
   "conflict": "Çakışma",
   "keepLocal": "Yerel olarak sakla",
-  "keepRemote": "Harici olarak sakla",
+  "keepConnection": "Keep connection",
   "keepBoth": "Her ikisini de sakla",
   "forAll": "Tümü için",
-  "fileConflict": "{remote} içinde {file} çakışması var",
+  "fileConflict": "{file} in {connection} has a conflict",
   "@fileConflict": {
     "placeholders": {
       "file": {
         "type": "String",
         "example": "file.txt"
       },
-      "remote": {
+      "connection": {
         "type": "String",
-        "example": "remote"
+        "example": "localhost"
       }
     }
   },
   "offline": "Çevrimdışı",
   "localLatest": "En son dizin",
-  "remoteLatest": "En son uzaktaki dizin",
+  "connectionLatest": "Connection latest",
   "path": "Yol",
   "folderSynced": "Klasör eşitlendi",
   "syncRootDirectory": "Kök dizini eşitle",
@@ -449,6 +448,13 @@
       }
     }
   },
+  "styles": "Styles",
+  "paragraph": "Paragraph",
+  "fontFamily": "Font family",
   "smoothing": "Smoothing",
-  "streamline": "Streamline"
+  "streamline": "Streamline",
+  "selectAsset": "Select asset",
+  "clearStyle": "Clear style",
+  "unknownImportType": "Unknown import type",
+  "sureImportTemplate": "Are you sure you want to import the template?"
 }

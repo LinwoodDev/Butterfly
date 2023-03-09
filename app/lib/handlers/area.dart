@@ -87,14 +87,17 @@ class AreaHandler extends Handler<AreaPainter> {
   }
 
   Future<String?> _showAreaLabelDialog(BuildContext context) async {
+    final state = context.read<DocumentBloc>().state;
+    if (state is! DocumentLoadSuccess) return null;
     if (data.askForName) {
       return showDialog<String>(
           context: context,
           builder: (_) => BlocProvider.value(
-              value: context.read<DocumentBloc>(), child: AreaLabelDialog()));
+              value: context.read<DocumentBloc>(),
+              child: NameDialog(
+                  validator: defaultNameValidator(
+                      context, null, state.document.getAreaNames().toList()))));
     }
-    final state = context.read<DocumentBloc>().state;
-    if (state is! DocumentLoadSuccess) return null;
     var name = '', index = 1;
     while (name.isEmpty || state.document.getAreaByName(name) != null) {
       name = AppLocalizations.of(context).areaIndex(index);

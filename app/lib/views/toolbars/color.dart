@@ -1,4 +1,5 @@
 import 'package:butterfly/dialogs/packs/select.dart';
+import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +33,11 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     super.initState();
     final state = context.read<DocumentBloc>().state;
     if (state is DocumentLoadSuccess) {
-      final pack = state.document.packs.firstOrNull; 
-      final palette = pack?.palettes.firstOrNull; 
-      if(palette  != null ) {
-        currentPalette = PackAssetLocation(pack: pack!.name, name: palette.name ) ;
+      final pack = state.document.packs.firstOrNull;
+      final palette = pack?.palettes.firstOrNull;
+      if (palette != null) {
+        currentPalette =
+            PackAssetLocation(pack: pack!.name, name: palette.name);
       }
     }
   }
@@ -80,7 +82,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                       current: current,
                       onChanged: (value) {
                         widget.onChanged(value);
-                      },                 
+                      },
                     );
                   }),
                   Padding(
@@ -119,19 +121,20 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                   ),
                 ]),
           )),
-IconButton(onPressed: () async{
-  final document = state.document;
-   final result = await showDialog<PackAssetLocation>( context: context,  builder: (context) =>
-                                              SelectPackAssetDialog(
-                                                  type: PackAssetType.palette,
-                                                  document: document));
+          IconButton(
+              onPressed: () async {
+                final document = state.document;
+                final result = await showDialog<PackAssetLocation>(
+                    context: context,
+                    builder: (context) => SelectPackAssetDialog(
+                        type: PackAssetType.palette, document: document));
 
-  if (result == null) return; 
-  setState(() {
-    currentPalette = result; 
-  });
-
-}, icon: Icon(PhosphorIcons.packageLight))
+                if (result == null) return;
+                setState(() {
+                  currentPalette = result;
+                });
+              },
+              icon: Icon(PhosphorIcons.packageLight))
         ],
       );
     });
@@ -142,29 +145,16 @@ IconButton(onPressed: () async{
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final nameController = TextEditingController();
-    final success = await showDialog<bool>(
-            context: context,
-            builder: (ctx) => AlertDialog(
-                    actions: [
-                      TextButton(
-                          onPressed: () => Navigator.of(context).pop(false),
-                          child: Text(AppLocalizations.of(context).cancel)),
-                      ElevatedButton(
-                          onPressed: () => Navigator.of(context).pop(true),
-                          child: Text(AppLocalizations.of(context).ok)),
-                    ],
-                    title: Text(AppLocalizations.of(context).enterName),
-                    content: TextField(
-                        decoration: InputDecoration(
-                            filled: true,
-                            hintText: AppLocalizations.of(context).name),
-                        autofocus: true,
-                        onSubmitted: (value) => Navigator.of(context).pop(true),
-                        controller: nameController))) ??
-        false;
-    if (!success) return;
-    final name = nameController.text;
+    final name = await showDialog<String>(
+      context: context,
+      builder: (ctx) => NameDialog(
+          validator: defaultNameValidator(
+        context,
+        null,
+        state.document.palettes.map((e) => e.name).toList(),
+      )),
+    );
+    if (name == null) return;
     if (state.document.palettes.any((element) => element.name == name)) return;
     final newPalettes = List<ColorPalette>.from(state.document.palettes)
       ..add(ColorPalette(name: name, colors: []));
@@ -174,46 +164,32 @@ IconButton(onPressed: () async{
 
   Future<void> _renamePalette() async {
     Navigator.of(context).pop();
-    final state = context.read<DocumentBloc>().state;
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final nameController = TextEditingController(text: currentPalette);
-    return showDialog<void>(
-        context: context,
-        builder: (ctx) => AlertDialog(
-                actions: [
-                  TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text(AppLocalizations.of(context).cancel)),
-                  ElevatedButton(
-                      onPressed: () {
-                        final name = nameController.text;
-                        if (state.document.palettes
-                            .any((element) => element.name == name)) return;
-                        final newPalettes =
-                            List<ColorPalette>.from(state.document.palettes)
-                                .map((e) {
-                          if (e.name == currentPalette) {
-                            return e.copyWith(name: name);
-                          }
-                          return e;
-                        }).toList();
-                        if (newPalettes.isEmpty) {
-                          newPalettes.add(ColorPalette(name: name, colors: []));
-                        }
-                        context
-                            .read<DocumentBloc>()
-                            .add(DocumentPaletteChanged(newPalettes));
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(AppLocalizations.of(context).ok)),
-                ],
-                title: Text(AppLocalizations.of(context).enterName),
-                content: TextField(
-                    decoration: InputDecoration(
-                        filled: true,
-                        hintText: AppLocalizations.of(context).name),
-                    autofocus: true,
-                    controller: nameController)));
+    final name = await showDialog<String>(
+      context: context,
+      builder: (ctx) => NameDialog(
+        validator: defaultNameValidator(
+          context,
+          currentPalette,
+          state.document.palettes.map((e) => e.name).toList(),
+        ),
+      ),
+    );
+    if (name == null) return;
+    if (state.document.palettes.any((element) => element.name == name)) return;
+    final newPalettes =
+        List<ColorPalette>.from(state.document.palettes).map((e) {
+      if (e.name == currentPalette) {
+        return e.copyWith(name: name);
+      }
+      return e;
+    }).toList();
+    if (newPalettes.isEmpty) {
+      newPalettes.add(ColorPalette(name: name, colors: []));
+    }
+    bloc.add(DocumentPaletteChanged(newPalettes));
   }
 }
 

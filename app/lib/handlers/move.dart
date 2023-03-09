@@ -1,10 +1,10 @@
 import 'package:butterfly/handlers/handler.dart';
 import 'package:flutter/material.dart';
 
-class MoveHandler extends Handler<void> {
-  MoveHandler() : super(null);
-
+abstract class GeneralMoveHandler<T> extends Handler<T> {
   bool _moved = false;
+
+  GeneralMoveHandler(super.data);
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
@@ -19,4 +19,8 @@ class MoveHandler extends Handler<void> {
       context.bake();
     }
   }
+}
+
+class MoveHandler extends GeneralMoveHandler<void> {
+  MoveHandler() : super(null);
 }

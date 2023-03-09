@@ -258,3 +258,16 @@ Map<String, dynamic> _$$StampPainterToJson(_$StampPainter instance) =>
       'component': instance.component.toJson(),
       'type': instance.$type,
     };
+
+_$PresentationPainter _$$PresentationPainterFromJson(Map json) =>
+    _$PresentationPainter(
+      name: json['name'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$PresentationPainterToJson(
+        _$PresentationPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': instance.$type,
+    };

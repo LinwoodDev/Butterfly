@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:butterfly_api/src/models/animation.dart';
 import 'package:collection/collection.dart';
 
 import 'area.dart';
@@ -177,6 +178,7 @@ class AppDocument with _$AppDocument {
     @Default('') String description,
     @Default([]) List<PadElement> content,
     @Default(Background.empty()) Background background,
+    @Default([]) List<AnimationTrack> animations,
     @Default([]) List<Waypoint> waypoints,
     @Default([]) List<Area> areas,
     @Default([]) List<ExportPreset> exportPresets,
@@ -210,5 +212,9 @@ class AppDocument with _$AppDocument {
 
   ButterflyPack? getPack(String name) {
     return packs.firstWhereOrNull((e) => e.name == name);
+  }
+
+  AnimationTrack? getAnimation(String name) {
+    return animations.firstWhereOrNull((e) => e.name == name);
   }
 }

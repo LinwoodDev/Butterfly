@@ -201,6 +201,7 @@ mixin _$AppDocument {
   String get description => throw _privateConstructorUsedError;
   List<PadElement> get content => throw _privateConstructorUsedError;
   Background get background => throw _privateConstructorUsedError;
+  List<AnimationTrack> get animations => throw _privateConstructorUsedError;
   List<Waypoint> get waypoints => throw _privateConstructorUsedError;
   List<Area> get areas => throw _privateConstructorUsedError;
   List<ExportPreset> get exportPresets => throw _privateConstructorUsedError;
@@ -227,6 +228,7 @@ abstract class $AppDocumentCopyWith<$Res> {
       String description,
       List<PadElement> content,
       Background background,
+      List<AnimationTrack> animations,
       List<Waypoint> waypoints,
       List<Area> areas,
       List<ExportPreset> exportPresets,
@@ -257,6 +259,7 @@ class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
     Object? description = null,
     Object? content = null,
     Object? background = null,
+    Object? animations = null,
     Object? waypoints = null,
     Object? areas = null,
     Object? exportPresets = null,
@@ -283,6 +286,10 @@ class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
           ? _value.background
           : background // ignore: cast_nullable_to_non_nullable
               as Background,
+      animations: null == animations
+          ? _value.animations
+          : animations // ignore: cast_nullable_to_non_nullable
+              as List<AnimationTrack>,
       waypoints: null == waypoints
           ? _value.waypoints
           : waypoints // ignore: cast_nullable_to_non_nullable
@@ -348,6 +355,7 @@ abstract class _$$_AppDocumentCopyWith<$Res>
       String description,
       List<PadElement> content,
       Background background,
+      List<AnimationTrack> animations,
       List<Waypoint> waypoints,
       List<Area> areas,
       List<ExportPreset> exportPresets,
@@ -378,6 +386,7 @@ class __$$_AppDocumentCopyWithImpl<$Res>
     Object? description = null,
     Object? content = null,
     Object? background = null,
+    Object? animations = null,
     Object? waypoints = null,
     Object? areas = null,
     Object? exportPresets = null,
@@ -404,6 +413,10 @@ class __$$_AppDocumentCopyWithImpl<$Res>
           ? _value.background
           : background // ignore: cast_nullable_to_non_nullable
               as Background,
+      animations: null == animations
+          ? _value._animations
+          : animations // ignore: cast_nullable_to_non_nullable
+              as List<AnimationTrack>,
       waypoints: null == waypoints
           ? _value._waypoints
           : waypoints // ignore: cast_nullable_to_non_nullable
@@ -448,6 +461,7 @@ class _$_AppDocument extends _AppDocument {
       this.description = '',
       final List<PadElement> content = const [],
       this.background = const Background.empty(),
+      final List<AnimationTrack> animations = const [],
       final List<Waypoint> waypoints = const [],
       final List<Area> areas = const [],
       final List<ExportPreset> exportPresets = const [],
@@ -457,6 +471,7 @@ class _$_AppDocument extends _AppDocument {
       final List<Painter> painters = const [],
       this.tool = const ToolOption()})
       : _content = content,
+        _animations = animations,
         _waypoints = waypoints,
         _areas = areas,
         _exportPresets = exportPresets,
@@ -484,6 +499,15 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   final Background background;
+  final List<AnimationTrack> _animations;
+  @override
+  @JsonKey()
+  List<AnimationTrack> get animations {
+    if (_animations is EqualUnmodifiableListView) return _animations;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_animations);
+  }
+
   final List<Waypoint> _waypoints;
   @override
   @JsonKey()
@@ -539,7 +563,7 @@ class _$_AppDocument extends _AppDocument {
 
   @override
   String toString() {
-    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
+    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, animations: $animations, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
   }
 
   @override
@@ -553,6 +577,8 @@ class _$_AppDocument extends _AppDocument {
             const DeepCollectionEquality().equals(other._content, _content) &&
             (identical(other.background, background) ||
                 other.background == background) &&
+            const DeepCollectionEquality()
+                .equals(other._animations, _animations) &&
             const DeepCollectionEquality()
                 .equals(other._waypoints, _waypoints) &&
             const DeepCollectionEquality().equals(other._areas, _areas) &&
@@ -575,6 +601,7 @@ class _$_AppDocument extends _AppDocument {
       description,
       const DeepCollectionEquality().hash(_content),
       background,
+      const DeepCollectionEquality().hash(_animations),
       const DeepCollectionEquality().hash(_waypoints),
       const DeepCollectionEquality().hash(_areas),
       const DeepCollectionEquality().hash(_exportPresets),
@@ -604,6 +631,7 @@ abstract class _AppDocument extends AppDocument {
       final String description,
       final List<PadElement> content,
       final Background background,
+      final List<AnimationTrack> animations,
       final List<Waypoint> waypoints,
       final List<Area> areas,
       final List<ExportPreset> exportPresets,
@@ -625,6 +653,8 @@ abstract class _AppDocument extends AppDocument {
   List<PadElement> get content;
   @override
   Background get background;
+  @override
+  List<AnimationTrack> get animations;
   @override
   List<Waypoint> get waypoints;
   @override

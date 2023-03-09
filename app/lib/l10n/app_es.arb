@@ -214,7 +214,7 @@
   "currentArea": "Área actual",
   "fullScreen": "Pantalla completa",
   "design": "Diseño",
-  "textField": "Campo de texto",
+  "text": "Texto",
   "selectSensitivity": "Seleccionar sensibilidad",
   "welcome": "Bienvenido a Linwood Butterfly",
   "welcomeContent": "La mariposa es una aplicación de notas donde sus ideas son primordiales. Puede pintar, añadir textos y exportarlos fácilmente en cada dispositivo. Esta aplicación funciona en Android, Windows, Linux y en la web.",
@@ -290,7 +290,7 @@
   "quality": "Calidad",
   "exportPdf": "Exportar PDF",
   "local": "Local",
-  "addRemote": "Añadir remoto",
+  "addConnection": "Añadir conexión",
   "connections": "Conexiones",
   "noConnections": "No hay conexiones",
   "url": "URL",
@@ -302,10 +302,9 @@
   "directory": "Directorio",
   "documentsDirectory": "Directorio de documentos",
   "templatesDirectory": "Directorio de plantillas",
-  "errorWhileCreatingRemote": "Error al crear el remoto",
-  "cannotConnectToRemote": "No se puede conectar al remoto",
+  "errorWhileCreatingConnection": "Error al crear la conexión",
+  "cannotConnect": "No se puede conectar",
   "urlNotValid": "URL no válida",
-  "remote": "Remoto",
   "icon": "Icono",
   "update": "Actualizar",
   "updateAvailable": "Actualización disponible",
@@ -335,25 +334,25 @@
   "notSynced": "No sincronizado",
   "conflict": "Conflicto",
   "keepLocal": "Mantener local",
-  "keepRemote": "Mantener remoto",
+  "keepConnection": "Mantener conexión",
   "keepBoth": "Mantener ambos",
   "forAll": "Para todos",
-  "fileConflict": "{file} en {remote} tiene un conflicto",
+  "fileConflict": "{file} en {connection} tiene un conflicto",
   "@fileConflict": {
     "placeholders": {
       "file": {
         "type": "String",
         "example": "file.txt"
       },
-      "remote": {
+      "connection": {
         "type": "String",
-        "example": "remote"
+        "example": "localhost"
       }
     }
   },
   "offline": "Desconectado",
   "localLatest": "Último local",
-  "remoteLatest": "Último remoto",
+  "connectionLatest": "Conexión última",
   "path": "Ruta",
   "folderSynced": "Carpeta sincronizada",
   "syncRootDirectory": "Directorio raíz de sincronización",
@@ -449,6 +448,13 @@
       }
     }
   },
+  "styles": "Styles",
+  "paragraph": "Párrafo",
+  "fontFamily": "Familia de fuente",
   "smoothing": "Suavizado",
-  "streamline": "Streamline"
+  "streamline": "Streamline",
+  "selectAsset": "Seleccionar recurso",
+  "clearStyle": "Borrar estilo",
+  "unknownImportType": "Unknown import type",
+  "sureImportTemplate": "Are you sure you want to import the template?"
 }

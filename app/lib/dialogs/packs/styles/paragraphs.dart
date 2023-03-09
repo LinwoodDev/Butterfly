@@ -1,3 +1,4 @@
+import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly_api/butterfly_text.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -73,54 +74,17 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                       IconButton(
                         icon: const Icon(PhosphorIcons.plusLight),
                         onPressed: () async {
-                          final textController = TextEditingController();
-                          final formKey = GlobalKey<FormState>();
-                          final result = await showDialog<bool>(
+                          final name = await showDialog<String>(
                             context: context,
-                            builder: (context) => Form(
-                              key: formKey,
-                              child: AlertDialog(
-                                title: Text(
-                                    AppLocalizations.of(context).enterName),
-                                content: TextFormField(
-                                  controller: textController,
-                                  decoration: InputDecoration(
-                                    labelText:
-                                        AppLocalizations.of(context).name,
-                                  ),
-                                  validator: (name) {
-                                    if (widget.value.paragraphProperties
-                                        .containsKey(name)) {
-                                      return AppLocalizations.of(context)
-                                          .alreadyExists;
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop(false);
-                                    },
-                                    child: Text(
-                                        AppLocalizations.of(context).cancel),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      if (!formKey.currentState!.validate()) {
-                                        return;
-                                      }
-                                      Navigator.of(context).pop(true);
-                                    },
-                                    child: Text(
-                                        AppLocalizations.of(context).create),
-                                  ),
-                                ],
+                            builder: (context) => NameDialog(
+                              validator: defaultNameValidator(
+                                context,
+                                null,
+                                widget.value.paragraphProperties.keys.toList(),
                               ),
                             ),
                           );
-                          final name = textController.text;
-                          if (result != true) {
+                          if (name == null) {
                             return;
                           }
                           widget.onChanged(widget.value.copyWith(
@@ -135,55 +99,18 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                         IconButton(
                           icon: const Icon(PhosphorIcons.pencilLight),
                           onPressed: () async {
-                            final textController =
-                                TextEditingController(text: _currentStyle);
-                            final formKey = GlobalKey<FormState>();
-                            final result = await showDialog<bool>(
+                            final name = await showDialog<String>(
                               context: context,
-                              builder: (context) => Form(
-                                key: formKey,
-                                child: AlertDialog(
-                                  title: Text(
-                                      AppLocalizations.of(context).enterName),
-                                  content: TextFormField(
-                                    controller: textController,
-                                    decoration: InputDecoration(
-                                      labelText:
-                                          AppLocalizations.of(context).name,
-                                    ),
-                                    validator: (name) {
-                                      if (widget.value.paragraphProperties
-                                          .containsKey(widget.value)) {
-                                        return AppLocalizations.of(context)
-                                            .alreadyExists;
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop(false);
-                                      },
-                                      child: Text(
-                                          AppLocalizations.of(context).cancel),
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        if (!formKey.currentState!.validate()) {
-                                          return;
-                                        }
-                                        Navigator.of(context).pop(true);
-                                      },
-                                      child: Text(
-                                          AppLocalizations.of(context).create),
-                                    ),
-                                  ],
+                              builder: (context) => NameDialog(
+                                validator: defaultNameValidator(
+                                  context,
+                                  _currentStyle,
+                                  widget.value.paragraphProperties.keys
+                                      .toList(),
                                 ),
                               ),
                             );
-                            final name = textController.text;
-                            if (result != true) {
+                            if (name == null) {
                               return;
                             }
                             final lastStyle = _currentStyle;

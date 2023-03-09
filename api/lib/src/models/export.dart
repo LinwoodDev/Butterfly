@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'area.dart';
+
 part 'export.freezed.dart';
 part 'export.g.dart';
 
@@ -19,6 +21,7 @@ class AreaPreset with _$AreaPreset {
   const factory AreaPreset({
     @Default('') String name,
     @Default(1) double quality,
+    Area? area,
   }) = _AreaPreset;
 
   factory AreaPreset.fromJson(Map<String, dynamic> json) =>

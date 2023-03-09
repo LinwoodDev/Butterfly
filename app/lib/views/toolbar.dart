@@ -29,28 +29,31 @@ class _ToolbarViewState extends State<ToolbarView> {
     return Card(
         child: BlocBuilder<DocumentBloc, DocumentState>(
       builder: (context, state) => BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+          buildWhen: (previous, current) =>
+              previous.temporaryToolbar != current.temporaryToolbar ||
+              previous.toolbar != current.toolbar,
           builder: (context, currentIndex) {
-        Widget? child;
-        if (state is! DocumentLoadSuccess) {
-          _setOpened(false);
-        } else {
-          final handler = currentIndex.temporaryHandler ?? currentIndex.handler;
-          final toolbar = handler.getToolbar(context);
-          if (toolbar == null) {
-            _setOpened(false);
-          } else {
-            _setOpened(true);
-            child = toolbar;
-          }
-        }
-        return AnimatedContainer(
-          height: _height,
-          key: _animatedKey,
-          curve: Curves.fastOutSlowIn,
-          duration: const Duration(milliseconds: 200),
-          child: child,
-        );
-      }),
+            Widget? child;
+            if (state is! DocumentLoadSuccess) {
+              _setOpened(false);
+            } else {
+              final toolbar =
+                  currentIndex.temporaryToolbar ?? currentIndex.toolbar;
+              if (toolbar == null) {
+                _setOpened(false);
+              } else {
+                _setOpened(true);
+                child = toolbar;
+              }
+            }
+            return AnimatedContainer(
+              height: _height,
+              key: _animatedKey,
+              curve: Curves.fastOutSlowIn,
+              duration: const Duration(milliseconds: 200),
+              child: child,
+            );
+          }),
     ));
   }
 }

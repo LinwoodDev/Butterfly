@@ -23,13 +23,32 @@ class DocumentLoadFailure extends DocumentState {
   List<Object?> get props => [message];
 }
 
-class DocumentLoadSuccess extends DocumentState {
+abstract class DocumentLoaded extends DocumentState {
+  AppDocument get document;
+
+  const DocumentLoaded();
+
+  List<String> get invisibleLayers => [];
+
+  Area? get currentArea => null;
+
+  CurrentIndexCubit get currentIndexCubit;
+  SettingsCubit get settingsCubit;
+
+  TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
+}
+
+class DocumentLoadSuccess extends DocumentLoaded {
+  @override
   final AppDocument document;
   final StorageType storageType;
   final String currentLayer;
   final String currentAreaName;
+  @override
   final List<String> invisibleLayers;
+  @override
   final SettingsCubit settingsCubit;
+  @override
   final CurrentIndexCubit currentIndexCubit;
 
   DocumentLoadSuccess(this.document,
@@ -55,6 +74,7 @@ class DocumentLoadSuccess extends DocumentState {
         currentIndexCubit,
       ];
 
+  @override
   Area? get currentArea {
     return document.getAreaByName(currentAreaName);
   }
@@ -124,4 +144,39 @@ class DocumentLoadSuccess extends DocumentState {
           viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
 
   Painter? get painter => currentIndexCubit.state.handler.data;
+}
+
+class DocumentPresentationState extends DocumentLoaded {
+  final DocumentLoadSuccess oldState;
+  final int frame;
+  final AnimationTrack track;
+  final PresentationStateHandler handler;
+  final bool fullScreen;
+
+  DocumentPresentationState(
+      DocumentBloc bloc, this.oldState, this.track, this.fullScreen,
+      [this.frame = 0])
+      : handler = PresentationStateHandler(track, bloc);
+
+  const DocumentPresentationState.withHandler(
+      this.handler, this.oldState, this.track, this.fullScreen,
+      [this.frame = 0]);
+
+  @override
+  List<Object?> get props => [oldState, frame, track];
+
+  @override
+  AppDocument get document => oldState.document;
+
+  DocumentPresentationState copyWith({
+    int? frame,
+  }) =>
+      DocumentPresentationState.withHandler(
+          handler, oldState, track, fullScreen, frame ?? this.frame);
+
+  @override
+  CurrentIndexCubit get currentIndexCubit => oldState.currentIndexCubit;
+
+  @override
+  SettingsCubit get settingsCubit => oldState.settingsCubit;
 }

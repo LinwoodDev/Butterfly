@@ -185,6 +185,7 @@ AreaPreset _$AreaPresetFromJson(Map<String, dynamic> json) {
 mixin _$AreaPreset {
   String get name => throw _privateConstructorUsedError;
   double get quality => throw _privateConstructorUsedError;
+  Area? get area => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -198,7 +199,9 @@ abstract class $AreaPresetCopyWith<$Res> {
           AreaPreset value, $Res Function(AreaPreset) then) =
       _$AreaPresetCopyWithImpl<$Res, AreaPreset>;
   @useResult
-  $Res call({String name, double quality});
+  $Res call({String name, double quality, Area? area});
+
+  $AreaCopyWith<$Res>? get area;
 }
 
 /// @nodoc
@@ -216,6 +219,7 @@ class _$AreaPresetCopyWithImpl<$Res, $Val extends AreaPreset>
   $Res call({
     Object? name = null,
     Object? quality = null,
+    Object? area = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -226,7 +230,23 @@ class _$AreaPresetCopyWithImpl<$Res, $Val extends AreaPreset>
           ? _value.quality
           : quality // ignore: cast_nullable_to_non_nullable
               as double,
+      area: freezed == area
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as Area?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AreaCopyWith<$Res>? get area {
+    if (_value.area == null) {
+      return null;
+    }
+
+    return $AreaCopyWith<$Res>(_value.area!, (value) {
+      return _then(_value.copyWith(area: value) as $Val);
+    });
   }
 }
 
@@ -238,7 +258,10 @@ abstract class _$$_AreaPresetCopyWith<$Res>
       __$$_AreaPresetCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, double quality});
+  $Res call({String name, double quality, Area? area});
+
+  @override
+  $AreaCopyWith<$Res>? get area;
 }
 
 /// @nodoc
@@ -254,6 +277,7 @@ class __$$_AreaPresetCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? quality = null,
+    Object? area = freezed,
   }) {
     return _then(_$_AreaPreset(
       name: null == name
@@ -264,6 +288,10 @@ class __$$_AreaPresetCopyWithImpl<$Res>
           ? _value.quality
           : quality // ignore: cast_nullable_to_non_nullable
               as double,
+      area: freezed == area
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as Area?,
     ));
   }
 }
@@ -271,7 +299,7 @@ class __$$_AreaPresetCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AreaPreset implements _AreaPreset {
-  const _$_AreaPreset({this.name = '', this.quality = 1});
+  const _$_AreaPreset({this.name = '', this.quality = 1, this.area});
 
   factory _$_AreaPreset.fromJson(Map<String, dynamic> json) =>
       _$$_AreaPresetFromJson(json);
@@ -282,10 +310,12 @@ class _$_AreaPreset implements _AreaPreset {
   @override
   @JsonKey()
   final double quality;
+  @override
+  final Area? area;
 
   @override
   String toString() {
-    return 'AreaPreset(name: $name, quality: $quality)';
+    return 'AreaPreset(name: $name, quality: $quality, area: $area)';
   }
 
   @override
@@ -294,12 +324,13 @@ class _$_AreaPreset implements _AreaPreset {
         (other.runtimeType == runtimeType &&
             other is _$_AreaPreset &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.quality, quality) || other.quality == quality));
+            (identical(other.quality, quality) || other.quality == quality) &&
+            (identical(other.area, area) || other.area == area));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, quality);
+  int get hashCode => Object.hash(runtimeType, name, quality, area);
 
   @JsonKey(ignore: true)
   @override
@@ -316,8 +347,10 @@ class _$_AreaPreset implements _AreaPreset {
 }
 
 abstract class _AreaPreset implements AreaPreset {
-  const factory _AreaPreset({final String name, final double quality}) =
-      _$_AreaPreset;
+  const factory _AreaPreset(
+      {final String name,
+      final double quality,
+      final Area? area}) = _$_AreaPreset;
 
   factory _AreaPreset.fromJson(Map<String, dynamic> json) =
       _$_AreaPreset.fromJson;
@@ -326,6 +359,8 @@ abstract class _AreaPreset implements AreaPreset {
   String get name;
   @override
   double get quality;
+  @override
+  Area? get area;
   @override
   @JsonKey(ignore: true)
   _$$_AreaPresetCopyWith<_$_AreaPreset> get copyWith =>

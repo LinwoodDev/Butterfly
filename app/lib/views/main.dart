@@ -43,7 +43,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../actions/change_painter.dart';
+import '../actions/exit.dart';
+import '../actions/next.dart';
 import '../actions/packs.dart';
+import '../actions/previous.dart';
+import '../actions/primary.dart';
 import '../main.dart';
 import 'changes.dart';
 import 'view.dart';
@@ -91,6 +95,10 @@ class _ProjectPageState extends State<ProjectPage> {
     SaveIntent: SaveAction(),
     ChangePainterIntent: ChangePainterAction(),
     PacksIntent: PacksAction(),
+    ExitIntent: ExitAction(),
+    NextIntent: NextAction(),
+    PreviousIntent: PreviousAction(),
+    PrimaryIntent: PrimaryAction(),
   };
 
   @override
@@ -267,27 +275,29 @@ class _ProjectPageState extends State<ProjectPage> {
     if (_bloc == null) {
       return const Material(child: Center(child: CircularProgressIndicator()));
     }
-    final state = _bloc!.state;
-    if (state is DocumentLoadFailure) {
-      return ErrorPage(message: state.message);
-    }
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus &&
-            currentFocus.focusedChild != null) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        }
-      },
-      child: MultiBlocProvider(
-          providers: [
-            BlocProvider.value(value: _bloc!),
-            BlocProvider.value(value: _transformCubit!),
-            BlocProvider.value(value: _currentIndexCubit!),
-          ],
-          child: Builder(builder: (context) {
-            return RepositoryProvider.value(
-              value: _importService,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: _bloc!),
+        BlocProvider.value(value: _transformCubit!),
+        BlocProvider.value(value: _currentIndexCubit!),
+      ],
+      child: BlocBuilder<DocumentBloc, DocumentState>(
+        buildWhen: (previous, current) =>
+            previous.runtimeType != current.runtimeType,
+        builder: (context, state) {
+          if (state is DocumentLoadFailure) {
+            return ErrorPage(message: state.message);
+          }
+          return RepositoryProvider.value(
+            value: _importService,
+            child: GestureDetector(
+              onTap: () {
+                FocusScopeNode currentFocus = FocusScope.of(context);
+                if (!currentFocus.hasPrimaryFocus &&
+                    currentFocus.focusedChild != null) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                }
+              },
               child: Builder(builder: (context) {
                 return Actions(
                   actions: _actions,
@@ -324,6 +334,14 @@ class _ProjectPageState extends State<ProjectPage> {
                       LogicalKeySet(LogicalKeyboardKey.control,
                               LogicalKeyboardKey.alt, LogicalKeyboardKey.keyN):
                           InsertIntent(context, Offset.zero),
+                      LogicalKeySet(LogicalKeyboardKey.escape):
+                          ExitIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.arrowRight):
+                          NextIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.arrowLeft):
+                          PreviousIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.space):
+                          PrimaryIntent(context),
                       if (widget.embedding == null) ...{
                         LogicalKeySet(LogicalKeyboardKey.control,
                             LogicalKeyboardKey.keyO): OpenIntent(context),
@@ -379,9 +397,11 @@ class _ProjectPageState extends State<ProjectPage> {
                           autofocus: true,
                           child: FocusScope(
                               child: Scaffold(
-                            appBar: PadAppBar(
-                              viewportKey: _viewportKey,
-                            ),
+                            appBar: state is DocumentPresentationState
+                                ? null
+                                : PadAppBar(
+                                    viewportKey: _viewportKey,
+                                  ),
                             body: Actions(
                                 actions: _actions,
                                 child: LayoutBuilder(
@@ -434,8 +454,10 @@ class _ProjectPageState extends State<ProjectPage> {
                   ),
                 );
               }),
-            );
-          })),
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -128,6 +128,10 @@ class Painter with _$Painter {
     @Default(PackAssetLocation()) PackAssetLocation component,
   }) = StampPainter;
 
+  factory Painter.presentation({
+    @Default('') String name,
+  }) = PresentationPainter;
+
   factory Painter.fromJson(Map<String, dynamic> json) =>
       _$PainterFromJson(json);
 }

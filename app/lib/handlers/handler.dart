@@ -25,7 +25,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../cubits/current_index.dart';
-import '../dialogs/area/label.dart';
+import '../dialogs/name.dart';
 import '../helpers/num_helper.dart';
 import '../models/text.dart';
 import '../models/viewport.dart';
@@ -35,7 +35,9 @@ import '../renderers/renderer.dart';
 import '../services/import.dart';
 import '../views/toolbars/color.dart';
 import '../views/toolbars/label.dart';
+import '../views/toolbars/presentation/toolbar.dart';
 import '../widgets/context_menu.dart';
+import 'move.dart';
 
 part 'area.dart';
 part 'eraser.dart';
@@ -46,6 +48,7 @@ part 'laser.dart';
 part 'layer.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
+part 'presentation.dart';
 part 'redo.dart';
 part 'shape.dart';
 part 'stamp.dart';
@@ -65,6 +68,14 @@ class EventContext {
   DocumentLoadSuccess? getState() {
     final state = getDocumentBloc().state;
     if (state is! DocumentLoadSuccess) {
+      return null;
+    }
+    return state;
+  }
+
+  DocumentPresentationState? getPresentationState() {
+    final state = getDocumentBloc().state;
+    if (state is! DocumentPresentationState) {
       return null;
     }
     return state;
@@ -190,10 +201,11 @@ abstract class Handler<T> {
       laser: (value) => LaserHandler(value),
       shape: (value) => ShapeHandler(value),
       stamp: (value) => StampHandler(value),
+      presentation: (value) => PresentationHandler(value),
     );
   }
 
-  Widget? getToolbar(BuildContext context) => null;
+  Widget? getToolbar(DocumentBloc bloc) => null;
 
   void dispose(DocumentBloc bloc) {}
 

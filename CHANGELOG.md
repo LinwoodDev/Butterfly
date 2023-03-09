@@ -2,6 +2,12 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 1.6.1 (2023-01-27)
+
+* Fix new button
+* Fix ruler gestures
+* Upgrade to flutter 3.7
+
 ## 1.6.0 (2022-12-24)
 
 Read the whole 1.6 changelog at https://go.linwood.dev/butterfly/1-6
