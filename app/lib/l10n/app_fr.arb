@@ -470,6 +470,8 @@
   "previousSlideDescription": "Glissez vers la gauche ou appuyez sur la touche fléchée gauche pour aller à la diapositive précédente",
   "exitPresentation": "Quitter la présentation",
   "exitPresentationDescription": "Appuyez sur la touche d'échappement ou glissez vers le bas pour quitter la présentation",
+  "pausePresentation": "Pause presentation",
+  "pausePresentationDescription": "Tap the screen or press the space bar to pause or resume the presentation",
   "keyframe": "Keyframe",
   "endOfPresentation": "Vous avez atteint la fin de la présentation",
   "startOfPresentation": "Vous avez atteint le début de la présentation"
