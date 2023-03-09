@@ -470,8 +470,8 @@
   "previousSlideDescription": "Смахните влево или нажмите клавишу со стрелкой влево, чтобы перейти к предыдущему слайду",
   "exitPresentation": "Выйти из презентации",
   "exitPresentationDescription": "Нажмите кнопку экрана, чтобы выйти из презентации",
-  "pausePresentation": "Pause presentation",
-  "pausePresentationDescription": "Tap the screen or press the space bar to pause or resume the presentation",
+  "pausePresentation": "Приостановить презентацию",
+  "pausePresentationDescription": "Нажмите на экран или нажмите пробел, чтобы приостановить или возобновить презентацию",
   "keyframe": "Keyframe",
   "endOfPresentation": "Вы завершили презентацию",
   "startOfPresentation": "Вы достигли начала презентации"
