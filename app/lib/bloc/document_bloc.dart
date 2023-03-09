@@ -666,12 +666,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PresentationModeEntered>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
+      current.currentIndexCubit.fetchHandler<PresentationHandler>()?.stop(this);
       emit(DocumentPresentationState(
           this, current, event.track, event.fullScreen));
     });
     on<PresentationModeExited>((event, emit) {
       final current = state;
       if (current is! DocumentPresentationState) return;
+      current.handler.dispose(this);
       emit(current.oldState);
       setFullScreen(current.fullScreen);
     });

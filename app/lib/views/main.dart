@@ -43,7 +43,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../actions/change_painter.dart';
+import '../actions/exit.dart';
+import '../actions/next.dart';
 import '../actions/packs.dart';
+import '../actions/previous.dart';
+import '../actions/primary.dart';
 import '../main.dart';
 import 'changes.dart';
 import 'view.dart';
@@ -91,6 +95,10 @@ class _ProjectPageState extends State<ProjectPage> {
     SaveIntent: SaveAction(),
     ChangePainterIntent: ChangePainterAction(),
     PacksIntent: PacksAction(),
+    ExitIntent: ExitAction(),
+    NextIntent: NextAction(),
+    PreviousIntent: PreviousAction(),
+    PrimaryIntent: PrimaryAction(),
   };
 
   @override
@@ -327,6 +335,14 @@ class _ProjectPageState extends State<ProjectPage> {
                       LogicalKeySet(LogicalKeyboardKey.control,
                               LogicalKeyboardKey.alt, LogicalKeyboardKey.keyN):
                           InsertIntent(context, Offset.zero),
+                      LogicalKeySet(LogicalKeyboardKey.escape):
+                          ExitIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.arrowRight):
+                          NextIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.arrowLeft):
+                          PreviousIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.space):
+                          PrimaryIntent(context),
                       if (widget.embedding == null) ...{
                         LogicalKeySet(LogicalKeyboardKey.control,
                             LogicalKeyboardKey.keyO): OpenIntent(context),
