@@ -27,7 +27,6 @@ import 'package:butterfly/dialogs/introduction/app.dart';
 import 'package:butterfly/dialogs/introduction/start.dart';
 import 'package:butterfly/dialogs/introduction/update.dart';
 import 'package:butterfly/embed/embedding.dart';
-import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
@@ -189,10 +188,10 @@ class _ProjectPageState extends State<ProjectPage> {
         return;
       }
       document ??= AppDocument(
-          name: name,
-          createdAt: DateTime.now(),
-          painters: createDefaultPainters(),
-         );
+        name: name,
+        createdAt: DateTime.now(),
+        painters: createDefaultPainters(),
+      );
       final renderers =
           document.content.map((e) => Renderer.fromInstance(e)).toList();
       await Future.wait(renderers.map((e) async => await e.setup(document!)));

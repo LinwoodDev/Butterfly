@@ -13,7 +13,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'element.dart';
 import 'pack.dart';
 import 'painter.dart';
-import 'palette.dart';
 import 'tool.dart';
 import 'waypoint.dart';
 
@@ -203,8 +202,6 @@ class AppDocument with _$AppDocument {
   Set<String> getLayerNames() {
     return content.map((e) => e.layer).toSet();
   }
-
-
 
   ExportPreset? getExportPreset(String name) {
     return exportPresets.firstWhereOrNull((e) => e.name == name);

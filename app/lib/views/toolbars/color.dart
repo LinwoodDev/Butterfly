@@ -1,11 +1,8 @@
 import 'package:butterfly/dialogs/packs/select.dart';
-import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:image/image.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
@@ -47,10 +44,12 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       final bloc = context.read<DocumentBloc>();
       ColorPalette? palette;
+      ButterflyPack? pack;
 
       if (state is! DocumentLoadSuccess) return Container();
       if (currentPalette != null) {
-        palette = state.document.getPalette(currentPalette!);
+        pack = state.document.getPack(currentPalette!.pack);
+        palette = pack?.getPalette(currentPalette!.name);
       }
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -83,6 +82,22 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                       onChanged: (value) {
                         widget.onChanged(value);
                       },
+                      onDeleted: () {
+                        final newPalettes =
+                            List<ColorPalette>.from(pack?.palettes ?? [])
+                                .map((e) {
+                          if (e.name == currentPalette?.name) {
+                            return e.copyWith(
+                                colors: List<int>.from(e.colors)
+                                  ..removeAt(index));
+                          }
+                          return e;
+                        }).toList();
+                        final newPack = pack?.copyWith(palettes: newPalettes);
+                        if (newPack == null) return;
+                        bloc.add(
+                            DocumentPackUpdated(currentPalette!.name, newPack));
+                      },
                     );
                   }),
                   Padding(
@@ -99,16 +114,20 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                         if (response != null) {
                           widget.onChanged(response.color);
                           if (response.pin) {
-                            var newPalettes =
-                                List<ColorPalette>.from(state.document.palettes)
+                            final newPalettes =
+                                List<ColorPalette>.from(pack?.palettes ?? [])
                                     .map((e) {
-                              if (e.name == currentPalette) {
+                              if (e.name == currentPalette?.name) {
                                 return e.copyWith(
                                     colors: [...e.colors, response.color]);
                               }
                               return e;
                             }).toList();
-                            bloc.add(DocumentPaletteChanged(newPalettes));
+                            final newPack =
+                                pack?.copyWith(palettes: newPalettes);
+                            if (newPack == null) return;
+                            bloc.add(DocumentPackUpdated(
+                                currentPalette!.name, newPack));
                           }
                         }
                       },
@@ -134,62 +153,10 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                   currentPalette = result;
                 });
               },
-              icon: Icon(PhosphorIcons.packageLight))
+              icon: const Icon(PhosphorIcons.packageLight))
         ],
       );
     });
-  }
-
-  Future<void> _newPalette() async {
-    Navigator.of(context).pop();
-    final bloc = context.read<DocumentBloc>();
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return;
-    final name = await showDialog<String>(
-      context: context,
-      builder: (ctx) => NameDialog(
-          validator: defaultNameValidator(
-        context,
-        null,
-        state.document.palettes.map((e) => e.name).toList(),
-      )),
-    );
-    if (name == null) return;
-    if (state.document.palettes.any((element) => element.name == name)) return;
-    final newPalettes = List<ColorPalette>.from(state.document.palettes)
-      ..add(ColorPalette(name: name, colors: []));
-    bloc.add(DocumentPaletteChanged(newPalettes));
-    setState(() => currentPalette = name);
-  }
-
-  Future<void> _renamePalette() async {
-    Navigator.of(context).pop();
-    final bloc = context.read<DocumentBloc>();
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return;
-    final name = await showDialog<String>(
-      context: context,
-      builder: (ctx) => NameDialog(
-        validator: defaultNameValidator(
-          context,
-          currentPalette,
-          state.document.palettes.map((e) => e.name).toList(),
-        ),
-      ),
-    );
-    if (name == null) return;
-    if (state.document.palettes.any((element) => element.name == name)) return;
-    final newPalettes =
-        List<ColorPalette>.from(state.document.palettes).map((e) {
-      if (e.name == currentPalette) {
-        return e.copyWith(name: name);
-      }
-      return e;
-    }).toList();
-    if (newPalettes.isEmpty) {
-      newPalettes.add(ColorPalette(name: name, colors: []));
-    }
-    bloc.add(DocumentPaletteChanged(newPalettes));
   }
 }
 
