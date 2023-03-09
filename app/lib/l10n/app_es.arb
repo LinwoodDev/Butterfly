@@ -470,6 +470,8 @@
   "previousSlideDescription": "Deslice hacia la izquierda o presione la tecla de la flecha izquierda para ir a la diapositiva anterior",
   "exitPresentation": "Salir de la presentación",
   "exitPresentationDescription": "Pulsa la tecla de escape o desliza hacia abajo para salir de la presentación",
+  "pausePresentation": "Pause presentation",
+  "pausePresentationDescription": "Tap the screen or press the space bar to pause or resume the presentation",
   "keyframe": "Keyframe",
   "endOfPresentation": "Ha llegado al final de la presentación",
   "startOfPresentation": "Ha llegado al inicio de la presentación"
