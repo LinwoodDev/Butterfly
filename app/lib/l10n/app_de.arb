@@ -470,8 +470,8 @@
   "previousSlideDescription": "Wische nach links oder drücke die linke Pfeiltaste um zur vorherigen Folie zu gehen",
   "exitPresentation": "Präsentation beenden",
   "exitPresentationDescription": "Drücken Sie die Esc-Taste oder wischen Sie nach unten, um die Präsentation zu beenden",
-  "pausePresentation": "Pause presentation",
-  "pausePresentationDescription": "Tap the screen or press the space bar to pause or resume the presentation",
+  "pausePresentation": "Präsentation pausieren",
+  "pausePresentationDescription": "Tippen Sie auf den Bildschirm oder drücken Sie die Leertaste um die Präsentation zu pausieren oder fortsetzen",
   "keyframe": "Keyframe",
   "endOfPresentation": "Sie haben das Ende der Präsentation erreicht",
   "startOfPresentation": "Sie haben den Beginn der Präsentation erreicht"
