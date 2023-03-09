@@ -470,8 +470,8 @@
   "previousSlideDescription": "Scorri verso sinistra o premi il tasto freccia sinistra per andare alla diapositiva precedente",
   "exitPresentation": "Esci dalla presentazione",
   "exitPresentationDescription": "Premi il tasto di escape o scorri verso il basso per uscire dalla presentazione",
-  "pausePresentation": "Pause presentation",
-  "pausePresentationDescription": "Tap the screen or press the space bar to pause or resume the presentation",
+  "pausePresentation": "Pausa presentazione",
+  "pausePresentationDescription": "Toccare lo schermo o premere la barra spaziatrice per mettere in pausa o riprendere la presentazione",
   "keyframe": "Keyframe",
   "endOfPresentation": "Hai raggiunto la fine della presentazione",
   "startOfPresentation": "Hai raggiunto l'inizio della presentazione"
