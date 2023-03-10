@@ -426,8 +426,8 @@
     }
   },
   "author": "Автор",
-  "addComponent": "Добавить компонент",
-  "editComponent": "Редактировать компонент",
+  "addAsset": "Add asset",
+  "editAsset": "Edit asset",
   "scope": "Сфера охвата",
   "noPacks": "На данный момент наборов нет",
   "components": "Компоненты",
@@ -474,5 +474,6 @@
   "pausePresentationDescription": "Нажмите на экран или нажмите пробел, чтобы приостановить или возобновить презентацию",
   "keyframe": "Keyframe",
   "endOfPresentation": "Вы завершили презентацию",
-  "startOfPresentation": "Вы достигли начала презентации"
+  "startOfPresentation": "Вы достигли начала презентации",
+  "palettes": "Palettes"
 }
