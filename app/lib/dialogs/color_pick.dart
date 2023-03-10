@@ -3,134 +3,156 @@ import 'package:butterfly/visualizer/int.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../widgets/header.dart';
 import '../widgets/exact_slider.dart';
+import 'packs/select.dart';
 
 class ColorPickerDialog extends StatefulWidget {
   final bool viewMode;
   final Color defaultColor;
+  final ColorPalette? palette;
+  final ValueChanged<ColorPalette>? onChanged;
+  final DocumentBloc? bloc;
 
-  const ColorPickerDialog(
-      {super.key, this.defaultColor = Colors.white, this.viewMode = false});
+  const ColorPickerDialog({
+    super.key,
+    this.defaultColor = Colors.white,
+    this.viewMode = false,
+    this.bloc,
+    this.palette,
+    this.onChanged,
+  });
 
   @override
   _ColorPickerDialogState createState() => _ColorPickerDialogState();
 }
 
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
-  PackAssetLocation? selected;
+  PackAssetLocation? _selected;
+  ColorPalette? _palette;
+
   @override
   void initState() {
     super.initState();
+    _palette = widget.palette;
+    if (widget.bloc != null) {
+      final state = widget.bloc!.state;
+      if (state is DocumentLoaded) {
+        final pack = state.document.packs.firstOrNull;
+        final palette = pack?.palettes.firstOrNull;
+        if (palette != null) {
+          _selected = PackAssetLocation(pack: pack!.name, name: palette.name);
+        }
+      }
+    }
+  }
+
+  ColorPalette? _getPalette() {
+    if (_palette != null) return _palette;
+    if (_selected == null) return null;
+    final state = widget.bloc?.state;
+    if (state is! DocumentLoaded) return null;
+    return state.document.getPalette(_selected!);
+  }
+
+  void _changePalette(ColorPalette palette) {
+    if (widget.onChanged != null) {
+      widget.onChanged!(palette);
+      setState(() {
+        _palette = palette;
+      });
+    } else {
+      final state = widget.bloc?.state;
+      if (state is! DocumentLoaded) return;
+      final pack =
+          _selected == null ? null : state.document.getPack(_selected!.name);
+      if (pack == null) return;
+      final newPalettes = pack.palettes.map((e) {
+        if (e.name == palette.name) {
+          return palette;
+        }
+        return e;
+      }).toList();
+      widget.bloc?.add(
+          DocumentPackUpdated(pack.name, pack.copyWith(palettes: newPalettes)));
+    }
   }
 
   void _showColorOperation(int index) {
     showModalBottomSheet(
         context: context,
         constraints: const BoxConstraints(maxWidth: 640),
-        builder: (ctx) => BlocProvider.value(
-              value: context.read<DocumentBloc>(),
-              child: BlocBuilder<DocumentBloc, DocumentState>(
-                  builder: (ctx, state) {
-                if (state is! DocumentLoadSuccess) return Container();
-                final pack = state.document.getPack(selected!.name);
-                final palette = pack?.getPalette(selected!.pack);
-                if (palette == null) return Container();
-                if ((palette.colors.length) <= index) return Container();
-                final color = palette.colors[index];
-                var newPalettes = List<ColorPalette>.from(pack!.palettes);
-                var newPalette = List<int>.from(palette.colors);
-                return SizedBox(
-                    height: 300,
-                    child: Column(children: [
-                      SizedBox(
-                        height: 125,
-                        child: Center(
-                            child: Container(
-                                color: Color(color), height: 75, width: 75)),
-                      ),
-                      const Divider(thickness: 1),
-                      Expanded(
-                          child: ListView(children: [
-                        ListTile(
-                            leading: const Icon(PhosphorIcons.penLight),
-                            title: Text(AppLocalizations.of(context).edit),
-                            onTap: () async {
-                              final bloc = context.read<DocumentBloc>();
-                              final value =
-                                  await showDialog<ColorPickerResponse>(
-                                      context: context,
-                                      builder: (context) => CustomColorPicker(
-                                          defaultColor: Color(color)));
-                              if (value != null) {
-                                newPalette[index] = value.color;
-                                newPalettes = newPalettes.map((e) {
-                                  if (e.name == palette.name) {
-                                    return e.copyWith(colors: newPalette);
-                                  }
-                                  return e;
-                                }).toList();
-                                bloc.add(DocumentPackUpdated(pack.name,
-                                    pack.copyWith(palettes: newPalettes)));
-                              }
-                            }),
-                        ListTile(
-                          leading: const Icon(PhosphorIcons.trashLight),
-                          title: Text(AppLocalizations.of(context).delete),
-                          onTap: () {
-                            showDialog<void>(
-                                context: context,
-                                builder: (ctx) => AlertDialog(
-                                      title: Text(AppLocalizations.of(context)
-                                          .areYouSure),
-                                      content: Text(AppLocalizations.of(context)
-                                          .reallyDelete),
-                                      actions: [
-                                        TextButton(
-                                            child: Text(
-                                                AppLocalizations.of(context)
-                                                    .no),
-                                            onPressed: () =>
-                                                Navigator.of(ctx).pop()),
-                                        ElevatedButton(
-                                            child: Text(
-                                                AppLocalizations.of(context)
-                                                    .yes),
-                                            onPressed: () {
-                                              Navigator.of(ctx).pop();
-                                              Navigator.of(ctx).pop();
-                                              newPalette.removeAt(index);
-                                              newPalettes =
-                                                  newPalettes.map((e) {
-                                                if (e.name == palette.name) {
-                                                  return e.copyWith(
-                                                      colors: newPalette);
-                                                }
-                                                return e;
-                                              }).toList();
-                                              context.read<DocumentBloc>().add(
-                                                  DocumentPackUpdated(
-                                                      pack.name,
-                                                      pack.copyWith(
-                                                          palettes:
-                                                              newPalettes)));
-                                            })
-                                      ],
-                                    ));
-                          },
-                        )
-                      ]))
-                    ]));
-              }),
-            ));
+        builder: (ctx) {
+          final palette = _getPalette();
+          if (palette == null) return Container();
+          if ((palette.colors.length) <= index) return Container();
+          final color = palette.colors[index];
+          return SizedBox(
+              height: 300,
+              child: Column(children: [
+                SizedBox(
+                  height: 125,
+                  child: Center(
+                      child: Container(
+                          color: Color(color), height: 75, width: 75)),
+                ),
+                const Divider(thickness: 1),
+                Expanded(
+                    child: ListView(children: [
+                  ListTile(
+                      leading: const Icon(PhosphorIcons.penLight),
+                      title: Text(AppLocalizations.of(context).edit),
+                      onTap: () async {
+                        final value = await showDialog<ColorPickerResponse>(
+                            context: context,
+                            builder: (context) =>
+                                CustomColorPicker(defaultColor: Color(color)));
+                        if (value != null) {
+                          _changePalette(palette.copyWith(
+                              colors: palette.colors..[index] = value.color));
+                        }
+                      }),
+                  ListTile(
+                    leading: const Icon(PhosphorIcons.trashLight),
+                    title: Text(AppLocalizations.of(context).delete),
+                    onTap: () {
+                      showDialog<void>(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                                title: Text(
+                                    AppLocalizations.of(context).areYouSure),
+                                content: Text(
+                                    AppLocalizations.of(context).reallyDelete),
+                                actions: [
+                                  TextButton(
+                                      child:
+                                          Text(AppLocalizations.of(context).no),
+                                      onPressed: () => Navigator.of(ctx).pop()),
+                                  ElevatedButton(
+                                      child: Text(
+                                          AppLocalizations.of(context).yes),
+                                      onPressed: () {
+                                        Navigator.of(ctx).pop();
+                                        Navigator.of(ctx).pop();
+                                        _changePalette(palette.copyWith(
+                                            colors: palette.colors
+                                              ..removeAt(index)));
+                                      })
+                                ],
+                              ));
+                    },
+                  )
+                ]))
+              ]));
+        });
   }
 
   @override
   Widget build(BuildContext context) {
+    final palette = _getPalette();
     return Dialog(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -140,25 +162,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                BlocBuilder<DocumentBloc, DocumentState>(
-                    builder: (context, state) {
-                  if (state is! DocumentLoadSuccess) {
-                    return Container();
-                  }
-                  final pack = selected == null
-                      ? state.document.packs.firstOrNull
-                      : state.document.getPack(selected!.name);
-                  final palette = selected == null
-                      ? pack?.palettes.firstOrNull
-                      : pack?.getPalette(selected!.pack);
-                  if (pack != null && palette != null) {
-                    selected ??=
-                        PackAssetLocation(name: pack.name, pack: palette.name);
-                  }
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (widget.palette == null)
                       Material(
                         shape: const RoundedRectangleBorder(
                             borderRadius:
@@ -173,7 +181,26 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   child: Row(
                                     children: [
                                       IconButton(
-                                          onPressed: () async {},
+                                          onPressed: () async {
+                                            final state = widget.bloc?.state;
+                                            if (state is! DocumentLoaded) {
+                                              return;
+                                            }
+                                            final result = await showDialog<
+                                                PackAssetLocation?>(
+                                              context: context,
+                                              builder: (context) =>
+                                                  SelectPackAssetDialog(
+                                                selected: _selected,
+                                                type: PackAssetType.palette,
+                                                document: state.document,
+                                              ),
+                                            );
+                                            if (result == null) return;
+                                            setState(() {
+                                              _selected = result;
+                                            });
+                                          },
                                           icon: const Icon(
                                               PhosphorIcons.packageLight))
                                     ],
@@ -182,85 +209,71 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                           }),
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Wrap(alignment: WrapAlignment.start, children: [
-                          if (pack?.palettes.isNotEmpty ?? false)
-                            ...(List.generate(
-                                palette?.colors.length ?? 0,
-                                (index) => InkWell(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(32)),
-                                    onLongPress: () =>
-                                        _showColorOperation(index),
-                                    onTap: () => Navigator.of(context)
-                                        .pop(palette!.colors[index]),
-                                    child: Container(
-                                      width: 75,
-                                      height: 75,
-                                      margin: const EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                          color: Color(palette!.colors[index]),
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(32))),
-                                    )))).toList(),
-                          if (palette != null)
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Material(
-                                color: Theme.of(context)
-                                    .scaffoldBackgroundColor
-                                    .withOpacity(0.5),
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(32))),
-                                child: InkWell(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(32)),
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(1322))),
-                                    width: 75,
-                                    height: 75,
-                                    child: const Center(
-                                        child: Icon(PhosphorIcons.plusLight,
-                                            size: 42)),
-                                  ),
-                                  onTap: () async {
-                                    final bloc = context.read<DocumentBloc>();
-                                    var value =
-                                        await showDialog<ColorPickerResponse>(
-                                            context: context,
-                                            builder: (context) =>
-                                                CustomColorPicker(
-                                                    defaultColor:
-                                                        widget.defaultColor));
-                                    if (value != null) {
-                                      final newPalettes =
-                                          pack!.palettes.map((e) {
-                                        if (e.name == palette.name) {
-                                          return e.copyWith(
-                                              colors: List<int>.from(e.colors)
-                                                ..add(value.color));
-                                        }
-                                        return e;
-                                      }).toList();
-                                      bloc.add(DocumentPackUpdated(
-                                          pack.name,
-                                          pack.copyWith(
-                                              palettes: newPalettes)));
-                                    }
-                                  },
+                    const SizedBox(height: 10),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Wrap(alignment: WrapAlignment.start, children: [
+                        ...(List.generate(
+                            palette?.colors.length ?? 0,
+                            (index) => InkWell(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(32)),
+                                onLongPress: () => _showColorOperation(index),
+                                onTap: () => Navigator.of(context)
+                                    .pop(palette!.colors[index]),
+                                child: Container(
+                                  width: 75,
+                                  height: 75,
+                                  margin: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      color: Color(palette!.colors[index]),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(32))),
+                                )))).toList(),
+                        if (palette != null)
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Material(
+                              color: Theme.of(context)
+                                  .scaffoldBackgroundColor
+                                  .withOpacity(0.5),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(32))),
+                              child: InkWell(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(32)),
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(1322))),
+                                  width: 75,
+                                  height: 75,
+                                  child: const Center(
+                                      child: Icon(PhosphorIcons.plusLight,
+                                          size: 42)),
                                 ),
+                                onTap: () async {
+                                  var value =
+                                      await showDialog<ColorPickerResponse>(
+                                          context: context,
+                                          builder: (context) =>
+                                              CustomColorPicker(
+                                                  defaultColor:
+                                                      widget.defaultColor));
+                                  if (value != null) {
+                                    _changePalette(palette.copyWith(
+                                        colors: List<int>.from(palette.colors)
+                                          ..add(value.color)));
+                                  }
+                                },
                               ),
-                            )
-                        ]),
-                      ),
-                    ],
-                  );
-                }),
+                            ),
+                          )
+                      ]),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 50),
                 if (!widget.viewMode)
                   ElevatedButton(

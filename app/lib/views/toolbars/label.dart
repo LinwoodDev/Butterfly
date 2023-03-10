@@ -412,11 +412,9 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           onTap: () async {
                             final result = await showDialog<int>(
                               context: context,
-                              builder: (_) => BlocProvider.value(
-                                value: context.read<DocumentBloc>(),
-                                child: ColorPickerDialog(
-                                  defaultColor: Color(span.getColor(paragraph)),
-                                ),
+                              builder: (_) => ColorPickerDialog(
+                                defaultColor: Color(span.getColor(paragraph)),
+                                bloc: context.read<DocumentBloc>(),
                               ),
                             );
                             if (result == null) return;

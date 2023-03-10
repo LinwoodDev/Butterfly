@@ -5,6 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'components.dart';
 import 'general.dart';
+import 'palettes.dart';
 import 'styles/view.dart';
 
 class PackDialog extends StatefulWidget {
@@ -45,7 +46,7 @@ class _PackDialogState extends State<PackDialog> {
         width: 600,
         height: 600,
         child: DefaultTabController(
-          length: widget.pack == null ? 1 : 3,
+          length: widget.pack == null ? 1 : 4,
           child: Column(
             children: [
               if (widget.pack != null)
@@ -63,6 +64,10 @@ class _PackDialogState extends State<PackDialog> {
                       [
                         PhosphorIcons.pencilCircleLight,
                         AppLocalizations.of(context).styles
+                      ],
+                      [
+                        PhosphorIcons.paletteLight,
+                        AppLocalizations.of(context).palettes
                       ]
                     ]
                         .map((e) => Tab(
@@ -84,6 +89,7 @@ class _PackDialogState extends State<PackDialog> {
                     if (widget.pack != null) ...[
                       ComponentsPackView(value: pack, onChanged: _onChanged),
                       StylesPackView(value: pack, onChanged: _onChanged),
+                      PalettesPackView(value: pack, onChanged: _onChanged),
                     ],
                   ],
                 ),
