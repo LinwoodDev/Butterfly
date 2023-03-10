@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
- 
+
 import 'converter.dart';
 import 'element.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -36,7 +36,8 @@ class ButterflyPack with _$ButterflyPack {
   TextStyleSheet? getStyle(String name) {
     return styles.firstWhereOrNull((e) => e.name == name);
   }
-   ColorPalette? getPalette(String name) {
+
+  ColorPalette? getPalette(String name) {
     return palettes.firstWhereOrNull((e) => e.name == name);
   }
 }
@@ -83,7 +84,6 @@ class ButterflyParameter with _$ButterflyParameter {
     required String name,
     required double value,
   }) = DoubleParameter;
-  
 
   factory ButterflyParameter.fromJson(Map<String, dynamic> json) =>
       _$ButterflyParameterFromJson(json);
@@ -111,6 +111,5 @@ extension PackDocumentException on AppDocument {
 
   ColorPalette? getPalette(PackAssetLocation location) {
     return getPack(location.pack)?.getPalette(location.name);
-  
   }
 }

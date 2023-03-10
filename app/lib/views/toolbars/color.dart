@@ -52,7 +52,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         palette = pack?.getPalette(currentPalette!.name);
       }
       return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (!(palette?.colors.contains(widget.color) ?? false)) ...[
@@ -60,100 +60,109 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
               current: widget.color,
               color: widget.color,
               bloc: bloc,
+              chooseOnPress: true,
               onChanged: (value) {
                 widget.onChanged(value);
               },
             ),
-            const VerticalDivider(),
+            if (palette != null) const VerticalDivider(),
           ],
-          Expanded(
-              child: Scrollbar(
-            controller: _scrollController,
-            child: ListView(
-                controller: _scrollController,
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ...List.generate(palette?.colors.length ?? 0, (index) {
-                    final current = palette!.colors[index];
-                    return _ColorButton(
-                      bloc: bloc,
-                      color: widget.color,
-                      current: current,
-                      onChanged: (value) {
-                        widget.onChanged(value);
-                      },
-                      onDeleted: () {
-                        final newPalettes =
-                            List<ColorPalette>.from(pack?.palettes ?? [])
-                                .map((e) {
-                          if (e.name == currentPalette?.name) {
-                            return e.copyWith(
-                                colors: List<int>.from(e.colors)
-                                  ..removeAt(index));
+          if (palette != null)
+            Expanded(
+                child: Scrollbar(
+              controller: _scrollController,
+              child: ListView(
+                  controller: _scrollController,
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ...List.generate(palette.colors.length, (index) {
+                      final current = palette!.colors[index];
+                      return _ColorButton(
+                        bloc: bloc,
+                        color: widget.color,
+                        current: current,
+                        onChanged: (value) {
+                          widget.onChanged(value);
+                        },
+                        onDeleted: () {
+                          final newPalettes =
+                              List<ColorPalette>.from(pack?.palettes ?? [])
+                                  .map((e) {
+                            if (e.name == currentPalette?.name) {
+                              return e.copyWith(
+                                  colors: List<int>.from(e.colors)
+                                    ..removeAt(index));
+                            }
+                            return e;
+                          }).toList();
+                          final newPack = pack?.copyWith(palettes: newPalettes);
+                          if (newPack == null) return;
+                          bloc.add(DocumentPackUpdated(
+                              currentPalette!.name, newPack));
+                        },
+                      );
+                    }),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        onTap: () async {
+                          final response =
+                              await showDialog<ColorPickerResponse>(
+                            context: context,
+                            builder: (context) => CustomColorPicker(
+                              defaultColor: Color(widget.color),
+                              pinOption: palette != null,
+                            ),
+                          );
+                          if (response != null) {
+                            widget.onChanged(response.color);
+                            if (response.pin) {
+                              final newPalettes =
+                                  List<ColorPalette>.from(pack?.palettes ?? [])
+                                      .map((e) {
+                                if (e.name == currentPalette?.name) {
+                                  return e.copyWith(
+                                      colors: [...e.colors, response.color]);
+                                }
+                                return e;
+                              }).toList();
+                              final newPack =
+                                  pack?.copyWith(palettes: newPalettes);
+                              if (newPack == null) return;
+                              bloc.add(DocumentPackUpdated(
+                                  currentPalette!.name, newPack));
+                            }
                           }
-                          return e;
-                        }).toList();
-                        final newPack = pack?.copyWith(palettes: newPalettes);
-                        if (newPack == null) return;
-                        bloc.add(
-                            DocumentPackUpdated(currentPalette!.name, newPack));
-                      },
-                    );
-                  }),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () async {
-                        final response = await showDialog<ColorPickerResponse>(
-                          context: context,
-                          builder: (context) => CustomColorPicker(
-                            defaultColor: Color(widget.color),
-                            pinOption: palette != null,
-                          ),
-                        );
-                        if (response != null) {
-                          widget.onChanged(response.color);
-                          if (response.pin) {
-                            final newPalettes =
-                                List<ColorPalette>.from(pack?.palettes ?? [])
-                                    .map((e) {
-                              if (e.name == currentPalette?.name) {
-                                return e.copyWith(
-                                    colors: [...e.colors, response.color]);
-                              }
-                              return e;
-                            }).toList();
-                            final newPack =
-                                pack?.copyWith(palettes: newPalettes);
-                            if (newPack == null) return;
-                            bloc.add(DocumentPackUpdated(
-                                currentPalette!.name, newPack));
-                          }
-                        }
-                      },
-                      borderRadius: BorderRadius.circular(12),
-                      child: const AspectRatio(
-                        aspectRatio: 1,
-                        child: Icon(PhosphorIcons.plusLight),
+                        },
+                        borderRadius: BorderRadius.circular(12),
+                        child: const AspectRatio(
+                          aspectRatio: 1,
+                          child: Icon(PhosphorIcons.plusLight),
+                        ),
                       ),
                     ),
-                  ),
-                ]),
-          )),
-          IconButton(
-              onPressed: () async {
-                final document = state.document;
-                final result = await showDialog<PackAssetLocation>(
-                    context: context,
-                    builder: (context) => SelectPackAssetDialog(
-                        type: PackAssetType.palette, document: document));
+                  ]),
+            )),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: IconButton(
+                  onPressed: () async {
+                    final document = state.document;
+                    final result = await showDialog<PackAssetLocation>(
+                        context: context,
+                        builder: (context) => SelectPackAssetDialog(
+                            type: PackAssetType.palette, document: document));
 
-                if (result == null) return;
-                setState(() {
-                  currentPalette = result;
-                });
-              },
-              icon: const Icon(PhosphorIcons.packageLight))
+                    if (result == null) return;
+                    setState(() {
+                      currentPalette = result;
+                    });
+                  },
+                  icon: const Icon(PhosphorIcons.packageLight)),
+            ),
+          ),
         ],
       );
     });
@@ -165,35 +174,40 @@ class _ColorButton extends StatelessWidget {
   final DocumentBloc bloc;
   final ValueChanged<int> onChanged;
   final VoidCallback? onDeleted;
+  final bool chooseOnPress;
+
   const _ColorButton({
     required this.current,
     required this.color,
     required this.bloc,
     required this.onChanged,
+    this.chooseOnPress = false,
     this.onDeleted,
   });
 
   @override
   Widget build(BuildContext context) {
+    Future<void> choose() async {
+      final newColor = await showDialog<ColorPickerResponse>(
+        context: context,
+        builder: (context) => CustomColorPicker(
+          defaultColor: Color(current),
+          deleteOption: onDeleted != null,
+        ),
+      );
+      if (newColor == null) return;
+      if (newColor.delete) {
+        onDeleted?.call();
+      } else {
+        onChanged(newColor.color);
+      }
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () => onChanged(current),
-        onLongPress: () async {
-          final newColor = await showDialog<ColorPickerResponse>(
-            context: context,
-            builder: (context) => CustomColorPicker(
-              defaultColor: Color(current),
-              deleteOption: onDeleted != null,
-            ),
-          );
-          if (newColor == null) return;
-          if (newColor.delete) {
-            onDeleted?.call();
-          } else {
-            onChanged(newColor.color);
-          }
-        },
+        onTap: () => chooseOnPress ? choose() : onChanged(current),
+        onLongPress: choose,
         borderRadius: BorderRadius.circular(12),
         child: AspectRatio(
           aspectRatio: 1,

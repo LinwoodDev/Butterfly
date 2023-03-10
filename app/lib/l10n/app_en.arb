@@ -426,8 +426,8 @@
     }
   },
   "author": "Author",
-  "addComponent": "Add component",
-  "editComponent": "Edit component",
+  "addAsset": "Add asset",
+  "editAsset": "Edit asset",
   "scope": "Scope",
   "noPacks": "There are currently no packs available",
   "components": "Components",
