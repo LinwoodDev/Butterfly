@@ -406,15 +406,6 @@
   "packsDirectory": "Paketverzeichnis",
   "stamp": "Stempel",
   "addToPack": "Zum Paket hinzufügen",
-  "packDescription": "{count,plural, =0{Keine Elemente} =1{1 Element} other{{count} Elemente}}",
-  "@packDescription": {
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "example": "1"
-      }
-    }
-  },
   "sureImportPack": "Sind Sie sicher, dass Sie das Paket importieren möchten?",
   "byAuthor": "von {author}",
   "@byAuthor": {
