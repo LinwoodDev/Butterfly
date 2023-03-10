@@ -13,7 +13,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'element.dart';
 import 'pack.dart';
 import 'painter.dart';
-import 'palette.dart';
 import 'tool.dart';
 import 'waypoint.dart';
 
@@ -179,7 +178,6 @@ class AppDocument with _$AppDocument {
     @Default([]) List<PadElement> content,
     @Default(Background.empty()) Background background,
     @Default([]) List<AnimationTrack> animations,
-    @Default([]) List<ColorPalette> palettes,
     @Default([]) List<Waypoint> waypoints,
     @Default([]) List<Area> areas,
     @Default([]) List<ExportPreset> exportPresets,
@@ -203,10 +201,6 @@ class AppDocument with _$AppDocument {
 
   Set<String> getLayerNames() {
     return content.map((e) => e.layer).toSet();
-  }
-
-  ColorPalette? getPalette(String name) {
-    return palettes.firstWhereOrNull((e) => e.name == name);
   }
 
   ExportPreset? getExportPreset(String name) {

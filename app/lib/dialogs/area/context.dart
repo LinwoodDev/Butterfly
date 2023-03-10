@@ -2,7 +2,6 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/name.dart';
-import 'package:butterfly/dialogs/packs/component.dart';
 import 'package:butterfly/dialogs/svg_export.dart';
 import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../image_export.dart';
+import '../packs/asset.dart';
 import '../pdf_export.dart';
 
 class AreaContextMenu extends StatelessWidget {
@@ -164,7 +164,7 @@ class AreaContextMenu extends StatelessWidget {
             ListTile(
               leading: const Icon(PhosphorIcons.plusCircleLight),
               title: Text(AppLocalizations.of(context).addToPack),
-              onTap: () {
+              onTap: () async {
                 final settingsCubit = context.read<SettingsCubit>();
                 final bloc = context.read<DocumentBloc>();
                 final elements = state.renderers
@@ -174,18 +174,33 @@ class AreaContextMenu extends StatelessWidget {
                     .map((e) => e?.element)
                     .whereType<PadElement>()
                     .toList();
+                final document = state.document;
                 Navigator.of(context).pop();
-                showDialog<ButterflyComponent>(
+                final result = await showDialog<PackAssetLocation>(
                   context: context,
                   builder: (context) => MultiBlocProvider(
-                      providers: [
-                        BlocProvider.value(value: bloc),
-                        BlocProvider.value(value: settingsCubit),
-                      ],
-                      child: PackComponentDialog(
-                        elements: elements,
-                      )),
+                    providers: [
+                      BlocProvider.value(value: settingsCubit),
+                      BlocProvider.value(value: bloc),
+                    ],
+                    child: const AssetDialog(),
+                  ),
                 );
+                if (result == null) return;
+                final pack = document.getPack(result.pack);
+                if (pack == null) return;
+                final newPack = pack.copyWith(
+                  components: pack.components
+                      .where((e) => e.name != result.name)
+                      .toList()
+                    ..add(
+                      ButterflyComponent(
+                        name: result.name,
+                        elements: elements,
+                      ),
+                    ),
+                );
+                bloc.add(DocumentPackUpdated(result.pack, newPack));
               },
             )
           ],

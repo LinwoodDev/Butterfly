@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import 'converter.dart';
 import 'element.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'palette.dart';
 import 'text.dart';
 
 import 'document.dart';
@@ -20,6 +21,7 @@ class ButterflyPack with _$ButterflyPack {
     @Default('') String author,
     @Default(<ButterflyComponent>[]) List<ButterflyComponent> components,
     @Default(<TextStyleSheet>[]) List<TextStyleSheet> styles,
+    @Default(<ColorPalette>[]) List<ColorPalette> palettes,
     @DateTimeJsonConverter() required DateTime createdAt,
     @DateTimeJsonConverter() required DateTime updatedAt,
   }) = _ButterflyPack;
@@ -33,6 +35,10 @@ class ButterflyPack with _$ButterflyPack {
 
   TextStyleSheet? getStyle(String name) {
     return styles.firstWhereOrNull((e) => e.name == name);
+  }
+
+  ColorPalette? getPalette(String name) {
+    return palettes.firstWhereOrNull((e) => e.name == name);
   }
 }
 
@@ -101,5 +107,9 @@ extension PackDocumentException on AppDocument {
 
   TextStyleSheet? getStyle(PackAssetLocation location) {
     return getPack(location.pack)?.getStyle(location.name);
+  }
+
+  ColorPalette? getPalette(PackAssetLocation location) {
+    return getPack(location.pack)?.getPalette(location.name);
   }
 }

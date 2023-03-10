@@ -36,11 +36,6 @@ _$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(
                   AnimationTrack.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
-      palettes: (json['palettes'] as List<dynamic>?)
-              ?.map((e) =>
-                  ColorPalette.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
       waypoints: (json['waypoints'] as List<dynamic>?)
               ?.map(
                   (e) => Waypoint.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -81,7 +76,6 @@ Map<String, dynamic> _$$_AppDocumentToJson(_$_AppDocument instance) =>
       'content': instance.content.map((e) => e.toJson()).toList(),
       'background': instance.background.toJson(),
       'animations': instance.animations.map((e) => e.toJson()).toList(),
-      'palettes': instance.palettes.map((e) => e.toJson()).toList(),
       'waypoints': instance.waypoints.map((e) => e.toJson()).toList(),
       'areas': instance.areas.map((e) => e.toJson()).toList(),
       'exportPresets': instance.exportPresets.map((e) => e.toJson()).toList(),

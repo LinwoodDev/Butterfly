@@ -3,7 +3,6 @@ import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,11 +30,11 @@ class NewAction extends Action<NewIntent> {
     final transformCubit = context.read<TransformCubit>();
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     var document = AppDocument(
-        name: await formatCurrentDateTime(
-            context.read<SettingsCubit>().state.locale),
-        createdAt: DateTime.now(),
-        painters: createDefaultPainters(),
-        palettes: DocumentDefaults.getMaterialPalette(context));
+      name: await formatCurrentDateTime(
+          context.read<SettingsCubit>().state.locale),
+      createdAt: DateTime.now(),
+      painters: createDefaultPainters(),
+    );
     final prefs = await SharedPreferences.getInstance();
     final remote = settings.getDefaultRemote();
     if (intent.fromTemplate && context.mounted) {

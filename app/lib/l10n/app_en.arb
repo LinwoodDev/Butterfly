@@ -426,8 +426,8 @@
     }
   },
   "author": "Author",
-  "addComponent": "Add component",
-  "editComponent": "Edit component",
+  "addAsset": "Add asset",
+  "editAsset": "Edit asset",
   "scope": "Scope",
   "noPacks": "There are currently no packs available",
   "components": "Components",
@@ -474,5 +474,6 @@
   "pausePresentationDescription": "Tap the screen or press the space bar to pause or resume the presentation",
   "keyframe": "Keyframe",
   "endOfPresentation": "You have reached the end of the presentation",
-  "startOfPresentation": "You have reached the start of the presentation"
+  "startOfPresentation": "You have reached the start of the presentation",
+  "palettes": "Palettes"
 }

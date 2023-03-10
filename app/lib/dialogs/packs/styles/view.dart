@@ -38,7 +38,7 @@ class StylesPackView extends StatelessWidget {
                         onDismissed: (direction) {
                           onChanged(value.copyWith(
                             styles: List<text.TextStyleSheet>.from(value.styles)
-                              ..remove(e.value),
+                              ..removeAt(e.key),
                           ));
                         },
                         child: ListTile(

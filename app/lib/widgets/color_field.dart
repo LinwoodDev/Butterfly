@@ -43,11 +43,12 @@ class ColorField extends StatelessWidget {
           nextColor = response?.color;
         } else {
           nextColor = await showDialog<int>(
-              context: context,
-              builder: (ctx) => BlocProvider.value(
-                    value: context.read<DocumentBloc>(),
-                    child: ColorPickerDialog(defaultColor: value),
-                  ));
+            context: context,
+            builder: (ctx) => ColorPickerDialog(
+              defaultColor: value,
+              bloc: context.read<DocumentBloc>(),
+            ),
+          );
         }
         if (nextColor != null) {
           onChanged?.call(Color(nextColor));
