@@ -406,15 +406,6 @@
   "packsDirectory": "Directorio de paquetes",
   "stamp": "Sello",
   "addToPack": "Añadir al paquete",
-  "packDescription": "{count,plural, =0{No hay elementos} =1{1 elemento} other{{count} Elementos}}",
-  "@packDescription": {
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "example": "1"
-      }
-    }
-  },
   "sureImportPack": "¿Estás seguro de que quieres importar el paquete?",
   "byAuthor": "por {author}",
   "@byAuthor": {
