@@ -34,7 +34,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
   @override
   void didUpdateWidget(covariant ParagraphsStyleView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.value != widget.value) {
+    if (oldWidget.value != widget.value && _currentStyle != null) {
       setState(() {
         if (!widget.value.paragraphProperties.containsKey(_currentStyle!)) {
           _currentStyle = widget.value.paragraphProperties.keys.firstOrNull;
@@ -171,17 +171,17 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                   ),
                 ),
                 Flexible(
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Builder(
-                        builder: (context) {
-                          final currentParagraph =
-                              widget.value.paragraphProperties[_currentStyle];
-                          if (currentParagraph == null) {
-                            return const SizedBox();
-                          }
-                          return SingleChildScrollView(
+                  child: Builder(
+                    builder: (context) {
+                      final currentParagraph =
+                          widget.value.paragraphProperties[_currentStyle];
+                      if (currentParagraph == null) {
+                        return const SizedBox();
+                      }
+                      return Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SingleChildScrollView(
                             child: ParagraphStyleView(
                               value: currentParagraph,
                               onChanged: (paragraph) {
@@ -193,10 +193,10 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                                 ));
                               },
                             ),
-                          );
-                        },
-                      ),
-                    ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],

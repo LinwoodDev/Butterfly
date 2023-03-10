@@ -36,7 +36,8 @@ class _TextsStyleViewState extends State<TextsStyleView> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.value != widget.value) {
       setState(() {
-        if (!widget.value.spanProperties.containsKey(_currentStyle!)) {
+        if (!widget.value.spanProperties.containsKey(_currentStyle!) &&
+            _currentStyle != null) {
           _currentStyle = widget.value.spanProperties.keys.firstOrNull;
         }
       });
@@ -165,17 +166,16 @@ class _TextsStyleViewState extends State<TextsStyleView> {
           ),
         ),
         Flexible(
-          child: Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Builder(
-                builder: (context) {
-                  final currentspan =
-                      widget.value.spanProperties[_currentStyle];
-                  if (currentspan == null) {
-                    return const SizedBox();
-                  }
-                  return SingleChildScrollView(
+          child: Builder(
+            builder: (context) {
+              final currentspan = widget.value.spanProperties[_currentStyle];
+              if (currentspan == null) {
+                return const SizedBox();
+              }
+              return Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SingleChildScrollView(
                     child: TextStyleView(
                       value: currentspan,
                       onChanged: (span) {
@@ -187,10 +187,10 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                         ));
                       },
                     ),
-                  );
-                },
-              ),
-            ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ],

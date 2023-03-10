@@ -96,16 +96,15 @@ class _PacksDialogState extends State<PacksDialog>
                                   ),
                                   child: ListTile(
                                     title: Text(pack.name),
-                                    isThreeLine: true,
                                     subtitle: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(AppLocalizations.of(context)
-                                            .byAuthor(pack.author)),
-                                        Text(AppLocalizations.of(context)
-                                            .packDescription(
-                                                pack.components.length)),
+                                        if (pack.author.isNotEmpty)
+                                          Text(AppLocalizations.of(context)
+                                              .byAuthor(pack.author)),
+                                        if (pack.description.isNotEmpty)
+                                          Text(pack.description),
                                       ],
                                     ),
                                     onTap: () async {
@@ -206,16 +205,15 @@ class _PacksDialogState extends State<PacksDialog>
                                   ),
                                   child: ListTile(
                                     title: Text(pack.name),
-                                    isThreeLine: true,
                                     subtitle: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(AppLocalizations.of(context)
-                                            .byAuthor(pack.author)),
-                                        Text(AppLocalizations.of(context)
-                                            .packDescription(
-                                                pack.components.length)),
+                                        if (pack.author.isNotEmpty)
+                                          Text(AppLocalizations.of(context)
+                                              .byAuthor(pack.author)),
+                                        if (pack.description.isNotEmpty)
+                                          Text(pack.description),
                                       ],
                                     ),
                                     onTap: () async {
@@ -353,9 +351,6 @@ class _PacksDialogState extends State<PacksDialog>
                                               Text(AppLocalizations.of(context)
                                                   .byAuthor(pack.author)),
                                               Text(pack.description),
-                                              Text(AppLocalizations.of(context)
-                                                  .packDescription(
-                                                      pack.components.length)),
                                             ],
                                           ),
                                           actions: [
