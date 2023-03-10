@@ -426,8 +426,8 @@
     }
   },
   "author": "Autore",
-  "addComponent": "Aggiungi componente",
-  "editComponent": "Modifica componente",
+  "addAsset": "Add asset",
+  "editAsset": "Edit asset",
   "scope": "Ambito",
   "noPacks": "Al momento non ci sono pacchetti disponibili",
   "components": "Componenti",
@@ -474,5 +474,6 @@
   "pausePresentationDescription": "Toccare lo schermo o premere la barra spaziatrice per mettere in pausa o riprendere la presentazione",
   "keyframe": "Keyframe",
   "endOfPresentation": "Hai raggiunto la fine della presentazione",
-  "startOfPresentation": "Hai raggiunto l'inizio della presentazione"
+  "startOfPresentation": "Hai raggiunto l'inizio della presentazione",
+  "palettes": "Palettes"
 }
