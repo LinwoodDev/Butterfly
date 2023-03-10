@@ -3,6 +3,7 @@ import 'package:butterfly/visualizer/int.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -189,10 +190,12 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                               PackAssetLocation?>(
                                             context: context,
                                             builder: (context) =>
-                                                SelectPackAssetDialog(
-                                              selected: _selected,
-                                              type: PackAssetType.palette,
-                                              document: state.document,
+                                                BlocProvider.value(
+                                              value: widget.bloc!,
+                                              child: SelectPackAssetDialog(
+                                                selected: _selected,
+                                                type: PackAssetType.palette,
+                                              ),
                                             ),
                                           );
                                           if (result == null) return;

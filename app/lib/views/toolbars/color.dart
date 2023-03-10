@@ -149,13 +149,14 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
               aspectRatio: 1,
               child: IconButton(
                   onPressed: () async {
-                    final document = state.document;
                     final result = await showDialog<PackAssetLocation>(
                         context: context,
-                        builder: (context) => SelectPackAssetDialog(
-                              type: PackAssetType.palette,
-                              document: document,
-                              selected: currentPalette,
+                        builder: (context) => BlocProvider.value(
+                              value: bloc,
+                              child: SelectPackAssetDialog(
+                                type: PackAssetType.palette,
+                                selected: currentPalette,
+                              ),
                             ));
 
                     if (result == null) return;

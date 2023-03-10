@@ -180,8 +180,8 @@ class AreaContextMenu extends StatelessWidget {
                   context: context,
                   builder: (context) => MultiBlocProvider(
                     providers: [
-                      BlocProvider.value(value: bloc),
                       BlocProvider.value(value: settingsCubit),
+                      BlocProvider.value(value: bloc),
                     ],
                     child: const AssetDialog(),
                   ),
