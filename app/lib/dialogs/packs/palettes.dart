@@ -42,6 +42,7 @@ class PalettesPackView extends StatelessWidget {
                             context: context,
                             builder: (context) => ColorPickerDialog(
                               palette: e.value,
+                              viewMode: true,
                               onChanged: (palette) {
                                 onChanged(value.copyWith(
                                   palettes: List<ColorPalette>.from(

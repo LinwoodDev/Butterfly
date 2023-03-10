@@ -153,7 +153,10 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                     final result = await showDialog<PackAssetLocation>(
                         context: context,
                         builder: (context) => SelectPackAssetDialog(
-                            type: PackAssetType.palette, document: document));
+                              type: PackAssetType.palette,
+                              document: document,
+                              selected: currentPalette,
+                            ));
 
                     if (result == null) return;
                     setState(() {

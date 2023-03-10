@@ -166,49 +166,65 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    if (widget.palette == null)
-                      Material(
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(12))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: LayoutBuilder(builder: (context, constraints) {
-                            return SingleChildScrollView(
-                              child: ConstrainedBox(
-                                  constraints: BoxConstraints(
-                                      minWidth: constraints.maxWidth),
-                                  child: Row(
-                                    children: [
+                    Material(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12))),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: LayoutBuilder(builder: (context, constraints) {
+                          return SingleChildScrollView(
+                            child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                    minWidth: constraints.maxWidth),
+                                child: Row(
+                                  children: [
+                                    if (widget.palette == null) ...[
                                       IconButton(
-                                          onPressed: () async {
-                                            final state = widget.bloc?.state;
-                                            if (state is! DocumentLoaded) {
-                                              return;
-                                            }
-                                            final result = await showDialog<
-                                                PackAssetLocation?>(
-                                              context: context,
-                                              builder: (context) =>
-                                                  SelectPackAssetDialog(
-                                                selected: _selected,
-                                                type: PackAssetType.palette,
-                                                document: state.document,
-                                              ),
-                                            );
-                                            if (result == null) return;
-                                            setState(() {
-                                              _selected = result;
-                                            });
+                                        onPressed: () async {
+                                          final state = widget.bloc?.state;
+                                          if (state is! DocumentLoaded) {
+                                            return;
+                                          }
+                                          final result = await showDialog<
+                                              PackAssetLocation?>(
+                                            context: context,
+                                            builder: (context) =>
+                                                SelectPackAssetDialog(
+                                              selected: _selected,
+                                              type: PackAssetType.palette,
+                                              document: state.document,
+                                            ),
+                                          );
+                                          if (result == null) return;
+                                          setState(() {
+                                            _selected = result;
+                                          });
+                                        },
+                                        icon: const Icon(
+                                            PhosphorIcons.packageLight),
+                                      )
+                                    ] else
+                                      Expanded(
+                                        child: TextFormField(
+                                          initialValue: _palette?.name,
+                                          decoration: InputDecoration(
+                                            labelText:
+                                                AppLocalizations.of(context)
+                                                    .name,
+                                            filled: true,
+                                          ),
+                                          onChanged: (value) {
+                                            _changePalette(_palette!
+                                                .copyWith(name: value));
                                           },
-                                          icon: const Icon(
-                                              PhosphorIcons.packageLight))
-                                    ],
-                                  )),
-                            );
-                          }),
-                        ),
+                                        ),
+                                      ),
+                                  ],
+                                )),
+                          );
+                        }),
                       ),
+                    ),
                     const SizedBox(height: 10),
                     Align(
                       alignment: Alignment.center,
