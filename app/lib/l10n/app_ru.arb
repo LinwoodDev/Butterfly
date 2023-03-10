@@ -406,15 +406,6 @@
   "packsDirectory": "Каталог наборов",
   "stamp": "Штамп",
   "addToPack": "Добавить в набор",
-  "packDescription": "{count,plural, =0{Нет элементов} =1{1 элемент} other{{count} элементов}}",
-  "@packDescription": {
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "example": "1"
-      }
-    }
-  },
   "sureImportPack": "Вы уверены, что хотите импортировать набор?",
   "byAuthor": "от {author}",
   "@byAuthor": {
