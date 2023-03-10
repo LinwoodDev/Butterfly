@@ -113,7 +113,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                 CustomColorPicker(defaultColor: Color(color)));
                         if (value != null) {
                           _changePalette(palette.copyWith(
-                              colors: palette.colors..[index] = value.color));
+                              colors: List.from(palette.colors)
+                                ..[index] = value.color));
                         }
                       }),
                   ListTile(
@@ -139,7 +140,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                         Navigator.of(ctx).pop();
                                         Navigator.of(ctx).pop();
                                         _changePalette(palette.copyWith(
-                                            colors: palette.colors
+                                            colors: List.from(palette.colors)
                                               ..removeAt(index)));
                                       })
                                 ],
@@ -342,7 +343,8 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
   @override
   void initState() {
     color = widget.defaultColor;
-    _hexController = TextEditingController(text: color.value.toHexColor());
+    _hexController =
+        TextEditingController(text: color.value.toHexColor(alpha: false));
     super.initState();
   }
 
@@ -354,7 +356,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
   @override
   Widget build(BuildContext context) {
     if (_getColorValueFromHexString(_hexController.text) != color.value) {
-      _hexController.text = color.value.toHexColor();
+      _hexController.text = color.value.toHexColor(alpha: false);
     }
     return Dialog(
       child: ConstrainedBox(
@@ -460,7 +462,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                 final valueNumber = _getColorValueFromHexString(value);
                 if (valueNumber == null) return;
                 setState(() {
-                  color = Color(valueNumber);
+                  color = Color(valueNumber).withAlpha(255);
                 });
               },
             ),
