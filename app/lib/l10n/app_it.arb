@@ -79,7 +79,7 @@
   "decoration": "Decorazione",
   "underline": "Sottolinea",
   "overline": "Sopralinea",
-  "strikethrough": "Strikethrough",
+  "strikethrough": "Barrato",
   "thickness": "Spessore",
   "style": "Stile",
   "solid": "Solido",
@@ -467,7 +467,7 @@
   "endOfPresentation": "Hai raggiunto la fine della presentazione",
   "startOfPresentation": "Hai raggiunto l'inizio della presentazione",
   "palettes": "Palettes",
-  "headline": "Headline {index}",
+  "headline": "Titolo {index}",
   "@headline": {
     "placeholders": {
       "index": {
@@ -476,13 +476,13 @@
       }
     }
   },
-  "code": "Code",
-  "quote": "Quote",
+  "code": "Codice",
+  "quote": "Preventivo",
   "blockquote": "Blockquote",
   "link": "Link",
   "checkbox": "Checkbox",
-  "deleted": "Deleted",
-  "emphasis": "Emphasis",
-  "listBullet": "List bullet",
-  "strong": "Strong"
+  "deleted": "Eliminato",
+  "emphasis": "Enfasi",
+  "listBullet": "Elenco proiettile",
+  "strong": "Forte"
 }
