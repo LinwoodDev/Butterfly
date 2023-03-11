@@ -79,7 +79,6 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                     builder: (context) => NameDialog(
                       validator: defaultNameValidator(
                         context,
-                        null,
                         widget.value.spanProperties.keys.toList(),
                       ),
                     ),
@@ -102,9 +101,9 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                     final name = await showDialog<String>(
                       context: context,
                       builder: (context) => NameDialog(
+                        value: _currentStyle,
                         validator: defaultNameValidator(
                           context,
-                          _currentStyle,
                           widget.value.spanProperties.keys.toList(),
                         ),
                       ),

@@ -79,7 +79,6 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                             builder: (context) => NameDialog(
                               validator: defaultNameValidator(
                                 context,
-                                null,
                                 widget.value.paragraphProperties.keys.toList(),
                               ),
                             ),
@@ -102,9 +101,9 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                             final name = await showDialog<String>(
                               context: context,
                               builder: (context) => NameDialog(
+                                value: _currentStyle,
                                 validator: defaultNameValidator(
                                   context,
-                                  _currentStyle,
                                   widget.value.paragraphProperties.keys
                                       .toList(),
                                 ),

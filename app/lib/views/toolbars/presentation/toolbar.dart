@@ -184,7 +184,6 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   builder: (context) => NameDialog(
                                     validator: defaultNameValidator(
                                         context,
-                                        null,
                                         state.document.animations
                                             .map((e) => e.name)
                                             .toList()),
@@ -211,7 +210,6 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                         builder: (context) => NameDialog(
                                           validator: defaultNameValidator(
                                               context,
-                                              null,
                                               state.document.animations
                                                   .map((e) => e.name)
                                                   .toList()),
@@ -238,9 +236,9 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                       final name = await showDialog<String>(
                                         context: context,
                                         builder: (context) => NameDialog(
+                                          value: animation.name,
                                           validator: defaultNameValidator(
                                               context,
-                                              animation.name,
                                               state.document.animations
                                                   .map((e) => e.name)
                                                   .toList()),

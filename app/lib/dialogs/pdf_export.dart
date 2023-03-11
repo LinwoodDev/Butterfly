@@ -317,7 +317,6 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                     builder: (context) => NameDialog(
                       validator: defaultNameValidator(
                           context,
-                          null,
                           state.document.exportPresets
                               .map((e) => e.name)
                               .toList()),

@@ -62,9 +62,9 @@ class AreaContextMenu extends StatelessWidget {
                 final name = await showDialog<String>(
                     context: context,
                     builder: (context) => NameDialog(
+                          value: area.name,
                           validator: defaultNameValidator(
                             context,
-                            area.name,
                             state.document.getAreaNames().toList(),
                           ),
                         ));

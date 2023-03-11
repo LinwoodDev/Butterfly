@@ -1,4 +1,5 @@
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/widgets/header.dart';
 import 'package:butterfly/widgets/remote_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -241,42 +242,16 @@ class _TemplateItem extends StatelessWidget {
                 title: Text(AppLocalizations.of(context).rename),
                 onTap: () async {
                   Navigator.of(context).pop();
-                  final TextEditingController nameController =
-                      TextEditingController(text: template.document.name);
-                  final success = await showDialog<bool>(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                title:
-                                    Text(AppLocalizations.of(context).rename),
-                                content: TextField(
-                                  decoration: InputDecoration(
-                                      filled: true,
-                                      hintText:
-                                          AppLocalizations.of(context).name),
-                                  autofocus: true,
-                                  controller: nameController,
-                                  onSubmitted: (value) => Navigator.of(context)
-                                      .pop(value.isNotEmpty),
-                                ),
-                                actions: [
-                                  TextButton(
-                                      child: Text(
-                                          AppLocalizations.of(context).cancel),
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(true)),
-                                  ElevatedButton(
-                                      child:
-                                          Text(AppLocalizations.of(context).ok),
-                                      onPressed: () async =>
-                                          Navigator.of(context).pop(true))
-                                ],
-                              )) ??
-                      false;
-                  if (!success || nameController.text.isEmpty) {
+                  final name = await showDialog<String>(
+                    context: context,
+                    builder: (context) => NameDialog(
+                      value: template.document.name,
+                    ),
+                  );
+                  if (name == null || name.isEmpty) {
                     return;
                   }
-                  await fileSystem.renameTemplate(
-                      template.document.name, nameController.text);
+                  await fileSystem.renameTemplate(template.document.name, name);
                   onChanged();
                 }),
           ),

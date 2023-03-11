@@ -1,4 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -134,67 +135,19 @@ class _AreaPopupMenu extends StatelessWidget {
                   onTap: () async {
                     final TextEditingController nameController =
                         TextEditingController(text: area.name);
-                    var bloc = context.read<DocumentBloc>();
+                    final bloc = context.read<DocumentBloc>();
+                    final state = bloc.state;
+                    if (state is! DocumentLoaded) return;
                     Navigator.of(context).pop();
-                    var formKey = GlobalKey<FormState>();
-                    final success = await showDialog<bool>(
-                            context: context,
-                            builder: (context) => Form(
-                                  key: formKey,
-                                  child: AlertDialog(
-                                    title: Text(
-                                        AppLocalizations.of(context).rename),
-                                    content: TextFormField(
-                                      validator: (value) {
-                                        if (value?.isEmpty ?? true) {
-                                          return AppLocalizations.of(context)
-                                              .shouldNotEmpty;
-                                        }
-                                        final state =
-                                            context.read<DocumentBloc>().state;
-                                        if (state is! DocumentLoadSuccess) {
-                                          return null;
-                                        }
-                                        if (state.document
-                                                .getAreaByName(value!) !=
-                                            null) {
-                                          return AppLocalizations.of(context)
-                                              .alreadyExists;
-                                        }
-                                        return null;
-                                      },
-                                      onFieldSubmitted: (value) {
-                                        if (formKey.currentState!.validate()) {
-                                          Navigator.of(context).pop(true);
-                                        }
-                                      },
-                                      decoration:
-                                          const InputDecoration(filled: true),
-                                      controller: nameController,
-                                      autofocus: true,
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        child: Text(AppLocalizations.of(context)
-                                            .cancel),
-                                        onPressed: () =>
-                                            Navigator.of(context).pop(false),
-                                      ),
-                                      ElevatedButton(
-                                        child: Text(
-                                            AppLocalizations.of(context).ok),
-                                        onPressed: () {
-                                          if (!(formKey.currentState
-                                                  ?.validate() ??
-                                              false)) return;
-                                          Navigator.of(context).pop(true);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                )) ??
-                        false;
-                    if (!success) return;
+                    final name = await showDialog<String>(
+                      context: context,
+                      builder: (context) => NameDialog(
+                        value: area.name,
+                        validator: defaultNameValidator(
+                            context, state.document.getAreaNames().toList()),
+                      ),
+                    );
+                    if (name == null) return;
                     bloc.add(AreaChanged(
                         area.name, area.copyWith(name: nameController.text)));
                   })),
