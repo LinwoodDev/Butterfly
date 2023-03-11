@@ -29,6 +29,7 @@ import '../actions/settings.dart';
 import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/transform.dart';
+import '../dialogs/search.dart';
 import '../embed/action.dart';
 import '../main.dart';
 import 'window.dart';
@@ -214,7 +215,22 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
                                     tooltip:
                                         AppLocalizations.of(context).export,
                                     onPressed: () =>
-                                        context.read<ImportService>().export())
+                                        context.read<ImportService>().export()),
+                              IconButton(
+                                icon: const Icon(
+                                    PhosphorIcons.magnifyingGlassLight),
+                                tooltip: AppLocalizations.of(context).search,
+                                onPressed: () {
+                                  final bloc = context.read<DocumentBloc>();
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => BlocProvider.value(
+                                      value: bloc,
+                                      child: const SearchDialog(),
+                                    ),
+                                  );
+                                },
+                              ),
                             ],
                             const SizedBox(width: 8),
                             if (!isMobile)
