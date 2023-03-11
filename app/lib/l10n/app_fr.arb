@@ -79,7 +79,7 @@
   "decoration": "Décoration",
   "underline": "Souligné",
   "overline": "Surligne",
-  "strikethrough": "Strikethrough",
+  "strikethrough": "Frappe",
   "thickness": "Épaisseur",
   "style": "Style",
   "solid": "Solid",
@@ -467,7 +467,7 @@
   "endOfPresentation": "Vous avez atteint la fin de la présentation",
   "startOfPresentation": "Vous avez atteint le début de la présentation",
   "palettes": "Palettes",
-  "headline": "Headline {index}",
+  "headline": "Titre {index}",
   "@headline": {
     "placeholders": {
       "index": {
@@ -477,12 +477,12 @@
     }
   },
   "code": "Code",
-  "quote": "Quote",
-  "blockquote": "Blockquote",
-  "link": "Link",
-  "checkbox": "Checkbox",
-  "deleted": "Deleted",
+  "quote": "Devis",
+  "blockquote": "Citation de blocage",
+  "link": "Lier",
+  "checkbox": "Case à cocher",
+  "deleted": "Supprimé",
   "emphasis": "Emphasis",
-  "listBullet": "List bullet",
-  "strong": "Strong"
+  "listBullet": "Lister les puces",
+  "strong": "Forte"
 }
