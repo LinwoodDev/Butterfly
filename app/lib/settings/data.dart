@@ -33,10 +33,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
           backgroundColor: widget.inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context).data),
           actions: [
-            if (!widget.inView && !kIsWeb && isWindow()) ...[
-              const VerticalDivider(),
-              const WindowButtons()
-            ]
+            if (!widget.inView && !kIsWeb && isWindow()) const WindowButtons()
           ],
         ),
         body: BlocBuilder<SettingsCubit, ButterflySettings>(

@@ -64,10 +64,7 @@ class GeneralSettingsPage extends StatelessWidget {
           backgroundColor: inView ? Colors.transparent : null,
           automaticallyImplyLeading: !inView,
           actions: [
-            if (!inView && !kIsWeb && isWindow()) ...[
-              const VerticalDivider(),
-              const WindowButtons()
-            ]
+            if (!inView && !kIsWeb && isWindow()) const WindowButtons()
           ],
         ),
         body: ListView(children: [

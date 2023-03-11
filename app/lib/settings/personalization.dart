@@ -65,10 +65,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
           backgroundColor: inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context).personalization),
           actions: [
-            if (!inView && !kIsWeb && isWindow()) ...[
-              const VerticalDivider(),
-              const WindowButtons()
-            ]
+            if (!inView && !kIsWeb && isWindow()) const WindowButtons()
           ],
         ),
         body: BlocBuilder<SettingsCubit, ButterflySettings>(

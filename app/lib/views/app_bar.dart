@@ -252,13 +252,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
             actions: [
               BlocBuilder<DocumentBloc, DocumentState>(
                 builder: (context, state) => Row(
-                  children: [
-                    if (!kIsWeb && isWindow()) ...[
-                      const WindowButtons(
-                        divider: true,
-                      )
-                    ]
-                  ],
+                  children: [if (!kIsWeb && isWindow()) const WindowButtons()],
                 ),
               )
             ]);

@@ -1,5 +1,6 @@
 import 'package:butterfly/helpers/num_helper.dart';
 import 'package:butterfly/widgets/advanced_text_field.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -7,6 +8,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/open.dart';
 import '../../cubits/settings.dart';
+import '../../views/window.dart';
 import '../../widgets/exact_slider.dart';
 
 class TouchBehaviorSettings extends StatelessWidget {
@@ -17,6 +19,7 @@ class TouchBehaviorSettings extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context).touch),
+          actions: [if (!kIsWeb && isWindow()) const WindowButtons()],
         ),
         body: Align(
           alignment: Alignment.center,

@@ -70,12 +70,7 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
               ],
               isScrollable: true,
             ),
-            actions: [
-              if (!kIsWeb && isWindow()) ...[
-                const VerticalDivider(),
-                const WindowButtons()
-              ]
-            ],
+            actions: [if (!kIsWeb && isWindow()) const WindowButtons()],
           ),
           body: storage == null
               ? Center(child: Text(AppLocalizations.of(context).noConnections))
