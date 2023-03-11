@@ -466,5 +466,6 @@
   "keyframe": "Keyframe",
   "endOfPresentation": "Você chegou ao final da apresentação",
   "startOfPresentation": "Você chegou ao início da apresentação",
-  "palettes": "Palettes"
+  "palettes": "Palettes",
+  "headline": "Headline"
 }
