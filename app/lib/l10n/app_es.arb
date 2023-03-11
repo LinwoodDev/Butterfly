@@ -79,7 +79,7 @@
   "decoration": "Decoración",
   "underline": "Bajo línea",
   "overline": "Superlínea",
-  "strikethrough": "Strikethrough",
+  "strikethrough": "Tachado",
   "thickness": "Grosor",
   "style": "Estilo",
   "solid": "Solid",
@@ -467,7 +467,7 @@
   "endOfPresentation": "Ha llegado al final de la presentación",
   "startOfPresentation": "Ha llegado al inicio de la presentación",
   "palettes": "Palettes",
-  "headline": "Headline {index}",
+  "headline": "Encabezado {index}",
   "@headline": {
     "placeholders": {
       "index": {
@@ -476,13 +476,13 @@
       }
     }
   },
-  "code": "Code",
-  "quote": "Quote",
-  "blockquote": "Blockquote",
-  "link": "Link",
-  "checkbox": "Checkbox",
-  "deleted": "Deleted",
-  "emphasis": "Emphasis",
-  "listBullet": "List bullet",
-  "strong": "Strong"
+  "code": "Código",
+  "quote": "Cotización",
+  "blockquote": "Cita de bloqueo",
+  "link": "Enlace",
+  "checkbox": "Casilla",
+  "deleted": "Eliminado",
+  "emphasis": "Vacío",
+  "listBullet": "Lista de bala",
+  "strong": "Fuerte"
 }
