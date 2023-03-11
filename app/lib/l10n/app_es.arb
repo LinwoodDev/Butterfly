@@ -79,7 +79,7 @@
   "decoration": "Decoración",
   "underline": "Bajo línea",
   "overline": "Superlínea",
-  "lineThrough": "Línea a través",
+  "strikethrough": "Strikethrough",
   "thickness": "Grosor",
   "style": "Estilo",
   "solid": "Solid",
@@ -467,5 +467,22 @@
   "endOfPresentation": "Ha llegado al final de la presentación",
   "startOfPresentation": "Ha llegado al inicio de la presentación",
   "palettes": "Palettes",
-  "headline": "Headline"
+  "headline": "Headline {index}",
+  "@headline": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "code": "Code",
+  "quote": "Quote",
+  "blockquote": "Blockquote",
+  "link": "Link",
+  "checkbox": "Checkbox",
+  "deleted": "Deleted",
+  "emphasis": "Emphasis",
+  "listBullet": "List bullet",
+  "strong": "Strong"
 }
