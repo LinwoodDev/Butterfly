@@ -2,6 +2,7 @@ import 'dart:isolate';
 import 'dart:math';
 
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -129,6 +130,17 @@ class _SearchDialogState extends State<SearchDialog> {
                                   title: Text(
                                       _getLocalizedName(result.item, context)),
                                   subtitle: Text(result.name),
+                                  onTap: () {
+                                    final state =
+                                        context.read<DocumentBloc>().state;
+                                    if (state is DocumentLoaded) {
+                                      state.transformCubit.setPosition(
+                                          result.location.toOffset());
+                                      state.currentIndexCubit
+                                          .bake(state.document);
+                                      Navigator.pop(context);
+                                    }
+                                  },
                                 );
                               },
                             );
