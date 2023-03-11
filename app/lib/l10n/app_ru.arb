@@ -79,7 +79,7 @@
   "decoration": "Оформление",
   "underline": "Подчёркивание",
   "overline": "Надчеркивание",
-  "lineThrough": "Перечеркивание",
+  "strikethrough": "Strikethrough",
   "thickness": "Толщина",
   "style": "Стиль",
   "solid": "Сплошной",
@@ -467,5 +467,22 @@
   "endOfPresentation": "Вы завершили презентацию",
   "startOfPresentation": "Вы достигли начала презентации",
   "palettes": "Palettes",
-  "headline": "Headline"
+  "headline": "Headline {index}",
+  "@headline": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "code": "Code",
+  "quote": "Quote",
+  "blockquote": "Blockquote",
+  "link": "Link",
+  "checkbox": "Checkbox",
+  "deleted": "Deleted",
+  "emphasis": "Emphasis",
+  "listBullet": "List bullet",
+  "strong": "Strong"
 }
