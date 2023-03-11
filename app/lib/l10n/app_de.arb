@@ -417,8 +417,8 @@
     }
   },
   "author": "Autor",
-  "addAsset": "Add asset",
-  "editAsset": "Edit asset",
+  "addAsset": "Asset hinzufügen",
+  "editAsset": "Asset bearbeiten",
   "scope": "Bereich",
   "noPacks": "Derzeit sind keine Pakete verfügbar",
   "components": "Komponenten",
