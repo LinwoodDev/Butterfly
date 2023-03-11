@@ -79,7 +79,7 @@
   "decoration": "การตกแต่ง",
   "underline": "ขีดเส้นใต้",
   "overline": "Overline",
-  "lineThrough": "Line through",
+  "strikethrough": "Strikethrough",
   "thickness": "ความหนา",
   "style": "สไตล์",
   "solid": "Solid",
@@ -467,5 +467,22 @@
   "endOfPresentation": "You have reached the end of the presentation",
   "startOfPresentation": "You have reached the start of the presentation",
   "palettes": "Palettes",
-  "headline": "Headline"
+  "headline": "Headline {index}",
+  "@headline": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "code": "Code",
+  "quote": "Quote",
+  "blockquote": "Blockquote",
+  "link": "Link",
+  "checkbox": "Checkbox",
+  "deleted": "Deleted",
+  "emphasis": "Emphasis",
+  "listBullet": "List bullet",
+  "strong": "Strong"
 }
