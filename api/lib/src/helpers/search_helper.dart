@@ -42,7 +42,7 @@ extension WaypointSearchHelper on Waypoint {
     if (!name.contains(query)) return null;
     return SearchResult(
       name,
-      position,
+      -position,
       this,
     );
   }
