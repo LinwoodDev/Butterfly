@@ -13,6 +13,7 @@ import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:markdown/markdown.dart' as markdown;
 import 'package:perfect_freehand/perfect_freehand.dart' as freehand;
 import 'package:xml/xml.dart';
 
@@ -24,6 +25,7 @@ import '../models/text.dart';
 part 'backgrounds/box.dart';
 part 'backgrounds/empty.dart';
 part 'elements/image.dart';
+part 'elements/markdown.dart';
 part 'elements/text.dart';
 part 'elements/path.dart';
 part 'elements/pen.dart';
@@ -80,6 +82,7 @@ abstract class Renderer<T> {
         image: (value) => ImageRenderer(value),
         svg: (value) => SvgRenderer(value),
         shape: (value) => ShapeRenderer(value),
+        markdown: (value) => MarkdownRenderer(value),
       ) as Renderer<T>;
     }
 

@@ -49,8 +49,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     final paragraph = widget.value.getDefinedProperty(document) ??
         const text.DefinedParagraphProperty();
     final span = widget.value.getDefinedForcedSpanProperty(document);
-    final styleSheet =
-        widget.value.element?.styleSheet ?? widget.value.painter.styleSheet;
+    final styleSheet = widget.value.element?.styleSheet ??
+        widget.value.painter.option.styleSheet;
     final style = document.getStyle(styleSheet);
     _sizeController.text = span.getSize(paragraph).toString();
     var paragraphSelection = paragraph.mapOrNull(named: (value) => value.name);
@@ -152,14 +152,14 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             if (result == null) return;
                             if (widget.value.element == null) {
                               widget.onChanged(widget.value.copyWith(
-                                painter: LabelPainter(
+                                painter: widget.value.painter.copyWith.option(
                                   styleSheet: result,
                                 ),
                               ));
                               return;
                             }
                             widget.onChanged(widget.value.copyWith(
-                              painter: LabelPainter(
+                              painter: widget.value.painter.copyWith.option(
                                 styleSheet: result,
                               ),
                               element: widget.value.element!.copyWith(

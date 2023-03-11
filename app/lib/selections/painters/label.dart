@@ -9,8 +9,8 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return [];
     final packs = state.document.packs;
-    final currentPack =
-        packs.firstWhereOrNull((e) => e.name == selected.first.styleSheet.pack);
+    final currentPack = packs.firstWhereOrNull(
+        (e) => e.name == selected.first.option.styleSheet.pack);
     return [
       ...super.buildProperties(context),
       const SizedBox(height: 16),
@@ -38,8 +38,9 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
           update(
               context,
               selected
-                  .map((e) =>
-                      e.copyWith(styleSheet: PackAssetLocation(pack: pack)))
+                  .map((e) => e.copyWith(
+                      option: e.option
+                          .copyWith(styleSheet: PackAssetLocation(pack: pack))))
                   .toList());
         },
       ),
@@ -63,16 +64,17 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
                       },
                       child: ListTile(
                         title: Text(style.value.name),
-                        selected:
-                            style.value.name == selected.first.styleSheet.name,
+                        selected: style.value.name ==
+                            selected.first.option.styleSheet.name,
                         onTap: () => update(
                             context,
                             selected
                                 .map((e) => e.copyWith(
-                                        styleSheet: PackAssetLocation(
+                                        option: e.option.copyWith(
+                                            styleSheet: PackAssetLocation(
                                       pack: currentPack.name,
                                       name: style.value.name,
-                                    )))
+                                    ))))
                                 .toList()),
                       )))
                   .toList() ??

@@ -1,8 +1,6 @@
 import 'dart:math';
 
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:butterfly_api/butterfly_text.dart';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'painter.g.dart';
@@ -33,15 +31,12 @@ extension RatioPresetExtension on AspectRatioPreset {
 
 @freezed
 class LabelOption with _$LabelOption {
-  const factory LabelOption.text({
-    @Default(AreaProperty()) AreaProperty property,
-  }) = TextOption;
   const factory LabelOption.markdown({
-    String? styleSheet,
+    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
   }) = MarkdownOption;
 
-  const factory LabelOption.richText({
-    String? styleSheet,
+  const factory LabelOption.text({
+    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
   }) = RichTextOption;
 
   factory LabelOption.fromJson(Map<String, dynamic> json) =>
@@ -70,7 +65,7 @@ class Painter with _$Painter {
 
   factory Painter.label({
     @Default('') String name,
-    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    @Default(LabelOption.text()) LabelOption option,
   }) = LabelPainter;
 
   factory Painter.pen({

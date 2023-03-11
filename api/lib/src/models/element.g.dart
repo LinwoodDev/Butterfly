@@ -121,6 +121,33 @@ Map<String, dynamic> _$$TextElementToJson(_$TextElement instance) =>
       'type': instance.$type,
     };
 
+_$MarkdownElement _$$MarkdownElementFromJson(Map json) => _$MarkdownElement(
+      layer: json['layer'] as String? ?? '',
+      position: json['position'] == null
+          ? const Point(0.0, 0.0)
+          : const DoublePointJsonConverter().fromJson(json['position'] as Map),
+      styleSheet: json['styleSheet'] == null
+          ? const PackAssetLocation()
+          : PackAssetLocation.fromJson(
+              Map<String, dynamic>.from(json['styleSheet'] as Map)),
+      text: json['text'] as String,
+      constraint: json['constraint'] == null
+          ? const ElementConstraint(size: 1000)
+          : ElementConstraint.fromJson(
+              Map<String, dynamic>.from(json['constraint'] as Map)),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$MarkdownElementToJson(_$MarkdownElement instance) =>
+    <String, dynamic>{
+      'layer': instance.layer,
+      'position': const DoublePointJsonConverter().toJson(instance.position),
+      'styleSheet': instance.styleSheet.toJson(),
+      'text': instance.text,
+      'constraint': instance.constraint.toJson(),
+      'type': instance.$type,
+    };
+
 _$ImageElement _$$ImageElementFromJson(Map json) => _$ImageElement(
       layer: json['layer'] as String? ?? '',
       position: json['position'] == null

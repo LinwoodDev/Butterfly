@@ -847,6 +847,8 @@ PadElement _$PadElementFromJson(Map<String, dynamic> json) {
       return PenElement.fromJson(json);
     case 'text':
       return TextElement.fromJson(json);
+    case 'markdown':
+      return MarkdownElement.fromJson(json);
     case 'image':
       return ImageElement.fromJson(json);
     case 'svg':
@@ -875,6 +877,13 @@ mixin _$PadElement {
             TextArea area,
             ElementConstraint constraint)
         text,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)
+        markdown,
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -914,6 +923,13 @@ mixin _$PadElement {
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -950,6 +966,13 @@ mixin _$PadElement {
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -976,6 +999,7 @@ mixin _$PadElement {
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
     required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
@@ -985,6 +1009,7 @@ mixin _$PadElement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
     TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
@@ -994,6 +1019,7 @@ mixin _$PadElement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
     TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
@@ -1154,6 +1180,13 @@ class _$PenElement implements PenElement {
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)
+        markdown,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1190,6 +1223,13 @@ class _$PenElement implements PenElement {
             TextArea area,
             ElementConstraint constraint)?
         text,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -1232,6 +1272,13 @@ class _$PenElement implements PenElement {
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1264,6 +1311,7 @@ class _$PenElement implements PenElement {
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
     required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
@@ -1276,6 +1324,7 @@ class _$PenElement implements PenElement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
     TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
@@ -1288,6 +1337,7 @@ class _$PenElement implements PenElement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
     TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
@@ -1475,6 +1525,13 @@ class _$TextElement implements TextElement {
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)
+        markdown,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1511,6 +1568,13 @@ class _$TextElement implements TextElement {
             TextArea area,
             ElementConstraint constraint)?
         text,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -1553,6 +1617,13 @@ class _$TextElement implements TextElement {
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1585,6 +1656,7 @@ class _$TextElement implements TextElement {
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
     required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
@@ -1597,6 +1669,7 @@ class _$TextElement implements TextElement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
     TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
@@ -1609,6 +1682,7 @@ class _$TextElement implements TextElement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
     TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
@@ -1649,6 +1723,345 @@ abstract class TextElement implements PadElement {
   @override
   @JsonKey(ignore: true)
   _$$TextElementCopyWith<_$TextElement> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MarkdownElementCopyWith<$Res>
+    implements $PadElementCopyWith<$Res> {
+  factory _$$MarkdownElementCopyWith(
+          _$MarkdownElement value, $Res Function(_$MarkdownElement) then) =
+      __$$MarkdownElementCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String layer,
+      @DoublePointJsonConverter() Point<double> position,
+      PackAssetLocation styleSheet,
+      String text,
+      ElementConstraint constraint});
+
+  $PackAssetLocationCopyWith<$Res> get styleSheet;
+  $ElementConstraintCopyWith<$Res> get constraint;
+}
+
+/// @nodoc
+class __$$MarkdownElementCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$MarkdownElement>
+    implements _$$MarkdownElementCopyWith<$Res> {
+  __$$MarkdownElementCopyWithImpl(
+      _$MarkdownElement _value, $Res Function(_$MarkdownElement) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? layer = null,
+    Object? position = null,
+    Object? styleSheet = null,
+    Object? text = null,
+    Object? constraint = null,
+  }) {
+    return _then(_$MarkdownElement(
+      layer: null == layer
+          ? _value.layer
+          : layer // ignore: cast_nullable_to_non_nullable
+              as String,
+      position: null == position
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as Point<double>,
+      styleSheet: null == styleSheet
+          ? _value.styleSheet
+          : styleSheet // ignore: cast_nullable_to_non_nullable
+              as PackAssetLocation,
+      text: null == text
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String,
+      constraint: null == constraint
+          ? _value.constraint
+          : constraint // ignore: cast_nullable_to_non_nullable
+              as ElementConstraint,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PackAssetLocationCopyWith<$Res> get styleSheet {
+    return $PackAssetLocationCopyWith<$Res>(_value.styleSheet, (value) {
+      return _then(_value.copyWith(styleSheet: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ElementConstraintCopyWith<$Res> get constraint {
+    return $ElementConstraintCopyWith<$Res>(_value.constraint, (value) {
+      return _then(_value.copyWith(constraint: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MarkdownElement implements MarkdownElement {
+  const _$MarkdownElement(
+      {this.layer = '',
+      @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
+      this.styleSheet = const PackAssetLocation(),
+      required this.text,
+      this.constraint = const ElementConstraint(size: 1000),
+      final String? $type})
+      : $type = $type ?? 'markdown';
+
+  factory _$MarkdownElement.fromJson(Map<String, dynamic> json) =>
+      _$$MarkdownElementFromJson(json);
+
+  @override
+  @JsonKey()
+  final String layer;
+  @override
+  @JsonKey()
+  @DoublePointJsonConverter()
+  final Point<double> position;
+  @override
+  @JsonKey()
+  final PackAssetLocation styleSheet;
+  @override
+  final String text;
+  @override
+  @JsonKey()
+  final ElementConstraint constraint;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'PadElement.markdown(layer: $layer, position: $position, styleSheet: $styleSheet, text: $text, constraint: $constraint)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MarkdownElementCopyWith<_$MarkdownElement> get copyWith =>
+      __$$MarkdownElementCopyWithImpl<_$MarkdownElement>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)
+        pen,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            TextArea area,
+            ElementConstraint constraint)
+        text,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)
+        markdown,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            @Uint8ListJsonConverter() Uint8List pixels,
+            double width,
+            double height)
+        image,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)
+        svg,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            ShapeProperty property)
+        shape,
+  }) {
+    return markdown(layer, position, styleSheet, this.text, constraint);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String layer, double? zoom, List<PathPoint> points,
+            PenProperty property)?
+        pen,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            TextArea area,
+            ElementConstraint constraint)?
+        text,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            @Uint8ListJsonConverter() Uint8List pixels,
+            double width,
+            double height)?
+        image,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            ShapeProperty property)?
+        shape,
+  }) {
+    return markdown?.call(layer, position, styleSheet, this.text, constraint);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String layer, double? zoom, List<PathPoint> points,
+            PenProperty property)?
+        pen,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            TextArea area,
+            ElementConstraint constraint)?
+        text,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            @Uint8ListJsonConverter() Uint8List pixels,
+            double width,
+            double height)?
+        image,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String data,
+            double width,
+            double height)?
+        svg,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            ShapeProperty property)?
+        shape,
+    required TResult orElse(),
+  }) {
+    if (markdown != null) {
+      return markdown(layer, position, styleSheet, this.text, constraint);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PenElement value) pen,
+    required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
+    required TResult Function(ImageElement value) image,
+    required TResult Function(SvgElement value) svg,
+    required TResult Function(ShapeElement value) shape,
+  }) {
+    return markdown(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PenElement value)? pen,
+    TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
+    TResult? Function(ImageElement value)? image,
+    TResult? Function(SvgElement value)? svg,
+    TResult? Function(ShapeElement value)? shape,
+  }) {
+    return markdown?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PenElement value)? pen,
+    TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
+    TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
+    TResult Function(ShapeElement value)? shape,
+    required TResult orElse(),
+  }) {
+    if (markdown != null) {
+      return markdown(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MarkdownElementToJson(
+      this,
+    );
+  }
+}
+
+abstract class MarkdownElement implements PadElement {
+  const factory MarkdownElement(
+      {final String layer,
+      @DoublePointJsonConverter() final Point<double> position,
+      final PackAssetLocation styleSheet,
+      required final String text,
+      final ElementConstraint constraint}) = _$MarkdownElement;
+
+  factory MarkdownElement.fromJson(Map<String, dynamic> json) =
+      _$MarkdownElement.fromJson;
+
+  @override
+  String get layer;
+  @DoublePointJsonConverter()
+  Point<double> get position;
+  PackAssetLocation get styleSheet;
+  String get text;
+  ElementConstraint get constraint;
+  @override
+  @JsonKey(ignore: true)
+  _$$MarkdownElementCopyWith<_$MarkdownElement> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1794,6 +2207,13 @@ class _$ImageElement implements ImageElement {
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)
+        markdown,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1830,6 +2250,13 @@ class _$ImageElement implements ImageElement {
             TextArea area,
             ElementConstraint constraint)?
         text,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -1872,6 +2299,13 @@ class _$ImageElement implements ImageElement {
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -1904,6 +2338,7 @@ class _$ImageElement implements ImageElement {
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
     required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
@@ -1916,6 +2351,7 @@ class _$ImageElement implements ImageElement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
     TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
@@ -1928,6 +2364,7 @@ class _$ImageElement implements ImageElement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
     TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
@@ -2115,6 +2552,13 @@ class _$SvgElement implements SvgElement {
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)
+        markdown,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -2151,6 +2595,13 @@ class _$SvgElement implements SvgElement {
             TextArea area,
             ElementConstraint constraint)?
         text,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -2193,6 +2644,13 @@ class _$SvgElement implements SvgElement {
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -2225,6 +2683,7 @@ class _$SvgElement implements SvgElement {
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
     required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
@@ -2237,6 +2696,7 @@ class _$SvgElement implements SvgElement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
     TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
@@ -2249,6 +2709,7 @@ class _$SvgElement implements SvgElement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
     TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
@@ -2405,6 +2866,13 @@ class _$ShapeElement implements ShapeElement {
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)
+        markdown,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -2441,6 +2909,13 @@ class _$ShapeElement implements ShapeElement {
             TextArea area,
             ElementConstraint constraint)?
         text,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -2483,6 +2958,13 @@ class _$ShapeElement implements ShapeElement {
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            PackAssetLocation styleSheet,
+            String text,
+            ElementConstraint constraint)?
+        markdown,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
             @Uint8ListJsonConverter() Uint8List pixels,
             double width,
@@ -2515,6 +2997,7 @@ class _$ShapeElement implements ShapeElement {
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
     required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
@@ -2527,6 +3010,7 @@ class _$ShapeElement implements ShapeElement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
     TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
@@ -2539,6 +3023,7 @@ class _$ShapeElement implements ShapeElement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
     TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,

@@ -13,6 +13,7 @@ extension ElementVisualizer on PadElement {
       image: (_) => loc.image,
       shape: (_) => loc.shape,
       svg: (_) => loc.svg,
+      markdown: (_) => loc.markdown,
     );
   }
 
@@ -23,6 +24,7 @@ extension ElementVisualizer on PadElement {
       image: (_) => PhosphorIcons.imageLight,
       shape: (element) => element.property.shape.getIcon(),
       svg: (_) => PhosphorIcons.sunLight,
+      markdown: (_) => PhosphorIcons.textboxLight,
     );
   }
 }

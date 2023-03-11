@@ -24,7 +24,7 @@ class TextContext with _$TextContext {
 
   TextArea? get area => element?.area;
   PackAssetLocation? get styleSheet =>
-      element?.styleSheet ?? painter.styleSheet;
+      element?.styleSheet ?? painter.option.styleSheet;
   TextParagraph? get paragraph => area?.paragraph;
 
   int length() => 0;

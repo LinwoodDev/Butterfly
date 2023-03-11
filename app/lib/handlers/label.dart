@@ -23,7 +23,7 @@ class LabelHandler extends Handler<LabelPainter>
                       const text.ParagraphProperty.undefined(),
                 ),
               ),
-              styleSheet: data.styleSheet,
+              styleSheet: data.option.styleSheet,
             ),
       textPainter: TextPainter(),
       forcedProperty: _context?.forcedProperty,
@@ -126,7 +126,7 @@ class LabelHandler extends Handler<LabelPainter>
         }));
       }
     }
-    if (context.painter.styleSheet != data.styleSheet) {
+    if (context.painter.option.styleSheet != data.option.styleSheet) {
       bloc.add(PaintersChanged({data: value.painter}));
     }
     bloc.refresh();

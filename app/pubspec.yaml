@@ -73,6 +73,7 @@ dependencies:
       url: https://github.com/LinwoodCloud/dart_pkgs.git
       ref: 6aaa333947699dd999d0bde3890fd7f0015b72c4
       path: packages/lw_sysinfo
+  markdown: ^7.0.1
 dev_dependencies:
   flutter_native_splash: ^2.2.19
   #flutter_launcher_icons: ^0.11.0

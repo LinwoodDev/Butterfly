@@ -68,6 +68,16 @@ class PadElement with _$PadElement {
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
   }) = TextElement;
 
+  const factory PadElement.markdown({
+    @Default('') String layer,
+    @DoublePointJsonConverter()
+    @Default(Point(0.0, 0.0))
+        Point<double> position,
+    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    required String text,
+    @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
+  }) = MarkdownElement;
+
   const factory PadElement.image({
     @Default('') String layer,
     @DoublePointJsonConverter()
