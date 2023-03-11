@@ -138,8 +138,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                           ),
                       body: Column(children: [
                         CheckboxListTile(
-                            title:
-                                Text(AppLocalizations.of(context).lineThrough),
+                            title: Text(
+                                AppLocalizations.of(context).strikethrough),
                             value: widget.value.lineThrough,
                             tristate: true,
                             onChanged: (lineThrough) => widget.onChanged(widget
