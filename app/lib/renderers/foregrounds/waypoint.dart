@@ -21,23 +21,5 @@ class WaypointForegroundRenderer extends Renderer<Waypoint> {
       ..style = PaintingStyle.fill
       ..color = colorScheme?.primary ?? Colors.blue;
     canvas.drawCircle(element.position.toOffset(), radius, paint);
-    final painter = TextPainter(
-      textDirection: TextDirection.ltr,
-      text: TextSpan(
-        text: element.name,
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: radius,
-        ),
-      ),
-    );
-    painter.layout();
-    painter.paint(
-      canvas,
-      Offset(
-        element.position.x - painter.width / 2,
-        element.position.y + radius,
-      ),
-    );
   }
 }

@@ -38,9 +38,13 @@ class WaypointHandler extends Handler<WaypointPainter> {
         builder: (context) => ListView(
           shrinkWrap: true,
           children: [
-            ListTile(
-              title: Text(AppLocalizations.of(context).edit),
-              leading: const Icon(PhosphorIcons.pencilLight),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                clickedWaypoint.value.name,
+                style: Theme.of(context).textTheme.titleLarge,
+                textAlign: TextAlign.center,
+              ),
             ),
             ListTile(
               title: Text(AppLocalizations.of(context).delete),
