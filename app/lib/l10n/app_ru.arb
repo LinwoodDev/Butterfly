@@ -417,8 +417,8 @@
     }
   },
   "author": "Автор",
-  "addAsset": "Add asset",
-  "editAsset": "Edit asset",
+  "addAsset": "Добавить актив",
+  "editAsset": "Редактировать актив",
   "scope": "Сфера охвата",
   "noPacks": "На данный момент наборов нет",
   "components": "Компоненты",
