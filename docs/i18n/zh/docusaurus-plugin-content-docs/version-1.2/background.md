@@ -1,12 +1,12 @@
 ---
-title: "Background"
-sidebar_label: "Background"
+title: "二. 背景"
+sidebar_label: "二. 背景"
 ---
 
-You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+您可以自定义文档的背景。 点击视图对话框中的背景图标来添加它。 现有8个不同的背景模板。
 
-## Configuration
+## 配置
 
-Width and height are the general settings of the box.
+宽度和高度是方框的一般设置。
 
-Additionally, you can customize the color of the background.
+此外，您可以自定义背景的颜色。
