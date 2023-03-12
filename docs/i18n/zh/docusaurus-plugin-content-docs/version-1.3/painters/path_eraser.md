@@ -1,16 +1,16 @@
 ---
-title: "Path eraser painter"
-sidebar_label: "Path eraser"
+title: "路径擦除绘制器"
+sidebar_label: "路径擦除器"
 sidebar_position: 4
 ---
 
 
-With this painter you can delete the whole path on the paper.
+使用这个绘制器，您可以删除纸上的整个路径。
 
-## Configuration
+## 配置
 
-|          Property | Default | Description                                                                                                     |
-| -----------------:|:-------:|:--------------------------------------------------------------------------------------------------------------- |
-|      Stroke width |    5    | The width of the stroke                                                                                         |
-| Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure                                |
-|    Include eraser |  false  | This setting controls if you can remove the path of the eraser. The path under the removed eraser will be shown |
+|    财产 | 默认设置  | 描述                                    |
+| -----:|:-----:|:------------------------------------- |
+|  笔画宽度 |   5   | 笔画的宽度                                 |
+|  笔记倍数 |   1   | 如果您有一个样式表，这是将添加到压力中的乘数                |
+| 包括擦除器 | false | 如果您可以删除擦除器的路径，此设置将被控制。 删除的擦除器下的路径将会显示 |
