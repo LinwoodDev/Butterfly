@@ -1,28 +1,28 @@
 ---
-title: 快捷键
+title: Shortcuts
 ---
 
-您可以在编辑器中使用一些快捷方式。 其中一些是在按钮下面写的。
+There are a few shortcuts that you can use in the editor. Some of them are written below the buttons.
 
-## A. 概况
+## General
 
-* `Ctrl` + `N`: 新文件
-* `Ctrl` + `Shift` + `N`: 来自模板的新文件
-* `Ctrl` + `O`: 打开文件
-* `Ctrl` + `I`: 导入文件
-* `Ctrl` + `E`: 导出文件
-* `Ctrl` + `Shift` + `E`: 导出文件为图像
-* `Ctrl` + `Alt` + `E`: 导出文件为 svg
-* `Ctrl` + `Alt` + `S`: 打开设置
+* `Ctrl` + `N`: New file
+* `Ctrl` + `Shift` + `N`: New file from template
+* `Ctrl` + `O`: Open file
+* `Ctrl` + `I`: Import file
+* `Ctrl` + `E`: Export file
+* `Ctrl` + `Shift` + `E`: Export file as image
+* `Ctrl` + `Alt` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `S`: Open settings
 
-## 项目
+## Project
 
-* `Ctrl` + `Z`: 撤销
+* `Ctrl` + `Z`: Undo
 * `Ctrl` + `Y`: Redo
 * `Ctrl` + `Alt` + `N`: Open insert dialog
-* `Ctrl` + `Alt` + `Shift` + `S`: 打开项目设置
+* `Ctrl` + `Alt` + `Shift` + `S`: Open project settings
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: 打开色板对话框
-* `Ctrl` + `B`: 打开后台对话框
-* `Ctrl` + `L`: 打开图层对话框
-* `Ctrl` + `S`: 更改路径
+* `Ctrl` + `P`: Open color palette dialog
+* `Ctrl` + `B`: Open background dialog
+* `Ctrl` + `L`: Open layers dialog
+* `Ctrl` + `S`: Change path
