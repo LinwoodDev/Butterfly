@@ -1,18 +1,18 @@
 ---
-title: "迁移"
+title: "Migrating"
 sidebar_position: 2
 ---
 
-本指南将向您展示如何迁移到最新版本。
+This guide will show you how to migrate to the latest version.
 
-## 7 (创造性变化) {#7}
+## 7 (Breaking change) {#7}
 
-**版本： 2.0**
+**Version: 2.0**
 
-### 打破更改
+### Breaking changes
 
-擦除图层将被删除。 迁移时，擦除图层将被删除。
+The eraser layer will be removed. On migration, the eraser layer will be removed.
 
-## 旧版本
+## Older versions
 
-之前的所有迁移都将自动进行。 在这里阅读代码 [的完整迁移。](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17)。
+All migrations before will be done automatically. Read the full migration in code [here](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
