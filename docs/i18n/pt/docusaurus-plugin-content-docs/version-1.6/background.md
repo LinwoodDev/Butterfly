@@ -1,7 +1,7 @@
 ---
-sidebar_label: "Plano de fundo"
+sidebar_label: "Fundo"
 sidebar_position: 2
-title: Plano de fundo
+title: Fundo
 ---
 
 Você pode personalizar o fundo do papel. Clique no ícone em segundo plano na caixa de diálogo para adicioná-lo. Existem 8 modelos de fundo diferentes disponíveis.
