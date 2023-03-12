@@ -1,25 +1,25 @@
 ---
-title: Embed
-sidebar_label: Intro
+title: 嵌入
+sidebar_label: 简介
 ---
 
-Embedding is a simple way to include the app in your website. Add the following code to your website:
+嵌入是一种简单的方式，可以在您的网站中包含应用程序。 添加以下代码到您的网站：
 
 ```html
 <iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
 ```
 
-## Options
+## 备选方案
 
-| Option   | Type                       | Default | Description                                                                                                                                 |
-| -------- | -------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| save     | Boolean (true, false)      | true    | Enable save. If disabled, only an exit button will be shown                                                                                 |
-| editable | Boolean (true, false)      | true    | Enable editing. If disabled, the document will be read-only                                                                                 |
-| language | String (..., system, user) | system  | Language of the document. If system, the language will be detected from the browser. If user, the language will set to the users preference |
+| 选项       | 类型                    | 默认设置   | 描述                                        |
+| -------- | --------------------- | ------ | ----------------------------------------- |
+| save     | Boolean (true, false) | true   | 启用保存。 如果禁用，只显示退出按钮                        |
+| editable | Boolean (true, false) | true   | 启用编辑。 如果禁用，文档将只读                          |
+| language | 字符串 (..., 系统, 用户)     | system | 文件所用语文。 如果系统从浏览器中检测到该语言。 如果用户，语言将设置为用户首选项 |
 
-## Events
+## 事件
 
-Examples how to use it:
+如何使用的示例：
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
@@ -32,37 +32,37 @@ embedElement.addEventListener('message', (data) => {
 
 ### save
 
-> The `save` event is emitted when the user clicks the save button.
+> 当用户点击保存按钮时， `保存` 事件将被发出。
 
-Parameters:
+参数：
 
-* `data` (Type `String`): The data of the document.
+* `数据` (键盘 `字符串`)：文档的数据。
 
 ### exit
 
-> The `exit` event is emitted when the user clicks the exit button.
+> 当用户点击退出按钮时， `退出` 事件将被发出。
 
-Parameters:
+参数：
 
-* `data` (Type `String`): The data of the document.
+* `数据` (键盘 `字符串`)：文档的数据。
 
 ### change
 
-> The `change` event is emitted when the user changes the document.
+> 当用户更改文档时， `更改` 事件将被发布。
 
-Parameters:
+参数：
 
-* `data` (Type `String`): The data of the document.
+* `数据` (键盘 `字符串`)：文档的数据。
 
-## Methods
+## 方法
 
-Example how to use it:
+如何使用它的示例：
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
-embedElement.pushMessage('getData', {});
-embedElement.addEventListener('message', (data) => {
-  if(data.detail.type === 'getData') {
+embedElement.pusMessage('getData', {});
+Element.addEventListener('message', (data) => }
+  if(data.detail.type === 'getData') }
     console.log(data.detail.message);
   }
 });
@@ -70,39 +70,39 @@ embedElement.addEventListener('message', (data) => {
 
 ### getData
 
-> The `getData` method returns the data of the document.
+> `getData` 方法返回文档的数据。
 
-No parameters. Returns: `String`
+没有参数。 返回： `字符串`
 
 ### setData
 
-> The `setData` method sets the data of the document.
+> `setData` 方法设置文档的数据。
 
-Parameters:
+参数：
 
-* `data` (Type `String`): The data of the document.
+* `数据` (键盘 `字符串`)：文档的数据。
 
 ### render
 
-> The `render` method renders the document to a png image.
+> `渲染` 方法将文档渲染为 png 图像。
 
-Parameters:
+参数：
 
-* `width` (Type `Number`): The width of the image.
-* `height` (Type `Number`): The height of the image.
-* `scale` (Type `Number`): The scale of the image.
-* `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+* `宽度` (类型 `编号`)：图像的宽度。
+* `高度` (类型 `数字`)：图像的高度
+* `缩放` (类型 `编号`)：图像的尺寸。
+* `渲染背景` (类型 `布尔值`)：如果为 true，背景将会被渲染。
 
-Returns: `String` (Base64 encoded image)
+返回： `字符串` (Base64 编码的图像)
 
 ### renderSVG
 
-> The `renderSVG` method renders the document to a svg image.
+> `渲染SVG` 方法将文档渲染为 svg 图像。
 
-Parameters:
+参数：
 
-* `width` (Type `Number`): The width of the image.
-* `height` (Type `Number`): The height of the image.
-* `renderBackground` (Type `Boolean`): If true, the background will be rendered.
+* `宽度` (类型 `编号`)：图像的宽度。
+* `高度` (类型 `数字`)：图像的高度
+* `渲染背景` (类型 `布尔值`)：如果为 true，背景将会被渲染。
 
-Returns: `String` (SVG)
+返回： `字符串` (SVG)
