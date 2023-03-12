@@ -28,7 +28,7 @@ Windows waarschuwt gebruikers bij het installeren van software zonder certificaa
 
 Om de app te installeren, moet je op "Meer info" klikken.
 
-![Slim scherm meer info](/img/smart-screen-meere-info.png)
+![Slim scherm meer info](/img/smart-screen-more-info.png)
 
 Dan klik op "Toch uitvoeren".
 
