@@ -12,7 +12,7 @@ Use este pintor para desenhar formas no papel. Você pode desenhar retângulos, 
 |         Propriedade |  Padrão   | Descrição:                                                                                                                                       |
 | -------------------:|:---------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
 |                 Cor |   Preto   | A cor que será desenhada                                                                                                                         |
-|    Largura do traço |     5     | A largura do traço                                                                                                                               |
+|  Espessura do traço |     5     | A largura do traço                                                                                                                               |
 |  Dependendo do zoom |   Falso   | Isto mudará a largura do traço com base no nível de zoom.                                                                                        |
 |               Forma | retângulo | A forma que será desenhada                                                                                                                       |
 |               Width |     0     | A largura fixa da área. Se definido como 0, a largura será calculada automaticamente.                                                            |
