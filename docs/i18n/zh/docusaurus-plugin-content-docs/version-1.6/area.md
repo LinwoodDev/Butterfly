@@ -1,23 +1,23 @@
 ---
-title: "区域"
+title: "Area"
 sidebar_position: 2
 ---
 
-## 一. 导言
+## Introduction
 
-![区域](area.png)
+![Area](area.png)
 
-区域是限制画布面积的一种方式。 您可以通过使用 [区域绘制器](painters/area.md) 来创建区域。 如果您点击后台，您可以使用上下文菜单打开区域列表对话框。
+Areas are a way to restrict the size of the canvas. You can create areas by using the [area painter](painters/area.md). If you click on the background you can open the area list dialog using the context menu.
 
-## 创建和删除区域
+## Creating and deleting areas
 
-使用 [区域画面](painters/area.md) 来创建一个区域。 领域不能重叠。 在你创建了一个区域后，你需要给它命名。
+Use the [area painter](painters/area.md) to create an area. Areas cannot overlap. After you created an area you need to name it.
 
-如果你想要修改它，请单击该区域。 您也可以使用区域对话框。
+Click on the area if you want to modify it. You can also use the area dialog.
 
-您在此菜单中有几个选项：
+You have a few options in this menu:
 
-* `输入区域`: 输入区域。 你不能在区域外涂抹。 通过点击带画面的背景退出区域。
-* `名称`: 更改当前区域的名称
-* `导出`: 画布的这一部分导出为图像
-* `删除`: 删除此区域
+* `Enter area`: Enter the area. You cannot paint outside of the area. Exit the area by clicking on the background with the area painter.
+* `Name`: Change the name of the current area
+* `Export`: Export this part of the canvas as an image
+* `Delete`: Delete this area
