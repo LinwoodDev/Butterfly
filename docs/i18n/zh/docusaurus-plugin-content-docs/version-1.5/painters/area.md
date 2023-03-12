@@ -1,28 +1,28 @@
 ---
-sidebar_label: "Area"
-title: "Area painter"
+sidebar_label: "区域"
+title: "区域绘画"
 ---
 
-The area painter allows you to create, edit and remove areas.
+绘制器允许您创建、编辑和删除区域。
 
-## Actions
+## 行动
 
-|        Mouse        |    Touch     |      Action       |
-|:-------------------:|:------------:|:-----------------:|
-| Left click and drag | Tap and drag | Create a new area |
-|    Middle click     | Two fingers  |    Move canvas    |
-|     Right click     |   Long tap   |     Edit area     |
+|   鼠标键   |  触摸时  |  行 动  |
+|:-------:|:-----:|:-----:|
+| 左键单击并拖动 | 点击并拖动 | 创建新区域 |
+|  中键点击   |  双手指  | 移动画布  |
+|  右键点击   |  长按   | 编辑区域  |
 
-## Configuration
+## 配置
 
-|     Property | Default | Description                                                                                                                                      |
-| ------------:|:-------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
-|        Width |    0    | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
-|       Height |    0    | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
-| Aspect ratio |    0    | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|    财产 | 默认设置 | 描述                                     |
+| -----:|:----:|:-------------------------------------- |
+| Width |  0   | 区域的固定宽度。 如果设置为 0，宽度将自动计算。              |
+|    高度 |  0   | 区域的固定高度 如果设置为 0，高度将自动计算。               |
+|   纵横比 |  0   | 面积的固定宽比。 如果设置为 0，宽高比将自动计算。 宽度比定义为宽度/高度 |
 
-There are three aspect ratio presets:
+预设三个宽高比：
 
-* Square (1:1)
-* Page portrait (sqrt(2)) - This is the default aspect ratio of an A4 page in portrait mode.
-* Page landscape (1/sqrt(2)) - This is the default aspect ratio of an A4 page in landscape mode.
+* 正方形(1:1)
+* 页面肖像(sqrt(2))) - 这是竖屏模式下A4页面的默认宽高比。
+* 页面横屏(1/sqrt(2))) - 这是横屏模式下A4页面的默认宽高比。
