@@ -1,13 +1,13 @@
 ---
-title: "Undo painter"
-sidebar_label: "Undo"
+title: "撤销绘画"
+sidebar_label: "撤消操作"
 sidebar_position: 0
 ---
 
-:::note ⚡ Action painter
+:::note :hig_voltage: Action pater
 
-This is a special painter. You can't select it and it will run the action if you click on it.
+这是一个特殊的画面。 您不能选择它，如果您点击它，它将运行该动作。
 
 :::
 
-When clicking on this painter you can undo your last action. See the [redo painter](redo) for redoing your last action.
+当点击此绘图器时，您可以撤消您上次的操作。 请参阅 [redo pater](redo) 来重新做你最后一次的操作。
