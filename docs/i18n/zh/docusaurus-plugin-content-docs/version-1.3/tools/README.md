@@ -1,18 +1,18 @@
 ---
 slug: /tools
-title: "Tools"
-sidebar_label: "Introduction"
+title: "工具"
+sidebar_label: "一. 导言"
 sidebar_position: 0
 ---
 
 
-Tools can change the camera or select objects.
+工具可以更改相机或选择对象。
 
-Use the sidebar to learn more about the tools.
+使用侧边栏了解更多关于工具的信息。
 
-If you click on a selected tool you can configure it.
+如果您点击选中的工具，您可以配置它。
 
-## Available tools
+## 可用工具
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';
