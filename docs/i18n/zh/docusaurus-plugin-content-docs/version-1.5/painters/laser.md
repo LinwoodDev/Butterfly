@@ -1,17 +1,17 @@
 ---
-title: "Laser painter"
-sidebar_label: "Laser"
+title: "激光涂装"
+sidebar_label: "激光器"
 sidebar_position: 3
 ---
 
 
-With this painter you can draw on this paper temporarily. After a while, the drawing fades away. Add a new drawing to the paper to make it cancel.
+使用这个绘图器，您可以暂时使用这张纸。 一段时间后，抽取消失了。 在文档中添加一个新绘图以使其取消。
 
-## Configuration
+## 配置
 
-|          Property | Default | Description                                                                      |
-| -----------------:|:-------:|:-------------------------------------------------------------------------------- |
-|             Color |  Black  | The color that will be drawn                                                     |
-|      Stroke width |    5    | The width of the stroke                                                          |
-| Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
-|          Duration |    5    | The duration in seconds that the drawing will be visible                         |
+|   财产 | 默认设置 | 描述                     |
+| ----:|:----:|:---------------------- |
+|   颜色 |  黑色  | 将绘制的颜色                 |
+| 笔画宽度 |  5   | 笔画的宽度                  |
+| 笔记倍数 |  1   | 如果您有一个样式表，这是将添加到压力中的乘数 |
+|   期限 |  5   | 绘图将显示的持续时间（秒）          |
