@@ -1,11 +1,11 @@
 ---
-title: "工具"
-sidebar_label: "一. 导言"
+title: "Tools"
+sidebar_label: "Introduction"
 sidebar_position: 0
 ---
 
-工具可以更改相机或选择对象。
+Tools can change the camera or select objects.
 
-使用侧边栏了解更多关于工具的信息。
+Use the sidebar to learn more about the tools.
 
-如果您点击选中的工具，您可以配置它。
+If you click on a selected tool you can configure it.
