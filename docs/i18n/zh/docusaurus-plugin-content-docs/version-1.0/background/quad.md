@@ -1,14 +1,14 @@
 ---
-title: "Quad paper"
+title: "四张纸"
 ---
 
-| Property | Value |
-| --------:|:----- |
-|    Width | 15    |
-|   Height | 15    |
-|  Count X | 1     |
-|  Count Y | 1     |
-|  Space X | 0     |
-|  Space Y | 0     |
+|    财产 | 值  |
+| -----:|:-- |
+| Width | 15 |
+|    高度 | 15 |
+|  计数 X | 1  |
+|  计数 Y | 1  |
+|   空格X | 0  |
+|  空间 Y | 0  |
 
-See [the introduction](intro) for more information.
+获取更多信息，请参阅 [介绍](intro)。
