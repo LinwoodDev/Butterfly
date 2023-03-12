@@ -1,10 +1,10 @@
 ---
-title: "Migrating"
+title: "迁移"
 sidebar_position: 2
 ---
 
-This guide will show you how to migrate to the latest version.
+本指南将向您展示如何迁移到最新版本。
 
 ## 1.0.0-beta.0
 
-This works automatically. To add the default color palette, simply click on the reset button in the color dialog.
+这自动生效。 要添加默认色板，只需点击颜色对话框中的重置按钮。
