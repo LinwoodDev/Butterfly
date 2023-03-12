@@ -1,13 +1,13 @@
 ---
-title: "Painters"
-sidebar_label: "Introduction"
+title: "绘画"
+sidebar_label: "一. 导言"
 sidebar_position: 1
 ---
 
-Painters can edit the paper.
+绘画者可以编辑文档。
 
-Use the sidebar to learn more about the painters.
+使用侧边栏了解更多关于画家的信息。
 
-Create a new painter by clicking on the plus icon. Change the painter order by dragging and change the painter by clicking. If you click on a selected painter you can configure it.
+点击加号图标创建新的绘制器。 通过拖动和点击更改引导器来更改引导顺序。 如果您点击选中的绘图器，您可以配置它。
 
-The name of the painter will be displayed as tooltip on hover on the painter.
+绘制器的名称将显示为悬停在绘图上的工具提示。
