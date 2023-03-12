@@ -1,12 +1,12 @@
 ---
 slug: "/downloads"
 sidebar_position: 0
-title: 下载
+title: Downloads
 ---
 
-![稳定发布版本](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![每晚发布版本](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
-## 选择您的平台
+## Choose your platform
 
 <div className="grid">
   <a className="grid-button button--panel button--windows" href="/downloads/windows">
@@ -39,9 +39,9 @@ title: 下载
   </a>
 </div>
 
-## 有用的链接
+## Useful links
 
-- [更新日志](changelog)
-- [较早发布的版本](https://github.com/LinwoodCloud/butterfly/releases)
-- [最新发布](https://github.com/LinwoodCloud/butterfly/releases/latest)
-- [支持](https://discord.linwood.dev)
+- [Changelog](changelog)
+- [Older releases](https://github.com/LinwoodCloud/butterfly/releases)
+- [Latest release](https://github.com/LinwoodCloud/butterfly/releases/latest)
+- [Support](https://discord.linwood.dev)
