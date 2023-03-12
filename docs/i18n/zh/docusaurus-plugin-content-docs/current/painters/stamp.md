@@ -1,14 +1,14 @@
 ---
-title: "Stamp"
-sidebar_label: "Shape"
+title: "印章"
+sidebar_label: "形状"
 sidebar_position: 3
 ---
 
-The stamp painter allows you to add components to your canvas. Use an existing pack, create your own or import a pack to use it. Read more [here](../pack).
+印花画画家允许您将组件添加到画布中。 使用现有的包，创建您自己或导入一个包来使用它。 Read more [here](../pack).
 
-## Configuration
+## 配置
 
-|  Property | Default | Description                                     |
-| ---------:|:-------:|:----------------------------------------------- |
-|      Pack |  None   | The pack where the component is located.        |
-| Component |  None   | The component that will be added to the canvas. |
+| 财产 | 默认设置 | 描述         |
+| --:|:----:|:---------- |
+|  包 |  无   | 组件所在的包     |
+| 组件 |  无   | 将添加到画布的组件. |
