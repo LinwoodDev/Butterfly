@@ -1,7 +1,7 @@
 ---
-title: "Contributing"
+title: "贡献中"
 hide_title: true
-sidebar_label: "Contributing"
+sidebar_label: "贡献中"
 ---
 
 ```mdx-code-block
