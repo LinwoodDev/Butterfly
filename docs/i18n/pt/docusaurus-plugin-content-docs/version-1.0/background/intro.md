@@ -1,5 +1,5 @@
 ---
-title: "Fundo"
+title: "Plano de fundo"
 sidebar_label: "Introdução"
 ---
 
