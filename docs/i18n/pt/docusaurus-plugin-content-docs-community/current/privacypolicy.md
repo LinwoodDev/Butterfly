@@ -46,7 +46,7 @@ Valorizo a sua confiança ao fornecer-nos suas Informações Pessoais, assim nos
 
 **Links para Outros Sites**
 
-Este Serviço pode conter links para outros sites. Se você clicar em um link de terceiros, você será direcionado para esse site. Note-se que estes sítios externos não são operados por mim. Therefore, I strongly advise you to review the Privacy Policy of these websites. Eu não tenho controle e não assumo nenhuma responsabilidade pelo conteúdo, políticas de privacidade ou práticas de sites ou serviços de terceiros.
+Este Serviço pode conter links para outros sites. Se você clicar em um link de terceiros, você será direcionado para esse site. Note-se que estes sítios externos não são operados por mim. Portanto, eu recomendo fortemente que você revise a Política de Privacidade destes sites. Eu não tenho controle e não assumo nenhuma responsabilidade pelo conteúdo, políticas de privacidade ou práticas de sites ou serviços de terceiros.
 
 **Alterações nesta Política de Privacidade**
 
