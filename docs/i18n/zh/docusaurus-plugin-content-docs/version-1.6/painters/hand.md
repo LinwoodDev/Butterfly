@@ -1,13 +1,13 @@
 ---
-title: "手"
-sidebar_label: "手"
+title: "Hand"
+sidebar_label: "Hand"
 ---
 
 
-通过这个工具，您可以选择元素并访问背景菜单以访问 [插入菜单](../insert)。
+With this tool you can select elements and access the background context menu to access the [insert menu](../insert).
 
-## 配置
+## Configuration
 
-|    财产 | 默认设置  | 描述                       |
-| -----:|:-----:|:------------------------ |
-| 包括擦除器 | false | 如果您可以点击擦除图层并编辑它，此设置将被控制。 |
+|       Property | Default | Description                                                             |
+| --------------:|:-------:|:----------------------------------------------------------------------- |
+| Include eraser |  false  | This setting controls if you can click on the eraser layer and edit it. |
