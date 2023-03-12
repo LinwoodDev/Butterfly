@@ -5,10 +5,10 @@ slug: "/insert"
 sidebar_position: 3
 ---
 
-You can insert different things in your notes:
+您可以在笔记中插入不同的内容：
 
-* Images (from the gallery or the camera)
-* PDFs
+* 图像(来自画廊或摄像头)
+* PDF
 * SVGs
 
-To access the insert menu, use the hand tool and double tap on the place where you want to insert something. Click on "Insert" to open the menu.
+要访问插入菜单，请使用手工具并双击你想要插入某些东西的地方。 点击“插入”打开菜单。
