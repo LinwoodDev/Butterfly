@@ -423,6 +423,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_localized_locales:
+    dependency: "direct main"
+    description:
+      name: flutter_localized_locales
+      sha256: f219350dffcfd56692b4e41953710c2975888dd9c507d977ec6853d7ea140336
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.4"
   flutter_native_splash:
     dependency: "direct dev"
     description:
@@ -1353,10 +1361,10 @@ packages:
     dependency: "direct main"
     description:
       name: yaru
-      sha256: "77e7b2096aca6b67edafeec4589f6af171d77735e0999bfc21728195057feab8"
+      sha256: be2298e83748ee1a9f913d187251f7106d62069b393971921f9d1f087a00b347
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.6"
+    version: "0.5.7"
   yaru_color_generator:
     dependency: transitive
     description:

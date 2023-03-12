@@ -13,6 +13,7 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
 import 'api/file_system.dart';
 import 'api/full_screen.dart';
@@ -289,7 +290,10 @@ class ButterflyApp extends StatelessWidget {
               routeInformationProvider: _router.routeInformationProvider,
               routeInformationParser: _router.routeInformationParser,
               routerDelegate: _router.routerDelegate,
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              localizationsDelegates: const [
+                ...AppLocalizations.localizationsDelegates,
+                LocaleNamesLocalizationsDelegate(),
+              ],
               supportedLocales: getLocales(),
               theme: ThemeManager.getThemeByName(state.design),
               themeMode: state.theme,

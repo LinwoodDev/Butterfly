@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../theme/manager.dart';
@@ -29,31 +30,9 @@ class PersonalizationSettingsPage extends StatelessWidget {
     }
   }
 
-  String _getLocaleName(BuildContext context, String? locale) {
-    switch (locale ?? '') {
-      case 'fr':
-        return AppLocalizations.of(context).french;
-      case 'de':
-        return AppLocalizations.of(context).german;
-      case 'en':
-        return AppLocalizations.of(context).english;
-      case 'es':
-        return AppLocalizations.of(context).spanish;
-      case 'it':
-        return AppLocalizations.of(context).italian;
-      case 'pt-BR':
-        return AppLocalizations.of(context).portugueseBrazil;
-      case 'tr':
-        return AppLocalizations.of(context).turkish;
-      case 'th':
-        return AppLocalizations.of(context).thai;
-      case 'ru':
-        return AppLocalizations.of(context).russian;
-      case '':
-        return AppLocalizations.of(context).defaultLocale;
-      default:
-        return locale ?? '';
-    }
+  String _getLocaleName(BuildContext context, String locale) {
+    return LocaleNames.of(context)?.nameOf(locale) ??
+        AppLocalizations.of(context).defaultLocale;
   }
 
   @override
