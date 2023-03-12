@@ -1,38 +1,38 @@
 ---
-title: "Storage"
+title: "存储"
 sidebar_position: 2
 ---
 
 ## Web
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+应用程序数据存储在您的浏览器。 它存储在本地存储中。 在您的浏览器中打开开发者工具，您将看到数据。
 
-## Native platforms
+## 原生平台
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+默认情况下，应用程序在一个名为“Linwood/Butterfly”的子文件夹中保存您的文档文件夹中的数据。 保存第一个数据时创建此文件夹。 此文件夹可以在设置中更改。
 
-## Remote storage {#remote}
+## 远程存储 {#remote}
 
 :::note
 
-This feature is not available on the web.
+此功能在网络上不可用。
 
 :::
 
-The application can be saved in a remote server. This is useful if you want to share the data with other people or if you have multiple computers. Currently only the `WebDAV` protocol is supported.
+应用程序可以保存到远程服务器。 如果您想要与其他人分享数据，或者如果您有多台计算机，这是有用的。 目前只支持 `WebDAV` 协议。
 
-To add a remote server, go to the settings and click on `Remotes`. Then click on `Add remote`. Add the URL of the remote server and the username and password. After that you can specify the folder where the data is stored.
+若要添加远程服务器，请前往设置并点击 `Remotes`。 然后点击 `添加远程`。 添加远程服务器的 URL 以及用户名和密码。 之后您可以指定存储数据的文件夹。
 
-To get the webdav url, please visit the documentation:
+若要获取 webdav url，请访问文档：
 
-* [Nextcloud](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (it should look like this: `https://nextcloud.example.com/remote.php/dav/files/username/`, replace `username` and `nextcloud.example.com` with the correct values)
+* [下一个云](https://docs.nextcloud.com/server/latest/user_manual/en/files/access_webdav.html) (它看起来像这样： `https://nextcloud.example.com/remote.php/dav/files/username/`, 替换 `用户名` 和 `next cloud.example.com` 使用正确的值)
 
-### Offline sync {#offline}
+### 离线同步 {#offline}
 
-This feature allows you to edit your files on remote servers while you are offline. Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
+此功能允许您在离线时在远程服务器上编辑文件。 在文件或文件夹中打开弹出菜单，然后点击 `同步`。 这将下载文件或文件夹并在本地保存。 同步整个根目录， 点击创建对话框中的复选标记或点击设置中的远程，然后点击管理部分中的复选标记。
 
-There are a few limitations:
+有一些限制：
 
-* You can only sync the top level of a directory. For example if you have a directory `a/b/test.bfly`, this file will not be synced.
-* You cannot delete a file or folder while you are offline.
-* You cannot add, edit or delete templates while you are offline.
+* 您只能同步目录的顶级。 例如，如果你有一个目录 `a/b/test.bfull`, 这个文件将不会同步。
+* 您不能在离线时删除文件或文件夹。
+* 您不能在离线时添加、编辑或删除模板。
