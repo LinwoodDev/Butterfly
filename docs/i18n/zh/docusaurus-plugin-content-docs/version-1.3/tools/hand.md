@@ -1,13 +1,13 @@
 ---
-title: "手"
-sidebar_label: "手"
+title: "Hand"
+sidebar_label: "Hand"
 ---
 
 
-这是一个移动摄像头的特殊工具。
+This is a special tool to move the camera.
 
-## 配置
+## Configuration
 
-|    财产 | 默认设置  | 描述                       |
-| -----:|:-----:|:------------------------ |
-| 包括擦除器 | false | 如果您可以点击擦除图层并编辑它，此设置将被控制。 |
+|       Property | Default | Description                                                             |
+| --------------:|:-------:|:----------------------------------------------------------------------- |
+| Include eraser |  false  | This setting controls if you can click on the eraser layer and edit it. |
