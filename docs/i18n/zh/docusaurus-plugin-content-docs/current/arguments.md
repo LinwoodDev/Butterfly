@@ -1,16 +1,16 @@
 ---
-sidebar_label: "参数"
-title: 参数
+sidebar_label: "Arguments"
+title: Arguments
 ---
 
-您可以用参数启动应用程序。
+You can start the app with arguments.
 
 `butterfly.exe <Path>`
 
-路径是要打开文件的路径。
+Path is the path to the file you want to open.
 
-## 备选方案
+## Options
 
-|             选项 | 描述                      |
-| --------------:|:----------------------- |
-| `--path`, `-p` | 选择存储所有Butterfly数据的数据目录。 |
+|         Option | Description                                                      |
+| --------------:|:---------------------------------------------------------------- |
+| `--path`, `-p` | Choose the data directory where all data of Butterfly is stored. |
