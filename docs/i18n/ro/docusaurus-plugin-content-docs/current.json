@@ -1,0 +1,10 @@
+{
+  "version.label": {
+    "message": "Nightly",
+    "description": "The label for version current"
+  },
+  "sidebar.sidebar.category.Painters": {
+    "message": "Pași",
+    "description": "The label for category Painters in sidebar sidebar"
+  }
+}

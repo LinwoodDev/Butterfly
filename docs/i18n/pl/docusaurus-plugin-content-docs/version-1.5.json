@@ -1,0 +1,10 @@
+{
+  "version.label": {
+    "message": "1.5.1",
+    "description": "The label for version 1.5"
+  },
+  "sidebar.sidebar.category.Painters": {
+    "message": "Pasty do malowania",
+    "description": "The label for category Painters in sidebar sidebar"
+  }
+}
