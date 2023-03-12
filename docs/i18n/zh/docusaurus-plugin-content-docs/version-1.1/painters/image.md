@@ -1,11 +1,11 @@
 ---
-title: "图像绘画"
-sidebar_label: "图片"
+title: "Image painter"
+sidebar_label: "Image"
 sidebar_position: 3
 ---
 
-使用这个绘制器，您可以将图像添加到您的纸上。 点击位置并选择图像。
+With this painter you can add image to your paper. Click on a position and select an image.
 
-## 配置
+## Configuration
 
-当前没有可配置的
+Currently, nothing to configure
