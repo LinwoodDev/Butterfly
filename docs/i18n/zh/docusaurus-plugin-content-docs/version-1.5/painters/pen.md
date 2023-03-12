@@ -1,17 +1,17 @@
 ---
-title: "Pen painter"
-sidebar_label: "Pen"
+title: "笔画板"
+sidebar_label: "彭文"
 sidebar_position: 2
 ---
 
 
-With this painter you can draw on this paper.
+使用此绘图器，您可以绘制这张纸。
 
-## Configuration
+## 配置
 
-|          Property | Default | Description                                                                      |
-| -----------------:|:-------:|:-------------------------------------------------------------------------------- |
-|             Color |  Black  | The color that will be drawn                                                     |
-|      Stroke width |    5    | The width of the stroke                                                          |
-| Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
-|    Zoom dependent |  false  | This will change the stroke width based on the zoom level.                       |
+|   财产 | 默认设置  | 描述                     |
+| ----:|:-----:|:---------------------- |
+|   颜色 |  黑色   | 将绘制的颜色                 |
+| 笔画宽度 |   5   | 笔画的宽度                  |
+| 笔记倍数 |   1   | 如果您有一个样式表，这是将添加到压力中的乘数 |
+| 依靠缩放 | false | 这将改变基于缩放级别的笔画宽度。       |
