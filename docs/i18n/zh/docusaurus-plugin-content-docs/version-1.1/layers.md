@@ -1,7 +1,7 @@
 ---
-title: "图层"
+title: "Layers"
 ---
 
-图层是组元素的一个选项。 点击元素来查看和更改图层。 使用 [图层绘制器](painters/layer.md) 来更改多元素的图层。
+Layers are an option to group elements together. Click on the element to see and change the layer. Use the [layer painter](painters/layer.md) to change the layers of multiple elements.
 
-如果您点击后台，您可以控制哪些图层是可见的。
+If you click on the background, you can control which layers are visible.
