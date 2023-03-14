@@ -4076,9 +4076,6 @@ __metadata:
     typescript: ^4.9.5
     ua-parser-js: ^1.0.34
     webpack: ^5.76.1
-  dependenciesMeta:
-    react@17.0.2:
-      unplugged: true
   languageName: unknown
   linkType: soft
 
