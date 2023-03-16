@@ -1,12 +1,12 @@
 ---
-title: "Storage"
+title: "存储"
 sidebar_position: 2
 ---
 
 ## Web
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+应用程序数据存储在您的浏览器。 它存储在本地存储中。 在您的浏览器中打开开发者工具，您将看到数据。
 
-## Native platforms
+## 原生平台
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+默认情况下，应用程序在一个名为“Linwood/Butterfly”的子文件夹中保存您的文档文件夹中的数据。 保存第一个数据时创建此文件夹。 此文件夹可以在设置中更改。
