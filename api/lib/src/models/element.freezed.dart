@@ -879,7 +879,7 @@ mixin _$PadElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)
         image,
@@ -915,7 +915,7 @@ mixin _$PadElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)?
         image,
@@ -951,7 +951,7 @@ mixin _$PadElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)?
         image,
@@ -1155,7 +1155,7 @@ class _$PenElement implements PenElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)
         image,
@@ -1194,7 +1194,7 @@ class _$PenElement implements PenElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)?
         image,
@@ -1233,7 +1233,7 @@ class _$PenElement implements PenElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)?
         image,
@@ -1476,7 +1476,7 @@ class _$TextElement implements TextElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)
         image,
@@ -1515,7 +1515,7 @@ class _$TextElement implements TextElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)?
         image,
@@ -1554,7 +1554,7 @@ class _$TextElement implements TextElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)?
         image,
@@ -1664,7 +1664,7 @@ abstract class _$$ImageElementCopyWith<$Res>
       {String layer,
       @DoublePointJsonConverter() Point<double> position,
       ElementConstraints? constraints,
-      @Uint8ListJsonConverter() Uint8List pixels,
+      String source,
       double width,
       double height});
 
@@ -1685,7 +1685,7 @@ class __$$ImageElementCopyWithImpl<$Res>
     Object? layer = null,
     Object? position = null,
     Object? constraints = freezed,
-    Object? pixels = null,
+    Object? source = null,
     Object? width = null,
     Object? height = null,
   }) {
@@ -1702,10 +1702,10 @@ class __$$ImageElementCopyWithImpl<$Res>
           ? _value.constraints
           : constraints // ignore: cast_nullable_to_non_nullable
               as ElementConstraints?,
-      pixels: null == pixels
-          ? _value.pixels
-          : pixels // ignore: cast_nullable_to_non_nullable
-              as Uint8List,
+      source: null == source
+          ? _value.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as String,
       width: null == width
           ? _value.width
           : width // ignore: cast_nullable_to_non_nullable
@@ -1737,7 +1737,7 @@ class _$ImageElement implements ImageElement {
       {this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1),
-      @Uint8ListJsonConverter() required this.pixels,
+      required this.source,
       required this.width,
       required this.height,
       final String? $type})
@@ -1757,8 +1757,7 @@ class _$ImageElement implements ImageElement {
   @JsonKey()
   final ElementConstraints? constraints;
   @override
-  @Uint8ListJsonConverter()
-  final Uint8List pixels;
+  final String source;
   @override
   final double width;
   @override
@@ -1769,7 +1768,7 @@ class _$ImageElement implements ImageElement {
 
   @override
   String toString() {
-    return 'PadElement.image(layer: $layer, position: $position, constraints: $constraints, pixels: $pixels, width: $width, height: $height)';
+    return 'PadElement.image(layer: $layer, position: $position, constraints: $constraints, source: $source, width: $width, height: $height)';
   }
 
   @JsonKey(ignore: true)
@@ -1795,7 +1794,7 @@ class _$ImageElement implements ImageElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)
         image,
@@ -1814,7 +1813,7 @@ class _$ImageElement implements ImageElement {
             ShapeProperty property)
         shape,
   }) {
-    return image(layer, position, constraints, pixels, width, height);
+    return image(layer, position, constraints, source, width, height);
   }
 
   @override
@@ -1834,7 +1833,7 @@ class _$ImageElement implements ImageElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)?
         image,
@@ -1853,7 +1852,7 @@ class _$ImageElement implements ImageElement {
             ShapeProperty property)?
         shape,
   }) {
-    return image?.call(layer, position, constraints, pixels, width, height);
+    return image?.call(layer, position, constraints, source, width, height);
   }
 
   @override
@@ -1873,7 +1872,7 @@ class _$ImageElement implements ImageElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)?
         image,
@@ -1894,7 +1893,7 @@ class _$ImageElement implements ImageElement {
     required TResult orElse(),
   }) {
     if (image != null) {
-      return image(layer, position, constraints, pixels, width, height);
+      return image(layer, position, constraints, source, width, height);
     }
     return orElse();
   }
@@ -1952,7 +1951,7 @@ abstract class ImageElement implements PadElement {
       {final String layer,
       @DoublePointJsonConverter() final Point<double> position,
       final ElementConstraints? constraints,
-      @Uint8ListJsonConverter() required final Uint8List pixels,
+      required final String source,
       required final double width,
       required final double height}) = _$ImageElement;
 
@@ -1964,8 +1963,7 @@ abstract class ImageElement implements PadElement {
   @DoublePointJsonConverter()
   Point<double> get position;
   ElementConstraints? get constraints;
-  @Uint8ListJsonConverter()
-  Uint8List get pixels;
+  String get source;
   double get width;
   double get height;
   @override
@@ -2116,7 +2114,7 @@ class _$SvgElement implements SvgElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)
         image,
@@ -2155,7 +2153,7 @@ class _$SvgElement implements SvgElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)?
         image,
@@ -2194,7 +2192,7 @@ class _$SvgElement implements SvgElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)?
         image,
@@ -2406,7 +2404,7 @@ class _$ShapeElement implements ShapeElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)
         image,
@@ -2445,7 +2443,7 @@ class _$ShapeElement implements ShapeElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)?
         image,
@@ -2484,7 +2482,7 @@ class _$ShapeElement implements ShapeElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            @Uint8ListJsonConverter() Uint8List pixels,
+            String source,
             double width,
             double height)?
         image,

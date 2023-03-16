@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -75,7 +74,7 @@ class PadElement with _$PadElement {
         Point<double> position,
     @Default(ScaledElementConstraints(scaleX: 1, scaleY: 1))
         ElementConstraints? constraints,
-    @Uint8ListJsonConverter() required Uint8List pixels,
+    required String source,
     required double width,
     required double height,
   }) = ImageElement;

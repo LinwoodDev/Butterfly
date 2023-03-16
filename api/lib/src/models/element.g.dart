@@ -130,7 +130,7 @@ _$ImageElement _$$ImageElementFromJson(Map json) => _$ImageElement(
           ? const ScaledElementConstraints(scaleX: 1, scaleY: 1)
           : ElementConstraints.fromJson(
               Map<String, dynamic>.from(json['constraints'] as Map)),
-      pixels: const Uint8ListJsonConverter().fromJson(json['pixels'] as String),
+      source: json['source'] as String,
       width: (json['width'] as num).toDouble(),
       height: (json['height'] as num).toDouble(),
       $type: json['type'] as String?,
@@ -141,7 +141,7 @@ Map<String, dynamic> _$$ImageElementToJson(_$ImageElement instance) =>
       'layer': instance.layer,
       'position': const DoublePointJsonConverter().toJson(instance.position),
       'constraints': instance.constraints?.toJson(),
-      'pixels': const Uint8ListJsonConverter().toJson(instance.pixels),
+      'source': instance.source,
       'width': instance.width,
       'height': instance.height,
       'type': instance.$type,
