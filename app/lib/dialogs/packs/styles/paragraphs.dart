@@ -111,6 +111,9 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                         menuChildren:
                             DocumentDefaults.getParagraphTranslations(context)
                                 .entries
+                                .where((element) => !widget
+                                    .value.paragraphProperties
+                                    .containsKey(element.key))
                                 .map(
                                   (e) => MenuItemButton(
                                     child: Text(e.value),
@@ -128,7 +131,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                                 .toList(),
                       ),
                       if (_currentStyle != null) ...[
-                        const Divider(),
+                        const VerticalDivider(),
                         IconButton(
                           icon: const Icon(PhosphorIcons.pencilLight),
                           onPressed: () async {

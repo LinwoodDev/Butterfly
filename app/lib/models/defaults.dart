@@ -45,13 +45,13 @@ class DocumentDefaults {
         'p': AppLocalizations.of(context).paragraph,
         'quote': AppLocalizations.of(context).quote,
         'code': AppLocalizations.of(context).code,
-        'blockquote': AppLocalizations.of(context).blockquote,
+        'blockquote': AppLocalizations.of(context).quote,
       };
 
   static String translateParagraph(String key, BuildContext context) =>
       translate(key, getParagraphTranslations(context));
 
-  static Map<String, String> getBlockTranslations(BuildContext context) => {
+  static Map<String, String> getSpanTranslations(BuildContext context) => {
         'a': AppLocalizations.of(context).link,
         'checkbox': AppLocalizations.of(context).checkbox,
         'del': AppLocalizations.of(context).deleted,
@@ -62,5 +62,5 @@ class DocumentDefaults {
       };
 
   static String translateBlock(String key, BuildContext context) =>
-      translate(key, getBlockTranslations(context));
+      translate(key, getSpanTranslations(context));
 }

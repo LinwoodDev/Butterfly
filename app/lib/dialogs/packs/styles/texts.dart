@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../../models/defaults.dart';
 import 'text.dart';
 
 class TextsStyleView extends StatefulWidget {
@@ -34,11 +35,10 @@ class _TextsStyleViewState extends State<TextsStyleView> {
   @override
   void didUpdateWidget(covariant TextsStyleView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.value != widget.value) {
+    if (oldWidget.value != widget.value && _currentStyle != null) {
       setState(() {
-        if (!widget.value.spanProperties.containsKey(_currentStyle!) &&
-            _currentStyle != null) {
-          _currentStyle = widget.value.spanProperties.keys.firstOrNull;
+        if (!widget.value.spanProperties.containsKey(_currentStyle!)) {
+          _currentStyle = widget.value.paragraphProperties.keys.firstOrNull;
         }
       });
     }
@@ -94,7 +94,40 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                   ));
                 },
               ),
+              MenuAnchor(
+                builder: (context, controller, _) {
+                  return IconButton(
+                    icon: const Icon(PhosphorIcons.listLight),
+                    onPressed: () {
+                      if (controller.isOpen) {
+                        controller.close();
+                      } else {
+                        controller.open();
+                      }
+                    },
+                  );
+                },
+                menuChildren: DocumentDefaults.getSpanTranslations(context)
+                    .entries
+                    .where((element) =>
+                        !widget.value.spanProperties.containsKey(element.key))
+                    .map(
+                      (e) => MenuItemButton(
+                        child: Text(e.value),
+                        onPressed: () {
+                          widget.onChanged(widget.value.copyWith(
+                            spanProperties: {
+                              ...widget.value.spanProperties,
+                              e.key: const text.DefinedSpanProperty(),
+                            },
+                          ));
+                        },
+                      ),
+                    )
+                    .toList(),
+              ),
               if (_currentStyle != null) ...[
+                const VerticalDivider(),
                 IconButton(
                   icon: const Icon(PhosphorIcons.pencilLight),
                   onPressed: () async {
