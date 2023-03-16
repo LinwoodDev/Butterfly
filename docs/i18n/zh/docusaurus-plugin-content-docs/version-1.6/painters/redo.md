@@ -1,13 +1,13 @@
 ---
-title: "Redo painter"
-sidebar_label: "Redo"
+title: "重做绘画"
+sidebar_label: "重做"
 sidebar_position: 0
 ---
 
-:::note ⚡ Action painter
+:::note :hig_voltage: Action pater
 
-This is a special painter. You can't select it and it will run the action if you click on it.
+这是一个特殊的画面。 您不能选择它，如果您点击它，它将运行该动作。
 
 :::
 
-When clicking on this painter you can redo your last action. See the [undo painter](undo) for undoing your last action.
+当点击此配对器时，您可以重新做最后的操作。 See the [undo painter](undo) for undoing your last action.
