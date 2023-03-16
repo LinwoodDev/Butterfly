@@ -1,4 +1,5 @@
 import 'package:butterfly/dialogs/name.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_text.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +95,40 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                           ));
                         },
                       ),
+                      MenuAnchor(
+                        builder: (context, controller, _) {
+                          return IconButton(
+                            icon: const Icon(PhosphorIcons.listLight),
+                            onPressed: () {
+                              if (controller.isOpen) {
+                                controller.close();
+                              } else {
+                                controller.open();
+                              }
+                            },
+                          );
+                        },
+                        menuChildren:
+                            DocumentDefaults.getParagraphTranslations(context)
+                                .entries
+                                .map(
+                                  (e) => MenuItemButton(
+                                    child: Text(e.value),
+                                    onPressed: () {
+                                      widget.onChanged(widget.value.copyWith(
+                                        paragraphProperties: {
+                                          ...widget.value.paragraphProperties,
+                                          e.key:
+                                              const DefinedParagraphProperty(),
+                                        },
+                                      ));
+                                    },
+                                  ),
+                                )
+                                .toList(),
+                      ),
                       if (_currentStyle != null) ...[
+                        const Divider(),
                         IconButton(
                           icon: const Icon(PhosphorIcons.pencilLight),
                           onPressed: () async {
