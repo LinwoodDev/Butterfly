@@ -1,25 +1,25 @@
 ---
-title: "Introduction"
+title: "一. 导言"
 sidebar_position: 1
 ---
 
-![Banner](/img/banner.png)
+![横幅](/img/banner.png)
 
 ---
 
-> Welcome to Butterfly, the opensource note app. Use the sidebar to navigate through the wiki.
+> 欢迎使用 Butterfly，开源笔记应用。 使用侧边栏导航wiki。
 
-## Getting started
+## 入门开始
 
-Visit [the downloads](/downloads) to download the app for your platform. Use [web version](https://butterfly.linwood.dev) if you cannot find your platform.
+访问 [下载](/downloads) 以下载应用到您的平台。 如果您找不到您的平台，请使用 [web 版本](https://butterfly.linwood.dev)。
 
-## Main view
+## 主视图
 
-![Main view](main.png)
+![主视图](main.png)
 
-With the top left button you can go back to the document list. The document name will be displayed on the right of it. Undo, redo and file options are in the top right corner.
+使用左上角的按钮，您可以返回到文档列表。 文档名称将显示在右侧。 撤消、重做和文件选项位于右上角。
 
-Below it, you can find the toolbar. Left, you can switch between view and edit mode. Right to it, there you find the zoom options. In the top right corner there are the tool options.
+在下面，您可以找到工具栏。 左边，您可以在视图和编辑模式之间切换。 您可以在右边找到缩放选项。 在右上角有工具选项。
 
-- The view toolbar options are background, export and save.
-- The edit toolbar options are the painters. You can find [here](background) more.
+- 视图工具栏选项是背景、导出和保存。
+- 编辑工具栏选项是画面。 You can find [here](background) more.
