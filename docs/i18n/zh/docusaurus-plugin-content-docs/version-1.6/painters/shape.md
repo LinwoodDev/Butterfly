@@ -1,39 +1,39 @@
 ---
-title: "Shape painter"
-sidebar_label: "Shape"
+title: "形状绘画"
+sidebar_label: "形状"
 sidebar_position: 3
 ---
 
 
-Use this painter to draw shapes on the paper. You can draw rectangles, circles, and other shapes.
+使用此绘制器在纸上绘制形状。 你可以绘制矩形、圆圈和其他形状。
 
-## Configuration
+## 配置
 
-|       Property |  Default  | Description                                                                                                                                      |
-| --------------:|:---------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
-|          Color |   Black   | The color that will be drawn                                                                                                                     |
-|   Stroke width |     5     | The width of the stroke                                                                                                                          |
-| Zoom dependent |   false   | This will change the stroke width based on the zoom level.                                                                                       |
-|          Shape | rectangle | The shape that will be drawn                                                                                                                     |
-|          Width |     0     | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
-|         Height |     0     | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
-|   Aspect ratio |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|    财产 | 默认设置  | 描述                                     |
+| -----:|:-----:|:-------------------------------------- |
+|    颜色 |  黑色   | 将绘制的颜色                                 |
+|  笔画宽度 |   5   | 笔画的宽度                                  |
+|  依靠缩放 | false | 这将改变基于缩放级别的笔画宽度。                       |
+|    形状 |  矩形   | 绘制形状                                   |
+| Width |   0   | 区域的固定宽度。 如果设置为 0，宽度将自动计算。              |
+|    高度 |   0   | 区域的固定高度 如果设置为 0，高度将自动计算。               |
+|   纵横比 |   0   | 面积的固定宽比。 如果设置为 0，宽高比将自动计算。 宽度比定义为宽度/高度 |
 
-### Shape types
+### 形状类型
 
-#### Rectangle
+#### 矩形
 
-|      Property |   Default   | Description                                       |
-| -------------:|:-----------:|:------------------------------------------------- |
-|          Fill | Transparent | The color that will be drawn inside the rectangle |
-| Corner radius | 0, 0, 0, 0  | The radius of the corners of the rectangle        |
+|            财产 |    默认设置    | 描述       |
+| -------------:|:----------:|:-------- |
+|            填充 |    透明的     | 矩形内绘制的颜色 |
+| Corner radius | 0, 0, 0, 0 | 矩形角角圆角半径 |
 
-#### Circle
+#### 圆圈
 
-| Property |   Default   | Description                                       |
-| --------:|:-----------:|:------------------------------------------------- |
-|     Fill | Transparent | The color that will be drawn inside the rectangle |
+| 财产 | 默认设置 | 描述       |
+| --:|:----:|:-------- |
+| 填充 | 透明的  | 矩形内绘制的颜色 |
 
-#### Line
+#### 直线
 
-*No configuration available.*
+*无可用配置。*
