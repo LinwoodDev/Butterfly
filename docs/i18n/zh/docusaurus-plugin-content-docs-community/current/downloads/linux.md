@@ -7,23 +7,23 @@ sidebar_position: 3
 import DownloadButton from '@site/src/components/DownloadButton.tsx';
 ```
 
-![Stable release version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![稳定发布版本](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![每晚发布版本](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 :::note
 
-Please use the flatpak version if possible. Otherwise you need to install `libsecret-1-dev` and `libjsoncpp-dev`.
+如果可能，请使用 flatpak版本。 否则您需要安装 `libsec-1-dev` 和 `libjsoncpp-dev`。
 
 :::
 
-## Binaries
+## 二进制文件
 
 <div className="row margin-bottom--lg padding--sm">
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--info button--lg">Stable</button>
+  <button className="button button--outline button--info button--lg">稳定的</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/stable/linwood-butterfly-linux.tar.gz">
-        Portable
+        便携式设备
       </DownloadButton>
     </li>
     <li>
@@ -43,7 +43,7 @@ Please use the flatpak version if possible. Otherwise you need to install `libse
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-linux.tar.gz">
-        Portable
+        便携式设备
       </DownloadButton>
     </li>
     <li>
@@ -60,9 +60,9 @@ Please use the flatpak version if possible. Otherwise you need to install `libse
 </div>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+在这里阅读更多关于夜晚版本的 Butterfight [](/nightly)。
 
-## Stores
+## 商店
 
 <div className="row margin-bottom--lg padding--sm">
 <a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
