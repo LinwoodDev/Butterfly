@@ -1,14 +1,14 @@
 ---
-title: "Pack"
+title: "包"
 sidebar_position: 2
 ---
 
-A pack is a collection of components that can be used in the stamp painter. You can create your own pack or import an existing one. For this click on the top left corner and click on "Packs".
+包是一个可以用于印记画面的组件集合。 您可以创建您自己的包或导入现有包。 点击左上角，然后点击"包"。
 
-## Properties
+## 属性
 
-|        Name | Description               |
-| -----------:|:------------------------- |
-|        Name | The name of the pack      |
-|      Author | The author of the pack    |
-| Description | A description of the pack |
+| 名称 | 描述  |
+| --:|:--- |
+| 名称 | 包名称 |
+| 作者 | 包作者 |
+| 描述 | 包描述 |
