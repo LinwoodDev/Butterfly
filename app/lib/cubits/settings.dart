@@ -284,14 +284,17 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> changeTheme(ThemeMode theme) async {
     emit(state.copyWith(theme: theme));
+    return save();
   }
 
   Future<void> changeDesign(String design) async {
     emit(state.copyWith(design: design));
+    return save();
   }
 
   Future<void> resetDesign() async {
     emit(state.copyWith(design: ''));
+    return save();
   }
 
   Future<void> changeLocale(Locale? locale) {

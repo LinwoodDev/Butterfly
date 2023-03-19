@@ -21,6 +21,7 @@ import '../embed/embedding.dart';
 import '../handlers/handler.dart';
 import '../models/viewport.dart';
 import '../selections/selection.dart';
+import '../theme.dart';
 import '../view_painter.dart';
 
 part 'current_index.freezed.dart';
@@ -56,6 +57,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       Embedding? embedding)
       : super(CurrentIndex(null, MoveHandler(), settingsCubit, transformCubit,
             embedding: embedding));
+
+  ThemeData getTheme(bool dark, [ColorScheme? overridden]) =>
+      getThemeData(state.settingsCubit.state.design, dark, overridden);
 
   Handler getHandler({bool disableTemporary = false}) {
     if (disableTemporary) {

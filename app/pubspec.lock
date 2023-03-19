@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "98d1d33ed129b372846e862de23a0fc365745f4d7b5e786ce667fcbbb7ac5c07"
+      sha256: "503361166f4a100e0d7eb7fb5a62c6f0322512f2bcb48d6922caf98f24b0ab90"
       url: "https://pub.dev"
     source: hosted
-    version: "55.0.0"
+    version: "56.0.0"
   adwaita:
     dependency: "direct main"
     description:
@@ -21,10 +21,10 @@ packages:
     dependency: "direct dev"
     description:
       name: analyzer
-      sha256: "881348aed9b0b425882c97732629a6a31093c8ff20fc4b3b03fb9d3d50a3a126"
+      sha256: "93fcd81a6716e69864516750590cf1e699420615046bda19100238aa7b429785"
       url: "https://pub.dev"
     source: hosted
-    version: "5.7.1"
+    version: "5.8.0"
   animations:
     dependency: "direct main"
     description:
@@ -320,6 +320,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.8"
+  dynamic_color:
+    dependency: "direct main"
+    description:
+      name: dynamic_color
+      sha256: c4a508284b14ec4dda5adba2c28b2cdd34fbae1afead7e8c52cad87d51c5405b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.6.2"
   equatable:
     dependency: "direct main"
     description:
@@ -380,10 +388,10 @@ packages:
     dependency: "direct main"
     description:
       name: flex_color_scheme
-      sha256: "3cde2b6953707a5fb4f4dcfc2d65b998350484058b4861dfc98dee5b31ef67eb"
+      sha256: c8153899b7146143ca844da12bca910cf35eb58e65a8ffc3f8530820952be43c
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0-dev.2"
+    version: "7.0.0-dev.3"
   flex_seed_scheme:
     dependency: transitive
     description:
@@ -566,14 +574,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-  gtk:
-    dependency: transitive
-    description:
-      name: gtk
-      sha256: "517560d6ec625c114cbdcde9223e5ee6418d30860377347ee1b0513399e7a3f5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   html:
     dependency: transitive
     description:
@@ -1357,30 +1357,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
-  yaru:
-    dependency: "direct main"
-    description:
-      name: yaru
-      sha256: ca20337f0223a81bcbaaf899677d2f4ebe334b9cae696ce6aa1c4705a3a803ef
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.8"
-  yaru_color_generator:
-    dependency: transitive
-    description:
-      name: yaru_color_generator
-      sha256: "78b96cefc4eef763e4786f891ce336cdd55ef8edc55494c4bea2bc9d10ef9c96"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0"
-  yaru_colors:
-    dependency: transitive
-    description:
-      name: yaru_colors
-      sha256: "36c49111b812a00eccab265b613882b7d04f5af486c7163ef2da2344405b841f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.6"
 sdks:
   dart: ">=2.19.0 <3.0.0"
   flutter: ">=3.7.0"

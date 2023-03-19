@@ -82,7 +82,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
           if (!kIsWeb && isWindow() && !settings.nativeWindowTitleBar) {
             return LayoutBuilder(
               builder: (context, constraints) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxHeight: 42),
                   child: Row(
@@ -155,7 +155,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                           IconButton(
                             icon: const Icon(PhosphorIcons.xLight),
                             tooltip: AppLocalizations.of(context).close,
-                            hoverColor: Colors.red,
+                            color: Colors.red,
                             splashRadius: 20,
                             onPressed: () => windowManager.close(),
                           )
