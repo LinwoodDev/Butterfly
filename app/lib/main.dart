@@ -33,6 +33,7 @@ import 'settings/connections.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme.dart';
 import 'views/error.dart';
+import 'views/home.dart';
 import 'views/main.dart';
 import 'views/window.dart';
 
@@ -133,7 +134,7 @@ class ButterflyApp extends StatelessWidget {
                 name: 'home',
                 path: '/',
                 builder: (context, state) {
-                  return const ProjectPage();
+                  return const HomePage();
                 },
                 routes: [
                   GoRoute(
