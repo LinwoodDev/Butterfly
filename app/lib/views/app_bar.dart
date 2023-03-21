@@ -44,13 +44,13 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return GestureDetector(onSecondaryTap: () {
       if (!kIsWeb &&
-          isWindow() &&
+          isWindow &&
           !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
         windowManager.popUpWindowMenu();
       }
     }, onLongPress: () {
       if (!kIsWeb &&
-          isWindow() &&
+          isWindow &&
           !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
         windowManager.popUpWindowMenu();
       }
@@ -68,7 +68,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
             actions: [
               BlocBuilder<DocumentBloc, DocumentState>(
                 builder: (context, state) => Row(
-                  children: [if (!kIsWeb && isWindow()) const WindowButtons()],
+                  children: [if (!kIsWeb && isWindow) const WindowButtons()],
                 ),
               )
             ]);
@@ -220,7 +220,7 @@ class _AppBarTitle extends StatelessWidget {
             )),
         ]);
         if (!kIsWeb &&
-            isWindow() &&
+            isWindow &&
             !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
           return DragToMoveArea(child: title);
         }
@@ -504,7 +504,7 @@ class _MainPopupMenu extends StatelessWidget {
             ),
           ],
           const Divider(),
-          if (state.embedding == null && (kIsWeb || !isWindow())) ...[
+          if (state.embedding == null && (kIsWeb || !isWindow)) ...[
             MenuItemButton(
               leadingIcon: const Icon(PhosphorIcons.arrowsOutLight),
               shortcut: const SingleActivator(LogicalKeyboardKey.f11),

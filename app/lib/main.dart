@@ -78,7 +78,7 @@ Future<void> main([List<String> args = const []]) async {
     }
   }
 
-  if (!kIsWeb && isWindow()) {
+  if (!kIsWeb && isWindow) {
     await windowManager.ensureInitialized();
     const kWindowOptions = WindowOptions(
       minimumSize: Size(410, 300),
@@ -260,7 +260,7 @@ class ButterflyApp extends StatelessWidget {
           buildWhen: (previous, current) =>
               previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
           builder: (context, settings) {
-            if (!kIsWeb && isWindow()) {
+            if (!kIsWeb && isWindow) {
               windowManager.waitUntilReadyToShow().then((_) async {
                 windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
                     ? TitleBarStyle.normal
@@ -298,6 +298,12 @@ class ButterflyApp extends StatelessWidget {
                 ...AppLocalizations.localizationsDelegates,
                 LocaleNamesLocalizationsDelegate(),
               ],
+              builder: (context, child) {
+                child = DragToResizeArea(
+                  child: child ?? Container(),
+                );
+                return child;
+              },
               supportedLocales: getLocales(),
               themeMode: state.theme,
               theme: getThemeData(state.design, false, lightDynamic),

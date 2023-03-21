@@ -63,9 +63,7 @@ class GeneralSettingsPage extends StatelessWidget {
           title: Text(AppLocalizations.of(context).general),
           backgroundColor: inView ? Colors.transparent : null,
           automaticallyImplyLeading: !inView,
-          actions: [
-            if (!inView && !kIsWeb && isWindow()) const WindowButtons()
-          ],
+          actions: [if (!inView && !kIsWeb && isWindow) const WindowButtons()],
         ),
         body: ListView(children: [
           if (!kIsWeb) ...[
