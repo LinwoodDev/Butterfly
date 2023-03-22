@@ -2,6 +2,9 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<int>> getDataFromSource(String source) async {
+  if (source.isEmpty) {
+    return [];
+  }
   final uri = Uri.parse(source);
   final data = uri.data;
   if (data != null) {

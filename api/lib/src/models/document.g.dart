@@ -55,10 +55,10 @@ _$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(
                   ButterflyPack.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+      createdAt:
+          const DateTimeJsonConverter().fromJson(json['createdAt'] as int),
+      updatedAt: _$JsonConverterFromJson<int, DateTime>(
+          json['updatedAt'], const DateTimeJsonConverter().fromJson),
       painters: (json['painters'] as List<dynamic>?)
               ?.map(
                   (e) => Painter.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -80,8 +80,21 @@ Map<String, dynamic> _$$_AppDocumentToJson(_$_AppDocument instance) =>
       'areas': instance.areas.map((e) => e.toJson()).toList(),
       'exportPresets': instance.exportPresets.map((e) => e.toJson()).toList(),
       'packs': instance.packs.map((e) => e.toJson()).toList(),
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'createdAt': const DateTimeJsonConverter().toJson(instance.createdAt),
+      'updatedAt': _$JsonConverterToJson<int, DateTime>(
+          instance.updatedAt, const DateTimeJsonConverter().toJson),
       'painters': instance.painters.map((e) => e.toJson()).toList(),
       'tool': instance.tool.toJson(),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

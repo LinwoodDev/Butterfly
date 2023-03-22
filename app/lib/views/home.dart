@@ -11,13 +11,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../api/open_release_notes.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final String? selectedAsset;
+
+  const HomePage({super.key, this.selectedAsset});
 
   @override
   Widget build(BuildContext context) {
@@ -51,18 +54,21 @@ class HomePage extends StatelessWidget {
                     if (constraints.maxWidth > 1000) {
                       return Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Expanded(child: _FilesHomeView()),
-                          SizedBox(width: 32),
-                          SizedBox(width: 500, child: _QuickstartHomeView()),
+                        children: [
+                          Expanded(
+                              child:
+                                  _FilesHomeView(selectedAsset: selectedAsset)),
+                          const SizedBox(width: 32),
+                          const SizedBox(
+                              width: 500, child: _QuickstartHomeView()),
                         ],
                       );
                     } else {
                       return Column(
-                        children: const [
-                          _QuickstartHomeView(),
-                          SizedBox(height: 32),
-                          _FilesHomeView(),
+                        children: [
+                          const _QuickstartHomeView(),
+                          const SizedBox(height: 32),
+                          _FilesHomeView(selectedAsset: selectedAsset),
                         ],
                       );
                     }
@@ -205,7 +211,8 @@ class _HeaderHomeView extends StatelessWidget {
 }
 
 class _FilesHomeView extends StatefulWidget {
-  const _FilesHomeView();
+  final String? selectedAsset;
+  const _FilesHomeView({this.selectedAsset});
 
   @override
   State<_FilesHomeView> createState() => _FilesHomeViewState();
@@ -217,8 +224,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
   bool _gridView = false;
   String _source = '';
   _SortBy _sortBy = _SortBy.name;
-  final String _location =
-      'Documents/My Files/Test/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y/Z';
+  String _location = '';
+  String _search = '';
 
   @override
   void initState() {
@@ -317,110 +324,194 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
           ),
         ],
       ),
-      const SizedBox(height: 8),
-      Text(
-        _location,
-        style: Theme.of(context).textTheme.bodySmall,
-        textAlign: TextAlign.start,
-      ),
       const SizedBox(height: 16),
-      ListView.builder(
-        shrinkWrap: true,
-        itemCount: 50,
-        itemBuilder: (context, index) {
-          final selected = index == 3;
+      LayoutBuilder(builder: (context, constraints) {
+        final searchBar = TextFormField(
+          decoration: const InputDecoration(
+            hintText: 'Search',
+            prefixIcon: Icon(PhosphorIcons.magnifyingGlassLight),
+            filled: true,
+          ),
+          initialValue: _search,
+          onChanged: (value) => setState(() => _search = value),
+        );
+        final locationBar = TextFormField(
+          decoration: const InputDecoration(
+            hintText: 'Location',
+            prefixIcon: Icon(PhosphorIcons.folderLight),
+            filled: true,
+            contentPadding: EdgeInsets.only(left: 32),
+          ),
+          initialValue: _location,
+          onFieldSubmitted: (value) => setState(() => _location = value),
+        );
+        final isDesktop = constraints.maxWidth > 600;
+        if (isDesktop) {
           return Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                  child: Card(
-                elevation: 5,
-                margin: const EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 0,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  side: selected
-                      ? BorderSide(
-                          color: colorScheme.primaryContainer,
-                          width: 1,
-                        )
-                      : BorderSide.none,
-                ),
-                surfaceTintColor: selected
-                    ? colorScheme.primaryContainer
-                    : colorScheme.secondaryContainer,
-                clipBehavior: Clip.hardEdge,
-                child: InkWell(
-                    onTap: () => GoRouter.of(context).pushNamed('new'),
-                    highlightColor:
-                        selected ? colorScheme.primaryContainer : null,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 32,
-                      ),
-                      child: LayoutBuilder(builder: (context, constraints) {
-                        final fileName = Text('File $index');
-                        final actions = Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(PhosphorIcons.starLight),
-                            ),
-                          ],
-                        );
-                        final modified = Text(
-                          '1 hour ago',
-                          style:
-                              Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: colorScheme.outline,
-                                  ),
-                        );
-                        final isDesktop = constraints.maxWidth > 400;
-                        if (isDesktop) {
-                          return Row(
-                            children: [
-                              Expanded(child: fileName),
-                              const SizedBox(width: 32),
-                              modified,
-                              const SizedBox(width: 32),
-                              actions,
-                            ],
-                          );
-                        } else {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  fileName,
-                                  const SizedBox(height: 8),
-                                  modified,
-                                ],
-                              ),
-                              const SizedBox(width: 8),
-                              actions,
-                            ],
-                          );
-                        }
-                      }),
-                    )),
-              )),
-              const SizedBox(width: 16),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(PhosphorIcons.paperPlaneRightLight),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(PhosphorIcons.trashLight),
-              ),
+              Expanded(flex: 3, child: locationBar),
+              const SizedBox(width: 8),
+              SizedBox(width: 150, child: searchBar),
             ],
           );
-        },
-      ),
+        } else {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              searchBar,
+              const SizedBox(height: 16),
+              locationBar,
+            ],
+          );
+        }
+      }),
+      const SizedBox(height: 16),
+      FutureBuilder<AppDocumentEntity?>(
+          future: context.read<DocumentFileSystem>().getAsset(_location),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            final entity = snapshot.data;
+            if (!snapshot.hasData || entity is! AppDocumentDirectory) {
+              return Container();
+            }
+            final assets = entity.assets.where((e) {
+              if (_search.isNotEmpty) {
+                return e.fileName.contains(_search);
+              }
+              return true;
+            }).toList();
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: assets.length,
+              itemBuilder: (context, index) {
+                final asset = assets[index];
+                final selected =
+                    widget.selectedAsset == asset.pathWithLeadingSlash;
+                DocumentInfo? info;
+                String? modifiedText;
+                try {
+                  if (asset is AppDocumentFile) {
+                    info = asset.getDocumentInfo();
+                    final locale = Localizations.localeOf(context).languageCode;
+                    final dateFormatter = DateFormat.yMd(locale);
+                    final timeFormatter = DateFormat.Hm(locale);
+                    modifiedText = info?.updatedAt != null
+                        ? '${dateFormatter.format(info!.updatedAt!)} ${timeFormatter.format(info.updatedAt!)}'
+                        : '';
+                  }
+                } catch (_) {}
+                return Row(
+                  children: [
+                    Expanded(
+                        child: Card(
+                      elevation: 5,
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 0,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        side: selected
+                            ? BorderSide(
+                                color: colorScheme.primaryContainer,
+                                width: 1,
+                              )
+                            : BorderSide.none,
+                      ),
+                      surfaceTintColor: selected
+                          ? colorScheme.primaryContainer
+                          : colorScheme.secondaryContainer,
+                      clipBehavior: Clip.hardEdge,
+                      child: InkWell(
+                          onTap: () => GoRouter.of(context).pushNamed('new'),
+                          highlightColor:
+                              selected ? colorScheme.primaryContainer : null,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 8,
+                              horizontal: 16,
+                            ),
+                            child:
+                                LayoutBuilder(builder: (context, constraints) {
+                              final fileName = Row(
+                                children: [
+                                  Icon(
+                                    PhosphorIcons.fileLight,
+                                    color: colorScheme.outline,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(asset.fileName),
+                                ],
+                              );
+                              final actions = Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(PhosphorIcons.starLight),
+                                  ),
+                                ],
+                              );
+                              final modified = Text(
+                                modifiedText ?? '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                      color: colorScheme.outline,
+                                    ),
+                              );
+                              final isDesktop = constraints.maxWidth > 400;
+                              if (isDesktop) {
+                                return Row(
+                                  children: [
+                                    Expanded(child: fileName),
+                                    const SizedBox(width: 32),
+                                    modified,
+                                    const SizedBox(width: 32),
+                                    actions,
+                                  ],
+                                );
+                              } else {
+                                return Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        fileName,
+                                        const SizedBox(height: 8),
+                                        modified,
+                                      ],
+                                    ),
+                                    const SizedBox(width: 8),
+                                    actions,
+                                  ],
+                                );
+                              }
+                            }),
+                          )),
+                    )),
+                    const SizedBox(width: 16),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(PhosphorIcons.paperPlaneRightLight),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(PhosphorIcons.trashLight),
+                    ),
+                  ],
+                );
+              },
+            );
+          }),
     ]);
   }
 }
@@ -477,7 +568,8 @@ class _QuickstartHomeView extends StatelessWidget {
                                       clipBehavior: Clip.hardEdge,
                                       child: Stack(
                                         children: [
-                                          if (snapshot.hasData)
+                                          if (snapshot.data?.isNotEmpty ??
+                                              false)
                                             Align(
                                               child: Image.memory(
                                                 Uint8List.fromList(
@@ -488,19 +580,22 @@ class _QuickstartHomeView extends StatelessWidget {
                                               ),
                                             ),
                                           Align(
+                                            alignment: Alignment.bottomLeft,
                                             child: Container(
                                               padding: const EdgeInsets.all(8),
+                                              margin: const EdgeInsets.all(8),
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(8),
                                                 color: colorScheme
-                                                    .primaryContainer,
+                                                    .primaryContainer
+                                                    .withAlpha(200),
                                               ),
                                               child: Text(
                                                 e.name,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .headlineLarge
+                                                    .bodyLarge
                                                     ?.copyWith(
                                                       color:
                                                           colorScheme.onSurface,

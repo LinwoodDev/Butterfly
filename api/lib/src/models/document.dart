@@ -135,11 +135,13 @@ class DocumentInfo {
 
   String get description => json['description'] ?? '';
 
-  DateTime? get updatedAt =>
-      json['updatedAt'] == null ? null : DateTime.tryParse(json['updatedAt']);
+  DateTime? get updatedAt => json['updatedAt'] == null
+      ? null
+      : DateTime.fromMillisecondsSinceEpoch(json['updatedAt']);
 
-  DateTime? get createdAt =>
-      json['createdAt'] == null ? null : DateTime.tryParse(json['createdAt']);
+  DateTime? get createdAt => json['createdAt'] == null
+      ? null
+      : DateTime.fromMillisecondsSinceEpoch(json['createdAt']);
 
   AppDocument load() =>
       const DocumentJsonConverter().fromJson(Map<String, dynamic>.from(json));
@@ -182,8 +184,8 @@ class AppDocument with _$AppDocument {
     @Default([]) List<Area> areas,
     @Default([]) List<ExportPreset> exportPresets,
     @Default([]) List<ButterflyPack> packs,
-    required DateTime createdAt,
-    DateTime? updatedAt,
+    @DateTimeJsonConverter() required DateTime createdAt,
+    @DateTimeJsonConverter() DateTime? updatedAt,
     @Default([]) List<Painter> painters,
     @Default(ToolOption()) ToolOption tool,
   }) = _AppDocument;

@@ -206,7 +206,9 @@ mixin _$AppDocument {
   List<Area> get areas => throw _privateConstructorUsedError;
   List<ExportPreset> get exportPresets => throw _privateConstructorUsedError;
   List<ButterflyPack> get packs => throw _privateConstructorUsedError;
+  @DateTimeJsonConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @DateTimeJsonConverter()
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   List<Painter> get painters => throw _privateConstructorUsedError;
   ToolOption get tool => throw _privateConstructorUsedError;
@@ -233,8 +235,8 @@ abstract class $AppDocumentCopyWith<$Res> {
       List<Area> areas,
       List<ExportPreset> exportPresets,
       List<ButterflyPack> packs,
-      DateTime createdAt,
-      DateTime? updatedAt,
+      @DateTimeJsonConverter() DateTime createdAt,
+      @DateTimeJsonConverter() DateTime? updatedAt,
       List<Painter> painters,
       ToolOption tool});
 
@@ -360,8 +362,8 @@ abstract class _$$_AppDocumentCopyWith<$Res>
       List<Area> areas,
       List<ExportPreset> exportPresets,
       List<ButterflyPack> packs,
-      DateTime createdAt,
-      DateTime? updatedAt,
+      @DateTimeJsonConverter() DateTime createdAt,
+      @DateTimeJsonConverter() DateTime? updatedAt,
       List<Painter> painters,
       ToolOption tool});
 
@@ -466,8 +468,8 @@ class _$_AppDocument extends _AppDocument {
       final List<Area> areas = const [],
       final List<ExportPreset> exportPresets = const [],
       final List<ButterflyPack> packs = const [],
-      required this.createdAt,
-      this.updatedAt,
+      @DateTimeJsonConverter() required this.createdAt,
+      @DateTimeJsonConverter() this.updatedAt,
       final List<Painter> painters = const [],
       this.tool = const ToolOption()})
       : _content = content,
@@ -545,8 +547,10 @@ class _$_AppDocument extends _AppDocument {
   }
 
   @override
+  @DateTimeJsonConverter()
   final DateTime createdAt;
   @override
+  @DateTimeJsonConverter()
   final DateTime? updatedAt;
   final List<Painter> _painters;
   @override
@@ -636,8 +640,8 @@ abstract class _AppDocument extends AppDocument {
       final List<Area> areas,
       final List<ExportPreset> exportPresets,
       final List<ButterflyPack> packs,
-      required final DateTime createdAt,
-      final DateTime? updatedAt,
+      @DateTimeJsonConverter() required final DateTime createdAt,
+      @DateTimeJsonConverter() final DateTime? updatedAt,
       final List<Painter> painters,
       final ToolOption tool}) = _$_AppDocument;
   const _AppDocument._() : super._();
@@ -664,8 +668,10 @@ abstract class _AppDocument extends AppDocument {
   @override
   List<ButterflyPack> get packs;
   @override
+  @DateTimeJsonConverter()
   DateTime get createdAt;
   @override
+  @DateTimeJsonConverter()
   DateTime? get updatedAt;
   @override
   List<Painter> get painters;
