@@ -87,6 +87,7 @@ class _HeaderHomeView extends StatelessWidget {
           IconButton(
             onPressed: () {},
             icon: const Icon(PhosphorIcons.gearLight),
+            tooltip: AppLocalizations.of(context).settings,
           ),
         ],
       );
@@ -109,22 +110,25 @@ class _HeaderHomeView extends StatelessWidget {
             width: 64,
           ),
           const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Hey, this is Linwood Butterfly',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: colorScheme.onInverseSurface,
-                    ),
-              ),
-              Text(
-                'A free and open-cource drawing space!',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onInverseSurface,
-                    ),
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'Hey, this is Linwood Butterfly',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: colorScheme.onInverseSurface,
+                      ),
+                  overflow: TextOverflow.clip,
+                ),
+                Text(
+                  'A free and open-cource drawing space!',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onInverseSurface,
+                      ),
+                ),
+              ],
+            ),
           ),
         ],
       );
@@ -199,6 +203,8 @@ class _FilesHomeView extends StatelessWidget {
         alignment: WrapAlignment.spaceBetween,
         crossAxisAlignment: WrapCrossAlignment.center,
         runAlignment: WrapAlignment.spaceBetween,
+        runSpacing: 16,
+        spacing: 16,
         children: [
           Text(
             'Files',
@@ -267,26 +273,27 @@ class _FilesHomeView extends StatelessWidget {
           return Row(
             children: [
               Expanded(
-                  child: InkWell(
-                onTap: () {},
-                child: Card(
-                    elevation: 5,
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 0,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      side: selected
-                          ? BorderSide(
-                              color: colorScheme.primaryContainer,
-                              width: 1,
-                            )
-                          : BorderSide.none,
-                    ),
-                    surfaceTintColor: index == 3
-                        ? colorScheme.primaryContainer
-                        : colorScheme.secondaryContainer,
+                  child: Card(
+                elevation: 5,
+                margin: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 0,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  side: selected
+                      ? BorderSide(
+                          color: colorScheme.primaryContainer,
+                          width: 1,
+                        )
+                      : BorderSide.none,
+                ),
+                surfaceTintColor: index == 3
+                    ? colorScheme.primaryContainer
+                    : colorScheme.secondaryContainer,
+                clipBehavior: Clip.hardEdge,
+                child: InkWell(
+                    onTap: () {},
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         vertical: 8,
@@ -377,6 +384,9 @@ class _QuickstartHomeView extends StatelessWidget {
           const SizedBox(height: 16),
           Wrap(
             alignment: WrapAlignment.center,
+            runAlignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            runSpacing: 16,
             spacing: 16,
             children: [
               ConstrainedBox(
@@ -386,10 +396,7 @@ class _QuickstartHomeView extends StatelessWidget {
                   child: Card(
                     color: Colors.white70,
                     elevation: 5,
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 0,
-                    ),
+                    margin: const EdgeInsets.all(8),
                     child: Align(
                       child: Text(
                         'Light',
@@ -402,7 +409,6 @@ class _QuickstartHomeView extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
               ConstrainedBox(
                 constraints: const BoxConstraints(maxHeight: 200),
                 child: AspectRatio(
@@ -410,10 +416,7 @@ class _QuickstartHomeView extends StatelessWidget {
                   child: Card(
                     color: Colors.black87,
                     elevation: 5,
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 0,
-                    ),
+                    margin: const EdgeInsets.all(8),
                     child: Align(
                       child: Text(
                         'Dark',
