@@ -175,7 +175,7 @@ class AppDocument with _$AppDocument {
   const AppDocument._();
 
   const factory AppDocument({
-    required String name,
+    @Default('') String name,
     @Default('') String description,
     @Default([]) List<PadElement> content,
     @Default(Background.empty()) Background background,

@@ -459,7 +459,7 @@ class __$$_AppDocumentCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AppDocument extends _AppDocument {
   const _$_AppDocument(
-      {required this.name,
+      {this.name = '',
       this.description = '',
       final List<PadElement> content = const [],
       this.background = const Background.empty(),
@@ -485,6 +485,7 @@ class _$_AppDocument extends _AppDocument {
       _$$_AppDocumentFromJson(json);
 
   @override
+  @JsonKey()
   final String name;
   @override
   @JsonKey()
@@ -631,7 +632,7 @@ class _$_AppDocument extends _AppDocument {
 
 abstract class _AppDocument extends AppDocument {
   const factory _AppDocument(
-      {required final String name,
+      {final String name,
       final String description,
       final List<PadElement> content,
       final Background background,

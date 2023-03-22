@@ -143,7 +143,6 @@ class ButterflySettings with _$ButterflySettings {
     @Default(ThemeMode.system) ThemeMode theme,
     @Default('') String localeTag,
     @Default('') String documentPath,
-    @Default('') String dateFormat,
     @Default(1) double touchSensitivity,
     @Default(1) double mouseSensitivity,
     @Default(1) double penSensitivity,
@@ -180,7 +179,6 @@ class ButterflySettings with _$ButterflySettings {
       theme: prefs.containsKey('theme_mode')
           ? ThemeMode.values.byName(prefs.getString('theme_mode')!)
           : ThemeMode.system,
-      dateFormat: prefs.getString('date_format') ?? '',
       touchSensitivity: prefs.getDouble('touch_sensitivity') ?? 1,
       mouseSensitivity: prefs.getDouble('mouse_sensitivity') ?? 1,
       penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
@@ -230,7 +228,6 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('locale', localeTag);
     await prefs.setBool('input_pen_only', penOnlyInput);
     await prefs.setBool('move_with_two_fingers', inputGestures);
-    await prefs.setString('date_format', dateFormat);
     await prefs.setString('document_path', documentPath);
     await prefs.setDouble('touch_sensitivity', touchSensitivity);
     await prefs.setDouble('mouse_sensitivity', mouseSensitivity);
@@ -318,16 +315,6 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> resetDocumentPath() {
     emit(state.copyWith(documentPath: ''));
-    return save();
-  }
-
-  Future<void> changeDateFormat(String dateFormat) {
-    emit(state.copyWith(dateFormat: dateFormat));
-    return save();
-  }
-
-  Future<void> resetDateFormat() {
-    emit(state.copyWith(dateFormat: ''));
     return save();
   }
 

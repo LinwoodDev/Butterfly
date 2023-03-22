@@ -18,7 +18,6 @@ import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
@@ -163,10 +162,8 @@ class _ProjectPageState extends State<ProjectPage> {
         }
       }
       if (!mounted) return;
-      final name = (widget.location?.absolute ?? false)
-          ? widget.location!.fileName
-          : await formatCurrentDateTime(
-              context.read<SettingsCubit>().state.locale);
+      final name =
+          (widget.location?.absolute ?? false) ? widget.location!.fileName : '';
       var documentOpened = document != null;
       if (!documentOpened) {
         location = null;

@@ -140,7 +140,7 @@ class _HeaderHomeView extends StatelessWidget {
                   overflow: TextOverflow.clip,
                 ),
                 Text(
-                  'A free and open-cource drawing space!',
+                  'A free and open-source drawing space!',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: colorScheme.onInverseSurface,
                       ),

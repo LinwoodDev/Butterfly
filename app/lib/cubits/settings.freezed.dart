@@ -769,7 +769,6 @@ mixin _$ButterflySettings {
   ThemeMode get theme => throw _privateConstructorUsedError;
   String get localeTag => throw _privateConstructorUsedError;
   String get documentPath => throw _privateConstructorUsedError;
-  String get dateFormat => throw _privateConstructorUsedError;
   double get touchSensitivity => throw _privateConstructorUsedError;
   double get mouseSensitivity => throw _privateConstructorUsedError;
   double get penSensitivity => throw _privateConstructorUsedError;
@@ -804,7 +803,6 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       {ThemeMode theme,
       String localeTag,
       String documentPath,
-      String dateFormat,
       double touchSensitivity,
       double mouseSensitivity,
       double penSensitivity,
@@ -842,7 +840,6 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? theme = null,
     Object? localeTag = null,
     Object? documentPath = null,
-    Object? dateFormat = null,
     Object? touchSensitivity = null,
     Object? mouseSensitivity = null,
     Object? penSensitivity = null,
@@ -873,10 +870,6 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
       documentPath: null == documentPath
           ? _value.documentPath
           : documentPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      dateFormat: null == dateFormat
-          ? _value.dateFormat
-          : dateFormat // ignore: cast_nullable_to_non_nullable
               as String,
       touchSensitivity: null == touchSensitivity
           ? _value.touchSensitivity
@@ -971,7 +964,6 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       {ThemeMode theme,
       String localeTag,
       String documentPath,
-      String dateFormat,
       double touchSensitivity,
       double mouseSensitivity,
       double penSensitivity,
@@ -1008,7 +1000,6 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? theme = null,
     Object? localeTag = null,
     Object? documentPath = null,
-    Object? dateFormat = null,
     Object? touchSensitivity = null,
     Object? mouseSensitivity = null,
     Object? penSensitivity = null,
@@ -1039,10 +1030,6 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
       documentPath: null == documentPath
           ? _value.documentPath
           : documentPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      dateFormat: null == dateFormat
-          ? _value.dateFormat
-          : dateFormat // ignore: cast_nullable_to_non_nullable
               as String,
       touchSensitivity: null == touchSensitivity
           ? _value.touchSensitivity
@@ -1123,7 +1110,6 @@ class _$_ButterflySettings extends _ButterflySettings {
       {this.theme = ThemeMode.system,
       this.localeTag = '',
       this.documentPath = '',
-      this.dateFormat = '',
       this.touchSensitivity = 1,
       this.mouseSensitivity = 1,
       this.penSensitivity = 1,
@@ -1154,9 +1140,6 @@ class _$_ButterflySettings extends _ButterflySettings {
   @override
   @JsonKey()
   final String documentPath;
-  @override
-  @JsonKey()
-  final String dateFormat;
   @override
   @JsonKey()
   final double touchSensitivity;
@@ -1222,7 +1205,7 @@ class _$_ButterflySettings extends _ButterflySettings {
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, dateFormat: $dateFormat, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack)';
   }
 
   @override
@@ -1235,8 +1218,6 @@ class _$_ButterflySettings extends _ButterflySettings {
                 other.localeTag == localeTag) &&
             (identical(other.documentPath, documentPath) ||
                 other.documentPath == documentPath) &&
-            (identical(other.dateFormat, dateFormat) ||
-                other.dateFormat == dateFormat) &&
             (identical(other.touchSensitivity, touchSensitivity) ||
                 other.touchSensitivity == touchSensitivity) &&
             (identical(other.mouseSensitivity, mouseSensitivity) ||
@@ -1276,7 +1257,6 @@ class _$_ButterflySettings extends _ButterflySettings {
         theme,
         localeTag,
         documentPath,
-        dateFormat,
         touchSensitivity,
         mouseSensitivity,
         penSensitivity,
@@ -1309,7 +1289,6 @@ abstract class _ButterflySettings extends ButterflySettings {
       {final ThemeMode theme,
       final String localeTag,
       final String documentPath,
-      final String dateFormat,
       final double touchSensitivity,
       final double mouseSensitivity,
       final double penSensitivity,
@@ -1335,8 +1314,6 @@ abstract class _ButterflySettings extends ButterflySettings {
   String get localeTag;
   @override
   String get documentPath;
-  @override
-  String get dateFormat;
   @override
   double get touchSensitivity;
   @override

@@ -20,7 +20,7 @@ Map<String, dynamic> _$$_AssetLocationToJson(_$_AssetLocation instance) =>
     };
 
 _$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(
-      name: json['name'] as String,
+      name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       content: (json['content'] as List<dynamic>?)
               ?.map((e) =>
