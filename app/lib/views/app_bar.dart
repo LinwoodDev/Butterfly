@@ -525,6 +525,18 @@ class _MainPopupMenu extends StatelessWidget {
               },
               child: Text(AppLocalizations.of(context).settings),
             ),
+            MenuItemButton(
+              leadingIcon: const Icon(PhosphorIcons.houseLight),
+              child: Text(AppLocalizations.of(context).home),
+              onPressed: () {
+                final router = GoRouter.of(context);
+                if (router.canPop()) {
+                  router.pop();
+                } else {
+                  router.go('/');
+                }
+              },
+            ),
           ] else ...[
             MenuItemButton(
               leadingIcon: const Icon(PhosphorIcons.doorLight),

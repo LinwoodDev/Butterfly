@@ -139,8 +139,9 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
   Future<bool> createDefault(BuildContext context, {bool force = false});
 
   Future<DocumentTemplate?> getTemplate(String name);
-  Future<DocumentTemplate> createTemplate(AppDocument document) async {
-    var template = DocumentTemplate(document: document);
+  Future<DocumentTemplate> createTemplate(AppDocument document,
+      [String thumbnail = '']) async {
+    var template = DocumentTemplate(document: document, thumbnail: thumbnail);
     var name = document.name;
     var attemps = 1;
     while (await hasTemplate(name)) {

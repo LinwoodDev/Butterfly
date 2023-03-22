@@ -31,6 +31,9 @@ ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
     );
   }
   return theme.copyWith(
+    dropdownMenuTheme: DropdownMenuThemeData(
+      inputDecorationTheme: defaultDropdownInputDecorationTheme(),
+    ),
     inputDecorationTheme: defaultDropdownInputDecorationTheme(),
   );
 }

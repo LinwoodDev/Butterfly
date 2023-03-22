@@ -1,9 +1,20 @@
+import 'package:butterfly/actions/settings.dart';
+import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/api/open.dart';
+import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/helpers/element_helper.dart';
 import 'package:butterfly/views/window.dart';
+import 'package:butterfly/visualizer/string.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:window_manager/window_manager.dart';
+
+import '../api/open_release_notes.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -80,12 +91,12 @@ class _HeaderHomeView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () => openHelp(['intro']),
             icon: const Icon(PhosphorIcons.bookOpenLight),
             label: Text(AppLocalizations.of(context).documentation),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () => openSettings(context),
             icon: const Icon(PhosphorIcons.gearLight),
             tooltip: AppLocalizations.of(context).settings,
           ),
@@ -93,12 +104,13 @@ class _HeaderHomeView extends StatelessWidget {
       );
       final isDesktop = constraints.maxWidth > 1000;
       final whatsNew = FilledButton(
-        onPressed: () {},
+        onPressed: openReleaseNotes,
         style: FilledButton.styleFrom(
           padding: const EdgeInsets.symmetric(
             horizontal: 32,
-            vertical: 16,
+            vertical: 20,
           ),
+          textStyle: const TextStyle(fontSize: 20),
         ),
         child: const Text('What\'s new?'),
       );
@@ -161,7 +173,7 @@ class _HeaderHomeView extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: [
                 colorScheme.inverseSurface,
-                colorScheme.inversePrimary,
+                colorScheme.primary,
               ],
               stops: const [0, 0.8],
             ),
@@ -192,8 +204,32 @@ class _HeaderHomeView extends StatelessWidget {
   }
 }
 
-class _FilesHomeView extends StatelessWidget {
+class _FilesHomeView extends StatefulWidget {
   const _FilesHomeView();
+
+  @override
+  State<_FilesHomeView> createState() => _FilesHomeViewState();
+}
+
+enum _SortBy { name, created, modified }
+
+class _FilesHomeViewState extends State<_FilesHomeView> {
+  bool _gridView = false;
+  String _source = '';
+  _SortBy _sortBy = _SortBy.name;
+  final String _location =
+      'Documents/My Files/Test/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y/Z';
+
+  @override
+  void initState() {
+    super.initState();
+    final state = context.read<SettingsCubit>().state;
+    _source = state.defaultRemote;
+  }
+
+  String getLocalizedNameOfSortBy(_SortBy sortBy) {
+    return sortBy.name.toDisplayString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -216,8 +252,10 @@ class _FilesHomeView extends StatelessWidget {
             children: [
               const Text('Switch view'),
               IconButton(
-                onPressed: () {},
-                icon: const Icon(PhosphorIcons.gridFourLight),
+                onPressed: () => setState(() => _gridView = !_gridView),
+                icon: _gridView
+                    ? const Icon(PhosphorIcons.listLight)
+                    : const Icon(PhosphorIcons.gridFourLight),
               ),
             ],
           ),
@@ -228,16 +266,30 @@ class _FilesHomeView extends StatelessWidget {
               const SizedBox(width: 8),
               SizedBox(
                 width: 150,
-                child: DropdownButtonFormField(
-                  items: const [
-                    DropdownMenuItem(
-                      value: 0,
-                      child: Text('Local'),
-                    ),
-                  ],
-                  value: 0,
-                  onChanged: (int? value) {},
-                ),
+                child: BlocBuilder<SettingsCubit, ButterflySettings>(
+                    builder: (context, state) {
+                  final remoteSources = state.remotes.map((e) => e.identifier);
+                  final sources = ['', ...remoteSources];
+                  final currentSelected =
+                      sources.contains(_source) ? _source : state.defaultRemote;
+                  return DropdownButtonFormField<String>(
+                    items: [
+                      const DropdownMenuItem(
+                        value: '',
+                        child: Text('Local'),
+                      ),
+                      ...remoteSources
+                          .map((e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(e),
+                              ))
+                          .toList(),
+                    ],
+                    borderRadius: BorderRadius.circular(16),
+                    value: currentSelected,
+                    onChanged: (value) => setState(() => _source = value ?? ''),
+                  );
+                }),
               ),
             ],
           ),
@@ -248,21 +300,28 @@ class _FilesHomeView extends StatelessWidget {
               const SizedBox(width: 8),
               SizedBox(
                 width: 150,
-                child: DropdownButtonFormField(
-                  items: const [
-                    DropdownMenuItem(
-                      value: 0,
-                      child: Text('Latest'),
-                    ),
-                  ],
+                child: DropdownButtonFormField<_SortBy>(
+                  items: _SortBy.values
+                      .map((e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(getLocalizedNameOfSortBy(e)),
+                          ))
+                      .toList(),
                   borderRadius: BorderRadius.circular(16),
-                  value: 0,
-                  onChanged: (int? value) {},
+                  value: _sortBy,
+                  onChanged: (value) =>
+                      setState(() => _sortBy = value ?? _sortBy),
                 ),
               ),
             ],
           ),
         ],
+      ),
+      const SizedBox(height: 8),
+      Text(
+        _location,
+        style: Theme.of(context).textTheme.bodySmall,
+        textAlign: TextAlign.start,
       ),
       const SizedBox(height: 16),
       ListView.builder(
@@ -288,12 +347,14 @@ class _FilesHomeView extends StatelessWidget {
                         )
                       : BorderSide.none,
                 ),
-                surfaceTintColor: index == 3
+                surfaceTintColor: selected
                     ? colorScheme.primaryContainer
                     : colorScheme.secondaryContainer,
                 clipBehavior: Clip.hardEdge,
                 child: InkWell(
-                    onTap: () {},
+                    onTap: () => GoRouter.of(context).pushNamed('new'),
+                    highlightColor:
+                        selected ? colorScheme.primaryContainer : null,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         vertical: 8,
@@ -369,6 +430,7 @@ class _QuickstartHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
@@ -382,55 +444,79 @@ class _QuickstartHomeView extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(height: 16),
-          Wrap(
-            alignment: WrapAlignment.center,
-            runAlignment: WrapAlignment.center,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            runSpacing: 16,
-            spacing: 16,
-            children: [
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxHeight: 200),
-                child: AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Card(
-                    color: Colors.white70,
-                    elevation: 5,
-                    margin: const EdgeInsets.all(8),
-                    child: Align(
-                      child: Text(
-                        'Light',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineLarge
-                            ?.copyWith(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxHeight: 200),
-                child: AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Card(
-                    color: Colors.black87,
-                    elevation: 5,
-                    margin: const EdgeInsets.all(8),
-                    child: Align(
-                      child: Text(
-                        'Dark',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineLarge
-                            ?.copyWith(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
+          FutureBuilder<List<DocumentTemplate>>(
+              future: context.read<TemplateFileSystem>().getTemplates(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text(snapshot.error.toString());
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Align(
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                final templates = snapshot.data ?? [];
+                return Wrap(
+                  alignment: WrapAlignment.center,
+                  runAlignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  runSpacing: 16,
+                  spacing: 16,
+                  children: templates
+                      .map(
+                        (e) => FutureBuilder<List<int>>(
+                            future: e.getThumbnailData(),
+                            builder: (context, snapshot) => ConstrainedBox(
+                                  constraints:
+                                      const BoxConstraints(maxHeight: 200),
+                                  child: AspectRatio(
+                                    aspectRatio: 16 / 9,
+                                    child: Card(
+                                      elevation: 5,
+                                      clipBehavior: Clip.hardEdge,
+                                      child: Stack(
+                                        children: [
+                                          if (snapshot.hasData)
+                                            Align(
+                                              child: Image.memory(
+                                                Uint8List.fromList(
+                                                    snapshot.data!),
+                                                fit: BoxFit.cover,
+                                                width: 640,
+                                                alignment: Alignment.center,
+                                              ),
+                                            ),
+                                          Align(
+                                            child: Container(
+                                              padding: const EdgeInsets.all(8),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                color: colorScheme
+                                                    .primaryContainer,
+                                              ),
+                                              child: Text(
+                                                e.name,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineLarge
+                                                    ?.copyWith(
+                                                      color:
+                                                          colorScheme.onSurface,
+                                                    ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )),
+                      )
+                      .toList(),
+                );
+              }),
         ]),
       ),
     );

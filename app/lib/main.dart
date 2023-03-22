@@ -198,6 +198,13 @@ class ButterflyApp extends StatelessWidget {
                   ),
                 ]),
             GoRoute(
+              name: 'new',
+              path: '/new',
+              builder: (context, state) {
+                return const ProjectPage();
+              },
+            ),
+            GoRoute(
               name: 'local',
               path: '/local/:path(.*)',
               builder: (context, state) {
