@@ -68,7 +68,6 @@ class HomePage extends StatelessWidget {
 
 class _HeaderHomeView extends StatelessWidget {
   const _HeaderHomeView({
-    super.key,
     required this.colorScheme,
   });
 
@@ -80,9 +79,10 @@ class _HeaderHomeView extends StatelessWidget {
       final actions = Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextButton(
+          TextButton.icon(
             onPressed: () {},
-            child: Text(AppLocalizations.of(context).documentation),
+            icon: const Icon(PhosphorIcons.bookOpenLight),
+            label: Text(AppLocalizations.of(context).documentation),
           ),
           IconButton(
             onPressed: () {},
@@ -113,11 +113,17 @@ class _HeaderHomeView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Linwood Butterfly',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(),
+                'Hey, this is Linwood Butterfly',
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: colorScheme.onInverseSurface,
+                    ),
               ),
-              Text(AppLocalizations.of(context).welcome,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith()),
+              Text(
+                'A free and open-cource drawing space!',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onInverseSurface,
+                    ),
+              ),
             ],
           ),
         ],
@@ -150,7 +156,7 @@ class _HeaderHomeView extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                colorScheme.surfaceVariant,
+                colorScheme.inverseSurface,
                 colorScheme.inversePrimary,
               ],
               stops: const [0, 0.8],
@@ -223,9 +229,6 @@ class _FilesHomeView extends StatelessWidget {
                       child: Text('Local'),
                     ),
                   ],
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
                   value: 0,
                   onChanged: (int? value) {},
                 ),
@@ -246,9 +249,7 @@ class _FilesHomeView extends StatelessWidget {
                       child: Text('Latest'),
                     ),
                   ],
-                  decoration: const InputDecoration(
-                    filled: true,
-                  ),
+                  borderRadius: BorderRadius.circular(16),
                   value: 0,
                   onChanged: (int? value) {},
                 ),
@@ -262,70 +263,83 @@ class _FilesHomeView extends StatelessWidget {
         shrinkWrap: true,
         itemCount: 50,
         itemBuilder: (context, index) {
+          final selected = index == 3;
           return Row(
             children: [
               Expanded(
-                  child: Card(
-                      elevation: 5,
-                      margin: const EdgeInsets.symmetric(
+                  child: InkWell(
+                onTap: () {},
+                child: Card(
+                    elevation: 5,
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 0,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      side: selected
+                          ? BorderSide(
+                              color: colorScheme.primaryContainer,
+                              width: 1,
+                            )
+                          : BorderSide.none,
+                    ),
+                    surfaceTintColor: index == 3
+                        ? colorScheme.primaryContainer
+                        : colorScheme.secondaryContainer,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
                         vertical: 8,
-                        horizontal: 0,
+                        horizontal: 32,
                       ),
-                      surfaceTintColor: index == 3
-                          ? colorScheme.primary
-                          : colorScheme.secondaryContainer,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8,
-                          horizontal: 32,
-                        ),
-                        child: LayoutBuilder(builder: (context, constraints) {
-                          final fileName = Text('File $index');
-                          final actions = Row(
-                            mainAxisSize: MainAxisSize.min,
+                      child: LayoutBuilder(builder: (context, constraints) {
+                        final fileName = Text('File $index');
+                        final actions = Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(PhosphorIcons.starLight),
+                            ),
+                          ],
+                        );
+                        final modified = Text(
+                          '1 hour ago',
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: colorScheme.outline,
+                                  ),
+                        );
+                        final isDesktop = constraints.maxWidth > 400;
+                        if (isDesktop) {
+                          return Row(
                             children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(PhosphorIcons.starLight),
-                              ),
+                              Expanded(child: fileName),
+                              const SizedBox(width: 32),
+                              modified,
+                              const SizedBox(width: 32),
+                              actions,
                             ],
                           );
-                          final modified = Text(
-                            '1 hour ago',
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: colorScheme.outline,
-                                    ),
+                        } else {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  fileName,
+                                  const SizedBox(height: 8),
+                                  modified,
+                                ],
+                              ),
+                              const SizedBox(width: 8),
+                              actions,
+                            ],
                           );
-                          final isDesktop = constraints.maxWidth > 400;
-                          if (isDesktop) {
-                            return Row(
-                              children: [
-                                Expanded(child: fileName),
-                                const SizedBox(width: 32),
-                                actions,
-                                const SizedBox(width: 32),
-                                modified,
-                              ],
-                            );
-                          } else {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    fileName,
-                                    const SizedBox(height: 8),
-                                    modified,
-                                  ],
-                                ),
-                                const SizedBox(width: 8),
-                                actions,
-                              ],
-                            );
-                          }
-                        }),
-                      ))),
+                        }
+                      }),
+                    )),
+              )),
               const SizedBox(width: 16),
               IconButton(
                 onPressed: () {},
@@ -349,6 +363,9 @@ class _QuickstartHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(32),
         child:
