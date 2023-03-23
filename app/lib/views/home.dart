@@ -111,16 +111,41 @@ class _HeaderHomeView extends StatelessWidget {
         ],
       );
       final isDesktop = constraints.maxWidth > 1000;
-      final whatsNew = FilledButton(
-        onPressed: openReleaseNotes,
-        style: FilledButton.styleFrom(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 32,
-            vertical: 20,
-          ),
-          textStyle: const TextStyle(fontSize: 20),
-        ),
-        child: const Text('What\'s new?'),
+      final settingsCubit = context.read<SettingsCubit>();
+      final whatsNew = FutureBuilder<bool>(
+        future: settingsCubit.hasNewerVersion(),
+        builder: (context, snapshot) {
+          final style = FilledButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 32,
+              vertical: 20,
+            ),
+            textStyle: const TextStyle(fontSize: 20),
+          );
+          void openNew() {
+            openReleaseNotes();
+            settingsCubit.updateLastVersion();
+          }
+
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              (snapshot.data ?? false)
+                  ? FilledButton(
+                      onPressed: openNew,
+                      style: style,
+                      child: Text(AppLocalizations.of(context).whatsNew),
+                    )
+                  : ElevatedButton(
+                      onPressed: openNew,
+                      style: style,
+                      child: Text(AppLocalizations.of(context).whatsNew),
+                    ),
+              if (snapshot.data ?? false)
+                const Icon(PhosphorIcons.caretUpLight),
+            ],
+          );
+        },
       );
       final logo = Row(
         mainAxisSize: MainAxisSize.min,
@@ -224,7 +249,7 @@ enum _SortBy { name, created, modified }
 
 class _FilesHomeViewState extends State<_FilesHomeView> {
   final TextEditingController _locationController = TextEditingController();
-  bool _gridView = false;
+  //bool _gridView = false;
   RemoteStorage? _remote;
   _SortBy _sortBy = _SortBy.name;
   String _search = '';
@@ -257,7 +282,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
             style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.start,
           ),
-          Row(
+          /*Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text('Switch view'),
@@ -268,7 +293,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                     : const Icon(PhosphorIcons.gridFourLight),
               ),
             ],
-          ),
+          ),*/
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [

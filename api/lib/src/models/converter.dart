@@ -94,6 +94,14 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
           }
           return e;
         }).toList();
+        if (json['createdAt'] is String) {
+          json['createdAt'] = DateTime.parse(json['createdAt'] as String)
+              .millisecondsSinceEpoch;
+        }
+        if (json['updatedAt'] is String) {
+          json['updatedAt'] = DateTime.parse(json['updatedAt'] as String)
+              .millisecondsSinceEpoch;
+        }
       }
     }
     return AppDocument.fromJson(Map<String, dynamic>.from(json));

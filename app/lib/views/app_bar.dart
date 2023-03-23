@@ -105,7 +105,8 @@ class _AppBarTitle extends StatelessWidget {
           return true;
         }
         return previous.currentAreaName != current.currentAreaName ||
-            previous.hasAutosave() != current.hasAutosave();
+            previous.hasAutosave() != current.hasAutosave() ||
+            previous.document.name != current.document.name;
       }, builder: (context, state) {
         final title = Row(children: [
           Flexible(
@@ -123,9 +124,8 @@ class _AppBarTitle extends StatelessWidget {
                       final areaName = state is DocumentLoadSuccess
                           ? state.currentAreaName
                           : null;
-                      _nameController.text = state is DocumentLoadSuccess
-                          ? state.document.name
-                          : '';
+                      _nameController.text =
+                          state is DocumentLoaded ? state.document.name : '';
                       _areaController.text = area?.name ?? '';
                       void submit(String? value) {
                         if (value == null) return;
