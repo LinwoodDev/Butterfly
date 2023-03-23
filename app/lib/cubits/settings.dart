@@ -526,4 +526,9 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     emit(state.copyWith(inputConfiguration: inputConfiguration));
     return save();
   }
+
+  RemoteStorage? getRemote(String remote) {
+    return state.remotes
+        .firstWhereOrNull((element) => element.identifier == remote);
+  }
 }

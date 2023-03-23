@@ -168,6 +168,9 @@ class _ProjectPageState extends State<ProjectPage> {
       if (!documentOpened) {
         location = null;
       }
+      if (widget.type.isEmpty && widget.data is AppDocument) {
+        document = (widget.data as AppDocument).copyWith(name: name);
+      }
       if (document == null && prefs.containsKey('default_template')) {
         var template = await TemplateFileSystem.fromPlatform(remote: remote)
             .getTemplate(prefs.getString('default_template')!);
@@ -200,7 +203,9 @@ class _ProjectPageState extends State<ProjectPage> {
             location!, background, renderers);
         _bloc?.load();
         _importService = ImportService(_bloc!, context);
-        _importService.load(widget.type, widget.data);
+        if (widget.type.isNotEmpty) {
+          _importService.load(widget.type, widget.data);
+        }
       });
     } catch (e) {
       if (kDebugMode) {

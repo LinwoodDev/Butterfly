@@ -38,7 +38,7 @@ dependencies:
   share_plus: ^6.3.1
   package_info_plus: ^3.0.3
   idb_shim: ^2.3.0+2
-  go_router: ^6.4.0
+  go_router: ^6.4.1
   xml: ^6.2.2
   collection: ^1.17.1
   bloc_concurrency: ^0.2.1
@@ -74,6 +74,7 @@ dependencies:
       path: packages/lw_sysinfo
   flutter_localized_locales: ^2.0.4
   dynamic_color: ^1.6.2
+  popover: ^0.2.8+2
 dev_dependencies:
   flutter_native_splash: ^2.2.19
   #flutter_launcher_icons: ^0.11.0
