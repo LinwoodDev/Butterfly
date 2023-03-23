@@ -5,6 +5,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/export.dart';
+import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/helpers/element_helper.dart';
 import 'package:butterfly/views/window.dart';
 import 'package:butterfly/visualizer/asset.dart';
@@ -224,15 +225,16 @@ enum _SortBy { name, created, modified }
 class _FilesHomeViewState extends State<_FilesHomeView> {
   final TextEditingController _locationController = TextEditingController();
   bool _gridView = false;
-  String _source = '';
+  RemoteStorage? _remote;
   _SortBy _sortBy = _SortBy.name;
   String _search = '';
+  late final SettingsCubit _settingsCubit;
 
   @override
   void initState() {
     super.initState();
-    final state = context.read<SettingsCubit>().state;
-    _source = state.defaultRemote;
+    _settingsCubit = context.read<SettingsCubit>();
+    _remote = _settingsCubit.getRemote();
   }
 
   String getLocalizedNameOfSortBy(_SortBy sortBy) {
@@ -241,6 +243,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Wrap(
         alignment: WrapAlignment.spaceBetween,
@@ -250,7 +253,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
         spacing: 16,
         children: [
           Text(
-            'Files',
+            AppLocalizations.of(context).files,
             style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.start,
           ),
@@ -269,32 +272,40 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('Source'),
+              Text(AppLocalizations.of(context).source),
               const SizedBox(width: 8),
               SizedBox(
-                width: 150,
+                width: 200,
                 child: BlocBuilder<SettingsCubit, ButterflySettings>(
                     builder: (context, state) {
-                  final remoteSources = state.remotes.map((e) => e.identifier);
-                  final sources = ['', ...remoteSources];
-                  final currentSelected =
-                      sources.contains(_source) ? _source : state.defaultRemote;
-                  return DropdownButtonFormField<String>(
+                  return DropdownButtonFormField<RemoteStorage?>(
                     items: [
-                      const DropdownMenuItem(
-                        value: '',
-                        child: Text('Local'),
+                      DropdownMenuItem(
+                        value: null,
+                        child: Text(AppLocalizations.of(context).local),
                       ),
-                      ...remoteSources
+                      ...state.remotes
                           .map((e) => DropdownMenuItem(
                                 value: e,
-                                child: Text(e),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(e.uri.host),
+                                    Text(e.username),
+                                  ],
+                                ),
                               ))
                           .toList(),
                     ],
+                    itemHeight: 50,
+                    selectedItemBuilder: (context) => [
+                      Text(AppLocalizations.of(context).local),
+                      ...state.remotes.map((e) =>
+                          Text(e.uri.host, overflow: TextOverflow.ellipsis))
+                    ],
                     borderRadius: BorderRadius.circular(16),
-                    value: currentSelected,
-                    onChanged: (value) => setState(() => _source = value ?? ''),
+                    value: _remote,
+                    onChanged: (value) => setState(() => _remote = value),
                   );
                 }),
               ),
@@ -303,7 +314,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('Sort by'),
+              Text(AppLocalizations.of(context).sortBy),
               const SizedBox(width: 8),
               SizedBox(
                 width: 150,
@@ -327,9 +338,9 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
       const SizedBox(height: 16),
       LayoutBuilder(builder: (context, constraints) {
         final searchBar = TextFormField(
-          decoration: const InputDecoration(
-            hintText: 'Search',
-            prefixIcon: Icon(PhosphorIcons.magnifyingGlassLight),
+          decoration: InputDecoration(
+            hintText: AppLocalizations.of(context).search,
+            prefixIcon: const Icon(PhosphorIcons.magnifyingGlassLight),
             filled: true,
           ),
           initialValue: _search,
@@ -338,6 +349,79 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
         final locationBar = Row(
           mainAxisSize: MainAxisSize.min,
           children: [
+            MenuAnchor(
+              menuChildren: [
+                MenuItemButton(
+                  leadingIcon: const Icon(PhosphorIcons.folderLight),
+                  child: Text(AppLocalizations.of(context).newFolder),
+                  onPressed: () async {
+                    final name = await showDialog<String>(
+                      context: context,
+                      builder: (context) => NameDialog(),
+                    );
+                    if (name == null) return;
+                    final path = _locationController.text;
+                    final newPath = '$path/$name';
+                    await fileSystem.createDirectory(newPath);
+                    setState(() {});
+                  },
+                ),
+                MenuItemButton(
+                  onPressed: () async {
+                    final name = await showDialog<String>(
+                      context: context,
+                      builder: (context) => NameDialog(),
+                    );
+                    final templateFileSystem =
+                        TemplateFileSystem.fromPlatform(remote: _remote);
+                    final templates = await templateFileSystem.getTemplates();
+                    if (context.mounted) {
+                      final asset = await showDialog<DocumentTemplate>(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text(
+                                    AppLocalizations.of(context).templates),
+                                scrollable: true,
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: templates
+                                      .map((e) => ListTile(
+                                            title: Text(e.name),
+                                            onTap: () =>
+                                                Navigator.of(context).pop(e),
+                                          ))
+                                      .toList(),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(null),
+                                    child: Text(
+                                        AppLocalizations.of(context).cancel),
+                                  ),
+                                ],
+                              ));
+                      if (asset == null) return;
+                      final path = _locationController.text;
+                      var newPath = '$path/$name';
+                      if (!newPath.endsWith('.bfly')) {
+                        newPath += '.bfly';
+                      }
+                      await fileSystem.updateDocument(newPath, asset.document);
+                      setState(() {});
+                    }
+                  },
+                  leadingIcon: const Icon(PhosphorIcons.fileLight),
+                  child: Text(AppLocalizations.of(context).newFile),
+                ),
+              ],
+              builder: (context, controller, child) =>
+                  FloatingActionButton.small(
+                onPressed: () =>
+                    controller.isOpen ? controller.close() : controller.open(),
+                child: const Icon(PhosphorIcons.plusLight),
+              ),
+            ),
             IconButton(
               onPressed: _locationController.text.isEmpty
                   ? null
@@ -351,11 +435,11 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
             const SizedBox(width: 8),
             Flexible(
               child: TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Location',
-                  prefixIcon: Icon(PhosphorIcons.folderLight),
+                decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context).location,
+                  prefixIcon: const Icon(PhosphorIcons.folderLight),
                   filled: true,
-                  contentPadding: EdgeInsets.only(left: 32),
+                  contentPadding: const EdgeInsets.only(left: 32),
                 ),
                 controller: _locationController,
                 onFieldSubmitted: (value) => setState(() {}),
@@ -386,9 +470,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
       }),
       const SizedBox(height: 16),
       FutureBuilder<AppDocumentEntity?>(
-          future: context
-              .read<DocumentFileSystem>()
-              .getAsset(_locationController.text),
+          future: fileSystem.getAsset(_locationController.text),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Text(snapshot.error.toString());
@@ -405,7 +487,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                 return e.fileName.contains(_search);
               }
               return true;
-            }).toList();
+            }).toList()
+              ..sort(_sortAssets);
             return ListView.builder(
               shrinkWrap: true,
               itemCount: assets.length,
@@ -453,6 +536,59 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
           }),
     ]);
   }
+
+  int _sortAssets(AppDocumentEntity a, AppDocumentEntity b) {
+    final settings = _settingsCubit.state;
+    // Test if starred
+    final aStarred = settings.isStarred(a.location);
+    final bStarred = settings.isStarred(b.location);
+    if (aStarred && !bStarred) {
+      return -1;
+    }
+    if (bStarred && !aStarred) {
+      return 1;
+    }
+    if (a is AppDocumentDirectory) {
+      return -1;
+    }
+    if (b is AppDocumentDirectory) {
+      return 1;
+    }
+    final aFile = a as AppDocumentFile;
+    final bFile = b as AppDocumentFile;
+    final aInfo = aFile.getDocumentInfo();
+    final bInfo = bFile.getDocumentInfo();
+    if (aInfo == null) {
+      return 1;
+    }
+    if (bInfo == null) {
+      return -1;
+    }
+    switch (_sortBy) {
+      case _SortBy.name:
+        return aFile.fileName.compareTo(bFile.fileName);
+      case _SortBy.created:
+        final aCreatedAt = aInfo.createdAt;
+        final bCreatedAt = bInfo.createdAt;
+        if (aCreatedAt == null) {
+          return 1;
+        }
+        if (bCreatedAt == null) {
+          return -1;
+        }
+        return aCreatedAt.compareTo(bCreatedAt);
+      case _SortBy.modified:
+        final aModifiedAt = aInfo.updatedAt;
+        final bModifiedAt = bInfo.updatedAt;
+        if (aModifiedAt == null) {
+          return 1;
+        }
+        if (bModifiedAt == null) {
+          return -1;
+        }
+        return aModifiedAt.compareTo(bModifiedAt);
+    }
+  }
 }
 
 class _FileEntityListTile extends StatelessWidget {
@@ -470,8 +606,8 @@ class _FileEntityListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final remote =
-        context.read<SettingsCubit>().getRemote(entity.location.remote);
+    final settingsCubit = context.read<SettingsCubit>();
+    final remote = settingsCubit.getRemote(entity.location.remote);
     final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
     DocumentInfo? info;
     String? modifiedText;
@@ -573,11 +709,22 @@ class _FileEntityListTile extends StatelessWidget {
                           );
                     final actions = Row(
                       mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(PhosphorIcons.starLight),
-                        ),
+                        BlocBuilder<SettingsCubit, ButterflySettings>(
+                            builder: (context, state) {
+                          final starred = state.isStarred(entity.location);
+                          return IconButton(
+                            onPressed: () {
+                              settingsCubit.toggleStarred(entity.location);
+                              onReload();
+                            },
+                            icon: starred
+                                ? const Icon(PhosphorIcons.starFill)
+                                : const Icon(PhosphorIcons.starLight),
+                            isSelected: starred,
+                          );
+                        }),
                       ],
                     );
                     final modified = Text(
@@ -634,67 +781,80 @@ class _FileEntityListTile extends StatelessWidget {
               )),
         )),
         const SizedBox(width: 16),
-        if (entity is AppDocumentFile)
-          IconButton(
-            onPressed: () => showDialog(
-                context: context,
-                builder: (context) => ExportDialog(
-                    data: utf8.decode((entity as AppDocumentFile).data))),
-            icon: const Icon(PhosphorIcons.paperPlaneRightLight),
-          ),
-        Builder(builder: (context) {
-          return IconButton(
-            icon: const Icon(PhosphorIcons.trashLight),
-            highlightColor: colorScheme.error.withOpacity(0.2),
-            onPressed: () {
-              showPopover(
-                backgroundColor: colorScheme.inverseSurface,
-                context: context,
-                bodyBuilder: (ctx) => Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context).areYouSure,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: colorScheme.onInverseSurface,
-                            ),
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(ctx).pop();
-                            },
-                            child: const Icon(PhosphorIcons.xLight),
-                          ),
-                          FilledButton(
-                            onPressed: () {
-                              Navigator.of(ctx).pop();
-                              fileSystem.deleteAsset(entity.location.path);
-                              onReload();
-                            },
-                            child: const Icon(PhosphorIcons.checkLight),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+        SizedBox(
+          width: 80,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (entity is AppDocumentFile)
+                IconButton(
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => ExportDialog(
+                          data: utf8.decode((entity as AppDocumentFile).data))),
+                  icon: const Icon(PhosphorIcons.paperPlaneRightLight),
                 ),
-                direction: PopoverDirection.bottom,
-                width: 200,
-                height: 130,
-                arrowHeight: 15,
-                arrowWidth: 20,
-              );
-            },
-          );
-        }),
+              Builder(builder: (context) {
+                return IconButton(
+                  icon: const Icon(PhosphorIcons.trashLight),
+                  highlightColor: colorScheme.error.withOpacity(0.2),
+                  onPressed: () {
+                    showPopover(
+                      backgroundColor: colorScheme.inverseSurface,
+                      context: context,
+                      bodyBuilder: (ctx) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 16),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context).areYouSure,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    color: colorScheme.onInverseSurface,
+                                  ),
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(ctx).pop();
+                                  },
+                                  child: const Icon(PhosphorIcons.xLight),
+                                ),
+                                FilledButton(
+                                  onPressed: () {
+                                    Navigator.of(ctx).pop();
+                                    fileSystem
+                                        .deleteAsset(entity.location.path);
+                                    onReload();
+                                  },
+                                  child: const Icon(PhosphorIcons.checkLight),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      direction: PopoverDirection.bottom,
+                      width: 200,
+                      height: 130,
+                      arrowHeight: 15,
+                      arrowWidth: 20,
+                    );
+                  },
+                );
+              }),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -706,6 +866,7 @@ class _QuickstartHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final templateFileSystem = context.read<TemplateFileSystem>();
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
@@ -720,7 +881,7 @@ class _QuickstartHomeView extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           FutureBuilder<List<DocumentTemplate>>(
-              future: context.read<TemplateFileSystem>().getTemplates(),
+              future: templateFileSystem.getTemplates(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());

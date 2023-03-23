@@ -393,6 +393,7 @@
   "ruler": "Ruler",
   "angle": "Angle",
   "report": "Report",
+  "newFile": "New file",
   "newFolder": "New folder",
   "createPack": "Create pack",
   "editPack": "Edit pack",
@@ -477,5 +478,8 @@
   "emphasis": "Emphasis",
   "listBullet": "List bullet",
   "strong": "Strong",
-  "home": "Home"
+  "home": "Home",
+  "files": "Files",
+  "sortBy": "Sort by",
+  "location": "Location"
 }

@@ -217,7 +217,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       request.body = body;
     }
     request.headers['Authorization'] =
-        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getPassword()}'))}';
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}';
     return client.send(request);
   }
 
@@ -512,7 +512,7 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
       request.body = body;
     }
     request.headers['Authorization'] =
-        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getPassword()}'))}';
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}';
     return client.send(request);
   }
 
@@ -637,7 +637,7 @@ class DavRemotePackFileSystem extends PackFileSystem with DavRemoteSystem {
       request.body = body;
     }
     request.headers['Authorization'] =
-        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getPassword()}'))}';
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}';
     return client.send(request);
   }
 

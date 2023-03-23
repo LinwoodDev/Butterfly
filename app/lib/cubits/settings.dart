@@ -14,6 +14,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'settings.freezed.dart';
 part 'settings.g.dart';
 
+const secureStorage = FlutterSecureStorage(
+  aOptions: AndroidOptions(
+    encryptedSharedPreferences: true,
+  ),
+);
 const kRecentHistorySize = 5;
 
 @freezed
@@ -26,6 +31,7 @@ class RemoteStorage with _$RemoteStorage {
     required String templatesPath,
     required String packsPath,
     @Default([]) List<String> cachedDocuments,
+    @Default([]) List<String> starred,
     @Uint8ListJsonConverter() required Uint8List icon,
     DateTime? lastSynced,
   }) = DavRemoteStorage;
@@ -36,6 +42,8 @@ class RemoteStorage with _$RemoteStorage {
   const RemoteStorage._();
 
   Uri get uri => Uri.parse(url);
+
+  String get displayName => '$username@${uri.host}';
 
   Uri buildUri({
     List<String> path = const [],
@@ -93,9 +101,6 @@ class RemoteStorage with _$RemoteStorage {
 
   String get identifier => '$username@${uri.host}/$path';
 
-  Future<String> getPassword() async =>
-      (await const FlutterSecureStorage().read(key: 'remotes/$identifier')) ??
-      '';
   DocumentFileSystem get documentFileSystem =>
       DocumentFileSystem.fromPlatform(remote: this);
 
@@ -116,6 +121,14 @@ class RemoteStorage with _$RemoteStorage {
       return false;
     });
   }
+
+  String encodeIdentifier() => base64Encode(utf8.encode(identifier));
+
+  Future<String?> getRemotePassword() =>
+      secureStorage.read(key: 'remotes/${encodeIdentifier()}');
+
+  Future<void> writeRemotePassword(String password) => secureStorage.write(
+      key: 'remotes/${encodeIdentifier()}', value: password);
 }
 
 enum SyncMode { always, noMobile, manual }
@@ -160,6 +173,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(SyncMode.noMobile) SyncMode syncMode,
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
     @Default('') String fallbackPack,
+    @Default([]) List<String> starred,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
@@ -209,6 +223,7 @@ class ButterflySettings with _$ButterflySettings {
         json.decode(prefs.getString('input_configuration') ?? '{}'),
       ),
       fallbackPack: prefs.getString('fallback_pack') ?? '',
+      starred: prefs.getStringList('starred') ?? [],
     );
   }
 
@@ -251,6 +266,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString(
         'input_configuration', json.encode(inputConfiguration.toJson()));
     await prefs.setString('fallback_pack', fallbackPack);
+    await prefs.setStringList('starred', starred);
     await prefs.setInt('version', 0);
   }
 
@@ -271,6 +287,13 @@ class ButterflySettings with _$ButterflySettings {
 
   TemplateFileSystem getDefaultTemplateFileSystem() =>
       TemplateFileSystem.fromPlatform(remote: getDefaultRemote());
+
+  bool isStarred(AssetLocation location) {
+    if (location.remote.isEmpty) {
+      return starred.contains(location.path);
+    }
+    return getRemote(location.remote)?.starred.contains(location.path) ?? false;
+  }
 }
 
 class SettingsCubit extends Cubit<ButterflySettings> {
@@ -436,8 +459,7 @@ class SettingsCubit extends Cubit<ButterflySettings> {
         remotes: List.from(state.remotes)
           ..removeWhere((element) => element.identifier == storage.identifier)
           ..add(storage)));
-    const FlutterSecureStorage()
-        .write(key: 'remotes/${storage.identifier}', value: password);
+    storage.writeRemotePassword(password);
     return save();
   }
 
@@ -527,8 +549,38 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  RemoteStorage? getRemote(String remote) {
-    return state.remotes
-        .firstWhereOrNull((element) => element.identifier == remote);
+  RemoteStorage? getRemote([String? remote]) {
+    return state.remotes.firstWhereOrNull(
+        (element) => element.identifier == (remote ?? state.defaultRemote));
+  }
+
+  Future<void> toggleStarred(AssetLocation location) {
+    if (location.remote.isEmpty) {
+      final starred = state.starred.toList();
+      if (starred.contains(location.path)) {
+        starred.remove(location.path);
+      } else {
+        starred.add(location.path);
+      }
+      emit(state.copyWith(starred: starred));
+    } else {
+      final remote = getRemote(location.remote);
+      if (remote != null) {
+        final starred = remote.starred.toList();
+        if (starred.contains(location.path)) {
+          starred.remove(location.path);
+        } else {
+          starred.add(location.path);
+        }
+        emit(state.copyWith(
+            remotes: List<RemoteStorage>.from(state.remotes).map((e) {
+          if (e.identifier == remote.identifier) {
+            return e.copyWith(starred: starred);
+          }
+          return e;
+        }).toList()));
+      }
+    }
+    return save();
   }
 }

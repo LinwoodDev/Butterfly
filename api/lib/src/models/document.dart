@@ -135,11 +135,11 @@ class DocumentInfo {
 
   String get description => json['description'] ?? '';
 
-  DateTime? get updatedAt => json['updatedAt'] == null
+  DateTime? get updatedAt => json['updatedAt'] is! int
       ? null
       : DateTime.fromMillisecondsSinceEpoch(json['updatedAt']);
 
-  DateTime? get createdAt => json['createdAt'] == null
+  DateTime? get createdAt => json['createdAt'] is! int
       ? null
       : DateTime.fromMillisecondsSinceEpoch(json['createdAt']);
 

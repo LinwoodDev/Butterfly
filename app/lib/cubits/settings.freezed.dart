@@ -27,6 +27,7 @@ mixin _$RemoteStorage {
   String get templatesPath => throw _privateConstructorUsedError;
   String get packsPath => throw _privateConstructorUsedError;
   List<String> get cachedDocuments => throw _privateConstructorUsedError;
+  List<String> get starred => throw _privateConstructorUsedError;
   @Uint8ListJsonConverter()
   Uint8List get icon => throw _privateConstructorUsedError;
   DateTime? get lastSynced => throw _privateConstructorUsedError;
@@ -40,6 +41,7 @@ mixin _$RemoteStorage {
             String templatesPath,
             String packsPath,
             List<String> cachedDocuments,
+            List<String> starred,
             @Uint8ListJsonConverter() Uint8List icon,
             DateTime? lastSynced)
         dav,
@@ -55,6 +57,7 @@ mixin _$RemoteStorage {
             String templatesPath,
             String packsPath,
             List<String> cachedDocuments,
+            List<String> starred,
             @Uint8ListJsonConverter() Uint8List icon,
             DateTime? lastSynced)?
         dav,
@@ -70,6 +73,7 @@ mixin _$RemoteStorage {
             String templatesPath,
             String packsPath,
             List<String> cachedDocuments,
+            List<String> starred,
             @Uint8ListJsonConverter() Uint8List icon,
             DateTime? lastSynced)?
         dav,
@@ -112,6 +116,7 @@ abstract class $RemoteStorageCopyWith<$Res> {
       String templatesPath,
       String packsPath,
       List<String> cachedDocuments,
+      List<String> starred,
       @Uint8ListJsonConverter() Uint8List icon,
       DateTime? lastSynced});
 }
@@ -136,6 +141,7 @@ class _$RemoteStorageCopyWithImpl<$Res, $Val extends RemoteStorage>
     Object? templatesPath = null,
     Object? packsPath = null,
     Object? cachedDocuments = null,
+    Object? starred = null,
     Object? icon = null,
     Object? lastSynced = freezed,
   }) {
@@ -168,6 +174,10 @@ class _$RemoteStorageCopyWithImpl<$Res, $Val extends RemoteStorage>
           ? _value.cachedDocuments
           : cachedDocuments // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      starred: null == starred
+          ? _value.starred
+          : starred // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       icon: null == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
@@ -196,6 +206,7 @@ abstract class _$$DavRemoteStorageCopyWith<$Res>
       String templatesPath,
       String packsPath,
       List<String> cachedDocuments,
+      List<String> starred,
       @Uint8ListJsonConverter() Uint8List icon,
       DateTime? lastSynced});
 }
@@ -218,6 +229,7 @@ class __$$DavRemoteStorageCopyWithImpl<$Res>
     Object? templatesPath = null,
     Object? packsPath = null,
     Object? cachedDocuments = null,
+    Object? starred = null,
     Object? icon = null,
     Object? lastSynced = freezed,
   }) {
@@ -250,6 +262,10 @@ class __$$DavRemoteStorageCopyWithImpl<$Res>
           ? _value._cachedDocuments
           : cachedDocuments // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      starred: null == starred
+          ? _value._starred
+          : starred // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       icon: null == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
@@ -273,9 +289,11 @@ class _$DavRemoteStorage extends DavRemoteStorage {
       required this.templatesPath,
       required this.packsPath,
       final List<String> cachedDocuments = const [],
+      final List<String> starred = const [],
       @Uint8ListJsonConverter() required this.icon,
       this.lastSynced})
       : _cachedDocuments = cachedDocuments,
+        _starred = starred,
         super._();
 
   factory _$DavRemoteStorage.fromJson(Map<String, dynamic> json) =>
@@ -302,6 +320,15 @@ class _$DavRemoteStorage extends DavRemoteStorage {
     return EqualUnmodifiableListView(_cachedDocuments);
   }
 
+  final List<String> _starred;
+  @override
+  @JsonKey()
+  List<String> get starred {
+    if (_starred is EqualUnmodifiableListView) return _starred;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_starred);
+  }
+
   @override
   @Uint8ListJsonConverter()
   final Uint8List icon;
@@ -310,7 +337,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
 
   @override
   String toString() {
-    return 'RemoteStorage.dav(username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, icon: $icon, lastSynced: $lastSynced)';
+    return 'RemoteStorage.dav(username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, starred: $starred, icon: $icon, lastSynced: $lastSynced)';
   }
 
   @override
@@ -330,6 +357,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
                 other.packsPath == packsPath) &&
             const DeepCollectionEquality()
                 .equals(other._cachedDocuments, _cachedDocuments) &&
+            const DeepCollectionEquality().equals(other._starred, _starred) &&
             const DeepCollectionEquality().equals(other.icon, icon) &&
             (identical(other.lastSynced, lastSynced) ||
                 other.lastSynced == lastSynced));
@@ -346,6 +374,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
       templatesPath,
       packsPath,
       const DeepCollectionEquality().hash(_cachedDocuments),
+      const DeepCollectionEquality().hash(_starred),
       const DeepCollectionEquality().hash(icon),
       lastSynced);
 
@@ -366,12 +395,13 @@ class _$DavRemoteStorage extends DavRemoteStorage {
             String templatesPath,
             String packsPath,
             List<String> cachedDocuments,
+            List<String> starred,
             @Uint8ListJsonConverter() Uint8List icon,
             DateTime? lastSynced)
         dav,
   }) {
     return dav(username, url, path, documentsPath, templatesPath, packsPath,
-        cachedDocuments, icon, lastSynced);
+        cachedDocuments, starred, icon, lastSynced);
   }
 
   @override
@@ -385,12 +415,13 @@ class _$DavRemoteStorage extends DavRemoteStorage {
             String templatesPath,
             String packsPath,
             List<String> cachedDocuments,
+            List<String> starred,
             @Uint8ListJsonConverter() Uint8List icon,
             DateTime? lastSynced)?
         dav,
   }) {
     return dav?.call(username, url, path, documentsPath, templatesPath,
-        packsPath, cachedDocuments, icon, lastSynced);
+        packsPath, cachedDocuments, starred, icon, lastSynced);
   }
 
   @override
@@ -404,6 +435,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
             String templatesPath,
             String packsPath,
             List<String> cachedDocuments,
+            List<String> starred,
             @Uint8ListJsonConverter() Uint8List icon,
             DateTime? lastSynced)?
         dav,
@@ -411,7 +443,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
   }) {
     if (dav != null) {
       return dav(username, url, path, documentsPath, templatesPath, packsPath,
-          cachedDocuments, icon, lastSynced);
+          cachedDocuments, starred, icon, lastSynced);
     }
     return orElse();
   }
@@ -461,6 +493,7 @@ abstract class DavRemoteStorage extends RemoteStorage {
       required final String templatesPath,
       required final String packsPath,
       final List<String> cachedDocuments,
+      final List<String> starred,
       @Uint8ListJsonConverter() required final Uint8List icon,
       final DateTime? lastSynced}) = _$DavRemoteStorage;
   const DavRemoteStorage._() : super._();
@@ -482,6 +515,8 @@ abstract class DavRemoteStorage extends RemoteStorage {
   String get packsPath;
   @override
   List<String> get cachedDocuments;
+  @override
+  List<String> get starred;
   @override
   @Uint8ListJsonConverter()
   Uint8List get icon;
@@ -787,6 +822,7 @@ mixin _$ButterflySettings {
   InputConfiguration get inputConfiguration =>
       throw _privateConstructorUsedError;
   String get fallbackPack => throw _privateConstructorUsedError;
+  List<String> get starred => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -819,7 +855,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       bool startInFullScreen,
       SyncMode syncMode,
       InputConfiguration inputConfiguration,
-      String fallbackPack});
+      String fallbackPack,
+      List<String> starred});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
 }
@@ -857,6 +894,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? syncMode = null,
     Object? inputConfiguration = null,
     Object? fallbackPack = null,
+    Object? starred = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -939,6 +977,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.fallbackPack
           : fallbackPack // ignore: cast_nullable_to_non_nullable
               as String,
+      starred: null == starred
+          ? _value.starred
+          : starred // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 
@@ -980,7 +1022,8 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       bool startInFullScreen,
       SyncMode syncMode,
       InputConfiguration inputConfiguration,
-      String fallbackPack});
+      String fallbackPack,
+      List<String> starred});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -1017,6 +1060,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? syncMode = null,
     Object? inputConfiguration = null,
     Object? fallbackPack = null,
+    Object? starred = null,
   }) {
     return _then(_$_ButterflySettings(
       theme: null == theme
@@ -1099,6 +1143,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.fallbackPack
           : fallbackPack // ignore: cast_nullable_to_non_nullable
               as String,
+      starred: null == starred
+          ? _value._starred
+          : starred // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -1126,9 +1174,11 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.startInFullScreen = false,
       this.syncMode = SyncMode.noMobile,
       this.inputConfiguration = const InputConfiguration(),
-      this.fallbackPack = ''})
+      this.fallbackPack = '',
+      final List<String> starred = const []})
       : _history = history,
         _remotes = remotes,
+        _starred = starred,
         super._();
 
   @override
@@ -1202,10 +1252,18 @@ class _$_ButterflySettings extends _ButterflySettings {
   @override
   @JsonKey()
   final String fallbackPack;
+  final List<String> _starred;
+  @override
+  @JsonKey()
+  List<String> get starred {
+    if (_starred is EqualUnmodifiableListView) return _starred;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_starred);
+  }
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred)';
   }
 
   @override
@@ -1248,7 +1306,8 @@ class _$_ButterflySettings extends _ButterflySettings {
             (identical(other.inputConfiguration, inputConfiguration) ||
                 other.inputConfiguration == inputConfiguration) &&
             (identical(other.fallbackPack, fallbackPack) ||
-                other.fallbackPack == fallbackPack));
+                other.fallbackPack == fallbackPack) &&
+            const DeepCollectionEquality().equals(other._starred, _starred));
   }
 
   @override
@@ -1273,7 +1332,8 @@ class _$_ButterflySettings extends _ButterflySettings {
         startInFullScreen,
         syncMode,
         inputConfiguration,
-        fallbackPack
+        fallbackPack,
+        const DeepCollectionEquality().hash(_starred)
       ]);
 
   @JsonKey(ignore: true)
@@ -1305,7 +1365,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final bool startInFullScreen,
       final SyncMode syncMode,
       final InputConfiguration inputConfiguration,
-      final String fallbackPack}) = _$_ButterflySettings;
+      final String fallbackPack,
+      final List<String> starred}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
   @override
@@ -1348,6 +1409,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   InputConfiguration get inputConfiguration;
   @override
   String get fallbackPack;
+  @override
+  List<String> get starred;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>
