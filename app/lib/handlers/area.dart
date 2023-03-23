@@ -96,7 +96,7 @@ class AreaHandler extends Handler<AreaPainter> {
               value: context.read<DocumentBloc>(),
               child: NameDialog(
                   validator: defaultNameValidator(
-                      context, null, state.document.getAreaNames().toList()))));
+                      context, state.document.getAreaNames().toList()))));
     }
     var name = '', index = 1;
     while (name.isEmpty || state.document.getAreaByName(name) != null) {

@@ -23,12 +23,14 @@ class AdvancedTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: icon,
+        filled: true,
         suffix: IconButton(
-            onPressed: () {
-              controller.text = resetValue;
-              onChanged?.call(resetValue);
-            },
-            icon: const Icon(PhosphorIcons.clockClockwiseLight)),
+          onPressed: () {
+            controller.text = resetValue;
+            onChanged?.call(resetValue);
+          },
+          icon: const Icon(PhosphorIcons.clockClockwiseLight),
+        ),
       ),
       onChanged: onChanged,
     );

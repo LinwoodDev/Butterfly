@@ -26,6 +26,11 @@ class PresentationControlsDialog extends StatelessWidget {
               AppLocalizations.of(context).previousSlideDescription,
             ],
             [
+              PhosphorIcons.pauseCircleLight,
+              AppLocalizations.of(context).pausePresentation,
+              AppLocalizations.of(context).pausePresentationDescription,
+            ],
+            [
               PhosphorIcons.doorLight,
               AppLocalizations.of(context).exitPresentation,
               AppLocalizations.of(context).exitPresentationDescription,

@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:butterfly/helpers/element_helper.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/helpers/point_helper.dart';

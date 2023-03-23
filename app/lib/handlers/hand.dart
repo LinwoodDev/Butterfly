@@ -187,9 +187,6 @@ class HandHandler extends Handler<HandPainter> {
       CurrentIndexCubit currentIndexCubit, AppDocument document,
       [Area? currentArea]) {
     final foregrounds = <Renderer>[];
-    final scheme = ThemeManager.getThemeByName(
-            currentIndexCubit.state.settingsCubit.state.design)
-        .colorScheme;
     if (_movingElements.isNotEmpty && _currentMovePosition != null) {
       final renderers = _movingElements.map((e) {
         final position = currentIndexCubit.getGridPosition(
@@ -202,6 +199,7 @@ class HandHandler extends Handler<HandPainter> {
       foregrounds.addAll(renderers);
     }
     final selectionRect = getSelectionRect();
+    final scheme = currentIndexCubit.getTheme(false).colorScheme;
     if (selectionRect != null) {
       foregrounds.add(HandSelectionRenderer(
           selectionRect, scheme, _transformMode, _transformCorner));

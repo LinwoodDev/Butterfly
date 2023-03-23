@@ -2,8 +2,6 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../models/defaults.dart';
-
 class FileSystemAssetCreateDialog extends StatelessWidget {
   final bool isFolder;
   final String path;
@@ -47,9 +45,10 @@ class FileSystemAssetCreateDialog extends StatelessWidget {
               final navigator = Navigator.of(context);
               if (_formKey.currentState?.validate() ?? false) {
                 if (!isFolder) {
-                  await fileSystem.createDocument(_nameController.text,
-                      path: path,
-                      palettes: DocumentDefaults.getMaterialPalette(context));
+                  await fileSystem.createDocument(
+                    _nameController.text,
+                    path: path,
+                  );
                 } else {
                   await fileSystem
                       .createDirectory('$path/${_nameController.text}');

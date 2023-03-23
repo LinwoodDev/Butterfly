@@ -1,123 +1,160 @@
-import 'dart:convert';
-
-import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/dialogs/import.dart';
-import 'package:butterfly/dialogs/name.dart';
-import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/visualizer/int.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../widgets/header.dart';
-import 'export.dart';
 import '../widgets/exact_slider.dart';
+import 'packs/select.dart';
 
 class ColorPickerDialog extends StatefulWidget {
   final bool viewMode;
   final Color defaultColor;
+  final ColorPalette? palette;
+  final ValueChanged<ColorPalette>? onChanged;
+  final DocumentBloc? bloc;
 
-  const ColorPickerDialog(
-      {super.key, this.defaultColor = Colors.white, this.viewMode = false});
+  const ColorPickerDialog({
+    super.key,
+    this.defaultColor = Colors.white,
+    this.viewMode = false,
+    this.bloc,
+    this.palette,
+    this.onChanged,
+  });
 
   @override
   _ColorPickerDialogState createState() => _ColorPickerDialogState();
 }
 
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
-  int selected = 0;
+  PackAssetLocation? _selected;
+  ColorPalette? _palette;
+
+  @override
+  void initState() {
+    super.initState();
+    _palette = widget.palette;
+    if (widget.bloc != null) {
+      final state = widget.bloc!.state;
+      if (state is DocumentLoaded) {
+        final pack = state.document.packs.firstOrNull;
+        final palette = pack?.palettes.firstOrNull;
+        if (palette != null) {
+          _selected = PackAssetLocation(pack: pack!.name, name: palette.name);
+        }
+      }
+    }
+  }
+
+  ColorPalette? _getPalette() {
+    if (_palette != null) return _palette;
+    if (_selected == null) return null;
+    final state = widget.bloc?.state;
+    if (state is! DocumentLoaded) return null;
+    return state.document.getPalette(_selected!);
+  }
+
+  void _changePalette(ColorPalette palette) {
+    if (widget.onChanged != null) {
+      widget.onChanged!(palette);
+      setState(() {
+        _palette = palette;
+      });
+    } else {
+      final state = widget.bloc?.state;
+      if (state is! DocumentLoaded) return;
+      final pack =
+          _selected == null ? null : state.document.getPack(_selected!.name);
+      if (pack == null) return;
+      final newPalettes = pack.palettes.map((e) {
+        if (e.name == palette.name) {
+          return palette;
+        }
+        return e;
+      }).toList();
+      widget.bloc?.add(
+          DocumentPackUpdated(pack.name, pack.copyWith(palettes: newPalettes)));
+    }
+  }
 
   void _showColorOperation(int index) {
     showModalBottomSheet(
         context: context,
         constraints: const BoxConstraints(maxWidth: 640),
-        builder: (ctx) => BlocProvider.value(
-              value: context.read<DocumentBloc>(),
-              child: BlocBuilder<DocumentBloc, DocumentState>(
-                  builder: (ctx, state) {
-                if (state is! DocumentLoadSuccess) return Container();
-                var palette = state.document.palettes[selected];
-                if ((palette.colors.length) <= index) return Container();
-                final color = palette.colors[index];
-                final newPalettes =
-                    List<ColorPalette>.from(state.document.palettes);
-                final newPalette = List<int>.from(palette.colors);
-                return SizedBox(
-                    height: 300,
-                    child: Column(children: [
-                      SizedBox(
-                        height: 125,
-                        child: Center(
-                            child: Container(
-                                color: Color(color), height: 75, width: 75)),
-                      ),
-                      const Divider(thickness: 1),
-                      Expanded(
-                          child: ListView(children: [
-                        ListTile(
-                            leading: const Icon(PhosphorIcons.penLight),
-                            title: Text(AppLocalizations.of(context).edit),
-                            onTap: () async {
-                              final bloc = context.read<DocumentBloc>();
-                              final value =
-                                  await showDialog<ColorPickerResponse>(
-                                      context: context,
-                                      builder: (context) => CustomColorPicker(
-                                          defaultColor: Color(color)));
-                              if (value != null) {
-                                newPalette[index] = value.color;
-                                newPalettes[selected] =
-                                    palette.copyWith(colors: newPalette);
-                                bloc.add(DocumentPaletteChanged(newPalettes));
-                              }
-                            }),
-                        ListTile(
-                          leading: const Icon(PhosphorIcons.trashLight),
-                          title: Text(AppLocalizations.of(context).delete),
-                          onTap: () {
-                            showDialog<void>(
-                                context: context,
-                                builder: (ctx) => AlertDialog(
-                                      title: Text(AppLocalizations.of(context)
-                                          .areYouSure),
-                                      content: Text(AppLocalizations.of(context)
-                                          .reallyDelete),
-                                      actions: [
-                                        TextButton(
-                                            child: Text(
-                                                AppLocalizations.of(context)
-                                                    .no),
-                                            onPressed: () =>
-                                                Navigator.of(ctx).pop()),
-                                        ElevatedButton(
-                                            child: Text(
-                                                AppLocalizations.of(context)
-                                                    .yes),
-                                            onPressed: () {
-                                              Navigator.of(ctx).pop();
-                                              Navigator.of(ctx).pop();
-                                              newPalette.removeAt(index);
-                                              newPalettes[selected] = palette
-                                                  .copyWith(colors: newPalette);
-                                              context.read<DocumentBloc>().add(
-                                                  DocumentPaletteChanged(
-                                                      newPalettes));
-                                            })
-                                      ],
-                                    ));
-                          },
-                        )
-                      ]))
-                    ]));
-              }),
-            ));
+        builder: (ctx) {
+          final palette = _getPalette();
+          if (palette == null) return Container();
+          if ((palette.colors.length) <= index) return Container();
+          final color = palette.colors[index];
+          return SizedBox(
+              height: 300,
+              child: Column(children: [
+                SizedBox(
+                  height: 125,
+                  child: Center(
+                      child: Container(
+                          color: Color(color), height: 75, width: 75)),
+                ),
+                const Divider(thickness: 1),
+                Expanded(
+                    child: ListView(children: [
+                  ListTile(
+                      leading: const Icon(PhosphorIcons.penLight),
+                      title: Text(AppLocalizations.of(context).edit),
+                      onTap: () async {
+                        final value = await showDialog<ColorPickerResponse>(
+                            context: context,
+                            builder: (context) =>
+                                CustomColorPicker(defaultColor: Color(color)));
+                        if (value != null) {
+                          _changePalette(palette.copyWith(
+                              colors: List.from(palette.colors)
+                                ..[index] = value.color));
+                        }
+                      }),
+                  ListTile(
+                    leading: const Icon(PhosphorIcons.trashLight),
+                    title: Text(AppLocalizations.of(context).delete),
+                    onTap: () {
+                      showDialog<void>(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                                title: Text(
+                                    AppLocalizations.of(context).areYouSure),
+                                content: Text(
+                                    AppLocalizations.of(context).reallyDelete),
+                                actions: [
+                                  TextButton(
+                                      child:
+                                          Text(AppLocalizations.of(context).no),
+                                      onPressed: () => Navigator.of(ctx).pop()),
+                                  ElevatedButton(
+                                      child: Text(
+                                          AppLocalizations.of(context).yes),
+                                      onPressed: () {
+                                        Navigator.of(ctx).pop();
+                                        Navigator.of(ctx).pop();
+                                        _changePalette(palette.copyWith(
+                                            colors: List.from(palette.colors)
+                                              ..removeAt(index)));
+                                      })
+                                ],
+                              ));
+                    },
+                  )
+                ]))
+              ]));
+        });
   }
 
   @override
   Widget build(BuildContext context) {
+    final palette = _getPalette();
     return Dialog(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -127,221 +164,136 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                BlocBuilder<DocumentBloc, DocumentState>(
-                    builder: (context, state) {
-                  if (state is! DocumentLoadSuccess) {
-                    return Container();
-                  }
-                  var empty = state.document.palettes.isEmpty;
-                  selected = empty
-                      ? 0
-                      : selected.clamp(0, state.document.palettes.length - 1);
-                  var palette = empty
-                      ? <int>[]
-                      : state.document.palettes[selected].colors;
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Material(
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(12))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: LayoutBuilder(builder: (context, constraints) {
-                            return SingleChildScrollView(
-                              child: ConstrainedBox(
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Material(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12))),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: LayoutBuilder(builder: (context, constraints) {
+                          return SingleChildScrollView(
+                            child: ConstrainedBox(
                                 constraints: BoxConstraints(
                                     minWidth: constraints.maxWidth),
-                                child: Wrap(
-                                  verticalDirection: VerticalDirection.up,
-                                  runAlignment: WrapAlignment.end,
-                                  alignment: WrapAlignment.spaceAround,
-                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                child: Row(
                                   children: [
-                                    SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(
-                                        children: [
-                                          DropdownMenu<int>(
-                                            initialSelection:
-                                                state.document.palettes.isEmpty
-                                                    ? null
-                                                    : selected,
-                                            onSelected: (value) {
-                                              setState(() {
-                                                selected = value ?? selected;
-                                              });
-                                            },
-                                            dropdownMenuEntries: state
-                                                .document.palettes
-                                                .asMap()
-                                                .entries
-                                                .map((e) =>
-                                                    DropdownMenuEntry<int>(
-                                                      value: e.key,
-                                                      label: e.value.name,
-                                                    ))
-                                                .toList(),
-                                          ),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .add,
-                                              icon: const Icon(
-                                                  PhosphorIcons.plusLight),
-                                              onPressed: _createPalette),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .edit,
-                                              icon: const Icon(
-                                                  PhosphorIcons.penLight),
-                                              onPressed:
-                                                  empty ? null : _editPalette),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .remove,
-                                              icon: const Icon(
-                                                  PhosphorIcons.minusLight),
-                                              onPressed: empty
-                                                  ? null
-                                                  : _deletePalette),
-                                        ],
-                                      ),
-                                    ),
-                                    SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          const VerticalDivider(),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .import,
-                                              icon: const Icon(PhosphorIcons
-                                                  .arrowSquareInLight),
-                                              onPressed: _importPalette),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .export,
-                                              icon: const Icon(
-                                                  PhosphorIcons.exportLight),
-                                              onPressed: _exportPalette),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .help,
-                                              icon: const Icon(PhosphorIcons
-                                                  .circleWavyQuestionLight),
-                                              onPressed: () =>
-                                                  openHelp(['color_picker'])),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .resetPalette,
-                                              icon: const Icon(PhosphorIcons
-                                                  .clockClockwiseLight),
-                                              onPressed: _resetPalette),
-                                          const VerticalDivider(),
-                                          IconButton(
-                                              tooltip:
-                                                  AppLocalizations.of(context)
-                                                      .close,
-                                              icon: const Icon(
-                                                  PhosphorIcons.xLight),
-                                              onPressed: () =>
-                                                  Navigator.of(context).pop()),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Wrap(alignment: WrapAlignment.start, children: [
-                          if (state.document.palettes.isNotEmpty)
-                            ...(List.generate(
-                                palette.length,
-                                (index) => InkWell(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(32)),
-                                    onLongPress: () =>
-                                        _showColorOperation(index),
-                                    onTap: () => Navigator.of(context)
-                                        .pop(palette[index]),
-                                    child: Container(
-                                      width: 75,
-                                      height: 75,
-                                      margin: const EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                          color: Color(palette[index]),
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(32))),
-                                    )))).toList(),
-                          if (selected < state.document.palettes.length)
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Material(
-                                color: Theme.of(context)
-                                    .scaffoldBackgroundColor
-                                    .withOpacity(0.5),
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(32))),
-                                child: InkWell(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(32)),
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(1322))),
-                                    width: 75,
-                                    height: 75,
-                                    child: const Center(
-                                        child: Icon(PhosphorIcons.plusLight,
-                                            size: 42)),
-                                  ),
-                                  onTap: () async {
-                                    final bloc = context.read<DocumentBloc>();
-                                    var value =
-                                        await showDialog<ColorPickerResponse>(
+                                    if (widget.palette == null) ...[
+                                      IconButton(
+                                        onPressed: () async {
+                                          final state = widget.bloc?.state;
+                                          if (state is! DocumentLoaded) {
+                                            return;
+                                          }
+                                          final result = await showDialog<
+                                              PackAssetLocation?>(
                                             context: context,
                                             builder: (context) =>
-                                                CustomColorPicker(
-                                                    defaultColor:
-                                                        widget.defaultColor));
-                                    if (value != null) {
-                                      var newPalettes = List<ColorPalette>.from(
-                                          state.document.palettes);
-                                      newPalettes[selected] =
-                                          newPalettes[selected].copyWith(
-                                              colors: List<int>.from(
-                                                  newPalettes[selected].colors)
-                                                ..add(value.color));
-                                      bloc.add(
-                                          DocumentPaletteChanged(newPalettes));
-                                    }
-                                  },
-                                ),
-                              ),
-                            )
-                        ]),
+                                                BlocProvider.value(
+                                              value: widget.bloc!,
+                                              child: SelectPackAssetDialog(
+                                                selected: _selected,
+                                                type: PackAssetType.palette,
+                                              ),
+                                            ),
+                                          );
+                                          if (result == null) return;
+                                          setState(() {
+                                            _selected = result;
+                                          });
+                                        },
+                                        icon: const Icon(
+                                            PhosphorIcons.packageLight),
+                                      )
+                                    ] else
+                                      Expanded(
+                                        child: TextFormField(
+                                          initialValue: _palette?.name,
+                                          decoration: InputDecoration(
+                                            labelText:
+                                                AppLocalizations.of(context)
+                                                    .name,
+                                            filled: true,
+                                          ),
+                                          onChanged: (value) {
+                                            _changePalette(_palette!
+                                                .copyWith(name: value));
+                                          },
+                                        ),
+                                      ),
+                                  ],
+                                )),
+                          );
+                        }),
                       ),
-                    ],
-                  );
-                }),
+                    ),
+                    const SizedBox(height: 10),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Wrap(alignment: WrapAlignment.start, children: [
+                        ...(List.generate(
+                            palette?.colors.length ?? 0,
+                            (index) => InkWell(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(32)),
+                                onLongPress: () => _showColorOperation(index),
+                                onTap: () => Navigator.of(context)
+                                    .pop(palette!.colors[index]),
+                                child: Container(
+                                  width: 75,
+                                  height: 75,
+                                  margin: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      color: Color(palette!.colors[index]),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(32))),
+                                )))).toList(),
+                        if (palette != null)
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Material(
+                              color: Theme.of(context)
+                                  .scaffoldBackgroundColor
+                                  .withOpacity(0.5),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(32))),
+                              child: InkWell(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(32)),
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(1322))),
+                                  width: 75,
+                                  height: 75,
+                                  child: const Center(
+                                      child: Icon(PhosphorIcons.plusLight,
+                                          size: 42)),
+                                ),
+                                onTap: () async {
+                                  var value =
+                                      await showDialog<ColorPickerResponse>(
+                                          context: context,
+                                          builder: (context) =>
+                                              CustomColorPicker(
+                                                  defaultColor:
+                                                      widget.defaultColor));
+                                  if (value != null) {
+                                    _changePalette(palette.copyWith(
+                                        colors: List<int>.from(palette.colors)
+                                          ..add(value.color)));
+                                  }
+                                },
+                              ),
+                            ),
+                          )
+                      ]),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 50),
                 if (!widget.viewMode)
                   ElevatedButton(
@@ -358,115 +310,6 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             ),
           ),
         ));
-  }
-
-  Future<void> _importPalette() async {
-    final bloc = context.read<DocumentBloc>();
-    final data = await showDialog<String>(
-        builder: (context) => const ImportDialog(), context: context);
-    final palettes = <ColorPalette>[];
-    if (data == null) return;
-    var value = jsonDecode(data);
-    palettes.addAll(List<Map<String, dynamic>>.from(value['palettes'])
-        .map((e) => ColorPalette.fromJson(e))
-        .toList());
-    bloc.add(DocumentPaletteChanged(palettes));
-  }
-
-  Future<void> _exportPalette() async {
-    final bloc = context.read<DocumentBloc>();
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return;
-    var data = json.encode({
-      'fileVersion': kFileVersion,
-      'palettes': state.document.palettes.map((e) => e.toJson()).toList()
-    });
-    showDialog<void>(
-        context: context, builder: (context) => ExportDialog(data: data));
-  }
-
-  Future<void> _createPalette() async {
-    final bloc = context.read<DocumentBloc>();
-    final palettes = (bloc.state as DocumentLoadSuccess).document.palettes;
-    final name = await showDialog<String>(
-        context: context,
-        builder: (context) => NameDialog(
-              validator: defaultNameValidator(
-                  context, null, palettes.map((e) => e.name).toList()),
-            ));
-    if (name == null) return;
-
-    bloc.add(DocumentPaletteChanged(
-      List<ColorPalette>.from(
-          (bloc.state as DocumentLoadSuccess).document.palettes)
-        ..add(ColorPalette(name: name)),
-    ));
-  }
-
-  Future<void> _editPalette() async {
-    final bloc = context.read<DocumentBloc>();
-    final state = bloc.state as DocumentLoadSuccess;
-    if (selected >= state.document.palettes.length || selected < 0) return;
-    var newPalettes = List<ColorPalette>.from(state.document.palettes);
-    final name = await showDialog<String>(
-        context: context,
-        builder: (context) => NameDialog(
-            validator: defaultNameValidator(context, newPalettes[selected].name,
-                newPalettes.map((e) => e.name).toList())));
-    if (name == null) return;
-    newPalettes[selected] = newPalettes[selected].copyWith(name: name);
-    bloc.add(DocumentPaletteChanged(newPalettes));
-  }
-
-  Future<void> _deletePalette() async {
-    var state = context.read<DocumentBloc>().state as DocumentLoadSuccess;
-    if (selected >= state.document.palettes.length || selected < 0) return;
-    return showDialog<void>(
-        context: context,
-        builder: (ctx) => AlertDialog(
-              title: Text(AppLocalizations.of(context).areYouSure),
-              content: Text(AppLocalizations.of(context).reallyDelete),
-              actions: [
-                TextButton(
-                    onPressed: () => Navigator.of(ctx).pop(),
-                    child: Text(AppLocalizations.of(context).no)),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(ctx).pop();
-                      var newPalettes =
-                          List<ColorPalette>.from(state.document.palettes);
-                      newPalettes.removeAt(selected);
-                      context
-                          .read<DocumentBloc>()
-                          .add(DocumentPaletteChanged(newPalettes));
-                      if (selected >= newPalettes.length && selected <= 0) {
-                        selected = newPalettes.length - 1;
-                      }
-                    },
-                    child: Text(AppLocalizations.of(context).yes)),
-              ],
-            ));
-  }
-
-  Future<void> _resetPalette() {
-    return showDialog<void>(
-        context: context,
-        builder: (ctx) => AlertDialog(
-                title: Text(AppLocalizations.of(ctx).areYouSure),
-                content: Text(AppLocalizations.of(ctx).reallyReset),
-                actions: [
-                  TextButton(
-                      onPressed: () => Navigator.of(ctx).pop(),
-                      child: Text(AppLocalizations.of(ctx).no)),
-                  ElevatedButton(
-                      onPressed: () {
-                        selected = 0;
-                        context.read<DocumentBloc>().add(DocumentPaletteChanged(
-                            DocumentDefaults.getMaterialPalette(context)));
-                        Navigator.of(ctx).pop();
-                      },
-                      child: Text(AppLocalizations.of(context).yes))
-                ]));
   }
 }
 
@@ -500,7 +343,8 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
   @override
   void initState() {
     color = widget.defaultColor;
-    _hexController = TextEditingController(text: color.value.toHexColor());
+    _hexController =
+        TextEditingController(text: color.value.toHexColor(alpha: false));
     super.initState();
   }
 
@@ -512,7 +356,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
   @override
   Widget build(BuildContext context) {
     if (_getColorValueFromHexString(_hexController.text) != color.value) {
-      _hexController.text = color.value.toHexColor();
+      _hexController.text = color.value.toHexColor(alpha: false);
     }
     return Dialog(
       child: ConstrainedBox(
@@ -618,7 +462,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
                 final valueNumber = _getColorValueFromHexString(value);
                 if (valueNumber == null) return;
                 setState(() {
-                  color = Color(valueNumber);
+                  color = Color(valueNumber).withAlpha(255);
                 });
               },
             ),

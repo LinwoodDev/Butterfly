@@ -19,7 +19,7 @@ class ImageElementSelection extends ElementSelection<ImageElement> {
         leading: const Icon(PhosphorIcons.exportLight),
         onTap: () async {
           final localization = AppLocalizations.of(context);
-          final data = element.pixels;
+          final data = await element.getData();
           if (!kIsWeb &&
               (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
             var path = await FilePicker.platform.saveFile(
@@ -32,10 +32,10 @@ class ImageElementSelection extends ElementSelection<ImageElement> {
               if (!(await file.exists())) {
                 file.create(recursive: true);
               }
-              await file.writeAsBytes(data.buffer.asUint8List());
+              await file.writeAsBytes(data);
             }
           } else {
-            openImage(data.buffer.asUint8List());
+            openImage(data);
           }
         },
       ),

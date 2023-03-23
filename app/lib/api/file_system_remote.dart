@@ -519,7 +519,7 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
     try {
-      var defaults = DocumentDefaults.getDefaults(context);
+      var defaults = await DocumentDefaults.getDefaults(context);
       // test if directory exists
       final response = await _createRequest('', method: 'PROPFIND');
       if (response.statusCode != 404 && !force) {

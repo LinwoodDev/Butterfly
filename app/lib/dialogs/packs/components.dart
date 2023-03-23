@@ -26,7 +26,7 @@ class ComponentsPackView extends StatelessWidget {
                   key: ValueKey(e.key),
                   onDismissed: (direction) {
                     onChanged(value.copyWith(
-                      components: value.components..remove(e.value),
+                      components: value.components..removeAt(e.key),
                     ));
                   },
                   child: ListTile(

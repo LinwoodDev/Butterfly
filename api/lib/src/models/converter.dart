@@ -86,6 +86,12 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
               },
             };
           }
+          if (e['type'] == 'image') {
+            return {
+              ...e as Map,
+              'source': UriData.fromBytes(e['pixels'], mimeType: 'image/png'),
+            };
+          }
           return e;
         }).toList();
       }

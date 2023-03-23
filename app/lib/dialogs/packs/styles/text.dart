@@ -58,8 +58,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                 widget.onChanged(widget.value.copyWith(color: color.value))),
         ExactSlider(
             header: Text(AppLocalizations.of(context).size),
-            label: widget.value.size == null
-                ? AppLocalizations.of(context).notSet
+            bottom: widget.value.size == null
+                ? Text(AppLocalizations.of(context).notSet)
                 : null,
             leading: widget.value.size == null
                 ? null
@@ -76,8 +76,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                 widget.onChanged(widget.value.copyWith(size: size))),
         ExactSlider(
             header: Text(AppLocalizations.of(context).spacing),
-            label: widget.value.letterSpacing == null
-                ? AppLocalizations.of(context).notSet
+            bottom: widget.value.letterSpacing == null
+                ? Text(AppLocalizations.of(context).notSet)
                 : null,
             leading: widget.value.letterSpacing == null
                 ? null
@@ -138,8 +138,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                           ),
                       body: Column(children: [
                         CheckboxListTile(
-                            title:
-                                Text(AppLocalizations.of(context).lineThrough),
+                            title: Text(
+                                AppLocalizations.of(context).strikethrough),
                             value: widget.value.lineThrough,
                             tristate: true,
                             onChanged: (lineThrough) => widget.onChanged(widget
@@ -224,8 +224,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                                   Text(AppLocalizations.of(context).thickness),
                               defaultValue: 1,
                               value: widget.value.decorationThickness,
-                              label: widget.value.decorationThickness == null
-                                  ? AppLocalizations.of(context).notSet
+                              bottom: widget.value.decorationThickness == null
+                                  ? Text(AppLocalizations.of(context).notSet)
                                   : null,
                               leading: widget.value.decorationThickness == null
                                   ? null

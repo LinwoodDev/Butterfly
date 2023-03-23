@@ -1,4 +1,5 @@
 import 'package:butterfly/dialogs/name.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_text.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
   @override
   void didUpdateWidget(covariant ParagraphsStyleView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.value != widget.value) {
+    if (oldWidget.value != widget.value && _currentStyle != null) {
       setState(() {
         if (!widget.value.paragraphProperties.containsKey(_currentStyle!)) {
           _currentStyle = widget.value.paragraphProperties.keys.firstOrNull;
@@ -79,7 +80,6 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                             builder: (context) => NameDialog(
                               validator: defaultNameValidator(
                                 context,
-                                null,
                                 widget.value.paragraphProperties.keys.toList(),
                               ),
                             ),
@@ -95,16 +95,52 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                           ));
                         },
                       ),
+                      MenuAnchor(
+                        builder: (context, controller, _) {
+                          return IconButton(
+                            icon: const Icon(PhosphorIcons.listLight),
+                            onPressed: () {
+                              if (controller.isOpen) {
+                                controller.close();
+                              } else {
+                                controller.open();
+                              }
+                            },
+                          );
+                        },
+                        menuChildren:
+                            DocumentDefaults.getParagraphTranslations(context)
+                                .entries
+                                .where((element) => !widget
+                                    .value.paragraphProperties
+                                    .containsKey(element.key))
+                                .map(
+                                  (e) => MenuItemButton(
+                                    child: Text(e.value),
+                                    onPressed: () {
+                                      widget.onChanged(widget.value.copyWith(
+                                        paragraphProperties: {
+                                          ...widget.value.paragraphProperties,
+                                          e.key:
+                                              const DefinedParagraphProperty(),
+                                        },
+                                      ));
+                                    },
+                                  ),
+                                )
+                                .toList(),
+                      ),
                       if (_currentStyle != null) ...[
+                        const VerticalDivider(),
                         IconButton(
                           icon: const Icon(PhosphorIcons.pencilLight),
                           onPressed: () async {
                             final name = await showDialog<String>(
                               context: context,
                               builder: (context) => NameDialog(
+                                value: _currentStyle,
                                 validator: defaultNameValidator(
                                   context,
-                                  _currentStyle,
                                   widget.value.paragraphProperties.keys
                                       .toList(),
                                 ),
@@ -171,17 +207,17 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                   ),
                 ),
                 Flexible(
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Builder(
-                        builder: (context) {
-                          final currentParagraph =
-                              widget.value.paragraphProperties[_currentStyle];
-                          if (currentParagraph == null) {
-                            return const SizedBox();
-                          }
-                          return SingleChildScrollView(
+                  child: Builder(
+                    builder: (context) {
+                      final currentParagraph =
+                          widget.value.paragraphProperties[_currentStyle];
+                      if (currentParagraph == null) {
+                        return const SizedBox();
+                      }
+                      return Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SingleChildScrollView(
                             child: ParagraphStyleView(
                               value: currentParagraph,
                               onChanged: (paragraph) {
@@ -193,10 +229,10 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                                 ));
                               },
                             ),
-                          );
-                        },
-                      ),
-                    ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],

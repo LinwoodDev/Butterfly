@@ -10,6 +10,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../bloc/document_bloc.dart';
+import '../name.dart';
 import 'dialog.dart';
 
 class FileSystemAssetMenu extends StatelessWidget {
@@ -30,56 +31,17 @@ class FileSystemAssetMenu extends StatelessWidget {
   Future<void> _showRenameDialog(BuildContext context, String path) async {
     final fileName = path.split('/').last;
     final parent = path.substring(0, path.length - fileName.length - 1);
-    final nameController = TextEditingController(
-        text: fileName.substring(0, fileName.length - '.bfly'.length));
     final bloc = context.read<DocumentBloc>();
-    final formKey = GlobalKey<FormState>();
-    final success = await showDialog<bool>(
-            context: context,
-            builder: (context) => Form(
-                  key: formKey,
-                  child: AlertDialog(
-                    title: Text(AppLocalizations.of(context).rename),
-                    content: TextFormField(
-                      decoration: InputDecoration(
-                          filled: true,
-                          labelText: AppLocalizations.of(context).name),
-                      validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return AppLocalizations.of(context).shouldNotEmpty;
-                        }
-                        return null;
-                      },
-                      onFieldSubmitted: (value) {
-                        if (formKey.currentState!.validate()) {
-                          Navigator.of(context).pop(true);
-                        }
-                      },
-                      controller: nameController,
-                      autofocus: true,
-                    ),
-                    actions: [
-                      TextButton(
-                        child: Text(AppLocalizations.of(context).cancel),
-                        onPressed: () => Navigator.of(context).pop(false),
-                      ),
-                      ElevatedButton(
-                        child: Text(AppLocalizations.of(context).rename),
-                        onPressed: () async {
-                          if (!(formKey.currentState?.validate() ?? false)) {
-                            return;
-                          }
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  ),
-                )) ??
-        false;
-    if (!success) return;
-    if (nameController.text != selectedPath?.pathWithLeadingSlash) {
-      var document = await fileSystem.renameAsset(
-          path, '$parent/${nameController.text}.bfly');
+    final oldName = fileName.substring(0, fileName.length - '.bfly'.length);
+    final name = await showDialog<String>(
+      context: context,
+      builder: (context) => NameDialog(
+        value: oldName,
+      ),
+    );
+    if (name == null) return;
+    var document = await fileSystem.renameAsset(path, '$parent/$name.bfly');
+    if (oldName != selectedPath?.pathWithLeadingSlash) {
       var state = bloc.state;
       if (state is! DocumentLoadSuccess) return;
       if (document != null && state.location.path == path) {

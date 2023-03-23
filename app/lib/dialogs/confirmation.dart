@@ -18,8 +18,6 @@ class PackImportConfirmationDialog extends StatelessWidget {
           Text(pack.name, style: Theme.of(context).textTheme.titleLarge),
           Text(AppLocalizations.of(context).byAuthor(pack.author)),
           Text(pack.description),
-          Text(AppLocalizations.of(context)
-              .packDescription(pack.components.length)),
         ],
       ),
       actions: [

@@ -47,15 +47,6 @@
   "background": "Fondo",
   "box": "Caja",
   "locale": "Local",
-  "english": "Inglés",
-  "french": "Francés",
-  "german": "Alemán",
-  "spanish": "Español",
-  "italian": "Italiano",
-  "turkish": "Turco",
-  "portugueseBrazil": "Portugués (Brasil)",
-  "thai": "Tailandés",
-  "russian": "Ruso",
   "defaultLocale": "Idioma por defecto",
   "information": "Información",
   "license": "Licencia",
@@ -79,7 +70,7 @@
   "decoration": "Decoración",
   "underline": "Bajo línea",
   "overline": "Superlínea",
-  "lineThrough": "Línea a través",
+  "strikethrough": "Tachado",
   "thickness": "Grosor",
   "style": "Estilo",
   "solid": "Solid",
@@ -406,15 +397,6 @@
   "packsDirectory": "Directorio de paquetes",
   "stamp": "Sello",
   "addToPack": "Añadir al paquete",
-  "packDescription": "{count,plural, =0{No hay elementos} =1{1 elemento} other{{count} Elementos}}",
-  "@packDescription": {
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "example": "1"
-      }
-    }
-  },
   "sureImportPack": "¿Estás seguro de que quieres importar el paquete?",
   "byAuthor": "por {author}",
   "@byAuthor": {
@@ -426,8 +408,8 @@
     }
   },
   "author": "Autor",
-  "addComponent": "Añadir componente",
-  "editComponent": "Editar componente",
+  "addAsset": "Añadir recurso",
+  "editAsset": "Editar recurso",
   "scope": "Alcance",
   "noPacks": "Actualmente no hay paquetes disponibles",
   "components": "Componentes",
@@ -453,8 +435,45 @@
   "fontFamily": "Familia de fuente",
   "smoothing": "Suavizado",
   "streamline": "Streamline",
+  "presentation": "Presentación",
   "selectAsset": "Seleccionar recurso",
   "clearStyle": "Borrar estilo",
-  "unknownImportType": "Unknown import type",
-  "sureImportTemplate": "Are you sure you want to import the template?"
+  "unknownImportType": "Tipo de importación desconocido",
+  "sureImportTemplate": "¿Está seguro que desea importar la plantilla?",
+  "frame": "Frame",
+  "play": "Jugar",
+  "video": "Vídeo",
+  "fps": "FPS",
+  "breakpoint": "Breakpoint",
+  "presentationControls": "Controles de presentación",
+  "nextSlide": "Siguiente diapositiva",
+  "nextSlideDescription": "Deslice a la derecha o presione la tecla de la flecha derecha para ir a la siguiente diapositiva",
+  "previousSlide": "Diapositiva anterior",
+  "previousSlideDescription": "Deslice hacia la izquierda o presione la tecla de la flecha izquierda para ir a la diapositiva anterior",
+  "exitPresentation": "Salir de la presentación",
+  "exitPresentationDescription": "Pulsa la tecla de escape o desliza hacia abajo para salir de la presentación",
+  "pausePresentation": "Pausar presentación",
+  "pausePresentationDescription": "Toca la pantalla o presiona la barra espaciadora para pausar o reanudar la presentación",
+  "keyframe": "Keyframe",
+  "endOfPresentation": "Ha llegado al final de la presentación",
+  "startOfPresentation": "Ha llegado al inicio de la presentación",
+  "palettes": "Palettes",
+  "headline": "Encabezado {index}",
+  "@headline": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "code": "Código",
+  "quote": "Cotización",
+  "blockquote": "Cita de bloqueo",
+  "link": "Enlace",
+  "checkbox": "Casilla",
+  "deleted": "Eliminado",
+  "emphasis": "Vacío",
+  "listBullet": "Lista de bala",
+  "strong": "Fuerte"
 }

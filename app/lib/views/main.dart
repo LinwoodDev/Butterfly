@@ -27,7 +27,6 @@ import 'package:butterfly/dialogs/introduction/app.dart';
 import 'package:butterfly/dialogs/introduction/start.dart';
 import 'package:butterfly/dialogs/introduction/update.dart';
 import 'package:butterfly/embed/embedding.dart';
-import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
@@ -43,7 +42,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../actions/change_painter.dart';
+import '../actions/exit.dart';
+import '../actions/next.dart';
 import '../actions/packs.dart';
+import '../actions/previous.dart';
+import '../actions/primary.dart';
 import '../main.dart';
 import 'changes.dart';
 import 'view.dart';
@@ -91,6 +94,10 @@ class _ProjectPageState extends State<ProjectPage> {
     SaveIntent: SaveAction(),
     ChangePainterIntent: ChangePainterAction(),
     PacksIntent: PacksAction(),
+    ExitIntent: ExitAction(),
+    NextIntent: NextAction(),
+    PreviousIntent: PreviousAction(),
+    PrimaryIntent: PrimaryAction(),
   };
 
   @override
@@ -116,7 +123,6 @@ class _ProjectPageState extends State<ProjectPage> {
       final document = AppDocument(
           createdAt: DateTime.now(),
           painters: createDefaultPainters(),
-          palettes: DocumentDefaults.getMaterialPalette(context),
           name: '');
       var language = embedding.language;
       if (language == 'system') {
@@ -182,10 +188,10 @@ class _ProjectPageState extends State<ProjectPage> {
         return;
       }
       document ??= AppDocument(
-          name: name,
-          createdAt: DateTime.now(),
-          painters: createDefaultPainters(),
-          palettes: DocumentDefaults.getMaterialPalette(context));
+        name: name,
+        createdAt: DateTime.now(),
+        painters: createDefaultPainters(),
+      );
       final renderers =
           document.content.map((e) => Renderer.fromInstance(e)).toList();
       await Future.wait(renderers.map((e) async => await e.setup(document!)));
@@ -327,6 +333,14 @@ class _ProjectPageState extends State<ProjectPage> {
                       LogicalKeySet(LogicalKeyboardKey.control,
                               LogicalKeyboardKey.alt, LogicalKeyboardKey.keyN):
                           InsertIntent(context, Offset.zero),
+                      LogicalKeySet(LogicalKeyboardKey.escape):
+                          ExitIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.arrowRight):
+                          NextIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.arrowLeft):
+                          PreviousIntent(context),
+                      LogicalKeySet(LogicalKeyboardKey.space):
+                          PrimaryIntent(context),
                       if (widget.embedding == null) ...{
                         LogicalKeySet(LogicalKeyboardKey.control,
                             LogicalKeyboardKey.keyO): OpenIntent(context),

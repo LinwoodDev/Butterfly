@@ -1,4 +1,5 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/dialogs/name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -43,35 +44,14 @@ class LayerDialog extends StatelessWidget {
           leading: const Icon(PhosphorIcons.textTLight),
           onTap: () async {
             final bloc = context.read<DocumentBloc>();
-            final nameController = TextEditingController(text: layer);
-            final success = await showDialog<bool>(
-                    context: context,
-                    builder: (ctx) => AlertDialog(
-                          title: Text(AppLocalizations.of(ctx).rename),
-                          content: TextField(
-                            controller: nameController,
-                            autofocus: true,
-                            onSubmitted: (value) => Navigator.of(ctx).pop(true),
-                            decoration: InputDecoration(
-                                filled: true,
-                                hintText: AppLocalizations.of(context).name),
-                          ),
-                          actions: [
-                            TextButton(
-                              child: Text(AppLocalizations.of(ctx).cancel),
-                              onPressed: () => Navigator.of(ctx).pop(false),
-                            ),
-                            ElevatedButton(
-                              child: Text(AppLocalizations.of(ctx).ok),
-                              onPressed: () => Navigator.of(ctx).pop(true),
-                            ),
-                          ],
-                        )) ??
-                false;
-            if (!success) return;
-            if (nameController.text != layer) {
-              bloc.add(LayerRenamed(layer, nameController.text));
-            }
+            final name = await showDialog<String>(
+              context: context,
+              builder: (context) => NameDialog(
+                value: layer,
+              ),
+            );
+            if (name == null) return;
+            bloc.add(LayerRenamed(layer, name));
           },
         ),
         ListTile(

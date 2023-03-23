@@ -47,15 +47,6 @@
   "background": "Background",
   "box": "Box",
   "locale": "Locale",
-  "english": "English",
-  "french": "French",
-  "german": "German",
-  "spanish": "Spanish",
-  "italian": "Italian",
-  "turkish": "Turkish",
-  "portugueseBrazil": "Portuguese (Brazil)",
-  "thai": "Thai",
-  "russian": "Russian",
   "defaultLocale": "Default locale",
   "information": "Information",
   "license": "License",
@@ -79,7 +70,7 @@
   "decoration": "Decoration",
   "underline": "Underline",
   "overline": "Overline",
-  "lineThrough": "Line through",
+  "strikethrough": "Strikethrough",
   "thickness": "Thickness",
   "style": "Style",
   "solid": "Solid",
@@ -406,15 +397,6 @@
   "packsDirectory": "Packs directory",
   "stamp": "Stamp",
   "addToPack": "Add to pack",
-  "packDescription": "{count,plural, =0{No elements} =1{1 element} other{{count} elements}}",
-  "@packDescription": {
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "example": "1"
-      }
-    }
-  },
   "sureImportPack": "Are you sure you want to import the pack?",
   "byAuthor": "by {author}",
   "@byAuthor": {
@@ -426,8 +408,8 @@
     }
   },
   "author": "Author",
-  "addComponent": "Add component",
-  "editComponent": "Edit component",
+  "addAsset": "Add asset",
+  "editAsset": "Edit asset",
   "scope": "Scope",
   "noPacks": "There are currently no packs available",
   "components": "Components",
@@ -470,7 +452,27 @@
   "previousSlideDescription": "Swipe to the left or press the left arrow key to go to the previous slide",
   "exitPresentation": "Exit presentation",
   "exitPresentationDescription": "Press the escape key or swipe down to exit the presentation",
+  "pausePresentation": "Pause presentation",
+  "pausePresentationDescription": "Tap the screen or press the space bar to pause or resume the presentation",
   "keyframe": "Keyframe",
   "endOfPresentation": "You have reached the end of the presentation",
-  "startOfPresentation": "You have reached the start of the presentation"
+  "startOfPresentation": "You have reached the start of the presentation",
+  "palettes": "Palettes",
+  "headline": "Headline {index}",
+  "@headline": {
+    "placeholders": {
+      "index": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "code": "Code",
+  "quote": "Quote",
+  "link": "Link",
+  "checkbox": "Checkbox",
+  "deleted": "Deleted",
+  "emphasis": "Emphasis",
+  "listBullet": "List bullet",
+  "strong": "Strong"
 }

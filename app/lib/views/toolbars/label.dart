@@ -138,12 +138,15 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         IconButton(
                           icon: const Icon(PhosphorIcons.packageLight),
                           onPressed: () async {
+                            final bloc = context.read<DocumentBloc>();
                             final result = await showDialog<PackAssetLocation>(
                               context: context,
-                              builder: (context) => SelectPackAssetDialog(
-                                document: document,
-                                type: PackAssetType.style,
-                                selected: styleSheet,
+                              builder: (context) => BlocProvider.value(
+                                value: bloc,
+                                child: SelectPackAssetDialog(
+                                  type: PackAssetType.style,
+                                  selected: styleSheet,
+                                ),
                               ),
                             );
                             if (result == null) return;
@@ -412,11 +415,9 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           onTap: () async {
                             final result = await showDialog<int>(
                               context: context,
-                              builder: (_) => BlocProvider.value(
-                                value: context.read<DocumentBloc>(),
-                                child: ColorPickerDialog(
-                                  defaultColor: Color(span.getColor(paragraph)),
-                                ),
+                              builder: (_) => ColorPickerDialog(
+                                defaultColor: Color(span.getColor(paragraph)),
+                                bloc: context.read<DocumentBloc>(),
                               ),
                             );
                             if (result == null) return;
