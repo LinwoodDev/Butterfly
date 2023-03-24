@@ -1,5 +1,5 @@
 ---
-title: "Natlige Bygninger"
+title: "Nightly Builds"
 slug: "/nightly"
 ---
 
