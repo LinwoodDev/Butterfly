@@ -101,7 +101,7 @@ abstract class AppDocumentEntity {
 
 @immutable
 class AppDocumentFile extends AppDocumentEntity {
-  final Uint8List data;
+  final List<int> data;
 
   const AppDocumentFile(super.path, this.data);
 
@@ -217,4 +217,7 @@ class AppDocument with _$AppDocument {
   AnimationTrack? getAnimation(String name) {
     return animations.firstWhereOrNull((e) => e.name == name);
   }
+
+  List<int> save() =>
+      utf8.encode(jsonEncode(DocumentJsonConverter().toJson(this)));
 }

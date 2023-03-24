@@ -22,6 +22,7 @@ import 'package:popover/popover.dart';
 import 'package:window_manager/window_manager.dart';
 
 import '../api/open_release_notes.dart';
+import '../dialogs/file_system/move.dart';
 
 class HomePage extends StatelessWidget {
   final String? selectedAsset;
@@ -753,6 +754,17 @@ class _FileEntityListTile extends StatelessWidget {
                             isSelected: starred,
                           );
                         }),
+                        IconButton(
+                          onPressed: () => showDialog(
+                            context: context,
+                            builder: (context) => FileSystemAssetMoveDialog(
+                              asset: entity,
+                              fileSystem: fileSystem,
+                            ),
+                          ),
+                          tooltip: AppLocalizations.of(context).move,
+                          icon: const Icon(PhosphorIcons.folderLight),
+                        ),
                       ],
                     );
                     final modified = Text(
