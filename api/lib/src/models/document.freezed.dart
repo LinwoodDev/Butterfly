@@ -199,6 +199,7 @@ AppDocument _$AppDocumentFromJson(Map<String, dynamic> json) {
 mixin _$AppDocument {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  String get thumbnail => throw _privateConstructorUsedError;
   List<PadElement> get content => throw _privateConstructorUsedError;
   Background get background => throw _privateConstructorUsedError;
   List<AnimationTrack> get animations => throw _privateConstructorUsedError;
@@ -228,6 +229,7 @@ abstract class $AppDocumentCopyWith<$Res> {
   $Res call(
       {String name,
       String description,
+      String thumbnail,
       List<PadElement> content,
       Background background,
       List<AnimationTrack> animations,
@@ -259,6 +261,7 @@ class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
   $Res call({
     Object? name = null,
     Object? description = null,
+    Object? thumbnail = null,
     Object? content = null,
     Object? background = null,
     Object? animations = null,
@@ -279,6 +282,10 @@ class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      thumbnail: null == thumbnail
+          ? _value.thumbnail
+          : thumbnail // ignore: cast_nullable_to_non_nullable
               as String,
       content: null == content
           ? _value.content
@@ -355,6 +362,7 @@ abstract class _$$_AppDocumentCopyWith<$Res>
   $Res call(
       {String name,
       String description,
+      String thumbnail,
       List<PadElement> content,
       Background background,
       List<AnimationTrack> animations,
@@ -386,6 +394,7 @@ class __$$_AppDocumentCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? description = null,
+    Object? thumbnail = null,
     Object? content = null,
     Object? background = null,
     Object? animations = null,
@@ -406,6 +415,10 @@ class __$$_AppDocumentCopyWithImpl<$Res>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      thumbnail: null == thumbnail
+          ? _value.thumbnail
+          : thumbnail // ignore: cast_nullable_to_non_nullable
               as String,
       content: null == content
           ? _value._content
@@ -461,6 +474,7 @@ class _$_AppDocument extends _AppDocument {
   const _$_AppDocument(
       {this.name = '',
       this.description = '',
+      this.thumbnail = '',
       final List<PadElement> content = const [],
       this.background = const Background.empty(),
       final List<AnimationTrack> animations = const [],
@@ -490,6 +504,9 @@ class _$_AppDocument extends _AppDocument {
   @override
   @JsonKey()
   final String description;
+  @override
+  @JsonKey()
+  final String thumbnail;
   final List<PadElement> _content;
   @override
   @JsonKey()
@@ -568,7 +585,7 @@ class _$_AppDocument extends _AppDocument {
 
   @override
   String toString() {
-    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, animations: $animations, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
+    return 'AppDocument(name: $name, description: $description, thumbnail: $thumbnail, content: $content, background: $background, animations: $animations, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
   }
 
   @override
@@ -579,6 +596,8 @@ class _$_AppDocument extends _AppDocument {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.thumbnail, thumbnail) ||
+                other.thumbnail == thumbnail) &&
             const DeepCollectionEquality().equals(other._content, _content) &&
             (identical(other.background, background) ||
                 other.background == background) &&
@@ -604,6 +623,7 @@ class _$_AppDocument extends _AppDocument {
       runtimeType,
       name,
       description,
+      thumbnail,
       const DeepCollectionEquality().hash(_content),
       background,
       const DeepCollectionEquality().hash(_animations),
@@ -634,6 +654,7 @@ abstract class _AppDocument extends AppDocument {
   const factory _AppDocument(
       {final String name,
       final String description,
+      final String thumbnail,
       final List<PadElement> content,
       final Background background,
       final List<AnimationTrack> animations,
@@ -654,6 +675,8 @@ abstract class _AppDocument extends AppDocument {
   String get name;
   @override
   String get description;
+  @override
+  String get thumbnail;
   @override
   List<PadElement> get content;
   @override

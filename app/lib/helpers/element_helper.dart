@@ -18,6 +18,6 @@ extension ImageElementDataExtension on ImageElement {
   Future<List<int>> getData() => getDataFromSource(source);
 }
 
-extension DocumentTemplateDataExtension on DocumentTemplate {
+extension DocumentDataExtension on AppDocument {
   Future<List<int>> getThumbnailData() => getDataFromSource(thumbnail);
 }

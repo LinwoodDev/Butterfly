@@ -399,6 +399,9 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                     );
                     final templateFileSystem =
                         TemplateFileSystem.fromPlatform(remote: _remote);
+                    if (context.mounted) {
+                      await templateFileSystem.createDefault(context);
+                    }
                     final templates = await templateFileSystem.getTemplates();
                     if (context.mounted) {
                       final asset = await showDialog<DocumentTemplate>(
@@ -906,7 +909,9 @@ class _QuickstartHomeView extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           FutureBuilder<List<DocumentTemplate>>(
-              future: templateFileSystem.getTemplates(),
+              future: templateFileSystem
+                  .createDefault(context)
+                  .then((value) => templateFileSystem.getTemplates()),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
@@ -927,7 +932,7 @@ class _QuickstartHomeView extends StatelessWidget {
                   children: templates
                       .map(
                         (e) => FutureBuilder<List<int>>(
-                            future: e.getThumbnailData(),
+                            future: e.document.getThumbnailData(),
                             builder: (context, snapshot) => ConstrainedBox(
                                   constraints:
                                       const BoxConstraints(maxHeight: 200),

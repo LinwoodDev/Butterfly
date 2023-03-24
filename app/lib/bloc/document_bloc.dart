@@ -480,7 +480,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               .toString();
       final remote = current.getRemoteStorage();
       TemplateFileSystem.fromPlatform(remote: remote)
-          .createTemplate(current.document, uri);
+          .createTemplate(current.document.copyWith(thumbnail: uri));
 
       if (event.deleteDocument) {
         current.currentIndexCubit.setSaveState(

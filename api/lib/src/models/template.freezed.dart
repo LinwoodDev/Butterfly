@@ -22,7 +22,6 @@ DocumentTemplate _$DocumentTemplateFromJson(Map<String, dynamic> json) {
 mixin _$DocumentTemplate {
   @DocumentJsonConverter()
   AppDocument get document => throw _privateConstructorUsedError;
-  String get thumbnail => throw _privateConstructorUsedError;
   String get folder => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -37,10 +36,7 @@ abstract class $DocumentTemplateCopyWith<$Res> {
           DocumentTemplate value, $Res Function(DocumentTemplate) then) =
       _$DocumentTemplateCopyWithImpl<$Res, DocumentTemplate>;
   @useResult
-  $Res call(
-      {@DocumentJsonConverter() AppDocument document,
-      String thumbnail,
-      String folder});
+  $Res call({@DocumentJsonConverter() AppDocument document, String folder});
 
   $AppDocumentCopyWith<$Res> get document;
 }
@@ -59,7 +55,6 @@ class _$DocumentTemplateCopyWithImpl<$Res, $Val extends DocumentTemplate>
   @override
   $Res call({
     Object? document = null,
-    Object? thumbnail = null,
     Object? folder = null,
   }) {
     return _then(_value.copyWith(
@@ -67,10 +62,6 @@ class _$DocumentTemplateCopyWithImpl<$Res, $Val extends DocumentTemplate>
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
               as AppDocument,
-      thumbnail: null == thumbnail
-          ? _value.thumbnail
-          : thumbnail // ignore: cast_nullable_to_non_nullable
-              as String,
       folder: null == folder
           ? _value.folder
           : folder // ignore: cast_nullable_to_non_nullable
@@ -95,10 +86,7 @@ abstract class _$$_DocumentTemplateCopyWith<$Res>
       __$$_DocumentTemplateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@DocumentJsonConverter() AppDocument document,
-      String thumbnail,
-      String folder});
+  $Res call({@DocumentJsonConverter() AppDocument document, String folder});
 
   @override
   $AppDocumentCopyWith<$Res> get document;
@@ -116,7 +104,6 @@ class __$$_DocumentTemplateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? document = null,
-    Object? thumbnail = null,
     Object? folder = null,
   }) {
     return _then(_$_DocumentTemplate(
@@ -124,10 +111,6 @@ class __$$_DocumentTemplateCopyWithImpl<$Res>
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
               as AppDocument,
-      thumbnail: null == thumbnail
-          ? _value.thumbnail
-          : thumbnail // ignore: cast_nullable_to_non_nullable
-              as String,
       folder: null == folder
           ? _value.folder
           : folder // ignore: cast_nullable_to_non_nullable
@@ -140,9 +123,7 @@ class __$$_DocumentTemplateCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_DocumentTemplate extends _DocumentTemplate {
   const _$_DocumentTemplate(
-      {@DocumentJsonConverter() required this.document,
-      this.thumbnail = '',
-      this.folder = '/'})
+      {@DocumentJsonConverter() required this.document, this.folder = '/'})
       : super._();
 
   factory _$_DocumentTemplate.fromJson(Map<String, dynamic> json) =>
@@ -153,14 +134,11 @@ class _$_DocumentTemplate extends _DocumentTemplate {
   final AppDocument document;
   @override
   @JsonKey()
-  final String thumbnail;
-  @override
-  @JsonKey()
   final String folder;
 
   @override
   String toString() {
-    return 'DocumentTemplate(document: $document, thumbnail: $thumbnail, folder: $folder)';
+    return 'DocumentTemplate(document: $document, folder: $folder)';
   }
 
   @override
@@ -170,14 +148,12 @@ class _$_DocumentTemplate extends _DocumentTemplate {
             other is _$_DocumentTemplate &&
             (identical(other.document, document) ||
                 other.document == document) &&
-            (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail) &&
             (identical(other.folder, folder) || other.folder == folder));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, document, thumbnail, folder);
+  int get hashCode => Object.hash(runtimeType, document, folder);
 
   @JsonKey(ignore: true)
   @override
@@ -196,7 +172,6 @@ class _$_DocumentTemplate extends _DocumentTemplate {
 abstract class _DocumentTemplate extends DocumentTemplate {
   const factory _DocumentTemplate(
       {@DocumentJsonConverter() required final AppDocument document,
-      final String thumbnail,
       final String folder}) = _$_DocumentTemplate;
   const _DocumentTemplate._() : super._();
 
@@ -206,8 +181,6 @@ abstract class _DocumentTemplate extends DocumentTemplate {
   @override
   @DocumentJsonConverter()
   AppDocument get document;
-  @override
-  String get thumbnail;
   @override
   String get folder;
   @override

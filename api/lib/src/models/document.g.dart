@@ -22,6 +22,7 @@ Map<String, dynamic> _$$_AssetLocationToJson(_$_AssetLocation instance) =>
 _$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
+      thumbnail: json['thumbnail'] as String? ?? '',
       content: (json['content'] as List<dynamic>?)
               ?.map((e) =>
                   PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -73,6 +74,7 @@ Map<String, dynamic> _$$_AppDocumentToJson(_$_AppDocument instance) =>
     <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
+      'thumbnail': instance.thumbnail,
       'content': instance.content.map((e) => e.toJson()).toList(),
       'background': instance.background.toJson(),
       'animations': instance.animations.map((e) => e.toJson()).toList(),

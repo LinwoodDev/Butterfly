@@ -19,7 +19,6 @@ class DocumentTemplate with _$DocumentTemplate {
 
   const factory DocumentTemplate(
       {@DocumentJsonConverter() required AppDocument document,
-      @Default('') String thumbnail,
       @Default('/') String folder}) = _DocumentTemplate;
 
   factory DocumentTemplate.fromJson(Map<String, dynamic> json) =>

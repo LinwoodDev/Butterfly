@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: d74f051467a841ce893a50ebeb420b7a5695f985d2781e22b3927fbc849aea45
+      sha256: a36ec4843dc30ea6bf652bf25e3448db6c5e8bcf4aa55f063a5d1dad216d8214
       url: "https://pub.dev"
     source: hosted
-    version: "57.0.0"
+    version: "58.0.0"
   adwaita:
     dependency: "direct main"
     description:
@@ -21,10 +21,10 @@ packages:
     dependency: "direct dev"
     description:
       name: analyzer
-      sha256: b665679cdccab0c754e65021f01087c6fab07a0b13659dd58827f765739b40f8
+      sha256: cc4242565347e98424ce9945c819c192ec0838cb9d1f6aa4a97cc96becbc5b27
       url: "https://pub.dev"
     source: hosted
-    version: "5.9.0"
+    version: "5.10.0"
   animations:
     dependency: "direct main"
     description:
@@ -562,10 +562,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: e2a90e1d4eed378ea12e0771be9e32766a2f8d2de3064e42f3a55f1b04fb8af8
+      sha256: "432409518740645ce7f28802171b78783197d01149fad44f9b8ae55f40277139"
       url: "https://pub.dev"
     source: hosted
-    version: "6.4.1"
+    version: "6.5.0"
   graphs:
     dependency: transitive
     description:
@@ -980,10 +980,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: "82f89201b98597ed13253a5fa750ac6b6bba3a9d4a91db7f07c9470baac33a4e"
+      sha256: "24829715d11c2c437e67b413f29ff91b5325daa9632f851d44deeea7a29bde9e"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.3"
+    version: "3.4.3+1"
   share_plus:
     dependency: "direct main"
     description:

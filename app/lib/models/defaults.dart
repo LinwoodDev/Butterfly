@@ -25,16 +25,16 @@ class DocumentDefaults {
       BuildContext context) async {
     return [
       DocumentTemplate(
-          thumbnail: await _createPlainThumnail(const Color(kColorLight)),
           document: AppDocument(
+              thumbnail: await _createPlainThumnail(const Color(kColorLight)),
               name: AppLocalizations.of(context).light,
               packs: [await getCorePack()],
               createdAt: DateTime.now(),
               painters: createDefaultPainters(),
               background: BackgroundTemplate.plain.create())),
       DocumentTemplate(
-          thumbnail: await _createPlainThumnail(const Color(kColorDark)),
           document: AppDocument(
+              thumbnail: await _createPlainThumnail(const Color(kColorDark)),
               name: AppLocalizations.of(context).dark,
               packs: [await getCorePack()],
               createdAt: DateTime.now(),
