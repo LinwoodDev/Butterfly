@@ -10,7 +10,7 @@ Queste risorse sono concesse sotto la licenza [CC-BY-4.0](https://github.com/Lin
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Logo Nightly
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
