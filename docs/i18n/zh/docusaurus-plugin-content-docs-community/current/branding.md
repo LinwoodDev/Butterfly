@@ -10,7 +10,7 @@ title: 品牌化
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## 每晚标志
+## Nightly Logo
 
 ![徽标](/img/nightly.svg)
 
