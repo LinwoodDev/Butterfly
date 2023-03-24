@@ -10,7 +10,7 @@ Tato aktiva jsou licencována pod [CC-BY-4.0](https://github.com/LinwoodCloud/Bu
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Noční logo
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
