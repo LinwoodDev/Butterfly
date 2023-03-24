@@ -10,7 +10,7 @@ title: Μάρκα
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Νυχτερινό Λογότυπο
+## Nightly Logo
 
 ![Λογότυπο](/img/nightly.svg)
 
