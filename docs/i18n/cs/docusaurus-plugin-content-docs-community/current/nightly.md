@@ -1,5 +1,5 @@
 ---
-title: "Noční sestavení"
+title: "Nightly Builds"
 slug: "/nightly"
 ---
 
