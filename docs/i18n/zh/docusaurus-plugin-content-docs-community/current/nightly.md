@@ -1,5 +1,5 @@
 ---
-title: "每晚生成"
+title: "Nightly Builds"
 slug: "/nightly"
 ---
 
