@@ -10,7 +10,7 @@ Aceste active sunt licențiate sub [CC-BY-4.0](https://github.com/LinwoodCloud/B
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Logo noapte
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
