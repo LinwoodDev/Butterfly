@@ -10,7 +10,7 @@ Estos activos están bajo la licencia [CC-BY-4.0](https://github.com/LinwoodClou
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Logo nocturno
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
