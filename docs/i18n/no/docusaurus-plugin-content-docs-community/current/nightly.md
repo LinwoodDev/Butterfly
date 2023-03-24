@@ -1,5 +1,5 @@
 ---
-title: "Nattlig bygger"
+title: "Nightly Builds"
 slug: "/nightly"
 ---
 
