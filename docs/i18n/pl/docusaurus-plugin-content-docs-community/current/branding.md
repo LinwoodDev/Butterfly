@@ -10,7 +10,7 @@ Te aktywa są licencjonowane na licencji [CC-BY-4.0](https://github.com/LinwoodC
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Logo nocne
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
