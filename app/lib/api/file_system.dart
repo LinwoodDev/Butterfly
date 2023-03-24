@@ -90,9 +90,7 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     var asset = await getAsset(path);
     if (asset == null) return null;
     if (asset is AppDocumentFile) {
-      var bytes = await loadAbsolute(path);
-      if (bytes == null) return null;
-      return createFile(newPath, bytes);
+      return createFile(newPath, asset.data);
     } else if (asset is AppDocumentDirectory) {
       var newDir = await createDirectory(newPath);
       for (var child in asset.assets) {

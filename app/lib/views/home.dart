@@ -761,7 +761,7 @@ class _FileEntityListTile extends StatelessWidget {
                               asset: entity,
                               fileSystem: fileSystem,
                             ),
-                          ),
+                          ).then((value) => onReload()),
                           tooltip: AppLocalizations.of(context).move,
                           icon: const Icon(PhosphorIcons.folderLight),
                         ),
