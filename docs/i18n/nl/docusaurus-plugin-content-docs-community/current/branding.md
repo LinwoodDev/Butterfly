@@ -10,7 +10,7 @@ Deze activa zijn gelicentieerd onder de [CC-BY-4.0](https://github.com/LinwoodCl
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nachtelijk Logo
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
