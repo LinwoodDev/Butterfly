@@ -10,7 +10,7 @@ Esses assets são licenciados sob o [CC-BY-4.0](https://github.com/LinwoodCloud/
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Logotipo Noturno
+## Nightly Logo
 
 ![Logotipo](/img/nightly.svg)
 
