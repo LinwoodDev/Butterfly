@@ -10,7 +10,7 @@
 
 ## 1.6.0 (2022-12-24)
 
-Read the whole 1.6 changelog at https://go.linwood.dev/butterfly/1-6
+Read the whole 1.6 changelog at <https://go.linwood.dev/butterfly/1-6>
 
 ## 1.6.0-rc.1 (2022-12-19)
 
