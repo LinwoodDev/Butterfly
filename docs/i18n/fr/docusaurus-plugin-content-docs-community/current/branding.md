@@ -10,7 +10,7 @@ Ces actifs sont sous licence [CC-BY-4.0](https://github.com/LinwoodCloud/Butterf
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Logo de nuit
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
