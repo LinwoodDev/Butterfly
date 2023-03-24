@@ -10,7 +10,7 @@ title: العلامة
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## شعار ليلي
+## Nightly Logo
 
 ![الشعار](/img/nightly.svg)
 
