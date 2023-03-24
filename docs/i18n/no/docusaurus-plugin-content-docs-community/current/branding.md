@@ -10,7 +10,7 @@ Disse eiendelene er lisensiert under [CC-BY-4.0](https://github.com/LinwoodCloud
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nattlig Logo
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
