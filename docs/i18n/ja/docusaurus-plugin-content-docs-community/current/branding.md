@@ -10,7 +10,7 @@ title: Branding
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nightlyロゴ
+## Nightly Logo
 
 ![ロゴ](/img/nightly.svg)
 
