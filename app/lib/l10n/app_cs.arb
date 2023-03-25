@@ -209,8 +209,8 @@
   "design": "Vzhled",
   "text": "Text",
   "selectSensitivity": "Vyberte citlivost",
-  "welcome": "Hey, this is Linwood Butterfly",
-  "welcomeContent": "A free and open-source drawing space!",
+  "welcome": "Hey, tohle je Linwood Butterfly",
+  "welcomeContent": "Volný a open-source prostor pro kreslení!",
   "updated": "Aplikace byla aktualizována na verzi {version}",
   "@updated": {
     "placeholders": {
