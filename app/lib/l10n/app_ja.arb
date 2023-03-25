@@ -209,8 +209,8 @@
   "design": "デザイン",
   "text": "テキスト",
   "selectSensitivity": "感度を選択",
-  "welcome": "Linwood Butterfly へようこそ",
-  "welcomeContent": "Butterflyは、あなたのアイデアが最初に来るノートアプリです。ペイント、テキストを追加し、すべてのデバイスで簡単にエクスポートできます。 このアプリは、Android、Windows、Linux、およびWeb上で動作します。",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "アプリをバージョン {version} に更新しました",
   "@updated": {
     "placeholders": {
