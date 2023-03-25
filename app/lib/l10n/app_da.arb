@@ -209,8 +209,8 @@
   "design": "Design",
   "text": "Tekst",
   "selectSensitivity": "Vælg følsomhed",
-  "welcome": "Velkommen til Linwood Butterfly",
-  "welcomeContent": "Butterfly er en note app, hvor dine ideer kommer først. Du kan male, tilføje tekster og eksportere dem nemt på hver enhed. Denne app virker på Android, Windows, Linux og på nettet.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "App opdateret til version {version}",
   "@updated": {
     "placeholders": {
