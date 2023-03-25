@@ -209,8 +209,8 @@
   "design": "Дизайн",
   "text": "Текст",
   "selectSensitivity": "Выберите чувствительность",
-  "welcome": "Добро пожаловать в Linwood Butterfly",
-  "welcomeContent": "Butterfly — это приложение для заметок, в котором ваши идеи стоят на первом месте. Вы можете рисовать, добавлять тексты и легко экспортировать их на любое устройство. Это приложение работает на Android, Windows, Linux и в Интернете.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "Приложение обновлено до версии {version}",
   "@updated": {
     "placeholders": {
