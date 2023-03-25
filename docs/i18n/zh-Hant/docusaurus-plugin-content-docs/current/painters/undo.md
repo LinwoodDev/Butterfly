@@ -1,6 +1,6 @@
 ---
 title: "Undo painter"
-sidebar_label: "Undo"
+sidebar_label: "還原"
 sidebar_position: 0
 ---
 
