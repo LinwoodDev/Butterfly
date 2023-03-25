@@ -209,8 +209,8 @@
   "design": "Ontwerp",
   "text": "Tekstveld",
   "selectSensitivity": "Selecteer gevoeligheid",
-  "welcome": "Welkom bij Linwood Vlinder",
-  "welcomeContent": "Butterfly is een notitie-app waar je ideeën op de eerste plaats komen. Je kunt ze gemakkelijk verven, toevoegen en exporteren op elk apparaat. Deze app werkt op Android, Windows, Linux en op het web.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "App bijgewerkt naar versie {version}",
   "@updated": {
     "placeholders": {
