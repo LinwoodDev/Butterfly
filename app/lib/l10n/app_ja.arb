@@ -209,8 +209,8 @@
   "design": "デザイン",
   "text": "テキスト",
   "selectSensitivity": "感度を選択",
-  "welcome": "Hey, this is Linwood Butterfly",
-  "welcomeContent": "A free and open-source drawing space!",
+  "welcome": "おい、これはLinwood Butterfly",
+  "welcomeContent": "フリーでオープンソースのドローイングスペース！",
   "updated": "アプリをバージョン {version} に更新しました",
   "@updated": {
     "placeholders": {
