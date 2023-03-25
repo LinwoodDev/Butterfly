@@ -35,29 +35,6 @@ Future<String> getButterflyDirectory() async {
 
 class IODocumentFileSystem extends DocumentFileSystem {
   @override
-  Future<AppDocumentFile> importDocument(AppDocument document,
-      {String path = '/'}) async {
-    // Add leading slash
-    if (!path.startsWith('/')) {
-      path = '/$path';
-    }
-    var encodedName = convertNameToFile(document.name);
-    var name = encodedName;
-    var counter = 1;
-    while (await hasAsset(name)) {
-      name = convertNameToFile('${document.name}_${++counter}');
-    }
-    var file = File('${await getDirectory()}$path/$name');
-    file = await file.create(recursive: true);
-    final data = const DocumentJsonConverter().toJson(document);
-    await file.writeAsString(json.encode(data));
-    return AppDocumentFile.fromMap(
-      AssetLocation.local(path == '/' ? '/$name' : '$path/$name'),
-      data,
-    );
-  }
-
-  @override
   Future<void> deleteAsset(String path) async {
     var absolutePath = await getAbsolutePath(path);
     var file = File(absolutePath);
@@ -125,16 +102,14 @@ class IODocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentFile> updateDocument(
-      String path, AppDocument document) async {
+  Future<AppDocumentFile> updateFile(String path, List<int> data) async {
     var file = File(await getAbsolutePath(path));
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
-    final data = const DocumentJsonConverter().toJson(document);
-    await file.writeAsString(jsonEncode(data));
+    await file.writeAsBytes(data, flush: true);
 
-    return AppDocumentFile.fromMap(AssetLocation.local(path), data);
+    return AppDocumentFile(AssetLocation.local(path), data);
   }
 
   @override
@@ -151,8 +126,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentDirectory> createDirectory(String name) async {
-    var dir = Directory(await getAbsolutePath(name));
+  Future<AppDocumentDirectory> createDirectory(String path) async {
+    var dir = Directory(await getAbsolutePath(path));
     if (!(await dir.exists())) {
       await dir.create(recursive: true);
     }
@@ -160,12 +135,12 @@ class IODocumentFileSystem extends DocumentFileSystem {
     var files = await dir.list().toList();
     for (var file in files) {
       var asset = await getAsset(
-          '$name/${file.path.replaceAll('\\', '/').split('/').last}');
+          '$path/${file.path.replaceAll('\\', '/').split('/').last}');
       if (asset != null) {
         assets.add(asset);
       }
     }
-    return AppDocumentDirectory(AssetLocation.local(name), assets);
+    return AppDocumentDirectory(AssetLocation.local(path), assets);
   }
 
   @override

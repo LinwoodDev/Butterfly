@@ -44,13 +44,13 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return GestureDetector(onSecondaryTap: () {
       if (!kIsWeb &&
-          isWindow() &&
+          isWindow &&
           !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
         windowManager.popUpWindowMenu();
       }
     }, onLongPress: () {
       if (!kIsWeb &&
-          isWindow() &&
+          isWindow &&
           !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
         windowManager.popUpWindowMenu();
       }
@@ -68,7 +68,7 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
             actions: [
               BlocBuilder<DocumentBloc, DocumentState>(
                 builder: (context, state) => Row(
-                  children: [if (!kIsWeb && isWindow()) const WindowButtons()],
+                  children: [if (!kIsWeb && isWindow) const WindowButtons()],
                 ),
               )
             ]);
@@ -105,7 +105,8 @@ class _AppBarTitle extends StatelessWidget {
           return true;
         }
         return previous.currentAreaName != current.currentAreaName ||
-            previous.hasAutosave() != current.hasAutosave();
+            previous.hasAutosave() != current.hasAutosave() ||
+            previous.document.name != current.document.name;
       }, builder: (context, state) {
         final title = Row(children: [
           Flexible(
@@ -123,9 +124,8 @@ class _AppBarTitle extends StatelessWidget {
                       final areaName = state is DocumentLoadSuccess
                           ? state.currentAreaName
                           : null;
-                      _nameController.text = state is DocumentLoadSuccess
-                          ? state.document.name
-                          : '';
+                      _nameController.text =
+                          state is DocumentLoaded ? state.document.name : '';
                       _areaController.text = area?.name ?? '';
                       void submit(String? value) {
                         if (value == null) return;
@@ -220,7 +220,7 @@ class _AppBarTitle extends StatelessWidget {
             )),
         ]);
         if (!kIsWeb &&
-            isWindow() &&
+            isWindow &&
             !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
           return DragToMoveArea(child: title);
         }
@@ -504,7 +504,7 @@ class _MainPopupMenu extends StatelessWidget {
             ),
           ],
           const Divider(),
-          if (state.embedding == null && (kIsWeb || !isWindow())) ...[
+          if (state.embedding == null && (kIsWeb || !isWindow)) ...[
             MenuItemButton(
               leadingIcon: const Icon(PhosphorIcons.arrowsOutLight),
               shortcut: const SingleActivator(LogicalKeyboardKey.f11),
@@ -524,6 +524,18 @@ class _MainPopupMenu extends StatelessWidget {
                     context, SettingsIntent(context));
               },
               child: Text(AppLocalizations.of(context).settings),
+            ),
+            MenuItemButton(
+              leadingIcon: const Icon(PhosphorIcons.houseLight),
+              child: Text(AppLocalizations.of(context).home),
+              onPressed: () {
+                final router = GoRouter.of(context);
+                if (router.canPop()) {
+                  router.pop();
+                } else {
+                  router.go('/');
+                }
+              },
             ),
           ] else ...[
             MenuItemButton(

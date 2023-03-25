@@ -467,12 +467,20 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         current.currentIndexCubit.unbake(unbakedElements: renderer);
       }
     });
-    on<TemplateCreated>((event, emit) {
+    on<TemplateCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
+      final render = await current.currentIndexCubit.render(current.document,
+          width: kThumbnailWidth.toDouble(),
+          height: kThumbnailHeight.toDouble());
+      final uri = render == null
+          ? ''
+          : UriData.fromBytes(render.buffer.asUint8List(),
+                  mimeType: 'image/png')
+              .toString();
       final remote = current.getRemoteStorage();
       TemplateFileSystem.fromPlatform(remote: remote)
-          .createTemplate(current.document);
+          .createTemplate(current.document.copyWith(thumbnail: uri));
 
       if (event.deleteDocument) {
         current.currentIndexCubit.setSaveState(

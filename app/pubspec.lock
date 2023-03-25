@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "503361166f4a100e0d7eb7fb5a62c6f0322512f2bcb48d6922caf98f24b0ab90"
+      sha256: a36ec4843dc30ea6bf652bf25e3448db6c5e8bcf4aa55f063a5d1dad216d8214
       url: "https://pub.dev"
     source: hosted
-    version: "56.0.0"
+    version: "58.0.0"
   adwaita:
     dependency: "direct main"
     description:
@@ -21,10 +21,10 @@ packages:
     dependency: "direct dev"
     description:
       name: analyzer
-      sha256: "93fcd81a6716e69864516750590cf1e699420615046bda19100238aa7b429785"
+      sha256: cc4242565347e98424ce9945c819c192ec0838cb9d1f6aa4a97cc96becbc5b27
       url: "https://pub.dev"
     source: hosted
-    version: "5.8.0"
+    version: "5.10.0"
   animations:
     dependency: "direct main"
     description:
@@ -396,10 +396,10 @@ packages:
     dependency: transitive
     description:
       name: flex_seed_scheme
-      sha256: e61950ccadfb8d43ce5cdef382e8f689edc053ce6b837e277539410ecfb3b3e5
+      sha256: "7058288ef97d348657ac95cea25d65a9aac181ca08387ede891fd7230ad7600f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.2"
+    version: "1.2.3"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -562,10 +562,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: b4bb06205ec607278b6fc23db238278417bca84a3905779cc68d1eb7afae37e2
+      sha256: "432409518740645ce7f28802171b78783197d01149fad44f9b8ae55f40277139"
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.0"
+    version: "6.5.0"
   graphs:
     dependency: transitive
     description:
@@ -779,10 +779,10 @@ packages:
     dependency: "direct main"
     description:
       name: path_provider
-      sha256: "04890b994ee89bfa80bf3080bfec40d5a92c5c7a785ebb02c13084a099d2b6f9"
+      sha256: c7edf82217d4b2952b2129a61d3ad60f1075b9299e629e149a8d2e39c2e6aad4
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.13"
+    version: "2.0.14"
   path_provider_android:
     dependency: transitive
     description:
@@ -876,10 +876,10 @@ packages:
     dependency: transitive
     description:
       name: pointycastle
-      sha256: "57b6b78df14175658f09c5dfcfc51a46ad9561a3504fe679913dab404d0cc0f2"
+      sha256: c3120a968135aead39699267f4c74bc9a08e4e909e86bc1b0af5bfd78691123c
       url: "https://pub.dev"
     source: hosted
-    version: "3.7.0"
+    version: "3.7.2"
   pool:
     dependency: transitive
     description:
@@ -888,6 +888,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
+  popover:
+    dependency: "direct main"
+    description:
+      name: popover
+      sha256: "59f4a55ebb484d012c8aaa273ad58eee571945231b71fb938c5a69f63b5a94d4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.8+2"
   printing:
     dependency: "direct main"
     description:
@@ -972,10 +980,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: "82f89201b98597ed13253a5fa750ac6b6bba3a9d4a91db7f07c9470baac33a4e"
+      sha256: "24829715d11c2c437e67b413f29ff91b5325daa9632f851d44deeea7a29bde9e"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.3"
+    version: "3.4.3+1"
   share_plus:
     dependency: "direct main"
     description:
@@ -996,10 +1004,10 @@ packages:
     dependency: "direct main"
     description:
       name: shared_preferences
-      sha256: ee6257848f822b8481691f20c3e6d2bfee2e9eccb2a3d249907fcfb198c55b41
+      sha256: "78528fd87d0d08ffd3e69551173c026e8eacc7b7079c82eb6a77413957b7e394"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.18"
+    version: "2.0.20"
   shared_preferences_android:
     dependency: transitive
     description:
@@ -1193,10 +1201,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: "845530e5e05db5500c1a4c1446785d60cbd8f9bd45e21e7dd643a3273bb4bbd1"
+      sha256: dd729390aa936bf1bdf5cd1bc7468ff340263f80a2c4f569416507667de8e3c8
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.25"
+    version: "6.0.26"
   url_launcher_ios:
     dependency: transitive
     description:

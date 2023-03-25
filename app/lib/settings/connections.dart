@@ -41,7 +41,7 @@ class ConnectionsSettingsPage extends StatelessWidget {
                 },
               );
             }),
-            if (!inView && !kIsWeb && isWindow()) const WindowButtons()
+            if (!inView && !kIsWeb && isWindow) const WindowButtons()
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(

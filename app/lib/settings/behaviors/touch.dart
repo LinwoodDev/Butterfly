@@ -19,7 +19,7 @@ class TouchBehaviorSettings extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context).touch),
-          actions: [if (!kIsWeb && isWindow()) const WindowButtons()],
+          actions: [if (!kIsWeb && isWindow) const WindowButtons()],
         ),
         body: Align(
           alignment: Alignment.center,

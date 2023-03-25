@@ -22,9 +22,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
           title: Text(AppLocalizations.of(context).behaviors),
           backgroundColor: inView ? Colors.transparent : null,
           automaticallyImplyLeading: !inView,
-          actions: [
-            if (!inView && !kIsWeb && isWindow()) const WindowButtons()
-          ],
+          actions: [if (!inView && !kIsWeb && isWindow) const WindowButtons()],
         ),
         body: BlocBuilder<SettingsCubit, ButterflySettings>(
             builder: (context, state) {

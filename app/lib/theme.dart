@@ -12,21 +12,44 @@ const kClassicThemeData = FlexSchemeData(
 ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
   final color = getFlexThemeColor(name, dark);
   final override = overridden != null && name.isEmpty;
+  ThemeData theme;
   if (dark) {
-    return FlexThemeData.dark(
+    theme = FlexThemeData.dark(
       colors: override ? null : color,
       colorScheme: override ? overridden : null,
       useMaterial3: true,
       appBarElevation: 2,
       fontFamily: 'Comfortaa',
     );
+  } else {
+    theme = FlexThemeData.light(
+      colors: override ? null : color,
+      colorScheme: override ? overridden : null,
+      useMaterial3: true,
+      appBarElevation: 0.5,
+      fontFamily: 'Comfortaa',
+    );
   }
-  return FlexThemeData.light(
-    colors: override ? null : color,
-    colorScheme: override ? overridden : null,
-    useMaterial3: true,
-    appBarElevation: 0.5,
-    fontFamily: 'Comfortaa',
+  return theme.copyWith(
+    dropdownMenuTheme: DropdownMenuThemeData(
+      inputDecorationTheme: defaultDropdownInputDecorationTheme(),
+    ),
+    inputDecorationTheme: defaultDropdownInputDecorationTheme(),
+  );
+}
+
+InputDecorationTheme defaultDropdownInputDecorationTheme() {
+  return const InputDecorationTheme(
+    filled: true,
+    isDense: true,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+      borderSide: BorderSide.none,
+    ),
+    contentPadding: EdgeInsets.symmetric(
+      horizontal: 16,
+      vertical: 12,
+    ),
   );
 }
 

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -6,24 +7,41 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DocumentDefaults {
+  static Future<String> _createPlainThumnail(Color color) async {
+    final size = Size(kThumbnailWidth.toDouble(), kThumbnailHeight.toDouble());
+    final recorder = ui.PictureRecorder();
+    final canvas = Canvas(recorder);
+    canvas.drawRect(
+        Rect.fromLTWH(0, 0, size.width, size.height), Paint()..color = color);
+    final picture = recorder.endRecording();
+    final image =
+        await picture.toImage(size.width.toInt(), size.height.toInt());
+    final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    return UriData.fromBytes(bytes!.buffer.asUint8List(), mimeType: 'image/png')
+        .toString();
+  }
+
   static Future<List<DocumentTemplate>> getDefaults(
-          BuildContext context) async =>
-      [
-        DocumentTemplate(
-            document: AppDocument(
-                name: AppLocalizations.of(context).plain,
-                packs: [await getCorePack()],
-                createdAt: DateTime.now(),
-                painters: createDefaultPainters(),
-                background: BackgroundTemplate.plain.create())),
-        DocumentTemplate(
-            document: AppDocument(
-                name: AppLocalizations.of(context).plainDark,
-                packs: [await getCorePack()],
-                createdAt: DateTime.now(),
-                painters: createDefaultPainters(),
-                background: BackgroundTemplate.plainDark.create()))
-      ];
+      BuildContext context) async {
+    return [
+      DocumentTemplate(
+          document: AppDocument(
+              thumbnail: await _createPlainThumnail(const Color(kColorLight)),
+              name: AppLocalizations.of(context).light,
+              packs: [await getCorePack()],
+              createdAt: DateTime.now(),
+              painters: createDefaultPainters(),
+              background: BackgroundTemplate.plain.create())),
+      DocumentTemplate(
+          document: AppDocument(
+              thumbnail: await _createPlainThumnail(const Color(kColorDark)),
+              name: AppLocalizations.of(context).dark,
+              packs: [await getCorePack()],
+              createdAt: DateTime.now(),
+              painters: createDefaultPainters(),
+              background: BackgroundTemplate.plainDark.create()))
+    ];
+  }
 
   static Future<ButterflyPack> getCorePack() async => const PackJsonConverter()
       .fromJson(json.decode(await rootBundle.loadString('defaults/pack.bfly')));

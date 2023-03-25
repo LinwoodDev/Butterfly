@@ -101,7 +101,7 @@ abstract class AppDocumentEntity {
 
 @immutable
 class AppDocumentFile extends AppDocumentEntity {
-  final Uint8List data;
+  final List<int> data;
 
   const AppDocumentFile(super.path, this.data);
 
@@ -135,11 +135,13 @@ class DocumentInfo {
 
   String get description => json['description'] ?? '';
 
-  DateTime? get updatedAt =>
-      json['updatedAt'] == null ? null : DateTime.tryParse(json['updatedAt']);
+  DateTime? get updatedAt => json['updatedAt'] is! int
+      ? null
+      : DateTime.fromMillisecondsSinceEpoch(json['updatedAt']);
 
-  DateTime? get createdAt =>
-      json['createdAt'] == null ? null : DateTime.tryParse(json['createdAt']);
+  DateTime? get createdAt => json['createdAt'] is! int
+      ? null
+      : DateTime.fromMillisecondsSinceEpoch(json['createdAt']);
 
   AppDocument load() =>
       const DocumentJsonConverter().fromJson(Map<String, dynamic>.from(json));
@@ -173,8 +175,9 @@ class AppDocument with _$AppDocument {
   const AppDocument._();
 
   const factory AppDocument({
-    required String name,
+    @Default('') String name,
     @Default('') String description,
+    @Default('') String thumbnail,
     @Default([]) List<PadElement> content,
     @Default(Background.empty()) Background background,
     @Default([]) List<AnimationTrack> animations,
@@ -182,8 +185,8 @@ class AppDocument with _$AppDocument {
     @Default([]) List<Area> areas,
     @Default([]) List<ExportPreset> exportPresets,
     @Default([]) List<ButterflyPack> packs,
-    required DateTime createdAt,
-    DateTime? updatedAt,
+    @DateTimeJsonConverter() required DateTime createdAt,
+    @DateTimeJsonConverter() DateTime? updatedAt,
     @Default([]) List<Painter> painters,
     @Default(ToolOption()) ToolOption tool,
   }) = _AppDocument;
@@ -214,4 +217,7 @@ class AppDocument with _$AppDocument {
   AnimationTrack? getAnimation(String name) {
     return animations.firstWhereOrNull((e) => e.name == name);
   }
+
+  List<int> save() =>
+      utf8.encode(jsonEncode(DocumentJsonConverter().toJson(this)));
 }

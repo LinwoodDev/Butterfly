@@ -19,7 +19,7 @@ class PenBehaviorSettings extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).pen),
-        actions: [if (!kIsWeb && isWindow()) const WindowButtons()],
+        actions: [if (!kIsWeb && isWindow) const WindowButtons()],
       ),
       body: Align(
         alignment: Alignment.center,

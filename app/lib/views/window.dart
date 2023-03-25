@@ -9,7 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../cubits/settings.dart';
 
-bool isWindow() =>
+final isWindow =
     !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
 
 class WindowButtons extends StatefulWidget {
@@ -26,7 +26,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
 
   @override
   void initState() {
-    if (!kIsWeb && isWindow()) {
+    if (!kIsWeb && isWindow) {
       windowManager.addListener(this);
     }
     super.initState();
@@ -79,7 +79,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
         buildWhen: (previous, current) =>
             previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
         builder: (context, settings) {
-          if (!kIsWeb && isWindow() && !settings.nativeWindowTitleBar) {
+          if (!kIsWeb && isWindow && !settings.nativeWindowTitleBar) {
             return LayoutBuilder(
               builder: (context, constraints) => Padding(
                 padding: const EdgeInsets.all(8.0),

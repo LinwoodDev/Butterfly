@@ -33,7 +33,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
           backgroundColor: widget.inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context).data),
           actions: [
-            if (!widget.inView && !kIsWeb && isWindow()) const WindowButtons()
+            if (!widget.inView && !kIsWeb && isWindow) const WindowButtons()
           ],
         ),
         body: BlocBuilder<SettingsCubit, ButterflySettings>(
@@ -72,53 +72,6 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                   )
                                 : null,
                           ),
-                        ListTile(
-                          title: Text(AppLocalizations.of(context).dateFormat),
-                          leading: const Icon(PhosphorIcons.calendarLight),
-                          subtitle: Text(state.dateFormat),
-                          onTap: () async {
-                            final settingsCubit = context.read<SettingsCubit>();
-                            // Show input dialog
-                            final TextEditingController controller =
-                                TextEditingController(text: state.dateFormat);
-                            final String? newFormat = await showDialog<String>(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: Text(
-                                    AppLocalizations.of(context).dateFormat),
-                                content: TextField(
-                                  controller: controller,
-                                  autofocus: true,
-                                  decoration: InputDecoration(
-                                    hintText: 'yyyy-MM-dd',
-                                    filled: true,
-                                    labelText:
-                                        AppLocalizations.of(context).dateFormat,
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    child: Text(
-                                        AppLocalizations.of(context).cancel),
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
-                                  ),
-                                  ElevatedButton(
-                                    child:
-                                        Text(AppLocalizations.of(context).ok),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pop(controller.text);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            );
-                            if (newFormat != null) {
-                              settingsCubit.changeDateFormat(newFormat);
-                            }
-                          },
-                        ),
                         ListTile(
                           title: Text(AppLocalizations.of(context).packs),
                           leading: const Icon(PhosphorIcons.packageLight),

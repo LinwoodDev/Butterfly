@@ -33,6 +33,7 @@ import 'settings/connections.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
 import 'theme.dart';
 import 'views/error.dart';
+import 'views/home.dart';
 import 'views/main.dart';
 import 'views/window.dart';
 
@@ -77,7 +78,7 @@ Future<void> main([List<String> args = const []]) async {
     }
   }
 
-  if (!kIsWeb && isWindow()) {
+  if (!kIsWeb && isWindow) {
     await windowManager.ensureInitialized();
     const kWindowOptions = WindowOptions(
       minimumSize: Size(410, 300),
@@ -133,7 +134,7 @@ class ButterflyApp extends StatelessWidget {
                 name: 'home',
                 path: '/',
                 builder: (context, state) {
-                  return const ProjectPage();
+                  return const HomePage();
                 },
                 routes: [
                   GoRoute(
@@ -197,6 +198,15 @@ class ButterflyApp extends StatelessWidget {
                   ),
                 ]),
             GoRoute(
+              name: 'new',
+              path: '/new',
+              builder: (context, state) {
+                return ProjectPage(
+                  data: state.extra,
+                );
+              },
+            ),
+            GoRoute(
               name: 'local',
               path: '/local/:path(.*)',
               builder: (context, state) {
@@ -259,7 +269,7 @@ class ButterflyApp extends StatelessWidget {
           buildWhen: (previous, current) =>
               previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
           builder: (context, settings) {
-            if (!kIsWeb && isWindow()) {
+            if (!kIsWeb && isWindow) {
               windowManager.waitUntilReadyToShow().then((_) async {
                 windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
                     ? TitleBarStyle.normal
@@ -297,6 +307,12 @@ class ButterflyApp extends StatelessWidget {
                 ...AppLocalizations.localizationsDelegates,
                 LocaleNamesLocalizationsDelegate(),
               ],
+              builder: (context, child) {
+                child = DragToResizeArea(
+                  child: child ?? Container(),
+                );
+                return child;
+              },
               supportedLocales: getLocales(),
               themeMode: state.theme,
               theme: getThemeData(state.design, false, lightDynamic),

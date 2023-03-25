@@ -120,16 +120,17 @@ class DocumentLoadSuccess extends DocumentLoaded {
   Future<AssetLocation> save() {
     final storage = getRemoteStorage();
     if (embedding != null) return Future.value(AssetLocation.local(''));
+    final newDocument = document.copyWith(updatedAt: DateTime.now());
     if (location.path == '' ||
         location.absolute ||
         location.fileType != AssetFileType.note) {
       return DocumentFileSystem.fromPlatform(remote: storage)
-          .importDocument(document)
+          .importDocument(newDocument)
           .then((value) => value.location)
         ..then(settingsCubit.addRecentHistory);
     }
     return DocumentFileSystem.fromPlatform(remote: storage)
-        .updateDocument(location.path, document)
+        .updateDocument(location.path, newDocument)
         .then((value) => value.location)
       ..then(settingsCubit.addRecentHistory);
   }
