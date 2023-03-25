@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:js_util';
 
@@ -43,7 +44,7 @@ Database? _db;
 Future<Database> _getDatabase() async {
   if (_db != null) return _db!;
   var idbFactory = getIdbFactory()!;
-  _db = await idbFactory.open('butterfly.db', version: 3,
+  _db = await idbFactory.open('butterfly.db', version: 4,
       onUpgradeNeeded: (VersionChangeEvent event) async {
     Database db = event.database;
     if (event.oldVersion < 1) {
@@ -62,6 +63,19 @@ Future<Database> _getDatabase() async {
     }
     if (event.oldVersion < 3) {
       db.createObjectStore('templates');
+    }
+    if (event.oldVersion < 4) {
+      var txn = event.transaction;
+      var store = txn.objectStore('templates');
+      var cursor = store.openCursor();
+      await Future.wait(await cursor.map<Future<dynamic>>((cursor) async {
+        final value = cursor.value;
+        if (value is! Map) return value;
+        var type = value['type'];
+        if (type != 'document') return value;
+        final data = utf8.encode(jsonEncode(value));
+        return {'type': 'document', 'data': data};
+      }).toList());
     }
   });
   return _db!;
@@ -110,7 +124,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var map = Map<String, dynamic>.from(data as Map);
     if (map['type'] == 'file') {
       await txn.completed;
-      return AppDocumentFile.fromMap(AssetLocation.local(path), map);
+      return AppDocumentFile(AssetLocation.local(path), map['data']);
     } else if (map['type'] == 'directory') {
       var cursor = store.openCursor(autoAdvance: true);
       var assets = await Future.wait(
@@ -126,8 +140,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
             !key.substring(path.length + 1).contains('/')) {
           var data = cursor.value as Map<dynamic, dynamic>;
           if (data['type'] == 'file') {
-            return AppDocumentFile.fromMap(
-                AssetLocation.local(key), Map<String, dynamic>.from(data));
+            return AppDocumentFile(AssetLocation.local(key), data['data']);
           } else if (data['type'] == 'directory') {
             return AppDocumentDirectory(AssetLocation.local(key), const []);
           }
@@ -177,7 +190,10 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
-    await store.put(data, path);
+    await store.put({
+      'type': 'file',
+      'data': data,
+    }, path);
     await txn.completed;
     return AppDocumentFile(AssetLocation.local(path), data);
   }

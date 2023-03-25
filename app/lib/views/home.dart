@@ -143,7 +143,17 @@ class _HeaderHomeView extends StatelessWidget {
                       child: Text(AppLocalizations.of(context).whatsNew),
                     ),
               if (snapshot.data ?? false)
-                const Icon(PhosphorIcons.caretUpLight),
+                SizedBox(
+                  height: 0,
+                  child: Stack(
+                    children: const [
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Icon(PhosphorIcons.caretUpLight),
+                      ),
+                    ],
+                  ),
+                ),
             ],
           );
         },
@@ -250,40 +260,55 @@ enum _SortBy { name, created, modified }
 
 class _FilesHomeViewState extends State<_FilesHomeView> {
   final TextEditingController _locationController = TextEditingController();
+  late DocumentFileSystem _fileSystem;
+
   //bool _gridView = false;
   RemoteStorage? _remote;
   _SortBy _sortBy = _SortBy.name;
   String _search = '';
   late final SettingsCubit _settingsCubit;
+  late Future<AppDocumentEntity?> _filesFuture;
 
   @override
   void initState() {
     super.initState();
     _settingsCubit = context.read<SettingsCubit>();
     _remote = _settingsCubit.getRemote();
+    _setFilesFuture();
   }
 
   String getLocalizedNameOfSortBy(_SortBy sortBy) {
     return sortBy.name.toDisplayString();
   }
 
+  void _setFilesFuture() {
+    _fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
+    _filesFuture = _fileSystem.getAsset(_locationController.text);
+  }
+
+  void _reloadFileSystem() {
+    setState(_setFilesFuture);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      Wrap(
-        alignment: WrapAlignment.spaceBetween,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        runAlignment: WrapAlignment.spaceBetween,
-        runSpacing: 16,
-        spacing: 16,
+      Row(
         children: [
           Text(
             AppLocalizations.of(context).files,
             style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.start,
           ),
-          /*Row(
+          const SizedBox(width: 16),
+          Expanded(
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              runAlignment: WrapAlignment.spaceBetween,
+              runSpacing: 16,
+              spacing: 16,
+              children: [
+                /*Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text('Switch view'),
@@ -295,69 +320,76 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
               ),
             ],
           ),*/
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(AppLocalizations.of(context).source),
-              const SizedBox(width: 8),
-              SizedBox(
-                width: 200,
-                child: BlocBuilder<SettingsCubit, ButterflySettings>(
-                    builder: (context, state) {
-                  return DropdownButtonFormField<RemoteStorage?>(
-                    items: [
-                      DropdownMenuItem(
-                        value: null,
-                        child: Text(AppLocalizations.of(context).local),
-                      ),
-                      ...state.remotes
-                          .map((e) => DropdownMenuItem(
-                                value: e,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(e.uri.host),
-                                    Text(e.username),
-                                  ],
-                                ),
-                              ))
-                          .toList(),
-                    ],
-                    itemHeight: 50,
-                    selectedItemBuilder: (context) => [
-                      Text(AppLocalizations.of(context).local),
-                      ...state.remotes.map((e) =>
-                          Text(e.uri.host, overflow: TextOverflow.ellipsis))
-                    ],
-                    borderRadius: BorderRadius.circular(16),
-                    value: _remote,
-                    onChanged: (value) => setState(() => _remote = value),
-                  );
-                }),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(AppLocalizations.of(context).sortBy),
-              const SizedBox(width: 8),
-              SizedBox(
-                width: 150,
-                child: DropdownButtonFormField<_SortBy>(
-                  items: _SortBy.values
-                      .map((e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(getLocalizedNameOfSortBy(e)),
-                          ))
-                      .toList(),
-                  borderRadius: BorderRadius.circular(16),
-                  value: _sortBy,
-                  onChanged: (value) =>
-                      setState(() => _sortBy = value ?? _sortBy),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(AppLocalizations.of(context).source),
+                    const SizedBox(width: 8),
+                    SizedBox(
+                      width: 200,
+                      child: BlocBuilder<SettingsCubit, ButterflySettings>(
+                          builder: (context, state) {
+                        return DropdownButtonFormField<RemoteStorage?>(
+                          items: [
+                            DropdownMenuItem(
+                              value: null,
+                              child: Text(AppLocalizations.of(context).local),
+                            ),
+                            ...state.remotes
+                                .map((e) => DropdownMenuItem(
+                                      value: e,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(e.uri.host),
+                                          Text(e.username),
+                                        ],
+                                      ),
+                                    ))
+                                .toList(),
+                          ],
+                          itemHeight: 50,
+                          selectedItemBuilder: (context) => [
+                            Text(AppLocalizations.of(context).local),
+                            ...state.remotes.map((e) => Text(e.uri.host,
+                                overflow: TextOverflow.ellipsis))
+                          ],
+                          borderRadius: BorderRadius.circular(16),
+                          value: _remote,
+                          onChanged: (value) => setState(() {
+                            _remote = value;
+                            _setFilesFuture();
+                          }),
+                        );
+                      }),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(AppLocalizations.of(context).sortBy),
+                    const SizedBox(width: 8),
+                    SizedBox(
+                      width: 150,
+                      child: DropdownButtonFormField<_SortBy>(
+                        items: _SortBy.values
+                            .map((e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(getLocalizedNameOfSortBy(e)),
+                                ))
+                            .toList(),
+                        borderRadius: BorderRadius.circular(16),
+                        value: _sortBy,
+                        onChanged: (value) =>
+                            setState(() => _sortBy = value ?? _sortBy),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -388,8 +420,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                     if (name == null) return;
                     final path = _locationController.text;
                     final newPath = '$path/$name';
-                    await fileSystem.createDirectory(newPath);
-                    setState(() {});
+                    await _fileSystem.createDirectory(newPath);
+                    _reloadFileSystem();
                   },
                 ),
                 MenuItemButton(
@@ -436,8 +468,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                       if (!newPath.endsWith('.bfly')) {
                         newPath += '.bfly';
                       }
-                      await fileSystem.updateDocument(newPath, asset.document);
-                      setState(() {});
+                      await _fileSystem.updateDocument(newPath, asset.document);
+                      _reloadFileSystem();
                     }
                   },
                   leadingIcon: const Icon(PhosphorIcons.fileLight),
@@ -458,6 +490,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                         final index = _locationController.text.lastIndexOf('/');
                         _locationController.text = _locationController.text
                             .substring(0, index < 0 ? 0 : index);
+                        _setFilesFuture();
                       }),
               icon: const Icon(PhosphorIcons.arrowUpLight),
             ),
@@ -471,7 +504,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                   contentPadding: const EdgeInsets.only(left: 32),
                 ),
                 controller: _locationController,
-                onFieldSubmitted: (value) => setState(() {}),
+                onFieldSubmitted: (value) => _reloadFileSystem(),
               ),
             ),
           ],
@@ -499,7 +532,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
       }),
       const SizedBox(height: 16),
       FutureBuilder<AppDocumentEntity?>(
-          future: fileSystem.getAsset(_locationController.text),
+          future: _filesFuture,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Text(snapshot.error.toString());
@@ -530,8 +563,11 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                   selected: selected,
                   onTap: () {
                     if (entity is AppDocumentDirectory) {
-                      setState(() => _locationController.text =
-                          entity.pathWithoutLeadingSlash);
+                      setState(() {
+                        _locationController.text =
+                            entity.pathWithoutLeadingSlash;
+                        _setFilesFuture();
+                      });
                       return;
                     }
                     final location = entity.location;
@@ -558,7 +594,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                       ],
                     ).toString());
                   },
-                  onReload: () => setState(() {}),
+                  onReload: _reloadFileSystem,
                 );
               },
             );
@@ -763,7 +799,7 @@ class _FileEntityListTile extends StatelessWidget {
                             ),
                           ).then((value) => onReload()),
                           tooltip: AppLocalizations.of(context).move,
-                          icon: const Icon(PhosphorIcons.folderLight),
+                          icon: const Icon(PhosphorIcons.arrowsDownUpLight),
                         ),
                       ],
                     );
