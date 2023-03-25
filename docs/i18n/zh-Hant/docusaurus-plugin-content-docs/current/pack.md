@@ -7,8 +7,8 @@ A pack is a collection of components that can be used in the stamp painter. You 
 
 ## Properties
 
-|        Name | Description               |
+|          名稱 | Description               |
 | -----------:|:------------------------- |
-|        Name | The name of the pack      |
+|          名稱 | The name of the pack      |
 |      Author | The author of the pack    |
 | Description | A description of the pack |
