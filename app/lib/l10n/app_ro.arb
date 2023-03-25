@@ -209,8 +209,8 @@
   "design": "Proiectare",
   "text": "Text",
   "selectSensitivity": "Selectaţi sensibilitatea",
-  "welcome": "Bine ai venit la Linwood Butterfly",
-  "welcomeContent": "Butterfly este o aplicație cu note unde ideile tale sunt primite. Poți picta, adăuga texte și exporta cu ușurință pe fiecare dispozitiv. Această aplicație funcționează pe Android, Windows, Linux și pe web.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "Aplicație actualizată la versiunea {version}",
   "@updated": {
     "placeholders": {
