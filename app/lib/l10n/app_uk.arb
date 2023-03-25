@@ -209,8 +209,8 @@
   "design": "Дизайн",
   "text": "Текст",
   "selectSensitivity": "Виберіть чутливість",
-  "welcome": "Ласкаво просимо до метелика Лінвуду",
-  "welcomeContent": "Метелик - це додаток з нотаткою на якому відправляються ідеї. Можна малювати, додавати тексти та експортувати їх на усіх пристроях. Цей додаток працює на Android, Windows, Linux та в мережі.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "Додаток оновлено до версії {version}",
   "@updated": {
     "placeholders": {
