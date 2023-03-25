@@ -209,8 +209,8 @@
   "design": "Ontwerp",
   "text": "Tekstveld",
   "selectSensitivity": "Selecteer gevoeligheid",
-  "welcome": "Hey, this is Linwood Butterfly",
-  "welcomeContent": "A free and open-source drawing space!",
+  "welcome": "Hé, dit is Linwood Vlinder",
+  "welcomeContent": "Een vrije en open source tekenruimte!",
   "updated": "App bijgewerkt naar versie {version}",
   "@updated": {
     "placeholders": {
