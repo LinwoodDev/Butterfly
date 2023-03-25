@@ -209,8 +209,8 @@
   "design": "设计",
   "text": "文本",
   "selectSensitivity": "选择灵敏度",
-  "welcome": "Hey, this is Linwood Butterfly",
-  "welcomeContent": "A free and open-source drawing space!",
+  "welcome": "嘿，它是 Linwood Butterflight",
+  "welcomeContent": "一个自由和开源的绘图空间！",
   "updated": "应用程序更新到版本 {version}",
   "@updated": {
     "placeholders": {
