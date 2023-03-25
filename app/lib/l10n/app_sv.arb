@@ -209,8 +209,8 @@
   "design": "Design",
   "text": "Text",
   "selectSensitivity": "Välj känslighet",
-  "welcome": "Välkommen till Linwood Butterfly",
-  "welcomeContent": "Fjärilen är en anteckningsapp där dina idéer kommer först. Du kan måla, lägga till texter och exportera dem enkelt på varje enhet. Denna app fungerar på Android, Windows, Linux och på webben.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "Appen uppdaterad till version {version}",
   "@updated": {
     "placeholders": {
