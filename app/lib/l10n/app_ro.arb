@@ -209,8 +209,8 @@
   "design": "Proiectare",
   "text": "Text",
   "selectSensitivity": "Selectaţi sensibilitatea",
-  "welcome": "Hey, this is Linwood Butterfly",
-  "welcomeContent": "A free and open-source drawing space!",
+  "welcome": "Hei, acesta este Linwood Butterfly",
+  "welcomeContent": "Un spaţiu de desenare gratuit şi open-source!",
   "updated": "Aplicație actualizată la versiunea {version}",
   "@updated": {
     "placeholders": {
