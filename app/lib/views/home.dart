@@ -432,6 +432,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                       context: context,
                       builder: (context) => NameDialog(),
                     );
+                    if (name?.isEmpty ?? true) return;
                     final templateFileSystem =
                         TemplateFileSystem.fromPlatform(remote: _remote);
                     if (context.mounted) {
@@ -498,8 +499,9 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                 tooltip: AppLocalizations.of(context).goUp,
               ),
               onWillAccept: (data) => true,
-              onAccept: (data) {
-                _fileSystem.moveAsset(data, '$parent/${data.split('/').last}');
+              onAccept: (data) async {
+                await _fileSystem.moveAsset(
+                    data, '$parent/${data.split('/').last}');
                 _reloadFileSystem();
               },
             ),
@@ -974,8 +976,8 @@ class _FileEntityListTile extends StatelessWidget {
         onWillAccept: (data) {
           return data != entity.location.path;
         },
-        onAccept: (data) {
-          fileSystem.moveAsset(
+        onAccept: (data) async {
+          await fileSystem.moveAsset(
               data, '${entity.location.path}/${data.split('/').last}');
           onReload();
         },
