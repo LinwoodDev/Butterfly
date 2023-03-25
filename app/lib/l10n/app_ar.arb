@@ -209,8 +209,8 @@
   "design": "تصميم",
   "text": "نص",
   "selectSensitivity": "حدد حساسية",
-  "welcome": "مرحبا بكم في فراشة لينود",
-  "welcomeContent": "الفراشة هي تطبيق ملاحظة حيث تأتي أفكارك أولاً. يمكنك رسم النصوص وإضافتها وتصديرها بسهولة على كل أجهزة. يعمل هذا التطبيق على أندرويد وويندوز ولينكس وفي الويب.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "تم تحديث التطبيق إلى الإصدار {version}",
   "@updated": {
     "placeholders": {
