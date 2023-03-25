@@ -209,8 +209,8 @@
   "design": "设计",
   "text": "文本",
   "selectSensitivity": "选择灵敏度",
-  "welcome": "欢迎使用 Linwood Butterfight",
-  "welcomeContent": "Butterflight是一个便笺应用，您可以在每个设备上绘画、添加文本并轻松导出。 此应用在 Android、 Windows、 Linux 和 web 上运行。",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "应用程序更新到版本 {version}",
   "@updated": {
     "placeholders": {
