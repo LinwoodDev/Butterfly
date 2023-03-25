@@ -209,8 +209,8 @@
   "design": "Ulkoasu",
   "text": "Teksti",
   "selectSensitivity": "Valitse herkkyys",
-  "welcome": "Tervetuloa Linwood Butterfly",
-  "welcomeContent": "Butterfly on muistiinpanosovellus, jossa ideasi tulevat ensin. Voit maalata, lisätä tekstejä ja viedä ne helposti jokaiseen laitteeseen. Tämä sovellus toimii Androidissa, Windowsissa, Linuxissa ja verkossa.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "Sovellus päivitetty versioon {version}",
   "@updated": {
     "placeholders": {
