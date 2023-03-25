@@ -209,8 +209,8 @@
   "design": "Projekt",
   "text": "Tekst",
   "selectSensitivity": "Wybierz czułość",
-  "welcome": "Hey, this is Linwood Butterfly",
-  "welcomeContent": "A free and open-source drawing space!",
+  "welcome": "Hej, to jest Łuskowy Motyw",
+  "welcomeContent": "Wolne i otwarte miejsce na rysowanie!",
   "updated": "Aplikacja zaktualizowana do wersji {version}",
   "@updated": {
     "placeholders": {
