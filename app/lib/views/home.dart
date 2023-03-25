@@ -292,6 +292,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final index = _locationController.text.lastIndexOf('/');
+    final parent = _locationController.text.substring(0, index < 0 ? 0 : index);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Row(
         children: [
@@ -480,19 +482,26 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                   FloatingActionButton.small(
                 onPressed: () =>
                     controller.isOpen ? controller.close() : controller.open(),
+                tooltip: AppLocalizations.of(context).create,
                 child: const Icon(PhosphorIcons.plusLight),
               ),
             ),
-            IconButton(
-              onPressed: _locationController.text.isEmpty
-                  ? null
-                  : () => setState(() {
-                        final index = _locationController.text.lastIndexOf('/');
-                        _locationController.text = _locationController.text
-                            .substring(0, index < 0 ? 0 : index);
-                        _setFilesFuture();
-                      }),
-              icon: const Icon(PhosphorIcons.arrowUpLight),
+            DragTarget<String>(
+              builder: (context, candidateData, rejectedData) => IconButton(
+                onPressed: _locationController.text.isEmpty
+                    ? null
+                    : () => setState(() {
+                          _locationController.text = parent;
+                          _setFilesFuture();
+                        }),
+                icon: const Icon(PhosphorIcons.arrowUpLight),
+                tooltip: AppLocalizations.of(context).goUp,
+              ),
+              onWillAccept: (data) => true,
+              onAccept: (data) {
+                _fileSystem.moveAsset(data, '$parent/${data.split('/').last}');
+                _reloadFileSystem();
+              },
             ),
             const SizedBox(width: 8),
             Flexible(
@@ -691,248 +700,288 @@ class _FileEntityListTile extends StatelessWidget {
       }
     } catch (_) {}
     var editable = false;
-    return Row(
-      children: [
-        Expanded(
-            child: Card(
-          elevation: 5,
-          margin: const EdgeInsets.symmetric(
-            vertical: 8,
-            horizontal: 0,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-            side: selected
-                ? BorderSide(
-                    color: colorScheme.primaryContainer,
-                    width: 1,
-                  )
-                : BorderSide.none,
-          ),
-          surfaceTintColor: selected
-              ? colorScheme.primaryContainer
-              : colorScheme.secondaryContainer,
-          clipBehavior: Clip.hardEdge,
-          child: InkWell(
-              onTap: onTap,
-              highlightColor: selected ? colorScheme.primaryContainer : null,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 16,
-                ),
-                child: StatefulBuilder(builder: (context, setState) {
-                  return LayoutBuilder(builder: (context, constraints) {
-                    final fileName = Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          icon,
-                          color: colorScheme.outline,
-                        ),
-                        const SizedBox(width: 8),
-                        Flexible(
-                            child: editable
-                                ? TextField(
-                                    controller: _nameController,
-                                    autofocus: true,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                          color: colorScheme.onBackground,
-                                        ),
-                                    onSubmitted: (value) {
-                                      fileSystem.renameAsset(
-                                          entity.location.path,
-                                          '${entity.parent}/$value');
-                                      setState(() {
-                                        editable = false;
-                                      });
-                                      onReload();
-                                    },
-                                  )
-                                : Text(entity.fileName,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis)),
-                      ],
-                    );
-                    final edit = editable
-                        ? Container()
-                        : Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                onPressed: () => setState(() {
-                                  editable = true;
-                                  _nameController.text = entity.fileName;
-                                }),
-                                icon: const Icon(PhosphorIcons.pencilLight),
-                              ),
-                            ],
-                          );
-                    final actions = Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        BlocBuilder<SettingsCubit, ButterflySettings>(
-                            builder: (context, state) {
-                          final starred = state.isStarred(entity.location);
-                          return IconButton(
-                            onPressed: () {
-                              settingsCubit.toggleStarred(entity.location);
-                              onReload();
-                            },
-                            icon: starred
-                                ? const Icon(PhosphorIcons.starFill)
-                                : const Icon(PhosphorIcons.starLight),
-                            isSelected: starred,
-                          );
-                        }),
-                        IconButton(
-                          onPressed: () => showDialog(
-                            context: context,
-                            builder: (context) => FileSystemAssetMoveDialog(
-                              asset: entity,
-                              fileSystem: fileSystem,
-                            ),
-                          ).then((value) => onReload()),
-                          tooltip: AppLocalizations.of(context).move,
-                          icon: const Icon(PhosphorIcons.arrowsDownUpLight),
-                        ),
-                      ],
-                    );
-                    final modified = Text(
-                      modifiedText ?? '',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: colorScheme.outline,
-                          ),
-                    );
-                    final isDesktop = constraints.maxWidth > 400;
-                    if (isDesktop) {
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              crossAxisAlignment: WrapCrossAlignment.center,
-                              children: [
-                                fileName,
-                                edit,
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 32),
-                          modified,
-                          const SizedBox(width: 32),
-                          actions,
-                        ],
-                      );
-                    } else {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                fileName,
-                                const SizedBox(height: 8),
-                                modified,
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          edit,
-                          actions,
-                        ],
-                      );
-                    }
-                  });
-                }),
-              )),
-        )),
-        const SizedBox(width: 16),
-        SizedBox(
-          width: 80,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (entity is AppDocumentFile)
-                IconButton(
-                  onPressed: () => showDialog(
-                      context: context,
-                      builder: (context) => ExportDialog(
-                          data: utf8.decode((entity as AppDocumentFile).data))),
-                  icon: const Icon(PhosphorIcons.paperPlaneRightLight),
-                ),
-              Builder(builder: (context) {
-                return IconButton(
-                  icon: const Icon(PhosphorIcons.trashLight),
-                  highlightColor: colorScheme.error.withOpacity(0.2),
-                  onPressed: () {
-                    showPopover(
-                      backgroundColor: colorScheme.inverseSurface,
-                      context: context,
-                      bodyBuilder: (ctx) => Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 16),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context).areYouSure,
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                    color: colorScheme.onInverseSurface,
-                                  ),
-                            ),
-                            const SizedBox(height: 16),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(ctx).pop();
-                                  },
-                                  child: const Icon(PhosphorIcons.xLight),
-                                ),
-                                FilledButton(
-                                  onPressed: () {
-                                    Navigator.of(ctx).pop();
-                                    fileSystem
-                                        .deleteAsset(entity.location.path);
-                                    onReload();
-                                  },
-                                  child: const Icon(PhosphorIcons.checkLight),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      direction: PopoverDirection.bottom,
-                      width: 200,
-                      height: 130,
-                      arrowHeight: 15,
-                      arrowWidth: 20,
-                    );
-                  },
-                );
-              }),
-            ],
+    final draggable = Draggable<String>(
+      data: entity.pathWithLeadingSlash,
+      feedback: Material(
+        elevation: 5,
+        child: SizedBox(
+          width: 200,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              entity.fileName,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
           ),
         ),
-      ],
+      ),
+      child: Row(
+        children: [
+          Expanded(
+              child: Card(
+            elevation: 5,
+            margin: const EdgeInsets.symmetric(
+              vertical: 8,
+              horizontal: 0,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+              side: selected
+                  ? BorderSide(
+                      color: colorScheme.primaryContainer,
+                      width: 1,
+                    )
+                  : BorderSide.none,
+            ),
+            surfaceTintColor: selected
+                ? colorScheme.primaryContainer
+                : colorScheme.secondaryContainer,
+            clipBehavior: Clip.hardEdge,
+            child: InkWell(
+                onTap: onTap,
+                highlightColor: selected ? colorScheme.primaryContainer : null,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 16,
+                  ),
+                  child: StatefulBuilder(builder: (context, setState) {
+                    return LayoutBuilder(builder: (context, constraints) {
+                      final fileName = Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            icon,
+                            color: colorScheme.outline,
+                          ),
+                          const SizedBox(width: 8),
+                          Flexible(
+                              child: editable
+                                  ? TextField(
+                                      controller: _nameController,
+                                      autofocus: true,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                            color: colorScheme.onBackground,
+                                          ),
+                                      onSubmitted: (value) {
+                                        fileSystem.renameAsset(
+                                            entity.location.path,
+                                            '${entity.parent}/$value');
+                                        setState(() {
+                                          editable = false;
+                                        });
+                                        onReload();
+                                      },
+                                    )
+                                  : Text(entity.fileName,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis)),
+                        ],
+                      );
+                      final edit = editable
+                          ? Container()
+                          : Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  onPressed: () => setState(() {
+                                    editable = true;
+                                    _nameController.text = entity.fileName;
+                                  }),
+                                  icon: const Icon(PhosphorIcons.pencilLight),
+                                  tooltip: AppLocalizations.of(context).rename,
+                                ),
+                              ],
+                            );
+                      final actions = Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          BlocBuilder<SettingsCubit, ButterflySettings>(
+                              builder: (context, state) {
+                            final starred = state.isStarred(entity.location);
+                            return IconButton(
+                              onPressed: () {
+                                settingsCubit.toggleStarred(entity.location);
+                                onReload();
+                              },
+                              icon: starred
+                                  ? const Icon(PhosphorIcons.starFill)
+                                  : const Icon(PhosphorIcons.starLight),
+                              isSelected: starred,
+                              tooltip: starred
+                                  ? AppLocalizations.of(context).unstar
+                                  : AppLocalizations.of(context).star,
+                            );
+                          }),
+                          IconButton(
+                            onPressed: () => showDialog(
+                              context: context,
+                              builder: (context) => FileSystemAssetMoveDialog(
+                                asset: entity,
+                                fileSystem: fileSystem,
+                              ),
+                            ).then((value) => onReload()),
+                            tooltip: AppLocalizations.of(context).move,
+                            icon: const Icon(PhosphorIcons.arrowsDownUpLight),
+                          ),
+                        ],
+                      );
+                      final modified = Text(
+                        modifiedText ?? '',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: colorScheme.outline,
+                            ),
+                      );
+                      final isDesktop = constraints.maxWidth > 400;
+                      if (isDesktop) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  fileName,
+                                  edit,
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 32),
+                            modified,
+                            const SizedBox(width: 32),
+                            actions,
+                          ],
+                        );
+                      } else {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  fileName,
+                                  const SizedBox(height: 8),
+                                  modified,
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            edit,
+                            actions,
+                          ],
+                        );
+                      }
+                    });
+                  }),
+                )),
+          )),
+          const SizedBox(width: 16),
+          SizedBox(
+            width: 80,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (entity is AppDocumentFile)
+                  IconButton(
+                    onPressed: () => showDialog(
+                        context: context,
+                        builder: (context) => ExportDialog(
+                            data:
+                                utf8.decode((entity as AppDocumentFile).data))),
+                    icon: const Icon(PhosphorIcons.paperPlaneRightLight),
+                    tooltip: AppLocalizations.of(context).export,
+                  ),
+                Builder(builder: (context) {
+                  return IconButton(
+                    icon: const Icon(PhosphorIcons.trashLight),
+                    highlightColor: colorScheme.error.withOpacity(0.2),
+                    tooltip: AppLocalizations.of(context).delete,
+                    onPressed: () {
+                      showPopover(
+                        backgroundColor: colorScheme.inverseSurface,
+                        context: context,
+                        bodyBuilder: (ctx) => Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 16),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context).areYouSure,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                      color: colorScheme.onInverseSurface,
+                                    ),
+                              ),
+                              const SizedBox(height: 16),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(ctx).pop();
+                                    },
+                                    child: const Icon(PhosphorIcons.xLight),
+                                  ),
+                                  FilledButton(
+                                    onPressed: () {
+                                      Navigator.of(ctx).pop();
+                                      fileSystem
+                                          .deleteAsset(entity.location.path);
+                                      onReload();
+                                    },
+                                    child: const Icon(PhosphorIcons.checkLight),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        direction: PopoverDirection.bottom,
+                        width: 200,
+                        height: 130,
+                        arrowHeight: 15,
+                        arrowWidth: 20,
+                      );
+                    },
+                  );
+                }),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
+    if (entity is AppDocumentDirectory) {
+      return DragTarget<String>(
+        builder: (context, candidateData, rejectedData) {
+          return draggable;
+        },
+        onWillAccept: (data) {
+          return data != entity.location.path;
+        },
+        onAccept: (data) {
+          fileSystem.moveAsset(
+              data, '${entity.location.path}/${data.split('/').last}');
+          onReload();
+        },
+      );
+    }
+    return draggable;
   }
 }
 

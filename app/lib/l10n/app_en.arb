@@ -482,5 +482,8 @@
   "files": "Files",
   "sortBy": "Sort by",
   "location": "Location",
-  "whatsNew": "What's new?"
+  "whatsNew": "What's new?",
+  "unstar": "Unstar",
+  "star": "Star",
+  "goUp": "Go up"
 }
