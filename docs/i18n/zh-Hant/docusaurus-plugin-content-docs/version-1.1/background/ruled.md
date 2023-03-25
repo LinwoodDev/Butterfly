@@ -4,8 +4,8 @@ title: "Ruled paper"
 
 | Property | Value |
 | --------:|:----- |
-|    Width | 0     |
-|   Height | 25    |
+|       寬度 | 0     |
+|       高度 | 25    |
 |  Count X | 0     |
 |  Count Y | 1     |
 |  Space X | 0     |
