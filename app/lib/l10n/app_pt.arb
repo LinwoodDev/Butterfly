@@ -209,8 +209,8 @@
   "design": "Projetar",
   "text": "texto",
   "selectSensitivity": "Selecione a sensibilidade",
-  "welcome": "Hey, this is Linwood Butterfly",
-  "welcomeContent": "A free and open-source drawing space!",
+  "welcome": "Ei, esta é a Borboleta Linwood",
+  "welcomeContent": "Um espaço de desenho gratuito e de código-aberto!",
   "updated": "Aplicativo atualizado para a versão {version}",
   "@updated": {
     "placeholders": {
