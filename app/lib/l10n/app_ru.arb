@@ -209,8 +209,8 @@
   "design": "Дизайн",
   "text": "Текст",
   "selectSensitivity": "Выберите чувствительность",
-  "welcome": "Hey, this is Linwood Butterfly",
-  "welcomeContent": "A free and open-source drawing space!",
+  "welcome": "Эй, это Линвуд Бабочка",
+  "welcomeContent": "Свободное место для рисования с открытым исходным кодом!",
   "updated": "Приложение обновлено до версии {version}",
   "@updated": {
     "placeholders": {
