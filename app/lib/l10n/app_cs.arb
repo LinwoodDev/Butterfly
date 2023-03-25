@@ -209,8 +209,8 @@
   "design": "Vzhled",
   "text": "Text",
   "selectSensitivity": "Vyberte citlivost",
-  "welcome": "Vítejte v Linwood Butterfly",
-  "welcomeContent": "Butterfly je aplikace pro poznámky, kde vaše nápady přicházejí jako první. Můžete je malovat, přidávat texty a snadno exportovat na každé zařízení. Tato aplikace funguje na Androidu, Windows, Linuxu a na webu.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "Aplikace byla aktualizována na verzi {version}",
   "@updated": {
     "placeholders": {
