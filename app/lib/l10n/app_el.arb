@@ -209,8 +209,8 @@
   "design": "Σχεδιασμός",
   "text": "Κείμενο",
   "selectSensitivity": "Επιλογή ευαισθησίας",
-  "welcome": "Hey, this is Linwood Butterfly",
-  "welcomeContent": "A free and open-source drawing space!",
+  "welcome": "Γεια σας, αυτό είναι Linwood πεταλούδα",
+  "welcomeContent": "Ένας ελεύθερος και ανοιχτού κώδικα χώρος σχεδίασης!",
   "updated": "Η εφαρμογή ενημερώθηκε στην έκδοση {version}",
   "@updated": {
     "placeholders": {
