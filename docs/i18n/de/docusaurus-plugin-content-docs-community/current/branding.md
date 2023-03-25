@@ -10,7 +10,7 @@ Diese Assets sind unter [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/bl
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nachtlogo
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 

@@ -1,14 +1,14 @@
 ---
-title: "Ruled paper"
+title: "规则纸"
 ---
 
-| Property | Value |
-| --------:|:----- |
-|    Width | 0     |
-|   Height | 25    |
-|  Count X | 0     |
-|  Count Y | 1     |
-|  Space X | 0     |
-|  Space Y | 0     |
+|    财产 | 值  |
+| -----:|:-- |
+| Width | 0  |
+|    高度 | 25 |
+|  计数 X | 0  |
+|  计数 Y | 1  |
+|   空格X | 0  |
+|  空间 Y | 0  |
 
-See [the introduction](intro) for more information.
+获取更多信息，请参阅 [介绍](intro)。

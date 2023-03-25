@@ -1,5 +1,5 @@
 ---
-title: "المباني الليلية"
+title: "Nightly Builds"
 slug: "/nightly"
 ---
 

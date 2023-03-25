@@ -1,21 +1,21 @@
 ---
-title: "Eraser painter"
+title: "擦除画面"
 sidebar_label: "Eraser"
 sidebar_position: 3
 ---
 
 
-:::warning It is not recommended to use the eraser.
+:::警告：不建议使用擦除
 
-Please use the [path eraser](path_eraser) if it is possible.
+如果可能，请使用 [路径擦除](path_eraser)。
 
 :::
 
-With this painter you can erase the elements on the paper.
+通过这个绘制器，你可以擦除纸上的元素。
 
-## Configuration
+## 配置
 
-|          Property | Default | Description                                                                      |
-| -----------------:|:-------:|:-------------------------------------------------------------------------------- |
-|      Stroke width |    5    | The width of the stroke                                                          |
-| Stroke multiplier |    1    | If you have a stylus, this is the multiplier which will be added to the pressure |
+|   财产 | 默认设置 | 描述                     |
+| ----:|:----:|:---------------------- |
+| 笔画宽度 |  5   | 笔画的宽度                  |
+| 笔记倍数 |  1   | 如果您有一个样式表，这是将添加到压力中的乘数 |

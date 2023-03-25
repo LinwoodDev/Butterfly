@@ -1,61 +1,61 @@
 ---
-title: "Privacy Policy"
+title: "隐私政策"
 slug: /privacypolicy
 ---
 
-This is the privacy policy of the app. Please read it carefully. Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+这是应用的隐私政策。 请仔细阅读它。 Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
 
-CodeDoctor built the Butterfly app as an Open Source app. This SERVICE is provided by CodeDoctor at no cost and is intended for use as is.
+CodeDoctor构建了 Butterfight 应用作为开源应用。 这种服务由CodeDoctor免费提供，原本打算使用。
 
-This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
+此页面用于向访客通报我的收藏政策。 如果任何人决定使用我的服务，则使用和披露个人信息。
 
-If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+如果您选择使用我的服务，那么您就同意收集和使用与此政策相关的信息。 我收集的个人信息用于提供和改进 服务。 我将不会使用您的信息或与任何人分享您的信息，除非本隐私政策中作了说明。
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Butterfly unless otherwise defined in this Privacy Policy.
+本隐私政策中使用的术语与我们的条款和条件具有相同的含义， 除非在本隐私政策中另有定义，否则它可以在 Butterfight 中访问。
 
-**Information Collection and Use**
+**信息收集和使用**
 
-For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.
+为了更好的体验，我可以在使用我们的服务时要求你们向我们提供某些可以识别个人身份的信息。 我请求的信息将保存在您的设备上， 不会被我以任何方式收集。
 
-The app does use third party services that may collect information used to identify you.
+应用确实使用第三方服务来收集用于识别您的信息。
 
-Link to privacy policy of third party service providers used by the app
+链接到应用程序使用的第三方服务提供商的隐私政策
 
-* [Google Play Services](https://www.google.com/policies/privacy/)
+* [Google Play服务](https://www.google.com/policies/privacy/)
 
-**Cookies**
+**Cookie**
 
-Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory.
+Cookie 是具有少量数据的文件，通常用作匿名唯一标识符。 这些是从您访问的网站发送到您的浏览器，并存储在您设备的 内部内存中。
 
-This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
+此服务没有明确使用这些“cookes”。 然而，应用可以使用第三方代码和使用"cookies"的图书馆来收集信息和改进他们的服务。 您可以选择 接受或拒绝这些cookie，并知道什么时候有一个 cookie 被发送到您的设备。 如果您选择拒绝我们的 cookie，您可能无法使用此服务的某些部分。
 
-**Service Providers**
+**服务商**
 
-I may employ third-party companies and individuals due to the following reasons:
+我可以雇用第三方公司和个人，原因如下：
 
-* To facilitate our Service;
-* To provide the Service on our behalf;
-* To perform Service-related services; or
-* To assist us in analyzing how our Service is used.
+* 为我们的服务提供便利；
+* 为我们提供该处；
+* a. 提供与服务有关的服务；或
+* 帮助我们分析如何使用我们的服务。
 
-I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
+我想告诉该服务的用户，这些第三方可以访问您的个人信息。 原因是为了执行分配给他们的任务。 然而，他们有义务 不为任何其他目的披露或使用信息。
 
-**Security**
+**安全**
 
-I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.
+我珍视你们对向我们提供个人信息的信任，因此我们正在努力使用商业上可以接受的手段来保护它。 但记得没有任何通过互联网传输的方法， 或电子存储方法100% 安全可靠，我不能保证其绝对安全。
 
-**Links to Other Sites**
+**链接到其他站点**
 
-This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+此服务可能包含到其他站点的链接。 如果您点击第三方链接，您将被引导到该站点。 请注意这些外部站点不是由我操作的。 Therefore, I strongly advise you to review the Privacy Policy of these websites. 我对任何第三方网站或服务的内容、隐私政策或做法没有控制权，也没有任何责任。
 
-**Changes to This Privacy Policy**
+**此隐私政策的更改**
 
-I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.
+我可以不时更新我们的隐私政策。 因此，建议您定期审查本页以了解任何更改。 我将通过在这个 页面上发布新的隐私政策来通知您任何更改。
 
-This policy is effective as of 2021-02-07
+这项政策自2021-02-07年起生效
 
-**Contact Us**
+**联系我们**
 
-If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at contact@linwood.dev.
+如果您对我的隐私政策有任何问题或建议，请毫不犹豫地通过contact@linwood.dev联系我。
 
-This privacy policy page was created at [privacypolicytemplate.net](https://privacypolicytemplate.net) and modified/generated by [App Privacy Policy Generator](https://app-privacy-policy-generator.nisrulz.com/)
+此隐私政策页面是在 [privacypolicytemplate.net](https://privacypolicytemplate.net) 创建的，由 [应用程序隐私政策生成器](https://app-privacy-policy-generator.nisrulz.com/) 修改或生成

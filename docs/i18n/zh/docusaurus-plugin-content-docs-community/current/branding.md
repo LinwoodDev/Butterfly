@@ -1,44 +1,44 @@
 ---
-title: Branding
+title: 品牌化
 ---
 
-These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+这些资源是在 [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE) 下许可的。
 
-## Logo
+## 徽标
 
-![Logo](/img/logo.svg)
+![徽标](/img/logo.svg)
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
 ## Nightly Logo
 
-![Logo](/img/nightly.svg)
+![徽标](/img/nightly.svg)
 
 [SVG](/img/nightly.svg) [PNG](/img/nightly.png)
 
-## Banner
+## 横幅
 
-![Banner](/img/banner.svg)
+![横幅](/img/banner.svg)
 
 [SVG](/img/banner.svg) [PNG](/img/banner.png)
 
-## Documentation
+## 文件
 
-![Documentation](/img/docs.svg)
+![文件](/img/docs.svg)
 
 [SVG](/img/docs.svg) [PNG](/img/docs.png)
 
-## Colors
+## 颜色
 
-* Primary: `#f2b138`
-* Primary Dark: `#f0a61c`
-* Primary Darker: `#eea010`
-* Primary Darkest: `#c4840d`
-* Primary Light: `#f4bc54`
-* Primary Lighter: `#f5c162`
-* Primary Lightest: `#f7d28c`
+* 首选： `#f2b138`
+* 主暗： `#f0a61c`
+* 主黑暗: `#eea010`
+* 主要黑暗： `#c4840d`
+* 主光线： `#f4bc54`
+* 主灯： `#f5c162`
+* 主灯光: `#f7d28c`
 * Accent: `#00469E`
 
-## Fonts
+## 字体
 
 * `Roboto`

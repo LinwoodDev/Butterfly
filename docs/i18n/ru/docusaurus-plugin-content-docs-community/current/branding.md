@@ -10,7 +10,7 @@ title: Брендинг
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Ночной логотип
+## Nightly Logo
 
 ![Логотип](/img/nightly.svg)
 

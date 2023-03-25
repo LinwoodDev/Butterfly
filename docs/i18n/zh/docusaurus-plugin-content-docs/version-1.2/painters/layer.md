@@ -1,12 +1,12 @@
 ---
-title: Layer
+title: 图层
 ---
 
-With this tool you can change the layer of multiple objects. Read more about layers [here](../layers.md).
+使用此工具，您可以更改多个对象的图层。 在这里阅读更多关于图层 [的信息](../layers.md)
 
-## Configuration
+## 配置
 
-|       Property | Default | Description                                                             |
-| --------------:|:-------:|:----------------------------------------------------------------------- |
-|          Layer |         | Elements will change to this layer if clicking on them                  |
-| Include eraser |  false  | This setting controls if you can click on the eraser layer and edit it. |
+|    财产 | 默认设置  | 描述                       |
+| -----:|:-----:|:------------------------ |
+|    图层 |       | 如果点击此图层元素，元素将会更改为此图层     |
+| 包括擦除器 | false | 如果您可以点击擦除图层并编辑它，此设置将被控制。 |

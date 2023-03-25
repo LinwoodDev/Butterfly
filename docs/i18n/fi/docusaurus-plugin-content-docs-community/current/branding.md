@@ -10,7 +10,7 @@ Nämä omaisuuserät on lisensoitu [CC-BY-4.0](https://github.com/LinwoodCloud/B
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Yöllinen Logo
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 

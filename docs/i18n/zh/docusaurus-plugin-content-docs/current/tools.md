@@ -1,12 +1,12 @@
 ---
-title: "Tools"
+title: "工具"
 sidebar_position: 3
 ---
 
-## Grid
+## 网格
 
-The grid allows you to exactly position elements. You can use it to move elements or create shapes.
+网格允许您准确定位元素。 您可以使用它移动元素或创建形状。
 
-## Ruler
+## 标标
 
-The ruler allows you to measure the distance between two points. Additionally you can use it to create a line with the pen tool.
+标尺允许你测量两点之间的距离。 此外，您可以使用它来创建一条与笔工具的直线。

@@ -1,14 +1,14 @@
 ---
-title: "Music paper"
+title: "音乐纸"
 ---
 
-| Property | Value |
-| --------:|:----- |
-|    Width | 200   |
-|   Height | 5     |
-|  Count X | 1     |
-|  Count Y | 5     |
-|  Space X | 10    |
-|  Space Y | 60    |
+|    财产 | 值   |
+| -----:|:--- |
+| Width | 200 |
+|    高度 | 5   |
+|  计数 X | 1   |
+|  计数 Y | 5   |
+|   空格X | 10  |
+|  空间 Y | 60  |
 
-See [the introduction](intro) for more information.
+获取更多信息，请参阅 [介绍](intro)。

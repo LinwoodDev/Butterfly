@@ -1,14 +1,14 @@
 ---
-title: "Label painter"
-sidebar_label: "Label"
+title: "标签绘制器"
+sidebar_label: "标签"
 sidebar_position: 6
 ---
 
 
-With this painter you can add text to the paper.
+使用这个绘制器，您可以将文本添加到纸上。
 
-## Configuration
+## 配置
 
-| Property | Default | Description          |
-| --------:|:-------:|:-------------------- |
-|     Size |   12    | The size of the text |
+| 财产 | 默认设置 | 描述   |
+| --:|:----:|:---- |
+| 大小 |  12  | 文本大小 |

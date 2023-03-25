@@ -1,5 +1,5 @@
 ---
-title: "Нічна збірка"
+title: "Nightly Builds"
 slug: "/nightly"
 ---
 

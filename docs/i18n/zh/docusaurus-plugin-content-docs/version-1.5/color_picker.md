@@ -1,14 +1,14 @@
 ---
-title: Color picker
+title: 颜色选择器
 sidebar_position: 2
 ---
 
-![Color picker](color_picker.png)
+![颜色选择器](color_picker.png)
 
-* Open, save the dialog to access it in other documents
-* Reset the palette for the default material palette
-* Add, remove and edit the name of the palette
-* Add new colors by clicking on the plus button in the bottom
-* Edit the colors by long clicking on the color
+* 打开，保存对话框以在其他文档中访问它
+* 为默认的调色板重置调色板
+* 添加、删除和编辑调色板名称
+* 点击底部的加号按钮添加新颜色
+* 长按颜色编辑颜色
 
-You can access the color picker on the view tool by clicking on the color button.
+您可以通过点击颜色按钮在视图工具上访问颜色选择器。

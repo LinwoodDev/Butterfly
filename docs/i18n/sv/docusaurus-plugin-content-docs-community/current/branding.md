@@ -10,7 +10,7 @@ Dessa tillgångar är licensierade under [CC-BY-4.0](https://github.com/LinwoodC
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Nattlig logotyp
+## Nightly Logo
 
 ![Logotyp](/img/nightly.svg)
 

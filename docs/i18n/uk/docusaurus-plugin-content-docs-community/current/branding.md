@@ -10,7 +10,7 @@ title: Фірмове оформлення
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Нічний логотип
+## Nightly Logo
 
 ![Логотип](/img/nightly.svg)
 
