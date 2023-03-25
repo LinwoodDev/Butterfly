@@ -209,8 +209,8 @@
   "design": "Σχεδιασμός",
   "text": "Κείμενο",
   "selectSensitivity": "Επιλογή ευαισθησίας",
-  "welcome": "Καλώς ήλθατε στο Linwood πεταλούδα",
-  "welcomeContent": "Το Butterfly είναι μια εφαρμογή σημείωσης όπου οι ιδέες σας έρχονται πρώτα. Μπορείτε να ζωγραφίσετε, να προσθέσετε κείμενα και να τα εξάγετε εύκολα σε κάθε συσκευή. Αυτή η εφαρμογή λειτουργεί σε Android, Windows, Linux και στο διαδίκτυο.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "Η εφαρμογή ενημερώθηκε στην έκδοση {version}",
   "@updated": {
     "placeholders": {
