@@ -209,8 +209,8 @@
   "design": "Tasarım",
   "text": "Text",
   "selectSensitivity": "Hassasiyet seçimi",
-  "welcome": "Linwood Butterfly'a hoşgeldiniz",
-  "welcomeContent": "Butterfly, fikirlerinizin ön planda tutulduğu bir not uygulamasıdır. Her cihazda kolayca boyayabilir, metin ekleyebilir ve dışa aktarabilirsiniz. Bu uygulama Android, Windows, Linux ve web'de çalışabilmektedir.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "Uygulama {version} sürümüne güncellendi",
   "@updated": {
     "placeholders": {
