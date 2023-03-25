@@ -209,8 +209,8 @@
   "design": "Diseño",
   "text": "Texto",
   "selectSensitivity": "Seleccionar sensibilidad",
-  "welcome": "Bienvenido a Linwood Butterfly",
-  "welcomeContent": "La mariposa es una aplicación de notas donde sus ideas son primordiales. Puede pintar, añadir textos y exportarlos fácilmente en cada dispositivo. Esta aplicación funciona en Android, Windows, Linux y en la web.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "Aplicación actualizada a la versión {version}",
   "@updated": {
     "placeholders": {
