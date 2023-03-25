@@ -209,8 +209,8 @@
   "design": "Ulkoasu",
   "text": "Teksti",
   "selectSensitivity": "Valitse herkkyys",
-  "welcome": "Hey, this is Linwood Butterfly",
-  "welcomeContent": "A free and open-source drawing space!",
+  "welcome": "Hei, tämä on Linwood Butterfly",
+  "welcomeContent": "Vapaa ja avoimen lähdekoodin piirtotila!",
   "updated": "Sovellus päivitetty versioon {version}",
   "@updated": {
     "placeholders": {
