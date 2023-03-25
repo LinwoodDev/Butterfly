@@ -209,8 +209,8 @@
   "design": "تصميم",
   "text": "نص",
   "selectSensitivity": "حدد حساسية",
-  "welcome": "Hey, this is Linwood Butterfly",
-  "welcomeContent": "A free and open-source drawing space!",
+  "welcome": "مرحبا، هذه فراشة لينوود",
+  "welcomeContent": "مساحة رسم مجانية ومفتوحة المصدر!",
   "updated": "تم تحديث التطبيق إلى الإصدار {version}",
   "@updated": {
     "placeholders": {
