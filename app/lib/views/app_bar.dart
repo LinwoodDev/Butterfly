@@ -507,7 +507,7 @@ class _MainPopupMenu extends StatelessWidget {
           if (state.embedding == null && (kIsWeb || !isWindow)) ...[
             MenuItemButton(
               leadingIcon: const Icon(PhosphorIcons.arrowsOutLight),
-              shortcut: const SingleActivator(LogicalKeyboardKey.f11),
+              //shortcut: const SingleActivator(LogicalKeyboardKey.f11),
               onPressed: () async {
                 setFullScreen(!(await isFullScreen()));
               },

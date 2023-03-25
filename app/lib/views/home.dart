@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
               preferredSize: Size.fromHeight(
                   Theme.of(context).appBarTheme.toolbarHeight ?? 56),
               child: DragToMoveArea(
-                child: AppBar(actions: const [
+                child: AppBar(title: const Text('Butterfly'), actions: const [
                   WindowButtons(),
                 ]),
               ),
@@ -171,14 +171,14 @@ class _HeaderHomeView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Hey, this is Linwood Butterfly',
+                  AppLocalizations.of(context).welcome,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: colorScheme.onInverseSurface,
                       ),
                   overflow: TextOverflow.clip,
                 ),
                 Text(
-                  'A free and open-source drawing space!',
+                  AppLocalizations.of(context).welcomeContent,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: colorScheme.onInverseSurface,
                       ),
@@ -751,7 +751,6 @@ class _FileEntityListTile extends StatelessWidget {
                     return LayoutBuilder(builder: (context, constraints) {
                       final fileName = Row(
                         mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(
                             icon,
