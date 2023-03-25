@@ -209,8 +209,8 @@
   "design": "Design",
   "text": "Testo",
   "selectSensitivity": "Seleziona sensibilità",
-  "welcome": "Hey, this is Linwood Butterfly",
-  "welcomeContent": "A free and open-source drawing space!",
+  "welcome": "Hey, questa è farfalla di linwood",
+  "welcomeContent": "Uno spazio di disegno libero e open-source!",
   "updated": "App aggiornata alla versione {version}",
   "@updated": {
     "placeholders": {
