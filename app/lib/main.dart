@@ -5,6 +5,7 @@ import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/settings/behaviors/mouse.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,10 +31,11 @@ import 'settings/personalization.dart';
 import 'settings/connection.dart';
 import 'settings/connections.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
-import 'theme/manager.dart';
+import 'theme.dart';
 import 'views/error.dart';
+import 'views/home.dart';
 import 'views/main.dart';
-import 'views/window.dart';
+import 'widgets/window.dart';
 
 const kMobileWidth = 600.0;
 
@@ -76,7 +78,7 @@ Future<void> main([List<String> args = const []]) async {
     }
   }
 
-  if (!kIsWeb && isWindow()) {
+  if (!kIsWeb && isWindow) {
     await windowManager.ensureInitialized();
     const kWindowOptions = WindowOptions(
       minimumSize: Size(410, 300),
@@ -132,7 +134,7 @@ class ButterflyApp extends StatelessWidget {
                 name: 'home',
                 path: '/',
                 builder: (context, state) {
-                  return const ProjectPage();
+                  return const HomePage();
                 },
                 routes: [
                   GoRoute(
@@ -196,6 +198,15 @@ class ButterflyApp extends StatelessWidget {
                   ),
                 ]),
             GoRoute(
+              name: 'new',
+              path: '/new',
+              builder: (context, state) {
+                return ProjectPage(
+                  data: state.extra,
+                );
+              },
+            ),
+            GoRoute(
               name: 'local',
               path: '/local/:path(.*)',
               builder: (context, state) {
@@ -251,34 +262,36 @@ class ButterflyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => SettingsCubit.fromPrefs(prefs),
-      child: BlocBuilder<SettingsCubit, ButterflySettings>(
-        buildWhen: (previous, current) =>
-            previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
-        builder: (context, settings) {
-          if (!kIsWeb && isWindow()) {
-            windowManager.waitUntilReadyToShow().then((_) async {
-              windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
-                  ? TitleBarStyle.normal
-                  : TitleBarStyle.hidden);
-              windowManager.setFullScreen(settings.startInFullScreen);
-            });
-          } else {
-            setFullScreen(settings.startInFullScreen);
-          }
-          return RepositoryProvider(
-            create: (context) =>
-                SyncService(context, context.read<SettingsCubit>()),
-            lazy: false,
-            child: _buildApp(),
-          );
-        },
+    return DynamicColorBuilder(
+      builder: (lightDynamic, darkDynamic) => BlocProvider(
+        create: (_) => SettingsCubit.fromPrefs(prefs),
+        child: BlocBuilder<SettingsCubit, ButterflySettings>(
+          buildWhen: (previous, current) =>
+              previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
+          builder: (context, settings) {
+            if (!kIsWeb && isWindow) {
+              windowManager.waitUntilReadyToShow().then((_) async {
+                windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
+                    ? TitleBarStyle.normal
+                    : TitleBarStyle.hidden);
+                windowManager.setFullScreen(settings.startInFullScreen);
+              });
+            } else {
+              setFullScreen(settings.startInFullScreen);
+            }
+            return RepositoryProvider(
+              create: (context) =>
+                  SyncService(context, context.read<SettingsCubit>()),
+              lazy: false,
+              child: _buildApp(lightDynamic, darkDynamic),
+            );
+          },
+        ),
       ),
     );
   }
 
-  Widget _buildApp() {
+  Widget _buildApp(ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
             previous.theme != current.theme ||
@@ -286,7 +299,7 @@ class ButterflyApp extends StatelessWidget {
             previous.design != current.design,
         builder: (context, state) => MaterialApp.router(
               locale: state.locale,
-              title: 'Butterfly',
+              title: isNightly ? 'Butterfly Nightly' : 'Butterfly',
               routeInformationProvider: _router.routeInformationProvider,
               routeInformationParser: _router.routeInformationParser,
               routerDelegate: _router.routerDelegate,
@@ -294,18 +307,22 @@ class ButterflyApp extends StatelessWidget {
                 ...AppLocalizations.localizationsDelegates,
                 LocaleNamesLocalizationsDelegate(),
               ],
-              supportedLocales: getLocales(),
-              theme: ThemeManager.getThemeByName(state.design),
-              themeMode: state.theme,
               builder: (context, child) {
-                if (child == null) {
-                  return const Center(child: CircularProgressIndicator());
-                }
+                child = DragToResizeArea(
+                  child: child ?? Container(),
+                );
                 return child;
               },
-              darkTheme: ThemeManager.getThemeByName(state.design, dark: true),
+              supportedLocales: getLocales(),
+              themeMode: state.theme,
+              theme: getThemeData(state.design, false, lightDynamic),
+              darkTheme: getThemeData(state.design, true, darkDynamic),
             ));
   }
 
   final GoRouter _router;
 }
+
+const flavor = String.fromEnvironment('flavor');
+const isNightly =
+    flavor == 'nightly' || flavor == 'dev' || flavor == 'development';

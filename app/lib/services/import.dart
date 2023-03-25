@@ -160,7 +160,10 @@ class ImportService {
             height: image.height.toDouble(),
             width: image.width.toDouble(),
             layer: state.currentLayer,
-            pixels: newBytes?.buffer.asUint8List() ?? Uint8List(0),
+            source: UriData.fromBytes(
+              newBytes?.buffer.asUint8List() ?? Uint8List(0),
+              mimeType: 'image/png',
+            ).toString(),
             position: firstPos.toPoint())
       ], choosePosition: position == null);
     } catch (e) {
@@ -236,7 +239,7 @@ class ImportService {
           selectedElements.add(ImageElement(
               height: height.toDouble(),
               width: width.toDouble(),
-              pixels: png,
+              source: UriData.fromBytes(png, mimeType: 'image/png').toString(),
               constraints:
                   ElementConstraints.scaled(scaleX: scale, scaleY: scale),
               position: Point(firstPos.dx, y)));

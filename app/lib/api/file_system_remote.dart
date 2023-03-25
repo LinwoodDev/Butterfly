@@ -85,7 +85,7 @@ abstract class DavRemoteSystem {
     return null;
   }
 
-  Future<void> cacheContent(String path, Uint8List content) async {
+  Future<void> cacheContent(String path, List<int> content) async {
     var absolutePath = await getAbsoluteCachePath(path);
     var file = File(absolutePath);
     final directory = Directory(absolutePath);
@@ -97,7 +97,7 @@ abstract class DavRemoteSystem {
   }
 
   Future<void> cacheStringContent(String path, String content) async {
-    return cacheContent(path, Uint8List.fromList(utf8.encode(content)));
+    return cacheContent(path, utf8.encode(content));
   }
 
   Future<void> deleteCachedContent(String path) async {
@@ -210,14 +210,14 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
 
   final http.Client client = http.Client();
   Future<http.StreamedResponse> _createRequest(List<String> path,
-      {String method = 'GET', String? body}) async {
+      {String method = 'GET', List<int>? body}) async {
     final url = remote.buildDocumentsUri(path: path);
     final request = http.Request(method, url);
     if (body != null) {
-      request.body = body;
+      request.bodyBytes = body;
     }
     request.headers['Authorization'] =
-        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getPassword()}'))}';
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}';
     return client.send(request);
   }
 
@@ -226,8 +226,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       p.join(await super.getRemoteCacheDirectory(), 'Documents');
 
   @override
-  Future<AppDocumentDirectory> createDirectory(String name) async {
-    var path = name;
+  Future<AppDocumentDirectory> createDirectory(String path) async {
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
@@ -367,70 +366,21 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
   }
 
   @override
-  Future<AppDocumentFile> importDocument(AppDocument document,
-      {String path = '/', bool forceSync = false}) async {
-    var fileName = document.name;
-    if (fileName.endsWith('.bfly')) {
-      fileName = fileName.substring(0, fileName.length - 5);
-    }
-    if (!path.endsWith('/') && path != '/') {
-      path = '$path/';
-    }
-    if (path.startsWith('/') && path != '/') {
-      path = path.substring(1);
-    }
-
-    final content = const DocumentJsonConverter().toJson(document);
-    final has = await hasAsset(path);
-    if (!has) {
-      await createDirectory(path);
-    }
-    final asset = await getAsset(path);
-    if (asset is! AppDocumentDirectory) {
-      throw Exception('Failed to get directory: $path');
-    }
-    fileName = convertNameToFile(fileName);
-    // get unique fileName
-    var counter = 1;
-    while (
-        asset.assets.any((a) => a.pathWithLeadingSlash == '$path/$fileName')) {
-      fileName = convertNameToFile('${document.name}_${++counter}');
-    }
-    if (!forceSync && remote.hasDocumentCached(path)) {
-      cacheStringContent(path + fileName, json.encode(content));
-      return AppDocumentFile.fromMap(
-          AssetLocation(remote: remote.identifier, path: path + fileName),
-          content);
-    }
-    final response = await _createRequest(
-        [if (path != '/') ...path.split('/'), fileName],
-        method: 'PUT', body: json.encode(content));
-    if (response.statusCode != 201) {
-      throw Exception(
-          'Failed to import document: ${response.statusCode} ${response.reasonPhrase}');
-    }
-    return AppDocumentFile.fromMap(
-        AssetLocation(remote: remote.identifier, path: path + fileName),
-        content);
-  }
-
-  @override
-  Future<AppDocumentFile> updateDocument(String path, AppDocument document,
+  Future<AppDocumentFile> updateFile(String path, List<int> data,
       {bool forceSync = false}) async {
-    final content = const DocumentJsonConverter().toJson(document);
     if (!forceSync && remote.hasDocumentCached(path)) {
-      cacheStringContent(path, json.encode(content));
-      return AppDocumentFile.fromMap(
-          AssetLocation(remote: remote.identifier, path: path), content);
+      cacheContent(path, data);
+      return AppDocumentFile(
+          AssetLocation(remote: remote.identifier, path: path), data);
     }
-    final response = await _createRequest(path.split('/'),
-        method: 'PUT', body: json.encode(content));
+    final response =
+        await _createRequest(path.split('/'), method: 'PUT', body: data);
     if (response.statusCode != 201 && response.statusCode != 204) {
       throw Exception(
           'Failed to update document: ${response.statusCode} ${response.reasonPhrase}');
     }
-    return AppDocumentFile.fromMap(
-        AssetLocation(remote: remote.identifier, path: path), content);
+    return AppDocumentFile(
+        AssetLocation(remote: remote.identifier, path: path), data);
   }
 
   List<String> getCachedFilePaths() {
@@ -494,6 +444,22 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       cacheContent(path, asset.data);
     }
   }
+
+  @override
+  Future<AppDocumentFile> updateDocument(String path, AppDocument document,
+          {bool forceSync = false}) =>
+      updateFile(path, document.save(), forceSync: forceSync);
+
+  @override
+  Future<AppDocumentFile> importDocument(AppDocument document,
+          {String path = '/', bool forceSync = false}) =>
+      createFile('$path/${document.name}', document.save(),
+          forceSync: forceSync);
+
+  @override
+  Future<AppDocumentFile> createFile(String path, List<int> data,
+          {bool forceSync = false}) async =>
+      updateFile(await findAvailableName(path), data);
 }
 
 class DavRemoteTemplateFileSystem extends TemplateFileSystem
@@ -512,7 +478,7 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
       request.body = body;
     }
     request.headers['Authorization'] =
-        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getPassword()}'))}';
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}';
     return client.send(request);
   }
 
@@ -637,7 +603,7 @@ class DavRemotePackFileSystem extends PackFileSystem with DavRemoteSystem {
       request.body = body;
     }
     request.headers['Authorization'] =
-        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getPassword()}'))}';
+        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}';
     return client.send(request);
   }
 

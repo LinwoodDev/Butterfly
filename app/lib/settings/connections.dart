@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,6 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../views/window.dart';
 import '../widgets/header.dart';
 
 class ConnectionsSettingsPage extends StatelessWidget {
@@ -22,10 +22,10 @@ class ConnectionsSettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: inView ? Colors.transparent : null,
-        appBar: AppBar(
+        appBar: WindowTitleBar(
           title: Text(AppLocalizations.of(context).connections),
           backgroundColor: inView ? Colors.transparent : null,
-          automaticallyImplyLeading: !inView,
+          inView: inView,
           actions: [
             IconButton(
                 icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
@@ -41,7 +41,6 @@ class ConnectionsSettingsPage extends StatelessWidget {
                 },
               );
             }),
-            if (!inView && !kIsWeb && isWindow()) const WindowButtons()
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(

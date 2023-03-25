@@ -69,7 +69,7 @@ class ToolRenderer extends Renderer<ToolState> {
       final rulerForegroundColor = colorScheme?.onPrimary ?? Colors.white;
       final rulerPaint = Paint()
         ..color = rulerColor
-        ..strokeWidth = 1 / transform.size
+        ..strokeWidth = 1
         ..style = PaintingStyle.stroke
         ..strokeJoin = StrokeJoin.round;
       final rulerBackgroundPaint = Paint()

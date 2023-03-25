@@ -184,7 +184,7 @@ module.exports = {
       ],
       logo: {
         alt: "Linwood Logo",
-        src: "https://raw.githubusercontent.com/LinwoodCloud/website/main/public/Linwood.png",
+        src: "https://linwood.dev/logos/logo.png",
         width: 100,
         href: "https://linwood.dev",
       },

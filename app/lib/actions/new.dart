@@ -1,5 +1,4 @@
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -30,8 +29,7 @@ class NewAction extends Action<NewIntent> {
     final transformCubit = context.read<TransformCubit>();
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     var document = AppDocument(
-      name: await formatCurrentDateTime(
-          context.read<SettingsCubit>().state.locale),
+      name: '',
       createdAt: DateTime.now(),
       painters: createDefaultPainters(),
     );
@@ -54,7 +52,6 @@ class NewAction extends Action<NewIntent> {
               ));
       if (template == null) return;
       document = template.document.copyWith(
-        name: await formatCurrentDateTime(settings.locale),
         createdAt: DateTime.now(),
       );
     } else if (prefs.containsKey('default_template')) {
@@ -62,7 +59,6 @@ class NewAction extends Action<NewIntent> {
           .getTemplate(prefs.getString('default_template')!);
       if (template != null) {
         document = template.document.copyWith(
-          name: await formatCurrentDateTime(settings.locale),
           createdAt: DateTime.now(),
         );
       }

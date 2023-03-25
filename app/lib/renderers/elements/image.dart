@@ -31,22 +31,21 @@ class ImageRenderer extends Renderer<ImageElement> {
   void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     // Create data url
-    final data = element.pixels;
-    final encoded = base64Encode(data);
-    final dataUrl = 'data:image/png;base64,$encoded';
+    final data = element.source;
     // Create image
     xml.getElement('svg')?.createElement('image', attributes: {
       'x': '${rect.left}px',
       'y': '${rect.top}px',
       'width': '${rect.width}px',
       'height': '${rect.height}px',
-      'xlink:href': dataUrl,
+      'xlink:href': data,
     });
   }
 
   @override
   FutureOr<void> setup(AppDocument document) async {
-    image = await decodeImageFromList(element.pixels);
+    image =
+        await decodeImageFromList(Uint8List.fromList(await element.getData()));
     super.setup(document);
   }
 

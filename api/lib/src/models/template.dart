@@ -6,6 +6,10 @@ import 'converter.dart';
 part 'template.g.dart';
 part 'template.freezed.dart';
 
+// 16:9
+const kThumbnailWidth = 640;
+const kThumbnailHeight = 360;
+
 @freezed
 class DocumentTemplate with _$DocumentTemplate {
   String get name => document.name;

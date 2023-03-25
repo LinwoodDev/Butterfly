@@ -29,8 +29,8 @@ dependencies:
   flutter_bloc: ^8.1.2
   image: ^4.0.15
   intl: ^0.17.0
-  path_provider: ^2.0.11
-  shared_preferences: ^2.0.18
+  path_provider: ^2.0.14
+  shared_preferences: ^2.0.20
   url_launcher: ^6.1.10
   file_picker: ^5.2.6
   phosphor_flutter: ^1.4.0
@@ -38,14 +38,14 @@ dependencies:
   share_plus: ^6.3.1
   package_info_plus: ^3.0.3
   idb_shim: ^2.3.0+2
-  go_router: ^6.2.0
+  go_router: ^6.5.0
   xml: ^6.2.2
   collection: ^1.17.1
   bloc_concurrency: ^0.2.1
   camera: ^0.10.3+2
   camera_windows: ^0.2.1+5
   window_manager: ^0.3.1
-  flex_color_scheme: ^7.0.0-dev.2
+  flex_color_scheme: ^7.0.0-dev.3
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.0
   path: ^1.8.2
@@ -56,7 +56,6 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   equatable: ^2.0.5
   adwaita: ^0.5.2
-  yaru: ^0.5.8
   rxdart: ^0.27.7
   ffi: ^2.0.1
   archive: ^3.3.6
@@ -74,6 +73,8 @@ dependencies:
       ref: 6aaa333947699dd999d0bde3890fd7f0015b72c4
       path: packages/lw_sysinfo
   flutter_localized_locales: ^2.0.4
+  dynamic_color: ^1.6.2
+  popover: ^0.2.8+2
 dev_dependencies:
   flutter_native_splash: ^2.2.19
   #flutter_launcher_icons: ^0.11.0
@@ -82,7 +83,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  analyzer: ^5.7.1
+  analyzer: ^5.10.0
   freezed: ^2.3.2
   build_runner: ^2.3.3
   json_serializable: ^6.6.1

@@ -15,7 +15,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:window_manager/window_manager.dart';
 
 import '../actions/export.dart';
 import '../actions/image_export.dart';
@@ -32,236 +31,178 @@ import '../cubits/transform.dart';
 import '../dialogs/search.dart';
 import '../embed/action.dart';
 import '../main.dart';
-import 'window.dart';
+import '../widgets/window.dart';
 
 class PadAppBar extends StatelessWidget with PreferredSizeWidget {
-  static const double _height = 70;
   final GlobalKey viewportKey;
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _areaController = TextEditingController();
 
   PadAppBar({super.key, required this.viewportKey});
 
-  @override
-  Widget build(BuildContext context) {
-    var bloc = context.read<DocumentBloc>();
-    return GestureDetector(onSecondaryTap: () {
-      if (!kIsWeb &&
-          isWindow() &&
-          !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
-        windowManager.popUpWindowMenu();
-      }
-    }, onLongPress: () {
-      if (!kIsWeb &&
-          isWindow() &&
-          !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
-        windowManager.popUpWindowMenu();
-      }
-    }, child: LayoutBuilder(
-      builder: (context, constraints) {
-        final isMobile = MediaQuery.of(context).size.width < kMobileWidth;
-        return AppBar(
-            toolbarHeight: _height,
-            leading: _MainPopupMenu(
-              viewportKey: viewportKey,
-            ),
-            title: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-                builder: (context, currentIndex) =>
-                    BlocBuilder<DocumentBloc, DocumentState>(
-                        buildWhen: (previous, current) {
-                      if (previous is! DocumentLoadSuccess &&
-                          current is DocumentLoadSuccess) {
-                        return true;
-                      }
-                      if (previous is! DocumentLoadSuccess ||
-                          current is! DocumentLoadSuccess) {
-                        return true;
-                      }
-                      return previous.currentAreaName !=
-                              current.currentAreaName ||
-                          previous.hasAutosave() != current.hasAutosave();
-                    }, builder: (context, state) {
-                      final title = Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(child:
-                                StatefulBuilder(builder: (context, setState) {
-                              final area = state is DocumentLoadSuccess
-                                  ? state.currentArea
-                                  : null;
-                              final areaName = state is DocumentLoadSuccess
-                                  ? state.currentAreaName
-                                  : null;
-                              _nameController.text =
-                                  state is DocumentLoadSuccess
-                                      ? state.document.name
-                                      : '';
-                              _areaController.text = area?.name ?? '';
-                              Widget title = Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Focus(
-                                      onFocusChange: (hasFocus) {
-                                        if (hasFocus) {
-                                          // Add cursor to end of text
-                                          if (area == null) {
-                                            _nameController.selection =
-                                                TextSelection.fromPosition(
-                                                    TextPosition(
-                                                        affinity: TextAffinity
-                                                            .downstream,
-                                                        offset: _nameController
-                                                            .text.length));
-                                          } else {
-                                            _areaController.selection =
-                                                TextSelection.fromPosition(
-                                                    TextPosition(
-                                                        affinity: TextAffinity
-                                                            .downstream,
-                                                        offset: _areaController
-                                                            .text.length));
-                                          }
-                                        }
-                                      },
-                                      child: TextField(
-                                        controller: area == null
-                                            ? _nameController
-                                            : _areaController,
-                                        textAlign: TextAlign.center,
-                                        style: area == null
-                                            ? Theme.of(context)
-                                                .textTheme
-                                                .titleLarge
-                                            : Theme.of(context)
-                                                .textTheme
-                                                .headlineMedium,
-                                        onChanged: (value) {
-                                          if (area == null ||
-                                              areaName == null) {
-                                            bloc.add(DocumentDescriptorChanged(
-                                                name: value));
-                                          } else {
-                                            bloc.add(AreaChanged(
-                                              areaName,
-                                              area.copyWith(name: value),
-                                            ));
-                                          }
-                                        },
-                                        decoration: InputDecoration(
-                                          hintText: AppLocalizations.of(context)
-                                              .untitled,
-                                          filled: true,
-                                          fillColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          hintStyle: area == null
-                                              ? Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge
-                                              : Theme.of(context)
-                                                  .textTheme
-                                                  .headlineMedium,
-                                          border: InputBorder.none,
-                                        ),
-                                      ),
-                                    ),
-                                    if (currentIndex.location.path != '' &&
-                                        area == null)
-                                      Text(
-                                        ((currentIndex.location.absolute &&
-                                                    currentIndex
-                                                        .location.path.isEmpty)
-                                                ? currentIndex.location.fileType
-                                                    ?.getLocalizedName(context)
-                                                : currentIndex
-                                                    .location.identifier) ??
-                                            AppLocalizations.of(context)
-                                                .document,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall
-                                            ?.copyWith(
-                                              decoration:
-                                                  currentIndex.location.absolute
-                                                      ? TextDecoration.underline
-                                                      : TextDecoration.none,
-                                            ),
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                  ]);
-                              return title;
-                            })),
-                            if (state is DocumentLoadSuccess) ...[
-                              if (!state.hasAutosave())
-                                IconButton(
-                                  icon: state.saved
-                                      ? const Icon(PhosphorIcons.floppyDiskFill)
-                                      : const Icon(
-                                          PhosphorIcons.floppyDiskLight),
-                                  tooltip: AppLocalizations.of(context).save,
-                                  onPressed: () {
-                                    Actions.maybeInvoke<SaveIntent>(
-                                        context, SaveIntent(context));
-                                  },
-                                ),
-                              if (state.location.absolute)
-                                IconButton(
-                                    icon:
-                                        Icon(state.location.fileType.getIcon()),
-                                    tooltip:
-                                        AppLocalizations.of(context).export,
-                                    onPressed: () =>
-                                        context.read<ImportService>().export()),
-                              IconButton(
-                                icon: const Icon(
-                                    PhosphorIcons.magnifyingGlassLight),
-                                tooltip: AppLocalizations.of(context).search,
-                                onPressed: () {
-                                  final bloc = context.read<DocumentBloc>();
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => BlocProvider.value(
-                                      value: bloc,
-                                      child: const SearchDialog(),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                            const SizedBox(width: 8),
-                            if (!isMobile)
-                              const Flexible(
-                                  child: EditToolbar(
-                                isMobile: false,
-                              )),
-                          ]);
-                      if (!kIsWeb &&
-                          isWindow() &&
-                          !context
-                              .read<SettingsCubit>()
-                              .state
-                              .nativeWindowTitleBar) {
-                        return DragToMoveArea(child: title);
-                      }
-                      return title;
-                    })),
-            actions: [
-              BlocBuilder<DocumentBloc, DocumentState>(
-                builder: (context, state) => Row(
-                  children: [if (!kIsWeb && isWindow()) const WindowButtons()],
-                ),
-              )
-            ]);
-      },
-    ));
-  }
+  late final windowTitleBar = _buildWindowTitleBar();
 
   @override
-  Size get preferredSize => const Size.fromHeight(_height);
+  Widget build(BuildContext context) {
+    return windowTitleBar;
+  }
+
+  WindowTitleBar _buildWindowTitleBar() => WindowTitleBar(
+        leading: _MainPopupMenu(
+          viewportKey: viewportKey,
+        ),
+        title: LayoutBuilder(builder: (context, constraints) {
+          final isMobile = MediaQuery.of(context).size.width < kMobileWidth;
+          return _AppBarTitle(
+            isMobile: isMobile,
+          );
+        }),
+      );
+
+  @override
+  Size get preferredSize => windowTitleBar.preferredSize;
+}
+
+class _AppBarTitle extends StatelessWidget {
+  _AppBarTitle({
+    required this.isMobile,
+  });
+
+  final TextEditingController _nameController = TextEditingController(),
+      _areaController = TextEditingController();
+  final bool isMobile;
+
+  @override
+  Widget build(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
+    return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+      builder: (context, currentIndex) =>
+          BlocBuilder<DocumentBloc, DocumentState>(
+              buildWhen: (previous, current) {
+        if (previous is! DocumentLoadSuccess &&
+            current is DocumentLoadSuccess) {
+          return true;
+        }
+        if (previous is! DocumentLoadSuccess ||
+            current is! DocumentLoadSuccess) {
+          return true;
+        }
+        return previous.currentAreaName != current.currentAreaName ||
+            previous.hasAutosave() != current.hasAutosave() ||
+            previous.document.name != current.document.name;
+      }, builder: (context, state) {
+        return Row(children: [
+          Flexible(
+              child: Align(
+            alignment: Alignment.centerLeft,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 300),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: StatefulBuilder(builder: (context, setState) {
+                      final area = state is DocumentLoadSuccess
+                          ? state.currentArea
+                          : null;
+                      final areaName = state is DocumentLoadSuccess
+                          ? state.currentAreaName
+                          : null;
+                      _nameController.text =
+                          state is DocumentLoaded ? state.document.name : '';
+                      _areaController.text = area?.name ?? '';
+                      void submit(String? value) {
+                        if (value == null) return;
+                        if (area == null || areaName == null) {
+                          bloc.add(DocumentDescriptorChanged(name: value));
+                        } else {
+                          bloc.add(AreaChanged(
+                            areaName,
+                            area.copyWith(name: value),
+                          ));
+                        }
+                      }
+
+                      Widget title = Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Focus(
+                              child: TextFormField(
+                                controller: area == null
+                                    ? _nameController
+                                    : _areaController,
+                                onFieldSubmitted: submit,
+                                onSaved: submit,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  filled: true,
+                                  hintText:
+                                      AppLocalizations.of(context).untitled,
+                                  helperText: currentIndex.location.path !=
+                                              '' &&
+                                          area == null
+                                      ? ((currentIndex.location.absolute &&
+                                                  currentIndex
+                                                      .location.path.isEmpty)
+                                              ? currentIndex.location.fileType
+                                                  ?.getLocalizedName(context)
+                                              : currentIndex
+                                                  .location.identifier) ??
+                                          AppLocalizations.of(context).document
+                                      : null,
+                                ),
+                              ),
+                            ),
+                          ]);
+                      return title;
+                    }),
+                  ),
+                  if (state is DocumentLoadSuccess) ...[
+                    if (!state.hasAutosave())
+                      IconButton(
+                        icon: state.saved
+                            ? const Icon(PhosphorIcons.floppyDiskFill)
+                            : const Icon(PhosphorIcons.floppyDiskLight),
+                        tooltip: AppLocalizations.of(context).save,
+                        onPressed: () {
+                          Actions.maybeInvoke<SaveIntent>(
+                              context, SaveIntent(context));
+                        },
+                      ),
+                    if (state.location.absolute)
+                      IconButton(
+                          icon: Icon(state.location.fileType.getIcon()),
+                          tooltip: AppLocalizations.of(context).export,
+                          onPressed: () =>
+                              context.read<ImportService>().export()),
+                    IconButton(
+                      icon: const Icon(PhosphorIcons.magnifyingGlassLight),
+                      tooltip: AppLocalizations.of(context).search,
+                      onPressed: () {
+                        final bloc = context.read<DocumentBloc>();
+                        showDialog(
+                          context: context,
+                          builder: (context) => BlocProvider.value(
+                            value: bloc,
+                            child: const SearchDialog(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          )),
+          const SizedBox(width: 8),
+          if (!isMobile)
+            const Flexible(
+                child: EditToolbar(
+              isMobile: false,
+            )),
+        ]);
+      }),
+    );
+  }
 }
 
 class _MainPopupMenu extends StatelessWidget {
@@ -538,10 +479,10 @@ class _MainPopupMenu extends StatelessWidget {
             ),
           ],
           const Divider(),
-          if (state.embedding == null && (kIsWeb || !isWindow())) ...[
+          if (state.embedding == null && (kIsWeb || !isWindow)) ...[
             MenuItemButton(
               leadingIcon: const Icon(PhosphorIcons.arrowsOutLight),
-              shortcut: const SingleActivator(LogicalKeyboardKey.f11),
+              //shortcut: const SingleActivator(LogicalKeyboardKey.f11),
               onPressed: () async {
                 setFullScreen(!(await isFullScreen()));
               },
@@ -558,6 +499,18 @@ class _MainPopupMenu extends StatelessWidget {
                     context, SettingsIntent(context));
               },
               child: Text(AppLocalizations.of(context).settings),
+            ),
+            MenuItemButton(
+              leadingIcon: const Icon(PhosphorIcons.houseLight),
+              child: Text(AppLocalizations.of(context).home),
+              onPressed: () {
+                final router = GoRouter.of(context);
+                if (router.canPop()) {
+                  router.pop();
+                } else {
+                  router.go('/');
+                }
+              },
             ),
           ] else ...[
             MenuItemButton(

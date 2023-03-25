@@ -18,14 +18,10 @@ import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/dialogs/introduction/app.dart';
-import 'package:butterfly/dialogs/introduction/start.dart';
-import 'package:butterfly/dialogs/introduction/update.dart';
 import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/import.dart';
@@ -166,13 +162,14 @@ class _ProjectPageState extends State<ProjectPage> {
         }
       }
       if (!mounted) return;
-      final name = (widget.location?.absolute ?? false)
-          ? widget.location!.fileName
-          : await formatCurrentDateTime(
-              context.read<SettingsCubit>().state.locale);
+      final name =
+          (widget.location?.absolute ?? false) ? widget.location!.fileName : '';
       var documentOpened = document != null;
       if (!documentOpened) {
         location = null;
+      }
+      if (widget.type.isEmpty && widget.data is AppDocument) {
+        document = (widget.data as AppDocument).copyWith(name: name);
       }
       if (document == null && prefs.containsKey('default_template')) {
         var template = await TemplateFileSystem.fromPlatform(remote: remote)
@@ -206,11 +203,10 @@ class _ProjectPageState extends State<ProjectPage> {
             location!, background, renderers);
         _bloc?.load();
         _importService = ImportService(_bloc!, context);
-        _importService.load(widget.type, widget.data);
+        if (widget.type.isNotEmpty) {
+          _importService.load(widget.type, widget.data);
+        }
       });
-      if (!(widget.location?.absolute ?? false)) {
-        _showIntroduction(documentOpened);
-      }
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -221,45 +217,6 @@ class _ProjectPageState extends State<ProjectPage> {
             CurrentIndexCubit(settingsCubit, _transformCubit!, null);
         _bloc = DocumentBloc.error(e.toString());
       });
-    }
-  }
-
-  Future<void> _showIntroduction([bool documentOpened = false]) async {
-    final settingsCubit = context.read<SettingsCubit>();
-    if (settingsCubit.isFirstStart()) {
-      await showDialog<void>(
-        context: context,
-        builder: (context) => const AppIntroductionDialog(),
-      );
-      await settingsCubit.updateLastVersion();
-      await settingsCubit.save();
-    } else if (await settingsCubit.hasNewerVersion()) {
-      if (mounted) {
-        await showDialog<void>(
-            context: context,
-            builder: (context) => const UpdateIntroductionDialog());
-      }
-      await settingsCubit.updateLastVersion();
-      await settingsCubit.save();
-    }
-    if (!documentOpened && settingsCubit.state.startEnabled && mounted) {
-      await showDialog<void>(
-          context: context,
-          builder: (context) => MultiBlocProvider(providers: [
-                if (_bloc != null)
-                  BlocProvider<DocumentBloc>.value(
-                    value: _bloc!,
-                  ),
-                BlocProvider<TransformCubit>.value(
-                  value: _transformCubit!,
-                ),
-                BlocProvider<SettingsCubit>.value(
-                  value: settingsCubit,
-                ),
-                BlocProvider<CurrentIndexCubit>.value(
-                  value: _currentIndexCubit!,
-                ),
-              ], child: const StartIntroductionDialog()));
     }
   }
 

@@ -199,6 +199,7 @@ AppDocument _$AppDocumentFromJson(Map<String, dynamic> json) {
 mixin _$AppDocument {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  String get thumbnail => throw _privateConstructorUsedError;
   List<PadElement> get content => throw _privateConstructorUsedError;
   Background get background => throw _privateConstructorUsedError;
   List<AnimationTrack> get animations => throw _privateConstructorUsedError;
@@ -206,7 +207,9 @@ mixin _$AppDocument {
   List<Area> get areas => throw _privateConstructorUsedError;
   List<ExportPreset> get exportPresets => throw _privateConstructorUsedError;
   List<ButterflyPack> get packs => throw _privateConstructorUsedError;
+  @DateTimeJsonConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @DateTimeJsonConverter()
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   List<Painter> get painters => throw _privateConstructorUsedError;
   ToolOption get tool => throw _privateConstructorUsedError;
@@ -226,6 +229,7 @@ abstract class $AppDocumentCopyWith<$Res> {
   $Res call(
       {String name,
       String description,
+      String thumbnail,
       List<PadElement> content,
       Background background,
       List<AnimationTrack> animations,
@@ -233,8 +237,8 @@ abstract class $AppDocumentCopyWith<$Res> {
       List<Area> areas,
       List<ExportPreset> exportPresets,
       List<ButterflyPack> packs,
-      DateTime createdAt,
-      DateTime? updatedAt,
+      @DateTimeJsonConverter() DateTime createdAt,
+      @DateTimeJsonConverter() DateTime? updatedAt,
       List<Painter> painters,
       ToolOption tool});
 
@@ -257,6 +261,7 @@ class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
   $Res call({
     Object? name = null,
     Object? description = null,
+    Object? thumbnail = null,
     Object? content = null,
     Object? background = null,
     Object? animations = null,
@@ -277,6 +282,10 @@ class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      thumbnail: null == thumbnail
+          ? _value.thumbnail
+          : thumbnail // ignore: cast_nullable_to_non_nullable
               as String,
       content: null == content
           ? _value.content
@@ -353,6 +362,7 @@ abstract class _$$_AppDocumentCopyWith<$Res>
   $Res call(
       {String name,
       String description,
+      String thumbnail,
       List<PadElement> content,
       Background background,
       List<AnimationTrack> animations,
@@ -360,8 +370,8 @@ abstract class _$$_AppDocumentCopyWith<$Res>
       List<Area> areas,
       List<ExportPreset> exportPresets,
       List<ButterflyPack> packs,
-      DateTime createdAt,
-      DateTime? updatedAt,
+      @DateTimeJsonConverter() DateTime createdAt,
+      @DateTimeJsonConverter() DateTime? updatedAt,
       List<Painter> painters,
       ToolOption tool});
 
@@ -384,6 +394,7 @@ class __$$_AppDocumentCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? description = null,
+    Object? thumbnail = null,
     Object? content = null,
     Object? background = null,
     Object? animations = null,
@@ -404,6 +415,10 @@ class __$$_AppDocumentCopyWithImpl<$Res>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      thumbnail: null == thumbnail
+          ? _value.thumbnail
+          : thumbnail // ignore: cast_nullable_to_non_nullable
               as String,
       content: null == content
           ? _value._content
@@ -457,8 +472,9 @@ class __$$_AppDocumentCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AppDocument extends _AppDocument {
   const _$_AppDocument(
-      {required this.name,
+      {this.name = '',
       this.description = '',
+      this.thumbnail = '',
       final List<PadElement> content = const [],
       this.background = const Background.empty(),
       final List<AnimationTrack> animations = const [],
@@ -466,8 +482,8 @@ class _$_AppDocument extends _AppDocument {
       final List<Area> areas = const [],
       final List<ExportPreset> exportPresets = const [],
       final List<ButterflyPack> packs = const [],
-      required this.createdAt,
-      this.updatedAt,
+      @DateTimeJsonConverter() required this.createdAt,
+      @DateTimeJsonConverter() this.updatedAt,
       final List<Painter> painters = const [],
       this.tool = const ToolOption()})
       : _content = content,
@@ -483,10 +499,14 @@ class _$_AppDocument extends _AppDocument {
       _$$_AppDocumentFromJson(json);
 
   @override
+  @JsonKey()
   final String name;
   @override
   @JsonKey()
   final String description;
+  @override
+  @JsonKey()
+  final String thumbnail;
   final List<PadElement> _content;
   @override
   @JsonKey()
@@ -545,8 +565,10 @@ class _$_AppDocument extends _AppDocument {
   }
 
   @override
+  @DateTimeJsonConverter()
   final DateTime createdAt;
   @override
+  @DateTimeJsonConverter()
   final DateTime? updatedAt;
   final List<Painter> _painters;
   @override
@@ -563,7 +585,7 @@ class _$_AppDocument extends _AppDocument {
 
   @override
   String toString() {
-    return 'AppDocument(name: $name, description: $description, content: $content, background: $background, animations: $animations, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
+    return 'AppDocument(name: $name, description: $description, thumbnail: $thumbnail, content: $content, background: $background, animations: $animations, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
   }
 
   @override
@@ -574,6 +596,8 @@ class _$_AppDocument extends _AppDocument {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.thumbnail, thumbnail) ||
+                other.thumbnail == thumbnail) &&
             const DeepCollectionEquality().equals(other._content, _content) &&
             (identical(other.background, background) ||
                 other.background == background) &&
@@ -599,6 +623,7 @@ class _$_AppDocument extends _AppDocument {
       runtimeType,
       name,
       description,
+      thumbnail,
       const DeepCollectionEquality().hash(_content),
       background,
       const DeepCollectionEquality().hash(_animations),
@@ -627,8 +652,9 @@ class _$_AppDocument extends _AppDocument {
 
 abstract class _AppDocument extends AppDocument {
   const factory _AppDocument(
-      {required final String name,
+      {final String name,
       final String description,
+      final String thumbnail,
       final List<PadElement> content,
       final Background background,
       final List<AnimationTrack> animations,
@@ -636,8 +662,8 @@ abstract class _AppDocument extends AppDocument {
       final List<Area> areas,
       final List<ExportPreset> exportPresets,
       final List<ButterflyPack> packs,
-      required final DateTime createdAt,
-      final DateTime? updatedAt,
+      @DateTimeJsonConverter() required final DateTime createdAt,
+      @DateTimeJsonConverter() final DateTime? updatedAt,
       final List<Painter> painters,
       final ToolOption tool}) = _$_AppDocument;
   const _AppDocument._() : super._();
@@ -649,6 +675,8 @@ abstract class _AppDocument extends AppDocument {
   String get name;
   @override
   String get description;
+  @override
+  String get thumbnail;
   @override
   List<PadElement> get content;
   @override
@@ -664,8 +692,10 @@ abstract class _AppDocument extends AppDocument {
   @override
   List<ButterflyPack> get packs;
   @override
+  @DateTimeJsonConverter()
   DateTime get createdAt;
   @override
+  @DateTimeJsonConverter()
   DateTime? get updatedAt;
   @override
   List<Painter> get painters;

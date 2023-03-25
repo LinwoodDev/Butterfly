@@ -30,34 +30,42 @@ extension BackgroundTemplateExtension on BackgroundTemplate {
   Background create() {
     switch (this) {
       case BackgroundTemplate.plain:
-        return const Background.box();
+        return const Background.box(
+          boxColor: kColorLight,
+        );
       case BackgroundTemplate.ruled:
         return const Background.box(
+          boxColor: kColorLight,
           boxHeight: 20,
         );
       case BackgroundTemplate.quad:
         return const Background.box(
+          boxColor: kColorLight,
           boxHeight: 20,
           boxWidth: 20,
         );
       case BackgroundTemplate.music:
         return const BoxBackground(
-            boxHeight: 20, boxYColor: kColorBlack, boxYSpace: 30, boxYCount: 5);
+            boxColor: kColorLight,
+            boxHeight: 20,
+            boxYColor: kColorBlack,
+            boxYSpace: 30,
+            boxYCount: 5);
       case BackgroundTemplate.plainDark:
         return const Background.box(
-          boxColor: kColorBlack,
+          boxColor: kColorDark,
         );
       case BackgroundTemplate.ruledDark:
-        return const Background.box(boxColor: kColorBlack, boxHeight: 20);
+        return const Background.box(boxColor: kColorDark, boxHeight: 20);
       case BackgroundTemplate.quadDark:
         return const Background.box(
-          boxColor: kColorBlack,
+          boxColor: kColorDark,
           boxWidth: 20,
           boxHeight: 20,
         );
       case BackgroundTemplate.musicDark:
         return const Background.box(
-            boxColor: kColorBlack,
+            boxColor: kColorDark,
             boxYColor: kColorWhite,
             boxHeight: 20,
             boxYSpace: 30,

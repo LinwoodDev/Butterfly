@@ -86,8 +86,22 @@ class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
               },
             };
           }
+          if (e['type'] == 'image') {
+            return {
+              ...e as Map,
+              'source': UriData.fromBytes(e['pixels'], mimeType: 'image/png'),
+            };
+          }
           return e;
         }).toList();
+        if (json['createdAt'] is String) {
+          json['createdAt'] = DateTime.parse(json['createdAt'] as String)
+              .millisecondsSinceEpoch;
+        }
+        if (json['updatedAt'] is String) {
+          json['updatedAt'] = DateTime.parse(json['updatedAt'] as String)
+              .millisecondsSinceEpoch;
+        }
       }
     }
     return AppDocument.fromJson(Map<String, dynamic>.from(json));
