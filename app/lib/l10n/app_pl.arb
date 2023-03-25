@@ -209,8 +209,8 @@
   "design": "Projekt",
   "text": "Tekst",
   "selectSensitivity": "Wybierz czułość",
-  "welcome": "Witaj w Motylce Linwood",
-  "welcomeContent": "Motylka to aplikacja do notatki, w której pojawiają się Twoje pomysły. Możesz malować, dodawać teksty i z łatwością eksportować je na każdym urządzeniu. Ta aplikacja działa na Androida, Windows, Linux i w Internecie.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "Aplikacja zaktualizowana do wersji {version}",
   "@updated": {
     "placeholders": {
