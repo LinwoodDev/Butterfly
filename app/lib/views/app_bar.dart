@@ -32,52 +32,34 @@ import '../cubits/transform.dart';
 import '../dialogs/search.dart';
 import '../embed/action.dart';
 import '../main.dart';
-import 'window.dart';
+import '../widgets/window.dart';
 
 class PadAppBar extends StatelessWidget with PreferredSizeWidget {
-  static const double _height = 70;
   final GlobalKey viewportKey;
 
   PadAppBar({super.key, required this.viewportKey});
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(onSecondaryTap: () {
-      if (!kIsWeb &&
-          isWindow &&
-          !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
-        windowManager.popUpWindowMenu();
-      }
-    }, onLongPress: () {
-      if (!kIsWeb &&
-          isWindow &&
-          !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
-        windowManager.popUpWindowMenu();
-      }
-    }, child: LayoutBuilder(
-      builder: (context, constraints) {
-        final isMobile = MediaQuery.of(context).size.width < kMobileWidth;
-        return AppBar(
-            toolbarHeight: _height,
-            leading: _MainPopupMenu(
-              viewportKey: viewportKey,
-            ),
-            title: _AppBarTitle(
-              isMobile: isMobile,
-            ),
-            actions: [
-              BlocBuilder<DocumentBloc, DocumentState>(
-                builder: (context, state) => Row(
-                  children: [if (!kIsWeb && isWindow) const WindowButtons()],
-                ),
-              )
-            ]);
-      },
-    ));
-  }
+  late final windowTitleBar = _buildWindowTitleBar();
 
   @override
-  Size get preferredSize => const Size.fromHeight(_height);
+  Widget build(BuildContext context) {
+    return windowTitleBar;
+  }
+
+  WindowTitleBar _buildWindowTitleBar() => WindowTitleBar(
+        leading: _MainPopupMenu(
+          viewportKey: viewportKey,
+        ),
+        title: LayoutBuilder(builder: (context, constraints) {
+          final isMobile = MediaQuery.of(context).size.width < kMobileWidth;
+          return _AppBarTitle(
+            isMobile: isMobile,
+          );
+        }),
+      );
+
+  @override
+  Size get preferredSize => windowTitleBar.preferredSize;
 }
 
 class _AppBarTitle extends StatelessWidget {

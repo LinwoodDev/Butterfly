@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
 import '../api/open_release_notes.dart';
-import '../views/window.dart';
+import '../widgets/window.dart';
 
 @immutable
 class Meta {
@@ -59,11 +59,10 @@ class GeneralSettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: inView ? Colors.transparent : null,
-        appBar: AppBar(
+        appBar: WindowTitleBar(
           title: Text(AppLocalizations.of(context).general),
           backgroundColor: inView ? Colors.transparent : null,
-          automaticallyImplyLeading: !inView,
-          actions: [if (!inView && !kIsWeb && isWindow) const WindowButtons()],
+          inView: inView,
         ),
         body: ListView(children: [
           if (!kIsWeb) ...[

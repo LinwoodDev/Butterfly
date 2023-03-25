@@ -35,7 +35,7 @@ import 'theme.dart';
 import 'views/error.dart';
 import 'views/home.dart';
 import 'views/main.dart';
-import 'views/window.dart';
+import 'widgets/window.dart';
 
 const kMobileWidth = 600.0;
 

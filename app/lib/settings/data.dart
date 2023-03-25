@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/widgets/window.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../api/file_system.dart';
 import '../api/open.dart';
 import '../dialogs/packs/dialog.dart';
-import '../views/window.dart';
 
 class DataSettingsPage extends StatefulWidget {
   final bool inView;
@@ -28,13 +28,10 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: widget.inView ? Colors.transparent : null,
-        appBar: AppBar(
-          automaticallyImplyLeading: !widget.inView,
+        appBar: WindowTitleBar(
+          inView: widget.inView,
           backgroundColor: widget.inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context).data),
-          actions: [
-            if (!widget.inView && !kIsWeb && isWindow) const WindowButtons()
-          ],
         ),
         body: BlocBuilder<SettingsCubit, ButterflySettings>(
             builder: (context, state) {

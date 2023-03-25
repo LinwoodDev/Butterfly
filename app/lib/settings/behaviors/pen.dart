@@ -1,6 +1,6 @@
 import 'package:butterfly/helpers/num_helper.dart';
 import 'package:butterfly/widgets/advanced_text_field.dart';
-import 'package:flutter/foundation.dart';
+import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,7 +8,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/open.dart';
 import '../../cubits/settings.dart';
-import '../../views/window.dart';
 import '../../widgets/exact_slider.dart';
 
 class PenBehaviorSettings extends StatelessWidget {
@@ -17,9 +16,8 @@ class PenBehaviorSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: WindowTitleBar(
         title: Text(AppLocalizations.of(context).pen),
-        actions: [if (!kIsWeb && isWindow) const WindowButtons()],
       ),
       body: Align(
         alignment: Alignment.center,

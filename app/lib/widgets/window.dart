@@ -12,6 +12,59 @@ import '../cubits/settings.dart';
 final isWindow =
     !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
 
+class WindowTitleBar extends StatelessWidget with PreferredSizeWidget {
+  final List<Widget> actions;
+  final Widget? title;
+  final Widget? leading;
+  final PreferredSizeWidget? bottom;
+  final bool onlyShowOnDesktop;
+  final bool inView;
+  final Color? backgroundColor;
+  final double height;
+
+  const WindowTitleBar({
+    super.key,
+    this.title,
+    this.leading,
+    this.bottom,
+    this.backgroundColor,
+    this.actions = const [],
+    this.onlyShowOnDesktop = false,
+    this.inView = false,
+    this.height = 70,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isDesktop = isWindow && !kIsWeb;
+    if (onlyShowOnDesktop && !isDesktop) return const SizedBox.shrink();
+    final appBar = AppBar(
+      title: title,
+      backgroundColor: backgroundColor,
+      automaticallyImplyLeading: !inView,
+      leading: leading,
+      bottom: bottom,
+      toolbarHeight: height,
+      actions: [
+        ...actions,
+        if (isDesktop && !inView)
+          WindowButtons(
+            divider: actions.isNotEmpty,
+          ),
+      ],
+    );
+    if (isDesktop) {
+      return DragToMoveArea(
+        child: appBar,
+      );
+    }
+    return appBar;
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(height);
+}
+
 class WindowButtons extends StatefulWidget {
   final bool divider;
 

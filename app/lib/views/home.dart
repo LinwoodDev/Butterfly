@@ -7,9 +7,9 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/export.dart';
 import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/helpers/element_helper.dart';
-import 'package:butterfly/views/window.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly/visualizer/string.dart';
+import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,6 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:popover/popover.dart';
-import 'package:window_manager/window_manager.dart';
 
 import '../api/open_release_notes.dart';
 import '../dialogs/file_system/move.dart';
@@ -32,17 +31,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: (!kIsWeb && isWindow)
-          ? PreferredSize(
-              preferredSize: Size.fromHeight(
-                  Theme.of(context).appBarTheme.toolbarHeight ?? 56),
-              child: DragToMoveArea(
-                child: AppBar(title: const Text('Butterfly'), actions: const [
-                  WindowButtons(),
-                ]),
-              ),
-            )
-          : null,
+      appBar: const WindowTitleBar(
+        title: Text('Butterfly'),
+        onlyShowOnDesktop: true,
+      ),
       body: SingleChildScrollView(
         child: Align(
           alignment: Alignment.topCenter,

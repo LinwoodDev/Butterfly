@@ -4,14 +4,13 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly/theme.dart';
 import 'package:butterfly/visualizer/string.dart';
+import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../views/window.dart';
 
 class PersonalizationSettingsPage extends StatelessWidget {
   final bool inView;
@@ -39,11 +38,10 @@ class PersonalizationSettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: inView ? Colors.transparent : null,
-        appBar: AppBar(
-          automaticallyImplyLeading: !inView,
+        appBar: WindowTitleBar(
+          inView: inView,
           backgroundColor: inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context).personalization),
-          actions: [if (!inView && !kIsWeb && isWindow) const WindowButtons()],
         ),
         body: BlocBuilder<SettingsCubit, ButterflySettings>(
           builder: (context, state) {

@@ -1,12 +1,10 @@
 import 'package:butterfly/cubits/settings.dart';
-import 'package:flutter/foundation.dart';
+import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../views/window.dart';
 
 class ConnectionSettingsPage extends StatefulWidget {
   final String remote;
@@ -47,7 +45,7 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
       builder: (context, state) {
         final storage = state.getRemote(widget.remote);
         return Scaffold(
-          appBar: AppBar(
+          appBar: WindowTitleBar(
             title: Text(widget.remote),
             bottom: TabBar(
               controller: _tabController,
@@ -70,7 +68,6 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
               ],
               isScrollable: true,
             ),
-            actions: [if (!kIsWeb && isWindow) const WindowButtons()],
           ),
           body: storage == null
               ? Center(child: Text(AppLocalizations.of(context).noConnections))
