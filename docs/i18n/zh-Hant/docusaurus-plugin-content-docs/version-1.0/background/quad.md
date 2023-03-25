@@ -4,8 +4,8 @@ title: "Quad paper"
 
 | Property | Value |
 | --------:|:----- |
-|    Width | 15    |
-|   Height | 15    |
+|       寬度 | 15    |
+|       高度 | 15    |
 |  Count X | 1     |
 |  Count Y | 1     |
 |  Space X | 0     |
