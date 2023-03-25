@@ -15,7 +15,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:window_manager/window_manager.dart';
 
 import '../actions/export.dart';
 import '../actions/image_export.dart';
@@ -90,7 +89,7 @@ class _AppBarTitle extends StatelessWidget {
             previous.hasAutosave() != current.hasAutosave() ||
             previous.document.name != current.document.name;
       }, builder: (context, state) {
-        final title = Row(children: [
+        return Row(children: [
           Flexible(
               child: Align(
             alignment: Alignment.centerLeft,
@@ -201,12 +200,6 @@ class _AppBarTitle extends StatelessWidget {
               isMobile: false,
             )),
         ]);
-        if (!kIsWeb &&
-            isWindow &&
-            !context.read<SettingsCubit>().state.nativeWindowTitleBar) {
-          return DragToMoveArea(child: title);
-        }
-        return title;
       }),
     );
   }

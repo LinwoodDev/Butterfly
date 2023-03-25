@@ -1,7 +1,5 @@
-import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -34,8 +32,6 @@ class _TextStyleViewState extends State<TextStyleView> {
 
   @override
   Widget build(BuildContext context) {
-    final customColor =
-        context.read<DocumentBloc>().state is! DocumentLoadSuccess;
     return Column(
       children: [
         ColorField(
@@ -43,7 +39,7 @@ class _TextStyleViewState extends State<TextStyleView> {
             subtitle: widget.value.color == null
                 ? Text(AppLocalizations.of(context).notSet)
                 : null,
-            custom: customColor,
+            custom: true,
             value: widget.value.color == null
                 ? Colors.transparent
                 : Color(widget.value.color!),
@@ -200,7 +196,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                                         decorationStyle: decorationStyle)))),
                         ColorField(
                             title: Text(AppLocalizations.of(context).color),
-                            custom: customColor,
+                            custom: true,
                             subtitle: widget.value.decorationColor == null
                                 ? Text(AppLocalizations.of(context).notSet)
                                 : null,

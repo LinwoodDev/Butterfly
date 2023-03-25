@@ -237,17 +237,20 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
             decoration: const InputDecoration(labelText: 'X'),
             onChanged: (value) => x = double.tryParse(value) ?? x,
             onSubmitted: (value) => _regeneratePreviewImage()),
+        const SizedBox(height: 8),
         TextField(
             controller: _yController,
             decoration: const InputDecoration(labelText: 'Y'),
             onChanged: (value) => y = double.tryParse(value) ?? y,
             onSubmitted: (value) => _regeneratePreviewImage()),
+        const SizedBox(height: 8),
         TextField(
             controller: _widthController,
             decoration:
                 InputDecoration(labelText: AppLocalizations.of(context).width),
             onChanged: (value) => width = int.tryParse(value) ?? width,
             onSubmitted: (value) => _regeneratePreviewImage()),
+        const SizedBox(height: 8),
         TextField(
             controller: _heightController,
             decoration:

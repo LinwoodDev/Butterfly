@@ -8,7 +8,6 @@ import 'package:butterfly/dialogs/export.dart';
 import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/helpers/element_helper.dart';
 import 'package:butterfly/visualizer/asset.dart';
-import 'package:butterfly/visualizer/string.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
@@ -270,7 +269,14 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
   }
 
   String getLocalizedNameOfSortBy(_SortBy sortBy) {
-    return sortBy.name.toDisplayString();
+    switch (sortBy) {
+      case _SortBy.name:
+        return AppLocalizations.of(context).name;
+      case _SortBy.created:
+        return AppLocalizations.of(context).created;
+      case _SortBy.modified:
+        return AppLocalizations.of(context).modified;
+    }
   }
 
   void _setFilesFuture() {
@@ -678,7 +684,7 @@ class _FileEntityListTile extends StatelessWidget {
     final remote = settingsCubit.getRemote(entity.location.remote);
     final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
     DocumentInfo? info;
-    String? modifiedText;
+    String? modifiedText, createdText;
     IconData icon = PhosphorIcons.folderLight;
     try {
       if (entity is AppDocumentFile) {
@@ -690,7 +696,10 @@ class _FileEntityListTile extends StatelessWidget {
         final timeFormatter = DateFormat.Hm(locale);
         modifiedText = info?.updatedAt != null
             ? '${dateFormatter.format(info!.updatedAt!)} ${timeFormatter.format(info.updatedAt!)}'
-            : '';
+            : null;
+        createdText = info?.createdAt != null
+            ? '${dateFormatter.format(info!.createdAt!)} ${timeFormatter.format(info.createdAt!)}'
+            : null;
       }
     } catch (_) {}
     var editable = false;
@@ -824,11 +833,57 @@ class _FileEntityListTile extends StatelessWidget {
                           ),
                         ],
                       );
-                      final modified = Text(
-                        modifiedText ?? '',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: colorScheme.outline,
+                      final info = Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          if (modifiedText != null)
+                            Tooltip(
+                              message: AppLocalizations.of(context).modified,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    PhosphorIcons.clockCounterClockwiseLight,
+                                    size: 12,
+                                    color: colorScheme.outline,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    modifiedText,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
+                                          color: colorScheme.outline,
+                                        ),
+                                  ),
+                                ],
+                              ),
                             ),
+                          if (createdText != null)
+                            Tooltip(
+                              message: AppLocalizations.of(context).created,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    PhosphorIcons.plusLight,
+                                    size: 12,
+                                    color: colorScheme.outline,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    createdText,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
+                                          color: colorScheme.outline,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                        ],
                       );
                       final isDesktop = constraints.maxWidth > 400;
                       if (isDesktop) {
@@ -847,7 +902,7 @@ class _FileEntityListTile extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: 32),
-                            modified,
+                            info,
                             const SizedBox(width: 32),
                             actions,
                           ],
@@ -863,7 +918,7 @@ class _FileEntityListTile extends StatelessWidget {
                                 children: [
                                   fileName,
                                   const SizedBox(height: 8),
-                                  modified,
+                                  info,
                                 ],
                               ),
                             ),
