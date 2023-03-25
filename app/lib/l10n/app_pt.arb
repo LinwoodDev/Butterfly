@@ -209,8 +209,8 @@
   "design": "Projetar",
   "text": "texto",
   "selectSensitivity": "Selecione a sensibilidade",
-  "welcome": "Bem-vindo à Borboleta Linwood",
-  "welcomeContent": "A Borboleta é um aplicativo de notas, onde suas ideias vêm primeiro. Você pode pintar, adicionar textos e exportá-los facilmente em cada dispositivo. Este app funciona no Android, Windows, Linux e na web.",
+  "welcome": "Hey, this is Linwood Butterfly",
+  "welcomeContent": "A free and open-source drawing space!",
   "updated": "Aplicativo atualizado para a versão {version}",
   "@updated": {
     "placeholders": {
