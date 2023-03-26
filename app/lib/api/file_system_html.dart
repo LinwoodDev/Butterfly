@@ -76,6 +76,7 @@ Future<Database> _getDatabase() async {
         final data = utf8.encode(jsonEncode(value));
         return {'type': 'document', 'data': data};
       }).toList());
+      db.createObjectStore('packs');
     }
   });
   return _db!;
@@ -327,13 +328,12 @@ class WebTemplateFileSystem extends TemplateFileSystem {
 
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
-    var shouldCreate = force;
     var defaults = await DocumentDefaults.getDefaults(context);
     var prefs = await SharedPreferences.getInstance();
-    if (!shouldCreate) {
-      shouldCreate = !prefs.containsKey('defaultTemplate');
+    if (!force) {
+      force = !prefs.containsKey('defaultTemplate');
     }
-    if (!shouldCreate) return false;
+    if (!force) return false;
     await Future.wait(defaults.map((e) => updateTemplate(e)));
     prefs.setBool('defaultTemplate', true);
     return true;
@@ -426,5 +426,18 @@ class WebPackFileSystem extends PackFileSystem {
     });
     await txn.completed;
     return packs;
+  }
+
+  @override
+  Future<bool> createDefault(BuildContext context, {bool force = false}) async {
+    var prefs = await SharedPreferences.getInstance();
+    if (!force) {
+      force = !prefs.containsKey('defaultPack');
+    }
+    if (!force) return false;
+    final pack = await DocumentDefaults.getCorePack();
+    await updatePack(pack);
+    prefs.setBool('defaultPack', true);
+    return true;
   }
 }

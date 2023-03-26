@@ -208,6 +208,8 @@ Archive exportDirectory(AppDocumentDirectory directory) {
 }
 
 abstract class PackFileSystem extends GeneralFileSystem {
+  Future<bool> createDefault(BuildContext context, {bool force = false});
+
   Future<ButterflyPack?> getPack(String name);
   Future<ButterflyPack> createPack(
       {required String name,
