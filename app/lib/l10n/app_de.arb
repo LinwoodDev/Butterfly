@@ -209,7 +209,7 @@
   "design": "Design",
   "text": "Text",
   "selectSensitivity": "Empfindlichkeit auswählen",
-  "welcome": "Hey, das ist Linwood-Schmetterling",
+  "welcome": "Hey, das ist Linwood Butterfly",
   "welcomeContent": "Ein freier und Open-Source-Zeichnungsraum!",
   "updated": "App aktualisiert auf Version {version}",
   "@updated": {
