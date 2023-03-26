@@ -352,4 +352,20 @@ class IOPackFileSystem extends PackFileSystem {
     }
     return packs;
   }
+
+  @override
+  Future<bool> createDefault(BuildContext context, {bool force = false}) async {
+    final path = await getDirectory();
+    final dir = Directory(path);
+    if (await dir.exists()) {
+      if (force) {
+        await dir.delete(recursive: true);
+      } else {
+        return false;
+      }
+    }
+    await dir.create(recursive: true);
+    await updatePack(await DocumentDefaults.getCorePack());
+    return true;
+  }
 }

@@ -5,31 +5,26 @@ import 'package:flutter/material.dart';
 class WebDocumentFileSystem extends DocumentFileSystem {
   @override
   Future<AppDocumentDirectory> createDirectory(String path) {
-    // TODO: implement createDirectory
     throw UnimplementedError();
   }
 
   @override
   Future<void> deleteAsset(String path) {
-    // TODO: implement deleteAsset
     throw UnimplementedError();
   }
 
   @override
   Future<AppDocumentEntity?> getAsset(String path) {
-    // TODO: implement getAsset
     throw UnimplementedError();
   }
 
   @override
   Future<bool> hasAsset(String path) {
-    // TODO: implement hasAsset
     throw UnimplementedError();
   }
 
   @override
   Future<AppDocumentFile> updateFile(String path, List<int> data) {
-    // TODO: implement updateFile
     throw UnimplementedError();
   }
 }
@@ -89,6 +84,11 @@ class WebPackFileSystem extends PackFileSystem {
 
   @override
   Future<void> updatePack(ButterflyPack pack) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> createDefault(BuildContext context, {bool force = false}) {
     throw UnimplementedError();
   }
 }

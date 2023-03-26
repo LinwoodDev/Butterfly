@@ -692,4 +692,21 @@ class DavRemotePackFileSystem extends PackFileSystem with DavRemoteSystem {
   @override
   Future<String> getRemoteCacheDirectory() async =>
       p.join(await super.getRemoteCacheDirectory(), 'Packs');
+
+  @override
+  Future<bool> createDefault(BuildContext context, {bool force = false}) async {
+    try {
+      // test if directory exists
+      final response = await _createRequest('', method: 'PROPFIND');
+      if (response.statusCode != 404 && !force) {
+        return false;
+      }
+      // Create directory if it doesn't exist
+      await _createRequest('', method: 'MKCOL');
+      await updatePack(await DocumentDefaults.getCorePack());
+      return true;
+    } on SocketException catch (_) {
+      return false;
+    }
+  }
 }

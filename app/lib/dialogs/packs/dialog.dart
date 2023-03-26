@@ -177,7 +177,9 @@ class _PacksDialogState extends State<PacksDialog>
                             );
                           }),
                         FutureBuilder<List<ButterflyPack>>(
-                          future: _fileSystem.getPacks(),
+                          future: _fileSystem
+                              .createDefault(context)
+                              .then((value) => _fileSystem.getPacks()),
                           builder: (context, snapshot) {
                             if (snapshot.hasError) {
                               return Text(snapshot.error.toString());
