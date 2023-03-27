@@ -64,7 +64,7 @@ class _ProjectPageState extends State<ProjectPage> {
   DocumentBloc? _bloc;
   TransformCubit? _transformCubit;
   CurrentIndexCubit? _currentIndexCubit;
-  late final ImportService _importService;
+  RemoteStorage? _remote;
   final GlobalKey _viewportKey = GlobalKey();
   final _actions = <Type, Action<Intent>>{
     UndoIntent: UndoAction(),
@@ -134,19 +134,17 @@ class _ProjectPageState extends State<ProjectPage> {
           BoxBackgroundRenderer(const BoxBackground()),
           [],
         );
-        _importService = ImportService(context, _bloc);
         _bloc?.load();
         embedding.handler.register(_bloc!);
       });
       return;
     }
     try {
-      RemoteStorage? remote;
       var location = widget.location;
-      remote = location != null
+      _remote = location != null
           ? settingsCubit.state.getRemote(location.remote)
           : settingsCubit.state.getDefaultRemote();
-      final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
+      final fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
       final prefs = await SharedPreferences.getInstance();
       AppDocument? document;
       if (widget.location != null) {
@@ -167,7 +165,7 @@ class _ProjectPageState extends State<ProjectPage> {
         document = (widget.data as AppDocument).copyWith(name: name);
       }
       if (document == null && prefs.containsKey('default_template')) {
-        var template = await TemplateFileSystem.fromPlatform(remote: remote)
+        var template = await TemplateFileSystem.fromPlatform(remote: _remote)
             .getTemplate(prefs.getString('default_template')!);
         if (template != null && mounted) {
           document = template.document.copyWith(
@@ -189,7 +187,7 @@ class _ProjectPageState extends State<ProjectPage> {
       await Future.wait(renderers.map((e) async => await e.setup(document!)));
       final background = Renderer.fromInstance(document.background);
       await background.setup(document);
-      location ??= AssetLocation(path: '', remote: remote?.identifier ?? '');
+      location ??= AssetLocation(path: '', remote: _remote?.identifier ?? '');
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit =
@@ -197,10 +195,6 @@ class _ProjectPageState extends State<ProjectPage> {
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
             location!, background, renderers);
         _bloc?.load();
-        _importService = ImportService(context, _bloc);
-        if (widget.type.isNotEmpty) {
-          _importService.load(type: widget.type, data: widget.data);
-        }
       });
     } catch (e) {
       if (kDebugMode) {
@@ -239,8 +233,24 @@ class _ProjectPageState extends State<ProjectPage> {
           if (state is DocumentLoadFailure) {
             return ErrorPage(message: state.message);
           }
-          return RepositoryProvider.value(
-            value: _importService,
+          return MultiRepositoryProvider(
+            providers: [
+              RepositoryProvider<DocumentFileSystem>.value(
+                  value: DocumentFileSystem.fromPlatform(remote: _remote)),
+              RepositoryProvider<TemplateFileSystem>.value(
+                  value: TemplateFileSystem.fromPlatform(remote: _remote)),
+              RepositoryProvider<PackFileSystem>.value(
+                  value: PackFileSystem.fromPlatform(remote: _remote)),
+              RepositoryProvider(
+                create: (context) {
+                  final service = ImportService(context, _bloc);
+                  if (widget.type.isNotEmpty) {
+                    service.load(type: widget.type, data: widget.data);
+                  }
+                  return service;
+                },
+              )
+            ],
             child: GestureDetector(
               onTap: () {
                 FocusScopeNode currentFocus = FocusScope.of(context);

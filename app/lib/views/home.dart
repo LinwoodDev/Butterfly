@@ -24,15 +24,31 @@ import '../api/open_release_notes.dart';
 import '../dialogs/file_system/move.dart';
 import '../dialogs/import.dart';
 
-class HomePage extends StatelessWidget {
-  final String? selectedAsset;
+class HomePage extends StatefulWidget {
+  final AssetLocation? selectedAsset;
 
   const HomePage({super.key, this.selectedAsset});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  RemoteStorage? _remote;
+
+  @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => ImportService(context),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<DocumentFileSystem>.value(
+            value: DocumentFileSystem.fromPlatform(remote: _remote)),
+        RepositoryProvider<TemplateFileSystem>.value(
+            value: TemplateFileSystem.fromPlatform(remote: _remote)),
+        RepositoryProvider<PackFileSystem>.value(
+            value: PackFileSystem.fromPlatform(remote: _remote)),
+        RepositoryProvider<ImportService>(
+            create: (context) => ImportService(context)),
+      ],
       child: Scaffold(
         appBar: const WindowTitleBar(
           title: Text('Butterfly'),
@@ -58,18 +74,33 @@ class HomePage extends StatelessWidget {
                           children: [
                             Expanded(
                                 child: _FilesHomeView(
-                                    selectedAsset: selectedAsset)),
+                              selectedAsset: widget.selectedAsset,
+                              remote: _remote,
+                              onRemoteChanged: (value) =>
+                                  setState(() => _remote = value),
+                            )),
                             const SizedBox(width: 32),
-                            const SizedBox(
-                                width: 500, child: _QuickstartHomeView()),
+                            SizedBox(
+                              width: 500,
+                              child: _QuickstartHomeView(
+                                remote: _remote,
+                              ),
+                            ),
                           ],
                         );
                       } else {
                         return Column(
                           children: [
-                            const _QuickstartHomeView(),
+                            _QuickstartHomeView(
+                              remote: _remote,
+                            ),
                             const SizedBox(height: 32),
-                            _FilesHomeView(selectedAsset: selectedAsset),
+                            _FilesHomeView(
+                              selectedAsset: widget.selectedAsset,
+                              remote: _remote,
+                              onRemoteChanged: (value) =>
+                                  setState(() => _remote = value),
+                            ),
                           ],
                         );
                       }
@@ -245,8 +276,11 @@ class _HeaderHomeView extends StatelessWidget {
 }
 
 class _FilesHomeView extends StatefulWidget {
-  final String? selectedAsset;
-  const _FilesHomeView({this.selectedAsset});
+  final AssetLocation? selectedAsset;
+  final RemoteStorage? remote;
+  final ValueChanged<RemoteStorage?>? onRemoteChanged;
+
+  const _FilesHomeView({this.selectedAsset, this.remote, this.onRemoteChanged});
 
   @override
   State<_FilesHomeView> createState() => _FilesHomeViewState();
@@ -273,6 +307,15 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
     _setFilesFuture();
   }
 
+  @override
+  void didUpdateWidget(covariant _FilesHomeView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.remote != widget.remote) {
+      _remote = widget.remote;
+      _setFilesFuture();
+    }
+  }
+
   String getLocalizedNameOfSortBy(_SortBy sortBy) {
     switch (sortBy) {
       case _SortBy.name:
@@ -291,6 +334,12 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
 
   void _reloadFileSystem() {
     setState(_setFilesFuture);
+  }
+
+  void _setRemote(RemoteStorage? remote) {
+    _remote = remote;
+    _setFilesFuture();
+    widget.onRemoteChanged?.call(remote);
   }
 
   @override
@@ -362,10 +411,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                           ],
                           borderRadius: BorderRadius.circular(16),
                           value: _remote,
-                          onChanged: (value) => setState(() {
-                            _remote = value;
-                            _setFilesFuture();
-                          }),
+                          onChanged: _setRemote,
                         );
                       }),
                     ),
@@ -593,7 +639,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
               itemBuilder: (context, index) {
                 final entity = assets[index];
                 final selected =
-                    widget.selectedAsset == entity.pathWithLeadingSlash;
+                    widget.selectedAsset?.isSame(entity.location) ?? false;
                 return _FileEntityListTile(
                   entity: entity,
                   selected: selected,
@@ -1073,12 +1119,13 @@ class _FileEntityListTile extends StatelessWidget {
 }
 
 class _QuickstartHomeView extends StatelessWidget {
-  const _QuickstartHomeView();
+  final RemoteStorage? remote;
+  const _QuickstartHomeView({this.remote});
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final templateFileSystem = context.read<TemplateFileSystem>();
+    final templateFileSystem = TemplateFileSystem.fromPlatform(remote: remote);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),

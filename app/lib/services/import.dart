@@ -30,6 +30,14 @@ class ImportService {
 
   ImportService(this.context, [this.bloc]);
 
+  DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
+      ? (bloc?.state as DocumentLoadSuccess)
+      : null;
+  DocumentFileSystem getFileSystem() => context.read<DocumentFileSystem>();
+  TemplateFileSystem getTemplateFileSystem() =>
+      context.read<TemplateFileSystem>();
+  PackFileSystem getPackFileSystem() => context.read<PackFileSystem>();
+
   Future<NoteData?> load(
       {String type = '', Object? data, AppDocument? document}) async {
     final state = bloc?.state is DocumentLoadSuccess
@@ -43,8 +51,7 @@ class ImportService {
     } else if (data is String) {
       bytes = Uint8List.fromList(utf8.encode(data));
     } else if (location != null) {
-      bytes =
-          await DocumentFileSystem.fromPlatform().loadAbsolute(location.path);
+      bytes = await getFileSystem().loadAbsolute(location.path);
     }
     final fileType = type.isNotEmpty
         ? AssetFileType.values.byName(type)
@@ -146,14 +153,10 @@ class ImportService {
     );
     if (result != true) return null;
     if (context.mounted) {
-      PackFileSystem.fromPlatform().createPack(pack);
+      getPackFileSystem().createPack(pack);
     }
     return pack;
   }
-
-  DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
-      ? (bloc?.state as DocumentLoadSuccess)
-      : null;
 
   Future<AppDocument?> importImage(Uint8List bytes,
       [Offset? position, AppDocument? document]) async {
@@ -294,7 +297,7 @@ class ImportService {
         final data =
             json.encode(const DocumentJsonConverter().toJson(state.document));
         final bytes = Uint8List.fromList(data.codeUnits);
-        DocumentFileSystem.fromPlatform().saveAbsolute(location.path, bytes);
+        getFileSystem().saveAbsolute(location.path, bytes);
         break;
       case AssetFileType.image:
         return showDialog<void>(

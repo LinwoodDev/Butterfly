@@ -58,6 +58,10 @@ class AssetLocation with _$AssetLocation {
   }
 
   String get fileName => path.split('/').last.split('.').first;
+
+  bool isSame(AssetLocation other) =>
+      pathWithLeadingSlash == other.pathWithLeadingSlash &&
+      remote == other.remote;
 }
 
 @freezed
