@@ -11,10 +11,10 @@ sidebar_position: 2
 * `Ctrl` + `Shift` + `N`: 来自模板的新文件
 * `Ctrl` + `O`: 打开文件
 * `Ctrl` + `I`: 导入文件
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: 导出文件
+* `Ctrl` + `Shift` + `E`: 导出文件为图像
+* `Ctrl` + `Alt` + `E`: 导出文件为 svg
+* `Ctrl` + `Alt` + `S`: 打开设置
 
 ## 项目
 
@@ -23,12 +23,12 @@ sidebar_position: 2
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: 打开项目设置
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
+* `Ctrl` + `P`: 打开色板对话框
+* `Ctrl` + `B`: 打开后台对话框
+* `Ctrl` + `Shift` + `A`: 打开区域对话框
+* `Ctrl` + `L`: 打开图层对话框
+* `Ctrl` + `S`: 保存
+* `Alt` + `S`: 更改路径
 
 ## Stylus
 
