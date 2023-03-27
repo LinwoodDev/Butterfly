@@ -7,6 +7,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/export.dart';
 import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/helpers/element_helper.dart';
+import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -21,57 +22,98 @@ import 'package:popover/popover.dart';
 
 import '../api/open_release_notes.dart';
 import '../dialogs/file_system/move.dart';
+import '../dialogs/import.dart';
 
-class HomePage extends StatelessWidget {
-  final String? selectedAsset;
+class HomePage extends StatefulWidget {
+  final AssetLocation? selectedAsset;
 
   const HomePage({super.key, this.selectedAsset});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  RemoteStorage? _remote;
+
+  @override
+  void initState() {
+    super.initState();
+    _remote = context.read<SettingsCubit>().state.getDefaultRemote();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const WindowTitleBar(
-        title: Text('Butterfly'),
-        onlyShowOnDesktop: true,
-      ),
-      body: SingleChildScrollView(
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 32),
-            constraints: const BoxConstraints(maxWidth: 1400),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 64),
-                const _HeaderHomeView(),
-                const SizedBox(height: 64),
-                LayoutBuilder(
-                  builder: (context, constraints) {
-                    if (constraints.maxWidth > 1000) {
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                              child:
-                                  _FilesHomeView(selectedAsset: selectedAsset)),
-                          const SizedBox(width: 32),
-                          const SizedBox(
-                              width: 500, child: _QuickstartHomeView()),
-                        ],
-                      );
-                    } else {
-                      return Column(
-                        children: [
-                          const _QuickstartHomeView(),
-                          const SizedBox(height: 32),
-                          _FilesHomeView(selectedAsset: selectedAsset),
-                        ],
-                      );
-                    }
-                  },
-                ),
-              ],
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<DocumentFileSystem>.value(
+            value: DocumentFileSystem.fromPlatform(remote: _remote)),
+        RepositoryProvider<TemplateFileSystem>.value(
+            value: TemplateFileSystem.fromPlatform(remote: _remote)),
+        RepositoryProvider<PackFileSystem>.value(
+            value: PackFileSystem.fromPlatform(remote: _remote)),
+        RepositoryProvider<ImportService>(
+            create: (context) => ImportService(context)),
+      ],
+      child: Scaffold(
+        appBar: const WindowTitleBar(
+          title: Text('Butterfly'),
+          onlyShowOnDesktop: true,
+        ),
+        body: SingleChildScrollView(
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 32),
+              constraints: const BoxConstraints(maxWidth: 1400),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 64),
+                  const _HeaderHomeView(),
+                  const SizedBox(height: 64),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      if (constraints.maxWidth > 1000) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                                child: _FilesHomeView(
+                              selectedAsset: widget.selectedAsset,
+                              remote: _remote,
+                              onRemoteChanged: (value) =>
+                                  setState(() => _remote = value),
+                            )),
+                            const SizedBox(width: 32),
+                            SizedBox(
+                              width: 500,
+                              child: _QuickstartHomeView(
+                                remote: _remote,
+                              ),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Column(
+                          children: [
+                            _QuickstartHomeView(
+                              remote: _remote,
+                            ),
+                            const SizedBox(height: 32),
+                            _FilesHomeView(
+                              selectedAsset: widget.selectedAsset,
+                              remote: _remote,
+                              onRemoteChanged: (value) =>
+                                  setState(() => _remote = value),
+                            ),
+                          ],
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -240,8 +282,11 @@ class _HeaderHomeView extends StatelessWidget {
 }
 
 class _FilesHomeView extends StatefulWidget {
-  final String? selectedAsset;
-  const _FilesHomeView({this.selectedAsset});
+  final AssetLocation? selectedAsset;
+  final RemoteStorage? remote;
+  final ValueChanged<RemoteStorage?>? onRemoteChanged;
+
+  const _FilesHomeView({this.selectedAsset, this.remote, this.onRemoteChanged});
 
   @override
   State<_FilesHomeView> createState() => _FilesHomeViewState();
@@ -268,6 +313,15 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
     _setFilesFuture();
   }
 
+  @override
+  void didUpdateWidget(covariant _FilesHomeView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.remote != widget.remote) {
+      _remote = widget.remote;
+      _setFilesFuture();
+    }
+  }
+
   String getLocalizedNameOfSortBy(_SortBy sortBy) {
     switch (sortBy) {
       case _SortBy.name:
@@ -286,6 +340,12 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
 
   void _reloadFileSystem() {
     setState(_setFilesFuture);
+  }
+
+  void _setRemote(RemoteStorage? remote) {
+    _remote = remote;
+    _setFilesFuture();
+    widget.onRemoteChanged?.call(remote);
   }
 
   @override
@@ -357,10 +417,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                           ],
                           borderRadius: BorderRadius.circular(16),
                           value: _remote,
-                          onChanged: (value) => setState(() {
-                            _remote = value;
-                            _setFilesFuture();
-                          }),
+                          onChanged: _setRemote,
                         );
                       }),
                     ),
@@ -476,6 +533,28 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                   leadingIcon: const Icon(PhosphorIcons.fileLight),
                   child: Text(AppLocalizations.of(context).newFile),
                 ),
+                MenuItemButton(
+                  leadingIcon: const Icon(PhosphorIcons.arrowSquareInLight),
+                  onPressed: () async {
+                    final router = GoRouter.of(context);
+                    final importService = context.read<ImportService>();
+                    final result = await showDialog<String>(
+                        builder: (context) => const ImportDialog(),
+                        context: context);
+                    if (result == null) return;
+                    final model = await importService.importBfly(
+                      Uint8List.fromList(result.codeUnits),
+                    );
+                    model?.maybeMap(
+                      document: (value) => router.push(
+                          '/native?name=document.bfly&type=note',
+                          extra: value),
+                      orElse: () {},
+                    );
+                    _reloadFileSystem();
+                  },
+                  child: Text(AppLocalizations.of(context).import),
+                ),
               ],
               builder: (context, controller, child) =>
                   FloatingActionButton.small(
@@ -566,7 +645,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
               itemBuilder: (context, index) {
                 final entity = assets[index];
                 final selected =
-                    widget.selectedAsset == entity.pathWithLeadingSlash;
+                    widget.selectedAsset?.isSame(entity.location) ?? false;
                 return _FileEntityListTile(
                   entity: entity,
                   selected: selected,
@@ -941,11 +1020,23 @@ class _FileEntityListTile extends StatelessWidget {
               children: [
                 if (entity is AppDocumentFile)
                   IconButton(
-                    onPressed: () => showDialog(
-                        context: context,
-                        builder: (context) => ExportDialog(
-                            data:
-                                utf8.decode((entity as AppDocumentFile).data))),
+                    onPressed: () {
+                      try {
+                        final data =
+                            utf8.decode((entity as AppDocumentFile).data);
+                        showDialog(
+                            context: context,
+                            builder: (context) => ExportDialog(data: data));
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              AppLocalizations.of(context).error,
+                            ),
+                          ),
+                        );
+                      }
+                    },
                     icon: const Icon(PhosphorIcons.paperPlaneRightLight),
                     tooltip: AppLocalizations.of(context).export,
                   ),
@@ -1034,12 +1125,13 @@ class _FileEntityListTile extends StatelessWidget {
 }
 
 class _QuickstartHomeView extends StatelessWidget {
-  const _QuickstartHomeView();
+  final RemoteStorage? remote;
+  const _QuickstartHomeView({this.remote});
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final templateFileSystem = context.read<TemplateFileSystem>();
+    final templateFileSystem = TemplateFileSystem.fromPlatform(remote: remote);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),

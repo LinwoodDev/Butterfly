@@ -334,7 +334,7 @@ class WebTemplateFileSystem extends TemplateFileSystem {
       force = !prefs.containsKey('defaultTemplate');
     }
     if (!force) return false;
-    await Future.wait(defaults.map((e) => updateTemplate(e)));
+    await Future.wait(defaults.map((e) => createTemplate(e)));
     prefs.setBool('defaultTemplate', true);
     return true;
   }
@@ -436,7 +436,7 @@ class WebPackFileSystem extends PackFileSystem {
     }
     if (!force) return false;
     final pack = await DocumentDefaults.getCorePack();
-    await updatePack(pack);
+    await createPack(pack);
     prefs.setBool('defaultPack', true);
     return true;
   }

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/cubits/current_index.dart';
-import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
@@ -18,9 +17,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../actions/export.dart';
 import '../actions/image_export.dart';
-import '../actions/import.dart';
 import '../actions/new.dart';
-import '../actions/open.dart';
 import '../actions/packs.dart';
 import '../actions/pdf_export.dart';
 import '../actions/save.dart';
@@ -341,8 +338,75 @@ class _MainPopupMenu extends StatelessWidget {
             },
             child: Text(AppLocalizations.of(context).packs),
           ),
+          SubmenuButton(
+            menuChildren: [
+              MenuItemButton(
+                leadingIcon: const Icon(PhosphorIcons.sunLight),
+                shortcut: const SingleActivator(LogicalKeyboardKey.keyE,
+                    alt: true, control: true),
+                onPressed: () async {
+                  Actions.maybeInvoke<SvgExportIntent>(
+                      context, SvgExportIntent(context));
+                },
+                child: Text(AppLocalizations.of(context).svg),
+              ),
+              MenuItemButton(
+                leadingIcon: const Icon(PhosphorIcons.databaseLight),
+                shortcut: const SingleActivator(
+                  LogicalKeyboardKey.keyE,
+                  control: true,
+                ),
+                onPressed: () async {
+                  Actions.maybeInvoke<ExportIntent>(
+                      context, ExportIntent(context));
+                },
+                child: Text(AppLocalizations.of(context).data),
+              ),
+              MenuItemButton(
+                leadingIcon: const Icon(PhosphorIcons.imageLight),
+                shortcut: const SingleActivator(
+                  LogicalKeyboardKey.keyE,
+                  shift: true,
+                  control: true,
+                ),
+                onPressed: () {
+                  Actions.maybeInvoke<ImageExportIntent>(
+                      context, ImageExportIntent(context));
+                },
+                child: Text(AppLocalizations.of(context).image),
+              ),
+              MenuItemButton(
+                leadingIcon: const Icon(PhosphorIcons.filePdfLight),
+                shortcut: const SingleActivator(
+                  LogicalKeyboardKey.keyE,
+                  shift: true,
+                  alt: true,
+                  control: true,
+                ),
+                onPressed: () {
+                  Actions.maybeInvoke<PdfExportIntent>(
+                      context, PdfExportIntent(context));
+                },
+                child: Text(AppLocalizations.of(context).pdf),
+              ),
+            ],
+            leadingIcon: const Icon(PhosphorIcons.paperPlaneRightLight),
+            child: Text(AppLocalizations.of(context).export),
+          ),
           const PopupMenuDivider(),
           if (state.embedding == null) ...[
+            MenuItemButton(
+              leadingIcon: const Icon(PhosphorIcons.houseLight),
+              child: Text(AppLocalizations.of(context).home),
+              onPressed: () {
+                final router = GoRouter.of(context);
+                if (router.canPop()) {
+                  router.pop();
+                } else {
+                  router.go('/');
+                }
+              },
+            ),
             MenuItemButton(
               leadingIcon: const Icon(PhosphorIcons.filePlusLight),
               shortcut:
@@ -362,127 +426,11 @@ class _MainPopupMenu extends StatelessWidget {
               },
               child: Text(AppLocalizations.of(context).templates),
             ),
-            MenuItemButton(
-              leadingIcon: const Icon(PhosphorIcons.folderOpenLight),
-              shortcut:
-                  const SingleActivator(LogicalKeyboardKey.keyO, control: true),
-              onPressed: () {
-                Actions.maybeInvoke<OpenIntent>(context, OpenIntent(context));
-              },
-              child: Text(AppLocalizations.of(context).open),
-            ),
-            SubmenuButton(
-              leadingIcon: const Icon(PhosphorIcons.folderNotchOpenLight),
-              menuChildren: [
-                ...context
-                    .read<SettingsCubit>()
-                    .state
-                    .history
-                    .map((location) => MenuItemButton(
-                          onPressed: () {
-                            final lastLocation = state.location;
-                            if (lastLocation == location) {
-                              return;
-                            }
-                            if (location.remote != '') {
-                              final uri = Uri(pathSegments: [
-                                '',
-                                'remote',
-                                Uri.encodeComponent(location.remote),
-                                ...location.pathWithoutLeadingSlash
-                                    .split('/')
-                                    .map((e) => Uri.encodeComponent(e)),
-                              ]).toString();
-
-                              GoRouter.of(context).push(uri);
-                              return;
-                            }
-                            GoRouter.of(context).push(Uri(
-                              pathSegments: [
-                                '',
-                                'local',
-                                ...location.pathWithoutLeadingSlash
-                                    .split('/')
-                                    .map((e) => Uri.encodeComponent(e)),
-                              ],
-                            ).toString());
-                          },
-                          child: Text(location.identifier),
-                        )),
-              ],
-              child: Text(AppLocalizations.of(context).recentFiles),
-            ),
-            MenuItemButton(
-              leadingIcon: const Icon(PhosphorIcons.arrowSquareInLight),
-              shortcut:
-                  const SingleActivator(LogicalKeyboardKey.keyI, control: true),
-              onPressed: () {
-                Actions.maybeInvoke<ImportIntent>(
-                    context, ImportIntent(context));
-              },
-              child: Text(AppLocalizations.of(context).import),
-            ),
-            SubmenuButton(
-              menuChildren: [
-                MenuItemButton(
-                  leadingIcon: const Icon(PhosphorIcons.sunLight),
-                  shortcut: const SingleActivator(LogicalKeyboardKey.keyE,
-                      alt: true, control: true),
-                  onPressed: () async {
-                    Actions.maybeInvoke<SvgExportIntent>(
-                        context, SvgExportIntent(context));
-                  },
-                  child: Text(AppLocalizations.of(context).svg),
-                ),
-                MenuItemButton(
-                  leadingIcon: const Icon(PhosphorIcons.databaseLight),
-                  shortcut: const SingleActivator(
-                    LogicalKeyboardKey.keyE,
-                    control: true,
-                  ),
-                  onPressed: () async {
-                    Actions.maybeInvoke<ExportIntent>(
-                        context, ExportIntent(context));
-                  },
-                  child: Text(AppLocalizations.of(context).data),
-                ),
-                MenuItemButton(
-                  leadingIcon: const Icon(PhosphorIcons.imageLight),
-                  shortcut: const SingleActivator(
-                    LogicalKeyboardKey.keyE,
-                    shift: true,
-                    control: true,
-                  ),
-                  onPressed: () {
-                    Actions.maybeInvoke<ImageExportIntent>(
-                        context, ImageExportIntent(context));
-                  },
-                  child: Text(AppLocalizations.of(context).image),
-                ),
-                MenuItemButton(
-                  leadingIcon: const Icon(PhosphorIcons.filePdfLight),
-                  shortcut: const SingleActivator(
-                    LogicalKeyboardKey.keyE,
-                    shift: true,
-                    alt: true,
-                    control: true,
-                  ),
-                  onPressed: () {
-                    Actions.maybeInvoke<PdfExportIntent>(
-                        context, PdfExportIntent(context));
-                  },
-                  child: Text(AppLocalizations.of(context).pdf),
-                ),
-              ],
-              leadingIcon: const Icon(PhosphorIcons.exportLight),
-              child: Text(AppLocalizations.of(context).export),
-            ),
           ],
-          const Divider(),
           if (state.embedding == null && (kIsWeb || !isWindow)) ...[
             MenuItemButton(
               leadingIcon: const Icon(PhosphorIcons.arrowsOutLight),
-              //shortcut: const SingleActivator(LogicalKeyboardKey.f11),
+              shortcut: const SingleActivator(LogicalKeyboardKey.f11),
               onPressed: () async {
                 setFullScreen(!(await isFullScreen()));
               },
@@ -499,18 +447,6 @@ class _MainPopupMenu extends StatelessWidget {
                     context, SettingsIntent(context));
               },
               child: Text(AppLocalizations.of(context).settings),
-            ),
-            MenuItemButton(
-              leadingIcon: const Icon(PhosphorIcons.houseLight),
-              child: Text(AppLocalizations.of(context).home),
-              onPressed: () {
-                final router = GoRouter.of(context);
-                if (router.canPop()) {
-                  router.pop();
-                } else {
-                  router.go('/');
-                }
-              },
             ),
           ] else ...[
             MenuItemButton(

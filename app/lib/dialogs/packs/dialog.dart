@@ -425,7 +425,7 @@ class _PacksDialogState extends State<PacksDialog>
   Future<void> _addPack(ButterflyPack pack, [bool? global]) async {
     global ??= (_controller.index == 1);
     if (global || widget.globalOnly) {
-      await _fileSystem.updatePack(pack);
+      await _fileSystem.createPack(pack);
       setState(() {});
     } else {
       context.read<DocumentBloc>().add(DocumentPackAdded(pack));
