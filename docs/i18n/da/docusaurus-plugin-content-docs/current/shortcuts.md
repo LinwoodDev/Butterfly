@@ -12,23 +12,23 @@ Der er et par genveje, som du kan bruge i editoren. Nogle af dem er skrevet unde
 
 * `Ctrl` + `N`: Ny fil
 * `Ctrl` + `Shift` + `N`: Ny fil fra skabelon
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: Eksporter fil
+* `Ctrl` + `Shift` + `E`: Eksporter fil som billede
+* `Ctrl` + `Alt` + `E`: Eksporter fil som svg
+* `Ctrl` + `Alt` + `S`: Åbn indstillinger
 
 ### Projekt
 
 * `Ctrl` + `Z`: Fortryd
 * `Ctrl` + `Y`: Fortryd
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
-* `Ctrl` + (`1` - `0`): Switch to painter
+* `Ctrl` + `P`: Åbn farvepalet dialog
+* `Ctrl` + `B`: Åbn baggrundsdialog
+* `Ctrl` + `Shift` + `A`: Åbne områder dialog
+* `Ctrl` + `L`: dialogen Åbn lag
+* `Ctrl` + `S`: Gem
+* `Alt` + `S`: Skift sti
+* `Ctrl` + (`1` - `0`): Skift til maler
 
 ## Stylus
 
