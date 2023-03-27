@@ -12,23 +12,23 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 
 * `Ctrl` + `N`: Nouveau fichier
 * `Ctrl` + `Maj` + `N`: Nouveau fichier à partir du modèle
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: Exporter le fichier
+* `Ctrl` + `Maj` + `E`: Exporter le fichier en tant qu'image
+* `Ctrl` + `Alt` + `E`: Exporter le fichier en svg
+* `Ctrl` + `Alt` + `S`: Ouvrir les paramètres
 
 ### Projet
 
 * `Ctrl` + `Z`: Annuler
 * `Ctrl` + `Y`: Refaire
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
-* `Ctrl` + (`1` - `0`): Switch to painter
+* `Ctrl` + `P`: Ouvrir la fenêtre de la palette de couleurs
+* `Ctrl` + `B`: Ouvrir la boîte de dialogue d'arrière-plan
+* `Ctrl` + `Maj` + `A`: Ouvrir la boîte de dialogue des zones
+* `Ctrl` + `L`: Ouvrir la boîte de dialogue des calques
+* `Ctrl` + `S`: Enregistrer
+* `Alt` + `S`: Changer le chemin
+* `Ctrl` + (`1` - `0`) : Basculer vers le peintre
 
 ## Stylus
 
