@@ -13,8 +13,6 @@ Some of them are written below the buttons.
 
 * `Ctrl` + `N`: New file
 * `Ctrl` + `Shift` + `N`: New file from template
-* `Ctrl` + `O`: Open file
-* `Ctrl` + `I`: Import file
 * `Ctrl` + `E`: Export file
 * `Ctrl` + `Shift` + `E`: Export file as image
 * `Ctrl` + `Alt` + `E`: Export file as svg

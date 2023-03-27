@@ -21,6 +21,7 @@ import 'package:popover/popover.dart';
 
 import '../api/open_release_notes.dart';
 import '../dialogs/file_system/move.dart';
+import '../dialogs/import.dart';
 
 class HomePage extends StatelessWidget {
   final String? selectedAsset;
@@ -475,6 +476,19 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                   },
                   leadingIcon: const Icon(PhosphorIcons.fileLight),
                   child: Text(AppLocalizations.of(context).newFile),
+                ),
+                MenuItemButton(
+                  leadingIcon: const Icon(PhosphorIcons.arrowSquareInLight),
+                  onPressed: () async {
+                    final router = GoRouter.of(context);
+                    final result = await showDialog<String>(
+                        builder: (context) => const ImportDialog(),
+                        context: context);
+                    if (result == null) return;
+                    router.push('/native?name=document.bfly&type=note',
+                        extra: result);
+                  },
+                  child: Text(AppLocalizations.of(context).import),
                 ),
               ],
               builder: (context, controller, child) =>
@@ -941,11 +955,23 @@ class _FileEntityListTile extends StatelessWidget {
               children: [
                 if (entity is AppDocumentFile)
                   IconButton(
-                    onPressed: () => showDialog(
-                        context: context,
-                        builder: (context) => ExportDialog(
-                            data:
-                                utf8.decode((entity as AppDocumentFile).data))),
+                    onPressed: () {
+                      try {
+                        final data =
+                            utf8.decode((entity as AppDocumentFile).data);
+                        showDialog(
+                            context: context,
+                            builder: (context) => ExportDialog(data: data));
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              AppLocalizations.of(context).error,
+                            ),
+                          ),
+                        );
+                      }
+                    },
                     icon: const Icon(PhosphorIcons.paperPlaneRightLight),
                     tooltip: AppLocalizations.of(context).export,
                   ),

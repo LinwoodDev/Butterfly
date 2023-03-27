@@ -49,9 +49,9 @@ dependencies:
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.0
   path: ^1.8.2
-  printing: ^5.10.1
+  printing: ^5.10.2
   js: ^0.6.5
-  pdf: ^3.9.0
+  pdf: ^3.10.0
   http: ^0.13.5
   flutter_secure_storage: ^8.0.0
   equatable: ^2.0.5

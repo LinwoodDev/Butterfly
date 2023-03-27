@@ -58,7 +58,9 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     final dir = path.substring(0, path.lastIndexOf('/'));
     var ext = path.substring(path.lastIndexOf('.') + 1);
     if (ext.isNotEmpty) ext = '.$ext';
-    var name = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'));
+    final dotIndex = path.lastIndexOf('.');
+    var name =
+        dotIndex < 0 ? '' : path.substring(path.lastIndexOf('/') + 1, dotIndex);
     var newName = name;
     var i = 1;
     while (await hasAsset('$dir/$newName$ext')) {
@@ -135,8 +137,10 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
       updateFile(path, document.save());
 
   Future<AppDocumentFile> importDocument(AppDocument document,
-          {String path = '/'}) =>
-      createFile('$path/${document.name}', document.save());
+      {String path = '/'}) {
+    if (path == '/') path = '';
+    return createFile('$path/${document.name}.bfly', document.save());
+  }
 }
 
 abstract class TemplateFileSystem extends GeneralFileSystem {

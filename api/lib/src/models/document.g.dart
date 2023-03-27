@@ -6,20 +6,7 @@ part of 'document.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AssetLocation _$$_AssetLocationFromJson(Map json) => _$_AssetLocation(
-      remote: json['remote'] as String? ?? '',
-      path: json['path'] as String,
-      absolute: json['absolute'] as bool? ?? false,
-    );
-
-Map<String, dynamic> _$$_AssetLocationToJson(_$_AssetLocation instance) =>
-    <String, dynamic>{
-      'remote': instance.remote,
-      'path': instance.path,
-      'absolute': instance.absolute,
-    };
-
-_$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(
+_$AppDocument _$$AppDocumentFromJson(Map json) => _$AppDocument(
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       thumbnail: json['thumbnail'] as String? ?? '',
@@ -70,7 +57,7 @@ _$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(
           : ToolOption.fromJson(Map<String, dynamic>.from(json['tool'] as Map)),
     );
 
-Map<String, dynamic> _$$_AppDocumentToJson(_$_AppDocument instance) =>
+Map<String, dynamic> _$$AppDocumentToJson(_$AppDocument instance) =>
     <String, dynamic>{
       'name': instance.name,
       'description': instance.description,

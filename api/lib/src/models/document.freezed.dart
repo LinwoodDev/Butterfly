@@ -14,189 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-AssetLocation _$AssetLocationFromJson(Map<String, dynamic> json) {
-  return _AssetLocation.fromJson(json);
+NoteData _$NoteDataFromJson(Map<String, dynamic> json) {
+  return AppDocument.fromJson(json);
 }
 
 /// @nodoc
-mixin _$AssetLocation {
-  String get remote => throw _privateConstructorUsedError;
-  String get path => throw _privateConstructorUsedError;
-  bool get absolute => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $AssetLocationCopyWith<AssetLocation> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $AssetLocationCopyWith<$Res> {
-  factory $AssetLocationCopyWith(
-          AssetLocation value, $Res Function(AssetLocation) then) =
-      _$AssetLocationCopyWithImpl<$Res, AssetLocation>;
-  @useResult
-  $Res call({String remote, String path, bool absolute});
-}
-
-/// @nodoc
-class _$AssetLocationCopyWithImpl<$Res, $Val extends AssetLocation>
-    implements $AssetLocationCopyWith<$Res> {
-  _$AssetLocationCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? remote = null,
-    Object? path = null,
-    Object? absolute = null,
-  }) {
-    return _then(_value.copyWith(
-      remote: null == remote
-          ? _value.remote
-          : remote // ignore: cast_nullable_to_non_nullable
-              as String,
-      path: null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
-      absolute: null == absolute
-          ? _value.absolute
-          : absolute // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$_AssetLocationCopyWith<$Res>
-    implements $AssetLocationCopyWith<$Res> {
-  factory _$$_AssetLocationCopyWith(
-          _$_AssetLocation value, $Res Function(_$_AssetLocation) then) =
-      __$$_AssetLocationCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String remote, String path, bool absolute});
-}
-
-/// @nodoc
-class __$$_AssetLocationCopyWithImpl<$Res>
-    extends _$AssetLocationCopyWithImpl<$Res, _$_AssetLocation>
-    implements _$$_AssetLocationCopyWith<$Res> {
-  __$$_AssetLocationCopyWithImpl(
-      _$_AssetLocation _value, $Res Function(_$_AssetLocation) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? remote = null,
-    Object? path = null,
-    Object? absolute = null,
-  }) {
-    return _then(_$_AssetLocation(
-      remote: null == remote
-          ? _value.remote
-          : remote // ignore: cast_nullable_to_non_nullable
-              as String,
-      path: null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
-      absolute: null == absolute
-          ? _value.absolute
-          : absolute // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_AssetLocation extends _AssetLocation {
-  const _$_AssetLocation(
-      {this.remote = '', required this.path, this.absolute = false})
-      : super._();
-
-  factory _$_AssetLocation.fromJson(Map<String, dynamic> json) =>
-      _$$_AssetLocationFromJson(json);
-
-  @override
-  @JsonKey()
-  final String remote;
-  @override
-  final String path;
-  @override
-  @JsonKey()
-  final bool absolute;
-
-  @override
-  String toString() {
-    return 'AssetLocation(remote: $remote, path: $path, absolute: $absolute)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_AssetLocation &&
-            (identical(other.remote, remote) || other.remote == remote) &&
-            (identical(other.path, path) || other.path == path) &&
-            (identical(other.absolute, absolute) ||
-                other.absolute == absolute));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, remote, path, absolute);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_AssetLocationCopyWith<_$_AssetLocation> get copyWith =>
-      __$$_AssetLocationCopyWithImpl<_$_AssetLocation>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_AssetLocationToJson(
-      this,
-    );
-  }
-}
-
-abstract class _AssetLocation extends AssetLocation {
-  const factory _AssetLocation(
-      {final String remote,
-      required final String path,
-      final bool absolute}) = _$_AssetLocation;
-  const _AssetLocation._() : super._();
-
-  factory _AssetLocation.fromJson(Map<String, dynamic> json) =
-      _$_AssetLocation.fromJson;
-
-  @override
-  String get remote;
-  @override
-  String get path;
-  @override
-  bool get absolute;
-  @override
-  @JsonKey(ignore: true)
-  _$$_AssetLocationCopyWith<_$_AssetLocation> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-AppDocument _$AppDocumentFromJson(Map<String, dynamic> json) {
-  return _AppDocument.fromJson(json);
-}
-
-/// @nodoc
-mixin _$AppDocument {
+mixin _$NoteData {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get thumbnail => throw _privateConstructorUsedError;
@@ -213,18 +36,93 @@ mixin _$AppDocument {
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   List<Painter> get painters => throw _privateConstructorUsedError;
   ToolOption get tool => throw _privateConstructorUsedError;
-
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)
+        document,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AppDocument value) document,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AppDocument value)? document,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AppDocument value)? document,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AppDocumentCopyWith<AppDocument> get copyWith =>
+  $NoteDataCopyWith<NoteData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AppDocumentCopyWith<$Res> {
-  factory $AppDocumentCopyWith(
-          AppDocument value, $Res Function(AppDocument) then) =
-      _$AppDocumentCopyWithImpl<$Res, AppDocument>;
+abstract class $NoteDataCopyWith<$Res> {
+  factory $NoteDataCopyWith(NoteData value, $Res Function(NoteData) then) =
+      _$NoteDataCopyWithImpl<$Res, NoteData>;
   @useResult
   $Res call(
       {String name,
@@ -247,9 +145,9 @@ abstract class $AppDocumentCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
-    implements $AppDocumentCopyWith<$Res> {
-  _$AppDocumentCopyWithImpl(this._value, this._then);
+class _$NoteDataCopyWithImpl<$Res, $Val extends NoteData>
+    implements $NoteDataCopyWith<$Res> {
+  _$NoteDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -352,11 +250,10 @@ class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
 }
 
 /// @nodoc
-abstract class _$$_AppDocumentCopyWith<$Res>
-    implements $AppDocumentCopyWith<$Res> {
-  factory _$$_AppDocumentCopyWith(
-          _$_AppDocument value, $Res Function(_$_AppDocument) then) =
-      __$$_AppDocumentCopyWithImpl<$Res>;
+abstract class _$$AppDocumentCopyWith<$Res> implements $NoteDataCopyWith<$Res> {
+  factory _$$AppDocumentCopyWith(
+          _$AppDocument value, $Res Function(_$AppDocument) then) =
+      __$$AppDocumentCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -382,11 +279,11 @@ abstract class _$$_AppDocumentCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AppDocumentCopyWithImpl<$Res>
-    extends _$AppDocumentCopyWithImpl<$Res, _$_AppDocument>
-    implements _$$_AppDocumentCopyWith<$Res> {
-  __$$_AppDocumentCopyWithImpl(
-      _$_AppDocument _value, $Res Function(_$_AppDocument) _then)
+class __$$AppDocumentCopyWithImpl<$Res>
+    extends _$NoteDataCopyWithImpl<$Res, _$AppDocument>
+    implements _$$AppDocumentCopyWith<$Res> {
+  __$$AppDocumentCopyWithImpl(
+      _$AppDocument _value, $Res Function(_$AppDocument) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -407,7 +304,7 @@ class __$$_AppDocumentCopyWithImpl<$Res>
     Object? painters = null,
     Object? tool = null,
   }) {
-    return _then(_$_AppDocument(
+    return _then(_$AppDocument(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -470,8 +367,8 @@ class __$$_AppDocumentCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AppDocument extends _AppDocument {
-  const _$_AppDocument(
+class _$AppDocument extends AppDocument {
+  const _$AppDocument(
       {this.name = '',
       this.description = '',
       this.thumbnail = '',
@@ -495,8 +392,8 @@ class _$_AppDocument extends _AppDocument {
         _painters = painters,
         super._();
 
-  factory _$_AppDocument.fromJson(Map<String, dynamic> json) =>
-      _$$_AppDocumentFromJson(json);
+  factory _$AppDocument.fromJson(Map<String, dynamic> json) =>
+      _$$AppDocumentFromJson(json);
 
   @override
   @JsonKey()
@@ -585,14 +482,14 @@ class _$_AppDocument extends _AppDocument {
 
   @override
   String toString() {
-    return 'AppDocument(name: $name, description: $description, thumbnail: $thumbnail, content: $content, background: $background, animations: $animations, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
+    return 'NoteData.document(name: $name, description: $description, thumbnail: $thumbnail, content: $content, background: $background, animations: $animations, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AppDocument &&
+            other is _$AppDocument &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -639,19 +536,162 @@ class _$_AppDocument extends _AppDocument {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AppDocumentCopyWith<_$_AppDocument> get copyWith =>
-      __$$_AppDocumentCopyWithImpl<_$_AppDocument>(this, _$identity);
+  _$$AppDocumentCopyWith<_$AppDocument> get copyWith =>
+      __$$AppDocumentCopyWithImpl<_$AppDocument>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)
+        document,
+  }) {
+    return document(
+        name,
+        description,
+        thumbnail,
+        content,
+        background,
+        animations,
+        waypoints,
+        areas,
+        exportPresets,
+        packs,
+        createdAt,
+        updatedAt,
+        painters,
+        tool);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+  }) {
+    return document?.call(
+        name,
+        description,
+        thumbnail,
+        content,
+        background,
+        animations,
+        waypoints,
+        areas,
+        exportPresets,
+        packs,
+        createdAt,
+        updatedAt,
+        painters,
+        tool);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+    required TResult orElse(),
+  }) {
+    if (document != null) {
+      return document(
+          name,
+          description,
+          thumbnail,
+          content,
+          background,
+          animations,
+          waypoints,
+          areas,
+          exportPresets,
+          packs,
+          createdAt,
+          updatedAt,
+          painters,
+          tool);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AppDocument value) document,
+  }) {
+    return document(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AppDocument value)? document,
+  }) {
+    return document?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AppDocument value)? document,
+    required TResult orElse(),
+  }) {
+    if (document != null) {
+      return document(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AppDocumentToJson(
+    return _$$AppDocumentToJson(
       this,
     );
   }
 }
 
-abstract class _AppDocument extends AppDocument {
-  const factory _AppDocument(
+abstract class AppDocument extends NoteData {
+  const factory AppDocument(
       {final String name,
       final String description,
       final String thumbnail,
@@ -665,11 +705,11 @@ abstract class _AppDocument extends AppDocument {
       @DateTimeJsonConverter() required final DateTime createdAt,
       @DateTimeJsonConverter() final DateTime? updatedAt,
       final List<Painter> painters,
-      final ToolOption tool}) = _$_AppDocument;
-  const _AppDocument._() : super._();
+      final ToolOption tool}) = _$AppDocument;
+  const AppDocument._() : super._();
 
-  factory _AppDocument.fromJson(Map<String, dynamic> json) =
-      _$_AppDocument.fromJson;
+  factory AppDocument.fromJson(Map<String, dynamic> json) =
+      _$AppDocument.fromJson;
 
   @override
   String get name;
@@ -703,6 +743,6 @@ abstract class _AppDocument extends AppDocument {
   ToolOption get tool;
   @override
   @JsonKey(ignore: true)
-  _$$_AppDocumentCopyWith<_$_AppDocument> get copyWith =>
+  _$$AppDocumentCopyWith<_$AppDocument> get copyWith =>
       throw _privateConstructorUsedError;
 }

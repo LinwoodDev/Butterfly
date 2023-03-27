@@ -1,5 +1,6 @@
 export 'models/animation.dart';
 export 'models/area.dart';
+export 'models/asset.dart';
 export 'models/background.dart';
 export 'models/colors.dart';
 export 'models/converter.dart';

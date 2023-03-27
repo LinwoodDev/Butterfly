@@ -314,14 +314,14 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
         }
         path = Uri.decodeComponent(path);
         if (currentResourceType.getElement('d:collection') != null) {
-          return AppDocumentDirectory(
+          return AppDocumentEntity.file(
               AssetLocation(remote: remote.identifier, path: path), const []);
         } else {
-          return AppDocumentFile.fromMap(
+          return AppDocumentEntity.fileFromMap(
               AssetLocation(remote: remote.identifier, path: path), const {});
         }
       }).toList());
-      return AppDocumentDirectory(
+      return AppDocumentEntity.directory(
           AssetLocation(remote: remote.identifier, path: path), assets);
     }
     response = await _createRequest(path.split('/'), method: 'GET');

@@ -5,11 +5,9 @@ import 'package:butterfly/actions/color_palette.dart';
 import 'package:butterfly/actions/edit_mode.dart';
 import 'package:butterfly/actions/export.dart';
 import 'package:butterfly/actions/image_export.dart';
-import 'package:butterfly/actions/import.dart';
 import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/new.dart';
-import 'package:butterfly/actions/open.dart';
 import 'package:butterfly/actions/pdf_export.dart';
 import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/save.dart';
@@ -23,6 +21,7 @@ import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/embed/embedding.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
@@ -72,8 +71,6 @@ class _ProjectPageState extends State<ProjectPage> {
     UndoIntent: UndoAction(),
     RedoIntent: RedoAction(),
     NewIntent: NewAction(),
-    OpenIntent: OpenAction(),
-    ImportIntent: ImportAction(),
     SvgExportIntent: SvgExportAction(),
     ImageExportIntent: ImageExportAction(),
     PdfExportIntent: PdfExportAction(),
@@ -118,7 +115,7 @@ class _ProjectPageState extends State<ProjectPage> {
     if (embedding != null) {
       final document = AppDocument(
           createdAt: DateTime.now(),
-          painters: createDefaultPainters(),
+          painters: DocumentDefaults.createPainters(),
           name: '');
       var language = embedding.language;
       if (language == 'system') {
@@ -187,7 +184,7 @@ class _ProjectPageState extends State<ProjectPage> {
       document ??= AppDocument(
         name: name,
         createdAt: DateTime.now(),
-        painters: createDefaultPainters(),
+        painters: DocumentDefaults.createPainters(),
       );
       final renderers =
           document.content.map((e) => Renderer.fromInstance(e)).toList();
@@ -299,10 +296,6 @@ class _ProjectPageState extends State<ProjectPage> {
                       LogicalKeySet(LogicalKeyboardKey.space):
                           PrimaryIntent(context),
                       if (widget.embedding == null) ...{
-                        LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.keyO): OpenIntent(context),
-                        LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.keyI): ImportIntent(context),
                         LogicalKeySet(LogicalKeyboardKey.control,
                             LogicalKeyboardKey.keyE): ExportIntent(context),
                         LogicalKeySet(

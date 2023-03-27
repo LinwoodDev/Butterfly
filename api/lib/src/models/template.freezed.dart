@@ -37,8 +37,6 @@ abstract class $DocumentTemplateCopyWith<$Res> {
       _$DocumentTemplateCopyWithImpl<$Res, DocumentTemplate>;
   @useResult
   $Res call({@DocumentJsonConverter() AppDocument document, String folder});
-
-  $AppDocumentCopyWith<$Res> get document;
 }
 
 /// @nodoc
@@ -54,11 +52,11 @@ class _$DocumentTemplateCopyWithImpl<$Res, $Val extends DocumentTemplate>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? document = null,
+    Object? document = freezed,
     Object? folder = null,
   }) {
     return _then(_value.copyWith(
-      document: null == document
+      document: freezed == document
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
               as AppDocument,
@@ -67,14 +65,6 @@ class _$DocumentTemplateCopyWithImpl<$Res, $Val extends DocumentTemplate>
           : folder // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $AppDocumentCopyWith<$Res> get document {
-    return $AppDocumentCopyWith<$Res>(_value.document, (value) {
-      return _then(_value.copyWith(document: value) as $Val);
-    });
   }
 }
 
@@ -87,9 +77,6 @@ abstract class _$$_DocumentTemplateCopyWith<$Res>
   @override
   @useResult
   $Res call({@DocumentJsonConverter() AppDocument document, String folder});
-
-  @override
-  $AppDocumentCopyWith<$Res> get document;
 }
 
 /// @nodoc
@@ -103,11 +90,11 @@ class __$$_DocumentTemplateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? document = null,
+    Object? document = freezed,
     Object? folder = null,
   }) {
     return _then(_$_DocumentTemplate(
-      document: null == document
+      document: freezed == document
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
               as AppDocument,
@@ -146,14 +133,14 @@ class _$_DocumentTemplate extends _DocumentTemplate {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DocumentTemplate &&
-            (identical(other.document, document) ||
-                other.document == document) &&
+            const DeepCollectionEquality().equals(other.document, document) &&
             (identical(other.folder, folder) || other.folder == folder));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, document, folder);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(document), folder);
 
   @JsonKey(ignore: true)
   @override

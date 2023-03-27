@@ -231,12 +231,17 @@ class RemoteSync {
       case FileSyncStatus.conflict:
         await fileSystem.cache(path);
         final remoteAsset = await fileSystem.getAsset(path, forceRemote: true);
-        if (remoteAsset is! AppDocumentFile) return;
-        final parent = path.substring(0, path.lastIndexOf('/'));
-        final doc = remoteAsset.getDocumentInfo()?.load();
-        if (doc == null) return;
-        await fileSystem.importDocument(doc, path: parent, forceSync: true);
-        await fileSystem.uploadCachedContent(path);
+        await remoteAsset?.maybeMap(
+          file: (file) async {
+            if (remoteAsset is! AppDocumentFile) return;
+            final parent = path.substring(0, path.lastIndexOf('/'));
+            final doc = file.getDocumentInfo()?.load();
+            if (doc == null) return;
+            await fileSystem.importDocument(doc, path: parent, forceSync: true);
+            await fileSystem.uploadCachedContent(path);
+          },
+          orElse: () {},
+        );
         break;
       default:
         _statusSubject.add(SyncStatus.error);
