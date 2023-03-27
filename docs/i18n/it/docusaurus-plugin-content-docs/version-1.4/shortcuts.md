@@ -11,10 +11,10 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `Maiusc` + `N`: Nuovo file dal modello
 * `Ctrl` + `O`: Apri file
 * `Ctrl` + `I`: Importa file
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: Esporta file
+* `Ctrl` + `Maiusc` + `E`: Esporta file come immagine
+* `Ctrl` + `Alt` + `E`: Esporta file come svg
+* `Ctrl` + `Alt` + `S`: Apri le impostazioni
 
 ## Progetto
 
@@ -23,12 +23,12 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Maiusc` + `S`: Apri impostazioni progetto
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
+* `Ctrl` + `P`: Apri la finestra della tavolozza colori
+* `Ctrl` + `B`: Apri finestra di dialogo di sfondo
+* `Ctrl` + `Maiusc` + `A`: Apri aree finestra
+* `Ctrl` + `L`: Apri la finestra dei livelli
+* `Ctrl` + `S`: Salva
+* `Alt` + `S`: Cambia percorso
 
 ## Stylus
 
