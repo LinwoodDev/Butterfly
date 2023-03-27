@@ -10,10 +10,10 @@ Er zijn een paar snelkoppelingen die je in de editor kunt gebruiken. Sommige erv
 * `Ctrl` + `Shift` + `N`: Nieuw bestand van sjabloon
 * `Ctrl` + `O`: Bestand openen
 * `Ctrl` + `I`: Bestand importeren
-* `Ctrl` + `E`: Bestand exporteren
-* `Ctrl` + `Shift` + `E`: Bestand als afbeelding exporteren
-* `Ctrl` + `Alt` + `E`: Bestand als svg exporteren
-* `Ctrl` + `Alt` + `S`: Instellingen openen
+* `Ctrl` + `E`: Export file
+* `Ctrl` + `Shift` + `E`: Export file as image
+* `Ctrl` + `Alt` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `S`: Open settings
 
 ## Project
 
@@ -22,7 +22,7 @@ Er zijn een paar snelkoppelingen die je in de editor kunt gebruiken. Sommige erv
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: Open projectinstellingen
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open kleurenpalet venster
-* `Ctrl` + `B`: Open achtergronddialoog
-* `Ctrl` + `L`: Open lagen dialoogvenster
+* `Ctrl` + `P`: Open color palette dialog
+* `Ctrl` + `B`: Open background dialog
+* `Ctrl` + `L`: Open layers dialog
 * `Ctrl` + `S`: pad wijzigen
