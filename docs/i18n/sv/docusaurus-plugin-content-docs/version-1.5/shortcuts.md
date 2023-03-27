@@ -14,10 +14,10 @@ Det finns några genvägar som du kan använda i editorn. Några av dem är skri
 * `Ctrl` + `Shift` + `N`: Ny fil från mall
 * `Ctrl` + `O`: Öppna filen
 * `Ctrl` + `I`: Importera fil
-* `Ctrl` + `E`: Exportera fil
-* `Ctrl` + `Shift` + `E`: Exportera filen som bild
-* `Ctrl` + `Alt` + `E`: Exportera filen som svg
-* `Ctrl` + `Alt` + `S`: Öppna inställningar
+* `Ctrl` + `E`: Export file
+* `Ctrl` + `Shift` + `E`: Export file as image
+* `Ctrl` + `Alt` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `S`: Open settings
 
 ### Projekt
 
@@ -26,13 +26,13 @@ Det finns några genvägar som du kan använda i editorn. Några av dem är skri
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: Öppna projektinställningar
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Öppna färgpaletten
-* `Ctrl` + `B`: Öppna bakgrundsdialogrutan
-* `Ctrl` + `Shift` + `A`: dialogrutan Öppna områden
-* `Ctrl` + `L`: Öppna lager dialog
-* `Ctrl` + `S`: Spara
-* `Alt` + `S`: Ändra sökväg
-* `Ctrl` + (`1` - `0`): Växla till målare
+* `Ctrl` + `P`: Open color palette dialog
+* `Ctrl` + `B`: Open background dialog
+* `Ctrl` + `Shift` + `A`: Open areas dialog
+* `Ctrl` + `L`: Open layers dialog
+* `Ctrl` + `S`: Save
+* `Alt` + `S`: Change path
+* `Ctrl` + (`1` - `0`): Switch to painter
 
 ## Stylus
 
