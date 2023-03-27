@@ -7,6 +7,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/export.dart';
 import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/helpers/element_helper.dart';
+import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -30,49 +31,52 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const WindowTitleBar(
-        title: Text('Butterfly'),
-        onlyShowOnDesktop: true,
-      ),
-      body: SingleChildScrollView(
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 32),
-            constraints: const BoxConstraints(maxWidth: 1400),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 64),
-                const _HeaderHomeView(),
-                const SizedBox(height: 64),
-                LayoutBuilder(
-                  builder: (context, constraints) {
-                    if (constraints.maxWidth > 1000) {
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                              child:
-                                  _FilesHomeView(selectedAsset: selectedAsset)),
-                          const SizedBox(width: 32),
-                          const SizedBox(
-                              width: 500, child: _QuickstartHomeView()),
-                        ],
-                      );
-                    } else {
-                      return Column(
-                        children: [
-                          const _QuickstartHomeView(),
-                          const SizedBox(height: 32),
-                          _FilesHomeView(selectedAsset: selectedAsset),
-                        ],
-                      );
-                    }
-                  },
-                ),
-              ],
+    return RepositoryProvider(
+      create: (context) => ImportService(context),
+      child: Scaffold(
+        appBar: const WindowTitleBar(
+          title: Text('Butterfly'),
+          onlyShowOnDesktop: true,
+        ),
+        body: SingleChildScrollView(
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 32),
+              constraints: const BoxConstraints(maxWidth: 1400),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 64),
+                  const _HeaderHomeView(),
+                  const SizedBox(height: 64),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      if (constraints.maxWidth > 1000) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                                child: _FilesHomeView(
+                                    selectedAsset: selectedAsset)),
+                            const SizedBox(width: 32),
+                            const SizedBox(
+                                width: 500, child: _QuickstartHomeView()),
+                          ],
+                        );
+                      } else {
+                        return Column(
+                          children: [
+                            const _QuickstartHomeView(),
+                            const SizedBox(height: 32),
+                            _FilesHomeView(selectedAsset: selectedAsset),
+                          ],
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -481,12 +485,20 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                   leadingIcon: const Icon(PhosphorIcons.arrowSquareInLight),
                   onPressed: () async {
                     final router = GoRouter.of(context);
+                    final importService = context.read<ImportService>();
                     final result = await showDialog<String>(
                         builder: (context) => const ImportDialog(),
                         context: context);
                     if (result == null) return;
-                    router.push('/native?name=document.bfly&type=note',
-                        extra: result);
+                    final model = await importService.importBfly(
+                      Uint8List.fromList(result.codeUnits),
+                    );
+                    model?.maybeMap(
+                      document: (value) => router.push(
+                          '/native?name=document.bfly&type=note',
+                          extra: value),
+                      orElse: () {},
+                    );
                   },
                   child: Text(AppLocalizations.of(context).import),
                 ),

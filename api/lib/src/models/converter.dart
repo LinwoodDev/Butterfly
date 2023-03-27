@@ -5,7 +5,6 @@ import 'dart:typed_data';
 import 'document.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'pack.dart';
 import 'palette.dart';
 
 Map<String, dynamic> noteDataJsonMigrator(Map<String, dynamic> data) {

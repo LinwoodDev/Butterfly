@@ -1,4 +1,3 @@
-
 import '../models/asset.dart';
 import 'package:collection/collection.dart';
 

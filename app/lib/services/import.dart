@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
@@ -24,47 +25,52 @@ import '../dialogs/pdf_export.dart';
 import '../dialogs/svg_export.dart';
 
 class ImportService {
-  final DocumentBloc bloc;
+  final DocumentBloc? bloc;
   final BuildContext context;
 
-  ImportService(this.bloc, this.context);
+  ImportService(this.context, [this.bloc]);
 
-  Future<void> load([String type = '', Object? data]) async {
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return;
-    final location = state.location;
+  Future<NoteData?> load(
+      {String type = '', Object? data, AppDocument? document}) async {
+    final state = bloc?.state is DocumentLoadSuccess
+        ? (bloc?.state as DocumentLoadSuccess)
+        : null;
+    final location = state?.location;
+    document ??= state?.document;
     Uint8List? bytes;
     if (data is Uint8List) {
       bytes = data;
     } else if (data is String) {
       bytes = Uint8List.fromList(utf8.encode(data));
-    } else {
+    } else if (location != null) {
       bytes =
           await DocumentFileSystem.fromPlatform().loadAbsolute(location.path);
     }
-    final fileType =
-        type.isNotEmpty ? AssetFileType.values.byName(type) : location.fileType;
-    if (bytes == null || fileType == null) return;
-    await import(fileType, bytes);
+    final fileType = type.isNotEmpty
+        ? AssetFileType.values.byName(type)
+        : location?.fileType;
+    if (bytes == null || fileType == null) return null;
+    return import(fileType, bytes, document: document);
   }
 
-  Future<void> import(AssetFileType type, Uint8List bytes,
-      {Offset? position, bool meta = true}) async {
+  Future<NoteData?> import(AssetFileType type, Uint8List bytes,
+      {Offset? position, AppDocument? document}) async {
     switch (type) {
       case AssetFileType.note:
-        return importBfly(bytes, position, meta);
+        return importBfly(bytes, position, document);
       case AssetFileType.image:
-        return importImage(bytes, position);
+        return importImage(bytes, position, document);
       case AssetFileType.svg:
-        return importSvg(bytes, position);
+        return importSvg(bytes, position, document);
       case AssetFileType.pdf:
-        return importPdf(bytes, position, true);
+        return importPdf(bytes, position, true, document);
       default:
         return Future.value();
     }
   }
 
-  void importBfly(Uint8List bytes, [Offset? position, bool meta = true]) {
+  FutureOr<NoteData?> importBfly(Uint8List bytes,
+      [Offset? position, AppDocument? document]) {
     try {
       final data = json.decode(
         String.fromCharCodes(bytes),
@@ -72,14 +78,11 @@ class ImportService {
       final type = data['type'];
       switch (type) {
         case 'document':
-          _importDocument(data, position, meta);
-          break;
+          return _importDocument(data, position, document);
         case 'template':
-          _importTemplate(data, position, meta);
-          break;
+          return _importTemplate(data);
         case 'pack':
-          _importPack(data, position, meta);
-          break;
+          return _importPack(data);
         default:
           showDialog(
             context: context,
@@ -94,14 +97,15 @@ class ImportService {
             UnknownImportConfirmationDialog(message: e.toString()),
       );
     }
+    return null;
   }
 
-  void _importDocument(Map<String, dynamic> data,
-      [Offset? position, bool meta = true]) {
+  AppDocument? _importDocument(Map<String, dynamic> data,
+      [Offset? position, AppDocument? document]) {
     final firstPos = position ?? Offset.zero;
     final doc = const DocumentJsonConverter().fromJson(data);
-    if (meta) {
-      bloc.add(DocumentUpdated(doc));
+    if (document != null) {
+      bloc?.add(DocumentUpdated(doc));
     }
     final areas = doc.areas
         .map((e) => e.copyWith(position: e.position + firstPos.toPoint()))
@@ -113,39 +117,46 @@ class ImportService {
                 ?.element ??
             e)
         .toList();
-    bloc
-      ..add(AreasCreated(areas))
-      ..add(ElementsCreated(content));
+    return _submit(
+        elements: content,
+        areas: areas,
+        document: document,
+        choosePosition: position == null);
   }
 
-  Future<void> _importTemplate(Map<String, dynamic> data,
-      [Offset? position, bool meta = true]) async {
+  Future<DocumentTemplate?> _importTemplate(Map<String, dynamic> data) async {
     final template = const TemplateJsonConverter().fromJson(data);
     final result = await showDialog<bool>(
       context: context,
       builder: (context) =>
           TemplateImportConfirmationDialog(template: template),
     );
-    if (result != true) return;
+    if (result != true) return null;
     if (context.mounted) {
       context.read<TemplateFileSystem>().updateTemplate(template);
     }
+    return template;
   }
 
-  Future<void> _importPack(Map<String, dynamic> data,
-      [Offset? position, bool meta = true]) async {
+  Future<ButterflyPack?> _importPack(Map<String, dynamic> data) async {
     final pack = const PackJsonConverter().fromJson(data);
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => PackImportConfirmationDialog(pack: pack),
     );
-    if (result != true) return;
+    if (result != true) return null;
     if (context.mounted) {
       context.read<PackFileSystem>().updatePack(pack);
     }
+    return pack;
   }
 
-  Future<void> importImage(Uint8List bytes, [Offset? position]) async {
+  DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
+      ? (bloc?.state as DocumentLoadSuccess)
+      : null;
+
+  Future<AppDocument?> importImage(Uint8List bytes,
+      [Offset? position, AppDocument? document]) async {
     try {
       final firstPos = position ?? Offset.zero;
       final codec = await ui.instantiateImageCodec(bytes);
@@ -153,13 +164,12 @@ class ImportService {
       final image = frame.image.clone();
 
       final newBytes = await image.toByteData(format: ui.ImageByteFormat.png);
-      final state = bloc.state;
-      if (state is! DocumentLoadSuccess) return;
+      final state = _getState();
       _submit(elements: [
         ImageElement(
             height: image.height.toDouble(),
             width: image.width.toDouble(),
-            layer: state.currentLayer,
+            layer: state?.currentLayer ?? '',
             source: UriData.fromBytes(
               newBytes?.buffer.asUint8List() ?? Uint8List(0),
               mimeType: 'image/png',
@@ -173,27 +183,28 @@ class ImportService {
             UnknownImportConfirmationDialog(message: e.toString()),
       );
     }
+    return null;
   }
 
-  Future<void> importSvg(Uint8List bytes, [Offset? position]) async {
+  Future<AppDocument?> importSvg(Uint8List bytes,
+      [Offset? position, AppDocument? document]) async {
     try {
       final firstPos = position ?? Offset.zero;
       final contentString = String.fromCharCodes(bytes);
       try {
-        var document =
-            await vg.loadPicture(SvgStringLoader(contentString), null);
-        final size = document.size;
+        var info = await vg.loadPicture(SvgStringLoader(contentString), null);
+        final size = info.size;
         var height = size.height, width = size.width;
         if (!height.isFinite) height = 0;
         if (!width.isFinite) width = 0;
-        _submit(elements: [
+        return _submit(elements: [
           SvgElement(
             width: width,
             height: height,
             data: contentString,
             position: firstPos.toPoint(),
           ),
-        ], choosePosition: position == null);
+        ], choosePosition: position == null, document: document);
       } catch (e, stackTrace) {
         showDialog<void>(
             context: context,
@@ -209,10 +220,13 @@ class ImportService {
             UnknownImportConfirmationDialog(message: e.toString()),
       );
     }
+    return null;
   }
 
-  Future<void> importPdf(Uint8List bytes,
-      [Offset? position, bool createAreas = false]) async {
+  Future<AppDocument?> importPdf(Uint8List bytes,
+      [Offset? position,
+      bool createAreas = false,
+      AppDocument? document]) async {
     try {
       final firstPos = position ?? Offset.zero;
       final elements = <Uint8List>[];
@@ -225,7 +239,7 @@ class ImportService {
         final callback = await showDialog<PageDialogCallback>(
             context: context,
             builder: (context) => PagesDialog(pages: elements));
-        if (callback == null) return;
+        if (callback == null) return document;
         final selectedElements = <ImageElement>[];
         final areas = <Area>[];
         var y = firstPos.dx;
@@ -251,14 +265,12 @@ class ImportService {
               name: localizations.pageIndex(areas.length + 1),
             ));
           }
-          if (createAreas) {
-            bloc.add(AreasCreated(areas));
-          }
         }
-        _submit(
+        return _submit(
           elements: selectedElements,
           areas: createAreas ? areas : [],
           choosePosition: position == null,
+          document: document,
         );
       }
     } catch (e) {
@@ -268,11 +280,12 @@ class ImportService {
             UnknownImportConfirmationDialog(message: e.toString()),
       );
     }
+    return null;
   }
 
   Future<void> export() async {
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return;
+    final state = _getState();
+    if (state == null) return;
     final location = state.location;
     final fileType = location.fileType;
     final viewport = context.read<CurrentIndexCubit>().state.cameraViewport;
@@ -287,7 +300,7 @@ class ImportService {
         return showDialog<void>(
             context: context,
             builder: (context) => BlocProvider.value(
-                value: bloc,
+                value: bloc!,
                 child: ImageExportDialog(
                   height: viewport.height ?? 1000,
                   width: viewport.width ?? 1000,
@@ -299,7 +312,7 @@ class ImportService {
         return showDialog<void>(
             context: context,
             builder: (context) => BlocProvider.value(
-                value: bloc,
+                value: bloc!,
                 child: PdfExportDialog(
                     areas: state.document.areas
                         .map((e) => AreaPreset(name: e.name, area: e))
@@ -308,7 +321,7 @@ class ImportService {
         return showDialog<void>(
             context: context,
             builder: (context) => BlocProvider.value(
-                value: bloc,
+                value: bloc!,
                 child: SvgExportDialog(
                     width: ((viewport.width ?? 1000) / viewport.scale).round(),
                     height:
@@ -320,19 +333,28 @@ class ImportService {
     }
   }
 
-  void _submit({
+  AppDocument? _submit({
     required List<PadElement> elements,
     List<Area> areas = const [],
     bool choosePosition = false,
+    AppDocument? document,
   }) {
-    final state = bloc.state;
+    final state = _getState();
     if (choosePosition && state is DocumentLoadSuccess) {
       state.currentIndexCubit.changeTemporaryHandler(
-          bloc, ImportPainter(elements: elements, areas: areas));
+          bloc!, ImportPainter(elements: elements, areas: areas));
     } else {
       bloc
-        ..add(ElementsCreated(elements))
+        ?..add(ElementsCreated(elements))
         ..add(AreasCreated(areas));
     }
+    document ??= state?.document;
+    if (document != null) {
+      return document.copyWith(
+        content: [...document.content, ...elements],
+        areas: [...document.areas, ...areas],
+      );
+    }
+    return null;
   }
 }

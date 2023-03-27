@@ -91,14 +91,54 @@ Json? _$JsonConverterToJson<Json, Value>(
     value == null ? null : toJson(value);
 
 _$DocumentTemplate _$$DocumentTemplateFromJson(Map json) => _$DocumentTemplate(
-      document: const DocumentJsonConverter().fromJson(json['document'] as Map),
+      document: AppDocument.fromJson(
+          Map<String, dynamic>.from(json['document'] as Map)),
       folder: json['folder'] as String? ?? '/',
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$DocumentTemplateToJson(_$DocumentTemplate instance) =>
     <String, dynamic>{
-      'document': const DocumentJsonConverter().toJson(instance.document),
+      'document': instance.document.toJson(),
       'folder': instance.folder,
+      'type': instance.$type,
+    };
+
+_$ButterflyPack _$$ButterflyPackFromJson(Map json) => _$ButterflyPack(
+      name: json['name'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      author: json['author'] as String? ?? '',
+      components: (json['components'] as List<dynamic>?)
+              ?.map((e) => ButterflyComponent.fromJson(
+                  Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const <ButterflyComponent>[],
+      styles: (json['styles'] as List<dynamic>?)
+              ?.map((e) =>
+                  TextStyleSheet.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const <TextStyleSheet>[],
+      palettes: (json['palettes'] as List<dynamic>?)
+              ?.map((e) =>
+                  ColorPalette.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const <ColorPalette>[],
+      createdAt:
+          const DateTimeJsonConverter().fromJson(json['createdAt'] as int),
+      updatedAt:
+          const DateTimeJsonConverter().fromJson(json['updatedAt'] as int),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ButterflyPackToJson(_$ButterflyPack instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'description': instance.description,
+      'author': instance.author,
+      'components': instance.components.map((e) => e.toJson()).toList(),
+      'styles': instance.styles.map((e) => e.toJson()).toList(),
+      'palettes': instance.palettes.map((e) => e.toJson()).toList(),
+      'createdAt': const DateTimeJsonConverter().toJson(instance.createdAt),
+      'updatedAt': const DateTimeJsonConverter().toJson(instance.updatedAt),
       'type': instance.$type,
     };

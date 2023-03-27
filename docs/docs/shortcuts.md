@@ -22,8 +22,6 @@ Some of them are written below the buttons.
 
 * `Ctrl` + `Z`: Undo
 * `Ctrl` + `Y`: Redo
-* `Ctrl` + `Alt` + `N`: Open insert dialog
-* `Ctrl` + `Alt` + `Shift` + `S`: Open project settings
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `P`: Open color palette dialog
 * `Ctrl` + `B`: Open background dialog

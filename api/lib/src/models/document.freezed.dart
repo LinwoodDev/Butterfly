@@ -20,6 +20,8 @@ NoteData _$NoteDataFromJson(Map<String, dynamic> json) {
       return AppDocument.fromJson(json);
     case 'template':
       return DocumentTemplate.fromJson(json);
+    case 'pack':
+      return ButterflyPack.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -47,9 +49,17 @@ mixin _$NoteData {
             List<Painter> painters,
             ToolOption tool)
         document,
+    required TResult Function(AppDocument document, String folder) template,
     required TResult Function(
-            @DocumentJsonConverter() AppDocument document, String folder)
-        template,
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)
+        pack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,9 +80,17 @@ mixin _$NoteData {
             List<Painter> painters,
             ToolOption tool)?
         document,
+    TResult? Function(AppDocument document, String folder)? template,
     TResult? Function(
-            @DocumentJsonConverter() AppDocument document, String folder)?
-        template,
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -93,9 +111,17 @@ mixin _$NoteData {
             List<Painter> painters,
             ToolOption tool)?
         document,
+    TResult Function(AppDocument document, String folder)? template,
     TResult Function(
-            @DocumentJsonConverter() AppDocument document, String folder)?
-        template,
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -103,18 +129,21 @@ mixin _$NoteData {
   TResult map<TResult extends Object?>({
     required TResult Function(AppDocument value) document,
     required TResult Function(DocumentTemplate value) template,
+    required TResult Function(ButterflyPack value) pack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AppDocument value)? document,
     TResult? Function(DocumentTemplate value)? template,
+    TResult? Function(ButterflyPack value)? pack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AppDocument value)? document,
     TResult Function(DocumentTemplate value)? template,
+    TResult Function(ButterflyPack value)? pack,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -269,7 +298,6 @@ class __$$AppDocumentCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@DocumentJsonConverter()
 class _$AppDocument extends AppDocument {
   const _$AppDocument(
       {this.name = '',
@@ -393,54 +421,6 @@ class _$AppDocument extends AppDocument {
     return 'NoteData.document(name: $name, description: $description, thumbnail: $thumbnail, content: $content, background: $background, animations: $animations, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
   }
 
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AppDocument &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail) &&
-            const DeepCollectionEquality().equals(other._content, _content) &&
-            (identical(other.background, background) ||
-                other.background == background) &&
-            const DeepCollectionEquality()
-                .equals(other._animations, _animations) &&
-            const DeepCollectionEquality()
-                .equals(other._waypoints, _waypoints) &&
-            const DeepCollectionEquality().equals(other._areas, _areas) &&
-            const DeepCollectionEquality()
-                .equals(other._exportPresets, _exportPresets) &&
-            const DeepCollectionEquality().equals(other._packs, _packs) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
-            const DeepCollectionEquality().equals(other._painters, _painters) &&
-            (identical(other.tool, tool) || other.tool == tool));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      name,
-      description,
-      thumbnail,
-      const DeepCollectionEquality().hash(_content),
-      background,
-      const DeepCollectionEquality().hash(_animations),
-      const DeepCollectionEquality().hash(_waypoints),
-      const DeepCollectionEquality().hash(_areas),
-      const DeepCollectionEquality().hash(_exportPresets),
-      const DeepCollectionEquality().hash(_packs),
-      createdAt,
-      updatedAt,
-      const DeepCollectionEquality().hash(_painters),
-      tool);
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
@@ -466,9 +446,17 @@ class _$AppDocument extends AppDocument {
             List<Painter> painters,
             ToolOption tool)
         document,
+    required TResult Function(AppDocument document, String folder) template,
     required TResult Function(
-            @DocumentJsonConverter() AppDocument document, String folder)
-        template,
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)
+        pack,
   }) {
     return document(
         name,
@@ -506,9 +494,17 @@ class _$AppDocument extends AppDocument {
             List<Painter> painters,
             ToolOption tool)?
         document,
+    TResult? Function(AppDocument document, String folder)? template,
     TResult? Function(
-            @DocumentJsonConverter() AppDocument document, String folder)?
-        template,
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
   }) {
     return document?.call(
         name,
@@ -546,9 +542,17 @@ class _$AppDocument extends AppDocument {
             List<Painter> painters,
             ToolOption tool)?
         document,
+    TResult Function(AppDocument document, String folder)? template,
     TResult Function(
-            @DocumentJsonConverter() AppDocument document, String folder)?
-        template,
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
     required TResult orElse(),
   }) {
     if (document != null) {
@@ -576,6 +580,7 @@ class _$AppDocument extends AppDocument {
   TResult map<TResult extends Object?>({
     required TResult Function(AppDocument value) document,
     required TResult Function(DocumentTemplate value) template,
+    required TResult Function(ButterflyPack value) pack,
   }) {
     return document(this);
   }
@@ -585,6 +590,7 @@ class _$AppDocument extends AppDocument {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AppDocument value)? document,
     TResult? Function(DocumentTemplate value)? template,
+    TResult? Function(ButterflyPack value)? pack,
   }) {
     return document?.call(this);
   }
@@ -594,6 +600,7 @@ class _$AppDocument extends AppDocument {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AppDocument value)? document,
     TResult Function(DocumentTemplate value)? template,
+    TResult Function(ButterflyPack value)? pack,
     required TResult orElse(),
   }) {
     if (document != null) {
@@ -658,7 +665,7 @@ abstract class _$$DocumentTemplateCopyWith<$Res> {
           _$DocumentTemplate value, $Res Function(_$DocumentTemplate) then) =
       __$$DocumentTemplateCopyWithImpl<$Res>;
   @useResult
-  $Res call({@DocumentJsonConverter() AppDocument document, String folder});
+  $Res call({AppDocument document, String folder});
 }
 
 /// @nodoc
@@ -692,9 +699,7 @@ class __$$DocumentTemplateCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DocumentTemplate extends DocumentTemplate {
   const _$DocumentTemplate(
-      {@DocumentJsonConverter() required this.document,
-      this.folder = '/',
-      final String? $type})
+      {required this.document, this.folder = '/', final String? $type})
       : $type = $type ?? 'template',
         super._();
 
@@ -702,7 +707,6 @@ class _$DocumentTemplate extends DocumentTemplate {
       _$$DocumentTemplateFromJson(json);
 
   @override
-  @DocumentJsonConverter()
   final AppDocument document;
   @override
   @JsonKey()
@@ -715,20 +719,6 @@ class _$DocumentTemplate extends DocumentTemplate {
   String toString() {
     return 'NoteData.template(document: $document, folder: $folder)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DocumentTemplate &&
-            const DeepCollectionEquality().equals(other.document, document) &&
-            (identical(other.folder, folder) || other.folder == folder));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(document), folder);
 
   @JsonKey(ignore: true)
   @override
@@ -755,9 +745,17 @@ class _$DocumentTemplate extends DocumentTemplate {
             List<Painter> painters,
             ToolOption tool)
         document,
+    required TResult Function(AppDocument document, String folder) template,
     required TResult Function(
-            @DocumentJsonConverter() AppDocument document, String folder)
-        template,
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)
+        pack,
   }) {
     return template(this.document, folder);
   }
@@ -781,9 +779,17 @@ class _$DocumentTemplate extends DocumentTemplate {
             List<Painter> painters,
             ToolOption tool)?
         document,
+    TResult? Function(AppDocument document, String folder)? template,
     TResult? Function(
-            @DocumentJsonConverter() AppDocument document, String folder)?
-        template,
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
   }) {
     return template?.call(this.document, folder);
   }
@@ -807,9 +813,17 @@ class _$DocumentTemplate extends DocumentTemplate {
             List<Painter> painters,
             ToolOption tool)?
         document,
+    TResult Function(AppDocument document, String folder)? template,
     TResult Function(
-            @DocumentJsonConverter() AppDocument document, String folder)?
-        template,
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
     required TResult orElse(),
   }) {
     if (template != null) {
@@ -823,6 +837,7 @@ class _$DocumentTemplate extends DocumentTemplate {
   TResult map<TResult extends Object?>({
     required TResult Function(AppDocument value) document,
     required TResult Function(DocumentTemplate value) template,
+    required TResult Function(ButterflyPack value) pack,
   }) {
     return template(this);
   }
@@ -832,6 +847,7 @@ class _$DocumentTemplate extends DocumentTemplate {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AppDocument value)? document,
     TResult? Function(DocumentTemplate value)? template,
+    TResult? Function(ButterflyPack value)? pack,
   }) {
     return template?.call(this);
   }
@@ -841,6 +857,7 @@ class _$DocumentTemplate extends DocumentTemplate {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AppDocument value)? document,
     TResult Function(DocumentTemplate value)? template,
+    TResult Function(ButterflyPack value)? pack,
     required TResult orElse(),
   }) {
     if (template != null) {
@@ -859,17 +876,351 @@ class _$DocumentTemplate extends DocumentTemplate {
 
 abstract class DocumentTemplate extends NoteData {
   const factory DocumentTemplate(
-      {@DocumentJsonConverter() required final AppDocument document,
+      {required final AppDocument document,
       final String folder}) = _$DocumentTemplate;
   const DocumentTemplate._() : super._();
 
   factory DocumentTemplate.fromJson(Map<String, dynamic> json) =
       _$DocumentTemplate.fromJson;
 
-  @DocumentJsonConverter()
   AppDocument get document;
   String get folder;
   @JsonKey(ignore: true)
   _$$DocumentTemplateCopyWith<_$DocumentTemplate> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ButterflyPackCopyWith<$Res> {
+  factory _$$ButterflyPackCopyWith(
+          _$ButterflyPack value, $Res Function(_$ButterflyPack) then) =
+      __$$ButterflyPackCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {String name,
+      String description,
+      String author,
+      List<ButterflyComponent> components,
+      List<TextStyleSheet> styles,
+      List<ColorPalette> palettes,
+      @DateTimeJsonConverter() DateTime createdAt,
+      @DateTimeJsonConverter() DateTime updatedAt});
+}
+
+/// @nodoc
+class __$$ButterflyPackCopyWithImpl<$Res>
+    extends _$NoteDataCopyWithImpl<$Res, _$ButterflyPack>
+    implements _$$ButterflyPackCopyWith<$Res> {
+  __$$ButterflyPackCopyWithImpl(
+      _$ButterflyPack _value, $Res Function(_$ButterflyPack) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? description = null,
+    Object? author = null,
+    Object? components = null,
+    Object? styles = null,
+    Object? palettes = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+  }) {
+    return _then(_$ButterflyPack(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      author: null == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as String,
+      components: null == components
+          ? _value._components
+          : components // ignore: cast_nullable_to_non_nullable
+              as List<ButterflyComponent>,
+      styles: null == styles
+          ? _value._styles
+          : styles // ignore: cast_nullable_to_non_nullable
+              as List<TextStyleSheet>,
+      palettes: null == palettes
+          ? _value._palettes
+          : palettes // ignore: cast_nullable_to_non_nullable
+              as List<ColorPalette>,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ButterflyPack extends ButterflyPack {
+  const _$ButterflyPack(
+      {this.name = '',
+      this.description = '',
+      this.author = '',
+      final List<ButterflyComponent> components = const <ButterflyComponent>[],
+      final List<TextStyleSheet> styles = const <TextStyleSheet>[],
+      final List<ColorPalette> palettes = const <ColorPalette>[],
+      @DateTimeJsonConverter() required this.createdAt,
+      @DateTimeJsonConverter() required this.updatedAt,
+      final String? $type})
+      : _components = components,
+        _styles = styles,
+        _palettes = palettes,
+        $type = $type ?? 'pack',
+        super._();
+
+  factory _$ButterflyPack.fromJson(Map<String, dynamic> json) =>
+      _$$ButterflyPackFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String description;
+  @override
+  @JsonKey()
+  final String author;
+  final List<ButterflyComponent> _components;
+  @override
+  @JsonKey()
+  List<ButterflyComponent> get components {
+    if (_components is EqualUnmodifiableListView) return _components;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_components);
+  }
+
+  final List<TextStyleSheet> _styles;
+  @override
+  @JsonKey()
+  List<TextStyleSheet> get styles {
+    if (_styles is EqualUnmodifiableListView) return _styles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_styles);
+  }
+
+  final List<ColorPalette> _palettes;
+  @override
+  @JsonKey()
+  List<ColorPalette> get palettes {
+    if (_palettes is EqualUnmodifiableListView) return _palettes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_palettes);
+  }
+
+  @override
+  @DateTimeJsonConverter()
+  final DateTime createdAt;
+  @override
+  @DateTimeJsonConverter()
+  final DateTime updatedAt;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'NoteData.pack(name: $name, description: $description, author: $author, components: $components, styles: $styles, palettes: $palettes, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ButterflyPackCopyWith<_$ButterflyPack> get copyWith =>
+      __$$ButterflyPackCopyWithImpl<_$ButterflyPack>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)
+        document,
+    required TResult Function(AppDocument document, String folder) template,
+    required TResult Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)
+        pack,
+  }) {
+    return pack(name, description, author, components, styles, palettes,
+        createdAt, updatedAt);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+    TResult? Function(AppDocument document, String folder)? template,
+    TResult? Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
+  }) {
+    return pack?.call(name, description, author, components, styles, palettes,
+        createdAt, updatedAt);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+    TResult Function(AppDocument document, String folder)? template,
+    TResult Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
+    required TResult orElse(),
+  }) {
+    if (pack != null) {
+      return pack(name, description, author, components, styles, palettes,
+          createdAt, updatedAt);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AppDocument value) document,
+    required TResult Function(DocumentTemplate value) template,
+    required TResult Function(ButterflyPack value) pack,
+  }) {
+    return pack(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AppDocument value)? document,
+    TResult? Function(DocumentTemplate value)? template,
+    TResult? Function(ButterflyPack value)? pack,
+  }) {
+    return pack?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AppDocument value)? document,
+    TResult Function(DocumentTemplate value)? template,
+    TResult Function(ButterflyPack value)? pack,
+    required TResult orElse(),
+  }) {
+    if (pack != null) {
+      return pack(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ButterflyPackToJson(
+      this,
+    );
+  }
+}
+
+abstract class ButterflyPack extends NoteData {
+  const factory ButterflyPack(
+          {final String name,
+          final String description,
+          final String author,
+          final List<ButterflyComponent> components,
+          final List<TextStyleSheet> styles,
+          final List<ColorPalette> palettes,
+          @DateTimeJsonConverter() required final DateTime createdAt,
+          @DateTimeJsonConverter() required final DateTime updatedAt}) =
+      _$ButterflyPack;
+  const ButterflyPack._() : super._();
+
+  factory ButterflyPack.fromJson(Map<String, dynamic> json) =
+      _$ButterflyPack.fromJson;
+
+  String get name;
+  String get description;
+  String get author;
+  List<ButterflyComponent> get components;
+  List<TextStyleSheet> get styles;
+  List<ColorPalette> get palettes;
+  @DateTimeJsonConverter()
+  DateTime get createdAt;
+  @DateTimeJsonConverter()
+  DateTime get updatedAt;
+  @JsonKey(ignore: true)
+  _$$ButterflyPackCopyWith<_$ButterflyPack> get copyWith =>
       throw _privateConstructorUsedError;
 }

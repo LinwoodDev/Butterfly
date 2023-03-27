@@ -5,7 +5,6 @@ import 'package:butterfly/actions/color_palette.dart';
 import 'package:butterfly/actions/edit_mode.dart';
 import 'package:butterfly/actions/export.dart';
 import 'package:butterfly/actions/image_export.dart';
-import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/pdf_export.dart';
@@ -82,7 +81,6 @@ class _ProjectPageState extends State<ProjectPage> {
     ColorPaletteIntent: ColorPaletteAction(),
     BackgroundIntent: BackgroundAction(),
     LayersIntent: LayersAction(),
-    InsertIntent: InsertAction(),
     ChangePathIntent: ChangePathAction(),
     SaveIntent: SaveAction(),
     ChangePainterIntent: ChangePainterAction(),
@@ -136,7 +134,7 @@ class _ProjectPageState extends State<ProjectPage> {
           BoxBackgroundRenderer(const BoxBackground()),
           [],
         );
-        _importService = ImportService(_bloc!, context);
+        _importService = ImportService(context, _bloc);
         _bloc?.load();
         embedding.handler.register(_bloc!);
       });
@@ -199,9 +197,9 @@ class _ProjectPageState extends State<ProjectPage> {
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
             location!, background, renderers);
         _bloc?.load();
-        _importService = ImportService(_bloc!, context);
+        _importService = ImportService(context, _bloc);
         if (widget.type.isNotEmpty) {
-          _importService.load(widget.type, widget.data);
+          _importService.load(type: widget.type, data: widget.data);
         }
       });
     } catch (e) {
@@ -284,9 +282,6 @@ class _ProjectPageState extends State<ProjectPage> {
                           LogicalKeyboardKey.keyA): AreasIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.control,
                           LogicalKeyboardKey.keyL): LayersIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                              LogicalKeyboardKey.alt, LogicalKeyboardKey.keyN):
-                          InsertIntent(context, Offset.zero),
                       LogicalKeySet(LogicalKeyboardKey.escape):
                           ExitIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.arrowRight):

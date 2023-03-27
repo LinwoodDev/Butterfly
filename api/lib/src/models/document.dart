@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:butterfly_api/src/models/animation.dart';
 import 'package:collection/collection.dart';
 
+import '../../butterfly_text.dart';
 import 'area.dart';
 import 'background.dart';
 import 'converter.dart';
@@ -12,6 +13,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'element.dart';
 import 'pack.dart';
 import 'painter.dart';
+import 'palette.dart';
 import 'tool.dart';
 import 'waypoint.dart';
 
@@ -25,7 +27,7 @@ const kBreakingChangesVersion = 7;
 const kThumbnailWidth = 640;
 const kThumbnailHeight = 360;
 
-@freezed
+@Freezed(equal: false)
 class NoteData with _$NoteData {
   const NoteData._();
 
@@ -49,6 +51,17 @@ class NoteData with _$NoteData {
   const factory NoteData.template(
       {required AppDocument document,
       @Default('/') String folder}) = DocumentTemplate;
+
+  const factory NoteData.pack({
+    @Default('') String name,
+    @Default('') String description,
+    @Default('') String author,
+    @Default(<ButterflyComponent>[]) List<ButterflyComponent> components,
+    @Default(<TextStyleSheet>[]) List<TextStyleSheet> styles,
+    @Default(<ColorPalette>[]) List<ColorPalette> palettes,
+    @DateTimeJsonConverter() required DateTime createdAt,
+    @DateTimeJsonConverter() required DateTime updatedAt,
+  }) = ButterflyPack;
 
   factory NoteData.fromJson(Map<String, dynamic> json) =>
       _$NoteDataFromJson(noteDataJsonMigrator(json));
@@ -91,4 +104,18 @@ extension AppDocumentGetter on AppDocument {
 extension DocumentTemplateGetter on DocumentTemplate {
   String get name => document.name;
   String get description => document.description;
+}
+
+extension ButterflyPackGetter on ButterflyPack {
+  ButterflyComponent? getComponent(String name) {
+    return components.firstWhereOrNull((e) => e.name == name);
+  }
+
+  TextStyleSheet? getStyle(String name) {
+    return styles.firstWhereOrNull((e) => e.name == name);
+  }
+
+  ColorPalette? getPalette(String name) {
+    return palettes.firstWhereOrNull((e) => e.name == name);
+  }
 }
