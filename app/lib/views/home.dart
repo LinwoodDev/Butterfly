@@ -37,6 +37,12 @@ class _HomePageState extends State<HomePage> {
   RemoteStorage? _remote;
 
   @override
+  void initState() {
+    super.initState();
+    _remote = context.read<SettingsCubit>().state.getDefaultRemote();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
