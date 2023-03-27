@@ -11,10 +11,10 @@ sidebar_position: 2
 * `Ctrl` + `Shift` + `N`: Новый файл из шаблона
 * `Ctrl` + `O`: Открыть файл
 * `Ctrl` + `I`: Импорт файла
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: Экспорт файла
+* `Ctrl` + `Shift` + `E`: Экспорт файла как изображения
+* `Ctrl` + `Alt` + `E`: Экспорт файла как svg
+* `Ctrl` + `Alt` + `S`: Открыть настройки
 
 ## Проект
 
@@ -23,12 +23,12 @@ sidebar_position: 2
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: Открыть настройки проекта
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
+* `Ctrl` + `P`: Открыть диалог цветовой палитры
+* `Ctrl` + `B`: Открыть фон диалога
+* `Ctrl` + `Shift` + `A`: Открыть диалог областей
+* `Ctrl` + `L`: Открыть диалог слоёв
+* `Ctrl` + `S`: Сохранить
+* `Alt` + `S`: Изменить путь
 
 ## Stylus
 
