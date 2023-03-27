@@ -11,10 +11,10 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 * `Ctrl` + `Shift` + `N`: Nowy plik z szablonu
 * `Ctrl` + `O`: Otwórz plik
 * `Ctrl` + `I`: Importuj plik
-* `Ctrl` + `E`: Eksportuj plik
-* `Ctrl` + `Shift` + `E`: Eksportuj plik jako obraz
-* `Ctrl` + `Alt` + `E`: Eksportuj plik jako svg
-* `Ctrl` + `Alt` + `S`: Otwórz ustawienia
+* `Ctrl` + `E`: Export file
+* `Ctrl` + `Shift` + `E`: Export file as image
+* `Ctrl` + `Alt` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `S`: Open settings
 
 ## Projekt
 
@@ -23,12 +23,12 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: Otwórz ustawienia projektu
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Otwórz okno dialogowe palety kolorów
-* `Ctrl` + `B`: Otwórz okno w tle
-* `Ctrl` + `Shift` + `A`: Otwarte okno dialogowe
-* `Ctrl` + `L`: Otwarte okno dialogowe
-* `Ctrl` + `S`: Zapisz
-* `Alt` + `S`: Zmień ścieżkę
+* `Ctrl` + `P`: Open color palette dialog
+* `Ctrl` + `B`: Open background dialog
+* `Ctrl` + `Shift` + `A`: Open areas dialog
+* `Ctrl` + `L`: Open layers dialog
+* `Ctrl` + `S`: Save
+* `Alt` + `S`: Change path
 
 ## Stylus
 
