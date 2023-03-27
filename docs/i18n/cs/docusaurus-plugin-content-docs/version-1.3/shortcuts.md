@@ -11,10 +11,10 @@ Existuje několik zkratek, které můžete použít v editoru. Některé z nich 
 * `Ctrl` + `Shift` + `N`: Nový soubor ze šablony
 * `Ctrl` + `O`: Otevřít soubor
 * `Ctrl` + `I`: Importovat soubor
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: Exportovat soubor
+* `Ctrl` + `Shift` + `E`: Exportovat soubor jako obrázek
+* `Ctrl` + `Alt` + `E`: Exportovat soubor jako svg
+* `Ctrl` + `Alt` + `S`: Otevřít nastavení
 
 ## Projekt
 
@@ -23,9 +23,9 @@ Existuje několik zkratek, které můžete použít v editoru. Některé z nich 
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: Otevřít nastavení projektu
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
+* `Ctrl` + `P`: Otevřít dialog barevné palety
+* `Ctrl` + `B`: Otevřít dialog na pozadí
+* `Ctrl` + `Shift` + `A`: dialogové okno
+* `Ctrl` + `L`: Otevřené vrstvy
+* `Ctrl` + `S`: Uložit
+* `Alt` + `S`: Změna cesty
