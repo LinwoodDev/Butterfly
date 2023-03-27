@@ -11,10 +11,10 @@ Det er noen snarveier du kan benytte i editoren. Noen av dem er skrevet under kn
 * `Ctrl` + `Shift` + `N`: Ny fil fra mal
 * `Ctrl` + `O`: Åpne filen
 * `Ctrl` + `Jeg`: Importere fil
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: Eksportfil
+* `Ctrl` + `Shift` + `E`: Eksporter fil som bilde
+* `Ctrl` + `Alt` + `E`: Eksporter filen som svg
+* `Ctrl` + `Alt` + `S`: Åpne innstillinger
 
 ## Prosjekt
 
@@ -23,12 +23,12 @@ Det er noen snarveier du kan benytte i editoren. Noen av dem er skrevet under kn
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: Åpne prosjektinnstillinger
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
+* `Ctrl` + `P`: Automatisk fargepalett dialog
+* `Ctrl` + `B`: Åpne bakgrunnsdialog
+* `Ctrl` + `Shift` + `A`: Åpne områder dialog
+* `Ctrl` + `L`: Åpne lag-dialog
+* `Ctrl` + `S`: Lagre
+* `Alt` + `S`: Endre bane
 
 ## Stylus
 
