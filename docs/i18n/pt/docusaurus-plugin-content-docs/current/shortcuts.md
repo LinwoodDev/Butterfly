@@ -12,23 +12,23 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 
 * `Ctrl` + `N`: Novo arquivo
 * `Ctrl` + `Shift` + `N`: Novo arquivo a partir do modelo
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: Exportar arquivo
+* `Ctrl` + `Shift` + `E`: Exportar o arquivo como imagem
+* `Ctrl` + `Alt` + `E`: Exportar o arquivo como svg
+* `Ctrl` + `Alt` + `S`: Abrir configurações
 
 ### Projecto
 
 * `Ctrl` + `Z`: Desfazer
 * `Ctrl` + `Y`: Refazer
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
-* `Ctrl` + (`1` - `0`): Switch to painter
+* `Ctrl` + `P`: Abrir caixa de diálogo da paleta de cores
+* `Ctrl` + `B`: Abrir diálogo em segundo plano
+* `Ctrl` + `Shift` + `A`: Abrir diálogo de áreas
+* `Ctrl` + `L`: Abrir caixa de diálogo de camadas
+* `Ctrl` + `S`: Salvar
+* `Alt` + `S`: Mudar caminho
+* `Ctrl` + (`1` - `0`): Mudar para pintor
 
 ## Stylus
 
