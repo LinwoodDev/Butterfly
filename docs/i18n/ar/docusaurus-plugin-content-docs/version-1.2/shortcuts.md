@@ -10,10 +10,10 @@ title: الاختصارات
 * `Ctrl` + `Shift` + `N`: ملف جديد من القالب
 * `Ctrl` + `O`: فتح الملف
 * `Ctrl` + `I`: ملف الاستيراد
-* `Ctrl` + `E`: تصدير الملف
-* `Ctrl` + `Shift` + `E`: تصدير الملف كصورة
-* `Ctrl` + `Alt` + `E`: تصدير الملف كـ svg
-* `Ctrl` + `Alt` + `S`: فتح الإعدادات
+* `Ctrl` + `E`: Export file
+* `Ctrl` + `Shift` + `E`: Export file as image
+* `Ctrl` + `Alt` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `S`: Open settings
 
 ## مشروع
 
@@ -22,7 +22,7 @@ title: الاختصارات
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: فتح إعدادات المشروع
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: فتح لوحة حوار الألوان
-* `Ctrl` + `B`: فتح مربع حوار الخلفية
-* `Ctrl` + `L`: فتح مربع حوار الطبقات
+* `Ctrl` + `P`: Open color palette dialog
+* `Ctrl` + `B`: Open background dialog
+* `Ctrl` + `L`: Open layers dialog
 * `Ctrl` + `S`: تغيير المسار
