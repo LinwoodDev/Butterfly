@@ -21,6 +21,10 @@ part 'document.g.dart';
 const kFileVersion = 7;
 const kBreakingChangesVersion = 7;
 
+// 16:9
+const kThumbnailWidth = 640;
+const kThumbnailHeight = 360;
+
 @freezed
 class NoteData with _$NoteData {
   const NoteData._();
@@ -42,10 +46,20 @@ class NoteData with _$NoteData {
     @Default(ToolOption()) ToolOption tool,
   }) = AppDocument;
 
+  const factory NoteData.template(
+      {required AppDocument document,
+      @Default('/') String folder}) = DocumentTemplate;
+
   factory NoteData.fromJson(Map<String, dynamic> json) =>
-      _$NoteDataFromJson(json);
+      _$NoteDataFromJson(noteDataJsonMigrator(json));
 
   List<int> save() => utf8.encode(json.encode(toJson()));
+
+  @override
+  Map<String, dynamic> toJson() => {
+        ...super.toJson(),
+        'fileVersion': kFileVersion,
+      };
 }
 
 extension AppDocumentGetter on AppDocument {
@@ -72,4 +86,9 @@ extension AppDocumentGetter on AppDocument {
   AnimationTrack? getAnimation(String name) {
     return animations.firstWhereOrNull((e) => e.name == name);
   }
+}
+
+extension DocumentTemplateGetter on DocumentTemplate {
+  String get name => document.name;
+  String get description => document.description;
 }

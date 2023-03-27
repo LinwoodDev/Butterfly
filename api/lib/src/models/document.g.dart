@@ -55,6 +55,7 @@ _$AppDocument _$$AppDocumentFromJson(Map json) => _$AppDocument(
       tool: json['tool'] == null
           ? const ToolOption()
           : ToolOption.fromJson(Map<String, dynamic>.from(json['tool'] as Map)),
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$AppDocumentToJson(_$AppDocument instance) =>
@@ -74,6 +75,7 @@ Map<String, dynamic> _$$AppDocumentToJson(_$AppDocument instance) =>
           instance.updatedAt, const DateTimeJsonConverter().toJson),
       'painters': instance.painters.map((e) => e.toJson()).toList(),
       'tool': instance.tool.toJson(),
+      'type': instance.$type,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(
@@ -87,3 +89,16 @@ Json? _$JsonConverterToJson<Json, Value>(
   Json? Function(Value value) toJson,
 ) =>
     value == null ? null : toJson(value);
+
+_$DocumentTemplate _$$DocumentTemplateFromJson(Map json) => _$DocumentTemplate(
+      document: const DocumentJsonConverter().fromJson(json['document'] as Map),
+      folder: json['folder'] as String? ?? '/',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$DocumentTemplateToJson(_$DocumentTemplate instance) =>
+    <String, dynamic>{
+      'document': const DocumentJsonConverter().toJson(instance.document),
+      'folder': instance.folder,
+      'type': instance.$type,
+    };

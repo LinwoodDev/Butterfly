@@ -12,6 +12,5 @@ export 'models/painter.dart';
 export 'models/palette.dart';
 export 'models/point.dart';
 export 'models/property.dart';
-export 'models/template.dart';
 export 'models/tool.dart';
 export 'models/waypoint.dart';
