@@ -10,10 +10,10 @@ title: Гарячі клавіші
 * `Ctrl` + `Shift` + `N`: новий файл з шаблону
 * `Ctrl` + `O`: Відкрити файл
 * `Ctrl` + `I`: Імпорт файлу
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: Експорт файлу
+* `Ctrl` + `Shift` + `E`: Експорт файлу як зображення
+* `Ctrl` + `Alt` + `E`: Експорт файлу як svg
+* `Ctrl` + `Alt` + `S`: Відкрити налаштування
 
 ## Проект
 
@@ -22,7 +22,7 @@ title: Гарячі клавіші
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: Відкрити налаштування проекту
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `L`: Open layers dialog
+* `Ctrl` + `P`: Відкриття діалогового вікна кольорової палітри
+* `Ctrl` + `B`: Відкритий фоновий діалог
+* `Ctrl` + `L`: Відкритий діалог шарів
 * `Ctrl` + `S`: змінити шлях
