@@ -1,6 +1,3 @@
-import 'package:collection/collection.dart';
-
-import 'converter.dart';
 import 'element.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'palette.dart';
@@ -10,37 +7,6 @@ import 'document.dart';
 
 part 'pack.g.dart';
 part 'pack.freezed.dart';
-
-@Freezed(equal: false)
-class ButterflyPack with _$ButterflyPack {
-  const ButterflyPack._();
-
-  const factory ButterflyPack({
-    @Default('') String name,
-    @Default('') String description,
-    @Default('') String author,
-    @Default(<ButterflyComponent>[]) List<ButterflyComponent> components,
-    @Default(<TextStyleSheet>[]) List<TextStyleSheet> styles,
-    @Default(<ColorPalette>[]) List<ColorPalette> palettes,
-    @DateTimeJsonConverter() required DateTime createdAt,
-    @DateTimeJsonConverter() required DateTime updatedAt,
-  }) = _ButterflyPack;
-
-  factory ButterflyPack.fromJson(Map<String, dynamic> json) =>
-      _$ButterflyPackFromJson(json);
-
-  ButterflyComponent? getComponent(String name) {
-    return components.firstWhereOrNull((e) => e.name == name);
-  }
-
-  TextStyleSheet? getStyle(String name) {
-    return styles.firstWhereOrNull((e) => e.name == name);
-  }
-
-  ColorPalette? getPalette(String name) {
-    return palettes.firstWhereOrNull((e) => e.name == name);
-  }
-}
 
 @Freezed(equal: false)
 class ButterflyComponent with _$ButterflyComponent {

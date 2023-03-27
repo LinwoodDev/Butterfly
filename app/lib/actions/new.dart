@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubits/current_index.dart';
 import '../dialogs/template.dart';
+import '../models/defaults.dart';
 
 class NewIntent extends Intent {
   final BuildContext context;
@@ -31,7 +32,7 @@ class NewAction extends Action<NewIntent> {
     var document = AppDocument(
       name: '',
       createdAt: DateTime.now(),
-      painters: createDefaultPainters(),
+      painters: DocumentDefaults.createPainters(),
     );
     final prefs = await SharedPreferences.getInstance();
     final remote = settings.getDefaultRemote();

@@ -14,217 +14,164 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-AssetLocation _$AssetLocationFromJson(Map<String, dynamic> json) {
-  return _AssetLocation.fromJson(json);
+NoteData _$NoteDataFromJson(Map<String, dynamic> json) {
+  switch (json['type']) {
+    case 'document':
+      return AppDocument.fromJson(json);
+    case 'template':
+      return DocumentTemplate.fromJson(json);
+    case 'pack':
+      return ButterflyPack.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(
+          json, 'type', 'NoteData', 'Invalid union type "${json['type']}"!');
+  }
 }
 
 /// @nodoc
-mixin _$AssetLocation {
-  String get remote => throw _privateConstructorUsedError;
-  String get path => throw _privateConstructorUsedError;
-  bool get absolute => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $AssetLocationCopyWith<AssetLocation> get copyWith =>
+mixin _$NoteData {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)
+        document,
+    required TResult Function(AppDocument document, String folder) template,
+    required TResult Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)
+        pack,
+  }) =>
       throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+    TResult? Function(AppDocument document, String folder)? template,
+    TResult? Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+    TResult Function(AppDocument document, String folder)? template,
+    TResult Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AppDocument value) document,
+    required TResult Function(DocumentTemplate value) template,
+    required TResult Function(ButterflyPack value) pack,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AppDocument value)? document,
+    TResult? Function(DocumentTemplate value)? template,
+    TResult? Function(ButterflyPack value)? pack,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AppDocument value)? document,
+    TResult Function(DocumentTemplate value)? template,
+    TResult Function(ButterflyPack value)? pack,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AssetLocationCopyWith<$Res> {
-  factory $AssetLocationCopyWith(
-          AssetLocation value, $Res Function(AssetLocation) then) =
-      _$AssetLocationCopyWithImpl<$Res, AssetLocation>;
-  @useResult
-  $Res call({String remote, String path, bool absolute});
+abstract class $NoteDataCopyWith<$Res> {
+  factory $NoteDataCopyWith(NoteData value, $Res Function(NoteData) then) =
+      _$NoteDataCopyWithImpl<$Res, NoteData>;
 }
 
 /// @nodoc
-class _$AssetLocationCopyWithImpl<$Res, $Val extends AssetLocation>
-    implements $AssetLocationCopyWith<$Res> {
-  _$AssetLocationCopyWithImpl(this._value, this._then);
+class _$NoteDataCopyWithImpl<$Res, $Val extends NoteData>
+    implements $NoteDataCopyWith<$Res> {
+  _$NoteDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? remote = null,
-    Object? path = null,
-    Object? absolute = null,
-  }) {
-    return _then(_value.copyWith(
-      remote: null == remote
-          ? _value.remote
-          : remote // ignore: cast_nullable_to_non_nullable
-              as String,
-      path: null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
-      absolute: null == absolute
-          ? _value.absolute
-          : absolute // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_AssetLocationCopyWith<$Res>
-    implements $AssetLocationCopyWith<$Res> {
-  factory _$$_AssetLocationCopyWith(
-          _$_AssetLocation value, $Res Function(_$_AssetLocation) then) =
-      __$$_AssetLocationCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String remote, String path, bool absolute});
-}
-
-/// @nodoc
-class __$$_AssetLocationCopyWithImpl<$Res>
-    extends _$AssetLocationCopyWithImpl<$Res, _$_AssetLocation>
-    implements _$$_AssetLocationCopyWith<$Res> {
-  __$$_AssetLocationCopyWithImpl(
-      _$_AssetLocation _value, $Res Function(_$_AssetLocation) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? remote = null,
-    Object? path = null,
-    Object? absolute = null,
-  }) {
-    return _then(_$_AssetLocation(
-      remote: null == remote
-          ? _value.remote
-          : remote // ignore: cast_nullable_to_non_nullable
-              as String,
-      path: null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
-      absolute: null == absolute
-          ? _value.absolute
-          : absolute // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_AssetLocation extends _AssetLocation {
-  const _$_AssetLocation(
-      {this.remote = '', required this.path, this.absolute = false})
-      : super._();
-
-  factory _$_AssetLocation.fromJson(Map<String, dynamic> json) =>
-      _$$_AssetLocationFromJson(json);
-
-  @override
-  @JsonKey()
-  final String remote;
-  @override
-  final String path;
-  @override
-  @JsonKey()
-  final bool absolute;
-
-  @override
-  String toString() {
-    return 'AssetLocation(remote: $remote, path: $path, absolute: $absolute)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_AssetLocation &&
-            (identical(other.remote, remote) || other.remote == remote) &&
-            (identical(other.path, path) || other.path == path) &&
-            (identical(other.absolute, absolute) ||
-                other.absolute == absolute));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, remote, path, absolute);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_AssetLocationCopyWith<_$_AssetLocation> get copyWith =>
-      __$$_AssetLocationCopyWithImpl<_$_AssetLocation>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_AssetLocationToJson(
-      this,
-    );
-  }
-}
-
-abstract class _AssetLocation extends AssetLocation {
-  const factory _AssetLocation(
-      {final String remote,
-      required final String path,
-      final bool absolute}) = _$_AssetLocation;
-  const _AssetLocation._() : super._();
-
-  factory _AssetLocation.fromJson(Map<String, dynamic> json) =
-      _$_AssetLocation.fromJson;
-
-  @override
-  String get remote;
-  @override
-  String get path;
-  @override
-  bool get absolute;
-  @override
-  @JsonKey(ignore: true)
-  _$$_AssetLocationCopyWith<_$_AssetLocation> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-AppDocument _$AppDocumentFromJson(Map<String, dynamic> json) {
-  return _AppDocument.fromJson(json);
-}
-
-/// @nodoc
-mixin _$AppDocument {
-  String get name => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  String get thumbnail => throw _privateConstructorUsedError;
-  List<PadElement> get content => throw _privateConstructorUsedError;
-  Background get background => throw _privateConstructorUsedError;
-  List<AnimationTrack> get animations => throw _privateConstructorUsedError;
-  List<Waypoint> get waypoints => throw _privateConstructorUsedError;
-  List<Area> get areas => throw _privateConstructorUsedError;
-  List<ExportPreset> get exportPresets => throw _privateConstructorUsedError;
-  List<ButterflyPack> get packs => throw _privateConstructorUsedError;
-  @DateTimeJsonConverter()
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  @DateTimeJsonConverter()
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
-  List<Painter> get painters => throw _privateConstructorUsedError;
-  ToolOption get tool => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $AppDocumentCopyWith<AppDocument> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $AppDocumentCopyWith<$Res> {
-  factory $AppDocumentCopyWith(
-          AppDocument value, $Res Function(AppDocument) then) =
-      _$AppDocumentCopyWithImpl<$Res, AppDocument>;
+abstract class _$$AppDocumentCopyWith<$Res> {
+  factory _$$AppDocumentCopyWith(
+          _$AppDocument value, $Res Function(_$AppDocument) then) =
+      __$$AppDocumentCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {String name,
@@ -247,146 +194,11 @@ abstract class $AppDocumentCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AppDocumentCopyWithImpl<$Res, $Val extends AppDocument>
-    implements $AppDocumentCopyWith<$Res> {
-  _$AppDocumentCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? description = null,
-    Object? thumbnail = null,
-    Object? content = null,
-    Object? background = null,
-    Object? animations = null,
-    Object? waypoints = null,
-    Object? areas = null,
-    Object? exportPresets = null,
-    Object? packs = null,
-    Object? createdAt = null,
-    Object? updatedAt = freezed,
-    Object? painters = null,
-    Object? tool = null,
-  }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      thumbnail: null == thumbnail
-          ? _value.thumbnail
-          : thumbnail // ignore: cast_nullable_to_non_nullable
-              as String,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as List<PadElement>,
-      background: null == background
-          ? _value.background
-          : background // ignore: cast_nullable_to_non_nullable
-              as Background,
-      animations: null == animations
-          ? _value.animations
-          : animations // ignore: cast_nullable_to_non_nullable
-              as List<AnimationTrack>,
-      waypoints: null == waypoints
-          ? _value.waypoints
-          : waypoints // ignore: cast_nullable_to_non_nullable
-              as List<Waypoint>,
-      areas: null == areas
-          ? _value.areas
-          : areas // ignore: cast_nullable_to_non_nullable
-              as List<Area>,
-      exportPresets: null == exportPresets
-          ? _value.exportPresets
-          : exportPresets // ignore: cast_nullable_to_non_nullable
-              as List<ExportPreset>,
-      packs: null == packs
-          ? _value.packs
-          : packs // ignore: cast_nullable_to_non_nullable
-              as List<ButterflyPack>,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      painters: null == painters
-          ? _value.painters
-          : painters // ignore: cast_nullable_to_non_nullable
-              as List<Painter>,
-      tool: null == tool
-          ? _value.tool
-          : tool // ignore: cast_nullable_to_non_nullable
-              as ToolOption,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BackgroundCopyWith<$Res> get background {
-    return $BackgroundCopyWith<$Res>(_value.background, (value) {
-      return _then(_value.copyWith(background: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ToolOptionCopyWith<$Res> get tool {
-    return $ToolOptionCopyWith<$Res>(_value.tool, (value) {
-      return _then(_value.copyWith(tool: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$_AppDocumentCopyWith<$Res>
-    implements $AppDocumentCopyWith<$Res> {
-  factory _$$_AppDocumentCopyWith(
-          _$_AppDocument value, $Res Function(_$_AppDocument) then) =
-      __$$_AppDocumentCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String name,
-      String description,
-      String thumbnail,
-      List<PadElement> content,
-      Background background,
-      List<AnimationTrack> animations,
-      List<Waypoint> waypoints,
-      List<Area> areas,
-      List<ExportPreset> exportPresets,
-      List<ButterflyPack> packs,
-      @DateTimeJsonConverter() DateTime createdAt,
-      @DateTimeJsonConverter() DateTime? updatedAt,
-      List<Painter> painters,
-      ToolOption tool});
-
-  @override
-  $BackgroundCopyWith<$Res> get background;
-  @override
-  $ToolOptionCopyWith<$Res> get tool;
-}
-
-/// @nodoc
-class __$$_AppDocumentCopyWithImpl<$Res>
-    extends _$AppDocumentCopyWithImpl<$Res, _$_AppDocument>
-    implements _$$_AppDocumentCopyWith<$Res> {
-  __$$_AppDocumentCopyWithImpl(
-      _$_AppDocument _value, $Res Function(_$_AppDocument) _then)
+class __$$AppDocumentCopyWithImpl<$Res>
+    extends _$NoteDataCopyWithImpl<$Res, _$AppDocument>
+    implements _$$AppDocumentCopyWith<$Res> {
+  __$$AppDocumentCopyWithImpl(
+      _$AppDocument _value, $Res Function(_$AppDocument) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -407,7 +219,7 @@ class __$$_AppDocumentCopyWithImpl<$Res>
     Object? painters = null,
     Object? tool = null,
   }) {
-    return _then(_$_AppDocument(
+    return _then(_$AppDocument(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -466,12 +278,28 @@ class __$$_AppDocumentCopyWithImpl<$Res>
               as ToolOption,
     ));
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $BackgroundCopyWith<$Res> get background {
+    return $BackgroundCopyWith<$Res>(_value.background, (value) {
+      return _then(_value.copyWith(background: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ToolOptionCopyWith<$Res> get tool {
+    return $ToolOptionCopyWith<$Res>(_value.tool, (value) {
+      return _then(_value.copyWith(tool: value));
+    });
+  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_AppDocument extends _AppDocument {
-  const _$_AppDocument(
+class _$AppDocument extends AppDocument {
+  const _$AppDocument(
       {this.name = '',
       this.description = '',
       this.thumbnail = '',
@@ -485,7 +313,8 @@ class _$_AppDocument extends _AppDocument {
       @DateTimeJsonConverter() required this.createdAt,
       @DateTimeJsonConverter() this.updatedAt,
       final List<Painter> painters = const [],
-      this.tool = const ToolOption()})
+      this.tool = const ToolOption(),
+      final String? $type})
       : _content = content,
         _animations = animations,
         _waypoints = waypoints,
@@ -493,10 +322,11 @@ class _$_AppDocument extends _AppDocument {
         _exportPresets = exportPresets,
         _packs = packs,
         _painters = painters,
+        $type = $type ?? 'document',
         super._();
 
-  factory _$_AppDocument.fromJson(Map<String, dynamic> json) =>
-      _$$_AppDocumentFromJson(json);
+  factory _$AppDocument.fromJson(Map<String, dynamic> json) =>
+      _$$AppDocumentFromJson(json);
 
   @override
   @JsonKey()
@@ -583,75 +413,212 @@ class _$_AppDocument extends _AppDocument {
   @JsonKey()
   final ToolOption tool;
 
+  @JsonKey(name: 'type')
+  final String $type;
+
   @override
   String toString() {
-    return 'AppDocument(name: $name, description: $description, thumbnail: $thumbnail, content: $content, background: $background, animations: $animations, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
+    return 'NoteData.document(name: $name, description: $description, thumbnail: $thumbnail, content: $content, background: $background, animations: $animations, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_AppDocument &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail) &&
-            const DeepCollectionEquality().equals(other._content, _content) &&
-            (identical(other.background, background) ||
-                other.background == background) &&
-            const DeepCollectionEquality()
-                .equals(other._animations, _animations) &&
-            const DeepCollectionEquality()
-                .equals(other._waypoints, _waypoints) &&
-            const DeepCollectionEquality().equals(other._areas, _areas) &&
-            const DeepCollectionEquality()
-                .equals(other._exportPresets, _exportPresets) &&
-            const DeepCollectionEquality().equals(other._packs, _packs) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
-            const DeepCollectionEquality().equals(other._painters, _painters) &&
-            (identical(other.tool, tool) || other.tool == tool));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      name,
-      description,
-      thumbnail,
-      const DeepCollectionEquality().hash(_content),
-      background,
-      const DeepCollectionEquality().hash(_animations),
-      const DeepCollectionEquality().hash(_waypoints),
-      const DeepCollectionEquality().hash(_areas),
-      const DeepCollectionEquality().hash(_exportPresets),
-      const DeepCollectionEquality().hash(_packs),
-      createdAt,
-      updatedAt,
-      const DeepCollectionEquality().hash(_painters),
-      tool);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AppDocumentCopyWith<_$_AppDocument> get copyWith =>
-      __$$_AppDocumentCopyWithImpl<_$_AppDocument>(this, _$identity);
+  _$$AppDocumentCopyWith<_$AppDocument> get copyWith =>
+      __$$AppDocumentCopyWithImpl<_$AppDocument>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)
+        document,
+    required TResult Function(AppDocument document, String folder) template,
+    required TResult Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)
+        pack,
+  }) {
+    return document(
+        name,
+        description,
+        thumbnail,
+        content,
+        background,
+        animations,
+        waypoints,
+        areas,
+        exportPresets,
+        packs,
+        createdAt,
+        updatedAt,
+        painters,
+        tool);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+    TResult? Function(AppDocument document, String folder)? template,
+    TResult? Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
+  }) {
+    return document?.call(
+        name,
+        description,
+        thumbnail,
+        content,
+        background,
+        animations,
+        waypoints,
+        areas,
+        exportPresets,
+        packs,
+        createdAt,
+        updatedAt,
+        painters,
+        tool);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+    TResult Function(AppDocument document, String folder)? template,
+    TResult Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
+    required TResult orElse(),
+  }) {
+    if (document != null) {
+      return document(
+          name,
+          description,
+          thumbnail,
+          content,
+          background,
+          animations,
+          waypoints,
+          areas,
+          exportPresets,
+          packs,
+          createdAt,
+          updatedAt,
+          painters,
+          tool);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AppDocument value) document,
+    required TResult Function(DocumentTemplate value) template,
+    required TResult Function(ButterflyPack value) pack,
+  }) {
+    return document(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AppDocument value)? document,
+    TResult? Function(DocumentTemplate value)? template,
+    TResult? Function(ButterflyPack value)? pack,
+  }) {
+    return document?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AppDocument value)? document,
+    TResult Function(DocumentTemplate value)? template,
+    TResult Function(ButterflyPack value)? pack,
+    required TResult orElse(),
+  }) {
+    if (document != null) {
+      return document(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AppDocumentToJson(
+    return _$$AppDocumentToJson(
       this,
     );
   }
 }
 
-abstract class _AppDocument extends AppDocument {
-  const factory _AppDocument(
+abstract class AppDocument extends NoteData {
+  const factory AppDocument(
       {final String name,
       final String description,
       final String thumbnail,
@@ -665,44 +632,595 @@ abstract class _AppDocument extends AppDocument {
       @DateTimeJsonConverter() required final DateTime createdAt,
       @DateTimeJsonConverter() final DateTime? updatedAt,
       final List<Painter> painters,
-      final ToolOption tool}) = _$_AppDocument;
-  const _AppDocument._() : super._();
+      final ToolOption tool}) = _$AppDocument;
+  const AppDocument._() : super._();
 
-  factory _AppDocument.fromJson(Map<String, dynamic> json) =
-      _$_AppDocument.fromJson;
+  factory AppDocument.fromJson(Map<String, dynamic> json) =
+      _$AppDocument.fromJson;
 
-  @override
   String get name;
-  @override
   String get description;
-  @override
   String get thumbnail;
-  @override
   List<PadElement> get content;
-  @override
   Background get background;
-  @override
   List<AnimationTrack> get animations;
-  @override
   List<Waypoint> get waypoints;
-  @override
   List<Area> get areas;
-  @override
   List<ExportPreset> get exportPresets;
-  @override
   List<ButterflyPack> get packs;
-  @override
   @DateTimeJsonConverter()
   DateTime get createdAt;
-  @override
   @DateTimeJsonConverter()
   DateTime? get updatedAt;
-  @override
   List<Painter> get painters;
-  @override
   ToolOption get tool;
-  @override
   @JsonKey(ignore: true)
-  _$$_AppDocumentCopyWith<_$_AppDocument> get copyWith =>
+  _$$AppDocumentCopyWith<_$AppDocument> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DocumentTemplateCopyWith<$Res> {
+  factory _$$DocumentTemplateCopyWith(
+          _$DocumentTemplate value, $Res Function(_$DocumentTemplate) then) =
+      __$$DocumentTemplateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AppDocument document, String folder});
+}
+
+/// @nodoc
+class __$$DocumentTemplateCopyWithImpl<$Res>
+    extends _$NoteDataCopyWithImpl<$Res, _$DocumentTemplate>
+    implements _$$DocumentTemplateCopyWith<$Res> {
+  __$$DocumentTemplateCopyWithImpl(
+      _$DocumentTemplate _value, $Res Function(_$DocumentTemplate) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? document = freezed,
+    Object? folder = null,
+  }) {
+    return _then(_$DocumentTemplate(
+      document: freezed == document
+          ? _value.document
+          : document // ignore: cast_nullable_to_non_nullable
+              as AppDocument,
+      folder: null == folder
+          ? _value.folder
+          : folder // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$DocumentTemplate extends DocumentTemplate {
+  const _$DocumentTemplate(
+      {required this.document, this.folder = '/', final String? $type})
+      : $type = $type ?? 'template',
+        super._();
+
+  factory _$DocumentTemplate.fromJson(Map<String, dynamic> json) =>
+      _$$DocumentTemplateFromJson(json);
+
+  @override
+  final AppDocument document;
+  @override
+  @JsonKey()
+  final String folder;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'NoteData.template(document: $document, folder: $folder)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DocumentTemplateCopyWith<_$DocumentTemplate> get copyWith =>
+      __$$DocumentTemplateCopyWithImpl<_$DocumentTemplate>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)
+        document,
+    required TResult Function(AppDocument document, String folder) template,
+    required TResult Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)
+        pack,
+  }) {
+    return template(this.document, folder);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+    TResult? Function(AppDocument document, String folder)? template,
+    TResult? Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
+  }) {
+    return template?.call(this.document, folder);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+    TResult Function(AppDocument document, String folder)? template,
+    TResult Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
+    required TResult orElse(),
+  }) {
+    if (template != null) {
+      return template(this.document, folder);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AppDocument value) document,
+    required TResult Function(DocumentTemplate value) template,
+    required TResult Function(ButterflyPack value) pack,
+  }) {
+    return template(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AppDocument value)? document,
+    TResult? Function(DocumentTemplate value)? template,
+    TResult? Function(ButterflyPack value)? pack,
+  }) {
+    return template?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AppDocument value)? document,
+    TResult Function(DocumentTemplate value)? template,
+    TResult Function(ButterflyPack value)? pack,
+    required TResult orElse(),
+  }) {
+    if (template != null) {
+      return template(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DocumentTemplateToJson(
+      this,
+    );
+  }
+}
+
+abstract class DocumentTemplate extends NoteData {
+  const factory DocumentTemplate(
+      {required final AppDocument document,
+      final String folder}) = _$DocumentTemplate;
+  const DocumentTemplate._() : super._();
+
+  factory DocumentTemplate.fromJson(Map<String, dynamic> json) =
+      _$DocumentTemplate.fromJson;
+
+  AppDocument get document;
+  String get folder;
+  @JsonKey(ignore: true)
+  _$$DocumentTemplateCopyWith<_$DocumentTemplate> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ButterflyPackCopyWith<$Res> {
+  factory _$$ButterflyPackCopyWith(
+          _$ButterflyPack value, $Res Function(_$ButterflyPack) then) =
+      __$$ButterflyPackCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {String name,
+      String description,
+      String author,
+      List<ButterflyComponent> components,
+      List<TextStyleSheet> styles,
+      List<ColorPalette> palettes,
+      @DateTimeJsonConverter() DateTime createdAt,
+      @DateTimeJsonConverter() DateTime updatedAt});
+}
+
+/// @nodoc
+class __$$ButterflyPackCopyWithImpl<$Res>
+    extends _$NoteDataCopyWithImpl<$Res, _$ButterflyPack>
+    implements _$$ButterflyPackCopyWith<$Res> {
+  __$$ButterflyPackCopyWithImpl(
+      _$ButterflyPack _value, $Res Function(_$ButterflyPack) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? description = null,
+    Object? author = null,
+    Object? components = null,
+    Object? styles = null,
+    Object? palettes = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+  }) {
+    return _then(_$ButterflyPack(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      author: null == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as String,
+      components: null == components
+          ? _value._components
+          : components // ignore: cast_nullable_to_non_nullable
+              as List<ButterflyComponent>,
+      styles: null == styles
+          ? _value._styles
+          : styles // ignore: cast_nullable_to_non_nullable
+              as List<TextStyleSheet>,
+      palettes: null == palettes
+          ? _value._palettes
+          : palettes // ignore: cast_nullable_to_non_nullable
+              as List<ColorPalette>,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ButterflyPack extends ButterflyPack {
+  const _$ButterflyPack(
+      {this.name = '',
+      this.description = '',
+      this.author = '',
+      final List<ButterflyComponent> components = const <ButterflyComponent>[],
+      final List<TextStyleSheet> styles = const <TextStyleSheet>[],
+      final List<ColorPalette> palettes = const <ColorPalette>[],
+      @DateTimeJsonConverter() required this.createdAt,
+      @DateTimeJsonConverter() required this.updatedAt,
+      final String? $type})
+      : _components = components,
+        _styles = styles,
+        _palettes = palettes,
+        $type = $type ?? 'pack',
+        super._();
+
+  factory _$ButterflyPack.fromJson(Map<String, dynamic> json) =>
+      _$$ButterflyPackFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String description;
+  @override
+  @JsonKey()
+  final String author;
+  final List<ButterflyComponent> _components;
+  @override
+  @JsonKey()
+  List<ButterflyComponent> get components {
+    if (_components is EqualUnmodifiableListView) return _components;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_components);
+  }
+
+  final List<TextStyleSheet> _styles;
+  @override
+  @JsonKey()
+  List<TextStyleSheet> get styles {
+    if (_styles is EqualUnmodifiableListView) return _styles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_styles);
+  }
+
+  final List<ColorPalette> _palettes;
+  @override
+  @JsonKey()
+  List<ColorPalette> get palettes {
+    if (_palettes is EqualUnmodifiableListView) return _palettes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_palettes);
+  }
+
+  @override
+  @DateTimeJsonConverter()
+  final DateTime createdAt;
+  @override
+  @DateTimeJsonConverter()
+  final DateTime updatedAt;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'NoteData.pack(name: $name, description: $description, author: $author, components: $components, styles: $styles, palettes: $palettes, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ButterflyPackCopyWith<_$ButterflyPack> get copyWith =>
+      __$$ButterflyPackCopyWithImpl<_$ButterflyPack>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)
+        document,
+    required TResult Function(AppDocument document, String folder) template,
+    required TResult Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)
+        pack,
+  }) {
+    return pack(name, description, author, components, styles, palettes,
+        createdAt, updatedAt);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+    TResult? Function(AppDocument document, String folder)? template,
+    TResult? Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
+  }) {
+    return pack?.call(name, description, author, components, styles, palettes,
+        createdAt, updatedAt);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String name,
+            String description,
+            String thumbnail,
+            List<PadElement> content,
+            Background background,
+            List<AnimationTrack> animations,
+            List<Waypoint> waypoints,
+            List<Area> areas,
+            List<ExportPreset> exportPresets,
+            List<ButterflyPack> packs,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime? updatedAt,
+            List<Painter> painters,
+            ToolOption tool)?
+        document,
+    TResult Function(AppDocument document, String folder)? template,
+    TResult Function(
+            String name,
+            String description,
+            String author,
+            List<ButterflyComponent> components,
+            List<TextStyleSheet> styles,
+            List<ColorPalette> palettes,
+            @DateTimeJsonConverter() DateTime createdAt,
+            @DateTimeJsonConverter() DateTime updatedAt)?
+        pack,
+    required TResult orElse(),
+  }) {
+    if (pack != null) {
+      return pack(name, description, author, components, styles, palettes,
+          createdAt, updatedAt);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AppDocument value) document,
+    required TResult Function(DocumentTemplate value) template,
+    required TResult Function(ButterflyPack value) pack,
+  }) {
+    return pack(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AppDocument value)? document,
+    TResult? Function(DocumentTemplate value)? template,
+    TResult? Function(ButterflyPack value)? pack,
+  }) {
+    return pack?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AppDocument value)? document,
+    TResult Function(DocumentTemplate value)? template,
+    TResult Function(ButterflyPack value)? pack,
+    required TResult orElse(),
+  }) {
+    if (pack != null) {
+      return pack(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ButterflyPackToJson(
+      this,
+    );
+  }
+}
+
+abstract class ButterflyPack extends NoteData {
+  const factory ButterflyPack(
+          {final String name,
+          final String description,
+          final String author,
+          final List<ButterflyComponent> components,
+          final List<TextStyleSheet> styles,
+          final List<ColorPalette> palettes,
+          @DateTimeJsonConverter() required final DateTime createdAt,
+          @DateTimeJsonConverter() required final DateTime updatedAt}) =
+      _$ButterflyPack;
+  const ButterflyPack._() : super._();
+
+  factory ButterflyPack.fromJson(Map<String, dynamic> json) =
+      _$ButterflyPack.fromJson;
+
+  String get name;
+  String get description;
+  String get author;
+  List<ButterflyComponent> get components;
+  List<TextStyleSheet> get styles;
+  List<ColorPalette> get palettes;
+  @DateTimeJsonConverter()
+  DateTime get createdAt;
+  @DateTimeJsonConverter()
+  DateTime get updatedAt;
+  @JsonKey(ignore: true)
+  _$$ButterflyPackCopyWith<_$ButterflyPack> get copyWith =>
       throw _privateConstructorUsedError;
 }

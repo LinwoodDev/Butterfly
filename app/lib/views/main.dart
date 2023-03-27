@@ -5,11 +5,8 @@ import 'package:butterfly/actions/color_palette.dart';
 import 'package:butterfly/actions/edit_mode.dart';
 import 'package:butterfly/actions/export.dart';
 import 'package:butterfly/actions/image_export.dart';
-import 'package:butterfly/actions/import.dart';
-import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/new.dart';
-import 'package:butterfly/actions/open.dart';
 import 'package:butterfly/actions/pdf_export.dart';
 import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/save.dart';
@@ -23,6 +20,7 @@ import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/embed/embedding.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
@@ -66,14 +64,12 @@ class _ProjectPageState extends State<ProjectPage> {
   DocumentBloc? _bloc;
   TransformCubit? _transformCubit;
   CurrentIndexCubit? _currentIndexCubit;
-  late final ImportService _importService;
+  RemoteStorage? _remote;
   final GlobalKey _viewportKey = GlobalKey();
   final _actions = <Type, Action<Intent>>{
     UndoIntent: UndoAction(),
     RedoIntent: RedoAction(),
     NewIntent: NewAction(),
-    OpenIntent: OpenAction(),
-    ImportIntent: ImportAction(),
     SvgExportIntent: SvgExportAction(),
     ImageExportIntent: ImageExportAction(),
     PdfExportIntent: PdfExportAction(),
@@ -85,7 +81,6 @@ class _ProjectPageState extends State<ProjectPage> {
     ColorPaletteIntent: ColorPaletteAction(),
     BackgroundIntent: BackgroundAction(),
     LayersIntent: LayersAction(),
-    InsertIntent: InsertAction(),
     ChangePathIntent: ChangePathAction(),
     SaveIntent: SaveAction(),
     ChangePainterIntent: ChangePainterAction(),
@@ -118,7 +113,7 @@ class _ProjectPageState extends State<ProjectPage> {
     if (embedding != null) {
       final document = AppDocument(
           createdAt: DateTime.now(),
-          painters: createDefaultPainters(),
+          painters: DocumentDefaults.createPainters(),
           name: '');
       var language = embedding.language;
       if (language == 'system') {
@@ -139,19 +134,17 @@ class _ProjectPageState extends State<ProjectPage> {
           BoxBackgroundRenderer(const BoxBackground()),
           [],
         );
-        _importService = ImportService(_bloc!, context);
         _bloc?.load();
         embedding.handler.register(_bloc!);
       });
       return;
     }
     try {
-      RemoteStorage? remote;
       var location = widget.location;
-      remote = location != null
+      _remote = location != null
           ? settingsCubit.state.getRemote(location.remote)
           : settingsCubit.state.getDefaultRemote();
-      final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
+      final fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
       final prefs = await SharedPreferences.getInstance();
       AppDocument? document;
       if (widget.location != null) {
@@ -172,7 +165,7 @@ class _ProjectPageState extends State<ProjectPage> {
         document = (widget.data as AppDocument).copyWith(name: name);
       }
       if (document == null && prefs.containsKey('default_template')) {
-        var template = await TemplateFileSystem.fromPlatform(remote: remote)
+        var template = await TemplateFileSystem.fromPlatform(remote: _remote)
             .getTemplate(prefs.getString('default_template')!);
         if (template != null && mounted) {
           document = template.document.copyWith(
@@ -187,14 +180,14 @@ class _ProjectPageState extends State<ProjectPage> {
       document ??= AppDocument(
         name: name,
         createdAt: DateTime.now(),
-        painters: createDefaultPainters(),
+        painters: DocumentDefaults.createPainters(),
       );
       final renderers =
           document.content.map((e) => Renderer.fromInstance(e)).toList();
       await Future.wait(renderers.map((e) async => await e.setup(document!)));
       final background = Renderer.fromInstance(document.background);
       await background.setup(document);
-      location ??= AssetLocation(path: '', remote: remote?.identifier ?? '');
+      location ??= AssetLocation(path: '', remote: _remote?.identifier ?? '');
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit =
@@ -202,10 +195,6 @@ class _ProjectPageState extends State<ProjectPage> {
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
             location!, background, renderers);
         _bloc?.load();
-        _importService = ImportService(_bloc!, context);
-        if (widget.type.isNotEmpty) {
-          _importService.load(widget.type, widget.data);
-        }
       });
     } catch (e) {
       if (kDebugMode) {
@@ -244,8 +233,24 @@ class _ProjectPageState extends State<ProjectPage> {
           if (state is DocumentLoadFailure) {
             return ErrorPage(message: state.message);
           }
-          return RepositoryProvider.value(
-            value: _importService,
+          return MultiRepositoryProvider(
+            providers: [
+              RepositoryProvider<DocumentFileSystem>.value(
+                  value: DocumentFileSystem.fromPlatform(remote: _remote)),
+              RepositoryProvider<TemplateFileSystem>.value(
+                  value: TemplateFileSystem.fromPlatform(remote: _remote)),
+              RepositoryProvider<PackFileSystem>.value(
+                  value: PackFileSystem.fromPlatform(remote: _remote)),
+              RepositoryProvider(
+                create: (context) {
+                  final service = ImportService(context, _bloc);
+                  if (widget.type.isNotEmpty) {
+                    service.load(type: widget.type, data: widget.data);
+                  }
+                  return service;
+                },
+              )
+            ],
             child: GestureDetector(
               onTap: () {
                 FocusScopeNode currentFocus = FocusScope.of(context);
@@ -287,9 +292,6 @@ class _ProjectPageState extends State<ProjectPage> {
                           LogicalKeyboardKey.keyA): AreasIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.control,
                           LogicalKeyboardKey.keyL): LayersIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                              LogicalKeyboardKey.alt, LogicalKeyboardKey.keyN):
-                          InsertIntent(context, Offset.zero),
                       LogicalKeySet(LogicalKeyboardKey.escape):
                           ExitIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.arrowRight):
@@ -299,10 +301,6 @@ class _ProjectPageState extends State<ProjectPage> {
                       LogicalKeySet(LogicalKeyboardKey.space):
                           PrimaryIntent(context),
                       if (widget.embedding == null) ...{
-                        LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.keyO): OpenIntent(context),
-                        LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.keyI): ImportIntent(context),
                         LogicalKeySet(LogicalKeyboardKey.control,
                             LogicalKeyboardKey.keyE): ExportIntent(context),
                         LogicalKeySet(

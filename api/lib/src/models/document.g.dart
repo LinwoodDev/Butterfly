@@ -6,20 +6,7 @@ part of 'document.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AssetLocation _$$_AssetLocationFromJson(Map json) => _$_AssetLocation(
-      remote: json['remote'] as String? ?? '',
-      path: json['path'] as String,
-      absolute: json['absolute'] as bool? ?? false,
-    );
-
-Map<String, dynamic> _$$_AssetLocationToJson(_$_AssetLocation instance) =>
-    <String, dynamic>{
-      'remote': instance.remote,
-      'path': instance.path,
-      'absolute': instance.absolute,
-    };
-
-_$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(
+_$AppDocument _$$AppDocumentFromJson(Map json) => _$AppDocument(
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       thumbnail: json['thumbnail'] as String? ?? '',
@@ -68,9 +55,10 @@ _$_AppDocument _$$_AppDocumentFromJson(Map json) => _$_AppDocument(
       tool: json['tool'] == null
           ? const ToolOption()
           : ToolOption.fromJson(Map<String, dynamic>.from(json['tool'] as Map)),
+      $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_AppDocumentToJson(_$_AppDocument instance) =>
+Map<String, dynamic> _$$AppDocumentToJson(_$AppDocument instance) =>
     <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
@@ -87,6 +75,7 @@ Map<String, dynamic> _$$_AppDocumentToJson(_$_AppDocument instance) =>
           instance.updatedAt, const DateTimeJsonConverter().toJson),
       'painters': instance.painters.map((e) => e.toJson()).toList(),
       'tool': instance.tool.toJson(),
+      'type': instance.$type,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(
@@ -100,3 +89,56 @@ Json? _$JsonConverterToJson<Json, Value>(
   Json? Function(Value value) toJson,
 ) =>
     value == null ? null : toJson(value);
+
+_$DocumentTemplate _$$DocumentTemplateFromJson(Map json) => _$DocumentTemplate(
+      document: AppDocument.fromJson(
+          Map<String, dynamic>.from(json['document'] as Map)),
+      folder: json['folder'] as String? ?? '/',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$DocumentTemplateToJson(_$DocumentTemplate instance) =>
+    <String, dynamic>{
+      'document': instance.document.toJson(),
+      'folder': instance.folder,
+      'type': instance.$type,
+    };
+
+_$ButterflyPack _$$ButterflyPackFromJson(Map json) => _$ButterflyPack(
+      name: json['name'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      author: json['author'] as String? ?? '',
+      components: (json['components'] as List<dynamic>?)
+              ?.map((e) => ButterflyComponent.fromJson(
+                  Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const <ButterflyComponent>[],
+      styles: (json['styles'] as List<dynamic>?)
+              ?.map((e) =>
+                  TextStyleSheet.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const <TextStyleSheet>[],
+      palettes: (json['palettes'] as List<dynamic>?)
+              ?.map((e) =>
+                  ColorPalette.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const <ColorPalette>[],
+      createdAt:
+          const DateTimeJsonConverter().fromJson(json['createdAt'] as int),
+      updatedAt:
+          const DateTimeJsonConverter().fromJson(json['updatedAt'] as int),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ButterflyPackToJson(_$ButterflyPack instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'description': instance.description,
+      'author': instance.author,
+      'components': instance.components.map((e) => e.toJson()).toList(),
+      'styles': instance.styles.map((e) => e.toJson()).toList(),
+      'palettes': instance.palettes.map((e) => e.toJson()).toList(),
+      'createdAt': const DateTimeJsonConverter().toJson(instance.createdAt),
+      'updatedAt': const DateTimeJsonConverter().toJson(instance.updatedAt),
+      'type': instance.$type,
+    };

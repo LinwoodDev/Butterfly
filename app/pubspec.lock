@@ -827,10 +827,10 @@ packages:
     dependency: "direct main"
     description:
       name: pdf
-      sha256: "6cd57e8e6d052bd1078f18e0dc7cd6701fad6288231c1ce99d66ef5034d14e61"
+      sha256: "0e41fae3c0d7674ec2d76831f5c582158a018f0ef054f4bea399dab78f78db1b"
       url: "https://pub.dev"
     source: hosted
-    version: "3.9.0"
+    version: "3.10.0"
   perfect_freehand:
     dependency: "direct main"
     description:
@@ -900,10 +900,10 @@ packages:
     dependency: "direct main"
     description:
       name: printing
-      sha256: fe654363cd0114b50a0815b24e96957c7e9a60eb4e3b7ccfe71cf3f2b7114cb2
+      sha256: ccc32aee7998dbeb33d1c820cb445443f3a386ee77866f5df4a7224fa3cee850
       url: "https://pub.dev"
     source: hosted
-    version: "5.10.1"
+    version: "5.10.2"
   process:
     dependency: transitive
     description:

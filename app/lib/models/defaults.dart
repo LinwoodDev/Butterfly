@@ -21,6 +21,14 @@ class DocumentDefaults {
         .toString();
   }
 
+  static List<Painter> createPainters() => [
+        HandPainter(),
+        PenPainter(),
+        PathEraserPainter(),
+        UndoPainter(),
+        RedoPainter()
+      ];
+
   static Future<List<DocumentTemplate>> getDefaults(
       BuildContext context) async {
     return [
@@ -30,7 +38,7 @@ class DocumentDefaults {
               name: AppLocalizations.of(context).light,
               packs: [await getCorePack()],
               createdAt: DateTime.now(),
-              painters: createDefaultPainters(),
+              painters: createPainters(),
               background: BackgroundTemplate.plain.create())),
       DocumentTemplate(
           document: AppDocument(
@@ -38,7 +46,7 @@ class DocumentDefaults {
               name: AppLocalizations.of(context).dark,
               packs: [await getCorePack()],
               createdAt: DateTime.now(),
-              painters: createDefaultPainters(),
+              painters: createPainters(),
               background: BackgroundTemplate.plainDark.create()))
     ];
   }

@@ -144,6 +144,12 @@ class PresentationHandler extends GeneralMoveHandler<PresentationPainter>
       );
 
   @override
+  void dispose(DocumentBloc bloc) {
+    super.dispose(bloc);
+    stop(bloc);
+  }
+
+  @override
   AnimationTrack? getAnimation(DocumentBloc bloc) {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess || _currentAnimation == null) return null;
