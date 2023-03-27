@@ -11,10 +11,10 @@ Der er et par genveje, som du kan bruge i editoren. Nogle af dem er skrevet unde
 * `Ctrl` + `Shift` + `N`: Ny fil fra skabelon
 * `Ctrl` + `O`: Åbn fil
 * `Ctrl` + `I`: Importer fil
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: Eksporter fil
+* `Ctrl` + `Shift` + `E`: Eksporter fil som billede
+* `Ctrl` + `Alt` + `E`: Eksporter fil som svg
+* `Ctrl` + `Alt` + `S`: Åbn indstillinger
 
 ## Projekt
 
@@ -23,12 +23,12 @@ Der er et par genveje, som du kan bruge i editoren. Nogle af dem er skrevet unde
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: Åbn projektindstillinger
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
+* `Ctrl` + `P`: Åbn farvepalet dialog
+* `Ctrl` + `B`: Åbn baggrundsdialog
+* `Ctrl` + `Shift` + `A`: Åbne områder dialog
+* `Ctrl` + `L`: dialogen Åbn lag
+* `Ctrl` + `S`: Gem
+* `Alt` + `S`: Skift sti
 
 ## Stylus
 
