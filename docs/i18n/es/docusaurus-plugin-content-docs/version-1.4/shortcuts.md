@@ -11,10 +11,10 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 * `Ctrl` + `Shift` + `N`: Nuevo archivo de plantilla
 * `Ctrl` + `O`: Abrir archivo
 * `Ctrl` + `I`: Importar archivo
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: Exportar archivo
+* `Ctrl` + `Shift` + `E`: Exportar archivo como imagen
+* `Ctrl` + `Alt` + `E`: Exportar archivo como svg
+* `Ctrl` + `Alt` + `S`: Abrir ajustes
 
 ## Projekt
 
@@ -23,12 +23,12 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: Abrir ajustes del proyecto
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
+* `Ctrl` + `P`: Abrir diálogo de paleta de colores
+* `Ctrl` + `B`: Abrir diálogo de fondo
+* `Ctrl` + `Shift` + `A`: Diálogo de áreas abiertas
+* `Ctrl` + `L`: Diálogo de capas abiertas
+* `Ctrl` + `S`: Guardar
+* `Alt` + `S`: Cambiar ruta
 
 ## Stylus
 
