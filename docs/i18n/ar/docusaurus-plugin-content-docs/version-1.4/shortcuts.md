@@ -11,10 +11,10 @@ sidebar_position: 2
 * `Ctrl` + `Shift` + `N`: ملف جديد من القالب
 * `Ctrl` + `O`: فتح الملف
 * `Ctrl` + `I`: ملف الاستيراد
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: تصدير الملف
+* `Ctrl` + `Shift` + `E`: تصدير الملف كصورة
+* `Ctrl` + `Alt` + `E`: تصدير الملف كـ svg
+* `Ctrl` + `Alt` + `S`: فتح الإعدادات
 
 ## مشروع
 
@@ -23,12 +23,12 @@ sidebar_position: 2
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: فتح إعدادات المشروع
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
+* `Ctrl` + `P`: فتح لوحة حوار الألوان
+* `Ctrl` + `B`: فتح مربع حوار الخلفية
+* `Ctrl` + `Shift` + `A`: حوار المناطق المفتوحة
+* `Ctrl` + `L`: فتح مربع حوار الطبقات
+* `Ctrl` + `S`: حفظ
+* `Alt` + `S`: تغيير المسار
 
 ## Stylus
 
