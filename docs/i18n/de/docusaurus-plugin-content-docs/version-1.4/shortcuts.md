@@ -11,10 +11,10 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `Umschalt` + `N`: Neue Datei aus Vorlage
 * `Strg` + `O`: Datei öffnen
 * `Strg` + `I`: Datei importieren
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Strg` + `E`: Datei exportieren
+* `Strg` + `Shift` + `E`: Datei als Bild exportieren
+* `Strg` + `Alt` + `E`: Datei als svg exportieren
+* `Strg` + `Alt` + `S`: Einstellungen öffnen
 
 ## Projekt
 
@@ -23,12 +23,12 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Strg` + `Alt` + `Umschalt` + `S`: Projekteinstellungen öffnen
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
+* `Strg` + `P`: Farbpalette öffnen
+* `Strg` + `B`: Hintergrunddialog öffnen
+* `Strg` + `Umschalt` + `A`: Öffne Bereiche Dialog
+* `Strg` + `L`: Ebenendialog öffnen
+* `Strg` + `S`: Speichern
+* `Alt` + `S`: Pfad ändern
 
 ## Stylus
 
