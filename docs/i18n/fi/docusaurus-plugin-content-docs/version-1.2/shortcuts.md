@@ -10,10 +10,10 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 * `Ctrl` + `Vaihto` + `N`: Uusi tiedosto mallista
 * `Ctrl` + `O`: Avaa tiedosto
 * `Ctrl` + `I`: Tuontitiedosto
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: Vie tiedosto
+* `Ctrl` + `Shift` + `E`: Vie kuva
+* `Ctrl` + `Alt` + `E`: Vie tiedosto svg
+* `Ctrl` + `Alt` + `S`: Avaa asetukset
 
 ## Projekti
 
@@ -22,7 +22,7 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: Avaa projektin asetukset
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `L`: Open layers dialog
+* `Ctrl` + `P`: Avaa väripaletti valintaikkuna
+* `Ctrl` + `B`: Avaa taustaikkuna
+* `Ctrl` + `L`: Avoimet kerrokset -valintaikkuna
 * `Ctrl` + `S`: Muuta polkua
