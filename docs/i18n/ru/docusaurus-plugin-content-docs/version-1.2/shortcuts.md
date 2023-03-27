@@ -10,10 +10,10 @@ title: Ярлыки
 * `Ctrl` + `Shift` + `N`: Новый файл из шаблона
 * `Ctrl` + `O`: Открыть файл
 * `Ctrl` + `I`: Импорт файла
-* `Ctrl` + `E`: Экспорт файла
-* `Ctrl` + `Shift` + `E`: Экспорт файла как изображения
-* `Ctrl` + `Alt` + `E`: Экспорт файла как svg
-* `Ctrl` + `Alt` + `S`: Открыть настройки
+* `Ctrl` + `E`: Export file
+* `Ctrl` + `Shift` + `E`: Export file as image
+* `Ctrl` + `Alt` + `E`: Export file as svg
+* `Ctrl` + `Alt` + `S`: Open settings
 
 ## Проект
 
@@ -22,7 +22,7 @@ title: Ярлыки
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: Открыть настройки проекта
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Открыть диалог цветовой палитры
-* `Ctrl` + `B`: Открыть фон диалога
-* `Ctrl` + `L`: Открыть диалог слоёв
+* `Ctrl` + `P`: Open color palette dialog
+* `Ctrl` + `B`: Open background dialog
+* `Ctrl` + `L`: Open layers dialog
 * `Ctrl` + `S`: Изменить путь
