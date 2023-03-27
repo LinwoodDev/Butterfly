@@ -14,10 +14,10 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 * `Ctrl` + `Vaihto` + `N`: Uusi tiedosto mallista
 * `Ctrl` + `O`: Avaa tiedosto
 * `Ctrl` + `I`: Tuontitiedosto
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: Vie tiedosto
+* `Ctrl` + `Shift` + `E`: Vie kuva
+* `Ctrl` + `Alt` + `E`: Vie tiedosto svg
+* `Ctrl` + `Alt` + `S`: Avaa asetukset
 
 ### Projekti
 
@@ -26,13 +26,13 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 * `Ctrl` + `Alt` + `N`: Open insert dialog
 * `Ctrl` + `Alt` + `Shift` + `S`: Avaa projektin asetukset
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
-* `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
-* `Ctrl` + (`1` - `0`): Switch to painter
+* `Ctrl` + `P`: Avaa väripaletti valintaikkuna
+* `Ctrl` + `B`: Avaa taustaikkuna
+* `Ctrl` + `Vaihto` + `A`: Avaa alueet -valintaikkuna
+* `Ctrl` + `L`: Avoimet kerrokset -valintaikkuna
+* `Ctrl` + `S`: Tallenna
+* `Alt` + `S`: Muuta polkua
+* `Ctrl` + (`1` - `0`): Vaihda maalariin
 
 ## Stylus
 
