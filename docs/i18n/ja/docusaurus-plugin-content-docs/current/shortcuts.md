@@ -12,23 +12,23 @@ sidebar_position: 2
 
 * `Ctrl` + `N`: 新規ファイル
 * `Ctrl` + `Shift` + `N`: テンプレートから新規ファイル
-* `Ctrl` + `E`: Export file
-* `Ctrl` + `Shift` + `E`: Export file as image
-* `Ctrl` + `Alt` + `E`: Export file as svg
-* `Ctrl` + `Alt` + `S`: Open settings
+* `Ctrl` + `E`: ファイルをエクスポート
+* `Ctrl` + `Shift` + `E`: 画像としてファイルをエクスポート
+* `Ctrl` + `Alt` + `E`: svg としてファイルをエクスポート
+* `Ctrl` + `Alt` + `S`: 設定を開く
 
 ### プロジェクト
 
 * `Ctrl` + `Z`: 元に戻す
 * `Ctrl` + `Y`: 再実行
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
-* `Ctrl` + `P`: Open color palette dialog
-* `Ctrl` + `B`: Open background dialog
-* `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
+* `Ctrl` + `P`: カラーパレットダイアログを開く
+* `Ctrl` + `B`: 背景ダイアログを開く
+* `Ctrl` + `Shift` + `A`: 領域ダイアログを開く
+* `Ctrl` + `L`: レイヤーダイアログを開く
 * `Ctrl` + `S`: Save
-* `Alt` + `S`: Change path
-* `Ctrl` + (`1` - `0`): Switch to painter
+* `Alt` + `S`: パスを変更
+* `Ctrl` + (`1` - `0`): 画家に切り替える
 
 ## Stylus
 
