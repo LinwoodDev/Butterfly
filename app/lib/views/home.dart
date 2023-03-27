@@ -499,6 +499,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                           extra: value),
                       orElse: () {},
                     );
+                    _reloadFileSystem();
                   },
                   child: Text(AppLocalizations.of(context).import),
                 ),

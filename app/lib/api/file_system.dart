@@ -20,6 +20,26 @@ abstract class GeneralFileSystem {
     return '${name.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_')}.bfly';
   }
 
+  Future<String> _findAvailableName(
+      String path, Future<bool> Function(String) hasAsset) async {
+    final slashIndex = path.lastIndexOf('/');
+    var dir = slashIndex < 0 ? '' : path.substring(0, slashIndex);
+    if (dir.isNotEmpty) dir = '$dir/';
+    final dotIndex = path.lastIndexOf('.');
+    var ext = dotIndex < 0 ? '' : path.substring(dotIndex + 1);
+    if (ext.isNotEmpty) ext = '.$ext';
+    var name = dotIndex < 0
+        ? path.substring(dir.length)
+        : path.substring(slashIndex + 1, dotIndex);
+    var newName = name;
+    var i = 1;
+    while (await hasAsset('$dir$newName$ext')) {
+      newName = '$name ($i)';
+      i++;
+    }
+    return '$dir$newName$ext';
+  }
+
   FutureOr<String> getAbsolutePath(String relativePath) async {
     // Convert \ to /
     relativePath = relativePath.replaceAll('\\', '/');
@@ -54,21 +74,8 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
 
   Future<AppDocumentFile> updateFile(String path, List<int> data);
 
-  Future<String> findAvailableName(String path) async {
-    final dir = path.substring(0, path.lastIndexOf('/'));
-    var ext = path.substring(path.lastIndexOf('.') + 1);
-    if (ext.isNotEmpty) ext = '.$ext';
-    final dotIndex = path.lastIndexOf('.');
-    var name =
-        dotIndex < 0 ? '' : path.substring(path.lastIndexOf('/') + 1, dotIndex);
-    var newName = name;
-    var i = 1;
-    while (await hasAsset('$dir/$newName$ext')) {
-      newName = '$name ($i)';
-      i++;
-    }
-    return '$dir/$newName$ext';
-  }
+  Future<String> findAvailableName(String path) =>
+      _findAvailableName(path, hasAsset);
 
   Future<AppDocumentFile> createFile(String path, List<int> data) async =>
       updateFile(await findAvailableName(path), data);
@@ -147,14 +154,12 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
   Future<bool> createDefault(BuildContext context, {bool force = false});
 
   Future<DocumentTemplate?> getTemplate(String name);
-  Future<DocumentTemplate> createTemplate(AppDocument document) async {
-    var template = DocumentTemplate(document: document);
-    var name = document.name;
-    var attemps = 1;
-    while (await hasTemplate(name)) {
-      name = '${document.name} ($attemps)';
-      attemps++;
-    }
+
+  Future<String> findAvailableName(String path) =>
+      _findAvailableName(path, hasTemplate);
+
+  Future<DocumentTemplate> createTemplate(DocumentTemplate template) async {
+    final name = await findAvailableName(template.document.name);
     template =
         template.copyWith(document: template.document.copyWith(name: name));
     updateTemplate(template);
@@ -173,8 +178,8 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
     }
     final template = await getTemplate(path);
     if (template == null) return null;
-    DocumentTemplate? newTemplate =
-        await createTemplate(template.document.copyWith(name: newName));
+    DocumentTemplate? newTemplate = await createTemplate(
+        template.copyWith(document: template.document.copyWith(name: newName)));
     await deleteTemplate(path);
     return newTemplate;
   }
@@ -214,24 +219,14 @@ Archive exportDirectory(AppDocumentDirectory directory) {
 abstract class PackFileSystem extends GeneralFileSystem {
   Future<bool> createDefault(BuildContext context, {bool force = false});
 
+  Future<String> findAvailableName(String path) =>
+      _findAvailableName(path, hasPack);
+
   Future<ButterflyPack?> getPack(String name);
-  Future<ButterflyPack> createPack(
-      {required String name,
-      required String author,
-      required String description}) async {
-    final now = DateTime.now();
-    var newName = name;
-    var attemps = 1;
-    while (await hasPack(newName)) {
-      newName = '$name ($attemps)';
-      attemps++;
-    }
-    final pack = ButterflyPack(
-        name: newName,
-        description: description,
-        author: author,
-        createdAt: now,
-        updatedAt: now);
+
+  Future<ButterflyPack> createPack(ButterflyPack pack) async {
+    final newName = await findAvailableName(pack.name);
+    pack = pack.copyWith(name: newName);
     updatePack(pack);
     return pack;
   }

@@ -133,7 +133,7 @@ class ImportService {
     );
     if (result != true) return null;
     if (context.mounted) {
-      context.read<TemplateFileSystem>().updateTemplate(template);
+      context.read<TemplateFileSystem>().createTemplate(template);
     }
     return template;
   }
@@ -146,7 +146,7 @@ class ImportService {
     );
     if (result != true) return null;
     if (context.mounted) {
-      context.read<PackFileSystem>().updatePack(pack);
+      PackFileSystem.fromPlatform().createPack(pack);
     }
     return pack;
   }

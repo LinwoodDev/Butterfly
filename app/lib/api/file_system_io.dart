@@ -200,7 +200,7 @@ class IOTemplateFileSystem extends TemplateFileSystem {
       }
     }
     await dir.create(recursive: true);
-    await Future.wait(defaults.map((e) => updateTemplate(e)));
+    await Future.wait(defaults.map((e) => createTemplate(e)));
     return true;
   }
 
@@ -365,7 +365,7 @@ class IOPackFileSystem extends PackFileSystem {
       }
     }
     await dir.create(recursive: true);
-    await updatePack(await DocumentDefaults.getCorePack());
+    await createPack(await DocumentDefaults.getCorePack());
     return true;
   }
 }
