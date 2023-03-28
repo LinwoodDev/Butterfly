@@ -93,14 +93,14 @@ Json? _$JsonConverterToJson<Json, Value>(
 _$DocumentTemplate _$$DocumentTemplateFromJson(Map json) => _$DocumentTemplate(
       document: AppDocument.fromJson(
           Map<String, dynamic>.from(json['document'] as Map)),
-      folder: json['folder'] as String? ?? '/',
+      directory: json['directory'] as String? ?? '/',
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$DocumentTemplateToJson(_$DocumentTemplate instance) =>
     <String, dynamic>{
       'document': instance.document.toJson(),
-      'folder': instance.folder,
+      'directory': instance.directory,
       'type': instance.$type,
     };
 

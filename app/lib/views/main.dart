@@ -187,7 +187,8 @@ class _ProjectPageState extends State<ProjectPage> {
       await Future.wait(renderers.map((e) async => await e.setup(document!)));
       final background = Renderer.fromInstance(document.background);
       await background.setup(document);
-      location ??= AssetLocation(path: '', remote: _remote?.identifier ?? '');
+      location ??= AssetLocation(
+          path: widget.location?.path ?? '', remote: _remote?.identifier ?? '');
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit =

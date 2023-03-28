@@ -50,7 +50,7 @@ class NoteData with _$NoteData {
 
   const factory NoteData.template(
       {required AppDocument document,
-      @Default('/') String folder}) = DocumentTemplate;
+      @Default('/') String directory}) = DocumentTemplate;
 
   const factory NoteData.pack({
     @Default('') String name,

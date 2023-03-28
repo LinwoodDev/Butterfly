@@ -5,6 +5,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubits/current_index.dart';
@@ -29,6 +30,8 @@ class NewAction extends Action<NewIntent> {
     final settings = settingsCubit.state;
     final transformCubit = context.read<TransformCubit>();
     final currentIndexCubit = context.read<CurrentIndexCubit>();
+    final router = GoRouter.of(context);
+    var path = '';
     var document = AppDocument(
       name: '',
       createdAt: DateTime.now(),
@@ -55,6 +58,7 @@ class NewAction extends Action<NewIntent> {
       document = template.document.copyWith(
         createdAt: DateTime.now(),
       );
+      path = template.directory;
     } else if (prefs.containsKey('default_template')) {
       var template = await TemplateFileSystem.fromPlatform(remote: remote)
           .getTemplate(prefs.getString('default_template')!);
@@ -64,19 +68,7 @@ class NewAction extends Action<NewIntent> {
         );
       }
     }
-
-    bloc.clearHistory();
-    transformCubit.reset();
-    currentIndexCubit.reset(bloc);
-    final state = DocumentLoadSuccess(
-      document,
-      currentIndexCubit: currentIndexCubit,
-      location: remote == null
-          ? AssetLocation.local('')
-          : AssetLocation(remote: remote.identifier, path: ''),
-      settingsCubit: settingsCubit,
-    );
-    bloc.emit(state);
-    await bloc.load();
+    router.pushReplacementNamed('new',
+        queryParams: {'path': path}, extra: document);
   }
 }

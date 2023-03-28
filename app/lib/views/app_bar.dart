@@ -134,21 +134,24 @@ class _AppBarTitle extends StatelessWidget {
                                   filled: true,
                                   hintText:
                                       AppLocalizations.of(context).untitled,
-                                  helperText: currentIndex.location.path !=
-                                              '' &&
-                                          area == null
-                                      ? ((currentIndex.location.absolute &&
-                                                  currentIndex
-                                                      .location.path.isEmpty)
-                                              ? currentIndex.location.fileType
-                                                  ?.getLocalizedName(context)
-                                              : currentIndex
-                                                  .location.identifier) ??
-                                          AppLocalizations.of(context).document
-                                      : null,
                                 ),
                               ),
                             ),
+                            if (currentIndex.location.path != '' &&
+                                area == null)
+                              Tooltip(
+                                message: currentIndex.location.identifier,
+                                child: Text(
+                                  ((currentIndex.location.absolute &&
+                                              currentIndex
+                                                  .location.path.isEmpty)
+                                          ? currentIndex.location.fileType
+                                              ?.getLocalizedName(context)
+                                          : currentIndex.location.path) ??
+                                      AppLocalizations.of(context).document,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              )
                           ]);
                       return title;
                     }),

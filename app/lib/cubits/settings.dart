@@ -125,10 +125,10 @@ class RemoteStorage with _$RemoteStorage {
   String encodeIdentifier() => base64Encode(utf8.encode(identifier));
 
   Future<String?> getRemotePassword() =>
-      secureStorage.read(key: 'remotes/${encodeIdentifier()}');
+      secureStorage.read(key: 'remote ${encodeIdentifier()}');
 
-  Future<void> writeRemotePassword(String password) => secureStorage.write(
-      key: 'remotes/${encodeIdentifier()}', value: password);
+  Future<void> writeRemotePassword(String password) =>
+      secureStorage.write(key: 'remote ${encodeIdentifier()}', value: password);
 }
 
 enum SyncMode { always, noMobile, manual }

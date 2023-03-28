@@ -54,6 +54,8 @@ class SyncFile {
     }
     return FileSyncStatus.remoteLatest;
   }
+
+  String get path => location.path;
 }
 
 abstract class DavRemoteSystem {
@@ -61,9 +63,8 @@ abstract class DavRemoteSystem {
 
   Future<String> getRemoteCacheDirectory() async {
     var path = await getButterflyDirectory();
-    // Convert \ to /
-    path = path.replaceAll('\\', '/');
-    path = p.join(path, 'Remotes', remote.identifier);
+    path = p.joinAll(
+        [...path.split('/'), 'Remotes', ...remote.identifier.split('/')]);
     return path;
   }
 
@@ -211,6 +212,10 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
   final http.Client client = http.Client();
   Future<http.StreamedResponse> _createRequest(List<String> path,
       {String method = 'GET', List<int>? body}) async {
+    path = List<String>.from(path);
+    if (path.firstOrNull?.isEmpty ?? false) {
+      path.removeAt(0);
+    }
     final url = remote.buildDocumentsUri(path: path);
     final request = http.Request(method, url);
     if (body != null) {
@@ -328,9 +333,9 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     if (response.statusCode != 200) {
       throw Exception('Failed to get asset: ${response.statusCode}');
     }
-    content = await response.stream.bytesToString();
-    return AppDocumentFile(AssetLocation(remote: remote.identifier, path: path),
-        json.decode(content));
+    var fileContent = await response.stream.toBytes();
+    return AppDocumentFile(
+        AssetLocation(remote: remote.identifier, path: path), fileContent);
   }
 
   @override
@@ -372,6 +377,11 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       cacheContent(path, data);
       return AppDocumentFile(
           AssetLocation(remote: remote.identifier, path: path), data);
+    }
+    // Create directory if not exists
+    final directoryPath = path.substring(0, path.lastIndexOf('/'));
+    if (!await hasAsset(directoryPath)) {
+      await createDirectory(directoryPath);
     }
     final response =
         await _createRequest(path.split('/'), method: 'PUT', body: data);
@@ -452,9 +462,13 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
 
   @override
   Future<AppDocumentFile> importDocument(AppDocument document,
-          {String path = '/', bool forceSync = false}) =>
-      createFile('$path/${document.name}', document.save(),
-          forceSync: forceSync);
+      {String path = '', bool forceSync = false}) {
+    if (path.endsWith('/')) {
+      path = path.substring(0, path.length - 1);
+    }
+    return createFile('$path/${document.name}.bfly', document.save(),
+        forceSync: forceSync);
+  }
 
   @override
   Future<AppDocumentFile> createFile(String path, List<int> data,

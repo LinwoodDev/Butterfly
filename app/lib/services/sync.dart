@@ -63,6 +63,7 @@ class SyncService {
     for (final remote in settings.remotes) {
       if (!_hasSync(remote.identifier)) _createSync(remote.identifier);
     }
+    _refreshStatus();
   }
 
   void _refreshStatus() {
@@ -172,6 +173,7 @@ class RemoteSync {
           }
           break;
         case FileSyncStatus.synced:
+          files.add(file);
           break;
         case FileSyncStatus.conflict:
           _statusSubject.add(SyncStatus.error);
@@ -181,8 +183,8 @@ class RemoteSync {
           files.add(file);
           break;
       }
-      _filesSubject.add(files);
     }
+    _filesSubject.add(files);
     if (status != SyncStatus.error) {
       await _updateLastSynced();
       _statusSubject.add(SyncStatus.synced);
