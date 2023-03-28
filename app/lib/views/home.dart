@@ -2,15 +2,19 @@ import 'dart:convert';
 
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/api/file_system_remote.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/export.dart';
 import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/helpers/element_helper.dart';
 import 'package:butterfly/services/import.dart';
+import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/visualizer/asset.dart';
+import 'package:butterfly/visualizer/sync.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +26,7 @@ import 'package:popover/popover.dart';
 
 import '../api/open_release_notes.dart';
 import '../dialogs/file_system/move.dart';
+import '../dialogs/file_system/sync.dart';
 import '../dialogs/import.dart';
 
 class HomePage extends StatefulWidget {
@@ -389,7 +394,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                       width: 200,
                       child: BlocBuilder<SettingsCubit, ButterflySettings>(
                           builder: (context, state) {
-                        return DropdownButtonFormField<RemoteStorage?>(
+                        return DropdownButtonFormField<String?>(
                           items: [
                             DropdownMenuItem(
                               value: null,
@@ -397,7 +402,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                             ),
                             ...state.remotes
                                 .map((e) => DropdownMenuItem(
-                                      value: e,
+                                      value: e.identifier,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -416,11 +421,18 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                                 overflow: TextOverflow.ellipsis))
                           ],
                           borderRadius: BorderRadius.circular(16),
-                          value: _remote,
-                          onChanged: _setRemote,
+                          value: _remote?.identifier,
+                          onChanged: (value) => _setRemote(
+                              value == null ? null : state.getRemote(value)),
                         );
                       }),
                     ),
+                    BlocBuilder<SettingsCubit, ButterflySettings>(
+                        buildWhen: (previous, current) =>
+                            previous.remotes != current.remotes,
+                        builder: (context, state) => state.remotes.isEmpty
+                            ? const SizedBox.shrink()
+                            : const SyncButton()),
                   ],
                 ),
                 Row(
@@ -882,6 +894,32 @@ class _FileEntityListTile extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+                          if (remote != null)
+                            StreamBuilder<List<SyncFile>>(
+                              stream: context
+                                  .read<SyncService>()
+                                  .getSync(remote.identifier)
+                                  ?.filesStream,
+                              builder: (context, snapshot) {
+                                final currentStatus = snapshot.data
+                                    ?.lastWhereOrNull((element) => entity
+                                        .location.pathWithLeadingSlash
+                                        .startsWith(element
+                                            .location.pathWithLeadingSlash))
+                                    ?.status;
+                                return IconButton(
+                                  icon: Icon(currentStatus.getIcon()),
+                                  tooltip:
+                                      currentStatus.getLocalizedName(context),
+                                  onPressed: () {
+                                    context
+                                        .read<SyncService>()
+                                        .getSync(remote.identifier)
+                                        ?.sync();
+                                  },
+                                );
+                              },
+                            ),
                           BlocBuilder<SettingsCubit, ButterflySettings>(
                               builder: (context, state) {
                             final starred = state.isStarred(entity.location);

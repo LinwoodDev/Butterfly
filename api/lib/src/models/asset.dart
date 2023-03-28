@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'converter.dart';
 import 'document.dart';
 
 part 'asset.freezed.dart';
@@ -138,7 +139,7 @@ class DocumentInfo with _$DocumentInfo {
       ? null
       : DateTime.fromMillisecondsSinceEpoch(data['createdAt']);
 
-  AppDocument load() => AppDocument.fromJson(data);
+  AppDocument load() => DocumentJsonConverter().fromJson(data);
 
   String get dataAsString => jsonEncode(json);
 }

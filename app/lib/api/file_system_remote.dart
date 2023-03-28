@@ -54,6 +54,8 @@ class SyncFile {
     }
     return FileSyncStatus.remoteLatest;
   }
+
+  String get path => location.path;
 }
 
 abstract class DavRemoteSystem {
@@ -61,9 +63,8 @@ abstract class DavRemoteSystem {
 
   Future<String> getRemoteCacheDirectory() async {
     var path = await getButterflyDirectory();
-    // Convert \ to /
-    path = path.replaceAll('\\', '/');
-    path = p.join(path, 'Remotes', remote.identifier);
+    path = p.joinAll(
+        [...path.split('/'), 'Remotes', ...remote.identifier.split('/')]);
     return path;
   }
 
@@ -328,9 +329,9 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     if (response.statusCode != 200) {
       throw Exception('Failed to get asset: ${response.statusCode}');
     }
-    content = await response.stream.bytesToString();
-    return AppDocumentFile(AssetLocation(remote: remote.identifier, path: path),
-        json.decode(content));
+    var fileContent = await response.stream.toBytes();
+    return AppDocumentFile(
+        AssetLocation(remote: remote.identifier, path: path), fileContent);
   }
 
   @override
