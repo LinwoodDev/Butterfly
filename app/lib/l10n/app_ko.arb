@@ -485,5 +485,7 @@
   "whatsNew": "What's new?",
   "unstar": "Unstar",
   "star": "Star",
-  "goUp": "Go up"
+  "goUp": "Go up",
+  "created": "Created",
+  "modified": "Modified"
 }
