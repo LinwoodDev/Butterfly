@@ -774,6 +774,7 @@ class _FileEntityListTile extends StatelessWidget {
     final settingsCubit = context.read<SettingsCubit>();
     final remote = settingsCubit.getRemote(entity.location.remote);
     final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
+    final syncService = context.read<SyncService>();
     DocumentInfo? info;
     String? modifiedText, createdText;
     IconData icon = PhosphorIcons.folderLight;
@@ -896,8 +897,7 @@ class _FileEntityListTile extends StatelessWidget {
                         children: [
                           if (remote != null)
                             StreamBuilder<List<SyncFile>>(
-                              stream: context
-                                  .read<SyncService>()
+                              stream: syncService
                                   .getSync(remote.identifier)
                                   ?.filesStream,
                               builder: (context, snapshot) {
@@ -908,12 +908,13 @@ class _FileEntityListTile extends StatelessWidget {
                                             .location.pathWithLeadingSlash))
                                     ?.status;
                                 return IconButton(
-                                  icon: Icon(currentStatus.getIcon()),
+                                  icon: Icon(currentStatus.getIcon(),
+                                      color: currentStatus.getColor(
+                                          Theme.of(context).colorScheme)),
                                   tooltip:
                                       currentStatus.getLocalizedName(context),
                                   onPressed: () {
-                                    context
-                                        .read<SyncService>()
+                                    syncService
                                         .getSync(remote.identifier)
                                         ?.sync();
                                   },

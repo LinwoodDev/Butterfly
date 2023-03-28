@@ -39,6 +39,23 @@ extension FileSyncStatusVisualizer on FileSyncStatus? {
         return PhosphorIcons.arrowClockwiseLight;
     }
   }
+
+  Color getColor(ColorScheme colorScheme) {
+    switch (this) {
+      case FileSyncStatus.synced:
+        return colorScheme.primary;
+      case FileSyncStatus.localLatest:
+        return colorScheme.secondary;
+      case FileSyncStatus.remoteLatest:
+        return colorScheme.tertiary;
+      case FileSyncStatus.conflict:
+        return colorScheme.error;
+      case FileSyncStatus.offline:
+        return colorScheme.onSurface;
+      default:
+        return colorScheme.onSurface;
+    }
+  }
 }
 
 extension SyncStatusVisualizer on SyncStatus? {
@@ -65,6 +82,19 @@ extension SyncStatusVisualizer on SyncStatus? {
         return PhosphorIcons.warningLight;
       default:
         return PhosphorIcons.arrowClockwiseLight;
+    }
+  }
+
+  Color getColor(ColorScheme colorScheme) {
+    switch (this) {
+      case SyncStatus.syncing:
+        return colorScheme.onSurface;
+      case SyncStatus.synced:
+        return colorScheme.primary;
+      case SyncStatus.error:
+        return colorScheme.error;
+      default:
+        return colorScheme.onSurface;
     }
   }
 }
