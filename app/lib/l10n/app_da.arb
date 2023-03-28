@@ -485,5 +485,7 @@
   "whatsNew": "Hvad er nyt?",
   "unstar": "Unstar",
   "star": "Stjerne",
-  "goUp": "Gå op"
+  "goUp": "Gå op",
+  "created": "Oprettet",
+  "modified": "Ændret"
 }
