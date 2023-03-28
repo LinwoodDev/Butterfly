@@ -428,11 +428,12 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                       }),
                     ),
                     BlocBuilder<SettingsCubit, ButterflySettings>(
-                        buildWhen: (previous, current) =>
-                            previous.remotes != current.remotes,
-                        builder: (context, state) => state.remotes.isEmpty
-                            ? const SizedBox.shrink()
-                            : const SyncButton()),
+                      buildWhen: (previous, current) =>
+                          previous.remotes != current.remotes,
+                      builder: (context, state) => state.remotes.isEmpty
+                          ? const SizedBox.shrink()
+                          : const SyncButton(),
+                    ),
                   ],
                 ),
                 Row(
@@ -1180,7 +1181,7 @@ class _QuickstartHomeView extends StatelessWidget {
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Text(
-            'Quickstart',
+            AppLocalizations.of(context).quickstart,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(height: 16),
@@ -1220,6 +1221,9 @@ class _QuickstartHomeView extends StatelessWidget {
                                       child: InkWell(
                                         onTap: () => GoRouter.of(context)
                                             .pushNamed('new',
+                                                queryParams: {
+                                                  'path': e.directory
+                                                },
                                                 extra: e.document),
                                         child: Stack(
                                           children: [

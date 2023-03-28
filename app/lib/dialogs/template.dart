@@ -169,12 +169,29 @@ class _TemplateDialogState extends State<TemplateDialog> {
   }
 
   Future<void> _showCreateDialog(AppDocument document) {
+    final directoryController = TextEditingController();
     return showDialog<void>(
         context: context,
         builder: (context) {
           return AlertDialog(
             title: Text(AppLocalizations.of(context).createTemplate),
-            content: Text(AppLocalizations.of(context).createTemplateContent),
+            scrollable: true,
+            content: SizedBox(
+              width: 500,
+              child: Column(
+                children: [
+                  Text(AppLocalizations.of(context).createTemplateContent),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: directoryController,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).directory,
+                      filled: true,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             actions: <Widget>[
               TextButton(
                 child: Text(AppLocalizations.of(context).cancel),
@@ -183,10 +200,9 @@ class _TemplateDialogState extends State<TemplateDialog> {
               ElevatedButton(
                 child: Text(AppLocalizations.of(context).create),
                 onPressed: () async {
-                  this
-                      .context
-                      .read<DocumentBloc>()
-                      .add(const TemplateCreated());
+                  this.context.read<DocumentBloc>().add(TemplateCreated(
+                        directory: directoryController.text,
+                      ));
                   Navigator.of(context).pop();
                   load();
                   setState(() {});

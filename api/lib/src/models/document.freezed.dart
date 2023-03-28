@@ -49,7 +49,7 @@ mixin _$NoteData {
             List<Painter> painters,
             ToolOption tool)
         document,
-    required TResult Function(AppDocument document, String folder) template,
+    required TResult Function(AppDocument document, String directory) template,
     required TResult Function(
             String name,
             String description,
@@ -80,7 +80,7 @@ mixin _$NoteData {
             List<Painter> painters,
             ToolOption tool)?
         document,
-    TResult? Function(AppDocument document, String folder)? template,
+    TResult? Function(AppDocument document, String directory)? template,
     TResult? Function(
             String name,
             String description,
@@ -111,7 +111,7 @@ mixin _$NoteData {
             List<Painter> painters,
             ToolOption tool)?
         document,
-    TResult Function(AppDocument document, String folder)? template,
+    TResult Function(AppDocument document, String directory)? template,
     TResult Function(
             String name,
             String description,
@@ -446,7 +446,7 @@ class _$AppDocument extends AppDocument {
             List<Painter> painters,
             ToolOption tool)
         document,
-    required TResult Function(AppDocument document, String folder) template,
+    required TResult Function(AppDocument document, String directory) template,
     required TResult Function(
             String name,
             String description,
@@ -494,7 +494,7 @@ class _$AppDocument extends AppDocument {
             List<Painter> painters,
             ToolOption tool)?
         document,
-    TResult? Function(AppDocument document, String folder)? template,
+    TResult? Function(AppDocument document, String directory)? template,
     TResult? Function(
             String name,
             String description,
@@ -542,7 +542,7 @@ class _$AppDocument extends AppDocument {
             List<Painter> painters,
             ToolOption tool)?
         document,
-    TResult Function(AppDocument document, String folder)? template,
+    TResult Function(AppDocument document, String directory)? template,
     TResult Function(
             String name,
             String description,
@@ -665,7 +665,7 @@ abstract class _$$DocumentTemplateCopyWith<$Res> {
           _$DocumentTemplate value, $Res Function(_$DocumentTemplate) then) =
       __$$DocumentTemplateCopyWithImpl<$Res>;
   @useResult
-  $Res call({AppDocument document, String folder});
+  $Res call({AppDocument document, String directory});
 }
 
 /// @nodoc
@@ -680,16 +680,16 @@ class __$$DocumentTemplateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? document = freezed,
-    Object? folder = null,
+    Object? directory = null,
   }) {
     return _then(_$DocumentTemplate(
       document: freezed == document
           ? _value.document
           : document // ignore: cast_nullable_to_non_nullable
               as AppDocument,
-      folder: null == folder
-          ? _value.folder
-          : folder // ignore: cast_nullable_to_non_nullable
+      directory: null == directory
+          ? _value.directory
+          : directory // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -699,7 +699,7 @@ class __$$DocumentTemplateCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DocumentTemplate extends DocumentTemplate {
   const _$DocumentTemplate(
-      {required this.document, this.folder = '/', final String? $type})
+      {required this.document, this.directory = '/', final String? $type})
       : $type = $type ?? 'template',
         super._();
 
@@ -710,14 +710,14 @@ class _$DocumentTemplate extends DocumentTemplate {
   final AppDocument document;
   @override
   @JsonKey()
-  final String folder;
+  final String directory;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'NoteData.template(document: $document, folder: $folder)';
+    return 'NoteData.template(document: $document, directory: $directory)';
   }
 
   @JsonKey(ignore: true)
@@ -745,7 +745,7 @@ class _$DocumentTemplate extends DocumentTemplate {
             List<Painter> painters,
             ToolOption tool)
         document,
-    required TResult Function(AppDocument document, String folder) template,
+    required TResult Function(AppDocument document, String directory) template,
     required TResult Function(
             String name,
             String description,
@@ -757,7 +757,7 @@ class _$DocumentTemplate extends DocumentTemplate {
             @DateTimeJsonConverter() DateTime updatedAt)
         pack,
   }) {
-    return template(this.document, folder);
+    return template(this.document, directory);
   }
 
   @override
@@ -779,7 +779,7 @@ class _$DocumentTemplate extends DocumentTemplate {
             List<Painter> painters,
             ToolOption tool)?
         document,
-    TResult? Function(AppDocument document, String folder)? template,
+    TResult? Function(AppDocument document, String directory)? template,
     TResult? Function(
             String name,
             String description,
@@ -791,7 +791,7 @@ class _$DocumentTemplate extends DocumentTemplate {
             @DateTimeJsonConverter() DateTime updatedAt)?
         pack,
   }) {
-    return template?.call(this.document, folder);
+    return template?.call(this.document, directory);
   }
 
   @override
@@ -813,7 +813,7 @@ class _$DocumentTemplate extends DocumentTemplate {
             List<Painter> painters,
             ToolOption tool)?
         document,
-    TResult Function(AppDocument document, String folder)? template,
+    TResult Function(AppDocument document, String directory)? template,
     TResult Function(
             String name,
             String description,
@@ -827,7 +827,7 @@ class _$DocumentTemplate extends DocumentTemplate {
     required TResult orElse(),
   }) {
     if (template != null) {
-      return template(this.document, folder);
+      return template(this.document, directory);
     }
     return orElse();
   }
@@ -877,14 +877,14 @@ class _$DocumentTemplate extends DocumentTemplate {
 abstract class DocumentTemplate extends NoteData {
   const factory DocumentTemplate(
       {required final AppDocument document,
-      final String folder}) = _$DocumentTemplate;
+      final String directory}) = _$DocumentTemplate;
   const DocumentTemplate._() : super._();
 
   factory DocumentTemplate.fromJson(Map<String, dynamic> json) =
       _$DocumentTemplate.fromJson;
 
   AppDocument get document;
-  String get folder;
+  String get directory;
   @JsonKey(ignore: true)
   _$$DocumentTemplateCopyWith<_$DocumentTemplate> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1062,7 +1062,7 @@ class _$ButterflyPack extends ButterflyPack {
             List<Painter> painters,
             ToolOption tool)
         document,
-    required TResult Function(AppDocument document, String folder) template,
+    required TResult Function(AppDocument document, String directory) template,
     required TResult Function(
             String name,
             String description,
@@ -1097,7 +1097,7 @@ class _$ButterflyPack extends ButterflyPack {
             List<Painter> painters,
             ToolOption tool)?
         document,
-    TResult? Function(AppDocument document, String folder)? template,
+    TResult? Function(AppDocument document, String directory)? template,
     TResult? Function(
             String name,
             String description,
@@ -1132,7 +1132,7 @@ class _$ButterflyPack extends ButterflyPack {
             List<Painter> painters,
             ToolOption tool)?
         document,
-    TResult Function(AppDocument document, String folder)? template,
+    TResult Function(AppDocument document, String directory)? template,
     TResult Function(
             String name,
             String description,

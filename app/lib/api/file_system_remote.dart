@@ -212,6 +212,10 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
   final http.Client client = http.Client();
   Future<http.StreamedResponse> _createRequest(List<String> path,
       {String method = 'GET', List<int>? body}) async {
+    path = List<String>.from(path);
+    if (path.firstOrNull?.isEmpty ?? false) {
+      path.removeAt(0);
+    }
     final url = remote.buildDocumentsUri(path: path);
     final request = http.Request(method, url);
     if (body != null) {
@@ -374,6 +378,11 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       return AppDocumentFile(
           AssetLocation(remote: remote.identifier, path: path), data);
     }
+    // Create directory if not exists
+    final directoryPath = path.substring(0, path.lastIndexOf('/'));
+    if (!await hasAsset(directoryPath)) {
+      await createDirectory(directoryPath);
+    }
     final response =
         await _createRequest(path.split('/'), method: 'PUT', body: data);
     if (response.statusCode != 201 && response.statusCode != 204) {
@@ -453,9 +462,13 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
 
   @override
   Future<AppDocumentFile> importDocument(AppDocument document,
-          {String path = '/', bool forceSync = false}) =>
-      createFile('$path/${document.name}', document.save(),
-          forceSync: forceSync);
+      {String path = '', bool forceSync = false}) {
+    if (path.endsWith('/')) {
+      path = path.substring(0, path.length - 1);
+    }
+    return createFile('$path/${document.name}.bfly', document.save(),
+        forceSync: forceSync);
+  }
 
   @override
   Future<AppDocumentFile> createFile(String path, List<int> data,

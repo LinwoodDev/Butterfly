@@ -199,8 +199,14 @@ class ButterflyApp extends StatelessWidget {
                   name: 'new',
                   path: 'new',
                   builder: (context, state) {
+                    final defaultRemote =
+                        context.read<SettingsCubit>().state.defaultRemote;
                     return ProjectPage(
                       data: state.extra,
+                      location: AssetLocation(
+                        remote: defaultRemote,
+                        path: state.queryParams['path'] ?? '',
+                      ),
                     );
                   },
                 ),

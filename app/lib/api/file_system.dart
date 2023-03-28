@@ -145,7 +145,9 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
 
   Future<AppDocumentFile> importDocument(AppDocument document,
       {String path = '/'}) {
-    if (path == '/') path = '';
+    if (path.endsWith('/')) {
+      path = path.substring(0, path.length - 1);
+    }
     return createFile('$path/${document.name}.bfly', document.save());
   }
 }

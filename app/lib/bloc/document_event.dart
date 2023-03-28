@@ -201,9 +201,13 @@ class ElementsLayerChanged extends DocumentEvent {
 }
 
 class TemplateCreated extends DocumentEvent {
+  final String directory;
   final bool deleteDocument;
 
-  const TemplateCreated({this.deleteDocument = true});
+  const TemplateCreated({
+    this.deleteDocument = true,
+    this.directory = '',
+  });
 
   @override
   List<Object?> get props => [deleteDocument];
