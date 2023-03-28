@@ -485,5 +485,7 @@
   "whatsNew": "Mitä uutta?",
   "unstar": "Poista",
   "star": "Tähti",
-  "goUp": "Mene ylös"
+  "goUp": "Mene ylös",
+  "created": "Luotu",
+  "modified": "Muokattu"
 }
