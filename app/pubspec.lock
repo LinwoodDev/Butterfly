@@ -562,10 +562,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "432409518740645ce7f28802171b78783197d01149fad44f9b8ae55f40277139"
+      sha256: "7f25c4bb371b74b6f32f74946707db4595fa66e68ddc7f0da4a4dafb18a21480"
       url: "https://pub.dev"
     source: hosted
-    version: "6.5.0"
+    version: "6.5.1"
   graphs:
     dependency: transitive
     description:
@@ -795,10 +795,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_foundation
-      sha256: "12eee51abdf4d34c590f043f45073adbb45514a108bd9db4491547a2fd891059"
+      sha256: "818b2dc38b0f178e0ea3f7cf3b28146faab11375985d815942a68eee11c2d0f7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.2.1"
   path_provider_linux:
     dependency: transitive
     description:
@@ -900,10 +900,10 @@ packages:
     dependency: "direct main"
     description:
       name: printing
-      sha256: ccc32aee7998dbeb33d1c820cb445443f3a386ee77866f5df4a7224fa3cee850
+      sha256: c5c19dd852e95aa140141df13fa304f079a20c4a14a66de5275a0f811240aeec
       url: "https://pub.dev"
     source: hosted
-    version: "5.10.2"
+    version: "5.10.3"
   process:
     dependency: transitive
     description:

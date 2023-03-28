@@ -358,108 +358,107 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
     final index = _locationController.text.lastIndexOf('/');
     final parent = _locationController.text.substring(0, index < 0 ? 0 : index);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      Row(
+      Wrap(
+        alignment: WrapAlignment.spaceBetween,
+        runAlignment: WrapAlignment.spaceBetween,
+        runSpacing: 16,
+        spacing: 16,
         children: [
           Text(
             AppLocalizations.of(context).files,
             style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.start,
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Wrap(
-              alignment: WrapAlignment.spaceBetween,
-              runAlignment: WrapAlignment.spaceBetween,
-              runSpacing: 16,
-              spacing: 16,
-              children: [
-                /*Row(
-            mainAxisSize: MainAxisSize.min,
+          Wrap(
+            runSpacing: 16,
+            spacing: 16,
             children: [
-              const Text('Switch view'),
-              IconButton(
-                onPressed: () => setState(() => _gridView = !_gridView),
-                icon: _gridView
-                    ? const Icon(PhosphorIcons.listLight)
-                    : const Icon(PhosphorIcons.gridFourLight),
+              /*Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Switch view'),
+            IconButton(
+              onPressed: () => setState(() => _gridView = !_gridView),
+              icon: _gridView
+                  ? const Icon(PhosphorIcons.listLight)
+                  : const Icon(PhosphorIcons.gridFourLight),
+            ),
+          ],
+          ),*/
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(AppLocalizations.of(context).source),
+                  const SizedBox(width: 8),
+                  SizedBox(
+                    width: 200,
+                    child: BlocBuilder<SettingsCubit, ButterflySettings>(
+                        builder: (context, state) {
+                      return DropdownButtonFormField<String?>(
+                        items: [
+                          DropdownMenuItem(
+                            value: null,
+                            child: Text(AppLocalizations.of(context).local),
+                          ),
+                          ...state.remotes
+                              .map((e) => DropdownMenuItem(
+                                    value: e.identifier,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(e.uri.host),
+                                        Text(e.username),
+                                      ],
+                                    ),
+                                  ))
+                              .toList(),
+                        ],
+                        itemHeight: 50,
+                        selectedItemBuilder: (context) => [
+                          Text(AppLocalizations.of(context).local),
+                          ...state.remotes.map((e) =>
+                              Text(e.uri.host, overflow: TextOverflow.ellipsis))
+                        ],
+                        borderRadius: BorderRadius.circular(16),
+                        value: _remote?.identifier,
+                        onChanged: (value) => _setRemote(
+                            value == null ? null : state.getRemote(value)),
+                      );
+                    }),
+                  ),
+                  BlocBuilder<SettingsCubit, ButterflySettings>(
+                    buildWhen: (previous, current) =>
+                        previous.remotes != current.remotes,
+                    builder: (context, state) => state.remotes.isEmpty
+                        ? const SizedBox.shrink()
+                        : const SyncButton(),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(AppLocalizations.of(context).sortBy),
+                  const SizedBox(width: 8),
+                  SizedBox(
+                    width: 150,
+                    child: DropdownButtonFormField<_SortBy>(
+                      items: _SortBy.values
+                          .map((e) => DropdownMenuItem(
+                                value: e,
+                                child: Text(getLocalizedNameOfSortBy(e)),
+                              ))
+                          .toList(),
+                      borderRadius: BorderRadius.circular(16),
+                      value: _sortBy,
+                      onChanged: (value) =>
+                          setState(() => _sortBy = value ?? _sortBy),
+                    ),
+                  ),
+                ],
               ),
             ],
-          ),*/
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(AppLocalizations.of(context).source),
-                    const SizedBox(width: 8),
-                    SizedBox(
-                      width: 200,
-                      child: BlocBuilder<SettingsCubit, ButterflySettings>(
-                          builder: (context, state) {
-                        return DropdownButtonFormField<String?>(
-                          items: [
-                            DropdownMenuItem(
-                              value: null,
-                              child: Text(AppLocalizations.of(context).local),
-                            ),
-                            ...state.remotes
-                                .map((e) => DropdownMenuItem(
-                                      value: e.identifier,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(e.uri.host),
-                                          Text(e.username),
-                                        ],
-                                      ),
-                                    ))
-                                .toList(),
-                          ],
-                          itemHeight: 50,
-                          selectedItemBuilder: (context) => [
-                            Text(AppLocalizations.of(context).local),
-                            ...state.remotes.map((e) => Text(e.uri.host,
-                                overflow: TextOverflow.ellipsis))
-                          ],
-                          borderRadius: BorderRadius.circular(16),
-                          value: _remote?.identifier,
-                          onChanged: (value) => _setRemote(
-                              value == null ? null : state.getRemote(value)),
-                        );
-                      }),
-                    ),
-                    BlocBuilder<SettingsCubit, ButterflySettings>(
-                      buildWhen: (previous, current) =>
-                          previous.remotes != current.remotes,
-                      builder: (context, state) => state.remotes.isEmpty
-                          ? const SizedBox.shrink()
-                          : const SyncButton(),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(AppLocalizations.of(context).sortBy),
-                    const SizedBox(width: 8),
-                    SizedBox(
-                      width: 150,
-                      child: DropdownButtonFormField<_SortBy>(
-                        items: _SortBy.values
-                            .map((e) => DropdownMenuItem(
-                                  value: e,
-                                  child: Text(getLocalizedNameOfSortBy(e)),
-                                ))
-                            .toList(),
-                        borderRadius: BorderRadius.circular(16),
-                        value: _sortBy,
-                        onChanged: (value) =>
-                            setState(() => _sortBy = value ?? _sortBy),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
           ),
         ],
       ),
