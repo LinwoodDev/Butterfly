@@ -485,5 +485,7 @@
   "whatsNew": "Co je nového?",
   "unstar": "Odebrat z oblíbených",
   "star": "Hvězda",
-  "goUp": "Přejít nahoru"
+  "goUp": "Přejít nahoru",
+  "created": "Vytvořeno",
+  "modified": "Upraveno"
 }
