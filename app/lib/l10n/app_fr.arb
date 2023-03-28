@@ -485,5 +485,7 @@
   "whatsNew": "Quoi de neuf ?",
   "unstar": "Retirer des favoris",
   "star": "Étoiles",
-  "goUp": "Monter"
+  "goUp": "Monter",
+  "created": "Créé",
+  "modified": "Modifié"
 }
