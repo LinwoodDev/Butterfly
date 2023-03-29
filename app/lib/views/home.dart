@@ -672,27 +672,17 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                     }
                     final location = entity.location;
                     if (location.remote != '') {
-                      final uri = Uri(pathSegments: [
-                        '',
-                        'remote',
-                        Uri.encodeComponent(location.remote),
-                        ...location.pathWithoutLeadingSlash
-                            .split('/')
-                            .map((e) => Uri.encodeComponent(e)),
-                      ]).toString();
-
-                      GoRouter.of(context).push(uri);
+                      GoRouter.of(context).pushNamed('remote', params: {
+                        'remote': location.remote,
+                        'path': location.pathWithoutLeadingSlash,
+                      });
                       return;
                     }
-                    GoRouter.of(context).push(Uri(
-                      pathSegments: [
-                        '',
-                        'local',
-                        ...location.pathWithoutLeadingSlash
-                            .split('/')
-                            .map((e) => Uri.encodeComponent(e)),
-                      ],
-                    ).toString());
+                    GoRouter.of(context).pushNamed('local',
+                        params: {
+                          'path': location.pathWithoutLeadingSlash,
+                        },
+                        extra: entity);
                   },
                   onReload: _reloadFileSystem,
                 );

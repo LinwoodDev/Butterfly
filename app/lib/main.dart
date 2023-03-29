@@ -235,6 +235,7 @@ class ButterflyApp extends StatelessWidget {
                 ),
                 GoRoute(
                   path: 'native',
+                  name: 'native',
                   builder: (context, state) {
                     final type = state.queryParams['type'] ?? '';
                     final path = state.queryParams['path'] ?? '';
@@ -248,6 +249,7 @@ class ButterflyApp extends StatelessWidget {
                 ),
                 GoRoute(
                   path: 'native/:path(.*)',
+                  name: 'native-path',
                   builder: (context, state) {
                     final path = state.params['path'] ?? '';
                     return ProjectPage(

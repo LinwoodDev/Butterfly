@@ -122,7 +122,8 @@ Map<String, dynamic> _documentJsonMigrator(
 
 Map<String, dynamic> _templateJsonMigrator(
     Map<String, dynamic> data, int? fileVersion) {
-  data['document'] = _documentJsonMigrator(data['document'], fileVersion);
+  data['document'] = _documentJsonMigrator(
+      Map<String, dynamic>.from(data['document']), fileVersion);
   return data;
 }
 
