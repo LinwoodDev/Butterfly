@@ -478,7 +478,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           : UriData.fromBytes(render.buffer.asUint8List(),
                   mimeType: 'image/png')
               .toString();
-      final remote = current.getRemoteStorage();
+      final settings = current.settingsCubit.state;
+      final remote = settings.getRemote(event.remote);
       TemplateFileSystem.fromPlatform(remote: remote).createTemplate(
         DocumentTemplate(
           directory: event.directory,

@@ -202,6 +202,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 onPressed: () async {
                   this.context.read<DocumentBloc>().add(TemplateCreated(
                         directory: directoryController.text,
+                        remote: _fileSystem.remote?.identifier,
                       ));
                   Navigator.of(context).pop();
                   load();

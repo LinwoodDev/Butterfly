@@ -270,8 +270,9 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setInt('version', 0);
   }
 
-  RemoteStorage? getRemote(String identifier) {
-    return remotes.firstWhereOrNull((e) => e.identifier == identifier);
+  RemoteStorage? getRemote(String? identifier) {
+    return remotes
+        .firstWhereOrNull((e) => e.identifier == (identifier ?? defaultRemote));
   }
 
   bool hasRemote(String identifier) {

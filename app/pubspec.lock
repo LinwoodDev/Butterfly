@@ -562,10 +562,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "7f25c4bb371b74b6f32f74946707db4595fa66e68ddc7f0da4a4dafb18a21480"
+      sha256: "6af43e0948b9f64a812afbb9ac3f76e2c8f5abe4efaba4188702a56af46b98c2"
       url: "https://pub.dev"
     source: hosted
-    version: "6.5.1"
+    version: "6.5.2"
   graphs:
     dependency: transitive
     description:
@@ -1036,10 +1036,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_platform_interface
-      sha256: "824bfd02713e37603b2bdade0842e47d56e7db32b1dcdd1cae533fb88e2913fc"
+      sha256: fb5cf25c0235df2d0640ac1b1174f6466bd311f621574997ac59018a6664548d
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.1"
+    version: "2.2.0"
   shared_preferences_web:
     dependency: transitive
     description:
