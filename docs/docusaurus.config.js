@@ -194,12 +194,16 @@ module.exports = {
   presets: [
     [
       "@docusaurus/preset-classic",
+            /** @type {import('@docusaurus/preset-classic').Options} */
       {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          // Please change this to your repo.
-          editUrl:
-            "https://github.com/LinwoodCloud/butterfly/edit/develop/docs/",
+          editUrl: ({locale, docPath}) => {
+            if (locale !== 'en') {
+              return `https://translate.linwood.dev/butterfly/${locale}`;
+            }
+            return `https://github.com/LinwoodCloud/butterfly/edit/develop/docs/docs`;
+          },
           versions: {
             current: {
               label: "Nightly",

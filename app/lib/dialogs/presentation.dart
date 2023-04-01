@@ -41,7 +41,7 @@ class PresentationControlsDialog extends StatelessWidget {
                 subtitle: Text(e[2]),
               )),
           FutureBuilder<bool>(
-            future: isFullScreen(),
+            future: Future.value(isFullScreen()),
             builder: (context, snapshot) {
               var fullscreen = snapshot.data ?? false;
               return StatefulBuilder(

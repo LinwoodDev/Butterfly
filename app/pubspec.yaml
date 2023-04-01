@@ -30,7 +30,7 @@ dependencies:
   image: ^4.0.15
   intl: ^0.17.0
   path_provider: ^2.0.14
-  shared_preferences: ^2.0.20
+  shared_preferences: ^2.1.0
   url_launcher: ^6.1.10
   file_picker: ^5.2.6
   phosphor_flutter: ^1.4.0
