@@ -77,6 +77,20 @@ Future<Database> _getDatabase() async {
         return {'type': 'document', 'data': data};
       }).toList());
       db.createObjectStore('packs');
+      db.createObjectStore('documents-data');
+      var documentStore = txn.objectStore('documents');
+      await Future.wait(
+          await documentStore.openCursor().map<Future<dynamic>>((cursor) async {
+        var doc = cursor.value as Map<dynamic, dynamic>;
+        var data = doc['data'];
+        if (data is! String) return;
+        var path = cursor.key as String;
+        var dataStore = txn.objectStore('documents-data');
+        await dataStore.put(data, path);
+        doc['data'] = null;
+        await documentStore.put(doc, path);
+      }).toList());
+      await txn.completed;
     }
   });
   return _db!;
@@ -89,16 +103,18 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
     var data = await store.getObject(path) as Map<dynamic, dynamic>?;
+    await store.delete(path);
+    var dataStore = txn.objectStore('documents-data');
+    await dataStore.delete(path);
     if (data?['type'] == 'directory') {
       // delete all where key starts with path
       var cursor = store.openCursor();
       await cursor.forEach((cursor) {
         if (cursor.key.toString().startsWith(path)) {
-          store.delete(cursor.key);
+          deleteAsset(cursor.key.toString());
         }
       });
     }
-    await store.delete(path);
     await txn.completed;
   }
 
@@ -113,6 +129,13 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     }
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readonly');
+
+    Future<List<int>> getData(String path) async {
+      final dataStore = txn.objectStore('documents-data');
+      final data = await dataStore.getObject(path);
+      return data as List<int>;
+    }
+
     var store = txn.objectStore('documents');
     var data = await store.getObject(path);
     if (path == '/') {
@@ -124,8 +147,10 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     }
     var map = Map<String, dynamic>.from(data as Map);
     if (map['type'] == 'file') {
+      final file =
+          AppDocumentFile(AssetLocation.local(path), await getData(path));
       await txn.completed;
-      return AppDocumentFile(AssetLocation.local(path), map['data']);
+      return file;
     } else if (map['type'] == 'directory') {
       var cursor = store.openCursor(autoAdvance: true);
       var assets = await Future.wait(
@@ -141,7 +166,8 @@ class WebDocumentFileSystem extends DocumentFileSystem {
             !key.substring(path.length + 1).contains('/')) {
           var data = cursor.value as Map<dynamic, dynamic>;
           if (data['type'] == 'file') {
-            return AppDocumentFile(AssetLocation.local(key), data['data']);
+            return AppDocumentFile(
+                AssetLocation.local(key), await getData(key));
           } else if (data['type'] == 'directory') {
             return AppDocumentDirectory(AssetLocation.local(key), const []);
           }
@@ -188,13 +214,14 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       await createDirectory(
           pathWithoutSlash.substring(0, pathWithoutSlash.lastIndexOf('/')));
     }
-    var db = await _getDatabase();
-    var txn = db.transaction('documents', 'readwrite');
-    var store = txn.objectStore('documents');
+    final db = await _getDatabase();
+    final txn = db.transaction('documents', 'readwrite');
+    final store = txn.objectStore('documents');
     await store.put({
       'type': 'file',
-      'data': data,
     }, path);
+    final dataStore = txn.objectStore('documents-data');
+    await dataStore.put(data, path);
     await txn.completed;
     return AppDocumentFile(AssetLocation.local(path), data);
   }
