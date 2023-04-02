@@ -33,7 +33,7 @@
     "react-animation-on-scroll": "^5.1.0",
     "react-dom": "^18.2.0",
     "swc-loader": "^0.2.3",
-    "ua-parser-js": "^2.0.0-alpha.1"
+    "ua-parser-js": "^1"
   },
   "browserslist": {
     "production": [

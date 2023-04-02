@@ -4086,7 +4086,7 @@ __metadata:
     react-dom: ^18.2.0
     swc-loader: ^0.2.3
     typescript: ^5.0.3
-    ua-parser-js: ^2.0.0-alpha.1
+    ua-parser-js: ^1
     webpack: ^5.77.0
   languageName: unknown
   linkType: soft
@@ -11120,10 +11120,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ua-parser-js@npm:^2.0.0-alpha.1":
-  version: 2.0.0-alpha.1
-  resolution: "ua-parser-js@npm:2.0.0-alpha.1"
-  checksum: 4d5c6db5651eecb357a3da8cabd20bcb4d1b8cf7030d22b3237c3c406d6d497d363c3c68e832ab50db12e42967a60e4c2a68e88156eefc838efc68a8ac0248e1
+"ua-parser-js@npm:^1":
+  version: 1.0.35
+  resolution: "ua-parser-js@npm:1.0.35"
+  checksum: 02370d38a0c8b586f2503d1c3bbba5cbc0b97d407282f9023201a99e4c03eae4357a2800fdf50cf80d73ec25c0b0cc5bfbaa03975b0add4043d6e4c86712c9c1
   languageName: node
   linkType: hard
 
