@@ -12,8 +12,6 @@ sidebar_position: 2
 
 * `Ctrl` + `N`: Νέο αρχείο
 * `Ctrl` + `Shift` + `N`: Νέο αρχείο από πρότυπο
-* `Ctrl` + `O`: Άνοιγμα αρχείου
-* `Ctrl` + `I`: Εισαγωγή αρχείου
 * `Ctrl` + `E`: Εξαγωγή αρχείου
 * `Ctrl` + `Shift` + `E`: Εξαγωγή αρχείου ως εικόνα
 * `Ctrl` + `Alt` + `E`: Εξαγωγή αρχείου ως svg
@@ -23,8 +21,6 @@ sidebar_position: 2
 
 * `Ctrl` + `Z`: Αναίρεση
 * `Ctrl` + `Y`: Επανάληψη
-* `Ctrl` + `Alt` + `N`: Open insert dialog
-* `Ctrl` + `Alt` + `Shift` + `S`: Άνοιγμα ρυθμίσεων έργου
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `P`: Άνοιγμα διαλόγου παλέτας χρωμάτων
 * `Ctrl` + `B`: Άνοιγμα διαλόγου παρασκηνίου

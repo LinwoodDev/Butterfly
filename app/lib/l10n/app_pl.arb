@@ -485,5 +485,8 @@
   "whatsNew": "Co nowego?",
   "unstar": "Usuń gwiazdkę",
   "star": "Gwiazdka",
-  "goUp": "Idź w górę"
+  "goUp": "Idź w górę",
+  "created": "Utworzono",
+  "modified": "Zmodyfikowane",
+  "quickstart": "Szybki start"
 }

@@ -485,5 +485,8 @@
   "whatsNew": "Ce este nou?",
   "unstar": "Nerestea",
   "star": "Stea",
-  "goUp": "Mergi mai sus"
+  "goUp": "Mergi mai sus",
+  "created": "Creat",
+  "modified": "Modificat",
+  "quickstart": "Quickstart"
 }

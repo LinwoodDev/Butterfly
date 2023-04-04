@@ -485,5 +485,8 @@
   "whatsNew": "新着情報",
   "unstar": "スターを外す",
   "star": "スター",
-  "goUp": "上へ"
+  "goUp": "上へ",
+  "created": "作成済み",
+  "modified": "修正されました",
+  "quickstart": "クイックスタート"
 }

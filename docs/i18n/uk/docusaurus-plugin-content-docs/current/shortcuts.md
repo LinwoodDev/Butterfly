@@ -12,8 +12,6 @@ sidebar_position: 2
 
 * `Ctrl` + `N`: новий файл
 * `Ctrl` + `Shift` + `N`: новий файл з шаблону
-* `Ctrl` + `O`: Відкрити файл
-* `Ctrl` + `I`: Імпорт файлу
 * `Ctrl` + `E`: Експорт файлу
 * `Ctrl` + `Shift` + `E`: Експорт файлу як зображення
 * `Ctrl` + `Alt` + `E`: Експорт файлу як svg
@@ -23,8 +21,6 @@ sidebar_position: 2
 
 * `Ctrl` + `Z`: Скасувати
 * `Ctrl` + `Y`: Redo
-* `Ctrl` + `Alt` + `N`: Open insert dialog
-* `Ctrl` + `Alt` + `Shift` + `S`: Відкрити налаштування проекту
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `P`: Відкриття діалогового вікна кольорової палітри
 * `Ctrl` + `B`: Відкритий фоновий діалог

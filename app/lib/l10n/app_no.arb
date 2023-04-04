@@ -485,5 +485,8 @@
   "whatsNew": "Hva er nytt?",
   "unstar": "Stjerne",
   "star": "Stjerne",
-  "goUp": "Gå opp"
+  "goUp": "Gå opp",
+  "created": "Opprettet",
+  "modified": "Endret",
+  "quickstart": "Hurtigstart"
 }

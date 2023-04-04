@@ -12,8 +12,6 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 
 * `Ctrl` + `N`: Nouveau fichier
 * `Ctrl` + `Maj` + `N`: Nouveau fichier à partir du modèle
-* `Ctrl` + `O`: Ouvrir le fichier
-* `Ctrl` + `I`: Importer un fichier
 * `Ctrl` + `E`: Exporter le fichier
 * `Ctrl` + `Maj` + `E`: Exporter le fichier en tant qu'image
 * `Ctrl` + `Alt` + `E`: Exporter le fichier en svg
@@ -23,8 +21,6 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 
 * `Ctrl` + `Z`: Annuler
 * `Ctrl` + `Y`: Refaire
-* `Ctrl` + `Alt` + `N`: Open insert dialog
-* `Ctrl` + `Alt` + `Maj` + `S`: Ouvrir les paramètres du projet
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `P`: Ouvrir la fenêtre de la palette de couleurs
 * `Ctrl` + `B`: Ouvrir la boîte de dialogue d'arrière-plan

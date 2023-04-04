@@ -485,5 +485,8 @@
   "whatsNew": "Wat is nieuw?",
   "unstar": "Ontster",
   "star": "Ster",
-  "goUp": "Ga omhoog"
+  "goUp": "Ga omhoog",
+  "created": "Aangemaakt",
+  "modified": "Gewijzigd",
+  "quickstart": "Snelstart"
 }
