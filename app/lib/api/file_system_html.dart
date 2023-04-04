@@ -7,6 +7,7 @@ import 'dart:js_util';
 
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:idb_shim/idb.dart';
@@ -65,6 +66,8 @@ Future<Database> _getDatabase() async {
       db.createObjectStore('templates');
     }
     if (event.oldVersion < 4) {
+      db.createObjectStore('packs');
+      db.createObjectStore('documents-data');
       var txn = event.transaction;
       var store = txn.objectStore('templates');
       var cursor = store.openCursor();
@@ -76,8 +79,6 @@ Future<Database> _getDatabase() async {
         final data = utf8.encode(jsonEncode(value));
         return {'type': 'document', 'data': data};
       }).toList());
-      db.createObjectStore('packs');
-      db.createObjectStore('documents-data');
       var documentStore = txn.objectStore('documents');
       await Future.wait(
           await documentStore.openCursor().map<Future<dynamic>>((cursor) async {
@@ -100,7 +101,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   @override
   Future<void> deleteAsset(String path) async {
     var db = await _getDatabase();
-    var txn = db.transaction('documents', 'readwrite');
+    var txn = db.transactionList(['documents', 'documents-data'], 'readwrite');
     var store = txn.objectStore('documents');
     var data = await store.getObject(path) as Map<dynamic, dynamic>?;
     await store.delete(path);
@@ -128,12 +129,12 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       path = '/';
     }
     var db = await _getDatabase();
-    var txn = db.transaction('documents', 'readonly');
+    var txn = db.transaction(['documents', 'documents-data'], 'readonly');
 
-    Future<List<int>> getData(String path) async {
+    Future<List<int>?> getData(String path) async {
       final dataStore = txn.objectStore('documents-data');
       final data = await dataStore.getObject(path);
-      return data as List<int>;
+      return data as List<int>?;
     }
 
     var store = txn.objectStore('documents');
@@ -147,8 +148,9 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     }
     var map = Map<String, dynamic>.from(data as Map);
     if (map['type'] == 'file') {
-      final file =
-          AppDocumentFile(AssetLocation.local(path), await getData(path));
+      final data = await getData(path);
+      if (data == null) return null;
+      final file = AppDocumentFile(AssetLocation.local(path), data);
       await txn.completed;
       return file;
     } else if (map['type'] == 'directory') {
@@ -166,8 +168,9 @@ class WebDocumentFileSystem extends DocumentFileSystem {
             !key.substring(path.length + 1).contains('/')) {
           var data = cursor.value as Map<dynamic, dynamic>;
           if (data['type'] == 'file') {
-            return AppDocumentFile(
-                AssetLocation.local(key), await getData(key));
+            final data = await getData(key);
+            if (data == null) return null;
+            return AppDocumentFile(AssetLocation.local(key), data);
           } else if (data['type'] == 'directory') {
             return AppDocumentDirectory(AssetLocation.local(key), const []);
           }
@@ -175,7 +178,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         }
         return null;
       }).toList())
-          .then((value) => value.whereType<AppDocumentEntity>().toList());
+          .then((value) => value.whereNotNull().toList());
       // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
       assets.sort((a, b) => a is AppDocumentDirectory
           ? -1
@@ -215,7 +218,8 @@ class WebDocumentFileSystem extends DocumentFileSystem {
           pathWithoutSlash.substring(0, pathWithoutSlash.lastIndexOf('/')));
     }
     final db = await _getDatabase();
-    final txn = db.transaction('documents', 'readwrite');
+    final txn =
+        db.transactionList(['documents', 'documents-data'], 'readwrite');
     final store = txn.objectStore('documents');
     await store.put({
       'type': 'file',

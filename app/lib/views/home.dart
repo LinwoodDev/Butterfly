@@ -570,6 +570,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
               ],
               builder: (context, controller, child) =>
                   FloatingActionButton.small(
+                heroTag: null,
                 onPressed: () =>
                     controller.isOpen ? controller.close() : controller.open(),
                 tooltip: AppLocalizations.of(context).create,

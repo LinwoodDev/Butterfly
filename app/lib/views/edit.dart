@@ -55,7 +55,7 @@ class _EditToolbarState extends State<EditToolbar> {
     return Scrollbar(
         controller: _scrollController,
         child: SizedBox(
-          height: 50,
+          height: 60,
           child: BlocBuilder<DocumentBloc, DocumentState>(
             buildWhen: (previous, current) =>
                 previous is! DocumentLoadSuccess ||
@@ -111,157 +111,172 @@ class _EditToolbarState extends State<EditToolbar> {
                       alignment: widget.isMobile
                           ? Alignment.center
                           : Alignment.centerRight,
-                      child: ListView(
-                          controller: _scrollController,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          children: [
-                            if (state.embedding?.editable ?? true) ...[
-                              if (temp != null && tempData != null) ...[
-                                OptionButton(
-                                  tooltip: tooltip,
-                                  selected: true,
-                                  highlighted: currentIndex.selection?.selected
-                                          .contains(tempData) ??
-                                      false,
-                                  icon: Icon(icon),
-                                  selectedIcon: Icon(iconFilled),
-                                  onLongPressed: () => context
-                                      .read<CurrentIndexCubit>()
-                                      .changeSelection(tempData),
+                      child: Card(
+                        elevation: 10,
+                        child: ListView(
+                            controller: _scrollController,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            children: [
+                              if (state.embedding?.editable ?? true) ...[
+                                if (temp != null && tempData != null) ...[
+                                  OptionButton(
+                                    tooltip: tooltip,
+                                    selected: true,
+                                    highlighted: currentIndex
+                                            .selection?.selected
+                                            .contains(tempData) ??
+                                        false,
+                                    icon: Icon(icon),
+                                    selectedIcon: Icon(iconFilled),
+                                    onLongPressed: () => context
+                                        .read<CurrentIndexCubit>()
+                                        .changeSelection(tempData),
+                                    onPressed: () {
+                                      if (tempData == null) return;
+                                      if (_mouseState == _MouseState.multi) {
+                                        context
+                                            .read<CurrentIndexCubit>()
+                                            .insertSelection(tempData, true);
+                                      } else {
+                                        context
+                                            .read<CurrentIndexCubit>()
+                                            .changeSelection(tempData, true);
+                                      }
+                                    },
+                                  ),
+                                  const VerticalDivider(),
+                                ],
+                                ReorderableListView.builder(
+                                    shrinkWrap: true,
+                                    buildDefaultDragHandles: false,
+                                    scrollDirection: Axis.horizontal,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: painters.length,
+                                    itemBuilder: (context, i) {
+                                      var e = painters[i];
+                                      final selected = i == currentIndex.index;
+                                      final highlighted = currentIndex
+                                              .selection?.selected
+                                              .any((element) =>
+                                                  element.hashCode ==
+                                                  e.hashCode) ??
+                                          false;
+                                      String tooltip = e.name.trim();
+                                      if (tooltip.isEmpty) {
+                                        tooltip = e.getLocalizedName(context);
+                                      }
+
+                                      final handler = Handler.fromPainter(e);
+
+                                      final color = handler.getStatus(context
+                                                  .read<DocumentBloc>()) ==
+                                              PainterStatus.disabled
+                                          ? Theme.of(context).disabledColor
+                                          : null;
+
+                                      Widget toolWidget = Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 4.0),
+                                          child: OptionButton(
+                                              tooltip: tooltip,
+                                              onLongPressed: () => context
+                                                  .read<CurrentIndexCubit>()
+                                                  .insertSelection(e, true),
+                                              selected: selected,
+                                              highlighted: highlighted,
+                                              selectedIcon: buildIcon(
+                                                  e.getIcon(filled: true),
+                                                  e.isAction(),
+                                                  color),
+                                              icon: buildIcon(
+                                                  e.getIcon(filled: false),
+                                                  e.isAction(),
+                                                  color),
+                                              onPressed: () {
+                                                if (_mouseState ==
+                                                    _MouseState.multi) {
+                                                  context
+                                                      .read<CurrentIndexCubit>()
+                                                      .insertSelection(e, true);
+                                                } else if (!selected ||
+                                                    temp != null) {
+                                                  context
+                                                      .read<CurrentIndexCubit>()
+                                                      .resetSelection();
+                                                  context
+                                                      .read<CurrentIndexCubit>()
+                                                      .changePainter(
+                                                          context.read<
+                                                              DocumentBloc>(),
+                                                          i,
+                                                          handler);
+                                                } else {
+                                                  context
+                                                      .read<CurrentIndexCubit>()
+                                                      .changeSelection(e, true);
+                                                }
+                                              }));
+                                      return ReorderableDragStartListener(
+                                          key: ObjectKey(i),
+                                          index: i,
+                                          child: toolWidget);
+                                    },
+                                    onReorder: (oldIndex, newIndex) =>
+                                        context.read<DocumentBloc>()
+                                          ..add(PainterReordered(
+                                              oldIndex, newIndex))),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: AspectRatio(
+                                    aspectRatio: 1,
+                                    child: FloatingActionButton.small(
+                                      tooltip: AppLocalizations.of(context).add,
+                                      heroTag: null,
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (ctx) => MultiBlocProvider(
+                                            providers: [
+                                              BlocProvider.value(
+                                                value: context
+                                                    .read<DocumentBloc>(),
+                                              ),
+                                              BlocProvider.value(
+                                                value: context
+                                                    .read<CurrentIndexCubit>(),
+                                              ),
+                                            ],
+                                            child: RepositoryProvider.value(
+                                              value:
+                                                  context.read<ImportService>(),
+                                              child: const AddDialog(),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child:
+                                          const Icon(PhosphorIcons.plusLight),
+                                    ),
+                                  ),
+                                ),
+                                const VerticalDivider(),
+                                IconButton(
+                                  icon: const Icon(PhosphorIcons.wrenchLight),
                                   onPressed: () {
-                                    if (tempData == null) return;
-                                    if (_mouseState == _MouseState.multi) {
-                                      context
-                                          .read<CurrentIndexCubit>()
-                                          .insertSelection(tempData, true);
-                                    } else {
-                                      context
-                                          .read<CurrentIndexCubit>()
-                                          .changeSelection(tempData, true);
+                                    final cubit =
+                                        context.read<CurrentIndexCubit>();
+                                    final state = cubit
+                                        .state.cameraViewport.tool?.element;
+                                    if (state != null) {
+                                      cubit.changeSelection(state);
                                     }
                                   },
                                 ),
-                                const VerticalDivider(),
                               ],
-                              ReorderableListView.builder(
-                                  shrinkWrap: true,
-                                  buildDefaultDragHandles: false,
-                                  scrollDirection: Axis.horizontal,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: painters.length,
-                                  itemBuilder: (context, i) {
-                                    var e = painters[i];
-                                    final selected = i == currentIndex.index;
-                                    final highlighted = currentIndex
-                                            .selection?.selected
-                                            .any((element) =>
-                                                element.hashCode ==
-                                                e.hashCode) ??
-                                        false;
-                                    String tooltip = e.name.trim();
-                                    if (tooltip.isEmpty) {
-                                      tooltip = e.getLocalizedName(context);
-                                    }
-
-                                    final handler = Handler.fromPainter(e);
-
-                                    final color = handler.getStatus(
-                                                context.read<DocumentBloc>()) ==
-                                            PainterStatus.disabled
-                                        ? Theme.of(context).disabledColor
-                                        : null;
-
-                                    Widget toolWidget = Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 4.0),
-                                        child: OptionButton(
-                                            tooltip: tooltip,
-                                            onLongPressed: () => context
-                                                .read<CurrentIndexCubit>()
-                                                .insertSelection(e, true),
-                                            selected: selected,
-                                            highlighted: highlighted,
-                                            selectedIcon: buildIcon(
-                                                e.getIcon(filled: true),
-                                                e.isAction(),
-                                                color),
-                                            icon: buildIcon(
-                                                e.getIcon(filled: false),
-                                                e.isAction(),
-                                                color),
-                                            onPressed: () {
-                                              if (_mouseState ==
-                                                  _MouseState.multi) {
-                                                context
-                                                    .read<CurrentIndexCubit>()
-                                                    .insertSelection(e, true);
-                                              } else if (!selected ||
-                                                  temp != null) {
-                                                context
-                                                    .read<CurrentIndexCubit>()
-                                                    .resetSelection();
-                                                context
-                                                    .read<CurrentIndexCubit>()
-                                                    .changePainter(
-                                                        context.read<
-                                                            DocumentBloc>(),
-                                                        i,
-                                                        handler);
-                                              } else {
-                                                context
-                                                    .read<CurrentIndexCubit>()
-                                                    .changeSelection(e, true);
-                                              }
-                                            }));
-                                    return ReorderableDragStartListener(
-                                        key: ObjectKey(i),
-                                        index: i,
-                                        child: toolWidget);
-                                  },
-                                  onReorder: (oldIndex, newIndex) => context
-                                      .read<DocumentBloc>()
-                                    ..add(
-                                        PainterReordered(oldIndex, newIndex))),
-                              const VerticalDivider(),
-                              IconButton(
-                                tooltip: AppLocalizations.of(context).add,
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (ctx) => MultiBlocProvider(
-                                      providers: [
-                                        BlocProvider.value(
-                                          value: context.read<DocumentBloc>(),
-                                        ),
-                                        BlocProvider.value(
-                                          value:
-                                              context.read<CurrentIndexCubit>(),
-                                        ),
-                                      ],
-                                      child: RepositoryProvider.value(
-                                        value: context.read<ImportService>(),
-                                        child: const AddDialog(),
-                                      ),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(PhosphorIcons.plusCircleLight),
-                              ),
-                              IconButton(
-                                icon: const Icon(PhosphorIcons.wrenchLight),
-                                onPressed: () {
-                                  final cubit =
-                                      context.read<CurrentIndexCubit>();
-                                  final state =
-                                      cubit.state.cameraViewport.tool?.element;
-                                  if (state != null) {
-                                    cubit.changeSelection(state);
-                                  }
-                                },
-                              ),
-                            ],
-                          ]),
+                            ]),
+                      ),
                     ),
                   );
                 },
