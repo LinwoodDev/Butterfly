@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "Error while creating connection",
   "cannotConnect": "Cannot connect",
   "urlNotValid": "URL geçerli değil",
-  "icon": "PhosphorIcon",
+  "icon": "Simge",
   "update": "Güncelleme",
   "updateAvailable": "Güncelleme mevcut",
   "stable": "Kararlı",
