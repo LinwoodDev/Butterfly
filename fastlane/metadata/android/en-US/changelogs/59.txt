@@ -47,6 +47,7 @@
 * Remove date format setting, documents have no name by default
 * Add new butterfly logo
 * Improve web file system
+* Improve pdf export
 * Restructure basic classes in api project
 * Downloads
   * Add start scripts ([#304](https://github.com/LinwoodCloud/Butterfly/issues/304))
