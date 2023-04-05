@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "Fel vid skapande av anslutning",
   "cannotConnect": "Kan inte ansluta",
   "urlNotValid": "URL är inte giltig",
-  "icon": "Ikon",
+  "icon": "PhosphorIcon",
   "update": "Uppdatera",
   "updateAvailable": "Uppdatering tillgänglig",
   "stable": "Stabil",
