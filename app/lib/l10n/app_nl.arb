@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "Fout tijdens het maken van de verbinding",
   "cannotConnect": "Kan niet verbinden",
   "urlNotValid": "URL niet geldig",
-  "icon": "PhosphorIcon",
+  "icon": "Icon",
   "update": "Vernieuwen",
   "updateAvailable": "Update beschikbaar",
   "stable": "Stabiel",
