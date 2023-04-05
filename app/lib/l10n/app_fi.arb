@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "Virhe yhteyttä luotaessa",
   "cannotConnect": "Ei voi yhdistää",
   "urlNotValid": "URL ei kelpaa",
-  "icon": "PhosphorIcon",
+  "icon": "Icon",
   "update": "Päivitä",
   "updateAvailable": "Päivitys saatavilla",
   "stable": "Vakaa",
