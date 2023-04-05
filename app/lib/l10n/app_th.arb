@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "Error while creating connection",
   "cannotConnect": "Cannot connect",
   "urlNotValid": "URL not valid",
-  "icon": "ไอคอน",
+  "icon": "PhosphorIcon",
   "update": "อัพเดต",
   "updateAvailable": "Update available",
   "stable": "Stable",
