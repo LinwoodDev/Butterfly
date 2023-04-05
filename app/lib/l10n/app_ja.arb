@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "接続の作成中にエラー",
   "cannotConnect": "接続できません",
   "urlNotValid": "URL が無効です",
-  "icon": "アイコン",
+  "icon": "PhosphorIcon",
   "update": "更新",
   "updateAvailable": "アップデートがあります",
   "stable": "安定版",
