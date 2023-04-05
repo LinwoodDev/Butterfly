@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "Σφάλμα κατά τη δημιουργία σύνδεσης",
   "cannotConnect": "Αδυναμία σύνδεσης",
   "urlNotValid": "Μη έγκυρο URL",
-  "icon": "Εικονίδιο",
+  "icon": "PhosphorIcon",
   "update": "Ενημέρωση",
   "updateAvailable": "Διαθέσιμη ενημέρωση",
   "stable": "Σταθερό",
