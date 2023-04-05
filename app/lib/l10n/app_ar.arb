@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "حدث خطأ أثناء إنشاء الاتصال",
   "cannotConnect": "لا يمكن الاتصال",
   "urlNotValid": "عنوان URL غير صالح",
-  "icon": "PhosphorIcon",
+  "icon": "Icon",
   "update": "تحديث",
   "updateAvailable": "التحديث متاح",
   "stable": "اسطبل",
