@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "Помилка при створенні з'єднання",
   "cannotConnect": "Не вдалося підключитися",
   "urlNotValid": "Неприпустима URL-адреса",
-  "icon": "Іконка",
+  "icon": "PhosphorIcon",
   "update": "Оновити",
   "updateAvailable": "Доступне оновлення",
   "stable": "Стабільний",
