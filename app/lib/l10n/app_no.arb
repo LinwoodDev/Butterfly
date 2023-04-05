@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "Feil under oppretting av tilkobling",
   "cannotConnect": "Kan ikke koble til",
   "urlNotValid": "URL ikke gyldig",
-  "icon": "Ikon",
+  "icon": "PhosphorIcon",
   "update": "Oppdater",
   "updateAvailable": "Oppdatering tilgjengelig",
   "stable": "Stabil",
