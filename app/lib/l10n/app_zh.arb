@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "创建连接时出错",
   "cannotConnect": "无法连接",
   "urlNotValid": "URL无效",
-  "icon": "图标",
+  "icon": "PhosphorIcon",
   "update": "更新",
   "updateAvailable": "可用更新",
   "stable": "稳定的",
