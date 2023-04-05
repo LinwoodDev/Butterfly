@@ -39,7 +39,7 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
   }
 
   @override
-  IconData getIcon({bool filled = false}) =>
+  PhosphorIconData getIcon({bool filled = false}) =>
       selected.first.element.property.shape.getIcon(filled: filled);
 
   @override

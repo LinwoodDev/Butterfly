@@ -28,38 +28,40 @@ extension PainterVisualizer on Painter {
     );
   }
 
-  IconData getIcon({bool filled = false}) {
+  PhosphorIconData getIcon({bool filled = false}) {
     return map(
-      hand: (_) => filled ? PhosphorIcons.handFill : PhosphorIcons.handLight,
+      hand: (_) => filled ? PhosphorIcons.fill.hand : PhosphorIcons.light.hand,
       import: (_) => filled
-          ? PhosphorIcons.arrowSquareInFill
-          : PhosphorIcons.arrowSquareInLight,
+          ? PhosphorIcons.fill.arrowSquareIn
+          : PhosphorIcons.light.arrowSquareIn,
       undo: (_) => filled
-          ? PhosphorIcons.arrowCounterClockwiseFill
-          : PhosphorIcons.arrowCounterClockwiseLight,
+          ? PhosphorIcons.fill.arrowCounterClockwise
+          : PhosphorIcons.light.arrowCounterClockwise,
       redo: (_) => filled
-          ? PhosphorIcons.arrowClockwiseFill
-          : PhosphorIcons.arrowClockwiseLight,
-      label: (_) => filled ? PhosphorIcons.textTFill : PhosphorIcons.textTLight,
-      pen: (_) => filled ? PhosphorIcons.penFill : PhosphorIcons.penLight,
+          ? PhosphorIcons.fill.arrowClockwise
+          : PhosphorIcons.light.arrowClockwise,
+      label: (_) =>
+          filled ? PhosphorIcons.fill.textT : PhosphorIcons.light.textT,
+      pen: (_) => filled ? PhosphorIcons.fill.pen : PhosphorIcons.light.pen,
       eraser: (_) =>
-          filled ? PhosphorIcons.eraserFill : PhosphorIcons.eraserLight,
+          filled ? PhosphorIcons.fill.eraser : PhosphorIcons.light.eraser,
       pathEraser: (_) =>
-          filled ? PhosphorIcons.pathFill : PhosphorIcons.pathLight,
+          filled ? PhosphorIcons.fill.path : PhosphorIcons.light.path,
       layer: (_) => filled
-          ? PhosphorIcons.squaresFourFill
-          : PhosphorIcons.squaresFourLight,
+          ? PhosphorIcons.fill.squaresFour
+          : PhosphorIcons.light.squaresFour,
       area: (_) =>
-          filled ? PhosphorIcons.monitorFill : PhosphorIcons.monitorLight,
+          filled ? PhosphorIcons.fill.monitor : PhosphorIcons.light.monitor,
       waypoint: (_) =>
-          filled ? PhosphorIcons.mapPinFill : PhosphorIcons.mapPinLight,
+          filled ? PhosphorIcons.fill.mapPin : PhosphorIcons.light.mapPin,
       laser: (_) =>
-          filled ? PhosphorIcons.cursorFill : PhosphorIcons.cursorLight,
+          filled ? PhosphorIcons.fill.cursor : PhosphorIcons.light.cursor,
       shape: (painter) => painter.property.shape.getIcon(filled: filled),
-      stamp: (_) => filled ? PhosphorIcons.stampFill : PhosphorIcons.stampLight,
+      stamp: (_) =>
+          filled ? PhosphorIcons.fill.stamp : PhosphorIcons.light.stamp,
       presentation: (_) => filled
-          ? PhosphorIcons.presentationFill
-          : PhosphorIcons.presentationLight,
+          ? PhosphorIcons.fill.presentation
+          : PhosphorIcons.light.presentation,
     );
   }
 

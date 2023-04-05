@@ -41,7 +41,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
                             ListTile(
                               title:
                                   Text(AppLocalizations.of(context).syncMode),
-                              leading: Icon(state.syncMode.getIcon()),
+                              leading: PhosphorIcon(state.syncMode.getIcon()),
                               subtitle: Text(
                                   state.syncMode.getLocalizedName(context)),
                               onTap: () => _openSyncModeModal(context),
@@ -59,25 +59,25 @@ class BehaviorsSettingsPage extends StatelessWidget {
                               style: Theme.of(context).textTheme.headlineSmall),
                           const SizedBox(height: 16),
                           ListTile(
-                            leading: const Icon(PhosphorIcons.mouseLight),
+                            leading: PhosphorIcon(PhosphorIcons.light.mouse),
                             title: Text(AppLocalizations.of(context).mouse),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/mouse'),
                           ),
                           ListTile(
-                            leading: const Icon(PhosphorIcons.handLight),
+                            leading: PhosphorIcon(PhosphorIcons.light.hand),
                             title: Text(AppLocalizations.of(context).touch),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/touch'),
                           ),
                           ListTile(
-                            leading: const Icon(PhosphorIcons.keyboardLight),
+                            leading: PhosphorIcon(PhosphorIcons.light.keyboard),
                             title: Text(AppLocalizations.of(context).keyboard),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/keyboard'),
                           ),
                           ListTile(
-                            leading: const Icon(PhosphorIcons.penLight),
+                            leading: PhosphorIcon(PhosphorIcons.light.pen),
                             title: Text(AppLocalizations.of(context).pen),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/pen'),
@@ -114,7 +114,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
               ...SyncMode.values.map((syncMode) {
                 return ListTile(
                   title: Text(syncMode.getLocalizedName(context)),
-                  leading: Icon(syncMode.getIcon()),
+                  leading: PhosphorIcon(syncMode.getIcon()),
                   selected: syncMode == settingsCubit.state.syncMode,
                   onTap: () => changeSyncMode(syncMode),
                 );

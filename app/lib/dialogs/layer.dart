@@ -21,9 +21,9 @@ class LayerDialog extends StatelessWidget {
     return AlertDialog(
       title: Row(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Icon(PhosphorIcons.squaresFourLight),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: PhosphorIcon(PhosphorIcons.light.squaresFour),
           ),
           Text(layer),
         ],
@@ -41,7 +41,7 @@ class LayerDialog extends StatelessWidget {
   List<Widget> _buildListTiles(BuildContext context) => [
         ListTile(
           title: Text(AppLocalizations.of(context).rename),
-          leading: const Icon(PhosphorIcons.textTLight),
+          leading: PhosphorIcon(PhosphorIcons.light.textT),
           onTap: () async {
             final bloc = context.read<DocumentBloc>();
             final name = await showDialog<String>(
@@ -56,7 +56,7 @@ class LayerDialog extends StatelessWidget {
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).deleteElements),
-          leading: const Icon(PhosphorIcons.trashLight),
+          leading: PhosphorIcon(PhosphorIcons.light.trash),
           onTap: () {
             showDialog<void>(
                 context: context,
@@ -85,7 +85,7 @@ class LayerDialog extends StatelessWidget {
         ),
         ListTile(
           title: Text(AppLocalizations.of(context).remove),
-          leading: const Icon(PhosphorIcons.xLight),
+          leading: PhosphorIcon(PhosphorIcons.light.x),
           onTap: () {
             context.read<DocumentBloc>().add(LayerRemoved(layer));
             Navigator.pop(context);

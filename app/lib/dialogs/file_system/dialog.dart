@@ -80,23 +80,23 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
               Header(
                   title: Text(AppLocalizations.of(context).open),
                   leading: IconButton(
-                    icon: const Icon(PhosphorIcons.xLight),
+                    icon: PhosphorIcon(PhosphorIcons.light.x),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   actions: [
                     IconButton(
                       onPressed: () => setState(() {}),
-                      icon: const Icon(PhosphorIcons.arrowClockwiseLight),
+                      icon: PhosphorIcon(PhosphorIcons.light.arrowClockwise),
                     ),
                     IconButton(
-                        icon: Icon(_gridView
-                            ? PhosphorIcons.listLight
-                            : PhosphorIcons.gridFourLight),
+                        icon: PhosphorIcon(_gridView
+                            ? PhosphorIcons.light.list
+                            : PhosphorIcons.light.gridFour),
                         onPressed: () =>
                             setState(() => _gridView = !_gridView)),
                     IconButton(
                       tooltip: AppLocalizations.of(context).create,
-                      icon: const Icon(PhosphorIcons.plusLight),
+                      icon: PhosphorIcon(PhosphorIcons.light.plus),
                       onPressed: () async {
                         await showModalBottomSheet<ThemeMode>(
                             context: context,
@@ -119,8 +119,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                     ListTile(
                                         title: Text(
                                             AppLocalizations.of(context).file),
-                                        leading:
-                                            const Icon(PhosphorIcons.fileLight),
+                                        leading: PhosphorIcon(
+                                            PhosphorIcons.light.file),
                                         onTap: () {
                                           Navigator.of(context).pop();
                                           _createAsset();
@@ -128,8 +128,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                     ListTile(
                                         title: Text(AppLocalizations.of(context)
                                             .folder),
-                                        leading: const Icon(
-                                            PhosphorIcons.folderLight),
+                                        leading: PhosphorIcon(
+                                            PhosphorIcons.light.folder),
                                         onTap: () {
                                           Navigator.of(context).pop();
                                           _createAsset(isFolder: true);
@@ -176,7 +176,7 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(PhosphorIcons.arrowUpLight),
+                            icon: PhosphorIcon(PhosphorIcons.light.arrowUp),
                             onPressed: () {
                               var path = _pathController.text;
                               if (path.isNotEmpty && path != '/') {
@@ -199,8 +199,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                           IconButton(
                             onPressed: () => setState(() => _notes = !_notes),
                             icon: _notes
-                                ? const Icon(PhosphorIcons.noteFill)
-                                : const Icon(PhosphorIcons.noteLight),
+                                ? PhosphorIcon(PhosphorIcons.fill.note)
+                                : PhosphorIcon(PhosphorIcons.light.note),
                           ),
                         Flexible(
                           child: ConstrainedBox(
@@ -210,10 +210,10 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                                   horizontal: 8, vertical: 4),
                               child: TextField(
                                 textAlignVertical: TextAlignVertical.center,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   filled: true,
-                                  prefixIcon:
-                                      Icon(PhosphorIcons.magnifyingGlassLight),
+                                  prefixIcon: PhosphorIcon(
+                                      PhosphorIcons.light.magnifyingGlass),
                                 ),
                                 onChanged: (value) {
                                   setState(() {});

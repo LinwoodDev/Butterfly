@@ -14,9 +14,9 @@ class ExportDialog extends StatelessWidget {
     return AlertDialog(
         title: Row(
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Icon(PhosphorIcons.exportLight),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: PhosphorIcon(PhosphorIcons.light.export),
             ),
             Text(AppLocalizations.of(context).export),
           ],

@@ -16,27 +16,27 @@ class PresentationControlsDialog extends StatelessWidget {
         children: [
           ...<dynamic>[
             [
-              PhosphorIcons.arrowRightLight,
+              PhosphorIcons.light.arrowRight,
               AppLocalizations.of(context).nextSlide,
               AppLocalizations.of(context).nextSlideDescription,
             ],
             [
-              PhosphorIcons.arrowLeftLight,
+              PhosphorIcons.light.arrowLeft,
               AppLocalizations.of(context).previousSlide,
               AppLocalizations.of(context).previousSlideDescription,
             ],
             [
-              PhosphorIcons.pauseCircleLight,
+              PhosphorIcons.light.pauseCircle,
               AppLocalizations.of(context).pausePresentation,
               AppLocalizations.of(context).pausePresentationDescription,
             ],
             [
-              PhosphorIcons.doorLight,
+              PhosphorIcons.light.door,
               AppLocalizations.of(context).exitPresentation,
               AppLocalizations.of(context).exitPresentationDescription,
             ]
           ].map((e) => ListTile(
-                leading: Icon(e[0]),
+                leading: PhosphorIcon(e[0]),
                 title: Text(e[1]),
                 subtitle: Text(e[2]),
               )),

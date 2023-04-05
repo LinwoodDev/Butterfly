@@ -56,15 +56,15 @@ class _StyleDialogState extends State<StyleDialog> {
                   isScrollable: true,
                   tabs: <dynamic>[
                     [
-                      PhosphorIcons.gearLight,
+                      PhosphorIcons.light.gear,
                       AppLocalizations.of(context).general
                     ],
                     [
-                      PhosphorIcons.articleLight,
+                      PhosphorIcons.light.article,
                       AppLocalizations.of(context).paragraph
                     ],
                     [
-                      PhosphorIcons.textTLight,
+                      PhosphorIcons.light.textT,
                       AppLocalizations.of(context).text
                     ]
                   ]
@@ -72,7 +72,7 @@ class _StyleDialogState extends State<StyleDialog> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(e[0]),
+                                PhosphorIcon(e[0]),
                                 const SizedBox(width: 8),
                                 Text(e[1]),
                               ],

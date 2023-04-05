@@ -37,7 +37,7 @@ class AddDialog extends StatelessWidget {
           Text(AppLocalizations.of(context).add),
           IconButton(
             onPressed: () => openHelp(['painters']),
-            icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+            icon: PhosphorIcon(PhosphorIcons.light.sealQuestion),
           ),
         ],
       ),
@@ -68,7 +68,7 @@ class AddDialog extends StatelessWidget {
                       AppLocalizations.of(context).image,
                       textAlign: TextAlign.center,
                     ),
-                    icon: const Icon(PhosphorIcons.imageLight),
+                    icon: PhosphorIcon(PhosphorIcons.light.image),
                     onTap: () async {
                       var files = await FilePicker.platform.pickFiles(
                           type: FileType.image,
@@ -92,7 +92,7 @@ class AddDialog extends StatelessWidget {
                         AppLocalizations.of(context).camera,
                         textAlign: TextAlign.center,
                       ),
-                      icon: const Icon(PhosphorIcons.cameraLight),
+                      icon: PhosphorIcon(PhosphorIcons.light.camera),
                       onTap: () async {
                         var content = await showDialog<Uint8List>(
                           context: context,
@@ -107,7 +107,7 @@ class AddDialog extends StatelessWidget {
                       AppLocalizations.of(context).svg,
                       textAlign: TextAlign.center,
                     ),
-                    icon: const Icon(PhosphorIcons.sunLight),
+                    icon: PhosphorIcon(PhosphorIcons.light.sun),
                     onTap: () async {
                       final files = await FilePicker.platform.pickFiles(
                           type: FileType.custom,
@@ -128,7 +128,7 @@ class AddDialog extends StatelessWidget {
                       AppLocalizations.of(context).pdf,
                       textAlign: TextAlign.center,
                     ),
-                    icon: const Icon(PhosphorIcons.filePdfLight),
+                    icon: PhosphorIcon(PhosphorIcons.light.filePdf),
                     onTap: () async {
                       final files = await FilePicker.platform.pickFiles(
                           type: FileType.custom,
@@ -149,7 +149,7 @@ class AddDialog extends StatelessWidget {
                         AppLocalizations.of(context).document,
                         textAlign: TextAlign.center,
                       ),
-                      icon: const Icon(PhosphorIcons.fileTextLight),
+                      icon: PhosphorIcon(PhosphorIcons.light.fileText),
                       onTap: () async {
                         final files = await FilePicker.platform.pickFiles(
                             type: FileType.custom,
@@ -195,7 +195,7 @@ class AddDialog extends StatelessWidget {
                         painter.getLocalizedName(context),
                         textAlign: TextAlign.center,
                       ),
-                      icon: Icon(painter.getIcon()),
+                      icon: PhosphorIcon(painter.getIcon()),
                       onTap: () => addPainter(painter),
                     );
                   },
@@ -220,7 +220,7 @@ class AddDialog extends StatelessWidget {
                         painter.getLocalizedName(context),
                         textAlign: TextAlign.center,
                       ),
-                      icon: Icon(painter.getIcon()),
+                      icon: PhosphorIcon(painter.getIcon()),
                       onTap: () => addPainter(painter),
                     );
                   },

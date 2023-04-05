@@ -80,7 +80,7 @@ abstract class Selection<T> {
   }
 
   String getLocalizedName(BuildContext context);
-  IconData getIcon({bool filled = false});
+  PhosphorIconData getIcon({bool filled = false});
 
   List<Widget> buildProperties(BuildContext context) => [];
 

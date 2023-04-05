@@ -35,11 +35,11 @@ class ParagraphStyleView extends StatelessWidget {
                 value.copyWith(alignment: alignments[index]),
               );
             },
-            children: const [
-              Icon(PhosphorIcons.textAlignLeftLight),
-              Icon(PhosphorIcons.textAlignCenterLight),
-              Icon(PhosphorIcons.textAlignRightLight),
-              Icon(PhosphorIcons.textAlignJustifyLight),
+            children: [
+              PhosphorIcon(PhosphorIcons.light.textAlignLeft),
+              PhosphorIcon(PhosphorIcons.light.textAlignCenter),
+              PhosphorIcon(PhosphorIcons.light.textAlignRight),
+              PhosphorIcon(PhosphorIcons.light.textAlignJustify),
             ]),
         const SizedBox(height: 16),
         TextStyleView(

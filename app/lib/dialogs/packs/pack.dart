@@ -54,19 +54,19 @@ class _PackDialogState extends State<PackDialog> {
                     isScrollable: true,
                     tabs: <dynamic>[
                       [
-                        PhosphorIcons.gearLight,
+                        PhosphorIcons.light.gear,
                         AppLocalizations.of(context).general
                       ],
                       [
-                        PhosphorIcons.puzzlePieceLight,
+                        PhosphorIcons.light.puzzlePiece,
                         AppLocalizations.of(context).components
                       ],
                       [
-                        PhosphorIcons.pencilCircleLight,
+                        PhosphorIcons.light.pencilCircle,
                         AppLocalizations.of(context).styles
                       ],
                       [
-                        PhosphorIcons.paletteLight,
+                        PhosphorIcons.light.palette,
                         AppLocalizations.of(context).palettes
                       ]
                     ]
@@ -74,7 +74,7 @@ class _PackDialogState extends State<PackDialog> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(e[0]),
+                                  PhosphorIcon(e[0]),
                                   const SizedBox(width: 8),
                                   Text(e[1]),
                                 ],

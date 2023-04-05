@@ -47,7 +47,7 @@ class _PagesDialogState extends State<PagesDialog> {
             actions: [
               IconButton(
                   tooltip: AppLocalizations.of(context).invertSelection,
-                  icon: const Icon(PhosphorIcons.selectionInverseLight),
+                  icon: PhosphorIcon(PhosphorIcons.light.selectionInverse),
                   onPressed: () {
                     setState(() {
                       // Remove all selected pages and add all other pages.

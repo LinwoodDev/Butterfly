@@ -16,7 +16,7 @@ class SvgElementSelection extends ElementSelection<SvgElement> {
       ),
       ListTile(
         title: Text(AppLocalizations.of(context).export),
-        leading: const Icon(PhosphorIcons.exportLight),
+        leading: PhosphorIcon(PhosphorIcons.light.export),
         onTap: () async {
           final localization = AppLocalizations.of(context);
           final data = element.data;
@@ -52,8 +52,8 @@ class SvgElementSelection extends ElementSelection<SvgElement> {
   }
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.sunFill : PhosphorIcons.sunLight;
+  PhosphorIconData getIcon({bool filled = false}) =>
+      filled ? PhosphorIcons.fill.sun : PhosphorIcons.light.sun;
 
   @override
   String getLocalizedName(BuildContext context) =>

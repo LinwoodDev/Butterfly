@@ -24,7 +24,7 @@ class ElementsDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           MenuItemButton(
-            leadingIcon: const Icon(PhosphorIcons.arrowsOutCardinalLight),
+            leadingIcon: PhosphorIcon(PhosphorIcons.light.arrowsOutCardinal),
             onPressed: () {
               Navigator.of(context).pop(true);
               context
@@ -35,7 +35,7 @@ class ElementsDialog extends StatelessWidget {
             child: Text(AppLocalizations.of(context).move),
           ),
           MenuItemButton(
-            leadingIcon: const Icon(PhosphorIcons.copyLight),
+            leadingIcon: PhosphorIcon(PhosphorIcons.light.copy),
             onPressed: () {
               Navigator.of(context).pop(true);
               context
@@ -46,7 +46,7 @@ class ElementsDialog extends StatelessWidget {
             child: Text(AppLocalizations.of(context).duplicate),
           ),
           MenuItemButton(
-            leadingIcon: const Icon(PhosphorIcons.arrowsOutLight),
+            leadingIcon: PhosphorIcon(PhosphorIcons.light.arrowsOut),
             onPressed: () {
               Navigator.of(context).pop(false);
               context
@@ -62,7 +62,7 @@ class ElementsDialog extends StatelessWidget {
               context.read<DocumentBloc>().add(
                   ElementsRemoved(renderers.map((r) => r.element).toList()));
             },
-            leadingIcon: const Icon(PhosphorIcons.trashLight),
+            leadingIcon: PhosphorIcon(PhosphorIcons.light.trash),
             child: Text(AppLocalizations.of(context).delete),
           ),
           MenuItemButton(
@@ -72,7 +72,7 @@ class ElementsDialog extends StatelessWidget {
               cubit.changeSelection(renderers.first);
               renderers.sublist(1).forEach((r) => cubit.insertSelection(r));
             },
-            leadingIcon: const Icon(PhosphorIcons.fadersLight),
+            leadingIcon: PhosphorIcon(PhosphorIcons.light.faders),
             child: Text(AppLocalizations.of(context).properties),
           ),
         ],

@@ -48,10 +48,11 @@ class FileSystemGridView extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Row(children: [
-                                    const Padding(
-                                      padding: EdgeInsets.only(right: 8.0),
-                                      child: Icon(
-                                        PhosphorIcons.folderLight,
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
+                                      child: PhosphorIcon(
+                                        PhosphorIcons.light.folder,
                                         size: 32,
                                       ),
                                     ),
@@ -100,7 +101,7 @@ class FileSystemGridView extends StatelessWidget {
                                 Row(children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 8.0),
-                                    child: Icon(
+                                    child: PhosphorIcon(
                                       file.fileType.getIcon(),
                                       size: 32,
                                     ),

@@ -55,12 +55,12 @@ class PersonalizationSettingsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         ListTile(
-                            leading: const Icon(PhosphorIcons.eyeLight),
+                            leading: PhosphorIcon(PhosphorIcons.light.eye),
                             title: Text(AppLocalizations.of(context).theme),
                             subtitle: Text(_getThemeName(context, state.theme)),
                             onTap: () => _openThemeModal(context)),
                         ListTile(
-                          leading: const Icon(PhosphorIcons.paletteLight),
+                          leading: PhosphorIcon(PhosphorIcons.light.palette),
                           title: Text(AppLocalizations.of(context).design),
                           subtitle: Text(
                             design.isEmpty
@@ -73,7 +73,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
                           onTap: () => _openDesignModal(context),
                         ),
                         ListTile(
-                            leading: const Icon(PhosphorIcons.translateLight),
+                            leading:
+                                PhosphorIcon(PhosphorIcons.light.translate),
                             title: Text(AppLocalizations.of(context).locale),
                             subtitle:
                                 Text(_getLocaleName(context, state.localeTag)),
@@ -93,13 +94,15 @@ class PersonalizationSettingsPage extends StatelessWidget {
                             value: state.nativeWindowTitleBar,
                             title: Text(AppLocalizations.of(context)
                                 .nativeWindowTitleBar),
-                            secondary: const Icon(PhosphorIcons.appWindowLight),
+                            secondary:
+                                PhosphorIcon(PhosphorIcons.light.appWindow),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
                                 .changeNativeWindowTitleBar(value),
                           ),
                         SwitchListTile(
-                          secondary: const Icon(PhosphorIcons.squaresFourLight),
+                          secondary:
+                              PhosphorIcon(PhosphorIcons.light.squaresFour),
                           title: Text(AppLocalizations.of(context).start),
                           value: state.startEnabled,
                           onChanged: (value) => context
@@ -113,7 +116,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
                               .changeStartInFullScreen(value),
                           title: Text(
                               AppLocalizations.of(context).startInFullScreen),
-                          secondary: const Icon(PhosphorIcons.arrowsOutLight),
+                          secondary:
+                              PhosphorIcon(PhosphorIcons.light.arrowsOut),
                         ),
                       ]),
                 ),
@@ -203,17 +207,17 @@ class PersonalizationSettingsPage extends StatelessWidget {
                 ListTile(
                     title: Text(AppLocalizations.of(context).systemTheme),
                     selected: currentTheme == ThemeMode.system,
-                    leading: const Icon(PhosphorIcons.powerLight),
+                    leading: PhosphorIcon(PhosphorIcons.light.power),
                     onTap: () => changeTheme(ThemeMode.system)),
                 ListTile(
                     title: Text(AppLocalizations.of(context).lightTheme),
                     selected: currentTheme == ThemeMode.light,
-                    leading: const Icon(PhosphorIcons.sunLight),
+                    leading: PhosphorIcon(PhosphorIcons.light.sun),
                     onTap: () => changeTheme(ThemeMode.light)),
                 ListTile(
                     title: Text(AppLocalizations.of(context).darkTheme),
                     selected: currentTheme == ThemeMode.dark,
-                    leading: const Icon(PhosphorIcons.moonLight),
+                    leading: PhosphorIcon(PhosphorIcons.light.moon),
                     onTap: () => changeTheme(ThemeMode.dark)),
                 const SizedBox(height: 32),
               ]));

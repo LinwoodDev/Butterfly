@@ -136,8 +136,9 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
       AppLocalizations.of(context).shape;
 
   @override
-  IconData getIcon({bool filled = false}) =>
+  PhosphorIconData getIcon({bool filled = false}) =>
       selected.first.property.shape.getIcon(filled: filled);
+
   @override
   List<String> get help => ['painters', 'shape'];
 }
@@ -202,7 +203,7 @@ class _ShapeViewState extends State<ShapeView> {
                 return DropdownMenuItem<String>(
                   value: shape.runtimeType.toString(),
                   child: Row(children: [
-                    Icon(shape.getIcon()),
+                    PhosphorIcon(shape.getIcon()),
                     const SizedBox(width: 8),
                     Text(shape.getLocalizedName(context)),
                   ]),
@@ -230,7 +231,7 @@ class _CircleShapeView extends StatelessWidget {
       ColorField(
         value: Color(shape.fillColor),
         title: Text(AppLocalizations.of(context).fill),
-        leading: const Icon(PhosphorIcons.paintBucketLight),
+        leading: PhosphorIcon(PhosphorIcons.light.paintBucket),
         defaultColor: Colors.transparent,
         onChanged: (color) => onChanged(shape.copyWith(fillColor: color.value)),
       ),
@@ -264,7 +265,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
     return Column(children: [
       ColorField(
         title: Text(AppLocalizations.of(context).fill),
-        leading: const Icon(PhosphorIcons.paintBucketLight),
+        leading: PhosphorIcon(PhosphorIcons.light.paintBucket),
         value: Color(widget.shape.fillColor),
         defaultColor: Colors.transparent,
         onChanged: (color) =>

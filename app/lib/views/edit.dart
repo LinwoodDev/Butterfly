@@ -66,21 +66,22 @@ class _EditToolbarState extends State<EditToolbar> {
               if (state is! DocumentLoadSuccess) return Container();
               var painters = state.document.painters;
 
-              Widget buildIcon(IconData data, bool action, [Color? color]) =>
+              Widget buildIcon(PhosphorIconData data, bool action,
+                      [Color? color]) =>
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(width: 8),
-                      Icon(
+                      PhosphorIcon(
                         data,
                         color: color,
                       ),
                       SizedBox(
                         width: 8,
                         child: action
-                            ? Icon(
-                                PhosphorIcons.playCircleLight,
+                            ? PhosphorIcon(
+                                PhosphorIcons.light.playCircle,
                                 size: 16,
                                 color: color,
                               )
@@ -93,8 +94,8 @@ class _EditToolbarState extends State<EditToolbar> {
                 builder: (context, currentIndex) {
                   final temp = currentIndex.temporaryHandler;
                   final tempData = temp?.data;
-                  IconData icon = PhosphorIcons.cubeLight;
-                  IconData iconFilled = PhosphorIcons.cubeFill;
+                  PhosphorIconData icon = PhosphorIcons.light.cube;
+                  PhosphorIconData iconFilled = PhosphorIcons.fill.cube;
                   var tooltip = tempData?.name.trim();
                   if (tooltip?.isEmpty ?? false) {
                     if (tempData is Painter) {
@@ -127,8 +128,8 @@ class _EditToolbarState extends State<EditToolbar> {
                                             .selection?.selected
                                             .contains(tempData) ??
                                         false,
-                                    icon: Icon(icon),
-                                    selectedIcon: Icon(iconFilled),
+                                    icon: PhosphorIcon(icon),
+                                    selectedIcon: PhosphorIcon(iconFilled),
                                     onLongPressed: () => context
                                         .read<CurrentIndexCubit>()
                                         .changeSelection(tempData),
@@ -256,14 +257,15 @@ class _EditToolbarState extends State<EditToolbar> {
                                           ),
                                         );
                                       },
-                                      child:
-                                          const Icon(PhosphorIcons.plusLight),
+                                      child: PhosphorIcon(
+                                          PhosphorIcons.light.plus),
                                     ),
                                   ),
                                 ),
                                 const VerticalDivider(),
                                 IconButton(
-                                  icon: const Icon(PhosphorIcons.wrenchLight),
+                                  icon:
+                                      PhosphorIcon(PhosphorIcons.light.wrench),
                                   onPressed: () {
                                     final cubit =
                                         context.read<CurrentIndexCubit>();

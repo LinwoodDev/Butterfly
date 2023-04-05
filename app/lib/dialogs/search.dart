@@ -34,17 +34,17 @@ class _SearchDialogState extends State<SearchDialog> {
     });
   }
 
-  IconData _getIcon(Object item) {
+  PhosphorIconData _getIcon(Object item) {
     if (item is PadElement) {
       item.getIcon();
     }
     if (item is Waypoint) {
-      return PhosphorIcons.mapPinLight;
+      return PhosphorIcons.light.mapPin;
     }
     if (item is Area) {
-      return PhosphorIcons.selectionLight;
+      return PhosphorIcons.light.selection;
     }
-    return PhosphorIcons.questionLight;
+    return PhosphorIcons.light.question;
   }
 
   String _getLocalizedName(Object item, BuildContext context) {
@@ -97,7 +97,7 @@ class _SearchDialogState extends State<SearchDialog> {
                         ),
                         const SizedBox(width: 8),
                         IconButton(
-                          icon: const Icon(Icons.close),
+                          icon: PhosphorIcon(PhosphorIcons.light.x),
                           onPressed: () => Navigator.pop(context),
                         ),
                       ],
@@ -126,7 +126,7 @@ class _SearchDialogState extends State<SearchDialog> {
                               itemBuilder: (context, index) {
                                 final result = results[index];
                                 return ListTile(
-                                  leading: Icon(_getIcon(result.item)),
+                                  leading: PhosphorIcon(_getIcon(result.item)),
                                   title: Text(
                                       _getLocalizedName(result.item, context)),
                                   subtitle: Text(result.name),

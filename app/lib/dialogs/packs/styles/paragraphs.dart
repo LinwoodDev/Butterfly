@@ -73,7 +73,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                       ),
                       const SizedBox(width: 8),
                       IconButton(
-                        icon: const Icon(PhosphorIcons.plusLight),
+                        icon: PhosphorIcon(PhosphorIcons.light.plus),
                         onPressed: () async {
                           final name = await showDialog<String>(
                             context: context,
@@ -98,7 +98,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                       MenuAnchor(
                         builder: (context, controller, _) {
                           return IconButton(
-                            icon: const Icon(PhosphorIcons.listLight),
+                            icon: PhosphorIcon(PhosphorIcons.light.list),
                             onPressed: () {
                               if (controller.isOpen) {
                                 controller.close();
@@ -133,7 +133,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                       if (_currentStyle != null) ...[
                         const VerticalDivider(),
                         IconButton(
-                          icon: const Icon(PhosphorIcons.pencilLight),
+                          icon: PhosphorIcon(PhosphorIcons.light.pencil),
                           onPressed: () async {
                             final name = await showDialog<String>(
                               context: context,
@@ -162,7 +162,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                           },
                         ),
                         IconButton(
-                          icon: const Icon(PhosphorIcons.trashLight),
+                          icon: PhosphorIcon(PhosphorIcons.light.trash),
                           onPressed: () async {
                             final result = await showDialog(
                               context: context,

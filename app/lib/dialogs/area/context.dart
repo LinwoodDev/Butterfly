@@ -30,14 +30,15 @@ class AreaContextMenu extends StatelessWidget {
         return ListView(
           shrinkWrap: true,
           children: [
-            const SizedBox(
+            SizedBox(
               height: 50,
-              child: Center(child: Icon(PhosphorIcons.monitorLight, size: 36)),
+              child: Center(
+                  child: PhosphorIcon(PhosphorIcons.light.monitor, size: 36)),
             ),
             ListTile(
               leading: area.name == state.currentAreaName
-                  ? const Icon(PhosphorIcons.signInLight)
-                  : const Icon(PhosphorIcons.signOutLight),
+                  ? PhosphorIcon(PhosphorIcons.light.signIn)
+                  : PhosphorIcon(PhosphorIcons.light.signOut),
               title: Text(
                 area.name == state.currentAreaName
                     ? AppLocalizations.of(context).exitArea
@@ -54,7 +55,7 @@ class AreaContextMenu extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(PhosphorIcons.textTLight),
+              leading: PhosphorIcon(PhosphorIcons.light.textT),
               title: Text(AppLocalizations.of(context).name),
               subtitle: Text(area.name),
               onTap: () async {
@@ -78,7 +79,7 @@ class AreaContextMenu extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(PhosphorIcons.exportLight),
+              leading: PhosphorIcon(PhosphorIcons.light.export),
               title: Text(AppLocalizations.of(context).export),
               onTap: () {
                 final bloc = context.read<DocumentBloc>();
@@ -151,7 +152,7 @@ class AreaContextMenu extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(PhosphorIcons.trashLight),
+              leading: PhosphorIcon(PhosphorIcons.light.trash),
               title: Text(AppLocalizations.of(context).delete),
               onTap: () {
                 final bloc = context.read<DocumentBloc>();
@@ -162,7 +163,7 @@ class AreaContextMenu extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(PhosphorIcons.plusCircleLight),
+              leading: PhosphorIcon(PhosphorIcons.light.plusCircle),
               title: Text(AppLocalizations.of(context).addToPack),
               onTap: () async {
                 final settingsCubit = context.read<SettingsCubit>();

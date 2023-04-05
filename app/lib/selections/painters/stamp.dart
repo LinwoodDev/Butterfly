@@ -25,7 +25,7 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
           counterText:
               packs.isEmpty ? AppLocalizations.of(context).noPacks : null,
           suffixIcon: IconButton(
-            icon: const Icon(PhosphorIcons.packageLight),
+            icon: PhosphorIcon(PhosphorIcons.light.package),
             tooltip: AppLocalizations.of(context).packs,
             onPressed: () {
               Actions.maybeInvoke<PacksIntent>(context, PacksIntent(context));
@@ -93,8 +93,8 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
       AppLocalizations.of(context).stamp;
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.stampFill : PhosphorIcons.stampLight;
+  PhosphorIconData getIcon({bool filled = false}) =>
+      filled ? PhosphorIcons.fill.stamp : PhosphorIcons.light.stamp;
   @override
   List<String> get help => ['painters', 'stamp'];
 }

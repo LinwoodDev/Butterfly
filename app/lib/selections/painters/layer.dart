@@ -23,7 +23,7 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
               headerBuilder: (context, isExpanded) => ListTile(
                   title: Text(AppLocalizations.of(context).layers),
                   trailing: IconButton(
-                      icon: const Icon(PhosphorIcons.selectionLight),
+                      icon: PhosphorIcon(PhosphorIcons.light.selection),
                       tooltip: AppLocalizations.of(context).selectCustomLayer,
                       onPressed: () async {
                         final bloc = context.read<DocumentBloc>();
@@ -70,9 +70,10 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         filled: true,
-                        prefixIcon: Icon(PhosphorIcons.magnifyingGlassLight),
+                        prefixIcon:
+                            PhosphorIcon(PhosphorIcons.light.magnifyingGlass),
                       ),
                       textAlignVertical: TextAlignVertical.center,
                       controller: searchController,
@@ -116,9 +117,9 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
                               },
                               selected: state.currentLayer.isEmpty,
                               leading: IconButton(
-                                icon: Icon(state.isLayerVisible('')
-                                    ? PhosphorIcons.eyeLight
-                                    : PhosphorIcons.eyeSlashLight),
+                                icon: PhosphorIcon(state.isLayerVisible('')
+                                    ? PhosphorIcons.light.eye
+                                    : PhosphorIcons.light.eyeSlash),
                                 onPressed: () {
                                   context
                                       .read<DocumentBloc>()
@@ -147,10 +148,10 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
                                         selected:
                                             layers[index] == state.currentLayer,
                                         leading: IconButton(
-                                          icon: Icon(state
+                                          icon: PhosphorIcon(state
                                                   .isLayerVisible(layers[index])
-                                              ? PhosphorIcons.eyeLight
-                                              : PhosphorIcons.eyeSlashLight),
+                                              ? PhosphorIcons.light.eye
+                                              : PhosphorIcons.light.eyeSlash),
                                           onPressed: () {
                                             context.read<DocumentBloc>().add(
                                                 LayerVisibilityChanged(
@@ -191,8 +192,8 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
       AppLocalizations.of(context).layer;
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.squaresFourFill : PhosphorIcons.squaresFourLight;
+  PhosphorIconData getIcon({bool filled = false}) =>
+      filled ? PhosphorIcons.fill.squaresFour : PhosphorIcons.light.squaresFour;
 
   @override
   List<String> get help => ['painters', 'layer'];

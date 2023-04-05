@@ -64,7 +64,7 @@ class _ConstraintsViewState extends State<ConstraintsView> {
             children: [
               ListTile(
                 title: Text(AppLocalizations.of(context).constraints),
-                leading: const Icon(PhosphorIcons.selectionLight),
+                leading: PhosphorIcon(PhosphorIcons.light.selection),
                 onTap: () => setState(() {
                   opened = !isExpanded;
                 }),

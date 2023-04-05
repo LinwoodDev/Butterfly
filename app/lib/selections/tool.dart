@@ -4,8 +4,8 @@ class ToolSelection extends Selection<ToolState> {
   ToolSelection(super.selected);
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.wrenchFill : PhosphorIcons.wrenchLight;
+  PhosphorIconData getIcon({bool filled = false}) =>
+      filled ? PhosphorIcons.fill.wrench : PhosphorIcons.light.wrench;
 
   @override
   String getLocalizedName(BuildContext context) =>
@@ -80,17 +80,17 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
         controller: _tabController,
         isScrollable: true,
         tabs: <List<dynamic>>[
-          [PhosphorIcons.gearLight, AppLocalizations.of(context).project],
-          [PhosphorIcons.gridFourLight, AppLocalizations.of(context).grid],
-          [PhosphorIcons.rulerLight, AppLocalizations.of(context).ruler],
-          [PhosphorIcons.cameraLight, AppLocalizations.of(context).camera],
+          [PhosphorIcons.light.gear, AppLocalizations.of(context).project],
+          [PhosphorIcons.light.gridFour, AppLocalizations.of(context).grid],
+          [PhosphorIcons.light.ruler, AppLocalizations.of(context).ruler],
+          [PhosphorIcons.light.camera, AppLocalizations.of(context).camera],
         ]
             .map((e) => Tab(
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                      Icon(e[0]),
+                      PhosphorIcon(e[0]),
                       const SizedBox(width: 4),
                       Text(e[1])
                     ])))
@@ -128,7 +128,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                     const Divider(),
                     const SizedBox(height: 8),
                     MenuItemButton(
-                      leadingIcon: const Icon(PhosphorIcons.imageLight),
+                      leadingIcon: PhosphorIcon(PhosphorIcons.light.image),
                       shortcut: const SingleActivator(LogicalKeyboardKey.keyB,
                           control: true),
                       onPressed: () {
@@ -139,7 +139,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                     ),
                     if (state.embedding?.editable ?? true)
                       MenuItemButton(
-                        leadingIcon: const Icon(PhosphorIcons.paletteLight),
+                        leadingIcon: PhosphorIcon(PhosphorIcons.light.palette),
                         shortcut: const SingleActivator(LogicalKeyboardKey.keyP,
                             control: true),
                         onPressed: () {

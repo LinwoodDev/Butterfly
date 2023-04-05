@@ -23,20 +23,20 @@ extension FileSyncStatusVisualizer on FileSyncStatus? {
     }
   }
 
-  IconData getIcon() {
+  PhosphorIconData getIcon() {
     switch (this) {
       case FileSyncStatus.localLatest:
-        return PhosphorIcons.uploadLight;
+        return PhosphorIcons.light.upload;
       case FileSyncStatus.remoteLatest:
-        return PhosphorIcons.downloadLight;
+        return PhosphorIcons.light.download;
       case FileSyncStatus.synced:
-        return PhosphorIcons.checkLight;
+        return PhosphorIcons.light.check;
       case FileSyncStatus.conflict:
-        return PhosphorIcons.warningLight;
+        return PhosphorIcons.light.warning;
       case FileSyncStatus.offline:
-        return PhosphorIcons.wifiSlashLight;
+        return PhosphorIcons.light.wifiSlash;
       default:
-        return PhosphorIcons.arrowClockwiseLight;
+        return PhosphorIcons.light.arrowClockwise;
     }
   }
 
@@ -72,16 +72,16 @@ extension SyncStatusVisualizer on SyncStatus? {
     }
   }
 
-  IconData getIcon() {
+  PhosphorIconData getIcon() {
     switch (this) {
       case SyncStatus.syncing:
-        return PhosphorIcons.arrowClockwiseLight;
+        return PhosphorIcons.light.arrowClockwise;
       case SyncStatus.synced:
-        return PhosphorIcons.checkLight;
+        return PhosphorIcons.light.check;
       case SyncStatus.error:
-        return PhosphorIcons.warningLight;
+        return PhosphorIcons.light.warning;
       default:
-        return PhosphorIcons.arrowClockwiseLight;
+        return PhosphorIcons.light.arrowClockwise;
     }
   }
 
@@ -111,14 +111,14 @@ extension SyncModeVisualizer on SyncMode {
     }
   }
 
-  IconData getIcon() {
+  PhosphorIconData getIcon() {
     switch (this) {
       case SyncMode.always:
-        return PhosphorIcons.wifiHighLight;
+        return PhosphorIcons.light.wifiHigh;
       case SyncMode.noMobile:
-        return PhosphorIcons.wifiSlashLight;
+        return PhosphorIcons.light.wifiSlash;
       case SyncMode.manual:
-        return PhosphorIcons.arrowClockwiseLight;
+        return PhosphorIcons.light.arrowClockwise;
     }
   }
 }

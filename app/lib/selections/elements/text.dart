@@ -25,8 +25,8 @@ class TextElementSelection extends ElementSelection<TextElement> {
   }
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.textTFill : PhosphorIcons.textTLight;
+  PhosphorIconData getIcon({bool filled = false}) =>
+      filled ? PhosphorIcons.fill.textT : PhosphorIcons.light.textT;
 
   @override
   String getLocalizedName(BuildContext context) =>

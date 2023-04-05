@@ -38,8 +38,9 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
       AppLocalizations.of(context).pen;
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.penFill : PhosphorIcons.penLight;
+  PhosphorIconData getIcon({bool filled = false}) =>
+      filled ? PhosphorIcons.fill.pen : PhosphorIcons.light.pen;
+
   @override
   List<String> get help => ['painters', 'pen'];
 }

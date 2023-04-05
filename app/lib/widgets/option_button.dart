@@ -49,8 +49,8 @@ class OptionButton extends StatelessWidget {
                   children: [
                     selected ? selectedIcon : icon,
                     if (selected)
-                      const Icon(
-                        PhosphorIcons.caretDown,
+                      PhosphorIcon(
+                        PhosphorIcons.light.caretDown,
                         size: 12,
                       ),
                   ],

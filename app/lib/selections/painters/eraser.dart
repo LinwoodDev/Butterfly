@@ -32,8 +32,8 @@ class EraserPainterSelection extends PainterSelection<EraserPainter> {
       AppLocalizations.of(context).eraser;
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.eraserFill : PhosphorIcons.eraserLight;
+  PhosphorIconData getIcon({bool filled = false}) =>
+      filled ? PhosphorIcons.fill.eraser : PhosphorIcons.light.eraser;
 
   @override
   List<String> get help => ['painters', 'eraser'];

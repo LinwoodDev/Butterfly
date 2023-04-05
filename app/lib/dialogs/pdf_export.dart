@@ -53,7 +53,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
               title: Text(AppLocalizations.of(context).exportPdf),
               actions: [
                 IconButton(
-                  icon: const Icon(PhosphorIcons.listLight),
+                  icon: PhosphorIcon(PhosphorIcons.light.list),
                   tooltip: AppLocalizations.of(context).presets,
                   onPressed: () async {
                     final preset = await showDialog<ExportPreset>(
@@ -84,7 +84,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                       });
                     }
                   },
-                  icon: const Icon(PhosphorIcons.plusLight),
+                  icon: PhosphorIcon(PhosphorIcons.light.plus),
                   tooltip: AppLocalizations.of(context).add,
                 )
               ],
@@ -325,7 +325,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                   if (name == null) return;
                   bloc.add(ExportPresetCreated(name, widget.areas!));
                 },
-                icon: const Icon(PhosphorIcons.plusLight),
+                icon: PhosphorIcon(PhosphorIcons.light.plus),
                 tooltip: AppLocalizations.of(context).create,
               )
           ]),

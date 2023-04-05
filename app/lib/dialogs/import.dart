@@ -21,9 +21,9 @@ class _ImportDialogState extends State<ImportDialog> {
     return AlertDialog(
       title: Row(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Icon(PhosphorIcons.arrowSquareInLight),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: PhosphorIcon(PhosphorIcons.light.arrowSquareIn),
           ),
           Text(AppLocalizations.of(context).import),
         ],

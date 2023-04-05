@@ -139,12 +139,12 @@ class _HeaderHomeView extends StatelessWidget {
         children: [
           TextButton.icon(
             onPressed: () => openHelp(['intro']),
-            icon: const Icon(PhosphorIcons.bookOpenLight),
+            icon: PhosphorIcon(PhosphorIcons.light.bookOpen),
             label: Text(AppLocalizations.of(context).documentation),
           ),
           IconButton(
             onPressed: () => openSettings(context),
-            icon: const Icon(PhosphorIcons.gearLight),
+            icon: PhosphorIcon(PhosphorIcons.light.gear),
             tooltip: AppLocalizations.of(context).settings,
           ),
         ],
@@ -184,10 +184,10 @@ class _HeaderHomeView extends StatelessWidget {
                 SizedBox(
                   height: 0,
                   child: Stack(
-                    children: const [
+                    children: [
                       Align(
                         alignment: Alignment.bottomCenter,
-                        child: Icon(PhosphorIcons.caretUpLight),
+                        child: PhosphorIcon(PhosphorIcons.light.caretUp),
                       ),
                     ],
                   ),
@@ -380,8 +380,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
             IconButton(
               onPressed: () => setState(() => _gridView = !_gridView),
               icon: _gridView
-                  ? const Icon(PhosphorIcons.listLight)
-                  : const Icon(PhosphorIcons.gridFourLight),
+                  ? PhosphorIcon(PhosphorIcons.light.list)
+                  : PhosphorIcon(PhosphorIcons.light.gridFour),
             ),
           ],
           ),*/
@@ -467,7 +467,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
         final searchBar = TextFormField(
           decoration: InputDecoration(
             hintText: AppLocalizations.of(context).search,
-            prefixIcon: const Icon(PhosphorIcons.magnifyingGlassLight),
+            prefixIcon: PhosphorIcon(PhosphorIcons.light.magnifyingGlass),
             filled: true,
           ),
           initialValue: _search,
@@ -479,7 +479,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
             MenuAnchor(
               menuChildren: [
                 MenuItemButton(
-                  leadingIcon: const Icon(PhosphorIcons.folderLight),
+                  leadingIcon: PhosphorIcon(PhosphorIcons.light.folder),
                   child: Text(AppLocalizations.of(context).newFolder),
                   onPressed: () async {
                     final name = await showDialog<String>(
@@ -542,11 +542,11 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                       _reloadFileSystem();
                     }
                   },
-                  leadingIcon: const Icon(PhosphorIcons.fileLight),
+                  leadingIcon: PhosphorIcon(PhosphorIcons.light.file),
                   child: Text(AppLocalizations.of(context).newFile),
                 ),
                 MenuItemButton(
-                  leadingIcon: const Icon(PhosphorIcons.arrowSquareInLight),
+                  leadingIcon: PhosphorIcon(PhosphorIcons.light.arrowSquareIn),
                   onPressed: () async {
                     final router = GoRouter.of(context);
                     final importService = context.read<ImportService>();
@@ -574,7 +574,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                 onPressed: () =>
                     controller.isOpen ? controller.close() : controller.open(),
                 tooltip: AppLocalizations.of(context).create,
-                child: const Icon(PhosphorIcons.plusLight),
+                child: PhosphorIcon(PhosphorIcons.light.plus),
               ),
             ),
             DragTarget<String>(
@@ -585,7 +585,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                           _locationController.text = parent;
                           _setFilesFuture();
                         }),
-                icon: const Icon(PhosphorIcons.arrowUpLight),
+                icon: PhosphorIcon(PhosphorIcons.light.arrowUp),
                 tooltip: AppLocalizations.of(context).goUp,
               ),
               onWillAccept: (data) => true,
@@ -600,7 +600,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
               child: TextFormField(
                 decoration: InputDecoration(
                   hintText: AppLocalizations.of(context).location,
-                  prefixIcon: const Icon(PhosphorIcons.folderLight),
+                  prefixIcon: PhosphorIcon(PhosphorIcons.light.folder),
                   filled: true,
                   contentPadding: const EdgeInsets.only(left: 32),
                 ),
@@ -768,7 +768,7 @@ class _FileEntityListTile extends StatelessWidget {
     final syncService = context.read<SyncService>();
     DocumentInfo? info;
     String? modifiedText, createdText;
-    IconData icon = PhosphorIcons.folderLight;
+    PhosphorIconData icon = PhosphorIcons.light.folder;
     try {
       if (entity is AppDocumentFile) {
         final file = entity as AppDocumentFile;
@@ -836,7 +836,7 @@ class _FileEntityListTile extends StatelessWidget {
                       final fileName = Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
+                          PhosphorIcon(
                             icon,
                             color: colorScheme.outline,
                           ),
@@ -877,7 +877,8 @@ class _FileEntityListTile extends StatelessWidget {
                                     editable = true;
                                     _nameController.text = entity.fileName;
                                   }),
-                                  icon: const Icon(PhosphorIcons.pencilLight),
+                                  icon:
+                                      PhosphorIcon(PhosphorIcons.light.pencil),
                                   tooltip: AppLocalizations.of(context).rename,
                                 ),
                               ],
@@ -899,7 +900,7 @@ class _FileEntityListTile extends StatelessWidget {
                                             .location.pathWithLeadingSlash))
                                     ?.status;
                                 return IconButton(
-                                  icon: Icon(currentStatus.getIcon(),
+                                  icon: PhosphorIcon(currentStatus.getIcon(),
                                       color: currentStatus.getColor(
                                           Theme.of(context).colorScheme)),
                                   tooltip:
@@ -921,8 +922,8 @@ class _FileEntityListTile extends StatelessWidget {
                                 onReload();
                               },
                               icon: starred
-                                  ? const Icon(PhosphorIcons.starFill)
-                                  : const Icon(PhosphorIcons.starLight),
+                                  ? PhosphorIcon(PhosphorIcons.fill.star)
+                                  : PhosphorIcon(PhosphorIcons.light.star),
                               isSelected: starred,
                               tooltip: starred
                                   ? AppLocalizations.of(context).unstar
@@ -938,7 +939,8 @@ class _FileEntityListTile extends StatelessWidget {
                               ),
                             ).then((value) => onReload()),
                             tooltip: AppLocalizations.of(context).move,
-                            icon: const Icon(PhosphorIcons.arrowsDownUpLight),
+                            icon:
+                                PhosphorIcon(PhosphorIcons.light.arrowsDownUp),
                           ),
                         ],
                       );
@@ -951,8 +953,8 @@ class _FileEntityListTile extends StatelessWidget {
                               message: AppLocalizations.of(context).modified,
                               child: Row(
                                 children: [
-                                  Icon(
-                                    PhosphorIcons.clockCounterClockwiseLight,
+                                  PhosphorIcon(
+                                    PhosphorIcons.light.clockCounterClockwise,
                                     size: 12,
                                     color: colorScheme.outline,
                                   ),
@@ -974,8 +976,8 @@ class _FileEntityListTile extends StatelessWidget {
                               message: AppLocalizations.of(context).created,
                               child: Row(
                                 children: [
-                                  Icon(
-                                    PhosphorIcons.plusLight,
+                                  PhosphorIcon(
+                                    PhosphorIcons.light.plus,
                                     size: 12,
                                     color: colorScheme.outline,
                                   ),
@@ -1067,12 +1069,12 @@ class _FileEntityListTile extends StatelessWidget {
                         );
                       }
                     },
-                    icon: const Icon(PhosphorIcons.paperPlaneRightLight),
+                    icon: PhosphorIcon(PhosphorIcons.light.paperPlaneRight),
                     tooltip: AppLocalizations.of(context).export,
                   ),
                 Builder(builder: (context) {
                   return IconButton(
-                    icon: const Icon(PhosphorIcons.trashLight),
+                    icon: PhosphorIcon(PhosphorIcons.light.trash),
                     highlightColor: colorScheme.error.withOpacity(0.2),
                     tooltip: AppLocalizations.of(context).delete,
                     onPressed: () {
@@ -1104,7 +1106,7 @@ class _FileEntityListTile extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.of(ctx).pop();
                                     },
-                                    child: const Icon(PhosphorIcons.xLight),
+                                    child: PhosphorIcon(PhosphorIcons.light.x),
                                   ),
                                   FilledButton(
                                     onPressed: () {
@@ -1113,7 +1115,8 @@ class _FileEntityListTile extends StatelessWidget {
                                           .deleteAsset(entity.location.path);
                                       onReload();
                                     },
-                                    child: const Icon(PhosphorIcons.checkLight),
+                                    child:
+                                        PhosphorIcon(PhosphorIcons.light.check),
                                   ),
                                 ],
                               ),

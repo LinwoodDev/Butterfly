@@ -28,14 +28,14 @@ class ConnectionsSettingsPage extends StatelessWidget {
           inView: inView,
           actions: [
             IconButton(
-                icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+                icon: PhosphorIcon(PhosphorIcons.light.sealQuestion),
                 onPressed: () => openHelp(['storage'], 'remote')),
             BlocBuilder<SettingsCubit, ButterflySettings>(
                 builder: (context, settings) {
               return IconButton(
                 icon: settings.defaultRemote.isEmpty
-                    ? const Icon(PhosphorIcons.houseFill)
-                    : const Icon(PhosphorIcons.houseLight),
+                    ? PhosphorIcon(PhosphorIcons.fill.house)
+                    : PhosphorIcon(PhosphorIcons.light.house),
                 onPressed: () {
                   BlocProvider.of<SettingsCubit>(context).setDefaultRemote('');
                 },
@@ -47,7 +47,7 @@ class ConnectionsSettingsPage extends StatelessWidget {
           onPressed: () => showDialog<void>(
               context: context, builder: (context) => const _AddRemoteDialog()),
           label: Text(AppLocalizations.of(context).addConnection),
-          icon: const Icon(PhosphorIcons.plusLight),
+          icon: PhosphorIcon(PhosphorIcons.light.plus),
         ),
         body: Builder(builder: (context) {
           if (kIsWeb) {
@@ -84,8 +84,8 @@ class ConnectionsSettingsPage extends StatelessWidget {
                         },
                         trailing: IconButton(
                           icon: remote.identifier == state.defaultRemote
-                              ? const Icon(PhosphorIcons.cloudFill)
-                              : const Icon(PhosphorIcons.cloudLight),
+                              ? PhosphorIcon(PhosphorIcons.fill.cloud)
+                              : PhosphorIcon(PhosphorIcons.light.cloud),
                           onPressed: () {
                             BlocProvider.of<SettingsCubit>(context)
                                 .setDefaultRemote(remote.identifier);
@@ -249,7 +249,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context).url,
                     filled: true,
-                    icon: const Icon(PhosphorIcons.linkLight),
+                    icon: PhosphorIcon(PhosphorIcons.light.link),
                   ),
                 ),
                 const SizedBox(height: 8.0),
@@ -259,7 +259,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context).icon,
                     filled: true,
-                    icon: const Icon(PhosphorIcons.imageLight),
+                    icon: PhosphorIcon(PhosphorIcons.light.image),
                   ),
                 ),
                 const Divider(
@@ -271,7 +271,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context).username,
                       filled: true,
-                      icon: const Icon(PhosphorIcons.userLight),
+                      icon: PhosphorIcon(PhosphorIcons.light.user),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -285,15 +285,15 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                       labelText: AppLocalizations.of(context).password,
                       filled: true,
                       suffixIcon: IconButton(
-                        icon: Icon(
+                        icon: PhosphorIcon(
                           _showPassword
-                              ? PhosphorIcons.eyeLight
-                              : PhosphorIcons.eyeSlashLight,
+                              ? PhosphorIcons.light.eye
+                              : PhosphorIcons.light.eyeSlash,
                         ),
                         onPressed: () =>
                             setState(() => _showPassword = !_showPassword),
                       ),
-                      icon: const Icon(PhosphorIcons.lockLight),
+                      icon: PhosphorIcon(PhosphorIcons.light.lock),
                     ),
                   ),
                 ] else ...[
@@ -315,7 +315,7 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                       _templatesDirectoryController.text = '${prefix}Templates';
                       _packsDirectoryController.text = '${prefix}Packs';
                     },
-                    icon: const Icon(PhosphorIcons.folderLight),
+                    icon: PhosphorIcon(PhosphorIcons.light.folder),
                   ),
                   const SizedBox(height: 8),
                   ExpansionPanelList(
@@ -336,20 +336,20 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                             controller: _documentsDirectoryController,
                             label:
                                 AppLocalizations.of(context).documentsDirectory,
-                            icon: const Icon(PhosphorIcons.fileLight),
+                            icon: PhosphorIcon(PhosphorIcons.light.file),
                           ),
                           const SizedBox(height: 8),
                           _DirectoryField(
                             controller: _templatesDirectoryController,
                             label:
                                 AppLocalizations.of(context).templatesDirectory,
-                            icon: const Icon(PhosphorIcons.fileDottedLight),
+                            icon: PhosphorIcon(PhosphorIcons.light.fileDashed),
                           ),
                           const SizedBox(height: 8),
                           _DirectoryField(
                             controller: _packsDirectoryController,
                             label: AppLocalizations.of(context).packsDirectory,
-                            icon: const Icon(PhosphorIcons.packageLight),
+                            icon: PhosphorIcon(PhosphorIcons.light.package),
                           ),
                         ]),
                       ),
@@ -409,7 +409,7 @@ class _DirectoryField extends StatelessWidget {
         icon: icon,
         filled: true,
         /*suffixIcon: IconButton(
-            icon: const Icon(PhosphorIcons.folderLight),
+            icon: PhosphorIcon(PhosphorIcons.light.folder),
             onPressed: () async {}),*/
       ),
       onChanged: onChanged,

@@ -16,8 +16,8 @@ class HandSelection extends PainterSelection<HandPainter> {
   }
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.handFill : PhosphorIcons.handLight;
+  PhosphorIconData getIcon({bool filled = false}) =>
+      filled ? PhosphorIcons.fill.hand : PhosphorIcons.light.hand;
 
   @override
   List<String> get help => ['painters', 'hand'];

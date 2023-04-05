@@ -145,7 +145,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                       ...[
                         if (!fullScreen) ...[
                           IconButton(
-                            icon: const Icon(PhosphorIcons.minusLight),
+                            icon: PhosphorIcon(PhosphorIcons.light.minus),
                             tooltip: AppLocalizations.of(context).minimize,
                             splashRadius: 20,
                             onPressed: () => windowManager.minimize(),
@@ -156,8 +156,8 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                                 message: maximized
                                     ? AppLocalizations.of(context).restore
                                     : AppLocalizations.of(context).maximize,
-                                child: Icon(
-                                  PhosphorIcons.squareLight,
+                                child: PhosphorIcon(
+                                  PhosphorIcons.light.square,
                                   size: maximized ? 14 : 20,
                                   color: Theme.of(context).iconTheme.color,
                                 ),
@@ -176,9 +176,9 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                             ),
                             menuChildren: [
                               MenuItemButton(
-                                leadingIcon: Icon(alwaysOnTop
-                                    ? PhosphorIcons.pushPinFill
-                                    : PhosphorIcons.pushPinLight),
+                                leadingIcon: PhosphorIcon(alwaysOnTop
+                                    ? PhosphorIcons.fill.pushPin
+                                    : PhosphorIcons.light.pushPin),
                                 child: Text(alwaysOnTop
                                     ? AppLocalizations.of(context)
                                         .exitAlwaysOnTop
@@ -190,9 +190,9 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                                 },
                               ),
                               MenuItemButton(
-                                leadingIcon: Icon(fullScreen
-                                    ? PhosphorIcons.arrowsInLight
-                                    : PhosphorIcons.arrowsOutLight),
+                                leadingIcon: PhosphorIcon(fullScreen
+                                    ? PhosphorIcons.light.arrowsIn
+                                    : PhosphorIcons.light.arrowsOut),
                                 child: Text(fullScreen
                                     ? AppLocalizations.of(context)
                                         .exitFullScreen
@@ -206,7 +206,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                             ],
                           ),
                           IconButton(
-                            icon: const Icon(PhosphorIcons.xLight),
+                            icon: PhosphorIcon(PhosphorIcons.light.x),
                             tooltip: AppLocalizations.of(context).close,
                             color: Colors.red,
                             splashRadius: 20,

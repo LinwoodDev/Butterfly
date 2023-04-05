@@ -34,12 +34,12 @@ class _SyncDialogState extends State<SyncDialog> {
                   Header(
                     title: Text(status.getLocalizedName(context)),
                     leading: IconButton(
-                      icon: Icon(status.getIcon()),
+                      icon: PhosphorIcon(status.getIcon()),
                       onPressed: () => service.sync(),
                     ),
                     actions: [
                       IconButton(
-                        icon: const Icon(PhosphorIcons.xLight),
+                        icon: PhosphorIcon(PhosphorIcons.light.x),
                         onPressed: () => Navigator.pop(context),
                       ),
                     ],
@@ -70,7 +70,8 @@ class _SyncDialogState extends State<SyncDialog> {
                                               IconButton(
                                             tooltip: snapshot.data
                                                 .getLocalizedName(context),
-                                            icon: Icon(snapshot.data.getIcon()),
+                                            icon: PhosphorIcon(
+                                                snapshot.data.getIcon()),
                                             onPressed: () => service.sync(),
                                           ),
                                         )),
@@ -119,7 +120,7 @@ class _RemoteSyncView extends StatelessWidget {
                 ListTile(
                   title: Text(file.location.path),
                   subtitle: Text(file.status.getLocalizedName(context)),
-                  leading: Icon(file.status.getIcon()),
+                  leading: PhosphorIcon(file.status.getIcon()),
                 ),
                 if (file.status == FileSyncStatus.conflict) ...[
                   Row(

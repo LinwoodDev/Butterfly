@@ -28,12 +28,11 @@ class BackgroundDialog extends StatelessWidget {
                 children: [
                   Header(
                     title: Text(AppLocalizations.of(context).background),
-                    leading: const Icon(PhosphorIcons.imageLight),
+                    leading: PhosphorIcon(PhosphorIcons.light.image),
                     actions: [
                       IconButton(
                           tooltip: AppLocalizations.of(context).help,
-                          icon:
-                              const Icon(PhosphorIcons.circleWavyQuestionLight),
+                          icon: PhosphorIcon(PhosphorIcons.light.sealQuestion),
                           onPressed: () => openHelp(['background', 'intro'])),
                     ],
                   ),

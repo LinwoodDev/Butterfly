@@ -4,8 +4,8 @@ class AreaSelection extends Selection<Area> {
   AreaSelection(super.selected);
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.monitorFill : PhosphorIcons.monitor;
+  PhosphorIconData getIcon({bool filled = false}) =>
+      filled ? PhosphorIcons.fill.monitor : PhosphorIcons.light.monitor;
 
   @override
   String getLocalizedName(BuildContext context) =>

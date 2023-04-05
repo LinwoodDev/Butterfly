@@ -41,7 +41,7 @@ class TouchBehaviorSettings extends StatelessWidget {
                               value: state.touchSensitivity,
                               defaultValue: 1,
                               header: Row(children: [
-                                const Icon(PhosphorIcons.lightningLight),
+                                PhosphorIcon(PhosphorIcons.light.lightning),
                                 const SizedBox(width: 8),
                                 Text(AppLocalizations.of(context).sensitivity),
                               ]),
@@ -78,8 +78,8 @@ class TouchBehaviorSettings extends StatelessWidget {
                                     Theme.of(context).textTheme.headlineSmall,
                               ),
                               IconButton(
-                                icon: const Icon(
-                                    PhosphorIcons.circleWavyQuestionLight),
+                                icon: PhosphorIcon(
+                                    PhosphorIcons.light.sealQuestion),
                                 onPressed: () =>
                                     openHelp(['shortcuts'], 'configure'),
                               ),
@@ -90,7 +90,7 @@ class TouchBehaviorSettings extends StatelessWidget {
                             initialValue:
                                 config.touch?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).touch,
-                            icon: const Icon(PhosphorIcons.handLight),
+                            icon: PhosphorIcon(PhosphorIcons.light.hand),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(

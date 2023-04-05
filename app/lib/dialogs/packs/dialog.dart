@@ -61,11 +61,11 @@ class _PacksDialogState extends State<PacksDialog>
                         controller: _controller,
                         tabs: [
                           Tab(
-                            icon: const Icon(PhosphorIcons.fileLight),
+                            icon: PhosphorIcon(PhosphorIcons.light.file),
                             text: AppLocalizations.of(context).document,
                           ),
                           Tab(
-                            icon: const Icon(PhosphorIcons.appWindowLight),
+                            icon: PhosphorIcon(PhosphorIcons.light.appWindow),
                             text: AppLocalizations.of(context).local,
                           ),
                         ],
@@ -127,8 +127,8 @@ class _PacksDialogState extends State<PacksDialog>
                                         PopupMenuItem(
                                           padding: EdgeInsets.zero,
                                           child: ListTile(
-                                            leading: const Icon(
-                                                PhosphorIcons.appWindowLight),
+                                            leading: PhosphorIcon(
+                                                PhosphorIcons.light.appWindow),
                                             title: Text(
                                                 AppLocalizations.of(context)
                                                     .local),
@@ -141,8 +141,8 @@ class _PacksDialogState extends State<PacksDialog>
                                         PopupMenuItem(
                                           padding: EdgeInsets.zero,
                                           child: ListTile(
-                                            leading: const Icon(
-                                                PhosphorIcons.downloadLight),
+                                            leading: PhosphorIcon(
+                                                PhosphorIcons.light.download),
                                             title: Text(
                                                 AppLocalizations.of(context)
                                                     .export),
@@ -155,8 +155,8 @@ class _PacksDialogState extends State<PacksDialog>
                                         PopupMenuItem(
                                           padding: EdgeInsets.zero,
                                           child: ListTile(
-                                            leading: const Icon(
-                                                PhosphorIcons.trashLight),
+                                            leading: PhosphorIcon(
+                                                PhosphorIcons.light.trash),
                                             title: Text(
                                                 AppLocalizations.of(context)
                                                     .delete),
@@ -242,8 +242,8 @@ class _PacksDialogState extends State<PacksDialog>
                                           PopupMenuItem(
                                             padding: EdgeInsets.zero,
                                             child: ListTile(
-                                              leading: const Icon(
-                                                  PhosphorIcons.fileLight),
+                                              leading: PhosphorIcon(
+                                                  PhosphorIcons.light.file),
                                               title: Text(
                                                   AppLocalizations.of(context)
                                                       .document),
@@ -256,8 +256,8 @@ class _PacksDialogState extends State<PacksDialog>
                                         PopupMenuItem(
                                           padding: EdgeInsets.zero,
                                           child: ListTile(
-                                            leading: const Icon(
-                                                PhosphorIcons.downloadLight),
+                                            leading: PhosphorIcon(
+                                                PhosphorIcons.light.download),
                                             title: Text(
                                                 AppLocalizations.of(context)
                                                     .export),
@@ -270,8 +270,8 @@ class _PacksDialogState extends State<PacksDialog>
                                         PopupMenuItem(
                                           padding: EdgeInsets.zero,
                                           child: ListTile(
-                                            leading: const Icon(
-                                                PhosphorIcons.trashLight),
+                                            leading: PhosphorIcon(
+                                                PhosphorIcons.light.trash),
                                             title: Text(
                                                 AppLocalizations.of(context)
                                                     .delete),
@@ -303,7 +303,7 @@ class _PacksDialogState extends State<PacksDialog>
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: FloatingActionButton.extended(
-                      icon: const Icon(PhosphorIcons.plusLight),
+                      icon: PhosphorIcon(PhosphorIcons.light.plus),
                       label: Text(AppLocalizations.of(context).add),
                       onPressed: () {
                         showModalBottomSheet<ThemeMode>(
@@ -325,8 +325,8 @@ class _PacksDialogState extends State<PacksDialog>
                               ListTile(
                                 title:
                                     Text(AppLocalizations.of(context).import),
-                                leading: const Icon(
-                                    PhosphorIcons.arrowSquareInLight),
+                                leading: PhosphorIcon(
+                                    PhosphorIcons.light.arrowSquareIn),
                                 onTap: () async {
                                   Navigator.of(context).pop();
                                   final data = await showDialog<String>(
@@ -382,8 +382,8 @@ class _PacksDialogState extends State<PacksDialog>
                               ListTile(
                                 title:
                                     Text(AppLocalizations.of(context).create),
-                                leading:
-                                    const Icon(PhosphorIcons.plusCircleLight),
+                                leading: PhosphorIcon(
+                                    PhosphorIcons.light.plusCircle),
                                 onTap: () async {
                                   Navigator.of(context).pop();
                                   final pack = await showDialog<ButterflyPack>(

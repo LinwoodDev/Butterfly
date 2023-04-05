@@ -16,13 +16,13 @@ extension ElementVisualizer on PadElement {
     );
   }
 
-  IconData getIcon() {
+  PhosphorIconData getIcon() {
     return map(
-      pen: (_) => PhosphorIcons.penLight,
-      text: (_) => PhosphorIcons.textTLight,
-      image: (_) => PhosphorIcons.imageLight,
+      pen: (_) => PhosphorIcons.light.pen,
+      text: (_) => PhosphorIcons.light.textT,
+      image: (_) => PhosphorIcons.light.image,
       shape: (element) => element.property.shape.getIcon(),
-      svg: (_) => PhosphorIcons.sunLight,
+      svg: (_) => PhosphorIcons.light.sun,
     );
   }
 }

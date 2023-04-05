@@ -92,7 +92,7 @@ class StylesPackView extends StatelessWidget {
                     ..add(styleSheet),
                 ));
               },
-              icon: const Icon(PhosphorIcons.plusLight),
+              icon: PhosphorIcon(PhosphorIcons.light.plus),
               label: Text(AppLocalizations.of(context).create),
             ),
           ),
