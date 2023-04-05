@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "Error al crear la conexión",
   "cannotConnect": "No se puede conectar",
   "urlNotValid": "URL no válida",
-  "icon": "Icono",
+  "icon": "PhosphorIcon",
   "update": "Actualizar",
   "updateAvailable": "Actualización disponible",
   "stable": "Estable",
