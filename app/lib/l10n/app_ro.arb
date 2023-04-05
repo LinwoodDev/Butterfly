@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "Eroare la crearea conexiunii",
   "cannotConnect": "Nu se poate conecta",
   "urlNotValid": "URL incorect",
-  "icon": "Iconiță",
+  "icon": "PhosphorIcon",
   "update": "Actualizare",
   "updateAvailable": "Actualizare disponibilă",
   "stable": "Stabil",
