@@ -298,7 +298,7 @@
   "errorWhileCreatingConnection": "Chyba při vytváření připojení",
   "cannotConnect": "Nelze se připojit",
   "urlNotValid": "Adresa URL není platná",
-  "icon": "Ikona",
+  "icon": "PhosphorIcon",
   "update": "Aktualizovat",
   "updateAvailable": "K dispozici je aktualizace",
   "stable": "Stabilní",
