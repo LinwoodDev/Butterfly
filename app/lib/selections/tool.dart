@@ -137,17 +137,6 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                       },
                       child: Text(AppLocalizations.of(context).background),
                     ),
-                    if (state.embedding?.editable ?? true)
-                      MenuItemButton(
-                        leadingIcon: PhosphorIcon(PhosphorIcons.light.palette),
-                        shortcut: const SingleActivator(LogicalKeyboardKey.keyP,
-                            control: true),
-                        onPressed: () {
-                          Actions.maybeInvoke<ColorPaletteIntent>(
-                              context, ColorPaletteIntent(context));
-                        },
-                        child: Text(AppLocalizations.of(context).color),
-                      ),
                   ],
                 ),
                 Column(children: [
