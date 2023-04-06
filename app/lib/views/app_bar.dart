@@ -168,6 +168,16 @@ class _AppBarTitle extends StatelessWidget {
                               context, SaveIntent(context));
                         },
                       ),
+                    if (state.currentAreaName.isNotEmpty)
+                      IconButton(
+                        icon: PhosphorIcon(PhosphorIcons.light.door),
+                        tooltip: AppLocalizations.of(context).exit,
+                        onPressed: () {
+                          context
+                              .read<DocumentBloc>()
+                              .add(const CurrentAreaChanged.exit());
+                        },
+                      ),
                     if (state.location.absolute)
                       IconButton(
                           icon: PhosphorIcon(state.location.fileType.getIcon()),

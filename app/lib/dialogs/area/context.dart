@@ -1,5 +1,4 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/dialogs/svg_export.dart';
@@ -36,25 +35,6 @@ class AreaContextMenu extends StatelessWidget {
                   child: PhosphorIcon(PhosphorIcons.light.monitor, size: 36)),
             ),
             ListTile(
-              leading: area.name == state.currentAreaName
-                  ? PhosphorIcon(PhosphorIcons.light.signIn)
-                  : PhosphorIcon(PhosphorIcons.light.signOut),
-              title: Text(
-                area.name == state.currentAreaName
-                    ? AppLocalizations.of(context).exitArea
-                    : AppLocalizations.of(context).enterArea,
-              ),
-              onTap: () {
-                Navigator.of(context).pop();
-                if (area.name == state.currentAreaName) {
-                  bloc.add(const CurrentAreaChanged.exit());
-                } else {
-                  bloc.add(CurrentAreaChanged(area.name));
-                }
-                context.read<CurrentIndexCubit>().reset(bloc);
-              },
-            ),
-            ListTile(
               leading: PhosphorIcon(PhosphorIcons.light.textT),
               title: Text(AppLocalizations.of(context).name),
               subtitle: Text(area.name),
@@ -78,10 +58,29 @@ class AreaContextMenu extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              leading: PhosphorIcon(PhosphorIcons.light.export),
-              title: Text(AppLocalizations.of(context).export),
-              onTap: () {
+            const Divider(),
+            MenuItemButton(
+              leadingIcon: area.name == state.currentAreaName
+                  ? PhosphorIcon(PhosphorIcons.light.signIn)
+                  : PhosphorIcon(PhosphorIcons.light.signOut),
+              child: Text(
+                area.name == state.currentAreaName
+                    ? AppLocalizations.of(context).exitArea
+                    : AppLocalizations.of(context).enterArea,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                if (area.name == state.currentAreaName) {
+                  bloc.add(const CurrentAreaChanged.exit());
+                } else {
+                  bloc.add(CurrentAreaChanged(area.name));
+                }
+              },
+            ),
+            MenuItemButton(
+              leadingIcon: PhosphorIcon(PhosphorIcons.light.export),
+              child: Text(AppLocalizations.of(context).export),
+              onPressed: () {
                 final bloc = context.read<DocumentBloc>();
                 Navigator.of(context).pop();
                 showDialog<void>(
@@ -92,9 +91,9 @@ class AreaContextMenu extends StatelessWidget {
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        ListTile(
-                          title: Text(AppLocalizations.of(context).image),
-                          onTap: () {
+                        MenuItemButton(
+                          child: Text(AppLocalizations.of(context).image),
+                          onPressed: () {
                             Navigator.of(context).pop();
                             showDialog<void>(
                                 builder: (context) => BlocProvider.value(
@@ -110,9 +109,9 @@ class AreaContextMenu extends StatelessWidget {
                                 context: context);
                           },
                         ),
-                        ListTile(
-                          title: Text(AppLocalizations.of(context).svg),
-                          onTap: () {
+                        MenuItemButton(
+                          child: Text(AppLocalizations.of(context).svg),
+                          onPressed: () {
                             Navigator.of(context).pop();
                             showDialog<void>(
                                 builder: (context) => BlocProvider.value(
@@ -126,9 +125,9 @@ class AreaContextMenu extends StatelessWidget {
                                 context: context);
                           },
                         ),
-                        ListTile(
-                          title: Text(AppLocalizations.of(context).pdf),
-                          onTap: () {
+                        MenuItemButton(
+                          child: Text(AppLocalizations.of(context).pdf),
+                          onPressed: () {
                             Navigator.of(context).pop();
                             showDialog<void>(
                                 builder: (context) => BlocProvider.value(
@@ -151,10 +150,10 @@ class AreaContextMenu extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              leading: PhosphorIcon(PhosphorIcons.light.trash),
-              title: Text(AppLocalizations.of(context).delete),
-              onTap: () {
+            MenuItemButton(
+              leadingIcon: PhosphorIcon(PhosphorIcons.light.trash),
+              child: Text(AppLocalizations.of(context).delete),
+              onPressed: () {
                 final bloc = context.read<DocumentBloc>();
                 final state = bloc.state;
                 if (state is! DocumentLoadSuccess) return;
@@ -162,10 +161,10 @@ class AreaContextMenu extends StatelessWidget {
                 bloc.add(AreasRemoved([area.name]));
               },
             ),
-            ListTile(
-              leading: PhosphorIcon(PhosphorIcons.light.plusCircle),
-              title: Text(AppLocalizations.of(context).addToPack),
-              onTap: () async {
+            MenuItemButton(
+              leadingIcon: PhosphorIcon(PhosphorIcons.light.plusCircle),
+              child: Text(AppLocalizations.of(context).addToPack),
+              onPressed: () async {
                 final settingsCubit = context.read<SettingsCubit>();
                 final bloc = context.read<DocumentBloc>();
                 final elements = state.renderers

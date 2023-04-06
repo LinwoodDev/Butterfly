@@ -589,6 +589,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       emit(current.copyWith(currentAreaName: event.area));
+      current.bake();
     });
     on<DocumentPackAdded>((event, emit) {
       final current = state;
@@ -754,6 +755,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     await Future.wait(renderers.map((e) async => await e.setup(document)));
     currentIndexCubit.unbake(
         background: background, tool: tool, unbakedElements: renderers);
-    currentIndexCubit.changePainter(this, 0);
+    currentIndexCubit.init(this);
   }
 }
