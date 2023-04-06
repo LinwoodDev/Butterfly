@@ -145,7 +145,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                       ...[
                         if (!fullScreen) ...[
                           IconButton(
-                            icon: PhosphorIcon(PhosphorIcons.light.minus),
+                            icon: const PhosphorIcon(PhosphorIconsLight.minus),
                             tooltip: AppLocalizations.of(context).minimize,
                             splashRadius: 20,
                             onPressed: () => windowManager.minimize(),
@@ -157,7 +157,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                                     ? AppLocalizations.of(context).restore
                                     : AppLocalizations.of(context).maximize,
                                 child: PhosphorIcon(
-                                  PhosphorIcons.light.square,
+                                  PhosphorIconsLight.square,
                                   size: maximized ? 14 : 20,
                                   color: Theme.of(context).iconTheme.color,
                                 ),
@@ -177,8 +177,8 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                             menuChildren: [
                               MenuItemButton(
                                 leadingIcon: PhosphorIcon(alwaysOnTop
-                                    ? PhosphorIcons.fill.pushPin
-                                    : PhosphorIcons.light.pushPin),
+                                    ? PhosphorIconsFill.pushPin
+                                    : PhosphorIconsLight.pushPin),
                                 child: Text(alwaysOnTop
                                     ? AppLocalizations.of(context)
                                         .exitAlwaysOnTop
@@ -191,8 +191,8 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                               ),
                               MenuItemButton(
                                 leadingIcon: PhosphorIcon(fullScreen
-                                    ? PhosphorIcons.light.arrowsIn
-                                    : PhosphorIcons.light.arrowsOut),
+                                    ? PhosphorIconsLight.arrowsIn
+                                    : PhosphorIconsLight.arrowsOut),
                                 child: Text(fullScreen
                                     ? AppLocalizations.of(context)
                                         .exitFullScreen
@@ -206,7 +206,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                             ],
                           ),
                           IconButton(
-                            icon: PhosphorIcon(PhosphorIcons.light.x),
+                            icon: const PhosphorIcon(PhosphorIconsLight.x),
                             tooltip: AppLocalizations.of(context).close,
                             color: Colors.red,
                             splashRadius: 20,

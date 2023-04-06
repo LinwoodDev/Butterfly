@@ -81,7 +81,7 @@ class _EditToolbarState extends State<EditToolbar> {
                         width: 8,
                         child: action
                             ? PhosphorIcon(
-                                PhosphorIcons.light.playCircle,
+                                PhosphorIconsLight.playCircle,
                                 size: 16,
                                 color: color,
                               )
@@ -94,14 +94,14 @@ class _EditToolbarState extends State<EditToolbar> {
                 builder: (context, currentIndex) {
                   final temp = currentIndex.temporaryHandler;
                   final tempData = temp?.data;
-                  PhosphorIconData icon = PhosphorIcons.light.cube;
-                  PhosphorIconData iconFilled = PhosphorIcons.fill.cube;
+                  PhosphorIconData icon = PhosphorIconsLight.cube;
+                  PhosphorIconData iconFilled = PhosphorIconsFill.cube;
                   var tooltip = tempData?.name.trim();
                   if (tooltip?.isEmpty ?? false) {
                     if (tempData is Painter) {
                       tooltip = tempData.getLocalizedName(context);
-                      icon = tempData.getIcon();
-                      iconFilled = tempData.getIcon(filled: true);
+                      icon = tempData.icon(PhosphorIconsStyle.light);
+                      iconFilled = tempData.icon(PhosphorIconsStyle.fill);
                     }
                   }
                   tooltip ??= '';
@@ -188,11 +188,13 @@ class _EditToolbarState extends State<EditToolbar> {
                                               selected: selected,
                                               highlighted: highlighted,
                                               selectedIcon: buildIcon(
-                                                  e.getIcon(filled: true),
+                                                  e.icon(
+                                                      PhosphorIconsStyle.fill),
                                                   e.isAction(),
                                                   color),
                                               icon: buildIcon(
-                                                  e.getIcon(filled: false),
+                                                  e.icon(
+                                                      PhosphorIconsStyle.light),
                                                   e.isAction(),
                                                   color),
                                               onPressed: () {
@@ -257,15 +259,15 @@ class _EditToolbarState extends State<EditToolbar> {
                                           ),
                                         );
                                       },
-                                      child: PhosphorIcon(
-                                          PhosphorIcons.light.plus),
+                                      child: const PhosphorIcon(
+                                          PhosphorIconsLight.plus),
                                     ),
                                   ),
                                 ),
                                 const VerticalDivider(),
                                 IconButton(
-                                  icon:
-                                      PhosphorIcon(PhosphorIcons.light.wrench),
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.wrench),
                                   onPressed: () {
                                     final cubit =
                                         context.read<CurrentIndexCubit>();

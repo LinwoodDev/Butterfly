@@ -154,7 +154,7 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
             children: [
               Header(
                 title: Text(AppLocalizations.of(context).exportSvg),
-                leading: PhosphorIcon(PhosphorIcons.light.export),
+                leading: const PhosphorIcon(PhosphorIconsLight.export),
               ),
               Flexible(
                 child: Padding(

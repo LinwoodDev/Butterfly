@@ -4,8 +4,7 @@ class ToolSelection extends Selection<ToolState> {
   ToolSelection(super.selected);
 
   @override
-  PhosphorIconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.fill.wrench : PhosphorIcons.light.wrench;
+  IconGetter get icon => PhosphorIcons.wrench;
 
   @override
   String getLocalizedName(BuildContext context) =>
@@ -80,10 +79,10 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
         controller: _tabController,
         isScrollable: true,
         tabs: <List<dynamic>>[
-          [PhosphorIcons.light.gear, AppLocalizations.of(context).project],
-          [PhosphorIcons.light.gridFour, AppLocalizations.of(context).grid],
-          [PhosphorIcons.light.ruler, AppLocalizations.of(context).ruler],
-          [PhosphorIcons.light.camera, AppLocalizations.of(context).camera],
+          [PhosphorIconsLight.gear, AppLocalizations.of(context).project],
+          [PhosphorIconsLight.gridFour, AppLocalizations.of(context).grid],
+          [PhosphorIconsLight.ruler, AppLocalizations.of(context).ruler],
+          [PhosphorIconsLight.camera, AppLocalizations.of(context).camera],
         ]
             .map((e) => Tab(
                     child: Row(
@@ -128,7 +127,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                     const Divider(),
                     const SizedBox(height: 8),
                     MenuItemButton(
-                      leadingIcon: PhosphorIcon(PhosphorIcons.light.image),
+                      leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
                       shortcut: const SingleActivator(LogicalKeyboardKey.keyB,
                           control: true),
                       onPressed: () {

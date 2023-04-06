@@ -23,7 +23,7 @@ class AreasDialog extends StatelessWidget {
                 Header(
                   title: Text(AppLocalizations.of(context).areas),
                   leading: IconButton(
-                    icon: PhosphorIcon(PhosphorIcons.light.x),
+                    icon: const PhosphorIcon(PhosphorIconsLight.x),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
@@ -33,10 +33,10 @@ class AreasDialog extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             filled: true,
                             prefixIcon: PhosphorIcon(
-                                PhosphorIcons.light.magnifyingGlass),
+                                PhosphorIconsLight.magnifyingGlass),
                           ),
                           textAlignVertical: TextAlignVertical.center,
                           controller: _searchController,
@@ -130,7 +130,7 @@ class _AreaPopupMenu extends StatelessWidget {
               value: 0,
               padding: EdgeInsets.zero,
               child: ListTile(
-                  leading: PhosphorIcon(PhosphorIcons.light.textT),
+                  leading: const PhosphorIcon(PhosphorIconsLight.textT),
                   title: Text(AppLocalizations.of(context).rename),
                   onTap: () async {
                     final TextEditingController nameController =

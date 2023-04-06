@@ -160,8 +160,8 @@ class _AppBarTitle extends StatelessWidget {
                     if (!state.hasAutosave())
                       IconButton(
                         icon: state.saved
-                            ? PhosphorIcon(PhosphorIcons.fill.floppyDisk)
-                            : PhosphorIcon(PhosphorIcons.light.floppyDisk),
+                            ? const PhosphorIcon(PhosphorIconsFill.floppyDisk)
+                            : const PhosphorIcon(PhosphorIconsLight.floppyDisk),
                         tooltip: AppLocalizations.of(context).save,
                         onPressed: () {
                           Actions.maybeInvoke<SaveIntent>(
@@ -170,7 +170,7 @@ class _AppBarTitle extends StatelessWidget {
                       ),
                     if (state.currentAreaName.isNotEmpty)
                       IconButton(
-                        icon: PhosphorIcon(PhosphorIcons.light.door),
+                        icon: const PhosphorIcon(PhosphorIconsLight.door),
                         tooltip: AppLocalizations.of(context).exit,
                         onPressed: () {
                           context
@@ -185,7 +185,7 @@ class _AppBarTitle extends StatelessWidget {
                           onPressed: () =>
                               context.read<ImportService>().export()),
                     IconButton(
-                      icon: PhosphorIcon(PhosphorIcons.light.magnifyingGlass),
+                      icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
                       tooltip: AppLocalizations.of(context).search,
                       onPressed: () {
                         final bloc = context.read<DocumentBloc>();
@@ -256,8 +256,8 @@ class _MainPopupMenu extends StatelessWidget {
                         return Row(
                           children: [
                             IconButton(
-                                icon: PhosphorIcon(
-                                    PhosphorIcons.light.magnifyingGlassMinus),
+                                icon: const PhosphorIcon(
+                                    PhosphorIconsLight.magnifyingGlassMinus),
                                 tooltip: AppLocalizations.of(context).zoomOut,
                                 onPressed: () {
                                   var viewportSize =
@@ -270,8 +270,8 @@ class _MainPopupMenu extends StatelessWidget {
                                   bake();
                                 }),
                             IconButton(
-                                icon: PhosphorIcon(
-                                    PhosphorIcons.light.magnifyingGlass),
+                                icon: const PhosphorIcon(
+                                    PhosphorIconsLight.magnifyingGlass),
                                 tooltip: AppLocalizations.of(context).resetZoom,
                                 onPressed: () {
                                   var viewportSize =
@@ -284,8 +284,8 @@ class _MainPopupMenu extends StatelessWidget {
                                   bake();
                                 }),
                             IconButton(
-                                icon: PhosphorIcon(
-                                    PhosphorIcons.light.magnifyingGlassPlus),
+                                icon: const PhosphorIcon(
+                                    PhosphorIconsLight.magnifyingGlassPlus),
                                 tooltip: AppLocalizations.of(context).zoomIn,
                                 onPressed: () {
                                   var viewportSize =
@@ -332,7 +332,7 @@ class _MainPopupMenu extends StatelessWidget {
               )),
           if (state.location.path != '' && state.embedding == null) ...[
             MenuItemButton(
-              leadingIcon: PhosphorIcon(PhosphorIcons.light.folder),
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
               shortcut:
                   const SingleActivator(LogicalKeyboardKey.keyS, alt: true),
               onPressed: () {
@@ -343,7 +343,7 @@ class _MainPopupMenu extends StatelessWidget {
             ),
           ],
           MenuItemButton(
-            leadingIcon: PhosphorIcon(PhosphorIcons.light.package),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.package),
             shortcut:
                 const SingleActivator(LogicalKeyboardKey.keyP, control: true),
             onPressed: () {
@@ -354,7 +354,7 @@ class _MainPopupMenu extends StatelessWidget {
           SubmenuButton(
             menuChildren: [
               MenuItemButton(
-                leadingIcon: PhosphorIcon(PhosphorIcons.light.sun),
+                leadingIcon: const PhosphorIcon(PhosphorIconsLight.sun),
                 shortcut: const SingleActivator(LogicalKeyboardKey.keyE,
                     alt: true, control: true),
                 onPressed: () async {
@@ -364,7 +364,7 @@ class _MainPopupMenu extends StatelessWidget {
                 child: Text(AppLocalizations.of(context).svg),
               ),
               MenuItemButton(
-                leadingIcon: PhosphorIcon(PhosphorIcons.light.database),
+                leadingIcon: const PhosphorIcon(PhosphorIconsLight.database),
                 shortcut: const SingleActivator(
                   LogicalKeyboardKey.keyE,
                   control: true,
@@ -376,7 +376,7 @@ class _MainPopupMenu extends StatelessWidget {
                 child: Text(AppLocalizations.of(context).data),
               ),
               MenuItemButton(
-                leadingIcon: PhosphorIcon(PhosphorIcons.light.image),
+                leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
                 shortcut: const SingleActivator(
                   LogicalKeyboardKey.keyE,
                   shift: true,
@@ -389,7 +389,7 @@ class _MainPopupMenu extends StatelessWidget {
                 child: Text(AppLocalizations.of(context).image),
               ),
               MenuItemButton(
-                leadingIcon: PhosphorIcon(PhosphorIcons.light.filePdf),
+                leadingIcon: const PhosphorIcon(PhosphorIconsLight.filePdf),
                 shortcut: const SingleActivator(
                   LogicalKeyboardKey.keyE,
                   shift: true,
@@ -403,13 +403,13 @@ class _MainPopupMenu extends StatelessWidget {
                 child: Text(AppLocalizations.of(context).pdf),
               ),
             ],
-            leadingIcon: PhosphorIcon(PhosphorIcons.light.paperPlaneRight),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.paperPlaneRight),
             child: Text(AppLocalizations.of(context).export),
           ),
           const PopupMenuDivider(),
           if (state.embedding == null) ...[
             MenuItemButton(
-              leadingIcon: PhosphorIcon(PhosphorIcons.light.house),
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.house),
               child: Text(AppLocalizations.of(context).home),
               onPressed: () {
                 final router = GoRouter.of(context);
@@ -421,7 +421,7 @@ class _MainPopupMenu extends StatelessWidget {
               },
             ),
             MenuItemButton(
-              leadingIcon: PhosphorIcon(PhosphorIcons.light.filePlus),
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.filePlus),
               shortcut:
                   const SingleActivator(LogicalKeyboardKey.keyN, control: true),
               onPressed: () {
@@ -430,7 +430,7 @@ class _MainPopupMenu extends StatelessWidget {
               child: Text(AppLocalizations.of(context).newContent),
             ),
             MenuItemButton(
-              leadingIcon: PhosphorIcon(PhosphorIcons.light.file),
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
               shortcut: const SingleActivator(LogicalKeyboardKey.keyN,
                   shift: true, control: true),
               onPressed: () {
@@ -442,7 +442,7 @@ class _MainPopupMenu extends StatelessWidget {
           ],
           if (state.embedding == null && (kIsWeb || !isWindow)) ...[
             MenuItemButton(
-              leadingIcon: PhosphorIcon(PhosphorIcons.light.arrowsOut),
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsOut),
               shortcut: const SingleActivator(LogicalKeyboardKey.f11),
               onPressed: () async {
                 setFullScreen(!(await isFullScreen()));
@@ -452,7 +452,7 @@ class _MainPopupMenu extends StatelessWidget {
           ],
           if (state.embedding == null) ...[
             MenuItemButton(
-              leadingIcon: PhosphorIcon(PhosphorIcons.light.gear),
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.gear),
               shortcut: const SingleActivator(LogicalKeyboardKey.keyS,
                   alt: true, control: true),
               onPressed: () {
@@ -463,7 +463,7 @@ class _MainPopupMenu extends StatelessWidget {
             ),
           ] else ...[
             MenuItemButton(
-              leadingIcon: PhosphorIcon(PhosphorIcons.light.door),
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.door),
               child: Text(AppLocalizations.of(context).exit),
               onPressed: () {
                 sendEmbedMessage(

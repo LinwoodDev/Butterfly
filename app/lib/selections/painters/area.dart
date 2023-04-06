@@ -90,8 +90,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
       AppLocalizations.of(context).area;
 
   @override
-  PhosphorIconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.fill.monitor : PhosphorIcons.light.monitor;
+  IconGetter get icon => PhosphorIcons.monitor;
 
   @override
   List<String> get help => ['painters', 'area'];

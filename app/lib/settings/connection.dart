@@ -36,7 +36,7 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
         FloatingActionButton.extended(
           onPressed: _showCreateDialog,
           label: Text(AppLocalizations.of(context).createCache),
-          icon: PhosphorIcon(PhosphorIcons.light.plus),
+          icon: const PhosphorIcon(PhosphorIconsLight.plus),
         )
       ];
   @override
@@ -53,14 +53,14 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
               tabs: [
                 Tab(
                   child: Row(children: [
-                    PhosphorIcon(PhosphorIcons.light.gear),
+                    const PhosphorIcon(PhosphorIconsLight.gear),
                     const SizedBox(width: 8),
                     Text(AppLocalizations.of(context).general),
                   ]),
                 ),
                 Tab(
                   child: Row(children: [
-                    PhosphorIcon(PhosphorIcons.light.files),
+                    const PhosphorIcon(PhosphorIconsLight.files),
                     const SizedBox(width: 8),
                     Text(AppLocalizations.of(context).caches),
                   ]),
@@ -162,19 +162,19 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                         },
                         title: Text(
                             AppLocalizations.of(context).syncRootDirectory),
-                        secondary: PhosphorIcon(PhosphorIcons.light.folder),
+                        secondary: const PhosphorIcon(PhosphorIconsLight.folder),
                       );
                     }),
                     ListTile(
                       title: Text(AppLocalizations.of(context).clearCaches),
-                      leading: PhosphorIcon(PhosphorIcons.light.fileX),
+                      leading: const PhosphorIcon(PhosphorIconsLight.fileX),
                       onTap: () {
                         context.read<SettingsCubit>().clearCaches(storage);
                       },
                     ),
                     ListTile(
                       title: Text(AppLocalizations.of(context).delete),
-                      leading: PhosphorIcon(PhosphorIcons.light.trash),
+                      leading: const PhosphorIcon(PhosphorIconsLight.trash),
                       onTap: () {
                         context
                             .read<SettingsCubit>()

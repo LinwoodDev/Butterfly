@@ -72,7 +72,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
               ),
               const SizedBox(width: 8),
               IconButton(
-                icon: PhosphorIcon(PhosphorIcons.light.plus),
+                icon: const PhosphorIcon(PhosphorIconsLight.plus),
                 onPressed: () async {
                   final name = await showDialog<String>(
                     context: context,
@@ -97,7 +97,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
               MenuAnchor(
                 builder: (context, controller, _) {
                   return IconButton(
-                    icon: PhosphorIcon(PhosphorIcons.light.list),
+                    icon: const PhosphorIcon(PhosphorIconsLight.list),
                     onPressed: () {
                       if (controller.isOpen) {
                         controller.close();
@@ -129,7 +129,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
               if (_currentStyle != null) ...[
                 const VerticalDivider(),
                 IconButton(
-                  icon: PhosphorIcon(PhosphorIcons.light.pencil),
+                  icon: const PhosphorIcon(PhosphorIconsLight.pencil),
                   onPressed: () async {
                     final name = await showDialog<String>(
                       context: context,
@@ -156,7 +156,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                   },
                 ),
                 IconButton(
-                  icon: PhosphorIcon(PhosphorIcons.light.trash),
+                  icon: const PhosphorIcon(PhosphorIconsLight.trash),
                   onPressed: () async {
                     final result = await showDialog(
                       context: context,

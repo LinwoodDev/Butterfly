@@ -90,8 +90,8 @@ class _PropertyViewState extends State<PropertyView>
                         MouseRegion(
                           cursor: SystemMouseCursors.resizeLeftRight,
                           child: GestureDetector(
-                            child: PhosphorIcon(
-                                PhosphorIcons.light.dotsSixVertical),
+                            child: const PhosphorIcon(
+                                PhosphorIconsLight.dotsSixVertical),
                             onPanUpdate: (details) {
                               final delta = details.delta.dx;
                               setState(() {
@@ -109,13 +109,15 @@ class _PropertyViewState extends State<PropertyView>
                           children: [
                             Header(
                               title: Text(selection.getLocalizedName(context)),
-                              leading: PhosphorIcon(selection.getIcon(
-                                  filled: selection.selected.length > 1)),
+                              leading: PhosphorIcon(selection.icon(
+                                  selection.selected.length > 1
+                                      ? PhosphorIconsStyle.fill
+                                      : PhosphorIconsStyle.light)),
                               actions: [
                                 if (selection.showDeleteButton)
                                   IconButton(
-                                      icon: PhosphorIcon(
-                                          PhosphorIcons.light.trash),
+                                      icon: const PhosphorIcon(
+                                          PhosphorIconsLight.trash),
                                       onPressed: () {
                                         selection?.onDelete(context);
                                         context
@@ -125,8 +127,8 @@ class _PropertyViewState extends State<PropertyView>
                                 if (help.isNotEmpty)
                                   IconButton(
                                     tooltip: AppLocalizations.of(context).help,
-                                    icon: PhosphorIcon(
-                                        PhosphorIcons.light.sealQuestion),
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.sealQuestion),
                                     onPressed: () => openHelp(help),
                                   ),
                                 const SizedBox(
@@ -137,16 +139,17 @@ class _PropertyViewState extends State<PropertyView>
                                         ? AppLocalizations.of(context).unpin
                                         : AppLocalizations.of(context).pin,
                                     icon: pinned
-                                        ? PhosphorIcon(
-                                            PhosphorIcons.fill.mapPin)
-                                        : PhosphorIcon(
-                                            PhosphorIcons.light.mapPin),
+                                        ? const PhosphorIcon(
+                                            PhosphorIconsFill.mapPin)
+                                        : const PhosphorIcon(
+                                            PhosphorIconsLight.mapPin),
                                     onPressed: () =>
                                         setState(() => pinned = !pinned),
                                   ),
                                 IconButton(
                                   tooltip: AppLocalizations.of(context).close,
-                                  icon: PhosphorIcon(PhosphorIcons.light.x),
+                                  icon:
+                                      const PhosphorIcon(PhosphorIconsLight.x),
                                   onPressed: _closeView,
                                 ),
                               ],

@@ -77,11 +77,11 @@ class FileSystemDirectoryTreeViewState
             return Column(mainAxisSize: MainAxisSize.min, children: [
               ListTile(
                 leading: _expanded
-                    ? PhosphorIcon(PhosphorIcons.light.folderOpen)
-                    : PhosphorIcon(PhosphorIcons.light.folder),
+                    ? const PhosphorIcon(PhosphorIconsLight.folderOpen)
+                    : const PhosphorIcon(PhosphorIconsLight.folder),
                 title: Text(name),
                 trailing: IconButton(
-                  icon: PhosphorIcon(PhosphorIcons.light.folderPlus),
+                  icon: const PhosphorIcon(PhosphorIconsLight.folderPlus),
                   onPressed: _newFolder,
                 ),
                 onTap: () {

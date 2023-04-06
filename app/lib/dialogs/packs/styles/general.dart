@@ -21,7 +21,7 @@ class GeneralStyleView extends StatelessWidget {
         TextFormField(
           decoration: InputDecoration(
             labelText: AppLocalizations.of(context).name,
-            icon: PhosphorIcon(PhosphorIcons.light.textT),
+            icon: const PhosphorIcon(PhosphorIconsLight.textT),
             filled: true,
           ),
           initialValue: value.name,

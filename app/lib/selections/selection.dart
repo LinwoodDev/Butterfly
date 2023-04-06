@@ -26,6 +26,7 @@ import '../actions/packs.dart';
 import '../api/open.dart';
 import '../cubits/transform.dart';
 import '../dialogs/layer.dart';
+import '../helpers/icon.dart';
 import '../renderers/renderer.dart';
 import '../widgets/color_field.dart';
 import '../widgets/exact_slider.dart';
@@ -79,7 +80,8 @@ abstract class Selection<T> {
   }
 
   String getLocalizedName(BuildContext context);
-  PhosphorIconData getIcon({bool filled = false});
+
+  IconGetter get icon;
 
   List<Widget> buildProperties(BuildContext context) => [];
 

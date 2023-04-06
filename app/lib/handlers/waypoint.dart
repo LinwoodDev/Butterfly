@@ -48,7 +48,7 @@ class WaypointHandler extends Handler<WaypointPainter> {
             ),
             ListTile(
               title: Text(AppLocalizations.of(context).delete),
-              leading: PhosphorIcon(PhosphorIcons.light.trash),
+              leading: const PhosphorIcon(PhosphorIconsLight.trash),
               onTap: () {
                 bloc.add(WaypointRemoved(clickedWaypoint.key));
                 Navigator.of(context).pop();

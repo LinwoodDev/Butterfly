@@ -113,8 +113,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
       AppLocalizations.of(context).element;
 
   @override
-  PhosphorIconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.fill.cube : PhosphorIcons.light.cube;
+  IconGetter get icon => PhosphorIcons.cube;
 }
 
 class OffsetPropertyView extends StatelessWidget {

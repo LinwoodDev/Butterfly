@@ -29,13 +29,13 @@ class AreaContextMenu extends StatelessWidget {
         return ListView(
           shrinkWrap: true,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 50,
               child: Center(
-                  child: PhosphorIcon(PhosphorIcons.light.monitor, size: 36)),
+                  child: PhosphorIcon(PhosphorIconsLight.monitor, size: 36)),
             ),
             ListTile(
-              leading: PhosphorIcon(PhosphorIcons.light.textT),
+              leading: const PhosphorIcon(PhosphorIconsLight.textT),
               title: Text(AppLocalizations.of(context).name),
               subtitle: Text(area.name),
               onTap: () async {
@@ -61,8 +61,8 @@ class AreaContextMenu extends StatelessWidget {
             const Divider(),
             MenuItemButton(
               leadingIcon: area.name == state.currentAreaName
-                  ? PhosphorIcon(PhosphorIcons.light.signIn)
-                  : PhosphorIcon(PhosphorIcons.light.signOut),
+                  ? const PhosphorIcon(PhosphorIconsLight.signIn)
+                  : const PhosphorIcon(PhosphorIconsLight.signOut),
               child: Text(
                 area.name == state.currentAreaName
                     ? AppLocalizations.of(context).exitArea
@@ -78,7 +78,7 @@ class AreaContextMenu extends StatelessWidget {
               },
             ),
             MenuItemButton(
-              leadingIcon: PhosphorIcon(PhosphorIcons.light.export),
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.export),
               child: Text(AppLocalizations.of(context).export),
               onPressed: () {
                 final bloc = context.read<DocumentBloc>();
@@ -151,7 +151,7 @@ class AreaContextMenu extends StatelessWidget {
               },
             ),
             MenuItemButton(
-              leadingIcon: PhosphorIcon(PhosphorIcons.light.trash),
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
               child: Text(AppLocalizations.of(context).delete),
               onPressed: () {
                 final bloc = context.read<DocumentBloc>();
@@ -162,7 +162,7 @@ class AreaContextMenu extends StatelessWidget {
               },
             ),
             MenuItemButton(
-              leadingIcon: PhosphorIcon(PhosphorIcons.light.plusCircle),
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
               child: Text(AppLocalizations.of(context).addToPack),
               onPressed: () async {
                 final settingsCubit = context.read<SettingsCubit>();

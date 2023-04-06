@@ -136,7 +136,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                     child: Row(
                       children: [
                         IconButton(
-                          icon: PhosphorIcon(PhosphorIcons.light.package),
+                          icon: const PhosphorIcon(PhosphorIconsLight.package),
                           onPressed: () async {
                             final bloc = context.read<DocumentBloc>();
                             final result = await showDialog<PackAssetLocation>(
@@ -170,7 +170,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         ),
                         const SizedBox(width: 16),
                         IconButton(
-                          icon: PhosphorIcon(PhosphorIcons.light.article),
+                          icon: const PhosphorIcon(PhosphorIconsLight.article),
                           isSelected: widget.value.isParagraph(),
                           onPressed: widget.value.area == null
                               ? null
@@ -208,7 +208,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 },
                                 label: Text(AppLocalizations.of(context).style),
                                 trailingIcon: widget.value.modified(document)
-                                    ? PhosphorIcon(PhosphorIcons.light.star)
+                                    ? const PhosphorIcon(PhosphorIconsLight.star)
                                     : null,
                               )
                             : DropdownMenu<String>(
@@ -242,12 +242,12 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 },
                                 label: Text(AppLocalizations.of(context).style),
                                 trailingIcon: widget.value.modified(document)
-                                    ? PhosphorIcon(PhosphorIcons.light.star)
+                                    ? const PhosphorIcon(PhosphorIconsLight.star)
                                     : null,
                               ),
                         const SizedBox(width: 8),
                         IconButton(
-                          icon: PhosphorIcon(PhosphorIcons.light.eraser),
+                          icon: const PhosphorIcon(PhosphorIconsLight.eraser),
                           tooltip: AppLocalizations.of(context).clearStyle,
                           isSelected: widget.value.isParagraph()
                               ? widget.value.getProperty().maybeMap(
@@ -321,9 +321,9 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                   ));
                                 },
                           children: const [
-                            PhosphorIcon(PhosphorIcons.light.alignTop),
-                            PhosphorIcon(PhosphorIcons.light.alignCenterVertical),
-                            PhosphorIcon(PhosphorIcons.light.alignBottom),
+                            PhosphorIcon(PhosphorIconsLight.alignTop),
+                            PhosphorIcon(PhosphorIconsLight.alignCenterVertical),
+                            PhosphorIcon(PhosphorIconsLight.alignBottom),
                           ],
                         ),
                         const SizedBox(width: 16),*/
@@ -331,11 +331,11 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           isSelected: text.HorizontalAlignment.values
                               .map((e) => e == paragraph.alignment)
                               .toList(),
-                          children: [
-                            PhosphorIcon(PhosphorIcons.light.textAlignLeft),
-                            PhosphorIcon(PhosphorIcons.light.textAlignCenter),
-                            PhosphorIcon(PhosphorIcons.light.textAlignRight),
-                            PhosphorIcon(PhosphorIcons.light.textAlignJustify),
+                          children: const [
+                            PhosphorIcon(PhosphorIconsLight.textAlignLeft),
+                            PhosphorIcon(PhosphorIconsLight.textAlignCenter),
+                            PhosphorIcon(PhosphorIconsLight.textAlignRight),
+                            PhosphorIcon(PhosphorIconsLight.textAlignJustify),
                           ],
                           onPressed: (current) {
                             widget.onChanged(widget.value.copyWith(
@@ -435,7 +435,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           ],
                           children: [
                             GestureDetector(
-                              child: PhosphorIcon(PhosphorIcons.light.textB),
+                              child: const PhosphorIcon(PhosphorIconsLight.textB),
                               onLongPressEnd: (details) {
                                 final RenderObject? overlay =
                                     Overlay.of(context)
@@ -481,8 +481,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 );
                               },
                             ),
-                            PhosphorIcon(PhosphorIcons.light.textItalic),
-                            PhosphorIcon(PhosphorIcons.light.textUnderline),
+                            const PhosphorIcon(PhosphorIconsLight.textItalic),
+                            const PhosphorIcon(PhosphorIconsLight.textUnderline),
                           ],
                           onPressed: (current) {
                             switch (current) {

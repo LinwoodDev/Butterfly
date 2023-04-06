@@ -851,10 +851,11 @@ packages:
   phosphor_flutter:
     dependency: "direct main"
     description:
-      name: phosphor_flutter
-      sha256: "925b6e2031886d5fe0b3719a0497712d26914bdb8e74c217fe990a9c6d60184d"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
+      resolved-ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
+      url: "https://github.com/phosphor-icons/flutter"
+    source: git
     version: "2.0.0"
   platform:
     dependency: transitive

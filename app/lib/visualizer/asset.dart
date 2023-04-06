@@ -21,16 +21,14 @@ extension AssetFileTypeVisualizer on AssetFileType? {
     switch (this) {
       case AssetFileType.note:
         return filled
-            ? PhosphorIcons.fill.fileText
-            : PhosphorIcons.light.fileText;
+            ? PhosphorIconsFill.fileText
+            : PhosphorIconsLight.fileText;
       case AssetFileType.image:
-        return filled ? PhosphorIcons.fill.image : PhosphorIcons.light.image;
+        return filled ? PhosphorIconsFill.image : PhosphorIconsLight.image;
       case AssetFileType.pdf:
-        return filled
-            ? PhosphorIcons.fill.filePdf
-            : PhosphorIcons.light.filePdf;
+        return filled ? PhosphorIconsFill.filePdf : PhosphorIconsLight.filePdf;
       default:
-        return filled ? PhosphorIcons.fill.file : PhosphorIcons.light.file;
+        return filled ? PhosphorIconsFill.file : PhosphorIconsLight.file;
     }
   }
 }

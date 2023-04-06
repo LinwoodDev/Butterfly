@@ -25,7 +25,7 @@ class KeyboardBehaviorSettings extends StatelessWidget {
                 children: [
                   ListTile(
                       title: Text(AppLocalizations.of(context).shortcuts),
-                      leading: PhosphorIcon(PhosphorIcons.light.keyboard),
+                      leading: const PhosphorIcon(PhosphorIconsLight.keyboard),
                       onTap: () => openHelp(['shortcuts'], 'keyboard')),
                 ],
               ),

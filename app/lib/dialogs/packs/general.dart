@@ -21,7 +21,7 @@ class GeneralPackView extends StatelessWidget {
         TextFormField(
           decoration: InputDecoration(
             labelText: AppLocalizations.of(context).name,
-            icon: PhosphorIcon(PhosphorIcons.light.textT),
+            icon: const PhosphorIcon(PhosphorIconsLight.textT),
             filled: true,
           ),
           initialValue: value.name,
@@ -31,7 +31,7 @@ class GeneralPackView extends StatelessWidget {
         TextFormField(
           decoration: InputDecoration(
             labelText: AppLocalizations.of(context).author,
-            icon: PhosphorIcon(PhosphorIcons.light.person),
+            icon: const PhosphorIcon(PhosphorIconsLight.person),
             filled: true,
           ),
           initialValue: value.author,
@@ -41,7 +41,7 @@ class GeneralPackView extends StatelessWidget {
         TextFormField(
           decoration: InputDecoration(
             labelText: AppLocalizations.of(context).description,
-            icon: PhosphorIcon(PhosphorIcons.light.paragraph),
+            icon: const PhosphorIcon(PhosphorIconsLight.paragraph),
             border: const OutlineInputBorder(),
           ),
           minLines: 3,

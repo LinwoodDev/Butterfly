@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../helpers/icon.dart';
+
 extension PainterVisualizer on Painter {
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);
@@ -28,40 +30,23 @@ extension PainterVisualizer on Painter {
     );
   }
 
-  PhosphorIconData getIcon({bool filled = false}) {
+  IconGetter get icon {
     return map(
-      hand: (_) => filled ? PhosphorIcons.fill.hand : PhosphorIcons.light.hand,
-      import: (_) => filled
-          ? PhosphorIcons.fill.arrowSquareIn
-          : PhosphorIcons.light.arrowSquareIn,
-      undo: (_) => filled
-          ? PhosphorIcons.fill.arrowCounterClockwise
-          : PhosphorIcons.light.arrowCounterClockwise,
-      redo: (_) => filled
-          ? PhosphorIcons.fill.arrowClockwise
-          : PhosphorIcons.light.arrowClockwise,
-      label: (_) =>
-          filled ? PhosphorIcons.fill.textT : PhosphorIcons.light.textT,
-      pen: (_) => filled ? PhosphorIcons.fill.pen : PhosphorIcons.light.pen,
-      eraser: (_) =>
-          filled ? PhosphorIcons.fill.eraser : PhosphorIcons.light.eraser,
-      pathEraser: (_) =>
-          filled ? PhosphorIcons.fill.path : PhosphorIcons.light.path,
-      layer: (_) => filled
-          ? PhosphorIcons.fill.squaresFour
-          : PhosphorIcons.light.squaresFour,
-      area: (_) =>
-          filled ? PhosphorIcons.fill.monitor : PhosphorIcons.light.monitor,
-      waypoint: (_) =>
-          filled ? PhosphorIcons.fill.mapPin : PhosphorIcons.light.mapPin,
-      laser: (_) =>
-          filled ? PhosphorIcons.fill.cursor : PhosphorIcons.light.cursor,
-      shape: (painter) => painter.property.shape.getIcon(filled: filled),
-      stamp: (_) =>
-          filled ? PhosphorIcons.fill.stamp : PhosphorIcons.light.stamp,
-      presentation: (_) => filled
-          ? PhosphorIcons.fill.presentation
-          : PhosphorIcons.light.presentation,
+      hand: (_) => PhosphorIcons.hand,
+      import: (_) => PhosphorIcons.arrowSquareIn,
+      undo: (_) => PhosphorIcons.arrowCounterClockwise,
+      redo: (_) => PhosphorIcons.arrowClockwise,
+      label: (_) => PhosphorIcons.textT,
+      pen: (_) => PhosphorIcons.pen,
+      eraser: (_) => PhosphorIcons.eraser,
+      pathEraser: (_) => PhosphorIcons.path,
+      layer: (_) => PhosphorIcons.squaresFour,
+      area: (_) => PhosphorIcons.monitor,
+      waypoint: (_) => PhosphorIcons.mapPin,
+      laser: (_) => PhosphorIcons.cursor,
+      shape: (painter) => painter.property.shape.icon,
+      stamp: (_) => PhosphorIcons.stamp,
+      presentation: (_) => PhosphorIcons.presentation,
     );
   }
 

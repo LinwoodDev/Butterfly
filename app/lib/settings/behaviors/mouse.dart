@@ -40,7 +40,7 @@ class MouseBehaviorSettings extends StatelessWidget {
                               max: 100,
                               value: state.mouseSensitivity,
                               header: Row(children: [
-                                PhosphorIcon(PhosphorIcons.light.lightning),
+                                const PhosphorIcon(PhosphorIconsLight.lightning),
                                 const SizedBox(width: 8),
                                 Text(AppLocalizations.of(context).sensitivity),
                               ]),
@@ -68,8 +68,8 @@ class MouseBehaviorSettings extends StatelessWidget {
                                     Theme.of(context).textTheme.headlineSmall,
                               ),
                               IconButton(
-                                icon: PhosphorIcon(
-                                    PhosphorIcons.light.sealQuestion),
+                                icon: const PhosphorIcon(
+                                    PhosphorIconsLight.sealQuestion),
                                 onPressed: () =>
                                     openHelp(['shortcuts'], 'configure'),
                               ),
@@ -80,7 +80,7 @@ class MouseBehaviorSettings extends StatelessWidget {
                             initialValue:
                                 config.leftMouse?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).left,
-                            icon: PhosphorIcon(PhosphorIcons.light.arrowLeft),
+                            icon: const PhosphorIcon(PhosphorIconsLight.arrowLeft),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(
@@ -92,7 +92,7 @@ class MouseBehaviorSettings extends StatelessWidget {
                             initialValue:
                                 config.middleMouse?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).middle,
-                            icon: PhosphorIcon(PhosphorIcons.light.arrowUp),
+                            icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(
@@ -105,7 +105,7 @@ class MouseBehaviorSettings extends StatelessWidget {
                             initialValue:
                                 config.rightMouse?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).right,
-                            icon: PhosphorIcon(PhosphorIcons.light.arrowRight),
+                            icon: const PhosphorIcon(PhosphorIconsLight.arrowRight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(

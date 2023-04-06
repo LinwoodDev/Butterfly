@@ -84,8 +84,8 @@ class _CameraDialogState extends State<CameraDialog>
   Widget _buildCameraToggle(CameraDescription camera) => IconButton(
         icon: PhosphorIcon(
           camera.lensDirection == CameraLensDirection.front
-              ? PhosphorIcons.light.userFocus
-              : PhosphorIcons.light.image,
+              ? PhosphorIconsLight.userFocus
+              : PhosphorIconsLight.image,
           // Test if camera is selected
           color: _controller?.description == camera
               ? Theme.of(context).colorScheme.primary
@@ -133,7 +133,7 @@ class _CameraDialogState extends State<CameraDialog>
           children: [
             Header(
                 title: Text(AppLocalizations.of(context).camera),
-                leading: PhosphorIcon(PhosphorIcons.light.camera)),
+                leading: const PhosphorIcon(PhosphorIconsLight.camera)),
             Flexible(
               child: Padding(
                 padding:

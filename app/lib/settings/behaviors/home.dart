@@ -59,25 +59,25 @@ class BehaviorsSettingsPage extends StatelessWidget {
                               style: Theme.of(context).textTheme.headlineSmall),
                           const SizedBox(height: 16),
                           ListTile(
-                            leading: PhosphorIcon(PhosphorIcons.light.mouse),
+                            leading: const PhosphorIcon(PhosphorIconsLight.mouse),
                             title: Text(AppLocalizations.of(context).mouse),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/mouse'),
                           ),
                           ListTile(
-                            leading: PhosphorIcon(PhosphorIcons.light.hand),
+                            leading: const PhosphorIcon(PhosphorIconsLight.hand),
                             title: Text(AppLocalizations.of(context).touch),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/touch'),
                           ),
                           ListTile(
-                            leading: PhosphorIcon(PhosphorIcons.light.keyboard),
+                            leading: const PhosphorIcon(PhosphorIconsLight.keyboard),
                             title: Text(AppLocalizations.of(context).keyboard),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/keyboard'),
                           ),
                           ListTile(
-                            leading: PhosphorIcon(PhosphorIcons.light.pen),
+                            leading: const PhosphorIcon(PhosphorIconsLight.pen),
                             title: Text(AppLocalizations.of(context).pen),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/pen'),

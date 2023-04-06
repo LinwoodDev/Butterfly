@@ -42,7 +42,7 @@ class ErrorPage extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                            icon: PhosphorIcon(PhosphorIcons.light.copy),
+                            icon: const PhosphorIcon(PhosphorIconsLight.copy),
                             onPressed: () {
                               Clipboard.setData(
                                 ClipboardData(text: message),

@@ -33,7 +33,10 @@ dependencies:
   shared_preferences: ^2.1.0
   url_launcher: ^6.1.10
   file_picker: ^5.2.7
-  phosphor_flutter: ^2.0.0
+  phosphor_flutter:
+    git:
+      url: https://github.com/phosphor-icons/flutter
+      ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
   replay_bloc: ^0.2.3
   share_plus: ^6.3.1
   package_info_plus: ^3.0.3

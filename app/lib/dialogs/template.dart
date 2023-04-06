@@ -55,7 +55,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 Header(
                   title: Text(AppLocalizations.of(context).templates),
                   leading: IconButton(
-                    icon: PhosphorIcon(PhosphorIcons.light.x),
+                    icon: const PhosphorIcon(PhosphorIconsLight.x),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   actions: [
@@ -69,8 +69,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                       },
                     ),
                     IconButton(
-                      icon: PhosphorIcon(
-                          PhosphorIcons.light.clockCounterClockwise),
+                      icon: const PhosphorIcon(
+                          PhosphorIconsLight.clockCounterClockwise),
                       tooltip: AppLocalizations.of(context).defaultTemplate,
                       onPressed: () {
                         showDialog<void>(
@@ -107,7 +107,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                               onPressed: () =>
                                   _showCreateDialog(widget.currentDocument!),
                               tooltip: AppLocalizations.of(context).create,
-                              icon: PhosphorIcon(PhosphorIcons.light.plus),
+                              icon: const PhosphorIcon(PhosphorIconsLight.plus),
                             )
                           ],
                   ],
@@ -128,10 +128,10 @@ class _TemplateDialogState extends State<TemplateDialog> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextField(
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   filled: true,
                                   prefixIcon: PhosphorIcon(
-                                      PhosphorIcons.light.magnifyingGlass),
+                                      PhosphorIconsLight.magnifyingGlass),
                                 ),
                                 textAlignVertical: TextAlignVertical.center,
                                 controller: _searchController,
@@ -255,7 +255,7 @@ class _TemplateItem extends StatelessWidget {
           PopupMenuItem(
             padding: EdgeInsets.zero,
             child: ListTile(
-                leading: PhosphorIcon(PhosphorIcons.light.textT),
+                leading: const PhosphorIcon(PhosphorIconsLight.textT),
                 title: Text(AppLocalizations.of(context).rename),
                 onTap: () async {
                   Navigator.of(context).pop();
@@ -275,7 +275,7 @@ class _TemplateItem extends StatelessWidget {
           PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(
-                  leading: PhosphorIcon(PhosphorIcons.light.clipboard),
+                  leading: const PhosphorIcon(PhosphorIconsLight.clipboard),
                   title: Text(AppLocalizations.of(context).replace),
                   onTap: () {
                     Navigator.of(context).pop();
@@ -309,7 +309,7 @@ class _TemplateItem extends StatelessWidget {
           PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(
-                  leading: PhosphorIcon(PhosphorIcons.light.trash),
+                  leading: const PhosphorIcon(PhosphorIconsLight.trash),
                   title: Text(AppLocalizations.of(context).delete),
                   onTap: () async {
                     Navigator.of(context).pop();

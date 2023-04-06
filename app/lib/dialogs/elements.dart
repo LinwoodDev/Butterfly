@@ -24,7 +24,7 @@ class ElementsDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           MenuItemButton(
-            leadingIcon: PhosphorIcon(PhosphorIcons.light.arrowsOutCardinal),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsOutCardinal),
             onPressed: () {
               Navigator.of(context).pop(true);
               context
@@ -35,7 +35,7 @@ class ElementsDialog extends StatelessWidget {
             child: Text(AppLocalizations.of(context).move),
           ),
           MenuItemButton(
-            leadingIcon: PhosphorIcon(PhosphorIcons.light.copy),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
             onPressed: () {
               Navigator.of(context).pop(true);
               context
@@ -46,7 +46,7 @@ class ElementsDialog extends StatelessWidget {
             child: Text(AppLocalizations.of(context).duplicate),
           ),
           MenuItemButton(
-            leadingIcon: PhosphorIcon(PhosphorIcons.light.arrowsOut),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsOut),
             onPressed: () {
               Navigator.of(context).pop(false);
               context
@@ -62,7 +62,7 @@ class ElementsDialog extends StatelessWidget {
               context.read<DocumentBloc>().add(
                   ElementsRemoved(renderers.map((r) => r.element).toList()));
             },
-            leadingIcon: PhosphorIcon(PhosphorIcons.light.trash),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
             child: Text(AppLocalizations.of(context).delete),
           ),
           MenuItemButton(
@@ -72,7 +72,7 @@ class ElementsDialog extends StatelessWidget {
               cubit.changeSelection(renderers.first);
               renderers.sublist(1).forEach((r) => cubit.insertSelection(r));
             },
-            leadingIcon: PhosphorIcon(PhosphorIcons.light.faders),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.faders),
             child: Text(AppLocalizations.of(context).properties),
           ),
         ],

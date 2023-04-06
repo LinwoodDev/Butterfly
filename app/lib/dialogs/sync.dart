@@ -39,7 +39,7 @@ class _SyncDialogState extends State<SyncDialog> {
                     ),
                     actions: [
                       IconButton(
-                        icon: PhosphorIcon(PhosphorIcons.light.x),
+                        icon: const PhosphorIcon(PhosphorIconsLight.x),
                         onPressed: () => Navigator.pop(context),
                       ),
                     ],

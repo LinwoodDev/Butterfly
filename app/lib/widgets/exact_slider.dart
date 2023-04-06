@@ -107,8 +107,8 @@ class _ExactSliderState extends State<ExactSlider> {
                         _changeValue(widget.defaultValue);
                         widget.onChangeEnd?.call(widget.defaultValue);
                       },
-                      icon: PhosphorIcon(
-                          PhosphorIcons.light.clockCounterClockwise));
+                      icon: const PhosphorIcon(
+                          PhosphorIconsLight.clockCounterClockwise));
                   final width = constraints.maxWidth;
                   final bottom = DefaultTextStyle(
                     style: Theme.of(context).textTheme.bodySmall ??

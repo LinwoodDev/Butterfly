@@ -115,7 +115,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
             children: [
               Header(
                 title: Text(AppLocalizations.of(context).export),
-                leading: PhosphorIcon(PhosphorIcons.light.export),
+                leading: const PhosphorIcon(PhosphorIconsLight.export),
               ),
               Flexible(
                 child: Padding(

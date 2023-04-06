@@ -31,7 +31,7 @@ class WaypointSelection extends PainterSelection<WaypointPainter> {
                   context.read<DocumentBloc>().bake();
                 },
                 trailing: IconButton(
-                  icon: PhosphorIcon(PhosphorIcons.light.x),
+                  icon: const PhosphorIcon(PhosphorIconsLight.x),
                   onPressed: () {
                     context.read<DocumentBloc>().add(
                           WaypointRemoved(index),

@@ -171,14 +171,14 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   controller.open();
                                 }
                               },
-                              icon: PhosphorIcon(
-                                  PhosphorIcons.light.dotsThreeVertical),
+                              icon: const PhosphorIcon(
+                                  PhosphorIconsLight.dotsThreeVertical),
                             );
                           },
                           menuChildren: [
                             MenuItemButton(
                               leadingIcon:
-                                  PhosphorIcon(PhosphorIcons.light.plus),
+                                  const PhosphorIcon(PhosphorIconsLight.plus),
                               onPressed: () async {
                                 final bloc = context.read<DocumentBloc>();
                                 final name = await showDialog<String>(
@@ -203,7 +203,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                             ),
                             MenuItemButton(
                               leadingIcon:
-                                  PhosphorIcon(PhosphorIcons.light.copy),
+                                  const PhosphorIcon(PhosphorIconsLight.copy),
                               onPressed: animation == null
                                   ? null
                                   : () async {
@@ -231,7 +231,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                             ),
                             MenuItemButton(
                               leadingIcon:
-                                  PhosphorIcon(PhosphorIcons.light.pencil),
+                                  const PhosphorIcon(PhosphorIconsLight.pencil),
                               onPressed: animation == null
                                   ? null
                                   : () async {
@@ -260,7 +260,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                             ),
                             MenuItemButton(
                               leadingIcon:
-                                  PhosphorIcon(PhosphorIcons.light.trash),
+                                  const PhosphorIcon(PhosphorIconsLight.trash),
                               onPressed: animation == null
                                   ? null
                                   : () {
@@ -280,8 +280,8 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                         IconButton(
                           icon: widget.runningState !=
                                   PresentationRunningState.running
-                              ? PhosphorIcon(PhosphorIcons.light.play)
-                              : PhosphorIcon(PhosphorIcons.light.pause),
+                              ? const PhosphorIcon(PhosphorIconsLight.play)
+                              : const PhosphorIcon(PhosphorIconsLight.pause),
                           onPressed: animation == null
                               ? null
                               : () {
@@ -296,7 +296,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 },
                         ),
                         IconButton(
-                          icon: PhosphorIcon(PhosphorIcons.light.stop),
+                          icon: const PhosphorIcon(PhosphorIconsLight.stop),
                           onPressed: animation == null
                               ? null
                               : () {
@@ -307,7 +307,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                         ),
                         MenuAnchor(
                           builder: (context, controller, child) => IconButton(
-                            icon: PhosphorIcon(PhosphorIcons.light.record),
+                            icon: const PhosphorIcon(PhosphorIconsLight.record),
                             onPressed: animation == null
                                 ? null
                                 : () {
@@ -321,7 +321,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           menuChildren: [
                             MenuItemButton(
                               leadingIcon:
-                                  PhosphorIcon(PhosphorIcons.light.record),
+                                  const PhosphorIcon(PhosphorIconsLight.record),
                               child: Text(
                                 AppLocalizations.of(context).keyframe,
                                 style: TextStyle(
@@ -346,7 +346,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                             const Divider(),
                             MenuItemButton(
                               leadingIcon:
-                                  PhosphorIcon(PhosphorIcons.light.flowArrow),
+                                  const PhosphorIcon(PhosphorIconsLight.flowArrow),
                               child: Text(
                                 AppLocalizations.of(context).camera,
                                 style: TextStyle(
@@ -368,7 +368,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                             ),
                             MenuItemButton(
                               leadingIcon:
-                                  PhosphorIcon(PhosphorIcons.light.camera),
+                                  const PhosphorIcon(PhosphorIconsLight.camera),
                               child: Text(
                                 AppLocalizations.of(context).breakpoint,
                                 style: TextStyle(
@@ -383,8 +383,8 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                             ),
                             const Divider(),
                             MenuItemButton(
-                              leadingIcon: PhosphorIcon(
-                                  PhosphorIcons.light.arrowsOutCardinal),
+                              leadingIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.arrowsOutCardinal),
                               child: Text(
                                 AppLocalizations.of(context).position,
                                 style: TextStyle(
@@ -398,8 +398,8 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                               )),
                             ),
                             MenuItemButton(
-                              leadingIcon: PhosphorIcon(
-                                  PhosphorIcons.light.magnifyingGlass),
+                              leadingIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.magnifyingGlass),
                               child: Text(
                                 AppLocalizations.of(context).zoom,
                                 style: TextStyle(
@@ -415,7 +415,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                             const Divider(),
                             MenuItemButton(
                               leadingIcon:
-                                  PhosphorIcon(PhosphorIcons.light.trash),
+                                  const PhosphorIcon(PhosphorIconsLight.trash),
                               onPressed: key == null
                                   ? null
                                   : () {
@@ -521,13 +521,13 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   controller.open();
                                 }
                               },
-                              icon: PhosphorIcon(
-                                  PhosphorIcons.light.presentation),
+                              icon:
+                                  const PhosphorIcon(PhosphorIconsLight.presentation),
                             ),
                             menuChildren: [
                               MenuItemButton(
-                                leadingIcon: PhosphorIcon(
-                                    PhosphorIcons.light.playCircle),
+                                leadingIcon:
+                                    const PhosphorIcon(PhosphorIconsLight.playCircle),
                                 child: Text(AppLocalizations.of(context).play),
                                 onPressed: () async {
                                   final bloc = context.read<DocumentBloc>();
@@ -548,17 +548,17 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                               /*
                               MenuItemButton(
                                 leadingIcon:
-                                    PhosphorIcon(PhosphorIcons.light.videoCamera),
+                                    PhosphorIcon(PhosphorIconsLight.videoCamera),
                                 child: Text(AppLocalizations.of(context).video),
                               ),
                               MenuItemButton(
                                 leadingIcon:
-                                    PhosphorIcon(PhosphorIcons.light.filmStrip),
+                                    PhosphorIcon(PhosphorIconsLight.filmStrip),
                                 child: Text(AppLocalizations.of(context).image),
                               ),*/
                               MenuItemButton(
                                 leadingIcon:
-                                    PhosphorIcon(PhosphorIcons.light.file),
+                                    const PhosphorIcon(PhosphorIconsLight.file),
                                 child: Text(AppLocalizations.of(context).pdf),
                                 onPressed: () {
                                   final size = MediaQuery.of(context).size;

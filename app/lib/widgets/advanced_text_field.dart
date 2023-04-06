@@ -29,7 +29,7 @@ class AdvancedTextField extends StatelessWidget {
             controller.text = resetValue;
             onChanged?.call(resetValue);
           },
-          icon: PhosphorIcon(PhosphorIcons.light.clockClockwise),
+          icon: const PhosphorIcon(PhosphorIconsLight.clockClockwise),
         ),
       ),
       onChanged: onChanged,

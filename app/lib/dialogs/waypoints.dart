@@ -33,7 +33,7 @@ class WaypointsDialog extends StatelessWidget {
                       Header(
                           title: Text(AppLocalizations.of(context).waypoints),
                           leading: IconButton(
-                            icon: PhosphorIcon(PhosphorIcons.light.x),
+                            icon: const PhosphorIcon(PhosphorIconsLight.x),
                             onPressed: () => Navigator.of(context).pop(),
                           ),
                           actions: [
@@ -41,7 +41,7 @@ class WaypointsDialog extends StatelessWidget {
                               IconButton(
                                 onPressed: () => _showCreateDialog(context),
                                 tooltip: AppLocalizations.of(context).create,
-                                icon: PhosphorIcon(PhosphorIcons.light.plus),
+                                icon: const PhosphorIcon(PhosphorIconsLight.plus),
                               )
                           ]),
                       Flexible(
@@ -50,10 +50,10 @@ class WaypointsDialog extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextField(
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   filled: true,
                                   prefixIcon: PhosphorIcon(
-                                      PhosphorIcons.light.magnifyingGlass),
+                                      PhosphorIconsLight.magnifyingGlass),
                                 ),
                                 textAlignVertical: TextAlignVertical.center,
                                 controller: _searchController,

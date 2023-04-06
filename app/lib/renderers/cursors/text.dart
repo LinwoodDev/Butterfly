@@ -22,7 +22,7 @@ class TextCursor extends Renderer<TextCursorData> {
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    final icon = PhosphorIcons.light.cursorText;
+    const icon = PhosphorIconsLight.cursorText;
     final property = element.context?.getDefinedProperty(document);
     final iconSize =
         (property ?? const text.DefinedParagraphProperty()).span.getSize();

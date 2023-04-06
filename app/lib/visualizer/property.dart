@@ -3,16 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../helpers/icon.dart';
+
 extension PathShapeVisualizer on PathShape {
-  PhosphorIconData getIcon({bool filled = false}) {
+  IconGetter get icon {
     return map(
-      circle: (_) =>
-          filled ? PhosphorIcons.fill.circle : PhosphorIcons.light.circle,
-      rectangle: (_) =>
-          filled ? PhosphorIcons.fill.square : PhosphorIcons.light.square,
-      line: (_) => filled
-          ? PhosphorIcons.fill.lineSegment
-          : PhosphorIcons.light.lineSegment,
+      circle: (_) => PhosphorIcons.circle,
+      rectangle: (_) => PhosphorIcons.square,
+      line: (_) => PhosphorIcons.lineSegment,
     );
   }
 

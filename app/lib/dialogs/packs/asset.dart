@@ -57,7 +57,7 @@ class AssetDialog extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 IconButton(
-                  icon: PhosphorIcon(PhosphorIcons.light.plusCircle),
+                  icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
                   onPressed: () async {
                     final pack = await showDialog<ButterflyPack>(
                       context: context,

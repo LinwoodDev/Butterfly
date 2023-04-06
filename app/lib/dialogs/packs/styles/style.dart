@@ -56,15 +56,15 @@ class _StyleDialogState extends State<StyleDialog> {
                   isScrollable: true,
                   tabs: <dynamic>[
                     [
-                      PhosphorIcons.light.gear,
+                      PhosphorIconsLight.gear,
                       AppLocalizations.of(context).general
                     ],
                     [
-                      PhosphorIcons.light.article,
+                      PhosphorIconsLight.article,
                       AppLocalizations.of(context).paragraph
                     ],
                     [
-                      PhosphorIcons.light.textT,
+                      PhosphorIconsLight.textT,
                       AppLocalizations.of(context).text
                     ]
                   ]

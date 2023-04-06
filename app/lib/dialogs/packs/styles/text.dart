@@ -46,7 +46,7 @@ class _TextStyleViewState extends State<TextStyleView> {
             leading: widget.value.color == null
                 ? null
                 : IconButton(
-                    icon: PhosphorIcon(PhosphorIcons.light.eraser),
+                    icon: const PhosphorIcon(PhosphorIconsLight.eraser),
                     onPressed: () =>
                         widget.onChanged(widget.value.copyWith(color: null))),
             defaultColor: null,
@@ -60,7 +60,7 @@ class _TextStyleViewState extends State<TextStyleView> {
             leading: widget.value.size == null
                 ? null
                 : IconButton(
-                    icon: PhosphorIcon(PhosphorIcons.light.eraser),
+                    icon: const PhosphorIcon(PhosphorIconsLight.eraser),
                     onPressed: () =>
                         widget.onChanged(widget.value.copyWith(size: null)),
                   ),
@@ -78,7 +78,7 @@ class _TextStyleViewState extends State<TextStyleView> {
             leading: widget.value.letterSpacing == null
                 ? null
                 : IconButton(
-                    icon: PhosphorIcon(PhosphorIcons.light.eraser),
+                    icon: const PhosphorIcon(PhosphorIconsLight.eraser),
                     onPressed: () => widget
                         .onChanged(widget.value.copyWith(letterSpacing: null)),
                   ),
@@ -206,8 +206,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                             leading: widget.value.decorationColor == null
                                 ? null
                                 : IconButton(
-                                    icon: PhosphorIcon(
-                                        PhosphorIcons.light.eraser),
+                                    icon:
+                                        const PhosphorIcon(PhosphorIconsLight.eraser),
                                     onPressed: () => widget.onChanged(widget
                                         .value
                                         .copyWith(decorationColor: null))),
@@ -227,8 +227,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                               leading: widget.value.decorationThickness == null
                                   ? null
                                   : IconButton(
-                                      icon: PhosphorIcon(
-                                          PhosphorIcons.light.eraser),
+                                      icon: const PhosphorIcon(
+                                          PhosphorIconsLight.eraser),
                                       onPressed: () => widget.onChanged(widget
                                           .value
                                           .copyWith(decorationThickness: null)),

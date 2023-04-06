@@ -143,8 +143,8 @@ class GeneralSettingsPage extends StatelessWidget {
                                       .updateAvailable),
                                   subtitle: Text(
                                       AppLocalizations.of(context).updateNow),
-                                  leading: PhosphorIcon(
-                                      PhosphorIcons.light.arrowRight),
+                                  leading: const PhosphorIcon(
+                                      PhosphorIconsLight.arrowRight),
                                   onTap: () async {
                                     await launchUrl(
                                         Uri.parse(
@@ -166,42 +166,42 @@ class GeneralSettingsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     ListTile(
-                        leading: PhosphorIcon(PhosphorIcons.light.article),
+                        leading: const PhosphorIcon(PhosphorIconsLight.article),
                         title: Text(AppLocalizations.of(context).documentation),
                         onTap: () => launchUrl(
                             Uri.https('docs.butterfly.linwood.dev', ''),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
-                        leading: PhosphorIcon(PhosphorIcons.light.flag),
+                        leading: const PhosphorIcon(PhosphorIconsLight.flag),
                         title: Text(AppLocalizations.of(context).releaseNotes),
                         onTap: () => openReleaseNotes()),
                     ListTile(
-                        leading: PhosphorIcon(PhosphorIcons.light.users),
+                        leading: const PhosphorIcon(PhosphorIconsLight.users),
                         title: const Text('Matrix'),
                         onTap: () => launchUrl(
                             Uri.https('go.linwood.dev', 'matrix'),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
-                        leading: PhosphorIcon(PhosphorIcons.light.users),
+                        leading: const PhosphorIcon(PhosphorIconsLight.users),
                         title: const Text('Discord'),
                         onTap: () => launchUrl(
                             Uri.https('go.linwood.dev', 'discord'),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
-                        leading: PhosphorIcon(PhosphorIcons.light.translate),
+                        leading: const PhosphorIcon(PhosphorIconsLight.translate),
                         title: const Text('Crowdin'),
                         onTap: () => launchUrl(
                             Uri.https('go.linwood.dev', 'butterfly/crowdin'),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
-                        leading: PhosphorIcon(PhosphorIcons.light.code),
+                        leading: const PhosphorIcon(PhosphorIconsLight.code),
                         title: Text(AppLocalizations.of(context).source),
                         onTap: () => launchUrl(
                             Uri.https('go.linwood.dev', 'butterfly/source'),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
-                        leading: PhosphorIcon(
-                            PhosphorIcons.light.arrowCounterClockwise),
+                        leading: const PhosphorIcon(
+                            PhosphorIconsLight.arrowCounterClockwise),
                         title: Text(AppLocalizations.of(context).changelog),
                         onTap: () => launchUrl(
                             Uri.https(
@@ -218,20 +218,20 @@ class GeneralSettingsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     ListTile(
-                        leading: PhosphorIcon(PhosphorIcons.light.stack),
+                        leading: const PhosphorIcon(PhosphorIconsLight.stack),
                         title: Text(AppLocalizations.of(context).license),
                         onTap: () => launchUrl(
                             Uri.https('go.linwood.dev', 'butterfly/license'),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
-                        leading: PhosphorIcon(
-                            PhosphorIcons.light.identificationCard),
+                        leading:
+                            const PhosphorIcon(PhosphorIconsLight.identificationCard),
                         title: Text(AppLocalizations.of(context).imprint),
                         onTap: () => launchUrl(
                             Uri.https('go.linwood.dev', 'impress'),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
-                        leading: PhosphorIcon(PhosphorIcons.light.shield),
+                        leading: const PhosphorIcon(PhosphorIconsLight.shield),
                         title: Text(AppLocalizations.of(context).privacypolicy),
                         onTap: () => launchUrl(
                             Uri.https(
@@ -240,7 +240,7 @@ class GeneralSettingsPage extends StatelessWidget {
                     ListTile(
                       title:
                           Text(AppLocalizations.of(context).thirdPartyLicenses),
-                      leading: PhosphorIcon(PhosphorIcons.light.file),
+                      leading: const PhosphorIcon(PhosphorIconsLight.file),
                       onTap: () => showLicensePage(context: context),
                     )
                   ]),

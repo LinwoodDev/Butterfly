@@ -40,7 +40,7 @@ class PenBehaviorSettings extends StatelessWidget {
                               max: 100,
                               value: state.penSensitivity,
                               header: Row(children: [
-                                PhosphorIcon(PhosphorIcons.light.lightning),
+                                const PhosphorIcon(PhosphorIconsLight.lightning),
                                 const SizedBox(width: 8),
                                 Text(AppLocalizations.of(context).sensitivity),
                               ]),
@@ -77,8 +77,8 @@ class PenBehaviorSettings extends StatelessWidget {
                                     Theme.of(context).textTheme.headlineSmall,
                               ),
                               IconButton(
-                                icon: PhosphorIcon(
-                                    PhosphorIcons.light.sealQuestion),
+                                icon: const PhosphorIcon(
+                                    PhosphorIconsLight.sealQuestion),
                                 onPressed: () =>
                                     openHelp(['shortcuts'], 'configure'),
                               ),
@@ -88,7 +88,7 @@ class PenBehaviorSettings extends StatelessWidget {
                           AdvancedTextField(
                             initialValue: config.pen?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).pen,
-                            icon: PhosphorIcon(PhosphorIcons.light.pen),
+                            icon: const PhosphorIcon(PhosphorIconsLight.pen),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(
@@ -100,8 +100,8 @@ class PenBehaviorSettings extends StatelessWidget {
                             initialValue:
                                 config.firstPenButton?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).first,
-                            icon: PhosphorIcon(
-                                PhosphorIcons.light.numberCircleOne),
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.numberCircleOne),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(
@@ -115,8 +115,8 @@ class PenBehaviorSettings extends StatelessWidget {
                                 config.secondPenButton?.add(1)?.toString() ??
                                     '',
                             label: AppLocalizations.of(context).second,
-                            icon: PhosphorIcon(
-                                PhosphorIcons.light.numberCircleTwo),
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.numberCircleTwo),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(

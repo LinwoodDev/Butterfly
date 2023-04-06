@@ -139,12 +139,12 @@ class _HeaderHomeView extends StatelessWidget {
         children: [
           TextButton.icon(
             onPressed: () => openHelp(['intro']),
-            icon: PhosphorIcon(PhosphorIcons.light.bookOpen),
+            icon: const PhosphorIcon(PhosphorIconsLight.bookOpen),
             label: Text(AppLocalizations.of(context).documentation),
           ),
           IconButton(
             onPressed: () => openSettings(context),
-            icon: PhosphorIcon(PhosphorIcons.light.gear),
+            icon: const PhosphorIcon(PhosphorIconsLight.gear),
             tooltip: AppLocalizations.of(context).settings,
           ),
         ],
@@ -184,10 +184,10 @@ class _HeaderHomeView extends StatelessWidget {
                 SizedBox(
                   height: 0,
                   child: Stack(
-                    children: [
+                    children: const [
                       Align(
                         alignment: Alignment.bottomCenter,
-                        child: PhosphorIcon(PhosphorIcons.light.caretUp),
+                        child: PhosphorIcon(PhosphorIconsLight.caretUp),
                       ),
                     ],
                   ),
@@ -380,8 +380,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
             IconButton(
               onPressed: () => setState(() => _gridView = !_gridView),
               icon: _gridView
-                  ? PhosphorIcon(PhosphorIcons.light.list)
-                  : PhosphorIcon(PhosphorIcons.light.gridFour),
+                  ? PhosphorIcon(PhosphorIconsLight.list)
+                  : PhosphorIcon(PhosphorIconsLight.gridFour),
             ),
           ],
           ),*/
@@ -467,7 +467,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
         final searchBar = TextFormField(
           decoration: InputDecoration(
             hintText: AppLocalizations.of(context).search,
-            prefixIcon: PhosphorIcon(PhosphorIcons.light.magnifyingGlass),
+            prefixIcon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
             filled: true,
           ),
           initialValue: _search,
@@ -479,7 +479,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
             MenuAnchor(
               menuChildren: [
                 MenuItemButton(
-                  leadingIcon: PhosphorIcon(PhosphorIcons.light.folder),
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
                   child: Text(AppLocalizations.of(context).newFolder),
                   onPressed: () async {
                     final name = await showDialog<String>(
@@ -542,11 +542,11 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                       _reloadFileSystem();
                     }
                   },
-                  leadingIcon: PhosphorIcon(PhosphorIcons.light.file),
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
                   child: Text(AppLocalizations.of(context).newFile),
                 ),
                 MenuItemButton(
-                  leadingIcon: PhosphorIcon(PhosphorIcons.light.arrowSquareIn),
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowSquareIn),
                   onPressed: () async {
                     final router = GoRouter.of(context);
                     final importService = context.read<ImportService>();
@@ -574,7 +574,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                 onPressed: () =>
                     controller.isOpen ? controller.close() : controller.open(),
                 tooltip: AppLocalizations.of(context).create,
-                child: PhosphorIcon(PhosphorIcons.light.plus),
+                child: const PhosphorIcon(PhosphorIconsLight.plus),
               ),
             ),
             DragTarget<String>(
@@ -585,7 +585,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                           _locationController.text = parent;
                           _setFilesFuture();
                         }),
-                icon: PhosphorIcon(PhosphorIcons.light.arrowUp),
+                icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
                 tooltip: AppLocalizations.of(context).goUp,
               ),
               onWillAccept: (data) => true,
@@ -600,7 +600,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
               child: TextFormField(
                 decoration: InputDecoration(
                   hintText: AppLocalizations.of(context).location,
-                  prefixIcon: PhosphorIcon(PhosphorIcons.light.folder),
+                  prefixIcon: const PhosphorIcon(PhosphorIconsLight.folder),
                   filled: true,
                   contentPadding: const EdgeInsets.only(left: 32),
                 ),
@@ -768,7 +768,7 @@ class _FileEntityListTile extends StatelessWidget {
     final syncService = context.read<SyncService>();
     DocumentInfo? info;
     String? modifiedText, createdText;
-    PhosphorIconData icon = PhosphorIcons.light.folder;
+    PhosphorIconData icon = PhosphorIconsLight.folder;
     try {
       if (entity is AppDocumentFile) {
         final file = entity as AppDocumentFile;
@@ -877,8 +877,7 @@ class _FileEntityListTile extends StatelessWidget {
                                     editable = true;
                                     _nameController.text = entity.fileName;
                                   }),
-                                  icon:
-                                      PhosphorIcon(PhosphorIcons.light.pencil),
+                                  icon: const PhosphorIcon(PhosphorIconsLight.pencil),
                                   tooltip: AppLocalizations.of(context).rename,
                                 ),
                               ],
@@ -922,8 +921,8 @@ class _FileEntityListTile extends StatelessWidget {
                                 onReload();
                               },
                               icon: starred
-                                  ? PhosphorIcon(PhosphorIcons.fill.star)
-                                  : PhosphorIcon(PhosphorIcons.light.star),
+                                  ? const PhosphorIcon(PhosphorIconsFill.star)
+                                  : const PhosphorIcon(PhosphorIconsLight.star),
                               isSelected: starred,
                               tooltip: starred
                                   ? AppLocalizations.of(context).unstar
@@ -939,8 +938,7 @@ class _FileEntityListTile extends StatelessWidget {
                               ),
                             ).then((value) => onReload()),
                             tooltip: AppLocalizations.of(context).move,
-                            icon:
-                                PhosphorIcon(PhosphorIcons.light.arrowsDownUp),
+                            icon: const PhosphorIcon(PhosphorIconsLight.arrowsDownUp),
                           ),
                         ],
                       );
@@ -954,7 +952,7 @@ class _FileEntityListTile extends StatelessWidget {
                               child: Row(
                                 children: [
                                   PhosphorIcon(
-                                    PhosphorIcons.light.clockCounterClockwise,
+                                    PhosphorIconsLight.clockCounterClockwise,
                                     size: 12,
                                     color: colorScheme.outline,
                                   ),
@@ -977,7 +975,7 @@ class _FileEntityListTile extends StatelessWidget {
                               child: Row(
                                 children: [
                                   PhosphorIcon(
-                                    PhosphorIcons.light.plus,
+                                    PhosphorIconsLight.plus,
                                     size: 12,
                                     color: colorScheme.outline,
                                   ),
@@ -1069,12 +1067,12 @@ class _FileEntityListTile extends StatelessWidget {
                         );
                       }
                     },
-                    icon: PhosphorIcon(PhosphorIcons.light.paperPlaneRight),
+                    icon: const PhosphorIcon(PhosphorIconsLight.paperPlaneRight),
                     tooltip: AppLocalizations.of(context).export,
                   ),
                 Builder(builder: (context) {
                   return IconButton(
-                    icon: PhosphorIcon(PhosphorIcons.light.trash),
+                    icon: const PhosphorIcon(PhosphorIconsLight.trash),
                     highlightColor: colorScheme.error.withOpacity(0.2),
                     tooltip: AppLocalizations.of(context).delete,
                     onPressed: () {
@@ -1106,7 +1104,7 @@ class _FileEntityListTile extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.of(ctx).pop();
                                     },
-                                    child: PhosphorIcon(PhosphorIcons.light.x),
+                                    child: const PhosphorIcon(PhosphorIconsLight.x),
                                   ),
                                   FilledButton(
                                     onPressed: () {
@@ -1116,7 +1114,7 @@ class _FileEntityListTile extends StatelessWidget {
                                       onReload();
                                     },
                                     child:
-                                        PhosphorIcon(PhosphorIcons.light.check),
+                                        const PhosphorIcon(PhosphorIconsLight.check),
                                   ),
                                 ],
                               ),

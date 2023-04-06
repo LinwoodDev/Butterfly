@@ -26,17 +26,17 @@ extension FileSyncStatusVisualizer on FileSyncStatus? {
   PhosphorIconData getIcon() {
     switch (this) {
       case FileSyncStatus.localLatest:
-        return PhosphorIcons.light.upload;
+        return PhosphorIconsLight.upload;
       case FileSyncStatus.remoteLatest:
-        return PhosphorIcons.light.download;
+        return PhosphorIconsLight.download;
       case FileSyncStatus.synced:
-        return PhosphorIcons.light.check;
+        return PhosphorIconsLight.check;
       case FileSyncStatus.conflict:
-        return PhosphorIcons.light.warning;
+        return PhosphorIconsLight.warning;
       case FileSyncStatus.offline:
-        return PhosphorIcons.light.wifiSlash;
+        return PhosphorIconsLight.wifiSlash;
       default:
-        return PhosphorIcons.light.arrowClockwise;
+        return PhosphorIconsLight.arrowClockwise;
     }
   }
 
@@ -75,13 +75,13 @@ extension SyncStatusVisualizer on SyncStatus? {
   PhosphorIconData getIcon() {
     switch (this) {
       case SyncStatus.syncing:
-        return PhosphorIcons.light.arrowClockwise;
+        return PhosphorIconsLight.arrowClockwise;
       case SyncStatus.synced:
-        return PhosphorIcons.light.check;
+        return PhosphorIconsLight.check;
       case SyncStatus.error:
-        return PhosphorIcons.light.warning;
+        return PhosphorIconsLight.warning;
       default:
-        return PhosphorIcons.light.arrowClockwise;
+        return PhosphorIconsLight.arrowClockwise;
     }
   }
 
@@ -114,11 +114,11 @@ extension SyncModeVisualizer on SyncMode {
   PhosphorIconData getIcon() {
     switch (this) {
       case SyncMode.always:
-        return PhosphorIcons.light.wifiHigh;
+        return PhosphorIconsLight.wifiHigh;
       case SyncMode.noMobile:
-        return PhosphorIcons.light.wifiSlash;
+        return PhosphorIconsLight.wifiSlash;
       case SyncMode.manual:
-        return PhosphorIcons.light.arrowClockwise;
+        return PhosphorIconsLight.arrowClockwise;
     }
   }
 }

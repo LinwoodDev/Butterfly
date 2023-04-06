@@ -29,7 +29,7 @@ FutureOr<AppDocument?> checkFileChanges(
               const SizedBox(height: 8),
               OutlinedButton.icon(
                 label: Text(AppLocalizations.of(context).documentation),
-                icon: PhosphorIcon(PhosphorIcons.light.bookOpen),
+                icon: const PhosphorIcon(PhosphorIconsLight.bookOpen),
                 onPressed: () => openHelp(['migrating']),
               ),
             ],
