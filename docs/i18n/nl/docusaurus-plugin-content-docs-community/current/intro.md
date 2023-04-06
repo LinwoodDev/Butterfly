@@ -21,5 +21,5 @@ Alle andere licenties vind je in de instellingen.
 ## Nuttige links
 
 * [GitHub](https://github.com/LinwoodCloud/Butterfly)
-* [Discord](https://go.linwood.dev/discord)
+* [Onenigheid](https://go.linwood.dev/discord)
 * [Matrix](https://go.linwood.dev/matrix)
