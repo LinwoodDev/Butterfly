@@ -27,7 +27,8 @@ class LayersDialog extends StatelessWidget {
                     ),
                     actions: [
                       IconButton(
-                          icon: const PhosphorIcon(PhosphorIconsLight.selection),
+                          icon:
+                              const PhosphorIcon(PhosphorIconsLight.selection),
                           tooltip:
                               AppLocalizations.of(context).selectCustomLayer,
                           onPressed: () async {

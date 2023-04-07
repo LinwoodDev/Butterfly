@@ -208,7 +208,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 },
                                 label: Text(AppLocalizations.of(context).style),
                                 trailingIcon: widget.value.modified(document)
-                                    ? const PhosphorIcon(PhosphorIconsLight.star)
+                                    ? const PhosphorIcon(
+                                        PhosphorIconsLight.star)
                                     : null,
                               )
                             : DropdownMenu<String>(
@@ -242,7 +243,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 },
                                 label: Text(AppLocalizations.of(context).style),
                                 trailingIcon: widget.value.modified(document)
-                                    ? const PhosphorIcon(PhosphorIconsLight.star)
+                                    ? const PhosphorIcon(
+                                        PhosphorIconsLight.star)
                                     : null,
                               ),
                         const SizedBox(width: 8),
@@ -435,7 +437,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           ],
                           children: [
                             GestureDetector(
-                              child: const PhosphorIcon(PhosphorIconsLight.textB),
+                              child:
+                                  const PhosphorIcon(PhosphorIconsLight.textB),
                               onLongPressEnd: (details) {
                                 final RenderObject? overlay =
                                     Overlay.of(context)
@@ -482,7 +485,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                               },
                             ),
                             const PhosphorIcon(PhosphorIconsLight.textItalic),
-                            const PhosphorIcon(PhosphorIconsLight.textUnderline),
+                            const PhosphorIcon(
+                                PhosphorIconsLight.textUnderline),
                           ],
                           onPressed: (current) {
                             switch (current) {

@@ -86,7 +86,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                   actions: [
                     IconButton(
                       onPressed: () => setState(() {}),
-                      icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
+                      icon:
+                          const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
                     ),
                     IconButton(
                         icon: PhosphorIcon(_gridView
@@ -176,7 +177,8 @@ class _FileSystemDialogState extends State<FileSystemDialog> {
                             ),
                           ),
                           IconButton(
-                            icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
+                            icon:
+                                const PhosphorIcon(PhosphorIconsLight.arrowUp),
                             onPressed: () {
                               var path = _pathController.text;
                               if (path.isNotEmpty && path != '/') {

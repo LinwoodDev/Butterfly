@@ -162,7 +162,8 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                         },
                         title: Text(
                             AppLocalizations.of(context).syncRootDirectory),
-                        secondary: const PhosphorIcon(PhosphorIconsLight.folder),
+                        secondary:
+                            const PhosphorIcon(PhosphorIconsLight.folder),
                       );
                     }),
                     ListTile(

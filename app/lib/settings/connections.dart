@@ -343,13 +343,15 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                             controller: _templatesDirectoryController,
                             label:
                                 AppLocalizations.of(context).templatesDirectory,
-                            icon: const PhosphorIcon(PhosphorIconsLight.fileDashed),
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.fileDashed),
                           ),
                           const SizedBox(height: 8),
                           _DirectoryField(
                             controller: _packsDirectoryController,
                             label: AppLocalizations.of(context).packsDirectory,
-                            icon: const PhosphorIcon(PhosphorIconsLight.package),
+                            icon:
+                                const PhosphorIcon(PhosphorIconsLight.package),
                           ),
                         ]),
                       ),

@@ -60,7 +60,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
                             subtitle: Text(_getThemeName(context, state.theme)),
                             onTap: () => _openThemeModal(context)),
                         ListTile(
-                          leading: const PhosphorIcon(PhosphorIconsLight.palette),
+                          leading:
+                              const PhosphorIcon(PhosphorIconsLight.palette),
                           title: Text(AppLocalizations.of(context).design),
                           subtitle: Text(
                             design.isEmpty
@@ -73,7 +74,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
                           onTap: () => _openDesignModal(context),
                         ),
                         ListTile(
-                            leading: const PhosphorIcon(PhosphorIconsLight.translate),
+                            leading: const PhosphorIcon(
+                                PhosphorIconsLight.translate),
                             title: Text(AppLocalizations.of(context).locale),
                             subtitle:
                                 Text(_getLocaleName(context, state.localeTag)),
@@ -93,15 +95,15 @@ class PersonalizationSettingsPage extends StatelessWidget {
                             value: state.nativeWindowTitleBar,
                             title: Text(AppLocalizations.of(context)
                                 .nativeWindowTitleBar),
-                            secondary:
-                                const PhosphorIcon(PhosphorIconsLight.appWindow),
+                            secondary: const PhosphorIcon(
+                                PhosphorIconsLight.appWindow),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
                                 .changeNativeWindowTitleBar(value),
                           ),
                         SwitchListTile(
-                          secondary:
-                              const PhosphorIcon(PhosphorIconsLight.squaresFour),
+                          secondary: const PhosphorIcon(
+                              PhosphorIconsLight.squaresFour),
                           title: Text(AppLocalizations.of(context).start),
                           value: state.startEnabled,
                           onChanged: (value) => context
@@ -115,7 +117,8 @@ class PersonalizationSettingsPage extends StatelessWidget {
                               .changeStartInFullScreen(value),
                           title: Text(
                               AppLocalizations.of(context).startInFullScreen),
-                          secondary: const PhosphorIcon(PhosphorIconsLight.arrowsOut),
+                          secondary:
+                              const PhosphorIcon(PhosphorIconsLight.arrowsOut),
                         ),
                       ]),
                 ),

@@ -49,7 +49,8 @@ class _SelectElementDialogState extends State<SelectElementDialog> {
                 itemBuilder: (context, index) {
                   final renderer = widget.renderers[index];
                   return IconButton(
-                    icon: PhosphorIcon(renderer.element.icon(PhosphorIconsStyle.light)),
+                    icon: PhosphorIcon(
+                        renderer.element.icon(PhosphorIconsStyle.light)),
                     color: current == renderer
                         ? Theme.of(context).colorScheme.primary
                         : null,

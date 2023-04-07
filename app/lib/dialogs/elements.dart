@@ -24,7 +24,8 @@ class ElementsDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsOutCardinal),
+            leadingIcon:
+                const PhosphorIcon(PhosphorIconsLight.arrowsOutCardinal),
             onPressed: () {
               Navigator.of(context).pop(true);
               context

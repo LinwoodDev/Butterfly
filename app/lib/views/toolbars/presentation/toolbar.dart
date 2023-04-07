@@ -345,8 +345,8 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                             ),
                             const Divider(),
                             MenuItemButton(
-                              leadingIcon:
-                                  const PhosphorIcon(PhosphorIconsLight.flowArrow),
+                              leadingIcon: const PhosphorIcon(
+                                  PhosphorIconsLight.flowArrow),
                               child: Text(
                                 AppLocalizations.of(context).camera,
                                 style: TextStyle(
@@ -521,13 +521,13 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   controller.open();
                                 }
                               },
-                              icon:
-                                  const PhosphorIcon(PhosphorIconsLight.presentation),
+                              icon: const PhosphorIcon(
+                                  PhosphorIconsLight.presentation),
                             ),
                             menuChildren: [
                               MenuItemButton(
-                                leadingIcon:
-                                    const PhosphorIcon(PhosphorIconsLight.playCircle),
+                                leadingIcon: const PhosphorIcon(
+                                    PhosphorIconsLight.playCircle),
                                 child: Text(AppLocalizations.of(context).play),
                                 onPressed: () async {
                                   final bloc = context.read<DocumentBloc>();

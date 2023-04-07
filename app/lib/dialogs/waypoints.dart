@@ -41,7 +41,8 @@ class WaypointsDialog extends StatelessWidget {
                               IconButton(
                                 onPressed: () => _showCreateDialog(context),
                                 tooltip: AppLocalizations.of(context).create,
-                                icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                                icon:
+                                    const PhosphorIcon(PhosphorIconsLight.plus),
                               )
                           ]),
                       Flexible(

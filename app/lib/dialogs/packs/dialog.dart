@@ -65,7 +65,8 @@ class _PacksDialogState extends State<PacksDialog>
                             text: AppLocalizations.of(context).document,
                           ),
                           Tab(
-                            icon: const PhosphorIcon(PhosphorIconsLight.appWindow),
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.appWindow),
                             text: AppLocalizations.of(context).local,
                           ),
                         ],
@@ -382,8 +383,8 @@ class _PacksDialogState extends State<PacksDialog>
                               ListTile(
                                 title:
                                     Text(AppLocalizations.of(context).create),
-                                leading:
-                                    const PhosphorIcon(PhosphorIconsLight.plusCircle),
+                                leading: const PhosphorIcon(
+                                    PhosphorIconsLight.plusCircle),
                                 onTap: () async {
                                   Navigator.of(context).pop();
                                   final pack = await showDialog<ButterflyPack>(

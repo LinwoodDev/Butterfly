@@ -188,7 +188,8 @@ class GeneralSettingsPage extends StatelessWidget {
                             Uri.https('go.linwood.dev', 'discord'),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
-                        leading: const PhosphorIcon(PhosphorIconsLight.translate),
+                        leading:
+                            const PhosphorIcon(PhosphorIconsLight.translate),
                         title: const Text('Crowdin'),
                         onTap: () => launchUrl(
                             Uri.https('go.linwood.dev', 'butterfly/crowdin'),
@@ -224,8 +225,8 @@ class GeneralSettingsPage extends StatelessWidget {
                             Uri.https('go.linwood.dev', 'butterfly/license'),
                             mode: LaunchMode.externalApplication)),
                     ListTile(
-                        leading:
-                            const PhosphorIcon(PhosphorIconsLight.identificationCard),
+                        leading: const PhosphorIcon(
+                            PhosphorIconsLight.identificationCard),
                         title: Text(AppLocalizations.of(context).imprint),
                         onTap: () => launchUrl(
                             Uri.https('go.linwood.dev', 'impress'),

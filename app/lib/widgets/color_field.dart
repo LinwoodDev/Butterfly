@@ -72,7 +72,8 @@ class ColorField extends StatelessWidget {
           if (defaultColor != null) ...[
             const SizedBox(width: 8),
             IconButton(
-              icon: const PhosphorIcon(PhosphorIconsLight.clockCounterClockwise),
+              icon:
+                  const PhosphorIcon(PhosphorIconsLight.clockCounterClockwise),
               onPressed: () async {
                 onChanged?.call(defaultColor!);
               },

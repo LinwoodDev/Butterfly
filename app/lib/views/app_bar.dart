@@ -185,7 +185,8 @@ class _AppBarTitle extends StatelessWidget {
                           onPressed: () =>
                               context.read<ImportService>().export()),
                     IconButton(
-                      icon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
+                      icon: const PhosphorIcon(
+                          PhosphorIconsLight.magnifyingGlass),
                       tooltip: AppLocalizations.of(context).search,
                       onPressed: () {
                         final bloc = context.read<DocumentBloc>();
