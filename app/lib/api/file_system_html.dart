@@ -100,6 +100,10 @@ Future<Database> _getDatabase() async {
 class WebDocumentFileSystem extends DocumentFileSystem {
   @override
   Future<void> deleteAsset(String path) async {
+    // Add leading slash
+    if (!path.startsWith('/')) {
+      path = '/$path';
+    }
     var db = await _getDatabase();
     var txn = db.transactionList(['documents', 'documents-data'], 'readwrite');
     var store = txn.objectStore('documents');
@@ -134,7 +138,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     Future<List<int>?> getData(String path) async {
       final dataStore = txn.objectStore('documents-data');
       final data = await dataStore.getObject(path);
-      return data as List<int>?;
+      return List<int>.from(data as List);
     }
 
     var store = txn.objectStore('documents');
@@ -203,19 +207,19 @@ class WebDocumentFileSystem extends DocumentFileSystem {
 
   @override
   Future<AppDocumentFile> updateFile(String path, List<int> data) async {
-    // Add leading slash
-    if (!path.startsWith('/')) {
-      path = '/$path';
-    }
     // Remove trailing slash
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
+    }
+    // Add leading slash
+    if (!path.startsWith('/')) {
+      path = '/$path';
     }
     final pathWithoutSlash = path.substring(1);
     // Create directory if it doesn't exist
     if (pathWithoutSlash.contains('/')) {
       await createDirectory(
-          pathWithoutSlash.substring(0, pathWithoutSlash.lastIndexOf('/')));
+          '/${pathWithoutSlash.substring(0, pathWithoutSlash.lastIndexOf('/'))}');
     }
     final db = await _getDatabase();
     final txn =

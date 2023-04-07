@@ -89,9 +89,12 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
+    if (newName.startsWith('/')) {
+      newName = newName.substring(1);
+    }
     final asset = await getAsset(path);
     if (asset == null) return null;
-    final newPath = path.substring(0, path.lastIndexOf('/') + 1) + newName;
+    final newPath = '${path.substring(0, path.lastIndexOf('/') + 1)}$newName';
     return moveAsset(path, newPath);
   }
 

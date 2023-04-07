@@ -48,7 +48,7 @@ dependencies:
   camera: ^0.10.3+2
   camera_windows: ^0.2.1+5
   window_manager: ^0.3.1
-  flex_color_scheme: ^7.0.0
+  flex_color_scheme: ^7.0.1
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.0
   path: ^1.8.2
@@ -141,6 +141,7 @@ flutter:
     - images/
     - templates/
     - defaults/
+    - fonts/LICENSE.txt
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

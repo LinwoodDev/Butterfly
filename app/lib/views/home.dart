@@ -546,7 +546,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                   child: Text(AppLocalizations.of(context).newFile),
                 ),
                 MenuItemButton(
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowSquareIn),
+                  leadingIcon:
+                      const PhosphorIcon(PhosphorIconsLight.arrowSquareIn),
                   onPressed: () async {
                     final router = GoRouter.of(context);
                     final importService = context.read<ImportService>();
@@ -852,10 +853,9 @@ class _FileEntityListTile extends StatelessWidget {
                                           ?.copyWith(
                                             color: colorScheme.onBackground,
                                           ),
-                                      onSubmitted: (value) {
-                                        fileSystem.renameAsset(
-                                            entity.location.path,
-                                            '${entity.parent}/$value');
+                                      onSubmitted: (value) async {
+                                        await fileSystem.renameAsset(
+                                            entity.location.path, value);
                                         setState(() {
                                           editable = false;
                                         });
@@ -877,7 +877,8 @@ class _FileEntityListTile extends StatelessWidget {
                                     editable = true;
                                     _nameController.text = entity.fileName;
                                   }),
-                                  icon: const PhosphorIcon(PhosphorIconsLight.pencil),
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.pencil),
                                   tooltip: AppLocalizations.of(context).rename,
                                 ),
                               ],
@@ -938,7 +939,8 @@ class _FileEntityListTile extends StatelessWidget {
                               ),
                             ).then((value) => onReload()),
                             tooltip: AppLocalizations.of(context).move,
-                            icon: const PhosphorIcon(PhosphorIconsLight.arrowsDownUp),
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.arrowsDownUp),
                           ),
                         ],
                       );
@@ -1067,7 +1069,8 @@ class _FileEntityListTile extends StatelessWidget {
                         );
                       }
                     },
-                    icon: const PhosphorIcon(PhosphorIconsLight.paperPlaneRight),
+                    icon:
+                        const PhosphorIcon(PhosphorIconsLight.paperPlaneRight),
                     tooltip: AppLocalizations.of(context).export,
                   ),
                 Builder(builder: (context) {
@@ -1104,7 +1107,8 @@ class _FileEntityListTile extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.of(ctx).pop();
                                     },
-                                    child: const PhosphorIcon(PhosphorIconsLight.x),
+                                    child: const PhosphorIcon(
+                                        PhosphorIconsLight.x),
                                   ),
                                   FilledButton(
                                     onPressed: () {
@@ -1113,8 +1117,8 @@ class _FileEntityListTile extends StatelessWidget {
                                           .deleteAsset(entity.location.path);
                                       onReload();
                                     },
-                                    child:
-                                        const PhosphorIcon(PhosphorIconsLight.check),
+                                    child: const PhosphorIcon(
+                                        PhosphorIconsLight.check),
                                   ),
                                 ],
                               ),
