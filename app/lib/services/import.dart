@@ -125,10 +125,11 @@ class ImportService {
             e)
         .toList();
     return _submit(
-        elements: content,
-        areas: areas,
-        document: document,
-        choosePosition: position == null);
+            elements: content,
+            areas: areas,
+            document: document,
+            choosePosition: position == null) ??
+        doc;
   }
 
   Future<DocumentTemplate?> _importTemplate(Map<String, dynamic> data) async {
