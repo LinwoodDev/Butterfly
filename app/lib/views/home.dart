@@ -663,7 +663,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                 return _FileEntityListTile(
                   entity: entity,
                   selected: selected,
-                  onTap: () {
+                  onTap: () async {
                     if (entity is AppDocumentDirectory) {
                       setState(() {
                         _locationController.text =
@@ -674,17 +674,18 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                     }
                     final location = entity.location;
                     if (location.remote != '') {
-                      GoRouter.of(context).pushNamed('remote', params: {
+                      await GoRouter.of(context).pushNamed('remote', params: {
                         'remote': location.remote,
                         'path': location.pathWithoutLeadingSlash,
                       });
                       return;
                     }
-                    GoRouter.of(context).pushNamed('local',
+                    await GoRouter.of(context).pushNamed('local',
                         params: {
                           'path': location.pathWithoutLeadingSlash,
                         },
                         extra: entity);
+                    _reloadFileSystem();
                   },
                   onReload: _reloadFileSystem,
                 );
