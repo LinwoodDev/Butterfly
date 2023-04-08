@@ -93,6 +93,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                   await _fileSystem.createDefault(this.context,
                                       force: true);
                                   navigator.pop();
+                                  load();
+                                  setState(() {});
                                 },
                               ),
                             ],

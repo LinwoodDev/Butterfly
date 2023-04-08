@@ -358,7 +358,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         await _saveDocument(
             emit,
             current.copyWith(
-                document: current.document.copyWith(content: content)),
+                document: current.document.copyWith(content: content),
+                currentLayer: current.currentLayer == event.oldName
+                    ? event.newName
+                    : current.currentLayer),
             null);
         current.currentIndexCubit.unbake(unbakedElements: renderer);
       }
