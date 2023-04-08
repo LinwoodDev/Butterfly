@@ -56,3 +56,11 @@
   * Fix after Undo, Hand tool will be selected
   * Fix blank page after entering or exiting area mode
   * Fix global shortcuts
+
+Things that need to be improved:
+* Text tool
+* Presentation tool
+* Packs in general
+* File format (there will be an automatic migration)
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0

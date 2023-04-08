@@ -566,7 +566,13 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                     );
                     _reloadFileSystem();
                   },
-                  child: Text(AppLocalizations.of(context).import),
+                  child: Column(
+                    children: [
+                      Text(AppLocalizations.of(context).import),
+                      Text('.bfly',
+                          style: Theme.of(context).textTheme.bodySmall),
+                    ],
+                  ),
                 ),
               ],
               builder: (context, controller, child) =>
