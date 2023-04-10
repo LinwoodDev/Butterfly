@@ -488,5 +488,7 @@
   "goUp": "向上移动",
   "created": "已创建",
   "modified": "已修改",
-  "quickstart": "快速开始"
+  "quickstart": "快速开始",
+  "noTemplates": "There are currently no templates available",
+  "reset": "Reset"
 }
