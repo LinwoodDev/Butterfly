@@ -488,5 +488,7 @@
   "goUp": "Monter",
   "created": "Créé",
   "modified": "Modifié",
-  "quickstart": "Démarrage rapide"
+  "quickstart": "Démarrage rapide",
+  "noTemplates": "There are currently no templates available",
+  "reset": "Reset"
 }
