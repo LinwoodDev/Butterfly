@@ -488,5 +488,7 @@
   "goUp": "Gå opp",
   "created": "Opprettet",
   "modified": "Endret",
-  "quickstart": "Hurtigstart"
+  "quickstart": "Hurtigstart",
+  "noTemplates": "There are currently no templates available",
+  "reset": "Reset"
 }
