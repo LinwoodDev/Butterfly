@@ -488,5 +488,7 @@
   "goUp": "اذهب للأعلى",
   "created": "أنشئ",
   "modified": "معدّل",
-  "quickstart": "البداية السريعة"
+  "quickstart": "البداية السريعة",
+  "noTemplates": "There are currently no templates available",
+  "reset": "Reset"
 }
