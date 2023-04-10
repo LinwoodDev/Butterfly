@@ -488,5 +488,7 @@
   "goUp": "Μετάβαση πάνω",
   "created": "Δημιουργήθηκε",
   "modified": "Τροποποιήθηκε",
-  "quickstart": "Γρήγορη Έναρξη"
+  "quickstart": "Γρήγορη Έναρξη",
+  "noTemplates": "There are currently no templates available",
+  "reset": "Reset"
 }
