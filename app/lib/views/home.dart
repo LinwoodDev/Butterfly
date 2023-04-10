@@ -95,6 +95,7 @@ class _HomePageState extends State<HomePage> {
                               width: 500,
                               child: _QuickstartHomeView(
                                 remote: _remote,
+                                onReload: () => setState(() {}),
                               ),
                             ),
                           ],
@@ -104,6 +105,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             _QuickstartHomeView(
                               remote: _remote,
+                              onReload: () => setState(() {}),
                             ),
                             const SizedBox(height: 32),
                             _FilesHomeView(
@@ -323,8 +325,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.remote != widget.remote) {
       _remote = widget.remote;
-      _setFilesFuture();
     }
+    _setFilesFuture();
   }
 
   String getLocalizedNameOfSortBy(_SortBy sortBy) {
@@ -558,7 +560,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                     final model = await importService.importBfly(
                       Uint8List.fromList(result.codeUnits),
                     );
-                    model?.maybeMap(
+                    await model?.maybeMap(
                       document: (value) => router.push(
                           '/native?name=document.bfly&type=note',
                           extra: value),
@@ -684,6 +686,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                         'remote': location.remote,
                         'path': location.pathWithoutLeadingSlash,
                       });
+                      _reloadFileSystem();
                       return;
                     }
                     await GoRouter.of(context).pushNamed('local',
@@ -1168,7 +1171,12 @@ class _FileEntityListTile extends StatelessWidget {
 
 class _QuickstartHomeView extends StatelessWidget {
   final RemoteStorage? remote;
-  const _QuickstartHomeView({this.remote});
+  final VoidCallback onReload;
+
+  const _QuickstartHomeView({
+    this.remote,
+    required this.onReload,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1202,6 +1210,29 @@ class _QuickstartHomeView extends StatelessWidget {
                   );
                 }
                 final templates = snapshot.data ?? [];
+                if (templates.isEmpty) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context).noTemplates,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      const SizedBox(height: 16),
+                      FilledButton(
+                        onPressed: () async {
+                          await templateFileSystem.createDefault(context,
+                              force: true);
+                          onReload();
+                        },
+                        child: Text(
+                          AppLocalizations.of(context).reset,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                    ],
+                  );
+                }
                 return Wrap(
                   alignment: WrapAlignment.center,
                   runAlignment: WrapAlignment.center,
@@ -1221,12 +1252,15 @@ class _QuickstartHomeView extends StatelessWidget {
                                       elevation: 5,
                                       clipBehavior: Clip.hardEdge,
                                       child: InkWell(
-                                        onTap: () => GoRouter.of(context)
-                                            .pushNamed('new',
-                                                queryParams: {
-                                                  'path': e.directory
-                                                },
-                                                extra: e.document),
+                                        onTap: () async {
+                                          await GoRouter.of(context).pushNamed(
+                                              'new',
+                                              queryParams: {
+                                                'path': e.directory
+                                              },
+                                              extra: e.document);
+                                          onReload();
+                                        },
                                         child: Stack(
                                           children: [
                                             if (snapshot.data?.isNotEmpty ??
