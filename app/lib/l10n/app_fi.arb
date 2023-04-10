@@ -488,5 +488,7 @@
   "goUp": "Mene ylös",
   "created": "Luotu",
   "modified": "Muokattu",
-  "quickstart": "Quickstart"
+  "quickstart": "Quickstart",
+  "noTemplates": "There are currently no templates available",
+  "reset": "Reset"
 }
