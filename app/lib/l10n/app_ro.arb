@@ -488,5 +488,7 @@
   "goUp": "Mergi mai sus",
   "created": "Creat",
   "modified": "Modificat",
-  "quickstart": "Quickstart"
+  "quickstart": "Quickstart",
+  "noTemplates": "There are currently no templates available",
+  "reset": "Reset"
 }
