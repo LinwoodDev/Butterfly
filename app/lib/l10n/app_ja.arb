@@ -488,5 +488,7 @@
   "goUp": "上へ",
   "created": "作成済み",
   "modified": "修正されました",
-  "quickstart": "クイックスタート"
+  "quickstart": "クイックスタート",
+  "noTemplates": "There are currently no templates available",
+  "reset": "Reset"
 }
