@@ -488,5 +488,7 @@
   "goUp": "Gå upp",
   "created": "Skapad",
   "modified": "Ändrad",
-  "quickstart": "Snabbstart"
+  "quickstart": "Snabbstart",
+  "noTemplates": "There are currently no templates available",
+  "reset": "Reset"
 }
