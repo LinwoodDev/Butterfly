@@ -488,5 +488,7 @@
   "goUp": "Idź w górę",
   "created": "Utworzono",
   "modified": "Zmodyfikowane",
-  "quickstart": "Szybki start"
+  "quickstart": "Szybki start",
+  "noTemplates": "There are currently no templates available",
+  "reset": "Reset"
 }
