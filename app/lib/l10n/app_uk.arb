@@ -488,5 +488,7 @@
   "goUp": "Догори",
   "created": "Створений",
   "modified": "Змінено",
-  "quickstart": "Швидкий старт"
+  "quickstart": "Швидкий старт",
+  "noTemplates": "There are currently no templates available",
+  "reset": "Reset"
 }
