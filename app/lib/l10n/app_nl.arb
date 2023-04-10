@@ -488,5 +488,7 @@
   "goUp": "Ga omhoog",
   "created": "Aangemaakt",
   "modified": "Gewijzigd",
-  "quickstart": "Snelstart"
+  "quickstart": "Snelstart",
+  "noTemplates": "There are currently no templates available",
+  "reset": "Reset"
 }
