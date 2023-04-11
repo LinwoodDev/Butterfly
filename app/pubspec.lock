@@ -9,14 +9,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "58.0.0"
-  adwaita:
-    dependency: "direct main"
-    description:
-      name: adwaita
-      sha256: "535781747357779fa2830815e0a1b6b7888c8c538194ba73ac4fc8d82412baec"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.2"
   analyzer:
     dependency: "direct dev"
     description:

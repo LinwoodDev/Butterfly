@@ -103,12 +103,12 @@ class PersonalizationSettingsPage extends StatelessWidget {
                           ),
                         SwitchListTile(
                           secondary: const PhosphorIcon(
-                              PhosphorIconsLight.squaresFour),
-                          title: Text(AppLocalizations.of(context).start),
-                          value: state.startEnabled,
+                              PhosphorIconsLight.magnifyingGlass),
+                          title: Text(AppLocalizations.of(context).zoom),
+                          value: state.zoomEnabled,
                           onChanged: (value) => context
                               .read<SettingsCubit>()
-                              .changeStartEnabled(value),
+                              .changeZoomEnabled(value),
                         ),
                         SwitchListTile(
                           value: state.startInFullScreen,

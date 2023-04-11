@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/painter.dart';
+import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -189,7 +190,6 @@ class AddDialog extends StatelessWidget {
                 children: [
                   Painter.hand,
                   Painter.pen,
-                  Painter.shape,
                   Painter.stamp,
                   Painter.laser,
                   Painter.pathEraser,
@@ -200,6 +200,31 @@ class AddDialog extends StatelessWidget {
                   Painter.area,
                   Painter.presentation,
                 ].map(buildPainter).toList(),
+              ),
+              const SizedBox(height: 32),
+              Text(
+                AppLocalizations.of(context).shape,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              const SizedBox(height: 16),
+              Wrap(
+                alignment: WrapAlignment.start,
+                children: [
+                  PathShape.circle,
+                  PathShape.rectangle,
+                  PathShape.line,
+                ].map((e) {
+                  final shape = e();
+                  return BoxTile(
+                    title: Text(
+                      shape.getLocalizedName(context),
+                      textAlign: TextAlign.center,
+                    ),
+                    icon: Icon(shape.icon(PhosphorIconsStyle.light)),
+                    onTap: () => addPainter(
+                        ShapePainter(property: ShapeProperty(shape: shape))),
+                  );
+                }).toList(),
               ),
               const SizedBox(height: 32),
               Text(

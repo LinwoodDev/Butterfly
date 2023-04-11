@@ -1,3 +1,5 @@
 * Add button to reset templates if quickstart is empty
+* Add option to change shape in add dialog
+* Add zoom enabled in personalization settings
 * Fix home page on smaller screens
 * Fix rich text editor in label painter

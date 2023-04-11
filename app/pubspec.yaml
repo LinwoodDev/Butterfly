@@ -58,7 +58,6 @@ dependencies:
   http: ^0.13.5
   flutter_secure_storage: ^8.0.0
   equatable: ^2.0.5
-  adwaita: ^0.5.2
   rxdart: ^0.27.7
   ffi: ^2.0.1
   archive: ^3.3.7
