@@ -116,7 +116,7 @@ class LabelHandler extends Handler<LabelPainter>
 
   void _change(DocumentBloc bloc, TextContext value) {
     final context = _context;
-    _context = value.copyWith();
+    _context = value;
     if (context == null) return;
 
     if (context.element != null && value.element != null) {
@@ -130,6 +130,14 @@ class LabelHandler extends Handler<LabelPainter>
       bloc.add(PaintersChanged({data: value.painter}));
     }
     bloc.refresh();
+    _refreshToolbar(bloc);
+  }
+
+  void _refreshToolbar(DocumentBloc bloc) {
+    final state = bloc.state;
+    if (state is DocumentLoaded) {
+      state.currentIndexCubit.refreshToolbar(bloc);
+    }
   }
 
   @override
@@ -236,6 +244,7 @@ class LabelHandler extends Handler<LabelPainter>
       text: '',
     ));
     _bloc?.refresh();
+    if (_bloc != null) _refreshToolbar(_bloc!);
   }
 
   @override
@@ -282,6 +291,7 @@ class LabelHandler extends Handler<LabelPainter>
             selection: TextSelection.collapsed(offset: start),
           );
           bloc.refresh();
+          _refreshToolbar(bloc);
           return null;
         },
       ),
@@ -299,6 +309,7 @@ class LabelHandler extends Handler<LabelPainter>
             forceParagraph: null,
           );
           bloc.refresh();
+          _refreshToolbar(bloc);
           return null;
         },
       ),
@@ -329,6 +340,7 @@ class LabelHandler extends Handler<LabelPainter>
             forceParagraph: null,
           );
           bloc.refresh();
+          _refreshToolbar(bloc);
           return null;
         },
       ),
@@ -360,6 +372,7 @@ class LabelHandler extends Handler<LabelPainter>
           );
 
           bloc.refresh();
+          _refreshToolbar(bloc);
           return null;
         },
       ),
@@ -382,6 +395,7 @@ class LabelHandler extends Handler<LabelPainter>
           Clipboard.getData(Clipboard.kTextPlain).then((value) {
             if (value == null) return;
             _updateText(value.text ?? '');
+            _refreshToolbar(bloc);
           });
           return null;
         },
