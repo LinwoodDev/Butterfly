@@ -30,6 +30,18 @@ class AddDialog extends StatelessWidget {
       Navigator.of(context).pop();
     }
 
+    Widget buildPainter(Painter Function() e) {
+      final painter = e();
+      return BoxTile(
+        title: Text(
+          painter.getLocalizedName(context),
+          textAlign: TextAlign.center,
+        ),
+        icon: PhosphorIcon(painter.icon(PhosphorIconsStyle.light)),
+        onTap: () => addPainter(painter),
+      );
+    }
+
     return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -187,20 +199,7 @@ class AddDialog extends StatelessWidget {
                   Painter.waypoint,
                   Painter.area,
                   Painter.presentation,
-                ].map(
-                  (e) {
-                    final painter = e();
-                    return BoxTile(
-                      title: Text(
-                        painter.getLocalizedName(context),
-                        textAlign: TextAlign.center,
-                      ),
-                      icon:
-                          PhosphorIcon(painter.icon(PhosphorIconsStyle.light)),
-                      onTap: () => addPainter(painter),
-                    );
-                  },
-                ).toList(),
+                ].map(buildPainter).toList(),
               ),
               const SizedBox(height: 32),
               Text(
@@ -213,20 +212,7 @@ class AddDialog extends StatelessWidget {
                 children: [
                   Painter.undo,
                   Painter.redo,
-                ].map(
-                  (e) {
-                    final painter = e();
-                    return BoxTile(
-                      title: Text(
-                        painter.getLocalizedName(context),
-                        textAlign: TextAlign.center,
-                      ),
-                      icon:
-                          PhosphorIcon(painter.icon(PhosphorIconsStyle.light)),
-                      onTap: () => addPainter(painter),
-                    );
-                  },
-                ).toList(),
+                ].map(buildPainter).toList(),
               ),
             ],
           ),

@@ -1007,6 +1007,7 @@ class _FileEntityListTile extends StatelessWidget {
                         ],
                       );
                       final isDesktop = constraints.maxWidth > 400;
+                      final isTablet = constraints.maxWidth > 300;
                       if (isDesktop) {
                         return Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -1028,7 +1029,7 @@ class _FileEntityListTile extends StatelessWidget {
                             actions,
                           ],
                         );
-                      } else {
+                      } else if (isTablet) {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -1046,6 +1047,25 @@ class _FileEntityListTile extends StatelessWidget {
                             const SizedBox(width: 8),
                             edit,
                             actions,
+                          ],
+                        );
+                      } else {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            fileName,
+                            const SizedBox(height: 8),
+                            info,
+                            const SizedBox(height: 8),
+                            Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              children: [
+                                edit,
+                                actions,
+                              ],
+                            ),
                           ],
                         );
                       }
