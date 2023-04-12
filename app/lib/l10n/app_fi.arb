@@ -302,7 +302,7 @@
   "update": "Päivitä",
   "updateAvailable": "Päivitys saatavilla",
   "stable": "Vakaa",
-  "nightly": "Yöllä",
+  "nightly": "Nightly",
   "checkForUpdates": "Tarkista päivitykset",
   "usingLatestStable": "Käytät viimeisintä vakaata versiota",
   "usingLatestNightly": "Olet käyttämässä uusinta yöllä versiota",
