@@ -302,7 +302,7 @@
   "update": "更新",
   "updateAvailable": "アップデートがあります",
   "stable": "安定版",
-  "nightly": "ナイトリー",
+  "nightly": "Nightly",
   "checkForUpdates": "アップデートを確認",
   "usingLatestStable": "最新の安定版を使用しています",
   "usingLatestNightly": "最新のナイトリーバージョンを使用しています",
