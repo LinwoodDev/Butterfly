@@ -1,5 +1,9 @@
 * Add button to reset templates if quickstart is empty
 * Add option to change shape in add dialog
 * Add zoom enabled in personalization settings
+* Add delete icon for painters
 * Fix home page on smaller screens
 * Fix rich text editor in label painter
+* Fix DragToMoveArea on native title bar on desktop
+* Fix infinite loop if action painter is first painter
+* Fix selection system after removing current painter

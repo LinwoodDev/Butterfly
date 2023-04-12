@@ -149,87 +149,121 @@ class _EditToolbarState extends State<EditToolbar> {
                                   const VerticalDivider(),
                                 ],
                                 ReorderableListView.builder(
-                                    shrinkWrap: true,
-                                    buildDefaultDragHandles: false,
-                                    scrollDirection: Axis.horizontal,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: painters.length,
-                                    itemBuilder: (context, i) {
-                                      var e = painters[i];
-                                      final selected = i == currentIndex.index;
-                                      final highlighted = currentIndex
-                                              .selection?.selected
-                                              .any((element) =>
-                                                  element.hashCode ==
-                                                  e.hashCode) ??
-                                          false;
-                                      String tooltip = e.name.trim();
-                                      if (tooltip.isEmpty) {
-                                        tooltip = e.getLocalizedName(context);
-                                      }
+                                  shrinkWrap: true,
+                                  buildDefaultDragHandles: false,
+                                  scrollDirection: Axis.horizontal,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: painters.length + 1,
+                                  itemBuilder: (context, i) {
+                                    if (painters.length <= i) {
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        key: const ValueKey('add'),
+                                        children: [
+                                          const VerticalDivider(),
+                                          const SizedBox(width: 8),
+                                          IconButton(
+                                            tooltip:
+                                                AppLocalizations.of(context)
+                                                    .delete,
+                                            icon: const PhosphorIcon(
+                                                PhosphorIconsLight.trash),
+                                            onPressed: () async {
+                                              final painter =
+                                                  currentIndex.handler.data;
+                                              if (painter is! Painter) return;
+                                              context.read<DocumentBloc>().add(
+                                                  PaintersRemoved([painter]));
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                    var e = painters[i];
+                                    final selected = i == currentIndex.index;
+                                    final highlighted = currentIndex
+                                            .selection?.selected
+                                            .any((element) =>
+                                                element.hashCode ==
+                                                e.hashCode) ??
+                                        false;
+                                    String tooltip = e.name.trim();
+                                    if (tooltip.isEmpty) {
+                                      tooltip = e.getLocalizedName(context);
+                                    }
 
-                                      final handler = Handler.fromPainter(e);
+                                    final handler = Handler.fromPainter(e);
 
-                                      final color = handler.getStatus(context
-                                                  .read<DocumentBloc>()) ==
-                                              PainterStatus.disabled
-                                          ? Theme.of(context).disabledColor
-                                          : null;
+                                    final color = handler.getStatus(
+                                                context.read<DocumentBloc>()) ==
+                                            PainterStatus.disabled
+                                        ? Theme.of(context).disabledColor
+                                        : null;
 
-                                      Widget toolWidget = Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 4.0),
-                                          child: OptionButton(
-                                              tooltip: tooltip,
-                                              onLongPressed: () => context
-                                                  .read<CurrentIndexCubit>()
-                                                  .insertSelection(e, true),
-                                              selected: selected,
-                                              highlighted: highlighted,
-                                              selectedIcon: buildIcon(
-                                                  e.icon(
-                                                      PhosphorIconsStyle.fill),
-                                                  e.isAction(),
-                                                  color),
-                                              icon: buildIcon(
-                                                  e.icon(
-                                                      PhosphorIconsStyle.light),
-                                                  e.isAction(),
-                                                  color),
-                                              onPressed: () {
-                                                if (_mouseState ==
-                                                    _MouseState.multi) {
-                                                  context
-                                                      .read<CurrentIndexCubit>()
-                                                      .insertSelection(e, true);
-                                                } else if (!selected ||
-                                                    temp != null) {
-                                                  context
-                                                      .read<CurrentIndexCubit>()
-                                                      .resetSelection();
-                                                  context
-                                                      .read<CurrentIndexCubit>()
-                                                      .changePainter(
-                                                          context.read<
-                                                              DocumentBloc>(),
-                                                          i,
-                                                          handler);
-                                                } else {
-                                                  context
-                                                      .read<CurrentIndexCubit>()
-                                                      .changeSelection(e, true);
-                                                }
-                                              }));
-                                      return ReorderableDragStartListener(
-                                          key: ObjectKey(i),
-                                          index: i,
-                                          child: toolWidget);
-                                    },
-                                    onReorder: (oldIndex, newIndex) =>
-                                        context.read<DocumentBloc>()
-                                          ..add(PainterReordered(
-                                              oldIndex, newIndex))),
+                                    Widget toolWidget = Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 4.0),
+                                        child: OptionButton(
+                                            tooltip: tooltip,
+                                            onLongPressed: () => context
+                                                .read<CurrentIndexCubit>()
+                                                .insertSelection(e, true),
+                                            selected: selected,
+                                            highlighted: highlighted,
+                                            selectedIcon: buildIcon(
+                                                e.icon(PhosphorIconsStyle.fill),
+                                                e.isAction(),
+                                                color),
+                                            icon: buildIcon(
+                                                e.icon(
+                                                    PhosphorIconsStyle.light),
+                                                e.isAction(),
+                                                color),
+                                            onPressed: () {
+                                              if (_mouseState ==
+                                                  _MouseState.multi) {
+                                                context
+                                                    .read<CurrentIndexCubit>()
+                                                    .insertSelection(e, true);
+                                              } else if (!selected ||
+                                                  temp != null) {
+                                                context
+                                                    .read<CurrentIndexCubit>()
+                                                    .resetSelection();
+                                                context
+                                                    .read<CurrentIndexCubit>()
+                                                    .changePainter(
+                                                      context
+                                                          .read<DocumentBloc>(),
+                                                      i,
+                                                      handler,
+                                                    );
+                                              } else {
+                                                context
+                                                    .read<CurrentIndexCubit>()
+                                                    .changeSelection(e, true);
+                                              }
+                                            }));
+                                    return ReorderableDragStartListener(
+                                        key: ObjectKey(i),
+                                        index: i,
+                                        child: toolWidget);
+                                  },
+                                  onReorderEnd: print,
+                                  onReorder: (oldIndex, newIndex) {
+                                    final bloc = context.read<DocumentBloc>();
+                                    final delete = newIndex > painters.length;
+                                    if (delete) {
+                                      bloc.add(PaintersRemoved(
+                                          [painters[oldIndex]]));
+                                      return;
+                                    }
+                                    bloc.add(
+                                        PainterReordered(oldIndex, newIndex));
+                                  },
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: AspectRatio(

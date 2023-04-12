@@ -59,7 +59,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             embedding: embedding));
 
   void init(DocumentBloc bloc) {
-    changePainter(bloc, state.index ?? 0);
+    changePainter(bloc, state.index ?? 0, null, true, false);
   }
 
   ThemeData getTheme(bool dark, [ColorScheme? overridden]) =>
@@ -80,7 +80,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Handler? changePainter(DocumentBloc bloc, int index,
-      [Handler? handler, bool justAdded = false]) {
+      [Handler? handler, bool justAdded = false, bool runSelected = true]) {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     final document = blocState.document;
@@ -89,7 +89,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     final painter = document.painters[index];
     handler ??= Handler.fromPainter(painter);
-    if (handler.onSelected(bloc, this, justAdded)) {
+    if (!runSelected || handler.onSelected(bloc, this, justAdded)) {
       state.handler.dispose(bloc);
       state.temporaryHandler?.dispose(bloc);
       _disposeForegrounds();
@@ -482,8 +482,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final document = docState.document;
     final index = document.painters.indexOf(state.handler.data);
     if (index < 0) {
-      reset(bloc);
-      return;
+      changePainter(bloc, state.index ?? 0, null, true, false);
     }
     if (index == state.index) {
       return;

@@ -223,7 +223,7 @@ class ShapeHitCalculator extends HitCalculator {
       return false;
     }
     final shape = element.property.shape;
-    if (shape is RectangleShape) {
+    bool containsRect() {
       final lrt = rect.containsLine(
         Offset(this.rect.left, this.rect.top),
         Offset(this.rect.right, this.rect.top),
@@ -242,29 +242,20 @@ class ShapeHitCalculator extends HitCalculator {
       );
       return lrt || tbr || lrb || tbl;
     }
-    if (shape is CircleShape) {
-      // Test if rect is inside circle
-      final circleRect = this.rect.inflate(element.property.strokeWidth);
-      final circleCenter = circleRect.center;
-      final circleRadius = circleRect.width / 2;
-      final topLeft = rect.topLeft;
-      final topRight = rect.topRight;
-      final bottomLeft = rect.bottomLeft;
-      final bottomRight = rect.bottomRight;
-      return (topLeft - circleCenter).distance <= circleRadius &&
-          (topRight - circleCenter).distance <= circleRadius &&
-          (bottomLeft - circleCenter).distance <= circleRadius &&
-          (bottomRight - circleCenter).distance <= circleRadius;
-    }
-    if (shape is LineShape) {
-      final firstX = min(element.firstPosition.x, element.secondPosition.x);
-      final firstY = min(element.firstPosition.y, element.secondPosition.y);
-      final secondX = max(element.firstPosition.x, element.secondPosition.x);
-      final secondY = max(element.firstPosition.y, element.secondPosition.y);
-      final firstPos = Offset(firstX, firstY);
-      final secondPos = Offset(secondX, secondY);
-      return rect.containsLine(firstPos, secondPos);
-    }
-    return false;
+
+    return shape.map(
+        circle: (e) => containsRect(),
+        rectangle: (e) => containsRect(),
+        line: (e) {
+          final firstX = min(element.firstPosition.x, element.secondPosition.x);
+          final firstY = min(element.firstPosition.y, element.secondPosition.y);
+          final secondX =
+              max(element.firstPosition.x, element.secondPosition.x);
+          final secondY =
+              max(element.firstPosition.y, element.secondPosition.y);
+          final firstPos = Offset(firstX, firstY);
+          final secondPos = Offset(secondX, secondY);
+          return rect.containsLine(firstPos, secondPos);
+        });
   }
 }

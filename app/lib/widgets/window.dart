@@ -36,29 +36,34 @@ class WindowTitleBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDesktop = isWindow && !kIsWeb;
-    if (onlyShowOnDesktop && !isDesktop) return const SizedBox.shrink();
-    final appBar = AppBar(
-      title: title,
-      backgroundColor: backgroundColor,
-      automaticallyImplyLeading: !inView,
-      leading: leading,
-      bottom: bottom,
-      toolbarHeight: height,
-      actions: [
-        ...actions,
-        if (isDesktop && !inView)
-          WindowButtons(
-            divider: actions.isNotEmpty,
-          ),
-      ],
-    );
-    if (isDesktop) {
-      return DragToMoveArea(
-        child: appBar,
-      );
-    }
-    return appBar;
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) =>
+            previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
+        builder: (context, settings) {
+          final isDesktop = isWindow && !kIsWeb;
+          if (onlyShowOnDesktop && !isDesktop) return const SizedBox.shrink();
+          final appBar = AppBar(
+            title: title,
+            backgroundColor: backgroundColor,
+            automaticallyImplyLeading: !inView,
+            leading: leading,
+            bottom: bottom,
+            toolbarHeight: height,
+            actions: [
+              ...actions,
+              if (isDesktop && !inView)
+                WindowButtons(
+                  divider: actions.isNotEmpty,
+                ),
+            ],
+          );
+          if (isDesktop && !settings.nativeWindowTitleBar) {
+            return DragToMoveArea(
+              child: appBar,
+            );
+          }
+          return appBar;
+        });
   }
 
   @override
