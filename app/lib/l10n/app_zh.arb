@@ -302,7 +302,7 @@
   "update": "更新",
   "updateAvailable": "可用更新",
   "stable": "稳定的",
-  "nightly": "每晚一次",
+  "nightly": "Nightly",
   "checkForUpdates": "检查更新",
   "usingLatestStable": "您正在使用最新的稳定版本",
   "usingLatestNightly": "您正在使用最新的夜间版本",
