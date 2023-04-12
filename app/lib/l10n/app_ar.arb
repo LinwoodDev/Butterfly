@@ -302,7 +302,7 @@
   "update": "تحديث",
   "updateAvailable": "التحديث متاح",
   "stable": "اسطبل",
-  "nightly": "ليلي",
+  "nightly": "Nightly",
   "checkForUpdates": "التحقق من وجود تحديثات",
   "usingLatestStable": "أنت تستخدم أحدث إصدار مستقر",
   "usingLatestNightly": "أنت تستخدم أحدث إصدار ليلي",
