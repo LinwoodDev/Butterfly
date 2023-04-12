@@ -302,7 +302,7 @@
   "update": "Обновление",
   "updateAvailable": "Доступно обновление",
   "stable": "Стабильная",
-  "nightly": "Ночной",
+  "nightly": "Nightly",
   "checkForUpdates": "Проверить обновления",
   "usingLatestStable": "Вы используете последнюю стабильную версию",
   "usingLatestNightly": "Вы используете последнюю ночную версию",
