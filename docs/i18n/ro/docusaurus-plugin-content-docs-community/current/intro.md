@@ -22,4 +22,4 @@ Toate celelalte licențe pot fi găsite în setări.
 
 * [GitHub](https://github.com/LinwoodCloud/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Matricea](https://go.linwood.dev/matrix)
+* [Matrix](https://go.linwood.dev/matrix)
