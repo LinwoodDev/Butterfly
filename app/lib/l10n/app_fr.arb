@@ -302,7 +302,7 @@
   "update": "Mise à jour",
   "updateAvailable": "Mise à jour disponible",
   "stable": "Stable",
-  "nightly": "Nuit",
+  "nightly": "Nightly",
   "checkForUpdates": "Vérifier les mises à jour",
   "usingLatestStable": "Vous utilisez la dernière version stable",
   "usingLatestNightly": "Vous utilisez la dernière version de nightly",
