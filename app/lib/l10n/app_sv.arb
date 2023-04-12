@@ -302,7 +302,7 @@
   "update": "Uppdatera",
   "updateAvailable": "Uppdatering tillgänglig",
   "stable": "Stabil",
-  "nightly": "Nattlig",
+  "nightly": "Nightly",
   "checkForUpdates": "Sök efter uppdateringar",
   "usingLatestStable": "Du använder den senaste stabila versionen",
   "usingLatestNightly": "Du använder den senaste nattliga versionen",
