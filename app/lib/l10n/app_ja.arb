@@ -489,6 +489,6 @@
   "created": "作成済み",
   "modified": "修正されました",
   "quickstart": "クイックスタート",
-  "noTemplates": "There are currently no templates available",
+  "noTemplates": "現在利用可能なテンプレートはありません",
   "reset": "Reset"
 }
