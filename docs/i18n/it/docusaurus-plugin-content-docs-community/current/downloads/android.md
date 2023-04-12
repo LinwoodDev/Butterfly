@@ -20,7 +20,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
   Stabile
 </DownloadButton>
 <DownloadButton className="button button--outline button--danger button--lg margin--sm" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-android.apk">
-  Notte
+  Nightly
 </DownloadButton>
 </div>
 
