@@ -21,5 +21,5 @@ title: "المجتمع"
 ## روابط مفيدة
 
 * [GitHub](https://github.com/LinwoodCloud/Butterfly)
-* [ديسكورد](https://go.linwood.dev/discord)
-* [مصفوفة](https://go.linwood.dev/matrix)
+* [Discord](https://go.linwood.dev/discord)
+* [Matrix](https://go.linwood.dev/matrix)
