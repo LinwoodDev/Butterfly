@@ -39,7 +39,7 @@ Brug venligst flatpak versionen hvis det er muligt. Ellers skal du installere `l
   </ul>
 </div>
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--danger button--lg">Natligt</button>
+  <button className="button button--outline button--danger button--lg">Nightly</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodCloud/butterfly/releases/download/nightly/linwood-butterfly-linux.tar.gz">
