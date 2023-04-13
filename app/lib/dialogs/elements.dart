@@ -69,6 +69,7 @@ class ElementsDialog extends StatelessWidget {
           MenuItemButton(
             onPressed: () {
               Navigator.of(context).pop(true);
+              if (renderers.isEmpty) return;
               final cubit = context.read<CurrentIndexCubit>();
               cubit.changeSelection(renderers.first);
               renderers.sublist(1).forEach((r) => cubit.insertSelection(r));

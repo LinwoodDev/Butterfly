@@ -131,9 +131,8 @@ class LabelHandler extends Handler<LabelPainter>
             hitRect.top,
           ));
       _context = _context!.copyWith(
-        selection: TextSelection(
-          baseOffset: _context!.selection.baseOffset,
-          extentOffset: position.offset,
+        selection: TextSelection.collapsed(
+          offset: position.offset,
         ),
       );
     }
@@ -316,6 +315,27 @@ class LabelHandler extends Handler<LabelPainter>
     }
   }
 
+  int _getVerticalNewSelection(bool forward) {
+    final selection = _context?.selection.start ?? 0;
+    final paragraph = _context?.area?.paragraph;
+    if (paragraph == null) return selection;
+    var nextLine = paragraph.nextLineIndex(selection);
+    final currentLine = paragraph.previousLineIndex(selection);
+    if (nextLine <= 0) nextLine = paragraph.length + 1;
+    var nextNextLine = paragraph.nextLineIndex(nextLine + 1);
+    if (nextNextLine <= nextLine) {
+      nextNextLine = paragraph.length + 2;
+      nextLine = paragraph.length + 1;
+    }
+    var nextLineLength = nextNextLine - nextLine;
+    final previousLine = paragraph.previousLineIndex(max(currentLine, 0));
+    var previousLineLength = max(currentLine - previousLine, 0);
+    final lineSelection = min(
+        selection - currentLine, forward ? nextLineLength : previousLineLength);
+    return (forward ? nextLine + lineSelection : previousLine + lineSelection)
+        .clamp(0, paragraph.length);
+  }
+
   @override
   Map<Type, Action<Intent>> getActions(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
@@ -349,6 +369,23 @@ class LabelHandler extends Handler<LabelPainter>
           );
           bloc.refresh();
           _refreshToolbar(bloc);
+          return null;
+        },
+      ),
+      ExtendSelectionVerticallyToAdjacentLineIntent:
+          CallbackAction<ExtendSelectionVerticallyToAdjacentLineIntent>(
+        onInvoke: (intent) {
+          _context = _context?.copyWith(
+            selection: intent.collapseSelection
+                ? TextSelection.collapsed(
+                    offset: _getVerticalNewSelection(intent.forward),
+                  )
+                : TextSelection(
+                    baseOffset: _getVerticalNewSelection(intent.forward),
+                    extentOffset: _context?.selection.extentOffset ?? 0,
+                  ),
+          );
+          bloc.refresh();
           return null;
         },
       ),
@@ -398,6 +435,21 @@ class LabelHandler extends Handler<LabelPainter>
           );
           bloc.refresh();
           _refreshToolbar(bloc);
+          return null;
+        },
+      ),
+      ExtendSelectionToLineBreakIntent:
+          CallbackAction<ExtendSelectionToLineBreakIntent>(
+        onInvoke: (intent) {
+          final newSelection = _getVerticalNewSelection(intent.forward);
+          final selection = _context?.selection;
+          if (selection == null) return null;
+          _context = _context?.copyWith(
+            selection: TextSelection(
+              baseOffset: selection.baseOffset,
+              extentOffset: newSelection,
+            ),
+          );
           return null;
         },
       ),

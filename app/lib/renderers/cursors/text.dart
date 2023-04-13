@@ -91,5 +91,16 @@ class TextSelectionCursor extends Renderer<TextContext> {
       ),
       Paint()..color = color,
     );
+
+    final rect = element.getRect();
+    if (rect != null) {
+      canvas.drawRect(
+        rect,
+        Paint()
+          ..color = color.withOpacity(0.5)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1,
+      );
+    }
   }
 }
