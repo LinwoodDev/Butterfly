@@ -32,7 +32,7 @@ dependencies:
   path_provider: ^2.0.14
   shared_preferences: ^2.1.0
   url_launcher: ^6.1.10
-  file_picker: ^5.2.8
+  file_picker: ^5.2.9
   phosphor_flutter:
     git:
       url: https://github.com/phosphor-icons/flutter

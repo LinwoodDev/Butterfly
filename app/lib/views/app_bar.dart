@@ -42,8 +42,12 @@ class PadAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   WindowTitleBar _buildWindowTitleBar() => WindowTitleBar(
-        leading: _MainPopupMenu(
-          viewportKey: viewportKey,
+        leadingWidth: 60,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: _MainPopupMenu(
+            viewportKey: viewportKey,
+          ),
         ),
         title: LayoutBuilder(builder: (context, constraints) {
           final isMobile = MediaQuery.of(context).size.width < kMobileWidth;
@@ -382,17 +386,22 @@ class _MainPopupMenu extends StatelessWidget {
         ),
         builder:
             (BuildContext context, MenuController controller, Widget? child) =>
-                IconButton(
-          icon: Image.asset(
-            'images/logo.png',
+                Align(
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: IconButton(
+              icon: Image.asset(
+                'images/logo.png',
+              ),
+              onPressed: () {
+                if (controller.isOpen) {
+                  controller.close();
+                } else {
+                  controller.open();
+                }
+              },
+            ),
           ),
-          onPressed: () {
-            if (controller.isOpen) {
-              controller.close();
-            } else {
-              controller.open();
-            }
-          },
         ),
       );
     });

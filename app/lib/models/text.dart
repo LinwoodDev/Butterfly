@@ -105,6 +105,12 @@ class TextContext with _$TextContext {
 
   bool modified(AppDocument document) =>
       isParagraph() ? paragraphModified() : spanModified(document);
+
+  Rect? getRect() {
+    if (element == null) return null;
+    return Rect.fromLTWH(element!.position.x, element!.position.y,
+        textPainter.width, element!.getHeight(textPainter.height));
+  }
 }
 
 extension TextElementLayouter on TextElement {

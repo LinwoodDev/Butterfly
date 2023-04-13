@@ -2,6 +2,7 @@
 * Add option to change shape in add dialog
 * Add zoom enabled in personalization settings
 * Add delete icon for painters
+* Add system to change position of cursor on text by clicking on it
 * Fix home page on smaller screens
 * Fix rich text editor in label painter
 * Fix DragToMoveArea on native title bar on desktop

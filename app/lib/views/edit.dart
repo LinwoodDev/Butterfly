@@ -168,6 +168,9 @@ class _EditToolbarState extends State<EditToolbar> {
                                             tooltip:
                                                 AppLocalizations.of(context)
                                                     .delete,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .error,
                                             icon: const PhosphorIcon(
                                                 PhosphorIconsLight.trash),
                                             onPressed: () async {
@@ -247,11 +250,11 @@ class _EditToolbarState extends State<EditToolbar> {
                                               }
                                             }));
                                     return ReorderableDragStartListener(
-                                        key: ObjectKey(i),
-                                        index: i,
-                                        child: toolWidget);
+                                      key: ObjectKey(i),
+                                      index: i,
+                                      child: toolWidget,
+                                    );
                                   },
-                                  onReorderEnd: print,
                                   onReorder: (oldIndex, newIndex) {
                                     final bloc = context.read<DocumentBloc>();
                                     final delete = newIndex > painters.length;

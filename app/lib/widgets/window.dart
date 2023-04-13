@@ -21,12 +21,14 @@ class WindowTitleBar extends StatelessWidget with PreferredSizeWidget {
   final bool inView;
   final Color? backgroundColor;
   final double height;
+  final double? leadingWidth;
 
   const WindowTitleBar({
     super.key,
     this.title,
     this.leading,
     this.bottom,
+    this.leadingWidth,
     this.backgroundColor,
     this.actions = const [],
     this.onlyShowOnDesktop = false,
@@ -48,6 +50,7 @@ class WindowTitleBar extends StatelessWidget with PreferredSizeWidget {
             automaticallyImplyLeading: !inView,
             leading: leading,
             bottom: bottom,
+            leadingWidth: leadingWidth,
             toolbarHeight: height,
             actions: [
               ...actions,

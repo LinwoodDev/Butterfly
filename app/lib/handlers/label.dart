@@ -49,7 +49,11 @@ class LabelHandler extends Handler<LabelPainter>
   Future<void> onTapUp(TapUpDetails details, EventContext context) async {
     final pixelRatio = context.devicePixelRatio;
     final focusNode = Focus.of(context.buildContext);
-    final hadFocus = focusNode.hasFocus;
+    final globalPos =
+        context.getCameraTransform().localToGlobal(details.localPosition);
+    final hitRect = _context?.getRect();
+    final hit = hitRect?.contains(globalPos) ?? false;
+    final hadFocus = focusNode.hasFocus && !hit;
     FocusScope.of(context.buildContext).requestFocus(focusNode);
     final style = Theme.of(context.buildContext).textTheme.bodyLarge!;
     if (!(_connection?.attached ?? false)) {
@@ -74,11 +78,19 @@ class LabelHandler extends Handler<LabelPainter>
     }
     _bloc = context.getDocumentBloc();
     _connection!.show();
-    final globalPos =
-        context.getCameraTransform().localToGlobal(details.localPosition);
     if (hadFocus || _context?.element == null) {
       if (_context?.element != null) _submit(context.getDocumentBloc());
       _context = _createContext(globalPos.toPoint());
+    }
+    if (hit) {
+      final selection = _context!.textPainter.getPositionForOffset(globalPos -
+          Offset(
+            hitRect!.left,
+            hitRect.top,
+          ));
+      _context = _context!.copyWith(
+        selection: TextSelection.collapsed(offset: selection.offset),
+      );
     }
     context.refresh();
   }
