@@ -46,6 +46,48 @@ class LabelHandler extends Handler<LabelPainter>
   TextInputConnection? _connection;
 
   @override
+  bool onScaleStart(ScaleStartDetails details, EventContext context) {
+    final hitRect = _context?.getRect();
+    final globalPos =
+        context.getCameraTransform().localToGlobal(details.localFocalPoint);
+    final hit = hitRect?.contains(globalPos) ?? false;
+    if (hit) {
+      final position = _context!.textPainter.getPositionForOffset(globalPos -
+          Offset(
+            hitRect!.left,
+            hitRect.top,
+          ));
+      _context = _context!.copyWith(
+        selection: TextSelection.collapsed(offset: position.offset),
+      );
+      context.refresh();
+    }
+    return true;
+  }
+
+  @override
+  void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
+    final hitRect = _context?.getRect();
+    final globalPos =
+        context.getCameraTransform().localToGlobal(details.localFocalPoint);
+    final hit = hitRect?.contains(globalPos) ?? false;
+    if (hit) {
+      final position = _context!.textPainter.getPositionForOffset(globalPos -
+          Offset(
+            hitRect!.left,
+            hitRect.top,
+          ));
+      _context = _context!.copyWith(
+        selection: TextSelection(
+          baseOffset: _context!.selection.baseOffset,
+          extentOffset: position.offset,
+        ),
+      );
+      context.refresh();
+    }
+  }
+
+  @override
   Future<void> onTapUp(TapUpDetails details, EventContext context) async {
     final pixelRatio = context.devicePixelRatio;
     final focusNode = Focus.of(context.buildContext);
@@ -83,13 +125,16 @@ class LabelHandler extends Handler<LabelPainter>
       _context = _createContext(globalPos.toPoint());
     }
     if (hit) {
-      final selection = _context!.textPainter.getPositionForOffset(globalPos -
+      final position = _context!.textPainter.getPositionForOffset(globalPos -
           Offset(
             hitRect!.left,
             hitRect.top,
           ));
       _context = _context!.copyWith(
-        selection: TextSelection.collapsed(offset: selection.offset),
+        selection: TextSelection(
+          baseOffset: _context!.selection.baseOffset,
+          extentOffset: position.offset,
+        ),
       );
     }
     context.refresh();

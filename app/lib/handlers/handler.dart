@@ -141,14 +141,6 @@ abstract class Handler<T> {
           AppDocument appDocument, Renderer old, Renderer updated) async =>
       false;
 
-  void onTapUp(TapUpDetails details, EventContext context) {}
-
-  void onTapDown(TapDownDetails details, EventContext context) {}
-
-  void onSecondaryTapUp(TapUpDetails details, EventContext context) {}
-
-  void onSecondaryTapDown(TapDownDetails details, EventContext context) {}
-
   void onPointerDown(PointerDownEvent event, EventContext context) {}
 
   void onPointerMove(PointerMoveEvent event, EventContext context) {}
@@ -158,6 +150,14 @@ abstract class Handler<T> {
   void onPointerUp(PointerUpEvent event, EventContext context) {}
 
   void onPointerHover(PointerHoverEvent event, EventContext context) {}
+
+  void onTapUp(TapUpDetails details, EventContext context) {}
+
+  void onTapDown(TapDownDetails details, EventContext context) {}
+
+  void onSecondaryTapUp(TapUpDetails details, EventContext context) {}
+
+  void onSecondaryTapDown(TapDownDetails details, EventContext context) {}
 
   void onLongPressEnd(LongPressEndDetails details, EventContext context) {}
 
