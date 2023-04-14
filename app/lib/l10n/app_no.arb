@@ -490,5 +490,7 @@
   "modified": "Endret",
   "quickstart": "Hurtigstart",
   "noTemplates": "Det er ingen maler tilgjengelig",
-  "reset": "Reset"
+  "reset": "Reset",
+  "importCorePack": "Import core pack",
+  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
 }
