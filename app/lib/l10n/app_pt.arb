@@ -490,5 +490,7 @@
   "modified": "Modificado",
   "quickstart": "Acesso Rápido",
   "noTemplates": "Atualmente, não há modelos disponíveis",
-  "reset": "Reset"
+  "reset": "Reset",
+  "importCorePack": "Import core pack",
+  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
 }
