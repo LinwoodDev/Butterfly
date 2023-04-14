@@ -491,6 +491,6 @@
   "quickstart": "Snelstart",
   "noTemplates": "Er zijn momenteel geen sjablonen beschikbaar",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "Importeer core pakket",
+  "importCorePackDescription": "Importeer het core pakket dat alle basisassets bevat om aan de slag te gaan. Dit zal het huidige core pakket overschrijven."
 }
