@@ -491,6 +491,6 @@
   "quickstart": "Rychlý start",
   "noTemplates": "V současné době nejsou k dispozici žádné šablony",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "Importovat základní balíček",
+  "importCorePackDescription": "Importovat základní balíček, který obsahuje všechny základní položky pro začátek. To přepíše aktuální balíček jádra."
 }
