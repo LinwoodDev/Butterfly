@@ -491,6 +491,6 @@
   "quickstart": "Γρήγορη Έναρξη",
   "noTemplates": "Προς το παρόν δεν υπάρχουν διαθέσιμα πρότυπα",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "Εισαγωγή βασικού πακέτου",
+  "importCorePackDescription": "Εισαγωγή του βασικού πακέτου που περιέχει όλα τα βασικά στοιχεία ενεργητικού για να ξεκινήσετε. Αυτό θα αντικαταστήσει το τρέχον βασικό πακέτο."
 }
