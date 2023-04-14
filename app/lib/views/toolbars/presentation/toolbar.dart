@@ -290,6 +290,9 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                     widget.onRunningStateChanged
                                         ?.call(PresentationRunningState.paused);
                                   } else {
+                                    if (animation.duration <= _frame) {
+                                      _setFrame(0);
+                                    }
                                     widget.onRunningStateChanged?.call(
                                         PresentationRunningState.running);
                                   }

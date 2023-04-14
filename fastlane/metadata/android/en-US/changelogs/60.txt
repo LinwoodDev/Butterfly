@@ -6,6 +6,7 @@
 * Add box to text editing
 * Add vertical arrow selection in text
 * Add option to add core pack to update the current one
+* Play at the beginning if the current frame is the last one
 * Fix home page on smaller screens
 * Fix rich text editor in label painter
 * Fix DragToMoveArea on native title bar on desktop
@@ -13,3 +14,4 @@
 * Fix selection system after removing current painter
 * Fix file import on mobile devices
 * Fix setting horizontal alignment of text
+* Fix problems with presentation painter if paused
