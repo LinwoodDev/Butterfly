@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/painter.dart';
+import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -30,6 +31,20 @@ class AddDialog extends StatelessWidget {
       Navigator.of(context).pop();
     }
 
+    Widget buildPainter(Painter Function() e) {
+      final painter = e();
+      return BoxTile(
+        title: Text(
+          painter.getLocalizedName(context),
+          textAlign: TextAlign.center,
+        ),
+        icon: PhosphorIcon(painter.icon(PhosphorIconsStyle.light)),
+        onTap: () => addPainter(painter),
+      );
+    }
+
+    final isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
+
     return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,7 +52,7 @@ class AddDialog extends StatelessWidget {
           Text(AppLocalizations.of(context).add),
           IconButton(
             onPressed: () => openHelp(['painters']),
-            icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+            icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
           ),
         ],
       ),
@@ -68,7 +83,7 @@ class AddDialog extends StatelessWidget {
                       AppLocalizations.of(context).image,
                       textAlign: TextAlign.center,
                     ),
-                    icon: const Icon(PhosphorIcons.imageLight),
+                    icon: const PhosphorIcon(PhosphorIconsLight.image),
                     onTap: () async {
                       var files = await FilePicker.platform.pickFiles(
                           type: FileType.image,
@@ -92,7 +107,7 @@ class AddDialog extends StatelessWidget {
                         AppLocalizations.of(context).camera,
                         textAlign: TextAlign.center,
                       ),
-                      icon: const Icon(PhosphorIcons.cameraLight),
+                      icon: const PhosphorIcon(PhosphorIconsLight.camera),
                       onTap: () async {
                         var content = await showDialog<Uint8List>(
                           context: context,
@@ -107,7 +122,7 @@ class AddDialog extends StatelessWidget {
                       AppLocalizations.of(context).svg,
                       textAlign: TextAlign.center,
                     ),
-                    icon: const Icon(PhosphorIcons.sunLight),
+                    icon: const PhosphorIcon(PhosphorIconsLight.sun),
                     onTap: () async {
                       final files = await FilePicker.platform.pickFiles(
                           type: FileType.custom,
@@ -128,7 +143,7 @@ class AddDialog extends StatelessWidget {
                       AppLocalizations.of(context).pdf,
                       textAlign: TextAlign.center,
                     ),
-                    icon: const Icon(PhosphorIcons.filePdfLight),
+                    icon: const PhosphorIcon(PhosphorIconsLight.filePdf),
                     onTap: () async {
                       final files = await FilePicker.platform.pickFiles(
                           type: FileType.custom,
@@ -149,11 +164,12 @@ class AddDialog extends StatelessWidget {
                         AppLocalizations.of(context).document,
                         textAlign: TextAlign.center,
                       ),
-                      icon: const Icon(PhosphorIcons.fileTextLight),
+                      icon: const PhosphorIcon(PhosphorIconsLight.fileText),
                       onTap: () async {
                         final files = await FilePicker.platform.pickFiles(
-                            type: FileType.custom,
-                            allowedExtensions: ['bfly', 'json'],
+                            type: isMobile ? FileType.any : FileType.custom,
+                            allowedExtensions:
+                                isMobile ? null : ['bfly', 'json'],
                             allowMultiple: false,
                             withData: true);
                         if (files?.files.isEmpty ?? true) return;
@@ -177,7 +193,6 @@ class AddDialog extends StatelessWidget {
                 children: [
                   Painter.hand,
                   Painter.pen,
-                  Painter.shape,
                   Painter.stamp,
                   Painter.laser,
                   Painter.pathEraser,
@@ -187,19 +202,32 @@ class AddDialog extends StatelessWidget {
                   Painter.waypoint,
                   Painter.area,
                   Painter.presentation,
-                ].map(
-                  (e) {
-                    final painter = e();
-                    return BoxTile(
-                      title: Text(
-                        painter.getLocalizedName(context),
-                        textAlign: TextAlign.center,
-                      ),
-                      icon: Icon(painter.getIcon()),
-                      onTap: () => addPainter(painter),
-                    );
-                  },
-                ).toList(),
+                ].map(buildPainter).toList(),
+              ),
+              const SizedBox(height: 32),
+              Text(
+                AppLocalizations.of(context).shape,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              const SizedBox(height: 16),
+              Wrap(
+                alignment: WrapAlignment.start,
+                children: [
+                  PathShape.circle,
+                  PathShape.rectangle,
+                  PathShape.line,
+                ].map((e) {
+                  final shape = e();
+                  return BoxTile(
+                    title: Text(
+                      shape.getLocalizedName(context),
+                      textAlign: TextAlign.center,
+                    ),
+                    icon: Icon(shape.icon(PhosphorIconsStyle.light)),
+                    onTap: () => addPainter(
+                        ShapePainter(property: ShapeProperty(shape: shape))),
+                  );
+                }).toList(),
               ),
               const SizedBox(height: 32),
               Text(
@@ -212,19 +240,7 @@ class AddDialog extends StatelessWidget {
                 children: [
                   Painter.undo,
                   Painter.redo,
-                ].map(
-                  (e) {
-                    final painter = e();
-                    return BoxTile(
-                      title: Text(
-                        painter.getLocalizedName(context),
-                        textAlign: TextAlign.center,
-                      ),
-                      icon: Icon(painter.getIcon()),
-                      onTap: () => addPainter(painter),
-                    );
-                  },
-                ).toList(),
+                ].map(buildPainter).toList(),
               ),
             ],
           ),

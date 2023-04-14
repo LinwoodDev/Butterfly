@@ -1,6 +1,7 @@
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class GeneralPackView extends StatelessWidget {
   final ButterflyPack value;
@@ -20,7 +21,7 @@ class GeneralPackView extends StatelessWidget {
         TextFormField(
           decoration: InputDecoration(
             labelText: AppLocalizations.of(context).name,
-            icon: const Icon(Icons.title_outlined),
+            icon: const PhosphorIcon(PhosphorIconsLight.textT),
             filled: true,
           ),
           initialValue: value.name,
@@ -30,7 +31,7 @@ class GeneralPackView extends StatelessWidget {
         TextFormField(
           decoration: InputDecoration(
             labelText: AppLocalizations.of(context).author,
-            icon: const Icon(Icons.person_outline),
+            icon: const PhosphorIcon(PhosphorIconsLight.person),
             filled: true,
           ),
           initialValue: value.author,
@@ -40,7 +41,7 @@ class GeneralPackView extends StatelessWidget {
         TextFormField(
           decoration: InputDecoration(
             labelText: AppLocalizations.of(context).description,
-            icon: const Icon(Icons.description_outlined),
+            icon: const PhosphorIcon(PhosphorIconsLight.paragraph),
             border: const OutlineInputBorder(),
           ),
           minLines: 3,

@@ -209,7 +209,7 @@
   "design": "Design",
   "text": "Text",
   "selectSensitivity": "Empfindlichkeit auswählen",
-  "welcome": "Hey, das ist Linwood-Schmetterling",
+  "welcome": "Hey, das ist Linwood Butterfly",
   "welcomeContent": "Ein freier und Open-Source-Zeichnungsraum!",
   "updated": "App aktualisiert auf Version {version}",
   "@updated": {
@@ -485,5 +485,12 @@
   "whatsNew": "Was ist neu?",
   "unstar": "Stern",
   "star": "Stern",
-  "goUp": "Nach oben"
+  "goUp": "Nach oben",
+  "created": "Erstellt",
+  "modified": "Geändert",
+  "quickstart": "Schnellstart",
+  "noTemplates": "Derzeit sind keine Vorlagen verfügbar",
+  "reset": "Reset",
+  "importCorePack": "Kernpaket importieren",
+  "importCorePackDescription": "Importiere das Core Pack, das alle grundlegenden Assets enthält, die gestartet werden sollen. Dies wird das aktuelle Core Pack überschreiben."
 }

@@ -302,6 +302,7 @@ class ButterflyApp extends StatelessWidget {
   }
 
   Widget _buildApp(ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+    final virtualWindowFrameBuilder = VirtualWindowFrameInit();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
             previous.theme != current.theme ||
@@ -318,9 +319,7 @@ class ButterflyApp extends StatelessWidget {
                 LocaleNamesLocalizationsDelegate(),
               ],
               builder: (context, child) {
-                child = DragToResizeArea(
-                  child: child ?? Container(),
-                );
+                child = virtualWindowFrameBuilder(context, child);
                 return child;
               },
               supportedLocales: getLocales(),

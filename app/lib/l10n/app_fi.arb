@@ -485,5 +485,12 @@
   "whatsNew": "Mitä uutta?",
   "unstar": "Poista",
   "star": "Tähti",
-  "goUp": "Mene ylös"
+  "goUp": "Mene ylös",
+  "created": "Luotu",
+  "modified": "Muokattu",
+  "quickstart": "Quickstart",
+  "noTemplates": "Tällä hetkellä pohjia ei ole saatavilla",
+  "reset": "Reset",
+  "importCorePack": "Tuo ydinpaketti",
+  "importCorePackDescription": "Tuo ydin, joka sisältää kaikki perusassetit päästäksesi alkuun. Tämä ohittaa nykyisen ydinpaketin."
 }

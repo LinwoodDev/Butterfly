@@ -16,7 +16,7 @@ class ImageElementSelection extends ElementSelection<ImageElement> {
       ),
       ListTile(
         title: Text(AppLocalizations.of(context).export),
-        leading: const Icon(PhosphorIcons.exportLight),
+        leading: const PhosphorIcon(PhosphorIconsLight.export),
         onTap: () async {
           final localization = AppLocalizations.of(context);
           final data = await element.getData();
@@ -51,8 +51,7 @@ class ImageElementSelection extends ElementSelection<ImageElement> {
   }
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.imageFill : PhosphorIcons.imageLight;
+  IconGetter get icon => PhosphorIcons.image;
 
   @override
   String getLocalizedName(BuildContext context) =>

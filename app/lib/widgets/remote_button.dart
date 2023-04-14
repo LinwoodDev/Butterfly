@@ -33,16 +33,16 @@ class _RemoteButtonState extends State<RemoteButton> {
       if (settings.remotes.isEmpty || kIsWeb) {
         return IconButton(
             onPressed: () => widget.onChanged(null),
-            icon: const Icon(PhosphorIcons.houseLight));
+            icon: const PhosphorIcon(PhosphorIconsLight.house));
       }
       return PopupMenuButton<RemoteStorage?>(
         initialValue: _currentRemote,
         position: PopupMenuPosition.under,
         constraints: const BoxConstraints(maxWidth: 500),
         icon: _currentRemote == null
-            ? const Icon(PhosphorIcons.houseLight)
+            ? const PhosphorIcon(PhosphorIconsLight.house)
             : _currentRemote!.icon.isEmpty
-                ? const Icon(PhosphorIcons.cloudLight)
+                ? const PhosphorIcon(PhosphorIconsLight.cloud)
                 : Image.memory(_currentRemote!.icon, width: 24),
         onSelected: (remote) {
           setState(() {

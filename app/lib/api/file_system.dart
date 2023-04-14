@@ -4,7 +4,6 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:path/path.dart' as path;
 
 import 'file_system_io.dart';
 import 'file_system_html_stub.dart'
@@ -48,11 +47,7 @@ abstract class GeneralFileSystem {
       relativePath = relativePath.substring(1);
     }
     final root = await getDirectory();
-    var absolutePath = path.join(root, relativePath);
-    if (!absolutePath.startsWith(root)) {
-      throw Exception('Path is not in root directory');
-    }
-    return absolutePath;
+    return '$root/$relativePath';
   }
 
   FutureOr<String> getDirectory() {
@@ -89,9 +84,12 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
+    if (newName.startsWith('/')) {
+      newName = newName.substring(1);
+    }
     final asset = await getAsset(path);
     if (asset == null) return null;
-    final newPath = path.substring(0, path.lastIndexOf('/') + 1) + newName;
+    final newPath = '${path.substring(0, path.lastIndexOf('/') + 1)}$newName';
     return moveAsset(path, newPath);
   }
 

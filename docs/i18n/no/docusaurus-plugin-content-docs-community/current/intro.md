@@ -22,4 +22,4 @@ Du finner alle andre lisenser i innstillingene.
 
 * [GitHub](https://github.com/LinwoodCloud/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Matrise](https://go.linwood.dev/matrix)
+* [Matrix](https://go.linwood.dev/matrix)

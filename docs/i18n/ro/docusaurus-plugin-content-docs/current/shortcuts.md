@@ -12,8 +12,6 @@ Există câteva comenzi rapide pe care le poți folosi în editor. Unele dintre 
 
 * `Ctrl` + `N`: Fișier nou
 * `Ctrl` + `Shift` + `N`: Fișier nou din șablon
-* `Ctrl` + `O`: Deschide fișier
-* `Ctrl` + `I`: Fișier de import
 * `Ctrl` + `E`: Fișier export
 * `Ctrl` + `Shift` + `E`: Export fișier ca imagine
 * `Ctrl` + `Alt` + `E`: Export fișier svg
@@ -23,8 +21,6 @@ Există câteva comenzi rapide pe care le poți folosi în editor. Unele dintre 
 
 * `Ctrl` + `Z`: Anulare
 * `Ctrl` + `Y`: Redo
-* `Ctrl` + `Alt` + `N`: Open insert dialog
-* `Ctrl` + `Alt` + `Shift` + `S`: Setări deschidere proiect
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `P`: Deschide paleta de culori
 * `Ctrl` + `B`: Deschide dialogul de fundal

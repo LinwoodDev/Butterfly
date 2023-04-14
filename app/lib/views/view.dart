@@ -1,13 +1,19 @@
+import 'dart:io';
+
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../api/intent.dart';
+import '../services/import.dart';
 import '../view_painter.dart';
 
 const kSecondaryStylusButton = 0x20;
@@ -49,7 +55,7 @@ class _MainViewViewportState extends State<MainViewViewport>
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     final bloc = context.read<DocumentBloc>();
     if (state == AppLifecycleState.resumed) {
-      /*if (!kIsWeb && Platform.isAndroid) {
+      if (!kIsWeb && Platform.isAndroid) {
         final intentType = await getIntentType();
         final intentData = await getIntentData();
         if (intentType != null && intentData != null) {
@@ -59,7 +65,7 @@ class _MainViewViewportState extends State<MainViewViewport>
             context.read<ImportService>().import(assetType, intentData);
           }
         }
-      }*/
+      }
       bloc.refresh();
     } else {
       context.read<CurrentIndexCubit>().resetInput(bloc);

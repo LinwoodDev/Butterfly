@@ -137,7 +137,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                         borderRadius: BorderRadius.circular(12),
                         child: const AspectRatio(
                           aspectRatio: 1,
-                          child: Icon(PhosphorIcons.plusLight),
+                          child: PhosphorIcon(PhosphorIconsLight.plus),
                         ),
                       ),
                     ),
@@ -164,7 +164,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                       currentPalette = result;
                     });
                   },
-                  icon: const Icon(PhosphorIcons.packageLight)),
+                  icon: const PhosphorIcon(PhosphorIconsLight.package)),
             ),
           ),
         ],

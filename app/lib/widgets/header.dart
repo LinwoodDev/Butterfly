@@ -37,7 +37,7 @@ class Header extends StatelessWidget {
         if (help != null)
           IconButton(
               tooltip: AppLocalizations.of(context).help,
-              icon: const Icon(PhosphorIcons.circleWavyQuestionLight),
+              icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
               onPressed: () => openHelp(help!)),
       ]),
     );

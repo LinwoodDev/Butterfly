@@ -58,6 +58,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       : super(CurrentIndex(null, MoveHandler(), settingsCubit, transformCubit,
             embedding: embedding));
 
+  void init(DocumentBloc bloc) {
+    changePainter(bloc, state.index ?? 0, null, true, false);
+  }
+
   ThemeData getTheme(bool dark, [ColorScheme? overridden]) =>
       getThemeData(state.settingsCubit.state.design, dark, overridden);
 
@@ -76,7 +80,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Handler? changePainter(DocumentBloc bloc, int index,
-      [Handler? handler, bool justAdded = false]) {
+      [Handler? handler, bool justAdded = false, bool runSelected = true]) {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     final document = blocState.document;
@@ -84,17 +88,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       return null;
     }
     final painter = document.painters[index];
-    final currentHandler = handler ?? Handler.fromPainter(painter);
-    state.handler.dispose(bloc);
-    state.temporaryHandler?.dispose(bloc);
-    if (currentHandler.onSelected(bloc, this, justAdded)) {
+    handler ??= Handler.fromPainter(painter);
+    if (!runSelected || handler.onSelected(bloc, this, justAdded)) {
+      state.handler.dispose(bloc);
+      state.temporaryHandler?.dispose(bloc);
       _disposeForegrounds();
       emit(state.copyWith(
         index: index,
-        handler: currentHandler,
-        foregrounds: currentHandler.createForegrounds(
-            this, document, blocState.currentArea),
-        toolbar: currentHandler.getToolbar(bloc),
+        handler: handler,
+        foregrounds:
+            handler.createForegrounds(this, document, blocState.currentArea),
+        toolbar: handler.getToolbar(bloc),
         temporaryForegrounds: null,
         temporaryHandler: null,
         temporaryToolbar: null,
@@ -478,8 +482,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final document = docState.document;
     final index = document.painters.indexOf(state.handler.data);
     if (index < 0) {
-      reset(bloc);
-      return;
+      changePainter(bloc, state.index ?? 0, null, true, false);
     }
     if (index == state.index) {
       return;

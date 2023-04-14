@@ -3,6 +3,7 @@ import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SelectElementDialog extends StatefulWidget {
   final List<Renderer<PadElement>> renderers;
@@ -48,7 +49,8 @@ class _SelectElementDialogState extends State<SelectElementDialog> {
                 itemBuilder: (context, index) {
                   final renderer = widget.renderers[index];
                   return IconButton(
-                    icon: Icon(renderer.element.getIcon()),
+                    icon: PhosphorIcon(
+                        renderer.element.icon(PhosphorIconsStyle.light)),
                     color: current == renderer
                         ? Theme.of(context).colorScheme.primary
                         : null,

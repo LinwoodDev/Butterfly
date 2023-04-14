@@ -485,5 +485,12 @@
   "whatsNew": "Hva er nytt?",
   "unstar": "Stjerne",
   "star": "Stjerne",
-  "goUp": "Gå opp"
+  "goUp": "Gå opp",
+  "created": "Opprettet",
+  "modified": "Endret",
+  "quickstart": "Hurtigstart",
+  "noTemplates": "Det er ingen maler tilgjengelig",
+  "reset": "Reset",
+  "importCorePack": "Importer kjerne pakke",
+  "importCorePackDescription": "Importer kjerne pakken som inneholder alle grunnleggende ressurser for å komme i gang. Dette vil overstyre den gjeldende kjernepakken."
 }

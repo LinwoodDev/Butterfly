@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 const kMinZoom = 0.1;
-const kMaxZoom = 1000.0;
+const kMaxZoom = 10.0;
 
 @immutable
 class CameraTransform extends Equatable {

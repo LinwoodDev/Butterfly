@@ -164,7 +164,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(true) bool inputGestures,
     @Default('') String design,
     @Default([]) List<AssetLocation> history,
-    @Default(true) bool startEnabled,
+    @Default(true) bool zoomEnabled,
     String? lastVersion,
     @Default([]) List<RemoteStorage> remotes,
     @Default('') String defaultRemote,
@@ -211,7 +211,7 @@ class ButterflySettings with _$ButterflySettings {
               .whereType<AssetLocation>()
               .toList() ??
           [],
-      startEnabled: prefs.getBool('start_enabled') ?? true,
+      zoomEnabled: prefs.getBool('zoom_enabled') ?? true,
       lastVersion: prefs.getString('last_version'),
       remotes: remotes,
       defaultRemote: prefs.getString('default_remote') ?? '',
@@ -251,7 +251,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('design', design);
     await prefs.setStringList(
         'history', history.map((e) => json.encode(e.toJson())).toList());
-    await prefs.setBool('start_enabled', startEnabled);
+    await prefs.setBool('zoom_enabled', zoomEnabled);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');
     } else if (lastVersion != null) {
@@ -426,12 +426,12 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> changeStartEnabled(bool value) {
-    emit(state.copyWith(startEnabled: value));
+  Future<void> changeZoomEnabled(bool value) {
+    emit(state.copyWith(zoomEnabled: value));
     return save();
   }
 
-  Future<void> resetStartEnabled() => changeStartEnabled(true);
+  Future<void> resetZoomEnabled() => changeZoomEnabled(true);
 
   Future<void> changeStartInFullScreen(bool value) {
     emit(state.copyWith(startInFullScreen: value));

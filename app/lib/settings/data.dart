@@ -48,7 +48,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           ListTile(
                             title: Text(
                                 AppLocalizations.of(context).documentDirectory),
-                            leading: const Icon(PhosphorIcons.folderLight),
+                            leading:
+                                const PhosphorIcon(PhosphorIconsLight.folder),
                             subtitle: Text(state.documentPath.isNotEmpty
                                 ? state.documentPath
                                 : AppLocalizations.of(context).defaultPath),
@@ -63,7 +64,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             },
                             trailing: state.documentPath.isNotEmpty
                                 ? IconButton(
-                                    icon: const Icon(PhosphorIcons.trashLight),
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.trash),
                                     onPressed: () => _changePath(
                                         context.read<SettingsCubit>(), ''),
                                   )
@@ -71,7 +73,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           ),
                         ListTile(
                           title: Text(AppLocalizations.of(context).packs),
-                          leading: const Icon(PhosphorIcons.packageLight),
+                          leading:
+                              const PhosphorIcon(PhosphorIconsLight.package),
                           onTap: () {
                             showDialog(
                               context: context,
@@ -91,7 +94,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                         ),
                         ListTile(
                           title: Text(AppLocalizations.of(context).export),
-                          leading: const Icon(PhosphorIcons.exportLight),
+                          leading:
+                              const PhosphorIcon(PhosphorIconsLight.export),
                           onTap: () async {
                             final fileSystem =
                                 DocumentFileSystem.fromPlatform();

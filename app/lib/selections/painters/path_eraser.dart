@@ -32,8 +32,7 @@ class PathEraserPainterSelection extends PainterSelection<PathEraserPainter> {
       AppLocalizations.of(context).pathEraser;
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.pathFill : PhosphorIcons.pathLight;
+  IconGetter get icon => PhosphorIcons.path;
 
   @override
   List<String> get help => ['painters', 'path_eraser'];

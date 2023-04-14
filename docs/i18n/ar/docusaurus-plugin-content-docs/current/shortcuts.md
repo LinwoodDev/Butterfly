@@ -12,8 +12,6 @@ sidebar_position: 2
 
 * `Ctrl` + `N`: ملف جديد
 * `Ctrl` + `Shift` + `N`: ملف جديد من القالب
-* `Ctrl` + `O`: فتح الملف
-* `Ctrl` + `I`: ملف الاستيراد
 * `Ctrl` + `E`: تصدير الملف
 * `Ctrl` + `Shift` + `E`: تصدير الملف كصورة
 * `Ctrl` + `Alt` + `E`: تصدير الملف كـ svg
@@ -23,8 +21,6 @@ sidebar_position: 2
 
 * `Ctrl` + `Z`: التراجع
 * `Ctrl` + `Y`: إعادة
-* `Ctrl` + `Alt` + `N`: Open insert dialog
-* `Ctrl` + `Alt` + `Shift` + `S`: فتح إعدادات المشروع
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `P`: فتح لوحة حوار الألوان
 * `Ctrl` + `B`: فتح مربع حوار الخلفية

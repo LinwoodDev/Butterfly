@@ -13,7 +13,9 @@ abstract class GeneralPresentationHandler {
     if (animation == null) return;
     final milliseconds = 1000 ~/ animation.fps;
     _timer ??= Timer.periodic(Duration(milliseconds: milliseconds), (timer) {
-      onTick(bloc, animation);
+      if (_state != PresentationRunningState.paused) {
+        onTick(bloc, animation);
+      }
     });
   }
 

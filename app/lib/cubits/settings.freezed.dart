@@ -812,7 +812,7 @@ mixin _$ButterflySettings {
   bool get inputGestures => throw _privateConstructorUsedError;
   String get design => throw _privateConstructorUsedError;
   List<AssetLocation> get history => throw _privateConstructorUsedError;
-  bool get startEnabled => throw _privateConstructorUsedError;
+  bool get zoomEnabled => throw _privateConstructorUsedError;
   String? get lastVersion => throw _privateConstructorUsedError;
   List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
   String get defaultRemote => throw _privateConstructorUsedError;
@@ -847,7 +847,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       bool inputGestures,
       String design,
       List<AssetLocation> history,
-      bool startEnabled,
+      bool zoomEnabled,
       String? lastVersion,
       List<RemoteStorage> remotes,
       String defaultRemote,
@@ -885,7 +885,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? inputGestures = null,
     Object? design = null,
     Object? history = null,
-    Object? startEnabled = null,
+    Object? zoomEnabled = null,
     Object? lastVersion = freezed,
     Object? remotes = null,
     Object? defaultRemote = null,
@@ -941,9 +941,9 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.history
           : history // ignore: cast_nullable_to_non_nullable
               as List<AssetLocation>,
-      startEnabled: null == startEnabled
-          ? _value.startEnabled
-          : startEnabled // ignore: cast_nullable_to_non_nullable
+      zoomEnabled: null == zoomEnabled
+          ? _value.zoomEnabled
+          : zoomEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       lastVersion: freezed == lastVersion
           ? _value.lastVersion
@@ -1014,7 +1014,7 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       bool inputGestures,
       String design,
       List<AssetLocation> history,
-      bool startEnabled,
+      bool zoomEnabled,
       String? lastVersion,
       List<RemoteStorage> remotes,
       String defaultRemote,
@@ -1051,7 +1051,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? inputGestures = null,
     Object? design = null,
     Object? history = null,
-    Object? startEnabled = null,
+    Object? zoomEnabled = null,
     Object? lastVersion = freezed,
     Object? remotes = null,
     Object? defaultRemote = null,
@@ -1107,9 +1107,9 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value._history
           : history // ignore: cast_nullable_to_non_nullable
               as List<AssetLocation>,
-      startEnabled: null == startEnabled
-          ? _value.startEnabled
-          : startEnabled // ignore: cast_nullable_to_non_nullable
+      zoomEnabled: null == zoomEnabled
+          ? _value.zoomEnabled
+          : zoomEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       lastVersion: freezed == lastVersion
           ? _value.lastVersion
@@ -1166,7 +1166,7 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.inputGestures = true,
       this.design = '',
       final List<AssetLocation> history = const [],
-      this.startEnabled = true,
+      this.zoomEnabled = true,
       this.lastVersion,
       final List<RemoteStorage> remotes = const [],
       this.defaultRemote = '',
@@ -1222,7 +1222,7 @@ class _$_ButterflySettings extends _ButterflySettings {
 
   @override
   @JsonKey()
-  final bool startEnabled;
+  final bool zoomEnabled;
   @override
   final String? lastVersion;
   final List<RemoteStorage> _remotes;
@@ -1263,7 +1263,7 @@ class _$_ButterflySettings extends _ButterflySettings {
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, startEnabled: $startEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred)';
   }
 
   @override
@@ -1290,8 +1290,8 @@ class _$_ButterflySettings extends _ButterflySettings {
                 other.inputGestures == inputGestures) &&
             (identical(other.design, design) || other.design == design) &&
             const DeepCollectionEquality().equals(other._history, _history) &&
-            (identical(other.startEnabled, startEnabled) ||
-                other.startEnabled == startEnabled) &&
+            (identical(other.zoomEnabled, zoomEnabled) ||
+                other.zoomEnabled == zoomEnabled) &&
             (identical(other.lastVersion, lastVersion) ||
                 other.lastVersion == lastVersion) &&
             const DeepCollectionEquality().equals(other._remotes, _remotes) &&
@@ -1324,7 +1324,7 @@ class _$_ButterflySettings extends _ButterflySettings {
         inputGestures,
         design,
         const DeepCollectionEquality().hash(_history),
-        startEnabled,
+        zoomEnabled,
         lastVersion,
         const DeepCollectionEquality().hash(_remotes),
         defaultRemote,
@@ -1357,7 +1357,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final bool inputGestures,
       final String design,
       final List<AssetLocation> history,
-      final bool startEnabled,
+      final bool zoomEnabled,
       final String? lastVersion,
       final List<RemoteStorage> remotes,
       final String defaultRemote,
@@ -1392,7 +1392,7 @@ abstract class _ButterflySettings extends ButterflySettings {
   @override
   List<AssetLocation> get history;
   @override
-  bool get startEnabled;
+  bool get zoomEnabled;
   @override
   String? get lastVersion;
   @override

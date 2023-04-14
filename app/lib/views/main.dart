@@ -349,61 +349,63 @@ class _ProjectPageState extends State<ProjectPage> {
                     child: SafeArea(
                       child: ClipRect(
                         child: Focus(
-                          autofocus: true,
-                          child: FocusScope(
-                              child: Scaffold(
-                            appBar: state is DocumentPresentationState
-                                ? null
-                                : PadAppBar(
-                                    viewportKey: _viewportKey,
-                                  ),
-                            body: Actions(
-                                actions: _actions,
-                                child: LayoutBuilder(
-                                    builder: (context, constraints) {
-                                  final isMobile =
-                                      MediaQuery.of(context).size.width <
-                                          kMobileWidth;
-                                  final isLandscape =
-                                      MediaQuery.of(context).size.height < 400;
-                                  const property = PropertyView();
-                                  return Stack(
-                                    children: [
-                                      Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.stretch,
-                                          children: [
-                                            Expanded(
-                                                key: _viewportKey,
-                                                child: Stack(
-                                                  children: [
-                                                    const MainViewViewport(),
-                                                    Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: const [
-                                                          ToolbarView(),
-                                                        ]),
-                                                    if (!isLandscape) property
-                                                  ],
-                                                )),
-                                            if (isMobile)
-                                              Align(
-                                                  alignment: Alignment.center,
-                                                  child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: EditToolbar(
-                                                          isMobile: isMobile))),
-                                          ]),
-                                      const ZoomView(),
-                                      if (isLandscape) property
-                                    ],
-                                  );
-                                })),
-                          )),
-                        ),
+                            autofocus: true,
+                            skipTraversal: true,
+                            onFocusChange: (_) => false,
+                            child: Scaffold(
+                              appBar: state is DocumentPresentationState
+                                  ? null
+                                  : PadAppBar(
+                                      viewportKey: _viewportKey,
+                                    ),
+                              body: Actions(
+                                  actions: _actions,
+                                  child: LayoutBuilder(
+                                      builder: (context, constraints) {
+                                    final isMobile =
+                                        MediaQuery.of(context).size.width <
+                                            kMobileWidth;
+                                    final isLandscape =
+                                        MediaQuery.of(context).size.height <
+                                            400;
+                                    const property = PropertyView();
+                                    return Stack(
+                                      children: [
+                                        Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            children: [
+                                              Expanded(
+                                                  key: _viewportKey,
+                                                  child: Stack(
+                                                    children: [
+                                                      const MainViewViewport(),
+                                                      Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: const [
+                                                            ToolbarView(),
+                                                          ]),
+                                                      if (!isLandscape) property
+                                                    ],
+                                                  )),
+                                              if (isMobile)
+                                                Align(
+                                                    alignment: Alignment.center,
+                                                    child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: EditToolbar(
+                                                            isMobile:
+                                                                isMobile))),
+                                            ]),
+                                        const ZoomView(),
+                                        if (isLandscape) property
+                                      ],
+                                    );
+                                  })),
+                            )),
                       ),
                     ),
                   ),

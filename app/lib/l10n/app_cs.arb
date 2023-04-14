@@ -485,5 +485,12 @@
   "whatsNew": "Co je nového?",
   "unstar": "Odebrat z oblíbených",
   "star": "Hvězda",
-  "goUp": "Přejít nahoru"
+  "goUp": "Přejít nahoru",
+  "created": "Vytvořeno",
+  "modified": "Upraveno",
+  "quickstart": "Rychlý start",
+  "noTemplates": "V současné době nejsou k dispozici žádné šablony",
+  "reset": "Reset",
+  "importCorePack": "Importovat základní balíček",
+  "importCorePackDescription": "Importovat základní balíček, který obsahuje všechny základní položky pro začátek. To přepíše aktuální balíček jádra."
 }

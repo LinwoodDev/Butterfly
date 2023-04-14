@@ -282,7 +282,10 @@ class IOTemplateFileSystem extends TemplateFileSystem {
 class IOPackFileSystem extends PackFileSystem {
   @override
   Future<void> deletePack(String name) async {
-    await File(await getAbsolutePath('${escapeName(name)}.bfly')).delete();
+    final file = File(await getAbsolutePath('${escapeName(name)}.bfly'));
+    if (await file.exists()) {
+      await file.delete();
+    }
   }
 
   @override

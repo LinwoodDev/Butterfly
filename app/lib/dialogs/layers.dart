@@ -22,12 +22,13 @@ class LayersDialog extends StatelessWidget {
                 Header(
                     title: Text(AppLocalizations.of(context).layers),
                     leading: IconButton(
-                      icon: const Icon(PhosphorIcons.xLight),
+                      icon: const PhosphorIcon(PhosphorIconsLight.x),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     actions: [
                       IconButton(
-                          icon: const Icon(PhosphorIcons.selectionLight),
+                          icon:
+                              const PhosphorIcon(PhosphorIconsLight.selection),
                           tooltip:
                               AppLocalizations.of(context).selectCustomLayer,
                           onPressed: () async {
@@ -80,8 +81,8 @@ class LayersDialog extends StatelessWidget {
                         child: TextField(
                           decoration: const InputDecoration(
                             filled: true,
-                            prefixIcon:
-                                Icon(PhosphorIcons.magnifyingGlassLight),
+                            prefixIcon: PhosphorIcon(
+                                PhosphorIconsLight.magnifyingGlass),
                           ),
                           textAlignVertical: TextAlignVertical.center,
                           controller: _searchController,
@@ -125,9 +126,9 @@ class LayersDialog extends StatelessWidget {
                                   },
                                   selected: state.currentLayer.isEmpty,
                                   leading: IconButton(
-                                    icon: Icon(state.isLayerVisible('')
-                                        ? PhosphorIcons.eyeLight
-                                        : PhosphorIcons.eyeSlashLight),
+                                    icon: PhosphorIcon(state.isLayerVisible('')
+                                        ? PhosphorIconsLight.eye
+                                        : PhosphorIconsLight.eyeSlash),
                                     onPressed: () {
                                       context.read<DocumentBloc>().add(
                                           const LayerVisibilityChanged(''));
@@ -156,11 +157,12 @@ class LayersDialog extends StatelessWidget {
                                             selected: layers[index] ==
                                                 state.currentLayer,
                                             leading: IconButton(
-                                              icon: Icon(state.isLayerVisible(
-                                                      layers[index])
-                                                  ? PhosphorIcons.eyeLight
-                                                  : PhosphorIcons
-                                                      .eyeSlashLight),
+                                              icon: PhosphorIcon(
+                                                  state.isLayerVisible(
+                                                          layers[index])
+                                                      ? PhosphorIconsLight.eye
+                                                      : PhosphorIconsLight
+                                                          .eyeSlash),
                                               onPressed: () {
                                                 context
                                                     .read<DocumentBloc>()

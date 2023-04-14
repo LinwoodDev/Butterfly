@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../helpers/icon.dart';
+
 extension ElementVisualizer on PadElement {
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);
@@ -16,13 +18,13 @@ extension ElementVisualizer on PadElement {
     );
   }
 
-  IconData getIcon() {
+  IconGetter get icon {
     return map(
-      pen: (_) => PhosphorIcons.penLight,
-      text: (_) => PhosphorIcons.textTLight,
-      image: (_) => PhosphorIcons.imageLight,
-      shape: (element) => element.property.shape.getIcon(),
-      svg: (_) => PhosphorIcons.sunLight,
+      pen: (_) => PhosphorIcons.pen,
+      text: (_) => PhosphorIcons.textT,
+      image: (_) => PhosphorIcons.image,
+      shape: (element) => element.property.shape.icon,
+      svg: (_) => PhosphorIcons.sun,
     );
   }
 }

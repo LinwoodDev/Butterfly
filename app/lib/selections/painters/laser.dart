@@ -65,8 +65,8 @@ class LaserPainterSelection extends PainterSelection<LaserPainter> {
       AppLocalizations.of(context).laser;
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.cursorFill : PhosphorIcons.cursorLight;
+  IconGetter get icon => PhosphorIcons.cursor;
+
   @override
   List<String> get help => ['painters', 'laser'];
 }

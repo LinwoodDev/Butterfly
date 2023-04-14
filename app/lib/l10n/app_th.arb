@@ -485,5 +485,12 @@
   "whatsNew": "What's new?",
   "unstar": "Unstar",
   "star": "Star",
-  "goUp": "Go up"
+  "goUp": "Go up",
+  "created": "Created",
+  "modified": "Modified",
+  "quickstart": "Quickstart",
+  "noTemplates": "There are currently no templates available",
+  "reset": "Reset",
+  "importCorePack": "Import core pack",
+  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
 }

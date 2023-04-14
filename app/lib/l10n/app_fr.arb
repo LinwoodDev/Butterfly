@@ -485,5 +485,12 @@
   "whatsNew": "Quoi de neuf ?",
   "unstar": "Retirer des favoris",
   "star": "Étoiles",
-  "goUp": "Monter"
+  "goUp": "Monter",
+  "created": "Créé",
+  "modified": "Modifié",
+  "quickstart": "Démarrage rapide",
+  "noTemplates": "Il n'y a actuellement aucun modèle disponible",
+  "reset": "Reset",
+  "importCorePack": "Importer le pack core",
+  "importCorePackDescription": "Importez le pack du noyau qui contient toutes les ressources de base pour commencer. Cela remplacera le pack du noyau actuel."
 }

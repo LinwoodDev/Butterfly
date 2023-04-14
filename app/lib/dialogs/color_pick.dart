@@ -104,7 +104,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                 Expanded(
                     child: ListView(children: [
                   ListTile(
-                      leading: const Icon(PhosphorIcons.penLight),
+                      leading: const PhosphorIcon(PhosphorIconsLight.pen),
                       title: Text(AppLocalizations.of(context).edit),
                       onTap: () async {
                         final value = await showDialog<ColorPickerResponse>(
@@ -118,7 +118,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         }
                       }),
                   ListTile(
-                    leading: const Icon(PhosphorIcons.trashLight),
+                    leading: const PhosphorIcon(PhosphorIconsLight.trash),
                     title: Text(AppLocalizations.of(context).delete),
                     onTap: () {
                       showDialog<void>(
@@ -204,8 +204,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                             _selected = result;
                                           });
                                         },
-                                        icon: const Icon(
-                                            PhosphorIcons.packageLight),
+                                        icon: const PhosphorIcon(
+                                            PhosphorIconsLight.package),
                                       )
                                     ] else
                                       Expanded(
@@ -270,7 +270,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   width: 75,
                                   height: 75,
                                   child: const Center(
-                                      child: Icon(PhosphorIcons.plusLight,
+                                      child: PhosphorIcon(
+                                          PhosphorIconsLight.plus,
                                           size: 42)),
                                 ),
                                 onTap: () async {
@@ -365,7 +366,7 @@ class _CustomColorPickerState extends State<CustomColorPicker> {
           children: [
             Header(
               title: Text(AppLocalizations.of(context).color),
-              leading: const Icon(PhosphorIcons.paletteLight),
+              leading: const PhosphorIcon(PhosphorIconsLight.palette),
             ),
             Flexible(
               child: Padding(

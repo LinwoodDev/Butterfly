@@ -12,8 +12,6 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 
 * `Ctrl` + `N`: Nowy plik
 * `Ctrl` + `Shift` + `N`: Nowy plik z szablonu
-* `Ctrl` + `O`: Otwórz plik
-* `Ctrl` + `I`: Importuj plik
 * `Ctrl` + `E`: Eksportuj plik
 * `Ctrl` + `Shift` + `E`: Eksportuj plik jako obraz
 * `Ctrl` + `Alt` + `E`: Eksportuj plik jako svg
@@ -23,8 +21,6 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 
 * `Ctrl` + `Z`: Cofnij
 * `Ctrl` + `Y`: Ponów
-* `Ctrl` + `Alt` + `N`: Open insert dialog
-* `Ctrl` + `Alt` + `Shift` + `S`: Otwórz ustawienia projektu
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `P`: Otwórz okno dialogowe palety kolorów
 * `Ctrl` + `B`: Otwórz okno w tle

@@ -485,5 +485,12 @@
   "whatsNew": "Wat is nieuw?",
   "unstar": "Ontster",
   "star": "Ster",
-  "goUp": "Ga omhoog"
+  "goUp": "Ga omhoog",
+  "created": "Aangemaakt",
+  "modified": "Gewijzigd",
+  "quickstart": "Snelstart",
+  "noTemplates": "Er zijn momenteel geen sjablonen beschikbaar",
+  "reset": "Reset",
+  "importCorePack": "Importeer core pakket",
+  "importCorePackDescription": "Importeer het core pakket dat alle basisassets bevat om aan de slag te gaan. Dit zal het huidige core pakket overschrijven."
 }

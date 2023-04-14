@@ -22,7 +22,7 @@ class TextCursor extends Renderer<TextCursorData> {
   void build(
       Canvas canvas, Size size, AppDocument document, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    const icon = PhosphorIcons.cursorTextLight;
+    const icon = PhosphorIconsLight.cursorText;
     final property = element.context?.getDefinedProperty(document);
     final iconSize =
         (property ?? const text.DefinedParagraphProperty()).span.getSize();
@@ -91,5 +91,16 @@ class TextSelectionCursor extends Renderer<TextContext> {
       ),
       Paint()..color = color,
     );
+
+    final rect = element.getRect();
+    if (rect != null) {
+      canvas.drawRect(
+        rect,
+        Paint()
+          ..color = color.withOpacity(0.5)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1,
+      );
+    }
   }
 }

@@ -485,5 +485,12 @@
   "whatsNew": "Quais as novidades?",
   "unstar": "Desmarcar",
   "star": "Estrela",
-  "goUp": "Ir para cima"
+  "goUp": "Ir para cima",
+  "created": "Criado",
+  "modified": "Modificado",
+  "quickstart": "Acesso Rápido",
+  "noTemplates": "Atualmente, não há modelos disponíveis",
+  "reset": "Reset",
+  "importCorePack": "Importar pacote de núcleo",
+  "importCorePackDescription": "Importe o pacote central que contém todos os recursos básicos para começar. Isto irá substituir o pacote principal atual."
 }

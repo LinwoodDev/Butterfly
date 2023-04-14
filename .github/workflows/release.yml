@@ -72,7 +72,7 @@ jobs:
           fetch-depth: 0
       - name: Get flutter version
         run: |
-          FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
@@ -139,7 +139,7 @@ jobs:
           fetch-depth: 0
       - name: Get flutter version
         run: |
-          FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
@@ -207,7 +207,7 @@ jobs:
           git config --global user.name "Linwood CI"
       - name: Get flutter version
         run: |
-          FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
+          FLUTTER_VERSION=$(cat FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:

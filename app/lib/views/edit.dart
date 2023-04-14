@@ -55,7 +55,7 @@ class _EditToolbarState extends State<EditToolbar> {
     return Scrollbar(
         controller: _scrollController,
         child: SizedBox(
-          height: 50,
+          height: 60,
           child: BlocBuilder<DocumentBloc, DocumentState>(
             buildWhen: (previous, current) =>
                 previous is! DocumentLoadSuccess ||
@@ -66,21 +66,22 @@ class _EditToolbarState extends State<EditToolbar> {
               if (state is! DocumentLoadSuccess) return Container();
               var painters = state.document.painters;
 
-              Widget buildIcon(IconData data, bool action, [Color? color]) =>
+              Widget buildIcon(PhosphorIconData data, bool action,
+                      [Color? color]) =>
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(width: 8),
-                      Icon(
+                      PhosphorIcon(
                         data,
                         color: color,
                       ),
                       SizedBox(
                         width: 8,
                         child: action
-                            ? Icon(
-                                PhosphorIcons.playCircleLight,
+                            ? PhosphorIcon(
+                                PhosphorIconsLight.playCircle,
                                 size: 16,
                                 color: color,
                               )
@@ -93,14 +94,14 @@ class _EditToolbarState extends State<EditToolbar> {
                 builder: (context, currentIndex) {
                   final temp = currentIndex.temporaryHandler;
                   final tempData = temp?.data;
-                  IconData icon = PhosphorIcons.cubeLight;
-                  IconData iconFilled = PhosphorIcons.cubeFill;
+                  PhosphorIconData icon = PhosphorIconsLight.cube;
+                  PhosphorIconData iconFilled = PhosphorIconsFill.cube;
                   var tooltip = tempData?.name.trim();
                   if (tooltip?.isEmpty ?? false) {
                     if (tempData is Painter) {
                       tooltip = tempData.getLocalizedName(context);
-                      icon = tempData.getIcon();
-                      iconFilled = tempData.getIcon(filled: true);
+                      icon = tempData.icon(PhosphorIconsStyle.light);
+                      iconFilled = tempData.icon(PhosphorIconsStyle.fill);
                     }
                   }
                   tooltip ??= '';
@@ -111,46 +112,78 @@ class _EditToolbarState extends State<EditToolbar> {
                       alignment: widget.isMobile
                           ? Alignment.center
                           : Alignment.centerRight,
-                      child: ListView(
-                          controller: _scrollController,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          children: [
-                            if (state.embedding?.editable ?? true) ...[
-                              if (temp != null && tempData != null) ...[
-                                OptionButton(
-                                  tooltip: tooltip,
-                                  selected: true,
-                                  highlighted: currentIndex.selection?.selected
-                                          .contains(tempData) ??
-                                      false,
-                                  icon: Icon(icon),
-                                  selectedIcon: Icon(iconFilled),
-                                  onLongPressed: () => context
-                                      .read<CurrentIndexCubit>()
-                                      .changeSelection(tempData),
-                                  onPressed: () {
-                                    if (tempData == null) return;
-                                    if (_mouseState == _MouseState.multi) {
-                                      context
-                                          .read<CurrentIndexCubit>()
-                                          .insertSelection(tempData, true);
-                                    } else {
-                                      context
-                                          .read<CurrentIndexCubit>()
-                                          .changeSelection(tempData, true);
-                                    }
-                                  },
-                                ),
-                                const VerticalDivider(),
-                              ],
-                              ReorderableListView.builder(
+                      child: Card(
+                        elevation: 10,
+                        child: ListView(
+                            controller: _scrollController,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            children: [
+                              if (state.embedding?.editable ?? true) ...[
+                                if (temp != null && tempData != null) ...[
+                                  OptionButton(
+                                    tooltip: tooltip,
+                                    selected: true,
+                                    highlighted: currentIndex
+                                            .selection?.selected
+                                            .contains(tempData) ??
+                                        false,
+                                    icon: PhosphorIcon(icon),
+                                    selectedIcon: PhosphorIcon(iconFilled),
+                                    onLongPressed: () => context
+                                        .read<CurrentIndexCubit>()
+                                        .changeSelection(tempData),
+                                    onPressed: () {
+                                      if (tempData == null) return;
+                                      if (_mouseState == _MouseState.multi) {
+                                        context
+                                            .read<CurrentIndexCubit>()
+                                            .insertSelection(tempData, true);
+                                      } else {
+                                        context
+                                            .read<CurrentIndexCubit>()
+                                            .changeSelection(tempData, true);
+                                      }
+                                    },
+                                  ),
+                                  const VerticalDivider(),
+                                ],
+                                ReorderableListView.builder(
                                   shrinkWrap: true,
                                   buildDefaultDragHandles: false,
                                   scrollDirection: Axis.horizontal,
                                   physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: painters.length,
+                                  itemCount: painters.length + 1,
                                   itemBuilder: (context, i) {
+                                    if (painters.length <= i) {
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        key: const ValueKey('add'),
+                                        children: [
+                                          const VerticalDivider(),
+                                          const SizedBox(width: 8),
+                                          IconButton(
+                                            tooltip:
+                                                AppLocalizations.of(context)
+                                                    .delete,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .error,
+                                            icon: const PhosphorIcon(
+                                                PhosphorIconsLight.trash),
+                                            onPressed: () async {
+                                              final painter =
+                                                  currentIndex.handler.data;
+                                              if (painter is! Painter) return;
+                                              context.read<DocumentBloc>().add(
+                                                  PaintersRemoved([painter]));
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    }
                                     var e = painters[i];
                                     final selected = i == currentIndex.index;
                                     final highlighted = currentIndex
@@ -183,11 +216,12 @@ class _EditToolbarState extends State<EditToolbar> {
                                             selected: selected,
                                             highlighted: highlighted,
                                             selectedIcon: buildIcon(
-                                                e.getIcon(filled: true),
+                                                e.icon(PhosphorIconsStyle.fill),
                                                 e.isAction(),
                                                 color),
                                             icon: buildIcon(
-                                                e.getIcon(filled: false),
+                                                e.icon(
+                                                    PhosphorIconsStyle.light),
                                                 e.isAction(),
                                                 color),
                                             onPressed: () {
@@ -204,10 +238,11 @@ class _EditToolbarState extends State<EditToolbar> {
                                                 context
                                                     .read<CurrentIndexCubit>()
                                                     .changePainter(
-                                                        context.read<
-                                                            DocumentBloc>(),
-                                                        i,
-                                                        handler);
+                                                      context
+                                                          .read<DocumentBloc>(),
+                                                      i,
+                                                      handler,
+                                                    );
                                               } else {
                                                 context
                                                     .read<CurrentIndexCubit>()
@@ -215,53 +250,74 @@ class _EditToolbarState extends State<EditToolbar> {
                                               }
                                             }));
                                     return ReorderableDragStartListener(
-                                        key: ObjectKey(i),
-                                        index: i,
-                                        child: toolWidget);
+                                      key: ObjectKey(i),
+                                      index: i,
+                                      child: toolWidget,
+                                    );
                                   },
-                                  onReorder: (oldIndex, newIndex) => context
-                                      .read<DocumentBloc>()
-                                    ..add(
-                                        PainterReordered(oldIndex, newIndex))),
-                              const VerticalDivider(),
-                              IconButton(
-                                tooltip: AppLocalizations.of(context).add,
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (ctx) => MultiBlocProvider(
-                                      providers: [
-                                        BlocProvider.value(
-                                          value: context.read<DocumentBloc>(),
-                                        ),
-                                        BlocProvider.value(
-                                          value:
-                                              context.read<CurrentIndexCubit>(),
-                                        ),
-                                      ],
-                                      child: RepositoryProvider.value(
-                                        value: context.read<ImportService>(),
-                                        child: const AddDialog(),
-                                      ),
+                                  onReorder: (oldIndex, newIndex) {
+                                    final bloc = context.read<DocumentBloc>();
+                                    final delete = newIndex > painters.length;
+                                    if (delete) {
+                                      bloc.add(PaintersRemoved(
+                                          [painters[oldIndex]]));
+                                      return;
+                                    }
+                                    bloc.add(
+                                        PainterReordered(oldIndex, newIndex));
+                                  },
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: AspectRatio(
+                                    aspectRatio: 1,
+                                    child: FloatingActionButton.small(
+                                      tooltip: AppLocalizations.of(context).add,
+                                      heroTag: null,
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (ctx) => MultiBlocProvider(
+                                            providers: [
+                                              BlocProvider.value(
+                                                value: context
+                                                    .read<DocumentBloc>(),
+                                              ),
+                                              BlocProvider.value(
+                                                value: context
+                                                    .read<CurrentIndexCubit>(),
+                                              ),
+                                            ],
+                                            child: RepositoryProvider.value(
+                                              value:
+                                                  context.read<ImportService>(),
+                                              child: const AddDialog(),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: const PhosphorIcon(
+                                          PhosphorIconsLight.plus),
                                     ),
-                                  );
-                                },
-                                icon: const Icon(PhosphorIcons.plusCircleLight),
-                              ),
-                              IconButton(
-                                icon: const Icon(PhosphorIcons.wrenchLight),
-                                onPressed: () {
-                                  final cubit =
-                                      context.read<CurrentIndexCubit>();
-                                  final state =
-                                      cubit.state.cameraViewport.tool?.element;
-                                  if (state != null) {
-                                    cubit.changeSelection(state);
-                                  }
-                                },
-                              ),
-                            ],
-                          ]),
+                                  ),
+                                ),
+                                const VerticalDivider(),
+                                IconButton(
+                                  icon: const PhosphorIcon(
+                                      PhosphorIconsLight.wrench),
+                                  onPressed: () {
+                                    final cubit =
+                                        context.read<CurrentIndexCubit>();
+                                    final state = cubit
+                                        .state.cameraViewport.tool?.element;
+                                    if (state != null) {
+                                      cubit.changeSelection(state);
+                                    }
+                                  },
+                                ),
+                              ],
+                            ]),
+                      ),
                     ),
                   );
                 },

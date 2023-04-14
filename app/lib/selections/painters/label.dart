@@ -25,7 +25,7 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
           counterText:
               packs.isEmpty ? AppLocalizations.of(context).noPacks : null,
           suffixIcon: IconButton(
-            icon: const Icon(PhosphorIcons.packageLight),
+            icon: const PhosphorIcon(PhosphorIconsLight.package),
             tooltip: AppLocalizations.of(context).packs,
             onPressed: () {
               Actions.maybeInvoke<PacksIntent>(context, PacksIntent(context));
@@ -93,8 +93,8 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
       AppLocalizations.of(context).label;
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.textTFill : PhosphorIcons.textTLight;
+  IconGetter get icon => PhosphorIcons.textT;
+
   @override
   List<String> get help => ['painters', 'label'];
 }

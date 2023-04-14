@@ -55,7 +55,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 Header(
                   title: Text(AppLocalizations.of(context).templates),
                   leading: IconButton(
-                    icon: const Icon(PhosphorIcons.xLight),
+                    icon: const PhosphorIcon(PhosphorIconsLight.x),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   actions: [
@@ -69,8 +69,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                       },
                     ),
                     IconButton(
-                      icon:
-                          const Icon(PhosphorIcons.clockCounterClockwiseLight),
+                      icon: const PhosphorIcon(
+                          PhosphorIconsLight.clockCounterClockwise),
                       tooltip: AppLocalizations.of(context).defaultTemplate,
                       onPressed: () {
                         showDialog<void>(
@@ -93,6 +93,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                   await _fileSystem.createDefault(this.context,
                                       force: true);
                                   navigator.pop();
+                                  load();
+                                  setState(() {});
                                 },
                               ),
                             ],
@@ -107,7 +109,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                               onPressed: () =>
                                   _showCreateDialog(widget.currentDocument!),
                               tooltip: AppLocalizations.of(context).create,
-                              icon: const Icon(PhosphorIcons.plusLight),
+                              icon: const PhosphorIcon(PhosphorIconsLight.plus),
                             )
                           ],
                   ],
@@ -130,8 +132,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                             child: TextField(
                                 decoration: const InputDecoration(
                                   filled: true,
-                                  prefixIcon:
-                                      Icon(PhosphorIcons.magnifyingGlassLight),
+                                  prefixIcon: PhosphorIcon(
+                                      PhosphorIconsLight.magnifyingGlass),
                                 ),
                                 textAlignVertical: TextAlignVertical.center,
                                 controller: _searchController,
@@ -255,7 +257,7 @@ class _TemplateItem extends StatelessWidget {
           PopupMenuItem(
             padding: EdgeInsets.zero,
             child: ListTile(
-                leading: const Icon(PhosphorIcons.textTLight),
+                leading: const PhosphorIcon(PhosphorIconsLight.textT),
                 title: Text(AppLocalizations.of(context).rename),
                 onTap: () async {
                   Navigator.of(context).pop();
@@ -275,7 +277,7 @@ class _TemplateItem extends StatelessWidget {
           PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(
-                  leading: const Icon(PhosphorIcons.clipboardLight),
+                  leading: const PhosphorIcon(PhosphorIconsLight.clipboard),
                   title: Text(AppLocalizations.of(context).replace),
                   onTap: () {
                     Navigator.of(context).pop();
@@ -309,7 +311,7 @@ class _TemplateItem extends StatelessWidget {
           PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(
-                  leading: const Icon(PhosphorIcons.trashLight),
+                  leading: const PhosphorIcon(PhosphorIconsLight.trash),
                   title: Text(AppLocalizations.of(context).delete),
                   onTap: () async {
                     Navigator.of(context).pop();

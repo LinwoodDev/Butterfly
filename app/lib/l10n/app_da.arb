@@ -485,5 +485,12 @@
   "whatsNew": "Hvad er nyt?",
   "unstar": "Unstar",
   "star": "Stjerne",
-  "goUp": "Gå op"
+  "goUp": "Gå op",
+  "created": "Oprettet",
+  "modified": "Ændret",
+  "quickstart": "Hurtigstart",
+  "noTemplates": "Der er i øjeblikket ingen tilgængelige skabeloner",
+  "reset": "Reset",
+  "importCorePack": "Importér kernepakke",
+  "importCorePackDescription": "Importér kernepakken der indeholder alle grundlæggende aktiver for at komme i gang. Dette vil tilsidesætte den aktuelle kernepakke."
 }

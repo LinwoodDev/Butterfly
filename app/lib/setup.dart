@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -45,6 +46,14 @@ Future<void> setup() async {
     }
   }
   setupFullScreen();
+  await setupLicenses();
+}
+
+Future<void> setupLicenses() async {
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('fonts/LICENSE.txt');
+    yield LicenseEntryWithLineBreaks(['Roboto'], license);
+  });
 }
 
 Future<void> _moveDirectory(String oldPath, String newPath) async {

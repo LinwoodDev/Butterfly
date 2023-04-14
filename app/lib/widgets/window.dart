@@ -21,12 +21,14 @@ class WindowTitleBar extends StatelessWidget with PreferredSizeWidget {
   final bool inView;
   final Color? backgroundColor;
   final double height;
+  final double? leadingWidth;
 
   const WindowTitleBar({
     super.key,
     this.title,
     this.leading,
     this.bottom,
+    this.leadingWidth,
     this.backgroundColor,
     this.actions = const [],
     this.onlyShowOnDesktop = false,
@@ -36,29 +38,35 @@ class WindowTitleBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDesktop = isWindow && !kIsWeb;
-    if (onlyShowOnDesktop && !isDesktop) return const SizedBox.shrink();
-    final appBar = AppBar(
-      title: title,
-      backgroundColor: backgroundColor,
-      automaticallyImplyLeading: !inView,
-      leading: leading,
-      bottom: bottom,
-      toolbarHeight: height,
-      actions: [
-        ...actions,
-        if (isDesktop && !inView)
-          WindowButtons(
-            divider: actions.isNotEmpty,
-          ),
-      ],
-    );
-    if (isDesktop) {
-      return DragToMoveArea(
-        child: appBar,
-      );
-    }
-    return appBar;
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) =>
+            previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
+        builder: (context, settings) {
+          final isDesktop = isWindow && !kIsWeb;
+          if (onlyShowOnDesktop && !isDesktop) return const SizedBox.shrink();
+          final appBar = AppBar(
+            title: title,
+            backgroundColor: backgroundColor,
+            automaticallyImplyLeading: !inView,
+            leading: leading,
+            bottom: bottom,
+            leadingWidth: leadingWidth,
+            toolbarHeight: height,
+            actions: [
+              ...actions,
+              if (isDesktop && !inView)
+                WindowButtons(
+                  divider: actions.isNotEmpty,
+                ),
+            ],
+          );
+          if (isDesktop && !settings.nativeWindowTitleBar) {
+            return DragToMoveArea(
+              child: appBar,
+            );
+          }
+          return appBar;
+        });
   }
 
   @override
@@ -145,7 +153,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                       ...[
                         if (!fullScreen) ...[
                           IconButton(
-                            icon: const Icon(PhosphorIcons.minusLight),
+                            icon: const PhosphorIcon(PhosphorIconsLight.minus),
                             tooltip: AppLocalizations.of(context).minimize,
                             splashRadius: 20,
                             onPressed: () => windowManager.minimize(),
@@ -156,8 +164,8 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                                 message: maximized
                                     ? AppLocalizations.of(context).restore
                                     : AppLocalizations.of(context).maximize,
-                                child: Icon(
-                                  PhosphorIcons.squareLight,
+                                child: PhosphorIcon(
+                                  PhosphorIconsLight.square,
                                   size: maximized ? 14 : 20,
                                   color: Theme.of(context).iconTheme.color,
                                 ),
@@ -176,9 +184,9 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                             ),
                             menuChildren: [
                               MenuItemButton(
-                                leadingIcon: Icon(alwaysOnTop
-                                    ? PhosphorIcons.pushPinFill
-                                    : PhosphorIcons.pushPinLight),
+                                leadingIcon: PhosphorIcon(alwaysOnTop
+                                    ? PhosphorIconsFill.pushPin
+                                    : PhosphorIconsLight.pushPin),
                                 child: Text(alwaysOnTop
                                     ? AppLocalizations.of(context)
                                         .exitAlwaysOnTop
@@ -190,9 +198,9 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                                 },
                               ),
                               MenuItemButton(
-                                leadingIcon: Icon(fullScreen
-                                    ? PhosphorIcons.arrowsInLight
-                                    : PhosphorIcons.arrowsOutLight),
+                                leadingIcon: PhosphorIcon(fullScreen
+                                    ? PhosphorIconsLight.arrowsIn
+                                    : PhosphorIconsLight.arrowsOut),
                                 child: Text(fullScreen
                                     ? AppLocalizations.of(context)
                                         .exitFullScreen
@@ -206,7 +214,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                             ],
                           ),
                           IconButton(
-                            icon: const Icon(PhosphorIcons.xLight),
+                            icon: const PhosphorIcon(PhosphorIconsLight.x),
                             tooltip: AppLocalizations.of(context).close,
                             color: Colors.red,
                             splashRadius: 20,
