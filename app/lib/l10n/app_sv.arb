@@ -491,6 +491,6 @@
   "quickstart": "Snabbstart",
   "noTemplates": "Det finns för närvarande inga tillgängliga mallar",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "Importera kärnpaket",
+  "importCorePackDescription": "Importera kärnpaketet som innehåller alla grundläggande tillgångar för att komma igång. Detta åsidosätter det aktuella kärnpaketet."
 }
