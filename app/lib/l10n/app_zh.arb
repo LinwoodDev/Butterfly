@@ -491,6 +491,6 @@
   "quickstart": "快速开始",
   "noTemplates": "目前没有可用的模板",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "导入核心包",
+  "importCorePackDescription": "导入包含所有基本资源以启动的核心包。这将覆盖当前的核心包。"
 }
