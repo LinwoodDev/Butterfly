@@ -5,6 +5,7 @@
 * Add system to change position of cursor on text by clicking on it
 * Add box to text editing
 * Add vertical arrow selection in text
+* Add option to add core pack to update the current one
 * Fix home page on smaller screens
 * Fix rich text editor in label painter
 * Fix DragToMoveArea on native title bar on desktop

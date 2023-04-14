@@ -4,6 +4,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/export.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -310,28 +311,26 @@ class _PacksDialogState extends State<PacksDialog>
                         showModalBottomSheet<ThemeMode>(
                           context: context,
                           constraints: const BoxConstraints(maxWidth: 640),
-                          builder: (context) => Container(
+                          builder: (ctx) => Container(
                             margin: const EdgeInsets.only(bottom: 20),
                             child: ListView(shrinkWrap: true, children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 20),
                                 child: Text(
-                                  AppLocalizations.of(context).add,
-                                  style:
-                                      Theme.of(context).textTheme.headlineSmall,
+                                  AppLocalizations.of(ctx).add,
+                                  style: Theme.of(ctx).textTheme.headlineSmall,
                                   textAlign: TextAlign.center,
                                 ),
                               ),
                               ListTile(
-                                title:
-                                    Text(AppLocalizations.of(context).import),
+                                title: Text(AppLocalizations.of(ctx).import),
                                 leading: const PhosphorIcon(
                                     PhosphorIconsLight.arrowSquareIn),
                                 onTap: () async {
-                                  Navigator.of(context).pop();
+                                  Navigator.of(ctx).pop();
                                   final data = await showDialog<String>(
-                                    context: context,
+                                    context: ctx,
                                     builder: (context) => const ImportDialog(),
                                   );
                                   if (data == null) return;
@@ -381,19 +380,39 @@ class _PacksDialogState extends State<PacksDialog>
                                 },
                               ),
                               ListTile(
-                                title:
-                                    Text(AppLocalizations.of(context).create),
+                                title: Text(AppLocalizations.of(ctx).create),
                                 leading: const PhosphorIcon(
                                     PhosphorIconsLight.plusCircle),
                                 onTap: () async {
-                                  Navigator.of(context).pop();
+                                  Navigator.of(ctx).pop();
                                   final pack = await showDialog<ButterflyPack>(
-                                    context: context,
+                                    context: ctx,
                                     builder: (context) => const PackDialog(),
                                   );
                                   if (pack != null) {
                                     _addPack(pack);
                                   }
+                                },
+                              ),
+                              ListTile(
+                                title: Text(
+                                    AppLocalizations.of(ctx).importCorePack),
+                                subtitle: Text(AppLocalizations.of(ctx)
+                                    .importCorePackDescription),
+                                leading:
+                                    const PhosphorIcon(PhosphorIconsLight.cube),
+                                onTap: () async {
+                                  Navigator.of(ctx).pop();
+                                  final pack =
+                                      await DocumentDefaults.getCorePack();
+                                  if (_isGlobal()) {
+                                    await _fileSystem.deletePack(pack.name);
+                                    setState(() {});
+                                  } else if (context.mounted) {
+                                    final bloc = context.read<DocumentBloc>();
+                                    bloc.add(DocumentPackRemoved(pack.name));
+                                  }
+                                  _addPack(pack);
                                 },
                               ),
                             ]),
@@ -423,9 +442,10 @@ class _PacksDialogState extends State<PacksDialog>
     );
   }
 
+  bool _isGlobal() => _controller.index == 1 || widget.globalOnly;
+
   Future<void> _addPack(ButterflyPack pack, [bool? global]) async {
-    global ??= (_controller.index == 1);
-    if (global || widget.globalOnly) {
+    if (global ?? _isGlobal()) {
       await _fileSystem.createPack(pack);
       setState(() {});
     } else {
