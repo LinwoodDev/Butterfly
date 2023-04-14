@@ -491,6 +491,6 @@
   "quickstart": "البداية السريعة",
   "noTemplates": "لا توجد حاليا قوالب متاحة",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "استيراد حزمة النواة",
+  "importCorePackDescription": "استيراد الحزمة الأساسية التي تحتوي على جميع الأصول الأساسية للبدء. وهذا سيتجاوز الحزمة الأساسية الحالية."
 }
