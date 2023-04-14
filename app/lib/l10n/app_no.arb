@@ -491,6 +491,6 @@
   "quickstart": "Hurtigstart",
   "noTemplates": "Det er ingen maler tilgjengelig",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "Importer kjerne pakke",
+  "importCorePackDescription": "Importer kjerne pakken som inneholder alle grunnleggende ressurser for å komme i gang. Dette vil overstyre den gjeldende kjernepakken."
 }
