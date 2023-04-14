@@ -491,6 +491,6 @@
   "quickstart": "Inicio rápido",
   "noTemplates": "Actualmente no hay plantillas disponibles",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "Importar paquete del núcleo",
+  "importCorePackDescription": "Importar el paquete base que contiene todos los activos básicos para empezar. Esto anulará el paquete del núcleo actual."
 }
