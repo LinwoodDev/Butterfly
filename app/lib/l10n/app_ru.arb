@@ -491,6 +491,6 @@
   "quickstart": "Быстрый старт",
   "noTemplates": "В настоящее время шаблонов нет",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "Импортировать пакет ядра",
+  "importCorePackDescription": "Импортируйте пакет ядра, содержащий все основные медиафайлы для начала. Это переопределит текущий пакет ядра."
 }
