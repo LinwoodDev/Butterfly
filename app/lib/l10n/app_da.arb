@@ -491,6 +491,6 @@
   "quickstart": "Hurtigstart",
   "noTemplates": "Der er i øjeblikket ingen tilgængelige skabeloner",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "Importér kernepakke",
+  "importCorePackDescription": "Importér kernepakken der indeholder alle grundlæggende aktiver for at komme i gang. Dette vil tilsidesætte den aktuelle kernepakke."
 }
