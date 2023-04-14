@@ -491,6 +491,6 @@
   "quickstart": "Schnellstart",
   "noTemplates": "Derzeit sind keine Vorlagen verfügbar",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "Kernpaket importieren",
+  "importCorePackDescription": "Importiere das Core Pack, das alle grundlegenden Assets enthält, die gestartet werden sollen. Dies wird das aktuelle Core Pack überschreiben."
 }
