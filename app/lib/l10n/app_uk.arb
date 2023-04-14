@@ -491,6 +491,6 @@
   "quickstart": "Швидкий старт",
   "noTemplates": "Наразі немає доступних шаблонів",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "Імпортувати базовий пакет",
+  "importCorePackDescription": "Імпортувати основний пакет, який містить всі основні активи для початку. Це перевизначить поточний базовий пакет."
 }
