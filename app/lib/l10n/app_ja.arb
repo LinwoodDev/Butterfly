@@ -491,6 +491,6 @@
   "quickstart": "クイックスタート",
   "noTemplates": "現在利用可能なテンプレートはありません",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "コア パックをインポート",
+  "importCorePackDescription": "始めるためのすべての基本的なアセットを含むコア パックをインポートします。これは現在のコア パックを上書きします。"
 }
