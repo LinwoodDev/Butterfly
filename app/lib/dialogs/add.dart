@@ -43,6 +43,8 @@ class AddDialog extends StatelessWidget {
       );
     }
 
+    final isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
+
     return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -165,8 +167,9 @@ class AddDialog extends StatelessWidget {
                       icon: const PhosphorIcon(PhosphorIconsLight.fileText),
                       onTap: () async {
                         final files = await FilePicker.platform.pickFiles(
-                            type: FileType.custom,
-                            allowedExtensions: ['bfly', 'json'],
+                            type: isMobile ? FileType.any : FileType.custom,
+                            allowedExtensions:
+                                isMobile ? null : ['bfly', 'json'],
                             allowMultiple: false,
                             withData: true);
                         if (files?.files.isEmpty ?? true) return;

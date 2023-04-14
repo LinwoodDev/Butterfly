@@ -17,7 +17,7 @@ class ImportDialog extends StatefulWidget {
 class _ImportDialogState extends State<ImportDialog> {
   @override
   Widget build(BuildContext context) {
-    var isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
+    final isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
     return AlertDialog(
       title: Row(
         children: [

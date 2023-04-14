@@ -323,12 +323,9 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                         setState(() => _advanced = !isExpanded),
                     children: [
                       ExpansionPanel(
-                        headerBuilder: ((context, isExpanded) => Align(
-                              alignment: Alignment.center,
-                              child: Text(AppLocalizations.of(context).advanced,
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                  textAlign: TextAlign.center),
-                            )),
+                        headerBuilder: (context, isExpanded) => ListTile(
+                          title: Text(AppLocalizations.of(context).advanced),
+                        ),
                         canTapOnHeader: true,
                         isExpanded: _advanced,
                         body: Column(children: [
