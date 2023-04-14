@@ -12,3 +12,4 @@
 * Fix infinite loop if action painter is first painter
 * Fix selection system after removing current painter
 * Fix file import on mobile devices
+* Fix setting horizontal alignment of text

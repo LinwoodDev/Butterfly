@@ -340,11 +340,14 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             PhosphorIcon(PhosphorIconsLight.textAlignJustify),
                           ],
                           onPressed: (current) {
+                            final newParagraph = paragraph.copyWith(
+                              alignment:
+                                  text.HorizontalAlignment.values[current],
+                            );
                             widget.onChanged(widget.value.copyWith(
-                              forcedProperty: paragraph.copyWith(
-                                alignment:
-                                    text.HorizontalAlignment.values[current],
-                              ),
+                              forcedProperty: newParagraph,
+                              element: widget.value.element?.copyWith.area
+                                  .paragraph(property: newParagraph),
                             ));
                           },
                         ),
