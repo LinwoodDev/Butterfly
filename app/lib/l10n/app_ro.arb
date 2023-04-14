@@ -488,5 +488,9 @@
   "goUp": "Mergi mai sus",
   "created": "Creat",
   "modified": "Modificat",
-  "quickstart": "Quickstart"
+  "quickstart": "Quickstart",
+  "noTemplates": "În acest moment nu există șabloane disponibile",
+  "reset": "Reset",
+  "importCorePack": "Importă pachetul de nucleu",
+  "importCorePackDescription": "Importați pachetul de nucleu care conține toate activele de bază pentru a începe. Acest lucru va suprascrie actualul nucleu pachet."
 }

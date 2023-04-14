@@ -488,5 +488,9 @@
   "goUp": "上へ",
   "created": "作成済み",
   "modified": "修正されました",
-  "quickstart": "クイックスタート"
+  "quickstart": "クイックスタート",
+  "noTemplates": "現在利用可能なテンプレートはありません",
+  "reset": "Reset",
+  "importCorePack": "コア パックをインポート",
+  "importCorePackDescription": "始めるためのすべての基本的なアセットを含むコア パックをインポートします。これは現在のコア パックを上書きします。"
 }

@@ -22,4 +22,4 @@ title: "Спільнота"
 
 * [GitHub](https://github.com/LinwoodCloud/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Матриця](https://go.linwood.dev/matrix)
+* [Matrix](https://go.linwood.dev/matrix)

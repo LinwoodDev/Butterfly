@@ -488,5 +488,9 @@
   "goUp": "Subir",
   "created": "Creado",
   "modified": "Modificado",
-  "quickstart": "Inicio rápido"
+  "quickstart": "Inicio rápido",
+  "noTemplates": "Actualmente no hay plantillas disponibles",
+  "reset": "Reset",
+  "importCorePack": "Importar paquete del núcleo",
+  "importCorePackDescription": "Importar el paquete base que contiene todos los activos básicos para empezar. Esto anulará el paquete del núcleo actual."
 }
