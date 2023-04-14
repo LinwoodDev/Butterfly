@@ -491,6 +491,6 @@
   "quickstart": "Quickstart",
   "noTemplates": "În acest moment nu există șabloane disponibile",
   "reset": "Reset",
-  "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePack": "Importă pachetul de nucleu",
+  "importCorePackDescription": "Importați pachetul de nucleu care conține toate activele de bază pentru a începe. Acest lucru va suprascrie actualul nucleu pachet."
 }
