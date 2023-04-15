@@ -67,7 +67,7 @@ class _PresentationTimelineViewState extends State<PresentationTimelineView> {
                 position: _position,
                 cursorColor: colorScheme.primary,
                 keyColor: colorScheme.secondary,
-                backgroundColor: colorScheme.secondaryContainer,
+                backgroundColor: colorScheme.surface,
               ),
             ),
           ),
