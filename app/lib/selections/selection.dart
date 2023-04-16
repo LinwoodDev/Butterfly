@@ -26,7 +26,7 @@ import '../actions/packs.dart';
 import '../api/open.dart';
 import '../cubits/transform.dart';
 import '../dialogs/layer.dart';
-import '../helpers/icon.dart';
+import '../helpers/icon_helper.dart';
 import '../renderers/renderer.dart';
 import '../widgets/color_field.dart';
 import '../widgets/exact_slider.dart';

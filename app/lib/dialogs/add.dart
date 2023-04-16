@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:butterfly/helpers/color_helper.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/visualizer/property.dart';
@@ -22,7 +23,12 @@ class AddDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void addPainter(Painter painter) {
-      context.read<DocumentBloc>().add(PainterCreated(painter));
+      final bloc = context.read<DocumentBloc>();
+      final state = bloc.state;
+      if (state is! DocumentLoaded) return;
+      final background = state.document.background.defaultColor;
+      final defaultPainter = updatePainterDefaultColor(painter, background);
+      bloc.add(PainterCreated(defaultPainter));
       Navigator.of(context).pop();
     }
 

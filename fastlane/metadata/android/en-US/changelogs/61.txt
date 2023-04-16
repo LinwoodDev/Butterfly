@@ -1,1 +1,2 @@
+* Use the best painter color based on the background color
 * Fix timeline colors
