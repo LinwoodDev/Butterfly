@@ -325,8 +325,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.remote != widget.remote) {
       _remote = widget.remote;
+      _setFilesFuture();
     }
-    _setFilesFuture();
   }
 
   String getLocalizedNameOfSortBy(_SortBy sortBy) {
@@ -1189,7 +1189,7 @@ class _FileEntityListTile extends StatelessWidget {
   }
 }
 
-class _QuickstartHomeView extends StatelessWidget {
+class _QuickstartHomeView extends StatefulWidget {
   final RemoteStorage? remote;
   final VoidCallback onReload;
 
@@ -1199,9 +1199,42 @@ class _QuickstartHomeView extends StatelessWidget {
   });
 
   @override
+  State<_QuickstartHomeView> createState() => _QuickstartHomeViewState();
+}
+
+class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
+  late final TemplateFileSystem _templateFileSystem;
+  late Future<List<DocumentTemplate>> _templatesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _templateFileSystem =
+        TemplateFileSystem.fromPlatform(remote: widget.remote);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    _templatesFuture = _fetchTemplates();
+  }
+
+  @override
+  void didUpdateWidget(covariant _QuickstartHomeView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.remote != widget.remote) {
+      setState(() => _templatesFuture = _fetchTemplates());
+    }
+  }
+
+  Future<List<DocumentTemplate>> _fetchTemplates() => _templateFileSystem
+      .createDefault(context)
+      .then((value) => _templateFileSystem.getTemplates());
+
+  @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final templateFileSystem = TemplateFileSystem.fromPlatform(remote: remote);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
@@ -1216,9 +1249,7 @@ class _QuickstartHomeView extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           FutureBuilder<List<DocumentTemplate>>(
-              future: templateFileSystem
-                  .createDefault(context)
-                  .then((value) => templateFileSystem.getTemplates()),
+              future: _templatesFuture,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
@@ -1241,9 +1272,10 @@ class _QuickstartHomeView extends StatelessWidget {
                       const SizedBox(height: 16),
                       FilledButton(
                         onPressed: () async {
-                          await templateFileSystem.createDefault(context,
+                          await _templateFileSystem.createDefault(context,
                               force: true);
-                          onReload();
+                          setState(() => _templatesFuture = _fetchTemplates());
+                          widget.onReload();
                         },
                         child: Text(
                           AppLocalizations.of(context).reset,
@@ -1279,7 +1311,7 @@ class _QuickstartHomeView extends StatelessWidget {
                                                 'path': e.directory
                                               },
                                               extra: e.document);
-                                          onReload();
+                                          widget.onReload();
                                         },
                                         child: Stack(
                                           children: [
