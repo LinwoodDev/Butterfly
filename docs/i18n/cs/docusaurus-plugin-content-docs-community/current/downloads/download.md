@@ -4,7 +4,7 @@ sidebar_position: 0
 title: Stahování
 ---
 
-![Stabilní verze vydání](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stabilní verze vydání](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Vyberte platformu
 
@@ -42,6 +42,6 @@ title: Stahování
 ## Užitečné odkazy
 
 - [Seznam změn](changelog)
-- [Starší vydání](https://github.com/LinwoodCloud/butterfly/releases)
-- [Poslední vydání](https://github.com/LinwoodCloud/butterfly/releases/latest)
+- [Starší vydání](https://github.com/LinwoodDev/butterfly/releases)
+- [Poslední vydání](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Podpora](https://discord.linwood.dev)
