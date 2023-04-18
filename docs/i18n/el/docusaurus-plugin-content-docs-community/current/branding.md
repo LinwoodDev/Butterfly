@@ -2,7 +2,7 @@
 title: Μάρκα
 ---
 
-Τα εν λόγω περιουσιακά στοιχεία έχουν αδειοδοτηθεί από την [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Τα εν λόγω περιουσιακά στοιχεία έχουν αδειοδοτηθεί από την [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Λογότυπο
 
