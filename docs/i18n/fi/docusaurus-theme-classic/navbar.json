@@ -1,14 +1,14 @@
 {
   "title": {
-    "message": "Butterfly",
+    "message": "Perhonen",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Butterfly Logo",
+    "message": "Perhonen Logo",
     "description": "The alt text of navbar logo"
   },
   "item.label.Tutorial": {
-    "message": "Tutorial",
+    "message": "Opastus",
     "description": "Navbar item with label Tutorial"
   },
   "item.label.Downloads": {
@@ -36,11 +36,11 @@
     "description": "Navbar item with label GitHub"
   },
   "item.label.Blog": {
-    "message": "Blog",
+    "message": "Blogi",
     "description": "Navbar item with label Blog"
   },
   "item.label.Crowdin": {
-    "message": "Crowdin",
+    "message": "Crowdiini",
     "description": "Navbar item with label Crowdin"
   },
   "item.label.Twitter": {
