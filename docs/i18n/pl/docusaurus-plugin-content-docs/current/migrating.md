@@ -15,4 +15,4 @@ Warstwa gumki zostanie usunięta. Podczas migracji warstwa gumki zostanie usuni�
 
 ## Starsze wersje
 
-Wszystkie poprzedzające migracje zostaną wykonane automatycznie. Przeczytaj pełną migrację w kodzie [tutaj](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Wszystkie poprzedzające migracje zostaną wykonane automatycznie. Przeczytaj pełną migrację w kodzie [tutaj](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
