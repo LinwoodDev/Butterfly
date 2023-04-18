@@ -1,10 +1,10 @@
 {
   "title": {
-    "message": "Butterfly",
+    "message": "Borboleta",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Butterfly Logo",
+    "message": "Logotipo Borboleta",
     "description": "The alt text of navbar logo"
   },
   "item.label.Tutorial": {
@@ -36,7 +36,7 @@
     "description": "Navbar item with label GitHub"
   },
   "item.label.Blog": {
-    "message": "Blog",
+    "message": "Blogue",
     "description": "Navbar item with label Blog"
   },
   "item.label.Crowdin": {
