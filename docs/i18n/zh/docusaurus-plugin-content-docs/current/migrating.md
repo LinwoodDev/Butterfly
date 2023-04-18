@@ -15,4 +15,4 @@ sidebar_position: 2
 
 ## 旧版本
 
-之前的所有迁移都将自动进行。 在这里阅读代码 [的完整迁移。](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17)。
+之前的所有迁移都将自动进行。 在这里阅读代码 的完整迁移。</p>
