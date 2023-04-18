@@ -1,14 +1,14 @@
 {
   "title": {
-    "message": "Butterfly",
+    "message": "Motylka",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Butterfly Logo",
+    "message": "Logo Motylka",
     "description": "The alt text of navbar logo"
   },
   "item.label.Tutorial": {
-    "message": "Tutorial",
+    "message": "Samouczek",
     "description": "Navbar item with label Tutorial"
   },
   "item.label.Downloads": {
