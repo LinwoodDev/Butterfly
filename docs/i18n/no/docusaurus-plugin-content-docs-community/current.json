@@ -1,7 +1,11 @@
 {
   "version.label": {
-    "message": "Neste",
+    "message": "Next",
     "description": "The label for version current"
+  },
+  "sidebar.sidebar.category.Embedding": {
+    "message": "Embedding",
+    "description": "The label for category Embedding in sidebar sidebar"
   },
   "sidebar.sidebar.link.Discord": {
     "message": "Discord",
@@ -9,10 +13,6 @@
   },
   "sidebar.sidebar.link.GitHub": {
     "message": "GitHub",
-    "description": "The label for link GitHub in sidebar sidebar, linking to https://github.com/LinwoodCloud/Butterfly"
-  },
-  "sidebar.sidebar.category.Embedding": {
-    "message": "Embedding",
-    "description": "The label for category Embedding in sidebar sidebar"
+    "description": "The label for link GitHub in sidebar sidebar, linking to https://github.com/LinwoodDev/Butterfly"
   }
 }
