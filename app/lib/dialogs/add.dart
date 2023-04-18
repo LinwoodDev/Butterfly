@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:butterfly/helpers/color_helper.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/visualizer/property.dart';
@@ -22,7 +23,12 @@ class AddDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void addPainter(Painter painter) {
-      context.read<DocumentBloc>().add(PainterCreated(painter));
+      final bloc = context.read<DocumentBloc>();
+      final state = bloc.state;
+      if (state is! DocumentLoaded) return;
+      final background = state.document.background.defaultColor;
+      final defaultPainter = updatePainterDefaultColor(painter, background);
+      bloc.add(PainterCreated(defaultPainter));
       Navigator.of(context).pop();
     }
 
@@ -42,6 +48,8 @@ class AddDialog extends StatelessWidget {
         onTap: () => addPainter(painter),
       );
     }
+
+    final isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
 
     return AlertDialog(
       title: Row(
@@ -165,8 +173,9 @@ class AddDialog extends StatelessWidget {
                       icon: const PhosphorIcon(PhosphorIconsLight.fileText),
                       onTap: () async {
                         final files = await FilePicker.platform.pickFiles(
-                            type: FileType.custom,
-                            allowedExtensions: ['bfly', 'json'],
+                            type: isMobile ? FileType.any : FileType.custom,
+                            allowedExtensions:
+                                isMobile ? null : ['bfly', 'json'],
                             allowMultiple: false,
                             withData: true);
                         if (files?.files.isEmpty ?? true) return;

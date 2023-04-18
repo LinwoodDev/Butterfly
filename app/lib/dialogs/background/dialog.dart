@@ -170,23 +170,14 @@ class BackgroundDialog extends StatelessWidget {
                                                   currentExpansionOpened == 0,
                                               headerBuilder: (context,
                                                       isExpanded) =>
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                          AppLocalizations.of(
-                                                                  context)
-                                                              .horizontal,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .titleLarge),
-                                                    ],
+                                                  ListTile(
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .horizontal,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleLarge),
                                                   ),
                                               body: Padding(
                                                 padding:
@@ -281,23 +272,14 @@ class BackgroundDialog extends StatelessWidget {
                                                   currentExpansionOpened == 1,
                                               headerBuilder: (context,
                                                       isExpanded) =>
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                          AppLocalizations.of(
-                                                                  context)
-                                                              .vertical,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .titleLarge),
-                                                    ],
+                                                  ListTile(
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .vertical,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleLarge),
                                                   ),
                                               body: Padding(
                                                 padding:

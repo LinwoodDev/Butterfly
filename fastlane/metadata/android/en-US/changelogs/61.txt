@@ -1,0 +1,4 @@
+* Use the best painter color based on the background color
+* Fix timeline colors
+* Fix reload after resizing the window
+* Fix reset does not replace templates

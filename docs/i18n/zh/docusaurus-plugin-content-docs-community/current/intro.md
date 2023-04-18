@@ -22,4 +22,4 @@ title: "社区"
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [矩阵列表](https://go.linwood.dev/matrix)
+* [Matrix](https://go.linwood.dev/matrix)

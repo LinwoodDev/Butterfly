@@ -488,5 +488,9 @@
   "goUp": "Nach oben",
   "created": "Erstellt",
   "modified": "Geändert",
-  "quickstart": "Schnellstart"
+  "quickstart": "Schnellstart",
+  "noTemplates": "Derzeit sind keine Vorlagen verfügbar",
+  "reset": "Reset",
+  "importCorePack": "Kernpaket importieren",
+  "importCorePackDescription": "Importiere das Core Pack, das alle grundlegenden Assets enthält, die gestartet werden sollen. Dies wird das aktuelle Core Pack überschreiben."
 }

@@ -5,8 +5,16 @@
 * Add system to change position of cursor on text by clicking on it
 * Add box to text editing
 * Add vertical arrow selection in text
+* Add option to add core pack to update the current one
+* Play at the beginning if the current frame is the last one
+* Show path without leading slash in appbar
 * Fix home page on smaller screens
 * Fix rich text editor in label painter
 * Fix DragToMoveArea on native title bar on desktop
 * Fix infinite loop if action painter is first painter
 * Fix selection system after removing current painter
+* Fix file import on mobile devices
+* Fix setting horizontal alignment of text
+* Fix problems with presentation painter if paused
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0

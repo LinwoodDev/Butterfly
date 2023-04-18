@@ -22,4 +22,4 @@ Kaikki muut lisenssit löytyvät asetuksista.
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Matriisi](https://go.linwood.dev/matrix)
+* [Matrix](https://go.linwood.dev/matrix)

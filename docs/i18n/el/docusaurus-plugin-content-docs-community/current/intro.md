@@ -22,4 +22,4 @@ title: "Κοινότητα"
 
 * [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Πίνακας](https://go.linwood.dev/matrix)
+* [Matrix](https://go.linwood.dev/matrix)

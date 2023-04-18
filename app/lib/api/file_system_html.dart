@@ -369,7 +369,7 @@ class WebTemplateFileSystem extends TemplateFileSystem {
       force = !prefs.containsKey('defaultTemplate');
     }
     if (!force) return false;
-    await Future.wait(defaults.map((e) => createTemplate(e)));
+    await Future.wait(defaults.map((e) => updateTemplate(e)));
     prefs.setBool('defaultTemplate', true);
     return true;
   }

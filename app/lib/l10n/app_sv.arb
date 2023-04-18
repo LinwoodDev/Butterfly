@@ -488,5 +488,9 @@
   "goUp": "Gå upp",
   "created": "Skapad",
   "modified": "Ändrad",
-  "quickstart": "Snabbstart"
+  "quickstart": "Snabbstart",
+  "noTemplates": "Det finns för närvarande inga tillgängliga mallar",
+  "reset": "Reset",
+  "importCorePack": "Importera kärnpaket",
+  "importCorePackDescription": "Importera kärnpaketet som innehåller alla grundläggande tillgångar för att komma igång. Detta åsidosätter det aktuella kärnpaketet."
 }

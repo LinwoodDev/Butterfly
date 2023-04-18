@@ -150,7 +150,8 @@ class _AppBarTitle extends StatelessWidget {
                                                   .location.path.isEmpty)
                                           ? currentIndex.location.fileType
                                               ?.getLocalizedName(context)
-                                          : currentIndex.location.path) ??
+                                          : currentIndex.location
+                                              .pathWithoutLeadingSlash) ??
                                       AppLocalizations.of(context).document,
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
