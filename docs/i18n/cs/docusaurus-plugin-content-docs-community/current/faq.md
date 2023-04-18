@@ -15,7 +15,7 @@ Webovou verzi můžete nainstalovat kliknutím na tlačítko instalace v záhlav
 
 ### Nelze vložit obrázky do webu
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
 
 V současné době dekódování obrázků nefunguje s canvaskit. Prosím, hlasujte pro [tento problém](https://github.com/flutter/flutter/issues/102683) , pokud chcete tuto možnost!
 
@@ -27,7 +27,7 @@ Hrobní uživatelé, kteří nastavili pole 'Blokovat otisk prstu' na Agresivní
 
 ### Pád na Z Fold 3, když držíte boční tlačítko S Pen
 
-> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
 To je známý problém s futter a Samsung Z Fold 3. Prosím, hlasujte pro [tento problém](https://github.com/flutter/flutter/issues/111068) , abyste to opravili!
 
@@ -35,7 +35,7 @@ To je známý problém s futter a Samsung Z Fold 3. Prosím, hlasujte pro [tento
 
 ### Stylus vstup nebyl rozpoznán
 
-> [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
+> [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 Používám vstup poskytnutý rámcem blesku. Již existují problémy se sledováním: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) a [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
