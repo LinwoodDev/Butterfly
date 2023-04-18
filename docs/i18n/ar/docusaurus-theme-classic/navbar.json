@@ -1,14 +1,14 @@
 {
   "title": {
-    "message": "Butterfly",
+    "message": "الفراشة",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Butterfly Logo",
+    "message": "شعار الفراشة",
     "description": "The alt text of navbar logo"
   },
   "item.label.Tutorial": {
-    "message": "Tutorial",
+    "message": "البرنامج التعليمي",
     "description": "Navbar item with label Tutorial"
   },
   "item.label.Downloads": {
@@ -36,15 +36,15 @@
     "description": "Navbar item with label GitHub"
   },
   "item.label.Blog": {
-    "message": "Blog",
+    "message": "المدونة",
     "description": "Navbar item with label Blog"
   },
   "item.label.Crowdin": {
-    "message": "Crowdin",
+    "message": "كرودن",
     "description": "Navbar item with label Crowdin"
   },
   "item.label.Twitter": {
-    "message": "Twitter",
+    "message": "تويتر",
     "description": "Navbar item with label Twitter"
   },
   "item.label.Mastodon": {
