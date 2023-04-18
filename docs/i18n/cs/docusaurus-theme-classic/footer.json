@@ -4,11 +4,11 @@
     "description": "The title of the footer links column with title=Community in the footer"
   },
   "link.title.Source code": {
-    "message": "Source code",
+    "message": "Zdrojový kód",
     "description": "The title of the footer links column with title=Source code in the footer"
   },
   "link.title.Legal": {
-    "message": "Legal",
+    "message": "Právní předpisy",
     "description": "The title of the footer links column with title=Legal in the footer"
   },
   "link.item.label.Discord": {
@@ -28,15 +28,15 @@
     "description": "The label of footer link with label=Mastodon linking to https://floss.social/@linwood"
   },
   "link.item.label.App": {
-    "message": "App",
+    "message": "Aplikace",
     "description": "The label of footer link with label=App linking to https://github.com/LinwoodDev/butterfly/tree/develop/app"
   },
   "link.item.label.Docs": {
-    "message": "Docs",
+    "message": "Dokumenty",
     "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodDev/butterfly/tree/develop/docs"
   },
   "link.item.label.Contribution guide": {
-    "message": "Contribution guide",
+    "message": "Příručka pro přispění",
     "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodDev/butterfly/blob/develop/CONTRIBUTING.md"
   },
   "link.item.label.Imprint": {
@@ -44,19 +44,19 @@
     "description": "The label of footer link with label=Imprint linking to https://go.linwood.dev/imprint"
   },
   "link.item.label.Privacy Policy of the app": {
-    "message": "Privacy Policy of the app",
+    "message": "Zásady ochrany osobních údajů aplikace",
     "description": "The label of footer link with label=Privacy Policy of the app linking to /privacypolicy"
   },
   "link.item.label.Privacy Policy of the website": {
-    "message": "Privacy Policy of the website",
+    "message": "Zásady ochrany osobních údajů webových stránek",
     "description": "The label of footer link with label=Privacy Policy of the website linking to https://go.linwood.dev/privacypolicy"
   },
   "copyright": {
-    "message": "Copyright © 2023 Linwood.",
+    "message": "Copyright ©️ 2023 Linwood.",
     "description": "The footer copyright"
   },
   "logo.alt": {
-    "message": "Linwood Logo",
+    "message": "Linwood logo",
     "description": "The alt text of footer logo"
   }
 }
