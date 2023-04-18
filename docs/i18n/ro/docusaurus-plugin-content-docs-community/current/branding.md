@@ -2,7 +2,7 @@
 title: Branding
 ---
 
-Aceste active sunt licențiate sub [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Aceste active sunt licențiate sub [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
