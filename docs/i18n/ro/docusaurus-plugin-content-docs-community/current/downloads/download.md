@@ -4,7 +4,7 @@ sidebar_position: 0
 title: Descărcări
 ---
 
-![Versiune stabilă de lansare](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Versiune stabilă de lansare](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Alege-ți platforma
 
@@ -42,6 +42,6 @@ title: Descărcări
 ## Link-uri utile
 
 - [Jurnal modificări](changelog)
-- [Partajări mai vechi](https://github.com/LinwoodCloud/butterfly/releases)
-- [Ultima versiune](https://github.com/LinwoodCloud/butterfly/releases/latest)
+- [Partajări mai vechi](https://github.com/LinwoodDev/butterfly/releases)
+- [Ultima versiune](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Suport](https://discord.linwood.dev)
