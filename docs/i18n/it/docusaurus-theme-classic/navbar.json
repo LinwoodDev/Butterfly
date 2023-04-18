@@ -1,10 +1,10 @@
 {
   "title": {
-    "message": "Butterfly",
+    "message": "Farfalla",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Butterfly Logo",
+    "message": "Logo Farfalla",
     "description": "The alt text of navbar logo"
   },
   "item.label.Tutorial": {
