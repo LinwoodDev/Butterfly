@@ -2,7 +2,7 @@
 title: Varumärke
 ---
 
-Dessa tillgångar är licensierade under [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Dessa tillgångar är licensierade under [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logotyp
 
