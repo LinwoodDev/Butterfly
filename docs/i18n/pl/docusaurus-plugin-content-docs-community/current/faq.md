@@ -15,7 +15,7 @@ Możesz zainstalować wersję internetową klikając na przycisk Instaluj na pas
 
 ### Nie można wstawić obrazów w sieci
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
 
 Obecnie dekodowanie obrazów nie działa z canvaskit. Proszę zagłosuj [na ten problem](https://github.com/flutter/flutter/issues/102683) , jeśli chcesz tę opcję!
 
@@ -27,7 +27,7 @@ Odważni użytkownicy, którzy ustawili tarczę "Zablokuj odcisk palca" na Aggre
 
 ### Uderzenia na Z Fold 3, przytrzymując boczny przycisk S Pen
 
-> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
 Jest to znany problem z trzepotaniem i z Samsung Z Fold 3. Proszę zagłosuj [na ten problem](https://github.com/flutter/flutter/issues/111068) , aby to naprawić!
 
@@ -35,7 +35,7 @@ Jest to znany problem z trzepotaniem i z Samsung Z Fold 3. Proszę zagłosuj [na
 
 ### Wejście Stylus nie jest rozpoznane
 
-> [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
+> [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 Używam danych wejściowych dostarczanych przez ramę wytrząsania. Istnieją już problemy do śledzenia: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) i [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 

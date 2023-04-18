@@ -2,7 +2,7 @@
 title: Branding
 ---
 
-これらの資産は、 [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE) の下でライセンスされています。
+これらの資産は、 [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE) の下でライセンスされています。
 
 ## ロゴ
 

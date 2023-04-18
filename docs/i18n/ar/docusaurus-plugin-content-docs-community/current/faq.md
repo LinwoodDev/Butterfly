@@ -15,7 +15,7 @@ sidebar_label: "أسئلة متكررة"
 
 ### لا يمكن إدراج الصور في الويب
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
 
 لا يعمل فك ترميز الصور حاليا مع canvaskit. الرجاء التصويت [هذه المشكلة](https://github.com/flutter/flutter/issues/102683) إذا كنت تريد هذا الخيار!
 
@@ -27,7 +27,7 @@ sidebar_label: "أسئلة متكررة"
 
 ### تحطم على Z Lod 3 عند الضغط على زر الجانب من S Pen
 
-> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
 هذه مشكلة معروفة بطلاقة و صامسونج Z فولد 3. الرجاء التصويت [هذه المشكلة](https://github.com/flutter/flutter/issues/111068) للحصول على إصلاح هذا!
 
@@ -35,7 +35,7 @@ sidebar_label: "أسئلة متكررة"
 
 ### لم يتم التعرف على إدخال Stylus
 
-> [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
+> [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 أنا أستخدم المدخل الذي يوفره إطار التردد. هناك بالفعل مشاكل لتعقبها: ويندوز: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) و [flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 

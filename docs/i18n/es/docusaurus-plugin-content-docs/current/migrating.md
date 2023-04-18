@@ -15,4 +15,4 @@ Se eliminará la capa del borrador. En la migración, se eliminará la capa de b
 
 ## Versiones antiguas
 
-Todas las migraciones anteriores se harán automáticamente. Lee la migración completa en código [aquí](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Todas las migraciones anteriores se harán automáticamente. Lee la migración completa en código [aquí](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).

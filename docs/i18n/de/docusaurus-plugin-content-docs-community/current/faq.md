@@ -15,7 +15,7 @@ Sie können die Web-Version installieren, indem Sie auf den Installations-Button
 
 ### Bilder können nicht im Web eingefügt werden
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
 
 Zur Zeit funktioniert das Dekodieren von Bildern nicht mit Canvaskit. Bitte bewerte [dieses Ticket](https://github.com/flutter/flutter/issues/102683) wenn du diese Option möchtest!
 
@@ -27,7 +27,7 @@ Mutige Benutzer, die die 'Fingerabdruck blockieren'-Einstellung auf Aggressiv ei
 
 ### Abstürze bei Z Fold 3, wenn die Seitentaste von S Pen gedrückt wird
 
-> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
 Dies ist ein bekanntes Problem mit Flutter und der Samsung Z Fold 3. Bitte bewerte [dieses Ticket](https://github.com/flutter/flutter/issues/111068) um das Problem zu beheben!
 
@@ -35,7 +35,7 @@ Dies ist ein bekanntes Problem mit Flutter und der Samsung Z Fold 3. Bitte bewer
 
 ### Stylus Eingabe wird nicht erkannt
 
-> [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
+> [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 Ich benutze die Eingabe des Flutter-Frameworks. Es gibt bereits Probleme zu verfolgen: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) und [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 

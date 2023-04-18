@@ -20,6 +20,6 @@ Toate celelalte licențe pot fi găsite în setări.
 
 ## Link-uri utile
 
-* [GitHub](https://github.com/LinwoodCloud/Butterfly)
+* [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
 * [Matricea](https://go.linwood.dev/matrix)

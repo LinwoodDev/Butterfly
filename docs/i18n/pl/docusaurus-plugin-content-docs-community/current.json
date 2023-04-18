@@ -9,7 +9,7 @@
   },
   "sidebar.sidebar.link.GitHub": {
     "message": "GitHub",
-    "description": "The label for link GitHub in sidebar sidebar, linking to https://github.com/LinwoodCloud/Butterfly"
+    "description": "The label for link GitHub in sidebar sidebar, linking to https://github.com/LinwoodDev/Butterfly"
   },
   "sidebar.sidebar.category.Embedding": {
     "message": "Embedding",

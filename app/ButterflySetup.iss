@@ -5,7 +5,7 @@
 #ifndef MyAppVersion
 #define MyAppVersion "1.0"
 #endif
-#define MyAppPublisher "LinwoodCloud"
+#define MyAppPublisher "LinwoodDev"
 #define MyAppURL "https://www.linwood.dev"
 #define MyAppExeName "butterfly.exe" 
 #define BaseDirRelease "build\windows\runner\Release"

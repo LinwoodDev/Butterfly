@@ -15,4 +15,4 @@ Radergummi lagret kommer att tas bort. Vid migrering kommer suddgummilagret att 
 
 ## Äldre versioner
 
-Alla migrationer innan kommer att göras automatiskt. Läs hela migreringen i kod [här](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Alla migrationer innan kommer att göras automatiskt. Läs hela migreringen i kod [här](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).

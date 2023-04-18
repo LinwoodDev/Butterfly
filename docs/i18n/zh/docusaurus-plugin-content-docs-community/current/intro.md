@@ -20,6 +20,6 @@ title: "社区"
 
 ## 有用的链接
 
-* [GitHub](https://github.com/LinwoodCloud/Butterfly)
+* [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
 * [矩阵列表](https://go.linwood.dev/matrix)

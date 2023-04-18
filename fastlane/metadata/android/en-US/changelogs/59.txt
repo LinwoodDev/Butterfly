@@ -50,9 +50,9 @@
 * Improve pdf export
 * Restructure basic classes in api project
 * Downloads
-  * Add start scripts ([#304](https://github.com/LinwoodCloud/Butterfly/issues/304))
+  * Add start scripts ([#304](https://github.com/LinwoodDev/Butterfly/issues/304))
 * Bug fixes
-  * Fix unicode characters in file path, fixes ([#336](https://github.com/LinwoodCloud/Butterfly/issues/336))
+  * Fix unicode characters in file path, fixes ([#336](https://github.com/LinwoodDev/Butterfly/issues/336))
   * Fix after Undo, Hand tool will be selected
   * Fix blank page after entering or exiting area mode
   * Fix global shortcuts

@@ -2,7 +2,7 @@
 title: Značka
 ---
 
-Tato aktiva jsou licencována pod [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Tato aktiva jsou licencována pod [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 

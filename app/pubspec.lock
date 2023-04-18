@@ -676,7 +676,7 @@ packages:
       path: "packages/lw_sysinfo"
       ref: "6aaa333947699dd999d0bde3890fd7f0015b72c4"
       resolved-ref: "6aaa333947699dd999d0bde3890fd7f0015b72c4"
-      url: "https://github.com/LinwoodCloud/dart_pkgs.git"
+      url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
   matcher:
