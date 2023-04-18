@@ -4,55 +4,59 @@
     "description": "The title of the footer links column with title=Community in the footer"
   },
   "link.title.Source code": {
-    "message": "الكود المصدري",
+    "message": "Source code",
     "description": "The title of the footer links column with title=Source code in the footer"
   },
   "link.title.Legal": {
-    "message": "قانوني",
+    "message": "Legal",
     "description": "The title of the footer links column with title=Legal in the footer"
   },
   "link.item.label.Discord": {
     "message": "Discord",
     "description": "The label of footer link with label=Discord linking to https://discord.linwood.dev"
   },
-  "link.item.label.Twitter": {
-    "message": "تويتر",
-    "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodCloud"
+  "link.item.label.Matrix": {
+    "message": "Matrix",
+    "description": "The label of footer link with label=Matrix linking to https://linwood.dev/matrix"
   },
-  "link.item.label.Contribution guide": {
-    "message": "دليل المساهمة",
-    "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md"
+  "link.item.label.Twitter": {
+    "message": "Twitter",
+    "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodDev"
+  },
+  "link.item.label.Mastodon": {
+    "message": "Mastodon",
+    "description": "The label of footer link with label=Mastodon linking to https://floss.social/@linwood"
   },
   "link.item.label.App": {
-    "message": "التطبيق",
-    "description": "The label of footer link with label=App linking to https://github.com/LinwoodCloud/butterfly/tree/develop/app"
+    "message": "App",
+    "description": "The label of footer link with label=App linking to https://github.com/LinwoodDev/butterfly/tree/develop/app"
   },
   "link.item.label.Docs": {
-    "message": "الوثائق",
-    "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodCloud/butterfly/tree/develop/docs"
+    "message": "Docs",
+    "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodDev/butterfly/tree/develop/docs"
+  },
+  "link.item.label.Contribution guide": {
+    "message": "Contribution guide",
+    "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodDev/butterfly/blob/develop/CONTRIBUTING.md"
   },
   "link.item.label.Imprint": {
     "message": "بصمة",
     "description": "The label of footer link with label=Imprint linking to https://go.linwood.dev/imprint"
   },
-  "copyright": {
-    "message": "حقوق الطبع والنشر © 2022 LinwoodCloud.",
-    "description": "The footer copyright"
-  },
   "link.item.label.Privacy Policy of the app": {
-    "message": "سياسة الخصوصية للتطبيق",
+    "message": "Privacy Policy of the app",
     "description": "The label of footer link with label=Privacy Policy of the app linking to /privacypolicy"
   },
   "link.item.label.Privacy Policy of the website": {
-    "message": "سياسة الخصوصية للموقع",
+    "message": "Privacy Policy of the website",
     "description": "The label of footer link with label=Privacy Policy of the website linking to https://go.linwood.dev/privacypolicy"
   },
-  "link.item.label.Matrix": {
-    "message": "مصفوفة",
-    "description": "The label of footer link with label=Matrix linking to https://linwood.dev/matrix"
+  "copyright": {
+    "message": "Copyright © 2023 Linwood.",
+    "description": "The footer copyright"
   },
-  "link.item.label.Mastodon": {
-    "message": "Mastodon",
-    "description": "The label of footer link with label=Mastodon linking to https://floss.social/@linwood"
+  "logo.alt": {
+    "message": "Linwood Logo",
+    "description": "The alt text of footer logo"
   }
 }
