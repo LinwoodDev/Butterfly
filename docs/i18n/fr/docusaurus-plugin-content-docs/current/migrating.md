@@ -15,4 +15,4 @@ La couche gomme sera supprimée. Lors de la migration, la couche gomme sera supp
 
 ## Anciennes versions
 
-Toutes les migrations antérieures se feront automatiquement. Lisez la migration complète dans le code [ici](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Toutes les migrations antérieures se feront automatiquement. Lisez la migration complète dans le code [ici](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
