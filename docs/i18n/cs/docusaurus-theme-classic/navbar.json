@@ -1,14 +1,14 @@
 {
   "title": {
-    "message": "Butterfly",
+    "message": "Klev",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Butterfly Logo",
+    "message": "Logo Butterfly",
     "description": "The alt text of navbar logo"
   },
   "item.label.Tutorial": {
-    "message": "Tutorial",
+    "message": "Návod",
     "description": "Navbar item with label Tutorial"
   },
   "item.label.Downloads": {
