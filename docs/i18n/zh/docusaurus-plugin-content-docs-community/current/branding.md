@@ -2,7 +2,7 @@
 title: 品牌化
 ---
 
-这些资源是在 [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE) 下许可的。
+这些资源是在 [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE) 下许可的。
 
 ## 徽标
 
