@@ -1,14 +1,14 @@
 {
   "title": {
-    "message": "Butterfly",
+    "message": "Papillon",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Butterfly Logo",
+    "message": "Logo papillon",
     "description": "The alt text of navbar logo"
   },
   "item.label.Tutorial": {
-    "message": "Tutorial",
+    "message": "Tutoriel",
     "description": "Navbar item with label Tutorial"
   },
   "item.label.Downloads": {
@@ -36,7 +36,7 @@
     "description": "Navbar item with label GitHub"
   },
   "item.label.Blog": {
-    "message": "Blog",
+    "message": "Blogue",
     "description": "Navbar item with label Blog"
   },
   "item.label.Crowdin": {
