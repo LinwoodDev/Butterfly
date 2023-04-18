@@ -1,14 +1,14 @@
 {
   "title": {
-    "message": "Butterfly",
+    "message": "Πεταλούδα",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Butterfly Logo",
+    "message": "Λογότυπο Πεταλούδα",
     "description": "The alt text of navbar logo"
   },
   "item.label.Tutorial": {
-    "message": "Tutorial",
+    "message": "Εκμάθηση",
     "description": "Navbar item with label Tutorial"
   },
   "item.label.Downloads": {
@@ -36,7 +36,7 @@
     "description": "Navbar item with label GitHub"
   },
   "item.label.Blog": {
-    "message": "Blog",
+    "message": "Ιστολόγιο",
     "description": "Navbar item with label Blog"
   },
   "item.label.Crowdin": {
