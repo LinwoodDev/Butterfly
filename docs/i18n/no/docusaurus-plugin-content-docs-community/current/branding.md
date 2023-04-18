@@ -2,7 +2,7 @@
 title: Merkevare
 ---
 
-Disse eiendelene er lisensiert under [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Disse eiendelene er lisensiert under [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
