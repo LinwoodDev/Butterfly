@@ -15,4 +15,4 @@ The eraser layer will be removed. The eraser layer will be removed. On migration
 
 ## Older versions
 
-All migrations before will be done automatically. All migrations before will be done automatically. Read the full migration in code [here](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+All migrations before will be done automatically. Read the full migration in code [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
