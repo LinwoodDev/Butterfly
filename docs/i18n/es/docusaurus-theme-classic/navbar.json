@@ -1,10 +1,10 @@
 {
   "title": {
-    "message": "Butterfly",
+    "message": "Mariposa",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "Butterfly Logo",
+    "message": "Logo de mariposa",
     "description": "The alt text of navbar logo"
   },
   "item.label.Tutorial": {
