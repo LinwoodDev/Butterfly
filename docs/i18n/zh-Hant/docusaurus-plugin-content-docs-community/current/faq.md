@@ -11,17 +11,17 @@ Here are some frequently asked questions.
 
 ### How do I install the web version?
 
-You can install the web version by clicking on the install button in the title bar. After that you can use this app offline.
+You can install the web version by clicking on the install button in the title bar. After that you can use this app offline. After that you can use this app offline.
 
 ### Cannot insert images in web
 
 > [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
 
-Currently decoding images does not work with canvaskit. Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!
+Currently decoding images does not work with canvaskit. Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option! Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!
 
 ### Butterfly does not load on Brave
 
-Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'. Click on the shield icon in the address bar to change the setting. Try updating your browser to the latest version.
+Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'. Click on the shield icon in the address bar to change the setting. Try updating your browser to the latest version. Click on the shield icon in the address bar to change the setting. Try updating your browser to the latest version.
 
 ## Mobile
 
@@ -29,7 +29,7 @@ Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-This is a known issue with flutter and the Samsung Z Fold 3. Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!
+This is a known issue with flutter and the Samsung Z Fold 3. This is a known issue with flutter and the Samsung Z Fold 3. Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!
 
 ## Desktop
 
@@ -37,6 +37,6 @@ This is a known issue with flutter and the Samsung Z Fold 3. Please upvote [this
 
 > [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
-I'm using the input provided by the flutter framework. There are already issues to track it: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
+I'm using the input provided by the flutter framework. I'm using the input provided by the flutter framework. There are already issues to track it: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209) Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
-These issues are a bit older. The web version should work fine for now.
+These issues are a bit older. These issues are a bit older. The web version should work fine for now.

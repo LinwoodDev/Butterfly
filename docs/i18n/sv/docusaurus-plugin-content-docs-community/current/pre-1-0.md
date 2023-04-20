@@ -4,8 +4,8 @@ title: "Pre-1.0 versioner"
 
 Dessa versioner stöds inte längre. Nya versioner finns på [versionerna](versions.md).
 
-| Version      | Stöds |                                                                                                                                                          |
-| ------------ | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Version      | Stöds |                                                                                                                                                        |
+| ------------ | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 1.0.0-rc.6   | :x:   | [Dokument](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.6/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.6)       |
 | 1.0.0-rc.5   | :x:   | [Dokument](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.5/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.5)       |
 | 1.0.0-rc.4   | :x:   | [Dokument](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.4/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.4)       |

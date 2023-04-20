@@ -15,13 +15,17 @@
     "message": "Discord",
     "description": "The label of footer link with label=Discord linking to https://discord.linwood.dev"
   },
+  "link.item.label.Matrix": {
+    "message": "Matrix",
+    "description": "The label of footer link with label=Matrix linking to https://linwood.dev/matrix"
+  },
   "link.item.label.Twitter": {
     "message": "Twitter",
     "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodDev"
   },
-  "link.item.label.Contribution guide": {
-    "message": "Příručka pro přispění",
-    "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodDev/butterfly/blob/develop/CONTRIBUTING.md"
+  "link.item.label.Mastodon": {
+    "message": "Mastodon",
+    "description": "The label of footer link with label=Mastodon linking to https://floss.social/@linwood"
   },
   "link.item.label.App": {
     "message": "Aplikace",
@@ -31,13 +35,13 @@
     "message": "Dokumenty",
     "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodDev/butterfly/tree/develop/docs"
   },
+  "link.item.label.Contribution guide": {
+    "message": "Příručka pro přispění",
+    "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodDev/butterfly/blob/develop/CONTRIBUTING.md"
+  },
   "link.item.label.Imprint": {
     "message": "Tisk",
     "description": "The label of footer link with label=Imprint linking to https://go.linwood.dev/imprint"
-  },
-  "copyright": {
-    "message": "Copyright © 2022 LinwoodDev.",
-    "description": "The footer copyright"
   },
   "link.item.label.Privacy Policy of the app": {
     "message": "Zásady ochrany osobních údajů aplikace",
@@ -47,12 +51,12 @@
     "message": "Zásady ochrany osobních údajů webových stránek",
     "description": "The label of footer link with label=Privacy Policy of the website linking to https://go.linwood.dev/privacypolicy"
   },
-  "link.item.label.Matrix": {
-    "message": "Matice",
-    "description": "The label of footer link with label=Matrix linking to https://linwood.dev/matrix"
+  "copyright": {
+    "message": "Copyright ©️ 2023 Linwood.",
+    "description": "The footer copyright"
   },
-  "link.item.label.Mastodon": {
-    "message": "Mastodon",
-    "description": "The label of footer link with label=Mastodon linking to https://floss.social/@linwood"
+  "logo.alt": {
+    "message": "Linwood logo",
+    "description": "The alt text of footer logo"
   }
 }
