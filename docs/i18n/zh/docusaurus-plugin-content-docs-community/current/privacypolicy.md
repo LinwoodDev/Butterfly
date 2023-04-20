@@ -46,7 +46,7 @@ Cookie 是具有少量数据的文件，通常用作匿名唯一标识符。 这
 
 **链接到其他站点**
 
-此服务可能包含到其他站点的链接。 如果您点击第三方链接，您将被引导到该站点。 请注意这些外部站点不是由我操作的。 Therefore, I strongly advise you to review the Privacy Policy of these websites. 我对任何第三方网站或服务的内容、隐私政策或做法没有控制权，也没有任何责任。
+此服务可能包含到其他站点的链接。 如果您点击第三方链接，您将被引导到该站点。 请注意这些外部站点不是由我操作的。 Therefore, I strongly advise you to review the Privacy Policy of these websites. 我对任何第三方网站或服务的内容、隐私政策或做法没有控制权，也没有任何责任。 我对任何第三方网站或服务的内容、隐私政策或做法没有控制权，也没有任何责任。
 
 **此隐私政策的更改**
 
