@@ -11,7 +11,7 @@ This guide will show you how to migrate to the latest version.
 
 ### Breaking changes
 
-The eraser layer will be removed. On migration, the eraser layer will be removed.
+The eraser layer will be removed. The eraser layer will be removed. On migration, the eraser layer will be removed.
 
 ## Older versions
 
