@@ -1,5 +1,5 @@
 * Implement embed functionality
-* Fixing a lot of bugs ([#158](https://github.com/LinwoodCloud/Butterfly/issues/158), Thanks to vi)
+* Fixing a lot of bugs ([#158](https://github.com/LinwoodDev/Butterfly/issues/158), Thanks to vi)
     * Add move/duplicate indicator
     * Add layer suggestions
     * Add multi element selection context menu

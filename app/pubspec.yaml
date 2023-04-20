@@ -71,7 +71,7 @@ dependencies:
       ref: 066461ee27342559e5731a03e3371c0537f1abcb
   lw_sysinfo:
     git:
-      url: https://github.com/LinwoodCloud/dart_pkgs.git
+      url: https://github.com/LinwoodDev/dart_pkgs.git
       ref: 6aaa333947699dd999d0bde3890fd7f0015b72c4
       path: packages/lw_sysinfo
   flutter_localized_locales: ^2.0.4

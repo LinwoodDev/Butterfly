@@ -2,7 +2,7 @@
 title: Фірмове оформлення
 ---
 
-Ці активи ліцензовані за [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Ці активи ліцензовані за [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Логотип
 

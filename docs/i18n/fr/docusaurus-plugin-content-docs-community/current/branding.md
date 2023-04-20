@@ -2,7 +2,7 @@
 title: Image de marque
 ---
 
-Ces actifs sont sous licence [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Ces actifs sont sous licence [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 

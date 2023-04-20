@@ -2,7 +2,7 @@
 title: Marka
 ---
 
-Te aktywa są licencjonowane na licencji [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Te aktywa są licencjonowane na licencji [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 

@@ -15,7 +15,7 @@ sidebar_label: "ЧАП"
 
 ### Неможливо вставити зображення в Інтернет
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
 
 Наразі декодування зображень не працює з canvaskit. Будь ласка, проголосуйте [цю проблему](https://github.com/flutter/flutter/issues/102683) , якщо ви хочете цю опцію!
 
@@ -27,7 +27,7 @@ sidebar_label: "ЧАП"
 
 ### Кришки на Z Fold 3 при натисканні на кнопку на стороні S Pen
 
-> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
 Відома проблема з тремтінням і модулем Samsung Z Fold 3. Будь ласка, проголосуйте [цю проблему](https://github.com/flutter/flutter/issues/111068) , щоб це виправити!
 
@@ -35,7 +35,7 @@ sidebar_label: "ЧАП"
 
 ### Стильське введення не розпізнано
 
-> [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
+> [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 Я використовую вхідний фреймворк, що світиться. Вже є проблеми для відстеження: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) і [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 

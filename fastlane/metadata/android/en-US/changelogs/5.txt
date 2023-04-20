@@ -1,6 +1,6 @@
-* Change home page to drawing page ([#17](https://github.com/LinwoodCloud/butterfly/issues/17))
-* Fixing zoom issues ([#20](https://github.com/LinwoodCloud/butterfly/issues/20))
-* Simplify selection ([#23](https://github.com/LinwoodCloud/butterfly/issues/23))
+* Change home page to drawing page ([#17](https://github.com/LinwoodDev/butterfly/issues/17))
+* Fixing zoom issues ([#20](https://github.com/LinwoodDev/butterfly/issues/20))
+* Simplify selection ([#23](https://github.com/LinwoodDev/butterfly/issues/23))
   * Add more space to select
   * Add calculation to look if the cursor is between two points
   * Add calculation to get the real width and height of the text

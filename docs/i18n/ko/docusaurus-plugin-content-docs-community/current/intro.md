@@ -20,6 +20,6 @@ All other licenses can you found in the settings.
 
 ## Useful links
 
-* [GitHub](https://github.com/LinwoodCloud/Butterfly)
+* [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
 * [Matrix](https://go.linwood.dev/matrix)

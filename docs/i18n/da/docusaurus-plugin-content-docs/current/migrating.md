@@ -15,4 +15,4 @@ Viskelæderelaget fjernes. Ved migration vil viskelæderlaget blive fjernet.
 
 ## Ældre versioner
 
-Alle migrationer før vil blive udført automatisk. Læs hele migrationen i koden [her](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Alle migrationer før vil blive udført automatisk. Læs hele migrationen i koden [her](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).

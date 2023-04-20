@@ -15,4 +15,4 @@ Vymazaná vrstva bude odstraněna. Při migraci bude vymazána chybná vrstva.
 
 ## Starší verze
 
-Všechny předchozí migrace budou provedeny automaticky. Přečtěte si úplnou migraci v kódu [zde](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Všechny předchozí migrace budou provedeny automaticky. Přečtěte si úplnou migraci v kódu [zde](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).

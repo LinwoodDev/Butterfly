@@ -15,4 +15,4 @@ Stratul de radiere va fi eliminat. În timpul migrării, stratul ştergător va 
 
 ## Versiuni mai vechi
 
-Toate migrările înainte vor fi efectuate automat. Citește migrarea completă în codul [aici](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Toate migrările înainte vor fi efectuate automat. Citește migrarea completă în codul [aici](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).

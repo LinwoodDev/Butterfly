@@ -17,26 +17,26 @@
   },
   "link.item.label.Twitter": {
     "message": "Twitter",
-    "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodCloud"
+    "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodDev"
   },
   "link.item.label.Contribution guide": {
     "message": "Handleiding voor bijdragen",
-    "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md"
+    "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodDev/butterfly/blob/develop/CONTRIBUTING.md"
   },
   "link.item.label.App": {
     "message": "App",
-    "description": "The label of footer link with label=App linking to https://github.com/LinwoodCloud/butterfly/tree/develop/app"
+    "description": "The label of footer link with label=App linking to https://github.com/LinwoodDev/butterfly/tree/develop/app"
   },
   "link.item.label.Docs": {
     "message": "Documentatie",
-    "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodCloud/butterfly/tree/develop/docs"
+    "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodDev/butterfly/tree/develop/docs"
   },
   "link.item.label.Imprint": {
     "message": "Impressum",
     "description": "The label of footer link with label=Imprint linking to https://go.linwood.dev/imprint"
   },
   "copyright": {
-    "message": "Copyright © 2022 LinwoodCloud.",
+    "message": "Copyright © 2022 LinwoodDev.",
     "description": "The footer copyright"
   },
   "link.item.label.Privacy Policy of the app": {

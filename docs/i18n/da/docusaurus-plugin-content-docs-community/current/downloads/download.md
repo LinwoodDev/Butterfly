@@ -4,7 +4,7 @@ sidebar_position: 0
 title: Downloads
 ---
 
-![Stabil version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Stabil version](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Vælg din platform
 
@@ -42,6 +42,6 @@ title: Downloads
 ## Nyttige links
 
 - [Ændringslog](changelog)
-- [Ældre udgivelser](https://github.com/LinwoodCloud/butterfly/releases)
-- [Seneste udgivelse](https://github.com/LinwoodCloud/butterfly/releases/latest)
+- [Ældre udgivelser](https://github.com/LinwoodDev/butterfly/releases)
+- [Seneste udgivelse](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Support](https://discord.linwood.dev)

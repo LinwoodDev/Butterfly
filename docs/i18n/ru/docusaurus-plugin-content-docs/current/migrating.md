@@ -15,4 +15,4 @@ sidebar_position: 2
 
 ## Старые версии
 
-Все переходы до этого будут выполнены автоматически. Прочтите полную миграцию в коде [здесь](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Все переходы до этого будут выполнены автоматически. Прочтите полную миграцию в коде [здесь](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).

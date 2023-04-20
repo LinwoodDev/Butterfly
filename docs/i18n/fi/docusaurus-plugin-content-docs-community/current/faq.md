@@ -15,7 +15,7 @@ Voit asentaa web-version klikkaamalla asennuksen painiketta otsikkopalkissa. @ i
 
 ### Kuvia ei voi lisätä nettiin
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
 
 Tällä hetkellä kuvien dekoodaus ei toimi kankaalla. Äänestä [tätä ongelmaa](https://github.com/flutter/flutter/issues/102683) jos haluat tämän vaihtoehdon!
 
@@ -27,7 +27,7 @@ Rohkeiden käyttäjien, jotka ovat asettaneet sormenjälkikilven asetuksen Aggre
 
 ### Kaatumiset Z Fold 3 kun pidät puolella S Pen -painiketta
 
-> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
 Tämä on tunnettu ongelma leikkuri ja Samsung Z Fold 3. Ole hyvä ja suorita [tämä ongelma](https://github.com/flutter/flutter/issues/111068) korjataksesi!
 
@@ -35,7 +35,7 @@ Tämä on tunnettu ongelma leikkuri ja Samsung Z Fold 3. Ole hyvä ja suorita [t
 
 ### Stylus syötettä ei tunnisteta
 
-> [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
+> [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 Käytän syötteitä, jotka on saatu lepyttävän kehyksen avulla. On jo ongelmia seurata sitä: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) ja [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
