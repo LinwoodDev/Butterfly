@@ -2,7 +2,7 @@
 title: Marchio
 ---
 
-Queste risorse sono concesse sotto la licenza [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
+Questi attivi sono concessi in licenza ai sensi del [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
