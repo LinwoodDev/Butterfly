@@ -4,8 +4,8 @@ title: "前 1.0 版本"
 
 不再支持这些版本。 新版本在 [版本](versions.md) 上可用。
 
-| 版本            | 支持的 |                                                                                                                                               |
-| ------------- | --- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| 版本            | 支持的 |                                                                                                                                             |
+| ------------- | --- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1.0-rc.6      | :x: | [文档](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.6/intro) [发布](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.6)       |
 | 1.0-rc.5      | :x: | [文档](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.5/intro) [发布](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.5)       |
 | 1.0-rc.4      | :x: | [文档](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.4/intro) [发布](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.4)       |
