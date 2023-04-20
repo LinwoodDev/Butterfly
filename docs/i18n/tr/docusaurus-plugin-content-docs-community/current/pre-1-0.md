@@ -4,8 +4,8 @@ title: "1.0 öncesi sürümler"
 
 Bu sürümler artık desteklenmiyor. Yeni sürümlere [sürümler](versions.md)den ulaşmak mümkündür.
 
-| Sürüm         | Destek |                                                                                                                                                      |
-| ------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sürüm         | Destek |                                                                                                                                                    |
+| ------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1.0.0-rc.6    | :x:    | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.6/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.6)       |
 | 1.0.0-rc.5    | :x:    | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.5/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.5)       |
 | 1.0.0-rc.4    | :x:    | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.4/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.4)       |
