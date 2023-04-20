@@ -1224,7 +1224,9 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
   void didUpdateWidget(covariant _QuickstartHomeView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.remote != widget.remote) {
-      setState(() => _templatesFuture = _fetchTemplates());
+      setState(() {
+        _templatesFuture = _fetchTemplates();
+      });
     }
   }
 

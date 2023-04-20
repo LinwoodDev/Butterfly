@@ -2,3 +2,4 @@
 * Fix timeline colors
 * Fix reload after resizing the window
 * Fix reset does not replace templates
+* Fix text span creation

@@ -264,8 +264,8 @@ class LabelHandler extends Handler<LabelPainter>
       final selection = _context!.selection;
       final start = selection.start;
       final length = selection.end - start;
-      final newSpan =
-          _context!.forcedSpanProperty != _context!.getSpanProperty(document);
+      final newSpan = _context?.getDefinedForcedSpanProperty(document) !=
+          _context!.getSpanProperty(document);
       final paragraph = newSpan
           ? old.area.paragraph.replace(
               text.TextSpan.text(
