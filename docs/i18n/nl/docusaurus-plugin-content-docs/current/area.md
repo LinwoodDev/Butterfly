@@ -17,7 +17,7 @@ Klik op het gebied om het te wijzigen. U kunt ook gebruik maken van het veld dia
 
 U heeft enkele opties in dit menu:
 
-* `Enter area`: Enter the area Je kunt niet buiten het gebied schilderen. Verlaat het gebied door op de achtergrond te klikken met het gebied painter.
+* `Enter area`: Enter the area Je kunt niet buiten het gebied schilderen. Je kunt niet buiten het gebied schilderen. Verlaat het gebied door op de achtergrond te klikken met het gebied painter.
 * `Naam`: Wijzig de naam van het huidige gebied
 * `Export`: Exporteer dit deel van het canvas als een afbeelding
 * `Delete`: Verwijder dit gebied
