@@ -21,5 +21,5 @@ flutter build web
 
 ## 停靠栏
 
-复制仓库并使用 `Dockerfile` 使用： `Docker building -t linwood-butterfare` 启动服务器使用： `停泊器运行 -p 8080:8080 -d linwood-butterfare`。
+复制仓库并使用 `Dockerfile` 使用： `Docker building -t linwood-butterfare` 启动服务器使用： `停泊器运行 -p 8080:8080 -d linwood-butterfare`。 启动服务器使用： `停泊器运行 -p 8080:8080 -d linwood-butterfare`。
 
