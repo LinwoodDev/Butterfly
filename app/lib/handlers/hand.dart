@@ -437,10 +437,12 @@ class HandHandler extends Handler<HandPainter> {
     }
     if (currentIndex.buttons != kSecondaryMouseButton &&
         details.pointerCount == 1) {
-      final topLeft = _freeSelection?.topLeft ?? globalPos;
-      _freeSelection =
-          Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy);
-      context.refresh();
+      if (details.scale == 1.0) {
+        final topLeft = _freeSelection?.topLeft ?? globalPos;
+        _freeSelection =
+            Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy);
+        context.refresh();
+      }
       return;
     }
     if (_movingElements.isNotEmpty) {
