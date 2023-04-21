@@ -13,6 +13,15 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
         packs.firstWhereOrNull((e) => e.name == selected.first.styleSheet.pack);
     return [
       ...super.buildProperties(context),
+      CheckboxListTile(
+          value: selected.first.zoomDependent,
+          title: Text(AppLocalizations.of(context).zoomDependent),
+          onChanged: (value) => update(
+              context,
+              selected
+                  .map((e) => e.copyWith(
+                      zoomDependent: value ?? selected.first.zoomDependent))
+                  .toList())),
       const SizedBox(height: 16),
       DropdownButtonFormField<String>(
         items: packs

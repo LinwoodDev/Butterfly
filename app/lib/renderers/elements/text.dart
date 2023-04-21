@@ -63,7 +63,7 @@ class TextRenderer extends Renderer<TextElement> {
   TextStyle _buildSpanStyle(text.DefinedSpanProperty property,
       [text.DefinedParagraphProperty? parent]) {
     return TextStyle(
-      fontSize: property.getSize(parent),
+      fontSize: property.getSize(parent) * element.scale,
       color: Color(property.getColor(parent)),
       fontFamily: 'Roboto',
       fontStyle:

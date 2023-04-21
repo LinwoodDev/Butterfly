@@ -1,4 +1,5 @@
 * Use the best painter color based on the background color
+* Make laser and text painter zoom dependent
 * Fix timeline colors
 * Fix reload after resizing the window
 * Fix reset does not replace templates

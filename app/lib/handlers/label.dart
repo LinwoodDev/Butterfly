@@ -9,7 +9,7 @@ class LabelHandler extends Handler<LabelPainter>
 
   LabelHandler(super.data);
 
-  TextContext _createContext([Point<double>? position]) {
+  TextContext _createContext([Point<double>? position, double zoom = 1]) {
     return TextContext(
       painter: data,
       isCreating: true,
@@ -24,6 +24,7 @@ class LabelHandler extends Handler<LabelPainter>
                 ),
               ),
               styleSheet: data.styleSheet,
+              scale: data.zoomDependent ? 1 / zoom : 1,
             ),
       textPainter: TextPainter(),
       forcedProperty: _context?.forcedProperty,
@@ -122,7 +123,8 @@ class LabelHandler extends Handler<LabelPainter>
     _connection!.show();
     if (hadFocus || _context?.element == null) {
       if (_context?.element != null) _submit(context.getDocumentBloc());
-      _context = _createContext(globalPos.toPoint());
+      _context = _createContext(
+          globalPos.toPoint(), context.getCameraTransform().size);
     }
     if (hit) {
       final position = _context!.textPainter.getPositionForOffset(globalPos -
@@ -325,13 +327,13 @@ class LabelHandler extends Handler<LabelPainter>
     var nextNextLine = paragraph.nextLineIndex(nextLine + 1);
     if (nextNextLine <= nextLine) {
       nextNextLine = paragraph.length + 2;
-      nextLine = paragraph.length + 1;
+      nextLine = paragraph.length;
     }
-    var nextLineLength = nextNextLine - nextLine;
+    var nextLineLength = nextNextLine - nextLine + 1;
     final previousLine = paragraph.previousLineIndex(max(currentLine, 0));
     var previousLineLength = max(currentLine - previousLine, 0);
-    final lineSelection = min(
-        selection - currentLine, forward ? nextLineLength : previousLineLength);
+    final lineSelection = min(max(selection - currentLine, 1),
+        forward ? nextLineLength : previousLineLength);
     return (forward ? nextLine + lineSelection : previousLine + lineSelection)
         .clamp(0, paragraph.length);
   }

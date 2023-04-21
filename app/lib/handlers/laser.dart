@@ -125,7 +125,7 @@ class LaserHandler extends Handler<LaserPainter> {
         PenElement(
           layer: state.currentLayer,
           property: PenProperty(
-              strokeWidth: data.strokeWidth,
+              strokeWidth: data.strokeWidth / transform.size,
               thinning: data.thinning,
               color: data.color),
         );

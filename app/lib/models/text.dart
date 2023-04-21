@@ -17,6 +17,7 @@ class TextContext with _$TextContext {
       required TextPainter textPainter,
       TextElement? element,
       @Default(false) bool isCreating,
+      @Default(1.0) double zoom,
       @Default(TextSelection.collapsed(offset: 0)) TextSelection selection,
       ParagraphProperty? forcedProperty,
       SpanProperty? forcedSpanProperty,

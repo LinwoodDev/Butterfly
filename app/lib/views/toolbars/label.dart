@@ -168,6 +168,18 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             ));
                           },
                         ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: const PhosphorIcon(
+                              PhosphorIconsLight.magnifyingGlass),
+                          isSelected: widget.value.painter.zoomDependent,
+                          tooltip: AppLocalizations.of(context).zoomDependent,
+                          onPressed: () => widget.onChanged(widget.value
+                              .copyWith(
+                                  painter: widget.value.painter.copyWith(
+                                      zoomDependent: !widget
+                                          .value.painter.zoomDependent))),
+                        ),
                         const SizedBox(width: 16),
                         IconButton(
                           icon: const PhosphorIcon(PhosphorIconsLight.article),
@@ -391,11 +403,13 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             textAlign: TextAlign.center,
                             keyboardType: TextInputType.number,
                             controller: _sizeController,
-                            onFieldSubmitted: (current) => updateSpan(
-                              (value) => value.copyWith(
-                                size: double.tryParse(current) ?? span.size,
-                              ),
-                            ),
+                            onFieldSubmitted: (current) {
+                              updateSpan(
+                                (value) => value.copyWith(
+                                  size: double.tryParse(current) ?? span.size,
+                                ),
+                              );
+                            },
                           ),
                         ),
                         const SizedBox(width: 16),
