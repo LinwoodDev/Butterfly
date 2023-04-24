@@ -42,3 +42,11 @@ Estos activos están bajo la licencia [CC-BY-4.0](https://github.com/LinwoodDev/
 ## Fuentes
 
 * `Roboto`
+
+## Screenshots
+
+> Used in the firefox responsive design mode
+
+* Phone: Galaxy S20 Ultra
+* 7-inch tablet: Nexus 7
+* 10-inch tablet: Nexus 10
