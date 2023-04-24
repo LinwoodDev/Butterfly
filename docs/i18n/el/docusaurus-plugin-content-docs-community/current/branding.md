@@ -42,3 +42,11 @@ title: Μάρκα
 ## Γραμματοσειρές
 
 * `Roboto`
+
+## Screenshots
+
+> Used in the firefox responsive design mode
+
+* Phone: Galaxy S20 Ultra
+* 7-inch tablet: Nexus 7
+* 10-inch tablet: Nexus 10
