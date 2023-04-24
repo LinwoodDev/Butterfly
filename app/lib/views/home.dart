@@ -256,7 +256,8 @@ class _HeaderHomeView extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                colorScheme.inverseSurface,
+                Color.alphaBlend(colorScheme.inverseSurface.withOpacity(0.3),
+                    colorScheme.4),
                 colorScheme.primary,
               ],
               stops: const [0, 0.8],

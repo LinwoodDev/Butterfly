@@ -23,7 +23,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={autopf}\{#MyAppPublisher}\{#MyAppName}  
+DefaultDirName={autopf64}\{#MyAppPublisher}\{#MyAppName}  
 DefaultGroupName={#MyAppPublisher}\{#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=..\LICENSE
@@ -90,8 +90,6 @@ Root: HKA; Subkey: "Software\Classes\{#MyAppName}-IMG\DefaultIcon"; ValueType: s
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-IMG\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 
 [Icons]
-Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
-
 Name: "{group}\Visit Website"; Filename: "https://www.linwood.dev/"
 Name: "{group}\Butterfly Documentation"; Filename: "https://docs.butterfly.linwood.dev/"
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
