@@ -15,4 +15,4 @@ laserlaget vil bli fjernet. Ved overføring vil viserlaget fjernes.
 
 ## Eldre versjoner
 
-Alle overføringene før vil bli gjort automatisk. Les hele migrasjonen i koden [her](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Alle overføringene før vil bli gjort automatisk. Les hele migrasjonen i koden [her](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).

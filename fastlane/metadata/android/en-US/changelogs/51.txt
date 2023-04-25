@@ -2,5 +2,5 @@
 * Fix missing scroll in pdf export dialog
 * Fix error while importing files in web
 * Fix updater message
-* Fix pdf import ([#302](https://github.com/LinwoodCloud/Butterfly/issues/302))
+* Fix pdf import ([#302](https://github.com/LinwoodDev/Butterfly/issues/302))
 * Fix windows file info

@@ -65,7 +65,6 @@ embedment.addEventListener('message', (data) =>
   if(data.detail.type === 'getData') {
     console.log(data.detail.message);
   }); ); ); ); ); );
-
 ```
 
 ### getData

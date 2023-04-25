@@ -15,4 +15,4 @@ sidebar_position: 2
 
 ## Попередні версії
 
-Всі міграції до цього моменту будуть зроблені автоматично. Читайте повну міграцію в коді [тут](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Всі міграції до цього моменту будуть зроблені автоматично. Читайте повну міграцію в коді [тут](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).

@@ -1,4 +1,4 @@
-* Fix image loading ([#83](https://github.com/LinwoodCloud/Butterfly/issues/83))
+* Fix image loading ([#83](https://github.com/LinwoodDev/Butterfly/issues/83))
 * Fix image hit box
 * Reimplement spaces in box background
 * Fix box background

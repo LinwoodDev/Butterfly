@@ -23,17 +23,33 @@
     "message": "Αλλάξτε τα πάντα στις ανάγκες σας. Επιλέξτε το προσαρμοσμένο σας χρώμα, δημιουργήστε μια παλέτα και προσθέστε τις σελίδες σας στο χαρτί. Το χαρτί έχει άπειρο μέγεθος, ιδανικό για τις ιδέες και τις σημειώσεις σας.",
     "description": "Features customizable description"
   },
-  "Your data will be saved locally": {
-    "message": "Τα δεδομένα σας θα αποθηκευτούν τοπικά",
+  "Choose where your data is stored": {
+    "message": "Επιλέξτε πού αποθηκεύονται τα δεδομένα σας",
     "description": "Features local title"
   },
-  "Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.": {
-    "message": "Όλα θα αποθηκευτούν τοπικά στον υπολογιστή σας. Εξαγάγετε τις σημειώσεις ως εικόνα ή ως αρχεία json που μπορούν να ανοιχτούν σε διαφορετική συσκευή.",
+  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
+    "message": "Μπορείτε να επιλέξετε να αποθηκεύσετε τα δεδομένα σας τοπικά ή στο αγαπημένο σας cloud (webdav). Μπορείτε επίσης να εξάγετε τα δεδομένα σας σε ένα αρχείο και να τα εισάγετε ξανά.",
     "description": "Features local description"
   },
   "Getting started": {
     "message": "Ξεκινώντας",
     "description": "homepage getting started button"
+  },
+  "Download for Windows": {
+    "message": "Λήψη για Windows",
+    "description": "homepage windows button"
+  },
+  "Download for Linux": {
+    "message": "Λήψη για Linux",
+    "description": "homepage linux button"
+  },
+  "Download for Android": {
+    "message": "Λήψη για Android",
+    "description": "homepage android button"
+  },
+  "Open the web app": {
+    "message": "Άνοιγμα της εφαρμογής web",
+    "description": "homepage web button"
   },
   "Downloads": {
     "message": "Λήψεις",
@@ -42,10 +58,6 @@
   "theme.ErrorPageContent.title": {
     "message": "Αυτή η σελίδα κατέρρευσε.",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Προσπαθήστε ξανά",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "Η Σελίδα Δεν Βρέθηκε",
@@ -59,9 +71,25 @@
     "message": "Παρακαλούμε επικοινωνήστε με τον ιδιοκτήτη της ιστοσελίδας που σας συνέδεσε με την αρχική διεύθυνση URL και ενημερώστε τους ότι ο σύνδεσμος τους είναι σπασμένος.",
     "description": "The 2nd paragraph of the 404 page"
   },
-  "theme.AnnouncementBar.closeButtonAriaLabel": {
-    "message": "Κλείσιμο",
-    "description": "The ARIA label for close button of announcement bar"
+  "theme.admonition.note": {
+    "message": "σημείωση",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "tip",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.danger": {
+    "message": "κίνδυνος",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "πληροφορίες",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.caution": {
+    "message": "προσοχή",
+    "description": "The default label used for the Caution admonition (:::caution)"
   },
   "theme.BackToTopButton.buttonAriaLabel": {
     "message": "Κύλιση πίσω στην κορυφή",
@@ -87,14 +115,6 @@
     "message": "Παλαιότερες Καταχωρήσεις",
     "description": "The label used to navigate to the older blog posts page (next page)"
   },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "Ένα λεπτό διαβάστηκε{readingTime} λεπτά",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
-  },
-  "theme.blog.post.readMore": {
-    "message": "Διαβάστε Περισσότερα",
-    "description": "The label used in blog post item excerpts to link to full blog posts"
-  },
   "theme.blog.post.paginator.navAriaLabel": {
     "message": "Πλοήγηση σελίδας ιστολογίου",
     "description": "The ARIA label for the blog posts pagination"
@@ -107,10 +127,6 @@
     "message": "Παλαιότερη Δημοσίευση",
     "description": "The blog post button label to navigate to the older/next post"
   },
-  "theme.blog.sidebar.navAriaLabel": {
-    "message": "Blog πρόσφατη πλοήγηση δημοσιεύσεων",
-    "description": "The ARIA label for recent posts in the blog sidebar"
-  },
   "theme.blog.post.plurals": {
     "message": "Μια ανάρτηση{count} δημοσιεύσεις",
     "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
@@ -119,49 +135,41 @@
     "message": "{nPosts} με ετικέτα \"{tagName}\"",
     "description": "The title of the page for a blog tag"
   },
-  "theme.CodeBlock.copyButtonAriaLabel": {
-    "message": "Αντιγραφή κώδικα στο πρόχειρο",
-    "description": "The ARIA label for copy code blocks button"
+  "theme.tags.tagsPageLink": {
+    "message": "Προβολή Όλων Των Ετικετών",
+    "description": "The label of the link targeting the tag list page"
   },
-  "theme.CodeBlock.copied": {
-    "message": "Αντιγράφηκε",
-    "description": "The copied button label on code blocks"
+  "theme.colorToggle.ariaLabel": {
+    "message": "Εναλλαγή μεταξύ σκοτεινής και φωτεινής λειτουργίας (προς το παρόν {mode})",
+    "description": "The ARIA label for the navbar color mode toggle"
   },
-  "theme.CodeBlock.copy": {
-    "message": "Αντιγραφή",
-    "description": "The copy button label on code blocks"
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "σκοτεινή λειτουργία",
+    "description": "The name for the dark color mode"
   },
-  "theme.docs.sidebar.expandButtonTitle": {
-    "message": "Expand sidebar",
-    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "λειτουργία φωτός",
+    "description": "The name for the light color mode"
   },
-  "theme.docs.sidebar.expandButtonAriaLabel": {
-    "message": "Expand sidebar",
-    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "Ψίχουλα",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.DocCard.categoryDescription": {
+    "message": "{count} αντικείμενα",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   },
   "theme.docs.paginator.navAriaLabel": {
     "message": "Πλοήγηση σελίδων εγγράφων",
     "description": "The ARIA label for the docs pagination"
   },
-  "theme.docs.paginator.next": {
-    "message": "Επόμενο",
-    "description": "The label used to navigate to the next doc"
-  },
   "theme.docs.paginator.previous": {
     "message": "Προηγούμενο",
     "description": "The label used to navigate to the previous doc"
   },
-  "theme.docs.sidebar.collapseButtonTitle": {
-    "message": "Σύμπτυξη πλαϊνής μπάρας",
-    "description": "The title attribute for collapse button of doc sidebar"
-  },
-  "theme.docs.sidebar.collapseButtonAriaLabel": {
-    "message": "Σύμπτυξη πλαϊνής μπάρας",
-    "description": "The title attribute for collapse button of doc sidebar"
-  },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Εναλλαγή της πτυσσόμενης πλαϊνής μπάρας κατηγορίας '{label}'",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
+  "theme.docs.paginator.next": {
+    "message": "Επόμενο",
+    "description": "The label used to navigate to the next doc"
   },
   "theme.docs.tagDocListPageTitle.nDocsTagged": {
     "message": "Μια ετικέτα doc,{count} docs με ετικέτα",
@@ -170,6 +178,9 @@
   "theme.docs.tagDocListPageTitle": {
     "message": "{nDocsTagged} με \"{tagName}\"",
     "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "Έκδοση: {versionLabel}"
   },
   "theme.docs.versions.unreleasedVersionLabel": {
     "message": "Αυτή η τεκμηρίωση δεν είναι διαθέσιμη για την έκδοση {siteTitle} {versionLabel}.",
@@ -192,7 +203,7 @@
     "description": "The link label to edit the current page"
   },
   "theme.common.headingLinkTitle": {
-    "message": "Άμεση σύνδεση με την επικεφαλίδα",
+    "message": "Άμεση σύνδεση με το {heading}",
     "description": "Title for link to heading"
   },
   "theme.lastUpdated.atDate": {
@@ -207,41 +218,104 @@
     "message": "Τελευταία ενημέρωση{atDate}{byUser}",
     "description": "The sentence used to display when a page has been last updated, and by who"
   },
-  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
-    "message": "← Πίσω στο κύριο μενού",
-    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
-  },
   "theme.navbar.mobileVersionsDropdown.label": {
     "message": "Εκδόσεις",
     "description": "The label for the navbar versions dropdown on mobile view"
-  },
-  "theme.common.skipToMainContent": {
-    "message": "Μετάβαση στο κύριο περιεχόμενο",
-    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
   },
   "theme.tags.tagsListLabel": {
     "message": "Ετικέτες:",
     "description": "The label alongside a tag list"
   },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "Κλείσιμο",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "Blog πρόσφατη πλοήγηση δημοσιεύσεων",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "Αντιγράφηκε",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "Αντιγραφή κώδικα στο πρόχειρο",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "Αντιγραφή",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "Εναλλαγή αναδίπλωσης λέξεων",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
+    "message": "Εναλλαγή της πτυσσόμενης πλαϊνής μπάρας κατηγορίας '{label}'",
+    "description": "The ARIA label to toggle the collapsible sidebar category"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "Κύρια",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "Γλώσσες",
+    "description": "The label for the mobile language switcher dropdown"
+  },
   "theme.TOCCollapsible.toggleButtonLabel": {
     "message": "Σε αυτή τη σελίδα",
     "description": "The label used by the button on the collapsible TOC component"
   },
-  "theme.PwaReloadPopup.info": {
-    "message": "Νέα έκδοση διαθέσιμη",
-    "description": "The text for PWA reload popup"
+  "theme.blog.post.readMore": {
+    "message": "Διαβάστε Περισσότερα",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
   },
-  "theme.PwaReloadPopup.refreshButtonText": {
-    "message": "Ανανέωση",
-    "description": "The text for PWA reload button"
+  "theme.blog.post.readMoreLabel": {
+    "message": "Διαβάστε περισσότερα για {title}",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
   },
-  "theme.PwaReloadPopup.closeButtonAriaLabel": {
-    "message": "Κλείσιμο",
-    "description": "The ARIA label for close button of PWA reload popup"
+  "theme.blog.post.readingTime.plurals": {
+    "message": "Ένα λεπτό διαβάστηκε{readingTime} λεπτά",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
-  "theme.SearchBar.label": {
-    "message": "Αναζήτηση",
-    "description": "The ARIA label and placeholder for search button"
+  "theme.docs.breadcrumbs.home": {
+    "message": "Αρχική σελίδα",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "Σύμπτυξη πλαϊνής μπάρας",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "Σύμπτυξη πλαϊνής μπάρας",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "Docs sidebar",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "Κλείσιμο γραμμής πλοήγησης",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← Πίσω στο κύριο μενού",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "Εναλλαγή γραμμής πλοήγησης",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "Expand sidebar",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "Expand sidebar",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.SearchBar.seeAll": {
+    "message": "Δείτε όλα τα {count} αποτελέσματα"
   },
   "theme.SearchPage.documentsFound.plurals": {
     "message": "Βρέθηκε ένα έγγραφο που βρέθηκε:{count} έγγραφα",
@@ -275,87 +349,9 @@
     "message": "Λήψη νέων αποτελεσμάτων...",
     "description": "The paragraph for fetching new search results"
   },
-  "theme.blog.post.readMoreLabel": {
-    "message": "Διαβάστε περισσότερα για {title}",
-    "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.docs.DocCard.categoryDescription": {
-    "message": "{count} αντικείμενα",
-    "description": "The default description for a category card in the generated index about how many items this category includes"
-  },
-  "theme.colorToggle.ariaLabel": {
-    "message": "Εναλλαγή μεταξύ σκοτεινής και φωτεινής λειτουργίας (προς το παρόν {mode})",
-    "description": "The ARIA label for the navbar color mode toggle"
-  },
-  "theme.colorToggle.ariaLabel.mode.dark": {
-    "message": "σκοτεινή λειτουργία",
-    "description": "The name for the dark color mode"
-  },
-  "theme.colorToggle.ariaLabel.mode.light": {
-    "message": "λειτουργία φωτός",
-    "description": "The name for the light color mode"
-  },
-  "theme.docs.versionBadge.label": {
-    "message": "Έκδοση: {versionLabel}"
-  },
-  "theme.navbar.mobileLanguageDropdown.label": {
-    "message": "Γλώσσες",
-    "description": "The label for the mobile language switcher dropdown"
-  },
-  "theme.SearchBar.seeAll": {
-    "message": "Δείτε όλα τα {count} αποτελέσματα"
-  },
-  "theme.tags.tagsPageLink": {
-    "message": "Προβολή Όλων Των Ετικετών",
-    "description": "The label of the link targeting the tag list page"
-  },
-  "Download for Windows": {
-    "message": "Λήψη για Windows",
-    "description": "homepage windows button"
-  },
-  "Download for Linux": {
-    "message": "Λήψη για Linux",
-    "description": "homepage linux button"
-  },
-  "Download for Android": {
-    "message": "Λήψη για Android",
-    "description": "homepage android button"
-  },
-  "Open the web app": {
-    "message": "Άνοιγμα της εφαρμογής web",
-    "description": "homepage web button"
-  },
-  "theme.docs.breadcrumbs.home": {
-    "message": "Αρχική σελίδα",
-    "description": "The ARIA label for the home page in the breadcrumbs"
-  },
-  "theme.docs.breadcrumbs.navAriaLabel": {
-    "message": "Ψίχουλα",
-    "description": "The ARIA label for the breadcrumbs"
-  },
-  "theme.CodeBlock.wordWrapToggle": {
-    "message": "Εναλλαγή αναδίπλωσης λέξεων",
-    "description": "The title attribute for toggle word wrapping button of code block lines"
-  },
-  "theme.admonition.note": {
-    "message": "σημείωση",
-    "description": "The default label used for the Note admonition (:::note)"
-  },
-  "theme.admonition.tip": {
-    "message": "tip",
-    "description": "The default label used for the Tip admonition (:::tip)"
-  },
-  "theme.admonition.danger": {
-    "message": "κίνδυνος",
-    "description": "The default label used for the Danger admonition (:::danger)"
-  },
-  "theme.admonition.info": {
-    "message": "πληροφορίες",
-    "description": "The default label used for the Info admonition (:::info)"
-  },
-  "theme.admonition.caution": {
-    "message": "προσοχή",
-    "description": "The default label used for the Caution admonition (:::caution)"
+  "theme.SearchBar.label": {
+    "message": "Αναζήτηση",
+    "description": "The ARIA label and placeholder for search button"
   },
   "theme.SearchModal.searchBox.resetButtonTitle": {
     "message": "Καθαρισμός του ερωτήματος",
@@ -449,24 +445,28 @@
     "message": "Αναζήτηση εγγράφων",
     "description": "The placeholder of the input of the DocSearch pop-up modal"
   },
+  "theme.PwaReloadPopup.info": {
+    "message": "Νέα έκδοση διαθέσιμη",
+    "description": "The text for PWA reload popup"
+  },
+  "theme.PwaReloadPopup.refreshButtonText": {
+    "message": "Ανανέωση",
+    "description": "The text for PWA reload button"
+  },
+  "theme.PwaReloadPopup.closeButtonAriaLabel": {
+    "message": "Κλείσιμο",
+    "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Προσπαθήστε ξανά",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "Μετάβαση στο κύριο περιεχόμενο",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
   "theme.tags.tagsPageTitle": {
     "message": "Ετικέτες",
     "description": "The title of the tag list page"
-  },
-  "Choose where your data is stored": {
-    "message": "Επιλέξτε πού αποθηκεύονται τα δεδομένα σας",
-    "description": "Features local title"
-  },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "Μπορείτε να επιλέξετε να αποθηκεύσετε τα δεδομένα σας τοπικά ή στο αγαπημένο σας cloud (webdav). Μπορείτε επίσης να εξάγετε τα δεδομένα σας σε ένα αρχείο και να τα εισάγετε ξανά.",
-    "description": "Features local description"
-  },
-  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
-    "message": "Κλείσιμο γραμμής πλοήγησης",
-    "description": "The ARIA label for close button of mobile sidebar"
-  },
-  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
-    "message": "Εναλλαγή γραμμής πλοήγησης",
-    "description": "The ARIA label for hamburger menu button of mobile navigation"
   }
 }

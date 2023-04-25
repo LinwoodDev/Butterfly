@@ -25,7 +25,9 @@ class TextCursor extends Renderer<TextCursorData> {
     const icon = PhosphorIconsLight.cursorText;
     final property = element.context?.getDefinedProperty(document);
     final iconSize =
-        (property ?? const text.DefinedParagraphProperty()).span.getSize();
+        (property ?? const text.DefinedParagraphProperty()).span.getSize() *
+            (element.context?.element?.scale ??
+                (element.painter.zoomDependent ? transform.size : 1));
     final iconColor = Color(property?.span.color ??
         colorScheme?.primary.value ??
         Colors.black.value);
@@ -81,15 +83,18 @@ class TextSelectionCursor extends Renderer<TextContext> {
     final cursorBox =
         element.textPainter.getOffsetForCaret(selection.base, Rect.zero);
     final height =
-        element.textPainter.getFullHeightForCaret(selection.base, Rect.zero);
+        element.textPainter.getFullHeightForCaret(selection.base, Rect.zero) ??
+            0;
     canvas.drawRect(
       Rect.fromLTWH(
-        textElement.position.x + cursorBox.dx - 1,
+        textElement.position.x + cursorBox.dx - 1 / transform.size,
         textElement.position.y + cursorBox.dy,
-        2,
-        height ?? element.textPainter.preferredLineHeight,
+        2 / transform.size,
+        height,
       ),
-      Paint()..color = color,
+      Paint()
+        ..color = color
+        ..strokeWidth = 1 / transform.size,
     );
 
     final rect = element.getRect();
@@ -99,7 +104,7 @@ class TextSelectionCursor extends Renderer<TextContext> {
         Paint()
           ..color = color.withOpacity(0.5)
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 1,
+          ..strokeWidth = 1 / transform.size,
       );
     }
   }

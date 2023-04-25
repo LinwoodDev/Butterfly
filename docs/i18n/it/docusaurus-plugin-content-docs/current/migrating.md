@@ -15,4 +15,4 @@ Il livello della gomma verrà rimosso. Durante la migrazione, il livello della g
 
 ## Versioni più vecchie
 
-Tutte le migrazioni prima saranno effettuate automaticamente. Leggi la migrazione completa nel codice [qui](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Tutte le migrazioni prima saranno effettuate automaticamente. Leggi la migrazione completa nel codice [qui](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).

@@ -2,7 +2,7 @@
 title: Brändi
 ---
 
-Nämä omaisuuserät on lisensoitu [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Nämä omaisuuserät on lisensoitu [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 

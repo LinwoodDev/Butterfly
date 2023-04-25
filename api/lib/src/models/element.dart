@@ -62,6 +62,7 @@ class PadElement with _$PadElement {
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> position,
+    @Default(1.0) double scale,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
     required TextArea area,
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,

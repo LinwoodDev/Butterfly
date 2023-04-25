@@ -70,6 +70,7 @@ class Painter with _$Painter {
 
   factory Painter.label({
     @Default('') String name,
+    @Default(true) bool zoomDependent,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
   }) = LabelPainter;
 

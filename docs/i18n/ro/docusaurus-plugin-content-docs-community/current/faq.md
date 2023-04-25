@@ -15,7 +15,7 @@ Puteți instala versiunea web făcând clic pe butonul de instalare din bara de 
 
 ### Nu se pot insera imagini în web
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
 
 În prezent, decodarea imaginilor nu funcţionează cu canvaskit. Vă rugăm să susțineți [această problemă](https://github.com/flutter/flutter/issues/102683) dacă doriți această opțiune!
 
@@ -27,7 +27,7 @@ Utilizatorii curajoși care au setat setarea Scutului "Blocare amprentată" ca A
 
 ### Se loveşte Z Fold 3 când ţineţi apăsat butonul S stilou
 
-> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
 Aceasta este o problemă cunoscută cu flutter și Samsung Z Fold 3. Vă rugăm să susțineți [această problemă](https://github.com/flutter/flutter/issues/111068) pentru a rezolva această problemă!
 
@@ -35,7 +35,7 @@ Aceasta este o problemă cunoscută cu flutter și Samsung Z Fold 3. Vă rugăm 
 
 ### Intrarea stylus nu este recunoscută
 
-> [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
+> [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 Folosesc datele furnizate de cadrul flutter. Există deja probleme de urmărire: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) and [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 

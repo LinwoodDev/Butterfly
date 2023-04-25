@@ -23,17 +23,33 @@
     "message": "Zmień wszystko na swoje potrzeby. Wybierz własny kolor, utwórz paletę i dodaj swoje strony do arkusza. Papier ma nieskończony rozmiar, idealny do Twoich pomysłów i notatek.",
     "description": "Features customizable description"
   },
-  "Your data will be saved locally": {
-    "message": "Twoje dane zostaną zapisane lokalnie",
+  "Choose where your data is stored": {
+    "message": "Wybierz miejsce przechowywania danych",
     "description": "Features local title"
   },
-  "Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.": {
-    "message": "Wszystko zostanie zapisane lokalnie na Twoim komputerze. Eksportuj notatki jako obraz lub jako pliki jSon, które można otworzyć na innym urządzeniu.",
+  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
+    "message": "Możesz wybrać przechowywanie danych lokalnie lub w swojej ulubionej chmurze (webdav). Możesz również wyeksportować swoje dane do pliku i zaimportować je ponownie.",
     "description": "Features local description"
   },
   "Getting started": {
     "message": "Pierwsze kroki",
     "description": "homepage getting started button"
+  },
+  "Download for Windows": {
+    "message": "Pobierz dla Windows",
+    "description": "homepage windows button"
+  },
+  "Download for Linux": {
+    "message": "Pobierz na Linux",
+    "description": "homepage linux button"
+  },
+  "Download for Android": {
+    "message": "Pobierz na Androida",
+    "description": "homepage android button"
+  },
+  "Open the web app": {
+    "message": "Otwórz aplikację internetową",
+    "description": "homepage web button"
   },
   "Downloads": {
     "message": "Pobrania",
@@ -42,10 +58,6 @@
   "theme.ErrorPageContent.title": {
     "message": "Ta strona uległa awarii.",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Spróbuj ponownie",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "Strona nie znaleziona",
@@ -59,9 +71,25 @@
     "message": "Skontaktuj się z właścicielem witryny, która połączyła Cię z oryginalnym adresem URL i daj im znać, że ich link jest uszkodzony.",
     "description": "The 2nd paragraph of the 404 page"
   },
-  "theme.AnnouncementBar.closeButtonAriaLabel": {
-    "message": "Zamknij",
-    "description": "The ARIA label for close button of announcement bar"
+  "theme.admonition.note": {
+    "message": "notatka",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "tip",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.danger": {
+    "message": "niebezpieczeństwo",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "informacje",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.caution": {
+    "message": "Należy zachować ostrożność",
+    "description": "The default label used for the Caution admonition (:::caution)"
   },
   "theme.BackToTopButton.buttonAriaLabel": {
     "message": "Przewiń z powrotem do góry",
@@ -87,14 +115,6 @@
     "message": "Starsze wpisy",
     "description": "The label used to navigate to the older blog posts page (next page)"
   },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "Przeczytano minutę|{readingTime} min",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
-  },
-  "theme.blog.post.readMore": {
-    "message": "Przeczytaj więcej",
-    "description": "The label used in blog post item excerpts to link to full blog posts"
-  },
   "theme.blog.post.paginator.navAriaLabel": {
     "message": "Nawigacja na blogu",
     "description": "The ARIA label for the blog posts pagination"
@@ -107,10 +127,6 @@
     "message": "Starszy post",
     "description": "The blog post button label to navigate to the older/next post"
   },
-  "theme.blog.sidebar.navAriaLabel": {
-    "message": "Nawigacja na blogu",
-    "description": "The ARIA label for recent posts in the blog sidebar"
-  },
   "theme.blog.post.plurals": {
     "message": "Jeden post|{count} postów",
     "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
@@ -119,49 +135,41 @@
     "message": "{nPosts} otagował \"{tagName}\"",
     "description": "The title of the page for a blog tag"
   },
-  "theme.CodeBlock.copyButtonAriaLabel": {
-    "message": "Skopiuj kod do schowka",
-    "description": "The ARIA label for copy code blocks button"
+  "theme.tags.tagsPageLink": {
+    "message": "Zobacz wszystkie tagi",
+    "description": "The label of the link targeting the tag list page"
   },
-  "theme.CodeBlock.copied": {
-    "message": "Skopiowano",
-    "description": "The copied button label on code blocks"
+  "theme.colorToggle.ariaLabel": {
+    "message": "Przełącz pomiędzy trybem ciemnym i jasnym (obecnie {mode})",
+    "description": "The ARIA label for the navbar color mode toggle"
   },
-  "theme.CodeBlock.copy": {
-    "message": "Kopiuj",
-    "description": "The copy button label on code blocks"
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "tryb ciemny",
+    "description": "The name for the dark color mode"
   },
-  "theme.docs.sidebar.expandButtonTitle": {
-    "message": "Expand sidebar",
-    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "tryb oświetlenia",
+    "description": "The name for the light color mode"
   },
-  "theme.docs.sidebar.expandButtonAriaLabel": {
-    "message": "Expand sidebar",
-    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "Ścieżki",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.DocCard.categoryDescription": {
+    "message": "{count} przedmiotów",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   },
   "theme.docs.paginator.navAriaLabel": {
     "message": "Nawigacja stron dokumentów",
     "description": "The ARIA label for the docs pagination"
   },
-  "theme.docs.paginator.next": {
-    "message": "Następny",
-    "description": "The label used to navigate to the next doc"
-  },
   "theme.docs.paginator.previous": {
     "message": "Poprzedni",
     "description": "The label used to navigate to the previous doc"
   },
-  "theme.docs.sidebar.collapseButtonTitle": {
-    "message": "Zwiń pasek boczny",
-    "description": "The title attribute for collapse button of doc sidebar"
-  },
-  "theme.docs.sidebar.collapseButtonAriaLabel": {
-    "message": "Zwiń pasek boczny",
-    "description": "The title attribute for collapse button of doc sidebar"
-  },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Przełącz zwijany pasek boczny kategorii '{label}'",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
+  "theme.docs.paginator.next": {
+    "message": "Następny",
+    "description": "The label used to navigate to the next doc"
   },
   "theme.docs.tagDocListPageTitle.nDocsTagged": {
     "message": "Jeden dokument oznaczony|{count} dokumentów oznaczonych",
@@ -170,6 +178,9 @@
   "theme.docs.tagDocListPageTitle": {
     "message": "{nDocsTagged} z \"{tagName}\"",
     "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "Wersja: {versionLabel}"
   },
   "theme.docs.versions.unreleasedVersionLabel": {
     "message": "To jest niewydana dokumentacja dla wersji {siteTitle} {versionLabel}.",
@@ -192,7 +203,7 @@
     "description": "The link label to edit the current page"
   },
   "theme.common.headingLinkTitle": {
-    "message": "Bezpośredni link do nagłówka",
+    "message": "Bezpośredni link do {heading}",
     "description": "Title for link to heading"
   },
   "theme.lastUpdated.atDate": {
@@ -207,41 +218,104 @@
     "message": "Ostatnia aktualizacja{atDate}{byUser}",
     "description": "The sentence used to display when a page has been last updated, and by who"
   },
-  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
-    "message": "◆ Powrót do menu głównego",
-    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
-  },
   "theme.navbar.mobileVersionsDropdown.label": {
     "message": "Wersje",
     "description": "The label for the navbar versions dropdown on mobile view"
-  },
-  "theme.common.skipToMainContent": {
-    "message": "Przejdź do głównej zawartości",
-    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
   },
   "theme.tags.tagsListLabel": {
     "message": "Tagi:",
     "description": "The label alongside a tag list"
   },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "Zamknij",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "Nawigacja na blogu",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "Skopiowano",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "Skopiuj kod do schowka",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "Kopiuj",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "Przełącz zawijanie słów",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
+    "message": "Przełącz zwijany pasek boczny kategorii '{label}'",
+    "description": "The ARIA label to toggle the collapsible sidebar category"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "Główny",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "Języki",
+    "description": "The label for the mobile language switcher dropdown"
+  },
   "theme.TOCCollapsible.toggleButtonLabel": {
     "message": "Na tej stronie",
     "description": "The label used by the button on the collapsible TOC component"
   },
-  "theme.PwaReloadPopup.info": {
-    "message": "Dostępna jest nowa wersja",
-    "description": "The text for PWA reload popup"
+  "theme.blog.post.readMore": {
+    "message": "Przeczytaj więcej",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
   },
-  "theme.PwaReloadPopup.refreshButtonText": {
-    "message": "Odśwież",
-    "description": "The text for PWA reload button"
+  "theme.blog.post.readMoreLabel": {
+    "message": "Przeczytaj więcej o {title}",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
   },
-  "theme.PwaReloadPopup.closeButtonAriaLabel": {
-    "message": "Zamknij",
-    "description": "The ARIA label for close button of PWA reload popup"
+  "theme.blog.post.readingTime.plurals": {
+    "message": "Przeczytano minutę|{readingTime} min",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
-  "theme.SearchBar.label": {
-    "message": "Szukaj",
-    "description": "The ARIA label and placeholder for search button"
+  "theme.docs.breadcrumbs.home": {
+    "message": "Strona główna",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "Zwiń pasek boczny",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "Zwiń pasek boczny",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "Docs sidebar",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "Zamknij pasek nawigacji",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "◆ Powrót do menu głównego",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "Przełącz pasek nawigacji",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "Expand sidebar",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "Expand sidebar",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.SearchBar.seeAll": {
+    "message": "Zobacz wszystkie wyniki {count}"
   },
   "theme.SearchPage.documentsFound.plurals": {
     "message": "Znaleziono jeden dokument|{count} dokumentów",
@@ -275,87 +349,9 @@
     "message": "Pobieranie nowych wyników...",
     "description": "The paragraph for fetching new search results"
   },
-  "theme.blog.post.readMoreLabel": {
-    "message": "Przeczytaj więcej o {title}",
-    "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.docs.DocCard.categoryDescription": {
-    "message": "{count} przedmiotów",
-    "description": "The default description for a category card in the generated index about how many items this category includes"
-  },
-  "theme.colorToggle.ariaLabel": {
-    "message": "Przełącz pomiędzy trybem ciemnym i jasnym (obecnie {mode})",
-    "description": "The ARIA label for the navbar color mode toggle"
-  },
-  "theme.colorToggle.ariaLabel.mode.dark": {
-    "message": "tryb ciemny",
-    "description": "The name for the dark color mode"
-  },
-  "theme.colorToggle.ariaLabel.mode.light": {
-    "message": "tryb oświetlenia",
-    "description": "The name for the light color mode"
-  },
-  "theme.docs.versionBadge.label": {
-    "message": "Wersja: {versionLabel}"
-  },
-  "theme.navbar.mobileLanguageDropdown.label": {
-    "message": "Języki",
-    "description": "The label for the mobile language switcher dropdown"
-  },
-  "theme.SearchBar.seeAll": {
-    "message": "Zobacz wszystkie wyniki {count}"
-  },
-  "theme.tags.tagsPageLink": {
-    "message": "Zobacz wszystkie tagi",
-    "description": "The label of the link targeting the tag list page"
-  },
-  "Download for Windows": {
-    "message": "Pobierz dla Windows",
-    "description": "homepage windows button"
-  },
-  "Download for Linux": {
-    "message": "Pobierz na Linux",
-    "description": "homepage linux button"
-  },
-  "Download for Android": {
-    "message": "Pobierz na Androida",
-    "description": "homepage android button"
-  },
-  "Open the web app": {
-    "message": "Otwórz aplikację internetową",
-    "description": "homepage web button"
-  },
-  "theme.docs.breadcrumbs.home": {
-    "message": "Strona główna",
-    "description": "The ARIA label for the home page in the breadcrumbs"
-  },
-  "theme.docs.breadcrumbs.navAriaLabel": {
-    "message": "Ścieżki",
-    "description": "The ARIA label for the breadcrumbs"
-  },
-  "theme.CodeBlock.wordWrapToggle": {
-    "message": "Przełącz zawijanie słów",
-    "description": "The title attribute for toggle word wrapping button of code block lines"
-  },
-  "theme.admonition.note": {
-    "message": "notatka",
-    "description": "The default label used for the Note admonition (:::note)"
-  },
-  "theme.admonition.tip": {
-    "message": "tip",
-    "description": "The default label used for the Tip admonition (:::tip)"
-  },
-  "theme.admonition.danger": {
-    "message": "niebezpieczeństwo",
-    "description": "The default label used for the Danger admonition (:::danger)"
-  },
-  "theme.admonition.info": {
-    "message": "informacje",
-    "description": "The default label used for the Info admonition (:::info)"
-  },
-  "theme.admonition.caution": {
-    "message": "Należy zachować ostrożność",
-    "description": "The default label used for the Caution admonition (:::caution)"
+  "theme.SearchBar.label": {
+    "message": "Szukaj",
+    "description": "The ARIA label and placeholder for search button"
   },
   "theme.SearchModal.searchBox.resetButtonTitle": {
     "message": "Wyczyść zapytanie",
@@ -449,24 +445,28 @@
     "message": "Szukaj dokumentów",
     "description": "The placeholder of the input of the DocSearch pop-up modal"
   },
+  "theme.PwaReloadPopup.info": {
+    "message": "Dostępna jest nowa wersja",
+    "description": "The text for PWA reload popup"
+  },
+  "theme.PwaReloadPopup.refreshButtonText": {
+    "message": "Odśwież",
+    "description": "The text for PWA reload button"
+  },
+  "theme.PwaReloadPopup.closeButtonAriaLabel": {
+    "message": "Zamknij",
+    "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Spróbuj ponownie",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "Przejdź do głównej zawartości",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
   "theme.tags.tagsPageTitle": {
     "message": "Tagi",
     "description": "The title of the tag list page"
-  },
-  "Choose where your data is stored": {
-    "message": "Wybierz miejsce przechowywania danych",
-    "description": "Features local title"
-  },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "Możesz wybrać przechowywanie danych lokalnie lub w swojej ulubionej chmurze (webdav). Możesz również wyeksportować swoje dane do pliku i zaimportować je ponownie.",
-    "description": "Features local description"
-  },
-  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
-    "message": "Zamknij pasek nawigacji",
-    "description": "The ARIA label for close button of mobile sidebar"
-  },
-  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
-    "message": "Przełącz pasek nawigacji",
-    "description": "The ARIA label for hamburger menu button of mobile navigation"
   }
 }

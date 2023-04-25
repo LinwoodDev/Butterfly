@@ -4,7 +4,7 @@ sidebar_position: 0
 title: Downloads
 ---
 
-![Versão de lançamento estável](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Versão de lançamento estável](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Escolha sua plataforma
 
@@ -42,6 +42,6 @@ title: Downloads
 ## Links úteis
 
 - [Mudanças](changelog)
-- [Lançamentos mais antigos](https://github.com/LinwoodCloud/butterfly/releases)
-- [Última versão](https://github.com/LinwoodCloud/butterfly/releases/latest)
+- [Lançamentos mais antigos](https://github.com/LinwoodDev/butterfly/releases)
+- [Última versão](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [SUPORTE](https://discord.linwood.dev)

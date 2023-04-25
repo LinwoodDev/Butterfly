@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui' as ui;
 
+import 'package:butterfly/helpers/color_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -21,34 +22,40 @@ class DocumentDefaults {
         .toString();
   }
 
-  static List<Painter> createPainters() => [
+  static List<Painter> createPainters([int? background]) => [
         HandPainter(),
         PenPainter(),
         PathEraserPainter(),
         UndoPainter(),
         RedoPainter()
-      ];
+      ]
+          .map((e) =>
+              background == null ? e : updatePainterDefaultColor(e, background))
+          .toList();
 
   static Future<List<DocumentTemplate>> getDefaults(
       BuildContext context) async {
-    return [
-      DocumentTemplate(
+    return Future.wait(<dynamic>[
+      [
+        AppLocalizations.of(context).light,
+        BackgroundTemplate.plain.create(),
+      ],
+      [
+        AppLocalizations.of(context).dark,
+        BackgroundTemplate.plainDark.create(),
+      ],
+    ].map((e) async {
+      final bg = e[1] as Background;
+      final color = bg.defaultColor;
+      return DocumentTemplate(
           document: AppDocument(
-              thumbnail: await _createPlainThumnail(const Color(kColorLight)),
-              name: AppLocalizations.of(context).light,
+              thumbnail: await _createPlainThumnail(Color(color)),
+              name: e[0],
               packs: [await getCorePack()],
               createdAt: DateTime.now(),
-              painters: createPainters(),
-              background: BackgroundTemplate.plain.create())),
-      DocumentTemplate(
-          document: AppDocument(
-              thumbnail: await _createPlainThumnail(const Color(kColorDark)),
-              name: AppLocalizations.of(context).dark,
-              packs: [await getCorePack()],
-              createdAt: DateTime.now(),
-              painters: createPainters(),
-              background: BackgroundTemplate.plainDark.create()))
-    ];
+              painters: createPainters(color),
+              background: bg));
+    }).toList());
   }
 
   static Future<ButterflyPack> getCorePack() async => const PackJsonConverter()

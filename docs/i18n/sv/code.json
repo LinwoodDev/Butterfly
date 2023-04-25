@@ -23,17 +23,33 @@
     "message": "Ändra allt efter dina behov. Välj din egen färg, skapa en palett och lägg till dina sidor i papperet. Pappret har en oändlig storlek, perfekt för dina idéer och anteckningar.",
     "description": "Features customizable description"
   },
-  "Your data will be saved locally": {
-    "message": "Dina data kommer att sparas lokalt",
+  "Choose where your data is stored": {
+    "message": "Välj var dina data lagras",
     "description": "Features local title"
   },
-  "Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.": {
-    "message": "Allt sparas lokalt på din dator. Exportera anteckningarna som bild eller som json-filer som kan öppnas på en annan enhet.",
+  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
+    "message": "Du kan välja att lagra dina data lokalt eller i ditt favoritmoln (webdav). Du kan också exportera dina data till en fil och importera den igen.",
     "description": "Features local description"
   },
   "Getting started": {
     "message": "Komma igång",
     "description": "homepage getting started button"
+  },
+  "Download for Windows": {
+    "message": "Ladda ner för Windows",
+    "description": "homepage windows button"
+  },
+  "Download for Linux": {
+    "message": "Ladda ner för Linux",
+    "description": "homepage linux button"
+  },
+  "Download for Android": {
+    "message": "Ladda ner för Android",
+    "description": "homepage android button"
+  },
+  "Open the web app": {
+    "message": "Öppna webbappen",
+    "description": "homepage web button"
   },
   "Downloads": {
     "message": "Nedladdningar",
@@ -42,10 +58,6 @@
   "theme.ErrorPageContent.title": {
     "message": "Denna sida kraschade.",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Försök igen",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "Sidan hittades inte",
@@ -59,9 +71,25 @@
     "message": "Vänligen kontakta ägaren av webbplatsen som länkade dig till den ursprungliga webbadressen och låt dem veta att deras länk är bruten.",
     "description": "The 2nd paragraph of the 404 page"
   },
-  "theme.AnnouncementBar.closeButtonAriaLabel": {
-    "message": "Stäng",
-    "description": "The ARIA label for close button of announcement bar"
+  "theme.admonition.note": {
+    "message": "anteckning",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "tip",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.danger": {
+    "message": "fara",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "information",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.caution": {
+    "message": "varning",
+    "description": "The default label used for the Caution admonition (:::caution)"
   },
   "theme.BackToTopButton.buttonAriaLabel": {
     "message": "Bläddra tillbaka till toppen",
@@ -87,14 +115,6 @@
     "message": "Äldre inlägg",
     "description": "The label used to navigate to the older blog posts page (next page)"
   },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "En min läsa{readingTime} min",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
-  },
-  "theme.blog.post.readMore": {
-    "message": "Läs mer",
-    "description": "The label used in blog post item excerpts to link to full blog posts"
-  },
   "theme.blog.post.paginator.navAriaLabel": {
     "message": "Blogginlägg sidnavigering",
     "description": "The ARIA label for the blog posts pagination"
@@ -107,10 +127,6 @@
     "message": "Äldre inlägg",
     "description": "The blog post button label to navigate to the older/next post"
   },
-  "theme.blog.sidebar.navAriaLabel": {
-    "message": "Blogg senaste inlägg navigering",
-    "description": "The ARIA label for recent posts in the blog sidebar"
-  },
   "theme.blog.post.plurals": {
     "message": "Ett inlägg{count} inlägg",
     "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
@@ -119,49 +135,41 @@
     "message": "{nPosts} taggade med \"{tagName}\"",
     "description": "The title of the page for a blog tag"
   },
-  "theme.CodeBlock.copyButtonAriaLabel": {
-    "message": "Kopiera kod till urklipp",
-    "description": "The ARIA label for copy code blocks button"
+  "theme.tags.tagsPageLink": {
+    "message": "Visa alla taggar",
+    "description": "The label of the link targeting the tag list page"
   },
-  "theme.CodeBlock.copied": {
-    "message": "Kopierad",
-    "description": "The copied button label on code blocks"
+  "theme.colorToggle.ariaLabel": {
+    "message": "Växla mellan mörk och ljus (för närvarande {mode})",
+    "description": "The ARIA label for the navbar color mode toggle"
   },
-  "theme.CodeBlock.copy": {
-    "message": "Kopiera",
-    "description": "The copy button label on code blocks"
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "mörkt läge",
+    "description": "The name for the dark color mode"
   },
-  "theme.docs.sidebar.expandButtonTitle": {
-    "message": "Expand sidebar",
-    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "ljus läge",
+    "description": "The name for the light color mode"
   },
-  "theme.docs.sidebar.expandButtonAriaLabel": {
-    "message": "Expand sidebar",
-    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "Brödsmulor",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.DocCard.categoryDescription": {
+    "message": "{count} objekt",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   },
   "theme.docs.paginator.navAriaLabel": {
     "message": "Docs sidor navigering",
     "description": "The ARIA label for the docs pagination"
   },
-  "theme.docs.paginator.next": {
-    "message": "Nästa",
-    "description": "The label used to navigate to the next doc"
-  },
   "theme.docs.paginator.previous": {
     "message": "Föregående",
     "description": "The label used to navigate to the previous doc"
   },
-  "theme.docs.sidebar.collapseButtonTitle": {
-    "message": "Komprimera sidofält",
-    "description": "The title attribute for collapse button of doc sidebar"
-  },
-  "theme.docs.sidebar.collapseButtonAriaLabel": {
-    "message": "Komprimera sidofält",
-    "description": "The title attribute for collapse button of doc sidebar"
-  },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Växla den hopfällbara sidopanelkategorin '{label}'",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
+  "theme.docs.paginator.next": {
+    "message": "Nästa",
+    "description": "The label used to navigate to the next doc"
   },
   "theme.docs.tagDocListPageTitle.nDocsTagged": {
     "message": "En doc taggad{count} dokument taggade",
@@ -170,6 +178,9 @@
   "theme.docs.tagDocListPageTitle": {
     "message": "{nDocsTagged} med \"{tagName}\"",
     "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "Version: {versionLabel}"
   },
   "theme.docs.versions.unreleasedVersionLabel": {
     "message": "Detta är outgiven dokumentation för {siteTitle} {versionLabel} -versionen.",
@@ -192,7 +203,7 @@
     "description": "The link label to edit the current page"
   },
   "theme.common.headingLinkTitle": {
-    "message": "Direktlänk till rubrik",
+    "message": "Direktlänk till {heading}",
     "description": "Title for link to heading"
   },
   "theme.lastUpdated.atDate": {
@@ -207,41 +218,104 @@
     "message": "Senast uppdaterad{atDate}{byUser}",
     "description": "The sentence used to display when a page has been last updated, and by who"
   },
-  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
-    "message": "← Tillbaka till huvudmenyn",
-    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
-  },
   "theme.navbar.mobileVersionsDropdown.label": {
     "message": "Versioner",
     "description": "The label for the navbar versions dropdown on mobile view"
-  },
-  "theme.common.skipToMainContent": {
-    "message": "Hoppa till huvudinnehållet",
-    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
   },
   "theme.tags.tagsListLabel": {
     "message": "Taggar:",
     "description": "The label alongside a tag list"
   },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "Stäng",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "Blogg senaste inlägg navigering",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "Kopierad",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "Kopiera kod till urklipp",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "Kopiera",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "Växla ordinmatning",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
+    "message": "Växla den hopfällbara sidopanelkategorin '{label}'",
+    "description": "The ARIA label to toggle the collapsible sidebar category"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "Huvud",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "Språk",
+    "description": "The label for the mobile language switcher dropdown"
+  },
   "theme.TOCCollapsible.toggleButtonLabel": {
     "message": "På denna sida",
     "description": "The label used by the button on the collapsible TOC component"
   },
-  "theme.PwaReloadPopup.info": {
-    "message": "Ny version tillgänglig",
-    "description": "The text for PWA reload popup"
+  "theme.blog.post.readMore": {
+    "message": "Läs mer",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
   },
-  "theme.PwaReloadPopup.refreshButtonText": {
-    "message": "Uppdatera",
-    "description": "The text for PWA reload button"
+  "theme.blog.post.readMoreLabel": {
+    "message": "Läs mer om {title}",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
   },
-  "theme.PwaReloadPopup.closeButtonAriaLabel": {
-    "message": "Stäng",
-    "description": "The ARIA label for close button of PWA reload popup"
+  "theme.blog.post.readingTime.plurals": {
+    "message": "En min läsa{readingTime} min",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
-  "theme.SearchBar.label": {
-    "message": "Sök",
-    "description": "The ARIA label and placeholder for search button"
+  "theme.docs.breadcrumbs.home": {
+    "message": "Startsida",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "Komprimera sidofält",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "Komprimera sidofält",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "Docs sidebar",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "Stäng navigeringsfältet",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← Tillbaka till huvudmenyn",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "Växla navigeringsfält",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "Expand sidebar",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "Expand sidebar",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.SearchBar.seeAll": {
+    "message": "Se alla {count} resultat"
   },
   "theme.SearchPage.documentsFound.plurals": {
     "message": "Ett dokument hittade<unk>{count} dokument hittades",
@@ -275,87 +349,9 @@
     "message": "Hämtar nya resultat...",
     "description": "The paragraph for fetching new search results"
   },
-  "theme.blog.post.readMoreLabel": {
-    "message": "Läs mer om {title}",
-    "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.docs.DocCard.categoryDescription": {
-    "message": "{count} objekt",
-    "description": "The default description for a category card in the generated index about how many items this category includes"
-  },
-  "theme.colorToggle.ariaLabel": {
-    "message": "Växla mellan mörk och ljus (för närvarande {mode})",
-    "description": "The ARIA label for the navbar color mode toggle"
-  },
-  "theme.colorToggle.ariaLabel.mode.dark": {
-    "message": "mörkt läge",
-    "description": "The name for the dark color mode"
-  },
-  "theme.colorToggle.ariaLabel.mode.light": {
-    "message": "ljus läge",
-    "description": "The name for the light color mode"
-  },
-  "theme.docs.versionBadge.label": {
-    "message": "Version: {versionLabel}"
-  },
-  "theme.navbar.mobileLanguageDropdown.label": {
-    "message": "Språk",
-    "description": "The label for the mobile language switcher dropdown"
-  },
-  "theme.SearchBar.seeAll": {
-    "message": "Se alla {count} resultat"
-  },
-  "theme.tags.tagsPageLink": {
-    "message": "Visa alla taggar",
-    "description": "The label of the link targeting the tag list page"
-  },
-  "Download for Windows": {
-    "message": "Ladda ner för Windows",
-    "description": "homepage windows button"
-  },
-  "Download for Linux": {
-    "message": "Ladda ner för Linux",
-    "description": "homepage linux button"
-  },
-  "Download for Android": {
-    "message": "Ladda ner för Android",
-    "description": "homepage android button"
-  },
-  "Open the web app": {
-    "message": "Öppna webbappen",
-    "description": "homepage web button"
-  },
-  "theme.docs.breadcrumbs.home": {
-    "message": "Startsida",
-    "description": "The ARIA label for the home page in the breadcrumbs"
-  },
-  "theme.docs.breadcrumbs.navAriaLabel": {
-    "message": "Brödsmulor",
-    "description": "The ARIA label for the breadcrumbs"
-  },
-  "theme.CodeBlock.wordWrapToggle": {
-    "message": "Växla ordinmatning",
-    "description": "The title attribute for toggle word wrapping button of code block lines"
-  },
-  "theme.admonition.note": {
-    "message": "anteckning",
-    "description": "The default label used for the Note admonition (:::note)"
-  },
-  "theme.admonition.tip": {
-    "message": "tip",
-    "description": "The default label used for the Tip admonition (:::tip)"
-  },
-  "theme.admonition.danger": {
-    "message": "fara",
-    "description": "The default label used for the Danger admonition (:::danger)"
-  },
-  "theme.admonition.info": {
-    "message": "information",
-    "description": "The default label used for the Info admonition (:::info)"
-  },
-  "theme.admonition.caution": {
-    "message": "varning",
-    "description": "The default label used for the Caution admonition (:::caution)"
+  "theme.SearchBar.label": {
+    "message": "Sök",
+    "description": "The ARIA label and placeholder for search button"
   },
   "theme.SearchModal.searchBox.resetButtonTitle": {
     "message": "Rensa frågan",
@@ -449,24 +445,28 @@
     "message": "Sök dokument",
     "description": "The placeholder of the input of the DocSearch pop-up modal"
   },
+  "theme.PwaReloadPopup.info": {
+    "message": "Ny version tillgänglig",
+    "description": "The text for PWA reload popup"
+  },
+  "theme.PwaReloadPopup.refreshButtonText": {
+    "message": "Uppdatera",
+    "description": "The text for PWA reload button"
+  },
+  "theme.PwaReloadPopup.closeButtonAriaLabel": {
+    "message": "Stäng",
+    "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Försök igen",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "Hoppa till huvudinnehållet",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
   "theme.tags.tagsPageTitle": {
     "message": "Taggar",
     "description": "The title of the tag list page"
-  },
-  "Choose where your data is stored": {
-    "message": "Välj var dina data lagras",
-    "description": "Features local title"
-  },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "Du kan välja att lagra dina data lokalt eller i ditt favoritmoln (webdav). Du kan också exportera dina data till en fil och importera den igen.",
-    "description": "Features local description"
-  },
-  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
-    "message": "Stäng navigeringsfältet",
-    "description": "The ARIA label for close button of mobile sidebar"
-  },
-  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
-    "message": "Växla navigeringsfält",
-    "description": "The ARIA label for hamburger menu button of mobile navigation"
   }
 }

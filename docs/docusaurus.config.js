@@ -10,7 +10,7 @@ module.exports = {
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
-  organizationName: "LinwoodCloud", // Usually your GitHub org/user name.
+  organizationName: "LinwoodDev", // Usually your GitHub org/user name.
   projectName: "butterfly", // Usually your repo name.
   i18n: {
     defaultLocale: "en",
@@ -73,7 +73,7 @@ module.exports = {
             },
             {
               label: "GitHub",
-              href: "https://github.com/LinwoodCloud/Butterfly",
+              href: "https://github.com/LinwoodDev/Butterfly",
             },
             {
               label: "Blog",
@@ -85,7 +85,7 @@ module.exports = {
             },
             {
               label: "Twitter",
-              href: "https://twitter.com/LinwoodCloud",
+              href: "https://twitter.com/LinwoodDev",
             },
             {
               label: "Mastodon",
@@ -132,7 +132,7 @@ module.exports = {
             },
             {
               label: "Twitter",
-              href: "https://twitter.com/LinwoodCloud",
+              href: "https://twitter.com/LinwoodDev",
             },
             {
               label: "Mastodon",
@@ -152,15 +152,15 @@ module.exports = {
           items: [
             {
               label: "App",
-              href: "https://github.com/LinwoodCloud/butterfly/tree/develop/app",
+              href: "https://github.com/LinwoodDev/butterfly/tree/develop/app",
             },
             {
               label: "Docs",
-              href: "https://github.com/LinwoodCloud/butterfly/tree/develop/docs",
+              href: "https://github.com/LinwoodDev/butterfly/tree/develop/docs",
             },
             {
               label: "Contribution guide",
-              href: "https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md",
+              href: "https://github.com/LinwoodDev/butterfly/blob/develop/CONTRIBUTING.md",
             },
           ],
         },
@@ -188,7 +188,7 @@ module.exports = {
         width: 100,
         href: "https://linwood.dev",
       },
-      copyright: `Copyright © ${new Date().getFullYear()} LinwoodCloud.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Linwood.`,
     },
   },
   presets: [
@@ -202,7 +202,7 @@ module.exports = {
             if (locale !== 'en') {
               return `https://translate.linwood.dev/butterfly/${locale}`;
             }
-            return `https://github.com/LinwoodCloud/butterfly/edit/develop/docs/docs`;
+            return `https://github.com/LinwoodDev/butterfly/edit/develop/docs/docs`;
           },
           versions: {
             current: {

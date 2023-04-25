@@ -27,7 +27,6 @@ embedElement.addEventListener('melding', (data) => {
   (data.detail.type === 'save') {
     console.log('Saving...', data.detail.message);
   }
-
 ```
 
 ### save

@@ -20,7 +20,7 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
                   .map((e) => e.copyWith(
                       zoomDependent: value ?? selected.first.zoomDependent))
                   .toList())),
-      const SizedBox(height: 15),
+      const SizedBox(height: 16),
       ..._propertySelection.build(context, property, updateProperty),
     ];
   }

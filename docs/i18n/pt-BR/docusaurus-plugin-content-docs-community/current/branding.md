@@ -2,7 +2,7 @@
 title: Marca
 ---
 
-Esses assets são licenciados sob o [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Esses assets são licenciados sob o [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logotipo
 

@@ -15,4 +15,4 @@ De gum laag zal worden verwijderd. Bij migratie zal de guaserlaag worden opgehev
 
 ## Oudere versies
 
-Alle migraties worden automatisch gedaan. Lees de volledige migratie in code [hier](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Alle migraties worden automatisch gedaan. Lees de volledige migratie in code [hier](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).

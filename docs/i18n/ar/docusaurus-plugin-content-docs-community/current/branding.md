@@ -2,7 +2,7 @@
 title: العلامة
 ---
 
-هذه الأصول مرخصة بموجب [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+هذه الأصول مرخصة بموجب [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## الشعار
 

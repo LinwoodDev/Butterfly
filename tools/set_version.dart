@@ -53,9 +53,11 @@ Future<void> main(List<String> args) async {
 
   // Update api
   final apiPubspec = File('api/pubspec.yaml');
-  final apiContent = await apiPubspec.readAsString();
-  apiContent.replaceAll(exp, 'version: $newVersion');
+  var apiContent = await apiPubspec.readAsString();
+  apiContent =
+      apiContent.replaceAll(RegExp(r'version: .+'), 'version: $version');
   await apiPubspec.writeAsString(apiContent);
+  print(apiContent);
   print(
       'Updating the version in the api pubspec.yaml from $lastVersion to $newVersion');
 

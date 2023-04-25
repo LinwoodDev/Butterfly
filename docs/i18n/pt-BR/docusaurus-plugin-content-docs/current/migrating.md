@@ -15,4 +15,4 @@ A camada da borracha será removida. Ao migrar, a camada da borracha será remov
 
 ## Versões mais antigas
 
-Todas as migrações antes serão feitas automaticamente. Leia a migração completa no código [aqui](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Todas as migrações antes serão feitas automaticamente. Leia a migração completa no código [aqui](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).

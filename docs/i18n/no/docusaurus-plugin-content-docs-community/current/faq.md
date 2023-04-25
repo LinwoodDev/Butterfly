@@ -15,7 +15,7 @@ Du kan installere webversjonen ved å klikke på knappen Installer i tittellinje
 
 ### Kan ikke opprette bilder på web
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
 
 For øyeblikket fungerer ikke dekodingsbilder med hjøring. Vennligst stem på [dette problemet](https://github.com/flutter/flutter/issues/102683) hvis du vil ha dette alternativet!
 
@@ -27,7 +27,7 @@ Modige brukere som har angitt innstillingen 'Block Fingerprint' til Aggressiva, 
 
 ### Krasj i Z Fold 3 når du holder inne side-knappen på S penn
 
-> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
 Dette er et kjent problem med flutter og Samsung Z Fold 3. Oppstem [dette problemet](https://github.com/flutter/flutter/issues/111068) for å få dette utbedret!
 
@@ -35,7 +35,7 @@ Dette er et kjent problem med flutter og Samsung Z Fold 3. Oppstem [dette proble
 
 ### Stil-inndata gjenkjennes ikke
 
-> [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
+> [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 Jeg bruker det innspillet som følger med flutter rammeverket. Det er allerede problemer med å spore det: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) og [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 

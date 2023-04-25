@@ -15,7 +15,7 @@ sidebar_label: "Συχνές"
 
 ### Αδυναμία εισαγωγής εικόνων στο διαδίκτυο
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
 
 Αυτή τη στιγμή η αποκωδικοποίηση εικόνων δεν λειτουργεί με canvaskit. Παρακαλώ ψηφίστε [αυτό το ζήτημα](https://github.com/flutter/flutter/issues/102683) αν θέλετε αυτή την επιλογή!
 
@@ -27,7 +27,7 @@ sidebar_label: "Συχνές"
 
 ### Συντριβές στο Z Fold 3 όταν κρατάτε πατημένο το πλευρικό κουμπί της S Pen
 
-> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
 Αυτό είναι ένα γνωστό ζήτημα με πτερύγιο και το Samsung Z Fold 3. Παρακαλώ ψηφίστε [αυτό το ζήτημα](https://github.com/flutter/flutter/issues/111068) για να το διορθώσετε!
 
@@ -35,7 +35,7 @@ sidebar_label: "Συχνές"
 
 ### Η είσοδος γραφίδας δεν αναγνωρίζεται
 
-> [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
+> [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 Χρησιμοποιώ την είσοδο που παρέχεται από το πλαίσιο πτερυγίου. Υπάρχουν ήδη ζητήματα που πρέπει να παρακολουθούν: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) και [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 

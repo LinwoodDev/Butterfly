@@ -4,7 +4,7 @@ sidebar_position: 0
 title: Λήψεις
 ---
 
-![Σταθερή έκδοση έκδοση](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Σταθερή έκδοση έκδοση](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Επιλέξτε την πλατφόρμα σας
 
@@ -42,6 +42,6 @@ title: Λήψεις
 ## Χρήσιμοι σύνδεσμοι
 
 - [Αρχείο Αλλαγών](changelog)
-- [Παλαιότερες εκδόσεις](https://github.com/LinwoodCloud/butterfly/releases)
-- [Τελευταία κυκλοφορία](https://github.com/LinwoodCloud/butterfly/releases/latest)
+- [Παλαιότερες εκδόσεις](https://github.com/LinwoodDev/butterfly/releases)
+- [Τελευταία κυκλοφορία](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Υποστήριξη](https://discord.linwood.dev)

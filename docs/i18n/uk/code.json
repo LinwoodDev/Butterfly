@@ -23,17 +23,33 @@
     "message": "Змініть все на ваші потреби. Оберіть власний колір, створіть палітру та додайте сторінки до паперу. Документ має нескінченний розмір, ідеальний для ваших ідей та нотаток.",
     "description": "Features customizable description"
   },
-  "Your data will be saved locally": {
-    "message": "Ваші дані буде збережено локально",
+  "Choose where your data is stored": {
+    "message": "Виберіть, де зберігаються ваші дані",
     "description": "Features local title"
   },
-  "Everything will be saved local on your computer. Export the notes as image or as json files which can be opened on a different device.": {
-    "message": "Все буде збережено локально на Вашому комп'ютері. Експортуйте нотатки як зображення або json файли, які можна відкрити на іншому пристрої.",
+  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
+    "message": "Ви можете зберігати свої дані локально або в улюбленій хмарі (webdav). Ви також можете експортувати ваші дані у файл і імпортувати його знову.",
     "description": "Features local description"
   },
   "Getting started": {
     "message": "Початок роботи",
     "description": "homepage getting started button"
+  },
+  "Download for Windows": {
+    "message": "Завантажити для Windows",
+    "description": "homepage windows button"
+  },
+  "Download for Linux": {
+    "message": "Завантажити для Linux",
+    "description": "homepage linux button"
+  },
+  "Download for Android": {
+    "message": "Завантажити для Android",
+    "description": "homepage android button"
+  },
+  "Open the web app": {
+    "message": "Відкрити веб-додаток",
+    "description": "homepage web button"
   },
   "Downloads": {
     "message": "Завантажень",
@@ -42,10 +58,6 @@
   "theme.ErrorPageContent.title": {
     "message": "Ця сторінка зазнала краху.",
     "description": "The title of the fallback page when the page crashed"
-  },
-  "theme.ErrorPageContent.tryAgain": {
-    "message": "Спробуйте ще раз",
-    "description": "The label of the button to try again when the page crashed"
   },
   "theme.NotFound.title": {
     "message": "Сторінку не знайдено",
@@ -59,9 +71,25 @@
     "message": "Будь ласка, зв'яжіться з власником сайту, який прив'язував вас до оригінального URL, і нехай вони знають, що це посилання було зламано.",
     "description": "The 2nd paragraph of the 404 page"
   },
-  "theme.AnnouncementBar.closeButtonAriaLabel": {
-    "message": "Закрити",
-    "description": "The ARIA label for close button of announcement bar"
+  "theme.admonition.note": {
+    "message": "нотатка",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "tip",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.danger": {
+    "message": "небезпека",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "інформація",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.caution": {
+    "message": "обережно",
+    "description": "The default label used for the Caution admonition (:::caution)"
   },
   "theme.BackToTopButton.buttonAriaLabel": {
     "message": "Прокрутити вгору",
@@ -87,14 +115,6 @@
     "message": "Попередні записи",
     "description": "The label used to navigate to the older blog posts page (next page)"
   },
-  "theme.blog.post.readingTime.plurals": {
-    "message": "1 хв. прочитане|{readingTime} хв",
-    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
-  },
-  "theme.blog.post.readMore": {
-    "message": "Читати більше",
-    "description": "The label used in blog post item excerpts to link to full blog posts"
-  },
   "theme.blog.post.paginator.navAriaLabel": {
     "message": "Навігація з дописів у блозі",
     "description": "The ARIA label for the blog posts pagination"
@@ -107,10 +127,6 @@
     "message": "Попередня пошта",
     "description": "The blog post button label to navigate to the older/next post"
   },
-  "theme.blog.sidebar.navAriaLabel": {
-    "message": "Навігація в блозі",
-    "description": "The ARIA label for recent posts in the blog sidebar"
-  },
   "theme.blog.post.plurals": {
     "message": "Одне повідомлення|{count} повідомлень",
     "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
@@ -119,49 +135,41 @@
     "message": "{nPosts} тегів з \"{tagName}\"",
     "description": "The title of the page for a blog tag"
   },
-  "theme.CodeBlock.copyButtonAriaLabel": {
-    "message": "Скопіювати код в буфер обміну",
-    "description": "The ARIA label for copy code blocks button"
+  "theme.tags.tagsPageLink": {
+    "message": "Переглянути всі мітки",
+    "description": "The label of the link targeting the tag list page"
   },
-  "theme.CodeBlock.copied": {
-    "message": "Скопійовано",
-    "description": "The copied button label on code blocks"
+  "theme.colorToggle.ariaLabel": {
+    "message": "Перемикання між темним та світлим режимами (поточно: {mode})",
+    "description": "The ARIA label for the navbar color mode toggle"
   },
-  "theme.CodeBlock.copy": {
-    "message": "Копія",
-    "description": "The copy button label on code blocks"
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "темний режим",
+    "description": "The name for the dark color mode"
   },
-  "theme.docs.sidebar.expandButtonTitle": {
-    "message": "Expand sidebar",
-    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "легкий режим",
+    "description": "The name for the light color mode"
   },
-  "theme.docs.sidebar.expandButtonAriaLabel": {
-    "message": "Expand sidebar",
-    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "Навіґативний ланцюжок",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.DocCard.categoryDescription": {
+    "message": "{count} позицій",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
   },
   "theme.docs.paginator.navAriaLabel": {
     "message": "Навігація документах",
     "description": "The ARIA label for the docs pagination"
   },
-  "theme.docs.paginator.next": {
-    "message": "Уперед",
-    "description": "The label used to navigate to the next doc"
-  },
   "theme.docs.paginator.previous": {
     "message": "Попереднє",
     "description": "The label used to navigate to the previous doc"
   },
-  "theme.docs.sidebar.collapseButtonTitle": {
-    "message": "Згорнути панель",
-    "description": "The title attribute for collapse button of doc sidebar"
-  },
-  "theme.docs.sidebar.collapseButtonAriaLabel": {
-    "message": "Згорнути панель",
-    "description": "The title attribute for collapse button of doc sidebar"
-  },
-  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
-    "message": "Увімкнути/вимкнути згорнуту бічну панель категорію '{label}",
-    "description": "The ARIA label to toggle the collapsible sidebar category"
+  "theme.docs.paginator.next": {
+    "message": "Уперед",
+    "description": "The label used to navigate to the next doc"
   },
   "theme.docs.tagDocListPageTitle.nDocsTagged": {
     "message": "Один doc теґ |{count} документації позначено",
@@ -170,6 +178,9 @@
   "theme.docs.tagDocListPageTitle": {
     "message": "{nDocsTagged} з \"{tagName}\"",
     "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "Версія: {versionLabel}"
   },
   "theme.docs.versions.unreleasedVersionLabel": {
     "message": "Це неопублікована документація для версії {siteTitle} {versionLabel}.",
@@ -192,7 +203,7 @@
     "description": "The link label to edit the current page"
   },
   "theme.common.headingLinkTitle": {
-    "message": "Пряме посилання на заголовок",
+    "message": "Пряме посилання на {heading}",
     "description": "Title for link to heading"
   },
   "theme.lastUpdated.atDate": {
@@ -207,41 +218,104 @@
     "message": "Востаннє оновлено{atDate}{byUser}",
     "description": "The sentence used to display when a page has been last updated, and by who"
   },
-  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
-    "message": "← Назад до головного меню",
-    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
-  },
   "theme.navbar.mobileVersionsDropdown.label": {
     "message": "Версії",
     "description": "The label for the navbar versions dropdown on mobile view"
-  },
-  "theme.common.skipToMainContent": {
-    "message": "Перейти до основного вмісту",
-    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
   },
   "theme.tags.tagsListLabel": {
     "message": "Теги:",
     "description": "The label alongside a tag list"
   },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "Закрити",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "Навігація в блозі",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "Скопійовано",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "Скопіювати код в буфер обміну",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "Копія",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "Увімкнути або вимкнути обгортання слів",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.DocSidebarItem.toggleCollapsedCategoryAriaLabel": {
+    "message": "Увімкнути/вимкнути згорнуту бічну панель категорію '{label}",
+    "description": "The ARIA label to toggle the collapsible sidebar category"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "Основне",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "Мови",
+    "description": "The label for the mobile language switcher dropdown"
+  },
   "theme.TOCCollapsible.toggleButtonLabel": {
     "message": "На цій сторінці",
     "description": "The label used by the button on the collapsible TOC component"
   },
-  "theme.PwaReloadPopup.info": {
-    "message": "Доступна нова версія",
-    "description": "The text for PWA reload popup"
+  "theme.blog.post.readMore": {
+    "message": "Читати більше",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
   },
-  "theme.PwaReloadPopup.refreshButtonText": {
-    "message": "Оновити",
-    "description": "The text for PWA reload button"
+  "theme.blog.post.readMoreLabel": {
+    "message": "Детальніше про {title}",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
   },
-  "theme.PwaReloadPopup.closeButtonAriaLabel": {
-    "message": "Закрити",
-    "description": "The ARIA label for close button of PWA reload popup"
+  "theme.blog.post.readingTime.plurals": {
+    "message": "1 хв. прочитане|{readingTime} хв",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
   },
-  "theme.SearchBar.label": {
-    "message": "Пошук",
-    "description": "The ARIA label and placeholder for search button"
+  "theme.docs.breadcrumbs.home": {
+    "message": "Домашня сторінка",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "Згорнути панель",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "Згорнути панель",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "Docs sidebar",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "Закрити панель навігації",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← Назад до головного меню",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "Перемикач панелі навігації",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "Expand sidebar",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "Expand sidebar",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.SearchBar.seeAll": {
+    "message": "Переглянути всі {count} результати"
   },
   "theme.SearchPage.documentsFound.plurals": {
     "message": "Знайдено один документ | Знайдено документів{count}",
@@ -275,87 +349,9 @@
     "message": "Отримання нових результатів...",
     "description": "The paragraph for fetching new search results"
   },
-  "theme.blog.post.readMoreLabel": {
-    "message": "Детальніше про {title}",
-    "description": "The ARIA label for the link to full blog posts from excerpts"
-  },
-  "theme.docs.DocCard.categoryDescription": {
-    "message": "{count} позицій",
-    "description": "The default description for a category card in the generated index about how many items this category includes"
-  },
-  "theme.colorToggle.ariaLabel": {
-    "message": "Перемикання між темним та світлим режимами (поточно: {mode})",
-    "description": "The ARIA label for the navbar color mode toggle"
-  },
-  "theme.colorToggle.ariaLabel.mode.dark": {
-    "message": "темний режим",
-    "description": "The name for the dark color mode"
-  },
-  "theme.colorToggle.ariaLabel.mode.light": {
-    "message": "легкий режим",
-    "description": "The name for the light color mode"
-  },
-  "theme.docs.versionBadge.label": {
-    "message": "Версія: {versionLabel}"
-  },
-  "theme.navbar.mobileLanguageDropdown.label": {
-    "message": "Мови",
-    "description": "The label for the mobile language switcher dropdown"
-  },
-  "theme.SearchBar.seeAll": {
-    "message": "Переглянути всі {count} результати"
-  },
-  "theme.tags.tagsPageLink": {
-    "message": "Переглянути всі мітки",
-    "description": "The label of the link targeting the tag list page"
-  },
-  "Download for Windows": {
-    "message": "Завантажити для Windows",
-    "description": "homepage windows button"
-  },
-  "Download for Linux": {
-    "message": "Завантажити для Linux",
-    "description": "homepage linux button"
-  },
-  "Download for Android": {
-    "message": "Завантажити для Android",
-    "description": "homepage android button"
-  },
-  "Open the web app": {
-    "message": "Відкрити веб-додаток",
-    "description": "homepage web button"
-  },
-  "theme.docs.breadcrumbs.home": {
-    "message": "Домашня сторінка",
-    "description": "The ARIA label for the home page in the breadcrumbs"
-  },
-  "theme.docs.breadcrumbs.navAriaLabel": {
-    "message": "Навіґативний ланцюжок",
-    "description": "The ARIA label for the breadcrumbs"
-  },
-  "theme.CodeBlock.wordWrapToggle": {
-    "message": "Увімкнути або вимкнути обгортання слів",
-    "description": "The title attribute for toggle word wrapping button of code block lines"
-  },
-  "theme.admonition.note": {
-    "message": "нотатка",
-    "description": "The default label used for the Note admonition (:::note)"
-  },
-  "theme.admonition.tip": {
-    "message": "tip",
-    "description": "The default label used for the Tip admonition (:::tip)"
-  },
-  "theme.admonition.danger": {
-    "message": "небезпека",
-    "description": "The default label used for the Danger admonition (:::danger)"
-  },
-  "theme.admonition.info": {
-    "message": "інформація",
-    "description": "The default label used for the Info admonition (:::info)"
-  },
-  "theme.admonition.caution": {
-    "message": "обережно",
-    "description": "The default label used for the Caution admonition (:::caution)"
+  "theme.SearchBar.label": {
+    "message": "Пошук",
+    "description": "The ARIA label and placeholder for search button"
   },
   "theme.SearchModal.searchBox.resetButtonTitle": {
     "message": "Очистити запит",
@@ -449,24 +445,28 @@
     "message": "Шукати в документації",
     "description": "The placeholder of the input of the DocSearch pop-up modal"
   },
+  "theme.PwaReloadPopup.info": {
+    "message": "Доступна нова версія",
+    "description": "The text for PWA reload popup"
+  },
+  "theme.PwaReloadPopup.refreshButtonText": {
+    "message": "Оновити",
+    "description": "The text for PWA reload button"
+  },
+  "theme.PwaReloadPopup.closeButtonAriaLabel": {
+    "message": "Закрити",
+    "description": "The ARIA label for close button of PWA reload popup"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Спробуйте ще раз",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "Перейти до основного вмісту",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
   "theme.tags.tagsPageTitle": {
     "message": "Мітки",
     "description": "The title of the tag list page"
-  },
-  "Choose where your data is stored": {
-    "message": "Виберіть, де зберігаються ваші дані",
-    "description": "Features local title"
-  },
-  "You can choose to store your data locally or in your favorite cloud (webdav). You can also export your data to a file and import it again.": {
-    "message": "Ви можете зберігати свої дані локально або в улюбленій хмарі (webdav). Ви також можете експортувати ваші дані у файл і імпортувати його знову.",
-    "description": "Features local description"
-  },
-  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
-    "message": "Закрити панель навігації",
-    "description": "The ARIA label for close button of mobile sidebar"
-  },
-  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
-    "message": "Перемикач панелі навігації",
-    "description": "The ARIA label for hamburger menu button of mobile navigation"
   }
 }

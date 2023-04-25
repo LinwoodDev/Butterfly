@@ -632,7 +632,9 @@ mixin _$Painter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -669,7 +671,9 @@ mixin _$Painter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -705,7 +709,9 @@ mixin _$Painter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -898,7 +904,9 @@ class _$HandPainter implements HandPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -938,7 +946,9 @@ class _$HandPainter implements HandPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -977,7 +987,9 @@ class _$HandPainter implements HandPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -1204,7 +1216,9 @@ class _$ImportPainter implements ImportPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -1244,7 +1258,9 @@ class _$ImportPainter implements ImportPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -1283,7 +1299,9 @@ class _$ImportPainter implements ImportPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -1483,7 +1501,9 @@ class _$UndoPainter implements UndoPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -1523,7 +1543,9 @@ class _$UndoPainter implements UndoPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -1562,7 +1584,9 @@ class _$UndoPainter implements UndoPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -1757,7 +1781,9 @@ class _$RedoPainter implements RedoPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -1797,7 +1823,9 @@ class _$RedoPainter implements RedoPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -1836,7 +1864,9 @@ class _$RedoPainter implements RedoPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -1970,7 +2000,7 @@ abstract class _$$LabelPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
       __$$LabelPainterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, PackAssetLocation styleSheet});
+  $Res call({String name, bool zoomDependent, PackAssetLocation styleSheet});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
 }
@@ -1987,6 +2017,7 @@ class __$$LabelPainterCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? zoomDependent = null,
     Object? styleSheet = null,
   }) {
     return _then(_$LabelPainter(
@@ -1994,6 +2025,10 @@ class __$$LabelPainterCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      zoomDependent: null == zoomDependent
+          ? _value.zoomDependent
+          : zoomDependent // ignore: cast_nullable_to_non_nullable
+              as bool,
       styleSheet: null == styleSheet
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
@@ -2015,6 +2050,7 @@ class __$$LabelPainterCopyWithImpl<$Res>
 class _$LabelPainter implements LabelPainter {
   _$LabelPainter(
       {this.name = '',
+      this.zoomDependent = true,
       this.styleSheet = const PackAssetLocation(),
       final String? $type})
       : $type = $type ?? 'label';
@@ -2027,6 +2063,9 @@ class _$LabelPainter implements LabelPainter {
   final String name;
   @override
   @JsonKey()
+  final bool zoomDependent;
+  @override
+  @JsonKey()
   final PackAssetLocation styleSheet;
 
   @JsonKey(name: 'type')
@@ -2034,7 +2073,7 @@ class _$LabelPainter implements LabelPainter {
 
   @override
   String toString() {
-    return 'Painter.label(name: $name, styleSheet: $styleSheet)';
+    return 'Painter.label(name: $name, zoomDependent: $zoomDependent, styleSheet: $styleSheet)';
   }
 
   @JsonKey(ignore: true)
@@ -2052,7 +2091,9 @@ class _$LabelPainter implements LabelPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -2081,7 +2122,7 @@ class _$LabelPainter implements LabelPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
-    return label(name, styleSheet);
+    return label(name, zoomDependent, styleSheet);
   }
 
   @override
@@ -2092,7 +2133,9 @@ class _$LabelPainter implements LabelPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -2120,7 +2163,7 @@ class _$LabelPainter implements LabelPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
-    return label?.call(name, styleSheet);
+    return label?.call(name, zoomDependent, styleSheet);
   }
 
   @override
@@ -2131,7 +2174,9 @@ class _$LabelPainter implements LabelPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -2161,7 +2206,7 @@ class _$LabelPainter implements LabelPainter {
     required TResult orElse(),
   }) {
     if (label != null) {
-      return label(name, styleSheet);
+      return label(name, zoomDependent, styleSheet);
     }
     return orElse();
   }
@@ -2246,13 +2291,16 @@ class _$LabelPainter implements LabelPainter {
 
 abstract class LabelPainter implements Painter {
   factory LabelPainter(
-      {final String name, final PackAssetLocation styleSheet}) = _$LabelPainter;
+      {final String name,
+      final bool zoomDependent,
+      final PackAssetLocation styleSheet}) = _$LabelPainter;
 
   factory LabelPainter.fromJson(Map<String, dynamic> json) =
       _$LabelPainter.fromJson;
 
   @override
   String get name;
+  bool get zoomDependent;
   PackAssetLocation get styleSheet;
   @override
   @JsonKey(ignore: true)
@@ -2348,7 +2396,9 @@ class _$PenPainter implements PenPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -2388,7 +2438,9 @@ class _$PenPainter implements PenPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -2427,7 +2479,9 @@ class _$PenPainter implements PenPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -2636,7 +2690,9 @@ class _$EraserPainter implements EraserPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -2676,7 +2732,9 @@ class _$EraserPainter implements EraserPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -2715,7 +2773,9 @@ class _$EraserPainter implements EraserPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -2922,7 +2982,9 @@ class _$PathEraserPainter implements PathEraserPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -2962,7 +3024,9 @@ class _$PathEraserPainter implements PathEraserPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -3001,7 +3065,9 @@ class _$PathEraserPainter implements PathEraserPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -3206,7 +3272,9 @@ class _$LayerPainter implements LayerPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -3246,7 +3314,9 @@ class _$LayerPainter implements LayerPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -3285,7 +3355,9 @@ class _$LayerPainter implements LayerPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -3525,7 +3597,9 @@ class _$AreaPainter implements AreaPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -3566,7 +3640,9 @@ class _$AreaPainter implements AreaPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -3606,7 +3682,9 @@ class _$AreaPainter implements AreaPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -3812,7 +3890,9 @@ class _$WaypointPainter implements WaypointPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -3852,7 +3932,9 @@ class _$WaypointPainter implements WaypointPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -3891,7 +3973,9 @@ class _$WaypointPainter implements WaypointPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -4129,7 +4213,9 @@ class _$LaserPainter implements LaserPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -4169,7 +4255,9 @@ class _$LaserPainter implements LaserPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -4208,7 +4296,9 @@ class _$LaserPainter implements LaserPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -4465,7 +4555,9 @@ class _$ShapePainter implements ShapePainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -4506,7 +4598,9 @@ class _$ShapePainter implements ShapePainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -4546,7 +4640,9 @@ class _$ShapePainter implements ShapePainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -4774,7 +4870,9 @@ class _$StampPainter implements StampPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -4814,7 +4912,9 @@ class _$StampPainter implements StampPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -4853,7 +4953,9 @@ class _$StampPainter implements StampPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,
@@ -5052,7 +5154,9 @@ class _$PresentationPainter implements PresentationPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(String name, PackAssetLocation styleSheet) label,
+    required TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)
+        label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
         pen,
@@ -5092,7 +5196,9 @@ class _$PresentationPainter implements PresentationPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(String name, PackAssetLocation styleSheet)? label,
+    TResult? Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult? Function(String name, double strokeWidth)? eraser,
@@ -5131,7 +5237,9 @@ class _$PresentationPainter implements PresentationPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(String name, PackAssetLocation styleSheet)? label,
+    TResult Function(
+            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+        label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
     TResult Function(String name, double strokeWidth)? eraser,

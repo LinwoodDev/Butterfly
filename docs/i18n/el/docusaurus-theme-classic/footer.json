@@ -15,29 +15,33 @@
     "message": "Discord",
     "description": "The label of footer link with label=Discord linking to https://discord.linwood.dev"
   },
+  "link.item.label.Matrix": {
+    "message": "Matrix",
+    "description": "The label of footer link with label=Matrix linking to https://linwood.dev/matrix"
+  },
   "link.item.label.Twitter": {
     "message": "Twitter",
-    "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodCloud"
+    "description": "The label of footer link with label=Twitter linking to https://twitter.com/LinwoodDev"
   },
-  "link.item.label.Contribution guide": {
-    "message": "Οδηγός συνεισφοράς",
-    "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodCloud/butterfly/blob/develop/CONTRIBUTING.md"
+  "link.item.label.Mastodon": {
+    "message": "Mastodon",
+    "description": "The label of footer link with label=Mastodon linking to https://floss.social/@linwood"
   },
   "link.item.label.App": {
     "message": "Εφαρμογή",
-    "description": "The label of footer link with label=App linking to https://github.com/LinwoodCloud/butterfly/tree/develop/app"
+    "description": "The label of footer link with label=App linking to https://github.com/LinwoodDev/butterfly/tree/develop/app"
   },
   "link.item.label.Docs": {
     "message": "Έγγραφα",
-    "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodCloud/butterfly/tree/develop/docs"
+    "description": "The label of footer link with label=Docs linking to https://github.com/LinwoodDev/butterfly/tree/develop/docs"
+  },
+  "link.item.label.Contribution guide": {
+    "message": "Οδηγός συνεισφοράς",
+    "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodDev/butterfly/blob/develop/CONTRIBUTING.md"
   },
   "link.item.label.Imprint": {
     "message": "Αποτύπωμα",
     "description": "The label of footer link with label=Imprint linking to https://go.linwood.dev/imprint"
-  },
-  "copyright": {
-    "message": "Πνευματικά Δικαιώματα :Copyright: 2022 LinwoodCloud.",
-    "description": "The footer copyright"
   },
   "link.item.label.Privacy Policy of the app": {
     "message": "Πολιτική Απορρήτου της εφαρμογής",
@@ -47,12 +51,12 @@
     "message": "Πολιτική Απορρήτου της ιστοσελίδας",
     "description": "The label of footer link with label=Privacy Policy of the website linking to https://go.linwood.dev/privacypolicy"
   },
-  "link.item.label.Matrix": {
-    "message": "Πίνακας",
-    "description": "The label of footer link with label=Matrix linking to https://linwood.dev/matrix"
+  "copyright": {
+    "message": "Copyright :Copyright: 2023 Linwood.",
+    "description": "The footer copyright"
   },
-  "link.item.label.Mastodon": {
-    "message": "Mastodon",
-    "description": "The label of footer link with label=Mastodon linking to https://floss.social/@linwood"
+  "logo.alt": {
+    "message": "Λογότυπο Linwood",
+    "description": "The alt text of footer logo"
   }
 }

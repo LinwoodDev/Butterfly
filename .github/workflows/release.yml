@@ -257,11 +257,11 @@ jobs:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           embed-title: ${{ env.BUTTERFLY_VERSION }}
           embed-description: ${{ env.BUTTERFLY_CHANGELOG }}
-          embed-url: https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
+          embed-url: https://github.com/LinwoodDev/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
           content: |
             Version ${{ env.BUTTERFLY_VERSION }} released!
             Download it here: https://docs.butterfly.linwood.dev/downloads
-            https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
+            https://github.com/LinwoodDev/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v5.3.0
         if: ${{ github.event.inputs.stable == 'false' && github.ref == 'refs/heads/develop' }}
@@ -269,7 +269,7 @@ jobs:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           embed-title: ${{ env.BUTTERFLY_VERSION }}
           embed-description: ${{ env.BUTTERFLY_CHANGELOG }}
-          embed-url: https://github.com/LinwoodCloud/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
+          embed-url: https://github.com/LinwoodDev/butterfly/releases/tag/v${{ env.BUTTERFLY_VERSION }}
           content: |
             Pre-release version ${{ env.BUTTERFLY_VERSION }} released!
             Download it here: https://docs.butterfly.linwood.dev/downloads

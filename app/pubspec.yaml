@@ -13,7 +13,7 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.0.0-alpha.1+60
+version: 2.0.0-alpha.2+61
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -32,7 +32,7 @@ dependencies:
   path_provider: ^2.0.14
   shared_preferences: ^2.1.0
   url_launcher: ^6.1.10
-  file_picker: ^5.2.9
+  file_picker: ^5.2.10
   phosphor_flutter:
     git:
       url: https://github.com/phosphor-icons/flutter
@@ -40,15 +40,15 @@ dependencies:
   replay_bloc: ^0.2.3
   share_plus: ^6.3.2
   package_info_plus: ^3.1.0
-  idb_shim: ^2.3.0+2
-  go_router: ^6.5.6
+  idb_shim: ^2.3.1
+  go_router: ^6.5.8
   xml: ^6.2.2
   collection: ^1.17.1
   bloc_concurrency: ^0.2.1
   camera: ^0.10.4
   camera_windows: ^0.2.1+5
   window_manager: ^0.3.2
-  flex_color_scheme: ^7.0.1
+  flex_color_scheme: ^7.0.4
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.0
   path: ^1.8.2
@@ -71,7 +71,7 @@ dependencies:
       ref: 066461ee27342559e5731a03e3371c0537f1abcb
   lw_sysinfo:
     git:
-      url: https://github.com/LinwoodCloud/dart_pkgs.git
+      url: https://github.com/LinwoodDev/dart_pkgs.git
       ref: 6aaa333947699dd999d0bde3890fd7f0015b72c4
       path: packages/lw_sysinfo
   flutter_localized_locales: ^2.0.4
@@ -85,7 +85,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  analyzer: ^5.10.0
+  analyzer: ^5.11.1
   freezed: ^2.3.2
   build_runner: ^2.3.3
   json_serializable: ^6.6.1

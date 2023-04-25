@@ -29,6 +29,54 @@ import '../dialogs/file_system/move.dart';
 import '../dialogs/file_system/sync.dart';
 import '../dialogs/import.dart';
 
+PhosphorIconData _getIconOfBannerVisibility(BannerVisibility visibility) {
+  switch (visibility) {
+    case BannerVisibility.always:
+      return PhosphorIconsLight.caretDown;
+    case BannerVisibility.never:
+      return PhosphorIconsLight.caretUp;
+    case BannerVisibility.onlyOnUpdates:
+      return PhosphorIconsLight.caretRight;
+  }
+}
+
+String _getLocalizedNameOfBannerVisibility(
+    BuildContext context, BannerVisibility visibility) {
+  switch (visibility) {
+    case BannerVisibility.always:
+      return AppLocalizations.of(context).always;
+    case BannerVisibility.never:
+      return AppLocalizations.of(context).never;
+    case BannerVisibility.onlyOnUpdates:
+      return AppLocalizations.of(context).onlyOnUpdates;
+  }
+}
+
+Widget _getBannerVisibilityWidget(
+    BuildContext context, ButterflySettings settings) {
+  return MenuAnchor(
+    builder: (context, controller, child) => IconButton(
+      tooltip: AppLocalizations.of(context).visibility,
+      icon: PhosphorIcon(_getIconOfBannerVisibility(settings.bannerVisibility)),
+      onPressed: () =>
+          controller.isOpen ? controller.close() : controller.open(),
+    ),
+    menuChildren: BannerVisibility.values
+        .map(
+          (e) => MenuItemButton(
+            leadingIcon: Icon(
+              _getIconOfBannerVisibility(e),
+            ),
+            onPressed: () {
+              context.read<SettingsCubit>().changeBannerVisibility(e);
+            },
+            child: Text(_getLocalizedNameOfBannerVisibility(context, e)),
+          ),
+        )
+        .toList(),
+  );
+}
+
 class HomePage extends StatefulWidget {
   final AssetLocation? selectedAsset;
 
@@ -60,77 +108,105 @@ class _HomePageState extends State<HomePage> {
         RepositoryProvider<ImportService>(
             create: (context) => ImportService(context)),
       ],
-      child: Scaffold(
-        appBar: const WindowTitleBar(
-          title: Text('Butterfly'),
-          onlyShowOnDesktop: true,
-        ),
-        body: SingleChildScrollView(
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 32),
-              constraints: const BoxConstraints(maxWidth: 1400),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: 64),
-                  const _HeaderHomeView(),
-                  const SizedBox(height: 64),
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      if (constraints.maxWidth > 1000) {
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                                child: _FilesHomeView(
-                              selectedAsset: widget.selectedAsset,
-                              remote: _remote,
-                              onRemoteChanged: (value) =>
-                                  setState(() => _remote = value),
-                            )),
-                            const SizedBox(width: 32),
-                            SizedBox(
-                              width: 500,
-                              child: _QuickstartHomeView(
-                                remote: _remote,
-                                onReload: () => setState(() {}),
-                              ),
-                            ),
-                          ],
-                        );
-                      } else {
-                        return Column(
-                          children: [
-                            _QuickstartHomeView(
-                              remote: _remote,
-                              onReload: () => setState(() {}),
-                            ),
-                            const SizedBox(height: 32),
-                            _FilesHomeView(
-                              selectedAsset: widget.selectedAsset,
-                              remote: _remote,
-                              onRemoteChanged: (value) =>
-                                  setState(() => _remote = value),
-                            ),
-                          ],
-                        );
-                      }
-                    },
+      child: BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) =>
+            previous.bannerVisibility != current.bannerVisibility,
+        builder: (context, settings) {
+          return FutureBuilder<bool>(
+            future: context.read<SettingsCubit>().hasNewerVersion(),
+            builder: (context, snapshot) {
+              final hasNewerVersion = snapshot.data ?? false;
+              final showBanner =
+                  settings.bannerVisibility == BannerVisibility.always ||
+                      (settings.bannerVisibility ==
+                              BannerVisibility.onlyOnUpdates &&
+                          hasNewerVersion);
+              return Scaffold(
+                appBar: WindowTitleBar(
+                  title: const Text('Butterfly'),
+                  onlyShowOnDesktop: true,
+                  actions: [
+                    if (!showBanner) ...[
+                      _getBannerVisibilityWidget(context, settings),
+                      IconButton(
+                        icon: const PhosphorIcon(PhosphorIconsLight.gear),
+                        onPressed: () => openSettings(context),
+                      ),
+                    ],
+                  ],
+                ),
+                body: SingleChildScrollView(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 32),
+                      constraints: const BoxConstraints(maxWidth: 1400),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const SizedBox(height: 64),
+                          if (showBanner)
+                            _HeaderHomeView(hasNewerVersion: hasNewerVersion),
+                          const SizedBox(height: 64),
+                          LayoutBuilder(
+                            builder: (context, constraints) {
+                              if (constraints.maxWidth > 1000) {
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                        child: _FilesHomeView(
+                                      selectedAsset: widget.selectedAsset,
+                                      remote: _remote,
+                                      onRemoteChanged: (value) =>
+                                          setState(() => _remote = value),
+                                    )),
+                                    const SizedBox(width: 32),
+                                    SizedBox(
+                                      width: 500,
+                                      child: _QuickstartHomeView(
+                                        remote: _remote,
+                                        onReload: () => setState(() {}),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return Column(
+                                  children: [
+                                    _QuickstartHomeView(
+                                      remote: _remote,
+                                      onReload: () => setState(() {}),
+                                    ),
+                                    const SizedBox(height: 32),
+                                    _FilesHomeView(
+                                      selectedAsset: widget.selectedAsset,
+                                      remote: _remote,
+                                      onRemoteChanged: (value) =>
+                                          setState(() => _remote = value),
+                                    ),
+                                  ],
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ],
-              ),
-            ),
-          ),
-        ),
+                ),
+              );
+            },
+          );
+        },
       ),
     );
   }
 }
 
 class _HeaderHomeView extends StatelessWidget {
-  const _HeaderHomeView();
+  final bool hasNewerVersion;
+  const _HeaderHomeView({this.hasNewerVersion = false});
 
   @override
   Widget build(BuildContext context) {
@@ -149,54 +225,51 @@ class _HeaderHomeView extends StatelessWidget {
             icon: const PhosphorIcon(PhosphorIconsLight.gear),
             tooltip: AppLocalizations.of(context).settings,
           ),
+          _getBannerVisibilityWidget(
+              context, context.read<SettingsCubit>().state),
         ],
       );
       final isDesktop = constraints.maxWidth > 1000;
       final settingsCubit = context.read<SettingsCubit>();
-      final whatsNew = FutureBuilder<bool>(
-        future: settingsCubit.hasNewerVersion(),
-        builder: (context, snapshot) {
-          final style = FilledButton.styleFrom(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 32,
-              vertical: 20,
-            ),
-            textStyle: const TextStyle(fontSize: 20),
-          );
-          void openNew() {
-            openReleaseNotes();
-            settingsCubit.updateLastVersion();
-          }
+      final style = FilledButton.styleFrom(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 32,
+          vertical: 20,
+        ),
+        textStyle: const TextStyle(fontSize: 20),
+      );
+      void openNew() {
+        openReleaseNotes();
+        settingsCubit.updateLastVersion();
+      }
 
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              (snapshot.data ?? false)
-                  ? FilledButton(
-                      onPressed: openNew,
-                      style: style,
-                      child: Text(AppLocalizations.of(context).whatsNew),
-                    )
-                  : ElevatedButton(
-                      onPressed: openNew,
-                      style: style,
-                      child: Text(AppLocalizations.of(context).whatsNew),
-                    ),
-              if (snapshot.data ?? false)
-                SizedBox(
-                  height: 0,
-                  child: Stack(
-                    children: const [
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: PhosphorIcon(PhosphorIconsLight.caretUp),
-                      ),
-                    ],
-                  ),
+      final whatsNew = Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          hasNewerVersion
+              ? FilledButton(
+                  onPressed: openNew,
+                  style: style,
+                  child: Text(AppLocalizations.of(context).whatsNew),
+                )
+              : ElevatedButton(
+                  onPressed: openNew,
+                  style: style,
+                  child: Text(AppLocalizations.of(context).whatsNew),
                 ),
-            ],
-          );
-        },
+          if (hasNewerVersion)
+            SizedBox(
+              height: 0,
+              child: Stack(
+                children: const [
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: PhosphorIcon(PhosphorIconsLight.caretUp),
+                  ),
+                ],
+              ),
+            ),
+        ],
       );
       final logo = Row(
         mainAxisSize: MainAxisSize.min,
@@ -256,7 +329,8 @@ class _HeaderHomeView extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                colorScheme.inverseSurface,
+                Color.alphaBlend(colorScheme.inverseSurface.withOpacity(0.3),
+                    colorScheme.surface),
                 colorScheme.primary,
               ],
               stops: const [0, 0.8],
@@ -325,8 +399,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.remote != widget.remote) {
       _remote = widget.remote;
+      _setFilesFuture();
     }
-    _setFilesFuture();
   }
 
   String getLocalizedNameOfSortBy(_SortBy sortBy) {
@@ -1189,7 +1263,7 @@ class _FileEntityListTile extends StatelessWidget {
   }
 }
 
-class _QuickstartHomeView extends StatelessWidget {
+class _QuickstartHomeView extends StatefulWidget {
   final RemoteStorage? remote;
   final VoidCallback onReload;
 
@@ -1199,9 +1273,44 @@ class _QuickstartHomeView extends StatelessWidget {
   });
 
   @override
+  State<_QuickstartHomeView> createState() => _QuickstartHomeViewState();
+}
+
+class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
+  late final TemplateFileSystem _templateFileSystem;
+  late Future<List<DocumentTemplate>> _templatesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _templateFileSystem =
+        TemplateFileSystem.fromPlatform(remote: widget.remote);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    _templatesFuture = _fetchTemplates();
+  }
+
+  @override
+  void didUpdateWidget(covariant _QuickstartHomeView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.remote != widget.remote) {
+      setState(() {
+        _templatesFuture = _fetchTemplates();
+      });
+    }
+  }
+
+  Future<List<DocumentTemplate>> _fetchTemplates() => _templateFileSystem
+      .createDefault(context)
+      .then((value) => _templateFileSystem.getTemplates());
+
+  @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final templateFileSystem = TemplateFileSystem.fromPlatform(remote: remote);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
@@ -1216,9 +1325,7 @@ class _QuickstartHomeView extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           FutureBuilder<List<DocumentTemplate>>(
-              future: templateFileSystem
-                  .createDefault(context)
-                  .then((value) => templateFileSystem.getTemplates()),
+              future: _templatesFuture,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
@@ -1241,9 +1348,10 @@ class _QuickstartHomeView extends StatelessWidget {
                       const SizedBox(height: 16),
                       FilledButton(
                         onPressed: () async {
-                          await templateFileSystem.createDefault(context,
+                          await _templateFileSystem.createDefault(context,
                               force: true);
-                          onReload();
+                          setState(() => _templatesFuture = _fetchTemplates());
+                          widget.onReload();
                         },
                         child: Text(
                           AppLocalizations.of(context).reset,
@@ -1279,7 +1387,7 @@ class _QuickstartHomeView extends StatelessWidget {
                                                 'path': e.directory
                                               },
                                               extra: e.document);
-                                          onReload();
+                                          widget.onReload();
                                         },
                                         child: Stack(
                                           children: [

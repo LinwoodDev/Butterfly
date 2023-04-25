@@ -15,4 +15,4 @@ sidebar_position: 2
 
 ## 古いバージョン
 
-以前のすべての移行は自動的に行われます。 コード [の完全な移行を読むにはこちら](https://github.com/LinwoodCloud/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17) をご覧ください。
+以前のすべての移行は自動的に行われます。 コード [の完全な移行を読むにはこちら](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17) をご覧ください。

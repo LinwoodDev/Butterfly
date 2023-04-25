@@ -15,7 +15,7 @@ sidebar_label: "FAQ"
 
 ### ウェブに画像を挿入できません
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
 
 現在デコードされている画像は canvaskit では動作しません。 このオプションが必要な場合は、 [この課題](https://github.com/flutter/flutter/issues/102683) に投票してください!
 
@@ -27,7 +27,7 @@ sidebar_label: "FAQ"
 
 ### Sペンのサイドボタンを押したままZでクラッシュ3する
 
-> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
 これはフラッターとサムスンZ折り目3の既知の問題です。 この問題を修正するには、 [](https://github.com/flutter/flutter/issues/111068) に投票してください！
 
@@ -35,7 +35,7 @@ sidebar_label: "FAQ"
 
 ### スタイルの入力が認識されません
 
-> [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
+> [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 フラッターフレームワークで提供される入力を使っています。 追跡するには既に問題があります: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) と [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 

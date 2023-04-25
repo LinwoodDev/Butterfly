@@ -5,18 +5,18 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: a36ec4843dc30ea6bf652bf25e3448db6c5e8bcf4aa55f063a5d1dad216d8214
+      sha256: "8880b4cfe7b5b17d57c052a5a3a8cc1d4f546261c7cc8fbd717bd53f48db0568"
       url: "https://pub.dev"
     source: hosted
-    version: "58.0.0"
+    version: "59.0.0"
   analyzer:
     dependency: "direct dev"
     description:
       name: analyzer
-      sha256: cc4242565347e98424ce9945c819c192ec0838cb9d1f6aa4a97cc96becbc5b27
+      sha256: a89627f49b0e70e068130a36571409726b04dab12da7e5625941d2c8ec278b96
       url: "https://pub.dev"
     source: hosted
-    version: "5.10.0"
+    version: "5.11.1"
   animations:
     dependency: "direct main"
     description:
@@ -159,7 +159,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.0.0-alpha.0"
+    version: "2.0.0-alpha.2"
   camera:
     dependency: "direct main"
     description:
@@ -172,10 +172,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android
-      sha256: "772c111c78f31f868b98dbf6dbeda8d6ff77acea773a92ea5705ee2f7949ebfb"
+      sha256: "6b7d4529c15c13cfe642abf5110509e9f770b9c87e8f5510d9b5366f5a7b37c9"
       url: "https://pub.dev"
     source: hosted
-    version: "0.10.5"
+    version: "0.10.6"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -364,10 +364,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: dcde5ad1a0cebcf3715ea3f24d0db1888bf77027a26c77d7779e8ef63b8ade62
+      sha256: b85eb92b175767fdaa0c543bf3b0d1f610fe966412ea72845fe5ba7801e763ff
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.9"
+    version: "5.2.10"
   fixnum:
     dependency: transitive
     description:
@@ -380,18 +380,18 @@ packages:
     dependency: "direct main"
     description:
       name: flex_color_scheme
-      sha256: ba6b2e19aa6bcfebed8f74486b4359e1399e5f285a9b697107e14e27f2963415
+      sha256: "1a54a5b22a4a7c4e5c30a8cabb12a8cf3c3f477c15e1ab2e1ab2f569295f4fab"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.1"
+    version: "7.0.4"
   flex_seed_scheme:
     dependency: transitive
     description:
       name: flex_seed_scheme
-      sha256: "7058288ef97d348657ac95cea25d65a9aac181ca08387ede891fd7230ad7600f"
+      sha256: b3678d82403c13dec2ee2721e078b26f14577712411b6aa981b0f4269df3fabb
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.3"
+    version: "1.2.4"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -554,10 +554,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "50bc08b72ede07daaf897deb4c00ca8fd8976c8821a4c84d7aeef0e92d1c5620"
+      sha256: "4d141302e68dcdec0949ac798b5a8cf307eb6f79c70830ef1a2aec9b31827c28"
       url: "https://pub.dev"
     source: hosted
-    version: "6.5.6"
+    version: "6.5.8"
   graphs:
     dependency: transitive
     description:
@@ -602,10 +602,10 @@ packages:
     dependency: "direct main"
     description:
       name: idb_shim
-      sha256: "3ac9d6a90c29e2192d35c8386d7b20cb3865756f5b299d74a829d5b888776d26"
+      sha256: e22cbec15c3732ce53ad79927f106e7be7d4a66f836eb6270b51450c15bd7b84
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0+2"
+    version: "2.3.1"
   image:
     dependency: "direct main"
     description:
@@ -676,7 +676,7 @@ packages:
       path: "packages/lw_sysinfo"
       ref: "6aaa333947699dd999d0bde3890fd7f0015b72c4"
       resolved-ref: "6aaa333947699dd999d0bde3890fd7f0015b72c4"
-      url: "https://github.com/LinwoodCloud/dart_pkgs.git"
+      url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
   matcher:
@@ -779,10 +779,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: "019f18c9c10ae370b08dce1f3e3b73bc9f58e7f087bb5e921f06529438ac0ae7"
+      sha256: da97262be945a72270513700a92b39dd2f4a54dad55d061687e2e37a6390366a
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.24"
+    version: "2.0.25"
   path_provider_foundation:
     dependency: transitive
     description:
@@ -973,10 +973,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: "24829715d11c2c437e67b413f29ff91b5325daa9632f851d44deeea7a29bde9e"
+      sha256: a784dbcf313ff38a7f57249694c64a6bcf79f704dbec127958459a7737716830
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.3+1"
+    version: "3.4.4"
   share_plus:
     dependency: "direct main"
     description:
@@ -1005,10 +1005,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: "1bc5d734b109c327b922b0891b41fc51483ccbd53c0d19952b7e230349a5d90b"
+      sha256: "7fa90471a6875d26ad78c7e4a675874b2043874586891128dc5899662c97db46"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   shared_preferences_foundation:
     dependency: transitive
     description:
@@ -1138,10 +1138,10 @@ packages:
     dependency: transitive
     description:
       name: synchronized
-      sha256: "33b31b6beb98100bf9add464a36a8dd03eb10c7a8cf15aeec535e9b054aaf04b"
+      sha256: "5fcbd27688af6082f5abd611af56ee575342c30e87541d0245f7ff99faa02c60"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.0"
   term_glyph:
     dependency: transitive
     description:

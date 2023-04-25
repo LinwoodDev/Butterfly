@@ -15,7 +15,7 @@ sidebar_label: "ЧАВО"
 
 ### Невозможно вставить изображения в веб
 
-> [#167](https://github.com/LinwoodCloud/Butterfly/issues/167)
+> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
 
 В настоящее время декодирование изображений не работает с canvaskit. Пожалуйста, голосуйте [за эту задачу](https://github.com/flutter/flutter/issues/102683) , если вы хотите эту опцию!
 
@@ -27,7 +27,7 @@ Brave Пользователи, которые установили параме
 
 ### Вылетает на Z Fold 3 при удерживании боковой кнопки S Pen
 
-> [#289](https://github.com/LinwoodCloud/Butterfly/issues/289)
+> [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
 Это известная проблема с flutter и Samsung Z Fold 3. Пожалуйста, голосуйте [эту проблему](https://github.com/flutter/flutter/issues/111068) , чтобы исправить ее!
 
@@ -35,7 +35,7 @@ Brave Пользователи, которые установили параме
 
 ### Ввод Stylus не распознан
 
-> [#238](https://github.com/LinwoodCloud/Butterfly/issues/238)
+> [#238](https://github.com/LinwoodDev/Butterfly/issues/238)
 
 Я использую вход, предоставленный флэттер. Уже есть проблемы для отслеживания: Windows: [flutter/flutter#65248](https://github.com/flutter/flutter/issues/65248) и [flutter/flutter#102836](https://github.com/flutter/flutter/issues/102836). Linux: [flutter/flutter#63209](https://github.com/flutter/flutter/issues/63209)
 
