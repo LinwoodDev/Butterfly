@@ -1,5 +1,7 @@
+* Add option to change visibility of banner ([#372](https://github.com/LinwoodDev/Butterfly/issues/372))
 * Use the best painter color based on the background color
 * Make laser and text painter zoom dependent
+* Fix installation path on windows to 64-bit ([#371](https://github.com/LinwoodDev/Butterfly/issues/371))
 * Fix timeline colors
 * Fix reload after resizing the window
 * Fix reset does not replace templates
