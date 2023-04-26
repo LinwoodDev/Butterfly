@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
               return Scaffold(
                 appBar: WindowTitleBar(
                   title: const Text('Butterfly'),
-                  onlyShowOnDesktop: true,
+                  onlyShowOnDesktop: showBanner,
                   actions: [
                     if (!showBanner) ...[
                       _getBannerVisibilityWidget(context, settings),

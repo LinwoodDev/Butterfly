@@ -252,10 +252,10 @@ packages:
     dependency: "direct main"
     description:
       name: connectivity_plus
-      sha256: d73575bb66216738db892f72ba67dc478bd3b5490fbbcf43644b57645eabc822
+      sha256: "5c7ad2d90aae958c230b27450044a29f5b0a69ea4b1792e17164b3a53de33e47"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.4"
+    version: "3.0.5"
   connectivity_plus_platform_interface:
     dependency: transitive
     description:
@@ -739,10 +739,10 @@ packages:
     dependency: "direct main"
     description:
       name: package_info_plus
-      sha256: cbff87676c352d97116af6dbea05aa28c4d65eb0f6d5677a520c11a69ca9a24d
+      sha256: de41e74b0ea9a3e524c68f35099af1fdeb4885625aeb277d2e01a42d6bd7b293
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.0"
+    version: "3.1.1"
   package_info_plus_platform_interface:
     dependency: transitive
     description:
@@ -811,10 +811,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_windows
-      sha256: f53720498d5a543f9607db4b0e997c4b5438884de25b0f73098cc2671a51b130
+      sha256: d3f80b32e83ec208ac95253e0cd4d298e104fbc63cb29c5c69edaed43b0c69d6
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.5"
+    version: "2.1.6"
   pdf:
     dependency: "direct main"
     description:
@@ -981,10 +981,10 @@ packages:
     dependency: "direct main"
     description:
       name: share_plus
-      sha256: "692261968a494e47323dcc8bc66d8d52e81bc27cb4b808e4e8d7e8079d4cc01a"
+      sha256: "4ec54a9bf4b84a9b8e68e39557e8fd7939249def6697c92a4c4e1ce1509acb06"
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.2"
+    version: "6.3.3"
   share_plus_platform_interface:
     dependency: transitive
     description:

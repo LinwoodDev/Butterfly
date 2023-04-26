@@ -38,8 +38,8 @@ dependencies:
       url: https://github.com/phosphor-icons/flutter
       ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
   replay_bloc: ^0.2.3
-  share_plus: ^6.3.2
-  package_info_plus: ^3.1.0
+  share_plus: ^6.3.3
+  package_info_plus: ^3.1.1
   idb_shim: ^2.3.1
   go_router: ^6.5.8
   xml: ^6.2.2
@@ -62,7 +62,7 @@ dependencies:
   ffi: ^2.0.1
   archive: ^3.3.7
   animations: ^2.0.7
-  connectivity_plus: ^3.0.4
+  connectivity_plus: ^3.0.5
   cross_file: ^0.3.3+4
   args: ^2.4.0
   perfect_freehand:
