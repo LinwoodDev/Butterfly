@@ -9,7 +9,7 @@ With this painter you can draw on this paper temporarily. After a while, the dra
 
 ## Configuration
 
-|          Property | Default | Description                                                                      |
+|          Property | Default | ଵର୍ଣ୍ଣନା                                                                         |
 | -----------------:|:-------:|:-------------------------------------------------------------------------------- |
 |             Color |  Black  | The color that will be drawn                                                     |
 |      Stroke width |    5    | The width of the stroke                                                          |
