@@ -1,6 +1,6 @@
 ---
 title: "Pen painter"
-sidebar_label: "Pen"
+sidebar_label: "କଲମ"
 sidebar_position: 2
 ---
 
@@ -8,7 +8,7 @@ With this painter you can draw on this paper.
 
 ## Configuration
 
-|          Property | Default | Description                                                                      |
+|          Property | Default | ଵର୍ଣ୍ଣନା                                                                         |
 | -----------------:|:-------:|:-------------------------------------------------------------------------------- |
 |             Color |  Black  | The color that will be drawn                                                     |
 |      Stroke width |    5    | The width of the stroke                                                          |
