@@ -9,7 +9,7 @@ Use this painter to draw shapes on the paper. You can draw rectangles, circles, 
 
 ## Configuration
 
-|       Property |  Default  | Description                                                                                                                                      |
+|       Property |  Default  | ଵର୍ଣ୍ଣନା                                                                                                                                         |
 | --------------:|:---------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
 |          Color |   Black   | The color that will be drawn                                                                                                                     |
 |   Stroke width |     5     | The width of the stroke                                                                                                                          |
@@ -23,14 +23,14 @@ Use this painter to draw shapes on the paper. You can draw rectangles, circles, 
 
 #### Rectangle
 
-|      Property |   Default   | Description                                       |
+|      Property |   Default   | ଵର୍ଣ୍ଣନା                                          |
 | -------------:|:-----------:|:------------------------------------------------- |
 |          Fill | Transparent | The color that will be drawn inside the rectangle |
 | Corner radius | 0, 0, 0, 0  | The radius of the corners of the rectangle        |
 
 #### Circle
 
-| Property |   Default   | Description                                       |
+| Property |   Default   | ଵର୍ଣ୍ଣନା                                          |
 | --------:|:-----------:|:------------------------------------------------- |
 |     Fill | Transparent | The color that will be drawn inside the rectangle |
 
