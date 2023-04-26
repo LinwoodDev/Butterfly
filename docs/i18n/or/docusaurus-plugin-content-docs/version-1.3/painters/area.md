@@ -15,7 +15,7 @@ The area painter allows you to create, edit and remove areas.
 
 ## Configuration
 
-|     Property | Default | Description                                                                                                                                      |
+|     Property | Default | ଵର୍ଣ୍ଣନା                                                                                                                                         |
 | ------------:|:-------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
 |        Width |    0    | The fixed width of the area. If set to 0, the width will be calculated automatically.                                                            |
 |       ଉଚ୍ଚତା |    0    | The fixed height of the area. If set to 0, the height will be calculated automatically.                                                          |
