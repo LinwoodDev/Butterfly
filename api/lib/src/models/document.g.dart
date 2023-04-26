@@ -10,6 +10,11 @@ _$AppDocument _$$AppDocumentFromJson(Map json) => _$AppDocument(
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       thumbnail: json['thumbnail'] as String? ?? '',
+      animations: (json['animations'] as List<dynamic>?)
+              ?.map((e) =>
+                  AnimationTrack.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const [],
       content: (json['content'] as List<dynamic>?)
               ?.map((e) =>
                   PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -19,11 +24,6 @@ _$AppDocument _$$AppDocumentFromJson(Map json) => _$AppDocument(
           ? const Background.empty()
           : Background.fromJson(
               Map<String, dynamic>.from(json['background'] as Map)),
-      animations: (json['animations'] as List<dynamic>?)
-              ?.map((e) =>
-                  AnimationTrack.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
       waypoints: (json['waypoints'] as List<dynamic>?)
               ?.map(
                   (e) => Waypoint.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -63,9 +63,9 @@ Map<String, dynamic> _$$AppDocumentToJson(_$AppDocument instance) =>
       'name': instance.name,
       'description': instance.description,
       'thumbnail': instance.thumbnail,
+      'animations': instance.animations.map((e) => e.toJson()).toList(),
       'content': instance.content.map((e) => e.toJson()).toList(),
       'background': instance.background.toJson(),
-      'animations': instance.animations.map((e) => e.toJson()).toList(),
       'waypoints': instance.waypoints.map((e) => e.toJson()).toList(),
       'areas': instance.areas.map((e) => e.toJson()).toList(),
       'exportPresets': instance.exportPresets.map((e) => e.toJson()).toList(),

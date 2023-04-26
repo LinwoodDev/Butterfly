@@ -1,4 +1,5 @@
 export 'models/animation.dart';
+export 'models/archive.dart';
 export 'models/area.dart';
 export 'models/asset.dart';
 export 'models/background.dart';
@@ -7,7 +8,9 @@ export 'models/converter.dart';
 export 'models/document.dart';
 export 'models/element.dart';
 export 'models/export.dart';
+export 'models/metadata.dart';
 export 'models/pack.dart';
+export 'models/page.dart';
 export 'models/painter.dart';
 export 'models/palette.dart';
 export 'models/point.dart';

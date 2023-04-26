@@ -37,9 +37,9 @@ mixin _$NoteData {
             String name,
             String description,
             String thumbnail,
+            List<AnimationTrack> animations,
             List<PadElement> content,
             Background background,
-            List<AnimationTrack> animations,
             List<Waypoint> waypoints,
             List<Area> areas,
             List<ExportPreset> exportPresets,
@@ -68,9 +68,9 @@ mixin _$NoteData {
             String name,
             String description,
             String thumbnail,
+            List<AnimationTrack> animations,
             List<PadElement> content,
             Background background,
-            List<AnimationTrack> animations,
             List<Waypoint> waypoints,
             List<Area> areas,
             List<ExportPreset> exportPresets,
@@ -99,9 +99,9 @@ mixin _$NoteData {
             String name,
             String description,
             String thumbnail,
+            List<AnimationTrack> animations,
             List<PadElement> content,
             Background background,
-            List<AnimationTrack> animations,
             List<Waypoint> waypoints,
             List<Area> areas,
             List<ExportPreset> exportPresets,
@@ -177,9 +177,9 @@ abstract class _$$AppDocumentCopyWith<$Res> {
       {String name,
       String description,
       String thumbnail,
+      List<AnimationTrack> animations,
       List<PadElement> content,
       Background background,
-      List<AnimationTrack> animations,
       List<Waypoint> waypoints,
       List<Area> areas,
       List<ExportPreset> exportPresets,
@@ -207,9 +207,9 @@ class __$$AppDocumentCopyWithImpl<$Res>
     Object? name = null,
     Object? description = null,
     Object? thumbnail = null,
+    Object? animations = null,
     Object? content = null,
     Object? background = null,
-    Object? animations = null,
     Object? waypoints = null,
     Object? areas = null,
     Object? exportPresets = null,
@@ -232,6 +232,10 @@ class __$$AppDocumentCopyWithImpl<$Res>
           ? _value.thumbnail
           : thumbnail // ignore: cast_nullable_to_non_nullable
               as String,
+      animations: null == animations
+          ? _value._animations
+          : animations // ignore: cast_nullable_to_non_nullable
+              as List<AnimationTrack>,
       content: null == content
           ? _value._content
           : content // ignore: cast_nullable_to_non_nullable
@@ -240,10 +244,6 @@ class __$$AppDocumentCopyWithImpl<$Res>
           ? _value.background
           : background // ignore: cast_nullable_to_non_nullable
               as Background,
-      animations: null == animations
-          ? _value._animations
-          : animations // ignore: cast_nullable_to_non_nullable
-              as List<AnimationTrack>,
       waypoints: null == waypoints
           ? _value._waypoints
           : waypoints // ignore: cast_nullable_to_non_nullable
@@ -303,9 +303,9 @@ class _$AppDocument extends AppDocument {
       {this.name = '',
       this.description = '',
       this.thumbnail = '',
+      final List<AnimationTrack> animations = const [],
       final List<PadElement> content = const [],
       this.background = const Background.empty(),
-      final List<AnimationTrack> animations = const [],
       final List<Waypoint> waypoints = const [],
       final List<Area> areas = const [],
       final List<ExportPreset> exportPresets = const [],
@@ -315,8 +315,8 @@ class _$AppDocument extends AppDocument {
       final List<Painter> painters = const [],
       this.tool = const ToolOption(),
       final String? $type})
-      : _content = content,
-        _animations = animations,
+      : _animations = animations,
+        _content = content,
         _waypoints = waypoints,
         _areas = areas,
         _exportPresets = exportPresets,
@@ -337,6 +337,15 @@ class _$AppDocument extends AppDocument {
   @override
   @JsonKey()
   final String thumbnail;
+  final List<AnimationTrack> _animations;
+  @override
+  @JsonKey()
+  List<AnimationTrack> get animations {
+    if (_animations is EqualUnmodifiableListView) return _animations;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_animations);
+  }
+
   final List<PadElement> _content;
   @override
   @JsonKey()
@@ -349,15 +358,6 @@ class _$AppDocument extends AppDocument {
   @override
   @JsonKey()
   final Background background;
-  final List<AnimationTrack> _animations;
-  @override
-  @JsonKey()
-  List<AnimationTrack> get animations {
-    if (_animations is EqualUnmodifiableListView) return _animations;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_animations);
-  }
-
   final List<Waypoint> _waypoints;
   @override
   @JsonKey()
@@ -418,7 +418,7 @@ class _$AppDocument extends AppDocument {
 
   @override
   String toString() {
-    return 'NoteData.document(name: $name, description: $description, thumbnail: $thumbnail, content: $content, background: $background, animations: $animations, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
+    return 'NoteData.document(name: $name, description: $description, thumbnail: $thumbnail, animations: $animations, content: $content, background: $background, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, packs: $packs, createdAt: $createdAt, updatedAt: $updatedAt, painters: $painters, tool: $tool)';
   }
 
   @JsonKey(ignore: true)
@@ -434,9 +434,9 @@ class _$AppDocument extends AppDocument {
             String name,
             String description,
             String thumbnail,
+            List<AnimationTrack> animations,
             List<PadElement> content,
             Background background,
-            List<AnimationTrack> animations,
             List<Waypoint> waypoints,
             List<Area> areas,
             List<ExportPreset> exportPresets,
@@ -462,9 +462,9 @@ class _$AppDocument extends AppDocument {
         name,
         description,
         thumbnail,
+        animations,
         content,
         background,
-        animations,
         waypoints,
         areas,
         exportPresets,
@@ -482,9 +482,9 @@ class _$AppDocument extends AppDocument {
             String name,
             String description,
             String thumbnail,
+            List<AnimationTrack> animations,
             List<PadElement> content,
             Background background,
-            List<AnimationTrack> animations,
             List<Waypoint> waypoints,
             List<Area> areas,
             List<ExportPreset> exportPresets,
@@ -510,9 +510,9 @@ class _$AppDocument extends AppDocument {
         name,
         description,
         thumbnail,
+        animations,
         content,
         background,
-        animations,
         waypoints,
         areas,
         exportPresets,
@@ -530,9 +530,9 @@ class _$AppDocument extends AppDocument {
             String name,
             String description,
             String thumbnail,
+            List<AnimationTrack> animations,
             List<PadElement> content,
             Background background,
-            List<AnimationTrack> animations,
             List<Waypoint> waypoints,
             List<Area> areas,
             List<ExportPreset> exportPresets,
@@ -560,9 +560,9 @@ class _$AppDocument extends AppDocument {
           name,
           description,
           thumbnail,
+          animations,
           content,
           background,
-          animations,
           waypoints,
           areas,
           exportPresets,
@@ -622,9 +622,9 @@ abstract class AppDocument extends NoteData {
       {final String name,
       final String description,
       final String thumbnail,
+      final List<AnimationTrack> animations,
       final List<PadElement> content,
       final Background background,
-      final List<AnimationTrack> animations,
       final List<Waypoint> waypoints,
       final List<Area> areas,
       final List<ExportPreset> exportPresets,
@@ -641,9 +641,9 @@ abstract class AppDocument extends NoteData {
   String get name;
   String get description;
   String get thumbnail;
+  List<AnimationTrack> get animations;
   List<PadElement> get content;
   Background get background;
-  List<AnimationTrack> get animations;
   List<Waypoint> get waypoints;
   List<Area> get areas;
   List<ExportPreset> get exportPresets;
@@ -733,9 +733,9 @@ class _$DocumentTemplate extends DocumentTemplate {
             String name,
             String description,
             String thumbnail,
+            List<AnimationTrack> animations,
             List<PadElement> content,
             Background background,
-            List<AnimationTrack> animations,
             List<Waypoint> waypoints,
             List<Area> areas,
             List<ExportPreset> exportPresets,
@@ -767,9 +767,9 @@ class _$DocumentTemplate extends DocumentTemplate {
             String name,
             String description,
             String thumbnail,
+            List<AnimationTrack> animations,
             List<PadElement> content,
             Background background,
-            List<AnimationTrack> animations,
             List<Waypoint> waypoints,
             List<Area> areas,
             List<ExportPreset> exportPresets,
@@ -801,9 +801,9 @@ class _$DocumentTemplate extends DocumentTemplate {
             String name,
             String description,
             String thumbnail,
+            List<AnimationTrack> animations,
             List<PadElement> content,
             Background background,
-            List<AnimationTrack> animations,
             List<Waypoint> waypoints,
             List<Area> areas,
             List<ExportPreset> exportPresets,
@@ -1050,9 +1050,9 @@ class _$ButterflyPack extends ButterflyPack {
             String name,
             String description,
             String thumbnail,
+            List<AnimationTrack> animations,
             List<PadElement> content,
             Background background,
-            List<AnimationTrack> animations,
             List<Waypoint> waypoints,
             List<Area> areas,
             List<ExportPreset> exportPresets,
@@ -1085,9 +1085,9 @@ class _$ButterflyPack extends ButterflyPack {
             String name,
             String description,
             String thumbnail,
+            List<AnimationTrack> animations,
             List<PadElement> content,
             Background background,
-            List<AnimationTrack> animations,
             List<Waypoint> waypoints,
             List<Area> areas,
             List<ExportPreset> exportPresets,
@@ -1120,9 +1120,9 @@ class _$ButterflyPack extends ButterflyPack {
             String name,
             String description,
             String thumbnail,
+            List<AnimationTrack> animations,
             List<PadElement> content,
             Background background,
-            List<AnimationTrack> animations,
             List<Waypoint> waypoints,
             List<Area> areas,
             List<ExportPreset> exportPresets,
