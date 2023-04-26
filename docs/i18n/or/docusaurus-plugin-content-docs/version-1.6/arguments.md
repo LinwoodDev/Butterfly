@@ -11,6 +11,6 @@ Path is the path to the file you want to open.
 
 ## Options
 
-|         Option | Description                                                      |
+|         Option | ଵର୍ଣ୍ଣନା                                                         |
 | --------------:|:---------------------------------------------------------------- |
 | `--path`, `-p` | Choose the data directory where all data of Butterfly is stored. |
