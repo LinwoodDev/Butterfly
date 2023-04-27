@@ -5,14 +5,14 @@ sidebar_position: 2
 
 Bu kılavuz size en son sürüme nasıl geçiş yapacağınızı gösterecektir.
 
-## 7 (Breaking change) {#7}
+## 7 (Önemli değişiklikler) {#7}
 
-**Version: 2.0**
+**Sürüm 2.0**
 
-### Breaking changes
+### Son dakika değişiklikleri
 
-The eraser layer will be removed. On migration, the eraser layer will be removed.
+Silgi katmanı kaldırılacaktır. Geçiş sırasında silgi katmanı kaldırılacaktır.
 
-## Older versions
+## Eksi Sürümler
 
-All migrations before will be done automatically. Read the full migration in code [here](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17).
+Daha önceki tüm geçişler otomatik olarak yapılacaktır. Geçişin tamamını [buradan](https://github.com/LinwoodDev/Butterfly/blob/95825da4ebbf9ded392c863da577666dbcdda45c/app/lib/models/converter.dart#L17) okuyun.
