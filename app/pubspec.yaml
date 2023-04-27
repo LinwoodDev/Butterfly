@@ -46,7 +46,7 @@ dependencies:
   collection: ^1.17.1
   bloc_concurrency: ^0.2.1
   camera: ^0.10.4
-  camera_windows: ^0.2.1+5
+  camera_windows: ^0.2.1+6
   window_manager: ^0.3.2
   flex_color_scheme: ^7.0.4
   freezed_annotation: ^2.2.0
@@ -89,7 +89,7 @@ dev_dependencies:
   freezed: ^2.3.2
   build_runner: ^2.3.3
   json_serializable: ^6.6.1
-  espresso: ^0.3.0
+  espresso: ^0.3.0+3
 dependency_overrides:
   archive: 3.3.7
   collection: 1.17.1

@@ -29,7 +29,7 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
   @override
   void initState() {
     super.initState();
-    _nameController.text = widget.asset.fileName;
+    _nameController.text = widget.asset.fileNameWithoutExtension;
     selectedPath = widget.asset.parent;
   }
 
@@ -40,6 +40,7 @@ class _FileSystemAssetMoveDialogState extends State<FileSystemAssetMoveDialog> {
       newPath += '/';
     }
     newPath += _nameController.text;
+    newPath += '.${widget.asset.fileExtension}';
     if (duplicate) {
       await widget.fileSystem
           .duplicateAsset(widget.asset.pathWithLeadingSlash, newPath);

@@ -27,7 +27,7 @@ class TextCursor extends Renderer<TextCursorData> {
     final iconSize =
         (property ?? const text.DefinedParagraphProperty()).span.getSize() *
             (element.context?.element?.scale ??
-                (element.painter.zoomDependent ? transform.size : 1));
+                (element.painter.zoomDependent ? 1 / transform.size : 1));
     final iconColor = Color(property?.span.color ??
         colorScheme?.primary.value ??
         Colors.black.value);
@@ -51,7 +51,7 @@ class TextCursor extends Renderer<TextCursorData> {
     iconPainter.paint(
       canvas,
       transform.localToGlobal(element.position) -
-          Offset(iconSize / 2, iconSize / 2),
+          Offset(iconPainter.width / 2, iconPainter.height / 2),
     );
   }
 }
