@@ -184,7 +184,7 @@ class LabelHandler extends Handler<LabelPainter>
         }));
       }
     }
-    if (context.painter.styleSheet != data.styleSheet) {
+    if (context.painter != value.painter) {
       bloc.add(PaintersChanged({data: value.painter}));
     }
     bloc.refresh();

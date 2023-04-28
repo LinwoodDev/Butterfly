@@ -7,3 +7,5 @@
 * Fix reset does not replace templates
 * Fix text span creation
 * Fix select while zooming
+* Fixing text replacing problems
+* Remove file extension on file move dialog
