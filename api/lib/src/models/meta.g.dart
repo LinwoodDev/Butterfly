@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'metadata.dart';
+part of 'meta.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -9,18 +9,25 @@ part of 'metadata.dart';
 _$_FileMetadata _$$_FileMetadataFromJson(Map json) => _$_FileMetadata(
       version: json['version'] as int,
       type: $enumDecode(_$NoteFileTypeEnumMap, json['type']),
+      createdAt:
+          const DateTimeJsonConverter().fromJson(json['createdAt'] as int),
+      updatedAt: _$JsonConverterFromJson<int, DateTime>(
+          json['updatedAt'], const DateTimeJsonConverter().fromJson),
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      thumbnail: json['thumbnail'] as String? ?? '',
+      directory: json['directory'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$_FileMetadataToJson(_$_FileMetadata instance) =>
     <String, dynamic>{
       'version': instance.version,
       'type': _$NoteFileTypeEnumMap[instance.type]!,
+      'createdAt': const DateTimeJsonConverter().toJson(instance.createdAt),
+      'updatedAt': _$JsonConverterToJson<int, DateTime>(
+          instance.updatedAt, const DateTimeJsonConverter().toJson),
       'name': instance.name,
       'description': instance.description,
-      'thumbnail': instance.thumbnail,
+      'directory': instance.directory,
     };
 
 const _$NoteFileTypeEnumMap = {
@@ -28,3 +35,15 @@ const _$NoteFileTypeEnumMap = {
   NoteFileType.template: 'template',
   NoteFileType.pack: 'pack',
 };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

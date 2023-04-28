@@ -37,10 +37,10 @@ class AreaHandler extends Handler<AreaPainter> {
     var localPosition = event.localPosition;
     final cubit = context.getCurrentIndexCubit();
     localPosition = cubit.state.cameraViewport.tool
-            ?.getGridPosition(localPosition, state.document, cubit) ??
+            ?.getGridPosition(localPosition, state.data, cubit) ??
         localPosition;
     final globalPosition = transform.localToGlobal(localPosition);
-    final area = state.document.getArea(globalPosition);
+    final area = state.data.getArea(globalPosition);
     final currentIndexCubit = context.getCurrentIndexCubit();
     if (area != null || state.currentArea != null) {
       showContextMenu(
@@ -63,7 +63,7 @@ class AreaHandler extends Handler<AreaPainter> {
       return;
     }
     currentRect = Rect.fromLTWH(globalPosition.dx, globalPosition.dy, 0, 0);
-    if (state.document.getAreaByRect(currentRect!) != null) {
+    if (state.data.getAreaByRect(currentRect!) != null) {
       currentRect = null;
       return;
     }
@@ -79,10 +79,10 @@ class AreaHandler extends Handler<AreaPainter> {
     var localPosition = event.localPosition;
     final cubit = context.getCurrentIndexCubit();
     localPosition = cubit.state.cameraViewport.tool
-            ?.getGridPosition(localPosition, state.document, cubit) ??
+            ?.getGridPosition(localPosition, state.data, cubit) ??
         localPosition;
     final position = transform.localToGlobal(localPosition);
-    _setRect(state.document, position);
+    _setRect(state.data, position);
     context.refresh();
   }
 
@@ -96,10 +96,10 @@ class AreaHandler extends Handler<AreaPainter> {
               value: context.read<DocumentBloc>(),
               child: NameDialog(
                   validator: defaultNameValidator(
-                      context, state.document.getAreaNames().toList()))));
+                      context, state.data.getAreaNames().toList()))));
     }
     var name = '', index = 1;
-    while (name.isEmpty || state.document.getAreaByName(name) != null) {
+    while (name.isEmpty || state.data.getAreaByName(name) != null) {
       name = AppLocalizations.of(context).areaIndex(index);
       index++;
     }
@@ -154,17 +154,17 @@ class AreaHandler extends Handler<AreaPainter> {
     final state = context.getState();
     if (state == null) return;
     localPosition = cubit.state.cameraViewport.tool
-            ?.getGridPosition(localPosition, state.document, cubit) ??
+            ?.getGridPosition(localPosition, state.data, cubit) ??
         localPosition;
     final position = transform.localToGlobal(localPosition);
-    _setRect(state.document, position);
+    _setRect(state.data, position);
     currentRect = currentRect?.normalized();
     if (currentRect?.size.isEmpty ?? true) {
       currentRect = null;
       context.refresh();
       return;
     }
-    if (state.document.getAreaByRect(currentRect!) != null) {
+    if (state.data.getAreaByRect(currentRect!) != null) {
       currentRect = null;
       context.refresh();
       return;
@@ -175,7 +175,7 @@ class AreaHandler extends Handler<AreaPainter> {
       context.refresh();
       return;
     }
-    if (state.document.getAreaByName(name) != null) {
+    if (state.data.getAreaByName(name) != null) {
       currentRect = null;
       context.refresh();
       return;

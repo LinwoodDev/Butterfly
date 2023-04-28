@@ -7,10 +7,10 @@ abstract class DocumentEvent extends ReplayEvent with EquatableMixin {
   List<Object?> get props => [];
 }
 
-class DocumentUpdated extends DocumentEvent {
-  final AppDocument document;
+class FileMetaUpdated extends DocumentEvent {
+  final FileMetadata metadata;
 
-  DocumentUpdated(this.document);
+  FileMetaUpdated(this.metadata);
 }
 
 class ToolChanged extends DocumentEvent {
@@ -279,7 +279,7 @@ class ExportPresetRemoved extends DocumentEvent {
 }
 
 class DocumentPackAdded extends DocumentEvent {
-  final ButterflyPack pack;
+  final NoteData pack;
 
   const DocumentPackAdded(this.pack);
 
@@ -289,7 +289,7 @@ class DocumentPackAdded extends DocumentEvent {
 
 class DocumentPackUpdated extends DocumentEvent {
   final String name;
-  final ButterflyPack pack;
+  final NoteData pack;
 
   const DocumentPackUpdated(this.name, this.pack);
 

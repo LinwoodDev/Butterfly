@@ -118,8 +118,8 @@ class ShapeHandler extends Handler {
     final state = bloc.state as DocumentLoadSuccess;
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     final viewport = currentIndexCubit.state.cameraViewport;
-    localPosition = viewport.tool?.getGridPosition(
-            localPosition, state.document, currentIndexCubit) ??
+    localPosition = viewport.tool
+            ?.getGridPosition(localPosition, state.data, currentIndexCubit) ??
         localPosition;
     final globalPosition = transform.localToGlobal(localPosition);
     final settings = context.read<SettingsCubit>().state;

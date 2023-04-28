@@ -10,7 +10,7 @@ export 'models/colors.dart';
 export 'models/data.dart';
 export 'models/element.dart';
 export 'models/export.dart';
-export 'models/metadata.dart';
+export 'models/meta.dart';
 export 'models/pack.dart';
 export 'models/page.dart';
 export 'models/painter.dart';

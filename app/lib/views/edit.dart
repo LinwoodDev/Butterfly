@@ -61,10 +61,10 @@ class _EditToolbarState extends State<EditToolbar> {
                 previous is! DocumentLoadSuccess ||
                 current is! DocumentLoadSuccess ||
                 previous.painter != current.painter ||
-                previous.document.painters != current.document.painters,
+                previous.data.painters != current.data.painters,
             builder: (context, state) {
               if (state is! DocumentLoadSuccess) return Container();
-              var painters = state.document.painters;
+              var painters = state.data.painters;
 
               Widget buildIcon(PhosphorIconData data, bool action,
                       [Color? color]) =>

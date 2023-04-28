@@ -80,7 +80,7 @@ class _PacksDialogState extends State<PacksDialog>
                             if (state is! DocumentLoadSuccess) {
                               return Container();
                             }
-                            final packs = state.document.packs;
+                            final packs = state.data.packs;
                             return ListView.builder(
                               shrinkWrap: true,
                               itemCount: packs.length,

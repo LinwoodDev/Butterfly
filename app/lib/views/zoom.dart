@@ -100,7 +100,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                                     .read<TransformCubit>()
                                                     .size(value, center);
                                                 state.currentIndexCubit
-                                                    .bake(state.document);
+                                                    .bake(state.data);
                                               },
                                             ),
                                           ),

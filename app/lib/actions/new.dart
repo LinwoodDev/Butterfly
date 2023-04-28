@@ -41,7 +41,7 @@ class NewAction extends Action<NewIntent> {
     final remote = settings.getDefaultRemote();
     if (intent.fromTemplate && context.mounted) {
       var state = bloc.state;
-      if (state is DocumentLoadSuccess) document = state.document;
+      if (state is DocumentLoadSuccess) document = state.data;
       var template = await showDialog<DocumentTemplate>(
           context: context,
           builder: (context) => MultiBlocProvider(

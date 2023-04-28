@@ -24,9 +24,16 @@ class DocumentLoadFailure extends DocumentState {
 }
 
 abstract class DocumentLoaded extends DocumentState {
-  AppDocument get document;
+  final NoteData data;
+  final DocumentPage page;
+  final FileMetadata metadata;
 
-  const DocumentLoaded();
+  set page(DocumentPage page) => data.setPage(page);
+  set metadata(FileMetadata metadata) => data.setMetadata(metadata);
+
+  DocumentLoaded(this.data, {DocumentPage? page, FileMetadata? metadata})
+      : page = page ?? data.getPage()!,
+        metadata = metadata ?? data.getMetadata()!;
 
   List<String> get invisibleLayers => [];
 
@@ -36,11 +43,15 @@ abstract class DocumentLoaded extends DocumentState {
   SettingsCubit get settingsCubit;
 
   TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
+
+  NoteData saveData() {
+    data.setPage(page);
+    data.setMetadata(metadata);
+    return data;
+  }
 }
 
 class DocumentLoadSuccess extends DocumentLoaded {
-  @override
-  final AppDocument document;
   final StorageType storageType;
   final String currentLayer;
   final String currentAreaName;
@@ -51,8 +62,10 @@ class DocumentLoadSuccess extends DocumentLoaded {
   @override
   final CurrentIndexCubit currentIndexCubit;
 
-  DocumentLoadSuccess(this.document,
-      {AssetLocation? location,
+  DocumentLoadSuccess(super.data,
+      {super.page,
+      super.metadata,
+      AssetLocation? location,
       this.storageType = StorageType.local,
       required this.settingsCubit,
       required this.currentIndexCubit,
@@ -67,7 +80,8 @@ class DocumentLoadSuccess extends DocumentLoaded {
   @override
   List<Object?> get props => [
         invisibleLayers,
-        document,
+        data,
+        page,
         currentLayer,
         currentAreaName,
         settingsCubit,
@@ -76,7 +90,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
 
   @override
   Area? get currentArea {
-    return document.getAreaByName(currentAreaName);
+    return page.getAreaByName(currentAreaName);
   }
 
   CameraViewport get cameraViewport => currentIndexCubit.state.cameraViewport;
@@ -89,14 +103,17 @@ class DocumentLoadSuccess extends DocumentLoaded {
   Embedding? get embedding => currentIndexCubit.state.embedding;
 
   DocumentLoadSuccess copyWith({
-    AppDocument? document,
+    DocumentPage? page,
+    FileMetadata? metadata,
     bool? editMode,
     String? currentLayer,
     String? currentAreaName,
     List<String>? invisibleLayers,
   }) =>
       DocumentLoadSuccess(
-        document ?? this.document,
+        data,
+        page: page ?? this.page,
+        metadata: metadata ?? this.metadata,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
         currentAreaName: currentAreaName ?? this.currentAreaName,
@@ -118,19 +135,20 @@ class DocumentLoadSuccess extends DocumentLoaded {
                   false)));
 
   Future<AssetLocation> save() {
+    final newMeta = metadata.copyWith(updatedAt: DateTime.now());
+    data.setMetadata(newMeta);
     final storage = getRemoteStorage();
     if (embedding != null) return Future.value(AssetLocation.local(''));
-    final newDocument = document.copyWith(updatedAt: DateTime.now());
     if (!location.path.endsWith('.bfly') ||
         location.absolute ||
         location.fileType != AssetFileType.note) {
       return DocumentFileSystem.fromPlatform(remote: storage)
-          .importDocument(newDocument, path: location.pathWithLeadingSlash)
+          .importDocument(data, path: location.pathWithLeadingSlash)
           .then((value) => value.location)
         ..then(settingsCubit.addRecentHistory);
     }
     return DocumentFileSystem.fromPlatform(remote: storage)
-        .updateDocument(location.path, newDocument)
+        .updateDocument(location.path, data)
         .then((value) => value.location)
       ..then(settingsCubit.addRecentHistory);
   }
@@ -141,7 +159,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
 
   Future<void> bake(
           {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
-      currentIndexCubit.bake(document,
+      currentIndexCubit.bake(data,
           viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
 
   Painter? get painter => currentIndexCubit.state.handler.data;
@@ -155,25 +173,33 @@ class DocumentPresentationState extends DocumentLoaded {
   final bool fullScreen;
 
   DocumentPresentationState(
-      DocumentBloc bloc, this.oldState, this.track, this.fullScreen,
-      [this.frame = 0])
+      DocumentBloc bloc, super.data, this.oldState, this.track, this.fullScreen,
+      {this.frame = 0, super.metadata, super.page})
       : handler = PresentationStateHandler(track, bloc);
 
-  const DocumentPresentationState.withHandler(
-      this.handler, this.oldState, this.track, this.fullScreen,
-      [this.frame = 0]);
+  DocumentPresentationState.withHandler(
+      this.handler, super.data, this.oldState, this.track, this.fullScreen,
+      {this.frame = 0, super.metadata, super.page});
 
   @override
   List<Object?> get props => [oldState, frame, track];
 
   @override
-  AppDocument get document => oldState.document;
+  NoteData get data => oldState.data;
 
   DocumentPresentationState copyWith({
     int? frame,
   }) =>
       DocumentPresentationState.withHandler(
-          handler, oldState, track, fullScreen, frame ?? this.frame);
+        handler,
+        data,
+        oldState,
+        track,
+        fullScreen,
+        frame: frame ?? this.frame,
+        metadata: metadata,
+        page: page,
+      );
 
   @override
   CurrentIndexCubit get currentIndexCubit => oldState.currentIndexCubit;

@@ -89,7 +89,7 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
       width.abs().toDouble(),
       height.abs().toDouble(),
     );
-    var painter = ViewPainter(current.document,
+    var painter = ViewPainter(current.data,
         renderBackground: _renderBackground,
         cameraViewport:
             current.cameraViewport.unbake(unbakedElements: current.renderers),
@@ -114,7 +114,7 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
       height.abs().toDouble(),
     );
     final data = state.currentIndexCubit.renderSVG(
-      state.document,
+      state.data,
       width: currentSize.width.toInt(),
       height: currentSize.height.toInt(),
       x: currentPosition.dx,

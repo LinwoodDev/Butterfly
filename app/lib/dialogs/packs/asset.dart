@@ -22,7 +22,7 @@ class AssetDialog extends StatelessWidget {
     final bloc = context.read<DocumentBloc>();
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       if (state is! DocumentLoaded) return const SizedBox();
-      final document = state.document;
+      final document = state.data;
       return AlertDialog(
         title: Text(
           value == null

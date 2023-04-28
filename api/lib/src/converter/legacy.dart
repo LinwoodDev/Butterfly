@@ -5,14 +5,17 @@ import 'package:archive/archive.dart';
 import 'package:butterfly_api/src/models/text.dart';
 
 import '../models/data.dart';
-import '../models/metadata.dart';
+import '../models/meta.dart';
 import '../models/pack.dart';
 import '../models/page.dart';
 import '../models/palette.dart';
 import '../models/archive.dart';
 
 Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
-  data = legacyNoteDataJsonMigrator(data);
+  data = {
+    'version': data['fileVersion'],
+    ...legacyNoteDataJsonMigrator(data),
+  };
   final archive = Archive();
   final reader = NoteData(archive);
   final meta = FileMetadata.fromJson(data);

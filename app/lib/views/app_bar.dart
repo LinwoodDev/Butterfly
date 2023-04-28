@@ -87,7 +87,7 @@ class _AppBarTitle extends StatelessWidget {
         }
         return previous.currentAreaName != current.currentAreaName ||
             previous.hasAutosave() != current.hasAutosave() ||
-            previous.document.name != current.document.name;
+            previous.data.name != current.data.name;
       }, builder: (context, state) {
         return Row(children: [
           Flexible(
@@ -106,7 +106,7 @@ class _AppBarTitle extends StatelessWidget {
                           ? state.currentAreaName
                           : null;
                       _nameController.text =
-                          state is DocumentLoaded ? state.document.name : '';
+                          state is DocumentLoaded ? state.data.name : '';
                       _areaController.text = area?.name ?? '';
                       void submit(String? value) {
                         if (value == null) return;
@@ -373,7 +373,7 @@ class _MainPopupMenu extends StatelessWidget {
                 sendEmbedMessage(
                     'exit',
                     json.encode(
-                        const DocumentJsonConverter().toJson(state.document)));
+                        const DocumentJsonConverter().toJson(state.data)));
               },
             ),
           ],

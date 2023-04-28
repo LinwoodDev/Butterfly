@@ -17,7 +17,7 @@ class EmbedHandler {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
         sendEmbedMessage('getData',
-            json.encode(const DocumentJsonConverter().toJson(state.document)));
+            json.encode(const DocumentJsonConverter().toJson(state.data)));
       }
     });
     setDataListener ??= onEmbedMessage('setData', (message) async {
@@ -32,7 +32,7 @@ class EmbedHandler {
           throw Exception('Invalid message type');
         }
         final document = const DocumentJsonConverter().fromJson(map);
-        bloc.add(DocumentUpdated(document));
+        bloc.add(FileMetaUpdated(document));
         await bloc.load();
       }
     });
@@ -59,7 +59,7 @@ class EmbedHandler {
           renderBackground = map['renderBackground'] ?? true;
         }
         final data = await state.currentIndexCubit.render(
-          state.document,
+          state.data,
           width: width,
           height: height,
           x: x,
@@ -95,7 +95,7 @@ class EmbedHandler {
           'renderSVG',
           state.currentIndexCubit
               .renderSVG(
-                state.document,
+                state.data,
                 width: width,
                 height: height,
                 x: x,

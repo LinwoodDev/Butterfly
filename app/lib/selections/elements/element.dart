@@ -69,7 +69,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   Future<void> updateElements(BuildContext context, List<T> elements) async {
     final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return;
-    final document = state.document;
+    final document = state.data;
     final renderers = await Future.wait(elements.map((e) async {
       final renderer = Renderer.fromInstance(e);
       await renderer.setup(document);

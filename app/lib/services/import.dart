@@ -44,7 +44,7 @@ class ImportService {
         ? (bloc?.state as DocumentLoadSuccess)
         : null;
     final location = state?.location;
-    document ??= state?.document;
+    document ??= state?.data;
     Uint8List? bytes;
     if (data is Uint8List) {
       bytes = data;
@@ -112,7 +112,7 @@ class ImportService {
     final firstPos = position ?? Offset.zero;
     final doc = const DocumentJsonConverter().fromJson(data);
     if (document != null) {
-      bloc?.add(DocumentUpdated(doc));
+      bloc?.add(FileMetaUpdated(doc));
     }
     final areas = doc.areas
         .map((e) => e.copyWith(position: e.position + firstPos.toPoint()))
@@ -296,7 +296,7 @@ class ImportService {
     switch (fileType) {
       case AssetFileType.note:
         final data =
-            json.encode(const DocumentJsonConverter().toJson(state.document));
+            json.encode(const DocumentJsonConverter().toJson(state.data));
         final bytes = Uint8List.fromList(data.codeUnits);
         getFileSystem().saveAbsolute(location.path, bytes);
         break;
@@ -318,7 +318,7 @@ class ImportService {
             builder: (context) => BlocProvider.value(
                 value: bloc!,
                 child: PdfExportDialog(
-                    areas: state.document.areas
+                    areas: state.data.areas
                         .map((e) => AreaPreset(name: e.name, area: e))
                         .toList())));
       case AssetFileType.svg:
@@ -352,7 +352,7 @@ class ImportService {
         ?..add(ElementsCreated(elements))
         ..add(AreasCreated(areas));
     }
-    document ??= state?.document;
+    document ??= state?.data;
     if (document != null) {
       return document.copyWith(
         content: [...document.content, ...elements],

@@ -45,7 +45,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return Container();
-    final document = state.document;
+    final document = state.data;
     final paragraph = widget.value.getDefinedProperty(document) ??
         const text.DefinedParagraphProperty();
     final span = widget.value.getDefinedForcedSpanProperty(document);

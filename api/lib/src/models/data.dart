@@ -6,7 +6,7 @@ import 'package:archive/archive.dart';
 import '../../butterfly_text.dart';
 import '../converter/note.dart';
 import 'archive.dart';
-import 'metadata.dart';
+import 'meta.dart';
 import 'pack.dart';
 import 'page.dart';
 import 'palette.dart';
@@ -152,4 +152,6 @@ class NoteData {
     setAsset('$kPalettesArchiveDirectory/${palette.name}.json',
         utf8.encode(content));
   }
+
+  List<int> save() => ZipEncoder().encode(archive)!;
 }

@@ -92,7 +92,7 @@ class _SearchDialogState extends State<SearchDialog> {
                             onChanged: (value) {
                               final state = context.read<DocumentBloc>().state;
                               if (state is DocumentLoaded) {
-                                _search(state.document, value);
+                                _search(state.data, value);
                               }
                             },
                           ),
@@ -139,8 +139,7 @@ class _SearchDialogState extends State<SearchDialog> {
                                     if (state is DocumentLoaded) {
                                       state.transformCubit.setPosition(
                                           result.location.toOffset());
-                                      state.currentIndexCubit
-                                          .bake(state.document);
+                                      state.currentIndexCubit.bake(state.data);
                                       Navigator.pop(context);
                                     }
                                   },

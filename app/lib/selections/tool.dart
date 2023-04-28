@@ -18,7 +18,7 @@ class ToolSelection extends Selection<ToolState> {
       ...super.buildProperties(context),
       _ToolView(
         state: selected.first,
-        option: state.document.tool,
+        option: state.data.tool,
         onStateChanged: (state) => updateState(context, state),
         onToolChanged: (option) =>
             context.read<DocumentBloc>().add(ToolChanged.option(option)),
@@ -107,7 +107,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                         }
                         return null;
                       },
-                      initialValue: state.document.name,
+                      initialValue: state.data.name,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context).name,
                         filled: true,
@@ -117,7 +117,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                     TextFormField(
                       minLines: 3,
                       maxLines: 5,
-                      initialValue: state.document.description,
+                      initialValue: state.data.description,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context).description,
                         border: const OutlineInputBorder(),

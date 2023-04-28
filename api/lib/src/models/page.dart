@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'animation.dart';
@@ -23,4 +24,24 @@ class DocumentPage with _$DocumentPage {
 
   factory DocumentPage.fromJson(Map<String, dynamic> json) =>
       _$DocumentPageFromJson(json);
+
+  Area? getAreaByName(String value) {
+    return areas.firstWhereOrNull((e) => e.name == value);
+  }
+
+  Set<String> getAreaNames() {
+    return areas.map((e) => e.name).toSet();
+  }
+
+  Set<String> getLayerNames() {
+    return content.map((e) => e.layer).toSet();
+  }
+
+  ExportPreset? getExportPreset(String name) {
+    return exportPresets.firstWhereOrNull((e) => e.name == name);
+  }
+
+  AnimationTrack? getAnimation(String name) {
+    return animations.firstWhereOrNull((e) => e.name == name);
+  }
 }

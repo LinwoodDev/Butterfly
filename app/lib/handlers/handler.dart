@@ -118,7 +118,7 @@ class EventContext {
 
   CameraViewport getCameraViewport() => getCurrentIndex().cameraViewport;
 
-  AppDocument? getDocument() => getState()?.document;
+  AppDocument? getDocument() => getState()?.data;
 }
 
 enum PainterStatus { normal, disabled }

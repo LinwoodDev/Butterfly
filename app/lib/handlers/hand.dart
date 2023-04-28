@@ -226,7 +226,7 @@ class HandHandler extends Handler<HandPainter> {
     if (_movingElements.isEmpty) return;
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final document = state.document;
+    final document = state.data;
     final cubit = state.currentIndexCubit;
     final tool = cubit.state.cameraViewport.tool;
     final current = _movingElements
@@ -428,7 +428,7 @@ class HandHandler extends Handler<HandPainter> {
         rulerAngle: angle,
       );
       _rotation = currentRotation;
-      context.getCurrentIndexCubit().updateTool(state.document, toolState);
+      context.getCurrentIndexCubit().updateTool(state.data, toolState);
       return;
     }
     if (_transformMode != null) {

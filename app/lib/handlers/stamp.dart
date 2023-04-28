@@ -58,7 +58,7 @@ class StampHandler extends Handler<StampPainter> {
     final local = transform.globalToLocal(grid);
     final state = context.getState();
     if (state == null) return;
-    _loadComponent(state.document);
+    _loadComponent(state.data);
     _position = local;
     context.refresh();
   }

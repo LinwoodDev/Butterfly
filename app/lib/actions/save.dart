@@ -23,7 +23,7 @@ class SaveAction extends Action<SaveIntent> {
     if (state is! DocumentLoadSuccess) return;
     if (state.embedding?.save ?? false) {
       sendEmbedMessage('save',
-          json.encode(const DocumentJsonConverter().toJson(state.document)));
+          json.encode(const DocumentJsonConverter().toJson(state.data)));
       state.currentIndexCubit.setSaveState(saved: true);
     } else {
       final path = await state.save();

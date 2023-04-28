@@ -22,8 +22,8 @@ class WaypointsDialog extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: BlocBuilder<DocumentBloc, DocumentState>(
                 buildWhen: (previous, current) =>
-                    (previous as DocumentLoadSuccess).document.waypoints !=
-                    (current as DocumentLoadSuccess).document.waypoints,
+                    (previous as DocumentLoadSuccess).data.waypoints !=
+                    (current as DocumentLoadSuccess).data.waypoints,
                 builder: (context, state) {
                   if (state is! DocumentLoadSuccess) {
                     return Container();
@@ -77,7 +77,7 @@ class WaypointsDialog extends StatelessWidget {
                                                 .devicePixelRatio);
                                       }
 
-                                      var waypoints = state.document.waypoints
+                                      var waypoints = state.data.waypoints
                                           .where((element) => element.name
                                               .contains(_searchController.text))
                                           .toList();

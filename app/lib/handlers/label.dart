@@ -258,7 +258,7 @@ class LabelHandler extends Handler<LabelPainter>
     final old = _context?.element;
     final state = _bloc?.state;
     if (state is! DocumentLoadSuccess) return;
-    final document = state.document;
+    final document = state.data;
 
     var newIndex = value.length;
 

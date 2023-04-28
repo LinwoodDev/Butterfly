@@ -6,7 +6,7 @@ import 'package:butterfly_api/src/models/text.dart';
 
 import '../converter/note.dart';
 import 'archive.dart';
-import 'metadata.dart';
+import 'meta.dart';
 import 'pack.dart';
 import 'page.dart';
 import 'palette.dart';

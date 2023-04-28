@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'metadata.dart';
+part of 'meta.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -22,9 +22,13 @@ FileMetadata _$FileMetadataFromJson(Map<String, dynamic> json) {
 mixin _$FileMetadata {
   int get version => throw _privateConstructorUsedError;
   NoteFileType get type => throw _privateConstructorUsedError;
+  @DateTimeJsonConverter()
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  @DateTimeJsonConverter()
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String get thumbnail => throw _privateConstructorUsedError;
+  String get directory => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,9 +45,11 @@ abstract class $FileMetadataCopyWith<$Res> {
   $Res call(
       {int version,
       NoteFileType type,
+      @DateTimeJsonConverter() DateTime createdAt,
+      @DateTimeJsonConverter() DateTime? updatedAt,
       String name,
       String description,
-      String thumbnail});
+      String directory});
 }
 
 /// @nodoc
@@ -61,9 +67,11 @@ class _$FileMetadataCopyWithImpl<$Res, $Val extends FileMetadata>
   $Res call({
     Object? version = null,
     Object? type = null,
+    Object? createdAt = null,
+    Object? updatedAt = freezed,
     Object? name = null,
     Object? description = null,
-    Object? thumbnail = null,
+    Object? directory = null,
   }) {
     return _then(_value.copyWith(
       version: null == version
@@ -74,6 +82,14 @@ class _$FileMetadataCopyWithImpl<$Res, $Val extends FileMetadata>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as NoteFileType,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -82,9 +98,9 @@ class _$FileMetadataCopyWithImpl<$Res, $Val extends FileMetadata>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      thumbnail: null == thumbnail
-          ? _value.thumbnail
-          : thumbnail // ignore: cast_nullable_to_non_nullable
+      directory: null == directory
+          ? _value.directory
+          : directory // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -101,9 +117,11 @@ abstract class _$$_FileMetadataCopyWith<$Res>
   $Res call(
       {int version,
       NoteFileType type,
+      @DateTimeJsonConverter() DateTime createdAt,
+      @DateTimeJsonConverter() DateTime? updatedAt,
       String name,
       String description,
-      String thumbnail});
+      String directory});
 }
 
 /// @nodoc
@@ -119,9 +137,11 @@ class __$$_FileMetadataCopyWithImpl<$Res>
   $Res call({
     Object? version = null,
     Object? type = null,
+    Object? createdAt = null,
+    Object? updatedAt = freezed,
     Object? name = null,
     Object? description = null,
-    Object? thumbnail = null,
+    Object? directory = null,
   }) {
     return _then(_$_FileMetadata(
       version: null == version
@@ -132,6 +152,14 @@ class __$$_FileMetadataCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as NoteFileType,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -140,9 +168,9 @@ class __$$_FileMetadataCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      thumbnail: null == thumbnail
-          ? _value.thumbnail
-          : thumbnail // ignore: cast_nullable_to_non_nullable
+      directory: null == directory
+          ? _value.directory
+          : directory // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -154,9 +182,11 @@ class _$_FileMetadata implements _FileMetadata {
   const _$_FileMetadata(
       {required this.version,
       required this.type,
+      @DateTimeJsonConverter() required this.createdAt,
+      @DateTimeJsonConverter() this.updatedAt,
       this.name = '',
       this.description = '',
-      this.thumbnail = ''});
+      this.directory = ''});
 
   factory _$_FileMetadata.fromJson(Map<String, dynamic> json) =>
       _$$_FileMetadataFromJson(json);
@@ -166,6 +196,12 @@ class _$_FileMetadata implements _FileMetadata {
   @override
   final NoteFileType type;
   @override
+  @DateTimeJsonConverter()
+  final DateTime createdAt;
+  @override
+  @DateTimeJsonConverter()
+  final DateTime? updatedAt;
+  @override
   @JsonKey()
   final String name;
   @override
@@ -173,11 +209,11 @@ class _$_FileMetadata implements _FileMetadata {
   final String description;
   @override
   @JsonKey()
-  final String thumbnail;
+  final String directory;
 
   @override
   String toString() {
-    return 'FileMetadata(version: $version, type: $type, name: $name, description: $description, thumbnail: $thumbnail)';
+    return 'FileMetadata(version: $version, type: $type, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, directory: $directory)';
   }
 
   @override
@@ -187,17 +223,21 @@ class _$_FileMetadata implements _FileMetadata {
             other is _$_FileMetadata &&
             (identical(other.version, version) || other.version == version) &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.thumbnail, thumbnail) ||
-                other.thumbnail == thumbnail));
+            (identical(other.directory, directory) ||
+                other.directory == directory));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, version, type, name, description, thumbnail);
+  int get hashCode => Object.hash(runtimeType, version, type, createdAt,
+      updatedAt, name, description, directory);
 
   @JsonKey(ignore: true)
   @override
@@ -217,9 +257,11 @@ abstract class _FileMetadata implements FileMetadata {
   const factory _FileMetadata(
       {required final int version,
       required final NoteFileType type,
+      @DateTimeJsonConverter() required final DateTime createdAt,
+      @DateTimeJsonConverter() final DateTime? updatedAt,
       final String name,
       final String description,
-      final String thumbnail}) = _$_FileMetadata;
+      final String directory}) = _$_FileMetadata;
 
   factory _FileMetadata.fromJson(Map<String, dynamic> json) =
       _$_FileMetadata.fromJson;
@@ -229,11 +271,17 @@ abstract class _FileMetadata implements FileMetadata {
   @override
   NoteFileType get type;
   @override
+  @DateTimeJsonConverter()
+  DateTime get createdAt;
+  @override
+  @DateTimeJsonConverter()
+  DateTime? get updatedAt;
+  @override
   String get name;
   @override
   String get description;
   @override
-  String get thumbnail;
+  String get directory;
   @override
   @JsonKey(ignore: true)
   _$$_FileMetadataCopyWith<_$_FileMetadata> get copyWith =>

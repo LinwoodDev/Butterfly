@@ -46,7 +46,7 @@ class AreaContextMenu extends StatelessWidget {
                           value: area.name,
                           validator: defaultNameValidator(
                             context,
-                            state.document.getAreaNames().toList(),
+                            state.data.getAreaNames().toList(),
                           ),
                         ));
                 if (name == null) return;
@@ -174,7 +174,7 @@ class AreaContextMenu extends StatelessWidget {
                     .map((e) => e?.element)
                     .whereType<PadElement>()
                     .toList();
-                final document = state.document;
+                final document = state.data;
                 Navigator.of(context).pop();
                 final result = await showDialog<PackAssetLocation>(
                   context: context,

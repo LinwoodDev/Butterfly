@@ -89,7 +89,7 @@ class SelectPackAssetDialog extends StatelessWidget {
                 );
                 if (result == null) return;
                 if (context.mounted) {
-                  final pack = state.document.getPack(result.pack);
+                  final pack = state.data.getPack(result.pack);
                   if (pack == null) return;
                   final newPack = _createAsset(pack, result.name);
                   bloc.add(DocumentPackUpdated(newPack.name, newPack));
@@ -104,7 +104,7 @@ class SelectPackAssetDialog extends StatelessWidget {
           height: 300,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: _getAssets(state.document)
+            children: _getAssets(state.data)
                 .map((e) => ListTile(
                       title: Text(e.name),
                       subtitle: Text(e.pack),

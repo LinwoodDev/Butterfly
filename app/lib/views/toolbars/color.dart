@@ -30,7 +30,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     super.initState();
     final state = context.read<DocumentBloc>().state;
     if (state is DocumentLoadSuccess) {
-      final pack = state.document.packs.firstOrNull;
+      final pack = state.data.packs.firstOrNull;
       final palette = pack?.palettes.firstOrNull;
       if (palette != null) {
         currentPalette =
@@ -48,7 +48,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
 
       if (state is! DocumentLoadSuccess) return Container();
       if (currentPalette != null) {
-        pack = state.document.getPack(currentPalette!.pack);
+        pack = state.data.getPack(currentPalette!.pack);
         palette = pack?.getPalette(currentPalette!.name);
       }
       return Row(

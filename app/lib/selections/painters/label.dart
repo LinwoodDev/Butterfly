@@ -8,7 +8,7 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return [];
-    final packs = state.document.packs;
+    final packs = state.data.packs;
     final currentPack =
         packs.firstWhereOrNull((e) => e.name == selected.first.styleSheet.pack);
     return [
