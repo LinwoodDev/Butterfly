@@ -51,8 +51,8 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.4.0",
     "@tsconfig/docusaurus": "^1.0.7",
-    "markdownlint-cli2": "^0.7.0",
+    "markdownlint-cli2": "^0.7.1",
     "typescript": "^5.0.4",
-    "webpack": "^5.80.0"
+    "webpack": "^5.81.0"
   }
 }

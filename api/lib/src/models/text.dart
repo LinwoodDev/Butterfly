@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -139,7 +137,7 @@ class TextParagraph with _$TextParagraph {
     var currentLength = 0;
     for (var span in textSpans) {
       if (currentLength + span.length > index) {
-        return IndexedModel(currentLength, span);
+        return IndexedModel(currentLength, span.subSpan(index - currentLength));
       }
       currentLength += span.length;
     }
@@ -219,17 +217,23 @@ class TextParagraph with _$TextParagraph {
     var subSpans = <TextSpan>[];
     final end = start + length;
 
-    final indexed = getIndexedSpans(start - 1);
-    final index = indexed.index;
-    final text = indexed.model.map((e) => e.text).join();
-    final spanOffset = start - index;
-    final newSpan = span.copyWith(
-        text: text.substring(0, min(spanOffset, text.length)) +
-            span.text +
-            text.substring(min(spanOffset + length, text.length)));
-    subSpans.addAll(getSpans(0, index));
-    subSpans.add(newSpan);
-    subSpans.addAll(getSpans(end + newSpan.length));
+    final endSpans = getSpans(end, null, true);
+
+    if (endSpans.firstOrNull?.property == span.property) {
+      final firstSpan = endSpans.removeAt(0);
+      span = span.copyWith(text: span.text + firstSpan.text);
+    }
+
+    final startSpans = getSpans(0, start, true);
+
+    if (startSpans.lastOrNull?.property == span.property) {
+      final lastSpan = startSpans.removeLast();
+      span = lastSpan.copyWith(text: lastSpan.text + span.text);
+    }
+
+    subSpans.addAll(startSpans);
+    subSpans.add(span);
+    subSpans.addAll(endSpans);
     return copyWith(textSpans: subSpans);
   }
 
@@ -240,8 +244,8 @@ class TextParagraph with _$TextParagraph {
         length);
   }
 
-  TextParagraph remove([int start = 0, int? length]) {
-    final end = start + (length ?? 0);
+  TextParagraph remove([int start = 0, int length = 0]) {
+    final end = start + (length);
 
     final beforeSpans = getSpans(0, start, true);
     final afterSpans = getSpans(end, null, true);
@@ -257,27 +261,24 @@ class TextParagraph with _$TextParagraph {
     return copyWith(textSpans: [...beforeSpans, ...afterSpans]);
   }
 
-  TextParagraph updateSpans(
-      int start, int? length, TextSpan Function(TextSpan) update) {
-    var subSpans = <TextSpan>[];
-    final end = start + (length ?? 0);
-
-    subSpans.addAll(getSpans(0, start));
-    subSpans.addAll(getSpans(start, length).map(update));
-    subSpans.addAll(getSpans(end));
-    return copyWith(textSpans: subSpans);
-  }
-
-  TextParagraph applyStyle(int start, int? length, SpanProperty property) {
-    final span = getSpan(start)?.copyWith(
-        property: property, text: substring(start, start + (length ?? 0)));
-    if (span == null) {
+  TextParagraph updateSpans(TextSpan Function(TextSpan) update,
+      [int start = 0, int length = 0]) {
+    final spans = getSpans(start, length - 1, true);
+    if (spans.isEmpty) {
       return this;
     }
-    return replace(
-      span,
+    final updated = update(spans.first.copyWith(
+      text: spans.map((e) => e.text).join(),
+    ));
+    return replace(updated, start, length);
+  }
+
+  TextParagraph applyStyle(SpanProperty property,
+      [int start = 0, int length = 0]) {
+    return updateSpans(
+      (span) => span.copyWith(property: property),
       start,
-      length ?? 0,
+      length,
     );
   }
 

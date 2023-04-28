@@ -103,11 +103,11 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         element = element.copyWith(
           area: element.area.copyWith(
             paragraph: element.area.paragraph.updateSpans(
-                selection.start, selection.end - selection.start, (span) {
-              return span.copyWith(
-                  property: update(style.resolveSpanProperty(span.property) ??
-                      const text.DefinedSpanProperty()));
-            }),
+                (span) => span.copyWith(
+                    property: update(style.resolveSpanProperty(span.property) ??
+                        const text.DefinedSpanProperty())),
+                selection.start,
+                selection.end - selection.start),
           ),
         );
       }
@@ -244,10 +244,10 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                         paragraph: widget
                                             .value.element!.area.paragraph
                                             .applyStyle(
+                                          text.SpanProperty.named(name),
                                           widget.value.selection.start,
                                           widget.value.selection.end -
                                               widget.value.selection.start,
-                                          text.SpanProperty.named(name),
                                         ),
                                       ),
                                     ),
@@ -295,10 +295,10 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                     paragraph: widget
                                         .value.element!.area.paragraph
                                         .applyStyle(
+                                      const text.SpanProperty.undefined(),
                                       widget.value.selection.start,
                                       widget.value.selection.end -
                                           widget.value.selection.start,
-                                      const text.SpanProperty.undefined(),
                                     ),
                                   ),
                                 ),
