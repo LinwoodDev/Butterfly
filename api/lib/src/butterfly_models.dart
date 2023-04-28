@@ -7,6 +7,7 @@ export 'models/area.dart';
 export 'models/asset.dart';
 export 'models/background.dart';
 export 'models/colors.dart';
+export 'models/data.dart';
 export 'models/element.dart';
 export 'models/export.dart';
 export 'models/metadata.dart';

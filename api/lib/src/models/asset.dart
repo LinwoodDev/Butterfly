@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:butterfly_api/src/readers/archive.dart';
+import 'package:butterfly_api/src/models/archive.dart';
+import 'package:butterfly_api/src/models/data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../converter/core.dart';
@@ -106,5 +107,5 @@ extension EntityFileTypeExtension on AppDocumentEntity {
 }
 
 extension AppDocumentInfoExtension on AppDocumentFile {
-  ArchiveReader read() => ArchiveReader.fromData(Uint8List.fromList(data));
+  NoteData load() => NoteData.fromData(Uint8List.fromList(data));
 }

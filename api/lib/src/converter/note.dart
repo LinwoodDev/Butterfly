@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 
-import '../readers/archive.dart';
+import '../models/archive.dart';
 import 'legacy.dart';
 
 const kArchiveSignature = 0x50;

@@ -1,12 +1,59 @@
-import 'package:archive/archive.dart';
+import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:archive/archive.dart';
+import 'package:butterfly_api/src/models/text.dart';
+
+import '../models/data.dart';
+import '../models/metadata.dart';
+import '../models/pack.dart';
+import '../models/page.dart';
 import '../models/palette.dart';
-import '../readers/archive.dart';
+import '../models/archive.dart';
 
 Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
+  data = legacyNoteDataJsonMigrator(data);
   final archive = Archive();
-  final reader = ArchiveReader(archive);
-
+  final reader = NoteData(archive);
+  final meta = FileMetadata.fromJson(data);
+  reader.setMetadata(meta);
+  switch (meta.type) {
+    case NoteFileType.pack:
+      final palettes = (data['palettes'] ?? [])
+          .map((e) => ColorPalette.fromJson(e))
+          .toList();
+      for (final palette in palettes) {
+        reader.setPalette(palette);
+      }
+      final styles = (data['styles'] ?? [])
+          .map((e) => TextStyleSheet.fromJson(e))
+          .toList();
+      for (final style in styles) {
+        reader.setStyle(style);
+      }
+      final components = (data['components'] ?? [])
+          .map((e) => ButterflyComponent.fromJson(e))
+          .toList();
+      for (final component in components) {
+        reader.setComponent(component);
+      }
+      break;
+    case NoteFileType.template:
+    case NoteFileType.document:
+      final page = DocumentPage.fromJson(data);
+      reader.setPage(page);
+      final packs = (data['packs'] ?? [])
+          .map((e) => NoteData.fromData(Uint8List.fromList(
+              utf8.encode(jsonEncode({'type': 'pack', ...e})))))
+          .toList();
+      for (final pack in packs) {
+        reader.setPack(pack);
+      }
+      final thumbnail = data['thumbnail'] as String?;
+      if (thumbnail != null) {
+        reader.setThumbnail(Uint8List.fromList(utf8.encode(thumbnail)));
+      }
+  }
   return archive;
 }
 
