@@ -133,12 +133,12 @@ abstract class Handler<T> {
       true;
 
   List<Renderer> createForegrounds(
-          CurrentIndexCubit currentIndexCubit, AppDocument document,
+          CurrentIndexCubit currentIndexCubit, DocumentPage page,
           [Area? currentArea]) =>
       [];
 
   Future<bool> onRendererUpdated(
-          AppDocument appDocument, Renderer old, Renderer updated) async =>
+          DocumentPage page, Renderer old, Renderer updated) async =>
       false;
 
   void onPointerDown(PointerDownEvent event, EventContext context) {}
@@ -179,8 +179,8 @@ abstract class Handler<T> {
 
   PainterStatus getStatus(DocumentBloc bloc) => PainterStatus.normal;
 
-  static Handler fromDocument(AppDocument document, int index) {
-    final painter = document.painters[index];
+  static Handler fromDocument(DocumentPage page, int index) {
+    final painter = page.painters[index];
     return Handler.fromPainter(painter);
   }
 

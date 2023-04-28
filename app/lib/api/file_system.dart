@@ -149,33 +149,36 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
 abstract class TemplateFileSystem extends GeneralFileSystem {
   Future<bool> createDefault(BuildContext context, {bool force = false});
 
-  Future<DocumentTemplate?> getTemplate(String name);
+  Future<NoteData?> getTemplate(String name);
 
   Future<String> findAvailableName(String path) =>
       _findAvailableName(path, hasTemplate);
 
-  Future<DocumentTemplate> createTemplate(DocumentTemplate template) async {
-    final name = await findAvailableName(template.document.name);
-    template =
-        template.copyWith(document: template.document.copyWith(name: name));
+  Future<NoteData> createTemplate(NoteData template) async {
+    final metadata = template.getMetadata();
+    if (metadata == null) return template;
+    final name = await findAvailableName(metadata.name);
+    template.setMetadata(metadata.copyWith(name: name));
     updateTemplate(template);
     return template;
   }
 
   Future<bool> hasTemplate(String name);
-  Future<void> updateTemplate(DocumentTemplate template);
+  Future<void> updateTemplate(NoteData template);
   Future<void> deleteTemplate(String name);
-  Future<List<DocumentTemplate>> getTemplates();
+  Future<List<NoteData>> getTemplates();
 
-  Future<DocumentTemplate?> renameTemplate(String path, String newName) async {
+  Future<NoteData?> renameTemplate(String path, String newName) async {
     // Remove leading slash
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
     final template = await getTemplate(path);
     if (template == null) return null;
-    DocumentTemplate? newTemplate = await createTemplate(
-        template.copyWith(document: template.document.copyWith(name: newName)));
+    final metadata = template.getMetadata()?.copyWith(name: newName);
+    if (metadata == null) return null;
+    template.setMetadata(metadata);
+    final newTemplate = await createTemplate(template);
     await deleteTemplate(path);
     return newTemplate;
   }
@@ -218,31 +221,34 @@ abstract class PackFileSystem extends GeneralFileSystem {
   Future<String> findAvailableName(String path) =>
       _findAvailableName(path, hasPack);
 
-  Future<ButterflyPack?> getPack(String name);
+  Future<NoteData?> getPack(String name);
 
-  Future<ButterflyPack> createPack(ButterflyPack pack) async {
-    final newName = await findAvailableName(pack.name);
-    pack = pack.copyWith(name: newName);
+  Future<NoteData> createPack(NoteData pack) async {
+    final metadata = pack.getMetadata();
+    if (metadata == null) return pack;
+    final newName = await findAvailableName(metadata.name);
+    pack.setMetadata(metadata.copyWith(name: newName));
     updatePack(pack);
     return pack;
   }
 
   Future<bool> hasPack(String name);
-  Future<void> updatePack(ButterflyPack pack);
+  Future<void> updatePack(NoteData pack);
   Future<void> deletePack(String name);
-  Future<List<ButterflyPack>> getPacks();
+  Future<List<NoteData>> getPacks();
 
-  Future<ButterflyPack?> renamePack(String path, String newName) async {
+  Future<NoteData?> renamePack(String path, String newName) async {
     // Remove leading slash
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
     final pack = await getPack(path);
-    if (pack == null) return null;
+    final metadata = pack?.getMetadata();
+    if (pack == null || metadata == null) return null;
     await deletePack(path);
-    final newPack = pack.copyWith(name: newName);
-    await updatePack(newPack);
-    return newPack;
+    pack.setMetadata(metadata.copyWith(name: newName));
+    await updatePack(pack);
+    return pack;
   }
 
   static PackFileSystem fromPlatform({RemoteStorage? remote}) {

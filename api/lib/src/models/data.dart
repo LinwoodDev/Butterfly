@@ -20,6 +20,8 @@ class NoteData {
 
   NoteFileType? get type => getMetadata()?.type;
 
+  String? get name => getMetadata()?.name;
+
   Uint8List? getAsset(String path) {
     final file = archive.findFile(path);
     if (file == null) {

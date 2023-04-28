@@ -1,3 +1,4 @@
+import 'package:archive/archive.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,7 +10,7 @@ import 'palettes.dart';
 import 'styles/view.dart';
 
 class PackDialog extends StatefulWidget {
-  final ButterflyPack? pack;
+  final NoteData? pack;
 
   const PackDialog({super.key, this.pack});
 
@@ -18,22 +19,19 @@ class PackDialog extends StatefulWidget {
 }
 
 class _PackDialogState extends State<PackDialog> {
-  late ButterflyPack pack;
+  late NoteData pack;
 
   @override
   void initState() {
     super.initState();
-    pack = widget.pack ??
-        ButterflyPack(
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        );
-  }
-
-  void _onChanged(ButterflyPack pack) {
-    setState(() {
-      this.pack = pack.copyWith(updatedAt: DateTime.now());
-    });
+    NoteData pack;
+    if (widget.pack == null) {
+      pack = NoteData(Archive());
+      pack.setMetadata(FileMetadata(version: kVersion, type: type, createdAt: createdAt))
+    } else {
+      pack = widget.pack!.copyWith();
+    }
+    this.pack = pack;
   }
 
   @override

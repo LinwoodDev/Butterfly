@@ -6,6 +6,8 @@ import 'area.dart';
 import 'background.dart';
 import 'element.dart';
 import 'export.dart';
+import 'painter.dart';
+import 'tool.dart';
 import 'waypoint.dart';
 
 part 'page.g.dart';
@@ -20,6 +22,8 @@ class DocumentPage with _$DocumentPage {
     @Default([]) List<Waypoint> waypoints,
     @Default([]) List<Area> areas,
     @Default([]) List<ExportPreset> exportPresets,
+    @Default([]) List<Painter> painters,
+    @Default(ToolOption()) ToolOption tool,
   }) = _DocumentPage;
 
   factory DocumentPage.fromJson(Map<String, dynamic> json) =>

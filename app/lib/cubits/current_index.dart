@@ -73,9 +73,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Offset getGridPosition(Offset position, AppDocument document) {
-    return state.cameraViewport.tool
-            ?.getGridPosition(position, document, this) ??
+  Offset getGridPosition(Offset position, DocumentPage page) {
+    return state.cameraViewport.tool?.getGridPosition(position, page, this) ??
         position;
   }
 
@@ -83,11 +82,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       [Handler? handler, bool justAdded = false, bool runSelected = true]) {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
-    final document = blocState.data;
-    if (index < 0 || index >= document.painters.length) {
+    final page = blocState.page;
+    if (index < 0 || index >= page.painters.length) {
       return null;
     }
-    final painter = document.painters[index];
+    final painter = page.painters[index];
     handler ??= Handler.fromPainter(painter);
     if (!runSelected || handler.onSelected(bloc, this, justAdded)) {
       state.handler.dispose(bloc);
@@ -97,7 +96,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         index: index,
         handler: handler,
         foregrounds:
-            handler.createForegrounds(this, document, blocState.currentArea),
+            handler.createForegrounds(this, page, blocState.currentArea),
         toolbar: handler.getToolbar(bloc),
         temporaryForegrounds: null,
         temporaryHandler: null,
@@ -131,9 +130,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final handler = Handler.fromPainter(painter);
     _disposeTemporaryForegrounds();
     final temporaryForegrounds =
-        handler.createForegrounds(this, docState.data, docState.currentArea);
+        handler.createForegrounds(this, docState.page, docState.currentArea);
     await Future.wait(
-        temporaryForegrounds.map((r) async => await r.setup(docState.data)));
+        temporaryForegrounds.map((r) async => await r.setup(docState.page)));
     emit(state.copyWith(
       temporaryHandler: handler,
       temporaryForegrounds: temporaryForegrounds,

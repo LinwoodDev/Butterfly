@@ -19,6 +19,6 @@ class ExportAction extends Action<ExportIntent> {
     final bloc = intent.context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
-    saveData(intent.context, state.saveData());
+    saveData(intent.context, state.saveData().save());
   }
 }

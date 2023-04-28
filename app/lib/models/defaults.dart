@@ -33,8 +33,7 @@ class DocumentDefaults {
               background == null ? e : updatePainterDefaultColor(e, background))
           .toList();
 
-  static Future<List<DocumentTemplate>> getDefaults(
-      BuildContext context) async {
+  static Future<List<NoteData>> getDefaults(BuildContext context) async {
     return Future.wait(<dynamic>[
       [
         AppLocalizations.of(context).light,
@@ -47,6 +46,7 @@ class DocumentDefaults {
     ].map((e) async {
       final bg = e[1] as Background;
       final color = bg.defaultColor;
+      final data = NoteData()
       return DocumentTemplate(
           document: AppDocument(
               thumbnail: await _createPlainThumnail(Color(color)),
