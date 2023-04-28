@@ -1,11 +1,12 @@
+export 'converter/core.dart';
+export 'converter/legacy.dart';
+export 'converter/note.dart';
 export 'models/animation.dart';
 export 'models/archive.dart';
 export 'models/area.dart';
 export 'models/asset.dart';
 export 'models/background.dart';
 export 'models/colors.dart';
-export 'models/converter.dart';
-export 'models/document.dart';
 export 'models/element.dart';
 export 'models/export.dart';
 export 'models/metadata.dart';

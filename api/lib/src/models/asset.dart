@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:butterfly_api/src/readers/archive.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'converter.dart';
-import 'document.dart';
+import '../converter/core.dart';
 
 part 'asset.freezed.dart';
 part 'asset.g.dart';
@@ -106,40 +106,5 @@ extension EntityFileTypeExtension on AppDocumentEntity {
 }
 
 extension AppDocumentInfoExtension on AppDocumentFile {
-  DocumentInfo? getDocumentInfo() {
-    try {
-      if (fileType == AssetFileType.note) {
-        return DocumentInfo(
-            fileNameWithoutExtension, jsonDecode(utf8.decode(data)));
-      }
-    } catch (_) {}
-
-    return null;
-  }
-}
-
-@freezed
-class DocumentInfo with _$DocumentInfo {
-  const DocumentInfo._();
-
-  const factory DocumentInfo(String fileName, Map<String, dynamic> data) =
-      _DocumentInfo;
-
-  int get fileVersion => data['fileVersion'] ?? -1;
-
-  String get name => data['name'] ?? fileName;
-
-  String get description => data['description'] ?? '';
-
-  DateTime? get updatedAt => data['updatedAt'] is! int
-      ? null
-      : DateTime.fromMillisecondsSinceEpoch(data['updatedAt']);
-
-  DateTime? get createdAt => data['createdAt'] is! int
-      ? null
-      : DateTime.fromMillisecondsSinceEpoch(data['createdAt']);
-
-  AppDocument load() => DocumentJsonConverter().fromJson(data);
-
-  String get dataAsString => jsonEncode(json);
+  ArchiveReader read() => ArchiveReader.fromData(Uint8List.fromList(data));
 }

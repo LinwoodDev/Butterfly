@@ -7,7 +7,7 @@ part 'metadata.g.dart';
 class FileMetadata with _$FileMetadata {
   const factory FileMetadata({
     required int version,
-    required String type,
+    required NoteFileType type,
     @Default('') String name,
     @Default('') String description,
     @Default('') String thumbnail,
@@ -15,4 +15,10 @@ class FileMetadata with _$FileMetadata {
 
   factory FileMetadata.fromJson(Map<String, dynamic> json) =>
       _$FileMetadataFromJson(json);
+}
+
+enum NoteFileType {
+  document,
+  template,
+  pack,
 }

@@ -3,8 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'palette.dart';
 import 'text.dart';
 
-import 'document.dart';
-
 part 'pack.g.dart';
 part 'pack.freezed.dart';
 
@@ -64,18 +62,4 @@ class PackAssetLocation with _$PackAssetLocation {
 
   factory PackAssetLocation.fromJson(Map<String, dynamic> json) =>
       _$PackAssetLocationFromJson(json);
-}
-
-extension PackDocumentException on AppDocument {
-  ButterflyComponent? getComponent(PackAssetLocation location) {
-    return getPack(location.pack)?.getComponent(location.name);
-  }
-
-  TextStyleSheet? getStyle(PackAssetLocation location) {
-    return getPack(location.pack)?.getStyle(location.name);
-  }
-
-  ColorPalette? getPalette(PackAssetLocation location) {
-    return getPack(location.pack)?.getPalette(location.name);
-  }
 }

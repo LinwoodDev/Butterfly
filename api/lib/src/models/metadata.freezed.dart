@@ -21,7 +21,7 @@ FileMetadata _$FileMetadataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$FileMetadata {
   int get version => throw _privateConstructorUsedError;
-  String get type => throw _privateConstructorUsedError;
+  NoteFileType get type => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get thumbnail => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $FileMetadataCopyWith<$Res> {
   @useResult
   $Res call(
       {int version,
-      String type,
+      NoteFileType type,
       String name,
       String description,
       String thumbnail});
@@ -73,7 +73,7 @@ class _$FileMetadataCopyWithImpl<$Res, $Val extends FileMetadata>
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
+              as NoteFileType,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -100,7 +100,7 @@ abstract class _$$_FileMetadataCopyWith<$Res>
   @useResult
   $Res call(
       {int version,
-      String type,
+      NoteFileType type,
       String name,
       String description,
       String thumbnail});
@@ -131,7 +131,7 @@ class __$$_FileMetadataCopyWithImpl<$Res>
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
+              as NoteFileType,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -164,7 +164,7 @@ class _$_FileMetadata implements _FileMetadata {
   @override
   final int version;
   @override
-  final String type;
+  final NoteFileType type;
   @override
   @JsonKey()
   final String name;
@@ -216,7 +216,7 @@ class _$_FileMetadata implements _FileMetadata {
 abstract class _FileMetadata implements FileMetadata {
   const factory _FileMetadata(
       {required final int version,
-      required final String type,
+      required final NoteFileType type,
       final String name,
       final String description,
       final String thumbnail}) = _$_FileMetadata;
@@ -227,7 +227,7 @@ abstract class _FileMetadata implements FileMetadata {
   @override
   int get version;
   @override
-  String get type;
+  NoteFileType get type;
   @override
   String get name;
   @override

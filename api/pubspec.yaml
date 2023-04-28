@@ -6,6 +6,7 @@ environment:
   sdk: '>=2.19.0 <3.0.0'
 
 dependencies:
+  archive: ^3.3.7
   collection: ^1.17.1
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.0

@@ -1,31 +1,34 @@
-import 'dart:convert';
-import 'dart:math';
-import 'dart:typed_data';
+import 'package:archive/archive.dart';
 
-import 'document.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import '../models/palette.dart';
+import '../readers/archive.dart';
 
-import 'palette.dart';
+Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
+  final archive = Archive();
+  final reader = ArchiveReader(archive);
 
-Map<String, dynamic> noteDataJsonMigrator(Map<String, dynamic> data) {
+  return archive;
+}
+
+Map<String, dynamic> legacyNoteDataJsonMigrator(Map<String, dynamic> data) {
   final fileVersion = data['fileVersion'] as int?;
   final type = data['type'] as String?;
   data = Map<String, dynamic>.from(data);
   switch (type) {
     case 'template':
-      data = _templateJsonMigrator(data, fileVersion);
+      data = _legacyTemplateJsonMigrator(data, fileVersion);
       break;
     case 'pack':
-      data = _packJsonMigrator(data, fileVersion);
+      data = _legacyPackJsonMigrator(data, fileVersion);
       break;
     default:
-      data = _documentJsonMigrator(data, fileVersion);
+      data = _legacyDocumentJsonMigrator(data, fileVersion);
       break;
   }
   return data;
 }
 
-Map<String, dynamic> _documentJsonMigrator(
+Map<String, dynamic> _legacyDocumentJsonMigrator(
     Map<String, dynamic> data, int? fileVersion) {
   final fileVersion = data['fileVersion'] as int?;
   if (fileVersion != null && fileVersion >= 0) {
@@ -120,88 +123,14 @@ Map<String, dynamic> _documentJsonMigrator(
   return data;
 }
 
-Map<String, dynamic> _templateJsonMigrator(
+Map<String, dynamic> _legacyTemplateJsonMigrator(
     Map<String, dynamic> data, int? fileVersion) {
-  data['document'] = _documentJsonMigrator(
+  data['document'] = _legacyDocumentJsonMigrator(
       Map<String, dynamic>.from(data['document']), fileVersion);
   return data;
 }
 
-Map<String, dynamic> _packJsonMigrator(
+Map<String, dynamic> _legacyPackJsonMigrator(
     Map<String, dynamic> data, int? fileVersion) {
   return data;
-}
-
-class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
-  const DocumentJsonConverter();
-
-  @override
-  AppDocument fromJson(Map json) {
-    return AppDocument.fromJson(
-        _documentJsonMigrator(Map.from(json), json['fileVersion'] as int?));
-  }
-
-  @override
-  Map<String, dynamic> toJson(AppDocument object) => object.toJson();
-}
-
-class TemplateJsonConverter extends JsonConverter<DocumentTemplate, Map> {
-  const TemplateJsonConverter();
-
-  @override
-  DocumentTemplate fromJson(Map json) {
-    return DocumentTemplate.fromJson(
-        _templateJsonMigrator(Map.from(json), json['fileVersion'] as int?));
-  }
-
-  @override
-  Map<String, dynamic> toJson(DocumentTemplate object) => object.toJson();
-}
-
-class PackJsonConverter extends JsonConverter<ButterflyPack, Map> {
-  const PackJsonConverter();
-  @override
-  ButterflyPack fromJson(Map json) {
-    return ButterflyPack.fromJson(
-        _packJsonMigrator(Map.from(json), json['fileVersion'] as int?));
-  }
-
-  @override
-  Map<String, dynamic> toJson(ButterflyPack object) => object.toJson();
-}
-
-class DoublePointJsonConverter extends JsonConverter<Point<double>, Map> {
-  const DoublePointJsonConverter();
-
-  @override
-  Point<double> fromJson(Map json) {
-    final xJson = json['x'];
-    final yJson = json['y'];
-    if (xJson is double) {
-      if (yJson is double) {
-        return Point(xJson, yJson);
-      }
-    }
-    return Point(0, 0);
-  }
-
-  @override
-  Map toJson(Point<double> object) => {'x': object.x, 'y': object.y};
-}
-
-class Uint8ListJsonConverter extends JsonConverter<Uint8List, String> {
-  const Uint8ListJsonConverter();
-
-  @override
-  Uint8List fromJson(String json) => Uint8List.fromList(base64.decode(json));
-  @override
-  String toJson(Uint8List object) => base64.encode(object.toList());
-}
-
-class DateTimeJsonConverter extends JsonConverter<DateTime, int> {
-  const DateTimeJsonConverter();
-  @override
-  DateTime fromJson(int json) => DateTime.fromMillisecondsSinceEpoch(json);
-  @override
-  int toJson(DateTime object) => object.millisecondsSinceEpoch;
 }
