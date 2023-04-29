@@ -69,6 +69,6 @@ class NewAction extends Action<NewIntent> {
       }
     }
     router.pushReplacementNamed('new',
-        queryParams: {'path': path}, extra: document);
+        queryParameters: {'path': path}, extra: document);
   }
 }

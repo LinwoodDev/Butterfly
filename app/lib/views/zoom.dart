@@ -15,6 +15,8 @@ class ZoomView extends StatefulWidget {
 class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
   late Animation<double> _animation;
   late AnimationController _controller;
+  final FocusNode _focusNode = FocusNode();
+  final TextEditingController _zoomController = TextEditingController();
 
   @override
   void initState() {
@@ -41,6 +43,17 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
         if (state is! DocumentLoadSuccess || !settings.zoomEnabled) {
           return const SizedBox();
         }
+        void zoom(double value) {
+          final viewport =
+              context.read<CurrentIndexCubit>().state.cameraViewport;
+          final center = Offset(
+            (viewport.width ?? 0) / 2,
+            (viewport.height ?? 0) / 2,
+          );
+          context.read<TransformCubit>().size(value, center);
+          state.currentIndexCubit.bake(state.document);
+        }
+
         return LayoutBuilder(
           builder: (context, constraints) {
             final isMobile = constraints.maxWidth < 800;
@@ -49,8 +62,8 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                 Positioned(
                   bottom: isMobile ? 75 : 25,
                   right: 25,
-                  width: isMobile ? 100 : 300,
-                  height: 50,
+                  width: isMobile ? 100 : 400,
+                  height: 60,
                   child: BlocBuilder<TransformCubit, CameraTransform>(
                     buildWhen: (previous, current) =>
                         previous.size != current.size,
@@ -62,6 +75,10 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                         if (_controller.status != AnimationStatus.completed) {
                           _controller.forward(from: 0);
                         }
+                      }
+                      final text = (scale * 100).toStringAsFixed(0);
+                      if (text != _zoomController.text) {
+                        _zoomController.text = text;
                       }
                       return AnimatedBuilder(
                         animation: _animation,
@@ -76,8 +93,28 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          '${(scale * 100).toStringAsFixed(0)}%',
+                                        SizedBox(
+                                          width: 75,
+                                          child: TextFormField(
+                                            textAlign: TextAlign.center,
+                                            controller: _zoomController,
+                                            keyboardType: TextInputType.number,
+                                            focusNode: _focusNode,
+                                            onChanged: (value) {
+                                              setState(() => scale =
+                                                  (double.tryParse(value) ??
+                                                          (scale * 100)) /
+                                                      100);
+                                            },
+                                            onEditingComplete: () =>
+                                                zoom(scale),
+                                            onTapOutside: (event) {
+                                              zoom(scale);
+                                              _focusNode.unfocus();
+                                            },
+                                            onFieldSubmitted: (value) =>
+                                                zoom(scale),
+                                          ),
                                         ),
                                         if (!isMobile)
                                           Expanded(
@@ -87,21 +124,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                               max: 10,
                                               onChanged: (value) =>
                                                   setState(() => scale = value),
-                                              onChangeEnd: (value) {
-                                                final viewport = context
-                                                    .read<CurrentIndexCubit>()
-                                                    .state
-                                                    .cameraViewport;
-                                                final center = Offset(
-                                                  (viewport.width ?? 0) / 2,
-                                                  (viewport.height ?? 0) / 2,
-                                                );
-                                                context
-                                                    .read<TransformCubit>()
-                                                    .size(value, center);
-                                                state.currentIndexCubit
-                                                    .bake(state.document);
-                                              },
+                                              onChangeEnd: zoom,
                                             ),
                                           ),
                                       ]);

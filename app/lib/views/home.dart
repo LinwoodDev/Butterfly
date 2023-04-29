@@ -756,7 +756,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                     }
                     final location = entity.location;
                     if (location.remote != '') {
-                      await GoRouter.of(context).pushNamed('remote', params: {
+                      await GoRouter.of(context)
+                          .pushNamed('remote', pathParameters: {
                         'remote': location.remote,
                         'path': location.pathWithoutLeadingSlash,
                       });
@@ -764,7 +765,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                       return;
                     }
                     await GoRouter.of(context).pushNamed('local',
-                        params: {
+                        pathParameters: {
                           'path': location.pathWithoutLeadingSlash,
                         },
                         extra: entity);
@@ -1383,7 +1384,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                                         onTap: () async {
                                           await GoRouter.of(context).pushNamed(
                                               'new',
-                                              queryParams: {
+                                              queryParameters: {
                                                 'path': e.directory
                                               },
                                               extra: e.document);
