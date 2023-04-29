@@ -11,7 +11,7 @@ Use this painter to draw shapes on the paper. You can draw rectangles, circles, 
 
 |       Property |  Default  | ଵର୍ଣ୍ଣନା                                                                                                                                         |
 | --------------:|:---------:|:------------------------------------------------------------------------------------------------------------------------------------------------ |
-|          Color |   Black   | The color that will be drawn                                                                                                                     |
+|           ରଙ୍ଗ |   Black   | The color that will be drawn                                                                                                                     |
 |   Stroke width |     5     | The width of the stroke                                                                                                                          |
 | Zoom dependent |   false   | This will change the stroke width based on the zoom level.                                                                                       |
 |          Shape | rectangle | The shape that will be drawn                                                                                                                     |
