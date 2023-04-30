@@ -144,12 +144,12 @@ class DocumentLoadSuccess extends DocumentLoaded {
         location.absolute ||
         location.fileType != AssetFileType.note) {
       return DocumentFileSystem.fromPlatform(remote: storage)
-          .importDocument(data, path: location.pathWithLeadingSlash)
+          .importDocument(saveData(), path: location.pathWithLeadingSlash)
           .then((value) => value.location)
         ..then(settingsCubit.addRecentHistory);
     }
     return DocumentFileSystem.fromPlatform(remote: storage)
-        .updateDocument(location.path, data)
+        .updateDocument(location.path, saveData())
         .then((value) => value.location)
       ..then(settingsCubit.addRecentHistory);
   }

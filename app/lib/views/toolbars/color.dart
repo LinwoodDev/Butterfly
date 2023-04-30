@@ -30,15 +30,18 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     super.initState();
     final state = context.read<DocumentBloc>().state;
     if (state is DocumentLoadSuccess) {
-      final packName = state.data.getPacks().firstOrNull;
-      if (packName == null) return;
-      final pack = state.data.getPack(packName);
-      final palettes = pack?.getPalettes();
-      if (palettes?.isEmpty ?? true) return;
-      final palette = pack?.getPalette(palettes!.first);
-      if (palette != null) {
-        currentPalette = PackAssetLocation(pack: packName, name: palette.name);
-      }
+      try {
+        final packName = state.data.getPacks().firstOrNull;
+        if (packName == null) return;
+        final pack = state.data.getPack(packName);
+        final palettes = pack?.getPalettes();
+        if (palettes?.isEmpty ?? true) return;
+        final palette = pack?.getPalette(palettes!.first);
+        if (palette != null) {
+          currentPalette =
+              PackAssetLocation(pack: packName, name: palette.name);
+        }
+      } catch (_) {}
     }
   }
 
@@ -50,116 +53,121 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
       NoteData? pack;
 
       if (state is! DocumentLoadSuccess) return Container();
-      if (currentPalette != null) {
-        pack = state.data.getPack(currentPalette!.pack);
-        palette = pack?.getPalette(currentPalette!.name);
-      }
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (!(palette?.colors.contains(widget.color) ?? false)) ...[
-            _ColorButton(
-              current: widget.color,
-              color: widget.color,
-              bloc: bloc,
-              chooseOnPress: true,
-              onChanged: (value) {
-                widget.onChanged(value);
-              },
-            ),
-            if (palette != null) const VerticalDivider(),
-          ],
-          if (palette != null)
-            Expanded(
-                child: Scrollbar(
-              controller: _scrollController,
-              child: ListView(
-                  controller: _scrollController,
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    ...List.generate(palette.colors.length, (index) {
-                      final current = palette!.colors[index];
-                      return _ColorButton(
-                        bloc: bloc,
-                        color: widget.color,
-                        current: current,
-                        onChanged: (value) {
-                          widget.onChanged(value);
-                        },
-                        onDeleted: () {
-                          var palette = pack?.getPalette(currentPalette!.name);
-                          palette = palette?.copyWith(
-                            colors: List<int>.from(palette.colors)
-                              ..removeAt(index),
-                          );
-                          pack?.setPalette(palette!);
-                          bloc.add(
-                              DocumentPackUpdated(currentPalette!.name, pack!));
-                        },
-                      );
-                    }),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: () async {
-                          final response =
-                              await showDialog<ColorPickerResponse>(
-                            context: context,
-                            builder: (context) => CustomColorPicker(
-                              defaultColor: Color(widget.color),
-                              pinOption: palette != null,
-                            ),
-                          );
-                          if (response != null) {
-                            widget.onChanged(response.color);
-                            if (response.pin) {
-                              var palette =
-                                  pack?.getPalette(currentPalette!.name);
-                              palette = palette?.copyWith(
-                                colors: [...palette.colors, response.color],
-                              );
-                              pack?.setPalette(palette!);
-                              bloc.add(DocumentPackUpdated(
-                                  currentPalette!.name, pack!));
+      try {
+        if (currentPalette != null) {
+          pack = state.data.getPack(currentPalette!.pack);
+          palette = pack?.getPalette(currentPalette!.name);
+        }
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (!(palette?.colors.contains(widget.color) ?? false)) ...[
+              _ColorButton(
+                current: widget.color,
+                color: widget.color,
+                bloc: bloc,
+                chooseOnPress: true,
+                onChanged: (value) {
+                  widget.onChanged(value);
+                },
+              ),
+              if (palette != null) const VerticalDivider(),
+            ],
+            if (palette != null)
+              Expanded(
+                  child: Scrollbar(
+                controller: _scrollController,
+                child: ListView(
+                    controller: _scrollController,
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      ...List.generate(palette.colors.length, (index) {
+                        final current = palette!.colors[index];
+                        return _ColorButton(
+                          bloc: bloc,
+                          color: widget.color,
+                          current: current,
+                          onChanged: (value) {
+                            widget.onChanged(value);
+                          },
+                          onDeleted: () {
+                            var palette =
+                                pack?.getPalette(currentPalette!.name);
+                            palette = palette?.copyWith(
+                              colors: List<int>.from(palette.colors)
+                                ..removeAt(index),
+                            );
+                            pack?.setPalette(palette!);
+                            bloc.add(DocumentPackUpdated(
+                                currentPalette!.name, pack!));
+                          },
+                        );
+                      }),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          onTap: () async {
+                            final response =
+                                await showDialog<ColorPickerResponse>(
+                              context: context,
+                              builder: (context) => CustomColorPicker(
+                                defaultColor: Color(widget.color),
+                                pinOption: palette != null,
+                              ),
+                            );
+                            if (response != null) {
+                              widget.onChanged(response.color);
+                              if (response.pin) {
+                                var palette =
+                                    pack?.getPalette(currentPalette!.name);
+                                palette = palette?.copyWith(
+                                  colors: [...palette.colors, response.color],
+                                );
+                                pack?.setPalette(palette!);
+                                bloc.add(DocumentPackUpdated(
+                                    currentPalette!.name, pack!));
+                              }
                             }
-                          }
-                        },
-                        borderRadius: BorderRadius.circular(12),
-                        child: const AspectRatio(
-                          aspectRatio: 1,
-                          child: PhosphorIcon(PhosphorIconsLight.plus),
+                          },
+                          borderRadius: BorderRadius.circular(12),
+                          child: const AspectRatio(
+                            aspectRatio: 1,
+                            child: PhosphorIcon(PhosphorIconsLight.plus),
+                          ),
                         ),
                       ),
-                    ),
-                  ]),
-            )),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: IconButton(
-                  onPressed: () async {
-                    final result = await showDialog<PackAssetLocation>(
-                        context: context,
-                        builder: (context) => BlocProvider.value(
-                              value: bloc,
-                              child: SelectPackAssetDialog(
-                                type: PackAssetType.palette,
-                                selected: currentPalette,
-                              ),
-                            ));
+                    ]),
+              )),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: IconButton(
+                    onPressed: () async {
+                      final result = await showDialog<PackAssetLocation>(
+                          context: context,
+                          builder: (context) => BlocProvider.value(
+                                value: bloc,
+                                child: SelectPackAssetDialog(
+                                  type: PackAssetType.palette,
+                                  selected: currentPalette,
+                                ),
+                              ));
 
-                    if (result == null) return;
-                    setState(() {
-                      currentPalette = result;
-                    });
-                  },
-                  icon: const PhosphorIcon(PhosphorIconsLight.package)),
+                      if (result == null) return;
+                      setState(() {
+                        currentPalette = result;
+                      });
+                    },
+                    icon: const PhosphorIcon(PhosphorIconsLight.package)),
+              ),
             ),
-          ),
-        ],
-      );
+          ],
+        );
+      } catch (e) {
+        return Container();
+      }
     });
   }
 }
