@@ -1,4 +1,5 @@
 * Add option to change visibility of banner ([#372](https://github.com/LinwoodDev/Butterfly/issues/372))
+* Use text field in zoom view to change zoom level
 * Use the best painter color based on the background color
 * Make laser and text painter zoom dependent
 * Fix installation path on windows to 64-bit ([#371](https://github.com/LinwoodDev/Butterfly/issues/371))

@@ -307,7 +307,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final transform = state.transformCubit.state;
     final rect = Rect.fromLTWH(-transform.position.dx, -transform.position.dy,
         size.width / transform.size, size.height / transform.size);
-    var renderers = cameraViewport.unbakedElements;
+    var renderers =
+        List<Renderer<PadElement>>.from(cameraViewport.unbakedElements);
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
     final last = state.cameraViewport;
@@ -320,7 +321,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (renderers.isEmpty && !reset) return;
     List<Renderer<PadElement>> visibleElements;
     if (reset) {
-      renderers = this.renderers;
+      renderers = List<Renderer<PadElement>>.from(this.renderers);
       visibleElements = renderers
           .where((renderer) => renderer.rect?.overlaps(rect) ?? true)
           .toList();

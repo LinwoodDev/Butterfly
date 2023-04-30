@@ -188,7 +188,7 @@ class ButterflyApp extends StatelessWidget {
                         GoRoute(
                           path: ':id',
                           builder: (context, state) => ConnectionSettingsPage(
-                              remote: state.params['id']!),
+                              remote: state.pathParameters['id']!),
                         )
                       ],
                     ),
@@ -204,7 +204,7 @@ class ButterflyApp extends StatelessWidget {
                       data: state.extra,
                       location: AssetLocation(
                         remote: defaultRemote,
-                        path: state.queryParams['path'] ?? '',
+                        path: state.queryParameters['path'] ?? '',
                       ),
                     );
                   },
@@ -213,7 +213,7 @@ class ButterflyApp extends StatelessWidget {
                   name: 'local',
                   path: 'local/:path(.*)',
                   builder: (context, state) {
-                    final path = state.params['path'];
+                    final path = state.pathParameters['path'];
                     return ProjectPage(
                         data: state.extra,
                         location: AssetLocation.local(path ?? ''));
@@ -223,9 +223,9 @@ class ButterflyApp extends StatelessWidget {
                   name: 'remote',
                   path: 'remote/:remote/:path(.*)',
                   builder: (context, state) {
-                    final remote =
-                        Uri.decodeComponent(state.params['remote'] ?? '');
-                    final path = state.params['path'];
+                    final remote = Uri.decodeComponent(
+                        state.pathParameters['remote'] ?? '');
+                    final path = state.pathParameters['path'];
                     return ProjectPage(
                         data: state.extra,
                         location:
@@ -236,8 +236,8 @@ class ButterflyApp extends StatelessWidget {
                   path: 'native',
                   name: 'native',
                   builder: (context, state) {
-                    final type = state.queryParams['type'] ?? '';
-                    final path = state.queryParams['path'] ?? '';
+                    final type = state.queryParameters['type'] ?? '';
+                    final path = state.queryParameters['path'] ?? '';
                     final data = state.extra;
                     return ProjectPage(
                       location: AssetLocation.local(path, true),
@@ -250,7 +250,7 @@ class ButterflyApp extends StatelessWidget {
                   path: 'native/:path(.*)',
                   name: 'native-path',
                   builder: (context, state) {
-                    final path = state.params['path'] ?? '';
+                    final path = state.pathParameters['path'] ?? '';
                     return ProjectPage(
                         location: AssetLocation.local(path, true));
                   },
@@ -262,7 +262,7 @@ class ButterflyApp extends StatelessWidget {
               path: '/embed',
               builder: (context, state) {
                 return ProjectPage(
-                    embedding: Embedding.fromQuery(state.queryParams));
+                    embedding: Embedding.fromQuery(state.queryParameters));
               },
             ),
           ],
