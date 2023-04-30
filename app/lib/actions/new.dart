@@ -32,17 +32,13 @@ class NewAction extends Action<NewIntent> {
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     final router = GoRouter.of(context);
     var path = '';
-    var document = AppDocument(
-      name: '',
-      createdAt: DateTime.now(),
-      painters: DocumentDefaults.createPainters(),
-    );
+    var document = DocumentDefaults.createDocument();
     final prefs = await SharedPreferences.getInstance();
     final remote = settings.getDefaultRemote();
     if (intent.fromTemplate && context.mounted) {
       var state = bloc.state;
       if (state is DocumentLoadSuccess) document = state.data;
-      var template = await showDialog<DocumentTemplate>(
+      var template = await showDialog<NoteData>(
           context: context,
           builder: (context) => MultiBlocProvider(
                 providers: [
@@ -55,17 +51,25 @@ class NewAction extends Action<NewIntent> {
                 ),
               ));
       if (template == null) return;
-      document = template.document.copyWith(
-        createdAt: DateTime.now(),
-      );
-      path = template.directory;
+      document = template;
+      final metadata = template.getMetadata();
+      if (metadata != null) {
+        template.setMetadata(metadata.copyWith(
+          createdAt: DateTime.now(),
+        ));
+        path = metadata.directory;
+      }
     } else if (prefs.containsKey('default_template')) {
       var template = await TemplateFileSystem.fromPlatform(remote: remote)
           .getTemplate(prefs.getString('default_template')!);
       if (template != null) {
-        document = template.document.copyWith(
-          createdAt: DateTime.now(),
-        );
+        final metadata = template.getMetadata();
+        if (metadata != null) {
+          template.setMetadata(metadata.copyWith(
+            createdAt: DateTime.now(),
+          ));
+          path = metadata.directory;
+        }
       }
     }
     router.pushReplacementNamed('new',

@@ -67,7 +67,7 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
 
   Future<AppDocumentDirectory> createDirectory(String path);
 
-  Future<AppDocumentFile> updateFile(String path, List<int>? data);
+  Future<AppDocumentFile> updateFile(String path, List<int> data);
 
   Future<String> findAvailableName(String path) =>
       _findAvailableName(path, hasAsset);

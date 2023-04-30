@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:html';
 import 'dart:ui' as ui;
 
+import 'package:archive/archive.dart';
 import 'package:butterfly/helpers/color_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -96,4 +98,19 @@ class DocumentDefaults {
 
   static String translateBlock(String key, BuildContext context) =>
       translate(key, getSpanTranslations(context));
+
+  static NoteData createDocument() {
+    final data = NoteData(Archive());
+    final metadata = FileMetadata(
+      name: '',
+      createdAt: DateTime.now(),
+      type: NoteFileType.document, version: null,
+    );
+  }
+
+  static DocumentPage createPage() {
+    return DocumentPage(
+      painters: DocumentDefaults.createPainters(), 
+    );
+  }
 }

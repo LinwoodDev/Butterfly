@@ -159,7 +159,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
 
   Future<void> bake(
           {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
-      currentIndexCubit.bake(data,
+      currentIndexCubit.bake(page,
           viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
 
   Painter? get painter => currentIndexCubit.state.handler.data;
