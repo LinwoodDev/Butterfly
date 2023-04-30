@@ -10,7 +10,7 @@ class StampHandler extends Handler<StampPainter> {
   @override
   @override
   List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, DocumentPage page,
+      CurrentIndexCubit currentIndexCubit, NoteData document, DocumentPage page,
       [Area? currentArea]) {
     final currentPos = currentIndexCubit.state.cameraViewport.toOffset();
     return _elements
@@ -30,7 +30,7 @@ class StampHandler extends Handler<StampPainter> {
     if (_component == null) return;
     _elements = await Future.wait(_component!.elements.map((e) async {
       final element = Renderer.fromInstance(e);
-      element.setup(page);
+      element.setup(document, page);
       return element;
     })).then((value) => value.toList());
     Rect? rect;

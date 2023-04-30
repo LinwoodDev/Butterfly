@@ -6,8 +6,8 @@ class AreaHandler extends Handler<AreaPainter> {
   AreaHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(
-          CurrentIndexCubit currentIndexCubit, DocumentPage page,
+  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
+          NoteData document, DocumentPage page,
           [Area? currentArea]) =>
       [
         if (currentArea == null) ...[
@@ -40,7 +40,7 @@ class AreaHandler extends Handler<AreaPainter> {
             ?.getGridPosition(localPosition, state.page, cubit) ??
         localPosition;
     final globalPosition = transform.localToGlobal(localPosition);
-    final area = state.data.getArea(globalPosition);
+    final area = state.page.getArea(globalPosition);
     final currentIndexCubit = context.getCurrentIndexCubit();
     if (area != null || state.currentArea != null) {
       showContextMenu(
@@ -63,7 +63,7 @@ class AreaHandler extends Handler<AreaPainter> {
       return;
     }
     currentRect = Rect.fromLTWH(globalPosition.dx, globalPosition.dy, 0, 0);
-    if (state.data.getAreaByRect(currentRect!) != null) {
+    if (state.page.getAreaByRect(currentRect!) != null) {
       currentRect = null;
       return;
     }
@@ -164,7 +164,7 @@ class AreaHandler extends Handler<AreaPainter> {
       context.refresh();
       return;
     }
-    if (state.data.getAreaByRect(currentRect!) != null) {
+    if (state.page.getAreaByRect(currentRect!) != null) {
       currentRect = null;
       context.refresh();
       return;

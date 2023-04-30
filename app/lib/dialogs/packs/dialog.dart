@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../api/save_data.dart';
 import '../../widgets/header.dart';
 import 'pack.dart';
 
@@ -426,11 +427,11 @@ class _PacksDialogState extends State<PacksDialog>
                                   final pack =
                                       await DocumentDefaults.getCorePack();
                                   if (_isGlobal()) {
-                                    await _fileSystem.deletePack(pack.name);
+                                    await _fileSystem.deletePack(pack.name!);
                                     setState(() {});
                                   } else if (context.mounted) {
                                     final bloc = context.read<DocumentBloc>();
-                                    bloc.add(DocumentPackRemoved(pack.name));
+                                    bloc.add(DocumentPackRemoved(pack.name!));
                                   }
                                   _addPack(pack);
                                 },
@@ -474,11 +475,6 @@ class _PacksDialogState extends State<PacksDialog>
   }
 
   Future<void> _exportPack(NoteData pack) async {
-    return showDialog(
-      context: context,
-      builder: (context) => ExportDialog(
-        data: json.encode(const PackJsonConverter().toJson(pack)),
-      ),
-    );
+    return saveData(context, pack.save());
   }
 }

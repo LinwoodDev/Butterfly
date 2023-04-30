@@ -9,8 +9,8 @@ class EraserCursor extends Renderer<PainterCursorData<EraserPainter>> {
   EraserCursor(super.element);
 
   @override
-  void build(
-      Canvas canvas, Size size, DocumentPage page, CameraTransform transform,
+  void build(Canvas canvas, Size size, NoteData data, DocumentPage page,
+      CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final radius = element.painter.strokeWidth / 2;
     final position = transform.localToGlobal(element.position);
@@ -19,9 +19,9 @@ class EraserCursor extends Renderer<PainterCursorData<EraserPainter>> {
         radius,
         Paint()
           ..style = PaintingStyle.stroke
-          ..color = document.background
-                  .mapOrNull(box: (box) => Color(box.boxColor)) ??
-              Colors.white
+          ..color =
+              page.background.mapOrNull(box: (box) => Color(box.boxColor)) ??
+                  Colors.white
           ..strokeCap = StrokeCap.round
           ..invertColors = true
           ..strokeWidth = radius / transform.size
@@ -31,9 +31,9 @@ class EraserCursor extends Renderer<PainterCursorData<EraserPainter>> {
         radius,
         Paint()
           ..style = PaintingStyle.fill
-          ..color = document.background
-                  .mapOrNull(box: (box) => Color(box.boxColor)) ??
-              Colors.white
+          ..color =
+              page.background.mapOrNull(box: (box) => Color(box.boxColor)) ??
+                  Colors.white
           ..strokeCap = StrokeCap.round
           ..invertColors = false
           ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear);

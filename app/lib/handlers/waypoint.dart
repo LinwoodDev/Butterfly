@@ -6,12 +6,10 @@ class WaypointHandler extends Handler<WaypointPainter> {
   WaypointHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(
-          CurrentIndexCubit currentIndexCubit, DocumentPage page,
+  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
+          NoteData document, DocumentPage page,
           [Area? currentArea]) =>
-      document.waypoints
-          .map((e) => WaypointForegroundRenderer(e, radius))
-          .toList();
+      page.waypoints.map((e) => WaypointForegroundRenderer(e, radius)).toList();
 
   @override
   void onTapUp(TapUpDetails details, EventContext context) async {

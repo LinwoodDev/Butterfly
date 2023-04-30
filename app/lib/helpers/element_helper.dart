@@ -17,7 +17,3 @@ Future<List<int>> getDataFromSource(String source) async {
 extension ImageElementDataExtension on ImageElement {
   Future<List<int>> getData() => getDataFromSource(source);
 }
-
-extension DocumentDataExtension on AppDocument {
-  Future<List<int>> getThumbnailData() => getDataFromSource(thumbnail);
-}

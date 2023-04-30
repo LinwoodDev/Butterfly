@@ -53,7 +53,8 @@ abstract class Renderer<T> {
   Renderer(this.element);
 
   @mustCallSuper
-  FutureOr<void> setup(DocumentPage page) async => _updateArea(page);
+  FutureOr<void> setup(NoteData document, DocumentPage page) async =>
+      _updateArea(page);
 
   void dispose() {}
 
@@ -68,8 +69,8 @@ abstract class Renderer<T> {
   }
 
   Rect? get rect => null;
-  void build(
-      Canvas canvas, Size size, DocumentPage page, CameraTransform transform,
+  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
+      CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]);
   HitCalculator getHitCalculator() => DefaultHitCalculator(rect);
   void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {}

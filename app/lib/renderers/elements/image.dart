@@ -6,8 +6,8 @@ class ImageRenderer extends Renderer<ImageElement> {
   ImageRenderer(super.element, [this.image]);
 
   @override
-  void build(
-      Canvas canvas, Size size, DocumentPage page, CameraTransform transform,
+  void build(Canvas canvas, Size size, NoteData data, DocumentPage page,
+      CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     if (image == null) {
       // Render placeholder
@@ -43,10 +43,10 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  FutureOr<void> setup(NoteData document) async {
+  FutureOr<void> setup(NoteData document, DocumentPage page) async {
     image =
         await decodeImageFromList(Uint8List.fromList(await element.getData()));
-    super.setup(page);
+    super.setup(document, page);
   }
 
   @override

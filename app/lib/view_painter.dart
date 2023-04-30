@@ -9,13 +9,14 @@ import 'selections/selection.dart';
 
 class ForegroundPainter extends CustomPainter {
   final ColorScheme colorScheme;
+  final NoteData document;
   final DocumentPage page;
   final List<Renderer> renderers;
   final CameraTransform transform;
   final Selection? selection;
   final Renderer<ToolState>? tool;
 
-  ForegroundPainter(this.renderers, this.page, this.colorScheme,
+  ForegroundPainter(this.renderers, this.document, this.page, this.colorScheme,
       [this.transform = const CameraTransform(), this.selection, this.tool]);
 
   @override
@@ -23,7 +24,7 @@ class ForegroundPainter extends CustomPainter {
     canvas.scale(transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var element in renderers) {
-      element.build(canvas, size, page, transform, colorScheme, true);
+      element.build(canvas, size, document, page, transform, colorScheme, true);
     }
     final selection = this.selection;
     if (selection is ElementSelection) {
@@ -37,7 +38,7 @@ class ForegroundPainter extends CustomPainter {
       _drawSelection(canvas, selection);
     }
     if (tool != null) {
-      tool!.build(canvas, size, page, transform, colorScheme, true);
+      tool!.build(canvas, size, document, page, transform, colorScheme, true);
     }
   }
 
@@ -62,6 +63,7 @@ class ForegroundPainter extends CustomPainter {
 }
 
 class ViewPainter extends CustomPainter {
+  final NoteData document;
   final DocumentPage page;
   final Area? currentArea;
   final bool renderBackground, renderBaked;
@@ -71,6 +73,7 @@ class ViewPainter extends CustomPainter {
   final List<String> invisibleLayers;
 
   const ViewPainter(
+    this.document,
     this.page, {
     this.currentArea,
     this.invisibleLayers = const [],
@@ -101,7 +104,7 @@ class ViewPainter extends CustomPainter {
     }
     if (renderBackground) {
       cameraViewport.background
-          ?.build(canvas, size, page, transform, colorScheme);
+          ?.build(canvas, size, document, page, transform, colorScheme);
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     if (cameraViewport.bakedElements.isNotEmpty && renderBaked) {
@@ -124,7 +127,8 @@ class ViewPainter extends CustomPainter {
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var renderer in cameraViewport.unbakedElements) {
       if (!invisibleLayers.contains(renderer.element.layer)) {
-        renderer.build(canvas, size, page, transform, colorScheme, false);
+        renderer.build(
+            canvas, size, document, page, transform, colorScheme, false);
       }
     }
     canvas.restore();

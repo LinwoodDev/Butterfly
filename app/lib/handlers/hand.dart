@@ -11,8 +11,8 @@ class HandSelectionRenderer extends Renderer<Rect> {
       [this.transformMode, this.transformCorner]);
 
   @override
-  void build(
-      Canvas canvas, Size size, DocumentPage page, CameraTransform transform,
+  void build(Canvas canvas, Size size, NoteData data, DocumentPage page,
+      CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final paint = Paint()
       ..color = scheme.primary
@@ -184,7 +184,7 @@ class HandHandler extends Handler<HandPainter> {
 
   @override
   List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, DocumentPage page,
+      CurrentIndexCubit currentIndexCubit, NoteData document, DocumentPage page,
       [Area? currentArea]) {
     final foregrounds = <Renderer>[];
     if (_movingElements.isNotEmpty && _currentMovePosition != null) {
@@ -427,7 +427,9 @@ class HandHandler extends Handler<HandPainter> {
         rulerAngle: angle,
       );
       _rotation = currentRotation;
-      context.getCurrentIndexCubit().updateTool(state.page, toolState);
+      context
+          .getCurrentIndexCubit()
+          .updateTool(state.data, state.page, toolState);
       return;
     }
     if (_transformMode != null) {

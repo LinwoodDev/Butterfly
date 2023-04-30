@@ -50,7 +50,9 @@ class TextContext with _$TextContext {
     if (styleSheet == null) {
       return null;
     }
-    return document.getStyle(styleSheet!)?.resolveParagraphProperty(property);
+    return styleSheet
+        ?.resolveStyle(document)
+        ?.resolveParagraphProperty(property);
   }
 
   SpanProperty? getSpanProperty(NoteData document) {
@@ -67,7 +69,8 @@ class TextContext with _$TextContext {
     return getSpanProperty(document)?.map(
           defined: (p) => p,
           undefined: (_) => null,
-          named: (p) => document.getStyle(styleSheet!)?.resolveSpanProperty(p),
+          named: (p) =>
+              styleSheet?.resolveStyle(document)?.resolveSpanProperty(p),
         ) ??
         const DefinedSpanProperty();
   }
@@ -77,17 +80,18 @@ class TextContext with _$TextContext {
           defined: (p) => p,
           undefined: (_) => null,
           named: (p) =>
-              document.getStyle(styleSheet!)?.resolveParagraphProperty(p),
+              styleSheet?.resolveStyle(document)?.resolveParagraphProperty(p),
         ) ??
         const DefinedParagraphProperty();
   }
 
-  DefinedSpanProperty getDefinedForcedSpanProperty(DocumentPage page,
+  DefinedSpanProperty getDefinedForcedSpanProperty(NoteData document,
       [bool fallback = true]) {
     return forcedSpanProperty?.map(
           defined: (p) => p,
           undefined: (_) => null,
-          named: (p) => document.getStyle(styleSheet!)?.resolveSpanProperty(p),
+          named: (p) =>
+              styleSheet?.resolveStyle(document)?.resolveSpanProperty(p),
         ) ??
         (fallback
             ? getDefinedSpanProperty(document)

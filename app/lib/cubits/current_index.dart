@@ -131,8 +131,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     _disposeTemporaryForegrounds();
     final temporaryForegrounds =
         handler.createForegrounds(this, docState.page, docState.currentArea);
-    await Future.wait(
-        temporaryForegrounds.map((r) async => await r.setup(docState.page)));
+    await Future.wait(temporaryForegrounds
+        .map((r) async => await r.setup(docState.data, docState.page)));
     emit(state.copyWith(
       temporaryHandler: handler,
       temporaryForegrounds: temporaryForegrounds,
@@ -161,18 +161,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Future<void> refresh(DocumentPage page, [Area? currentArea]) async {
+  Future<void> refresh(NoteData document, DocumentPage page,
+      [Area? currentArea]) async {
     if (!isClosed) {
       _disposeForegrounds();
       final temporaryForegrounds =
           state.temporaryHandler?.createForegrounds(this, page, currentArea);
       if (temporaryForegrounds != null) {
-        await Future.wait(
-            temporaryForegrounds.map((e) async => await e.setup(page)));
+        await Future.wait(temporaryForegrounds
+            .map((e) async => await e.setup(document, page)));
       }
       final foregrounds =
           state.handler.createForegrounds(this, page, currentArea);
-      await Future.wait(foregrounds.map((e) async => await e.setup(page)));
+      await Future.wait(
+          foregrounds.map((e) async => await e.setup(document, page)));
       emit(state.copyWith(
         temporaryForegrounds: temporaryForegrounds,
         foregrounds: foregrounds,
@@ -253,6 +255,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final handler = Handler.fromPainter(painter);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
+    final document = blocState.data;
     final page = blocState.page;
     final currentArea = blocState.currentArea;
     state.temporaryHandler?.dispose(bloc);
@@ -261,7 +264,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       final temporaryForegrounds =
           handler.createForegrounds(this, page, currentArea);
       await Future.wait(
-          temporaryForegrounds.map((e) async => await e.setup(page)));
+          temporaryForegrounds.map((e) async => await e.setup(document, page)));
       emit(state.copyWith(
         temporaryHandler: handler,
         temporaryForegrounds: temporaryForegrounds,
@@ -537,9 +540,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(temporaryHandler: MoveHandler()));
   }
 
-  FutureOr<void> updateTool(DocumentPage page, ToolState toolState) async {
+  FutureOr<void> updateTool(
+      NoteData document, DocumentPage page, ToolState toolState) async {
     final renderer = ToolRenderer(toolState);
-    await renderer.setup(page);
+    await renderer.setup(document, page);
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.withTool(renderer)));
   }

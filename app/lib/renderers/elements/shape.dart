@@ -7,15 +7,15 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   ShapeRenderer(super.element, [this.rect = Rect.zero]);
 
   @override
-  FutureOr<void> setup(NoteData document) async {
+  FutureOr<void> setup(NoteData document, DocumentPage page) async {
     _updateRect();
-    await super.setup(page);
+    await super.setup(document, page);
     _updateRect();
   }
 
   @override
   FutureOr<bool> onAreaUpdate(DocumentPage page, Area? area) async {
-    await super.onAreaUpdate(document, area);
+    await super.onAreaUpdate(page, area);
     _updateRect();
     return true;
   }
@@ -26,8 +26,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   }
 
   @override
-  FutureOr<void> build(
-      Canvas canvas, Size size, DocumentPage page, CameraTransform transform,
+  FutureOr<void> build(Canvas canvas, Size size, NoteData data,
+      DocumentPage page, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     _updateRect();
     final shape = element.property.shape;

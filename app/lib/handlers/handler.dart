@@ -118,6 +118,8 @@ class EventContext {
 
   CameraViewport getCameraViewport() => getCurrentIndex().cameraViewport;
 
+  NoteData? getData() => getState()?.data;
+
   DocumentPage? getPage() => getState()?.page;
 }
 
@@ -132,8 +134,8 @@ abstract class Handler<T> {
           bool justAdded) =>
       true;
 
-  List<Renderer> createForegrounds(
-          CurrentIndexCubit currentIndexCubit, DocumentPage page,
+  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
+          NoteData document, DocumentPage page,
           [Area? currentArea]) =>
       [];
 
@@ -219,9 +221,10 @@ mixin HandlerWithCursor<T> on Handler<T> {
   @mustCallSuper
   @override
   List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, DocumentPage page,
+      CurrentIndexCubit currentIndexCubit, NoteData document, DocumentPage page,
       [Area? currentArea]) {
-    final renderers = super.createForegrounds(currentIndexCubit, page);
+    final renderers =
+        super.createForegrounds(currentIndexCubit, document, page);
     if (_currentPos != null) {
       renderers.add(createCursor(_currentPos!));
     }

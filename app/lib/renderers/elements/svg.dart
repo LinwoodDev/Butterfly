@@ -6,8 +6,8 @@ class SvgRenderer extends Renderer<SvgElement> {
   SvgRenderer(super.element, [this.info]);
 
   @override
-  void build(
-      Canvas canvas, Size size, DocumentPage page, CameraTransform transform,
+  void build(Canvas canvas, Size size, NoteData data, DocumentPage page,
+      CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final rect = this.rect;
     if (info == null) {
@@ -49,9 +49,9 @@ class SvgRenderer extends Renderer<SvgElement> {
   }
 
   @override
-  FutureOr<void> setup(NoteData document) async {
+  FutureOr<void> setup(NoteData document, DocumentPage page) async {
     info = await vg.loadPicture(SvgStringLoader(element.data), null);
-    super.setup(page);
+    super.setup(document, page);
   }
 
   @override
