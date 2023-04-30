@@ -44,16 +44,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc.placeholder() : super(const DocumentLoadFailure(''));
 
   void _init() {
-    on<FileMetaUpdated>((event, emit) async {
-      final current = state;
-      if (current is DocumentLoadSuccess) {
-        emit(current.copyWith(
-          metadata: event.metadata,
-        ));
-        clearHistory();
-        await load();
-      }
-    });
     on<ToolChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
@@ -192,12 +182,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
         return _saveState(
-            emit,
-            current.copyWith(
-                metadata: current.metadata.copyWith(
-                    name: event.name ?? current.metadata.name,
-                    description:
-                        event.description ?? current.metadata.description)));
+          emit,
+          current.copyWith(
+            metadata: current.metadata.copyWith(
+              name: event.name ?? current.metadata.name,
+              description: event.description ?? current.metadata.description,
+            ),
+          ),
+        );
       }
     });
     on<PainterCreated>((event, emit) async {

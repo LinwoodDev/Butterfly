@@ -13,7 +13,8 @@ FutureOr<NoteData?> checkFileChanges(
   final metadata = data.getMetadata();
   if (metadata == null) return null;
   final version = metadata.fileVersion;
-  if (version >= 0 &&
+  if (version != null &&
+      version >= 0 &&
       (version > kFileVersion || version < kBreakingChangesVersion)) {
     final result = await showDialog<bool>(
       context: context,

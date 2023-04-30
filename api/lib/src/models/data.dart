@@ -48,11 +48,17 @@ class NoteData {
     _controller.add(this);
   }
 
-  List<String> getAssets(String path) {
+  List<String> getAssets(String path, [bool removeExtension = false]) {
     return archive.files
-        .where((file) => file.name.startsWith(kPacksArchiveDirectory))
-        .map((file) => file.name.substring(kPacksArchiveDirectory.length))
-        .toList();
+        .where((file) => file.name.startsWith(path))
+        .map((file) => file.name.substring(path.length))
+        .map((name) {
+      if (name.startsWith('/')) name = name.substring(1);
+      if (!removeExtension) return name;
+      final startExtension = name.lastIndexOf('.');
+      if (startExtension == -1) return name;
+      return name.substring(0, startExtension);
+    }).toList();
   }
 
   Uint8List? getThumbnail() => getAsset(kThumbnailArchiveFile);
@@ -145,7 +151,7 @@ class NoteData {
       getAsset('$kFontsArchiveDirectory/$fontName');
 
   NoteData? getPack(String packName) {
-    final data = getAsset('$kPacksArchiveDirectory/$packName');
+    final data = getAsset('$kPacksArchiveDirectory/$packName.bfly');
     if (data == null) {
       return null;
     }
@@ -160,11 +166,11 @@ class NoteData {
     }
   }
 
-  List<String> getPacks() => getAssets(kPacksArchiveDirectory);
+  List<String> getPacks() => getAssets(kPacksArchiveDirectory, true);
 
   // Pack specific
 
-  List<String> getComponents() => getAssets(kComponentsArchiveDirectory);
+  List<String> getComponents() => getAssets(kComponentsArchiveDirectory, true);
 
   ButterflyComponent? getComponent(String componentName) {
     final data = getAsset('$kComponentsArchiveDirectory/$componentName.json');
@@ -182,10 +188,10 @@ class NoteData {
         utf8.encode(content));
   }
 
-  List<String> getStyles() => getAssets(kStylesArchiveDirectory);
+  List<String> getStyles() => getAssets(kStylesArchiveDirectory, true);
 
   TextStyleSheet? getStyle(String styleName) {
-    final data = getAsset('$kStylesArchiveDirectory/$styleName');
+    final data = getAsset('$kStylesArchiveDirectory/$styleName.json');
     if (data == null) {
       return null;
     }
@@ -196,10 +202,11 @@ class NoteData {
 
   void setStyle(TextStyleSheet style) {
     final content = jsonEncode(style.toJson());
-    setAsset('$kStylesArchiveDirectory/${style.name}', utf8.encode(content));
+    setAsset(
+        '$kStylesArchiveDirectory/${style.name}.json', utf8.encode(content));
   }
 
-  List<String> getPalettes() => getAssets(kPalettesArchiveDirectory);
+  List<String> getPalettes() => getAssets(kPalettesArchiveDirectory, true);
 
   ColorPalette? getPalette(String paletteName) {
     final data = getAsset('$kPalettesArchiveDirectory/$paletteName.json');

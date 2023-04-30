@@ -1,4 +1,3 @@
-
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/cubits/current_index.dart';
@@ -85,7 +84,7 @@ class _AppBarTitle extends StatelessWidget {
         }
         return previous.currentAreaName != current.currentAreaName ||
             previous.hasAutosave() != current.hasAutosave() ||
-            previous.data.name != current.data.name;
+            previous.metadata != current.metadata;
       }, builder: (context, state) {
         return Row(children: [
           Flexible(

@@ -1,4 +1,3 @@
-
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/file_system_remote.dart';
@@ -12,7 +11,6 @@ import 'package:butterfly/visualizer/sync.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -768,49 +766,59 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
   }
 
   int _sortAssets(AppDocumentEntity a, AppDocumentEntity b) {
-    final settings = _settingsCubit.state;
-    // Test if starred
-    final aStarred = settings.isStarred(a.location);
-    final bStarred = settings.isStarred(b.location);
-    if (aStarred && !bStarred) {
-      return -1;
-    }
-    if (bStarred && !aStarred) {
-      return 1;
-    }
-    if (a is AppDocumentDirectory) {
-      return -1;
-    }
-    if (b is AppDocumentDirectory) {
-      return 1;
-    }
-    final aFile = a as AppDocumentFile;
-    final bFile = b as AppDocumentFile;
-    final aInfo = aFile.load().getMetadata();
-    final bInfo = bFile.load().getMetadata();
-    if (aInfo == null) {
-      return 1;
-    }
-    if (bInfo == null) {
-      return -1;
-    }
-    switch (_sortBy) {
-      case _SortBy.name:
-        return aFile.fileName.compareTo(bFile.fileName);
-      case _SortBy.created:
-        final aCreatedAt = aInfo.createdAt;
-        final bCreatedAt = bInfo.createdAt;
-        return aCreatedAt.compareTo(bCreatedAt);
-      case _SortBy.modified:
-        final aModifiedAt = aInfo.updatedAt;
-        final bModifiedAt = bInfo.updatedAt;
-        if (aModifiedAt == null) {
-          return 1;
-        }
-        if (bModifiedAt == null) {
-          return -1;
-        }
-        return aModifiedAt.compareTo(bModifiedAt);
+    try {
+      final settings = _settingsCubit.state;
+      // Test if starred
+      final aStarred = settings.isStarred(a.location);
+      final bStarred = settings.isStarred(b.location);
+      if (aStarred && !bStarred) {
+        return -1;
+      }
+      if (bStarred && !aStarred) {
+        return 1;
+      }
+      if (a is AppDocumentDirectory) {
+        return -1;
+      }
+      if (b is AppDocumentDirectory) {
+        return 1;
+      }
+      final aFile = a as AppDocumentFile;
+      final bFile = b as AppDocumentFile;
+      final aInfo = aFile.load().getMetadata();
+      final bInfo = bFile.load().getMetadata();
+      if (aInfo == null) {
+        return 1;
+      }
+      if (bInfo == null) {
+        return -1;
+      }
+      switch (_sortBy) {
+        case _SortBy.name:
+          return aFile.fileName.compareTo(bFile.fileName);
+        case _SortBy.created:
+          final aCreatedAt = aInfo.createdAt;
+          final bCreatedAt = bInfo.createdAt;
+          if (aCreatedAt == null) {
+            return 1;
+          }
+          if (bCreatedAt == null) {
+            return -1;
+          }
+          return aCreatedAt.compareTo(bCreatedAt);
+        case _SortBy.modified:
+          final aModifiedAt = aInfo.updatedAt;
+          final bModifiedAt = bInfo.updatedAt;
+          if (aModifiedAt == null) {
+            return 1;
+          }
+          if (bModifiedAt == null) {
+            return -1;
+          }
+          return aModifiedAt.compareTo(bModifiedAt);
+      }
+    } catch (e) {
+      return 0;
     }
   }
 }
@@ -849,7 +857,7 @@ class _FileEntityListTile extends StatelessWidget {
             ? '${dateFormatter.format(metadata!.updatedAt!)} ${timeFormatter.format(metadata.updatedAt!)}'
             : null;
         createdText = metadata?.createdAt != null
-            ? '${dateFormatter.format(metadata!.createdAt)} ${timeFormatter.format(metadata.createdAt)}'
+            ? '${dateFormatter.format(metadata!.createdAt!)} ${timeFormatter.format(metadata.createdAt!)}'
             : null;
       }
     } catch (_) {}
@@ -1330,7 +1338,9 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                         onPressed: () async {
                           await _templateFileSystem.createDefault(context,
                               force: true);
-                          setState(() => _templatesFuture = _fetchTemplates());
+                          setState(() {
+                            _templatesFuture = _fetchTemplates();
+                          });
                           widget.onReload();
                         },
                         child: Text(
@@ -1367,10 +1377,10 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                                 },
                                 child: Stack(
                                   children: [
-                                    if (snapshot.data?.isNotEmpty ?? false)
+                                    if (thumbnail?.isNotEmpty ?? false)
                                       Align(
                                         child: Image.memory(
-                                          thumbnail ?? Uint8List(0),
+                                          thumbnail!,
                                           fit: BoxFit.cover,
                                           width: 640,
                                           alignment: Alignment.center,

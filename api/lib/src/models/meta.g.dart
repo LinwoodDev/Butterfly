@@ -7,10 +7,10 @@ part of 'meta.dart';
 // **************************************************************************
 
 _$_FileMetadata _$$_FileMetadataFromJson(Map json) => _$_FileMetadata(
-      fileVersion: json['fileVersion'] as int,
+      fileVersion: json['fileVersion'] as int?,
       type: $enumDecode(_$NoteFileTypeEnumMap, json['type']),
-      createdAt:
-          const DateTimeJsonConverter().fromJson(json['createdAt'] as int),
+      createdAt: _$JsonConverterFromJson<int, DateTime>(
+          json['createdAt'], const DateTimeJsonConverter().fromJson),
       updatedAt: _$JsonConverterFromJson<int, DateTime>(
           json['updatedAt'], const DateTimeJsonConverter().fromJson),
       name: json['name'] as String? ?? '',
@@ -23,7 +23,8 @@ Map<String, dynamic> _$$_FileMetadataToJson(_$_FileMetadata instance) =>
     <String, dynamic>{
       'fileVersion': instance.fileVersion,
       'type': _$NoteFileTypeEnumMap[instance.type]!,
-      'createdAt': const DateTimeJsonConverter().toJson(instance.createdAt),
+      'createdAt': _$JsonConverterToJson<int, DateTime>(
+          instance.createdAt, const DateTimeJsonConverter().toJson),
       'updatedAt': _$JsonConverterToJson<int, DateTime>(
           instance.updatedAt, const DateTimeJsonConverter().toJson),
       'name': instance.name,

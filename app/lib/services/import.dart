@@ -351,7 +351,7 @@ class ImportService {
     }
     document ??= state?.data;
     if (document != null) {
-      var page = document.getPage() ?? const DocumentPage();
+      var page = document.getPage() ?? DocumentDefaults.createPage();
       page = page.copyWith(
         content: [...page.content, ...elements],
         areas: [...page.areas, ...areas],

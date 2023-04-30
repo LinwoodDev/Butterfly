@@ -97,8 +97,9 @@ class DocumentDefaults {
 
   static NoteData createDocument({
     String name = '',
-    DocumentPage page = const DocumentPage(),
+    DocumentPage? page,
   }) {
+    page ??= createPage();
     final data = NoteData(Archive());
     final metadata = FileMetadata(
       name: name,
@@ -144,6 +145,11 @@ class DocumentDefaults {
       updatedAt: DateTime.now().toUtc(),
     );
     data.setMetadata(metadata);
+    final page = DocumentPage(
+      background: background,
+      painters: DocumentDefaults.createPainters(background.defaultColor),
+    );
+    data.setPage(page);
     if (thumbnail != null) data.setThumbnail(thumbnail);
     return data;
   }

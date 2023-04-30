@@ -82,6 +82,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
         invisibleLayers,
         data,
         page,
+        metadata,
         currentLayer,
         currentAreaName,
         settingsCubit,

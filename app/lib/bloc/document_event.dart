@@ -7,12 +7,6 @@ abstract class DocumentEvent extends ReplayEvent with EquatableMixin {
   List<Object?> get props => [];
 }
 
-class FileMetaUpdated extends DocumentEvent {
-  final FileMetadata metadata;
-
-  FileMetaUpdated(this.metadata);
-}
-
 class ToolChanged extends DocumentEvent {
   final ToolOption? option;
   final ToolState? state;

@@ -178,7 +178,7 @@ class _ProjectPageState extends State<ProjectPage> {
       document ??= DocumentDefaults.createDocument(
         name: name,
       );
-      final page = document.getPage() ?? const DocumentPage();
+      final page = document.getPage() ?? DocumentDefaults.createPage();
       final renderers =
           page.content.map((e) => Renderer.fromInstance(e)).toList();
       await Future.wait(

@@ -213,7 +213,7 @@ class __$$_DocumentPageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DocumentPage implements _DocumentPage {
+class _$_DocumentPage extends _DocumentPage {
   const _$_DocumentPage(
       {final List<AnimationTrack> animations = const [],
       final List<PadElement> content = const [],
@@ -228,7 +228,8 @@ class _$_DocumentPage implements _DocumentPage {
         _waypoints = waypoints,
         _areas = areas,
         _exportPresets = exportPresets,
-        _painters = painters;
+        _painters = painters,
+        super._();
 
   factory _$_DocumentPage.fromJson(Map<String, dynamic> json) =>
       _$$_DocumentPageFromJson(json);
@@ -345,7 +346,7 @@ class _$_DocumentPage implements _DocumentPage {
   }
 }
 
-abstract class _DocumentPage implements DocumentPage {
+abstract class _DocumentPage extends DocumentPage {
   const factory _DocumentPage(
       {final List<AnimationTrack> animations,
       final List<PadElement> content,
@@ -355,6 +356,7 @@ abstract class _DocumentPage implements DocumentPage {
       final List<ExportPreset> exportPresets,
       final List<Painter> painters,
       final ToolOption tool}) = _$_DocumentPage;
+  const _DocumentPage._() : super._();
 
   factory _DocumentPage.fromJson(Map<String, dynamic> json) =
       _$_DocumentPage.fromJson;

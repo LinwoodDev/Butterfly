@@ -5,15 +5,15 @@ const kThumbnailHeight = 360;
 // Archive specific
 const kMetaInfoArchiveDirectory = 'META-INF';
 const kMetaArchiveFile = '$kMetaInfoArchiveDirectory/butterfly.json';
-const kMetaBflyArchiveDirectory = '$kMetaInfoArchiveDirectory/BFLY';
-const kThumbnailArchiveFile = '$kMetaBflyArchiveDirectory/thumbnail.png';
+const kBflyArchiveDirectory = 'BFLY';
+const kThumbnailArchiveFile = '$kBflyArchiveDirectory/thumbnail.png';
 // Document specific
-const kPaintersArchiveFile = '$kMetaBflyArchiveDirectory/painters.json';
-const kFontsArchiveDirectory = '$kMetaBflyArchiveDirectory/fonts';
-const kImagesArchiveDirectory = '$kMetaBflyArchiveDirectory/images';
-const kPacksArchiveDirectory = '$kMetaBflyArchiveDirectory/packs';
-const kPagesArchiveDirectory = '$kMetaBflyArchiveDirectory/pages';
+const kPaintersArchiveFile = '$kBflyArchiveDirectory/painters.json';
+const kFontsArchiveDirectory = '$kBflyArchiveDirectory/fonts';
+const kImagesArchiveDirectory = '$kBflyArchiveDirectory/images';
+const kPacksArchiveDirectory = '$kBflyArchiveDirectory/packs';
+const kPagesArchiveDirectory = '$kBflyArchiveDirectory/pages';
 // Pack specific
-const kComponentsArchiveDirectory = '$kMetaBflyArchiveDirectory/components';
-const kStylesArchiveDirectory = '$kMetaBflyArchiveDirectory/styles';
-const kPalettesArchiveDirectory = '$kMetaBflyArchiveDirectory/palettes';
+const kComponentsArchiveDirectory = '$kBflyArchiveDirectory/components';
+const kStylesArchiveDirectory = '$kBflyArchiveDirectory/styles';
+const kPalettesArchiveDirectory = '$kBflyArchiveDirectory/palettes';

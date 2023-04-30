@@ -15,6 +15,8 @@ part 'page.freezed.dart';
 
 @freezed
 class DocumentPage with _$DocumentPage {
+  const DocumentPage._();
+
   const factory DocumentPage({
     @Default([]) List<AnimationTrack> animations,
     @Default([]) List<PadElement> content,
