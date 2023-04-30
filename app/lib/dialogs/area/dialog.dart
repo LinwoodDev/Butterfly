@@ -54,14 +54,14 @@ class AreasDialog extends StatelessWidget {
                                   DocumentBloc, DocumentState>(
                               buildWhen: (previous, current) =>
                                   (previous as DocumentLoadSuccess)
-                                      .data
+                                      .page
                                       .areas !=
-                                  (current as DocumentLoadSuccess).data.areas,
+                                  (current as DocumentLoadSuccess).page.areas,
                               builder: (context, state) {
                                 if (state is! DocumentLoadSuccess) {
                                   return Container();
                                 }
-                                var areas = state.data.areas
+                                var areas = state.page.areas
                                     .where((element) => element.name
                                         .contains(_searchController.text))
                                     .toList();
@@ -142,7 +142,7 @@ class _AreaPopupMenu extends StatelessWidget {
                       builder: (context) => NameDialog(
                         value: area.name,
                         validator: defaultNameValidator(
-                            context, state.data.getAreaNames().toList()),
+                            context, state.page.getAreaNames().toList()),
                       ),
                     );
                     if (name == null) return;

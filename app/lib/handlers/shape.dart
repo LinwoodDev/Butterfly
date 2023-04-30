@@ -8,12 +8,10 @@ class ShapeHandler extends Handler {
 
   @override
   List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      CurrentIndexCubit currentIndexCubit, DocumentPage page,
       [Area? currentArea]) {
-    return elements.values
-        .map((e) => ShapeRenderer(e)..setup(document))
-        .toList()
-      ..addAll(submittedElements.map((e) => ShapeRenderer(e)..setup(document)));
+    return elements.values.map((e) => ShapeRenderer(e)..setup(page)).toList()
+      ..addAll(submittedElements.map((e) => ShapeRenderer(e)..setup(page)));
   }
 
   @override
@@ -119,7 +117,7 @@ class ShapeHandler extends Handler {
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     final viewport = currentIndexCubit.state.cameraViewport;
     localPosition = viewport.tool
-            ?.getGridPosition(localPosition, state.data, currentIndexCubit) ??
+            ?.getGridPosition(localPosition, state.page, currentIndexCubit) ??
         localPosition;
     final globalPosition = transform.localToGlobal(localPosition);
     final settings = context.read<SettingsCubit>().state;

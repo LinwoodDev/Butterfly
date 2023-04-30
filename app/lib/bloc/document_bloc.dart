@@ -4,7 +4,6 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
-import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -471,22 +470,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<TemplateCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
+      final data = current.saveData();
       final render = await current.currentIndexCubit.render(current.page,
           width: kThumbnailWidth.toDouble(),
           height: kThumbnailHeight.toDouble());
-      final uri = render == null
-          ? ''
-          : UriData.fromBytes(render.buffer.asUint8List(),
-                  mimeType: 'image/png')
-              .toString();
+      final thumbnail = render?.buffer.asUint8List();
       final settings = current.settingsCubit.state;
       final remote = settings.getRemote(event.remote);
-      TemplateFileSystem.fromPlatform(remote: remote).createTemplate(
-        DocumentTemplate(
-          directory: event.directory,
-          page: current.page.copyWith(thumbnail: uri),
-        ),
-      );
+      TemplateFileSystem.fromPlatform(remote: remote)
+          .createTemplate(data.createTemplate(
+        thumbnail: thumbnail,
+      ));
 
       if (event.deleteDocument) {
         current.currentIndexCubit.setSaveState(
@@ -596,36 +590,29 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      var name = event.pack.name;
+      var name = event.pack.name ?? '';
       var i = 1;
-      while (current.page.packs.any((element) => element.name == name)) {
+      while (current.data.getPack(name) != null) {
         name = '${event.pack.name} ($i)';
         i++;
       }
-      final pack = event.pack.copyWith(name: name);
-      final currentPage = current.page.copyWith(
-          packs: List<ButterflyPack>.from(current.page.packs)..add(pack));
-      _saveState(emit, current.copyWith(page: currentPage));
+      event.pack.name = name;
+      current.data.setPack(event.pack);
+      _saveState(emit);
     });
     on<DocumentPackUpdated>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      final currentPage = current.page.copyWith(
-          packs: current.page.packs
-              .map((e) => e.name == event.pack.name ? event.pack : e)
-              .toList());
-      _saveState(emit, current.copyWith(page: currentPage));
+      current.data.setPack(event.pack);
+      _saveState(emit);
     });
     on<DocumentPackRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      final currentDocument = current.page.copyWith(
-          packs: current.page.packs
-              .where((element) => element.name != event.pack)
-              .toList());
-      _saveState(emit, current.copyWith(page: currentDocument));
+      // TODO: remove pack
+      _saveState(emit);
     });
     on<DocumentAnimationAdded>((event, emit) {
       final current = state;
@@ -688,9 +675,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     });
   }
 
-  Future<void> _saveState(
-      Emitter<DocumentState> emit, DocumentLoadSuccess current,
-      [List<Renderer<PadElement>>? unbakedElements = const []]) async {
+  Future<void> _saveState(Emitter<DocumentState> emit,
+      [DocumentLoadSuccess? current,
+      List<Renderer<PadElement>>? unbakedElements = const []]) async {
+    if (state is! DocumentLoadSuccess) return;
+    current ??= state as DocumentLoadSuccess;
     final cameraViewport = current.cameraViewport;
     var elements = cameraViewport.unbakedElements;
     if (unbakedElements != null) {
@@ -745,15 +734,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
     final currentIndexCubit = current.currentIndexCubit;
-    final document = current.page;
+    final page = current.page;
     currentIndexCubit.setSaveState(saved: true);
-    final background = Renderer.fromInstance(document.background);
-    await background.setup(document);
+    final background = Renderer.fromInstance(page.background);
+    await background.setup(page);
     final tool = ToolRenderer(const ToolState());
-    await tool.setup(document);
+    await tool.setup(page);
     final renderers =
-        document.content.map((e) => Renderer.fromInstance(e)).toList();
-    await Future.wait(renderers.map((e) async => await e.setup(document)));
+        page.content.map((e) => Renderer.fromInstance(e)).toList();
+    await Future.wait(renderers.map((e) async => await e.setup(page)));
     currentIndexCubit.unbake(
         background: background, tool: tool, unbakedElements: renderers);
     currentIndexCubit.init(this);

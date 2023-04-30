@@ -118,7 +118,7 @@ class EventContext {
 
   CameraViewport getCameraViewport() => getCurrentIndex().cameraViewport;
 
-  AppDocument? getDocument() => getState()?.data;
+  DocumentPage? getPage() => getState()?.page;
 }
 
 enum PainterStatus { normal, disabled }
@@ -219,9 +219,9 @@ mixin HandlerWithCursor<T> on Handler<T> {
   @mustCallSuper
   @override
   List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      CurrentIndexCubit currentIndexCubit, DocumentPage page,
       [Area? currentArea]) {
-    final renderers = super.createForegrounds(currentIndexCubit, document);
+    final renderers = super.createForegrounds(currentIndexCubit, page);
     if (_currentPos != null) {
       renderers.add(createCursor(_currentPos!));
     }

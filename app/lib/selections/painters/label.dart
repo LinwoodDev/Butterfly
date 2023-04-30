@@ -8,9 +8,9 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return [];
-    final packs = state.data.packs;
-    final currentPack =
-        packs.firstWhereOrNull((e) => e.name == selected.first.styleSheet.pack);
+    final packs = state.data.getPacks();
+    final packName = selected.first.styleSheet.pack;
+    final currentPack = state.data.getPack(packName);
     return [
       ...super.buildProperties(context),
       CheckboxListTile(
@@ -25,8 +25,7 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
       const SizedBox(height: 16),
       DropdownButtonFormField<String>(
         items: packs
-            .map((e) =>
-                DropdownMenuItem<String>(value: e.name, child: Text(e.name)))
+            .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
             .toList(),
         decoration: InputDecoration(
           labelText: AppLocalizations.of(context).pack,
@@ -56,31 +55,25 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
       const Divider(),
       const SizedBox(height: 8),
       Column(
-          children: currentPack?.styles
-                  .asMap()
-                  .entries
+          children: currentPack
+                  ?.getStyles()
                   .map((style) => Dismissible(
-                      key: ValueKey(style.key),
+                      key: ValueKey(style),
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
-                        final newPack = currentPack.copyWith(
-                          styles:
-                              List<text.TextStyleSheet>.from(currentPack.styles)
-                                ..removeAt(style.key),
-                        );
-                        bloc.add(DocumentPackUpdated(newPack.name, newPack));
+                        // Implement remove style
+                        bloc.add(DocumentPackUpdated(packName, currentPack));
                       },
                       child: ListTile(
-                        title: Text(style.value.name),
-                        selected:
-                            style.value.name == selected.first.styleSheet.name,
+                        title: Text(style),
+                        selected: style == selected.first.styleSheet.name,
                         onTap: () => update(
                             context,
                             selected
                                 .map((e) => e.copyWith(
                                         styleSheet: PackAssetLocation(
-                                      pack: currentPack.name,
-                                      name: style.value.name,
+                                      pack: packName,
+                                      name: style,
                                     )))
                                 .toList()),
                       )))

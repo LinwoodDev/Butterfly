@@ -13,11 +13,11 @@ class WaypointSelection extends PainterSelection<WaypointPainter> {
               previous is! DocumentLoadSuccess) {
             return true;
           }
-          return previous.data.waypoints != current.data.waypoints;
+          return previous.page.waypoints != current.page.waypoints;
         },
         builder: (context, state) {
           if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
-          final waypoints = state.data.waypoints;
+          final waypoints = state.page.waypoints;
           return ListView.builder(
             itemCount: waypoints.length,
             physics: const NeverScrollableScrollPhysics(),

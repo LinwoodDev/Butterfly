@@ -20,7 +20,7 @@ class TextCursor extends Renderer<TextCursorData> {
 
   @override
   void build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+      Canvas canvas, Size size, DocumentPage page, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     const icon = PhosphorIconsLight.cursorText;
     final property = element.context?.getDefinedProperty(document);
@@ -61,7 +61,7 @@ class TextSelectionCursor extends Renderer<TextContext> {
 
   @override
   void build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+      Canvas canvas, Size size, DocumentPage page, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final color = colorScheme?.primary ?? Colors.blue;
     // Paint vertical line

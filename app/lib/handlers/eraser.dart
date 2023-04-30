@@ -14,7 +14,7 @@ class EraserHandler extends Handler<EraserPainter> {
 
   @override
   List<Renderer> createForegrounds(
-          CurrentIndexCubit currentIndexCubit, AppDocument document,
+          CurrentIndexCubit currentIndexCubit, DocumentPage page,
           [Area? currentArea]) =>
       [
         if (_currentPos != null)

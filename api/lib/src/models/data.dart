@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../butterfly_text.dart';
 import '../converter/note.dart';
@@ -13,14 +15,25 @@ import 'palette.dart';
 
 class NoteData {
   final Archive archive;
+  final BehaviorSubject<NoteData> _controller = BehaviorSubject();
 
-  NoteData(this.archive);
+  Stream<NoteData> get onChange => _controller.stream;
+
+  NoteData(this.archive) {
+    _controller.add(this);
+  }
 
   factory NoteData.fromData(Uint8List data) => NoteData(noteDataMigrator(data));
 
   NoteFileType? get type => getMetadata()?.type;
 
   String? get name => getMetadata()?.name;
+
+  set name(String? value) {
+    final meta = getMetadata();
+    if (meta == null || value == null) return;
+    setMetadata(meta.copyWith(name: value));
+  }
 
   Uint8List? getAsset(String path) {
     final file = archive.findFile(path);
@@ -32,6 +45,7 @@ class NoteData {
 
   void setAsset(String path, List<int> data) {
     archive.addFile(ArchiveFile(path, data.length, data));
+    _controller.add(this);
   }
 
   List<String> getAssets(String path) {
@@ -43,8 +57,7 @@ class NoteData {
 
   Uint8List? getThumbnail() => getAsset(kThumbnailArchiveFile);
 
-  void setThumbnail(Uint8List uint8list) =>
-      setAsset(kThumbnailArchiveFile, uint8list);
+  void setThumbnail(Uint8List data) => setAsset(kThumbnailArchiveFile, data);
 
   FileMetadata? getMetadata() {
     final data = getAsset(kMetaArchiveFile);
@@ -60,6 +73,34 @@ class NoteData {
   }
 
   // Document specific
+
+  NoteData createTemplate({
+    String? name,
+    String? description,
+    String? directory,
+    Uint8List? thumbnail,
+  }) {
+    // Copy archive
+    final archive = Archive();
+    for (var file in this.archive.files) {
+      archive.addFile(file);
+    }
+    final template = NoteData(archive);
+    // Change metadata
+    final metadata = getMetadata();
+    final newMetadata = FileMetadata(
+      type: NoteFileType.template,
+      name: name ?? metadata?.name ?? '',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      description: description ?? metadata?.description ?? '',
+      fileVersion: kFileVersion,
+      directory: directory ?? metadata?.directory ?? '',
+    );
+    template.setMetadata(newMetadata);
+    if (thumbnail != null) template.setThumbnail(thumbnail);
+    return NoteData(archive);
+  }
 
   DocumentPage? getPage() {
     final data = getAsset('$kPagesArchiveDirectory/default.json');

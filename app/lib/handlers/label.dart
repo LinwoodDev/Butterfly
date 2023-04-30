@@ -33,10 +33,10 @@ class LabelHandler extends Handler<LabelPainter>
 
   @override
   List<Renderer> createForegrounds(
-          CurrentIndexCubit currentIndexCubit, AppDocument document,
+          CurrentIndexCubit currentIndexCubit, DocumentPage page,
           [Area? currentArea]) =>
       [
-        ...super.createForegrounds(currentIndexCubit, document, currentArea),
+        ...super.createForegrounds(currentIndexCubit, page, currentArea),
         if (_context?.element != null) ...[
           if (_context?.isCreating ?? false)
             TextRenderer(_context!.element!, _context),
@@ -258,7 +258,7 @@ class LabelHandler extends Handler<LabelPainter>
     final old = _context?.element;
     final state = _bloc?.state;
     if (state is! DocumentLoadSuccess) return;
-    final document = state.data;
+    final page = state.page;
 
     var newIndex = value.length;
 
@@ -266,8 +266,8 @@ class LabelHandler extends Handler<LabelPainter>
       final selection = _context!.selection;
       final start = selection.start;
       final length = selection.end - start;
-      final newSpan = _context?.getDefinedForcedSpanProperty(document) !=
-          _context!.getSpanProperty(document);
+      final newSpan = _context?.getDefinedForcedSpanProperty(page) !=
+          _context!.getSpanProperty(page);
       final paragraph = newSpan
           ? old.area.paragraph.replace(
               text.TextSpan.text(

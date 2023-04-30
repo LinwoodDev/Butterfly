@@ -7,7 +7,7 @@ class WaypointHandler extends Handler<WaypointPainter> {
 
   @override
   List<Renderer> createForegrounds(
-          CurrentIndexCubit currentIndexCubit, AppDocument document,
+          CurrentIndexCubit currentIndexCubit, DocumentPage page,
           [Area? currentArea]) =>
       document.waypoints
           .map((e) => WaypointForegroundRenderer(e, radius))
@@ -16,7 +16,7 @@ class WaypointHandler extends Handler<WaypointPainter> {
   @override
   void onTapUp(TapUpDetails details, EventContext context) async {
     final bloc = context.getDocumentBloc();
-    final document = context.getDocument();
+    final document = context.getPage();
     if (document == null) return;
     final transform = context.getCameraTransform();
     final globalPosition =

@@ -16,7 +16,7 @@ class ImportHandler extends Handler<ImportPainter> {
   Future<void> onPointerHover(
       PointerHoverEvent event, EventContext context) async {
     _position = context.getCameraTransform().localToGlobal(event.localPosition);
-    await _load(context.getDocument());
+    await _load(context.getPage());
     context.refresh();
   }
 
@@ -24,15 +24,15 @@ class ImportHandler extends Handler<ImportPainter> {
   Future<void> onPointerDown(
       PointerDownEvent event, EventContext context) async {
     _position = context.getCameraTransform().localToGlobal(event.localPosition);
-    await _load(context.getDocument());
+    await _load(context.getPage());
     context.refresh();
   }
 
-  Future<void> _load(AppDocument? document) async {
-    if (document == null || _renderers != null) return;
+  Future<void> _load(DocumentPage? page) async {
+    if (page == null || _renderers != null) return;
     _renderers = await Future.wait(data.elements.map((e) async {
       final renderer = Renderer.fromInstance(e);
-      await renderer.setup(document);
+      await renderer.setup(page);
       return renderer;
     }).toList());
   }
@@ -59,7 +59,7 @@ class ImportHandler extends Handler<ImportPainter> {
 
   @override
   List<Renderer> createForegrounds(
-          CurrentIndexCubit currentIndexCubit, AppDocument document,
+          CurrentIndexCubit currentIndexCubit, DocumentPage page,
           [Area? currentArea]) =>
       _renderers?.map((e) => e.transform(position: _position) ?? e).toList() ??
       [];

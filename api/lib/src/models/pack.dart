@@ -1,7 +1,5 @@
 import 'element.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'palette.dart';
-import 'text.dart';
 
 part 'pack.g.dart';
 part 'pack.freezed.dart';

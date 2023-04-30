@@ -101,7 +101,7 @@ class LayersDialog extends StatelessWidget {
                                   buildWhen: (previous, current) {
                             var prev = previous as DocumentLoadSuccess;
                             var curr = current as DocumentLoadSuccess;
-                            return curr.data.content != curr.data.content ||
+                            return curr.page.content != curr.page.content ||
                                 curr.invisibleLayers.length !=
                                     prev.invisibleLayers.length ||
                                 curr.currentLayer != prev.currentLayer;
@@ -109,7 +109,7 @@ class LayersDialog extends StatelessWidget {
                             if (state is! DocumentLoadSuccess) {
                               return Container();
                             }
-                            var layers = state.data.content
+                            var layers = state.page.content
                                 .map((e) => e.layer)
                                 .where((element) =>
                                     element.contains(_searchController.text))

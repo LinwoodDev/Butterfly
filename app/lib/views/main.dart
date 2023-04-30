@@ -111,10 +111,7 @@ class _ProjectPageState extends State<ProjectPage> {
     final settingsCubit = context.read<SettingsCubit>();
     final embedding = widget.embedding;
     if (embedding != null) {
-      final document = AppDocument(
-          createdAt: DateTime.now(),
-          painters: DocumentDefaults.createPainters(),
-          name: '');
+      final document = DocumentDefaults.createDocument();
       var language = embedding.language;
       if (language == 'system') {
         language = '';
@@ -146,7 +143,7 @@ class _ProjectPageState extends State<ProjectPage> {
           : settingsCubit.state.getDefaultRemote();
       final fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
       final prefs = await SharedPreferences.getInstance();
-      AppDocument? document;
+      NoteData? document;
       if (widget.location != null) {
         if (!widget.location!.absolute) {
           final asset = await fileSystem.getAsset(widget.location!.path);
@@ -161,8 +158,8 @@ class _ProjectPageState extends State<ProjectPage> {
       if (!documentOpened) {
         location = null;
       }
-      if (widget.type.isEmpty && widget.data is AppDocument) {
-        document = (widget.data as AppDocument).copyWith(name: name);
+      if (widget.type.isEmpty && widget.data is NoteData) {
+        document = (widget.data as NoteData);
       }
       if (document == null && prefs.containsKey('default_template')) {
         var template = await TemplateFileSystem.fromPlatform(remote: _remote)
@@ -177,10 +174,8 @@ class _ProjectPageState extends State<ProjectPage> {
       if (!mounted) {
         return;
       }
-      document ??= AppDocument(
+      document ??= DocumentDefaults.createDocument(
         name: name,
-        createdAt: DateTime.now(),
-        painters: DocumentDefaults.createPainters(),
       );
       final renderers =
           document.content.map((e) => Renderer.fromInstance(e)).toList();

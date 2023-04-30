@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly_api/butterfly_api.dart';
 
 import 'action.dart';
 
@@ -16,25 +15,22 @@ class EmbedHandler {
     getDataListener ??= onEmbedMessage('getData', (message) async {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
-        sendEmbedMessage('getData',
-            json.encode(const DocumentJsonConverter().toJson(state.data)));
+        sendEmbedMessage('getData', state.saveData().save());
       }
     });
+    // TODO: Reimplement setData
     setDataListener ??= onEmbedMessage('setData', (message) async {
-      final state = bloc.state;
+      /*final state = bloc.state;
       if (state is DocumentLoadSuccess) {
-        Map<String, dynamic> map;
-        if (message is Map) {
-          map = Map<String, dynamic>.from(message);
-        } else if (message is String) {
-          map = json.decode(message);
+        Uint8List data;
+        if (message is List<int>) {
+          data = Uint8List.fromList(message);
         } else {
           throw Exception('Invalid message type');
         }
-        final document = const DocumentJsonConverter().fromJson(map);
-        bloc.add(FileMetaUpdated(document));
+        final document = NoteData.fromData(data);
         await bloc.load();
-      }
+      }*/
     });
     renderListener ??= onEmbedMessage('render', (message) async {
       final state = bloc.state;
@@ -59,7 +55,7 @@ class EmbedHandler {
           renderBackground = map['renderBackground'] ?? true;
         }
         final data = await state.currentIndexCubit.render(
-          state.data,
+          state.page,
           width: width,
           height: height,
           x: x,
@@ -95,7 +91,7 @@ class EmbedHandler {
           'renderSVG',
           state.currentIndexCubit
               .renderSVG(
-                state.data,
+                state.page,
                 width: width,
                 height: height,
                 x: x,

@@ -91,7 +91,7 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
                               buildWhen: (previous, current) {
                         var prev = previous as DocumentLoadSuccess;
                         var curr = current as DocumentLoadSuccess;
-                        return curr.data.content != curr.data.content ||
+                        return curr.page.content != curr.page.content ||
                             curr.invisibleLayers.length !=
                                 prev.invisibleLayers.length ||
                             curr.currentLayer != prev.currentLayer;
@@ -100,7 +100,7 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
                           return Container();
                         }
                         var layers = {
-                          ...state.data.content.map((e) => e.layer),
+                          ...state.page.content.map((e) => e.layer),
                           state.currentLayer,
                         }
                             .where((element) =>

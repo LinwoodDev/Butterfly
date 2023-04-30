@@ -106,7 +106,7 @@ class _AppBarTitle extends StatelessWidget {
                           ? state.currentAreaName
                           : null;
                       _nameController.text =
-                          state is DocumentLoaded ? state.data.name : '';
+                          state is DocumentLoaded ? state.metadata.name : '';
                       _areaController.text = area?.name ?? '';
                       void submit(String? value) {
                         if (value == null) return;
@@ -370,10 +370,7 @@ class _MainPopupMenu extends StatelessWidget {
               leadingIcon: const PhosphorIcon(PhosphorIconsLight.door),
               child: Text(AppLocalizations.of(context).exit),
               onPressed: () {
-                sendEmbedMessage(
-                    'exit',
-                    json.encode(
-                        const DocumentJsonConverter().toJson(state.data)));
+                sendEmbedMessage('exit', state.saveData().save());
               },
             ),
           ],

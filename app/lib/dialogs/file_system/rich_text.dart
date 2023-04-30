@@ -8,18 +8,17 @@ class FileSystemFileRichText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final info = file.getDocumentInfo();
-    if (info == null) {
+    final metadata = file.load().getMetadata();
+    if (metadata == null) {
       return Container();
     }
     return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (info.createdAt != null)
-            Text(AppLocalizations.of(context).createdAt(info.createdAt!)),
-          if (info.updatedAt != null)
-            Text(AppLocalizations.of(context).updatedAt(info.updatedAt!)),
+          Text(AppLocalizations.of(context).createdAt(metadata.createdAt)),
+          if (metadata.updatedAt != null)
+            Text(AppLocalizations.of(context).updatedAt(metadata.updatedAt!)),
         ]);
   }
 }

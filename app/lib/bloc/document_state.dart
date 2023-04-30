@@ -135,7 +135,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
                   false)));
 
   Future<AssetLocation> save() {
-    final newMeta = metadata.copyWith(updatedAt: DateTime.now());
+    final newMeta = metadata.copyWith(updatedAt: DateTime.now().toUtc());
     data.setMetadata(newMeta);
     final storage = getRemoteStorage();
     if (embedding != null) return Future.value(AssetLocation.local(''));
@@ -173,13 +173,15 @@ class DocumentPresentationState extends DocumentLoaded {
   final bool fullScreen;
 
   DocumentPresentationState(
-      DocumentBloc bloc, super.data, this.oldState, this.track, this.fullScreen,
+      DocumentBloc bloc, this.oldState, this.track, this.fullScreen,
       {this.frame = 0, super.metadata, super.page})
-      : handler = PresentationStateHandler(track, bloc);
+      : handler = PresentationStateHandler(track, bloc),
+        super(oldState.data);
 
   DocumentPresentationState.withHandler(
-      this.handler, super.data, this.oldState, this.track, this.fullScreen,
-      {this.frame = 0, super.metadata, super.page});
+      this.handler, this.oldState, this.track, this.fullScreen,
+      {this.frame = 0, super.metadata, super.page})
+      : super(oldState.data);
 
   @override
   List<Object?> get props => [oldState, frame, track];
@@ -192,7 +194,6 @@ class DocumentPresentationState extends DocumentLoaded {
   }) =>
       DocumentPresentationState.withHandler(
         handler,
-        data,
         oldState,
         track,
         fullScreen,

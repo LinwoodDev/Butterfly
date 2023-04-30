@@ -5,9 +5,7 @@ import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/file_system_remote.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/dialogs/export.dart';
 import 'package:butterfly/dialogs/name.dart';
-import 'package:butterfly/helpers/element_helper.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/visualizer/asset.dart';
@@ -27,7 +25,6 @@ import 'package:popover/popover.dart';
 import '../api/open_release_notes.dart';
 import '../dialogs/file_system/move.dart';
 import '../dialogs/file_system/sync.dart';
-import '../dialogs/import.dart';
 
 PhosphorIconData _getIconOfBannerVisibility(BannerVisibility visibility) {
   switch (visibility) {
@@ -583,7 +580,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                     }
                     final templates = await templateFileSystem.getTemplates();
                     if (context.mounted) {
-                      final asset = await showDialog<DocumentTemplate>(
+                      final asset = await showDialog<NoteData>(
                           context: context,
                           builder: (context) => AlertDialog(
                                 title: Text(
@@ -593,7 +590,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: templates
                                       .map((e) => ListTile(
-                                            title: Text(e.name),
+                                            title: Text(e.name!),
                                             onTap: () =>
                                                 Navigator.of(context).pop(e),
                                           ))
@@ -851,22 +848,22 @@ class _FileEntityListTile extends StatelessWidget {
     final remote = settingsCubit.getRemote(entity.location.remote);
     final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
     final syncService = context.read<SyncService>();
-    DocumentInfo? info;
+    FileMetadata? metadata;
     String? modifiedText, createdText;
     PhosphorIconData icon = PhosphorIconsLight.folder;
     try {
       if (entity is AppDocumentFile) {
         final file = entity as AppDocumentFile;
         icon = file.fileType.getIcon();
-        info = file.getDocumentInfo();
+        metadata = file.load().getMetadata();
         final locale = Localizations.localeOf(context).languageCode;
         final dateFormatter = DateFormat.yMd(locale);
         final timeFormatter = DateFormat.Hm(locale);
-        modifiedText = info?.updatedAt != null
-            ? '${dateFormatter.format(info!.updatedAt!)} ${timeFormatter.format(info.updatedAt!)}'
+        modifiedText = metadata?.updatedAt != null
+            ? '${dateFormatter.format(metadata!.updatedAt!)} ${timeFormatter.format(metadata.updatedAt!)}'
             : null;
-        createdText = info?.createdAt != null
-            ? '${dateFormatter.format(info!.createdAt!)} ${timeFormatter.format(info.createdAt!)}'
+        createdText = metadata?.createdAt != null
+            ? '${dateFormatter.format(metadata!.createdAt)} ${timeFormatter.format(metadata.createdAt)}'
             : null;
       }
     } catch (_) {}
@@ -1278,7 +1275,7 @@ class _QuickstartHomeView extends StatefulWidget {
 
 class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
   late final TemplateFileSystem _templateFileSystem;
-  late Future<List<DocumentTemplate>> _templatesFuture;
+  late Future<List<NoteData>> _templatesFuture;
 
   @override
   void initState() {
@@ -1304,7 +1301,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
     }
   }
 
-  Future<List<DocumentTemplate>> _fetchTemplates() => _templateFileSystem
+  Future<List<NoteData>> _fetchTemplates() => _templateFileSystem
       .createDefault(context)
       .then((value) => _templateFileSystem.getTemplates());
 

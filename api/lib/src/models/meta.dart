@@ -11,12 +11,13 @@ const kBreakingChangesVersion = 7;
 @freezed
 class FileMetadata with _$FileMetadata {
   const factory FileMetadata({
-    required int version,
+    required int fileVersion,
     required NoteFileType type,
     @DateTimeJsonConverter() required DateTime createdAt,
     @DateTimeJsonConverter() DateTime? updatedAt,
     @Default('') String name,
     @Default('') String description,
+    @Default('') String author,
     @Default('') String directory,
   }) = _FileMetadata;
 

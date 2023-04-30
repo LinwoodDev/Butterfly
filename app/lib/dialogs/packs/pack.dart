@@ -1,4 +1,4 @@
-import 'package:archive/archive.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,14 +24,16 @@ class _PackDialogState extends State<PackDialog> {
   @override
   void initState() {
     super.initState();
-    NoteData pack;
-    if (widget.pack == null) {
-      pack = NoteData(Archive());
-      pack.setMetadata(FileMetadata(version: kVersion, type: type, createdAt: createdAt))
-    } else {
-      pack = widget.pack!.copyWith();
-    }
+    NoteData pack = widget.pack ?? DocumentDefaults.createPack();
     this.pack = pack;
+  }
+
+  void _onChanged(NoteData pack) {
+    setState(() {
+      pack.setMetadata(pack.getMetadata()!.copyWith(
+            updatedAt: DateTime.now().toUtc(),
+          ));
+    });
   }
 
   @override

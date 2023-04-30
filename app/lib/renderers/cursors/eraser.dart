@@ -10,7 +10,7 @@ class EraserCursor extends Renderer<PainterCursorData<EraserPainter>> {
 
   @override
   void build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+      Canvas canvas, Size size, DocumentPage page, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final radius = element.painter.strokeWidth / 2;
     final position = transform.localToGlobal(element.position);

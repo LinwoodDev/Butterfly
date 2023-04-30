@@ -44,7 +44,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       final bloc = context.read<DocumentBloc>();
       ColorPalette? palette;
-      ButterflyPack? pack;
+      NoteData? pack;
 
       if (state is! DocumentLoadSuccess) return Container();
       if (currentPalette != null) {

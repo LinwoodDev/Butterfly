@@ -41,11 +41,12 @@ class AssetDialog extends StatelessWidget {
                   child: DropdownMenu<String>(
                     label: Text(AppLocalizations.of(context).pack),
                     key: UniqueKey(),
-                    dropdownMenuEntries: document.packs
+                    dropdownMenuEntries: document
+                        .getPacks()
                         .map(
                           (e) => DropdownMenuEntry<String>(
-                            value: e.name,
-                            label: e.name,
+                            value: e,
+                            label: e,
                           ),
                         )
                         .toList(),
@@ -59,7 +60,7 @@ class AssetDialog extends StatelessWidget {
                 IconButton(
                   icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
                   onPressed: () async {
-                    final pack = await showDialog<ButterflyPack>(
+                    final pack = await showDialog<NoteData>(
                       context: context,
                       builder: (context) => const PackDialog(),
                     );

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PackImportConfirmationDialog extends StatelessWidget {
-  final ButterflyPack pack;
+  final FileMetadata pack;
 
   const PackImportConfirmationDialog({super.key, required this.pack});
 
@@ -35,7 +35,7 @@ class PackImportConfirmationDialog extends StatelessWidget {
 }
 
 class TemplateImportConfirmationDialog extends StatelessWidget {
-  final DocumentTemplate template;
+  final FileMetadata template;
 
   const TemplateImportConfirmationDialog({super.key, required this.template});
 

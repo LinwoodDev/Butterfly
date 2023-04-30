@@ -55,7 +55,7 @@ class NewAction extends Action<NewIntent> {
       final metadata = template.getMetadata();
       if (metadata != null) {
         template.setMetadata(metadata.copyWith(
-          createdAt: DateTime.now(),
+          createdAt: DateTime.now().toUtc(),
         ));
         path = metadata.directory;
       }
@@ -66,7 +66,7 @@ class NewAction extends Action<NewIntent> {
         final metadata = template.getMetadata();
         if (metadata != null) {
           template.setMetadata(metadata.copyWith(
-            createdAt: DateTime.now(),
+            createdAt: DateTime.now().toUtc(),
           ));
           path = metadata.directory;
         }

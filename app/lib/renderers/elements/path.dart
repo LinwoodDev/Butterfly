@@ -8,10 +8,10 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
 
   double? get zoom => null;
 
-  Paint buildPaint([AppDocument? document, bool foreground = false]);
+  Paint buildPaint([DocumentPage? page, bool foreground = false]);
 
   @override
-  FutureOr<void> setup(AppDocument document) {
+  FutureOr<void> setup(NoteData document) {
     final current = element as PathElement;
     final points = current.points;
     final property = current.property;
@@ -26,12 +26,12 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     }
     rect = Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
         bottomRightCorner.dx, bottomRightCorner.dy);
-    super.setup(document);
+    super.setup(page);
   }
 
   @override
   void build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+      Canvas canvas, Size size, DocumentPage page, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final current = element as PathElement;
     final points = current.points;

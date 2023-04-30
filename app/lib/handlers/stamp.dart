@@ -10,7 +10,7 @@ class StampHandler extends Handler<StampPainter> {
   @override
   @override
   List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      CurrentIndexCubit currentIndexCubit, DocumentPage page,
       [Area? currentArea]) {
     final currentPos = currentIndexCubit.state.cameraViewport.toOffset();
     return _elements
@@ -21,16 +21,16 @@ class StampHandler extends Handler<StampPainter> {
         .toList();
   }
 
-  ButterflyComponent? getComponent(AppDocument document) =>
-      document.getComponent(data.component);
+  ButterflyComponent? getComponent(NoteData document) =>
+      document.getPack(data.component.pack)?.getComponent(data.component.name);
 
-  Future<void> _loadComponent(AppDocument document) async {
+  Future<void> _loadComponent(NoteData document, DocumentPage page) async {
     _position = Offset.zero;
     _component = getComponent(document);
     if (_component == null) return;
     _elements = await Future.wait(_component!.elements.map((e) async {
       final element = Renderer.fromInstance(e);
-      element.setup(document);
+      element.setup(page);
       return element;
     })).then((value) => value.toList());
     Rect? rect;
@@ -50,7 +50,7 @@ class StampHandler extends Handler<StampPainter> {
 
   void _moveComponent(EventContext context, Offset offset) {
     final transform = context.getCameraTransform();
-    final document = context.getDocument();
+    final document = context.getPage();
     final global = transform.localToGlobal(offset);
     final grid = document == null
         ? global
@@ -58,7 +58,7 @@ class StampHandler extends Handler<StampPainter> {
     final local = transform.globalToLocal(grid);
     final state = context.getState();
     if (state == null) return;
-    _loadComponent(state.data);
+    _loadComponent(state.data, state.page);
     _position = local;
     context.refresh();
   }

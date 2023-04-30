@@ -7,7 +7,7 @@ class ImageRenderer extends Renderer<ImageElement> {
 
   @override
   void build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+      Canvas canvas, Size size, DocumentPage page, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     if (image == null) {
       // Render placeholder
@@ -28,7 +28,7 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
+  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     // Create data url
     final data = element.source;
@@ -43,10 +43,10 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  FutureOr<void> setup(AppDocument document) async {
+  FutureOr<void> setup(NoteData document) async {
     image =
         await decodeImageFromList(Uint8List.fromList(await element.getData()));
-    super.setup(document);
+    super.setup(page);
   }
 
   @override

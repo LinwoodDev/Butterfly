@@ -9,7 +9,6 @@ import '../models/meta.dart';
 import '../models/pack.dart';
 import '../models/page.dart';
 import '../models/palette.dart';
-import '../models/archive.dart';
 
 Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
   data = {

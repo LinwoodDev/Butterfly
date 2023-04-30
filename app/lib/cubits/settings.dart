@@ -528,7 +528,7 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     emit(state.copyWith(
         remotes: List<RemoteStorage>.from(state.remotes).map((e) {
       if (e.identifier == identifier) {
-        return e.copyWith(lastSynced: DateTime.now());
+        return e.copyWith(lastSynced: DateTime.now().toUtc());
       }
       return e;
     }).toList()));

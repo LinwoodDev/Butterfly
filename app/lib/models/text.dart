@@ -42,7 +42,7 @@ class TextContext with _$TextContext {
         const ParagraphProperty.undefined();
   }
 
-  DefinedParagraphProperty? getDefinedProperty(AppDocument document) {
+  DefinedParagraphProperty? getDefinedProperty(NoteData document) {
     final property = getProperty();
     if (property is DefinedParagraphProperty) {
       return property;
@@ -53,7 +53,7 @@ class TextContext with _$TextContext {
     return document.getStyle(styleSheet!)?.resolveParagraphProperty(property);
   }
 
-  SpanProperty? getSpanProperty(AppDocument document) {
+  SpanProperty? getSpanProperty(NoteData document) {
     final index = selection.start;
     return paragraph?.getSpan(index)?.property.mapOrNull(
               undefined: (_) => null,
@@ -63,7 +63,7 @@ class TextContext with _$TextContext {
         getDefinedProperty(document)?.span;
   }
 
-  DefinedSpanProperty getDefinedSpanProperty(AppDocument document) {
+  DefinedSpanProperty getDefinedSpanProperty(NoteData document) {
     return getSpanProperty(document)?.map(
           defined: (p) => p,
           undefined: (_) => null,
@@ -72,7 +72,7 @@ class TextContext with _$TextContext {
         const DefinedSpanProperty();
   }
 
-  DefinedParagraphProperty getDefinedForcedProperty(AppDocument document) {
+  DefinedParagraphProperty getDefinedForcedProperty(NoteData document) {
     return forcedProperty?.map(
           defined: (p) => p,
           undefined: (_) => null,
@@ -82,7 +82,7 @@ class TextContext with _$TextContext {
         const DefinedParagraphProperty();
   }
 
-  DefinedSpanProperty getDefinedForcedSpanProperty(AppDocument document,
+  DefinedSpanProperty getDefinedForcedSpanProperty(DocumentPage page,
       [bool fallback = true]) {
     return forcedSpanProperty?.map(
           defined: (p) => p,
@@ -97,14 +97,14 @@ class TextContext with _$TextContext {
   bool paragraphModified() =>
       getProperty().maybeMap(orElse: () => true, named: (p) => false);
 
-  bool spanModified(AppDocument document) =>
+  bool spanModified(NoteData document) =>
       getSpanProperty(document)?.maybeMap(
         orElse: () => true,
         named: (p) => false,
       ) ??
       true;
 
-  bool modified(AppDocument document) =>
+  bool modified(NoteData document) =>
       isParagraph() ? paragraphModified() : spanModified(document);
 
   Rect? getRect() {

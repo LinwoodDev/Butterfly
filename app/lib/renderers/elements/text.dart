@@ -21,7 +21,7 @@ class TextRenderer extends Renderer<TextElement> {
     }
   }
 
-  void _createPainter(AppDocument document) {
+  void _createPainter(NoteData document) {
     final paragraph = element.area.paragraph;
     final styleSheet = document.getStyle(element.styleSheet);
     final style = styleSheet.resolveParagraphProperty(paragraph.property) ??
@@ -34,7 +34,7 @@ class TextRenderer extends Renderer<TextElement> {
   }
 
   TextSpan _createParagraphSpan(
-      AppDocument document, text.TextParagraph paragraph) {
+      DocumentPage page, text.TextParagraph paragraph) {
     final styleSheet = document.getStyle(element.styleSheet);
     final style = styleSheet.resolveParagraphProperty(paragraph.property) ??
         const text.DefinedParagraphProperty();
@@ -47,10 +47,10 @@ class TextRenderer extends Renderer<TextElement> {
     );
   }
 
-  text.TextStyleSheet? _getStyle(AppDocument document) =>
+  text.TextStyleSheet? _getStyle(NoteData document) =>
       document.getStyle(element.styleSheet);
 
-  InlineSpan _createSpan(AppDocument document, text.TextSpan span,
+  InlineSpan _createSpan(DocumentPage page, text.TextSpan span,
       [text.DefinedParagraphProperty? parent]) {
     final styleSheet = _getStyle(document);
     final style = styleSheet.resolveSpanProperty(span.property);
@@ -98,15 +98,15 @@ class TextRenderer extends Renderer<TextElement> {
   }
 
   @override
-  FutureOr<void> setup(AppDocument document) async {
+  FutureOr<void> setup(NoteData document) async {
     _createPainter(document);
     _updateRect(document);
-    await super.setup(document);
+    await super.setup(page);
     _updateRect(document);
   }
 
   @override
-  FutureOr<bool> onAreaUpdate(AppDocument document, Area? area) async {
+  FutureOr<bool> onAreaUpdate(DocumentPage page, Area? area) async {
     if (context != null) {
       await super.onAreaUpdate(document, area);
     }
@@ -114,7 +114,7 @@ class TextRenderer extends Renderer<TextElement> {
     return true;
   }
 
-  void _updateRect(AppDocument document) {
+  void _updateRect(NoteData document) {
     _tp?.layout(maxWidth: element.getMaxWidth(area));
     rect = Rect.fromLTWH(element.position.x, element.position.y,
         _tp?.width ?? 0, element.getHeight(_tp?.height ?? 0));
@@ -122,14 +122,14 @@ class TextRenderer extends Renderer<TextElement> {
 
   @override
   FutureOr<void> build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+      Canvas canvas, Size size, DocumentPage page, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     _tp?.layout(maxWidth: rect.width);
     _tp?.paint(canvas, element.getOffset(rect.height).toOffset());
   }
 
   @override
-  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
+  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     // TODO: implement buildSvg
   }

@@ -74,7 +74,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                     final area = await showDialog<String>(
                       context: context,
                       builder: (context) => _AreaSelectionDialog(
-                          areas: state.data.areas
+                          areas: state.page.areas
                               .map((element) => element.name)
                               .toList()),
                     );
@@ -101,12 +101,12 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: areas.mapIndexed((i, e) {
                           final area =
-                              e.area ?? state.data.getAreaByName(e.name);
+                              e.area ?? state.page.getAreaByName(e.name);
                           if (area == null) {
                             return Container();
                           }
                           return FutureBuilder<ByteData?>(
-                            future: currentIndex.render(state.data,
+                            future: currentIndex.render(state.page,
                                 width: area.width,
                                 height: area.height,
                                 quality: e.quality,
@@ -146,7 +146,7 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                           final localization = AppLocalizations.of(context);
                           Navigator.of(context).pop();
                           final document = await currentIndex
-                              .renderPDF(state.data, areas: areas);
+                              .renderPDF(state.page, areas: areas);
                           final data = await document.save();
                           if (!kIsWeb &&
                               (Platform.isWindows ||
@@ -316,7 +316,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                     context: context,
                     builder: (context) => NameDialog(
                       validator: defaultNameValidator(context,
-                          state.data.exportPresets.map((e) => e.name).toList()),
+                          state.page.exportPresets.map((e) => e.name).toList()),
                     ),
                   );
                   if (name == null) return;
@@ -345,7 +345,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                 builder: (context, state) {
               if (state is! DocumentLoadSuccess) return Container();
               return Column(mainAxisSize: MainAxisSize.min, children: [
-                ...state.data.exportPresets
+                ...state.page.exportPresets
                     .where((element) => element.name.contains(_searchQuery))
                     .map((e) {
                   return Dismissible(

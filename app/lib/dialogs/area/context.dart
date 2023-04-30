@@ -46,7 +46,7 @@ class AreaContextMenu extends StatelessWidget {
                           value: area.name,
                           validator: defaultNameValidator(
                             context,
-                            state.data.getAreaNames().toList(),
+                            state.page.getAreaNames().toList(),
                           ),
                         ));
                 if (name == null) return;
@@ -189,18 +189,11 @@ class AreaContextMenu extends StatelessWidget {
                 if (result == null) return;
                 final pack = document.getPack(result.pack);
                 if (pack == null) return;
-                final newPack = pack.copyWith(
-                  components: pack.components
-                      .where((e) => e.name != result.name)
-                      .toList()
-                    ..add(
-                      ButterflyComponent(
-                        name: result.name,
-                        elements: elements,
-                      ),
-                    ),
-                );
-                bloc.add(DocumentPackUpdated(result.pack, newPack));
+                pack.setComponent(ButterflyComponent(
+                  name: result.name,
+                  elements: elements,
+                ));
+                bloc.add(DocumentPackUpdated(result.pack, pack));
               },
             )
           ],
