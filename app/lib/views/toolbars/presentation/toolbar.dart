@@ -83,7 +83,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
   void _resetSelection() {
     final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return;
-    _setAnimation(state.data.animations.firstOrNull?.name);
+    _setAnimation(state.page.animations.firstOrNull?.name);
   }
 
   @override
@@ -101,7 +101,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     if (state is! DocumentLoadSuccess) return const SizedBox();
     final colorScheme = Theme.of(context).colorScheme;
     final animation =
-        _selected == null ? null : state.data.getAnimation(_selected!);
+        _selected == null ? null : state.page.getAnimation(_selected!);
     AnimationKey? key;
     if (animation != null) {
       _durationController.text = animation.duration.toString();
@@ -152,7 +152,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           key: UniqueKey(),
                           inputDecorationTheme:
                               const InputDecorationTheme(filled: true),
-                          dropdownMenuEntries: state.data.animations
+                          dropdownMenuEntries: state.page.animations
                               .map((e) => DropdownMenuEntry(
                                     value: e.name,
                                     label: e.name,
@@ -186,7 +186,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   builder: (context) => NameDialog(
                                     validator: defaultNameValidator(
                                         context,
-                                        state.data.animations
+                                        state.page.animations
                                             .map((e) => e.name)
                                             .toList()),
                                   ),
@@ -213,7 +213,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                         builder: (context) => NameDialog(
                                           validator: defaultNameValidator(
                                               context,
-                                              state.data.animations
+                                              state.page.animations
                                                   .map((e) => e.name)
                                                   .toList()),
                                         ),
@@ -242,7 +242,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                           value: animation.name,
                                           validator: defaultNameValidator(
                                               context,
-                                              state.data.animations
+                                              state.page.animations
                                                   .map((e) => e.name)
                                                   .toList()),
                                         ),

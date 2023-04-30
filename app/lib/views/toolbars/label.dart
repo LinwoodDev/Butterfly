@@ -51,7 +51,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     final span = widget.value.getDefinedForcedSpanProperty(document);
     final styleSheet =
         widget.value.element?.styleSheet ?? widget.value.painter.styleSheet;
-    final style = document.getStyle(styleSheet);
+    final style = styleSheet.resolveStyle(document);
     _sizeController.text = span.getSize(paragraph).toString();
     var paragraphSelection = paragraph.mapOrNull(named: (value) => value.name);
     final paragraphSelections = [

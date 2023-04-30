@@ -95,7 +95,7 @@ abstract class GeneralPresentationHandler {
     if (position == null && zoom == null) return;
     if (position != null) transformCubit.setPosition(position.toOffset());
     if (zoom != null) transformCubit.size(zoom);
-    cubit.bake(state.page);
+    cubit.bake(state.data, state.page);
   }
 
   void _applyAnimationFromBloc(DocumentBloc bloc) {

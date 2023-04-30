@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:butterfly_api/src/models/archive.dart';
 import 'package:butterfly_api/src/models/data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../converter/core.dart';
 
 part 'asset.freezed.dart';
 part 'asset.g.dart';

@@ -6,7 +6,7 @@ class ImageRenderer extends Renderer<ImageElement> {
   ImageRenderer(super.element, [this.image]);
 
   @override
-  void build(Canvas canvas, Size size, NoteData data, DocumentPage page,
+  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     if (image == null) {

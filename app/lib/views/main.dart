@@ -127,6 +127,7 @@ class _ProjectPageState extends State<ProjectPage> {
           _currentIndexCubit!,
           settingsCubit,
           document,
+          document.getPage()!,
           widget.location ?? const AssetLocation(path: ''),
           BoxBackgroundRenderer(const BoxBackground()),
           [],
@@ -165,7 +166,7 @@ class _ProjectPageState extends State<ProjectPage> {
         var template = await TemplateFileSystem.fromPlatform(remote: _remote)
             .getTemplate(prefs.getString('default_template')!);
         if (template != null && mounted) {
-          document = template.document.copyWith(
+          document = template.createDocument(
             name: name,
             createdAt: DateTime.now(),
           );
@@ -177,11 +178,13 @@ class _ProjectPageState extends State<ProjectPage> {
       document ??= DocumentDefaults.createDocument(
         name: name,
       );
+      final page = document.getPage() ?? const DocumentPage();
       final renderers =
-          document.content.map((e) => Renderer.fromInstance(e)).toList();
-      await Future.wait(renderers.map((e) async => await e.setup(document!)));
-      final background = Renderer.fromInstance(document.background);
-      await background.setup(document);
+          page.content.map((e) => Renderer.fromInstance(e)).toList();
+      await Future.wait(
+          renderers.map((e) async => await e.setup(document!, page)));
+      final background = Renderer.fromInstance(page.background);
+      await background.setup(document, page);
       location ??= AssetLocation(
           path: widget.location?.path ?? '', remote: _remote?.identifier ?? '');
       setState(() {
@@ -189,7 +192,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _currentIndexCubit =
             CurrentIndexCubit(settingsCubit, _transformCubit!, null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
-            location!, background, renderers);
+            page, location!, background, renderers);
         _bloc?.load();
       });
     } catch (e) {

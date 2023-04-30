@@ -49,8 +49,6 @@ class AddDialog extends StatelessWidget {
       );
     }
 
-    final isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
-
     return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -172,19 +170,9 @@ class AddDialog extends StatelessWidget {
                       ),
                       icon: const PhosphorIcon(PhosphorIconsLight.fileText),
                       onTap: () async {
-                        final files = await FilePicker.platform.pickFiles(
-                            type: isMobile ? FileType.any : FileType.custom,
-                            allowedExtensions:
-                                isMobile ? null : ['bfly', 'json'],
-                            allowMultiple: false,
-                            withData: true);
-                        if (files?.files.isEmpty ?? true) return;
-                        var e = files!.files.first;
-                        var content = e.bytes ?? Uint8List(0);
-                        if (!kIsWeb) {
-                          content = await File(e.path ?? '').readAsBytes();
-                        }
-                        importAsset(AssetFileType.note, content);
+                        final data = await openBfly();
+                        if (data == null) return;
+                        importAsset(AssetFileType.note, data);
                       }),
                 ],
               ),

@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:butterfly/api/save_data_stub.dart'
     if (dart.library.io) 'package:butterfly/api/save_data_io.dart'

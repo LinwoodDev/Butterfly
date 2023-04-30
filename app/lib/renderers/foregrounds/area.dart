@@ -8,7 +8,7 @@ class AreaForegroundRenderer extends Renderer<Area> {
   AreaForegroundRenderer(super.element);
 
   @override
-  void build(Canvas canvas, Size size, NoteData data, DocumentPage? page,
+  void build(Canvas canvas, Size size, NoteData document, DocumentPage? page,
       CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     var paint = Paint()

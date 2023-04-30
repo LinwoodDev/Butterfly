@@ -93,7 +93,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
       width.abs().toDouble(),
       height.abs().toDouble(),
     );
-    var painter = ViewPainter(current.page,
+    var painter = ViewPainter(current.data, current.page,
         renderBackground: _renderBackground,
         cameraViewport:
             current.cameraViewport.unbake(unbakedElements: current.renderers),

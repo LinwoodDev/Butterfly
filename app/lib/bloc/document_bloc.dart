@@ -25,11 +25,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     CurrentIndexCubit currentIndexCubit,
     SettingsCubit settingsCubit,
     NoteData initial,
+    DocumentPage page,
     AssetLocation location,
     Renderer<Background> background,
     List<Renderer<PadElement>> renderer,
   ) : super(DocumentLoadSuccess(
           initial,
+          page: page,
           currentIndexCubit: currentIndexCubit,
           location: location,
           settingsCubit: settingsCubit,
@@ -472,7 +474,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       final data = current.saveData();
-      final render = await current.currentIndexCubit.render(current.page,
+      final render = await current.currentIndexCubit.render(
+          current.data, current.page,
           width: kThumbnailWidth.toDouble(),
           height: kThumbnailHeight.toDouble());
       final thumbnail = render?.buffer.asUint8List();

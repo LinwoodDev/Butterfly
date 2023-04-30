@@ -102,6 +102,27 @@ class NoteData {
     return NoteData(archive);
   }
 
+  NoteData? createDocument(
+      {required String name, required DateTime createdAt}) {
+    final archive = Archive();
+    for (var file in this.archive.files) {
+      archive.addFile(file);
+    }
+    final document = NoteData(archive);
+    final metadata = getMetadata();
+    final newMetadata = FileMetadata(
+      type: NoteFileType.document,
+      name: name,
+      createdAt: createdAt,
+      updatedAt: createdAt,
+      description: metadata?.description ?? '',
+      fileVersion: kFileVersion,
+      directory: metadata?.directory ?? '',
+    );
+    document.setMetadata(newMetadata);
+    return document;
+  }
+
   DocumentPage? getPage() {
     final data = getAsset('$kPagesArchiveDirectory/default.json');
     if (data == null) {

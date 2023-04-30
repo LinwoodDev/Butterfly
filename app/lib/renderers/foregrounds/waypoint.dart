@@ -11,7 +11,7 @@ class WaypointForegroundRenderer extends Renderer<Waypoint> {
   WaypointForegroundRenderer(super.element, [this.size = 20]);
 
   @override
-  void build(Canvas canvas, Size size, NoteData data, DocumentPage page,
+  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     // Test if the element is in the viewport

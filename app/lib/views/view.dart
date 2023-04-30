@@ -325,6 +325,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   [
                                     ...cubit.foregrounds,
                                   ],
+                                  state.data,
                                   state.page,
                                   Theme.of(context).colorScheme,
                                   transform,
@@ -332,6 +333,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   currentIndex.cameraViewport.tool,
                                 ),
                                 painter: ViewPainter(
+                                  state.data,
                                   state.page,
                                   cameraViewport: currentIndex.cameraViewport,
                                   transform: transform,

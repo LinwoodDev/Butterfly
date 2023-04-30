@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:butterfly/api/save_data.dart';
 import 'package:butterfly/bloc/document_bloc.dart';

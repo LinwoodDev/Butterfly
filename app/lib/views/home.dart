@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/api/file_system.dart';
@@ -23,6 +22,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:popover/popover.dart';
 
 import '../api/open_release_notes.dart';
+import '../api/save_data.dart';
 import '../dialogs/file_system/move.dart';
 import '../dialogs/file_system/sync.dart';
 
@@ -611,7 +611,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                       if (!newPath.endsWith('.bfly')) {
                         newPath += '.bfly';
                       }
-                      await _fileSystem.updateDocument(newPath, asset.document);
+                      await _fileSystem.updateDocument(newPath, asset);
                       _reloadFileSystem();
                     }
                   },
@@ -624,19 +624,11 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                   onPressed: () async {
                     final router = GoRouter.of(context);
                     final importService = context.read<ImportService>();
-                    final result = await showDialog<String>(
-                        builder: (context) => const ImportDialog(),
-                        context: context);
+                    final result = await openBfly();
                     if (result == null) return;
-                    final model = await importService.importBfly(
-                      Uint8List.fromList(result.codeUnits),
-                    );
-                    await model?.maybeMap(
-                      document: (value) => router.push(
-                          '/native?name=document.bfly&type=note',
-                          extra: value),
-                      orElse: () {},
-                    );
+                    final model = await importService.importBfly(result);
+                    router.push('/native?name=document.bfly&type=note',
+                        extra: model);
                     _reloadFileSystem();
                   },
                   child: Column(
@@ -794,8 +786,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
     }
     final aFile = a as AppDocumentFile;
     final bFile = b as AppDocumentFile;
-    final aInfo = aFile.getDocumentInfo();
-    final bInfo = bFile.getDocumentInfo();
+    final aInfo = aFile.load().getMetadata();
+    final bInfo = bFile.load().getMetadata();
     if (aInfo == null) {
       return 1;
     }
@@ -808,12 +800,6 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
       case _SortBy.created:
         final aCreatedAt = aInfo.createdAt;
         final bCreatedAt = bInfo.createdAt;
-        if (aCreatedAt == null) {
-          return 1;
-        }
-        if (bCreatedAt == null) {
-          return -1;
-        }
         return aCreatedAt.compareTo(bCreatedAt);
       case _SortBy.modified:
         final aModifiedAt = aInfo.updatedAt;
@@ -1155,11 +1141,8 @@ class _FileEntityListTile extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       try {
-                        final data =
-                            utf8.decode((entity as AppDocumentFile).data);
-                        showDialog(
-                            context: context,
-                            builder: (context) => ExportDialog(data: data));
+                        final data = (entity as AppDocumentFile).data;
+                        saveData(context, data);
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -1321,7 +1304,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(height: 16),
-          FutureBuilder<List<DocumentTemplate>>(
+          FutureBuilder<List<NoteData>>(
               future: _templatesFuture,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
@@ -1364,74 +1347,64 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                   crossAxisAlignment: WrapCrossAlignment.center,
                   runSpacing: 16,
                   spacing: 16,
-                  children: templates
-                      .map(
-                        (e) => FutureBuilder<List<int>>(
-                            future: e.document.getThumbnailData(),
-                            builder: (context, snapshot) => ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(maxHeight: 200),
-                                  child: AspectRatio(
-                                    aspectRatio: 16 / 9,
-                                    child: Card(
-                                      elevation: 5,
-                                      clipBehavior: Clip.hardEdge,
-                                      child: InkWell(
-                                        onTap: () async {
-                                          await GoRouter.of(context).pushNamed(
-                                              'new',
-                                              queryParams: {
-                                                'path': e.directory
-                                              },
-                                              extra: e.document);
-                                          widget.onReload();
-                                        },
-                                        child: Stack(
-                                          children: [
-                                            if (snapshot.data?.isNotEmpty ??
-                                                false)
-                                              Align(
-                                                child: Image.memory(
-                                                  Uint8List.fromList(
-                                                      snapshot.data!),
-                                                  fit: BoxFit.cover,
-                                                  width: 640,
-                                                  alignment: Alignment.center,
-                                                ),
+                  children: templates.map(
+                    (e) {
+                      final thumbnail = e.getThumbnail();
+                      final metadata = e.getMetadata()!;
+                      return ConstrainedBox(
+                          constraints: const BoxConstraints(maxHeight: 200),
+                          child: AspectRatio(
+                            aspectRatio: 16 / 9,
+                            child: Card(
+                              elevation: 5,
+                              clipBehavior: Clip.hardEdge,
+                              child: InkWell(
+                                onTap: () async {
+                                  await GoRouter.of(context).pushNamed('new',
+                                      queryParams: {'path': metadata.directory},
+                                      extra: e);
+                                  widget.onReload();
+                                },
+                                child: Stack(
+                                  children: [
+                                    if (snapshot.data?.isNotEmpty ?? false)
+                                      Align(
+                                        child: Image.memory(
+                                          thumbnail ?? Uint8List(0),
+                                          fit: BoxFit.cover,
+                                          width: 640,
+                                          alignment: Alignment.center,
+                                        ),
+                                      ),
+                                    Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        margin: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          color: colorScheme.primaryContainer
+                                              .withAlpha(200),
+                                        ),
+                                        child: Text(
+                                          metadata.name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.copyWith(
+                                                color: colorScheme.onSurface,
                                               ),
-                                            Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                margin: const EdgeInsets.all(8),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color: colorScheme
-                                                      .primaryContainer
-                                                      .withAlpha(200),
-                                                ),
-                                                child: Text(
-                                                  e.name,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.copyWith(
-                                                        color: colorScheme
-                                                            .onSurface,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
                                         ),
                                       ),
                                     ),
-                                  ),
-                                )),
-                      )
-                      .toList(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ));
+                    },
+                  ).toList(),
                 );
               }),
         ]),

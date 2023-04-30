@@ -1,7 +1,6 @@
-import 'dart:convert';
-import 'dart:html';
 
 import 'package:butterfly/api/file_system.dart';
+import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
@@ -351,12 +350,13 @@ class _PacksDialogState extends State<PacksDialog>
                                     PhosphorIconsLight.arrowSquareIn),
                                 onTap: () async {
                                   Navigator.of(ctx).pop();
-                                  final data = await showDialog<String>(
-                                    context: ctx,
-                                    builder: (context) => const ImportDialog(),
-                                  );
+                                  final data = await openBfly();
                                   if (data == null) return;
                                   final pack = NoteData.fromData(data);
+                                  final metadata = pack.getMetadata();
+                                  if (metadata?.type != NoteFileType.pack) {
+                                    return;
+                                  }
                                   final success = await showDialog<bool>(
                                         context: this.context,
                                         builder: (context) => AlertDialog(
@@ -367,13 +367,13 @@ class _PacksDialogState extends State<PacksDialog>
                                           content: Column(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Text(pack.name,
+                                              Text(metadata!.name,
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .titleLarge),
                                               Text(AppLocalizations.of(context)
-                                                  .byAuthor(pack.author)),
-                                              Text(pack.description),
+                                                  .byAuthor(metadata.author)),
+                                              Text(metadata.description),
                                             ],
                                           ),
                                           actions: [

@@ -121,7 +121,7 @@ class TextRenderer extends Renderer<TextElement> {
   }
 
   @override
-  FutureOr<void> build(Canvas canvas, Size size, NoteData data,
+  FutureOr<void> build(Canvas canvas, Size size, NoteData document,
       DocumentPage page, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     _tp?.layout(maxWidth: rect.width);

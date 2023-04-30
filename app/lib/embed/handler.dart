@@ -55,6 +55,7 @@ class EmbedHandler {
           renderBackground = map['renderBackground'] ?? true;
         }
         final data = await state.currentIndexCubit.render(
+          state.data,
           state.page,
           width: width,
           height: height,

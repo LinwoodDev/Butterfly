@@ -30,11 +30,14 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
     super.initState();
     final state = context.read<DocumentBloc>().state;
     if (state is DocumentLoadSuccess) {
-      final pack = state.data.packs.firstOrNull;
-      final palette = pack?.palettes.firstOrNull;
+      final packName = state.data.getPacks().firstOrNull;
+      if (packName == null) return;
+      final pack = state.data.getPack(packName);
+      final palettes = pack?.getPalettes();
+      if (palettes?.isEmpty ?? true) return;
+      final palette = pack?.getPalette(palettes!.first);
       if (palette != null) {
-        currentPalette =
-            PackAssetLocation(pack: pack!.name, name: palette.name);
+        currentPalette = PackAssetLocation(pack: packName, name: palette.name);
       }
     }
   }
@@ -85,20 +88,14 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                           widget.onChanged(value);
                         },
                         onDeleted: () {
-                          final newPalettes =
-                              List<ColorPalette>.from(pack?.palettes ?? [])
-                                  .map((e) {
-                            if (e.name == currentPalette?.name) {
-                              return e.copyWith(
-                                  colors: List<int>.from(e.colors)
-                                    ..removeAt(index));
-                            }
-                            return e;
-                          }).toList();
-                          final newPack = pack?.copyWith(palettes: newPalettes);
-                          if (newPack == null) return;
-                          bloc.add(DocumentPackUpdated(
-                              currentPalette!.name, newPack));
+                          var palette = pack?.getPalette(currentPalette!.name);
+                          palette = palette?.copyWith(
+                            colors: List<int>.from(palette.colors)
+                              ..removeAt(index),
+                          );
+                          pack?.setPalette(palette!);
+                          bloc.add(
+                              DocumentPackUpdated(currentPalette!.name, pack!));
                         },
                       );
                     }),
@@ -117,20 +114,14 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                           if (response != null) {
                             widget.onChanged(response.color);
                             if (response.pin) {
-                              final newPalettes =
-                                  List<ColorPalette>.from(pack?.palettes ?? [])
-                                      .map((e) {
-                                if (e.name == currentPalette?.name) {
-                                  return e.copyWith(
-                                      colors: [...e.colors, response.color]);
-                                }
-                                return e;
-                              }).toList();
-                              final newPack =
-                                  pack?.copyWith(palettes: newPalettes);
-                              if (newPack == null) return;
+                              var palette =
+                                  pack?.getPalette(currentPalette!.name);
+                              palette = palette?.copyWith(
+                                colors: [...palette.colors, response.color],
+                              );
+                              pack?.setPalette(palette!);
                               bloc.add(DocumentPackUpdated(
-                                  currentPalette!.name, newPack));
+                                  currentPalette!.name, pack!));
                             }
                           }
                         },

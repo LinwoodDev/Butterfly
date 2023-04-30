@@ -30,7 +30,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   }
 
   @override
-  void build(Canvas canvas, Size size, NoteData data, DocumentPage page,
+  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final current = element as PathElement;
