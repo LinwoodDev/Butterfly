@@ -44,8 +44,12 @@ class ImageRenderer extends Renderer<ImageElement> {
 
   @override
   FutureOr<void> setup(NoteData document, DocumentPage page) async {
-    image =
-        await decodeImageFromList(Uint8List.fromList(await element.getData()));
+    try {
+      final data = await element.getData(document);
+      if (data != null) {
+        image = await decodeImageFromList(Uint8List.fromList(data));
+      }
+    } catch (_) {}
     super.setup(document, page);
   }
 

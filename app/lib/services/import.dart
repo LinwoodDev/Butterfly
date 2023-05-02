@@ -170,15 +170,23 @@ class ImportService {
 
       final newBytes = await image.toByteData(format: ui.ImageByteFormat.png);
       final state = _getState();
+      String dataPath;
+      if (state != null) {
+        final assetPath = state.
+        data.addImage(bytes);
+        dataPath = Uri.file(assetPath, windows: false).toString();
+      } else {
+        dataPath = UriData.fromBytes(
+          newBytes?.buffer.asUint8List() ?? Uint8List(0),
+          mimeType: 'image/png',
+        ).toString();
+      }
       return _submit(elements: [
         ImageElement(
             height: image.height.toDouble(),
             width: image.width.toDouble(),
             layer: state?.currentLayer ?? '',
-            source: UriData.fromBytes(
-              newBytes?.buffer.asUint8List() ?? Uint8List(0),
-              mimeType: 'image/png',
-            ).toString(),
+            source: dataPath,
             position: firstPos.toPoint())
       ], choosePosition: position == null);
     } catch (e) {

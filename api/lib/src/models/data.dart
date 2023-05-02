@@ -48,6 +48,30 @@ class NoteData {
     _controller.add(this);
   }
 
+  String addAsset(String path, List<int> data, String extension,
+      [String name = '']) {
+    final newPath = '$path/${findUniqueName(path, extension, name)}';
+    setAsset(newPath, data);
+    return newPath;
+  }
+
+  String _getFileName(String name, String extension) =>
+      '$name${extension.isNotEmpty ? '.$extension' : ''}';
+
+  String findUniqueName(String path, String extension, [String name = '']) {
+    final assets = getAssets(path);
+    if (!assets.contains(_getFileName(name, extension)) &&
+        name.trim().isNotEmpty) {
+      return _getFileName(name, extension);
+    }
+    var i = 1;
+    String getName() => _getFileName('$name ($i)', extension).trim();
+    while (assets.contains(getName())) {
+      i++;
+    }
+    return getName();
+  }
+
   List<String> getAssets(String path, [bool removeExtension = false]) {
     return archive.files
         .where((file) => file.name.startsWith(path))
@@ -145,7 +169,10 @@ class NoteData {
   }
 
   Uint8List? getImage(String imageName) =>
-      getAsset('$kImagesArchiveDirectory/$imageName');
+      getAsset('$kImagesArchiveDirectory/$imageName.png');
+
+  String addImage(Uint8List data, [String name = '']) =>
+      addAsset(kImagesArchiveDirectory, data, 'png', name);
 
   Uint8List? getFont(String fontName) =>
       getAsset('$kFontsArchiveDirectory/$fontName');
