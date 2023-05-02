@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:butterfly_api/butterfly_api.dart';
@@ -30,4 +31,10 @@ Future<List<int>?> getDataFromSource(NoteData document, String source) async {
 extension ImageElementDataExtension on ImageElement {
   Future<List<int>?> getData(NoteData document) =>
       getDataFromSource(document, source);
+}
+
+extension SvgElementDataExtension on SvgElement {
+  Future<String?> getData(NoteData document) =>
+      getDataFromSource(document, source)
+          .then((value) => value == null ? null : utf8.decode(value));
 }

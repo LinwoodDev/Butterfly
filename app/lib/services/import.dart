@@ -171,13 +171,14 @@ class ImportService {
       final newBytes = await image.toByteData(format: ui.ImageByteFormat.png);
       final state = _getState();
       String dataPath;
+      if (newBytes == null) return null;
+      final newData = newBytes.buffer.asUint8List();
       if (state != null) {
-        final assetPath = state.
-        data.addImage(bytes);
+        final assetPath = state.data.addImage(newData, 'png');
         dataPath = Uri.file(assetPath, windows: false).toString();
       } else {
         dataPath = UriData.fromBytes(
-          newBytes?.buffer.asUint8List() ?? Uint8List(0),
+          newData,
           mimeType: 'image/png',
         ).toString();
       }
@@ -210,11 +211,22 @@ class ImportService {
         var height = size.height, width = size.width;
         if (!height.isFinite) height = 0;
         if (!width.isFinite) width = 0;
+        final state = _getState();
+        String dataPath;
+        if (state != null) {
+          final assetPath = state.data.addImage(bytes, 'svg');
+          dataPath = Uri.file(assetPath, windows: false).toString();
+        } else {
+          dataPath = UriData.fromBytes(
+            bytes,
+            mimeType: 'image/svg+xml',
+          ).toString();
+        }
         return _submit(elements: [
           SvgElement(
             width: width,
             height: height,
-            data: contentString,
+            source: dataPath,
             position: firstPos.toPoint(),
           ),
         ], choosePosition: position == null, document: document);

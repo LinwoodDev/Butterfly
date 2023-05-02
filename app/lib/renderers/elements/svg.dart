@@ -34,24 +34,22 @@ class SvgRenderer extends Renderer<SvgElement> {
   @override
   void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
-    // Create data url
-    final data = utf8.encode(element.data);
-    final encoded = base64Encode(data);
-    final dataUrl = 'data:image/svg+xml;base64,$encoded';
-    // Create image
     xml.getElement('svg')?.createElement('image', attributes: {
       'x': '${rect.left}px',
       'y': '${rect.top}px',
       'width': '${rect.width}px',
       'height': '${rect.height}px',
-      'xlink:href': dataUrl,
+      'xlink:href': element.source,
     });
   }
 
   @override
   FutureOr<void> setup(NoteData document, DocumentPage page) async {
-    info = await vg.loadPicture(SvgStringLoader(element.data), null);
     super.setup(document, page);
+    final data = await element.getData(document);
+    if (data != null) {
+      info = await vg.loadPicture(SvgStringLoader(data), null);
+    }
   }
 
   @override

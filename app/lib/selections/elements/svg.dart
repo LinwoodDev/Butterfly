@@ -19,7 +19,14 @@ class SvgElementSelection extends ElementSelection<SvgElement> {
         leading: const PhosphorIcon(PhosphorIconsLight.export),
         onTap: () async {
           final localization = AppLocalizations.of(context);
-          final data = element.data;
+          final state = context.read<DocumentBloc>().state;
+          if (state is! DocumentLoaded) {
+            return;
+          }
+          final data = await element.getData(state.data);
+          if (data == null) {
+            return;
+          }
           if (!kIsWeb &&
               (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
             var path = await FilePicker.platform.saveFile(

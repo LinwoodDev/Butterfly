@@ -87,7 +87,7 @@ class PadElement with _$PadElement {
         Point<double> position,
     @Default(ScaledElementConstraints(scaleX: 1, scaleY: 1))
         ElementConstraints? constraints,
-    required String data,
+    required String source,
     required double width,
     required double height,
   }) = SvgElement;

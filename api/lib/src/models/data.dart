@@ -168,11 +168,8 @@ class NoteData {
     setAsset('$kPagesArchiveDirectory/default.json', utf8.encode(content));
   }
 
-  Uint8List? getImage(String imageName) =>
-      getAsset('$kImagesArchiveDirectory/$imageName.png');
-
-  String addImage(Uint8List data, [String name = '']) =>
-      addAsset(kImagesArchiveDirectory, data, 'png', name);
+  String addImage(Uint8List data, String extension, [String name = '']) =>
+      addAsset(kImagesArchiveDirectory, data, extension, name);
 
   Uint8List? getFont(String fontName) =>
       getAsset('$kFontsArchiveDirectory/$fontName');

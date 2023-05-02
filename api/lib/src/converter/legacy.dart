@@ -168,6 +168,18 @@ Map<String, dynamic> _legacyDocumentJsonMigrator(
             DateTime.parse(data['updatedAt'] as String).millisecondsSinceEpoch;
       }
     }
+    if (fileVersion < 8) {
+      data['content'] = List.from(data['content'] as List).map((e) {
+        if (e['type'] == 'svg') {
+          return {
+            ...e,
+            'source': UriData.fromString(e['source'] as String,
+                encoding: utf8, mimeType: 'image/svg+xml'),
+          };
+        }
+        return e;
+      }).toList();
+    }
   }
   return data;
 }
