@@ -52,7 +52,7 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
                       key: ValueKey(component),
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
-                        // TODO: Delete component
+                        currentPack.removeComponent(component);
                         bloc.add(DocumentPackUpdated(packName, currentPack));
                       },
                       child: ListTile(

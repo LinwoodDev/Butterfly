@@ -14,7 +14,7 @@ import 'page.dart';
 import 'palette.dart';
 
 class NoteData {
-  final Archive archive;
+  Archive archive;
   final BehaviorSubject<NoteData> _controller = BehaviorSubject();
 
   Stream<NoteData> get onChange => _controller.stream;
@@ -45,6 +45,17 @@ class NoteData {
 
   void setAsset(String path, List<int> data) {
     archive.addFile(ArchiveFile(path, data.length, data));
+    _controller.add(this);
+  }
+
+  void removeAsset(String path) {
+    final newArchive = Archive();
+    for (final file in archive.files) {
+      if (file.name != path) {
+        newArchive.addFile(file);
+      }
+    }
+    archive = newArchive;
     _controller.add(this);
   }
 
@@ -190,6 +201,9 @@ class NoteData {
     }
   }
 
+  void removePack(String name) =>
+      removeAsset('$kPacksArchiveDirectory/$name.bfly');
+
   List<String> getPacks() => getAssets(kPacksArchiveDirectory, true);
 
   // Pack specific
@@ -212,6 +226,9 @@ class NoteData {
         utf8.encode(content));
   }
 
+  void removeComponent(String name) =>
+      removeAsset('$kComponentsArchiveDirectory/$name.json');
+
   List<String> getStyles() => getAssets(kStylesArchiveDirectory, true);
 
   TextStyleSheet? getStyle(String styleName) {
@@ -230,6 +247,9 @@ class NoteData {
         '$kStylesArchiveDirectory/${style.name}.json', utf8.encode(content));
   }
 
+  void removeStyle(String name) =>
+      removeAsset('$kStylesArchiveDirectory/$name.json');
+
   List<String> getPalettes() => getAssets(kPalettesArchiveDirectory, true);
 
   ColorPalette? getPalette(String paletteName) {
@@ -247,6 +267,9 @@ class NoteData {
     setAsset('$kPalettesArchiveDirectory/${palette.name}.json',
         utf8.encode(content));
   }
+
+  void removePalette(String name) =>
+      removeAsset('$kPalettesArchiveDirectory/$name.json');
 
   List<int> save() => ZipEncoder().encode(archive)!;
 }

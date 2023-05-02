@@ -133,7 +133,7 @@ class _ProjectPageState extends State<ProjectPage> {
           [],
         );
         _bloc?.load();
-        embedding.handler.register(_bloc!);
+        embedding.handler.register(context, _bloc!);
       });
       return;
     }

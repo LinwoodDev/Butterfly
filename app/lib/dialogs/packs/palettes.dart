@@ -30,7 +30,8 @@ class PalettesPackView extends StatelessWidget {
                     (e) => Dismissible(
                       key: ValueKey(e),
                       onDismissed: (direction) {
-                        // TODO: Remove palette
+                        value.removePalette(e);
+                        onChanged(value);
                       },
                       child: ListTile(
                         title: Text(e),

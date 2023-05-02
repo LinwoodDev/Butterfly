@@ -607,7 +607,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      // TODO: remove pack
+      current.data.removePack(event.pack);
       _saveState(emit);
     });
     on<DocumentAnimationAdded>((event, emit) {

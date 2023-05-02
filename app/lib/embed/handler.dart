@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'action.dart';
 
@@ -11,26 +15,17 @@ class EmbedHandler {
       renderListener,
       renderSVGListener;
 
-  void register(DocumentBloc bloc) {
+  void register(BuildContext context, DocumentBloc bloc) {
     getDataListener ??= onEmbedMessage('getData', (message) async {
       final state = bloc.state;
       if (state is DocumentLoadSuccess) {
         sendEmbedMessage('getData', state.saveData().save());
       }
     });
-    // TODO: Reimplement setData
     setDataListener ??= onEmbedMessage('setData', (message) async {
-      /*final state = bloc.state;
-      if (state is DocumentLoadSuccess) {
-        Uint8List data;
-        if (message is List<int>) {
-          data = Uint8List.fromList(message);
-        } else {
-          throw Exception('Invalid message type');
-        }
-        final document = NoteData.fromData(data);
-        await bloc.load();
-      }*/
+      if (message is! List<int>) return;
+      final data = NoteData.fromData(Uint8List.fromList(message));
+      GoRouter.of(context).go('/new', extra: data);
     });
     renderListener ??= onEmbedMessage('render', (message) async {
       final state = bloc.state;

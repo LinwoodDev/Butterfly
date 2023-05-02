@@ -35,7 +35,8 @@ class StylesPackView extends StatelessWidget {
                       (e) => Dismissible(
                         key: ValueKey(e),
                         onDismissed: (direction) {
-                          // TODO: Remove style
+                          value.removeStyle(e);
+                          onChanged(value);
                         },
                         child: ListTile(
                           title: Text(e),
