@@ -1,5 +1,5 @@
 ---
-title: "Pack"
+title: "Paket"
 sidebar_position: 2
 ---
 
@@ -7,8 +7,8 @@ A pack is a collection of components that can be used in the stamp painter. You 
 
 ## Özellikler
 
-|   İsim | Tanım                     |
-| ------:|:------------------------- |
-|   İsim | The name of the pack      |
-| Author | The author of the pack    |
-|  Tanım | A description of the pack |
+|  İsim | Tanım                     |
+| -----:|:------------------------- |
+|  İsim | The name of the pack      |
+| Yazar | The author of the pack    |
+| Tanım | A description of the pack |

@@ -41,4 +41,4 @@ Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmel
 
 ## Yapılandır {#configure}
 
-Customize the controls by giving every control a painter index. The painter index starts at 1 and are ordered from left to right. An empty painter index will disable the painter switch on this control. Insert `0` to enable moving with this control.
+Her denetime bir boyama dizini vererek denetimleri özelleştirin. Boyama dizini 1'den başlar ve soldan sağa doğru sıralanır. Boş bir boyama indeksi, bu kontroldeki boyacı anahtarını devre dışı bırakacaktır. Bu denetimle taşımayı etkinleştirmek için `0` girin.
