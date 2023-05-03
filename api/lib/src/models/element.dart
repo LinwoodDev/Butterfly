@@ -23,6 +23,10 @@ class ElementConstraint with _$ElementConstraint {
       _$ElementConstraintFromJson(json);
 }
 
+abstract class SourcedElement {
+  String get source;
+}
+
 @freezed
 @immutable
 class ElementConstraints with _$ElementConstraints {
@@ -68,6 +72,7 @@ class PadElement with _$PadElement {
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
   }) = TextElement;
 
+  @Implements<SourcedElement>()
   const factory PadElement.image({
     @Default('') String layer,
     @DoublePointJsonConverter()
@@ -80,6 +85,7 @@ class PadElement with _$PadElement {
     required double height,
   }) = ImageElement;
 
+  @Implements<SourcedElement>()
   const factory PadElement.svg({
     @Default('') String layer,
     @DoublePointJsonConverter()

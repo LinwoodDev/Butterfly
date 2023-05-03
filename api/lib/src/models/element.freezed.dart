@@ -1970,7 +1970,7 @@ class _$ImageElement implements ImageElement {
   }
 }
 
-abstract class ImageElement implements PadElement {
+abstract class ImageElement implements PadElement, SourcedElement {
   const factory ImageElement(
       {final String layer,
       @DoublePointJsonConverter() final Point<double> position,
@@ -2293,7 +2293,7 @@ class _$SvgElement implements SvgElement {
   }
 }
 
-abstract class SvgElement implements PadElement {
+abstract class SvgElement implements PadElement, SourcedElement {
   const factory SvgElement(
       {final String layer,
       @DoublePointJsonConverter() final Point<double> position,

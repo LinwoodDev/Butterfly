@@ -167,14 +167,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             return remaining;
           }).toList(),
         );
-        await _saveState(
-            emit,
-            current.copyWith(
-                page: page.copyWith(
-                    content: List.from(page.content)
-                      ..removeWhere(
-                          (element) => event.elements.contains(element)))),
-            null);
+        final newPage = page.copyWith(
+            content: List.from(page.content)
+              ..removeWhere((element) => event.elements.contains(element)));
+        // Remove unused assets
+        final unusedAssets = <String>{};
+        event.elements.whereType<SourcedElement>().forEach((element) {
+          final uri = Uri.tryParse(element.source);
+          if (uri?.scheme == '' && !newPage.usesSource(element.source)) {
+            unusedAssets.add(element.source);
+          }
+        });
+        for (var asset in unusedAssets) {
+          current.data.removeAsset(asset);
+        }
+
+        await _saveState(emit, current.copyWith(page: newPage), null);
       }
     }, transformer: sequential());
     on<DocumentDescriptorChanged>((event, emit) async {

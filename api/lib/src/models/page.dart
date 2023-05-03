@@ -50,4 +50,8 @@ class DocumentPage with _$DocumentPage {
   AnimationTrack? getAnimation(String name) {
     return animations.firstWhereOrNull((e) => e.name == name);
   }
+
+  bool usesSource(String source) {
+    return content.whereType<SourcedElement>().any((e) => e.source == source);
+  }
 }
