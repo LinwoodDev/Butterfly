@@ -42,6 +42,7 @@ import '../actions/packs.dart';
 import '../actions/previous.dart';
 import '../actions/primary.dart';
 import '../main.dart';
+import '../models/viewport.dart';
 import 'changes.dart';
 import 'view.dart';
 import 'zoom.dart';
@@ -121,8 +122,8 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit =
-            CurrentIndexCubit(settingsCubit, _transformCubit!, embedding);
+        _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
+            CameraViewport.unbaked(ToolRenderer()), embedding);
         _bloc = DocumentBloc(
           _currentIndexCubit!,
           settingsCubit,
@@ -189,8 +190,8 @@ class _ProjectPageState extends State<ProjectPage> {
           path: widget.location?.path ?? '', remote: _remote?.identifier ?? '');
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit =
-            CurrentIndexCubit(settingsCubit, _transformCubit!, null);
+        _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
+            CameraViewport.unbaked(ToolRenderer()), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
             page, location!, background, renderers);
         _bloc?.load();
@@ -201,8 +202,8 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit =
-            CurrentIndexCubit(settingsCubit, _transformCubit!, null);
+        _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
+            CameraViewport.unbaked(ToolRenderer()), null);
         _bloc = DocumentBloc.error(e.toString());
       });
     }

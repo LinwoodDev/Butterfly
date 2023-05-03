@@ -8,7 +8,6 @@ class ImportHandler extends Handler<ImportPainter> {
 
   @override
   void dispose(DocumentBloc bloc) {
-    print('dispose');
     _renderers?.forEach((e) => e.dispose());
   }
 

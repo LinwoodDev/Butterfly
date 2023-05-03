@@ -136,6 +136,47 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                       },
                       child: Text(AppLocalizations.of(context).background),
                     ),
+                    const SizedBox(height: 8),
+                    MenuItemButton(
+                      leadingIcon:
+                          const PhosphorIcon(PhosphorIconsLight.camera),
+                      onPressed: () async {
+                        final viewport =
+                            state.currentIndexCubit.state.cameraViewport;
+                        final width = viewport.width?.toDouble() ??
+                            kThumbnailWidth.toDouble();
+                        final realHeight = viewport.height?.toDouble() ??
+                            kThumbnailHeight.toDouble();
+                        final height =
+                            width * kThumbnailHeight / kThumbnailWidth;
+                        final heightOffset = (realHeight - height) / 2;
+                        final quality = kThumbnailWidth / width;
+                        final thumbnail = await state.currentIndexCubit.render(
+                          state.data,
+                          state.page,
+                          width: width,
+                          height: height,
+                          quality: quality,
+                          scale: viewport.scale,
+                          x: -viewport.x,
+                          y: -viewport.y + heightOffset,
+                        );
+                        if (thumbnail == null) return;
+                        final bytes = thumbnail.buffer.asUint8List();
+                        state.data.setThumbnail(bytes);
+                        state.save();
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(AppLocalizations.of(context)
+                                  .capturedThumbnail),
+                            ),
+                          );
+                        }
+                      },
+                      child:
+                          Text(AppLocalizations.of(context).captureThumbnail),
+                    ),
                   ],
                 ),
                 Column(children: [

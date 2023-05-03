@@ -1,7 +1,7 @@
 part of 'renderer.dart';
 
 class ToolRenderer extends Renderer<ToolState> {
-  ToolRenderer(super.element);
+  ToolRenderer([super.element = const ToolState()]);
 
   Rect getRulerRect(Size size) {
     const rulerSize = 100.0;

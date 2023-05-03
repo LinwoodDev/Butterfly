@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CurrentIndex {
   int? get index => throw _privateConstructorUsedError;
   Handler<dynamic> get handler => throw _privateConstructorUsedError;
+  CameraViewport get cameraViewport => throw _privateConstructorUsedError;
   SettingsCubit get settingsCubit => throw _privateConstructorUsedError;
   TransformCubit get transformCubit => throw _privateConstructorUsedError;
   Handler<dynamic>? get temporaryHandler => throw _privateConstructorUsedError;
@@ -27,7 +28,6 @@ mixin _$CurrentIndex {
       throw _privateConstructorUsedError;
   List<int> get pointers => throw _privateConstructorUsedError;
   int? get buttons => throw _privateConstructorUsedError;
-  CameraViewport get cameraViewport => throw _privateConstructorUsedError;
   AssetLocation get location => throw _privateConstructorUsedError;
   Embedding? get embedding => throw _privateConstructorUsedError;
   bool get saved => throw _privateConstructorUsedError;
@@ -48,6 +48,7 @@ abstract class $CurrentIndexCopyWith<$Res> {
   $Res call(
       {int? index,
       Handler<dynamic> handler,
+      CameraViewport cameraViewport,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
       Handler<dynamic>? temporaryHandler,
@@ -56,7 +57,6 @@ abstract class $CurrentIndexCopyWith<$Res> {
       List<Renderer>? temporaryForegrounds,
       List<int> pointers,
       int? buttons,
-      CameraViewport cameraViewport,
       AssetLocation location,
       Embedding? embedding,
       bool saved,
@@ -81,6 +81,7 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
   $Res call({
     Object? index = freezed,
     Object? handler = null,
+    Object? cameraViewport = null,
     Object? settingsCubit = null,
     Object? transformCubit = null,
     Object? temporaryHandler = freezed,
@@ -89,7 +90,6 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? temporaryForegrounds = freezed,
     Object? pointers = null,
     Object? buttons = freezed,
-    Object? cameraViewport = null,
     Object? location = null,
     Object? embedding = freezed,
     Object? saved = null,
@@ -105,6 +105,10 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
               as Handler<dynamic>,
+      cameraViewport: null == cameraViewport
+          ? _value.cameraViewport
+          : cameraViewport // ignore: cast_nullable_to_non_nullable
+              as CameraViewport,
       settingsCubit: null == settingsCubit
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
@@ -137,10 +141,6 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.buttons
           : buttons // ignore: cast_nullable_to_non_nullable
               as int?,
-      cameraViewport: null == cameraViewport
-          ? _value.cameraViewport
-          : cameraViewport // ignore: cast_nullable_to_non_nullable
-              as CameraViewport,
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -184,6 +184,7 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
   $Res call(
       {int? index,
       Handler<dynamic> handler,
+      CameraViewport cameraViewport,
       SettingsCubit settingsCubit,
       TransformCubit transformCubit,
       Handler<dynamic>? temporaryHandler,
@@ -192,7 +193,6 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
       List<Renderer>? temporaryForegrounds,
       List<int> pointers,
       int? buttons,
-      CameraViewport cameraViewport,
       AssetLocation location,
       Embedding? embedding,
       bool saved,
@@ -216,6 +216,7 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
   $Res call({
     Object? index = freezed,
     Object? handler = null,
+    Object? cameraViewport = null,
     Object? settingsCubit = null,
     Object? transformCubit = null,
     Object? temporaryHandler = freezed,
@@ -224,7 +225,6 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
     Object? temporaryForegrounds = freezed,
     Object? pointers = null,
     Object? buttons = freezed,
-    Object? cameraViewport = null,
     Object? location = null,
     Object? embedding = freezed,
     Object? saved = null,
@@ -240,6 +240,10 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
           ? _value.handler
           : handler // ignore: cast_nullable_to_non_nullable
               as Handler<dynamic>,
+      null == cameraViewport
+          ? _value.cameraViewport
+          : cameraViewport // ignore: cast_nullable_to_non_nullable
+              as CameraViewport,
       null == settingsCubit
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
@@ -272,10 +276,6 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
           ? _value.buttons
           : buttons // ignore: cast_nullable_to_non_nullable
               as int?,
-      cameraViewport: null == cameraViewport
-          ? _value.cameraViewport
-          : cameraViewport // ignore: cast_nullable_to_non_nullable
-              as CameraViewport,
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -303,15 +303,14 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_CurrentIndex extends _CurrentIndex {
-  const _$_CurrentIndex(
-      this.index, this.handler, this.settingsCubit, this.transformCubit,
+  const _$_CurrentIndex(this.index, this.handler, this.cameraViewport,
+      this.settingsCubit, this.transformCubit,
       {this.temporaryHandler,
       final List<Renderer> foregrounds = const [],
       this.selection,
       final List<Renderer>? temporaryForegrounds,
       final List<int> pointers = const [],
       this.buttons,
-      this.cameraViewport = const CameraViewport.unbaked(),
       this.location = const AssetLocation(path: ''),
       this.embedding,
       this.saved = false,
@@ -326,6 +325,8 @@ class _$_CurrentIndex extends _CurrentIndex {
   final int? index;
   @override
   final Handler<dynamic> handler;
+  @override
+  final CameraViewport cameraViewport;
   @override
   final SettingsCubit settingsCubit;
   @override
@@ -367,9 +368,6 @@ class _$_CurrentIndex extends _CurrentIndex {
   final int? buttons;
   @override
   @JsonKey()
-  final CameraViewport cameraViewport;
-  @override
-  @JsonKey()
   final AssetLocation location;
   @override
   final Embedding? embedding;
@@ -383,7 +381,7 @@ class _$_CurrentIndex extends _CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, temporaryForegrounds: $temporaryForegrounds, pointers: $pointers, buttons: $buttons, cameraViewport: $cameraViewport, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, temporaryForegrounds: $temporaryForegrounds, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar)';
   }
 
   @JsonKey(ignore: true)
@@ -394,15 +392,18 @@ class _$_CurrentIndex extends _CurrentIndex {
 }
 
 abstract class _CurrentIndex extends CurrentIndex {
-  const factory _CurrentIndex(final int? index, final Handler<dynamic> handler,
-      final SettingsCubit settingsCubit, final TransformCubit transformCubit,
+  const factory _CurrentIndex(
+      final int? index,
+      final Handler<dynamic> handler,
+      final CameraViewport cameraViewport,
+      final SettingsCubit settingsCubit,
+      final TransformCubit transformCubit,
       {final Handler<dynamic>? temporaryHandler,
       final List<Renderer> foregrounds,
       final Selection<dynamic>? selection,
       final List<Renderer>? temporaryForegrounds,
       final List<int> pointers,
       final int? buttons,
-      final CameraViewport cameraViewport,
       final AssetLocation location,
       final Embedding? embedding,
       final bool saved,
@@ -414,6 +415,8 @@ abstract class _CurrentIndex extends CurrentIndex {
   int? get index;
   @override
   Handler<dynamic> get handler;
+  @override
+  CameraViewport get cameraViewport;
   @override
   SettingsCubit get settingsCubit;
   @override
@@ -430,8 +433,6 @@ abstract class _CurrentIndex extends CurrentIndex {
   List<int> get pointers;
   @override
   int? get buttons;
-  @override
-  CameraViewport get cameraViewport;
   @override
   AssetLocation get location;
   @override

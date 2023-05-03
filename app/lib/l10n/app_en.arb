@@ -495,5 +495,7 @@
   "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack.",
   "never": "Never",
   "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility"
+  "visibility": "Visibility",
+  "captureThumbnail": "Capture thumbnail",
+  "capturedThumbnail": "Successfully captured thumbnail"
 }

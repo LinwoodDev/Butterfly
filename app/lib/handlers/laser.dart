@@ -113,8 +113,7 @@ class LaserHandler extends Handler<LaserPainter> {
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
     localPosition =
-        viewport.tool?.getPointerPosition(localPosition, currentIndexCubit) ??
-            localPosition;
+        viewport.tool.getPointerPosition(localPosition, currentIndexCubit);
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }

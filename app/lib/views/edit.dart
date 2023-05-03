@@ -308,11 +308,9 @@ class _EditToolbarState extends State<EditToolbar> {
                                   onPressed: () {
                                     final cubit =
                                         context.read<CurrentIndexCubit>();
-                                    final state = cubit
-                                        .state.cameraViewport.tool?.element;
-                                    if (state != null) {
-                                      cubit.changeSelection(state);
-                                    }
+                                    final state =
+                                        cubit.state.cameraViewport.tool.element;
+                                    cubit.changeSelection(state);
                                   },
                                 ),
                               ],

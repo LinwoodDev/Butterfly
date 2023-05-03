@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/file_system_remote.dart';
@@ -844,13 +846,17 @@ class _FileEntityListTile extends StatelessWidget {
     final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
     final syncService = context.read<SyncService>();
     FileMetadata? metadata;
+    Uint8List? thumbnail;
     String? modifiedText, createdText;
     PhosphorIconData icon = PhosphorIconsLight.folder;
     try {
       if (entity is AppDocumentFile) {
         final file = entity as AppDocumentFile;
         icon = file.fileType.getIcon();
-        metadata = file.load().getMetadata();
+        final data = file.load();
+        thumbnail = data.getThumbnail();
+        if (thumbnail?.isEmpty ?? false) thumbnail = null;
+        metadata = data.getMetadata();
         final locale = Localizations.localeOf(context).languageCode;
         final dateFormatter = DateFormat.yMd(locale);
         final timeFormatter = DateFormat.Hm(locale);
@@ -910,12 +916,24 @@ class _FileEntityListTile extends StatelessWidget {
                   ),
                   child: StatefulBuilder(builder: (context, setState) {
                     return LayoutBuilder(builder: (context, constraints) {
+                      final leading = PhosphorIcon(
+                        icon,
+                        color: colorScheme.outline,
+                      );
                       final fileName = Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          PhosphorIcon(
-                            icon,
-                            color: colorScheme.outline,
+                          SizedBox(
+                            width: 32,
+                            height: 32,
+                            child: thumbnail != null
+                                ? Image.memory(
+                                    thumbnail,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) => leading,
+                                  )
+                                : leading,
                           ),
                           const SizedBox(width: 8),
                           Flexible(

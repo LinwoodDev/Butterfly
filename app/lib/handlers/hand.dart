@@ -233,7 +233,7 @@ class HandHandler extends Handler<HandPainter> {
         .map((e) {
           var position = (e.rect?.topLeft ?? Offset.zero) +
               (_currentMovePosition ?? Offset.zero);
-          position = tool?.getGridPosition(position, page, cubit) ?? position;
+          position = tool.getGridPosition(position, page, cubit);
           return e.transform(position: position, relative: false) ?? e;
         })
         .map((e) => e.element)
@@ -377,8 +377,7 @@ class HandHandler extends Handler<HandPainter> {
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final viewport = context.getCameraViewport();
     _rotation = 0;
-    if (viewport.tool?.hitRuler(details.localFocalPoint, viewport.toSize()) ??
-        false) {
+    if (viewport.tool.hitRuler(details.localFocalPoint, viewport.toSize())) {
       _ruler = true;
       return true;
     }
@@ -409,8 +408,7 @@ class HandHandler extends Handler<HandPainter> {
     if (_ruler) {
       final state = context.getState();
       if (state == null) return;
-      var toolState = context.getCameraViewport().tool?.element;
-      if (toolState == null) return;
+      var toolState = context.getCameraViewport().tool.element;
       final currentRotation = details.rotation * 180 / pi * details.scale;
       final delta = currentRotation - _rotation;
       var angle = toolState.rulerAngle + delta;

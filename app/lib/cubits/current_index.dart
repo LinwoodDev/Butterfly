@@ -32,6 +32,7 @@ class CurrentIndex with _$CurrentIndex {
   const factory CurrentIndex(
     int? index,
     Handler handler,
+    CameraViewport cameraViewport,
     SettingsCubit settingsCubit,
     TransformCubit transformCubit, {
     Handler? temporaryHandler,
@@ -40,7 +41,6 @@ class CurrentIndex with _$CurrentIndex {
     List<Renderer>? temporaryForegrounds,
     @Default([]) List<int> pointers,
     int? buttons,
-    @Default(CameraViewport.unbaked()) CameraViewport cameraViewport,
     @Default(AssetLocation(path: '')) AssetLocation location,
     Embedding? embedding,
     @Default(false) bool saved,
@@ -54,8 +54,9 @@ class CurrentIndex with _$CurrentIndex {
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
   CurrentIndexCubit(SettingsCubit settingsCubit, TransformCubit transformCubit,
-      Embedding? embedding)
-      : super(CurrentIndex(null, MoveHandler(), settingsCubit, transformCubit,
+      CameraViewport viewport, Embedding? embedding)
+      : super(CurrentIndex(
+            null, MoveHandler(), viewport, settingsCubit, transformCubit,
             embedding: embedding));
 
   void init(DocumentBloc bloc) {
@@ -74,8 +75,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Offset getGridPosition(Offset position, DocumentPage page) {
-    return state.cameraViewport.tool?.getGridPosition(position, page, this) ??
-        position;
+    return state.cameraViewport.tool.getGridPosition(position, page, this);
   }
 
   Handler? changePainter(DocumentBloc bloc, int index,
@@ -228,7 +228,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       foregrounds: [],
       temporaryHandler: null,
       temporaryForegrounds: null,
-      cameraViewport: const CameraViewport.unbaked(),
+      cameraViewport: CameraViewport.unbaked(ToolRenderer()),
     ));
   }
 
