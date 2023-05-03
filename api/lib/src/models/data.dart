@@ -52,7 +52,7 @@ class NoteData {
     final newArchive = Archive();
     for (final file in archive.files) {
       if (file.name != path) {
-        newArchive.addFile(file);
+        newArchive.addFile(ArchiveFile(file.name, file.size, file.content));
       }
     }
     archive = newArchive;
@@ -104,6 +104,7 @@ class NoteData {
     final data = getAsset(kMetaArchiveFile);
     if (data == null) return null;
     final content = utf8.decode(data);
+    if (content.isEmpty) return null;
     final json = jsonDecode(content) as Map<String, dynamic>;
     return FileMetadata.fromJson(json);
   }
@@ -123,8 +124,8 @@ class NoteData {
   }) {
     // Copy archive
     final archive = Archive();
-    for (var file in this.archive.files) {
-      archive.addFile(file);
+    for (final file in this.archive.files) {
+      archive.addFile(ArchiveFile(file.name, file.size, file.content));
     }
     final template = NoteData(archive);
     // Change metadata
@@ -147,7 +148,7 @@ class NoteData {
       {required String name, required DateTime createdAt}) {
     final archive = Archive();
     for (var file in this.archive.files) {
-      archive.addFile(file);
+      archive.addFile(ArchiveFile(file.name, file.size, file.content));
     }
     final document = NoteData(archive);
     final metadata = getMetadata();
