@@ -20,7 +20,7 @@ class ImageRenderer extends Renderer<ImageElement> {
     var paint = Paint();
 
     canvas.drawImageRect(
-      image!.clone(),
+      image!,
       Rect.fromLTWH(0, 0, element.width.toDouble(), element.height.toDouble()),
       rect,
       paint,
@@ -44,13 +44,14 @@ class ImageRenderer extends Renderer<ImageElement> {
 
   @override
   FutureOr<void> setup(NoteData document, DocumentPage page) async {
+    super.setup(document, page);
+    if (image != null) return;
     try {
       final data = await element.getData(document);
       if (data != null) {
         image = await decodeImageFromList(Uint8List.fromList(data));
       }
     } catch (_) {}
-    super.setup(document, page);
   }
 
   @override

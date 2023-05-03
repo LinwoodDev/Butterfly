@@ -44,7 +44,7 @@ class NoteData {
   }
 
   void setAsset(String path, List<int> data) {
-    archive.addFile(ArchiveFile(path, data.length, data));
+    archive.addFile(ArchiveFile.noCompress(path, data.length, data));
     _controller.add(this);
   }
 
@@ -144,14 +144,15 @@ class NoteData {
     return NoteData(archive);
   }
 
-  NoteData? createDocument(
-      {required String name, required DateTime createdAt}) {
+  NoteData? createDocument({String name = '', DateTime? createdAt}) {
     final archive = Archive();
     for (var file in this.archive.files) {
-      archive.addFile(ArchiveFile(file.name, file.size, file.content));
+      archive
+          .addFile(ArchiveFile.noCompress(file.name, file.size, file.content));
     }
     final document = NoteData(archive);
     final metadata = getMetadata();
+    createdAt ??= DateTime.now();
     final newMetadata = FileMetadata(
       type: NoteFileType.document,
       name: name,

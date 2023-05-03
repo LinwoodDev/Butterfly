@@ -1375,7 +1375,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                                       queryParameters: {
                                         'path': metadata.directory
                                       },
-                                      extra: e);
+                                      extra: e.createDocument());
                                   widget.onReload();
                                 },
                                 child: Stack(

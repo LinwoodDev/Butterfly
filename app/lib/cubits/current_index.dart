@@ -107,18 +107,22 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return handler;
   }
 
-  void updatePainter(DocumentBloc bloc, Painter painter) {
+  Future<void> updatePainter(DocumentBloc bloc, Painter painter) async {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     state.handler.dispose(bloc);
     final handler = Handler.fromPainter(painter);
     state.handler.dispose(bloc);
     _disposeForegrounds(false);
+    final newForegrounds = handler.createForegrounds(
+        this, docState.data, docState.page, docState.currentArea);
+    for (final r in newForegrounds) {
+      await r.setup(docState.data, docState.page);
+    }
     emit(state.copyWith(
       index: state.index,
       handler: handler,
-      foregrounds: handler.createForegrounds(
-          this, docState.data, docState.page, docState.currentArea),
+      foregrounds: foregrounds,
       toolbar: handler.getToolbar(bloc),
     ));
   }

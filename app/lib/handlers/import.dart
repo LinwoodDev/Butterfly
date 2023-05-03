@@ -7,6 +7,12 @@ class ImportHandler extends Handler<ImportPainter> {
   ImportHandler(super.data);
 
   @override
+  void dispose(DocumentBloc bloc) {
+    print('dispose');
+    _renderers?.forEach((e) => e.dispose());
+  }
+
+  @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
     _position = context.getCameraTransform().localToGlobal(event.localPosition);
     context.refresh();
@@ -18,7 +24,6 @@ class ImportHandler extends Handler<ImportPainter> {
     _position = context.getCameraTransform().localToGlobal(event.localPosition);
     final state = context.getState();
     if (state == null) return;
-    await _load(state.data, state.page);
     context.refresh();
   }
 
@@ -28,24 +33,20 @@ class ImportHandler extends Handler<ImportPainter> {
     _position = context.getCameraTransform().localToGlobal(event.localPosition);
     final state = context.getState();
     if (state == null) return;
-    await _load(state.data, state.page);
     context.refresh();
-  }
-
-  Future<void> _load(NoteData document, DocumentPage page) async {
-    if (_renderers != null) return;
-    _renderers = await Future.wait(data.elements.map((e) async {
-      final renderer = Renderer.fromInstance(e);
-      await renderer.setup(document, page);
-      return renderer;
-    }).toList());
   }
 
   @override
   bool canChange(PointerDownEvent event, EventContext context) => false;
 
   @override
-  void onPointerUp(PointerUpEvent event, EventContext context) {
+  Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
+    _renderers = _load(true);
+    final state = context.getState();
+    if (state == null) return;
+    await Future.wait(_renderers!.map((e) async {
+      e.setup(state.data, state.page);
+    }));
     context.addDocumentEvent(ElementsCreated.renderers(_renderers
         ?.map((e) => e.transform(position: _position) ?? e)
         .toList()));
@@ -61,9 +62,18 @@ class ImportHandler extends Handler<ImportPainter> {
     context.bake();
   }
 
+  List<Renderer<PadElement>> _load([bool force = false]) {
+    if (_renderers != null && !force) return _renderers!;
+    _renderers = data.elements
+        .map((e) => Renderer.fromInstance(e))
+        .whereType<Renderer<PadElement>>()
+        .toList();
+    return _renderers!;
+  }
+
   @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page, [Area? currentArea]) =>
-      _renderers?.map((e) => e.transform(position: _position) ?? e).toList() ??
-      [];
+          NoteData document, DocumentPage page,
+          [Area? currentArea]) =>
+      _load(true).map((e) => e.transform(position: _position) ?? e).toList();
 }
