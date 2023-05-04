@@ -28,7 +28,7 @@ slug: "/downloads/post-windows"
 
 , щоб встановити додаток, необхідно натиснути на "Докладніше".
 
-![Смарт-екран детальніше](/img/smart-screenen-more-info.png)
+![Смарт-екран детальніше](/img/smart-screen-more-info.png)
 
 Потім натисніть "Все одно запустити".
 

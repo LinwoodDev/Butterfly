@@ -32,12 +32,4 @@ Windowsは証明書なしでソフトウェアをインストールするとき�
 
 それから、「とにかく実行」をクリックしてください。
 
-![Smart screen](/img/smart-screen.png)
-
-アプリをインストールするには、"More info"をクリックする必要があります。
-
-![Smart screen more info](/img/smart-screen-more-info.png)
-
-それから、「とにかく実行」をクリックしてください。
-
 </div>
