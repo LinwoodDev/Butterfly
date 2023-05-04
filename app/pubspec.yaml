@@ -45,17 +45,17 @@ dependencies:
   xml: ^6.2.2
   collection: ^1.17.1
   bloc_concurrency: ^0.2.1
-  camera: ^0.10.4
+  camera: ^0.10.5
   camera_windows: ^0.2.1+6
   window_manager: ^0.3.2
-  flex_color_scheme: ^7.0.4
+  flex_color_scheme: ^7.0.5
   freezed_annotation: ^2.2.0
-  json_annotation: ^4.8.0
+  json_annotation: ^4.8.1
   path: ^1.8.2
   printing: ^5.10.3
   js: ^0.6.5
   pdf: ^3.10.1
-  http: ^0.13.5
+  http: ^0.13.6
   flutter_secure_storage: ^8.0.0
   equatable: ^2.0.5
   rxdart: ^0.27.7
@@ -86,9 +86,9 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
   analyzer: ^5.11.1
-  freezed: ^2.3.2
+  freezed: ^2.3.3
   build_runner: ^2.3.3
-  json_serializable: ^6.6.1
+  json_serializable: ^6.6.2
   espresso: ^0.3.0+4
 dependency_overrides:
   archive: 3.3.7
