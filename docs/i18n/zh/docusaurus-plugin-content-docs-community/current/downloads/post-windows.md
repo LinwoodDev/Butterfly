@@ -28,7 +28,7 @@ slug: "/downloads/post-windows"
 
 要安装应用程序，您需要点击"更多信息"。
 
-![智能屏幕更多信息](/img/智能屏幕-more-info.png)
+![智能屏幕更多信息](/img/smart-screen-more-info.png)
 
 然后点击"无论如何运行"。
 
