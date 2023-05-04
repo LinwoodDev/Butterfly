@@ -5,6 +5,7 @@ on:
     branches: [develop]
     paths:
       - 'docs/**'
+  workflow_dispatch:
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -31,6 +32,7 @@ jobs:
         yarn build --locale ${{ matrix.language }}
     - name: Move into subdirectory if locale is not en
       if: ${{ matrix.language != 'en' }}
+      continue-on-error: true
       run: |
         cd docs/build
         mkdir ${{ matrix.language }}
