@@ -1,10 +1,6 @@
 name: documentation
 
 on:
-  push:
-    branches: [develop]
-    paths:
-      - 'docs/**'
   workflow_dispatch:
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
