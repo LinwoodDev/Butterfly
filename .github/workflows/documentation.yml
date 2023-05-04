@@ -16,8 +16,8 @@ jobs:
       matrix:
         language: [af, ar, ca, cs, da, de, el, en, es, fi, fr, he, hu, it, ja, ko, nl, no, or, pl, pt, pt-BR, ro, ru, sr, sv, th, tr, uk, vi, zh, zh-Hant]
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
       with:
         node-version: '18'
         cache: 'yarn'
@@ -37,7 +37,7 @@ jobs:
         cd docs/build
         mkdir ${{ matrix.language }}
         mv * ${{ matrix.language }}
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         path: docs/build
         name: build
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs: build
     steps:
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v3
       with:
         name: build
         path: build
