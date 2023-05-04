@@ -33,7 +33,8 @@ jobs:
       if: ${{ matrix.language != 'en' }}
       run: |
         cd docs/build
-        mv . ${{ matrix.language }}
+        mkdir ${{ matrix.language }}
+        mv * ${{ matrix.language }}
     - uses: actions/upload-artifact@v2
       with:
         path: docs/build
