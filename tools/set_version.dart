@@ -57,7 +57,6 @@ Future<void> main(List<String> args) async {
   apiContent =
       apiContent.replaceAll(RegExp(r'version: .+'), 'version: $version');
   await apiPubspec.writeAsString(apiContent);
-  print(apiContent);
   print(
       'Updating the version in the api pubspec.yaml from $lastVersion to $newVersion');
 
@@ -70,6 +69,9 @@ Future<void> main(List<String> args) async {
     await updateChangelog(version, changelog);
     await updateAppData(version);
   }
+
+  // Run flutter pub get in app directory
+  await Process.run('flutter', ['pub', 'get'], workingDirectory: 'app');
 
   print('Successfully updated!');
 }
