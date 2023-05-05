@@ -37,7 +37,7 @@ UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-Uninstallable=yes
+Uninstallable=not IsTaskSelected('portablemode')
 ChangesAssociations=yes
 
 [Languages]

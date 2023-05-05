@@ -82,7 +82,7 @@ Future<void> main([List<String> args = const []]) async {
     await windowManager.ensureInitialized();
     const kWindowOptions = WindowOptions(
       minimumSize: Size(410, 300),
-      title: 'Butterfly',
+      title: applicationName,
     );
 
     // Use it only after calling `hiddenWindowAtLaunch`
@@ -107,7 +107,7 @@ Future<void> main([List<String> args = const []]) async {
   );
 }
 
-const kUnsupportedLanguages = ['pt'];
+const kUnsupportedLanguages = [];
 
 List<Locale> getLocales() =>
     List<Locale>.from(AppLocalizations.supportedLocales)
@@ -309,7 +309,7 @@ class ButterflyApp extends StatelessWidget {
             previous.design != current.design,
         builder: (context, state) => MaterialApp.router(
               locale: state.locale,
-              title: isNightly ? 'Butterfly Nightly' : 'Butterfly',
+              title: applicationName,
               routeInformationProvider: _router.routeInformationProvider,
               routeInformationParser: _router.routeInformationParser,
               routerDelegate: _router.routerDelegate,
@@ -334,3 +334,5 @@ class ButterflyApp extends StatelessWidget {
 const flavor = String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
+const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
+const applicationName = 'Linwood $shortApplicationName';

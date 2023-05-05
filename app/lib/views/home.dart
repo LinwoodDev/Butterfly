@@ -25,6 +25,7 @@ import '../api/open_release_notes.dart';
 import '../api/save_data.dart';
 import '../dialogs/file_system/move.dart';
 import '../dialogs/file_system/sync.dart';
+import '../main.dart';
 
 PhosphorIconData _getIconOfBannerVisibility(BannerVisibility visibility) {
   switch (visibility) {
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                           hasNewerVersion);
               return Scaffold(
                 appBar: WindowTitleBar(
-                  title: const Text('Butterfly'),
+                  title: const Text(shortApplicationName),
                   onlyShowOnDesktop: showBanner,
                   actions: [
                     if (!showBanner) ...[

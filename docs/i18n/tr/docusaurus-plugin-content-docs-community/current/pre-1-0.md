@@ -6,7 +6,7 @@ Bu sürümler artık desteklenmiyor. Yeni sürümlere [sürümler](versions.md)d
 
 | Sürüm         | Destek |                                                                                                                                                    |
 | ------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1.0.0-rc.6    | :x:    | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.6/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.6)       |
+| 1.0.0-rc.6    | :x:    | [Belgeler](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.6/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.6)   |
 | 1.0.0-rc.5    | :x:    | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.5/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.5)       |
 | 1.0.0-rc.4    | :x:    | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.4/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.4)       |
 | 1.0.0-rc.3    | :x:    | [Docs](https://docs.butterfly.linwood.dev/docs/1.0.0-rc.3/intro) [Release](https://github.com/LinwoodDev/Butterfly/releases/tag/v1.0.0-rc.3)       |
