@@ -1,4 +1,6 @@
 * Add option to change visibility of banner ([#372](https://github.com/LinwoodDev/Butterfly/issues/372))
+* Add pt language
+* Add nightly text to appbar if nightly version is installed
 * Use text field in zoom view to change zoom level
 * Use the best painter color based on the background color
 * Use background on window buttons
