@@ -5,5 +5,5 @@ dependencies:
   args: ^2.4.1
   intl: ^0.18.0
   lints: ^2.0.1
-  yaml: ^3.1.1
+  yaml: ^3.1.2
   http: ^0.13.6

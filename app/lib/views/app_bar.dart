@@ -21,7 +21,6 @@ import '../actions/new.dart';
 import '../actions/packs.dart';
 import '../actions/pdf_export.dart';
 import '../actions/save.dart';
-import '../actions/settings.dart';
 import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
 import '../dialogs/search.dart';
@@ -354,18 +353,7 @@ class _MainPopupMenu extends StatelessWidget {
               child: Text(AppLocalizations.of(context).fullScreen),
             ),
           ],
-          if (state.embedding == null) ...[
-            MenuItemButton(
-              leadingIcon: const PhosphorIcon(PhosphorIconsLight.gear),
-              shortcut: const SingleActivator(LogicalKeyboardKey.keyS,
-                  alt: true, control: true),
-              onPressed: () {
-                Actions.maybeInvoke<SettingsIntent>(
-                    context, SettingsIntent(context));
-              },
-              child: Text(AppLocalizations.of(context).settings),
-            ),
-          ] else ...[
+          if (state.embedding != null) ...[
             MenuItemButton(
               leadingIcon: const PhosphorIcon(PhosphorIconsLight.door),
               child: Text(AppLocalizations.of(context).exit),

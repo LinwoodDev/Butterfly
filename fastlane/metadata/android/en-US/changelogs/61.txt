@@ -9,5 +9,9 @@
 * Fix reset does not replace templates
 * Fix text span creation
 * Fix select while zooming
+* Fix overflow in settings dialog
 * Fixing text replacing problems
 * Remove file extension on file move dialog
+* Remove settings button in main view
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0
