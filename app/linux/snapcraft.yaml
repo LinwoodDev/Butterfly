@@ -1,4 +1,4 @@
-name: linwood
+name: butterfly
 grade: stable
 version: '1.6.1'
 summary: Powerful, minimalistic, cross-platform, opensource note-taking app.
@@ -12,13 +12,13 @@ architectures:
     build-for: [amd64]
 
 slots:
-  linwood:
+  butterfly:
     interface: dbus
     bus: session
     name: dev.linwood.butterfly
 
 apps:
-  linwood:
+  butterfly:
     command: butterfly
     extensions: [gnome]
     plugs:
@@ -30,7 +30,7 @@ apps:
     desktop: usr/share/applications/dev.linwood.butterfly.desktop
 
 parts:
-  linwood:
+  butterfly:
     plugin: dump
     source: https://github.com/LinwoodDev/Butterfly/releases/download/v1.6.1/linwood-butterfly-linux.tar.gz
     override-build: |
