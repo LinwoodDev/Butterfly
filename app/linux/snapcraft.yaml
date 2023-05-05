@@ -37,5 +37,6 @@ parts:
       craftctl default
       chmod a+x ./butterfly
     stage-packages:
+      - libsecret-1-0
       - libjsoncpp25
     parse-info: [usr/share/metainfo/dev.linwood.butterfly.appdata.xml]
