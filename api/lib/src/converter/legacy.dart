@@ -53,7 +53,8 @@ Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
       }
       final thumbnail = data['thumbnail'] as String?;
       if (thumbnail != null) {
-        reader.setThumbnail(Uint8List.fromList(utf8.encode(thumbnail)));
+        final data = UriData.parse(thumbnail).contentAsBytes();
+        reader.setThumbnail(data);
       }
   }
   return archive;
@@ -188,7 +189,7 @@ Map<String, dynamic> _legacyTemplateJsonMigrator(
     Map<String, dynamic> data, int? fileVersion) {
   data['document'] = _legacyDocumentJsonMigrator(
       Map<String, dynamic>.from(data['document']), fileVersion);
-  return data;
+  return {...data['document'], ...data};
 }
 
 Map<String, dynamic> _legacyPackJsonMigrator(
