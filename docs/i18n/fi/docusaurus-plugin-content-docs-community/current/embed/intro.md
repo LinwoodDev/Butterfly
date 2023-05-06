@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 Parametrit:
 
-* `data` (Kirjoita `Merkkijono`): Asiakirjan tiedot.
+* `data` (Type `List<int>`): The data of the document.
 
 ### exit
 
@@ -44,7 +44,7 @@ Parametrit:
 
 Parametrit:
 
-* `data` (Kirjoita `Merkkijono`): Asiakirjan tiedot.
+* `data` (Type `List<int>`): The data of the document.
 
 ### change
 
@@ -52,7 +52,7 @@ Parametrit:
 
 Parametrit:
 
-* `data` (Kirjoita `Merkkijono`): Asiakirjan tiedot.
+* `data` (Type `List<int>`): The data of the document.
 
 ## Menetelmät
 
@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > The `getData` method palauttaa asiakirjan tiedot.
 
-Ei parametreja. Palautukset: `Merkkijono`
+Ei parametreja. Returns: `List<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ Ei parametreja. Palautukset: `Merkkijono`
 
 Parametrit:
 
-* `data` (Kirjoita `Merkkijono`): Asiakirjan tiedot.
+* `data` (Type `List<int>`): The data of the document.
 
 ### render
 
