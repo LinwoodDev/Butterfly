@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 Параметри:
 
-* `дані` (Type `String`): Дані документа.
+* `data` (Type `List<int>`): The data of the document.
 
 ### exit
 
@@ -44,7 +44,7 @@ embedElement.addEventListener('message', (data) => {
 
 Параметри:
 
-* `дані` (Type `String`): Дані документа.
+* `data` (Type `List<int>`): The data of the document.
 
 ### change
 
@@ -52,7 +52,7 @@ embedElement.addEventListener('message', (data) => {
 
 Параметри:
 
-* `дані` (Type `String`): Дані документа.
+* `data` (Type `List<int>`): The data of the document.
 
 ## Методи
 
@@ -71,7 +71,7 @@ embedment.addEventListener('message', (data) =>
 
 > Метод `getData` повертає дані документа.
 
-Параметри відсутні. Повертається: `Рядок`
+Параметри відсутні. Returns: `List<int>`
 
 ### setData
 
@@ -79,7 +79,7 @@ embedment.addEventListener('message', (data) =>
 
 Параметри:
 
-* `дані` (Type `String`): Дані документа.
+* `data` (Type `List<int>`): The data of the document.
 
 ### render
 
