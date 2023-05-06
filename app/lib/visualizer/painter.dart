@@ -4,9 +4,8 @@ import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../helpers/icon_helper.dart';
 
 extension PainterVisualizer on Painter {
   String getLocalizedName(BuildContext context) {
