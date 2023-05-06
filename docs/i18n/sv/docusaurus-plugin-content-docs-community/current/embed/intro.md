@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 Parametrar:
 
-* `data` (Typ `Sträng`): Dokumentets data.
+* `data` (Type `List<int>`): The data of the document.
 
 ### exit
 
@@ -44,7 +44,7 @@ Parametrar:
 
 Parametrar:
 
-* `data` (Typ `Sträng`): Dokumentets data.
+* `data` (Type `List<int>`): The data of the document.
 
 ### change
 
@@ -52,7 +52,7 @@ Parametrar:
 
 Parametrar:
 
-* `data` (Typ `Sträng`): Dokumentets data.
+* `data` (Type `List<int>`): The data of the document.
 
 ## Metoder
 
@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > Metoden `getData` returnerar data från dokumentet.
 
-Inga parametrar. Returer: `Sträng`
+Inga parametrar. Returns: `List<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ Inga parametrar. Returer: `Sträng`
 
 Parametrar:
 
-* `data` (Typ `Sträng`): Dokumentets data.
+* `data` (Type `List<int>`): The data of the document.
 
 ### render
 
