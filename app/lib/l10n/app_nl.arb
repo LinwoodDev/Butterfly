@@ -492,5 +492,10 @@
   "noTemplates": "Er zijn momenteel geen sjablonen beschikbaar",
   "reset": "Reset",
   "importCorePack": "Importeer core pakket",
-  "importCorePackDescription": "Importeer het core pakket dat alle basisassets bevat om aan de slag te gaan. Dit zal het huidige core pakket overschrijven."
+  "importCorePackDescription": "Importeer het core pakket dat alle basisassets bevat om aan de slag te gaan. Dit zal het huidige core pakket overschrijven.",
+  "never": "Never",
+  "onlyOnUpdates": "Only on updates",
+  "visibility": "Visibility",
+  "captureThumbnail": "Capture thumbnail",
+  "capturedThumbnail": "Successfully captured thumbnail"
 }
