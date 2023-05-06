@@ -492,5 +492,10 @@
   "noTemplates": "Al momento non ci sono modelli disponibili",
   "reset": "Reset",
   "importCorePack": "Importa pacchetto core",
-  "importCorePackDescription": "Importa il core pack che contiene tutte le risorse di base per iniziare. Questo sovrascriverà l'attuale core pack."
+  "importCorePackDescription": "Importa il core pack che contiene tutte le risorse di base per iniziare. Questo sovrascriverà l'attuale core pack.",
+  "never": "Never",
+  "onlyOnUpdates": "Only on updates",
+  "visibility": "Visibility",
+  "captureThumbnail": "Capture thumbnail",
+  "capturedThumbnail": "Successfully captured thumbnail"
 }
