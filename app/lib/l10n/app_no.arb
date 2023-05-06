@@ -492,5 +492,10 @@
   "noTemplates": "Det er ingen maler tilgjengelig",
   "reset": "Reset",
   "importCorePack": "Importer kjerne pakke",
-  "importCorePackDescription": "Importer kjerne pakken som inneholder alle grunnleggende ressurser for å komme i gang. Dette vil overstyre den gjeldende kjernepakken."
+  "importCorePackDescription": "Importer kjerne pakken som inneholder alle grunnleggende ressurser for å komme i gang. Dette vil overstyre den gjeldende kjernepakken.",
+  "never": "Never",
+  "onlyOnUpdates": "Only on updates",
+  "visibility": "Visibility",
+  "captureThumbnail": "Capture thumbnail",
+  "capturedThumbnail": "Successfully captured thumbnail"
 }
