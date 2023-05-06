@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 Параметры:
 
-* `данные` (Тип `Строка`): Данные документа.
+* `data` (Type `List<int>`): The data of the document.
 
 ### exit
 
@@ -44,7 +44,7 @@ embedElement.addEventListener('message', (data) => {
 
 Параметры:
 
-* `данные` (Тип `Строка`): Данные документа.
+* `data` (Type `List<int>`): The data of the document.
 
 ### change
 
@@ -52,7 +52,7 @@ embedElement.addEventListener('message', (data) => {
 
 Параметры:
 
-* `данные` (Тип `Строка`): Данные документа.
+* `data` (Type `List<int>`): The data of the document.
 
 ## Методы
 
@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > Метод `getData` возвращает данные документа.
 
-Нет параметров. Возвращение: `Строка`
+Нет параметров. Returns: `List<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ embedElement.addEventListener('message', (data) => {
 
 Параметры:
 
-* `данные` (Тип `Строка`): Данные документа.
+* `data` (Type `List<int>`): The data of the document.
 
 ### render
 
