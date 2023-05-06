@@ -492,5 +492,10 @@
   "noTemplates": "Tällä hetkellä pohjia ei ole saatavilla",
   "reset": "Reset",
   "importCorePack": "Tuo ydinpaketti",
-  "importCorePackDescription": "Tuo ydin, joka sisältää kaikki perusassetit päästäksesi alkuun. Tämä ohittaa nykyisen ydinpaketin."
+  "importCorePackDescription": "Tuo ydin, joka sisältää kaikki perusassetit päästäksesi alkuun. Tämä ohittaa nykyisen ydinpaketin.",
+  "never": "Never",
+  "onlyOnUpdates": "Only on updates",
+  "visibility": "Visibility",
+  "captureThumbnail": "Capture thumbnail",
+  "capturedThumbnail": "Successfully captured thumbnail"
 }
