@@ -492,5 +492,10 @@
   "noTemplates": "В настоящее время шаблонов нет",
   "reset": "Reset",
   "importCorePack": "Импортировать пакет ядра",
-  "importCorePackDescription": "Импортируйте пакет ядра, содержащий все основные медиафайлы для начала. Это переопределит текущий пакет ядра."
+  "importCorePackDescription": "Импортируйте пакет ядра, содержащий все основные медиафайлы для начала. Это переопределит текущий пакет ядра.",
+  "never": "Never",
+  "onlyOnUpdates": "Only on updates",
+  "visibility": "Visibility",
+  "captureThumbnail": "Capture thumbnail",
+  "capturedThumbnail": "Successfully captured thumbnail"
 }
