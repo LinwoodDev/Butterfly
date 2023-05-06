@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 Parâmetros:
 
-* `data` (Tipo `String`): Os dados do documento.
+* `data` (Type `List<int>`): The data of the document.
 
 ### exit
 
@@ -44,7 +44,7 @@ Parâmetros:
 
 Parâmetros:
 
-* `data` (Tipo `String`): Os dados do documento.
+* `data` (Type `List<int>`): The data of the document.
 
 ### change
 
@@ -52,7 +52,7 @@ Parâmetros:
 
 Parâmetros:
 
-* `data` (Tipo `String`): Os dados do documento.
+* `data` (Type `List<int>`): The data of the document.
 
 ## Métodos
 
@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > O método `getData` retorna os dados do documento.
 
-Nenhum parâmetro. Retorna: `String`
+Nenhum parâmetro. Returns: `List<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ Nenhum parâmetro. Retorna: `String`
 
 Parâmetros:
 
-* `data` (Tipo `String`): Os dados do documento.
+* `data` (Type `List<int>`): The data of the document.
 
 ### render
 
