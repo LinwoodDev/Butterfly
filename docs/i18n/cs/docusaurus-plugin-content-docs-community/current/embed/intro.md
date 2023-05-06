@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 Parametry:
 
-* `data` (typ `řetězec`) ): Data dokumentu.
+* `data` (Type `List<int>`): The data of the document.
 
 ### exit
 
@@ -44,7 +44,7 @@ Parametry:
 
 Parametry:
 
-* `data` (typ `řetězec`) ): Data dokumentu.
+* `data` (Type `List<int>`): The data of the document.
 
 ### change
 
@@ -52,7 +52,7 @@ Parametry:
 
 Parametry:
 
-* `data` (typ `řetězec`) ): Data dokumentu.
+* `data` (Type `List<int>`): The data of the document.
 
 ## Metody
 
@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > Metoda `getData` vrací data dokumentu.
 
-Žádné parametry. Vrácené hodnoty: `Řetězec`
+Žádné parametry. Returns: `List<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ embedElement.addEventListener('message', (data) => {
 
 Parametry:
 
-* `data` (typ `řetězec`) ): Data dokumentu.
+* `data` (Type `List<int>`): The data of the document.
 
 ### render
 
