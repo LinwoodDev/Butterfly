@@ -45,13 +45,13 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return Container();
-    final document = state.document;
+    final document = state.data;
     final paragraph = widget.value.getDefinedProperty(document) ??
         const text.DefinedParagraphProperty();
     final span = widget.value.getDefinedForcedSpanProperty(document);
     final styleSheet =
         widget.value.element?.styleSheet ?? widget.value.painter.styleSheet;
-    final style = document.getStyle(styleSheet);
+    final style = styleSheet.resolveStyle(document);
     _sizeController.text = span.getSize(paragraph).toString();
     var paragraphSelection = paragraph.mapOrNull(named: (value) => value.name);
     final paragraphSelections = [

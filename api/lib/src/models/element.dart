@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'converter.dart';
+import '../converter/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'pack.dart';
@@ -21,6 +21,10 @@ class ElementConstraint with _$ElementConstraint {
 
   factory ElementConstraint.fromJson(Map<String, dynamic> json) =>
       _$ElementConstraintFromJson(json);
+}
+
+abstract class SourcedElement {
+  String get source;
 }
 
 @freezed
@@ -68,6 +72,7 @@ class PadElement with _$PadElement {
     @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
   }) = TextElement;
 
+  @Implements<SourcedElement>()
   const factory PadElement.image({
     @Default('') String layer,
     @DoublePointJsonConverter()
@@ -80,6 +85,7 @@ class PadElement with _$PadElement {
     required double height,
   }) = ImageElement;
 
+  @Implements<SourcedElement>()
   const factory PadElement.svg({
     @Default('') String layer,
     @DoublePointJsonConverter()
@@ -87,7 +93,7 @@ class PadElement with _$PadElement {
         Point<double> position,
     @Default(ScaledElementConstraints(scaleX: 1, scaleY: 1))
         ElementConstraints? constraints,
-    required String data,
+    required String source,
     required double width,
     required double height,
   }) = SvgElement;

@@ -103,7 +103,6 @@ Future<void> main([List<String> args = const []]) async {
           create: (context) => DocumentFileSystem.fromPlatform()),
       RepositoryProvider(
           create: (context) => TemplateFileSystem.fromPlatform()),
-      RepositoryProvider(create: (context) => const DocumentJsonConverter()),
     ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)),
   );
 }

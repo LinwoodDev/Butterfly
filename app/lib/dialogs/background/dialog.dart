@@ -22,7 +22,7 @@ class BackgroundDialog extends StatelessWidget {
             child: BlocBuilder<DocumentBloc, DocumentState>(
                 builder: (context, state) {
               if (state is! DocumentLoadSuccess) return Container();
-              var background = state.document.background;
+              var background = state.page.background;
 
               return Column(
                 children: [

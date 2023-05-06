@@ -4,8 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class GeneralPackView extends StatelessWidget {
-  final ButterflyPack value;
-  final ValueChanged<ButterflyPack> onChanged;
+  final NoteData value;
+  final ValueChanged<NoteData> onChanged;
 
   const GeneralPackView({
     super.key,
@@ -15,6 +15,15 @@ class GeneralPackView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final metadata = value.getMetadata();
+    if (metadata == null) {
+      return const SizedBox();
+    }
+    void changeMetadata(FileMetadata metadata) {
+      value.setMetadata(metadata);
+      onChanged(value);
+    }
+
     return ListView(
       children: [
         const SizedBox(height: 8),
@@ -24,8 +33,8 @@ class GeneralPackView extends StatelessWidget {
             icon: const PhosphorIcon(PhosphorIconsLight.textT),
             filled: true,
           ),
-          initialValue: value.name,
-          onChanged: (name) => onChanged(value.copyWith(name: name)),
+          initialValue: metadata.name,
+          onChanged: (name) => changeMetadata(metadata.copyWith(name: name)),
         ),
         const SizedBox(height: 8),
         TextFormField(
@@ -34,8 +43,9 @@ class GeneralPackView extends StatelessWidget {
             icon: const PhosphorIcon(PhosphorIconsLight.person),
             filled: true,
           ),
-          initialValue: value.author,
-          onChanged: (author) => onChanged(value.copyWith(author: author)),
+          initialValue: metadata.author,
+          onChanged: (author) =>
+              changeMetadata(metadata.copyWith(author: author)),
         ),
         const SizedBox(height: 8),
         TextFormField(
@@ -46,9 +56,9 @@ class GeneralPackView extends StatelessWidget {
           ),
           minLines: 3,
           maxLines: 5,
-          initialValue: value.description,
+          initialValue: metadata.description,
           onChanged: (description) =>
-              onChanged(value.copyWith(description: description)),
+              changeMetadata(metadata.copyWith(description: description)),
         ),
       ],
     );

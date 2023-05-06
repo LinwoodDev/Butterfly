@@ -51,7 +51,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
             (viewport.height ?? 0) / 2,
           );
           context.read<TransformCubit>().size(value, center);
-          state.currentIndexCubit.bake(state.document);
+          state.currentIndexCubit.bake(state.data, state.page);
         }
 
         return LayoutBuilder(

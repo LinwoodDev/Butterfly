@@ -1,31 +1,83 @@
 import 'dart:convert';
-import 'dart:math';
 import 'dart:typed_data';
 
-import 'document.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:archive/archive.dart';
+import 'package:butterfly_api/src/models/text.dart';
 
-import 'palette.dart';
+import '../models/data.dart';
+import '../models/meta.dart';
+import '../models/pack.dart';
+import '../models/page.dart';
+import '../models/palette.dart';
 
-Map<String, dynamic> noteDataJsonMigrator(Map<String, dynamic> data) {
+Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
+  data = {
+    'version': data['fileVersion'],
+    ...legacyNoteDataJsonMigrator(data),
+  };
+  final archive = Archive();
+  final reader = NoteData(archive);
+  final meta = FileMetadata.fromJson(data);
+  reader.setMetadata(meta);
+  switch (meta.type) {
+    case NoteFileType.pack:
+      final palettes = (data['palettes'] ?? [])
+          .map((e) => ColorPalette.fromJson(e))
+          .toList();
+      for (final palette in palettes) {
+        reader.setPalette(palette);
+      }
+      final styles = (data['styles'] ?? [])
+          .map((e) => TextStyleSheet.fromJson(e))
+          .toList();
+      for (final style in styles) {
+        reader.setStyle(style);
+      }
+      final components = (data['components'] ?? [])
+          .map((e) => ButterflyComponent.fromJson(e))
+          .toList();
+      for (final component in components) {
+        reader.setComponent(component);
+      }
+      break;
+    case NoteFileType.template:
+    case NoteFileType.document:
+      final page = DocumentPage.fromJson(data);
+      reader.setPage(page);
+      final packs = (data['packs'] ?? [])
+          .map((e) => NoteData.fromData(Uint8List.fromList(
+              utf8.encode(jsonEncode({'type': 'pack', ...e})))))
+          .toList();
+      for (final pack in packs) {
+        reader.setPack(pack);
+      }
+      final thumbnail = data['thumbnail'] as String?;
+      if (thumbnail != null) {
+        reader.setThumbnail(Uint8List.fromList(utf8.encode(thumbnail)));
+      }
+  }
+  return archive;
+}
+
+Map<String, dynamic> legacyNoteDataJsonMigrator(Map<String, dynamic> data) {
   final fileVersion = data['fileVersion'] as int?;
   final type = data['type'] as String?;
   data = Map<String, dynamic>.from(data);
   switch (type) {
     case 'template':
-      data = _templateJsonMigrator(data, fileVersion);
+      data = _legacyTemplateJsonMigrator(data, fileVersion);
       break;
     case 'pack':
-      data = _packJsonMigrator(data, fileVersion);
+      data = _legacyPackJsonMigrator(data, fileVersion);
       break;
     default:
-      data = _documentJsonMigrator(data, fileVersion);
+      data = _legacyDocumentJsonMigrator(data, fileVersion);
       break;
   }
   return data;
 }
 
-Map<String, dynamic> _documentJsonMigrator(
+Map<String, dynamic> _legacyDocumentJsonMigrator(
     Map<String, dynamic> data, int? fileVersion) {
   final fileVersion = data['fileVersion'] as int?;
   if (fileVersion != null && fileVersion >= 0) {
@@ -116,92 +168,30 @@ Map<String, dynamic> _documentJsonMigrator(
             DateTime.parse(data['updatedAt'] as String).millisecondsSinceEpoch;
       }
     }
+    if (fileVersion < 8) {
+      data['content'] = List.from(data['content'] as List).map((e) {
+        if (e['type'] == 'svg') {
+          return {
+            ...e,
+            'source': UriData.fromString(e['source'] as String,
+                encoding: utf8, mimeType: 'image/svg+xml'),
+          };
+        }
+        return e;
+      }).toList();
+    }
   }
   return data;
 }
 
-Map<String, dynamic> _templateJsonMigrator(
+Map<String, dynamic> _legacyTemplateJsonMigrator(
     Map<String, dynamic> data, int? fileVersion) {
-  data['document'] = _documentJsonMigrator(
+  data['document'] = _legacyDocumentJsonMigrator(
       Map<String, dynamic>.from(data['document']), fileVersion);
   return data;
 }
 
-Map<String, dynamic> _packJsonMigrator(
+Map<String, dynamic> _legacyPackJsonMigrator(
     Map<String, dynamic> data, int? fileVersion) {
   return data;
-}
-
-class DocumentJsonConverter extends JsonConverter<AppDocument, Map> {
-  const DocumentJsonConverter();
-
-  @override
-  AppDocument fromJson(Map json) {
-    return AppDocument.fromJson(
-        _documentJsonMigrator(Map.from(json), json['fileVersion'] as int?));
-  }
-
-  @override
-  Map<String, dynamic> toJson(AppDocument object) => object.toJson();
-}
-
-class TemplateJsonConverter extends JsonConverter<DocumentTemplate, Map> {
-  const TemplateJsonConverter();
-
-  @override
-  DocumentTemplate fromJson(Map json) {
-    return DocumentTemplate.fromJson(
-        _templateJsonMigrator(Map.from(json), json['fileVersion'] as int?));
-  }
-
-  @override
-  Map<String, dynamic> toJson(DocumentTemplate object) => object.toJson();
-}
-
-class PackJsonConverter extends JsonConverter<ButterflyPack, Map> {
-  const PackJsonConverter();
-  @override
-  ButterflyPack fromJson(Map json) {
-    return ButterflyPack.fromJson(
-        _packJsonMigrator(Map.from(json), json['fileVersion'] as int?));
-  }
-
-  @override
-  Map<String, dynamic> toJson(ButterflyPack object) => object.toJson();
-}
-
-class DoublePointJsonConverter extends JsonConverter<Point<double>, Map> {
-  const DoublePointJsonConverter();
-
-  @override
-  Point<double> fromJson(Map json) {
-    final xJson = json['x'];
-    final yJson = json['y'];
-    if (xJson is double) {
-      if (yJson is double) {
-        return Point(xJson, yJson);
-      }
-    }
-    return Point(0, 0);
-  }
-
-  @override
-  Map toJson(Point<double> object) => {'x': object.x, 'y': object.y};
-}
-
-class Uint8ListJsonConverter extends JsonConverter<Uint8List, String> {
-  const Uint8ListJsonConverter();
-
-  @override
-  Uint8List fromJson(String json) => Uint8List.fromList(base64.decode(json));
-  @override
-  String toJson(Uint8List object) => base64.encode(object.toList());
-}
-
-class DateTimeJsonConverter extends JsonConverter<DateTime, int> {
-  const DateTimeJsonConverter();
-  @override
-  DateTime fromJson(int json) => DateTime.fromMillisecondsSinceEpoch(json);
-  @override
-  int toJson(DateTime object) => object.millisecondsSinceEpoch;
 }

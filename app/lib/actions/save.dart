@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,8 +19,7 @@ class SaveAction extends Action<SaveIntent> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     if (state.embedding?.save ?? false) {
-      sendEmbedMessage('save',
-          json.encode(const DocumentJsonConverter().toJson(state.document)));
+      sendEmbedMessage('save', state.saveData().save());
       state.currentIndexCubit.setSaveState(saved: true);
     } else {
       final path = await state.save();

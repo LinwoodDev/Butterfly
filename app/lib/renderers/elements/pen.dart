@@ -7,7 +7,7 @@ class PenRenderer extends PathRenderer<PenElement> {
   double? get zoom => element.zoom;
 
   @override
-  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
+  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     final points = element.points;
     final property = element.property;
@@ -30,7 +30,7 @@ class PenRenderer extends PathRenderer<PenElement> {
   }
 
   @override
-  Paint buildPaint([AppDocument? document, bool foreground = false]) => Paint()
+  Paint buildPaint([DocumentPage? page, bool foreground = false]) => Paint()
     ..color = Color(element.property.color)
     ..style = element.property.fill ? PaintingStyle.fill : PaintingStyle.stroke
     ..strokeCap = StrokeCap.round;

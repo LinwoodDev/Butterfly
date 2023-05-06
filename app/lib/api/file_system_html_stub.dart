@@ -41,12 +41,12 @@ class WebTemplateFileSystem extends TemplateFileSystem {
   }
 
   @override
-  Future<DocumentTemplate?> getTemplate(String name) {
+  Future<NoteData?> getTemplate(String name) {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<DocumentTemplate>> getTemplates() {
+  Future<List<NoteData>> getTemplates() {
     throw UnimplementedError();
   }
 
@@ -56,7 +56,7 @@ class WebTemplateFileSystem extends TemplateFileSystem {
   }
 
   @override
-  Future<void> updateTemplate(DocumentTemplate template) {
+  Future<void> updateTemplate(NoteData template) {
     throw UnimplementedError();
   }
 }
@@ -68,12 +68,12 @@ class WebPackFileSystem extends PackFileSystem {
   }
 
   @override
-  Future<ButterflyPack?> getPack(String name) {
+  Future<NoteData?> getPack(String name) {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<ButterflyPack>> getPacks() {
+  Future<List<NoteData>> getPacks() {
     throw UnimplementedError();
   }
 
@@ -83,7 +83,7 @@ class WebPackFileSystem extends PackFileSystem {
   }
 
   @override
-  Future<void> updatePack(ButterflyPack pack) {
+  Future<void> updatePack(NoteData pack) {
     throw UnimplementedError();
   }
 

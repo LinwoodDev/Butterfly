@@ -48,7 +48,7 @@ extension WaypointSearchHelper on Waypoint {
   }
 }
 
-extension SearchHelper on AppDocument {
+extension SearchHelper on DocumentPage {
   List<SearchResult> search(Pattern query) {
     final results = <SearchResult>[];
     for (final area in areas) {

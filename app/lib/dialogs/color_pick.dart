@@ -42,10 +42,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     if (widget.bloc != null) {
       final state = widget.bloc!.state;
       if (state is DocumentLoaded) {
-        final pack = state.document.packs.firstOrNull;
-        final palette = pack?.palettes.firstOrNull;
+        final packName = state.data.getPacks().firstOrNull;
+        final pack = packName == null ? null : state.data.getPack(packName);
+        final palette = pack?.getPalettes().firstOrNull;
         if (palette != null) {
-          _selected = PackAssetLocation(pack: pack!.name, name: palette.name);
+          _selected = PackAssetLocation(pack: packName!, name: palette);
         }
       }
     }
@@ -56,7 +57,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     if (_selected == null) return null;
     final state = widget.bloc?.state;
     if (state is! DocumentLoaded) return null;
-    return state.document.getPalette(_selected!);
+    return state.data.getPack(_selected!.pack)?.getPalette(_selected!.name);
   }
 
   void _changePalette(ColorPalette palette) {
@@ -69,16 +70,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       final state = widget.bloc?.state;
       if (state is! DocumentLoaded) return;
       final pack =
-          _selected == null ? null : state.document.getPack(_selected!.name);
+          _selected == null ? null : state.data.getPack(_selected!.name);
       if (pack == null) return;
-      final newPalettes = pack.palettes.map((e) {
-        if (e.name == palette.name) {
-          return palette;
-        }
-        return e;
-      }).toList();
-      widget.bloc?.add(
-          DocumentPackUpdated(pack.name, pack.copyWith(palettes: newPalettes)));
+      pack.setPalette(palette);
+      widget.bloc?.add(DocumentPackUpdated(pack.name!, pack));
     }
   }
 

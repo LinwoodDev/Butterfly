@@ -11,7 +11,6 @@ import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/visualizer/preset.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';

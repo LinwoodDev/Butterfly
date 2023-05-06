@@ -6,8 +6,8 @@ class AreaHandler extends Handler<AreaPainter> {
   AreaHandler(super.data);
 
   @override
-  List<Renderer> createForegrounds(
-          CurrentIndexCubit currentIndexCubit, AppDocument document,
+  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
+          NoteData document, DocumentPage page,
           [Area? currentArea]) =>
       [
         if (currentArea == null) ...[
@@ -16,7 +16,7 @@ class AreaHandler extends Handler<AreaPainter> {
                 width: currentRect!.width,
                 height: currentRect!.height,
                 position: currentRect!.topLeft.toPoint())),
-          ...document.areas.map((e) => AreaForegroundRenderer(e)).toList()
+          ...page.areas.map((e) => AreaForegroundRenderer(e)).toList()
         ],
       ];
 
@@ -37,10 +37,9 @@ class AreaHandler extends Handler<AreaPainter> {
     var localPosition = event.localPosition;
     final cubit = context.getCurrentIndexCubit();
     localPosition = cubit.state.cameraViewport.tool
-            ?.getGridPosition(localPosition, state.document, cubit) ??
-        localPosition;
+        .getGridPosition(localPosition, state.page, cubit);
     final globalPosition = transform.localToGlobal(localPosition);
-    final area = state.document.getArea(globalPosition);
+    final area = state.page.getArea(globalPosition);
     final currentIndexCubit = context.getCurrentIndexCubit();
     if (area != null || state.currentArea != null) {
       showContextMenu(
@@ -63,7 +62,7 @@ class AreaHandler extends Handler<AreaPainter> {
       return;
     }
     currentRect = Rect.fromLTWH(globalPosition.dx, globalPosition.dy, 0, 0);
-    if (state.document.getAreaByRect(currentRect!) != null) {
+    if (state.page.getAreaByRect(currentRect!) != null) {
       currentRect = null;
       return;
     }
@@ -79,10 +78,9 @@ class AreaHandler extends Handler<AreaPainter> {
     var localPosition = event.localPosition;
     final cubit = context.getCurrentIndexCubit();
     localPosition = cubit.state.cameraViewport.tool
-            ?.getGridPosition(localPosition, state.document, cubit) ??
-        localPosition;
+        .getGridPosition(localPosition, state.page, cubit);
     final position = transform.localToGlobal(localPosition);
-    _setRect(state.document, position);
+    _setRect(state.page, position);
     context.refresh();
   }
 
@@ -96,17 +94,17 @@ class AreaHandler extends Handler<AreaPainter> {
               value: context.read<DocumentBloc>(),
               child: NameDialog(
                   validator: defaultNameValidator(
-                      context, state.document.getAreaNames().toList()))));
+                      context, state.page.getAreaNames().toList()))));
     }
     var name = '', index = 1;
-    while (name.isEmpty || state.document.getAreaByName(name) != null) {
+    while (name.isEmpty || state.page.getAreaByName(name) != null) {
       name = AppLocalizations.of(context).areaIndex(index);
       index++;
     }
     return name;
   }
 
-  void _setRect(AppDocument document, Offset nextPosition) {
+  void _setRect(DocumentPage page, Offset nextPosition) {
     currentRect ??= Rect.fromLTWH(nextPosition.dx, nextPosition.dy, 0, 0);
     double width = 0, height = 0;
     final nextWidth = nextPosition.dx - currentRect!.left;
@@ -141,7 +139,7 @@ class AreaHandler extends Handler<AreaPainter> {
     }
     final nextRect =
         Rect.fromLTWH(currentRect!.left, currentRect!.top, width, height);
-    if (document.getAreaByRect(nextRect.normalized()) == null) {
+    if (page.getAreaByRect(nextRect.normalized()) == null) {
       currentRect = nextRect;
     }
   }
@@ -154,17 +152,16 @@ class AreaHandler extends Handler<AreaPainter> {
     final state = context.getState();
     if (state == null) return;
     localPosition = cubit.state.cameraViewport.tool
-            ?.getGridPosition(localPosition, state.document, cubit) ??
-        localPosition;
+        .getGridPosition(localPosition, state.page, cubit);
     final position = transform.localToGlobal(localPosition);
-    _setRect(state.document, position);
+    _setRect(state.page, position);
     currentRect = currentRect?.normalized();
     if (currentRect?.size.isEmpty ?? true) {
       currentRect = null;
       context.refresh();
       return;
     }
-    if (state.document.getAreaByRect(currentRect!) != null) {
+    if (state.page.getAreaByRect(currentRect!) != null) {
       currentRect = null;
       context.refresh();
       return;
@@ -175,7 +172,7 @@ class AreaHandler extends Handler<AreaPainter> {
       context.refresh();
       return;
     }
-    if (state.document.getAreaByName(name) != null) {
+    if (state.page.getAreaByName(name) != null) {
       currentRect = null;
       context.refresh();
       return;

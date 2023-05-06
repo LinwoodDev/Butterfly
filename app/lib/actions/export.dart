@@ -1,8 +1,5 @@
-import 'dart:convert';
-
+import 'package:butterfly/api/save_data.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/dialogs/export.dart';
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,12 +14,9 @@ class ExportAction extends Action<ExportIntent> {
 
   @override
   Future<void> invoke(ExportIntent intent) async {
-    var bloc = intent.context.read<DocumentBloc>();
-    var data = json.encode(intent.context
-        .read<DocumentJsonConverter>()
-        .toJson((bloc.state as DocumentLoadSuccess).document));
-    return showDialog<void>(
-        context: intent.context,
-        builder: (context) => ExportDialog(data: data));
+    final bloc = intent.context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return;
+    saveData(intent.context, state.saveData().save());
   }
 }

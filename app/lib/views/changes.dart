@@ -6,13 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-FutureOr<AppDocument?> checkFileChanges(
+FutureOr<NoteData?> checkFileChanges(
     BuildContext context, AppDocumentEntity? entity) async {
   if (entity is! AppDocumentFile) return null;
-  final info = entity.getDocumentInfo();
-  if (info == null) return null;
-  final version = info.fileVersion;
-  if (version >= 0 &&
+  final data = entity.load();
+  final metadata = data.getMetadata();
+  if (metadata == null) return null;
+  final version = metadata.fileVersion;
+  if (version != null &&
+      version >= 0 &&
       (version > kFileVersion || version < kBreakingChangesVersion)) {
     final result = await showDialog<bool>(
       context: context,
@@ -47,5 +49,5 @@ FutureOr<AppDocument?> checkFileChanges(
     );
     if (result != true) return null;
   }
-  return info.load();
+  return data;
 }
