@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 Parameter:
 
-* `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
+* `data` (Type `List<int>`): The data of the document.
 
 ### exit
 
@@ -44,7 +44,7 @@ Parameter:
 
 Parameter:
 
-* `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
+* `data` (Type `List<int>`): The data of the document.
 
 ### change
 
@@ -52,7 +52,7 @@ Parameter:
 
 Parameter:
 
-* `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
+* `data` (Type `List<int>`): The data of the document.
 
 ## Methoden
 
@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > Die `getData` Methode gibt die Daten des Dokuments zurück.
 
-Keine Parameter. Rückgabewerte: `Zeichenkette`
+Keine Parameter. Returns: `List<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ Keine Parameter. Rückgabewerte: `Zeichenkette`
 
 Parameter:
 
-* `Daten` (Typ `Zeichenkette`): Die Daten des Dokuments.
+* `data` (Type `List<int>`): The data of the document.
 
 ### render
 
