@@ -492,5 +492,10 @@
   "noTemplates": "目前没有可用的模板",
   "reset": "Reset",
   "importCorePack": "导入核心包",
-  "importCorePackDescription": "导入包含所有基本资源以启动的核心包。这将覆盖当前的核心包。"
+  "importCorePackDescription": "导入包含所有基本资源以启动的核心包。这将覆盖当前的核心包。",
+  "never": "Never",
+  "onlyOnUpdates": "Only on updates",
+  "visibility": "Visibility",
+  "captureThumbnail": "Capture thumbnail",
+  "capturedThumbnail": "Successfully captured thumbnail"
 }
