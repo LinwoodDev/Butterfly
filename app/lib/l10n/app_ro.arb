@@ -492,5 +492,10 @@
   "noTemplates": "În acest moment nu există șabloane disponibile",
   "reset": "Reset",
   "importCorePack": "Importă pachetul de nucleu",
-  "importCorePackDescription": "Importați pachetul de nucleu care conține toate activele de bază pentru a începe. Acest lucru va suprascrie actualul nucleu pachet."
+  "importCorePackDescription": "Importați pachetul de nucleu care conține toate activele de bază pentru a începe. Acest lucru va suprascrie actualul nucleu pachet.",
+  "never": "Never",
+  "onlyOnUpdates": "Only on updates",
+  "visibility": "Visibility",
+  "captureThumbnail": "Capture thumbnail",
+  "capturedThumbnail": "Successfully captured thumbnail"
 }
