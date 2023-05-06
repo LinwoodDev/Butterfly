@@ -492,5 +492,10 @@
   "noTemplates": "V současné době nejsou k dispozici žádné šablony",
   "reset": "Reset",
   "importCorePack": "Importovat základní balíček",
-  "importCorePackDescription": "Importovat základní balíček, který obsahuje všechny základní položky pro začátek. To přepíše aktuální balíček jádra."
+  "importCorePackDescription": "Importovat základní balíček, který obsahuje všechny základní položky pro začátek. To přepíše aktuální balíček jádra.",
+  "never": "Never",
+  "onlyOnUpdates": "Only on updates",
+  "visibility": "Visibility",
+  "captureThumbnail": "Capture thumbnail",
+  "capturedThumbnail": "Successfully captured thumbnail"
 }
