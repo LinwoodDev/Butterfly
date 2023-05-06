@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 Parametrii:
 
-* `date` (Tip `Șirul`): Datele documentului.
+* `data` (Type `List<int>`): The data of the document.
 
 ### exit
 
@@ -44,7 +44,7 @@ Parametrii:
 
 Parametrii:
 
-* `date` (Tip `Șirul`): Datele documentului.
+* `data` (Type `List<int>`): The data of the document.
 
 ### change
 
@@ -52,7 +52,7 @@ Parametrii:
 
 Parametrii:
 
-* `date` (Tip `Șirul`): Datele documentului.
+* `data` (Type `List<int>`): The data of the document.
 
 ## Metode
 
@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > Metoda `getData` returnează datele documentului.
 
-Niciun parametru. Returnări: `String`
+Niciun parametru. Returns: `List<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ Niciun parametru. Returnări: `String`
 
 Parametrii:
 
-* `date` (Tip `Șirul`): Datele documentului.
+* `data` (Type `List<int>`): The data of the document.
 
 ### render
 
