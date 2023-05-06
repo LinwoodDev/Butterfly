@@ -38,7 +38,7 @@ class PalettesPackView extends StatelessWidget {
                         onTap: () {
                           showDialog(
                             context: context,
-                            builder: (context) => ColorPickerDialog(
+                            builder: (context) => ColorPalettePickerDialog(
                               palette: value.getPalette(e),
                               viewMode: true,
                               onChanged: (palette) {

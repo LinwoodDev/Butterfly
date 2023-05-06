@@ -35,7 +35,7 @@ dependencies:
   file_picker: ^5.2.10
   phosphor_flutter:
     git:
-      url: https://github.com/phosphor-icons/flutter
+      url: https://github.com/CodeDoctorDE/phosphor-flutter
       ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
   replay_bloc: ^0.2.3
   share_plus: ^6.3.4
@@ -72,8 +72,13 @@ dependencies:
   lw_sysinfo:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: 6aaa333947699dd999d0bde3890fd7f0015b72c4
+      ref: f51d056b52311689b3f695ec97a0caef0064824d
       path: packages/lw_sysinfo
+  material_leap:
+    git:
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: 99a7a290bd5bfb80e68a08de3ef9dec939bec63b
+      path: packages/material_leap
   flutter_localized_locales: ^2.0.4
   dynamic_color: ^1.6.3
   popover: ^0.2.8+2
