@@ -492,5 +492,10 @@
   "noTemplates": "Şu anda kullanılabilir şablon yok",
   "reset": "Sıfırla",
   "importCorePack": "Çekirdek paketi içe aktar",
-  "importCorePackDescription": "Başlamak için tüm temel varlıkları içeren temel paketi içe aktarın. Bu, mevcut çekirdek paketi geçersiz kılacaktır."
+  "importCorePackDescription": "Başlamak için tüm temel varlıkları içeren temel paketi içe aktarın. Bu, mevcut çekirdek paketi geçersiz kılacaktır.",
+  "never": "Never",
+  "onlyOnUpdates": "Only on updates",
+  "visibility": "Visibility",
+  "captureThumbnail": "Capture thumbnail",
+  "capturedThumbnail": "Successfully captured thumbnail"
 }
