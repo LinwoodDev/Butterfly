@@ -69,6 +69,6 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
   Flathub
 </a>
 <a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
-  Snap
+  吸附
 </a>
 </div>
