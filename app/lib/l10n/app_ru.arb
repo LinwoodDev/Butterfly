@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Импортировать пакет ядра",
   "importCorePackDescription": "Импортируйте пакет ядра, содержащий все основные медиафайлы для начала. Это переопределит текущий пакет ядра.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "Никогда",
+  "onlyOnUpdates": "Только при обновлении",
+  "visibility": "Видимость",
+  "captureThumbnail": "Захват эскиза",
+  "capturedThumbnail": "Успешно записанные миниатюры"
 }
