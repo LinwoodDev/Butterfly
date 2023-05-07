@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 البارامترات:
 
-* `data` (Type `List<int>`): The data of the document.
+* `بيانات` (نوع `قائمة<int>`) : بيانات المستند.
 
 ### exit
 
@@ -44,7 +44,7 @@ embedElement.addEventListener('message', (data) => {
 
 البارامترات:
 
-* `data` (Type `List<int>`): The data of the document.
+* `بيانات` (نوع `قائمة<int>`) : بيانات المستند.
 
 ### change
 
@@ -52,7 +52,7 @@ embedElement.addEventListener('message', (data) => {
 
 البارامترات:
 
-* `data` (Type `List<int>`): The data of the document.
+* `بيانات` (نوع `قائمة<int>`) : بيانات المستند.
 
 ## الأساليب
 
@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > طريقة `getData` ترجع بيانات المستند.
 
-لا توجد معلمات. Returns: `List<int>`
+لا توجد معلمات. العائدات: `قائمة<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ embedElement.addEventListener('message', (data) => {
 
 البارامترات:
 
-* `data` (Type `List<int>`): The data of the document.
+* `بيانات` (نوع `قائمة<int>`) : بيانات المستند.
 
 ### render
 
