@@ -43,10 +43,10 @@ Questi attivi sono concessi in licenza ai sensi del [CC-BY-4.0](https://github.c
 
 * `Roboto`
 
-## Screenshots
+## Screenshot
 
-> Used in the firefox responsive design mode
+> Utilizzato nella modalità di progettazione reattiva firefox
 
-* Phone: Galaxy S20 Ultra
-* 7-inch tablet: Nexus 7
-* 10-inch tablet: Nexus 10
+* Telefono: Galaxy S20 Ultra
+* Compressa da 7 pollici: Nexus 7
+* Compressa da 10 pollici: Nexus 10
