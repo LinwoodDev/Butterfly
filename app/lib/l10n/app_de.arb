@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Kernpaket importieren",
   "importCorePackDescription": "Importiere das Core Pack, das alle grundlegenden Assets enthält, die gestartet werden sollen. Dies wird das aktuelle Core Pack überschreiben.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "Nie",
+  "onlyOnUpdates": "Nur bei Updates",
+  "visibility": "Sichtbarkeit",
+  "captureThumbnail": "Thumbnail aufnehmen",
+  "capturedThumbnail": "Miniaturbild erfolgreich erfasst"
 }
