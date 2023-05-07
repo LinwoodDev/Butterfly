@@ -66,9 +66,9 @@ Dowiedz się więcej o nocnej wersji Motylka [tutaj](/nightly).
 
 <div className="row margin-bottom--lg padding--sm">
 <a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
-  Flathub
+  Flara
 </a>
 <a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
-  Snap
+  Przyciągnij
 </a>
 </div>
