@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "استيراد حزمة النواة",
   "importCorePackDescription": "استيراد الحزمة الأساسية التي تحتوي على جميع الأصول الأساسية للبدء. وهذا سيتجاوز الحزمة الأساسية الحالية.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "لا",
+  "onlyOnUpdates": "فقط على التحديثات",
+  "visibility": "الظهور",
+  "captureThumbnail": "التقط الصورة المصغرة",
+  "capturedThumbnail": "تم التقاط الصورة المصغرة بنجاح"
 }
