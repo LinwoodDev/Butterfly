@@ -69,6 +69,6 @@ Lue lisää Butterfly yöllisestä versiosta [täältä](/nightly).
   Flathub
 </a>
 <a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
-  Snap
+  Kiinnitä
 </a>
 </div>
