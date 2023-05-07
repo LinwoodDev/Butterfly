@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 参数：
 
-* `data` (Type `List<int>`): The data of the document.
+* `数据` (键盘 `列表<int>`): 文档的数据。
 
 ### exit
 
@@ -44,7 +44,7 @@ embedElement.addEventListener('message', (data) => {
 
 参数：
 
-* `data` (Type `List<int>`): The data of the document.
+* `数据` (键盘 `列表<int>`): 文档的数据。
 
 ### change
 
@@ -52,7 +52,7 @@ embedElement.addEventListener('message', (data) => {
 
 参数：
 
-* `data` (Type `List<int>`): The data of the document.
+* `数据` (键盘 `列表<int>`): 文档的数据。
 
 ## 方法
 
@@ -72,7 +72,7 @@ Element.addEventListener('message', (data) => }
 
 > `getData` 方法返回文档的数据。
 
-没有参数。 Returns: `List<int>`
+没有参数。 返回： `列表<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ Element.addEventListener('message', (data) => }
 
 参数：
 
-* `data` (Type `List<int>`): The data of the document.
+* `数据` (键盘 `列表<int>`): 文档的数据。
 
 ### render
 
