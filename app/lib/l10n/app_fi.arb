@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Tuo ydinpaketti",
   "importCorePackDescription": "Tuo ydin, joka sisältää kaikki perusassetit päästäksesi alkuun. Tämä ohittaa nykyisen ydinpaketin.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "Ei Koskaan",
+  "onlyOnUpdates": "Vain päivityksissä",
+  "visibility": "Näkyvyys",
+  "captureThumbnail": "Tallenna pikkukuva",
+  "capturedThumbnail": "Pienoiskuvan talteenotto onnistui"
 }
