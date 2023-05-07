@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 Parametry:
 
-* `data` (Type `List<int>`): The data of the document.
+* `data` (Wpisz `List<int>`): Dane dokumentu.
 
 ### exit
 
@@ -44,7 +44,7 @@ Parametry:
 
 Parametry:
 
-* `data` (Type `List<int>`): The data of the document.
+* `data` (Wpisz `List<int>`): Dane dokumentu.
 
 ### change
 
@@ -52,7 +52,7 @@ Parametry:
 
 Parametry:
 
-* `data` (Type `List<int>`): The data of the document.
+* `data` (Wpisz `List<int>`): Dane dokumentu.
 
 ## Metody
 
@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > Metoda `getData` zwraca dane dokumentu.
 
-Brak parametrów. Returns: `List<int>`
+Brak parametrów. Zwroty: `Lista<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ Brak parametrów. Returns: `List<int>`
 
 Parametry:
 
-* `data` (Type `List<int>`): The data of the document.
+* `data` (Wpisz `List<int>`): Dane dokumentu.
 
 ### render
 
