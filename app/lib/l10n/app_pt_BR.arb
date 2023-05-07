@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Importar pacote de núcleo",
   "importCorePackDescription": "Importe o pacote central que contém todos os recursos básicos para começar. Isto irá substituir o pacote principal atual.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "nunca",
+  "onlyOnUpdates": "Somente em atualizações",
+  "visibility": "Visibilidade",
+  "captureThumbnail": "Capturar miniatura",
+  "capturedThumbnail": "Miniatura capturada com sucesso"
 }
