@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Importovat základní balíček",
   "importCorePackDescription": "Importovat základní balíček, který obsahuje všechny základní položky pro začátek. To přepíše aktuální balíček jádra.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "Nikdy",
+  "onlyOnUpdates": "Pouze při aktualizacích",
+  "visibility": "Viditelnost",
+  "captureThumbnail": "Snímat miniaturu",
+  "capturedThumbnail": "Náhledy úspěšně zachyceny"
 }
