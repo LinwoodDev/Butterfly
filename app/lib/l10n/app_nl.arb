@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Importeer core pakket",
   "importCorePackDescription": "Importeer het core pakket dat alle basisassets bevat om aan de slag te gaan. Dit zal het huidige core pakket overschrijven.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "Nooit",
+  "onlyOnUpdates": "Alleen op updates",
+  "visibility": "Zichtbaarheid",
+  "captureThumbnail": "Thumbnail opnemen",
+  "capturedThumbnail": "Miniatuurweergave succesvol vastgelegd"
 }
