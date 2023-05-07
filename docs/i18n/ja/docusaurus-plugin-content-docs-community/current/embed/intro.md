@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 パラメータ:
 
-* `data` (Type `List<int>`): The data of the document.
+* `data` (Type `List<int>`): ドキュメントのデータ。
 
 ### exit
 
@@ -44,7 +44,7 @@ embedElement.addEventListener('message', (data) => {
 
 パラメータ:
 
-* `data` (Type `List<int>`): The data of the document.
+* `data` (Type `List<int>`): ドキュメントのデータ。
 
 ### change
 
@@ -52,7 +52,7 @@ embedElement.addEventListener('message', (data) => {
 
 パラメータ:
 
-* `data` (Type `List<int>`): The data of the document.
+* `data` (Type `List<int>`): ドキュメントのデータ。
 
 ## メソッド
 
@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > `getData` メソッドは、ドキュメントのデータを返します。
 
-パラメータはありません。 Returns: `List<int>`
+パラメータはありません。 戻り値: `リスト<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ embedElement.addEventListener('message', (data) => {
 
 パラメータ:
 
-* `data` (Type `List<int>`): The data of the document.
+* `data` (Type `List<int>`): ドキュメントのデータ。
 
 ### render
 
