@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Importer kjerne pakke",
   "importCorePackDescription": "Importer kjerne pakken som inneholder alle grunnleggende ressurser for å komme i gang. Dette vil overstyre den gjeldende kjernepakken.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "Aldri",
+  "onlyOnUpdates": "Bare når det gjelder oppdateringer",
+  "visibility": "Synlighet",
+  "captureThumbnail": "Ta opp miniatyrbilde",
+  "capturedThumbnail": "Miniatyrbildet ble tatt opp"
 }
