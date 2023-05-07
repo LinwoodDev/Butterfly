@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Importér kernepakke",
   "importCorePackDescription": "Importér kernepakken der indeholder alle grundlæggende aktiver for at komme i gang. Dette vil tilsidesætte den aktuelle kernepakke.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "Aldrig",
+  "onlyOnUpdates": "Kun ved opdateringer",
+  "visibility": "Synlighed",
+  "captureThumbnail": "Optag miniature",
+  "capturedThumbnail": "Miniaturebillede med succes"
 }
