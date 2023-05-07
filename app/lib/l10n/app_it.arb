@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Importa pacchetto core",
   "importCorePackDescription": "Importa il core pack che contiene tutte le risorse di base per iniziare. Questo sovrascriverà l'attuale core pack.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "Mai",
+  "onlyOnUpdates": "Solo sugli aggiornamenti",
+  "visibility": "Visibilità",
+  "captureThumbnail": "Cattura miniatura",
+  "capturedThumbnail": "Miniatura catturata con successo"
 }
