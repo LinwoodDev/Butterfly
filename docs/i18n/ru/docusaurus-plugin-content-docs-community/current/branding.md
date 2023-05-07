@@ -43,10 +43,10 @@ title: Брендинг
 
 * `Roboto`
 
-## Screenshots
+## Скриншот
 
-> Used in the firefox responsive design mode
+> Используется в адаптивном режиме firefox
 
-* Phone: Galaxy S20 Ultra
-* 7-inch tablet: Nexus 7
-* 10-inch tablet: Nexus 10
+* Телефон: Ультра Galaxy S20
+* 7дюймовый планшет: Nexus 7
+* 10дюймовый планшет: Nexus 10
