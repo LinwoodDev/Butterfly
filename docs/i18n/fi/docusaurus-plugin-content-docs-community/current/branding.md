@@ -43,10 +43,10 @@ Nämä omaisuuserät on lisensoitu [CC-BY-4.0](https://github.com/LinwoodDev/But
 
 * `Roboto`
 
-## Screenshots
+## Kuvakaappaukset
 
-> Used in the firefox responsive design mode
+> Käytetään firefox reagoivassa suunnittelutilassa
 
-* Phone: Galaxy S20 Ultra
-* 7-inch tablet: Nexus 7
-* 10-inch tablet: Nexus 10
+* Puhelin: Galaxy S20 Ultra
+* 7 tuuman tabletti: Nexus 7
+* 10-tuumainen tabletti: Nexus 10
