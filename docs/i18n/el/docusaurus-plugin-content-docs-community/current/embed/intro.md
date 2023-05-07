@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 Παράμετροι:
 
-* `data` (Type `List<int>`): The data of the document.
+* `δεδομένα` (Τύπος `Λίστα<int>`): Τα δεδομένα του εγγράφου.
 
 ### exit
 
@@ -44,7 +44,7 @@ embedElement.addEventListener('message', (data) => {
 
 Παράμετροι:
 
-* `data` (Type `List<int>`): The data of the document.
+* `δεδομένα` (Τύπος `Λίστα<int>`): Τα δεδομένα του εγγράφου.
 
 ### change
 
@@ -52,7 +52,7 @@ embedElement.addEventListener('message', (data) => {
 
 Παράμετροι:
 
-* `data` (Type `List<int>`): The data of the document.
+* `δεδομένα` (Τύπος `Λίστα<int>`): Τα δεδομένα του εγγράφου.
 
 ## Μέθοδοι
 
@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > Η μέθοδος `getData` επιστρέφει τα δεδομένα του εγγράφου.
 
-Δεν υπάρχουν παράμετροι. Returns: `List<int>`
+Δεν υπάρχουν παράμετροι. Επιστροφές: `Λίστα<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ embedElement.addEventListener('message', (data) => {
 
 Παράμετροι:
 
-* `data` (Type `List<int>`): The data of the document.
+* `δεδομένα` (Τύπος `Λίστα<int>`): Τα δεδομένα του εγγράφου.
 
 ### render
 
