@@ -16,7 +16,7 @@ class ColorPaletteAction extends Action<ColorPaletteIntent> {
   Future<void> invoke(ColorPaletteIntent intent) {
     return showDialog<void>(
       context: intent.context,
-      builder: (ctx) => ColorPickerDialog(
+      builder: (ctx) => ColorPalettePickerDialog(
         viewMode: true,
         bloc: intent.context.read<DocumentBloc>(),
       ),

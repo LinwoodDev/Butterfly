@@ -3,10 +3,10 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
-import '../../dialogs/color_pick.dart';
 
 class ColorToolbarView extends StatefulWidget {
   final int color;
@@ -111,7 +111,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                             final response =
                                 await showDialog<ColorPickerResponse>(
                               context: context,
-                              builder: (context) => CustomColorPicker(
+                              builder: (context) => ColorPicker(
                                 defaultColor: Color(widget.color),
                                 pinOption: palette != null,
                               ),
@@ -193,7 +193,7 @@ class _ColorButton extends StatelessWidget {
     Future<void> choose() async {
       final newColor = await showDialog<ColorPickerResponse>(
         context: context,
-        builder: (context) => CustomColorPicker(
+        builder: (context) => ColorPicker(
           defaultColor: Color(current),
           deleteOption: onDeleted != null,
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../bloc/document_bloc.dart';
@@ -36,7 +37,7 @@ class ColorField extends StatelessWidget {
         if (custom) {
           final response = await showDialog<ColorPickerResponse>(
             context: context,
-            builder: (ctx) => CustomColorPicker(
+            builder: (ctx) => ColorPicker(
               defaultColor: value,
             ),
           );
@@ -44,7 +45,7 @@ class ColorField extends StatelessWidget {
         } else {
           nextColor = await showDialog<int>(
             context: context,
-            builder: (ctx) => ColorPickerDialog(
+            builder: (ctx) => ColorPalettePickerDialog(
               defaultColor: value,
               bloc: context.read<DocumentBloc>(),
             ),

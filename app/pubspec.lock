@@ -674,8 +674,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/lw_sysinfo"
-      ref: "6aaa333947699dd999d0bde3890fd7f0015b72c4"
-      resolved-ref: "6aaa333947699dd999d0bde3890fd7f0015b72c4"
+      ref: "6dd2cd01ed81f2108804ca5f1ee5717e513dd910"
+      resolved-ref: "6dd2cd01ed81f2108804ca5f1ee5717e513dd910"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -695,6 +695,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.0"
+  material_leap:
+    dependency: "direct main"
+    description:
+      path: "packages/material_leap"
+      ref: "6dd2cd01ed81f2108804ca5f1ee5717e513dd910"
+      resolved-ref: "6dd2cd01ed81f2108804ca5f1ee5717e513dd910"
+      url: "https://github.com/LinwoodDev/dart_pkgs.git"
+    source: git
+    version: "0.0.1"
   meta:
     dependency: transitive
     description:
@@ -846,7 +855,7 @@ packages:
       path: "."
       ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
       resolved-ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
-      url: "https://github.com/phosphor-icons/flutter"
+      url: "https://github.com/CodeDoctorDE/phosphor-flutter"
     source: git
     version: "2.0.0"
   platform:
@@ -1359,5 +1368,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=2.19.0 <3.0.0"
+  dart: ">=2.19.6 <3.0.0"
   flutter: ">=3.7.0"

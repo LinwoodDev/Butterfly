@@ -1,10 +1,10 @@
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../widgets/color_field.dart';
-import '../../../widgets/exact_slider.dart';
 
 class TextStyleView extends StatefulWidget {
   final text.DefinedSpanProperty value;
