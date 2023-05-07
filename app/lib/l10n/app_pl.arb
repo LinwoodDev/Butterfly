@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Importuj pakiet rdzeniowy",
   "importCorePackDescription": "Importuj pakiet główny, który zawiera wszystkie podstawowe zasoby aby rozpocząć. To zastąpi bieżący pakiet główny.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "Nigdy",
+  "onlyOnUpdates": "Tylko przy aktualizacjach",
+  "visibility": "Widoczność",
+  "captureThumbnail": "Przechwyć miniaturę",
+  "capturedThumbnail": "Pomyślnie przechwycono miniaturę"
 }
