@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Importera kärnpaket",
   "importCorePackDescription": "Importera kärnpaketet som innehåller alla grundläggande tillgångar för att komma igång. Detta åsidosätter det aktuella kärnpaketet.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "Aldrig",
+  "onlyOnUpdates": "Endast på uppdateringar",
+  "visibility": "Synlighet",
+  "captureThumbnail": "Fånga miniatyrbild",
+  "capturedThumbnail": "Framgångsrikt fångad miniatyrbild"
 }
