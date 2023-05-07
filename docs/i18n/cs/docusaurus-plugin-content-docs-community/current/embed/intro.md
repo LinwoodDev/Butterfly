@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 Parametry:
 
-* `data` (Type `List<int>`): The data of the document.
+* `data` (typ `seznam<int>`): Údaje tohoto dokumentu.
 
 ### exit
 
@@ -44,7 +44,7 @@ Parametry:
 
 Parametry:
 
-* `data` (Type `List<int>`): The data of the document.
+* `data` (typ `seznam<int>`): Údaje tohoto dokumentu.
 
 ### change
 
@@ -52,7 +52,7 @@ Parametry:
 
 Parametry:
 
-* `data` (Type `List<int>`): The data of the document.
+* `data` (typ `seznam<int>`): Údaje tohoto dokumentu.
 
 ## Metody
 
@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > Metoda `getData` vrací data dokumentu.
 
-Žádné parametry. Returns: `List<int>`
+Žádné parametry. Vratky: `Seznam<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ embedElement.addEventListener('message', (data) => {
 
 Parametry:
 
-* `data` (Type `List<int>`): The data of the document.
+* `data` (typ `seznam<int>`): Údaje tohoto dokumentu.
 
 ### render
 
