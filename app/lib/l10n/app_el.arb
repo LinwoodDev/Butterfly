@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Εισαγωγή βασικού πακέτου",
   "importCorePackDescription": "Εισαγωγή του βασικού πακέτου που περιέχει όλα τα βασικά στοιχεία ενεργητικού για να ξεκινήσετε. Αυτό θα αντικαταστήσει το τρέχον βασικό πακέτο.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "Ποτέ",
+  "onlyOnUpdates": "Μόνο στις ενημερώσεις",
+  "visibility": "Ορατότητα",
+  "captureThumbnail": "Σύλληψη μικρογραφίας",
+  "capturedThumbnail": "Επιτυχής λήψη μικρογραφίας"
 }
