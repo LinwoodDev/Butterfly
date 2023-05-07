@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Importă pachetul de nucleu",
   "importCorePackDescription": "Importați pachetul de nucleu care conține toate activele de bază pentru a începe. Acest lucru va suprascrie actualul nucleu pachet.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "Niciodată",
+  "onlyOnUpdates": "Numai la actualizări",
+  "visibility": "Vizibilitate",
+  "captureThumbnail": "Capturează miniatura",
+  "capturedThumbnail": "Miniatură captată cu succes"
 }
