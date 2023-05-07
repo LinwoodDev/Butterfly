@@ -490,9 +490,9 @@
   "reset": "Reset",
   "importCorePack": "Імпортувати базовий пакет",
   "importCorePackDescription": "Імпортувати основний пакет, який містить всі основні активи для початку. Це перевизначить поточний базовий пакет.",
-  "never": "Never",
-  "onlyOnUpdates": "Only on updates",
-  "visibility": "Visibility",
-  "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "never": "Ніколи",
+  "onlyOnUpdates": "Тільки при оновленні",
+  "visibility": "Видимість",
+  "captureThumbnail": "Захопити ескіз",
+  "capturedThumbnail": "Успішно захоплено ескіз"
 }
