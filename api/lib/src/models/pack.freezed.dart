@@ -1312,8 +1312,8 @@ class __$$_PackAssetLocationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PackAssetLocation implements _PackAssetLocation {
-  const _$_PackAssetLocation({this.pack = '', this.name = ''});
+class _$_PackAssetLocation extends _PackAssetLocation {
+  const _$_PackAssetLocation({this.pack = '', this.name = ''}) : super._();
 
   factory _$_PackAssetLocation.fromJson(Map<String, dynamic> json) =>
       _$$_PackAssetLocationFromJson(json);
@@ -1358,9 +1358,10 @@ class _$_PackAssetLocation implements _PackAssetLocation {
   }
 }
 
-abstract class _PackAssetLocation implements PackAssetLocation {
+abstract class _PackAssetLocation extends PackAssetLocation {
   const factory _PackAssetLocation({final String pack, final String name}) =
       _$_PackAssetLocation;
+  const _PackAssetLocation._() : super._();
 
   factory _PackAssetLocation.fromJson(Map<String, dynamic> json) =
       _$_PackAssetLocation.fromJson;

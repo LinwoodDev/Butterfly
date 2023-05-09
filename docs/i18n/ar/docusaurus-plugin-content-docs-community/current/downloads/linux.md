@@ -71,4 +71,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
 <a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
   التقط
 </a>
+<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+  Snap
+</a>
 </div>

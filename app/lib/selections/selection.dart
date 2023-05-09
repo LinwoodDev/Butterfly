@@ -11,7 +11,6 @@ import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/visualizer/preset.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -19,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../actions/background.dart';
@@ -26,10 +26,8 @@ import '../actions/packs.dart';
 import '../api/open.dart';
 import '../cubits/transform.dart';
 import '../dialogs/layer.dart';
-import '../helpers/icon_helper.dart';
 import '../renderers/renderer.dart';
 import '../widgets/color_field.dart';
-import '../widgets/exact_slider.dart';
 
 part 'elements/element.dart';
 part 'elements/image.dart';

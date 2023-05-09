@@ -1,0 +1,3 @@
+* Add archive format
+* Add thumbnails on documents
+* Fix appearing zoom view and disappearing on focus

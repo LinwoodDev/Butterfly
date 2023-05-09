@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'converter.dart';
+import '../converter/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'tool.freezed.dart';

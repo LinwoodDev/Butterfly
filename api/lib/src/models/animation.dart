@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'converter.dart';
+import '../converter/core.dart';
 
 part 'animation.freezed.dart';
 part 'animation.g.dart';

@@ -24,11 +24,11 @@ slug: "/downloads/post-windows"
 
 Advarer brukere når du installerer programvare uten sertifikat.
 
-η Smart skjermer](/img/smart-skjerm. png)
+![η Smart skjermer](/img/smart-screen.png)
 
 For å installere appen, må du klikke på "Mer informasjon".
 
-⌘ Smart skjerm mer informasjon](/img/smart-screen-more-info.png)
+![⌘ Smart skjerm mer informasjon](/img/smart-screen-more-info.png)
 
 Deretter, klikk på "Kjør uansett".
 

@@ -6,8 +6,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PalettesPackView extends StatelessWidget {
-  final ButterflyPack value;
-  final ValueChanged<ButterflyPack> onChanged;
+  final NoteData value;
+  final ValueChanged<NoteData> onChanged;
 
   const PalettesPackView({
     super.key,
@@ -24,31 +24,26 @@ class PalettesPackView extends StatelessWidget {
             const SizedBox(height: 8),
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: value.palettes
-                  .asMap()
-                  .entries
+              children: value
+                  .getPalettes()
                   .map(
                     (e) => Dismissible(
-                      key: ValueKey(e.key),
+                      key: ValueKey(e),
                       onDismissed: (direction) {
-                        onChanged(value.copyWith(
-                          palettes: value.palettes..removeAt(e.key),
-                        ));
+                        value.removePalette(e);
+                        onChanged(value);
                       },
                       child: ListTile(
-                        title: Text(e.value.name),
+                        title: Text(e),
                         onTap: () {
                           showDialog(
                             context: context,
-                            builder: (context) => ColorPickerDialog(
-                              palette: e.value,
+                            builder: (context) => ColorPalettePickerDialog(
+                              palette: value.getPalette(e),
                               viewMode: true,
                               onChanged: (palette) {
-                                onChanged(value.copyWith(
-                                  palettes: List<ColorPalette>.from(
-                                    value.palettes,
-                                  )..[e.key] = palette,
-                                ));
+                                value.setPalette(palette);
+                                onChanged(value);
                               },
                             ),
                           );
@@ -67,15 +62,12 @@ class PalettesPackView extends StatelessWidget {
               final name = await showDialog<String>(
                 context: context,
                 builder: (context) => NameDialog(
-                  validator: defaultNameValidator(
-                      context, value.palettes.map((e) => e.name).toList()),
+                  validator: defaultNameValidator(context, value.getPalettes()),
                 ),
               );
               if (name == null) return;
-              onChanged(value.copyWith(
-                palettes: List<ColorPalette>.from(value.palettes)
-                  ..add(ColorPalette(name: name)),
-              ));
+              value.setPalette(ColorPalette(name: name));
+              onChanged(value);
             },
             icon: const PhosphorIcon(PhosphorIconsLight.plus),
             label: Text(AppLocalizations.of(context).create),

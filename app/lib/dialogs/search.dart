@@ -8,9 +8,8 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../helpers/icon_helper.dart';
 
 class SearchDialog extends StatefulWidget {
   const SearchDialog({super.key});
@@ -19,19 +18,19 @@ class SearchDialog extends StatefulWidget {
   State<SearchDialog> createState() => _SearchDialogState();
 }
 
-Future<List<SearchResult>> _searchIsolate(AppDocument document, String query) =>
-    Isolate.run(() => document.search(RegExp(query, caseSensitive: false)));
+Future<List<SearchResult>> _searchIsolate(DocumentPage page, String query) =>
+    Isolate.run(() => page.search(RegExp(query, caseSensitive: false)));
 
 class _SearchDialogState extends State<SearchDialog> {
   final TextEditingController _searchController = TextEditingController();
   Future<List<SearchResult>> _searchResults = Future.value([]);
 
-  void _search(AppDocument document, String query) {
+  void _search(DocumentPage page, String query) {
     setState(() {
       if (query.isEmpty) {
         _searchResults = Future.value([]);
       } else {
-        _searchResults = _searchIsolate(document, query);
+        _searchResults = _searchIsolate(page, query);
       }
     });
   }
@@ -92,7 +91,7 @@ class _SearchDialogState extends State<SearchDialog> {
                             onChanged: (value) {
                               final state = context.read<DocumentBloc>().state;
                               if (state is DocumentLoaded) {
-                                _search(state.document, value);
+                                _search(state.page, value);
                               }
                             },
                           ),
@@ -140,7 +139,7 @@ class _SearchDialogState extends State<SearchDialog> {
                                       state.transformCubit.setPosition(
                                           result.location.toOffset());
                                       state.currentIndexCubit
-                                          .bake(state.document);
+                                          .bake(state.data, state.page);
                                       Navigator.pop(context);
                                     }
                                   },

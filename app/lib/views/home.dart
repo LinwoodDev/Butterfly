@@ -1,13 +1,11 @@
-import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/file_system_remote.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/dialogs/export.dart';
 import 'package:butterfly/dialogs/name.dart';
-import 'package:butterfly/helpers/element_helper.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/visualizer/asset.dart';
@@ -15,7 +13,6 @@ import 'package:butterfly/visualizer/sync.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,9 +22,10 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:popover/popover.dart';
 
 import '../api/open_release_notes.dart';
+import '../api/save_data.dart';
 import '../dialogs/file_system/move.dart';
 import '../dialogs/file_system/sync.dart';
-import '../dialogs/import.dart';
+import '../main.dart';
 
 PhosphorIconData _getIconOfBannerVisibility(BannerVisibility visibility) {
   switch (visibility) {
@@ -123,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                           hasNewerVersion);
               return Scaffold(
                 appBar: WindowTitleBar(
-                  title: const Text('Butterfly'),
+                  title: const Text(shortApplicationName),
                   onlyShowOnDesktop: showBanner,
                   actions: [
                     if (!showBanner) ...[
@@ -583,7 +581,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                     }
                     final templates = await templateFileSystem.getTemplates();
                     if (context.mounted) {
-                      final asset = await showDialog<DocumentTemplate>(
+                      final asset = await showDialog<NoteData>(
                           context: context,
                           builder: (context) => AlertDialog(
                                 title: Text(
@@ -593,7 +591,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: templates
                                       .map((e) => ListTile(
-                                            title: Text(e.name),
+                                            title: Text(e.name!),
                                             onTap: () =>
                                                 Navigator.of(context).pop(e),
                                           ))
@@ -614,7 +612,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                       if (!newPath.endsWith('.bfly')) {
                         newPath += '.bfly';
                       }
-                      await _fileSystem.updateDocument(newPath, asset.document);
+                      await _fileSystem.updateDocument(newPath, asset);
                       _reloadFileSystem();
                     }
                   },
@@ -627,19 +625,11 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                   onPressed: () async {
                     final router = GoRouter.of(context);
                     final importService = context.read<ImportService>();
-                    final result = await showDialog<String>(
-                        builder: (context) => const ImportDialog(),
-                        context: context);
+                    final result = await openBfly();
                     if (result == null) return;
-                    final model = await importService.importBfly(
-                      Uint8List.fromList(result.codeUnits),
-                    );
-                    await model?.maybeMap(
-                      document: (value) => router.push(
-                          '/native?name=document.bfly&type=note',
-                          extra: value),
-                      orElse: () {},
-                    );
+                    final model = await importService.importBfly(result);
+                    router.push('/native?name=document.bfly&type=note',
+                        extra: model);
                     _reloadFileSystem();
                   },
                   child: Column(
@@ -780,55 +770,59 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
   }
 
   int _sortAssets(AppDocumentEntity a, AppDocumentEntity b) {
-    final settings = _settingsCubit.state;
-    // Test if starred
-    final aStarred = settings.isStarred(a.location);
-    final bStarred = settings.isStarred(b.location);
-    if (aStarred && !bStarred) {
-      return -1;
-    }
-    if (bStarred && !aStarred) {
-      return 1;
-    }
-    if (a is AppDocumentDirectory) {
-      return -1;
-    }
-    if (b is AppDocumentDirectory) {
-      return 1;
-    }
-    final aFile = a as AppDocumentFile;
-    final bFile = b as AppDocumentFile;
-    final aInfo = aFile.getDocumentInfo();
-    final bInfo = bFile.getDocumentInfo();
-    if (aInfo == null) {
-      return 1;
-    }
-    if (bInfo == null) {
-      return -1;
-    }
-    switch (_sortBy) {
-      case _SortBy.name:
-        return aFile.fileName.compareTo(bFile.fileName);
-      case _SortBy.created:
-        final aCreatedAt = aInfo.createdAt;
-        final bCreatedAt = bInfo.createdAt;
-        if (aCreatedAt == null) {
-          return 1;
-        }
-        if (bCreatedAt == null) {
-          return -1;
-        }
-        return aCreatedAt.compareTo(bCreatedAt);
-      case _SortBy.modified:
-        final aModifiedAt = aInfo.updatedAt;
-        final bModifiedAt = bInfo.updatedAt;
-        if (aModifiedAt == null) {
-          return 1;
-        }
-        if (bModifiedAt == null) {
-          return -1;
-        }
-        return aModifiedAt.compareTo(bModifiedAt);
+    try {
+      final settings = _settingsCubit.state;
+      // Test if starred
+      final aStarred = settings.isStarred(a.location);
+      final bStarred = settings.isStarred(b.location);
+      if (aStarred && !bStarred) {
+        return -1;
+      }
+      if (bStarred && !aStarred) {
+        return 1;
+      }
+      if (a is AppDocumentDirectory) {
+        return -1;
+      }
+      if (b is AppDocumentDirectory) {
+        return 1;
+      }
+      final aFile = a as AppDocumentFile;
+      final bFile = b as AppDocumentFile;
+      final aInfo = aFile.load().getMetadata();
+      final bInfo = bFile.load().getMetadata();
+      if (aInfo == null) {
+        return 1;
+      }
+      if (bInfo == null) {
+        return -1;
+      }
+      switch (_sortBy) {
+        case _SortBy.name:
+          return aFile.fileName.compareTo(bFile.fileName);
+        case _SortBy.created:
+          final aCreatedAt = aInfo.createdAt;
+          final bCreatedAt = bInfo.createdAt;
+          if (aCreatedAt == null) {
+            return 1;
+          }
+          if (bCreatedAt == null) {
+            return -1;
+          }
+          return aCreatedAt.compareTo(bCreatedAt);
+        case _SortBy.modified:
+          final aModifiedAt = aInfo.updatedAt;
+          final bModifiedAt = bInfo.updatedAt;
+          if (aModifiedAt == null) {
+            return 1;
+          }
+          if (bModifiedAt == null) {
+            return -1;
+          }
+          return aModifiedAt.compareTo(bModifiedAt);
+      }
+    } catch (e) {
+      return 0;
     }
   }
 }
@@ -852,22 +846,26 @@ class _FileEntityListTile extends StatelessWidget {
     final remote = settingsCubit.getRemote(entity.location.remote);
     final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
     final syncService = context.read<SyncService>();
-    DocumentInfo? info;
+    FileMetadata? metadata;
+    Uint8List? thumbnail;
     String? modifiedText, createdText;
     PhosphorIconData icon = PhosphorIconsLight.folder;
     try {
       if (entity is AppDocumentFile) {
         final file = entity as AppDocumentFile;
         icon = file.fileType.getIcon();
-        info = file.getDocumentInfo();
+        final data = file.load();
+        thumbnail = data.getThumbnail();
+        if (thumbnail?.isEmpty ?? false) thumbnail = null;
+        metadata = data.getMetadata();
         final locale = Localizations.localeOf(context).languageCode;
         final dateFormatter = DateFormat.yMd(locale);
         final timeFormatter = DateFormat.Hm(locale);
-        modifiedText = info?.updatedAt != null
-            ? '${dateFormatter.format(info!.updatedAt!)} ${timeFormatter.format(info.updatedAt!)}'
+        modifiedText = metadata?.updatedAt != null
+            ? '${dateFormatter.format(metadata!.updatedAt!)} ${timeFormatter.format(metadata.updatedAt!)}'
             : null;
-        createdText = info?.createdAt != null
-            ? '${dateFormatter.format(info!.createdAt!)} ${timeFormatter.format(info.createdAt!)}'
+        createdText = metadata?.createdAt != null
+            ? '${dateFormatter.format(metadata!.createdAt!)} ${timeFormatter.format(metadata.createdAt!)}'
             : null;
       }
     } catch (_) {}
@@ -919,12 +917,24 @@ class _FileEntityListTile extends StatelessWidget {
                   ),
                   child: StatefulBuilder(builder: (context, setState) {
                     return LayoutBuilder(builder: (context, constraints) {
+                      final leading = PhosphorIcon(
+                        icon,
+                        color: colorScheme.outline,
+                      );
                       final fileName = Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          PhosphorIcon(
-                            icon,
-                            color: colorScheme.outline,
+                          SizedBox(
+                            width: 32,
+                            height: 32,
+                            child: thumbnail != null
+                                ? Image.memory(
+                                    thumbnail,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) => leading,
+                                  )
+                                : leading,
                           ),
                           const SizedBox(width: 8),
                           Flexible(
@@ -1159,11 +1169,8 @@ class _FileEntityListTile extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       try {
-                        final data =
-                            utf8.decode((entity as AppDocumentFile).data);
-                        showDialog(
-                            context: context,
-                            builder: (context) => ExportDialog(data: data));
+                        final data = (entity as AppDocumentFile).data;
+                        saveData(context, data);
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -1279,7 +1286,7 @@ class _QuickstartHomeView extends StatefulWidget {
 
 class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
   late final TemplateFileSystem _templateFileSystem;
-  late Future<List<DocumentTemplate>> _templatesFuture;
+  late Future<List<NoteData>> _templatesFuture;
 
   @override
   void initState() {
@@ -1305,7 +1312,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
     }
   }
 
-  Future<List<DocumentTemplate>> _fetchTemplates() => _templateFileSystem
+  Future<List<NoteData>> _fetchTemplates() => _templateFileSystem
       .createDefault(context)
       .then((value) => _templateFileSystem.getTemplates());
 
@@ -1325,7 +1332,7 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(height: 16),
-          FutureBuilder<List<DocumentTemplate>>(
+          FutureBuilder<List<NoteData>>(
               future: _templatesFuture,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
@@ -1351,7 +1358,9 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                         onPressed: () async {
                           await _templateFileSystem.createDefault(context,
                               force: true);
-                          setState(() => _templatesFuture = _fetchTemplates());
+                          setState(() {
+                            _templatesFuture = _fetchTemplates();
+                          });
                           widget.onReload();
                         },
                         child: Text(
@@ -1368,74 +1377,66 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                   crossAxisAlignment: WrapCrossAlignment.center,
                   runSpacing: 16,
                   spacing: 16,
-                  children: templates
-                      .map(
-                        (e) => FutureBuilder<List<int>>(
-                            future: e.document.getThumbnailData(),
-                            builder: (context, snapshot) => ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(maxHeight: 200),
-                                  child: AspectRatio(
-                                    aspectRatio: 16 / 9,
-                                    child: Card(
-                                      elevation: 5,
-                                      clipBehavior: Clip.hardEdge,
-                                      child: InkWell(
-                                        onTap: () async {
-                                          await GoRouter.of(context).pushNamed(
-                                              'new',
-                                              queryParameters: {
-                                                'path': e.directory
-                                              },
-                                              extra: e.document);
-                                          widget.onReload();
-                                        },
-                                        child: Stack(
-                                          children: [
-                                            if (snapshot.data?.isNotEmpty ??
-                                                false)
-                                              Align(
-                                                child: Image.memory(
-                                                  Uint8List.fromList(
-                                                      snapshot.data!),
-                                                  fit: BoxFit.cover,
-                                                  width: 640,
-                                                  alignment: Alignment.center,
-                                                ),
+                  children: templates.map(
+                    (e) {
+                      final thumbnail = e.getThumbnail();
+                      final metadata = e.getMetadata()!;
+                      return ConstrainedBox(
+                          constraints: const BoxConstraints(maxHeight: 200),
+                          child: AspectRatio(
+                            aspectRatio: 16 / 9,
+                            child: Card(
+                              elevation: 5,
+                              clipBehavior: Clip.hardEdge,
+                              child: InkWell(
+                                onTap: () async {
+                                  await GoRouter.of(context).pushNamed('new',
+                                      queryParameters: {
+                                        'path': metadata.directory
+                                      },
+                                      extra: e.createDocument());
+                                  widget.onReload();
+                                },
+                                child: Stack(
+                                  children: [
+                                    if (thumbnail?.isNotEmpty ?? false)
+                                      Align(
+                                        child: Image.memory(
+                                          thumbnail!,
+                                          fit: BoxFit.cover,
+                                          width: 640,
+                                          alignment: Alignment.center,
+                                        ),
+                                      ),
+                                    Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        margin: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          color: colorScheme.primaryContainer
+                                              .withAlpha(200),
+                                        ),
+                                        child: Text(
+                                          metadata.name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.copyWith(
+                                                color: colorScheme.onSurface,
                                               ),
-                                            Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                margin: const EdgeInsets.all(8),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color: colorScheme
-                                                      .primaryContainer
-                                                      .withAlpha(200),
-                                                ),
-                                                child: Text(
-                                                  e.name,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.copyWith(
-                                                        color: colorScheme
-                                                            .onSurface,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
                                         ),
                                       ),
                                     ),
-                                  ),
-                                )),
-                      )
-                      .toList(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ));
+                    },
+                  ).toList(),
                 );
               }),
         ]),

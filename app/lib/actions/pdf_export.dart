@@ -21,7 +21,7 @@ class PdfExportAction extends Action<PdfExportIntent> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     var areas = <AreaPreset>[];
-    if (state.document.exportPresets.isNotEmpty) {
+    if (state.page.exportPresets.isNotEmpty) {
       final preset = await showDialog<ExportPreset>(
         context: intent.context,
         builder: (context) =>

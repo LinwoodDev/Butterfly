@@ -9,6 +9,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/confirmation.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -39,12 +40,12 @@ class ImportService {
   PackFileSystem getPackFileSystem() => context.read<PackFileSystem>();
 
   Future<NoteData?> load(
-      {String type = '', Object? data, AppDocument? document}) async {
+      {String type = '', Object? data, NoteData? document}) async {
     final state = bloc?.state is DocumentLoadSuccess
         ? (bloc?.state as DocumentLoadSuccess)
         : null;
     final location = state?.location;
-    document ??= state?.document;
+    document ??= state?.data;
     Uint8List? bytes;
     if (data is Uint8List) {
       bytes = data;
@@ -61,7 +62,7 @@ class ImportService {
   }
 
   Future<NoteData?> import(AssetFileType type, Uint8List bytes,
-      {Offset? position, AppDocument? document}) async {
+      {Offset? position, NoteData? document}) async {
     switch (type) {
       case AssetFileType.note:
         return importBfly(bytes, position, document);
@@ -77,19 +78,19 @@ class ImportService {
   }
 
   FutureOr<NoteData?> importBfly(Uint8List bytes,
-      [Offset? position, AppDocument? document]) {
+      [Offset? position, NoteData? document]) {
     try {
-      final data = json.decode(
-        String.fromCharCodes(bytes),
-      );
-      final type = data['type'];
+      final data = NoteData.fromData(bytes);
+      final type = data.getMetadata()?.type;
       switch (type) {
-        case 'document':
+        case NoteFileType.document:
           return _importDocument(data, position, document);
-        case 'template':
-          return _importTemplate(data);
-        case 'pack':
-          return _importPack(data);
+        case NoteFileType.template:
+          _importTemplate(data);
+          break;
+        case NoteFileType.pack:
+          _importPack(data);
+          break;
         default:
           showDialog(
             context: context,
@@ -107,17 +108,15 @@ class ImportService {
     return null;
   }
 
-  AppDocument? _importDocument(Map<String, dynamic> data,
-      [Offset? position, AppDocument? document]) {
+  NoteData? _importDocument(NoteData data,
+      [Offset? position, NoteData? document]) {
     final firstPos = position ?? Offset.zero;
-    final doc = const DocumentJsonConverter().fromJson(data);
-    if (document != null) {
-      bloc?.add(DocumentUpdated(doc));
-    }
-    final areas = doc.areas
+    final docPage = data.getPage();
+    if (docPage == null) return null;
+    final areas = docPage.areas
         .map((e) => e.copyWith(position: e.position + firstPos.toPoint()))
         .toList();
-    final content = doc.content
+    final content = docPage.content
         .map((e) =>
             Renderer.fromInstance(e)
                 .transform(position: firstPos, relative: true)
@@ -129,38 +128,40 @@ class ImportService {
             areas: areas,
             document: document,
             choosePosition: position == null) ??
-        doc;
+        DocumentDefaults.createDocument(page: docPage);
   }
 
-  Future<DocumentTemplate?> _importTemplate(Map<String, dynamic> data) async {
-    final template = const TemplateJsonConverter().fromJson(data);
+  Future<bool> _importTemplate(NoteData template) async {
+    final metadata = template.getMetadata();
+    if (metadata == null) return false;
     final result = await showDialog<bool>(
       context: context,
       builder: (context) =>
-          TemplateImportConfirmationDialog(template: template),
+          TemplateImportConfirmationDialog(template: metadata),
     );
-    if (result != true) return null;
+    if (result != true) return false;
     if (context.mounted) {
       context.read<TemplateFileSystem>().createTemplate(template);
     }
-    return template;
+    return true;
   }
 
-  Future<ButterflyPack?> _importPack(Map<String, dynamic> data) async {
-    final pack = const PackJsonConverter().fromJson(data);
+  Future<bool> _importPack(NoteData pack) async {
+    final metadata = pack.getMetadata();
+    if (metadata == null) return false;
     final result = await showDialog<bool>(
       context: context,
-      builder: (context) => PackImportConfirmationDialog(pack: pack),
+      builder: (context) => PackImportConfirmationDialog(pack: metadata),
     );
-    if (result != true) return null;
+    if (result != true) return false;
     if (context.mounted) {
       getPackFileSystem().createPack(pack);
     }
-    return pack;
+    return true;
   }
 
-  Future<AppDocument?> importImage(Uint8List bytes,
-      [Offset? position, AppDocument? document]) async {
+  Future<NoteData?> importImage(Uint8List bytes,
+      [Offset? position, NoteData? data]) async {
     try {
       final firstPos = position ?? Offset.zero;
       final codec = await ui.instantiateImageCodec(bytes);
@@ -169,15 +170,24 @@ class ImportService {
 
       final newBytes = await image.toByteData(format: ui.ImageByteFormat.png);
       final state = _getState();
-      _submit(elements: [
+      String dataPath;
+      if (newBytes == null) return null;
+      final newData = newBytes.buffer.asUint8List();
+      if (state != null) {
+        final assetPath = state.data.addImage(newData, 'png');
+        dataPath = Uri.file(assetPath, windows: false).toString();
+      } else {
+        dataPath = UriData.fromBytes(
+          newData,
+          mimeType: 'image/png',
+        ).toString();
+      }
+      return _submit(elements: [
         ImageElement(
             height: image.height.toDouble(),
             width: image.width.toDouble(),
             layer: state?.currentLayer ?? '',
-            source: UriData.fromBytes(
-              newBytes?.buffer.asUint8List() ?? Uint8List(0),
-              mimeType: 'image/png',
-            ).toString(),
+            source: dataPath,
             position: firstPos.toPoint())
       ], choosePosition: position == null);
     } catch (e) {
@@ -190,8 +200,8 @@ class ImportService {
     return null;
   }
 
-  Future<AppDocument?> importSvg(Uint8List bytes,
-      [Offset? position, AppDocument? document]) async {
+  Future<NoteData?> importSvg(Uint8List bytes,
+      [Offset? position, NoteData? document]) async {
     try {
       final firstPos = position ?? Offset.zero;
       final contentString = String.fromCharCodes(bytes);
@@ -201,11 +211,22 @@ class ImportService {
         var height = size.height, width = size.width;
         if (!height.isFinite) height = 0;
         if (!width.isFinite) width = 0;
+        final state = _getState();
+        String dataPath;
+        if (state != null) {
+          final assetPath = state.data.addImage(bytes, 'svg');
+          dataPath = Uri.file(assetPath, windows: false).toString();
+        } else {
+          dataPath = UriData.fromBytes(
+            bytes,
+            mimeType: 'image/svg+xml',
+          ).toString();
+        }
         return _submit(elements: [
           SvgElement(
             width: width,
             height: height,
-            data: contentString,
+            source: dataPath,
             position: firstPos.toPoint(),
           ),
         ], choosePosition: position == null, document: document);
@@ -227,10 +248,8 @@ class ImportService {
     return null;
   }
 
-  Future<AppDocument?> importPdf(Uint8List bytes,
-      [Offset? position,
-      bool createAreas = false,
-      AppDocument? document]) async {
+  Future<NoteData?> importPdf(Uint8List bytes,
+      [Offset? position, bool createAreas = false, NoteData? document]) async {
     try {
       final firstPos = position ?? Offset.zero;
       final elements = <Uint8List>[];
@@ -295,10 +314,8 @@ class ImportService {
     final viewport = context.read<CurrentIndexCubit>().state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
-        final data =
-            json.encode(const DocumentJsonConverter().toJson(state.document));
-        final bytes = Uint8List.fromList(data.codeUnits);
-        getFileSystem().saveAbsolute(location.path, bytes);
+        getFileSystem().saveAbsolute(
+            location.path, Uint8List.fromList(state.saveData().save()));
         break;
       case AssetFileType.image:
         return showDialog<void>(
@@ -318,7 +335,7 @@ class ImportService {
             builder: (context) => BlocProvider.value(
                 value: bloc!,
                 child: PdfExportDialog(
-                    areas: state.document.areas
+                    areas: state.page.areas
                         .map((e) => AreaPreset(name: e.name, area: e))
                         .toList())));
       case AssetFileType.svg:
@@ -337,11 +354,11 @@ class ImportService {
     }
   }
 
-  AppDocument? _submit({
+  NoteData? _submit({
     required List<PadElement> elements,
     List<Area> areas = const [],
     bool choosePosition = false,
-    AppDocument? document,
+    NoteData? document,
   }) {
     final state = _getState();
     if (choosePosition && state is DocumentLoadSuccess) {
@@ -352,13 +369,15 @@ class ImportService {
         ?..add(ElementsCreated(elements))
         ..add(AreasCreated(areas));
     }
-    document ??= state?.document;
+    document ??= state?.data;
     if (document != null) {
-      return document.copyWith(
-        content: [...document.content, ...elements],
-        areas: [...document.areas, ...areas],
+      var page = document.getPage() ?? DocumentDefaults.createPage();
+      page = page.copyWith(
+        content: [...page.content, ...elements],
+        areas: [...page.areas, ...areas],
       );
+      document.setPage(page);
     }
-    return null;
+    return document;
   }
 }

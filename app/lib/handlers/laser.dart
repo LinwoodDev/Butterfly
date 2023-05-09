@@ -67,7 +67,7 @@ class LaserHandler extends Handler<LaserPainter> {
 
   @override
   List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      CurrentIndexCubit currentIndexCubit, NoteData document, DocumentPage page,
       [Area? currentArea]) {
     return elements.values
         .map((e) {
@@ -113,8 +113,7 @@ class LaserHandler extends Handler<LaserPainter> {
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
     localPosition =
-        viewport.tool?.getPointerPosition(localPosition, currentIndexCubit) ??
-            localPosition;
+        viewport.tool.getPointerPosition(localPosition, currentIndexCubit);
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }

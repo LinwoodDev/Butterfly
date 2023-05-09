@@ -7,7 +7,6 @@ import 'package:butterfly/dialogs/file_system/create.dart';
 import 'package:butterfly/dialogs/file_system/grid.dart';
 import 'package:butterfly/dialogs/file_system/list.dart';
 import 'package:butterfly/dialogs/file_system/sync.dart';
-import 'package:butterfly/widgets/header.dart';
 import 'package:butterfly/widgets/remote_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
@@ -15,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 typedef AssetOpenedCallback = void Function(AppDocumentEntity path);

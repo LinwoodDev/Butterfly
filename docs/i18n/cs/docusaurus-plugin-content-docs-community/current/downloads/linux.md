@@ -71,4 +71,7 @@ Přečtěte si více o noční verzi Butterfly [zde](/nightly).
 <a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
   Přichytit
 </a>
+<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+  Snap
+</a>
 </div>

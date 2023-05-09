@@ -32,7 +32,7 @@ extension AreaHelper on Area {
   bool hit(Offset offset) => rect.contains(offset);
 }
 
-extension DocumentAreaHelper on AppDocument {
+extension DocumentAreaHelper on DocumentPage {
   Area? getAreaByRect(Rect rect) {
     return areas.firstWhereOrNull((e) => rect.overlaps(e.rect));
   }

@@ -18,7 +18,7 @@ class ToolSelection extends Selection<ToolState> {
       ...super.buildProperties(context),
       _ToolView(
         state: selected.first,
-        option: state.document.tool,
+        option: state.page.tool,
         onStateChanged: (state) => updateState(context, state),
         onToolChanged: (option) =>
             context.read<DocumentBloc>().add(ToolChanged.option(option)),
@@ -107,7 +107,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                         }
                         return null;
                       },
-                      initialValue: state.document.name,
+                      initialValue: state.data.name,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context).name,
                         filled: true,
@@ -117,7 +117,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                     TextFormField(
                       minLines: 3,
                       maxLines: 5,
-                      initialValue: state.document.description,
+                      initialValue: state.metadata.description,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context).description,
                         border: const OutlineInputBorder(),
@@ -135,6 +135,47 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                             context, BackgroundIntent(context));
                       },
                       child: Text(AppLocalizations.of(context).background),
+                    ),
+                    const SizedBox(height: 8),
+                    MenuItemButton(
+                      leadingIcon:
+                          const PhosphorIcon(PhosphorIconsLight.camera),
+                      onPressed: () async {
+                        final viewport =
+                            state.currentIndexCubit.state.cameraViewport;
+                        final width = viewport.width?.toDouble() ??
+                            kThumbnailWidth.toDouble();
+                        final realHeight = viewport.height?.toDouble() ??
+                            kThumbnailHeight.toDouble();
+                        final height =
+                            width * kThumbnailHeight / kThumbnailWidth;
+                        final heightOffset = (realHeight - height) / 2;
+                        final quality = kThumbnailWidth / width;
+                        final thumbnail = await state.currentIndexCubit.render(
+                          state.data,
+                          state.page,
+                          width: width,
+                          height: height,
+                          quality: quality,
+                          scale: viewport.scale,
+                          x: -viewport.x,
+                          y: -viewport.y + heightOffset,
+                        );
+                        if (thumbnail == null) return;
+                        final bytes = thumbnail.buffer.asUint8List();
+                        state.data.setThumbnail(bytes);
+                        state.save();
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(AppLocalizations.of(context)
+                                  .capturedThumbnail),
+                            ),
+                          );
+                        }
+                      },
+                      child:
+                          Text(AppLocalizations.of(context).captureThumbnail),
                     ),
                   ],
                 ),

@@ -42,6 +42,7 @@ import '../actions/packs.dart';
 import '../actions/previous.dart';
 import '../actions/primary.dart';
 import '../main.dart';
+import '../models/viewport.dart';
 import 'changes.dart';
 import 'view.dart';
 import 'zoom.dart';
@@ -111,10 +112,7 @@ class _ProjectPageState extends State<ProjectPage> {
     final settingsCubit = context.read<SettingsCubit>();
     final embedding = widget.embedding;
     if (embedding != null) {
-      final document = AppDocument(
-          createdAt: DateTime.now(),
-          painters: DocumentDefaults.createPainters(),
-          name: '');
+      final document = DocumentDefaults.createDocument();
       var language = embedding.language;
       if (language == 'system') {
         language = '';
@@ -124,18 +122,19 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit =
-            CurrentIndexCubit(settingsCubit, _transformCubit!, embedding);
+        _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
+            CameraViewport.unbaked(ToolRenderer()), embedding);
         _bloc = DocumentBloc(
           _currentIndexCubit!,
           settingsCubit,
           document,
+          document.getPage()!,
           widget.location ?? const AssetLocation(path: ''),
           BoxBackgroundRenderer(const BoxBackground()),
           [],
         );
         _bloc?.load();
-        embedding.handler.register(_bloc!);
+        embedding.handler.register(context, _bloc!);
       });
       return;
     }
@@ -146,7 +145,7 @@ class _ProjectPageState extends State<ProjectPage> {
           : settingsCubit.state.getDefaultRemote();
       final fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
       final prefs = await SharedPreferences.getInstance();
-      AppDocument? document;
+      NoteData? document;
       if (widget.location != null) {
         if (!widget.location!.absolute) {
           final asset = await fileSystem.getAsset(widget.location!.path);
@@ -161,14 +160,14 @@ class _ProjectPageState extends State<ProjectPage> {
       if (!documentOpened) {
         location = null;
       }
-      if (widget.type.isEmpty && widget.data is AppDocument) {
-        document = (widget.data as AppDocument).copyWith(name: name);
+      if (widget.type.isEmpty && widget.data is NoteData) {
+        document = (widget.data as NoteData);
       }
       if (document == null && prefs.containsKey('default_template')) {
         var template = await TemplateFileSystem.fromPlatform(remote: _remote)
             .getTemplate(prefs.getString('default_template')!);
         if (template != null && mounted) {
-          document = template.document.copyWith(
+          document = template.createDocument(
             name: name,
             createdAt: DateTime.now(),
           );
@@ -177,24 +176,24 @@ class _ProjectPageState extends State<ProjectPage> {
       if (!mounted) {
         return;
       }
-      document ??= AppDocument(
+      document ??= DocumentDefaults.createDocument(
         name: name,
-        createdAt: DateTime.now(),
-        painters: DocumentDefaults.createPainters(),
       );
+      final page = document.getPage() ?? DocumentDefaults.createPage();
       final renderers =
-          document.content.map((e) => Renderer.fromInstance(e)).toList();
-      await Future.wait(renderers.map((e) async => await e.setup(document!)));
-      final background = Renderer.fromInstance(document.background);
-      await background.setup(document);
+          page.content.map((e) => Renderer.fromInstance(e)).toList();
+      await Future.wait(
+          renderers.map((e) async => await e.setup(document!, page)));
+      final background = Renderer.fromInstance(page.background);
+      await background.setup(document, page);
       location ??= AssetLocation(
           path: widget.location?.path ?? '', remote: _remote?.identifier ?? '');
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit =
-            CurrentIndexCubit(settingsCubit, _transformCubit!, null);
+        _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
+            CameraViewport.unbaked(ToolRenderer()), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
-            location!, background, renderers);
+            page, location!, background, renderers);
         _bloc?.load();
       });
     } catch (e) {
@@ -203,8 +202,8 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit =
-            CurrentIndexCubit(settingsCubit, _transformCubit!, null);
+        _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
+            CameraViewport.unbaked(ToolRenderer()), null);
         _bloc = DocumentBloc.error(e.toString());
       });
     }

@@ -8,16 +8,15 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return [];
-    final packs = state.document.packs;
-    final currentPack =
-        packs.firstWhereOrNull((e) => e.name == selected.first.component.pack);
+    final packs = state.data.getPacks();
+    final packName = selected.first.component.pack;
+    final currentPack = state.data.getPack(packName);
     return [
       ...super.buildProperties(context),
       const SizedBox(height: 16),
       DropdownButtonFormField<String>(
         items: packs
-            .map((e) =>
-                DropdownMenuItem<String>(value: e.name, child: Text(e.name)))
+            .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
             .toList(),
         decoration: InputDecoration(
           labelText: AppLocalizations.of(context).pack,
@@ -47,31 +46,25 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
       const Divider(),
       const SizedBox(height: 8),
       Column(
-          children: currentPack?.components
-                  .asMap()
-                  .entries
+          children: currentPack
+                  ?.getComponents()
                   .map((component) => Dismissible(
-                      key: ValueKey(component.key),
+                      key: ValueKey(component),
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
-                        final newPack = currentPack.copyWith(
-                          components: List<ButterflyComponent>.from(
-                              currentPack.components)
-                            ..removeAt(component.key),
-                        );
-                        bloc.add(DocumentPackUpdated(newPack.name, newPack));
+                        currentPack.removeComponent(component);
+                        bloc.add(DocumentPackUpdated(packName, currentPack));
                       },
                       child: ListTile(
-                        title: Text(component.value.name),
-                        selected: component.value.name ==
-                            selected.first.component.name,
+                        title: Text(component),
+                        selected: component == selected.first.component.name,
                         onTap: () => update(
                             context,
                             selected
                                 .map((e) => e.copyWith(
                                         component: PackAssetLocation(
-                                      pack: currentPack.name,
-                                      name: component.value.name,
+                                      pack: packName,
+                                      name: component,
                                     )))
                                 .toList()),
                       )))

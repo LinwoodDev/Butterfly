@@ -8,12 +8,13 @@ class ShapeHandler extends Handler {
 
   @override
   List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      CurrentIndexCubit currentIndexCubit, NoteData document, DocumentPage page,
       [Area? currentArea]) {
     return elements.values
-        .map((e) => ShapeRenderer(e)..setup(document))
+        .map((e) => ShapeRenderer(e)..setup(document, page))
         .toList()
-      ..addAll(submittedElements.map((e) => ShapeRenderer(e)..setup(document)));
+      ..addAll(submittedElements
+          .map((e) => ShapeRenderer(e)..setup(document, page)));
   }
 
   @override
@@ -118,9 +119,8 @@ class ShapeHandler extends Handler {
     final state = bloc.state as DocumentLoadSuccess;
     final currentIndexCubit = context.read<CurrentIndexCubit>();
     final viewport = currentIndexCubit.state.cameraViewport;
-    localPosition = viewport.tool?.getGridPosition(
-            localPosition, state.document, currentIndexCubit) ??
-        localPosition;
+    localPosition = viewport.tool
+        .getGridPosition(localPosition, state.page, currentIndexCubit);
     final globalPosition = transform.localToGlobal(localPosition);
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;

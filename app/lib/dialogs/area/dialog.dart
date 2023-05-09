@@ -4,9 +4,8 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../../widgets/header.dart';
 
 class AreasDialog extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();
@@ -54,16 +53,14 @@ class AreasDialog extends StatelessWidget {
                                   DocumentBloc, DocumentState>(
                               buildWhen: (previous, current) =>
                                   (previous as DocumentLoadSuccess)
-                                      .document
+                                      .page
                                       .areas !=
-                                  (current as DocumentLoadSuccess)
-                                      .document
-                                      .areas,
+                                  (current as DocumentLoadSuccess).page.areas,
                               builder: (context, state) {
                                 if (state is! DocumentLoadSuccess) {
                                   return Container();
                                 }
-                                var areas = state.document.areas
+                                var areas = state.page.areas
                                     .where((element) => element.name
                                         .contains(_searchController.text))
                                     .toList();
@@ -144,7 +141,7 @@ class _AreaPopupMenu extends StatelessWidget {
                       builder: (context) => NameDialog(
                         value: area.name,
                         validator: defaultNameValidator(
-                            context, state.document.getAreaNames().toList()),
+                            context, state.page.getAreaNames().toList()),
                       ),
                     );
                     if (name == null) return;
