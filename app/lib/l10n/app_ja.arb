@@ -189,9 +189,6 @@
   "selectCamera": "カメラを選択",
   "changeDocumentPath": "ドキュメントのパスを変更",
   "deleteWholeStroke": "ストローク全体を削除",
-  "red": "赤",
-  "green": "緑",
-  "blue": "青",
   "alpha": "アルファ",
   "area": "エリア",
   "selectArea": "エリアを選択",
@@ -492,5 +489,10 @@
   "noTemplates": "現在利用可能なテンプレートはありません",
   "reset": "Reset",
   "importCorePack": "コア パックをインポート",
-  "importCorePackDescription": "始めるためのすべての基本的なアセットを含むコア パックをインポートします。これは現在のコア パックを上書きします。"
+  "importCorePackDescription": "始めるためのすべての基本的なアセットを含むコア パックをインポートします。これは現在のコア パックを上書きします。",
+  "never": "一切なし",
+  "onlyOnUpdates": "更新時のみ",
+  "visibility": "公開範囲",
+  "captureThumbnail": "サムネイルをキャプチャする",
+  "capturedThumbnail": "サムネイルをキャプチャしました"
 }

@@ -43,10 +43,10 @@ title: Branding
 
 * `Roboto`
 
-## Screenshots
+## スクリーンショット
 
-> Used in the firefox responsive design mode
+> Firefoxのレスポンシブデザインモードで使用
 
-* Phone: Galaxy S20 Ultra
-* 7-inch tablet: Nexus 7
-* 10-inch tablet: Nexus 10
+* 電話番号: Galaxy S20 Ultra
+* 7インチタブレット: Nexus 7
+* 10インチタブレット: Nexus 10

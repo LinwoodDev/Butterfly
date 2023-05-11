@@ -189,9 +189,6 @@
   "selectCamera": "选择相机",
   "changeDocumentPath": "更改文档路径",
   "deleteWholeStroke": "删除整个笔记",
-  "red": "红色的",
-  "green": "Green",
-  "blue": "蓝色",
   "alpha": "阿尔法",
   "area": "区域",
   "selectArea": "选择区域",
@@ -492,5 +489,10 @@
   "noTemplates": "目前没有可用的模板",
   "reset": "Reset",
   "importCorePack": "导入核心包",
-  "importCorePackDescription": "导入包含所有基本资源以启动的核心包。这将覆盖当前的核心包。"
+  "importCorePackDescription": "导入包含所有基本资源以启动的核心包。这将覆盖当前的核心包。",
+  "never": "从不使用",
+  "onlyOnUpdates": "仅在更新",
+  "visibility": "可见性",
+  "captureThumbnail": "捕获缩略图",
+  "capturedThumbnail": "成功抓取缩略图"
 }

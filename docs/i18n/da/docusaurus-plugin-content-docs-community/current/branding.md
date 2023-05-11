@@ -43,10 +43,10 @@ Disse aktiver er licenseret under [CC-BY-4.0](https://github.com/LinwoodDev/Butt
 
 * `Roboto`
 
-## Screenshots
+## Skærmbilleder
 
-> Used in the firefox responsive design mode
+> Anvendes i firefox responsive designtilstand
 
-* Phone: Galaxy S20 Ultra
-* 7-inch tablet: Nexus 7
-* 10-inch tablet: Nexus 10
+* Telefon: Galaxy S20 Ultra
+* 7-tommer tablet: Nexus 7
+* 10-tommer tablet: Nexus 10

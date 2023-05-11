@@ -69,6 +69,6 @@ Butterfly [のナイトバージョンについてはこちら](/nightly) をご
   Flathub
 </a>
 <a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
-  Snap
+  スナップ
 </a>
 </div>

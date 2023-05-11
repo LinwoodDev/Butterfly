@@ -43,10 +43,10 @@ Ces actifs sont sous licence [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly
 
 * `Roboto`
 
-## Screenshots
+## Captures d'écran
 
-> Used in the firefox responsive design mode
+> Utilisé dans le mode de conception réactive de firefox
 
-* Phone: Galaxy S20 Ultra
-* 7-inch tablet: Nexus 7
-* 10-inch tablet: Nexus 10
+* Téléphone : Galaxie S20 Ultra
+* tablette de 7 pouces : Nexus 7
+* tablette de 10 pouces : Nexus 10

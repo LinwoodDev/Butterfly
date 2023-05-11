@@ -43,10 +43,10 @@ title: Фірмове оформлення
 
 * `Roboto`
 
-## Screenshots
+## Скріншоти
 
-> Used in the firefox responsive design mode
+> Використовується в режимі реагування файловому дизайну
 
-* Phone: Galaxy S20 Ultra
-* 7-inch tablet: Nexus 7
-* 10-inch tablet: Nexus 10
+* Телефон: Galaxy S20 Ultra
+* 7-дюймовий планшет: Nexus 7
+* Планшет 10-дюйм: Nexus 10

@@ -43,10 +43,10 @@ title: العلامة
 
 * `Roboto`
 
-## Screenshots
+## لقطات الشاشة
 
-> Used in the firefox responsive design mode
+> يستخدم في وضع التصميم المتجاوب
 
-* Phone: Galaxy S20 Ultra
-* 7-inch tablet: Nexus 7
-* 10-inch tablet: Nexus 10
+* الهاتف: جالاكسي S20 Ltra
+* هاتف 7 بوصات: Nexus 7
+* هاتف 10 بوصات: Nexus 10

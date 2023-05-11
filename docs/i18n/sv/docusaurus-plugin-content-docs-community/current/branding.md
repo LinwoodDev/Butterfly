@@ -43,10 +43,10 @@ Dessa tillgångar är licensierade under [CC-BY-4.0](https://github.com/LinwoodD
 
 * `Roboto`
 
-## Screenshots
+## Skärmdumpar
 
-> Used in the firefox responsive design mode
+> Används i firefox responsivt designläge
 
-* Phone: Galaxy S20 Ultra
-* 7-inch tablet: Nexus 7
-* 10-inch tablet: Nexus 10
+* Telefon: Galaxy S20 Ultra
+* 7-tums tablett: Nexus 7
+* 10-tums tablett: Nexus 10
