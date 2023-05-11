@@ -142,8 +142,7 @@ class RemoteSync {
     _filesSubject.add(currentFiles);
     final now = DateTime.now().toUtc();
 
-    final hasError =
-        currentFiles.any((file) => file.status == SyncStatus.error);
+    final hasError = status == SyncStatus.error;
 
     for (final file in currentFiles) {
       switch (file.status) {
@@ -212,7 +211,7 @@ class RemoteSync {
   }
 
   Future<void> resolve(String path, FileSyncStatus status) async {
-    if (status == SyncStatus.syncing) {
+    if (this.status == SyncStatus.syncing) {
       return;
     }
     _statusSubject.add(SyncStatus.syncing);

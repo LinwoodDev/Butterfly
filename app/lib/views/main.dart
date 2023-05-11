@@ -379,10 +379,10 @@ class _ProjectPageState extends State<ProjectPage> {
                                                   child: Stack(
                                                     children: [
                                                       const MainViewViewport(),
-                                                      Column(
+                                                      const Column(
                                                           mainAxisSize:
                                                               MainAxisSize.min,
-                                                          children: const [
+                                                          children: [
                                                             ToolbarView(),
                                                           ]),
                                                       if (!isLandscape) property

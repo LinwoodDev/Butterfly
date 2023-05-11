@@ -356,47 +356,50 @@ class _PacksDialogState extends State<PacksDialog>
                                   if (metadata?.type != NoteFileType.pack) {
                                     return;
                                   }
-                                  final success = await showDialog<bool>(
-                                        context: this.context,
-                                        builder: (context) => AlertDialog(
-                                          title: Text(
-                                              AppLocalizations.of(context)
-                                                  .sureImportPack),
-                                          scrollable: true,
-                                          content: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(metadata!.name,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleLarge),
-                                              Text(AppLocalizations.of(context)
-                                                  .byAuthor(metadata.author)),
-                                              Text(metadata.description),
+                                  if (context.mounted) {
+                                    final success = await showDialog<bool>(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            title: Text(
+                                                AppLocalizations.of(context)
+                                                    .sureImportPack),
+                                            scrollable: true,
+                                            content: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(metadata!.name,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleLarge),
+                                                Text(AppLocalizations.of(
+                                                        context)
+                                                    .byAuthor(metadata.author)),
+                                                Text(metadata.description),
+                                              ],
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () =>
+                                                    Navigator.of(context).pop(),
+                                                child: Text(
+                                                    AppLocalizations.of(context)
+                                                        .cancel),
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () =>
+                                                    Navigator.of(context)
+                                                        .pop(true),
+                                                child: Text(
+                                                    AppLocalizations.of(context)
+                                                        .import),
+                                              ),
                                             ],
                                           ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () =>
-                                                  Navigator.of(context).pop(),
-                                              child: Text(
-                                                  AppLocalizations.of(context)
-                                                      .cancel),
-                                            ),
-                                            ElevatedButton(
-                                              onPressed: () =>
-                                                  Navigator.of(context)
-                                                      .pop(true),
-                                              child: Text(
-                                                  AppLocalizations.of(context)
-                                                      .import),
-                                            ),
-                                          ],
-                                        ),
-                                      ) ??
-                                      false;
-                                  if (!success) return;
-                                  _addPack(pack);
+                                        ) ??
+                                        false;
+                                    if (!success) return;
+                                    _addPack(pack);
+                                  }
                                 },
                               ),
                               ListTile(

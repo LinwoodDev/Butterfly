@@ -276,7 +276,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
     final xml = XmlDocument.parse(content);
     final fileName = remote.buildDocumentsUri(path: path.split('/')).path;
     final currentElement = xml.findAllElements('d:response').where((element) {
-      final current = element.getElement('d:href')?.text;
+      final current = element.getElement('d:href')?.value;
       return current == fileName || current == '$fileName/';
     }).first;
     final resourceType = currentElement
@@ -290,9 +290,10 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
       final assets = await Future.wait(xml
           .findAllElements('d:response')
           .where((element) =>
-              element.getElement('d:href')?.text.startsWith(fileName) ?? false)
+              element.getElement('d:href')?.value?.startsWith(fileName) ??
+              false)
           .where((element) {
-        final current = element.getElement('d:href')?.text;
+        final current = element.getElement('d:href')?.value;
         return current != fileName && current != '$fileName/';
       }).map((e) async {
         final currentResourceType = e
@@ -303,10 +304,11 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
             .findElements('d:resourcetype')
             .first;
         var path = e
-            .findElements('d:href')
-            .first
-            .text
-            .substring(remote.buildDocumentsUri().path.length);
+                .findElements('d:href')
+                .first
+                .value
+                ?.substring(remote.buildDocumentsUri().path.length) ??
+            '';
         if (path.endsWith('/')) {
           path = path.substring(0, path.length - 1);
         }
@@ -351,7 +353,7 @@ class DavRemoteDocumentFileSystem extends DocumentFileSystem
         .firstOrNull
         ?.findElements('d:getlastmodified')
         .firstOrNull
-        ?.text;
+        ?.value;
     if (lastModified == null) {
       return null;
     }
@@ -560,9 +562,9 @@ class DavRemoteTemplateFileSystem extends TemplateFileSystem
       clearCachedContent();
       return (await Future.wait(xml
               .findAllElements('d:href')
-              .where((element) => element.text.endsWith('.bfly'))
+              .where((element) => element.value?.endsWith('.bfly') ?? false)
               .map((e) {
-        var path = e.text.substring(remote.buildTemplatesUri().path.length);
+        var path = e.value!.substring(remote.buildTemplatesUri().path.length);
         path = Uri.decodeComponent(path);
         return getTemplate(path);
       })))
@@ -665,9 +667,9 @@ class DavRemotePackFileSystem extends PackFileSystem with DavRemoteSystem {
       clearCachedContent();
       return (await Future.wait(xml
               .findAllElements('d:href')
-              .where((element) => element.text.endsWith('.bfly'))
+              .where((element) => element.value?.endsWith('.bfly') ?? false)
               .map((e) {
-        var path = e.text.substring(remote.buildPacksUri().path.length);
+        var path = e.value!.substring(remote.buildPacksUri().path.length);
         path = Uri.decodeComponent(path);
         return getPack(path);
       })))

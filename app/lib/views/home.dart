@@ -256,10 +256,10 @@ class _HeaderHomeView extends StatelessWidget {
                   child: Text(AppLocalizations.of(context).whatsNew),
                 ),
           if (hasNewerVersion)
-            SizedBox(
+            const SizedBox(
               height: 0,
               child: Stack(
-                children: const [
+                children: [
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: PhosphorIcon(PhosphorIconsLight.caretUp),
