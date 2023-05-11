@@ -256,10 +256,10 @@ class _HeaderHomeView extends StatelessWidget {
                   child: Text(AppLocalizations.of(context).whatsNew),
                 ),
           if (hasNewerVersion)
-            SizedBox(
+            const SizedBox(
               height: 0,
               child: Stack(
-                children: const [
+                children: [
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: PhosphorIcon(PhosphorIconsLight.caretUp),
@@ -789,9 +789,17 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
       }
       final aFile = a as AppDocumentFile;
       final bFile = b as AppDocumentFile;
-      final aInfo = aFile.load().getMetadata();
-      final bInfo = bFile.load().getMetadata();
+      FileMetadata? aInfo, bInfo;
+      try {
+        aInfo = aFile.load().getMetadata();
+      } catch (_) {}
+      try {
+        bInfo = bFile.load().getMetadata();
+      } catch (_) {}
       if (aInfo == null) {
+        if (bInfo == null) {
+          return aFile.fileName.compareTo(bFile.fileName);
+        }
         return 1;
       }
       if (bInfo == null) {
@@ -809,7 +817,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
           if (bCreatedAt == null) {
             return -1;
           }
-          return aCreatedAt.compareTo(bCreatedAt);
+          return bCreatedAt.compareTo(aCreatedAt);
         case _SortBy.modified:
           final aModifiedAt = aInfo.updatedAt;
           final bModifiedAt = bInfo.updatedAt;
@@ -819,7 +827,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
           if (bModifiedAt == null) {
             return -1;
           }
-          return aModifiedAt.compareTo(bModifiedAt);
+          return bModifiedAt.compareTo(aModifiedAt);
       }
     } catch (e) {
       return 0;

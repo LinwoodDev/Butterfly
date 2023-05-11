@@ -189,9 +189,6 @@
   "selectCamera": "Kamera Seç",
   "changeDocumentPath": "Belge yolunu değiştir",
   "deleteWholeStroke": "Tüm konturu sil",
-  "red": "Kırmızı",
-  "green": "Yeşil",
-  "blue": "Mavi",
   "alpha": "Şefaflık",
   "area": "Alan",
   "selectArea": "Bir alan seçin",
@@ -492,5 +489,10 @@
   "noTemplates": "Şu anda kullanılabilir şablon yok",
   "reset": "Sıfırla",
   "importCorePack": "Çekirdek paketi içe aktar",
-  "importCorePackDescription": "Başlamak için tüm temel varlıkları içeren temel paketi içe aktarın. Bu, mevcut çekirdek paketi geçersiz kılacaktır."
+  "importCorePackDescription": "Başlamak için tüm temel varlıkları içeren temel paketi içe aktarın. Bu, mevcut çekirdek paketi geçersiz kılacaktır.",
+  "never": "Never",
+  "onlyOnUpdates": "Only on updates",
+  "visibility": "Visibility",
+  "captureThumbnail": "Capture thumbnail",
+  "capturedThumbnail": "Successfully captured thumbnail"
 }

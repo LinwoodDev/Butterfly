@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > The `getData` method returns the data of the document.
 
-No parameters. Returns: `String`
+No parameters. Returns: `List<int>`
 
 ### setData
 

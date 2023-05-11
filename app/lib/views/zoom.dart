@@ -96,10 +96,6 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                         _controller.forward(from: 0);
                       }
                     }
-                    final text = (scale * 100).toStringAsFixed(0);
-                    if (text != _zoomController.text) {
-                      _zoomController.text = text;
-                    }
                     return AnimatedBuilder(
                       animation: _animation,
                       builder: (context, child) => Opacity(
@@ -109,6 +105,10 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                             padding: const EdgeInsets.all(8.0),
                             child: StatefulBuilder(
                               builder: (context, setState) {
+                                final text = (scale * 100).toStringAsFixed(0);
+                                if (text != _zoomController.text) {
+                                  _zoomController.text = text;
+                                }
                                 return Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

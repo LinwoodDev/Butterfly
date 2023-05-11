@@ -234,7 +234,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                     const BorderRadius.all(Radius.circular(32)),
                                 onLongPress: () => _showColorOperation(index),
                                 onTap: () => Navigator.of(context)
-                                    .pop(palette!.colors[index]),
+                                    .pop(palette.colors[index]),
                                 child: Container(
                                   width: 75,
                                   height: 75,

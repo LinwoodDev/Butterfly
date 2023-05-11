@@ -43,10 +43,10 @@ title: Μάρκα
 
 * `Roboto`
 
-## Screenshots
+## Οθόνες
 
-> Used in the firefox responsive design mode
+> Χρησιμοποιείται στη λειτουργία σχεδιασμού που ανταποκρίνεται στο firefox
 
-* Phone: Galaxy S20 Ultra
-* 7-inch tablet: Nexus 7
-* 10-inch tablet: Nexus 10
+* Τηλέφωνο: Galaxy S20 Ultra
+* 7 ιντσών δισκίο: Nexus 7
+* 10 ιντσών δισκίο: Nexus 10

@@ -25,7 +25,7 @@ import '../embed/action.dart';
 import '../main.dart';
 import '../widgets/window.dart';
 
-class PadAppBar extends StatelessWidget with PreferredSizeWidget {
+class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey viewportKey;
 
   PadAppBar({super.key, required this.viewportKey});

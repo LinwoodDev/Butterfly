@@ -43,10 +43,10 @@ title: 品牌化
 
 * `Roboto`
 
-## Screenshots
+## 屏幕截图
 
-> Used in the firefox responsive design mode
+> 用于 firefox 响应设计模式
 
-* Phone: Galaxy S20 Ultra
-* 7-inch tablet: Nexus 7
-* 10-inch tablet: Nexus 10
+* 电话: Galaxy S20 Ultra
+* 7英寸的平板电脑: Nexus 7
+* 10英寸的平板电脑: Nexus 10

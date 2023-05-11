@@ -45,8 +45,8 @@ Esses assets são licenciados sob o [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 
 ## Screenshots
 
-> Used in the firefox responsive design mode
+> Usado no modo responsivo do firefox
 
-* Phone: Galaxy S20 Ultra
-* 7-inch tablet: Nexus 7
-* 10-inch tablet: Nexus 10
+* Telefone: Galaxy S20 Ultra
+* Tábua de 7 polegadas: Nexus 7
+* Tablet de 10 polegadas: Nexus 10

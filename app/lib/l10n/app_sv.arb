@@ -189,9 +189,6 @@
   "selectCamera": "Välj en kamera",
   "changeDocumentPath": "Ändra dokumentets sökväg",
   "deleteWholeStroke": "Ta bort hela slaget",
-  "red": "Röd",
-  "green": "Grön",
-  "blue": "Blå",
   "alpha": "Alfa",
   "area": "Område",
   "selectArea": "Välj ett område",
@@ -492,5 +489,10 @@
   "noTemplates": "Det finns för närvarande inga tillgängliga mallar",
   "reset": "Reset",
   "importCorePack": "Importera kärnpaket",
-  "importCorePackDescription": "Importera kärnpaketet som innehåller alla grundläggande tillgångar för att komma igång. Detta åsidosätter det aktuella kärnpaketet."
+  "importCorePackDescription": "Importera kärnpaketet som innehåller alla grundläggande tillgångar för att komma igång. Detta åsidosätter det aktuella kärnpaketet.",
+  "never": "Aldrig",
+  "onlyOnUpdates": "Endast på uppdateringar",
+  "visibility": "Synlighet",
+  "captureThumbnail": "Fånga miniatyrbild",
+  "capturedThumbnail": "Framgångsrikt fångad miniatyrbild"
 }

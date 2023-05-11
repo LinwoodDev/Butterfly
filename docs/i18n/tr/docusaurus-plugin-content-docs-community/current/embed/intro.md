@@ -36,7 +36,7 @@ embedElement.addEventListener('message', (data) => {
 
 Parametreler:
 
-* `data` (Type`String`): Belgenin verileri.
+* `data` (Type `List<int>`): The data of the document.
 
 ### exit
 
@@ -44,7 +44,7 @@ Parametreler:
 
 Parametreler:
 
-* `data` (Type`String`): Belgenin verileri.
+* `data` (Type `List<int>`): The data of the document.
 
 ### change
 
@@ -52,7 +52,7 @@ Parametreler:
 
 Parametreler:
 
-* `data` (Type`String`): Belgenin verileri.
+* `data` (Type `List<int>`): The data of the document.
 
 ## Yöntemler
 
@@ -72,7 +72,7 @@ embedElement.addEventListener('message', (data) => {
 
 > `getData` yöntemi, belgenin verilerini döndürür.
 
-Parametre yok. Dönüş: `String`
+Parametre yok. Returns: `List<int>`
 
 ### setData
 
@@ -80,7 +80,7 @@ Parametre yok. Dönüş: `String`
 
 Parametreler:
 
-* `data` (Type`String`): Belgenin verileri.
+* `data` (Type `List<int>`): The data of the document.
 
 ### render
 

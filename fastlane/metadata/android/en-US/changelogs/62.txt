@@ -1,3 +1,8 @@
 * Add archive format
 * Add thumbnails on documents
+* Improve text update in zoom view
+* Improve sorting at home page
 * Fix appearing zoom view and disappearing on focus
+* Disallow saving in json format
+* Remove save and load dialog (including load and saving from clipboard)
+* Upgrade to flutter 3.10

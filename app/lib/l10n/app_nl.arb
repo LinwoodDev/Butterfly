@@ -189,9 +189,6 @@
   "selectCamera": "Selecteer een camera",
   "changeDocumentPath": "Documentpad wijzigen",
   "deleteWholeStroke": "Verwijder hele streek",
-  "red": "Rood",
-  "green": "Groen",
-  "blue": "Blauw",
   "alpha": "Transparantie",
   "area": "Oppervlak",
   "selectArea": "Selecteer een gebied",
@@ -492,5 +489,10 @@
   "noTemplates": "Er zijn momenteel geen sjablonen beschikbaar",
   "reset": "Reset",
   "importCorePack": "Importeer core pakket",
-  "importCorePackDescription": "Importeer het core pakket dat alle basisassets bevat om aan de slag te gaan. Dit zal het huidige core pakket overschrijven."
+  "importCorePackDescription": "Importeer het core pakket dat alle basisassets bevat om aan de slag te gaan. Dit zal het huidige core pakket overschrijven.",
+  "never": "Nooit",
+  "onlyOnUpdates": "Alleen op updates",
+  "visibility": "Zichtbaarheid",
+  "captureThumbnail": "Thumbnail opnemen",
+  "capturedThumbnail": "Miniatuurweergave succesvol vastgelegd"
 }

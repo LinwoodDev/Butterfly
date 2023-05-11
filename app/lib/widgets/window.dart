@@ -12,7 +12,7 @@ import '../cubits/settings.dart';
 final isWindow =
     !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
 
-class WindowTitleBar extends StatelessWidget with PreferredSizeWidget {
+class WindowTitleBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget> actions;
   final Widget? title;
   final Widget? leading;

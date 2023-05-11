@@ -69,6 +69,6 @@ Les mer om den nattlige versjonen av Butterfly [her](/nightly).
   Flathub
 </a>
 <a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
-  Snap
+  Fest
 </a>
 </div>

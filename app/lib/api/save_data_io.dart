@@ -8,12 +8,12 @@ Future<void> saveData(BuildContext context, List<int> data) async {
   var fileName = await FilePicker.platform.saveFile(
       fileName: 'butterfly.bfly',
       type: FileType.custom,
-      allowedExtensions: ['json', 'bfly']);
+      allowedExtensions: ['bfly']);
 
   if (fileName == null) {
     return;
   }
-  if (!fileName.endsWith('.bfly') && !fileName.endsWith('.json')) {
+  if (!fileName.endsWith('.bfly')) {
     fileName += '.bfly';
   }
   var file = File(fileName);

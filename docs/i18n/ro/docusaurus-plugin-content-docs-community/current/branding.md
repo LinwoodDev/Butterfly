@@ -43,10 +43,10 @@ Aceste active sunt licențiate sub [CC-BY-4.0](https://github.com/LinwoodDev/But
 
 * `Roboto`
 
-## Screenshots
+## Capturi ecran
 
-> Used in the firefox responsive design mode
+> Folosit în modul responsive firefox
 
-* Phone: Galaxy S20 Ultra
-* 7-inch tablet: Nexus 7
-* 10-inch tablet: Nexus 10
+* Telefon: Galaxy S20 Ultra
+* Comprimat de 7 inch: Nexus 7
+* Comprimat de 10 inch: Nexus 10

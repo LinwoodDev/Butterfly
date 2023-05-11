@@ -113,9 +113,9 @@ class _SearchDialogState extends State<SearchDialog> {
                             }
                             if (snapshot.connectionState !=
                                 ConnectionState.done) {
-                              return Column(
+                              return const Column(
                                 mainAxisSize: MainAxisSize.min,
-                                children: const [
+                                children: [
                                   CircularProgressIndicator(),
                                 ],
                               );
