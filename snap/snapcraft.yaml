@@ -1,6 +1,6 @@
 name: butterfly
 grade: stable
-version: '1.6.1'
+adopt-info: butterfly
 summary: Powerful, minimalistic, cross-platform, opensource note-taking app.
 description: |
   Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device.
@@ -8,15 +8,9 @@ base: core22
 confinement: strict
 compression: lzo
 architectures:
-  - build-on: [amd64]
-    build-for: [amd64]
-
-#slots:
-  #butterfly:
-    #interface: dbus
-    #bus: session
-    #name: dev.linwood.butterfly
-
+  - build-on: amd64
+    build-for: amd64
+  
 apps:
   butterfly:
     command: butterfly
@@ -32,7 +26,17 @@ apps:
 parts:
   butterfly:
     plugin: dump
-    source: https://github.com/LinwoodDev/Butterfly/releases/download/v1.6.1/linwood-butterfly-linux.tar.gz
+    source: https://github.com/LinwoodDev/Butterfly.git
+    build-packages:
+      - build-essential
+      - wget
+      - curl
+    override-pull: |
+      craftctl default
+      craftctl set version=$(git describe --tags --abbrev=0)
+      VER="$(git describe --tags --abbrev=0)"
+      wget -q -O- https://github.com/LinwoodDev/Butterfly/releases/download/${VER}/linwood-butterfly-linux.tar.gz |\
+           tar xzf - --strip-components=1 -C $CRAFT_PART_SRC
     override-build: |
       craftctl default
       chmod a+x ./butterfly
