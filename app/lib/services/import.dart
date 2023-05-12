@@ -128,7 +128,9 @@ class ImportService {
             areas: areas,
             document: document,
             choosePosition: position == null) ??
-        DocumentDefaults.createDocument(page: docPage);
+        data.createDocument(
+          createdAt: DateTime.now(),
+        );
   }
 
   Future<bool> _importTemplate(NoteData template) async {

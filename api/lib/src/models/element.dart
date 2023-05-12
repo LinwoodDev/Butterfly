@@ -62,19 +62,24 @@ class PadElement with _$PadElement {
   }) = PenElement;
 
   const factory PadElement.text({
-    @Default('') String layer,
+    @Default('')
+        String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> position,
-    @Default(1.0) double scale,
-    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    @Default(1.0)
+        double scale,
+    @Default(PackAssetLocation())
+        PackAssetLocation styleSheet,
     required TextArea area,
-    @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
+    @Default(ElementConstraint(size: 1000))
+        ElementConstraint constraint,
   }) = TextElement;
 
   @Implements<SourcedElement>()
   const factory PadElement.image({
-    @Default('') String layer,
+    @Default('')
+        String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> position,
@@ -87,7 +92,8 @@ class PadElement with _$PadElement {
 
   @Implements<SourcedElement>()
   const factory PadElement.svg({
-    @Default('') String layer,
+    @Default('')
+        String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> position,
@@ -99,14 +105,16 @@ class PadElement with _$PadElement {
   }) = SvgElement;
 
   const factory PadElement.shape({
-    @Default('') String layer,
+    @Default('')
+        String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> firstPosition,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> secondPosition,
-    @Default(ShapeProperty(shape: RectangleShape())) ShapeProperty property,
+    @Default(ShapeProperty(shape: RectangleShape()))
+        ShapeProperty property,
   }) = ShapeElement;
 
   factory PadElement.fromJson(Map<String, dynamic> json) =>

@@ -160,7 +160,7 @@ class _ProjectPageState extends State<ProjectPage> {
       if (!documentOpened) {
         location = null;
       }
-      if (widget.type.isEmpty && widget.data is NoteData) {
+      if (widget.data is NoteData) {
         document = (widget.data as NoteData);
       }
       if (document == null && prefs.containsKey('default_template')) {

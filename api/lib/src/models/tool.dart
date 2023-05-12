@@ -21,12 +21,15 @@ class ToolOption with _$ToolOption {
 @freezed
 class ToolState with _$ToolState {
   const factory ToolState({
-    @Default(false) bool rulerEnabled,
-    @Default(false) bool gridEnabled,
+    @Default(false)
+        bool rulerEnabled,
+    @Default(false)
+        bool gridEnabled,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> rulerPosition,
-    @Default(0) double rulerAngle,
+    @Default(0)
+        double rulerAngle,
   }) = _ToolState;
 
   factory ToolState.fromJson(Map<String, dynamic> json) =>
