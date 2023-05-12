@@ -34,7 +34,6 @@ ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
     dropdownMenuTheme: DropdownMenuThemeData(
       inputDecorationTheme: defaultDropdownInputDecorationTheme(),
     ),
-    inputDecorationTheme: defaultDropdownInputDecorationTheme(),
   );
 }
 

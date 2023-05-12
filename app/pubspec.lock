@@ -172,10 +172,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android
-      sha256: e0f9b7eea2d1f4d4f5460f178522f0d02c095d2ae00b01a77419ce61c4184bfe
+      sha256: "45313e6bd5e74ac369d5bef928ab81594b5494762ac5cb8f4f255c01daa77622"
       url: "https://pub.dev"
     source: hosted
-    version: "0.10.7"
+    version: "0.10.8"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -380,10 +380,10 @@ packages:
     dependency: "direct main"
     description:
       name: flex_color_scheme
-      sha256: "92e55a32cb0cbcde333c2169612785ed236a7b136534de983b3037b39d06e96c"
+      sha256: "6178eaa92d58e7803fbaca01eefc82d46144ee86a737529210c54234ff69d07a"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.5"
+    version: "7.1.0"
   flex_seed_scheme:
     dependency: transitive
     description:
@@ -554,10 +554,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "73a50070c125c90f9960aad4da9e4a95d94558230727f145ac634528da1e75e3"
+      sha256: "80e37516b8d452d982fc32bd7bb22adbd20e422612ef2b3e1df8b8350cbf199b"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0"
+    version: "7.0.1"
   graphs:
     dependency: transitive
     description:
@@ -828,10 +828,10 @@ packages:
     dependency: "direct main"
     description:
       name: pdf
-      sha256: "02bd438bbd1aa952c1070c8df3905ab3b6f0c6112a8266f5e8601ab1a4b9164f"
+      sha256: "70d84154dc5b6ddf28eee6c012510a4cbbebb3a1879c0957e05364a95e8f3832"
       url: "https://pub.dev"
     source: hosted
-    version: "3.10.2"
+    version: "3.10.3"
   pdf_widget_wrapper:
     dependency: transitive
     description:
@@ -1091,10 +1091,10 @@ packages:
     dependency: transitive
     description:
       name: source_gen
-      sha256: "378a173055cd1fcd2a36e94bf254786d6812688b5f53b6038a2fd180a5a5e210"
+      sha256: "373f96cf5a8744bc9816c1ff41cf5391bbdbe3d7a96fe98c622b6738a8a7bd33"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.1"
+    version: "1.3.2"
   source_helper:
     dependency: transitive
     description:
@@ -1376,5 +1376,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.0.0-417 <4.0.0"
-  flutter: ">=3.9.0"
+  dart: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"

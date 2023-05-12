@@ -24,6 +24,19 @@ Future<List<SearchResult>> _searchIsolate(DocumentPage page, String query) =>
 class _SearchDialogState extends State<SearchDialog> {
   final TextEditingController _searchController = TextEditingController();
   Future<List<SearchResult>> _searchResults = Future.value([]);
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.requestFocus();
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    _focusNode.dispose();
+  }
 
   void _search(DocumentPage page, String query) {
     setState(() {
@@ -81,13 +94,9 @@ class _SearchDialogState extends State<SearchDialog> {
                     Row(
                       children: [
                         Flexible(
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context).search,
-                              filled: true,
-                            ),
-                            autofocus: true,
+                          child: SearchBar(
                             controller: _searchController,
+                            focusNode: _focusNode,
                             onChanged: (value) {
                               final state = context.read<DocumentBloc>().state;
                               if (state is DocumentLoaded) {

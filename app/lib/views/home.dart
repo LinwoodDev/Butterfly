@@ -464,43 +464,26 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                 children: [
                   Text(AppLocalizations.of(context).source),
                   const SizedBox(width: 8),
-                  SizedBox(
-                    width: 200,
-                    child: BlocBuilder<SettingsCubit, ButterflySettings>(
-                        builder: (context, state) {
-                      return DropdownButtonFormField<String?>(
-                        items: [
-                          DropdownMenuItem(
-                            value: null,
-                            child: Text(AppLocalizations.of(context).local),
-                          ),
-                          ...state.remotes
-                              .map((e) => DropdownMenuItem(
-                                    value: e.identifier,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(e.uri.host),
-                                        Text(e.username),
-                                      ],
-                                    ),
-                                  ))
-                              .toList(),
-                        ],
-                        itemHeight: 50,
-                        selectedItemBuilder: (context) => [
-                          Text(AppLocalizations.of(context).local),
-                          ...state.remotes.map((e) =>
-                              Text(e.uri.host, overflow: TextOverflow.ellipsis))
-                        ],
-                        borderRadius: BorderRadius.circular(16),
-                        value: _remote?.identifier,
-                        onChanged: (value) => _setRemote(
-                            value == null ? null : state.getRemote(value)),
-                      );
-                    }),
-                  ),
+                  BlocBuilder<SettingsCubit, ButterflySettings>(
+                      builder: (context, state) {
+                    return DropdownMenu<String?>(
+                      dropdownMenuEntries: [
+                        DropdownMenuEntry(
+                          value: null,
+                          label: AppLocalizations.of(context).local,
+                        ),
+                        ...state.remotes
+                            .map((e) => DropdownMenuEntry(
+                                  value: e.identifier,
+                                  label: e.uri.host,
+                                ))
+                            .toList(),
+                      ],
+                      initialSelection: _remote?.identifier,
+                      onSelected: (value) => _setRemote(
+                          value == null ? null : state.getRemote(value)),
+                    );
+                  }),
                   BlocBuilder<SettingsCubit, ButterflySettings>(
                     buildWhen: (previous, current) =>
                         previous.remotes != current.remotes,
@@ -515,20 +498,16 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                 children: [
                   Text(AppLocalizations.of(context).sortBy),
                   const SizedBox(width: 8),
-                  SizedBox(
-                    width: 150,
-                    child: DropdownButtonFormField<_SortBy>(
-                      items: _SortBy.values
-                          .map((e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(getLocalizedNameOfSortBy(e)),
-                              ))
-                          .toList(),
-                      borderRadius: BorderRadius.circular(16),
-                      value: _sortBy,
-                      onChanged: (value) =>
-                          setState(() => _sortBy = value ?? _sortBy),
-                    ),
+                  DropdownMenu<_SortBy>(
+                    dropdownMenuEntries: _SortBy.values
+                        .map((e) => DropdownMenuEntry(
+                              value: e,
+                              label: getLocalizedNameOfSortBy(e),
+                            ))
+                        .toList(),
+                    initialSelection: _sortBy,
+                    onSelected: (value) =>
+                        setState(() => _sortBy = value ?? _sortBy),
                   ),
                 ],
               ),
@@ -675,7 +654,6 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                   hintText: AppLocalizations.of(context).location,
                   prefixIcon: const PhosphorIcon(PhosphorIconsLight.folder),
                   filled: true,
-                  contentPadding: const EdgeInsets.only(left: 32),
                 ),
                 controller: _locationController,
                 onFieldSubmitted: (value) => _reloadFileSystem(),
