@@ -26,14 +26,4 @@ class PathEraserPainterSelection extends PainterSelection<PathEraserPainter> {
     }
     return super.insert(element);
   }
-
-  @override
-  String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context).pathEraser;
-
-  @override
-  IconGetter get icon => PhosphorIcons.path;
-
-  @override
-  List<String> get help => ['painters', 'path_eraser'];
 }

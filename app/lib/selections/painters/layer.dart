@@ -186,14 +186,4 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
     }
     return super.insert(element);
   }
-
-  @override
-  String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context).layer;
-
-  @override
-  IconGetter get icon => PhosphorIcons.squaresFour;
-
-  @override
-  List<String> get help => ['painters', 'layer'];
 }

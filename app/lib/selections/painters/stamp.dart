@@ -80,14 +80,4 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
     }
     return super.insert(element);
   }
-
-  @override
-  String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context).stamp;
-
-  @override
-  IconGetter get icon => PhosphorIcons.stamp;
-
-  @override
-  List<String> get help => ['painters', 'stamp'];
 }

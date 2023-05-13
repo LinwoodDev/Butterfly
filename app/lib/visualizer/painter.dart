@@ -49,6 +49,28 @@ extension PainterVisualizer on Painter {
     );
   }
 
+  List<String> get help {
+    final page = maybeMap(
+      redo: (_) => 'redo',
+      undo: (_) => 'undo',
+      pen: (_) => 'pen',
+      laser: (_) => 'laser',
+      shape: (_) => 'shape',
+      stamp: (_) => 'stamp',
+      eraser: (_) => 'eraser',
+      pathEraser: (_) => 'path_eraser',
+      label: (_) => 'label',
+      area: (_) => 'area',
+      hand: (_) => 'hand',
+      layer: (_) => 'layer',
+      presentation: (_) => 'presentation',
+      waypoint: (_) => 'waypoint',
+      orElse: () => null,
+    );
+    if (page == null) return [];
+    return ['painters', page];
+  }
+
   bool isAction() {
     return maybeMap(
       import: (_) => true,

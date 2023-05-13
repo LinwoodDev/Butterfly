@@ -89,14 +89,4 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
     }
     return super.insert(element);
   }
-
-  @override
-  String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context).label;
-
-  @override
-  IconGetter get icon => PhosphorIcons.textT;
-
-  @override
-  List<String> get help => ['painters', 'label'];
 }

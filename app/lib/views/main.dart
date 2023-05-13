@@ -246,7 +246,7 @@ class _ProjectPageState extends State<ProjectPage> {
               RepositoryProvider(
                 create: (context) {
                   final service = ImportService(context, _bloc);
-                  if (widget.type.isNotEmpty) {
+                  if (widget.type.isNotEmpty && widget.type != 'note') {
                     service.load(type: widget.type, data: widget.data);
                   }
                   return service;
