@@ -728,6 +728,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                           .pushNamed('remote', pathParameters: {
                         'remote': location.remote,
                         'path': location.pathWithoutLeadingSlash,
+                      }, queryParameters: {
+                        'type': location.fileType?.name,
                       });
                       _reloadFileSystem();
                       return;
@@ -735,6 +737,9 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                     await GoRouter.of(context).pushNamed('local',
                         pathParameters: {
                           'path': location.pathWithoutLeadingSlash,
+                        },
+                        queryParameters: {
+                          'type': location.fileType?.name,
                         },
                         extra: entity);
                     _reloadFileSystem();

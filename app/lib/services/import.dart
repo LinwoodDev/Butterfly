@@ -51,6 +51,8 @@ class ImportService {
       bytes = data;
     } else if (data is String) {
       bytes = Uint8List.fromList(utf8.encode(data));
+    } else if (data is AppDocumentFile) {
+      bytes = Uint8List.fromList(data.data);
     } else if (location != null) {
       bytes = await getFileSystem().loadAbsolute(location.path);
     }
@@ -175,8 +177,8 @@ class ImportService {
       String dataPath;
       if (newBytes == null) return null;
       final newData = newBytes.buffer.asUint8List();
-      if (state != null) {
-        final assetPath = state.data.addImage(newData, 'png');
+      if (data != null) {
+        final assetPath = data.addImage(newData, 'png');
         dataPath = Uri.file(assetPath, windows: false).toString();
       } else {
         dataPath = UriData.fromBytes(

@@ -1,5 +1,6 @@
 * Add archive format
 * Add thumbnails on documents
+* Add ability to open other files than notes from home page
 * Improve text update in zoom view
 * Improve sorting at home page
 * Move change document path to appbar

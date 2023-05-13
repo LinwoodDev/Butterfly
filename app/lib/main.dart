@@ -217,6 +217,7 @@ class ButterflyApp extends StatelessWidget {
                     final path = state.pathParameters['path'];
                     return ProjectPage(
                         data: state.extra,
+                        type: state.queryParameters['type'] ?? '',
                         location: AssetLocation.local(path ?? ''));
                   },
                 ),
@@ -229,6 +230,7 @@ class ButterflyApp extends StatelessWidget {
                     final path = state.pathParameters['path'];
                     return ProjectPage(
                         data: state.extra,
+                        type: state.queryParameters['type'] ?? '',
                         location:
                             AssetLocation(remote: remote, path: path ?? ''));
                   },

@@ -150,7 +150,9 @@ class _ProjectPageState extends State<ProjectPage> {
         if (!widget.location!.absolute) {
           final asset = await fileSystem.getAsset(widget.location!.path);
           if (!mounted) return;
-          document = await checkFileChanges(context, asset);
+          if (asset?.fileType == AssetFileType.note) {
+            document = await checkFileChanges(context, asset);
+          }
         }
       }
       if (!mounted) return;
@@ -249,6 +251,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   }
                   return service;
                 },
+                lazy: false,
               )
             ],
             child: GestureDetector(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:butterfly_api/src/butterfly_helpers.dart';
 import 'package:butterfly_api/src/models/data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -33,30 +34,13 @@ class AssetLocation with _$AssetLocation {
   String get pathWithoutLeadingSlash =>
       path.startsWith('/') ? path.substring(1) : path;
 
-  AssetFileType? get fileType {
-    final ext = path.split('.').last;
-    switch (ext) {
-      case 'png':
-      case 'jpg':
-      case 'jpeg':
-      case 'gif':
-      case 'bmp':
-      case 'ico':
-        return AssetFileType.image;
-      case 'pdf':
-        return AssetFileType.pdf;
-      case 'svg':
-        return AssetFileType.svg;
-      case 'bfly':
-      case 'json':
-      case '':
-        return AssetFileType.note;
-      default:
-        return null;
-    }
-  }
+  String get fileExtension =>
+      fileName.contains('.') ? fileName.split('.').last : '';
 
-  String get fileName => path.split('/').last.split('.').first;
+  AssetFileType? get fileType =>
+      AssetFileTypeHelper.fromFileExtension(fileExtension);
+
+  String get fileName => path.split('/').last;
 
   bool isSame(AssetLocation other) =>
       pathWithLeadingSlash == other.pathWithLeadingSlash &&
@@ -81,10 +65,9 @@ class AppDocumentEntity with _$AppDocumentEntity {
           AssetLocation location, List<AppDocumentEntity> assets) =
       AppDocumentDirectory;
 
-  String get fileName => location.path.split('/').last;
+  String get fileName => location.fileName;
 
-  String get fileExtension =>
-      fileName.contains('.') ? fileName.split('.').last : '';
+  String get fileExtension => location.fileExtension;
 
   String get fileNameWithoutExtension => fileName.substring(0,
       fileName.contains('.') ? fileName.lastIndexOf('.') : fileName.length - 1);
