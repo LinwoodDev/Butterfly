@@ -33,7 +33,7 @@ import '../renderers/cursors/text.dart';
 import '../renderers/renderer.dart';
 import '../services/import.dart';
 import '../views/toolbars/color.dart';
-import '../views/toolbars/label.dart';
+import '../views/toolbars/text.dart';
 import '../views/toolbars/presentation/toolbar.dart';
 import '../widgets/context_menu.dart';
 import 'move.dart';

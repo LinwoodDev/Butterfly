@@ -128,10 +128,12 @@ _$MarkdownElement _$$MarkdownElementFromJson(Map json) => _$MarkdownElement(
       position: json['position'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
+      scale: (json['scale'] as num?)?.toDouble() ?? 1.0,
       styleSheet: json['styleSheet'] == null
           ? const PackAssetLocation()
           : PackAssetLocation.fromJson(
               Map<String, dynamic>.from(json['styleSheet'] as Map)),
+      areaProperty: json['areaProperty'] ?? const AreaProperty(),
       text: json['text'] as String,
       constraint: json['constraint'] == null
           ? const ElementConstraint(size: 1000)
@@ -144,7 +146,9 @@ Map<String, dynamic> _$$MarkdownElementToJson(_$MarkdownElement instance) =>
     <String, dynamic>{
       'layer': instance.layer,
       'position': const DoublePointJsonConverter().toJson(instance.position),
+      'scale': instance.scale,
       'styleSheet': instance.styleSheet.toJson(),
+      'areaProperty': instance.areaProperty,
       'text': instance.text,
       'constraint': instance.constraint.toJson(),
       'type': instance.$type,

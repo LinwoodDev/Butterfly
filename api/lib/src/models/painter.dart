@@ -29,7 +29,7 @@ extension RatioPresetExtension on AspectRatioPreset {
   }
 }
 
-enum LabelType { markdown, text }
+enum LabelMode { markdown, text }
 
 @Freezed(equal: false)
 class Painter with _$Painter {
@@ -53,7 +53,7 @@ class Painter with _$Painter {
 
   factory Painter.label({
     @Default('') String name,
-    @Default(LabelType.text) LabelType labelType,
+    @Default(LabelMode.text) LabelMode mode,
     @Default(true) bool zoomDependent,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
   }) = LabelPainter;

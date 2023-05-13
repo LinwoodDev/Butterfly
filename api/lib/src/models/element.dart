@@ -51,6 +51,23 @@ abstract class PathElement {
   PathProperty get property;
 }
 
+abstract class LabelElement {
+  String get layer;
+  Point<double> get position;
+  double get scale;
+  PackAssetLocation get styleSheet;
+  ElementConstraint get constraint;
+
+  AreaProperty get areaProperty {
+    final element = this as PadElement;
+    return element.maybeMap(
+      markdown: (e) => e.areaProperty,
+      text: (e) => e.area.areaProperty,
+      orElse: () => throw UnimplementedError(),
+    );
+  }
+}
+
 @Freezed(equal: false)
 class PadElement with _$PadElement {
   @Implements<PathElement>()
@@ -61,6 +78,7 @@ class PadElement with _$PadElement {
     @Default(PenProperty()) PenProperty property,
   }) = PenElement;
 
+  @Implements<LabelElement>()
   const factory PadElement.text({
     @Default('')
         String layer,
@@ -76,14 +94,19 @@ class PadElement with _$PadElement {
         ElementConstraint constraint,
   }) = TextElement;
 
+  @Implements<LabelElement>()
   const factory PadElement.markdown({
     @Default('')
         String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> position,
+    @Default(1.0)
+        double scale,
     @Default(PackAssetLocation())
         PackAssetLocation styleSheet,
+    @Default(AreaProperty())
+        areaProperty,
     required String text,
     @Default(ElementConstraint(size: 1000))
         ElementConstraint constraint,

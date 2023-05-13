@@ -162,7 +162,7 @@ class LabelHandler extends Handler<LabelPainter>
   @override
   Widget? getToolbar(DocumentBloc bloc) {
     _context ??= _createContext();
-    return LabelToolbarView(
+    return TextToolbarView(
       value: _context!,
       onChanged: (value) => _change(bloc, value),
     );

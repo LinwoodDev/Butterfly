@@ -10,9 +10,9 @@ import 'package:butterfly_api/butterfly_text.dart' as text;
 part 'text.freezed.dart';
 
 @freezed
-class TextContext with _$TextContext {
-  const TextContext._();
-  const factory TextContext(
+class LabelContext with _$LabelContext {
+  const LabelContext._();
+  const factory LabelContext.text(
       {required LabelPainter painter,
       required TextPainter textPainter,
       TextElement? element,
@@ -21,20 +21,49 @@ class TextContext with _$TextContext {
       @Default(TextSelection.collapsed(offset: 0)) TextSelection selection,
       ParagraphProperty? forcedProperty,
       SpanProperty? forcedSpanProperty,
-      bool? forceParagraph}) = _TextContext;
+      bool? forceParagraph}) = TextContext;
 
-  TextArea? get area => element?.area;
+  const factory LabelContext.markdown({
+    required LabelPainter painter,
+    required TextPainter textPainter,
+    MarkdownElement? element,
+    @Default(false) bool isCreating,
+    @Default(1.0) double zoom,
+    @Default(TextSelection.collapsed(offset: 0)) TextSelection selection,
+  }) = MarkdownContext;
+
+  LabelElement? get labelElement => element as LabelElement;
+
   PackAssetLocation? get styleSheet =>
-      element?.styleSheet ?? painter.option.styleSheet;
+      labelElement?.styleSheet ?? painter.styleSheet;
+
+  int get length =>
+      map(
+          text: (e) => e.area?.length,
+          markdown: (e) => e.element?.text.length) ??
+      0;
+
+  bool isParagraph() {
+    if (element == null) return true;
+    final force =
+        maybeMap(text: (value) => value.forceParagraph, orElse: () => false);
+    if (force != null) return force;
+    return selection.start <= 0 && selection.end >= length;
+  }
+
+  bool? get isEmpty => length == 0;
+
+  Rect? getRect() {
+    final current = labelElement;
+    if (current == null) return null;
+    return Rect.fromLTWH(current.position.x, current.position.y,
+        textPainter.width, labelElement!.getHeight(textPainter.height));
+  }
+}
+
+extension TextContextHelper on TextContext {
+  TextArea? get area => element?.area;
   TextParagraph? get paragraph => area?.paragraph;
-
-  int length() => 0;
-
-  bool isParagraph() =>
-      element == null ||
-      (forceParagraph ?? (selection.start <= 0 && selection.end >= length()));
-
-  bool? get isEmpty => length() == 0;
 
   ParagraphProperty getProperty() {
     return forcedProperty ??
@@ -110,15 +139,9 @@ class TextContext with _$TextContext {
 
   bool modified(NoteData document) =>
       isParagraph() ? paragraphModified() : spanModified(document);
-
-  Rect? getRect() {
-    if (element == null) return null;
-    return Rect.fromLTWH(element!.position.x, element!.position.y,
-        textPainter.width, element!.getHeight(textPainter.height));
-  }
 }
 
-extension TextElementLayouter on TextElement {
+extension LabelElementLayouter on LabelElement {
   double getMaxWidth([Area? area]) {
     var maxWidth = double.infinity;
     if (constraint.size > 0) maxWidth = constraint.size;
@@ -139,7 +162,7 @@ extension TextElementLayouter on TextElement {
   }
 
   Point<double> getOffset(double height) {
-    final align = area.areaProperty.alignment;
+    final align = areaProperty.alignment;
     final current = position;
     switch (align) {
       case text.VerticalAlignment.top:
