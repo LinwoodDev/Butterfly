@@ -2,6 +2,7 @@
 * Add thumbnails on documents
 * Improve text update in zoom view
 * Improve sorting at home page
+* Move change document path to appbar
 * Fix appearing zoom view and disappearing on focus
 * Fix importing of documents
 * Disallow saving in json format

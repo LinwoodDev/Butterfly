@@ -199,6 +199,18 @@ class _AppBarTitle extends StatelessWidget {
                         );
                       },
                     ),
+                    if (state.location.path != '' &&
+                        state.embedding == null) ...[
+                      IconButton(
+                        icon: const PhosphorIcon(PhosphorIconsLight.folder),
+                        onPressed: () {
+                          Actions.maybeInvoke<ChangePathIntent>(
+                              context, ChangePathIntent(context));
+                        },
+                        tooltip:
+                            AppLocalizations.of(context).changeDocumentPath,
+                      ),
+                    ],
                   ],
                 ],
               ),
@@ -307,18 +319,6 @@ class _MainPopupMenu extends StatelessWidget {
               },
               child: Text(AppLocalizations.of(context).packs),
             ),
-            if (state.location.path != '' && state.embedding == null) ...[
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
-                shortcut:
-                    const SingleActivator(LogicalKeyboardKey.keyS, alt: true),
-                onPressed: () {
-                  Actions.maybeInvoke<ChangePathIntent>(
-                      context, ChangePathIntent(context));
-                },
-                child: Text(AppLocalizations.of(context).changeDocumentPath),
-              ),
-            ],
             const PopupMenuDivider(),
             MenuItemButton(
               leadingIcon: const PhosphorIcon(PhosphorIconsLight.filePlus),
