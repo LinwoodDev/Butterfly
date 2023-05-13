@@ -5,9 +5,9 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:butterfly_api/butterfly_text.dart' as text;
+import 'package:butterfly_api/butterfly_text.dart' as txt;
 
-part 'text.freezed.dart';
+part 'label.freezed.dart';
 
 @freezed
 class LabelContext with _$LabelContext {
@@ -32,9 +32,11 @@ class LabelContext with _$LabelContext {
     @Default(TextSelection.collapsed(offset: 0)) TextSelection selection,
   }) = MarkdownContext;
 
+  String? get text => labelElement?.text;
+
   LabelElement? get labelElement => element as LabelElement;
 
-  PackAssetLocation? get styleSheet =>
+  PackAssetLocation get styleSheet =>
       labelElement?.styleSheet ?? painter.styleSheet;
 
   int get length =>
@@ -59,6 +61,40 @@ class LabelContext with _$LabelContext {
     return Rect.fromLTWH(current.position.x, current.position.y,
         textPainter.width, labelElement!.getHeight(textPainter.height));
   }
+
+  int nextWordIndex(int index) {
+    if (text == null) return 0;
+    return text!.substring(index).indexOf(RegExp(r'\w')) + index;
+  }
+
+  int previousWordIndex(int index) {
+    if (text == null) return 0;
+    return text!.substring(0, index).lastIndexOf(RegExp(r'\w'));
+  }
+
+  int nextLineIndex(int index) {
+    if (text == null) return 0;
+    if (index >= length) {
+      return length;
+    }
+    final current = text!.substring(index);
+    if (current.isEmpty) {
+      return index;
+    }
+    final next = current.indexOf(RegExp(r'\n'));
+    if (next == -1) {
+      return length;
+    }
+    return next + index;
+  }
+
+  int previousLineIndex(int index) {
+    if (text == null) return 0;
+    if (index <= 0) {
+      return 0;
+    }
+    return text!.substring(0, index).lastIndexOf(RegExp(r'\n'));
+  }
 }
 
 extension TextContextHelper on TextContext {
@@ -76,11 +112,8 @@ extension TextContextHelper on TextContext {
     if (property is DefinedParagraphProperty) {
       return property;
     }
-    if (styleSheet == null) {
-      return null;
-    }
     return styleSheet
-        ?.resolveStyle(document)
+        .resolveStyle(document)
         ?.resolveParagraphProperty(property);
   }
 
@@ -99,7 +132,7 @@ extension TextContextHelper on TextContext {
           defined: (p) => p,
           undefined: (_) => null,
           named: (p) =>
-              styleSheet?.resolveStyle(document)?.resolveSpanProperty(p),
+              styleSheet.resolveStyle(document)?.resolveSpanProperty(p),
         ) ??
         const DefinedSpanProperty();
   }
@@ -109,7 +142,7 @@ extension TextContextHelper on TextContext {
           defined: (p) => p,
           undefined: (_) => null,
           named: (p) =>
-              styleSheet?.resolveStyle(document)?.resolveParagraphProperty(p),
+              styleSheet.resolveStyle(document)?.resolveParagraphProperty(p),
         ) ??
         const DefinedParagraphProperty();
   }
@@ -120,7 +153,7 @@ extension TextContextHelper on TextContext {
           defined: (p) => p,
           undefined: (_) => null,
           named: (p) =>
-              styleSheet?.resolveStyle(document)?.resolveSpanProperty(p),
+              styleSheet.resolveStyle(document)?.resolveSpanProperty(p),
         ) ??
         (fallback
             ? getDefinedSpanProperty(document)
@@ -165,11 +198,11 @@ extension LabelElementLayouter on LabelElement {
     final align = areaProperty.alignment;
     final current = position;
     switch (align) {
-      case text.VerticalAlignment.top:
+      case txt.VerticalAlignment.top:
         return current;
-      case text.VerticalAlignment.bottom:
+      case txt.VerticalAlignment.bottom:
         return current + Point(0, height);
-      case text.VerticalAlignment.center:
+      case txt.VerticalAlignment.center:
         return current + Point(0, height / 2);
     }
   }

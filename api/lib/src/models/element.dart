@@ -66,6 +66,15 @@ abstract class LabelElement {
       orElse: () => throw UnimplementedError(),
     );
   }
+
+  String get text {
+    final element = this as PadElement;
+    return element.maybeMap(
+      markdown: (e) => e.text,
+      text: (e) => e.area.paragraph.text,
+      orElse: () => throw UnimplementedError(),
+    );
+  }
 }
 
 @Freezed(equal: false)
@@ -106,7 +115,7 @@ class PadElement with _$PadElement {
     @Default(PackAssetLocation())
         PackAssetLocation styleSheet,
     @Default(AreaProperty())
-        areaProperty,
+        AreaProperty areaProperty,
     required String text,
     @Default(ElementConstraint(size: 1000))
         ElementConstraint constraint,

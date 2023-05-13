@@ -50,7 +50,7 @@ extension PainterVisualizer on Painter {
   }
 
   List<String> get help {
-    final page = maybeMap(
+    final page = mapOrNull(
       redo: (_) => 'redo',
       undo: (_) => 'undo',
       pen: (_) => 'pen',
@@ -65,7 +65,6 @@ extension PainterVisualizer on Painter {
       layer: (_) => 'layer',
       presentation: (_) => 'presentation',
       waypoint: (_) => 'waypoint',
-      orElse: () => null,
     );
     if (page == null) return [];
     return ['painters', page];

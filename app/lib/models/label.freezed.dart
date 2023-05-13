@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'text.dart';
+part of 'label.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -31,8 +31,8 @@ mixin _$LabelContext {
             bool isCreating,
             double zoom,
             TextSelection selection,
-            text.ParagraphProperty? forcedProperty,
-            text.SpanProperty? forcedSpanProperty,
+            txt.ParagraphProperty? forcedProperty,
+            txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)
         text,
     required TResult Function(
@@ -54,8 +54,8 @@ mixin _$LabelContext {
             bool isCreating,
             double zoom,
             TextSelection selection,
-            text.ParagraphProperty? forcedProperty,
-            text.SpanProperty? forcedSpanProperty,
+            txt.ParagraphProperty? forcedProperty,
+            txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)?
         text,
     TResult? Function(
@@ -77,8 +77,8 @@ mixin _$LabelContext {
             bool isCreating,
             double zoom,
             TextSelection selection,
-            text.ParagraphProperty? forcedProperty,
-            text.SpanProperty? forcedSpanProperty,
+            txt.ParagraphProperty? forcedProperty,
+            txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)?
         text,
     TResult Function(
@@ -190,8 +190,8 @@ abstract class _$$TextContextCopyWith<$Res>
       bool isCreating,
       double zoom,
       TextSelection selection,
-      text.ParagraphProperty? forcedProperty,
-      text.SpanProperty? forcedSpanProperty,
+      txt.ParagraphProperty? forcedProperty,
+      txt.SpanProperty? forcedSpanProperty,
       bool? forceParagraph});
 
   $ParagraphPropertyCopyWith<$Res>? get forcedProperty;
@@ -247,11 +247,11 @@ class __$$TextContextCopyWithImpl<$Res>
       forcedProperty: freezed == forcedProperty
           ? _value.forcedProperty
           : forcedProperty // ignore: cast_nullable_to_non_nullable
-              as text.ParagraphProperty?,
+              as txt.ParagraphProperty?,
       forcedSpanProperty: freezed == forcedSpanProperty
           ? _value.forcedSpanProperty
           : forcedSpanProperty // ignore: cast_nullable_to_non_nullable
-              as text.SpanProperty?,
+              as txt.SpanProperty?,
       forceParagraph: freezed == forceParagraph
           ? _value.forceParagraph
           : forceParagraph // ignore: cast_nullable_to_non_nullable
@@ -315,9 +315,9 @@ class _$TextContext extends TextContext {
   @JsonKey()
   final TextSelection selection;
   @override
-  final text.ParagraphProperty? forcedProperty;
+  final txt.ParagraphProperty? forcedProperty;
   @override
-  final text.SpanProperty? forcedSpanProperty;
+  final txt.SpanProperty? forcedSpanProperty;
   @override
   final bool? forceParagraph;
 
@@ -377,8 +377,8 @@ class _$TextContext extends TextContext {
             bool isCreating,
             double zoom,
             TextSelection selection,
-            text.ParagraphProperty? forcedProperty,
-            text.SpanProperty? forcedSpanProperty,
+            txt.ParagraphProperty? forcedProperty,
+            txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)
         text,
     required TResult Function(
@@ -404,8 +404,8 @@ class _$TextContext extends TextContext {
             bool isCreating,
             double zoom,
             TextSelection selection,
-            text.ParagraphProperty? forcedProperty,
-            text.SpanProperty? forcedSpanProperty,
+            txt.ParagraphProperty? forcedProperty,
+            txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)?
         text,
     TResult? Function(
@@ -431,8 +431,8 @@ class _$TextContext extends TextContext {
             bool isCreating,
             double zoom,
             TextSelection selection,
-            text.ParagraphProperty? forcedProperty,
-            text.SpanProperty? forcedSpanProperty,
+            txt.ParagraphProperty? forcedProperty,
+            txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)?
         text,
     TResult Function(
@@ -492,8 +492,8 @@ abstract class TextContext extends LabelContext {
       final bool isCreating,
       final double zoom,
       final TextSelection selection,
-      final text.ParagraphProperty? forcedProperty,
-      final text.SpanProperty? forcedSpanProperty,
+      final txt.ParagraphProperty? forcedProperty,
+      final txt.SpanProperty? forcedSpanProperty,
       final bool? forceParagraph}) = _$TextContext;
   const TextContext._() : super._();
 
@@ -509,8 +509,8 @@ abstract class TextContext extends LabelContext {
   double get zoom;
   @override
   TextSelection get selection;
-  text.ParagraphProperty? get forcedProperty;
-  text.SpanProperty? get forcedSpanProperty;
+  txt.ParagraphProperty? get forcedProperty;
+  txt.SpanProperty? get forcedSpanProperty;
   bool? get forceParagraph;
   @override
   @JsonKey(ignore: true)
@@ -651,8 +651,8 @@ class _$MarkdownContext extends MarkdownContext {
             bool isCreating,
             double zoom,
             TextSelection selection,
-            text.ParagraphProperty? forcedProperty,
-            text.SpanProperty? forcedSpanProperty,
+            txt.ParagraphProperty? forcedProperty,
+            txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)
         text,
     required TResult Function(
@@ -677,8 +677,8 @@ class _$MarkdownContext extends MarkdownContext {
             bool isCreating,
             double zoom,
             TextSelection selection,
-            text.ParagraphProperty? forcedProperty,
-            text.SpanProperty? forcedSpanProperty,
+            txt.ParagraphProperty? forcedProperty,
+            txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)?
         text,
     TResult? Function(
@@ -704,8 +704,8 @@ class _$MarkdownContext extends MarkdownContext {
             bool isCreating,
             double zoom,
             TextSelection selection,
-            text.ParagraphProperty? forcedProperty,
-            text.SpanProperty? forcedSpanProperty,
+            txt.ParagraphProperty? forcedProperty,
+            txt.SpanProperty? forcedSpanProperty,
             bool? forceParagraph)?
         text,
     TResult Function(

@@ -69,3 +69,23 @@ extension ElementConstraintsVisualizer on ElementConstraints? {
     return ScaledElementConstraints(scaleX: scaleX, scaleY: scaleY);
   }
 }
+
+extension LabelModeVisualizer on LabelMode {
+  String getLocalizedName(BuildContext context) {
+    switch (this) {
+      case LabelMode.markdown:
+        return AppLocalizations.of(context).markdown;
+      case LabelMode.text:
+        return AppLocalizations.of(context).text;
+    }
+  }
+
+  IconGetter get icon {
+    switch (this) {
+      case LabelMode.markdown:
+        return PhosphorIcons.textbox;
+      case LabelMode.text:
+        return PhosphorIcons.textT;
+    }
+  }
+}

@@ -281,36 +281,6 @@ class TextParagraph with _$TextParagraph {
       length,
     );
   }
-
-  int nextWordIndex(int index) {
-    return text.substring(index).indexOf(RegExp(r'\w')) + index;
-  }
-
-  int previousWordIndex(int index) {
-    return text.substring(0, index).lastIndexOf(RegExp(r'\w'));
-  }
-
-  int nextLineIndex(int index) {
-    if (index >= length) {
-      return length;
-    }
-    final current = text.substring(index);
-    if (current.isEmpty) {
-      return index;
-    }
-    final next = current.indexOf(RegExp(r'\n'));
-    if (next == -1) {
-      return length;
-    }
-    return next + index;
-  }
-
-  int previousLineIndex(int index) {
-    if (index <= 0) {
-      return 0;
-    }
-    return text.substring(0, index).lastIndexOf(RegExp(r'\n'));
-  }
 }
 
 @freezed

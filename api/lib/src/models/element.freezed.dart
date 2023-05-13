@@ -883,7 +883,7 @@ mixin _$PadElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)
         markdown,
@@ -929,7 +929,7 @@ mixin _$PadElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,
@@ -975,7 +975,7 @@ mixin _$PadElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,
@@ -1192,7 +1192,7 @@ class _$PenElement implements PenElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)
         markdown,
@@ -1241,7 +1241,7 @@ class _$PenElement implements PenElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,
@@ -1290,7 +1290,7 @@ class _$PenElement implements PenElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,
@@ -1556,7 +1556,7 @@ class _$TextElement implements TextElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)
         markdown,
@@ -1605,7 +1605,7 @@ class _$TextElement implements TextElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,
@@ -1654,7 +1654,7 @@ class _$TextElement implements TextElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,
@@ -1778,11 +1778,12 @@ abstract class _$$MarkdownElementCopyWith<$Res>
       @DoublePointJsonConverter() Point<double> position,
       double scale,
       PackAssetLocation styleSheet,
-      dynamic areaProperty,
+      AreaProperty areaProperty,
       String text,
       ElementConstraint constraint});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
+  $AreaPropertyCopyWith<$Res> get areaProperty;
   $ElementConstraintCopyWith<$Res> get constraint;
 }
 
@@ -1801,7 +1802,7 @@ class __$$MarkdownElementCopyWithImpl<$Res>
     Object? position = null,
     Object? scale = null,
     Object? styleSheet = null,
-    Object? areaProperty = freezed,
+    Object? areaProperty = null,
     Object? text = null,
     Object? constraint = null,
   }) {
@@ -1822,8 +1823,10 @@ class __$$MarkdownElementCopyWithImpl<$Res>
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
               as PackAssetLocation,
-      areaProperty:
-          freezed == areaProperty ? _value.areaProperty! : areaProperty,
+      areaProperty: null == areaProperty
+          ? _value.areaProperty
+          : areaProperty // ignore: cast_nullable_to_non_nullable
+              as AreaProperty,
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -1840,6 +1843,14 @@ class __$$MarkdownElementCopyWithImpl<$Res>
   $PackAssetLocationCopyWith<$Res> get styleSheet {
     return $PackAssetLocationCopyWith<$Res>(_value.styleSheet, (value) {
       return _then(_value.copyWith(styleSheet: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AreaPropertyCopyWith<$Res> get areaProperty {
+    return $AreaPropertyCopyWith<$Res>(_value.areaProperty, (value) {
+      return _then(_value.copyWith(areaProperty: value));
     });
   }
 
@@ -1884,7 +1895,7 @@ class _$MarkdownElement implements MarkdownElement {
   final PackAssetLocation styleSheet;
   @override
   @JsonKey()
-  final dynamic areaProperty;
+  final AreaProperty areaProperty;
   @override
   final String text;
   @override
@@ -1924,7 +1935,7 @@ class _$MarkdownElement implements MarkdownElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)
         markdown,
@@ -1974,7 +1985,7 @@ class _$MarkdownElement implements MarkdownElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,
@@ -2024,7 +2035,7 @@ class _$MarkdownElement implements MarkdownElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,
@@ -2116,7 +2127,7 @@ abstract class MarkdownElement implements PadElement, LabelElement {
       @DoublePointJsonConverter() final Point<double> position,
       final double scale,
       final PackAssetLocation styleSheet,
-      final dynamic areaProperty,
+      final AreaProperty areaProperty,
       required final String text,
       final ElementConstraint constraint}) = _$MarkdownElement;
 
@@ -2129,7 +2140,7 @@ abstract class MarkdownElement implements PadElement, LabelElement {
   Point<double> get position;
   double get scale;
   PackAssetLocation get styleSheet;
-  dynamic get areaProperty;
+  AreaProperty get areaProperty;
   String get text;
   ElementConstraint get constraint;
   @override
@@ -2282,7 +2293,7 @@ class _$ImageElement implements ImageElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)
         markdown,
@@ -2331,7 +2342,7 @@ class _$ImageElement implements ImageElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,
@@ -2380,7 +2391,7 @@ class _$ImageElement implements ImageElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,
@@ -2635,7 +2646,7 @@ class _$SvgElement implements SvgElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)
         markdown,
@@ -2684,7 +2695,7 @@ class _$SvgElement implements SvgElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,
@@ -2733,7 +2744,7 @@ class _$SvgElement implements SvgElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,
@@ -2958,7 +2969,7 @@ class _$ShapeElement implements ShapeElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)
         markdown,
@@ -3007,7 +3018,7 @@ class _$ShapeElement implements ShapeElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,
@@ -3056,7 +3067,7 @@ class _$ShapeElement implements ShapeElement {
             @DoublePointJsonConverter() Point<double> position,
             double scale,
             PackAssetLocation styleSheet,
-            dynamic areaProperty,
+            AreaProperty areaProperty,
             String text,
             ElementConstraint constraint)?
         markdown,

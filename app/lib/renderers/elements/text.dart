@@ -8,19 +8,6 @@ class TextRenderer extends Renderer<TextElement> {
 
   TextRenderer(super.element, [this.context]);
 
-  TextAlign _convertAlignment(text.HorizontalAlignment alignment) {
-    switch (alignment) {
-      case text.HorizontalAlignment.left:
-        return TextAlign.left;
-      case text.HorizontalAlignment.right:
-        return TextAlign.right;
-      case text.HorizontalAlignment.center:
-        return TextAlign.center;
-      case text.HorizontalAlignment.justify:
-        return TextAlign.justify;
-    }
-  }
-
   void _createPainter(NoteData document, DocumentPage page) {
     final paragraph = element.area.paragraph;
     final style =
@@ -30,7 +17,7 @@ class TextRenderer extends Renderer<TextElement> {
     _tp?.text = _createParagraphSpan(document, paragraph);
     _tp?.textDirection = TextDirection.ltr;
     _tp?.textScaleFactor = 1.0;
-    _tp?.textAlign = _convertAlignment(style.alignment);
+    _tp?.textAlign = style.alignment.toFlutter();
   }
 
   TextSpan _createParagraphSpan(
@@ -42,7 +29,7 @@ class TextRenderer extends Renderer<TextElement> {
       text: (p) => TextSpan(
         children:
             p.textSpans.map((e) => _createSpan(document, e, style)).toList(),
-        style: _buildSpanStyle(style.span),
+        style: style.span.toFlutter(),
       ),
     );
   }
@@ -56,45 +43,8 @@ class TextRenderer extends Renderer<TextElement> {
     final style = styleSheet.resolveSpanProperty(span.property);
     return TextSpan(
       text: span.text,
-      style: style == null ? null : _buildSpanStyle(style, parent),
+      style: style?.toFlutter(element.scale, parent),
     );
-  }
-
-  TextStyle _buildSpanStyle(text.DefinedSpanProperty property,
-      [text.DefinedParagraphProperty? parent]) {
-    return TextStyle(
-      fontSize: property.getSize(parent) * element.scale,
-      color: Color(property.getColor(parent)),
-      fontFamily: 'Roboto',
-      fontStyle:
-          property.getItalic(parent) ? FontStyle.italic : FontStyle.normal,
-      fontWeight: FontWeight.values[property.getFontWeight(parent)],
-      letterSpacing: property.getLetterSpacing(parent),
-      decorationColor: Color(property.getDecorationColor(parent)),
-      decorationStyle: getDecorationStyle(property.getDecorationStyle(parent)),
-      decorationThickness: property.getDecorationThickness(parent),
-      decoration: TextDecoration.combine([
-        if (property.getUnderline(parent)) TextDecoration.underline,
-        if (property.getLineThrough(parent)) TextDecoration.lineThrough,
-        if (property.getOverline(parent)) TextDecoration.overline,
-      ]),
-    );
-  }
-
-  TextDecorationStyle getDecorationStyle(
-      text.TextDecorationStyle decorationStyle) {
-    switch (decorationStyle) {
-      case text.TextDecorationStyle.solid:
-        return TextDecorationStyle.solid;
-      case text.TextDecorationStyle.double:
-        return TextDecorationStyle.double;
-      case text.TextDecorationStyle.dotted:
-        return TextDecorationStyle.dotted;
-      case text.TextDecorationStyle.dashed:
-        return TextDecorationStyle.dashed;
-      case text.TextDecorationStyle.wavy:
-        return TextDecorationStyle.wavy;
-    }
   }
 
   @override

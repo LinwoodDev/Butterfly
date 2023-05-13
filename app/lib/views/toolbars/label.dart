@@ -1,4 +1,5 @@
 import 'package:butterfly/dialogs/color_pick.dart';
+import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
@@ -8,23 +9,23 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
 import '../../dialogs/packs/select.dart';
-import '../../models/text.dart';
+import '../../models/label.dart';
 
-class TextToolbarView extends StatefulWidget {
-  final TextContext value;
-  final ValueChanged<TextContext> onChanged;
+class LabelToolbarView extends StatefulWidget {
+  final LabelContext value;
+  final ValueChanged<LabelContext> onChanged;
 
-  const TextToolbarView({
+  const LabelToolbarView({
     super.key,
     required this.value,
     required this.onChanged,
   });
 
   @override
-  State<TextToolbarView> createState() => _TextToolbarViewState();
+  State<LabelToolbarView> createState() => _LabelToolbarViewState();
 }
 
-class _TextToolbarViewState extends State<TextToolbarView> {
+class _LabelToolbarViewState extends State<LabelToolbarView> {
   final ScrollController _scrollController = ScrollController();
 
   final TextEditingController _sizeController = TextEditingController();
@@ -32,7 +33,7 @@ class _TextToolbarViewState extends State<TextToolbarView> {
   final GlobalKey _paragraphKey = GlobalKey(), _spanKey = GlobalKey();
 
   @override
-  void didUpdateWidget(covariant TextToolbarView oldWidget) {
+  void didUpdateWidget(covariant LabelToolbarView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.value != oldWidget.value) {
       _scrollController.jumpTo(0);
@@ -46,26 +47,29 @@ class _TextToolbarViewState extends State<TextToolbarView> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return Container();
     final document = state.data;
-    final paragraph = widget.value.getDefinedProperty(document) ??
-        const text.DefinedParagraphProperty();
-    final span = widget.value.getDefinedForcedSpanProperty(document);
-    final styleSheet =
-        widget.value.element?.styleSheet ?? widget.value.painter.styleSheet;
+    final paragraph =
+        widget.value.mapOrNull(text: (e) => e.getDefinedProperty(document)) ??
+            const text.DefinedParagraphProperty();
+    final span = widget.value
+        .mapOrNull(text: (e) => e.getDefinedForcedSpanProperty(document));
+    final styleSheet = widget.value.styleSheet;
     final style = styleSheet.resolveStyle(document);
-    _sizeController.text = span.getSize(paragraph).toString();
+    _sizeController.text = span?.getSize(paragraph).toString() ?? '';
     var paragraphSelection = paragraph.mapOrNull(named: (value) => value.name);
     final paragraphSelections = [
       ...style?.paragraphProperties.keys ?? <String>[],
       ''
     ];
     final mode = widget.value.painter.mode;
+    final value = widget.value;
     if (!paragraphSelections.contains(paragraphSelection)) {
       paragraphSelection = '';
     }
 
-    var spanSelection = widget.value
-            .getSpanProperty(document)
-            ?.mapOrNull(named: (value) => value.name) ??
+    var spanSelection = widget.value.mapOrNull(
+            text: (e) => e
+                .getSpanProperty(document)
+                ?.mapOrNull(named: (value) => value.name)) ??
         '';
     final spanSelections = [...style?.spanProperties.keys ?? <String>[], ''];
     if (!spanSelections.contains(spanSelection)) {
@@ -74,11 +78,13 @@ class _TextToolbarViewState extends State<TextToolbarView> {
 
     void updateSpan(
         text.DefinedSpanProperty Function(text.DefinedSpanProperty) update) {
-      final selection = widget.value.selection;
-      var element = widget.value.element;
+      final value = widget.value;
+      if (value is! TextContext) return;
+      final selection = value.selection;
+      var element = value.element;
       if (element == null) {
-        final newSpan = update(span);
-        widget.onChanged(widget.value.copyWith(
+        final newSpan = update(span!);
+        widget.onChanged(value.copyWith(
           forcedProperty: text.ParagraphProperty.defined(
             span: newSpan,
           ),
@@ -112,9 +118,9 @@ class _TextToolbarViewState extends State<TextToolbarView> {
           ),
         );
       }
-      widget.onChanged(widget.value.copyWith(
+      widget.onChanged(value.copyWith(
         element: element,
-        forcedSpanProperty: update(span),
+        forcedSpanProperty: update(span!),
       ));
     }
 
@@ -159,14 +165,19 @@ class _TextToolbarViewState extends State<TextToolbarView> {
                               ));
                               return;
                             }
-                            widget.onChanged(widget.value.copyWith(
+                            var newValue = widget.value.copyWith(
                               painter: widget.value.painter.copyWith(
                                 styleSheet: result,
                               ),
-                              element: widget.value.element!.copyWith(
-                                styleSheet: result,
-                              ),
-                            ));
+                            );
+                            newValue = widget.value.map(
+                                text: (e) => e.copyWith(
+                                    element: e.element
+                                        ?.copyWith(styleSheet: result)),
+                                markdown: (e) => e.copyWith(
+                                    element: e.element
+                                        ?.copyWith(styleSheet: result)));
+                            widget.onChanged(newValue);
                           },
                         ),
                         const SizedBox(width: 8),
@@ -181,15 +192,37 @@ class _TextToolbarViewState extends State<TextToolbarView> {
                                       zoomDependent: !widget
                                           .value.painter.zoomDependent))),
                         ),
-                        if (mode == LabelMode.text) ...[
+                        const SizedBox(width: 8),
+                        MenuAnchor(
+                          menuChildren: LabelMode.values
+                              .map(
+                                (e) => MenuItemButton(
+                                  leadingIcon:
+                                      Icon(e.icon(PhosphorIconsStyle.light)),
+                                  child: Text(
+                                    e.getLocalizedName(context),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                          builder: (context, controller, child) => IconButton(
+                            icon: PhosphorIcon(
+                                mode.icon(PhosphorIconsStyle.light)),
+                            tooltip: mode.getLocalizedName(context),
+                            onPressed: () => controller.isOpen
+                                ? controller.close()
+                                : controller.open(),
+                          ),
+                        ),
+                        if (value is TextContext) ...[
                           const SizedBox(width: 16),
                           IconButton(
                             icon:
                                 const PhosphorIcon(PhosphorIconsLight.article),
                             isSelected: widget.value.isParagraph(),
-                            onPressed: widget.value.area == null
+                            onPressed: value.area == null
                                 ? null
-                                : () => widget.onChanged(widget.value.copyWith(
+                                : () => widget.onChanged(value.copyWith(
                                     forceParagraph:
                                         !widget.value.isParagraph())),
                           ),
@@ -206,14 +239,13 @@ class _TextToolbarViewState extends State<TextToolbarView> {
                                   initialSelection: paragraphSelection,
                                   onSelected: (name) {
                                     if (name == null) return;
-                                    widget.onChanged(widget.value.copyWith(
+                                    widget.onChanged(value.copyWith(
                                       forcedProperty:
                                           text.ParagraphProperty.named(name),
-                                      element: widget.value.element?.copyWith(
-                                        area:
-                                            widget.value.element!.area.copyWith(
-                                          paragraph: widget
-                                              .value.element!.area.paragraph
+                                      element: value.element?.copyWith(
+                                        area: value.element!.area.copyWith(
+                                          paragraph: value
+                                              .element!.area.paragraph
                                               .copyWith(
                                             property:
                                                 text.ParagraphProperty.named(
@@ -225,7 +257,7 @@ class _TextToolbarViewState extends State<TextToolbarView> {
                                   },
                                   label:
                                       Text(AppLocalizations.of(context).style),
-                                  trailingIcon: widget.value.modified(document)
+                                  trailingIcon: value.modified(document)
                                       ? const PhosphorIcon(
                                           PhosphorIconsLight.star)
                                       : null,
@@ -241,16 +273,15 @@ class _TextToolbarViewState extends State<TextToolbarView> {
                                   initialSelection: spanSelection,
                                   onSelected: (name) {
                                     if (name == null) return;
-                                    widget.onChanged(widget.value.copyWith(
+                                    widget.onChanged(value.copyWith(
                                       forcedSpanProperty:
                                           text.SpanProperty.named(
                                         name,
                                       ),
-                                      element: widget.value.element?.copyWith(
-                                        area:
-                                            widget.value.element!.area.copyWith(
-                                          paragraph: widget
-                                              .value.element!.area.paragraph
+                                      element: value.element?.copyWith(
+                                        area: value.element!.area.copyWith(
+                                          paragraph: value
+                                              .element!.area.paragraph
                                               .applyStyle(
                                             text.SpanProperty.named(name),
                                             widget.value.selection.start,
@@ -263,7 +294,7 @@ class _TextToolbarViewState extends State<TextToolbarView> {
                                   },
                                   label:
                                       Text(AppLocalizations.of(context).style),
-                                  trailingIcon: widget.value.modified(document)
+                                  trailingIcon: value.modified(document)
                                       ? const PhosphorIcon(
                                           PhosphorIconsLight.star)
                                       : null,
@@ -272,10 +303,10 @@ class _TextToolbarViewState extends State<TextToolbarView> {
                           IconButton(
                             icon: const PhosphorIcon(PhosphorIconsLight.eraser),
                             tooltip: AppLocalizations.of(context).clearStyle,
-                            isSelected: widget.value.isParagraph()
-                                ? widget.value.getProperty().maybeMap(
+                            isSelected: value.isParagraph()
+                                ? value.getProperty().maybeMap(
                                     orElse: () => false, undefined: (_) => true)
-                                : widget.value.paragraph
+                                : value.paragraph
                                     ?.getSpan(widget.value.selection.start)
                                     ?.property
                                     .maybeMap(
@@ -283,32 +314,24 @@ class _TextToolbarViewState extends State<TextToolbarView> {
                                         undefined: (_) => true),
                             onPressed: () async {
                               if (widget.value.isParagraph()) {
-                                widget.onChanged(widget.value.copyWith(
+                                widget.onChanged(value.copyWith(
                                   forcedProperty: null,
-                                  element: widget.value.element?.copyWith(
-                                    area: widget.value.element!.area.copyWith(
-                                      paragraph: widget
-                                          .value.element!.area.paragraph
-                                          .copyWith(
-                                        property: const text
-                                            .ParagraphProperty.undefined(),
-                                      ),
-                                    ),
+                                  element:
+                                      value.element?.copyWith.area.paragraph(
+                                    property: const text
+                                        .ParagraphProperty.undefined(),
                                   ),
                                 ));
                               } else {
-                                widget.onChanged(widget.value.copyWith(
+                                widget.onChanged(value.copyWith(
                                   forcedSpanProperty: null,
-                                  element: widget.value.element?.copyWith(
-                                    area: widget.value.element!.area.copyWith(
-                                      paragraph: widget
-                                          .value.element!.area.paragraph
-                                          .applyStyle(
-                                        const text.SpanProperty.undefined(),
-                                        widget.value.selection.start,
-                                        widget.value.selection.end -
-                                            widget.value.selection.start,
-                                      ),
+                                  element: value.element?.copyWith.area(
+                                    paragraph: value.element!.area.paragraph
+                                        .applyStyle(
+                                      const text.SpanProperty.undefined(),
+                                      widget.value.selection.start,
+                                      widget.value.selection.end -
+                                          widget.value.selection.start,
                                     ),
                                   ),
                                 ));
@@ -319,7 +342,7 @@ class _TextToolbarViewState extends State<TextToolbarView> {
                       ],
                     ),
                   ),
-                  if (mode == LabelMode.text)
+                  if (value is TextContext)
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: Row(
@@ -367,9 +390,9 @@ class _TextToolbarViewState extends State<TextToolbarView> {
                                 alignment:
                                     text.HorizontalAlignment.values[current],
                               );
-                              widget.onChanged(widget.value.copyWith(
+                              widget.onChanged(value.copyWith(
                                 forcedProperty: newParagraph,
-                                element: widget.value.element?.copyWith.area
+                                element: value.element?.copyWith.area
                                     .paragraph(property: newParagraph),
                               ));
                             },
@@ -417,7 +440,8 @@ class _TextToolbarViewState extends State<TextToolbarView> {
                               onFieldSubmitted: (current) {
                                 updateSpan(
                                   (value) => value.copyWith(
-                                    size: double.tryParse(current) ?? span.size,
+                                    size:
+                                        double.tryParse(current) ?? span?.size,
                                   ),
                                 );
                               },
@@ -432,7 +456,7 @@ class _TextToolbarViewState extends State<TextToolbarView> {
                               width: 42,
                               height: 42,
                               decoration: BoxDecoration(
-                                color: Color(span.getColor(paragraph)),
+                                color: Color(span!.getColor(paragraph)),
                                 border: Border.all(
                                   color: Theme.of(context).primaryColor,
                                   width: 2,
