@@ -1,12 +1,10 @@
 import 'package:butterfly/cubits/settings.dart';
-import 'package:flutter/foundation.dart';
+import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../views/window.dart';
 
 class ConnectionSettingsPage extends StatefulWidget {
   final String remote;
@@ -38,7 +36,7 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
         FloatingActionButton.extended(
           onPressed: _showCreateDialog,
           label: Text(AppLocalizations.of(context).createCache),
-          icon: const Icon(PhosphorIcons.plusLight),
+          icon: const PhosphorIcon(PhosphorIconsLight.plus),
         )
       ];
   @override
@@ -47,7 +45,7 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
       builder: (context, state) {
         final storage = state.getRemote(widget.remote);
         return Scaffold(
-          appBar: AppBar(
+          appBar: WindowTitleBar(
             title: Text(widget.remote),
             bottom: TabBar(
               controller: _tabController,
@@ -55,14 +53,14 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
               tabs: [
                 Tab(
                   child: Row(children: [
-                    const Icon(PhosphorIcons.gearLight),
+                    const PhosphorIcon(PhosphorIconsLight.gear),
                     const SizedBox(width: 8),
                     Text(AppLocalizations.of(context).general),
                   ]),
                 ),
                 Tab(
                   child: Row(children: [
-                    const Icon(PhosphorIcons.filesLight),
+                    const PhosphorIcon(PhosphorIconsLight.files),
                     const SizedBox(width: 8),
                     Text(AppLocalizations.of(context).caches),
                   ]),
@@ -70,7 +68,6 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
               ],
               isScrollable: true,
             ),
-            actions: [if (!kIsWeb && isWindow()) const WindowButtons()],
           ),
           body: storage == null
               ? Center(child: Text(AppLocalizations.of(context).noConnections))
@@ -165,19 +162,20 @@ class _GeneralConnectionSettingsView extends StatelessWidget {
                         },
                         title: Text(
                             AppLocalizations.of(context).syncRootDirectory),
-                        secondary: const Icon(PhosphorIcons.folderLight),
+                        secondary:
+                            const PhosphorIcon(PhosphorIconsLight.folder),
                       );
                     }),
                     ListTile(
                       title: Text(AppLocalizations.of(context).clearCaches),
-                      leading: const Icon(PhosphorIcons.fileXLight),
+                      leading: const PhosphorIcon(PhosphorIconsLight.fileX),
                       onTap: () {
                         context.read<SettingsCubit>().clearCaches(storage);
                       },
                     ),
                     ListTile(
                       title: Text(AppLocalizations.of(context).delete),
-                      leading: const Icon(PhosphorIcons.trashLight),
+                      leading: const PhosphorIcon(PhosphorIconsLight.trash),
                       onTap: () {
                         context
                             .read<SettingsCubit>()

@@ -8,6 +8,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SearchDialog extends StatefulWidget {
@@ -17,34 +18,47 @@ class SearchDialog extends StatefulWidget {
   State<SearchDialog> createState() => _SearchDialogState();
 }
 
-Future<List<SearchResult>> _searchIsolate(AppDocument document, String query) =>
-    Isolate.run(() => document.search(RegExp(query, caseSensitive: false)));
+Future<List<SearchResult>> _searchIsolate(DocumentPage page, String query) =>
+    Isolate.run(() => page.search(RegExp(query, caseSensitive: false)));
 
 class _SearchDialogState extends State<SearchDialog> {
   final TextEditingController _searchController = TextEditingController();
   Future<List<SearchResult>> _searchResults = Future.value([]);
+  final FocusNode _focusNode = FocusNode();
 
-  void _search(AppDocument document, String query) {
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.requestFocus();
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    _focusNode.dispose();
+  }
+
+  void _search(DocumentPage page, String query) {
     setState(() {
       if (query.isEmpty) {
         _searchResults = Future.value([]);
       } else {
-        _searchResults = _searchIsolate(document, query);
+        _searchResults = _searchIsolate(page, query);
       }
     });
   }
 
-  IconData _getIcon(Object item) {
+  IconGetter _getIcon(Object item) {
     if (item is PadElement) {
-      item.getIcon();
+      return item.icon;
     }
     if (item is Waypoint) {
-      return PhosphorIcons.mapPinLight;
+      return PhosphorIcons.mapPin;
     }
     if (item is Area) {
-      return PhosphorIcons.selectionLight;
+      return PhosphorIcons.selection;
     }
-    return PhosphorIcons.questionLight;
+    return PhosphorIcons.question;
   }
 
   String _getLocalizedName(Object item, BuildContext context) {
@@ -80,24 +94,20 @@ class _SearchDialogState extends State<SearchDialog> {
                     Row(
                       children: [
                         Flexible(
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context).search,
-                              filled: true,
-                            ),
-                            autofocus: true,
+                          child: SearchBar(
                             controller: _searchController,
+                            focusNode: _focusNode,
                             onChanged: (value) {
                               final state = context.read<DocumentBloc>().state;
                               if (state is DocumentLoaded) {
-                                _search(state.document, value);
+                                _search(state.page, value);
                               }
                             },
                           ),
                         ),
                         const SizedBox(width: 8),
                         IconButton(
-                          icon: const Icon(Icons.close),
+                          icon: const PhosphorIcon(PhosphorIconsLight.x),
                           onPressed: () => Navigator.pop(context),
                         ),
                       ],
@@ -112,9 +122,9 @@ class _SearchDialogState extends State<SearchDialog> {
                             }
                             if (snapshot.connectionState !=
                                 ConnectionState.done) {
-                              return Column(
+                              return const Column(
                                 mainAxisSize: MainAxisSize.min,
-                                children: const [
+                                children: [
                                   CircularProgressIndicator(),
                                 ],
                               );
@@ -126,7 +136,8 @@ class _SearchDialogState extends State<SearchDialog> {
                               itemBuilder: (context, index) {
                                 final result = results[index];
                                 return ListTile(
-                                  leading: Icon(_getIcon(result.item)),
+                                  leading: PhosphorIcon(_getIcon(result.item)(
+                                      PhosphorIconsStyle.light)),
                                   title: Text(
                                       _getLocalizedName(result.item, context)),
                                   subtitle: Text(result.name),
@@ -137,7 +148,7 @@ class _SearchDialogState extends State<SearchDialog> {
                                       state.transformCubit.setPosition(
                                           result.location.toOffset());
                                       state.currentIndexCubit
-                                          .bake(state.document);
+                                          .bake(state.data, state.page);
                                       Navigator.pop(context);
                                     }
                                   },

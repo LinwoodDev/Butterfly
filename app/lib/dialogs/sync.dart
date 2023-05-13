@@ -3,10 +3,10 @@ import 'package:butterfly/visualizer/sync.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../services/sync.dart';
-import '../widgets/header.dart';
 
 class SyncDialog extends StatefulWidget {
   const SyncDialog({super.key});
@@ -34,12 +34,12 @@ class _SyncDialogState extends State<SyncDialog> {
                   Header(
                     title: Text(status.getLocalizedName(context)),
                     leading: IconButton(
-                      icon: Icon(status.getIcon()),
+                      icon: PhosphorIcon(status.getIcon()),
                       onPressed: () => service.sync(),
                     ),
                     actions: [
                       IconButton(
-                        icon: const Icon(PhosphorIcons.xLight),
+                        icon: const PhosphorIcon(PhosphorIconsLight.x),
                         onPressed: () => Navigator.pop(context),
                       ),
                     ],
@@ -70,7 +70,8 @@ class _SyncDialogState extends State<SyncDialog> {
                                               IconButton(
                                             tooltip: snapshot.data
                                                 .getLocalizedName(context),
-                                            icon: Icon(snapshot.data.getIcon()),
+                                            icon: PhosphorIcon(
+                                                snapshot.data.getIcon()),
                                             onPressed: () => service.sync(),
                                           ),
                                         )),
@@ -119,7 +120,7 @@ class _RemoteSyncView extends StatelessWidget {
                 ListTile(
                   title: Text(file.location.path),
                   subtitle: Text(file.status.getLocalizedName(context)),
-                  leading: Icon(file.status.getIcon()),
+                  leading: PhosphorIcon(file.status.getIcon()),
                 ),
                 if (file.status == FileSyncStatus.conflict) ...[
                   Row(

@@ -2,6 +2,7 @@ import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension ElementVisualizer on PadElement {
@@ -17,14 +18,14 @@ extension ElementVisualizer on PadElement {
     );
   }
 
-  IconData getIcon() {
+  IconGetter get icon {
     return map(
-      pen: (_) => PhosphorIcons.penLight,
-      text: (_) => PhosphorIcons.textTLight,
-      image: (_) => PhosphorIcons.imageLight,
-      shape: (element) => element.property.shape.getIcon(),
-      svg: (_) => PhosphorIcons.sunLight,
-      markdown: (_) => PhosphorIcons.textboxLight,
+      pen: (_) => PhosphorIcons.pen,
+      text: (_) => PhosphorIcons.textT,
+      image: (_) => PhosphorIcons.image,
+      shape: (element) => element.property.shape.icon,
+      svg: (_) => PhosphorIcons.sun,
+      markdown: (_) => PhosphorIcons.textbox,
     );
   }
 }

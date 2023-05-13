@@ -1,1 +1,66 @@
-* Add check if ruler size is greater than 0
+* Add rich text
+* Pack changes
+  * Add styles to pack
+  * Add color palette to pack
+    * Improve color toolbar to reflect that color palettes are now saved in the pack
+  * Add core pack
+* Painter changes
+  * Remove eraser element to improve performance (Breaking change)
+  * Add waypoint painter
+  * Rebuild add dialog
+    * Add inserts of assets in add dialog
+  * Remove right click menu from hand dialog
+  * Rebuild pen renderer
+  * Add new properties to pen painter
+    * Thinning
+    * Smoothing
+    * Streamline
+  * Move transparency property out of color into an extra slider
+  * Rich text
+    * Add label toolbar to support rich text
+    * Add text cursor
+  * Add presentation mode
+    * Add animations
+    * Add presentation toolbar with timeline
+    * Add new mode for running a presentation
+  * Replace pixel property in image element with source url as base64 data url
+* Tool changes
+  * Add check if ruler size is greater than 0
+  * Move project settings in tools
+* Template changes
+  * Templates have now thumbnails
+  * Templates will be created in the selected connection
+* UI Improvements
+  * Add home page
+  * Remove open dialog in flavor of the home page
+  * Rebuild top corner menu
+  * Remove classic, yaru and adwaita theme
+  * Use device accent color for default theme
+  * Add zoom slider to the main draw page
+  * Rename remote translations to connection
+  * Replace listtiles in context menus to menuitembuttons
+  * Add search at the top to search for text elements, areas and waypoints
+  * Title is now smaller aligned in the top left corner to look better
+  * Improve title bar to look more material 3 like
+* Middle mouse behavior is now move as default
+* Rebuild file format and add note for breaking changes
+* Remove date format setting, documents have no name by default
+* Add new butterfly logo
+* Improve web file system
+* Improve pdf export
+* Restructure basic classes in api project
+* Downloads
+  * Add start scripts ([#304](https://github.com/LinwoodDev/Butterfly/issues/304))
+* Bug fixes
+  * Fix unicode characters in file path, fixes ([#336](https://github.com/LinwoodDev/Butterfly/issues/336))
+  * Fix after Undo, Hand tool will be selected
+  * Fix blank page after entering or exiting area mode
+  * Fix global shortcuts
+
+Things that need to be improved:
+* Text tool
+* Presentation tool
+* Packs in general
+* File format (there will be an automatic migration)
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0

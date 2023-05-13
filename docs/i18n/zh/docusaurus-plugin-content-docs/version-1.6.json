@@ -1,0 +1,10 @@
+{
+  "version.label": {
+    "message": "1.6.1",
+    "description": "The label for version 1.6"
+  },
+  "sidebar.sidebar.category.Painters": {
+    "message": "绘画",
+    "description": "The label for category Painters in sidebar sidebar"
+  }
+}

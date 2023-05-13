@@ -21,6 +21,7 @@ import '../embed/embedding.dart';
 import '../handlers/handler.dart';
 import '../models/viewport.dart';
 import '../selections/selection.dart';
+import '../theme.dart';
 import '../view_painter.dart';
 
 part 'current_index.freezed.dart';
@@ -31,6 +32,7 @@ class CurrentIndex with _$CurrentIndex {
   const factory CurrentIndex(
     int? index,
     Handler handler,
+    CameraViewport cameraViewport,
     SettingsCubit settingsCubit,
     TransformCubit transformCubit, {
     Handler? temporaryHandler,
@@ -39,7 +41,6 @@ class CurrentIndex with _$CurrentIndex {
     List<Renderer>? temporaryForegrounds,
     @Default([]) List<int> pointers,
     int? buttons,
-    @Default(CameraViewport.unbaked()) CameraViewport cameraViewport,
     @Default(AssetLocation(path: '')) AssetLocation location,
     Embedding? embedding,
     @Default(false) bool saved,
@@ -53,9 +54,17 @@ class CurrentIndex with _$CurrentIndex {
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
   CurrentIndexCubit(SettingsCubit settingsCubit, TransformCubit transformCubit,
-      Embedding? embedding)
-      : super(CurrentIndex(null, MoveHandler(), settingsCubit, transformCubit,
+      CameraViewport viewport, Embedding? embedding)
+      : super(CurrentIndex(
+            null, MoveHandler(), viewport, settingsCubit, transformCubit,
             embedding: embedding));
+
+  void init(DocumentBloc bloc) {
+    changePainter(bloc, state.index ?? 0, null, true, false);
+  }
+
+  ThemeData getTheme(bool dark, [ColorScheme? overridden]) =>
+      getThemeData(state.settingsCubit.state.design, dark, overridden);
 
   Handler getHandler({bool disableTemporary = false}) {
     if (disableTemporary) {
@@ -65,32 +74,31 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Offset getGridPosition(Offset position, AppDocument document) {
-    return state.cameraViewport.tool
-            ?.getGridPosition(position, document, this) ??
-        position;
+  Offset getGridPosition(Offset position, DocumentPage page) {
+    return state.cameraViewport.tool.getGridPosition(position, page, this);
   }
 
   Handler? changePainter(DocumentBloc bloc, int index,
-      [Handler? handler, bool justAdded = false]) {
+      [Handler? handler, bool justAdded = false, bool runSelected = true]) {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
-    final document = blocState.document;
-    if (index < 0 || index >= document.painters.length) {
+    final document = blocState.data;
+    final page = blocState.page;
+    if (index < 0 || index >= page.painters.length) {
       return null;
     }
-    final painter = document.painters[index];
-    final currentHandler = handler ?? Handler.fromPainter(painter);
-    state.handler.dispose(bloc);
-    state.temporaryHandler?.dispose(bloc);
-    if (currentHandler.onSelected(bloc, this, justAdded)) {
+    final painter = page.painters[index];
+    handler ??= Handler.fromPainter(painter);
+    if (!runSelected || handler.onSelected(bloc, this, justAdded)) {
+      state.handler.dispose(bloc);
+      state.temporaryHandler?.dispose(bloc);
       _disposeForegrounds();
       emit(state.copyWith(
         index: index,
-        handler: currentHandler,
-        foregrounds: currentHandler.createForegrounds(
-            this, document, blocState.currentArea),
-        toolbar: currentHandler.getToolbar(bloc),
+        handler: handler,
+        foregrounds: handler.createForegrounds(
+            this, document, page, blocState.currentArea),
+        toolbar: handler.getToolbar(bloc),
         temporaryForegrounds: null,
         temporaryHandler: null,
         temporaryToolbar: null,
@@ -99,18 +107,22 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return handler;
   }
 
-  void updatePainter(DocumentBloc bloc, Painter painter) {
+  Future<void> updatePainter(DocumentBloc bloc, Painter painter) async {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     state.handler.dispose(bloc);
     final handler = Handler.fromPainter(painter);
     state.handler.dispose(bloc);
     _disposeForegrounds(false);
+    final newForegrounds = handler.createForegrounds(
+        this, docState.data, docState.page, docState.currentArea);
+    for (final r in newForegrounds) {
+      await r.setup(docState.data, docState.page);
+    }
     emit(state.copyWith(
       index: state.index,
       handler: handler,
-      foregrounds: handler.createForegrounds(
-          this, docState.document, docState.currentArea),
+      foregrounds: foregrounds,
       toolbar: handler.getToolbar(bloc),
     ));
   }
@@ -123,9 +135,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final handler = Handler.fromPainter(painter);
     _disposeTemporaryForegrounds();
     final temporaryForegrounds = handler.createForegrounds(
-        this, docState.document, docState.currentArea);
+        this, docState.data, docState.page, docState.currentArea);
     await Future.wait(temporaryForegrounds
-        .map((r) async => await r.setup(docState.document)));
+        .map((r) async => await r.setup(docState.data, docState.page)));
     emit(state.copyWith(
       temporaryHandler: handler,
       temporaryForegrounds: temporaryForegrounds,
@@ -154,18 +166,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Future<void> refresh(AppDocument document, [Area? currentArea]) async {
+  Future<void> refresh(NoteData document, DocumentPage page,
+      [Area? currentArea]) async {
     if (!isClosed) {
       _disposeForegrounds();
       final temporaryForegrounds = state.temporaryHandler
-          ?.createForegrounds(this, document, currentArea);
+          ?.createForegrounds(this, document, page, currentArea);
       if (temporaryForegrounds != null) {
-        await Future.wait(
-            temporaryForegrounds.map((e) async => await e.setup(document)));
+        await Future.wait(temporaryForegrounds
+            .map((e) async => await e.setup(document, page)));
       }
       final foregrounds =
-          state.handler.createForegrounds(this, document, currentArea);
-      await Future.wait(foregrounds.map((e) async => await e.setup(document)));
+          state.handler.createForegrounds(this, document, page, currentArea);
+      await Future.wait(
+          foregrounds.map((e) async => await e.setup(document, page)));
       emit(state.copyWith(
         temporaryForegrounds: temporaryForegrounds,
         foregrounds: foregrounds,
@@ -184,21 +198,19 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Painter? getPainter(AppDocument document) {
+  Painter? getPainter(DocumentPage page) {
     var index = state.index;
     if (index == null) {
       return null;
     }
-    if (document.painters.isEmpty ||
-        index < 0 ||
-        index >= document.painters.length) {
+    if (page.painters.isEmpty || index < 0 || index >= page.painters.length) {
       return null;
     }
-    return document.painters[index];
+    return page.painters[index];
   }
 
-  T? fetchPainter<T extends Painter>(AppDocument document) {
-    final painter = getPainter(document);
+  T? fetchPainter<T extends Painter>(DocumentPage page) {
+    final painter = getPainter(page);
     if (painter is T) return painter;
     return null;
   }
@@ -216,7 +228,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       foregrounds: [],
       temporaryHandler: null,
       temporaryForegrounds: null,
-      cameraViewport: const CameraViewport.unbaked(),
+      cameraViewport: CameraViewport.unbaked(ToolRenderer()),
     ));
   }
 
@@ -236,10 +248,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       DocumentBloc bloc, int index) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
-    if (index < 0 || index >= blocState.document.painters.length) {
+    if (index < 0 || index >= blocState.page.painters.length) {
       return null;
     }
-    final painter = blocState.document.painters[index];
+    final painter = blocState.page.painters[index];
     return changeTemporaryHandler(bloc, painter);
   }
 
@@ -248,15 +260,16 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final handler = Handler.fromPainter(painter);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
-    final document = blocState.document;
+    final document = blocState.data;
+    final page = blocState.page;
     final currentArea = blocState.currentArea;
     state.temporaryHandler?.dispose(bloc);
     if (handler.onSelected(bloc, this, false)) {
       _disposeTemporaryForegrounds();
       final temporaryForegrounds =
-          handler.createForegrounds(this, document, currentArea);
+          handler.createForegrounds(this, document, page, currentArea);
       await Future.wait(
-          temporaryForegrounds.map((e) async => await e.setup(document)));
+          temporaryForegrounds.map((e) async => await e.setup(document, page)));
       emit(state.copyWith(
         temporaryHandler: handler,
         temporaryForegrounds: temporaryForegrounds,
@@ -287,7 +300,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Renderer? getRenderer(PadElement element) =>
       renderers.firstWhereOrNull((renderer) => renderer.element == element);
 
-  Future<void> bake(AppDocument document,
+  Future<void> bake(NoteData document, DocumentPage page,
       {Size? viewportSize, double? pixelRatio, bool reset = false}) async {
     final cameraViewport = state.cameraViewport;
     final size = viewportSize ?? cameraViewport.toSize();
@@ -298,7 +311,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final transform = state.transformCubit.state;
     final rect = Rect.fromLTWH(-transform.position.dx, -transform.position.dy,
         size.width / transform.size, size.height / transform.size);
-    var renderers = cameraViewport.unbakedElements;
+    var renderers =
+        List<Renderer<PadElement>>.from(cameraViewport.unbakedElements);
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(recorder);
     final last = state.cameraViewport;
@@ -311,7 +325,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (renderers.isEmpty && !reset) return;
     List<Renderer<PadElement>> visibleElements;
     if (reset) {
-      renderers = this.renderers;
+      renderers = List<Renderer<PadElement>>.from(this.renderers);
       visibleElements = renderers
           .where((renderer) => renderer.rect?.overlaps(rect) ?? true)
           .toList();
@@ -326,6 +340,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     ViewPainter(
       document,
+      page,
       transform: state.transformCubit.state,
       cameraViewport: reset
           ? cameraViewport.unbake(
@@ -365,7 +380,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             visibleElements: visibleElements)));
   }
 
-  Future<ByteData?> render(AppDocument document,
+  Future<ByteData?> render(NoteData document, DocumentPage page,
       {required double width,
       required double height,
       double x = 0,
@@ -378,7 +393,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final realZoom = scale * quality;
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
-    final painter = ViewPainter(document,
+    final painter = ViewPainter(document, page,
         renderBackground: renderBackground,
         cameraViewport: state.cameraViewport.unbake(unbakedElements: renderers),
         transform:
@@ -389,7 +404,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 
-  XmlDocument renderSVG(AppDocument document,
+  XmlDocument renderSVG(DocumentPage page,
       {required int width,
       required int height,
       double x = 0,
@@ -407,10 +422,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
     if (renderBackground) {
-      state.cameraViewport.background?.buildSvg(xml, document, rect);
+      state.cameraViewport.background?.buildSvg(xml, page, rect);
     }
     for (var e in renderers) {
-      e.buildSvg(xml, document, rect);
+      e.buildSvg(xml, page, rect);
     }
     return xml;
   }
@@ -437,21 +452,22 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   Future<pw.Document> renderPDF(
-    AppDocument appDocument, {
+    NoteData document,
+    DocumentPage page, {
     required List<AreaPreset> areas,
     bool renderBackground = true,
   }) async {
-    final document = pw.Document();
+    final pdf = pw.Document();
     for (final preset in areas) {
       final areaName = preset.name;
       final quality = preset.quality;
-      final area = preset.area ?? appDocument.getAreaByName(areaName);
+      final area = preset.area ?? page.getAreaByName(areaName);
       if (area == null) {
         continue;
       }
       final pageFormat =
           PdfPageFormat(area.width * quality, area.height * quality);
-      final image = await render(appDocument,
+      final image = await render(document, page,
           width: area.width,
           height: area.height,
           x: area.position.x,
@@ -459,23 +475,22 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           quality: quality,
           renderBackground: renderBackground);
       if (image == null) continue;
-      document.addPage(pw.Page(
+      pdf.addPage(pw.Page(
           pageFormat: pageFormat,
           build: (context) {
             return pw.Image(pw.MemoryImage(image.buffer.asUint8List()));
           }));
     }
-    return document;
+    return pdf;
   }
 
   void updateIndex(DocumentBloc bloc) {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
-    final document = docState.document;
-    final index = document.painters.indexOf(state.handler.data);
+    final page = docState.page;
+    final index = page.painters.indexOf(state.handler.data);
     if (index < 0) {
-      reset(bloc);
-      return;
+      changePainter(bloc, state.index ?? 0, null, true, false);
     }
     if (index == state.index) {
       return;
@@ -533,9 +548,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(temporaryHandler: MoveHandler()));
   }
 
-  FutureOr<void> updateTool(AppDocument document, ToolState toolState) async {
+  FutureOr<void> updateTool(
+      NoteData document, DocumentPage page, ToolState toolState) async {
     final renderer = ToolRenderer(toolState);
-    await renderer.setup(document);
+    await renderer.setup(document, page);
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.withTool(renderer)));
   }

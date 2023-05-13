@@ -42,7 +42,7 @@ jobs:
       - name: 🏭 Build nightly
         if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
-          flutter build apk -v --release --flavor development
+          flutter build apk -v --release --flavor development --dart-define=flavor=development
           cp build/app/outputs/flutter-apk/app-development-release.apk linwood-butterfly-android.apk
       - name: 🏭 Build production
         if: ${{ github.ref == 'refs/tags/stable' }}
@@ -78,10 +78,16 @@ jobs:
           flutter clean
           flutter pub get
           flutter doctor -v
-      - name: 🏭 Build
-        shell: pwsh
+      - name: 🏭 Build nightly
+        if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
-          flutter build windows -v --release
+          flutter doctor -v
+          flutter build windows -v --release --dart-define=flavor=development
+      - name: 🏭 Build production
+        if: ${{ github.ref == 'refs/tags/stable' }}
+        run: |
+          flutter doctor -v
+          flutter build windows -v --release --dart-define=flavor=production
       - name: Build setup
         shell: pwsh
         run: |
@@ -149,9 +155,16 @@ jobs:
           flutter clean
           flutter pub get
           flutter doctor -v
-      - name: 🏭 Build
+      - name: 🏭 Build nightly
+        if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
-          flutter build linux -v --release
+          flutter doctor -v
+          flutter build linux -v --release --dart-define=flavor=development
+      - name: 🏭 Build production
+        if: ${{ github.ref == 'refs/tags/stable' }}
+        run: |
+          flutter doctor -v
+          flutter build linux -v --release --dart-define=flavor=production
       - name: Build .deb executable
         run: |
           cp -fr build/linux/x64/release/bundle linux/debian/usr/bin
@@ -251,9 +264,16 @@ jobs:
           flutter clean
           flutter pub get
           flutter doctor -v
-      - name: 🏭 Build
+      - name: 🏭 Build nightly
+        if: ${{ github.ref != 'refs/tags/stable' }}
         run: |
-          flutter build linux -v --release
+          flutter doctor -v
+          flutter build linux -v --release --dart-define=flavor=development
+      - name: 🏭 Build production
+        if: ${{ github.ref == 'refs/tags/stable' }}
+        run: |
+          flutter doctor -v
+          flutter build linux -v --release --dart-define=flavor=production
       - name: Copy nessessary files
         run: |
           cp images/logo.svg build/linux/x64/release/bundle/dev.linwood.butterfly.svg

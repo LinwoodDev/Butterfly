@@ -9,7 +9,7 @@ RUN mkdir /app/
 COPY . /app
 WORKDIR /app
 # download Flutter SDK from Flutter Github repo
-RUN git clone https://github.com/flutter/flutter.git -b $(cat /app/FLUTTER_VERSION) /usr/local/flutter
+RUN git clone https://github.com/flutter/flutter.git -b $(cat /FLUTTER_VERSION) /usr/local/flutter
 
 # Set flutter environment path
 ENV PATH="/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin:${PATH}"

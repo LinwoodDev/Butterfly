@@ -1,3 +1,4 @@
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,7 +10,7 @@ import 'palettes.dart';
 import 'styles/view.dart';
 
 class PackDialog extends StatefulWidget {
-  final ButterflyPack? pack;
+  final NoteData? pack;
 
   const PackDialog({super.key, this.pack});
 
@@ -18,21 +19,20 @@ class PackDialog extends StatefulWidget {
 }
 
 class _PackDialogState extends State<PackDialog> {
-  late ButterflyPack pack;
+  late NoteData pack;
 
   @override
   void initState() {
     super.initState();
-    pack = widget.pack ??
-        ButterflyPack(
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        );
+    NoteData pack = widget.pack ?? DocumentDefaults.createPack();
+    this.pack = pack;
   }
 
-  void _onChanged(ButterflyPack pack) {
+  void _onChanged(NoteData pack) {
     setState(() {
-      this.pack = pack.copyWith(updatedAt: DateTime.now());
+      pack.setMetadata(pack.getMetadata()!.copyWith(
+            updatedAt: DateTime.now().toUtc(),
+          ));
     });
   }
 
@@ -54,19 +54,19 @@ class _PackDialogState extends State<PackDialog> {
                     isScrollable: true,
                     tabs: <dynamic>[
                       [
-                        PhosphorIcons.gearLight,
+                        PhosphorIconsLight.gear,
                         AppLocalizations.of(context).general
                       ],
                       [
-                        PhosphorIcons.puzzlePieceLight,
+                        PhosphorIconsLight.puzzlePiece,
                         AppLocalizations.of(context).components
                       ],
                       [
-                        PhosphorIcons.pencilCircleLight,
+                        PhosphorIconsLight.pencilCircle,
                         AppLocalizations.of(context).styles
                       ],
                       [
-                        PhosphorIcons.paletteLight,
+                        PhosphorIconsLight.palette,
                         AppLocalizations.of(context).palettes
                       ]
                     ]
@@ -74,7 +74,7 @@ class _PackDialogState extends State<PackDialog> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(e[0]),
+                                  PhosphorIcon(e[0]),
                                   const SizedBox(width: 8),
                                   Text(e[1]),
                                 ],

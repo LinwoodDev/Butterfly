@@ -29,19 +29,7 @@ extension RatioPresetExtension on AspectRatioPreset {
   }
 }
 
-@freezed
-class LabelOption with _$LabelOption {
-  const factory LabelOption.markdown({
-    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
-  }) = MarkdownOption;
-
-  const factory LabelOption.text({
-    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
-  }) = RichTextOption;
-
-  factory LabelOption.fromJson(Map<String, dynamic> json) =>
-      _$LabelOptionFromJson(json);
-}
+enum LabelType { markdown, text }
 
 @Freezed(equal: false)
 class Painter with _$Painter {
@@ -65,7 +53,9 @@ class Painter with _$Painter {
 
   factory Painter.label({
     @Default('') String name,
-    @Default(LabelOption.text()) LabelOption option,
+    @Default(LabelType.text) LabelType labelType,
+    @Default(true) bool zoomDependent,
+    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
   }) = LabelPainter;
 
   factory Painter.pen({

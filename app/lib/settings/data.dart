@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/widgets/window.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../api/file_system.dart';
 import '../api/open.dart';
 import '../dialogs/packs/dialog.dart';
-import '../views/window.dart';
 
 class DataSettingsPage extends StatefulWidget {
   final bool inView;
@@ -28,13 +28,10 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: widget.inView ? Colors.transparent : null,
-        appBar: AppBar(
-          automaticallyImplyLeading: !widget.inView,
+        appBar: WindowTitleBar(
+          inView: widget.inView,
           backgroundColor: widget.inView ? Colors.transparent : null,
           title: Text(AppLocalizations.of(context).data),
-          actions: [
-            if (!widget.inView && !kIsWeb && isWindow()) const WindowButtons()
-          ],
         ),
         body: BlocBuilder<SettingsCubit, ButterflySettings>(
             builder: (context, state) {
@@ -51,7 +48,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                           ListTile(
                             title: Text(
                                 AppLocalizations.of(context).documentDirectory),
-                            leading: const Icon(PhosphorIcons.folderLight),
+                            leading:
+                                const PhosphorIcon(PhosphorIconsLight.folder),
                             subtitle: Text(state.documentPath.isNotEmpty
                                 ? state.documentPath
                                 : AppLocalizations.of(context).defaultPath),
@@ -66,62 +64,17 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             },
                             trailing: state.documentPath.isNotEmpty
                                 ? IconButton(
-                                    icon: const Icon(PhosphorIcons.trashLight),
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.trash),
                                     onPressed: () => _changePath(
                                         context.read<SettingsCubit>(), ''),
                                   )
                                 : null,
                           ),
                         ListTile(
-                          title: Text(AppLocalizations.of(context).dateFormat),
-                          leading: const Icon(PhosphorIcons.calendarLight),
-                          subtitle: Text(state.dateFormat),
-                          onTap: () async {
-                            final settingsCubit = context.read<SettingsCubit>();
-                            // Show input dialog
-                            final TextEditingController controller =
-                                TextEditingController(text: state.dateFormat);
-                            final String? newFormat = await showDialog<String>(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: Text(
-                                    AppLocalizations.of(context).dateFormat),
-                                content: TextField(
-                                  controller: controller,
-                                  autofocus: true,
-                                  decoration: InputDecoration(
-                                    hintText: 'yyyy-MM-dd',
-                                    filled: true,
-                                    labelText:
-                                        AppLocalizations.of(context).dateFormat,
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    child: Text(
-                                        AppLocalizations.of(context).cancel),
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
-                                  ),
-                                  ElevatedButton(
-                                    child:
-                                        Text(AppLocalizations.of(context).ok),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pop(controller.text);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            );
-                            if (newFormat != null) {
-                              settingsCubit.changeDateFormat(newFormat);
-                            }
-                          },
-                        ),
-                        ListTile(
                           title: Text(AppLocalizations.of(context).packs),
-                          leading: const Icon(PhosphorIcons.packageLight),
+                          leading:
+                              const PhosphorIcon(PhosphorIconsLight.package),
                           onTap: () {
                             showDialog(
                               context: context,
@@ -141,7 +94,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                         ),
                         ListTile(
                           title: Text(AppLocalizations.of(context).export),
-                          leading: const Icon(PhosphorIcons.exportLight),
+                          leading:
+                              const PhosphorIcon(PhosphorIconsLight.export),
                           onTap: () async {
                             final fileSystem =
                                 DocumentFileSystem.fromPlatform();

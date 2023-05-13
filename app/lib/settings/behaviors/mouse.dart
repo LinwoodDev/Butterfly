@@ -1,15 +1,14 @@
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/helpers/num_helper.dart';
 import 'package:butterfly/widgets/advanced_text_field.dart';
-import 'package:flutter/foundation.dart';
+import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../cubits/settings.dart';
-import '../../views/window.dart';
-import '../../widgets/exact_slider.dart';
 
 class MouseBehaviorSettings extends StatelessWidget {
   const MouseBehaviorSettings({super.key});
@@ -17,9 +16,8 @@ class MouseBehaviorSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: WindowTitleBar(
         title: Text(AppLocalizations.of(context).mouse),
-        actions: [if (!kIsWeb && isWindow()) const WindowButtons()],
       ),
       body: Align(
         alignment: Alignment.center,
@@ -42,7 +40,8 @@ class MouseBehaviorSettings extends StatelessWidget {
                               max: 100,
                               value: state.mouseSensitivity,
                               header: Row(children: [
-                                const Icon(PhosphorIcons.lightningLight),
+                                const PhosphorIcon(
+                                    PhosphorIconsLight.lightning),
                                 const SizedBox(width: 8),
                                 Text(AppLocalizations.of(context).sensitivity),
                               ]),
@@ -70,8 +69,8 @@ class MouseBehaviorSettings extends StatelessWidget {
                                     Theme.of(context).textTheme.headlineSmall,
                               ),
                               IconButton(
-                                icon: const Icon(
-                                    PhosphorIcons.circleWavyQuestionLight),
+                                icon: const PhosphorIcon(
+                                    PhosphorIconsLight.sealQuestion),
                                 onPressed: () =>
                                     openHelp(['shortcuts'], 'configure'),
                               ),
@@ -82,7 +81,8 @@ class MouseBehaviorSettings extends StatelessWidget {
                             initialValue:
                                 config.leftMouse?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).left,
-                            icon: const Icon(PhosphorIcons.arrowLeftLight),
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.arrowLeft),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(
@@ -94,7 +94,8 @@ class MouseBehaviorSettings extends StatelessWidget {
                             initialValue:
                                 config.middleMouse?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).middle,
-                            icon: const Icon(PhosphorIcons.arrowUpLight),
+                            icon:
+                                const PhosphorIcon(PhosphorIconsLight.arrowUp),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(
@@ -107,7 +108,8 @@ class MouseBehaviorSettings extends StatelessWidget {
                             initialValue:
                                 config.rightMouse?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).right,
-                            icon: const Icon(PhosphorIcons.arrowRightLight),
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.arrowRight),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(

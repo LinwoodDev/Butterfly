@@ -3,14 +3,13 @@ part of 'handler.dart';
 class PenHandler extends Handler<PenPainter> {
   Map<int, PenElement> elements = {};
 
-  List<PenElement> submittedElements = [];
   Map<int, Offset> lastPosition = {};
 
   PenHandler(super.data);
 
   @override
   List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      CurrentIndexCubit currentIndexCubit, NoteData document, DocumentPage page,
       [Area? currentArea]) {
     return elements.values
         .map((e) {
@@ -18,14 +17,12 @@ class PenHandler extends Handler<PenPainter> {
           return null;
         })
         .whereType<Renderer>()
-        .toList()
-      ..addAll(submittedElements.map((e) => PenRenderer(e)));
+        .toList();
   }
 
   @override
   void resetInput(DocumentBloc bloc) {
     elements.clear();
-    submittedElements.clear();
     lastPosition.clear();
   }
 
@@ -43,14 +40,9 @@ class PenHandler extends Handler<PenPainter> {
     var element = elements.remove(index);
     if (element == null) return;
     lastPosition.remove(index);
-    submittedElements.add(element);
-    if (elements.isEmpty) {
-      final current = submittedElements.reversed.toList();
-      submittedElements.clear();
-      bloc.add(ElementsCreated(current));
-      bloc.refresh();
-      await bloc.bake();
-    }
+    bloc.add(ElementsCreated([element]));
+    bloc.refresh();
+    await bloc.bake();
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,
@@ -64,8 +56,7 @@ class PenHandler extends Handler<PenPainter> {
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
     localPosition =
-        viewport.tool?.getPointerPosition(localPosition, currentIndexCubit) ??
-            localPosition;
+        viewport.tool.getPointerPosition(localPosition, currentIndexCubit);
     if (lastPosition[pointer] == localPosition) return;
     lastPosition[pointer] = localPosition;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {

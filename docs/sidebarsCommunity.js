@@ -36,7 +36,7 @@ module.exports = {
     },
     {
       type: 'link',
-      href: 'https://github.com/LinwoodCloud/Butterfly',
+      href: 'https://github.com/LinwoodDev/Butterfly',
       label: 'GitHub'
     }
   ],

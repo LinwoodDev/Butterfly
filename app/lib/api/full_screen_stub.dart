@@ -1,5 +1,7 @@
+import 'dart:async';
+
 void setupFullScreen() {}
-Future<bool> isFullScreen() async {
+FutureOr<bool> isFullScreen() async {
   return false;
 }
 

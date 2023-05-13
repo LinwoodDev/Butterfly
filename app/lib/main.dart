@@ -5,14 +5,17 @@ import 'package:butterfly/api/intent.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/settings/behaviors/mouse.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
 import 'api/file_system.dart';
 import 'api/full_screen.dart';
@@ -29,10 +32,11 @@ import 'settings/personalization.dart';
 import 'settings/connection.dart';
 import 'settings/connections.dart';
 import 'setup.dart' if (dart.library.html) 'setup_web.dart';
-import 'theme/manager.dart';
+import 'theme.dart';
 import 'views/error.dart';
+import 'views/home.dart';
 import 'views/main.dart';
-import 'views/window.dart';
+import 'widgets/window.dart';
 
 const kMobileWidth = 600.0;
 
@@ -75,11 +79,11 @@ Future<void> main([List<String> args = const []]) async {
     }
   }
 
-  if (!kIsWeb && isWindow()) {
+  if (!kIsWeb && isWindow) {
     await windowManager.ensureInitialized();
     const kWindowOptions = WindowOptions(
       minimumSize: Size(410, 300),
-      title: 'Butterfly',
+      title: applicationName,
     );
 
     // Use it only after calling `hiddenWindowAtLaunch`
@@ -100,12 +104,11 @@ Future<void> main([List<String> args = const []]) async {
           create: (context) => DocumentFileSystem.fromPlatform()),
       RepositoryProvider(
           create: (context) => TemplateFileSystem.fromPlatform()),
-      RepositoryProvider(create: (context) => const DocumentJsonConverter()),
     ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)),
   );
 }
 
-const kUnsupportedLanguages = ['pt'];
+const kUnsupportedLanguages = [];
 
 List<Locale> getLocales() =>
     List<Locale>.from(AppLocalizations.supportedLocales)
@@ -128,120 +131,141 @@ class ButterflyApp extends StatelessWidget {
               ErrorPage(message: state.error.toString()),
           routes: [
             GoRoute(
-                name: 'home',
-                path: '/',
-                builder: (context, state) {
-                  return const ProjectPage();
-                },
-                routes: [
-                  GoRoute(
-                    path: 'settings',
-                    builder: (context, state) => const SettingsPage(),
-                    routes: [
-                      GoRoute(
-                        path: 'general',
-                        builder: (context, state) =>
-                            const GeneralSettingsPage(),
-                      ),
-                      GoRoute(
-                        path: 'behaviors',
-                        builder: (context, state) =>
-                            const BehaviorsSettingsPage(),
-                        routes: [
-                          GoRoute(
-                            path: 'mouse',
-                            builder: (context, state) =>
-                                const MouseBehaviorSettings(),
-                          ),
-                          GoRoute(
-                            path: 'pen',
-                            builder: (context, state) =>
-                                const PenBehaviorSettings(),
-                          ),
-                          GoRoute(
-                            path: 'keyboard',
-                            builder: (context, state) =>
-                                const KeyboardBehaviorSettings(),
-                          ),
-                          GoRoute(
-                            path: 'touch',
-                            builder: (context, state) =>
-                                const TouchBehaviorSettings(),
-                          ),
-                        ],
-                      ),
-                      GoRoute(
-                        path: 'personalization',
-                        builder: (context, state) =>
-                            const PersonalizationSettingsPage(),
-                      ),
-                      GoRoute(
-                        path: 'data',
-                        builder: (context, state) => const DataSettingsPage(),
-                      ),
-                      GoRoute(
-                        path: 'connections',
-                        builder: (context, state) =>
-                            const ConnectionsSettingsPage(),
-                        routes: [
-                          GoRoute(
-                            path: ':id',
-                            builder: (context, state) => ConnectionSettingsPage(
-                                remote: state.params['id']!),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ]),
-            GoRoute(
-              name: 'local',
-              path: '/local/:path(.*)',
+              name: 'home',
+              path: '/',
               builder: (context, state) {
-                final path = state.params['path'];
-                return ProjectPage(
-                    data: state.extra,
-                    location: AssetLocation.local(path ?? ''));
+                return const HomePage();
               },
-            ),
-            GoRoute(
-              name: 'remote',
-              path: '/remote/:remote/:path(.*)',
-              builder: (context, state) {
-                final remote =
-                    Uri.decodeComponent(state.params['remote'] ?? '');
-                final path = state.params['path'];
-                return ProjectPage(
-                    data: state.extra,
-                    location: AssetLocation(remote: remote, path: path ?? ''));
-              },
-            ),
-            GoRoute(
-              path: '/native',
-              builder: (context, state) {
-                final type = state.queryParams['type'] ?? '';
-                final path = state.queryParams['path'] ?? '';
-                final data = state.extra;
-                return ProjectPage(
-                  location: AssetLocation.local(path, true),
-                  type: type,
-                  data: data,
-                );
-              },
-            ),
-            GoRoute(
-              path: '/native/:path(.*)',
-              builder: (context, state) {
-                final path = state.params['path'] ?? '';
-                return ProjectPage(location: AssetLocation.local(path, true));
-              },
+              routes: [
+                GoRoute(
+                  path: 'settings',
+                  builder: (context, state) => const SettingsPage(),
+                  routes: [
+                    GoRoute(
+                      path: 'general',
+                      builder: (context, state) => const GeneralSettingsPage(),
+                    ),
+                    GoRoute(
+                      path: 'behaviors',
+                      builder: (context, state) =>
+                          const BehaviorsSettingsPage(),
+                      routes: [
+                        GoRoute(
+                          path: 'mouse',
+                          builder: (context, state) =>
+                              const MouseBehaviorSettings(),
+                        ),
+                        GoRoute(
+                          path: 'pen',
+                          builder: (context, state) =>
+                              const PenBehaviorSettings(),
+                        ),
+                        GoRoute(
+                          path: 'keyboard',
+                          builder: (context, state) =>
+                              const KeyboardBehaviorSettings(),
+                        ),
+                        GoRoute(
+                          path: 'touch',
+                          builder: (context, state) =>
+                              const TouchBehaviorSettings(),
+                        ),
+                      ],
+                    ),
+                    GoRoute(
+                      path: 'personalization',
+                      builder: (context, state) =>
+                          const PersonalizationSettingsPage(),
+                    ),
+                    GoRoute(
+                      path: 'data',
+                      builder: (context, state) => const DataSettingsPage(),
+                    ),
+                    GoRoute(
+                      path: 'connections',
+                      builder: (context, state) =>
+                          const ConnectionsSettingsPage(),
+                      routes: [
+                        GoRoute(
+                          path: ':id',
+                          builder: (context, state) => ConnectionSettingsPage(
+                              remote: state.pathParameters['id']!),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  name: 'new',
+                  path: 'new',
+                  builder: (context, state) {
+                    final defaultRemote =
+                        context.read<SettingsCubit>().state.defaultRemote;
+                    return ProjectPage(
+                      data: state.extra,
+                      location: AssetLocation(
+                        remote: defaultRemote,
+                        path: state.queryParameters['path'] ?? '',
+                      ),
+                    );
+                  },
+                ),
+                GoRoute(
+                  name: 'local',
+                  path: 'local/:path(.*)',
+                  builder: (context, state) {
+                    final path = state.pathParameters['path'];
+                    return ProjectPage(
+                        data: state.extra,
+                        type: state.queryParameters['type'] ?? '',
+                        location: AssetLocation.local(path ?? ''));
+                  },
+                ),
+                GoRoute(
+                  name: 'remote',
+                  path: 'remote/:remote/:path(.*)',
+                  builder: (context, state) {
+                    final remote = Uri.decodeComponent(
+                        state.pathParameters['remote'] ?? '');
+                    final path = state.pathParameters['path'];
+                    return ProjectPage(
+                        data: state.extra,
+                        type: state.queryParameters['type'] ?? '',
+                        location:
+                            AssetLocation(remote: remote, path: path ?? ''));
+                  },
+                ),
+                GoRoute(
+                  path: 'native',
+                  name: 'native',
+                  builder: (context, state) {
+                    final type = state.queryParameters['type'] ?? '';
+                    final path = state.queryParameters['path'] ?? '';
+                    final data = state.extra;
+                    return ProjectPage(
+                      location: AssetLocation.local(path, true),
+                      type: type,
+                      data: data,
+                    );
+                  },
+                ),
+                GoRoute(
+                  path: 'native/:path(.*)',
+                  name: 'native-path',
+                  builder: (context, state) {
+                    final path = state.pathParameters['path'] ?? '';
+                    return ProjectPage(
+                        location: AssetLocation.local(path, true));
+                  },
+                ),
+              ],
             ),
             GoRoute(
               name: 'embed',
               path: '/embed',
               builder: (context, state) {
                 return ProjectPage(
-                    embedding: Embedding.fromQuery(state.queryParams));
+                    embedding: Embedding.fromQuery(state.queryParameters));
               },
             ),
           ],
@@ -250,34 +274,37 @@ class ButterflyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => SettingsCubit.fromPrefs(prefs),
-      child: BlocBuilder<SettingsCubit, ButterflySettings>(
-        buildWhen: (previous, current) =>
-            previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
-        builder: (context, settings) {
-          if (!kIsWeb && isWindow()) {
-            windowManager.waitUntilReadyToShow().then((_) async {
-              windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
-                  ? TitleBarStyle.normal
-                  : TitleBarStyle.hidden);
-              windowManager.setFullScreen(settings.startInFullScreen);
-            });
-          } else {
-            setFullScreen(settings.startInFullScreen);
-          }
-          return RepositoryProvider(
-            create: (context) =>
-                SyncService(context, context.read<SettingsCubit>()),
-            lazy: false,
-            child: _buildApp(),
-          );
-        },
+    return DynamicColorBuilder(
+      builder: (lightDynamic, darkDynamic) => BlocProvider(
+        create: (_) => SettingsCubit.fromPrefs(prefs),
+        child: BlocBuilder<SettingsCubit, ButterflySettings>(
+          buildWhen: (previous, current) =>
+              previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
+          builder: (context, settings) {
+            if (!kIsWeb && isWindow) {
+              windowManager.waitUntilReadyToShow().then((_) async {
+                windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
+                    ? TitleBarStyle.normal
+                    : TitleBarStyle.hidden);
+                windowManager.setFullScreen(settings.startInFullScreen);
+              });
+            } else {
+              setFullScreen(settings.startInFullScreen);
+            }
+            return RepositoryProvider(
+              create: (context) =>
+                  SyncService(context, context.read<SettingsCubit>()),
+              lazy: false,
+              child: _buildApp(lightDynamic, darkDynamic),
+            );
+          },
+        ),
       ),
     );
   }
 
-  Widget _buildApp() {
+  Widget _buildApp(ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+    final virtualWindowFrameBuilder = VirtualWindowFrameInit();
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
             previous.theme != current.theme ||
@@ -285,23 +312,31 @@ class ButterflyApp extends StatelessWidget {
             previous.design != current.design,
         builder: (context, state) => MaterialApp.router(
               locale: state.locale,
-              title: 'Butterfly',
+              title: applicationName,
               routeInformationProvider: _router.routeInformationProvider,
               routeInformationParser: _router.routeInformationParser,
               routerDelegate: _router.routerDelegate,
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales: getLocales(),
-              theme: ThemeManager.getThemeByName(state.design),
-              themeMode: state.theme,
+              localizationsDelegates: const [
+                ...AppLocalizations.localizationsDelegates,
+                LocaleNamesLocalizationsDelegate(),
+                LeapLocalizations.delegate,
+              ],
               builder: (context, child) {
-                if (child == null) {
-                  return const Center(child: CircularProgressIndicator());
-                }
+                child = virtualWindowFrameBuilder(context, child);
                 return child;
               },
-              darkTheme: ThemeManager.getThemeByName(state.design, dark: true),
+              supportedLocales: getLocales(),
+              themeMode: state.theme,
+              theme: getThemeData(state.design, false, lightDynamic),
+              darkTheme: getThemeData(state.design, true, darkDynamic),
             ));
   }
 
   final GoRouter _router;
 }
+
+const flavor = String.fromEnvironment('flavor');
+const isNightly =
+    flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
+const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
+const applicationName = 'Linwood $shortApplicationName';

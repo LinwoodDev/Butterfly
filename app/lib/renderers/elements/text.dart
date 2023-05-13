@@ -21,11 +21,11 @@ class TextRenderer extends Renderer<TextElement> {
     }
   }
 
-  void _createPainter(AppDocument document) {
+  void _createPainter(NoteData document, DocumentPage page) {
     final paragraph = element.area.paragraph;
-    final styleSheet = document.getStyle(element.styleSheet);
-    final style = styleSheet.resolveParagraphProperty(paragraph.property) ??
-        const text.DefinedParagraphProperty();
+    final style =
+        _getStyle(document).resolveParagraphProperty(paragraph.property) ??
+            const text.DefinedParagraphProperty();
     _tp ??= context?.textPainter ?? TextPainter();
     _tp?.text = _createParagraphSpan(document, paragraph);
     _tp?.textDirection = TextDirection.ltr;
@@ -34,8 +34,8 @@ class TextRenderer extends Renderer<TextElement> {
   }
 
   TextSpan _createParagraphSpan(
-      AppDocument document, text.TextParagraph paragraph) {
-    final styleSheet = document.getStyle(element.styleSheet);
+      NoteData document, text.TextParagraph paragraph) {
+    final styleSheet = element.styleSheet.resolveStyle(document);
     final style = styleSheet.resolveParagraphProperty(paragraph.property) ??
         const text.DefinedParagraphProperty();
     return paragraph.map(
@@ -47,10 +47,10 @@ class TextRenderer extends Renderer<TextElement> {
     );
   }
 
-  text.TextStyleSheet? _getStyle(AppDocument document) =>
-      document.getStyle(element.styleSheet);
+  text.TextStyleSheet? _getStyle(NoteData document) =>
+      element.styleSheet.resolveStyle(document);
 
-  InlineSpan _createSpan(AppDocument document, text.TextSpan span,
+  InlineSpan _createSpan(NoteData document, text.TextSpan span,
       [text.DefinedParagraphProperty? parent]) {
     final styleSheet = _getStyle(document);
     final style = styleSheet.resolveSpanProperty(span.property);
@@ -63,7 +63,7 @@ class TextRenderer extends Renderer<TextElement> {
   TextStyle _buildSpanStyle(text.DefinedSpanProperty property,
       [text.DefinedParagraphProperty? parent]) {
     return TextStyle(
-      fontSize: property.getSize(parent),
+      fontSize: property.getSize(parent) * element.scale,
       color: Color(property.getColor(parent)),
       fontFamily: 'Roboto',
       fontStyle:
@@ -98,38 +98,38 @@ class TextRenderer extends Renderer<TextElement> {
   }
 
   @override
-  FutureOr<void> setup(AppDocument document) async {
-    _createPainter(document);
-    _updateRect(document);
-    await super.setup(document);
-    _updateRect(document);
+  FutureOr<void> setup(NoteData document, DocumentPage page) async {
+    _createPainter(document, page);
+    _updateRect();
+    await super.setup(document, page);
+    _updateRect();
   }
 
   @override
-  FutureOr<bool> onAreaUpdate(AppDocument document, Area? area) async {
+  FutureOr<bool> onAreaUpdate(DocumentPage page, Area? area) async {
     if (context != null) {
-      await super.onAreaUpdate(document, area);
+      await super.onAreaUpdate(page, area);
     }
-    _updateRect(document);
+    _updateRect();
     return true;
   }
 
-  void _updateRect(AppDocument document) {
+  void _updateRect() {
     _tp?.layout(maxWidth: element.getMaxWidth(area));
     rect = Rect.fromLTWH(element.position.x, element.position.y,
         _tp?.width ?? 0, element.getHeight(_tp?.height ?? 0));
   }
 
   @override
-  FutureOr<void> build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+  FutureOr<void> build(Canvas canvas, Size size, NoteData document,
+      DocumentPage page, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     _tp?.layout(maxWidth: rect.width);
     _tp?.paint(canvas, element.getOffset(rect.height).toOffset());
   }
 
   @override
-  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
+  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     // TODO: implement buildSvg
   }

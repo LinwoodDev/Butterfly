@@ -28,10 +28,10 @@ class FileSystemListView extends StatelessWidget {
       itemBuilder: (context, index) {
         var document = assets[index];
         if (document is AppDocumentFile) {
-          final info = document.getDocumentInfo();
+          final metadata = document.load().getMetadata();
           return ListTile(
-            leading: Icon(document.fileType.getIcon()),
-            title: Text(info?.name ?? document.fileName),
+            leading: PhosphorIcon(document.fileType.getIcon()),
+            title: Text(metadata?.name ?? document.fileName),
             selected: document.location == selectedPath,
             subtitle: FileSystemFileRichText(
               file: document,
@@ -47,7 +47,7 @@ class FileSystemListView extends StatelessWidget {
         } else if (document is AppDocumentDirectory) {
           return ListTile(
             selected: document.location == selectedPath,
-            leading: const Icon(PhosphorIcons.folderLight),
+            leading: const PhosphorIcon(PhosphorIconsLight.folder),
             title: Text(document.fileNameWithoutExtension),
             onTap: () => onOpened(document),
             trailing: FileSystemAssetMenu(

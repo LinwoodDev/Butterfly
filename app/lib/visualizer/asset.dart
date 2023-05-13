@@ -17,18 +17,18 @@ extension AssetFileTypeVisualizer on AssetFileType? {
     }
   }
 
-  IconData getIcon({bool filled = false}) {
+  PhosphorIconData getIcon({bool filled = false}) {
     switch (this) {
       case AssetFileType.note:
         return filled
-            ? PhosphorIcons.fileTextFill
-            : PhosphorIcons.fileTextLight;
+            ? PhosphorIconsFill.fileText
+            : PhosphorIconsLight.fileText;
       case AssetFileType.image:
-        return filled ? PhosphorIcons.imageFill : PhosphorIcons.imageLight;
+        return filled ? PhosphorIconsFill.image : PhosphorIconsLight.image;
       case AssetFileType.pdf:
-        return filled ? PhosphorIcons.filePdfFill : PhosphorIcons.filePdfLight;
+        return filled ? PhosphorIconsFill.filePdf : PhosphorIconsLight.filePdf;
       default:
-        return filled ? PhosphorIcons.fileFill : PhosphorIcons.fileLight;
+        return filled ? PhosphorIconsFill.file : PhosphorIconsLight.file;
     }
   }
 }

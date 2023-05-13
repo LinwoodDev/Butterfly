@@ -59,14 +59,4 @@ class LaserPainterSelection extends PainterSelection<LaserPainter> {
     }
     return super.insert(element);
   }
-
-  @override
-  String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context).laser;
-
-  @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.cursorFill : PhosphorIcons.cursorLight;
-  @override
-  List<String> get help => ['painters', 'laser'];
 }

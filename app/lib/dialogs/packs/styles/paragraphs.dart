@@ -1,4 +1,5 @@
 import 'package:butterfly/dialogs/name.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_text.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                       ),
                       const SizedBox(width: 8),
                       IconButton(
-                        icon: const Icon(PhosphorIcons.plusLight),
+                        icon: const PhosphorIcon(PhosphorIconsLight.plus),
                         onPressed: () async {
                           final name = await showDialog<String>(
                             context: context,
@@ -94,9 +95,45 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                           ));
                         },
                       ),
+                      MenuAnchor(
+                        builder: (context, controller, _) {
+                          return IconButton(
+                            icon: const PhosphorIcon(PhosphorIconsLight.list),
+                            onPressed: () {
+                              if (controller.isOpen) {
+                                controller.close();
+                              } else {
+                                controller.open();
+                              }
+                            },
+                          );
+                        },
+                        menuChildren:
+                            DocumentDefaults.getParagraphTranslations(context)
+                                .entries
+                                .where((element) => !widget
+                                    .value.paragraphProperties
+                                    .containsKey(element.key))
+                                .map(
+                                  (e) => MenuItemButton(
+                                    child: Text(e.value),
+                                    onPressed: () {
+                                      widget.onChanged(widget.value.copyWith(
+                                        paragraphProperties: {
+                                          ...widget.value.paragraphProperties,
+                                          e.key:
+                                              const DefinedParagraphProperty(),
+                                        },
+                                      ));
+                                    },
+                                  ),
+                                )
+                                .toList(),
+                      ),
                       if (_currentStyle != null) ...[
+                        const VerticalDivider(),
                         IconButton(
-                          icon: const Icon(PhosphorIcons.pencilLight),
+                          icon: const PhosphorIcon(PhosphorIconsLight.pencil),
                           onPressed: () async {
                             final name = await showDialog<String>(
                               context: context,
@@ -125,7 +162,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                           },
                         ),
                         IconButton(
-                          icon: const Icon(PhosphorIcons.trashLight),
+                          icon: const PhosphorIcon(PhosphorIconsLight.trash),
                           onPressed: () async {
                             final result = await showDialog(
                               context: context,

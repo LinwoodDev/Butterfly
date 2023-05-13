@@ -4,8 +4,7 @@ class ToolSelection extends Selection<ToolState> {
   ToolSelection(super.selected);
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.wrenchFill : PhosphorIcons.wrenchLight;
+  IconGetter get icon => PhosphorIcons.wrench;
 
   @override
   String getLocalizedName(BuildContext context) =>
@@ -19,7 +18,7 @@ class ToolSelection extends Selection<ToolState> {
       ...super.buildProperties(context),
       _ToolView(
         state: selected.first,
-        option: state.document.tool,
+        option: state.page.tool,
         onStateChanged: (state) => updateState(context, state),
         onToolChanged: (option) =>
             context.read<DocumentBloc>().add(ToolChanged.option(option)),
@@ -80,17 +79,17 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
         controller: _tabController,
         isScrollable: true,
         tabs: <List<dynamic>>[
-          [PhosphorIcons.gearLight, AppLocalizations.of(context).project],
-          [PhosphorIcons.gridFourLight, AppLocalizations.of(context).grid],
-          [PhosphorIcons.rulerLight, AppLocalizations.of(context).ruler],
-          [PhosphorIcons.cameraLight, AppLocalizations.of(context).camera],
+          [PhosphorIconsLight.gear, AppLocalizations.of(context).project],
+          [PhosphorIconsLight.gridFour, AppLocalizations.of(context).grid],
+          [PhosphorIconsLight.ruler, AppLocalizations.of(context).ruler],
+          [PhosphorIconsLight.camera, AppLocalizations.of(context).camera],
         ]
             .map((e) => Tab(
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                      Icon(e[0]),
+                      PhosphorIcon(e[0]),
                       const SizedBox(width: 4),
                       Text(e[1])
                     ])))
@@ -108,7 +107,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                         }
                         return null;
                       },
-                      initialValue: state.document.name,
+                      initialValue: state.data.name,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context).name,
                         filled: true,
@@ -118,7 +117,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                     TextFormField(
                       minLines: 3,
                       maxLines: 5,
-                      initialValue: state.document.description,
+                      initialValue: state.metadata.description,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context).description,
                         border: const OutlineInputBorder(),
@@ -128,7 +127,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                     const Divider(),
                     const SizedBox(height: 8),
                     MenuItemButton(
-                      leadingIcon: const Icon(PhosphorIcons.imageLight),
+                      leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
                       shortcut: const SingleActivator(LogicalKeyboardKey.keyB,
                           control: true),
                       onPressed: () {
@@ -137,17 +136,47 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                       },
                       child: Text(AppLocalizations.of(context).background),
                     ),
-                    if (state.embedding?.editable ?? true)
-                      MenuItemButton(
-                        leadingIcon: const Icon(PhosphorIcons.paletteLight),
-                        shortcut: const SingleActivator(LogicalKeyboardKey.keyP,
-                            control: true),
-                        onPressed: () {
-                          Actions.maybeInvoke<ColorPaletteIntent>(
-                              context, ColorPaletteIntent(context));
-                        },
-                        child: Text(AppLocalizations.of(context).color),
-                      ),
+                    const SizedBox(height: 8),
+                    MenuItemButton(
+                      leadingIcon:
+                          const PhosphorIcon(PhosphorIconsLight.camera),
+                      onPressed: () async {
+                        final viewport =
+                            state.currentIndexCubit.state.cameraViewport;
+                        final width = viewport.width?.toDouble() ??
+                            kThumbnailWidth.toDouble();
+                        final realHeight = viewport.height?.toDouble() ??
+                            kThumbnailHeight.toDouble();
+                        final height =
+                            width * kThumbnailHeight / kThumbnailWidth;
+                        final heightOffset = (realHeight - height) / 2;
+                        final quality = kThumbnailWidth / width;
+                        final thumbnail = await state.currentIndexCubit.render(
+                          state.data,
+                          state.page,
+                          width: width,
+                          height: height,
+                          quality: quality,
+                          scale: viewport.scale,
+                          x: -viewport.x,
+                          y: -viewport.y + heightOffset,
+                        );
+                        if (thumbnail == null) return;
+                        final bytes = thumbnail.buffer.asUint8List();
+                        state.data.setThumbnail(bytes);
+                        state.save();
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(AppLocalizations.of(context)
+                                  .capturedThumbnail),
+                            ),
+                          );
+                        }
+                      },
+                      child:
+                          Text(AppLocalizations.of(context).captureThumbnail),
+                    ),
                   ],
                 ),
                 Column(children: [

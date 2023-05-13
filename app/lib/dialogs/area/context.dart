@@ -1,5 +1,4 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/dialogs/svg_export.dart';
@@ -32,29 +31,11 @@ class AreaContextMenu extends StatelessWidget {
           children: [
             const SizedBox(
               height: 50,
-              child: Center(child: Icon(PhosphorIcons.monitorLight, size: 36)),
+              child: Center(
+                  child: PhosphorIcon(PhosphorIconsLight.monitor, size: 36)),
             ),
             ListTile(
-              leading: area.name == state.currentAreaName
-                  ? const Icon(PhosphorIcons.signInLight)
-                  : const Icon(PhosphorIcons.signOutLight),
-              title: Text(
-                area.name == state.currentAreaName
-                    ? AppLocalizations.of(context).exitArea
-                    : AppLocalizations.of(context).enterArea,
-              ),
-              onTap: () {
-                Navigator.of(context).pop();
-                if (area.name == state.currentAreaName) {
-                  bloc.add(const CurrentAreaChanged.exit());
-                } else {
-                  bloc.add(CurrentAreaChanged(area.name));
-                }
-                context.read<CurrentIndexCubit>().reset(bloc);
-              },
-            ),
-            ListTile(
-              leading: const Icon(PhosphorIcons.textTLight),
+              leading: const PhosphorIcon(PhosphorIconsLight.textT),
               title: Text(AppLocalizations.of(context).name),
               subtitle: Text(area.name),
               onTap: () async {
@@ -65,7 +46,7 @@ class AreaContextMenu extends StatelessWidget {
                           value: area.name,
                           validator: defaultNameValidator(
                             context,
-                            state.document.getAreaNames().toList(),
+                            state.page.getAreaNames().toList(),
                           ),
                         ));
                 if (name == null) return;
@@ -77,10 +58,29 @@ class AreaContextMenu extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              leading: const Icon(PhosphorIcons.exportLight),
-              title: Text(AppLocalizations.of(context).export),
-              onTap: () {
+            const Divider(),
+            MenuItemButton(
+              leadingIcon: area.name == state.currentAreaName
+                  ? const PhosphorIcon(PhosphorIconsLight.signIn)
+                  : const PhosphorIcon(PhosphorIconsLight.signOut),
+              child: Text(
+                area.name == state.currentAreaName
+                    ? AppLocalizations.of(context).exitArea
+                    : AppLocalizations.of(context).enterArea,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                if (area.name == state.currentAreaName) {
+                  bloc.add(const CurrentAreaChanged.exit());
+                } else {
+                  bloc.add(CurrentAreaChanged(area.name));
+                }
+              },
+            ),
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.export),
+              child: Text(AppLocalizations.of(context).export),
+              onPressed: () {
                 final bloc = context.read<DocumentBloc>();
                 Navigator.of(context).pop();
                 showDialog<void>(
@@ -91,9 +91,9 @@ class AreaContextMenu extends StatelessWidget {
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        ListTile(
-                          title: Text(AppLocalizations.of(context).image),
-                          onTap: () {
+                        MenuItemButton(
+                          child: Text(AppLocalizations.of(context).image),
+                          onPressed: () {
                             Navigator.of(context).pop();
                             showDialog<void>(
                                 builder: (context) => BlocProvider.value(
@@ -109,9 +109,9 @@ class AreaContextMenu extends StatelessWidget {
                                 context: context);
                           },
                         ),
-                        ListTile(
-                          title: Text(AppLocalizations.of(context).svg),
-                          onTap: () {
+                        MenuItemButton(
+                          child: Text(AppLocalizations.of(context).svg),
+                          onPressed: () {
                             Navigator.of(context).pop();
                             showDialog<void>(
                                 builder: (context) => BlocProvider.value(
@@ -125,9 +125,9 @@ class AreaContextMenu extends StatelessWidget {
                                 context: context);
                           },
                         ),
-                        ListTile(
-                          title: Text(AppLocalizations.of(context).pdf),
-                          onTap: () {
+                        MenuItemButton(
+                          child: Text(AppLocalizations.of(context).pdf),
+                          onPressed: () {
                             Navigator.of(context).pop();
                             showDialog<void>(
                                 builder: (context) => BlocProvider.value(
@@ -150,10 +150,10 @@ class AreaContextMenu extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              leading: const Icon(PhosphorIcons.trashLight),
-              title: Text(AppLocalizations.of(context).delete),
-              onTap: () {
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
+              child: Text(AppLocalizations.of(context).delete),
+              onPressed: () {
                 final bloc = context.read<DocumentBloc>();
                 final state = bloc.state;
                 if (state is! DocumentLoadSuccess) return;
@@ -161,10 +161,10 @@ class AreaContextMenu extends StatelessWidget {
                 bloc.add(AreasRemoved([area.name]));
               },
             ),
-            ListTile(
-              leading: const Icon(PhosphorIcons.plusCircleLight),
-              title: Text(AppLocalizations.of(context).addToPack),
-              onTap: () async {
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
+              child: Text(AppLocalizations.of(context).addToPack),
+              onPressed: () async {
                 final settingsCubit = context.read<SettingsCubit>();
                 final bloc = context.read<DocumentBloc>();
                 final elements = state.renderers
@@ -174,7 +174,7 @@ class AreaContextMenu extends StatelessWidget {
                     .map((e) => e?.element)
                     .whereType<PadElement>()
                     .toList();
-                final document = state.document;
+                final document = state.data;
                 Navigator.of(context).pop();
                 final result = await showDialog<PackAssetLocation>(
                   context: context,
@@ -189,18 +189,11 @@ class AreaContextMenu extends StatelessWidget {
                 if (result == null) return;
                 final pack = document.getPack(result.pack);
                 if (pack == null) return;
-                final newPack = pack.copyWith(
-                  components: pack.components
-                      .where((e) => e.name != result.name)
-                      .toList()
-                    ..add(
-                      ButterflyComponent(
-                        name: result.name,
-                        elements: elements,
-                      ),
-                    ),
-                );
-                bloc.add(DocumentPackUpdated(result.pack, newPack));
+                pack.setComponent(ButterflyComponent(
+                  name: result.name,
+                  elements: elements,
+                ));
+                bloc.add(DocumentPackUpdated(result.pack, pack));
               },
             )
           ],

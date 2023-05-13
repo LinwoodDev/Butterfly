@@ -45,13 +45,13 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return Container();
-    final document = state.document;
+    final document = state.data;
     final paragraph = widget.value.getDefinedProperty(document) ??
         const text.DefinedParagraphProperty();
     final span = widget.value.getDefinedForcedSpanProperty(document);
-    final styleSheet = widget.value.element?.styleSheet ??
-        widget.value.painter.option.styleSheet;
-    final style = document.getStyle(styleSheet);
+    final styleSheet =
+        widget.value.element?.styleSheet ?? widget.value.painter.styleSheet;
+    final style = styleSheet.resolveStyle(document);
     _sizeController.text = span.getSize(paragraph).toString();
     var paragraphSelection = paragraph.mapOrNull(named: (value) => value.name);
     final paragraphSelections = [
@@ -103,11 +103,11 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         element = element.copyWith(
           area: element.area.copyWith(
             paragraph: element.area.paragraph.updateSpans(
-                selection.start, selection.end - selection.start, (span) {
-              return span.copyWith(
-                  property: update(style.resolveSpanProperty(span.property) ??
-                      const text.DefinedSpanProperty()));
-            }),
+                (span) => span.copyWith(
+                    property: update(style.resolveSpanProperty(span.property) ??
+                        const text.DefinedSpanProperty())),
+                selection.start,
+                selection.end - selection.start),
           ),
         );
       }
@@ -136,7 +136,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                     child: Row(
                       children: [
                         IconButton(
-                          icon: const Icon(PhosphorIcons.packageLight),
+                          icon: const PhosphorIcon(PhosphorIconsLight.package),
                           onPressed: () async {
                             final bloc = context.read<DocumentBloc>();
                             final result = await showDialog<PackAssetLocation>(
@@ -168,9 +168,21 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             ));
                           },
                         ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: const PhosphorIcon(
+                              PhosphorIconsLight.magnifyingGlass),
+                          isSelected: widget.value.painter.zoomDependent,
+                          tooltip: AppLocalizations.of(context).zoomDependent,
+                          onPressed: () => widget.onChanged(widget.value
+                              .copyWith(
+                                  painter: widget.value.painter.copyWith(
+                                      zoomDependent: !widget
+                                          .value.painter.zoomDependent))),
+                        ),
                         const SizedBox(width: 16),
                         IconButton(
-                          icon: const Icon(PhosphorIcons.articleLight),
+                          icon: const PhosphorIcon(PhosphorIconsLight.article),
                           isSelected: widget.value.isParagraph(),
                           onPressed: widget.value.area == null
                               ? null
@@ -208,7 +220,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 },
                                 label: Text(AppLocalizations.of(context).style),
                                 trailingIcon: widget.value.modified(document)
-                                    ? const Icon(PhosphorIcons.starLight)
+                                    ? const PhosphorIcon(
+                                        PhosphorIconsLight.star)
                                     : null,
                               )
                             : DropdownMenu<String>(
@@ -231,10 +244,10 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                         paragraph: widget
                                             .value.element!.area.paragraph
                                             .applyStyle(
+                                          text.SpanProperty.named(name),
                                           widget.value.selection.start,
                                           widget.value.selection.end -
                                               widget.value.selection.start,
-                                          text.SpanProperty.named(name),
                                         ),
                                       ),
                                     ),
@@ -242,12 +255,13 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 },
                                 label: Text(AppLocalizations.of(context).style),
                                 trailingIcon: widget.value.modified(document)
-                                    ? const Icon(PhosphorIcons.starLight)
+                                    ? const PhosphorIcon(
+                                        PhosphorIconsLight.star)
                                     : null,
                               ),
                         const SizedBox(width: 8),
                         IconButton(
-                          icon: const Icon(PhosphorIcons.eraserLight),
+                          icon: const PhosphorIcon(PhosphorIconsLight.eraser),
                           tooltip: AppLocalizations.of(context).clearStyle,
                           isSelected: widget.value.isParagraph()
                               ? widget.value.getProperty().maybeMap(
@@ -281,10 +295,10 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                     paragraph: widget
                                         .value.element!.area.paragraph
                                         .applyStyle(
+                                      const text.SpanProperty.undefined(),
                                       widget.value.selection.start,
                                       widget.value.selection.end -
                                           widget.value.selection.start,
-                                      const text.SpanProperty.undefined(),
                                     ),
                                   ),
                                 ),
@@ -321,9 +335,9 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                   ));
                                 },
                           children: const [
-                            Icon(PhosphorIcons.alignTopLight),
-                            Icon(PhosphorIcons.alignCenterVerticalLight),
-                            Icon(PhosphorIcons.alignBottomLight),
+                            PhosphorIcon(PhosphorIconsLight.alignTop),
+                            PhosphorIcon(PhosphorIconsLight.alignCenterVertical),
+                            PhosphorIcon(PhosphorIconsLight.alignBottom),
                           ],
                         ),
                         const SizedBox(width: 16),*/
@@ -332,17 +346,20 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                               .map((e) => e == paragraph.alignment)
                               .toList(),
                           children: const [
-                            Icon(PhosphorIcons.textAlignLeftLight),
-                            Icon(PhosphorIcons.textAlignCenterLight),
-                            Icon(PhosphorIcons.textAlignRightLight),
-                            Icon(PhosphorIcons.textAlignJustifyLight),
+                            PhosphorIcon(PhosphorIconsLight.textAlignLeft),
+                            PhosphorIcon(PhosphorIconsLight.textAlignCenter),
+                            PhosphorIcon(PhosphorIconsLight.textAlignRight),
+                            PhosphorIcon(PhosphorIconsLight.textAlignJustify),
                           ],
                           onPressed: (current) {
+                            final newParagraph = paragraph.copyWith(
+                              alignment:
+                                  text.HorizontalAlignment.values[current],
+                            );
                             widget.onChanged(widget.value.copyWith(
-                              forcedProperty: paragraph.copyWith(
-                                alignment:
-                                    text.HorizontalAlignment.values[current],
-                              ),
+                              forcedProperty: newParagraph,
+                              element: widget.value.element?.copyWith.area
+                                  .paragraph(property: newParagraph),
                             ));
                           },
                         ),
@@ -386,11 +403,13 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             textAlign: TextAlign.center,
                             keyboardType: TextInputType.number,
                             controller: _sizeController,
-                            onFieldSubmitted: (current) => updateSpan(
-                              (value) => value.copyWith(
-                                size: double.tryParse(current) ?? span.size,
-                              ),
-                            ),
+                            onFieldSubmitted: (current) {
+                              updateSpan(
+                                (value) => value.copyWith(
+                                  size: double.tryParse(current) ?? span.size,
+                                ),
+                              );
+                            },
                           ),
                         ),
                         const SizedBox(width: 16),
@@ -415,7 +434,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           onTap: () async {
                             final result = await showDialog<int>(
                               context: context,
-                              builder: (_) => ColorPickerDialog(
+                              builder: (_) => ColorPalettePickerDialog(
                                 defaultColor: Color(span.getColor(paragraph)),
                                 bloc: context.read<DocumentBloc>(),
                               ),
@@ -435,7 +454,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           ],
                           children: [
                             GestureDetector(
-                              child: const Icon(PhosphorIcons.textBolderLight),
+                              child:
+                                  const PhosphorIcon(PhosphorIconsLight.textB),
                               onLongPressEnd: (details) {
                                 final RenderObject? overlay =
                                     Overlay.of(context)
@@ -481,8 +501,9 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 );
                               },
                             ),
-                            const Icon(PhosphorIcons.textItalicLight),
-                            const Icon(PhosphorIcons.textUnderlineLight),
+                            const PhosphorIcon(PhosphorIconsLight.textItalic),
+                            const PhosphorIcon(
+                                PhosphorIconsLight.textUnderline),
                           ],
                           onPressed: (current) {
                             switch (current) {

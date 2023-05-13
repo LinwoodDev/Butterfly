@@ -2,9 +2,9 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../widgets/header.dart';
 import 'layer.dart';
 
 class LayersDialog extends StatelessWidget {
@@ -22,12 +22,13 @@ class LayersDialog extends StatelessWidget {
                 Header(
                     title: Text(AppLocalizations.of(context).layers),
                     leading: IconButton(
-                      icon: const Icon(PhosphorIcons.xLight),
+                      icon: const PhosphorIcon(PhosphorIconsLight.x),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     actions: [
                       IconButton(
-                          icon: const Icon(PhosphorIcons.selectionLight),
+                          icon:
+                              const PhosphorIcon(PhosphorIconsLight.selection),
                           tooltip:
                               AppLocalizations.of(context).selectCustomLayer,
                           onPressed: () async {
@@ -80,8 +81,8 @@ class LayersDialog extends StatelessWidget {
                         child: TextField(
                           decoration: const InputDecoration(
                             filled: true,
-                            prefixIcon:
-                                Icon(PhosphorIcons.magnifyingGlassLight),
+                            prefixIcon: PhosphorIcon(
+                                PhosphorIconsLight.magnifyingGlass),
                           ),
                           textAlignVertical: TextAlignVertical.center,
                           controller: _searchController,
@@ -100,8 +101,7 @@ class LayersDialog extends StatelessWidget {
                                   buildWhen: (previous, current) {
                             var prev = previous as DocumentLoadSuccess;
                             var curr = current as DocumentLoadSuccess;
-                            return curr.document.content !=
-                                    curr.document.content ||
+                            return curr.page.content != curr.page.content ||
                                 curr.invisibleLayers.length !=
                                     prev.invisibleLayers.length ||
                                 curr.currentLayer != prev.currentLayer;
@@ -109,7 +109,7 @@ class LayersDialog extends StatelessWidget {
                             if (state is! DocumentLoadSuccess) {
                               return Container();
                             }
-                            var layers = state.document.content
+                            var layers = state.page.content
                                 .map((e) => e.layer)
                                 .where((element) =>
                                     element.contains(_searchController.text))
@@ -125,9 +125,9 @@ class LayersDialog extends StatelessWidget {
                                   },
                                   selected: state.currentLayer.isEmpty,
                                   leading: IconButton(
-                                    icon: Icon(state.isLayerVisible('')
-                                        ? PhosphorIcons.eyeLight
-                                        : PhosphorIcons.eyeSlashLight),
+                                    icon: PhosphorIcon(state.isLayerVisible('')
+                                        ? PhosphorIconsLight.eye
+                                        : PhosphorIconsLight.eyeSlash),
                                     onPressed: () {
                                       context.read<DocumentBloc>().add(
                                           const LayerVisibilityChanged(''));
@@ -156,11 +156,12 @@ class LayersDialog extends StatelessWidget {
                                             selected: layers[index] ==
                                                 state.currentLayer,
                                             leading: IconButton(
-                                              icon: Icon(state.isLayerVisible(
-                                                      layers[index])
-                                                  ? PhosphorIcons.eyeLight
-                                                  : PhosphorIcons
-                                                      .eyeSlashLight),
+                                              icon: PhosphorIcon(
+                                                  state.isLayerVisible(
+                                                          layers[index])
+                                                      ? PhosphorIconsLight.eye
+                                                      : PhosphorIconsLight
+                                                          .eyeSlash),
                                               onPressed: () {
                                                 context
                                                     .read<DocumentBloc>()

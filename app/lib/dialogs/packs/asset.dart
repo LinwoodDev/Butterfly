@@ -22,7 +22,7 @@ class AssetDialog extends StatelessWidget {
     final bloc = context.read<DocumentBloc>();
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       if (state is! DocumentLoaded) return const SizedBox();
-      final document = state.document;
+      final document = state.data;
       return AlertDialog(
         title: Text(
           value == null
@@ -41,11 +41,12 @@ class AssetDialog extends StatelessWidget {
                   child: DropdownMenu<String>(
                     label: Text(AppLocalizations.of(context).pack),
                     key: UniqueKey(),
-                    dropdownMenuEntries: document.packs
+                    dropdownMenuEntries: document
+                        .getPacks()
                         .map(
                           (e) => DropdownMenuEntry<String>(
-                            value: e.name,
-                            label: e.name,
+                            value: e,
+                            label: e,
                           ),
                         )
                         .toList(),
@@ -57,9 +58,9 @@ class AssetDialog extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 IconButton(
-                  icon: const Icon(PhosphorIcons.plusCircleLight),
+                  icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
                   onPressed: () async {
-                    final pack = await showDialog<ButterflyPack>(
+                    final pack = await showDialog<NoteData>(
                       context: context,
                       builder: (context) => const PackDialog(),
                     );

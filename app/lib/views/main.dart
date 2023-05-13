@@ -5,11 +5,8 @@ import 'package:butterfly/actions/color_palette.dart';
 import 'package:butterfly/actions/edit_mode.dart';
 import 'package:butterfly/actions/export.dart';
 import 'package:butterfly/actions/image_export.dart';
-import 'package:butterfly/actions/import.dart';
-import 'package:butterfly/actions/insert.dart';
 import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/new.dart';
-import 'package:butterfly/actions/open.dart';
 import 'package:butterfly/actions/pdf_export.dart';
 import 'package:butterfly/actions/redo.dart';
 import 'package:butterfly/actions/save.dart';
@@ -18,15 +15,12 @@ import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/dialogs/introduction/app.dart';
-import 'package:butterfly/dialogs/introduction/start.dart';
-import 'package:butterfly/dialogs/introduction/update.dart';
 import 'package:butterfly/embed/embedding.dart';
+import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
@@ -48,6 +42,7 @@ import '../actions/packs.dart';
 import '../actions/previous.dart';
 import '../actions/primary.dart';
 import '../main.dart';
+import '../models/viewport.dart';
 import 'changes.dart';
 import 'view.dart';
 import 'zoom.dart';
@@ -70,14 +65,12 @@ class _ProjectPageState extends State<ProjectPage> {
   DocumentBloc? _bloc;
   TransformCubit? _transformCubit;
   CurrentIndexCubit? _currentIndexCubit;
-  late final ImportService _importService;
+  RemoteStorage? _remote;
   final GlobalKey _viewportKey = GlobalKey();
   final _actions = <Type, Action<Intent>>{
     UndoIntent: UndoAction(),
     RedoIntent: RedoAction(),
     NewIntent: NewAction(),
-    OpenIntent: OpenAction(),
-    ImportIntent: ImportAction(),
     SvgExportIntent: SvgExportAction(),
     ImageExportIntent: ImageExportAction(),
     PdfExportIntent: PdfExportAction(),
@@ -89,7 +82,6 @@ class _ProjectPageState extends State<ProjectPage> {
     ColorPaletteIntent: ColorPaletteAction(),
     BackgroundIntent: BackgroundAction(),
     LayersIntent: LayersAction(),
-    InsertIntent: InsertAction(),
     ChangePathIntent: ChangePathAction(),
     SaveIntent: SaveAction(),
     ChangePainterIntent: ChangePainterAction(),
@@ -120,10 +112,7 @@ class _ProjectPageState extends State<ProjectPage> {
     final settingsCubit = context.read<SettingsCubit>();
     final embedding = widget.embedding;
     if (embedding != null) {
-      final document = AppDocument(
-          createdAt: DateTime.now(),
-          painters: createDefaultPainters(),
-          name: '');
+      final document = DocumentDefaults.createDocument();
       var language = embedding.language;
       if (language == 'system') {
         language = '';
@@ -133,52 +122,54 @@ class _ProjectPageState extends State<ProjectPage> {
       }
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit =
-            CurrentIndexCubit(settingsCubit, _transformCubit!, embedding);
+        _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
+            CameraViewport.unbaked(ToolRenderer()), embedding);
         _bloc = DocumentBloc(
           _currentIndexCubit!,
           settingsCubit,
           document,
+          document.getPage()!,
           widget.location ?? const AssetLocation(path: ''),
           BoxBackgroundRenderer(const BoxBackground()),
           [],
         );
-        _importService = ImportService(_bloc!, context);
         _bloc?.load();
-        embedding.handler.register(_bloc!);
+        embedding.handler.register(context, _bloc!);
       });
       return;
     }
     try {
-      RemoteStorage? remote;
       var location = widget.location;
-      remote = location != null
+      _remote = location != null
           ? settingsCubit.state.getRemote(location.remote)
           : settingsCubit.state.getDefaultRemote();
-      final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
+      final fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
       final prefs = await SharedPreferences.getInstance();
-      AppDocument? document;
+      NoteData? document;
       if (widget.location != null) {
         if (!widget.location!.absolute) {
           final asset = await fileSystem.getAsset(widget.location!.path);
           if (!mounted) return;
-          document = await checkFileChanges(context, asset);
+          if (asset?.fileType == AssetFileType.note) {
+            document = await checkFileChanges(context, asset);
+          }
         }
       }
       if (!mounted) return;
-      final name = (widget.location?.absolute ?? false)
-          ? widget.location!.fileName
-          : await formatCurrentDateTime(
-              context.read<SettingsCubit>().state.locale);
+      final name =
+          (widget.location?.absolute ?? false) ? widget.location!.fileName : '';
       var documentOpened = document != null;
       if (!documentOpened) {
         location = null;
       }
+      if (widget.data is NoteData) {
+        document = (widget.data as NoteData);
+      }
       if (document == null && prefs.containsKey('default_template')) {
-        var template = await TemplateFileSystem.fromPlatform(remote: remote)
+        var template = await TemplateFileSystem.fromPlatform(remote: _remote)
             .getTemplate(prefs.getString('default_template')!);
         if (template != null && mounted) {
-          document = template.document.copyWith(
+          document = template.createDocument(
             name: name,
             createdAt: DateTime.now(),
           );
@@ -187,79 +178,36 @@ class _ProjectPageState extends State<ProjectPage> {
       if (!mounted) {
         return;
       }
-      document ??= AppDocument(
+      document ??= DocumentDefaults.createDocument(
         name: name,
-        createdAt: DateTime.now(),
-        painters: createDefaultPainters(),
       );
+      final page = document.getPage() ?? DocumentDefaults.createPage();
       final renderers =
-          document.content.map((e) => Renderer.fromInstance(e)).toList();
-      await Future.wait(renderers.map((e) async => await e.setup(document!)));
-      final background = Renderer.fromInstance(document.background);
-      await background.setup(document);
-      location ??= AssetLocation(path: '', remote: remote?.identifier ?? '');
+          page.content.map((e) => Renderer.fromInstance(e)).toList();
+      await Future.wait(
+          renderers.map((e) async => await e.setup(document!, page)));
+      final background = Renderer.fromInstance(page.background);
+      await background.setup(document, page);
+      location ??= AssetLocation(
+          path: widget.location?.path ?? '', remote: _remote?.identifier ?? '');
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit =
-            CurrentIndexCubit(settingsCubit, _transformCubit!, null);
+        _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
+            CameraViewport.unbaked(ToolRenderer()), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
-            location!, background, renderers);
+            page, location!, background, renderers);
         _bloc?.load();
-        _importService = ImportService(_bloc!, context);
-        _importService.load(widget.type, widget.data);
       });
-      if (!(widget.location?.absolute ?? false)) {
-        _showIntroduction(documentOpened);
-      }
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
       setState(() {
         _transformCubit = TransformCubit();
-        _currentIndexCubit =
-            CurrentIndexCubit(settingsCubit, _transformCubit!, null);
+        _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
+            CameraViewport.unbaked(ToolRenderer()), null);
         _bloc = DocumentBloc.error(e.toString());
       });
-    }
-  }
-
-  Future<void> _showIntroduction([bool documentOpened = false]) async {
-    final settingsCubit = context.read<SettingsCubit>();
-    if (settingsCubit.isFirstStart()) {
-      await showDialog<void>(
-        context: context,
-        builder: (context) => const AppIntroductionDialog(),
-      );
-      await settingsCubit.updateLastVersion();
-      await settingsCubit.save();
-    } else if (await settingsCubit.hasNewerVersion()) {
-      if (mounted) {
-        await showDialog<void>(
-            context: context,
-            builder: (context) => const UpdateIntroductionDialog());
-      }
-      await settingsCubit.updateLastVersion();
-      await settingsCubit.save();
-    }
-    if (!documentOpened && settingsCubit.state.startEnabled && mounted) {
-      await showDialog<void>(
-          context: context,
-          builder: (context) => MultiBlocProvider(providers: [
-                if (_bloc != null)
-                  BlocProvider<DocumentBloc>.value(
-                    value: _bloc!,
-                  ),
-                BlocProvider<TransformCubit>.value(
-                  value: _transformCubit!,
-                ),
-                BlocProvider<SettingsCubit>.value(
-                  value: settingsCubit,
-                ),
-                BlocProvider<CurrentIndexCubit>.value(
-                  value: _currentIndexCubit!,
-                ),
-              ], child: const StartIntroductionDialog()));
     }
   }
 
@@ -287,8 +235,25 @@ class _ProjectPageState extends State<ProjectPage> {
           if (state is DocumentLoadFailure) {
             return ErrorPage(message: state.message);
           }
-          return RepositoryProvider.value(
-            value: _importService,
+          return MultiRepositoryProvider(
+            providers: [
+              RepositoryProvider<DocumentFileSystem>.value(
+                  value: DocumentFileSystem.fromPlatform(remote: _remote)),
+              RepositoryProvider<TemplateFileSystem>.value(
+                  value: TemplateFileSystem.fromPlatform(remote: _remote)),
+              RepositoryProvider<PackFileSystem>.value(
+                  value: PackFileSystem.fromPlatform(remote: _remote)),
+              RepositoryProvider(
+                create: (context) {
+                  final service = ImportService(context, _bloc);
+                  if (widget.type.isNotEmpty && widget.type != 'note') {
+                    service.load(type: widget.type, data: widget.data);
+                  }
+                  return service;
+                },
+                lazy: false,
+              )
+            ],
             child: GestureDetector(
               onTap: () {
                 FocusScopeNode currentFocus = FocusScope.of(context);
@@ -330,9 +295,6 @@ class _ProjectPageState extends State<ProjectPage> {
                           LogicalKeyboardKey.keyA): AreasIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.control,
                           LogicalKeyboardKey.keyL): LayersIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                              LogicalKeyboardKey.alt, LogicalKeyboardKey.keyN):
-                          InsertIntent(context, Offset.zero),
                       LogicalKeySet(LogicalKeyboardKey.escape):
                           ExitIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.arrowRight):
@@ -342,10 +304,6 @@ class _ProjectPageState extends State<ProjectPage> {
                       LogicalKeySet(LogicalKeyboardKey.space):
                           PrimaryIntent(context),
                       if (widget.embedding == null) ...{
-                        LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.keyO): OpenIntent(context),
-                        LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.keyI): ImportIntent(context),
                         LogicalKeySet(LogicalKeyboardKey.control,
                             LogicalKeyboardKey.keyE): ExportIntent(context),
                         LogicalKeySet(
@@ -393,61 +351,63 @@ class _ProjectPageState extends State<ProjectPage> {
                     child: SafeArea(
                       child: ClipRect(
                         child: Focus(
-                          autofocus: true,
-                          child: FocusScope(
-                              child: Scaffold(
-                            appBar: state is DocumentPresentationState
-                                ? null
-                                : PadAppBar(
-                                    viewportKey: _viewportKey,
-                                  ),
-                            body: Actions(
-                                actions: _actions,
-                                child: LayoutBuilder(
-                                    builder: (context, constraints) {
-                                  final isMobile =
-                                      MediaQuery.of(context).size.width <
-                                          kMobileWidth;
-                                  final isLandscape =
-                                      MediaQuery.of(context).size.height < 400;
-                                  const property = PropertyView();
-                                  return Stack(
-                                    children: [
-                                      Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.stretch,
-                                          children: [
-                                            Expanded(
-                                                key: _viewportKey,
-                                                child: Stack(
-                                                  children: [
-                                                    const MainViewViewport(),
-                                                    Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: const [
-                                                          ToolbarView(),
-                                                        ]),
-                                                    if (!isLandscape) property
-                                                  ],
-                                                )),
-                                            if (isMobile)
-                                              Align(
-                                                  alignment: Alignment.center,
-                                                  child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: EditToolbar(
-                                                          isMobile: isMobile))),
-                                          ]),
-                                      const ZoomView(),
-                                      if (isLandscape) property
-                                    ],
-                                  );
-                                })),
-                          )),
-                        ),
+                            autofocus: true,
+                            skipTraversal: true,
+                            onFocusChange: (_) => false,
+                            child: Scaffold(
+                              appBar: state is DocumentPresentationState
+                                  ? null
+                                  : PadAppBar(
+                                      viewportKey: _viewportKey,
+                                    ),
+                              body: Actions(
+                                  actions: _actions,
+                                  child: LayoutBuilder(
+                                      builder: (context, constraints) {
+                                    final isMobile =
+                                        MediaQuery.of(context).size.width <
+                                            kMobileWidth;
+                                    final isLandscape =
+                                        MediaQuery.of(context).size.height <
+                                            400;
+                                    const property = PropertyView();
+                                    return Stack(
+                                      children: [
+                                        Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            children: [
+                                              Expanded(
+                                                  key: _viewportKey,
+                                                  child: Stack(
+                                                    children: [
+                                                      const MainViewViewport(),
+                                                      const Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            ToolbarView(),
+                                                          ]),
+                                                      if (!isLandscape) property
+                                                    ],
+                                                  )),
+                                              if (isMobile)
+                                                Align(
+                                                    alignment: Alignment.center,
+                                                    child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: EditToolbar(
+                                                            isMobile:
+                                                                isMobile))),
+                                            ]),
+                                        const ZoomView(),
+                                        if (isLandscape) property
+                                      ],
+                                    );
+                                  })),
+                            )),
                       ),
                     ),
                   ),

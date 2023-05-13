@@ -1,15 +1,29 @@
-// ignore: avoid_web_libraries_in_flutter
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'dart:html';
+import 'dart:js' as js;
+
+import 'package:flutter/foundation.dart';
 
 void setupFullScreen() {}
-Future<bool> isFullScreen() async {
+
+bool isFullScreen() {
   return document.fullscreenElement != null;
 }
 
 Future<void> setFullScreen(bool fullScreen) async {
-  if (fullScreen) {
-    await document.body?.requestFullscreen();
-  } else {
-    document.exitFullscreen();
+  try {
+    final state = isFullScreen();
+    if (fullScreen && !state) {
+      await document.body?.requestFullscreen();
+    } else if (state) {
+      js.context.callMethod('eval', [
+        '(document.exitFullscreen||document.webkitExitFullscreen)?.call(document)'
+      ]);
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
   }
 }

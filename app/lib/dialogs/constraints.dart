@@ -1,8 +1,8 @@
 import 'package:butterfly/visualizer/element.dart';
-import 'package:butterfly/widgets/exact_slider.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ConstraintsView extends StatefulWidget {
@@ -64,7 +64,7 @@ class _ConstraintsViewState extends State<ConstraintsView> {
             children: [
               ListTile(
                 title: Text(AppLocalizations.of(context).constraints),
-                leading: const Icon(PhosphorIcons.selectionLight),
+                leading: const PhosphorIcon(PhosphorIconsLight.selection),
                 onTap: () => setState(() {
                   opened = !isExpanded;
                 }),

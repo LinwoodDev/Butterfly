@@ -1,7 +1,6 @@
 import 'dart:math';
-import 'dart:typed_data';
 
-import 'converter.dart';
+import '../converter/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'pack.dart';
@@ -22,6 +21,10 @@ class ElementConstraint with _$ElementConstraint {
 
   factory ElementConstraint.fromJson(Map<String, dynamic> json) =>
       _$ElementConstraintFromJson(json);
+}
+
+abstract class SourcedElement {
+  String get source;
 }
 
 @freezed
@@ -59,58 +62,72 @@ class PadElement with _$PadElement {
   }) = PenElement;
 
   const factory PadElement.text({
-    @Default('') String layer,
+    @Default('')
+        String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> position,
-    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    @Default(1.0)
+        double scale,
+    @Default(PackAssetLocation())
+        PackAssetLocation styleSheet,
     required TextArea area,
-    @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
+    @Default(ElementConstraint(size: 1000))
+        ElementConstraint constraint,
   }) = TextElement;
 
   const factory PadElement.markdown({
-    @Default('') String layer,
+    @Default('')
+        String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> position,
-    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    @Default(PackAssetLocation())
+        PackAssetLocation styleSheet,
     required String text,
-    @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
+    @Default(ElementConstraint(size: 1000))
+        ElementConstraint constraint,
   }) = MarkdownElement;
 
+  @Implements<SourcedElement>()
   const factory PadElement.image({
-    @Default('') String layer,
+    @Default('')
+        String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> position,
     @Default(ScaledElementConstraints(scaleX: 1, scaleY: 1))
         ElementConstraints? constraints,
-    @Uint8ListJsonConverter() required Uint8List pixels,
+    required String source,
     required double width,
     required double height,
   }) = ImageElement;
 
+  @Implements<SourcedElement>()
   const factory PadElement.svg({
-    @Default('') String layer,
+    @Default('')
+        String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> position,
     @Default(ScaledElementConstraints(scaleX: 1, scaleY: 1))
         ElementConstraints? constraints,
-    required String data,
+    required String source,
     required double width,
     required double height,
   }) = SvgElement;
 
   const factory PadElement.shape({
-    @Default('') String layer,
+    @Default('')
+        String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> firstPosition,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
         Point<double> secondPosition,
-    @Default(ShapeProperty(shape: RectangleShape())) ShapeProperty property,
+    @Default(ShapeProperty(shape: RectangleShape()))
+        ShapeProperty property,
   }) = ShapeElement;
 
   factory PadElement.fromJson(Map<String, dynamic> json) =>

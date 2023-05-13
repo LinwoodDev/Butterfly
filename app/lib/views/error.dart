@@ -42,7 +42,7 @@ class ErrorPage extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(PhosphorIcons.copyLight),
+                            icon: const PhosphorIcon(PhosphorIconsLight.copy),
                             onPressed: () {
                               Clipboard.setData(
                                 ClipboardData(text: message),
@@ -62,7 +62,14 @@ class ErrorPage extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         ElevatedButton(
-                          onPressed: () => GoRouter.of(context).pop(),
+                          onPressed: () {
+                            final router = GoRouter.of(context);
+                            if (router.canPop()) {
+                              router.pop();
+                            } else {
+                              router.go('/');
+                            }
+                          },
                           child: Text(AppLocalizations.of(context).back),
                         ),
                       ],

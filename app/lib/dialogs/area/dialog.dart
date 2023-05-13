@@ -4,9 +4,8 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../../widgets/header.dart';
 
 class AreasDialog extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();
@@ -23,7 +22,7 @@ class AreasDialog extends StatelessWidget {
                 Header(
                   title: Text(AppLocalizations.of(context).areas),
                   leading: IconButton(
-                    icon: const Icon(PhosphorIcons.xLight),
+                    icon: const PhosphorIcon(PhosphorIconsLight.x),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
@@ -35,8 +34,8 @@ class AreasDialog extends StatelessWidget {
                         child: TextField(
                           decoration: const InputDecoration(
                             filled: true,
-                            prefixIcon:
-                                Icon(PhosphorIcons.magnifyingGlassLight),
+                            prefixIcon: PhosphorIcon(
+                                PhosphorIconsLight.magnifyingGlass),
                           ),
                           textAlignVertical: TextAlignVertical.center,
                           controller: _searchController,
@@ -54,16 +53,14 @@ class AreasDialog extends StatelessWidget {
                                   DocumentBloc, DocumentState>(
                               buildWhen: (previous, current) =>
                                   (previous as DocumentLoadSuccess)
-                                      .document
+                                      .page
                                       .areas !=
-                                  (current as DocumentLoadSuccess)
-                                      .document
-                                      .areas,
+                                  (current as DocumentLoadSuccess).page.areas,
                               builder: (context, state) {
                                 if (state is! DocumentLoadSuccess) {
                                   return Container();
                                 }
-                                var areas = state.document.areas
+                                var areas = state.page.areas
                                     .where((element) => element.name
                                         .contains(_searchController.text))
                                     .toList();
@@ -130,7 +127,7 @@ class _AreaPopupMenu extends StatelessWidget {
               value: 0,
               padding: EdgeInsets.zero,
               child: ListTile(
-                  leading: const Icon(PhosphorIcons.textTLight),
+                  leading: const PhosphorIcon(PhosphorIconsLight.textT),
                   title: Text(AppLocalizations.of(context).rename),
                   onTap: () async {
                     final TextEditingController nameController =
@@ -144,7 +141,7 @@ class _AreaPopupMenu extends StatelessWidget {
                       builder: (context) => NameDialog(
                         value: area.name,
                         validator: defaultNameValidator(
-                            context, state.document.getAreaNames().toList()),
+                            context, state.page.getAreaNames().toList()),
                       ),
                     );
                     if (name == null) return;

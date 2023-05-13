@@ -1,8 +1,8 @@
 import fetch from 'node-fetch';
 import fs from 'fs';
 
-// Fetch version value fromy yaml file https://raw.githubusercontent.com/LinwoodCloud/Butterfly/nightly/app/pubspec.yaml
-const nightlyUrl = 'https://raw.githubusercontent.com/LinwoodCloud/Butterfly/nightly/app/pubspec.yaml';
+// Fetch version value fromy yaml file https://raw.githubusercontent.com/LinwoodDev/Butterfly/nightly/app/pubspec.yaml
+const nightlyUrl = 'https://raw.githubusercontent.com/LinwoodDev/Butterfly/nightly/app/pubspec.yaml';
 const nightlyVersion = await fetch(nightlyUrl).then(res => res.text()).then(text => {
     const regex = /^version:\s(.+)\+(.+)$/gm;
     const match = regex.exec(text);
@@ -11,7 +11,7 @@ const nightlyVersion = await fetch(nightlyUrl).then(res => res.text()).then(text
 );
 
 // stable
-const stableUrl = 'https://raw.githubusercontent.com/LinwoodCloud/Butterfly/stable/app/pubspec.yaml';
+const stableUrl = 'https://raw.githubusercontent.com/LinwoodDev/Butterfly/stable/app/pubspec.yaml';
 const stableVersion = await fetch(stableUrl).then(res => res.text()).then(text => {
     const regex = /^version:\s(.+)\+(.+)$/gm;
     const match = regex.exec(text);
@@ -20,7 +20,7 @@ const stableVersion = await fetch(stableUrl).then(res => res.text()).then(text =
 );
 
 // develop
-const developUrl = 'https://raw.githubusercontent.com/LinwoodCloud/Butterfly/develop/app/pubspec.yaml';
+const developUrl = 'https://raw.githubusercontent.com/LinwoodDev/Butterfly/develop/app/pubspec.yaml';
 const developVersion = await fetch(developUrl).then(res => res.text()).then(text => {
     const regex = /^version:\s(.+)\+(.+)$/gm;
     const match = regex.exec(text);
@@ -29,7 +29,7 @@ const developVersion = await fetch(developUrl).then(res => res.text()).then(text
 );
 
 // main
-const mainUrl = 'https://raw.githubusercontent.com/LinwoodCloud/Butterfly/main/app/pubspec.yaml';
+const mainUrl = 'https://raw.githubusercontent.com/LinwoodDev/Butterfly/main/app/pubspec.yaml';
 const mainVersion = await fetch(mainUrl).then(res => res.text()).then(text => {
     const regex = /^version:\s(.+)\+(.+)$/gm;
     const match = regex.exec(text);

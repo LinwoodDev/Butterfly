@@ -1,29 +1,51 @@
 name: documentation
 
 on:
-  pull_request:
-    branches: [develop]
-  push:
-    branches: [develop]
-
+  workflow_dispatch:
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 jobs:
-  checks:
-    if: github.event_name != 'push'
+  build:
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        language: [af, ar, ca, cs, da, de, el, en, es, fi, fr, he, hu, it, ja, ko, nl, no, or, pl, pt, pt-BR, ro, ru, sr, sv, th, tr, uk, vi, zh, zh-Hant]
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - name: Install dependencies
-        run: |
-          cd docs
-          yarn install
-      - name: Check lint
-        run: |
-          cd docs
-          yarn lint
-      - name: Test Build
-        run: |
-          cd docs
-          yarn build
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'yarn'
+        cache-dependency-path: docs/yarn.lock
+    - name: Install dependencies
+      run: |
+        cd docs
+        yarn install
+    - name: Build
+      run: |
+        cd docs
+        yarn build --locale ${{ matrix.language }}
+    - name: Move into subdirectory if locale is not en
+      if: ${{ matrix.language != 'en' }}
+      continue-on-error: true
+      run: |
+        cd docs/build
+        mkdir ${{ matrix.language }}
+        mv * ${{ matrix.language }}
+    - uses: actions/upload-artifact@v3
+      with:
+        path: docs/build
+        name: build
+  deploy:
+    runs-on: ubuntu-22.04
+    needs: build
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: build
+        path: build
+    - name: Pull Vercel Environment Information
+      run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+    - name: Deploy to Vercel
+      run: vercel deploy build --prod --token=${{ secrets.VERCEL_TOKEN }} --prebuilt

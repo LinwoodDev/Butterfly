@@ -13,7 +13,9 @@ abstract class GeneralPresentationHandler {
     if (animation == null) return;
     final milliseconds = 1000 ~/ animation.fps;
     _timer ??= Timer.periodic(Duration(milliseconds: milliseconds), (timer) {
-      onTick(bloc, animation);
+      if (_state != PresentationRunningState.paused) {
+        onTick(bloc, animation);
+      }
     });
   }
 
@@ -93,7 +95,7 @@ abstract class GeneralPresentationHandler {
     if (position == null && zoom == null) return;
     if (position != null) transformCubit.setPosition(position.toOffset());
     if (zoom != null) transformCubit.size(zoom);
-    cubit.bake(state.document);
+    cubit.bake(state.data, state.page);
   }
 
   void _applyAnimationFromBloc(DocumentBloc bloc) {
@@ -144,10 +146,16 @@ class PresentationHandler extends GeneralMoveHandler<PresentationPainter>
       );
 
   @override
+  void dispose(DocumentBloc bloc) {
+    super.dispose(bloc);
+    stop(bloc);
+  }
+
+  @override
   AnimationTrack? getAnimation(DocumentBloc bloc) {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess || _currentAnimation == null) return null;
-    final animation = state.document.getAnimation(_currentAnimation!);
+    final animation = state.page.getAnimation(_currentAnimation!);
     return animation;
   }
 

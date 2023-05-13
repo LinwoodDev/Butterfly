@@ -1,0 +1,20 @@
+* Add option to change visibility of banner ([#372](https://github.com/LinwoodDev/Butterfly/issues/372))
+* Add pt language
+* Add nightly text to appbar if nightly version is installed
+* Publish butterfly in the snap store
+* Use text field in zoom view to change zoom level
+* Use the best painter color based on the background color
+* Use background on window buttons
+* Make laser and text painter zoom dependent
+* Fix installation path on windows to 64-bit ([#371](https://github.com/LinwoodDev/Butterfly/issues/371))
+* Fix timeline colors
+* Fix reload after resizing the window
+* Fix reset does not replace templates
+* Fix text span creation
+* Fix select while zooming
+* Fix overflow in settings dialog
+* Fixing text replacing problems
+* Remove file extension on file move dialog
+* Remove settings button in main view
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0

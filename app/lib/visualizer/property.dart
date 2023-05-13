@@ -1,18 +1,15 @@
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension PathShapeVisualizer on PathShape {
-  IconData getIcon({bool filled = false}) {
+  IconGetter get icon {
     return map(
-      circle: (_) =>
-          filled ? PhosphorIcons.circleFill : PhosphorIcons.circleLight,
-      rectangle: (_) =>
-          filled ? PhosphorIcons.squareFill : PhosphorIcons.squareLight,
-      line: (_) => filled
-          ? PhosphorIcons.lineSegmentFill
-          : PhosphorIcons.lineSegmentLight,
+      circle: (_) => PhosphorIcons.circle,
+      rectangle: (_) => PhosphorIcons.square,
+      line: (_) => PhosphorIcons.lineSegment,
     );
   }
 

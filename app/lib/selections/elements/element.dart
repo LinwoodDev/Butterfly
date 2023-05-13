@@ -69,10 +69,11 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   Future<void> updateElements(BuildContext context, List<T> elements) async {
     final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return;
-    final document = state.document;
+    final page = state.page;
+    final document = state.data;
     final renderers = await Future.wait(elements.map((e) async {
       final renderer = Renderer.fromInstance(e);
-      await renderer.setup(document);
+      await renderer.setup(document, page);
       return renderer;
     }).toList());
     // ignore: use_build_context_synchronously
@@ -113,8 +114,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
       AppLocalizations.of(context).element;
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.cubeFill : PhosphorIcons.cubeLight;
+  IconGetter get icon => PhosphorIcons.cube;
 }
 
 class OffsetPropertyView extends StatelessWidget {

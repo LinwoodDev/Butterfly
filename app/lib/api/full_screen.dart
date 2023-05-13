@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:butterfly/api/full_screen_stub.dart'
     if (dart.library.io) 'package:butterfly/api/full_screen_io.dart'
     if (dart.library.js) 'package:butterfly/api/full_screen_html.dart'
@@ -7,7 +9,7 @@ void setupFullScreen() {
   full_screen.setupFullScreen();
 }
 
-Future<bool> isFullScreen() {
+FutureOr<bool> isFullScreen() {
   return full_screen.isFullScreen();
 }
 

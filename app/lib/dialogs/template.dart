@@ -1,11 +1,11 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/name.dart';
-import 'package:butterfly/widgets/header.dart';
 import 'package:butterfly/widgets/remote_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,7 +13,7 @@ import '../api/file_system.dart';
 import '../bloc/document_bloc.dart';
 
 class TemplateDialog extends StatefulWidget {
-  final AppDocument? currentDocument;
+  final NoteData? currentDocument;
   const TemplateDialog({super.key, required this.currentDocument});
 
   @override
@@ -22,7 +22,7 @@ class TemplateDialog extends StatefulWidget {
 
 class _TemplateDialogState extends State<TemplateDialog> {
   late TemplateFileSystem _fileSystem;
-  late Future<List<DocumentTemplate>>? _templatesFuture;
+  late Future<List<NoteData>>? _templatesFuture;
   final TextEditingController _searchController = TextEditingController();
   SharedPreferences? _prefs;
 
@@ -38,7 +38,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
     _templatesFuture = _fileSystem.createDefault(context).then((value) async {
       var templates = await _fileSystem.getTemplates();
       templates = templates
-          .where((element) => element.name.contains(_searchController.text))
+          .where((element) =>
+              element.name?.contains(_searchController.text) ?? true)
           .toList();
       return templates;
     });
@@ -55,7 +56,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                 Header(
                   title: Text(AppLocalizations.of(context).templates),
                   leading: IconButton(
-                    icon: const Icon(PhosphorIcons.xLight),
+                    icon: const PhosphorIcon(PhosphorIconsLight.x),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   actions: [
@@ -69,8 +70,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                       },
                     ),
                     IconButton(
-                      icon:
-                          const Icon(PhosphorIcons.clockCounterClockwiseLight),
+                      icon: const PhosphorIcon(
+                          PhosphorIconsLight.clockCounterClockwise),
                       tooltip: AppLocalizations.of(context).defaultTemplate,
                       onPressed: () {
                         showDialog<void>(
@@ -93,6 +94,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                   await _fileSystem.createDefault(this.context,
                                       force: true);
                                   navigator.pop();
+                                  load();
+                                  setState(() {});
                                 },
                               ),
                             ],
@@ -107,13 +110,13 @@ class _TemplateDialogState extends State<TemplateDialog> {
                               onPressed: () =>
                                   _showCreateDialog(widget.currentDocument!),
                               tooltip: AppLocalizations.of(context).create,
-                              icon: const Icon(PhosphorIcons.plusLight),
+                              icon: const PhosphorIcon(PhosphorIconsLight.plus),
                             )
                           ],
                   ],
                 ),
                 Flexible(
-                  child: FutureBuilder<List<DocumentTemplate>>(
+                  child: FutureBuilder<List<NoteData>>(
                       future: _templatesFuture,
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
@@ -130,8 +133,8 @@ class _TemplateDialogState extends State<TemplateDialog> {
                             child: TextField(
                                 decoration: const InputDecoration(
                                   filled: true,
-                                  prefixIcon:
-                                      Icon(PhosphorIcons.magnifyingGlassLight),
+                                  prefixIcon: PhosphorIcon(
+                                      PhosphorIconsLight.magnifyingGlass),
                                 ),
                                 textAlignVertical: TextAlignVertical.center,
                                 controller: _searchController,
@@ -154,7 +157,6 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                           prefs: _prefs!,
                                           template: template,
                                           fileSystem: _fileSystem,
-                                          document: widget.currentDocument,
                                           onChanged: () {
                                             load();
                                             setState(() {});
@@ -168,13 +170,30 @@ class _TemplateDialogState extends State<TemplateDialog> {
             )));
   }
 
-  Future<void> _showCreateDialog(AppDocument document) {
+  Future<void> _showCreateDialog(NoteData document) {
+    final directoryController = TextEditingController();
     return showDialog<void>(
         context: context,
         builder: (context) {
           return AlertDialog(
             title: Text(AppLocalizations.of(context).createTemplate),
-            content: Text(AppLocalizations.of(context).createTemplateContent),
+            scrollable: true,
+            content: SizedBox(
+              width: 500,
+              child: Column(
+                children: [
+                  Text(AppLocalizations.of(context).createTemplateContent),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: directoryController,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).directory,
+                      filled: true,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             actions: <Widget>[
               TextButton(
                 child: Text(AppLocalizations.of(context).cancel),
@@ -183,10 +202,10 @@ class _TemplateDialogState extends State<TemplateDialog> {
               ElevatedButton(
                 child: Text(AppLocalizations.of(context).create),
                 onPressed: () async {
-                  this
-                      .context
-                      .read<DocumentBloc>()
-                      .add(const TemplateCreated());
+                  this.context.read<DocumentBloc>().add(TemplateCreated(
+                        directory: directoryController.text,
+                        remote: _fileSystem.remote?.identifier,
+                      ));
                   Navigator.of(context).pop();
                   load();
                   setState(() {});
@@ -199,8 +218,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
 }
 
 class _TemplateItem extends StatelessWidget {
-  final AppDocument? document;
-  final DocumentTemplate template;
+  final NoteData template;
   final TemplateFileSystem fileSystem;
   final VoidCallback onChanged;
   final SharedPreferences prefs;
@@ -208,15 +226,18 @@ class _TemplateItem extends StatelessWidget {
       {required this.template,
       required this.fileSystem,
       required this.onChanged,
-      required this.document,
       required this.prefs});
 
   @override
   Widget build(BuildContext context) {
     final isDefault = prefs.getString('default_template') == template.name;
+    final metadata = template.getMetadata();
+    if (metadata == null) {
+      return const SizedBox();
+    }
     return ListTile(
-      title: Text(template.name),
-      subtitle: Text(template.description),
+      title: Text(metadata.name),
+      subtitle: Text(metadata.description),
       trailing: PopupMenuButton(
         itemBuilder: (context) => [
           PopupMenuItem(
@@ -226,8 +247,9 @@ class _TemplateItem extends StatelessWidget {
                 controlAffinity: ListTileControlAffinity.leading,
                 title: Text(AppLocalizations.of(context).defaultTemplate),
                 onChanged: (value) async {
+                  final name = metadata.name;
                   if (value ?? true) {
-                    prefs.setString('default_template', template.name);
+                    prefs.setString('default_template', name);
                   } else {
                     prefs.remove('default_template');
                   }
@@ -238,61 +260,27 @@ class _TemplateItem extends StatelessWidget {
           PopupMenuItem(
             padding: EdgeInsets.zero,
             child: ListTile(
-                leading: const Icon(PhosphorIcons.textTLight),
+                leading: const PhosphorIcon(PhosphorIconsLight.textT),
                 title: Text(AppLocalizations.of(context).rename),
                 onTap: () async {
                   Navigator.of(context).pop();
                   final name = await showDialog<String>(
                     context: context,
                     builder: (context) => NameDialog(
-                      value: template.document.name,
+                      value: metadata.name,
                     ),
                   );
                   if (name == null || name.isEmpty) {
                     return;
                   }
-                  await fileSystem.renameTemplate(template.document.name, name);
+                  await fileSystem.renameTemplate(metadata.name, name);
                   onChanged();
                 }),
           ),
           PopupMenuItem(
               padding: EdgeInsets.zero,
               child: ListTile(
-                  leading: const Icon(PhosphorIcons.clipboardLight),
-                  title: Text(AppLocalizations.of(context).replace),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    if (document == null) return;
-                    showDialog<void>(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text(AppLocalizations.of(context).replace),
-                        content:
-                            Text(AppLocalizations.of(context).reallyReplace),
-                        actions: [
-                          TextButton(
-                              child: Text(AppLocalizations.of(context).no),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              }),
-                          ElevatedButton(
-                              child: Text(AppLocalizations.of(context).yes),
-                              onPressed: () async {
-                                Navigator.of(context).pop();
-                                await fileSystem.updateTemplate(
-                                    template.copyWith(
-                                        document:
-                                            document ?? template.document));
-                                onChanged();
-                              })
-                        ],
-                      ),
-                    );
-                  })),
-          PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                  leading: const Icon(PhosphorIcons.trashLight),
+                  leading: const PhosphorIcon(PhosphorIconsLight.trash),
                   title: Text(AppLocalizations.of(context).delete),
                   onTap: () async {
                     Navigator.of(context).pop();
@@ -315,7 +303,7 @@ class _TemplateItem extends StatelessWidget {
                                 onPressed: () async {
                                   Navigator.of(context).pop();
                                   await fileSystem
-                                      .deleteTemplate(template.document.name);
+                                      .deleteTemplate(metadata.name);
                                   onChanged();
                                 },
                               ),

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'colors.dart';
@@ -107,6 +108,11 @@ class TextSpan with _$TextSpan {
 }
 
 @freezed
+class IndexedModel<T> with _$IndexedModel<T> {
+  const factory IndexedModel(int index, T model) = _IndexedModel<T>;
+}
+
+@freezed
 class TextParagraph with _$TextParagraph {
   const TextParagraph._();
   const factory TextParagraph.text({
@@ -125,35 +131,42 @@ class TextParagraph with _$TextParagraph {
   String get text => textSpans.map((e) => e.text).join();
   String substring(int start, [int? end]) => text.substring(start, end);
 
-  TextSpan? getSpan(int index) {
+  TextSpan? getSpan(int index) => getIndexedSpan(index)?.model;
+
+  IndexedModel<TextSpan>? getIndexedSpan(int index) {
     var currentLength = 0;
     for (var span in textSpans) {
       if (currentLength + span.length > index) {
-        return span;
+        return IndexedModel(currentLength, span.subSpan(index - currentLength));
       }
       currentLength += span.length;
     }
     return null;
   }
 
-  List<TextSpan> getSpans([int start = 0, int? length]) {
+  List<TextSpan> getSpans([int start = 0, int? length, bool cut = false]) =>
+      getIndexedSpans(start, length, cut).model;
+
+  IndexedModel<List<TextSpan>> getIndexedSpans(
+      [int start = 0, int? length, bool cut = false]) {
     length ??= this.length;
     var spans = <TextSpan>[];
     var currentLength = 0;
+    int? firstIndex;
     final end = start + length;
     for (var span in textSpans) {
       if (currentLength + span.length > start) {
         if (currentLength >= end) {
           break;
         }
-        spans.add(span.subSpan(
-          start - currentLength,
-          end - currentLength,
-        ));
+        firstIndex ??= currentLength;
+        spans.add(cut
+            ? span.subSpan(start - currentLength, end - currentLength)
+            : span);
       }
       currentLength += span.length;
     }
-    return spans;
+    return IndexedModel(firstIndex ?? 0, spans);
   }
 
   TextParagraph subParagraph([int start = 0, int? length]) {
@@ -200,56 +213,70 @@ class TextParagraph with _$TextParagraph {
     return copyWith(textSpans: spans);
   }
 
-  TextParagraph replace(TextSpan span, [int start = 0, int? length]) {
+  TextParagraph replace(TextSpan span, [int start = 0, int length = 0]) {
     var subSpans = <TextSpan>[];
-    final end = start + (length ?? 0);
+    final end = start + length;
 
-    subSpans.addAll(getSpans(0, start));
+    final endSpans = getSpans(end, null, true);
+
+    if (endSpans.firstOrNull?.property == span.property) {
+      final firstSpan = endSpans.removeAt(0);
+      span = span.copyWith(text: span.text + firstSpan.text);
+    }
+
+    final startSpans = getSpans(0, start, true);
+
+    if (startSpans.lastOrNull?.property == span.property) {
+      final lastSpan = startSpans.removeLast();
+      span = lastSpan.copyWith(text: lastSpan.text + span.text);
+    }
+
+    subSpans.addAll(startSpans);
     subSpans.add(span);
-    subSpans.addAll(getSpans(end));
+    subSpans.addAll(endSpans);
     return copyWith(textSpans: subSpans);
   }
 
-  TextParagraph replaceText(String text, [int start = 0, int? length]) {
-    var subSpans = <TextSpan>[];
-    final end = start + (length ?? 0);
-
-    final span = getSpan(start) ?? const TextSpan.text();
-    final newSpan = span.copyWith(text: text);
-    subSpans.addAll(getSpans(0, start));
-    subSpans.add(newSpan);
-    subSpans.addAll(getSpans(end));
-    return copyWith(textSpans: subSpans);
+  TextParagraph replaceText(String text, [int start = 0, int length = 0]) {
+    return replace(
+        getSpan(start)?.copyWith(text: text) ?? TextSpan.text(text: text),
+        start,
+        length);
   }
 
-  TextParagraph remove([int start = 0, int? length]) {
-    var subSpans = <TextSpan>[];
-    final end = start + (length ?? 0);
+  TextParagraph remove([int start = 0, int length = 0]) {
+    final end = start + (length);
 
-    subSpans.addAll(getSpans(0, start));
-    subSpans.addAll(getSpans(end));
-    return copyWith(textSpans: subSpans);
+    final beforeSpans = getSpans(0, start, true);
+    final afterSpans = getSpans(end, null, true);
+// Test if beforeSpans and afterSpans can be merged
+    if (beforeSpans.isNotEmpty &&
+        beforeSpans.lastOrNull?.property == afterSpans.firstOrNull?.property) {
+      final merged = beforeSpans.lastOrNull!.copyWith(
+          text: beforeSpans.lastOrNull!.text + afterSpans.firstOrNull!.text);
+      afterSpans.removeAt(0);
+      beforeSpans.removeLast();
+      beforeSpans.add(merged);
+    }
+    return copyWith(textSpans: [...beforeSpans, ...afterSpans]);
   }
 
-  TextParagraph updateSpans(
-      int start, int? length, TextSpan Function(TextSpan) update) {
-    var subSpans = <TextSpan>[];
-    final end = start + (length ?? 0);
-
-    subSpans.addAll(getSpans(0, start));
-    subSpans.addAll(getSpans(start, length).map(update));
-    subSpans.addAll(getSpans(end));
-    return copyWith(textSpans: subSpans);
-  }
-
-  TextParagraph applyStyle(int start, int? length, SpanProperty property) {
-    final span = getSpan(start)?.copyWith(
-        property: property, text: substring(start, start + (length ?? 0)));
-    if (span == null) {
+  TextParagraph updateSpans(TextSpan Function(TextSpan) update,
+      [int start = 0, int length = 0]) {
+    final spans = getSpans(start, length - 1, true);
+    if (spans.isEmpty) {
       return this;
     }
-    return replace(
-      span,
+    final updated = update(spans.first.copyWith(
+      text: spans.map((e) => e.text).join(),
+    ));
+    return replace(updated, start, length);
+  }
+
+  TextParagraph applyStyle(SpanProperty property,
+      [int start = 0, int length = 0]) {
+    return updateSpans(
+      (span) => span.copyWith(property: property),
       start,
       length,
     );
@@ -261,6 +288,28 @@ class TextParagraph with _$TextParagraph {
 
   int previousWordIndex(int index) {
     return text.substring(0, index).lastIndexOf(RegExp(r'\w'));
+  }
+
+  int nextLineIndex(int index) {
+    if (index >= length) {
+      return length;
+    }
+    final current = text.substring(index);
+    if (current.isEmpty) {
+      return index;
+    }
+    final next = current.indexOf(RegExp(r'\n'));
+    if (next == -1) {
+      return length;
+    }
+    return next + index;
+  }
+
+  int previousLineIndex(int index) {
+    if (index <= 0) {
+      return 0;
+    }
+    return text.substring(0, index).lastIndexOf(RegExp(r'\n'));
   }
 }
 

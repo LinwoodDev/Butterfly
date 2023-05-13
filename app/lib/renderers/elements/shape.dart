@@ -7,15 +7,15 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   ShapeRenderer(super.element, [this.rect = Rect.zero]);
 
   @override
-  FutureOr<void> setup(AppDocument document) async {
+  FutureOr<void> setup(NoteData document, DocumentPage page) async {
     _updateRect();
-    await super.setup(document);
+    await super.setup(document, page);
     _updateRect();
   }
 
   @override
-  FutureOr<bool> onAreaUpdate(AppDocument document, Area? area) async {
-    await super.onAreaUpdate(document, area);
+  FutureOr<bool> onAreaUpdate(DocumentPage page, Area? area) async {
+    await super.onAreaUpdate(page, area);
     _updateRect();
     return true;
   }
@@ -26,8 +26,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   }
 
   @override
-  FutureOr<void> build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+  FutureOr<void> build(Canvas canvas, Size size, NoteData document,
+      DocumentPage page, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     _updateRect();
     final shape = element.property.shape;
@@ -88,7 +88,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     ..strokeJoin = StrokeJoin.round;
 
   @override
-  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
+  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     final shape = element.property.shape;
     final strokeWidth = element.property.strokeWidth;
@@ -223,7 +223,7 @@ class ShapeHitCalculator extends HitCalculator {
       return false;
     }
     final shape = element.property.shape;
-    if (shape is RectangleShape) {
+    bool containsRect() {
       final lrt = rect.containsLine(
         Offset(this.rect.left, this.rect.top),
         Offset(this.rect.right, this.rect.top),
@@ -242,29 +242,20 @@ class ShapeHitCalculator extends HitCalculator {
       );
       return lrt || tbr || lrb || tbl;
     }
-    if (shape is CircleShape) {
-      // Test if rect is inside circle
-      final circleRect = this.rect.inflate(element.property.strokeWidth);
-      final circleCenter = circleRect.center;
-      final circleRadius = circleRect.width / 2;
-      final topLeft = rect.topLeft;
-      final topRight = rect.topRight;
-      final bottomLeft = rect.bottomLeft;
-      final bottomRight = rect.bottomRight;
-      return (topLeft - circleCenter).distance <= circleRadius &&
-          (topRight - circleCenter).distance <= circleRadius &&
-          (bottomLeft - circleCenter).distance <= circleRadius &&
-          (bottomRight - circleCenter).distance <= circleRadius;
-    }
-    if (shape is LineShape) {
-      final firstX = min(element.firstPosition.x, element.secondPosition.x);
-      final firstY = min(element.firstPosition.y, element.secondPosition.y);
-      final secondX = max(element.firstPosition.x, element.secondPosition.x);
-      final secondY = max(element.firstPosition.y, element.secondPosition.y);
-      final firstPos = Offset(firstX, firstY);
-      final secondPos = Offset(secondX, secondY);
-      return rect.containsLine(firstPos, secondPos);
-    }
-    return false;
+
+    return shape.map(
+        circle: (e) => containsRect(),
+        rectangle: (e) => containsRect(),
+        line: (e) {
+          final firstX = min(element.firstPosition.x, element.secondPosition.x);
+          final firstY = min(element.firstPosition.y, element.secondPosition.y);
+          final secondX =
+              max(element.firstPosition.x, element.secondPosition.x);
+          final secondY =
+              max(element.firstPosition.y, element.secondPosition.y);
+          final firstPos = Offset(firstX, firstY);
+          final secondPos = Offset(secondX, secondY);
+          return rect.containsLine(firstPos, secondPos);
+        });
   }
 }

@@ -6,9 +6,8 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../widgets/header.dart';
 
 class WaypointsDialog extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();
@@ -22,8 +21,8 @@ class WaypointsDialog extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
             child: BlocBuilder<DocumentBloc, DocumentState>(
                 buildWhen: (previous, current) =>
-                    (previous as DocumentLoadSuccess).document.waypoints !=
-                    (current as DocumentLoadSuccess).document.waypoints,
+                    (previous as DocumentLoadSuccess).page.waypoints !=
+                    (current as DocumentLoadSuccess).page.waypoints,
                 builder: (context, state) {
                   if (state is! DocumentLoadSuccess) {
                     return Container();
@@ -33,7 +32,7 @@ class WaypointsDialog extends StatelessWidget {
                       Header(
                           title: Text(AppLocalizations.of(context).waypoints),
                           leading: IconButton(
-                            icon: const Icon(PhosphorIcons.xLight),
+                            icon: const PhosphorIcon(PhosphorIconsLight.x),
                             onPressed: () => Navigator.of(context).pop(),
                           ),
                           actions: [
@@ -41,7 +40,8 @@ class WaypointsDialog extends StatelessWidget {
                               IconButton(
                                 onPressed: () => _showCreateDialog(context),
                                 tooltip: AppLocalizations.of(context).create,
-                                icon: const Icon(PhosphorIcons.plusLight),
+                                icon:
+                                    const PhosphorIcon(PhosphorIconsLight.plus),
                               )
                           ]),
                       Flexible(
@@ -52,8 +52,8 @@ class WaypointsDialog extends StatelessWidget {
                               child: TextField(
                                 decoration: const InputDecoration(
                                   filled: true,
-                                  prefixIcon:
-                                      Icon(PhosphorIcons.magnifyingGlassLight),
+                                  prefixIcon: PhosphorIcon(
+                                      PhosphorIconsLight.magnifyingGlass),
                                 ),
                                 textAlignVertical: TextAlignVertical.center,
                                 controller: _searchController,
@@ -76,7 +76,7 @@ class WaypointsDialog extends StatelessWidget {
                                                 .devicePixelRatio);
                                       }
 
-                                      var waypoints = state.document.waypoints
+                                      var waypoints = state.page.waypoints
                                           .where((element) => element.name
                                               .contains(_searchController.text))
                                           .toList();

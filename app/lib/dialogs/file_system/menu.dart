@@ -73,7 +73,7 @@ class FileSystemAssetMenu extends StatelessWidget {
           PopupMenuItem(
             padding: EdgeInsets.zero,
             child: ListTile(
-              leading: const Icon(PhosphorIcons.folderOpenLight),
+              leading: const PhosphorIcon(PhosphorIconsLight.folderOpen),
               title: Text(AppLocalizations.of(context).open),
               onTap: () {
                 Navigator.of(context).pop();
@@ -91,10 +91,10 @@ class FileSystemAssetMenu extends StatelessWidget {
                         ? AppLocalizations.of(context).synced
                         : AppLocalizations.of(context).notSynced),
                 leading: hasSynced == null
-                    ? const Icon(PhosphorIcons.cloudBold)
+                    ? const PhosphorIcon(PhosphorIconsBold.cloud)
                     : hasSynced
-                        ? const Icon(PhosphorIcons.cloudFill)
-                        : const Icon(PhosphorIcons.cloudLight),
+                        ? const PhosphorIcon(PhosphorIconsFill.cloud)
+                        : const PhosphorIcon(PhosphorIconsLight.cloud),
                 onTap: () {
                   Navigator.of(context).pop();
                   if (hasSynced == true) {
@@ -111,7 +111,7 @@ class FileSystemAssetMenu extends StatelessWidget {
           PopupMenuItem(
             padding: EdgeInsets.zero,
             child: ListTile(
-                leading: const Icon(PhosphorIcons.copyLight),
+                leading: const PhosphorIcon(PhosphorIconsLight.copy),
                 title: Text(AppLocalizations.of(context).duplicate),
                 onTap: () async {
                   Navigator.of(context).pop();
@@ -129,7 +129,8 @@ class FileSystemAssetMenu extends StatelessWidget {
           PopupMenuItem(
             padding: EdgeInsets.zero,
             child: ListTile(
-                leading: const Icon(PhosphorIcons.arrowsOutCardinalLight),
+                leading:
+                    const PhosphorIcon(PhosphorIconsLight.arrowsOutCardinal),
                 title: Text(AppLocalizations.of(context).move),
                 onTap: () async {
                   final bloc = context.read<DocumentBloc>();
@@ -156,7 +157,7 @@ class FileSystemAssetMenu extends StatelessWidget {
           PopupMenuItem(
             padding: EdgeInsets.zero,
             child: ListTile(
-                leading: const Icon(PhosphorIcons.textTLight),
+                leading: const PhosphorIcon(PhosphorIconsLight.textT),
                 title: Text(AppLocalizations.of(context).rename),
                 onTap: () {
                   Navigator.of(context).pop();
@@ -166,7 +167,7 @@ class FileSystemAssetMenu extends StatelessWidget {
           PopupMenuItem(
             padding: EdgeInsets.zero,
             child: ListTile(
-              leading: const Icon(PhosphorIcons.trashLight),
+              leading: const PhosphorIcon(PhosphorIconsLight.trash),
               title: Text(AppLocalizations.of(context).delete),
               onTap: () async {
                 Navigator.of(context).pop();

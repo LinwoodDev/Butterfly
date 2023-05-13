@@ -2,7 +2,7 @@
 title: Marca
 ---
 
-Estos activos están bajo la licencia [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Estos activos están bajo la licencia [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -10,7 +10,7 @@ Estos activos están bajo la licencia [CC-BY-4.0](https://github.com/LinwoodClou
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Logo nocturno
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
@@ -42,3 +42,11 @@ Estos activos están bajo la licencia [CC-BY-4.0](https://github.com/LinwoodClou
 ## Fuentes
 
 * `Roboto`
+
+## Capturas de pantalla
+
+> Utilizado en el modo de diseño responsivo de firefox
+
+* Teléfono: Galaxy S20 Ultra
+* Tableta de 7-inch: Nexo 7
+* Tableta de 10 -inch: Nexo 10

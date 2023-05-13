@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class WebDocumentFileSystem extends DocumentFileSystem {
   @override
-  Future<AppDocumentDirectory> createDirectory(String name) {
+  Future<AppDocumentDirectory> createDirectory(String path) {
     throw UnimplementedError();
   }
 
@@ -24,13 +24,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentFile> importDocument(AppDocument document,
-      {String path = '/'}) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<AppDocumentFile> updateDocument(String path, AppDocument document) {
+  Future<AppDocumentFile> updateFile(String path, List<int> data) {
     throw UnimplementedError();
   }
 }
@@ -47,12 +41,12 @@ class WebTemplateFileSystem extends TemplateFileSystem {
   }
 
   @override
-  Future<DocumentTemplate?> getTemplate(String name) {
+  Future<NoteData?> getTemplate(String name) {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<DocumentTemplate>> getTemplates() {
+  Future<List<NoteData>> getTemplates() {
     throw UnimplementedError();
   }
 
@@ -62,7 +56,7 @@ class WebTemplateFileSystem extends TemplateFileSystem {
   }
 
   @override
-  Future<void> updateTemplate(DocumentTemplate template) {
+  Future<void> updateTemplate(NoteData template) {
     throw UnimplementedError();
   }
 }
@@ -74,12 +68,12 @@ class WebPackFileSystem extends PackFileSystem {
   }
 
   @override
-  Future<ButterflyPack?> getPack(String name) {
+  Future<NoteData?> getPack(String name) {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<ButterflyPack>> getPacks() {
+  Future<List<NoteData>> getPacks() {
     throw UnimplementedError();
   }
 
@@ -89,7 +83,12 @@ class WebPackFileSystem extends PackFileSystem {
   }
 
   @override
-  Future<void> updatePack(ButterflyPack pack) {
+  Future<void> updatePack(NoteData pack) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> createDefault(BuildContext context, {bool force = false}) {
     throw UnimplementedError();
   }
 }

@@ -3,27 +3,22 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:share_plus/share_plus.dart';
 
-Future<void> saveData(BuildContext context, String data) async {
-  if (Platform.isAndroid || Platform.isIOS) {
-    await Share.share(data);
-    return;
-  }
+Future<void> saveData(BuildContext context, List<int> data) async {
   var fileName = await FilePicker.platform.saveFile(
       fileName: 'butterfly.bfly',
       type: FileType.custom,
-      allowedExtensions: ['json', 'bfly']);
+      allowedExtensions: ['bfly']);
 
   if (fileName == null) {
     return;
   }
-  if (!fileName.endsWith('.bfly') && !fileName.endsWith('.json')) {
+  if (!fileName.endsWith('.bfly')) {
     fileName += '.bfly';
   }
   var file = File(fileName);
   Future<void> write() async {
-    await file.writeAsString(data);
+    await file.writeAsBytes(data);
   }
 
   if (!file.existsSync()) {

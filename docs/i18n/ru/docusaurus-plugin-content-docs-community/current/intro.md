@@ -20,6 +20,6 @@ title: "Сообщество"
 
 ## Полезные ссылки
 
-* [GitHub](https://github.com/LinwoodCloud/Butterfly)
+* [GitHub](https://github.com/LinwoodDev/Butterfly)
 * [Discord](https://go.linwood.dev/discord)
-* [Матрица](https://go.linwood.dev/matrix)
+* [Matrix](https://go.linwood.dev/matrix)

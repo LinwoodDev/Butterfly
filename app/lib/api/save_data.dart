@@ -4,6 +4,6 @@ import 'package:butterfly/api/save_data_stub.dart'
     as save_data;
 import 'package:flutter/material.dart';
 
-Future<void> saveData(BuildContext context, String data) async {
+Future<void> saveData(BuildContext context, List<int> data) async {
   save_data.saveData(context, data);
 }

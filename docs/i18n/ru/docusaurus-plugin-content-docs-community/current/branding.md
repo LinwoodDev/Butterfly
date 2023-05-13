@@ -2,7 +2,7 @@
 title: Брендинг
 ---
 
-Эти активы лицензированы на условиях [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Эти активы лицензированы на условиях [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Логотип
 
@@ -10,7 +10,7 @@ title: Брендинг
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Ночной логотип
+## Nightly Logo
 
 ![Логотип](/img/nightly.svg)
 
@@ -42,3 +42,11 @@ title: Брендинг
 ## Шрифты
 
 * `Roboto`
+
+## Скриншот
+
+> Используется в адаптивном режиме firefox
+
+* Телефон: Ультра Galaxy S20
+* 7дюймовый планшет: Nexus 7
+* 10дюймовый планшет: Nexus 10

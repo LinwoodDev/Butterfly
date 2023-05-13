@@ -12,8 +12,6 @@ Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmel
 
 * `Ctrl` + `N`: Yeni dosya
 * `Ctrl` + `Shift` + `N`: Şablondan yeni dosya
-* `Ctrl` + `O`: Dosya aç
-* `Ctrl` + `I`: Dosyayı içe aktar
 * `Ctrl` + `E`: Dosyayı dışa aktar
 * `Ctrl` + `Shift` + `E`: Resim olarak dışa aktar
 * `Ctrl` + `Alt` + `E`: SVG olarak dışa aktar
@@ -23,8 +21,6 @@ Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmel
 
 * `Ctrl` + `Z`: Geri al
 * `Ctrl` + `Y`: Yinele
-* `Ctrl` + `Alt` + `N`: İletişim kutusu ekle'yi aç
-* `Ctrl` + `Alt` + `Shift` + `S`: Proje ayarlarını aç
 * `Ctrl` + `Shift` + `P`: Yer imleri iletişim kutusunu aç
 * `Ctrl` + `P`: Renk paleti iletişim kutusunu aç
 * `Ctrl` + `B`: Arkaplan iletişim kutusunu aç
@@ -41,4 +37,4 @@ Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmel
 
 ## Yapılandır {#configure}
 
-Customize the controls by giving every control a painter index. The painter index starts at 1 and are ordered from left to right. An empty painter index will disable the painter switch on this control. Insert `0` to enable moving with this control.
+Her denetime bir boyama dizini vererek denetimleri özelleştirin. Boyama dizini 1'den başlar ve soldan sağa doğru sıralanır. Boş bir boyama indeksi, bu kontroldeki boyacı anahtarını devre dışı bırakacaktır. Bu denetimle taşımayı etkinleştirmek için `0` girin.

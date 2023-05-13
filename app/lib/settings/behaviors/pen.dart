@@ -1,15 +1,14 @@
 import 'package:butterfly/helpers/num_helper.dart';
 import 'package:butterfly/widgets/advanced_text_field.dart';
-import 'package:flutter/foundation.dart';
+import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/open.dart';
 import '../../cubits/settings.dart';
-import '../../views/window.dart';
-import '../../widgets/exact_slider.dart';
 
 class PenBehaviorSettings extends StatelessWidget {
   const PenBehaviorSettings({super.key});
@@ -17,9 +16,8 @@ class PenBehaviorSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: WindowTitleBar(
         title: Text(AppLocalizations.of(context).pen),
-        actions: [if (!kIsWeb && isWindow()) const WindowButtons()],
       ),
       body: Align(
         alignment: Alignment.center,
@@ -42,7 +40,8 @@ class PenBehaviorSettings extends StatelessWidget {
                               max: 100,
                               value: state.penSensitivity,
                               header: Row(children: [
-                                const Icon(PhosphorIcons.lightningLight),
+                                const PhosphorIcon(
+                                    PhosphorIconsLight.lightning),
                                 const SizedBox(width: 8),
                                 Text(AppLocalizations.of(context).sensitivity),
                               ]),
@@ -79,8 +78,8 @@ class PenBehaviorSettings extends StatelessWidget {
                                     Theme.of(context).textTheme.headlineSmall,
                               ),
                               IconButton(
-                                icon: const Icon(
-                                    PhosphorIcons.circleWavyQuestionLight),
+                                icon: const PhosphorIcon(
+                                    PhosphorIconsLight.sealQuestion),
                                 onPressed: () =>
                                     openHelp(['shortcuts'], 'configure'),
                               ),
@@ -90,7 +89,7 @@ class PenBehaviorSettings extends StatelessWidget {
                           AdvancedTextField(
                             initialValue: config.pen?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).pen,
-                            icon: const Icon(PhosphorIcons.penLight),
+                            icon: const PhosphorIcon(PhosphorIconsLight.pen),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(
@@ -102,8 +101,8 @@ class PenBehaviorSettings extends StatelessWidget {
                             initialValue:
                                 config.firstPenButton?.add(1)?.toString() ?? '',
                             label: AppLocalizations.of(context).first,
-                            icon:
-                                const Icon(PhosphorIcons.numberCircleOneLight),
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.numberCircleOne),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(
@@ -117,8 +116,8 @@ class PenBehaviorSettings extends StatelessWidget {
                                 config.secondPenButton?.add(1)?.toString() ??
                                     '',
                             label: AppLocalizations.of(context).second,
-                            icon:
-                                const Icon(PhosphorIcons.numberCircleTwoLight),
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.numberCircleTwo),
                             onChanged: (value) {
                               final cubit = context.read<SettingsCubit>();
                               cubit.changeInputConfiguration(config.copyWith(

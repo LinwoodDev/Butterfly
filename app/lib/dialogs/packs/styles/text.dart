@@ -1,12 +1,10 @@
-import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../widgets/color_field.dart';
-import '../../../widgets/exact_slider.dart';
 
 class TextStyleView extends StatefulWidget {
   final text.DefinedSpanProperty value;
@@ -34,8 +32,6 @@ class _TextStyleViewState extends State<TextStyleView> {
 
   @override
   Widget build(BuildContext context) {
-    final customColor =
-        context.read<DocumentBloc>().state is! DocumentLoadSuccess;
     return Column(
       children: [
         ColorField(
@@ -43,14 +39,14 @@ class _TextStyleViewState extends State<TextStyleView> {
             subtitle: widget.value.color == null
                 ? Text(AppLocalizations.of(context).notSet)
                 : null,
-            custom: customColor,
+            custom: true,
             value: widget.value.color == null
                 ? Colors.transparent
                 : Color(widget.value.color!),
             leading: widget.value.color == null
                 ? null
                 : IconButton(
-                    icon: const Icon(PhosphorIcons.eraserLight),
+                    icon: const PhosphorIcon(PhosphorIconsLight.eraser),
                     onPressed: () =>
                         widget.onChanged(widget.value.copyWith(color: null))),
             defaultColor: null,
@@ -58,13 +54,13 @@ class _TextStyleViewState extends State<TextStyleView> {
                 widget.onChanged(widget.value.copyWith(color: color.value))),
         ExactSlider(
             header: Text(AppLocalizations.of(context).size),
-            label: widget.value.size == null
-                ? AppLocalizations.of(context).notSet
+            bottom: widget.value.size == null
+                ? Text(AppLocalizations.of(context).notSet)
                 : null,
             leading: widget.value.size == null
                 ? null
                 : IconButton(
-                    icon: const Icon(PhosphorIcons.eraserLight),
+                    icon: const PhosphorIcon(PhosphorIconsLight.eraser),
                     onPressed: () =>
                         widget.onChanged(widget.value.copyWith(size: null)),
                   ),
@@ -76,13 +72,13 @@ class _TextStyleViewState extends State<TextStyleView> {
                 widget.onChanged(widget.value.copyWith(size: size))),
         ExactSlider(
             header: Text(AppLocalizations.of(context).spacing),
-            label: widget.value.letterSpacing == null
-                ? AppLocalizations.of(context).notSet
+            bottom: widget.value.letterSpacing == null
+                ? Text(AppLocalizations.of(context).notSet)
                 : null,
             leading: widget.value.letterSpacing == null
                 ? null
                 : IconButton(
-                    icon: const Icon(PhosphorIcons.eraserLight),
+                    icon: const PhosphorIcon(PhosphorIconsLight.eraser),
                     onPressed: () => widget
                         .onChanged(widget.value.copyWith(letterSpacing: null)),
                   ),
@@ -200,7 +196,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                                         decorationStyle: decorationStyle)))),
                         ColorField(
                             title: Text(AppLocalizations.of(context).color),
-                            custom: customColor,
+                            custom: true,
                             subtitle: widget.value.decorationColor == null
                                 ? Text(AppLocalizations.of(context).notSet)
                                 : null,
@@ -210,7 +206,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                             leading: widget.value.decorationColor == null
                                 ? null
                                 : IconButton(
-                                    icon: const Icon(PhosphorIcons.eraserLight),
+                                    icon: const PhosphorIcon(
+                                        PhosphorIconsLight.eraser),
                                     onPressed: () => widget.onChanged(widget
                                         .value
                                         .copyWith(decorationColor: null))),
@@ -224,14 +221,14 @@ class _TextStyleViewState extends State<TextStyleView> {
                                   Text(AppLocalizations.of(context).thickness),
                               defaultValue: 1,
                               value: widget.value.decorationThickness,
-                              label: widget.value.decorationThickness == null
-                                  ? AppLocalizations.of(context).notSet
+                              bottom: widget.value.decorationThickness == null
+                                  ? Text(AppLocalizations.of(context).notSet)
                                   : null,
                               leading: widget.value.decorationThickness == null
                                   ? null
                                   : IconButton(
-                                      icon:
-                                          const Icon(PhosphorIcons.eraserLight),
+                                      icon: const PhosphorIcon(
+                                          PhosphorIconsLight.eraser),
                                       onPressed: () => widget.onChanged(widget
                                           .value
                                           .copyWith(decorationThickness: null)),

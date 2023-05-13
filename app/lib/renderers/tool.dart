@@ -1,7 +1,7 @@
 part of 'renderer.dart';
 
 class ToolRenderer extends Renderer<ToolState> {
-  ToolRenderer(super.element);
+  ToolRenderer([super.element = const ToolState()]);
 
   Rect getRulerRect(Size size) {
     const rulerSize = 100.0;
@@ -26,10 +26,10 @@ class ToolRenderer extends Renderer<ToolState> {
   }
 
   @override
-  void build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
+      CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    final option = document.tool;
+    final option = page.tool;
     if (element.gridEnabled) {
       if (option.gridXSize > 0) {
         double x = 0;
@@ -69,7 +69,7 @@ class ToolRenderer extends Renderer<ToolState> {
       final rulerForegroundColor = colorScheme?.onPrimary ?? Colors.white;
       final rulerPaint = Paint()
         ..color = rulerColor
-        ..strokeWidth = 1 / transform.size
+        ..strokeWidth = 1
         ..style = PaintingStyle.stroke
         ..strokeJoin = StrokeJoin.round;
       final rulerBackgroundPaint = Paint()
@@ -174,9 +174,9 @@ class ToolRenderer extends Renderer<ToolState> {
   }
 
   Offset getGridPosition(
-      Offset position, AppDocument document, CurrentIndexCubit cubit) {
+      Offset position, DocumentPage page, CurrentIndexCubit cubit) {
     if (!element.gridEnabled) return position;
-    final option = document.tool;
+    final option = page.tool;
     final x = (position.dx ~/ option.gridXSize) * option.gridXSize;
     final y = (position.dy ~/ option.gridYSize) * option.gridYSize;
     return Offset(x, y);

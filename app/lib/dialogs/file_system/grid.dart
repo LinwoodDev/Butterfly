@@ -50,8 +50,8 @@ class FileSystemGridView extends StatelessWidget {
                                   Row(children: [
                                     const Padding(
                                       padding: EdgeInsets.only(right: 8.0),
-                                      child: Icon(
-                                        PhosphorIcons.folderLight,
+                                      child: PhosphorIcon(
+                                        PhosphorIconsLight.folder,
                                         size: 32,
                                       ),
                                     ),
@@ -82,7 +82,7 @@ class FileSystemGridView extends StatelessWidget {
             runSpacing: 8.0,
             children: List.generate(files.length, (index) {
               final file = files[index];
-              final info = file.getDocumentInfo();
+              final metadata = file.load().getMetadata();
               return ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 300),
                   child: Card(
@@ -100,7 +100,7 @@ class FileSystemGridView extends StatelessWidget {
                                 Row(children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 8.0),
-                                    child: Icon(
+                                    child: PhosphorIcon(
                                       file.fileType.getIcon(),
                                       size: 32,
                                     ),
@@ -108,7 +108,8 @@ class FileSystemGridView extends StatelessWidget {
                                   Expanded(
                                     child: Tooltip(
                                       message: file.pathWithoutLeadingSlash,
-                                      child: Text(info?.name ?? file.fileName,
+                                      child: Text(
+                                          metadata?.name ?? file.fileName,
                                           overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme
@@ -129,7 +130,7 @@ class FileSystemGridView extends StatelessWidget {
                                       onOpened: onOpened,
                                       onRefreshed: onRefreshed)
                                 ]),
-                                if (info != null)
+                                if (metadata != null)
                                   FileSystemFileRichText(
                                     file: file,
                                   ),

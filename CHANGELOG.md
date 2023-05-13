@@ -2,6 +2,121 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-alpha.2 (2023-05-05)
+
+* Add option to change visibility of banner ([#372](https://github.com/LinwoodDev/Butterfly/issues/372))
+* Add pt language
+* Add nightly text to appbar if nightly version is installed
+* Publish butterfly in the snap store
+* Use text field in zoom view to change zoom level
+* Use the best painter color based on the background color
+* Use background on window buttons
+* Make laser and text painter zoom dependent
+* Fix installation path on windows to 64-bit ([#371](https://github.com/LinwoodDev/Butterfly/issues/371))
+* Fix timeline colors
+* Fix reload after resizing the window
+* Fix reset does not replace templates
+* Fix text span creation
+* Fix select while zooming
+* Fix overflow in settings dialog
+* Fixing text replacing problems
+* Remove file extension on file move dialog
+* Remove settings button in main view
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0
+
+## 2.0.0-alpha.1 (2023-04-14)
+
+* Add button to reset templates if quickstart is empty
+* Add option to change shape in add dialog
+* Add zoom enabled in personalization settings
+* Add delete icon for painters
+* Add system to change position of cursor on text by clicking on it
+* Add box to text editing
+* Add vertical arrow selection in text
+* Add option to add core pack to update the current one
+* Play at the beginning if the current frame is the last one
+* Show path without leading slash in appbar
+* Fix home page on smaller screens
+* Fix rich text editor in label painter
+* Fix DragToMoveArea on native title bar on desktop
+* Fix infinite loop if action painter is first painter
+* Fix selection system after removing current painter
+* Fix file import on mobile devices
+* Fix setting horizontal alignment of text
+* Fix problems with presentation painter if paused
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0
+
+## 2.0.0-alpha.0 (2023-04-09)
+
+* Add rich text
+* Pack changes
+  * Add styles to pack
+  * Add color palette to pack
+    * Improve color toolbar to reflect that color palettes are now saved in the pack
+  * Add core pack
+* Painter changes
+  * Remove eraser element to improve performance (Breaking change)
+  * Add waypoint painter
+  * Rebuild add dialog
+    * Add inserts of assets in add dialog
+  * Remove right click menu from hand dialog
+  * Rebuild pen renderer
+  * Add new properties to pen painter
+    * Thinning
+    * Smoothing
+    * Streamline
+  * Move transparency property out of color into an extra slider
+  * Rich text
+    * Add label toolbar to support rich text
+    * Add text cursor
+  * Add presentation mode
+    * Add animations
+    * Add presentation toolbar with timeline
+    * Add new mode for running a presentation
+  * Replace pixel property in image element with source url as base64 data url
+* Tool changes
+  * Add check if ruler size is greater than 0
+  * Move project settings in tools
+* Template changes
+  * Templates have now thumbnails
+  * Templates will be created in the selected connection
+* UI Improvements
+  * Add home page
+  * Remove open dialog in flavor of the home page
+  * Rebuild top corner menu
+  * Remove classic, yaru and adwaita theme
+  * Use device accent color for default theme
+  * Add zoom slider to the main draw page
+  * Rename remote translations to connection
+  * Replace listtiles in context menus to menuitembuttons
+  * Add search at the top to search for text elements, areas and waypoints
+  * Title is now smaller aligned in the top left corner to look better
+  * Improve title bar to look more material 3 like
+* Middle mouse behavior is now move as default
+* Rebuild file format and add note for breaking changes
+* Remove date format setting, documents have no name by default
+* Add new butterfly logo
+* Improve web file system
+* Improve pdf export
+* Restructure basic classes in api project
+* Downloads
+  * Add start scripts ([#304](https://github.com/LinwoodDev/Butterfly/issues/304))
+* Bug fixes
+  * Fix unicode characters in file path, fixes ([#336](https://github.com/LinwoodDev/Butterfly/issues/336))
+  * Fix after Undo, Hand tool will be selected
+  * Fix blank page after entering or exiting area mode
+  * Fix global shortcuts
+
+Things that need to be improved:
+* Text tool
+* Presentation tool
+* Packs in general
+* File format (there will be an automatic migration)
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0
+
 ## 1.6.1 (2023-01-27)
 
 * Fix new button
@@ -10,7 +125,7 @@
 
 ## 1.6.0 (2022-12-24)
 
-Read the whole 1.6 changelog at https://go.linwood.dev/butterfly/1-6
+Read the whole 1.6 changelog at <https://go.linwood.dev/butterfly/1-6>
 
 ## 1.6.0-rc.1 (2022-12-19)
 
@@ -54,9 +169,9 @@ Read the whole 1.6 changelog at https://go.linwood.dev/butterfly/1-6
 * Add dialog close on text field submit
 * Show error if loading document fails
 * Improve windows setup
-    * Add dialog to decide if the program should be installed for all users or just the current user ([#306](https://github.com/LinwoodCloud/Butterfly/issues/306))
-    * Add icon for the uninstall window in the windows control panel ([#305](https://github.com/LinwoodCloud/Butterfly/issues/305))
-* Fix start in full screen on desktop ([#307](https://github.com/LinwoodCloud/Butterfly/issues/307))
+    * Add dialog to decide if the program should be installed for all users or just the current user ([#306](https://github.com/LinwoodDev/Butterfly/issues/306))
+    * Add icon for the uninstall window in the windows control panel ([#305](https://github.com/LinwoodDev/Butterfly/issues/305))
+* Fix start in full screen on desktop ([#307](https://github.com/LinwoodDev/Butterfly/issues/307))
 
 ## 1.5.0 (2022-10-21)
 
@@ -124,7 +239,7 @@ Read the whole 1.5 changelog at https://go.linwood.dev/butterfly/1-5
   * Undo
   * Redo
 * Remove hand, undo, redo buttons from general gui
-* Improve UI and UX problems ([#280](https://github.com/LinwoodCloud/Butterfly/issues/280))
+* Improve UI and UX problems ([#280](https://github.com/LinwoodDev/Butterfly/issues/280))
   * Reset pointer on app hide
   * Add default behavior to not ask for area name
 * Add option to load images, pdfs and svgs from open dialog
@@ -159,10 +274,10 @@ Read the whole 1.5 changelog at https://go.linwood.dev/butterfly/1-5
 
 ## 1.4.3 (2022-08-20)
 
-* Move directory on document path change and disable document change on android ([#254](https://github.com/LinwoodCloud/Butterfly/issues/254) and [#255](https://github.com/LinwoodCloud/Butterfly/issues/255))
-* Fix reappearing strokes after delete ([#265](https://github.com/LinwoodCloud/Butterfly/issues/265))
-* Fix laggy moving ([#266](https://github.com/LinwoodCloud/Butterfly/issues/266))
-* Fix eraser cursor glitches ([#264](https://github.com/LinwoodCloud/Butterfly/issues/264))
+* Move directory on document path change and disable document change on android ([#254](https://github.com/LinwoodDev/Butterfly/issues/254) and [#255](https://github.com/LinwoodDev/Butterfly/issues/255))
+* Fix reappearing strokes after delete ([#265](https://github.com/LinwoodDev/Butterfly/issues/265))
+* Fix laggy moving ([#266](https://github.com/LinwoodDev/Butterfly/issues/266))
+* Fix eraser cursor glitches ([#264](https://github.com/LinwoodDev/Butterfly/issues/264))
 * Fix app bar title
 
 ## 1.4.2 (2022-08-12)
@@ -258,7 +373,7 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 
 * Add matrix invite link
 * Rework multi input system
-    * Add input gesture support (move with two fingers [#206](https://github.com/LinwoodCloud/Butterfly/issues/206))
+    * Add input gesture support (move with two fingers [#206](https://github.com/LinwoodDev/Butterfly/issues/206))
 * Rework bake system
     * Fix undo/redo lag
     * Fix that you need to click multiple times to undo something
@@ -303,7 +418,7 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 
 ### 1.4.0-alpha.2 (2022-06-24)
 
-* Add remote storage ([#88](https://github.com/LinwoodCloud/Butterfly/issues/88))
+* Add remote storage ([#88](https://github.com/LinwoodDev/Butterfly/issues/88))
     * Add remote settings
     * Add storage option to template and open dialog
     * Specify remote in title
@@ -323,8 +438,8 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 * Add duplicate to change document path
 * Add color view to label, pen and laser painter
 * Add spanish translation
-* Add quality slider to pdf ([#184](https://github.com/LinwoodCloud/Butterfly/issues/184))
-* Add copy to change document path ([#180](https://github.com/LinwoodCloud/Butterfly/issues/180))
+* Add quality slider to pdf ([#184](https://github.com/LinwoodDev/Butterfly/issues/184))
+* Add copy to change document path ([#180](https://github.com/LinwoodDev/Butterfly/issues/180))
 
 </details>
 
@@ -338,7 +453,7 @@ Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
     * Fix app bar title does not change after exiting the area
 * Improve spacing of selection rect based on the zoom
 * Move android storage to external
-* Center image on moving ([#185](https://github.com/LinwoodCloud/Butterfly/issues/185))
+* Center image on moving ([#185](https://github.com/LinwoodDev/Butterfly/issues/185))
 * Fix image low quality
 * Fix missing constraints button in image element dialog
 * Fix window_manager errors on mobile devices
@@ -404,7 +519,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 ### 1.3.0-beta.2 (2022-05-06)
 
 * Implement embed functionality
-* Fixing a lot of bugs ([#158](https://github.com/LinwoodCloud/Butterfly/issues/158), Thanks to vi)
+* Fixing a lot of bugs ([#158](https://github.com/LinwoodDev/Butterfly/issues/158), Thanks to vi)
     * Add move/duplicate indicator
     * Add layer suggestions
     * Add multi element selection context menu
@@ -474,13 +589,13 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 
 ## 1.2.0 (2022-02-22)
 
-* Add baking of the viewport ([#89](https://github.com/LinwoodCloud/Butterfly/issues/89))
+* Add baking of the viewport ([#89](https://github.com/LinwoodDev/Butterfly/issues/89))
 * Add templates dialogs and presets
-* Add change document path option ([#96](https://github.com/LinwoodCloud/Butterfly/issues/96))
+* Add change document path option ([#96](https://github.com/LinwoodDev/Butterfly/issues/96))
 * Add insert dialog to add simplification of the user interface
   * Add image insert
   * Add camera insert
-* Add sensitive settings ([#91](https://github.com/LinwoodCloud/Butterfly/issues/91))
+* Add sensitive settings ([#91](https://github.com/LinwoodDev/Butterfly/issues/91))
 * Add background presets
 * Add document name editing in the appbar
 * Remove image painter in favor of the insert dialog
@@ -507,7 +622,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 
 ## 1.1.1 (2022-01-14)
 
-* Fix image loading ([#83](https://github.com/LinwoodCloud/Butterfly/issues/83))
+* Fix image loading ([#83](https://github.com/LinwoodDev/Butterfly/issues/83))
 * Fix image hit box
 * Reimplement spaces in box background
 * Fix box background
@@ -532,7 +647,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 ### 1.0.0-rc.6 (2021-12-18)
 
 * Add context menu
-* Add zoom-dependent stroke width ([#31](https://github.com/LinwoodCloud/Butterfly/issues/31))
+* Add zoom-dependent stroke width ([#31](https://github.com/LinwoodDev/Butterfly/issues/31))
 * Move background and waypoints to background context menu
 * Move color palette to three points menu
 * Fix internal router, use / instead of hash
@@ -556,13 +671,13 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 
 ### 1.0.0-rc.4 (2021-11-27)
 
-* Add file system with files and folders native and indexeddb in web ([#53](https://github.com/LinwoodCloud/butterfly/pull/53))
+* Add file system with files and folders native and indexeddb in web ([#53](https://github.com/LinwoodDev/butterfly/pull/53))
   * Custom save location
   * Added file names
-* Add behavior options for multi gestures ([#45](https://github.com/LinwoodCloud/butterfly/issues/45))
-* Add version to information dialog ([#50](https://github.com/LinwoodCloud/butterfly/issues/50))
-* Fixing dialogs will open multiple times ([#47](https://github.com/LinwoodCloud/butterfly/issues/47))
-* Improve performance for images ([#35](https://github.com/LinwoodCloud/butterfly/issues/35))
+* Add behavior options for multi gestures ([#45](https://github.com/LinwoodDev/butterfly/issues/45))
+* Add version to information dialog ([#50](https://github.com/LinwoodDev/butterfly/issues/50))
+* Fixing dialogs will open multiple times ([#47](https://github.com/LinwoodDev/butterfly/issues/47))
+* Improve performance for images ([#35](https://github.com/LinwoodDev/butterfly/issues/35))
 
 ### 1.0.0-rc.3 (2021-11-14)
 
@@ -574,9 +689,9 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 
 ### 1.0.0-rc.2 (2021-11-07)
 
-* Change home page to drawing page ([#17](https://github.com/LinwoodCloud/butterfly/issues/17))
-* Fixing zoom issues ([#20](https://github.com/LinwoodCloud/butterfly/issues/20))
-* Simplify selection ([#23](https://github.com/LinwoodCloud/butterfly/issues/23))
+* Change home page to drawing page ([#17](https://github.com/LinwoodDev/butterfly/issues/17))
+* Fixing zoom issues ([#20](https://github.com/LinwoodDev/butterfly/issues/20))
+* Simplify selection ([#23](https://github.com/LinwoodDev/butterfly/issues/23))
   * Add more space to select
   * Add calculation to look if the cursor is between two points
   * Add calculation to get the real width and height of the text
@@ -593,7 +708,7 @@ Read the whole 1.3 changelog at https://go.linwood.dev/butterfly/1-3
 * Big performance issues were fixed
 * New loading screen on web
 * Add separate color palette class (new color palette file format)
-* Fixing empty names in document name ([#14](https://github.com/LinwoodCloud/butterfly/issues/14))
+* Fixing empty names in document name ([#14](https://github.com/LinwoodDev/butterfly/issues/14))
 * Fixing open/save dialog
 
 ### 1.0.0-rc.0 (2021-10-20)

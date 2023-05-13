@@ -3,10 +3,9 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../widgets/header.dart';
 
 class CameraDialog extends StatefulWidget {
   const CameraDialog({super.key});
@@ -82,10 +81,10 @@ class _CameraDialogState extends State<CameraDialog>
         ),
       );
   Widget _buildCameraToggle(CameraDescription camera) => IconButton(
-        icon: Icon(
+        icon: PhosphorIcon(
           camera.lensDirection == CameraLensDirection.front
-              ? PhosphorIcons.userFocusLight
-              : PhosphorIcons.imageLight,
+              ? PhosphorIconsLight.userFocus
+              : PhosphorIconsLight.image,
           // Test if camera is selected
           color: _controller?.description == camera
               ? Theme.of(context).colorScheme.primary
@@ -133,7 +132,7 @@ class _CameraDialogState extends State<CameraDialog>
           children: [
             Header(
                 title: Text(AppLocalizations.of(context).camera),
-                leading: const Icon(PhosphorIcons.cameraLight)),
+                leading: const PhosphorIcon(PhosphorIconsLight.camera)),
             Flexible(
               child: Padding(
                 padding:

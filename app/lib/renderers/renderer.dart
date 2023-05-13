@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:math';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:butterfly/helpers/element_helper.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/helpers/point_helper.dart';
@@ -13,7 +14,6 @@ import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:markdown/markdown.dart' as markdown;
 import 'package:perfect_freehand/perfect_freehand.dart' as freehand;
 import 'package:xml/xml.dart';
 
@@ -53,14 +53,15 @@ abstract class Renderer<T> {
   Renderer(this.element);
 
   @mustCallSuper
-  FutureOr<void> setup(AppDocument document) async => _updateArea(document);
+  FutureOr<void> setup(NoteData document, DocumentPage page) async =>
+      _updateArea(page);
 
   void dispose() {}
 
-  void _updateArea(AppDocument document) => area = rect == null
+  void _updateArea(DocumentPage page) => area = rect == null
       ? null
-      : document.areas.firstWhereOrNull((area) => area.rect.overlaps(rect!));
-  FutureOr<bool> onAreaUpdate(AppDocument document, Area? area) async {
+      : page.areas.firstWhereOrNull((area) => area.rect.overlaps(rect!));
+  FutureOr<bool> onAreaUpdate(DocumentPage page, Area? area) async {
     if (area?.rect.overlaps(rect!) ?? false) {
       this.area = area;
     }
@@ -68,11 +69,11 @@ abstract class Renderer<T> {
   }
 
   Rect? get rect => null;
-  void build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
+      CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]);
   HitCalculator getHitCalculator() => DefaultHitCalculator(rect);
-  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {}
+  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {}
   factory Renderer.fromInstance(T element) {
     // Elements
     if (element is PadElement) {

@@ -1,32 +1,63 @@
-import 'dart:convert';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 
+import 'package:archive/archive.dart';
+import 'package:butterfly/helpers/color_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DocumentDefaults {
-  static Future<List<DocumentTemplate>> getDefaults(
-          BuildContext context) async =>
-      [
-        DocumentTemplate(
-            document: AppDocument(
-                name: AppLocalizations.of(context).plain,
-                packs: [await getCorePack()],
-                createdAt: DateTime.now(),
-                painters: createDefaultPainters(),
-                background: BackgroundTemplate.plain.create())),
-        DocumentTemplate(
-            document: AppDocument(
-                name: AppLocalizations.of(context).plainDark,
-                packs: [await getCorePack()],
-                createdAt: DateTime.now(),
-                painters: createDefaultPainters(),
-                background: BackgroundTemplate.plainDark.create()))
-      ];
+  DocumentDefaults._();
 
-  static Future<ButterflyPack> getCorePack() async => const PackJsonConverter()
-      .fromJson(json.decode(await rootBundle.loadString('defaults/pack.bfly')));
+  static Future<Uint8List> _createPlainThumnail(Color color) async {
+    final size = Size(kThumbnailWidth.toDouble(), kThumbnailHeight.toDouble());
+    final recorder = ui.PictureRecorder();
+    final canvas = Canvas(recorder);
+    canvas.drawRect(
+        Rect.fromLTWH(0, 0, size.width, size.height), Paint()..color = color);
+    final picture = recorder.endRecording();
+    final image =
+        await picture.toImage(size.width.toInt(), size.height.toInt());
+    final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    return bytes!.buffer.asUint8List();
+  }
+
+  static List<Painter> createPainters([int? background]) => [
+        HandPainter(),
+        PenPainter(),
+        PathEraserPainter(),
+        UndoPainter(),
+        RedoPainter()
+      ]
+          .map((e) =>
+              background == null ? e : updatePainterDefaultColor(e, background))
+          .toList();
+
+  static Future<List<NoteData>> getDefaults(BuildContext context) async {
+    return Future.wait(<dynamic>[
+      [
+        AppLocalizations.of(context).light,
+        BackgroundTemplate.plain.create(),
+      ],
+      [
+        AppLocalizations.of(context).dark,
+        BackgroundTemplate.plainDark.create(),
+      ],
+    ].map((e) async {
+      final bg = e[1] as Background;
+      final color = bg.defaultColor;
+      return createTemplate(
+        name: e[0] as String,
+        thumbnail: await _createPlainThumnail(Color(color)),
+        background: bg,
+      );
+    }).toList());
+  }
+
+  static Future<NoteData> getCorePack() async => NoteData.fromData(
+      Uint8List.sublistView(await rootBundle.load('defaults/pack.bfly')));
 
   static String translate(String key, Map<String, String> translations) {
     if (key.startsWith('\\/')) return key.substring(1);
@@ -45,13 +76,13 @@ class DocumentDefaults {
         'p': AppLocalizations.of(context).paragraph,
         'quote': AppLocalizations.of(context).quote,
         'code': AppLocalizations.of(context).code,
-        'blockquote': AppLocalizations.of(context).blockquote,
+        'blockquote': AppLocalizations.of(context).quote,
       };
 
   static String translateParagraph(String key, BuildContext context) =>
       translate(key, getParagraphTranslations(context));
 
-  static Map<String, String> getBlockTranslations(BuildContext context) => {
+  static Map<String, String> getSpanTranslations(BuildContext context) => {
         'a': AppLocalizations.of(context).link,
         'checkbox': AppLocalizations.of(context).checkbox,
         'del': AppLocalizations.of(context).deleted,
@@ -62,5 +93,64 @@ class DocumentDefaults {
       };
 
   static String translateBlock(String key, BuildContext context) =>
-      translate(key, getBlockTranslations(context));
+      translate(key, getSpanTranslations(context));
+
+  static NoteData createDocument({
+    String name = '',
+    DocumentPage? page,
+  }) {
+    page ??= createPage();
+    final data = NoteData(Archive());
+    final metadata = FileMetadata(
+      name: name,
+      createdAt: DateTime.now().toUtc(),
+      type: NoteFileType.document,
+      fileVersion: kFileVersion,
+      updatedAt: DateTime.now().toUtc(),
+    );
+    data.setMetadata(metadata);
+    data.setPage(page);
+    return data;
+  }
+
+  static DocumentPage createPage() {
+    return DocumentPage(
+      painters: DocumentDefaults.createPainters(),
+    );
+  }
+
+  static NoteData createPack() {
+    final data = NoteData(Archive());
+    final metadata = FileMetadata(
+      name: '',
+      createdAt: DateTime.now().toUtc(),
+      type: NoteFileType.pack,
+      fileVersion: kFileVersion,
+      updatedAt: DateTime.now().toUtc(),
+    );
+    data.setMetadata(metadata);
+    return data;
+  }
+
+  static NoteData createTemplate(
+      {String name = '',
+      Uint8List? thumbnail,
+      Background background = const Background.box()}) {
+    final data = NoteData(Archive());
+    final metadata = FileMetadata(
+      name: name,
+      createdAt: DateTime.now().toUtc(),
+      type: NoteFileType.template,
+      fileVersion: kFileVersion,
+      updatedAt: DateTime.now().toUtc(),
+    );
+    data.setMetadata(metadata);
+    final page = DocumentPage(
+      background: background,
+      painters: DocumentDefaults.createPainters(background.defaultColor),
+    );
+    data.setPage(page);
+    if (thumbnail != null) data.setThumbnail(thumbnail);
+    return data;
+  }
 }

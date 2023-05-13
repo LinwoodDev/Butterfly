@@ -2,12 +2,11 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/helpers/background.dart';
 import 'package:butterfly/widgets/color_field.dart';
-import 'package:butterfly/widgets/exact_slider.dart';
-import 'package:butterfly/widgets/header.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class BackgroundDialog extends StatelessWidget {
@@ -22,18 +21,18 @@ class BackgroundDialog extends StatelessWidget {
             child: BlocBuilder<DocumentBloc, DocumentState>(
                 builder: (context, state) {
               if (state is! DocumentLoadSuccess) return Container();
-              var background = state.document.background;
+              var background = state.page.background;
 
               return Column(
                 children: [
                   Header(
                     title: Text(AppLocalizations.of(context).background),
-                    leading: const Icon(PhosphorIcons.imageLight),
+                    leading: const PhosphorIcon(PhosphorIconsLight.image),
                     actions: [
                       IconButton(
                           tooltip: AppLocalizations.of(context).help,
-                          icon:
-                              const Icon(PhosphorIcons.circleWavyQuestionLight),
+                          icon: const PhosphorIcon(
+                              PhosphorIconsLight.sealQuestion),
                           onPressed: () => openHelp(['background', 'intro'])),
                     ],
                   ),
@@ -170,23 +169,14 @@ class BackgroundDialog extends StatelessWidget {
                                                   currentExpansionOpened == 0,
                                               headerBuilder: (context,
                                                       isExpanded) =>
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                          AppLocalizations.of(
-                                                                  context)
-                                                              .horizontal,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .titleLarge),
-                                                    ],
+                                                  ListTile(
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .horizontal,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleLarge),
                                                   ),
                                               body: Padding(
                                                 padding:
@@ -281,23 +271,14 @@ class BackgroundDialog extends StatelessWidget {
                                                   currentExpansionOpened == 1,
                                               headerBuilder: (context,
                                                       isExpanded) =>
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                          AppLocalizations.of(
-                                                                  context)
-                                                              .vertical,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .titleLarge),
-                                                    ],
+                                                  ListTile(
+                                                    title: Text(
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .vertical,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleLarge),
                                                   ),
                                               body: Padding(
                                                 padding:

@@ -1,0 +1,18 @@
+{
+  "version.label": {
+    "message": "1.1.2",
+    "description": "The label for version 1.1"
+  },
+  "sidebar.sidebar.category.Backgrounds": {
+    "message": "الخلفيات",
+    "description": "The label for category Backgrounds in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.Painters": {
+    "message": "المؤمنون",
+    "description": "The label for category Painters in sidebar sidebar"
+  },
+  "sidebar.sidebar.category.Tools": {
+    "message": "أدوات",
+    "description": "The label for category Tools in sidebar sidebar"
+  }
+}

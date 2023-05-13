@@ -1,0 +1,58 @@
+{
+  "title": {
+    "message": "バタフライ語",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "バタフライロゴ",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Tutorial": {
+    "message": "チュートリアル",
+    "description": "Navbar item with label Tutorial"
+  },
+  "item.label.Downloads": {
+    "message": "ダウンロード",
+    "description": "Navbar item with label Downloads"
+  },
+  "item.label.Community": {
+    "message": "コミュニティ",
+    "description": "Navbar item with label Community"
+  },
+  "item.label.More": {
+    "message": "もっと見る",
+    "description": "Navbar item with label More"
+  },
+  "item.label.Matrix": {
+    "message": "Matrix",
+    "description": "Navbar item with label Matrix"
+  },
+  "item.label.Discord": {
+    "message": "Discord",
+    "description": "Navbar item with label Discord"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  },
+  "item.label.Blog": {
+    "message": "ブログ",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.Crowdin": {
+    "message": "Crowdin",
+    "description": "Navbar item with label Crowdin"
+  },
+  "item.label.Twitter": {
+    "message": "Twitter",
+    "description": "Navbar item with label Twitter"
+  },
+  "item.label.Mastodon": {
+    "message": "Mastodon",
+    "description": "Navbar item with label Mastodon"
+  },
+  "item.label.License": {
+    "message": "ライセンス",
+    "description": "Navbar item with label License"
+  }
+}

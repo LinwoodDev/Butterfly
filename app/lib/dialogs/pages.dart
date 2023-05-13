@@ -1,11 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:butterfly/widgets/exact_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../widgets/header.dart';
 
 @immutable
 class PageDialogCallback {
@@ -47,7 +45,7 @@ class _PagesDialogState extends State<PagesDialog> {
             actions: [
               IconButton(
                   tooltip: AppLocalizations.of(context).invertSelection,
-                  icon: const Icon(PhosphorIcons.selectionInverseLight),
+                  icon: const PhosphorIcon(PhosphorIconsLight.selectionInverse),
                   onPressed: () {
                     setState(() {
                       // Remove all selected pages and add all other pages.

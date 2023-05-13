@@ -7,12 +7,6 @@ abstract class DocumentEvent extends ReplayEvent with EquatableMixin {
   List<Object?> get props => [];
 }
 
-class DocumentUpdated extends DocumentEvent {
-  final AppDocument document;
-
-  DocumentUpdated(this.document);
-}
-
 class ToolChanged extends DocumentEvent {
   final ToolOption? option;
   final ToolState? state;
@@ -201,9 +195,12 @@ class ElementsLayerChanged extends DocumentEvent {
 }
 
 class TemplateCreated extends DocumentEvent {
+  final String directory;
+  final String? remote;
   final bool deleteDocument;
 
-  const TemplateCreated({this.deleteDocument = true});
+  const TemplateCreated(
+      {this.deleteDocument = true, this.directory = '', this.remote});
 
   @override
   List<Object?> get props => [deleteDocument];
@@ -276,7 +273,7 @@ class ExportPresetRemoved extends DocumentEvent {
 }
 
 class DocumentPackAdded extends DocumentEvent {
-  final ButterflyPack pack;
+  final NoteData pack;
 
   const DocumentPackAdded(this.pack);
 
@@ -286,7 +283,7 @@ class DocumentPackAdded extends DocumentEvent {
 
 class DocumentPackUpdated extends DocumentEvent {
   final String name;
-  final ButterflyPack pack;
+  final NoteData pack;
 
   const DocumentPackUpdated(this.name, this.pack);
 

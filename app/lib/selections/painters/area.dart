@@ -84,15 +84,4 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
     }
     return super.insert(element);
   }
-
-  @override
-  String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context).area;
-
-  @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.monitorFill : PhosphorIcons.monitorLight;
-
-  @override
-  List<String> get help => ['painters', 'area'];
 }

@@ -11,8 +11,8 @@ class HandSelectionRenderer extends Renderer<Rect> {
       [this.transformMode, this.transformCorner]);
 
   @override
-  void build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
+      CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final paint = Paint()
       ..color = scheme.primary
@@ -155,7 +155,7 @@ class HandHandler extends Handler<HandPainter> {
 
   @override
   Future<bool> onRendererUpdated(
-      AppDocument appDocument, Renderer old, Renderer updated) async {
+      DocumentPage page, Renderer old, Renderer updated) async {
     if (_movingElements.contains(old.element) &&
         updated is Renderer<PadElement>) {
       _movingElements.remove(old.element);
@@ -184,16 +184,13 @@ class HandHandler extends Handler<HandPainter> {
 
   @override
   List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      CurrentIndexCubit currentIndexCubit, NoteData document, DocumentPage page,
       [Area? currentArea]) {
     final foregrounds = <Renderer>[];
-    final scheme = ThemeManager.getThemeByName(
-            currentIndexCubit.state.settingsCubit.state.design)
-        .colorScheme;
     if (_movingElements.isNotEmpty && _currentMovePosition != null) {
       final renderers = _movingElements.map((e) {
         final position = currentIndexCubit.getGridPosition(
-            (e.rect?.topLeft ?? Offset.zero) + _currentMovePosition!, document);
+            (e.rect?.topLeft ?? Offset.zero) + _currentMovePosition!, page);
 
         return _currentMovePosition == null
             ? e
@@ -202,6 +199,7 @@ class HandHandler extends Handler<HandPainter> {
       foregrounds.addAll(renderers);
     }
     final selectionRect = getSelectionRect();
+    final scheme = currentIndexCubit.getTheme(false).colorScheme;
     if (selectionRect != null) {
       foregrounds.add(HandSelectionRenderer(
           selectionRect, scheme, _transformMode, _transformCorner));
@@ -228,15 +226,14 @@ class HandHandler extends Handler<HandPainter> {
     if (_movingElements.isEmpty) return;
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
-    final document = state.document;
+    final page = state.page;
     final cubit = state.currentIndexCubit;
     final tool = cubit.state.cameraViewport.tool;
     final current = _movingElements
         .map((e) {
           var position = (e.rect?.topLeft ?? Offset.zero) +
               (_currentMovePosition ?? Offset.zero);
-          position =
-              tool?.getGridPosition(position, document, cubit) ?? position;
+          position = tool.getGridPosition(position, page, cubit);
           return e.transform(position: position, relative: false) ?? e;
         })
         .map((e) => e.element)
@@ -380,8 +377,7 @@ class HandHandler extends Handler<HandPainter> {
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final viewport = context.getCameraViewport();
     _rotation = 0;
-    if (viewport.tool?.hitRuler(details.localFocalPoint, viewport.toSize()) ??
-        false) {
+    if (viewport.tool.hitRuler(details.localFocalPoint, viewport.toSize())) {
       _ruler = true;
       return true;
     }
@@ -412,8 +408,7 @@ class HandHandler extends Handler<HandPainter> {
     if (_ruler) {
       final state = context.getState();
       if (state == null) return;
-      var toolState = context.getCameraViewport().tool?.element;
-      if (toolState == null) return;
+      var toolState = context.getCameraViewport().tool.element;
       final currentRotation = details.rotation * 180 / pi * details.scale;
       final delta = currentRotation - _rotation;
       var angle = toolState.rulerAngle + delta;
@@ -430,7 +425,9 @@ class HandHandler extends Handler<HandPainter> {
         rulerAngle: angle,
       );
       _rotation = currentRotation;
-      context.getCurrentIndexCubit().updateTool(state.document, toolState);
+      context
+          .getCurrentIndexCubit()
+          .updateTool(state.data, state.page, toolState);
       return;
     }
     if (_transformMode != null) {
@@ -439,10 +436,12 @@ class HandHandler extends Handler<HandPainter> {
     }
     if (currentIndex.buttons != kSecondaryMouseButton &&
         details.pointerCount == 1) {
-      final topLeft = _freeSelection?.topLeft ?? globalPos;
-      _freeSelection =
-          Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy);
-      context.refresh();
+      if (details.scale == 1.0) {
+        final topLeft = _freeSelection?.topLeft ?? globalPos;
+        _freeSelection =
+            Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy);
+        context.refresh();
+      }
       return;
     }
     if (_movingElements.isNotEmpty) {

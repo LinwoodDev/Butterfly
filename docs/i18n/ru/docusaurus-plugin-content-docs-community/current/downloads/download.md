@@ -4,7 +4,7 @@ sidebar_position: 0
 title: Загрузки
 ---
 
-![Стабильная версия релиза](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Ночной релиз версии](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodCloud%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
+![Стабильная версия релиза](https://img.shields.io/badge/dynamic/yaml?color=c4840d&label=Stable&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fstable%2Fapp%2Fpubspec.yaml&style=for-the-badge) ![Nightly release version](https://img.shields.io/badge/dynamic/yaml?color=f7d28c&label=Nightly&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2FLinwoodDev%2Fbutterfly%2Fnightly%2Fapp%2Fpubspec.yaml&style=for-the-badge)
 
 ## Выберите платформу
 
@@ -42,6 +42,6 @@ title: Загрузки
 ## Полезные ссылки
 
 - [Список изменений](changelog)
-- [Старые релизы](https://github.com/LinwoodCloud/butterfly/releases)
-- [Последний релиз](https://github.com/LinwoodCloud/butterfly/releases/latest)
+- [Старые релизы](https://github.com/LinwoodDev/butterfly/releases)
+- [Последний релиз](https://github.com/LinwoodDev/butterfly/releases/latest)
 - [Поддержка](https://discord.linwood.dev)

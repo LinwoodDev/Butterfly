@@ -63,6 +63,7 @@ class SyncService {
     for (final remote in settings.remotes) {
       if (!_hasSync(remote.identifier)) _createSync(remote.identifier);
     }
+    _refreshStatus();
   }
 
   void _refreshStatus() {
@@ -139,10 +140,9 @@ class RemoteSync {
     _filesSubject.add([]);
     final currentFiles = await fileSystem.getAllSyncFiles();
     _filesSubject.add(currentFiles);
-    final now = DateTime.now();
+    final now = DateTime.now().toUtc();
 
-    final hasError =
-        currentFiles.any((file) => file.status == SyncStatus.error);
+    final hasError = status == SyncStatus.error;
 
     for (final file in currentFiles) {
       switch (file.status) {
@@ -172,6 +172,7 @@ class RemoteSync {
           }
           break;
         case FileSyncStatus.synced:
+          files.add(file);
           break;
         case FileSyncStatus.conflict:
           _statusSubject.add(SyncStatus.error);
@@ -181,8 +182,8 @@ class RemoteSync {
           files.add(file);
           break;
       }
-      _filesSubject.add(files);
     }
+    _filesSubject.add(files);
     if (status != SyncStatus.error) {
       await _updateLastSynced();
       _statusSubject.add(SyncStatus.synced);
@@ -210,7 +211,7 @@ class RemoteSync {
   }
 
   Future<void> resolve(String path, FileSyncStatus status) async {
-    if (status == SyncStatus.syncing) {
+    if (this.status == SyncStatus.syncing) {
       return;
     }
     _statusSubject.add(SyncStatus.syncing);
@@ -231,12 +232,16 @@ class RemoteSync {
       case FileSyncStatus.conflict:
         await fileSystem.cache(path);
         final remoteAsset = await fileSystem.getAsset(path, forceRemote: true);
-        if (remoteAsset is! AppDocumentFile) return;
-        final parent = path.substring(0, path.lastIndexOf('/'));
-        final doc = remoteAsset.getDocumentInfo()?.load();
-        if (doc == null) return;
-        await fileSystem.importDocument(doc, path: parent, forceSync: true);
-        await fileSystem.uploadCachedContent(path);
+        await remoteAsset?.maybeMap(
+          file: (file) async {
+            if (remoteAsset is! AppDocumentFile) return;
+            final parent = path.substring(0, path.lastIndexOf('/'));
+            final doc = file.load();
+            await fileSystem.importDocument(doc, path: parent, forceSync: true);
+            await fileSystem.uploadCachedContent(path);
+          },
+          orElse: () {},
+        );
         break;
       default:
         _statusSubject.add(SyncStatus.error);

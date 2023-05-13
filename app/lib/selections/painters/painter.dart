@@ -69,13 +69,20 @@ class PainterSelection<T extends Painter> extends Selection<T> {
   }
 
   @override
-  IconData getIcon({bool filled = false}) {
+  IconGetter get icon {
     final type = selected.first.runtimeType;
     if (selected.every((e) => e.runtimeType == type)) {
-      return selected.first.getIcon(filled: filled);
+      return selected.first.icon;
     }
-    return filled
-        ? PhosphorIcons.paintRollerFill
-        : PhosphorIcons.paintRollerLight;
+    return PhosphorIcons.paintRoller;
+  }
+
+  @override
+  List<String> get help {
+    final type = selected.first.runtimeType;
+    if (selected.any((e) => e.runtimeType != type)) {
+      return const [];
+    }
+    return selected.first.help;
   }
 }

@@ -1,15 +1,16 @@
 import 'package:butterfly/api/file_system.dart';
-import 'package:butterfly/api/format_date_time.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubits/current_index.dart';
 import '../dialogs/template.dart';
+import '../models/defaults.dart';
 
 class NewIntent extends Intent {
   final BuildContext context;
@@ -29,18 +30,15 @@ class NewAction extends Action<NewIntent> {
     final settings = settingsCubit.state;
     final transformCubit = context.read<TransformCubit>();
     final currentIndexCubit = context.read<CurrentIndexCubit>();
-    var document = AppDocument(
-      name: await formatCurrentDateTime(
-          context.read<SettingsCubit>().state.locale),
-      createdAt: DateTime.now(),
-      painters: createDefaultPainters(),
-    );
+    final router = GoRouter.of(context);
+    var path = '';
+    var document = DocumentDefaults.createDocument();
     final prefs = await SharedPreferences.getInstance();
     final remote = settings.getDefaultRemote();
     if (intent.fromTemplate && context.mounted) {
       var state = bloc.state;
-      if (state is DocumentLoadSuccess) document = state.document;
-      var template = await showDialog<DocumentTemplate>(
+      if (state is DocumentLoadSuccess) document = state.data;
+      var template = await showDialog<NoteData>(
           context: context,
           builder: (context) => MultiBlocProvider(
                 providers: [
@@ -53,33 +51,28 @@ class NewAction extends Action<NewIntent> {
                 ),
               ));
       if (template == null) return;
-      document = template.document.copyWith(
-        name: await formatCurrentDateTime(settings.locale),
-        createdAt: DateTime.now(),
-      );
+      document = template;
+      final metadata = template.getMetadata();
+      if (metadata != null) {
+        template.setMetadata(metadata.copyWith(
+          createdAt: DateTime.now().toUtc(),
+        ));
+        path = metadata.directory;
+      }
     } else if (prefs.containsKey('default_template')) {
       var template = await TemplateFileSystem.fromPlatform(remote: remote)
           .getTemplate(prefs.getString('default_template')!);
       if (template != null) {
-        document = template.document.copyWith(
-          name: await formatCurrentDateTime(settings.locale),
-          createdAt: DateTime.now(),
-        );
+        final metadata = template.getMetadata();
+        if (metadata != null) {
+          template.setMetadata(metadata.copyWith(
+            createdAt: DateTime.now().toUtc(),
+          ));
+          path = metadata.directory;
+        }
       }
     }
-
-    bloc.clearHistory();
-    transformCubit.reset();
-    currentIndexCubit.reset(bloc);
-    final state = DocumentLoadSuccess(
-      document,
-      currentIndexCubit: currentIndexCubit,
-      location: remote == null
-          ? AssetLocation.local('')
-          : AssetLocation(remote: remote.identifier, path: ''),
-      settingsCubit: settingsCubit,
-    );
-    bloc.emit(state);
-    await bloc.load();
+    router.pushReplacementNamed('new',
+        queryParameters: {'path': path}, extra: document);
   }
 }

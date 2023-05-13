@@ -6,43 +6,6 @@ part of 'pack.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ButterflyPack _$$_ButterflyPackFromJson(Map json) => _$_ButterflyPack(
-      name: json['name'] as String? ?? '',
-      description: json['description'] as String? ?? '',
-      author: json['author'] as String? ?? '',
-      components: (json['components'] as List<dynamic>?)
-              ?.map((e) => ButterflyComponent.fromJson(
-                  Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const <ButterflyComponent>[],
-      styles: (json['styles'] as List<dynamic>?)
-              ?.map((e) =>
-                  TextStyleSheet.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const <TextStyleSheet>[],
-      palettes: (json['palettes'] as List<dynamic>?)
-              ?.map((e) =>
-                  ColorPalette.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const <ColorPalette>[],
-      createdAt:
-          const DateTimeJsonConverter().fromJson(json['createdAt'] as int),
-      updatedAt:
-          const DateTimeJsonConverter().fromJson(json['updatedAt'] as int),
-    );
-
-Map<String, dynamic> _$$_ButterflyPackToJson(_$_ButterflyPack instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'description': instance.description,
-      'author': instance.author,
-      'components': instance.components.map((e) => e.toJson()).toList(),
-      'styles': instance.styles.map((e) => e.toJson()).toList(),
-      'palettes': instance.palettes.map((e) => e.toJson()).toList(),
-      'createdAt': const DateTimeJsonConverter().toJson(instance.createdAt),
-      'updatedAt': const DateTimeJsonConverter().toJson(instance.updatedAt),
-    };
-
 _$_ButterflyComponent _$$_ButterflyComponentFromJson(Map json) =>
     _$_ButterflyComponent(
       name: json['name'] as String,

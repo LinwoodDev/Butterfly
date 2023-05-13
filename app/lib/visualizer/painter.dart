@@ -4,6 +4,7 @@ import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 extension PainterVisualizer on Painter {
@@ -28,39 +29,46 @@ extension PainterVisualizer on Painter {
     );
   }
 
-  IconData getIcon({bool filled = false}) {
+  IconGetter get icon {
     return map(
-      hand: (_) => filled ? PhosphorIcons.handFill : PhosphorIcons.handLight,
-      import: (_) => filled
-          ? PhosphorIcons.arrowSquareInFill
-          : PhosphorIcons.arrowSquareInLight,
-      undo: (_) => filled
-          ? PhosphorIcons.arrowCounterClockwiseFill
-          : PhosphorIcons.arrowCounterClockwiseLight,
-      redo: (_) => filled
-          ? PhosphorIcons.arrowClockwiseFill
-          : PhosphorIcons.arrowClockwiseLight,
-      label: (_) => filled ? PhosphorIcons.textTFill : PhosphorIcons.textTLight,
-      pen: (_) => filled ? PhosphorIcons.penFill : PhosphorIcons.penLight,
-      eraser: (_) =>
-          filled ? PhosphorIcons.eraserFill : PhosphorIcons.eraserLight,
-      pathEraser: (_) =>
-          filled ? PhosphorIcons.pathFill : PhosphorIcons.pathLight,
-      layer: (_) => filled
-          ? PhosphorIcons.squaresFourFill
-          : PhosphorIcons.squaresFourLight,
-      area: (_) =>
-          filled ? PhosphorIcons.monitorFill : PhosphorIcons.monitorLight,
-      waypoint: (_) =>
-          filled ? PhosphorIcons.mapPinFill : PhosphorIcons.mapPinLight,
-      laser: (_) =>
-          filled ? PhosphorIcons.cursorFill : PhosphorIcons.cursorLight,
-      shape: (painter) => painter.property.shape.getIcon(filled: filled),
-      stamp: (_) => filled ? PhosphorIcons.stampFill : PhosphorIcons.stampLight,
-      presentation: (_) => filled
-          ? PhosphorIcons.presentationFill
-          : PhosphorIcons.presentationLight,
+      hand: (_) => PhosphorIcons.hand,
+      import: (_) => PhosphorIcons.arrowSquareIn,
+      undo: (_) => PhosphorIcons.arrowCounterClockwise,
+      redo: (_) => PhosphorIcons.arrowClockwise,
+      label: (_) => PhosphorIcons.textT,
+      pen: (_) => PhosphorIcons.pen,
+      eraser: (_) => PhosphorIcons.eraser,
+      pathEraser: (_) => PhosphorIcons.path,
+      layer: (_) => PhosphorIcons.squaresFour,
+      area: (_) => PhosphorIcons.monitor,
+      waypoint: (_) => PhosphorIcons.mapPin,
+      laser: (_) => PhosphorIcons.cursor,
+      shape: (painter) => painter.property.shape.icon,
+      stamp: (_) => PhosphorIcons.stamp,
+      presentation: (_) => PhosphorIcons.presentation,
     );
+  }
+
+  List<String> get help {
+    final page = maybeMap(
+      redo: (_) => 'redo',
+      undo: (_) => 'undo',
+      pen: (_) => 'pen',
+      laser: (_) => 'laser',
+      shape: (_) => 'shape',
+      stamp: (_) => 'stamp',
+      eraser: (_) => 'eraser',
+      pathEraser: (_) => 'path_eraser',
+      label: (_) => 'label',
+      area: (_) => 'area',
+      hand: (_) => 'hand',
+      layer: (_) => 'layer',
+      presentation: (_) => 'presentation',
+      waypoint: (_) => 'waypoint',
+      orElse: () => null,
+    );
+    if (page == null) return [];
+    return ['painters', page];
   }
 
   bool isAction() {

@@ -2,7 +2,7 @@
 title: Marchio
 ---
 
-Queste risorse sono concesse sotto la licenza [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE).
+Questi attivi sono concessi in licenza ai sensi del [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE).
 
 ## Logo
 
@@ -10,7 +10,7 @@ Queste risorse sono concesse sotto la licenza [CC-BY-4.0](https://github.com/Lin
 
 [SVG](/img/logo.svg) [PNG](/img/logo.png)
 
-## Logo Nightly
+## Nightly Logo
 
 ![Logo](/img/nightly.svg)
 
@@ -42,3 +42,11 @@ Queste risorse sono concesse sotto la licenza [CC-BY-4.0](https://github.com/Lin
 ## Caratteri
 
 * `Roboto`
+
+## Screenshot
+
+> Utilizzato nella modalità di progettazione reattiva firefox
+
+* Telefono: Galaxy S20 Ultra
+* Compressa da 7 pollici: Nexus 7
+* Compressa da 10 pollici: Nexus 10

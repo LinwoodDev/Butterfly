@@ -1,0 +1,58 @@
+{
+  "title": {
+    "message": "Perhonen",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Perhonen Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Tutorial": {
+    "message": "Opastus",
+    "description": "Navbar item with label Tutorial"
+  },
+  "item.label.Downloads": {
+    "message": "Lataukset",
+    "description": "Navbar item with label Downloads"
+  },
+  "item.label.Community": {
+    "message": "Yhteisö",
+    "description": "Navbar item with label Community"
+  },
+  "item.label.More": {
+    "message": "Lisää",
+    "description": "Navbar item with label More"
+  },
+  "item.label.Matrix": {
+    "message": "Matrix",
+    "description": "Navbar item with label Matrix"
+  },
+  "item.label.Discord": {
+    "message": "Discord",
+    "description": "Navbar item with label Discord"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  },
+  "item.label.Blog": {
+    "message": "Blogi",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.Crowdin": {
+    "message": "Crowdiini",
+    "description": "Navbar item with label Crowdin"
+  },
+  "item.label.Twitter": {
+    "message": "Twitter",
+    "description": "Navbar item with label Twitter"
+  },
+  "item.label.Mastodon": {
+    "message": "Mastodon",
+    "description": "Navbar item with label Mastodon"
+  },
+  "item.label.License": {
+    "message": "Lisenssi",
+    "description": "Navbar item with label License"
+  }
+}

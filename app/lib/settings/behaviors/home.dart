@@ -1,13 +1,12 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/visualizer/sync.dart';
+import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../../views/window.dart';
 
 class BehaviorsSettingsPage extends StatelessWidget {
   final bool inView;
@@ -18,13 +17,10 @@ class BehaviorsSettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: inView ? Colors.transparent : null,
-        appBar: AppBar(
+        appBar: WindowTitleBar(
           title: Text(AppLocalizations.of(context).behaviors),
           backgroundColor: inView ? Colors.transparent : null,
-          automaticallyImplyLeading: !inView,
-          actions: [
-            if (!inView && !kIsWeb && isWindow()) const WindowButtons()
-          ],
+          inView: inView,
         ),
         body: BlocBuilder<SettingsCubit, ButterflySettings>(
             builder: (context, state) {
@@ -45,7 +41,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
                             ListTile(
                               title:
                                   Text(AppLocalizations.of(context).syncMode),
-                              leading: Icon(state.syncMode.getIcon()),
+                              leading: PhosphorIcon(state.syncMode.getIcon()),
                               subtitle: Text(
                                   state.syncMode.getLocalizedName(context)),
                               onTap: () => _openSyncModeModal(context),
@@ -63,25 +59,28 @@ class BehaviorsSettingsPage extends StatelessWidget {
                               style: Theme.of(context).textTheme.headlineSmall),
                           const SizedBox(height: 16),
                           ListTile(
-                            leading: const Icon(PhosphorIcons.mouseLight),
+                            leading:
+                                const PhosphorIcon(PhosphorIconsLight.mouse),
                             title: Text(AppLocalizations.of(context).mouse),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/mouse'),
                           ),
                           ListTile(
-                            leading: const Icon(PhosphorIcons.handLight),
+                            leading:
+                                const PhosphorIcon(PhosphorIconsLight.hand),
                             title: Text(AppLocalizations.of(context).touch),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/touch'),
                           ),
                           ListTile(
-                            leading: const Icon(PhosphorIcons.keyboardLight),
+                            leading:
+                                const PhosphorIcon(PhosphorIconsLight.keyboard),
                             title: Text(AppLocalizations.of(context).keyboard),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/keyboard'),
                           ),
                           ListTile(
-                            leading: const Icon(PhosphorIcons.penLight),
+                            leading: const PhosphorIcon(PhosphorIconsLight.pen),
                             title: Text(AppLocalizations.of(context).pen),
                             onTap: () => GoRouter.of(context)
                                 .go('/settings/behaviors/pen'),
@@ -118,7 +117,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
               ...SyncMode.values.map((syncMode) {
                 return ListTile(
                   title: Text(syncMode.getLocalizedName(context)),
-                  leading: Icon(syncMode.getIcon()),
+                  leading: PhosphorIcon(syncMode.getIcon()),
                   selected: syncMode == settingsCubit.state.syncMode,
                   onTap: () => changeSyncMode(syncMode),
                 );

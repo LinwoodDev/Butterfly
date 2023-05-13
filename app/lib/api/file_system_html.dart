@@ -1,11 +1,13 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:js_util';
 
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:idb_shim/idb.dart';
@@ -43,7 +45,7 @@ Database? _db;
 Future<Database> _getDatabase() async {
   if (_db != null) return _db!;
   var idbFactory = getIdbFactory()!;
-  _db = await idbFactory.open('butterfly.db', version: 3,
+  _db = await idbFactory.open('butterfly.db', version: 4,
       onUpgradeNeeded: (VersionChangeEvent event) async {
     Database db = event.database;
     if (event.oldVersion < 1) {
@@ -63,56 +65,61 @@ Future<Database> _getDatabase() async {
     if (event.oldVersion < 3) {
       db.createObjectStore('templates');
     }
+    if (event.oldVersion < 4) {
+      db.createObjectStore('packs');
+      db.createObjectStore('documents-data');
+      var txn = event.transaction;
+      var store = txn.objectStore('templates');
+      var cursor = store.openCursor();
+      await Future.wait(await cursor.map<Future<dynamic>>((cursor) async {
+        final value = cursor.value;
+        if (value is! Map) return value;
+        var type = value['type'];
+        if (type != 'document') return value;
+        final data = utf8.encode(jsonEncode(value));
+        return {'type': 'document', 'data': data};
+      }).toList());
+      var documentStore = txn.objectStore('documents');
+      await Future.wait(
+          await documentStore.openCursor().map<Future<dynamic>>((cursor) async {
+        var doc = cursor.value as Map<dynamic, dynamic>;
+        var data = doc['data'];
+        if (data is! String) return;
+        var path = cursor.key as String;
+        var dataStore = txn.objectStore('documents-data');
+        await dataStore.put(data, path);
+        doc['data'] = null;
+        await documentStore.put(doc, path);
+      }).toList());
+      await txn.completed;
+    }
   });
   return _db!;
 }
 
 class WebDocumentFileSystem extends DocumentFileSystem {
   @override
-  Future<AppDocumentFile> importDocument(AppDocument document,
-      {String path = '/'}) async {
+  Future<void> deleteAsset(String path) async {
     // Add leading slash
     if (!path.startsWith('/')) {
       path = '/$path';
     }
-    if (path == '/' || path == '//') {
-      path = '';
-    }
-    // Create directory if it doesn't exist
-    await createDirectory(path);
-    var filePath = '$path/${convertNameToFile(document.name)}';
-    var counter = 2;
-    while (await hasAsset(filePath)) {
-      filePath = '$path/${convertNameToFile(document.name)}_$counter';
-      counter++;
-    }
-    var doc = Map<String, dynamic>.from(
-        const DocumentJsonConverter().toJson(document));
-    doc['type'] = 'file';
-    final db = await _getDatabase();
-    var txn = db.transaction('documents', 'readwrite');
-    var store = txn.objectStore('documents');
-    await store.put(doc, filePath);
-    await txn.completed;
-    return AppDocumentFile.fromMap(AssetLocation.local(filePath), doc);
-  }
-
-  @override
-  Future<void> deleteAsset(String path) async {
     var db = await _getDatabase();
-    var txn = db.transaction('documents', 'readwrite');
+    var txn = db.transactionList(['documents', 'documents-data'], 'readwrite');
     var store = txn.objectStore('documents');
     var data = await store.getObject(path) as Map<dynamic, dynamic>?;
+    await store.delete(path);
+    var dataStore = txn.objectStore('documents-data');
+    await dataStore.delete(path);
     if (data?['type'] == 'directory') {
       // delete all where key starts with path
       var cursor = store.openCursor();
       await cursor.forEach((cursor) {
         if (cursor.key.toString().startsWith(path)) {
-          store.delete(cursor.key);
+          deleteAsset(cursor.key.toString());
         }
       });
     }
-    await store.delete(path);
     await txn.completed;
   }
 
@@ -126,7 +133,14 @@ class WebDocumentFileSystem extends DocumentFileSystem {
       path = '/';
     }
     var db = await _getDatabase();
-    var txn = db.transaction('documents', 'readonly');
+    var txn = db.transaction(['documents', 'documents-data'], 'readonly');
+
+    Future<List<int>?> getData(String path) async {
+      final dataStore = txn.objectStore('documents-data');
+      final data = await dataStore.getObject(path);
+      return List<int>.from(data as List);
+    }
+
     var store = txn.objectStore('documents');
     var data = await store.getObject(path);
     if (path == '/') {
@@ -138,8 +152,11 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     }
     var map = Map<String, dynamic>.from(data as Map);
     if (map['type'] == 'file') {
+      final data = await getData(path);
+      if (data == null) return null;
+      final file = AppDocumentFile(AssetLocation.local(path), data);
       await txn.completed;
-      return AppDocumentFile.fromMap(AssetLocation.local(path), map);
+      return file;
     } else if (map['type'] == 'directory') {
       var cursor = store.openCursor(autoAdvance: true);
       var assets = await Future.wait(
@@ -155,8 +172,9 @@ class WebDocumentFileSystem extends DocumentFileSystem {
             !key.substring(path.length + 1).contains('/')) {
           var data = cursor.value as Map<dynamic, dynamic>;
           if (data['type'] == 'file') {
-            return AppDocumentFile.fromMap(
-                AssetLocation.local(key), Map<String, dynamic>.from(data));
+            final data = await getData(key);
+            if (data == null) return null;
+            return AppDocumentFile(AssetLocation.local(key), data);
           } else if (data['type'] == 'directory') {
             return AppDocumentDirectory(AssetLocation.local(key), const []);
           }
@@ -164,7 +182,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
         }
         return null;
       }).toList())
-          .then((value) => value.whereType<AppDocumentEntity>().toList());
+          .then((value) => value.whereNotNull().toList());
       // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
       assets.sort((a, b) => a is AppDocumentDirectory
           ? -1
@@ -188,55 +206,57 @@ class WebDocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentFile> updateDocument(
-      String path, AppDocument document) async {
-    // Add leading slash
-    if (!path.startsWith('/')) {
-      path = '/$path';
-    }
+  Future<AppDocumentFile> updateFile(String path, List<int> data) async {
     // Remove trailing slash
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
+    }
+    // Add leading slash
+    if (!path.startsWith('/')) {
+      path = '/$path';
     }
     final pathWithoutSlash = path.substring(1);
     // Create directory if it doesn't exist
     if (pathWithoutSlash.contains('/')) {
       await createDirectory(
-          pathWithoutSlash.substring(0, pathWithoutSlash.lastIndexOf('/')));
+          '/${pathWithoutSlash.substring(0, pathWithoutSlash.lastIndexOf('/'))}');
     }
-    var db = await _getDatabase();
-    var txn = db.transaction('documents', 'readwrite');
-    var store = txn.objectStore('documents');
-    var doc = const DocumentJsonConverter().toJson(document);
-    doc['type'] = 'file';
-    await store.put(doc, path);
+    final db = await _getDatabase();
+    final txn =
+        db.transactionList(['documents', 'documents-data'], 'readwrite');
+    final store = txn.objectStore('documents');
+    await store.put({
+      'type': 'file',
+    }, path);
+    final dataStore = txn.objectStore('documents-data');
+    await dataStore.put(data, path);
     await txn.completed;
-    return AppDocumentFile.fromMap(AssetLocation.local(path), doc);
+    return AppDocumentFile(AssetLocation.local(path), data);
   }
 
   @override
-  Future<AppDocumentDirectory> createDirectory(String name) async {
+  Future<AppDocumentDirectory> createDirectory(String path) async {
     // Remove leading slash
-    if (!name.startsWith('/')) {
-      name = '/$name';
+    if (!path.startsWith('/')) {
+      path = '/$path';
     }
-    if (name.endsWith('/')) {
-      name = name.substring(0, name.length - 1);
+    if (path.endsWith('/')) {
+      path = path.substring(0, path.length - 1);
     }
     var db = await _getDatabase();
     var txn = db.transaction('documents', 'readwrite');
     var store = txn.objectStore('documents');
-    final parents = name.split('/');
+    final parents = path.split('/');
     String last = '/';
     if (parents.length <= 1) return await getRootDirectory();
     for (var current in parents.sublist(1)) {
       final data = {'type': 'directory'};
-      final path = '$last$current';
-      await store.put(data, path);
-      last = '$path/';
+      final currentPath = '$last$current';
+      await store.put(data, currentPath);
+      last = '$currentPath/';
     }
     await txn.completed;
-    return AppDocumentDirectory(AssetLocation.local(name), const []);
+    return AppDocumentDirectory(AssetLocation.local(path), const []);
   }
 
   FileSystemHandle? _fs;
@@ -308,7 +328,7 @@ class WebTemplateFileSystem extends TemplateFileSystem {
   }
 
   @override
-  Future<DocumentTemplate?> getTemplate(String name) async {
+  Future<NoteData?> getTemplate(String name) async {
     var db = await _getDatabase();
     var txn = db.transaction('templates', 'readonly');
     var store = txn.objectStore('templates');
@@ -317,17 +337,16 @@ class WebTemplateFileSystem extends TemplateFileSystem {
       await txn.completed;
       return null;
     }
-    var map = Map<String, dynamic>.from(data as Map);
     await txn.completed;
-    return const TemplateJsonConverter().fromJson(map);
+    return NoteData.fromData(Uint8List.fromList(List<int>.from(data as List)));
   }
 
   @override
-  Future<void> updateTemplate(DocumentTemplate template) async {
+  Future<void> updateTemplate(NoteData template) async {
     var db = await _getDatabase();
     var txn = db.transaction('templates', 'readwrite');
     var store = txn.objectStore('templates');
-    var doc = const TemplateJsonConverter().toJson(template);
+    var doc = template.save();
     await store.put(doc, template.name);
   }
 
@@ -343,30 +362,28 @@ class WebTemplateFileSystem extends TemplateFileSystem {
 
   @override
   Future<bool> createDefault(BuildContext context, {bool force = false}) async {
-    var shouldCreate = force;
     var defaults = await DocumentDefaults.getDefaults(context);
     var prefs = await SharedPreferences.getInstance();
-    if (!shouldCreate) {
-      shouldCreate = !prefs.containsKey('defaultTemplate');
+    if (!force) {
+      force = !prefs.containsKey('defaultTemplate');
     }
-    if (!shouldCreate) return false;
+    if (!force) return false;
     await Future.wait(defaults.map((e) => updateTemplate(e)));
     prefs.setBool('defaultTemplate', true);
     return true;
   }
 
   @override
-  Future<List<DocumentTemplate>> getTemplates() async {
+  Future<List<NoteData>> getTemplates() async {
     var db = await _getDatabase();
     var txn = db.transaction('templates', 'readonly');
     var store = txn.objectStore('templates');
     var cursor = store.openCursor(autoAdvance: true);
-    var templates = <DocumentTemplate>[];
+    var templates = <NoteData>[];
     await cursor.forEach((cursor) {
       try {
-        var map = cursor.value as Map;
-        templates.add(const TemplateJsonConverter()
-            .fromJson(Map<String, dynamic>.from(map)));
+        templates.add(NoteData.fromData(
+            Uint8List.fromList(List<int>.from(cursor.value as List))));
       } catch (e) {
         if (kDebugMode) {
           print(e);
@@ -389,7 +406,7 @@ class WebPackFileSystem extends PackFileSystem {
   }
 
   @override
-  Future<ButterflyPack?> getPack(String name) async {
+  Future<NoteData?> getPack(String name) async {
     var db = await _getDatabase();
     var txn = db.transaction('packs', 'readonly');
     var store = txn.objectStore('packs');
@@ -398,17 +415,16 @@ class WebPackFileSystem extends PackFileSystem {
       await txn.completed;
       return null;
     }
-    var map = Map<String, dynamic>.from(data as Map);
     await txn.completed;
-    return const PackJsonConverter().fromJson(map);
+    return NoteData.fromData(Uint8List.fromList(List<int>.from(data as List)));
   }
 
   @override
-  Future<void> updatePack(ButterflyPack pack) async {
+  Future<void> updatePack(NoteData pack) async {
     var db = await _getDatabase();
     var txn = db.transaction('packs', 'readwrite');
     var store = txn.objectStore('packs');
-    var doc = const PackJsonConverter().toJson(pack);
+    var doc = pack.save();
     await store.put(doc, pack.name);
   }
 
@@ -423,17 +439,16 @@ class WebPackFileSystem extends PackFileSystem {
   }
 
   @override
-  Future<List<ButterflyPack>> getPacks() async {
+  Future<List<NoteData>> getPacks() async {
     var db = await _getDatabase();
     var txn = db.transaction('packs', 'readonly');
     var store = txn.objectStore('packs');
     var cursor = store.openCursor(autoAdvance: true);
-    var packs = <ButterflyPack>[];
+    var packs = <NoteData>[];
     await cursor.forEach((cursor) {
       try {
-        var map = cursor.value as Map;
-        packs.add(
-            const PackJsonConverter().fromJson(Map<String, dynamic>.from(map)));
+        packs.add(NoteData.fromData(
+            Uint8List.fromList(List<int>.from(cursor.value as List))));
       } catch (e) {
         if (kDebugMode) {
           print(e);
@@ -442,5 +457,18 @@ class WebPackFileSystem extends PackFileSystem {
     });
     await txn.completed;
     return packs;
+  }
+
+  @override
+  Future<bool> createDefault(BuildContext context, {bool force = false}) async {
+    var prefs = await SharedPreferences.getInstance();
+    if (!force) {
+      force = !prefs.containsKey('defaultPack');
+    }
+    if (!force) return false;
+    final pack = await DocumentDefaults.getCorePack();
+    await createPack(pack);
+    prefs.setBool('defaultPack', true);
+    return true;
   }
 }

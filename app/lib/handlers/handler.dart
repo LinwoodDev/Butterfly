@@ -12,7 +12,6 @@ import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
 import 'package:butterfly/renderers/foregrounds/waypoint.dart';
-import 'package:butterfly/theme/manager.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
@@ -119,7 +118,9 @@ class EventContext {
 
   CameraViewport getCameraViewport() => getCurrentIndex().cameraViewport;
 
-  AppDocument? getDocument() => getState()?.document;
+  NoteData? getData() => getState()?.data;
+
+  DocumentPage? getPage() => getState()?.page;
 }
 
 enum PainterStatus { normal, disabled }
@@ -133,22 +134,14 @@ abstract class Handler<T> {
           bool justAdded) =>
       true;
 
-  List<Renderer> createForegrounds(
-          CurrentIndexCubit currentIndexCubit, AppDocument document,
+  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
+          NoteData document, DocumentPage page,
           [Area? currentArea]) =>
       [];
 
   Future<bool> onRendererUpdated(
-          AppDocument appDocument, Renderer old, Renderer updated) async =>
+          DocumentPage page, Renderer old, Renderer updated) async =>
       false;
-
-  void onTapUp(TapUpDetails details, EventContext context) {}
-
-  void onTapDown(TapDownDetails details, EventContext context) {}
-
-  void onSecondaryTapUp(TapUpDetails details, EventContext context) {}
-
-  void onSecondaryTapDown(TapDownDetails details, EventContext context) {}
 
   void onPointerDown(PointerDownEvent event, EventContext context) {}
 
@@ -159,6 +152,14 @@ abstract class Handler<T> {
   void onPointerUp(PointerUpEvent event, EventContext context) {}
 
   void onPointerHover(PointerHoverEvent event, EventContext context) {}
+
+  void onTapUp(TapUpDetails details, EventContext context) {}
+
+  void onTapDown(TapDownDetails details, EventContext context) {}
+
+  void onSecondaryTapUp(TapUpDetails details, EventContext context) {}
+
+  void onSecondaryTapDown(TapDownDetails details, EventContext context) {}
 
   void onLongPressEnd(LongPressEndDetails details, EventContext context) {}
 
@@ -180,8 +181,8 @@ abstract class Handler<T> {
 
   PainterStatus getStatus(DocumentBloc bloc) => PainterStatus.normal;
 
-  static Handler fromDocument(AppDocument document, int index) {
-    final painter = document.painters[index];
+  static Handler fromDocument(DocumentPage page, int index) {
+    final painter = page.painters[index];
     return Handler.fromPainter(painter);
   }
 
@@ -220,9 +221,10 @@ mixin HandlerWithCursor<T> on Handler<T> {
   @mustCallSuper
   @override
   List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, AppDocument document,
+      CurrentIndexCubit currentIndexCubit, NoteData document, DocumentPage page,
       [Area? currentArea]) {
-    final renderers = super.createForegrounds(currentIndexCubit, document);
+    final renderers =
+        super.createForegrounds(currentIndexCubit, document, page);
     if (_currentPos != null) {
       renderers.add(createCursor(_currentPos!));
     }

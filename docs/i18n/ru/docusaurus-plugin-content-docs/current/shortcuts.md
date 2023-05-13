@@ -12,8 +12,6 @@ sidebar_position: 2
 
 * `Ctrl` + `N`: Новый файл
 * `Ctrl` + `Shift` + `N`: Новый файл из шаблона
-* `Ctrl` + `O`: Открыть файл
-* `Ctrl` + `I`: Импорт файла
 * `Ctrl` + `E`: Экспорт файла
 * `Ctrl` + `Shift` + `E`: Экспорт файла как изображения
 * `Ctrl` + `Alt` + `E`: Экспорт файла как svg
@@ -23,8 +21,6 @@ sidebar_position: 2
 
 * `Ctrl` + `Z`: Отменить
 * `Ctrl` + `Y`: Повтор
-* `Ctrl` + `Alt` + `N`: Open insert dialog
-* `Ctrl` + `Alt` + `Shift` + `S`: Открыть настройки проекта
 * `Ctrl` + `Shift` + `P`: Open waypoints dialog
 * `Ctrl` + `P`: Открыть диалог цветовой палитры
 * `Ctrl` + `B`: Открыть фон диалога

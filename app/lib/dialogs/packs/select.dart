@@ -1,4 +1,5 @@
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -20,50 +21,44 @@ class SelectPackAssetDialog extends StatelessWidget {
     this.selected,
   });
 
-  List<PackAssetLocation> _getAssets(AppDocument document) {
-    final packs = document.packs;
+  List<PackAssetLocation> _getAssets(NoteData document) {
+    final packs = document
+        .getPacks()
+        .map((e) => document.getPack(e))
+        .whereNotNull()
+        .toList();
     switch (type) {
       case PackAssetType.component:
         return packs
-            .expand((pack) => pack.components
-                .map((e) => PackAssetLocation(pack: pack.name, name: e.name)))
+            .expand((pack) => pack
+                .getComponents()
+                .map((e) => PackAssetLocation(pack: pack.name!, name: e)))
             .toList();
       case PackAssetType.style:
         return packs
-            .expand((pack) => pack.styles
-                .map((e) => PackAssetLocation(pack: pack.name, name: e.name)))
+            .expand((pack) => pack
+                .getStyles()
+                .map((e) => PackAssetLocation(pack: pack.name!, name: e)))
             .toList();
       case PackAssetType.palette:
         return packs
-            .expand((pack) => pack.palettes
-                .map((e) => PackAssetLocation(pack: pack.name, name: e.name)))
+            .expand((pack) => pack
+                .getPalettes()
+                .map((e) => PackAssetLocation(pack: pack.name!, name: e)))
             .toList();
     }
   }
 
-  ButterflyPack _createAsset(ButterflyPack pack, String name) {
+  void _createAsset(NoteData pack, String name) {
     switch (type) {
       case PackAssetType.component:
-        return pack.copyWith(
-          components: [
-            ...pack.components,
-            ButterflyComponent(name: name),
-          ],
-        );
+        pack.setComponent(ButterflyComponent(name: name));
+        break;
       case PackAssetType.style:
-        return pack.copyWith(
-          styles: [
-            ...pack.styles,
-            text.TextStyleSheet(name: name),
-          ],
-        );
+        pack.setStyle(text.TextStyleSheet(name: name));
+        break;
       case PackAssetType.palette:
-        return pack.copyWith(
-          palettes: [
-            ...pack.palettes,
-            ColorPalette(name: name),
-          ],
-        );
+        pack.setPalette(ColorPalette(name: name));
     }
   }
 
@@ -78,7 +73,7 @@ class SelectPackAssetDialog extends StatelessWidget {
             Flexible(child: Text(AppLocalizations.of(context).selectAsset)),
             const SizedBox(width: 8),
             IconButton(
-              icon: const Icon(PhosphorIcons.plusCircleLight),
+              icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
               onPressed: () async {
                 final result = await showDialog<PackAssetLocation>(
                   context: context,
@@ -89,10 +84,10 @@ class SelectPackAssetDialog extends StatelessWidget {
                 );
                 if (result == null) return;
                 if (context.mounted) {
-                  final pack = state.document.getPack(result.pack);
+                  final pack = state.data.getPack(result.pack);
                   if (pack == null) return;
-                  final newPack = _createAsset(pack, result.name);
-                  bloc.add(DocumentPackUpdated(newPack.name, newPack));
+                  _createAsset(pack, result.name);
+                  bloc.add(DocumentPackUpdated(pack.name!, pack));
                   Navigator.of(context).pop(result);
                 }
               },
@@ -104,7 +99,7 @@ class SelectPackAssetDialog extends StatelessWidget {
           height: 300,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: _getAssets(state.document)
+            children: _getAssets(state.data)
                 .map((e) => ListTile(
                       title: Text(e.name),
                       subtitle: Text(e.pack),

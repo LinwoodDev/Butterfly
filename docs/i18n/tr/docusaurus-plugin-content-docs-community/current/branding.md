@@ -2,7 +2,7 @@
 title: Markalaştırma
 ---
 
-Bu varlıklar, [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develop/BRANDING_LICENSE) kapsamında lisanslanmıştır.
+Bu varlıklar, [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob/develop/BRANDING_LICENSE) kapsamında lisanslanmıştır.
 
 ## Logo
 
@@ -42,3 +42,11 @@ Bu varlıklar, [CC-BY-4.0](https://github.com/LinwoodCloud/Butterfly/blob/develo
 ## Yazı tipleri
 
 * `Roboto`
+
+## Ekran görüntüleri
+
+> Firefox duyarlı modda (responsive) kullanılır
+
+* Telefon: Galaxy S20 Ultra
+* 7-inç tablet: Nexus 7
+* 10-inç tablet: Nexus 10

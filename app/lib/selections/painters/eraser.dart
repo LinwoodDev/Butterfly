@@ -26,15 +26,4 @@ class EraserPainterSelection extends PainterSelection<EraserPainter> {
     }
     return super.insert(element);
   }
-
-  @override
-  String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context).eraser;
-
-  @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.eraserFill : PhosphorIcons.eraserLight;
-
-  @override
-  List<String> get help => ['painters', 'eraser'];
 }

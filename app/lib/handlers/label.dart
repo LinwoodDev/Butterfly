@@ -9,7 +9,7 @@ class LabelHandler extends Handler<LabelPainter>
 
   LabelHandler(super.data);
 
-  TextContext _createContext([Point<double>? position]) {
+  TextContext _createContext([Point<double>? position, double zoom = 1]) {
     return TextContext(
       painter: data,
       isCreating: true,
@@ -23,7 +23,8 @@ class LabelHandler extends Handler<LabelPainter>
                       const text.ParagraphProperty.undefined(),
                 ),
               ),
-              styleSheet: data.option.styleSheet,
+              styleSheet: data.styleSheet,
+              scale: data.zoomDependent ? 1 / zoom : 1,
             ),
       textPainter: TextPainter(),
       forcedProperty: _context?.forcedProperty,
@@ -31,11 +32,12 @@ class LabelHandler extends Handler<LabelPainter>
   }
 
   @override
-  List<Renderer> createForegrounds(
-          CurrentIndexCubit currentIndexCubit, AppDocument document,
+  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
+          NoteData document, DocumentPage page,
           [Area? currentArea]) =>
       [
-        ...super.createForegrounds(currentIndexCubit, document, currentArea),
+        ...super
+            .createForegrounds(currentIndexCubit, document, page, currentArea),
         if (_context?.element != null) ...[
           if (_context?.isCreating ?? false)
             TextRenderer(_context!.element!, _context),
@@ -46,10 +48,56 @@ class LabelHandler extends Handler<LabelPainter>
   TextInputConnection? _connection;
 
   @override
+  bool onScaleStart(ScaleStartDetails details, EventContext context) {
+    final hitRect = _context?.getRect();
+    final globalPos =
+        context.getCameraTransform().localToGlobal(details.localFocalPoint);
+    final hit = hitRect?.contains(globalPos) ?? false;
+    if (hit) {
+      final position = _context!.textPainter.getPositionForOffset(globalPos -
+          Offset(
+            hitRect!.left,
+            hitRect.top,
+          ));
+      _context = _context!.copyWith(
+        selection: TextSelection.collapsed(offset: position.offset),
+      );
+      context.refresh();
+    }
+    return true;
+  }
+
+  @override
+  void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
+    final hitRect = _context?.getRect();
+    final globalPos =
+        context.getCameraTransform().localToGlobal(details.localFocalPoint);
+    final hit = hitRect?.contains(globalPos) ?? false;
+    if (hit) {
+      final position = _context!.textPainter.getPositionForOffset(globalPos -
+          Offset(
+            hitRect!.left,
+            hitRect.top,
+          ));
+      _context = _context!.copyWith(
+        selection: TextSelection(
+          baseOffset: _context!.selection.baseOffset,
+          extentOffset: position.offset,
+        ),
+      );
+      context.refresh();
+    }
+  }
+
+  @override
   Future<void> onTapUp(TapUpDetails details, EventContext context) async {
     final pixelRatio = context.devicePixelRatio;
     final focusNode = Focus.of(context.buildContext);
-    final hadFocus = focusNode.hasFocus;
+    final globalPos =
+        context.getCameraTransform().localToGlobal(details.localPosition);
+    final hitRect = _context?.getRect();
+    final hit = hitRect?.contains(globalPos) ?? false;
+    final hadFocus = focusNode.hasFocus && !hit;
     FocusScope.of(context.buildContext).requestFocus(focusNode);
     final style = Theme.of(context.buildContext).textTheme.bodyLarge!;
     if (!(_connection?.attached ?? false)) {
@@ -74,11 +122,22 @@ class LabelHandler extends Handler<LabelPainter>
     }
     _bloc = context.getDocumentBloc();
     _connection!.show();
-    final globalPos =
-        context.getCameraTransform().localToGlobal(details.localPosition);
     if (hadFocus || _context?.element == null) {
       if (_context?.element != null) _submit(context.getDocumentBloc());
-      _context = _createContext(globalPos.toPoint());
+      _context = _createContext(
+          globalPos.toPoint(), context.getCameraTransform().size);
+    }
+    if (hit) {
+      final position = _context!.textPainter.getPositionForOffset(globalPos -
+          Offset(
+            hitRect!.left,
+            hitRect.top,
+          ));
+      _context = _context!.copyWith(
+        selection: TextSelection.collapsed(
+          offset: position.offset,
+        ),
+      );
     }
     context.refresh();
   }
@@ -116,7 +175,7 @@ class LabelHandler extends Handler<LabelPainter>
 
   void _change(DocumentBloc bloc, TextContext value) {
     final context = _context;
-    _context = value.copyWith();
+    _context = value;
     if (context == null) return;
 
     if (context.element != null && value.element != null) {
@@ -126,10 +185,18 @@ class LabelHandler extends Handler<LabelPainter>
         }));
       }
     }
-    if (context.painter.option.styleSheet != data.option.styleSheet) {
+    if (context.painter != value.painter) {
       bloc.add(PaintersChanged({data: value.painter}));
     }
     bloc.refresh();
+    _refreshToolbar(bloc);
+  }
+
+  void _refreshToolbar(DocumentBloc bloc) {
+    final state = bloc.state;
+    if (state is DocumentLoaded) {
+      state.currentIndexCubit.refreshToolbar(bloc);
+    }
   }
 
   @override
@@ -192,7 +259,7 @@ class LabelHandler extends Handler<LabelPainter>
     final old = _context?.element;
     final state = _bloc?.state;
     if (state is! DocumentLoadSuccess) return;
-    final document = state.document;
+    final data = state.data;
 
     var newIndex = value.length;
 
@@ -200,8 +267,8 @@ class LabelHandler extends Handler<LabelPainter>
       final selection = _context!.selection;
       final start = selection.start;
       final length = selection.end - start;
-      final newSpan =
-          _context!.forcedSpanProperty != _context!.getSpanProperty(document);
+      final newSpan = _context?.getDefinedForcedSpanProperty(data) !=
+          _context!.getSpanProperty(data);
       final paragraph = newSpan
           ? old.area.paragraph.replace(
               text.TextSpan.text(
@@ -236,6 +303,7 @@ class LabelHandler extends Handler<LabelPainter>
       text: '',
     ));
     _bloc?.refresh();
+    if (_bloc != null) _refreshToolbar(_bloc!);
   }
 
   @override
@@ -248,6 +316,27 @@ class LabelHandler extends Handler<LabelPainter>
       oldControl?.hide();
       newControl?.show();
     }
+  }
+
+  int _getVerticalNewSelection(bool forward) {
+    final selection = _context?.selection.start ?? 0;
+    final paragraph = _context?.area?.paragraph;
+    if (paragraph == null) return selection;
+    var nextLine = paragraph.nextLineIndex(selection);
+    final currentLine = paragraph.previousLineIndex(selection);
+    if (nextLine <= 0) nextLine = paragraph.length + 1;
+    var nextNextLine = paragraph.nextLineIndex(nextLine + 1);
+    if (nextNextLine <= nextLine) {
+      nextNextLine = paragraph.length + 2;
+      nextLine = paragraph.length;
+    }
+    var nextLineLength = nextNextLine - nextLine + 1;
+    final previousLine = paragraph.previousLineIndex(max(currentLine, 0));
+    var previousLineLength = max(currentLine - previousLine, 0);
+    final lineSelection = min(max(selection - currentLine, 1),
+        forward ? nextLineLength : previousLineLength);
+    return (forward ? nextLine + lineSelection : previousLine + lineSelection)
+        .clamp(0, paragraph.length);
   }
 
   @override
@@ -282,6 +371,24 @@ class LabelHandler extends Handler<LabelPainter>
             selection: TextSelection.collapsed(offset: start),
           );
           bloc.refresh();
+          _refreshToolbar(bloc);
+          return null;
+        },
+      ),
+      ExtendSelectionVerticallyToAdjacentLineIntent:
+          CallbackAction<ExtendSelectionVerticallyToAdjacentLineIntent>(
+        onInvoke: (intent) {
+          _context = _context?.copyWith(
+            selection: intent.collapseSelection
+                ? TextSelection.collapsed(
+                    offset: _getVerticalNewSelection(intent.forward),
+                  )
+                : TextSelection(
+                    baseOffset: _getVerticalNewSelection(intent.forward),
+                    extentOffset: _context?.selection.extentOffset ?? 0,
+                  ),
+          );
+          bloc.refresh();
           return null;
         },
       ),
@@ -299,6 +406,7 @@ class LabelHandler extends Handler<LabelPainter>
             forceParagraph: null,
           );
           bloc.refresh();
+          _refreshToolbar(bloc);
           return null;
         },
       ),
@@ -329,6 +437,22 @@ class LabelHandler extends Handler<LabelPainter>
             forceParagraph: null,
           );
           bloc.refresh();
+          _refreshToolbar(bloc);
+          return null;
+        },
+      ),
+      ExtendSelectionToLineBreakIntent:
+          CallbackAction<ExtendSelectionToLineBreakIntent>(
+        onInvoke: (intent) {
+          final newSelection = _getVerticalNewSelection(intent.forward);
+          final selection = _context?.selection;
+          if (selection == null) return null;
+          _context = _context?.copyWith(
+            selection: TextSelection(
+              baseOffset: selection.baseOffset,
+              extentOffset: newSelection,
+            ),
+          );
           return null;
         },
       ),
@@ -360,6 +484,7 @@ class LabelHandler extends Handler<LabelPainter>
           );
 
           bloc.refresh();
+          _refreshToolbar(bloc);
           return null;
         },
       ),
@@ -382,6 +507,7 @@ class LabelHandler extends Handler<LabelPainter>
           Clipboard.getData(Clipboard.kTextPlain).then((value) {
             if (value == null) return;
             _updateText(value.text ?? '');
+            _refreshToolbar(bloc);
           });
           return null;
         },

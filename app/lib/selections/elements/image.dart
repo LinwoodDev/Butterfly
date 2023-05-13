@@ -16,10 +16,17 @@ class ImageElementSelection extends ElementSelection<ImageElement> {
       ),
       ListTile(
         title: Text(AppLocalizations.of(context).export),
-        leading: const Icon(PhosphorIcons.exportLight),
+        leading: const PhosphorIcon(PhosphorIconsLight.export),
         onTap: () async {
           final localization = AppLocalizations.of(context);
-          final data = element.pixels;
+          final state = context.read<DocumentBloc>().state;
+          if (state is! DocumentLoaded) {
+            return;
+          }
+          final data = await element.getData(state.data);
+          if (data == null) {
+            return;
+          }
           if (!kIsWeb &&
               (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
             var path = await FilePicker.platform.saveFile(
@@ -32,10 +39,10 @@ class ImageElementSelection extends ElementSelection<ImageElement> {
               if (!(await file.exists())) {
                 file.create(recursive: true);
               }
-              await file.writeAsBytes(data.buffer.asUint8List());
+              await file.writeAsBytes(data);
             }
           } else {
-            openImage(data.buffer.asUint8List());
+            openImage(data);
           }
         },
       ),
@@ -51,8 +58,7 @@ class ImageElementSelection extends ElementSelection<ImageElement> {
   }
 
   @override
-  IconData getIcon({bool filled = false}) =>
-      filled ? PhosphorIcons.imageFill : PhosphorIcons.imageLight;
+  IconGetter get icon => PhosphorIcons.image;
 
   @override
   String getLocalizedName(BuildContext context) =>

@@ -16,32 +16,32 @@ class PresentationControlsDialog extends StatelessWidget {
         children: [
           ...<dynamic>[
             [
-              PhosphorIcons.arrowRightLight,
+              PhosphorIconsLight.arrowRight,
               AppLocalizations.of(context).nextSlide,
               AppLocalizations.of(context).nextSlideDescription,
             ],
             [
-              PhosphorIcons.arrowLeftLight,
+              PhosphorIconsLight.arrowLeft,
               AppLocalizations.of(context).previousSlide,
               AppLocalizations.of(context).previousSlideDescription,
             ],
             [
-              PhosphorIcons.pauseCircleLight,
+              PhosphorIconsLight.pauseCircle,
               AppLocalizations.of(context).pausePresentation,
               AppLocalizations.of(context).pausePresentationDescription,
             ],
             [
-              PhosphorIcons.doorLight,
+              PhosphorIconsLight.door,
               AppLocalizations.of(context).exitPresentation,
               AppLocalizations.of(context).exitPresentationDescription,
             ]
           ].map((e) => ListTile(
-                leading: Icon(e[0]),
+                leading: PhosphorIcon(e[0]),
                 title: Text(e[1]),
                 subtitle: Text(e[2]),
               )),
           FutureBuilder<bool>(
-            future: isFullScreen(),
+            future: Future.value(isFullScreen()),
             builder: (context, snapshot) {
               var fullscreen = snapshot.data ?? false;
               return StatefulBuilder(

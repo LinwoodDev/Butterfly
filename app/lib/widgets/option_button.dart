@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class OptionButton extends StatelessWidget {
-  final Widget icon, selectedIcon;
-  final VoidCallback onPressed, onLongPressed;
+  final Widget icon;
+  final Widget? selectedIcon;
+  final VoidCallback? onPressed, onLongPressed;
   final bool selected, highlighted;
   final String tooltip;
 
@@ -11,9 +12,9 @@ class OptionButton extends StatelessWidget {
       {super.key,
       this.tooltip = '',
       required this.icon,
-      required this.selectedIcon,
-      required this.onPressed,
-      required this.onLongPressed,
+      this.selectedIcon,
+      this.onPressed,
+      this.onLongPressed,
       this.selected = false,
       this.highlighted = false});
   @override
@@ -47,10 +48,10 @@ class OptionButton extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    selected ? selectedIcon : icon,
+                    selected ? (selectedIcon ?? icon) : icon,
                     if (selected)
-                      const Icon(
-                        PhosphorIcons.caretDown,
+                      const PhosphorIcon(
+                        PhosphorIconsLight.caretDown,
                         size: 12,
                       ),
                   ],

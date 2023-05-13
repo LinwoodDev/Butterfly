@@ -24,7 +24,8 @@ class ElementsDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           MenuItemButton(
-            leadingIcon: const Icon(PhosphorIcons.arrowsOutCardinalLight),
+            leadingIcon:
+                const PhosphorIcon(PhosphorIconsLight.arrowsOutCardinal),
             onPressed: () {
               Navigator.of(context).pop(true);
               context
@@ -35,7 +36,7 @@ class ElementsDialog extends StatelessWidget {
             child: Text(AppLocalizations.of(context).move),
           ),
           MenuItemButton(
-            leadingIcon: const Icon(PhosphorIcons.copyLight),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
             onPressed: () {
               Navigator.of(context).pop(true);
               context
@@ -46,7 +47,7 @@ class ElementsDialog extends StatelessWidget {
             child: Text(AppLocalizations.of(context).duplicate),
           ),
           MenuItemButton(
-            leadingIcon: const Icon(PhosphorIcons.arrowsOutLight),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsOut),
             onPressed: () {
               Navigator.of(context).pop(false);
               context
@@ -62,17 +63,18 @@ class ElementsDialog extends StatelessWidget {
               context.read<DocumentBloc>().add(
                   ElementsRemoved(renderers.map((r) => r.element).toList()));
             },
-            leadingIcon: const Icon(PhosphorIcons.trashLight),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
             child: Text(AppLocalizations.of(context).delete),
           ),
           MenuItemButton(
             onPressed: () {
               Navigator.of(context).pop(true);
+              if (renderers.isEmpty) return;
               final cubit = context.read<CurrentIndexCubit>();
               cubit.changeSelection(renderers.first);
               renderers.sublist(1).forEach((r) => cubit.insertSelection(r));
             },
-            leadingIcon: const Icon(PhosphorIcons.fadersLight),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.faders),
             child: Text(AppLocalizations.of(context).properties),
           ),
         ],
