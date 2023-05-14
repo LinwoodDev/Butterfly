@@ -4,4 +4,4 @@ sidebar_label: "Präsentation"
 sidebar_position: 5
 ---
 
-The presentation painter allows you to create your own animations inside your notes.
+Mit dem Präsentationsmaler können Sie Ihre eigenen Animationen innerhalb Ihrer Notizen erstellen.
