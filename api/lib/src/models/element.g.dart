@@ -109,6 +109,7 @@ _$TextElement _$$TextElementFromJson(Map json) => _$TextElement(
           ? const ElementConstraint(size: 1000)
           : ElementConstraint.fromJson(
               Map<String, dynamic>.from(json['constraint'] as Map)),
+      foreground: json['foreground'] as int? ?? kColorBlack,
       $type: json['type'] as String?,
     );
 
@@ -120,6 +121,7 @@ Map<String, dynamic> _$$TextElementToJson(_$TextElement instance) =>
       'styleSheet': instance.styleSheet.toJson(),
       'area': instance.area.toJson(),
       'constraint': instance.constraint.toJson(),
+      'foreground': instance.foreground,
       'type': instance.$type,
     };
 

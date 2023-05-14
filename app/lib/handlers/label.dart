@@ -29,6 +29,7 @@ class LabelHandler extends Handler<LabelPainter>
                   ),
                   styleSheet: data.styleSheet,
                   scale: scale,
+                  foreground: data.foreground,
                 ),
           textPainter: TextPainter(),
           forcedProperty: forced,

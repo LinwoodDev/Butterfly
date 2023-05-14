@@ -29,7 +29,7 @@ class TextRenderer extends Renderer<TextElement> {
       text: (p) => TextSpan(
         children:
             p.textSpans.map((e) => _createSpan(document, e, style)).toList(),
-        style: style.span.toFlutter(),
+        style: style.span.toFlutter(element.scale, null, element.foreground),
       ),
     );
   }
@@ -43,7 +43,7 @@ class TextRenderer extends Renderer<TextElement> {
     final style = styleSheet.resolveSpanProperty(span.property);
     return TextSpan(
       text: span.text,
-      style: style?.toFlutter(element.scale, parent),
+      style: style?.toFlutter(element.scale, parent, element.foreground),
     );
   }
 

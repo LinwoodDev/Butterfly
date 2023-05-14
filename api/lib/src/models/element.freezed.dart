@@ -876,7 +876,8 @@ mixin _$PadElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         text,
     required TResult Function(
             String layer,
@@ -923,7 +924,8 @@ mixin _$PadElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult? Function(
             String layer,
@@ -970,7 +972,8 @@ mixin _$PadElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult Function(
             String layer,
@@ -1188,7 +1191,8 @@ class _$PenElement implements PenElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         text,
     required TResult Function(
             String layer,
@@ -1238,7 +1242,8 @@ class _$PenElement implements PenElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult? Function(
             String layer,
@@ -1288,7 +1293,8 @@ class _$PenElement implements PenElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult Function(
             String layer,
@@ -1416,7 +1422,8 @@ abstract class _$$TextElementCopyWith<$Res>
       double scale,
       PackAssetLocation styleSheet,
       TextArea area,
-      ElementConstraint constraint});
+      ElementConstraint constraint,
+      int foreground});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
   $TextAreaCopyWith<$Res> get area;
@@ -1440,6 +1447,7 @@ class __$$TextElementCopyWithImpl<$Res>
     Object? styleSheet = null,
     Object? area = null,
     Object? constraint = null,
+    Object? foreground = null,
   }) {
     return _then(_$TextElement(
       layer: null == layer
@@ -1466,6 +1474,10 @@ class __$$TextElementCopyWithImpl<$Res>
           ? _value.constraint
           : constraint // ignore: cast_nullable_to_non_nullable
               as ElementConstraint,
+      foreground: null == foreground
+          ? _value.foreground
+          : foreground // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -1504,6 +1516,7 @@ class _$TextElement with LabelElement implements TextElement {
       this.styleSheet = const PackAssetLocation(),
       required this.area,
       this.constraint = const ElementConstraint(size: 1000),
+      this.foreground = kColorBlack,
       final String? $type})
       : $type = $type ?? 'text';
 
@@ -1528,13 +1541,16 @@ class _$TextElement with LabelElement implements TextElement {
   @override
   @JsonKey()
   final ElementConstraint constraint;
+  @override
+  @JsonKey()
+  final int foreground;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'PadElement.text(layer: $layer, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint)';
+    return 'PadElement.text(layer: $layer, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint, foreground: $foreground)';
   }
 
   @JsonKey(ignore: true)
@@ -1555,7 +1571,8 @@ class _$TextElement with LabelElement implements TextElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         text,
     required TResult Function(
             String layer,
@@ -1590,7 +1607,8 @@ class _$TextElement with LabelElement implements TextElement {
             ShapeProperty property)
         shape,
   }) {
-    return text(layer, position, scale, styleSheet, area, constraint);
+    return text(
+        layer, position, scale, styleSheet, area, constraint, foreground);
   }
 
   @override
@@ -1605,7 +1623,8 @@ class _$TextElement with LabelElement implements TextElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult? Function(
             String layer,
@@ -1640,7 +1659,8 @@ class _$TextElement with LabelElement implements TextElement {
             ShapeProperty property)?
         shape,
   }) {
-    return text?.call(layer, position, scale, styleSheet, area, constraint);
+    return text?.call(
+        layer, position, scale, styleSheet, area, constraint, foreground);
   }
 
   @override
@@ -1655,7 +1675,8 @@ class _$TextElement with LabelElement implements TextElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult Function(
             String layer,
@@ -1692,7 +1713,8 @@ class _$TextElement with LabelElement implements TextElement {
     required TResult orElse(),
   }) {
     if (text != null) {
-      return text(layer, position, scale, styleSheet, area, constraint);
+      return text(
+          layer, position, scale, styleSheet, area, constraint, foreground);
     }
     return orElse();
   }
@@ -1755,7 +1777,8 @@ abstract class TextElement implements PadElement, LabelElement {
       final double scale,
       final PackAssetLocation styleSheet,
       required final TextArea area,
-      final ElementConstraint constraint}) = _$TextElement;
+      final ElementConstraint constraint,
+      final int foreground}) = _$TextElement;
 
   factory TextElement.fromJson(Map<String, dynamic> json) =
       _$TextElement.fromJson;
@@ -1768,6 +1791,7 @@ abstract class TextElement implements PadElement, LabelElement {
   PackAssetLocation get styleSheet;
   TextArea get area;
   ElementConstraint get constraint;
+  int get foreground;
   @override
   @JsonKey(ignore: true)
   _$$TextElementCopyWith<_$TextElement> get copyWith =>
@@ -1947,7 +1971,8 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         text,
     required TResult Function(
             String layer,
@@ -1998,7 +2023,8 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult? Function(
             String layer,
@@ -2049,7 +2075,8 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult Function(
             String layer,
@@ -2310,7 +2337,8 @@ class _$ImageElement implements ImageElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         text,
     required TResult Function(
             String layer,
@@ -2360,7 +2388,8 @@ class _$ImageElement implements ImageElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult? Function(
             String layer,
@@ -2410,7 +2439,8 @@ class _$ImageElement implements ImageElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult Function(
             String layer,
@@ -2666,7 +2696,8 @@ class _$SvgElement implements SvgElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         text,
     required TResult Function(
             String layer,
@@ -2716,7 +2747,8 @@ class _$SvgElement implements SvgElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult? Function(
             String layer,
@@ -2766,7 +2798,8 @@ class _$SvgElement implements SvgElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult Function(
             String layer,
@@ -2992,7 +3025,8 @@ class _$ShapeElement implements ShapeElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         text,
     required TResult Function(
             String layer,
@@ -3042,7 +3076,8 @@ class _$ShapeElement implements ShapeElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult? Function(
             String layer,
@@ -3092,7 +3127,8 @@ class _$ShapeElement implements ShapeElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
     TResult Function(
             String layer,

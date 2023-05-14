@@ -102,6 +102,8 @@ class PadElement with _$PadElement {
     required TextArea area,
     @Default(ElementConstraint(size: 1000))
         ElementConstraint constraint,
+    @Default(kColorBlack)
+        int foreground,
   }) = TextElement;
 
   @With<LabelElement>()
