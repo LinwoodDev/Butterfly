@@ -61,8 +61,12 @@ class WindowTitleBar extends StatelessWidget implements PreferredSizeWidget {
             ],
           );
           if (isDesktop && !settings.nativeWindowTitleBar) {
-            return DragToMoveArea(
-              child: appBar,
+            return GestureDetector(
+              child: DragToMoveArea(
+                child: appBar,
+              ),
+              onSecondaryTap: () => windowManager.popUpWindowMenu(),
+              onLongPress: () => windowManager.popUpWindowMenu(),
             );
           }
           return appBar;
