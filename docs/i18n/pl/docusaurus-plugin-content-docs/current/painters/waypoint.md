@@ -4,4 +4,4 @@ sidebar_label: "Prezentacja"
 sidebar_position: 5
 ---
 
-The waypoint painter allows you to create waypoints in your notes. Open the property view to navigate to them.
+Tablica punktów orientacyjnych pozwala na tworzenie punktów orientacyjnych w notatkach. Otwórz widok właściwości, aby przejść do nich.
