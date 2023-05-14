@@ -68,4 +68,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
 <a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
   Flathub
 </a>
+<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+  吸附
+</a>
 </div>

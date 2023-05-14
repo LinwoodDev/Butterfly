@@ -42,3 +42,11 @@ Diese Assets sind unter [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly/blob
 ## Schriftarten
 
 * `Roboto`
+
+## Screenshots
+
+> Wird im firefox Responsive Design Modus verwendet
+
+* Telefon: Galaxy S20 Ultra
+* 7-Zoll-Tablet: Nexus 7
+* 10-Zoll-Tablet: Nexus 10

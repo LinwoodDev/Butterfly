@@ -17,6 +17,7 @@ class TextContext with _$TextContext {
       required TextPainter textPainter,
       TextElement? element,
       @Default(false) bool isCreating,
+      @Default(1.0) double zoom,
       @Default(TextSelection.collapsed(offset: 0)) TextSelection selection,
       ParagraphProperty? forcedProperty,
       SpanProperty? forcedSpanProperty,
@@ -41,7 +42,7 @@ class TextContext with _$TextContext {
         const ParagraphProperty.undefined();
   }
 
-  DefinedParagraphProperty? getDefinedProperty(AppDocument document) {
+  DefinedParagraphProperty? getDefinedProperty(NoteData document) {
     final property = getProperty();
     if (property is DefinedParagraphProperty) {
       return property;
@@ -49,10 +50,12 @@ class TextContext with _$TextContext {
     if (styleSheet == null) {
       return null;
     }
-    return document.getStyle(styleSheet!)?.resolveParagraphProperty(property);
+    return styleSheet
+        ?.resolveStyle(document)
+        ?.resolveParagraphProperty(property);
   }
 
-  SpanProperty? getSpanProperty(AppDocument document) {
+  SpanProperty? getSpanProperty(NoteData document) {
     final index = selection.start;
     return paragraph?.getSpan(index)?.property.mapOrNull(
               undefined: (_) => null,
@@ -62,31 +65,33 @@ class TextContext with _$TextContext {
         getDefinedProperty(document)?.span;
   }
 
-  DefinedSpanProperty getDefinedSpanProperty(AppDocument document) {
+  DefinedSpanProperty getDefinedSpanProperty(NoteData document) {
     return getSpanProperty(document)?.map(
           defined: (p) => p,
           undefined: (_) => null,
-          named: (p) => document.getStyle(styleSheet!)?.resolveSpanProperty(p),
+          named: (p) =>
+              styleSheet?.resolveStyle(document)?.resolveSpanProperty(p),
         ) ??
         const DefinedSpanProperty();
   }
 
-  DefinedParagraphProperty getDefinedForcedProperty(AppDocument document) {
+  DefinedParagraphProperty getDefinedForcedProperty(NoteData document) {
     return forcedProperty?.map(
           defined: (p) => p,
           undefined: (_) => null,
           named: (p) =>
-              document.getStyle(styleSheet!)?.resolveParagraphProperty(p),
+              styleSheet?.resolveStyle(document)?.resolveParagraphProperty(p),
         ) ??
         const DefinedParagraphProperty();
   }
 
-  DefinedSpanProperty getDefinedForcedSpanProperty(AppDocument document,
+  DefinedSpanProperty getDefinedForcedSpanProperty(NoteData document,
       [bool fallback = true]) {
     return forcedSpanProperty?.map(
           defined: (p) => p,
           undefined: (_) => null,
-          named: (p) => document.getStyle(styleSheet!)?.resolveSpanProperty(p),
+          named: (p) =>
+              styleSheet?.resolveStyle(document)?.resolveSpanProperty(p),
         ) ??
         (fallback
             ? getDefinedSpanProperty(document)
@@ -96,14 +101,14 @@ class TextContext with _$TextContext {
   bool paragraphModified() =>
       getProperty().maybeMap(orElse: () => true, named: (p) => false);
 
-  bool spanModified(AppDocument document) =>
+  bool spanModified(NoteData document) =>
       getSpanProperty(document)?.maybeMap(
         orElse: () => true,
         named: (p) => false,
       ) ??
       true;
 
-  bool modified(AppDocument document) =>
+  bool modified(NoteData document) =>
       isParagraph() ? paragraphModified() : spanModified(document);
 
   Rect? getRect() {

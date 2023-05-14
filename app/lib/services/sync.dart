@@ -140,10 +140,9 @@ class RemoteSync {
     _filesSubject.add([]);
     final currentFiles = await fileSystem.getAllSyncFiles();
     _filesSubject.add(currentFiles);
-    final now = DateTime.now();
+    final now = DateTime.now().toUtc();
 
-    final hasError =
-        currentFiles.any((file) => file.status == SyncStatus.error);
+    final hasError = status == SyncStatus.error;
 
     for (final file in currentFiles) {
       switch (file.status) {
@@ -212,7 +211,7 @@ class RemoteSync {
   }
 
   Future<void> resolve(String path, FileSyncStatus status) async {
-    if (status == SyncStatus.syncing) {
+    if (this.status == SyncStatus.syncing) {
       return;
     }
     _statusSubject.add(SyncStatus.syncing);
@@ -237,8 +236,7 @@ class RemoteSync {
           file: (file) async {
             if (remoteAsset is! AppDocumentFile) return;
             final parent = path.substring(0, path.lastIndexOf('/'));
-            final doc = file.getDocumentInfo()?.load();
-            if (doc == null) return;
+            final doc = file.load();
             await fileSystem.importDocument(doc, path: parent, forceSync: true);
             await fileSystem.uploadCachedContent(path);
           },

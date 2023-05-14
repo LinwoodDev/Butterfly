@@ -325,14 +325,16 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   [
                                     ...cubit.foregrounds,
                                   ],
-                                  state.document,
+                                  state.data,
+                                  state.page,
                                   Theme.of(context).colorScheme,
                                   transform,
                                   cubit.state.selection,
                                   currentIndex.cameraViewport.tool,
                                 ),
                                 painter: ViewPainter(
-                                  state.document,
+                                  state.data,
+                                  state.page,
                                   cameraViewport: currentIndex.cameraViewport,
                                   transform: transform,
                                   invisibleLayers: state.invisibleLayers,

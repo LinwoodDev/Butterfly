@@ -189,9 +189,6 @@
   "selectCamera": "Seleccione una cámara",
   "changeDocumentPath": "Cambiar ruta del documento",
   "deleteWholeStroke": "Borrar todo el trazo",
-  "red": "Rojo",
-  "green": "Verde",
-  "blue": "Azul",
   "alpha": "Alfa",
   "area": "Área",
   "selectArea": "Seleccione un área",
@@ -492,5 +489,10 @@
   "noTemplates": "Actualmente no hay plantillas disponibles",
   "reset": "Reset",
   "importCorePack": "Importar paquete del núcleo",
-  "importCorePackDescription": "Importar el paquete base que contiene todos los activos básicos para empezar. Esto anulará el paquete del núcleo actual."
+  "importCorePackDescription": "Importar el paquete base que contiene todos los activos básicos para empezar. Esto anulará el paquete del núcleo actual.",
+  "never": "Nunca",
+  "onlyOnUpdates": "Sólo en actualizaciones",
+  "visibility": "Visibilidad",
+  "captureThumbnail": "Capturar miniatura",
+  "capturedThumbnail": "Miniatura capturada con éxito"
 }

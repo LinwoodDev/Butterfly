@@ -132,14 +132,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
   }
 
   @override
-  String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context).shape;
-
-  @override
   IconGetter get icon => selected.first.property.shape.icon;
-
-  @override
-  List<String> get help => ['painters', 'shape'];
 }
 
 class ShapeView extends StatefulWidget {

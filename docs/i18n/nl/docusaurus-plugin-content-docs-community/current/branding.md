@@ -42,3 +42,11 @@ Deze activa zijn gelicentieerd onder de [CC-BY-4.0](https://github.com/LinwoodDe
 ## Lettertypen
 
 * `Roboto`
+
+## Schermafbeeldingen
+
+> Gebruikt in de responsieve ontwerpmodus van firefox
+
+* Telefoon: Galaxy S20 Ultra
+* 7-inch tablet: Nexus 7
+* 10-inch tablet: Nexus 10

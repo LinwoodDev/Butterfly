@@ -189,9 +189,6 @@
   "selectCamera": "Select a camera",
   "changeDocumentPath": "Change document path",
   "deleteWholeStroke": "Delete whole stroke",
-  "red": "สีแดง",
-  "green": "สีเขียว",
-  "blue": "สีน้ำเงิน",
   "alpha": "Alpha",
   "area": "พื้นที่",
   "selectArea": "เลือกพื้นที่",
@@ -492,5 +489,10 @@
   "noTemplates": "There are currently no templates available",
   "reset": "Reset",
   "importCorePack": "Import core pack",
-  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack."
+  "importCorePackDescription": "Import the core pack that contains all basic assets to get started. This will override the current core pack.",
+  "never": "Never",
+  "onlyOnUpdates": "Only on updates",
+  "visibility": "Visibility",
+  "captureThumbnail": "Capture thumbnail",
+  "capturedThumbnail": "Successfully captured thumbnail"
 }

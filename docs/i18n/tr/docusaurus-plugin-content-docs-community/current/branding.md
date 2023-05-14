@@ -42,3 +42,11 @@ These assets are licensed under the [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 ## Yazı tipleri
 
 * `Roboto`
+
+## Ekran görüntüleri
+
+> Firefox duyarlı modda (responsive) kullanılır
+
+* Telefon: Galaxy S20 Ultra
+* 7-inç tablet: Nexus 7
+* 10-inç tablet: Nexus 10

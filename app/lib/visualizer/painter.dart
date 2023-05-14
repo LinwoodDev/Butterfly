@@ -4,9 +4,8 @@ import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../helpers/icon.dart';
 
 extension PainterVisualizer on Painter {
   String getLocalizedName(BuildContext context) {
@@ -48,6 +47,28 @@ extension PainterVisualizer on Painter {
       stamp: (_) => PhosphorIcons.stamp,
       presentation: (_) => PhosphorIcons.presentation,
     );
+  }
+
+  List<String> get help {
+    final page = maybeMap(
+      redo: (_) => 'redo',
+      undo: (_) => 'undo',
+      pen: (_) => 'pen',
+      laser: (_) => 'laser',
+      shape: (_) => 'shape',
+      stamp: (_) => 'stamp',
+      eraser: (_) => 'eraser',
+      pathEraser: (_) => 'path_eraser',
+      label: (_) => 'label',
+      area: (_) => 'area',
+      hand: (_) => 'hand',
+      layer: (_) => 'layer',
+      presentation: (_) => 'presentation',
+      waypoint: (_) => 'waypoint',
+      orElse: () => null,
+    );
+    if (page == null) return [];
+    return ['painters', page];
   }
 
   bool isAction() {

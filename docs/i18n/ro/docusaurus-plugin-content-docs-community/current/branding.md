@@ -42,3 +42,11 @@ Aceste active sunt licențiate sub [CC-BY-4.0](https://github.com/LinwoodDev/But
 ## Fonturi
 
 * `Roboto`
+
+## Capturi ecran
+
+> Folosit în modul responsive firefox
+
+* Telefon: Galaxy S20 Ultra
+* Comprimat de 7 inch: Nexus 7
+* Comprimat de 10 inch: Nexus 10

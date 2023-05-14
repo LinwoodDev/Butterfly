@@ -7,15 +7,15 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   ShapeRenderer(super.element, [this.rect = Rect.zero]);
 
   @override
-  FutureOr<void> setup(AppDocument document) async {
+  FutureOr<void> setup(NoteData document, DocumentPage page) async {
     _updateRect();
-    await super.setup(document);
+    await super.setup(document, page);
     _updateRect();
   }
 
   @override
-  FutureOr<bool> onAreaUpdate(AppDocument document, Area? area) async {
-    await super.onAreaUpdate(document, area);
+  FutureOr<bool> onAreaUpdate(DocumentPage page, Area? area) async {
+    await super.onAreaUpdate(page, area);
     _updateRect();
     return true;
   }
@@ -26,8 +26,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   }
 
   @override
-  FutureOr<void> build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+  FutureOr<void> build(Canvas canvas, Size size, NoteData document,
+      DocumentPage page, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     _updateRect();
     final shape = element.property.shape;
@@ -88,7 +88,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     ..strokeJoin = StrokeJoin.round;
 
   @override
-  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
+  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     final shape = element.property.shape;
     final strokeWidth = element.property.strokeWidth;

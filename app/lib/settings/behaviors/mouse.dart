@@ -5,10 +5,10 @@ import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../cubits/settings.dart';
-import '../../widgets/exact_slider.dart';
 
 class MouseBehaviorSettings extends StatelessWidget {
   const MouseBehaviorSettings({super.key});

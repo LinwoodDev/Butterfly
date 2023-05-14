@@ -9,8 +9,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../bloc/document_bloc.dart';
 
 class StylesPackView extends StatelessWidget {
-  final ButterflyPack value;
-  final ValueChanged<ButterflyPack> onChanged;
+  final NoteData value;
+  final ValueChanged<NoteData> onChanged;
 
   const StylesPackView({
     super.key,
@@ -29,29 +29,26 @@ class StylesPackView extends StatelessWidget {
               const SizedBox(height: 8),
               Column(
                 mainAxisSize: MainAxisSize.min,
-                children: value.styles
-                    .asMap()
-                    .entries
+                children: value
+                    .getStyles()
                     .map(
                       (e) => Dismissible(
-                        key: ValueKey(e.key),
+                        key: ValueKey(e),
                         onDismissed: (direction) {
-                          onChanged(value.copyWith(
-                            styles: List<text.TextStyleSheet>.from(value.styles)
-                              ..removeAt(e.key),
-                          ));
+                          value.removeStyle(e);
+                          onChanged(value);
                         },
                         child: ListTile(
-                          title: Text(e.value.name),
+                          title: Text(e),
                           onTap: () async {
-                            var styleSheet = e.value;
+                            var styleSheet = value.getStyle(e);
                             final bloc = context.read<DocumentBloc>();
                             final result = await showDialog<bool>(
                               context: context,
                               builder: (ctx) => BlocProvider.value(
                                 value: bloc,
                                 child: StyleDialog(
-                                  value: styleSheet,
+                                  value: styleSheet!,
                                   onChanged: (value) {
                                     styleSheet = value;
                                   },
@@ -59,11 +56,8 @@ class StylesPackView extends StatelessWidget {
                               ),
                             );
                             if (result != true) return;
-                            onChanged(value.copyWith(
-                              styles:
-                                  List<text.TextStyleSheet>.from(value.styles)
-                                    ..[e.key] = styleSheet,
-                            ));
+                            value.setStyle(styleSheet!);
+                            onChanged(value);
                           },
                         ),
                       ),
@@ -87,10 +81,8 @@ class StylesPackView extends StatelessWidget {
                   ),
                 );
                 if (result != true) return;
-                onChanged(value.copyWith(
-                  styles: List<text.TextStyleSheet>.from(value.styles)
-                    ..add(styleSheet),
-                ));
+                value.setStyle(styleSheet);
+                onChanged(value);
               },
               icon: const PhosphorIcon(PhosphorIconsLight.plus),
               label: Text(AppLocalizations.of(context).create),

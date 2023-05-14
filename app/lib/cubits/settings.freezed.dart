@@ -811,6 +811,7 @@ mixin _$ButterflySettings {
   bool get penOnlyInput => throw _privateConstructorUsedError;
   bool get inputGestures => throw _privateConstructorUsedError;
   String get design => throw _privateConstructorUsedError;
+  BannerVisibility get bannerVisibility => throw _privateConstructorUsedError;
   List<AssetLocation> get history => throw _privateConstructorUsedError;
   bool get zoomEnabled => throw _privateConstructorUsedError;
   String? get lastVersion => throw _privateConstructorUsedError;
@@ -846,6 +847,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       bool penOnlyInput,
       bool inputGestures,
       String design,
+      BannerVisibility bannerVisibility,
       List<AssetLocation> history,
       bool zoomEnabled,
       String? lastVersion,
@@ -884,6 +886,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? penOnlyInput = null,
     Object? inputGestures = null,
     Object? design = null,
+    Object? bannerVisibility = null,
     Object? history = null,
     Object? zoomEnabled = null,
     Object? lastVersion = freezed,
@@ -937,6 +940,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.design
           : design // ignore: cast_nullable_to_non_nullable
               as String,
+      bannerVisibility: null == bannerVisibility
+          ? _value.bannerVisibility
+          : bannerVisibility // ignore: cast_nullable_to_non_nullable
+              as BannerVisibility,
       history: null == history
           ? _value.history
           : history // ignore: cast_nullable_to_non_nullable
@@ -1013,6 +1020,7 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       bool penOnlyInput,
       bool inputGestures,
       String design,
+      BannerVisibility bannerVisibility,
       List<AssetLocation> history,
       bool zoomEnabled,
       String? lastVersion,
@@ -1050,6 +1058,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? penOnlyInput = null,
     Object? inputGestures = null,
     Object? design = null,
+    Object? bannerVisibility = null,
     Object? history = null,
     Object? zoomEnabled = null,
     Object? lastVersion = freezed,
@@ -1103,6 +1112,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.design
           : design // ignore: cast_nullable_to_non_nullable
               as String,
+      bannerVisibility: null == bannerVisibility
+          ? _value.bannerVisibility
+          : bannerVisibility // ignore: cast_nullable_to_non_nullable
+              as BannerVisibility,
       history: null == history
           ? _value._history
           : history // ignore: cast_nullable_to_non_nullable
@@ -1165,6 +1178,7 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.penOnlyInput = false,
       this.inputGestures = true,
       this.design = '',
+      this.bannerVisibility = BannerVisibility.always,
       final List<AssetLocation> history = const [],
       this.zoomEnabled = true,
       this.lastVersion,
@@ -1211,6 +1225,9 @@ class _$_ButterflySettings extends _ButterflySettings {
   @override
   @JsonKey()
   final String design;
+  @override
+  @JsonKey()
+  final BannerVisibility bannerVisibility;
   final List<AssetLocation> _history;
   @override
   @JsonKey()
@@ -1263,7 +1280,7 @@ class _$_ButterflySettings extends _ButterflySettings {
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, history: $history, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred)';
   }
 
   @override
@@ -1289,6 +1306,8 @@ class _$_ButterflySettings extends _ButterflySettings {
             (identical(other.inputGestures, inputGestures) ||
                 other.inputGestures == inputGestures) &&
             (identical(other.design, design) || other.design == design) &&
+            (identical(other.bannerVisibility, bannerVisibility) ||
+                other.bannerVisibility == bannerVisibility) &&
             const DeepCollectionEquality().equals(other._history, _history) &&
             (identical(other.zoomEnabled, zoomEnabled) ||
                 other.zoomEnabled == zoomEnabled) &&
@@ -1323,6 +1342,7 @@ class _$_ButterflySettings extends _ButterflySettings {
         penOnlyInput,
         inputGestures,
         design,
+        bannerVisibility,
         const DeepCollectionEquality().hash(_history),
         zoomEnabled,
         lastVersion,
@@ -1356,6 +1376,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final bool penOnlyInput,
       final bool inputGestures,
       final String design,
+      final BannerVisibility bannerVisibility,
       final List<AssetLocation> history,
       final bool zoomEnabled,
       final String? lastVersion,
@@ -1389,6 +1410,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   bool get inputGestures;
   @override
   String get design;
+  @override
+  BannerVisibility get bannerVisibility;
   @override
   List<AssetLocation> get history;
   @override

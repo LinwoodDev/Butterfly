@@ -20,6 +20,7 @@ mixin _$TextContext {
   TextPainter get textPainter => throw _privateConstructorUsedError;
   TextElement? get element => throw _privateConstructorUsedError;
   bool get isCreating => throw _privateConstructorUsedError;
+  double get zoom => throw _privateConstructorUsedError;
   TextSelection get selection => throw _privateConstructorUsedError;
   text.ParagraphProperty? get forcedProperty =>
       throw _privateConstructorUsedError;
@@ -43,6 +44,7 @@ abstract class $TextContextCopyWith<$Res> {
       TextPainter textPainter,
       TextElement? element,
       bool isCreating,
+      double zoom,
       TextSelection selection,
       text.ParagraphProperty? forcedProperty,
       text.SpanProperty? forcedSpanProperty,
@@ -69,6 +71,7 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
     Object? textPainter = null,
     Object? element = freezed,
     Object? isCreating = null,
+    Object? zoom = null,
     Object? selection = null,
     Object? forcedProperty = freezed,
     Object? forcedSpanProperty = freezed,
@@ -91,6 +94,10 @@ class _$TextContextCopyWithImpl<$Res, $Val extends TextContext>
           ? _value.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
               as bool,
+      zoom: null == zoom
+          ? _value.zoom
+          : zoom // ignore: cast_nullable_to_non_nullable
+              as double,
       selection: null == selection
           ? _value.selection
           : selection // ignore: cast_nullable_to_non_nullable
@@ -148,6 +155,7 @@ abstract class _$$_TextContextCopyWith<$Res>
       TextPainter textPainter,
       TextElement? element,
       bool isCreating,
+      double zoom,
       TextSelection selection,
       text.ParagraphProperty? forcedProperty,
       text.SpanProperty? forcedSpanProperty,
@@ -174,6 +182,7 @@ class __$$_TextContextCopyWithImpl<$Res>
     Object? textPainter = null,
     Object? element = freezed,
     Object? isCreating = null,
+    Object? zoom = null,
     Object? selection = null,
     Object? forcedProperty = freezed,
     Object? forcedSpanProperty = freezed,
@@ -196,6 +205,10 @@ class __$$_TextContextCopyWithImpl<$Res>
           ? _value.isCreating
           : isCreating // ignore: cast_nullable_to_non_nullable
               as bool,
+      zoom: null == zoom
+          ? _value.zoom
+          : zoom // ignore: cast_nullable_to_non_nullable
+              as double,
       selection: null == selection
           ? _value.selection
           : selection // ignore: cast_nullable_to_non_nullable
@@ -224,6 +237,7 @@ class _$_TextContext extends _TextContext {
       required this.textPainter,
       this.element,
       this.isCreating = false,
+      this.zoom = 1.0,
       this.selection = const TextSelection.collapsed(offset: 0),
       this.forcedProperty,
       this.forcedSpanProperty,
@@ -241,6 +255,9 @@ class _$_TextContext extends _TextContext {
   final bool isCreating;
   @override
   @JsonKey()
+  final double zoom;
+  @override
+  @JsonKey()
   final TextSelection selection;
   @override
   final text.ParagraphProperty? forcedProperty;
@@ -251,7 +268,7 @@ class _$_TextContext extends _TextContext {
 
   @override
   String toString() {
-    return 'TextContext(painter: $painter, textPainter: $textPainter, element: $element, isCreating: $isCreating, selection: $selection, forcedProperty: $forcedProperty, forcedSpanProperty: $forcedSpanProperty, forceParagraph: $forceParagraph)';
+    return 'TextContext(painter: $painter, textPainter: $textPainter, element: $element, isCreating: $isCreating, zoom: $zoom, selection: $selection, forcedProperty: $forcedProperty, forcedSpanProperty: $forcedSpanProperty, forceParagraph: $forceParagraph)';
   }
 
   @override
@@ -265,6 +282,7 @@ class _$_TextContext extends _TextContext {
             (identical(other.element, element) || other.element == element) &&
             (identical(other.isCreating, isCreating) ||
                 other.isCreating == isCreating) &&
+            (identical(other.zoom, zoom) || other.zoom == zoom) &&
             (identical(other.selection, selection) ||
                 other.selection == selection) &&
             (identical(other.forcedProperty, forcedProperty) ||
@@ -282,6 +300,7 @@ class _$_TextContext extends _TextContext {
       textPainter,
       element,
       isCreating,
+      zoom,
       selection,
       forcedProperty,
       forcedSpanProperty,
@@ -300,6 +319,7 @@ abstract class _TextContext extends TextContext {
       required final TextPainter textPainter,
       final TextElement? element,
       final bool isCreating,
+      final double zoom,
       final TextSelection selection,
       final text.ParagraphProperty? forcedProperty,
       final text.SpanProperty? forcedSpanProperty,
@@ -314,6 +334,8 @@ abstract class _TextContext extends TextContext {
   TextElement? get element;
   @override
   bool get isCreating;
+  @override
+  double get zoom;
   @override
   TextSelection get selection;
   @override

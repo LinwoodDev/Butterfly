@@ -2,8 +2,8 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 
 class ComponentsPackView extends StatelessWidget {
-  final ButterflyPack value;
-  final ValueChanged<ButterflyPack> onChanged;
+  final NoteData value;
+  final ValueChanged<NoteData> onChanged;
 
   const ComponentsPackView({
     super.key,
@@ -18,19 +18,17 @@ class ComponentsPackView extends StatelessWidget {
         const SizedBox(height: 8),
         Column(
           mainAxisSize: MainAxisSize.min,
-          children: value.components
-              .asMap()
-              .entries
+          children: value
+              .getComponents()
               .map(
                 (e) => Dismissible(
-                  key: ValueKey(e.key),
+                  key: ValueKey(e),
                   onDismissed: (direction) {
-                    onChanged(value.copyWith(
-                      components: value.components..removeAt(e.key),
-                    ));
+                    value.removeComponent(e);
+                    onChanged(value);
                   },
                   child: ListTile(
-                    title: Text(e.value.name),
+                    title: Text(e),
                   ),
                 ),
               )

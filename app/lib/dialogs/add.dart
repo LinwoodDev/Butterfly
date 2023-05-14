@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:butterfly/helpers/color_helper.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/visualizer/property.dart';
@@ -9,11 +10,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/open.dart';
 import '../bloc/document_bloc.dart';
-import '../widgets/box_tile.dart';
 import 'camera.dart';
 
 class AddDialog extends StatelessWidget {
@@ -22,7 +23,12 @@ class AddDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void addPainter(Painter painter) {
-      context.read<DocumentBloc>().add(PainterCreated(painter));
+      final bloc = context.read<DocumentBloc>();
+      final state = bloc.state;
+      if (state is! DocumentLoaded) return;
+      final background = state.page.background.defaultColor;
+      final defaultPainter = updatePainterDefaultColor(painter, background);
+      bloc.add(PainterCreated(defaultPainter));
       Navigator.of(context).pop();
     }
 
@@ -42,8 +48,6 @@ class AddDialog extends StatelessWidget {
         onTap: () => addPainter(painter),
       );
     }
-
-    final isMobile = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
 
     return AlertDialog(
       title: Row(
@@ -166,19 +170,9 @@ class AddDialog extends StatelessWidget {
                       ),
                       icon: const PhosphorIcon(PhosphorIconsLight.fileText),
                       onTap: () async {
-                        final files = await FilePicker.platform.pickFiles(
-                            type: isMobile ? FileType.any : FileType.custom,
-                            allowedExtensions:
-                                isMobile ? null : ['bfly', 'json'],
-                            allowMultiple: false,
-                            withData: true);
-                        if (files?.files.isEmpty ?? true) return;
-                        var e = files!.files.first;
-                        var content = e.bytes ?? Uint8List(0);
-                        if (!kIsWeb) {
-                          content = await File(e.path ?? '').readAsBytes();
-                        }
-                        importAsset(AssetFileType.note, content);
+                        final data = await openBfly();
+                        if (data == null) return;
+                        importAsset(AssetFileType.note, data);
                       }),
                 ],
               ),

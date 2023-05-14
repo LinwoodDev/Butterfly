@@ -189,9 +189,6 @@
   "selectCamera": "Sélectionnez une caméra",
   "changeDocumentPath": "Changer le chemin d'accès du document",
   "deleteWholeStroke": "Supprimer tout le tracé",
-  "red": "Rouge",
-  "green": "Vert",
-  "blue": "Bleu",
   "alpha": "Alphabétisation",
   "area": "Zone",
   "selectArea": "Sélectionnez une zone",
@@ -492,5 +489,10 @@
   "noTemplates": "Il n'y a actuellement aucun modèle disponible",
   "reset": "Reset",
   "importCorePack": "Importer le pack core",
-  "importCorePackDescription": "Importez le pack du noyau qui contient toutes les ressources de base pour commencer. Cela remplacera le pack du noyau actuel."
+  "importCorePackDescription": "Importez le pack du noyau qui contient toutes les ressources de base pour commencer. Cela remplacera le pack du noyau actuel.",
+  "never": "Jamais",
+  "onlyOnUpdates": "Uniquement sur les mises à jour",
+  "visibility": "Visibilité",
+  "captureThumbnail": "Capture miniature",
+  "capturedThumbnail": "La vignette a été capturée avec succès"
 }

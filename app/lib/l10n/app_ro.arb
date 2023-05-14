@@ -189,9 +189,6 @@
   "selectCamera": "Selectează o cameră foto",
   "changeDocumentPath": "Schimbă calea documentului",
   "deleteWholeStroke": "Ștergeți întregul strop",
-  "red": "Roșu",
-  "green": "Verde",
-  "blue": "Albastru",
   "alpha": "Alfa",
   "area": "Suprafață",
   "selectArea": "Selectează o zonă",
@@ -492,5 +489,10 @@
   "noTemplates": "În acest moment nu există șabloane disponibile",
   "reset": "Reset",
   "importCorePack": "Importă pachetul de nucleu",
-  "importCorePackDescription": "Importați pachetul de nucleu care conține toate activele de bază pentru a începe. Acest lucru va suprascrie actualul nucleu pachet."
+  "importCorePackDescription": "Importați pachetul de nucleu care conține toate activele de bază pentru a începe. Acest lucru va suprascrie actualul nucleu pachet.",
+  "never": "Niciodată",
+  "onlyOnUpdates": "Numai la actualizări",
+  "visibility": "Vizibilitate",
+  "captureThumbnail": "Capturează miniatura",
+  "capturedThumbnail": "Miniatură captată cu succes"
 }

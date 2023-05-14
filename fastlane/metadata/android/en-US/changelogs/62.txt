@@ -1,0 +1,12 @@
+* Add archive format
+* Add thumbnails on documents
+* Add ability to open other files than notes from home page
+* Add missing painter help pages
+* Improve text update in zoom view
+* Improve sorting at home page
+* Move change document path to appbar
+* Fix appearing zoom view and disappearing on focus
+* Fix importing of documents
+* Disallow saving in json format
+* Remove save and load dialog (including load and saving from clipboard)
+* Upgrade to flutter 3.10

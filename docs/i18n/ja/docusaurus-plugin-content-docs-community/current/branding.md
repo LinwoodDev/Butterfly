@@ -42,3 +42,11 @@ title: Branding
 ## フォント
 
 * `Roboto`
+
+## スクリーンショット
+
+> Firefoxのレスポンシブデザインモードで使用
+
+* 電話番号: Galaxy S20 Ultra
+* 7インチタブレット: Nexus 7
+* 10インチタブレット: Nexus 10

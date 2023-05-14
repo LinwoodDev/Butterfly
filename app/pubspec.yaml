@@ -13,10 +13,10 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.0.0-alpha.1+60
+version: 2.0.0-alpha.3+62
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=2.19.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -27,42 +27,41 @@ dependencies:
     path: ../api
   flutter_svg: ^2.0.5
   flutter_bloc: ^8.1.2
-  image: ^4.0.15
-  intl: ^0.17.0
+  image: ^4.0.17
+  intl: ^0.18.0
   path_provider: ^2.0.14
-  shared_preferences: ^2.1.0
-  url_launcher: ^6.1.10
-  file_picker: ^5.2.9
+  shared_preferences: ^2.1.1
+  url_launcher: ^6.1.11
+  file_picker: ^5.2.10
   phosphor_flutter:
     git:
-      url: https://github.com/phosphor-icons/flutter
+      url: https://github.com/CodeDoctorDE/phosphor-flutter
       ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
   replay_bloc: ^0.2.3
-  share_plus: ^6.3.2
-  package_info_plus: ^3.1.0
-  idb_shim: ^2.3.0+2
-  go_router: ^6.5.6
-  xml: ^6.2.2
+  share_plus: ^6.3.4
+  package_info_plus: ^3.1.2
+  idb_shim: ^2.3.1
+  go_router: ^7.0.1
+  xml: ^6.3.0
   collection: ^1.17.1
   bloc_concurrency: ^0.2.1
-  camera: ^0.10.4
-  camera_windows: ^0.2.1+5
+  camera: ^0.10.5
+  camera_windows: ^0.2.1+6
   window_manager: ^0.3.2
-  flex_color_scheme: ^7.0.1
+  flex_color_scheme: ^7.1.0
   freezed_annotation: ^2.2.0
-  json_annotation: ^4.8.0
-  path: ^1.8.2
-  printing: ^5.10.3
-  js: ^0.6.5
-  pdf: ^3.10.1
-  http: ^0.13.5
+  json_annotation: ^4.8.1
+  path: ^1.8.3
+  printing: ^5.10.4
+  js: ^0.6.7
+  pdf: ^3.10.3
+  http: ^0.13.6
   flutter_secure_storage: ^8.0.0
   equatable: ^2.0.5
   rxdart: ^0.27.7
-  ffi: ^2.0.1
   archive: ^3.3.7
   animations: ^2.0.7
-  connectivity_plus: ^3.0.4
+  connectivity_plus: ^4.0.0
   cross_file: ^0.3.3+4
   args: ^2.4.0
   perfect_freehand:
@@ -71,9 +70,14 @@ dependencies:
       ref: 066461ee27342559e5731a03e3371c0537f1abcb
   lw_sysinfo:
     git:
-      url: https://github.com/LinwoodCloud/dart_pkgs.git
-      ref: 6aaa333947699dd999d0bde3890fd7f0015b72c4
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: d34b71cd5ab8332e5e228796a4348d4436fdcc72
       path: packages/lw_sysinfo
+  material_leap:
+    git:
+      url: https://github.com/LinwoodDev/dart_pkgs.git
+      ref: d34b71cd5ab8332e5e228796a4348d4436fdcc72
+      path: packages/material_leap
   flutter_localized_locales: ^2.0.4
   dynamic_color: ^1.6.3
   popover: ^0.2.8+2
@@ -85,11 +89,11 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  analyzer: ^5.10.0
-  freezed: ^2.3.2
-  build_runner: ^2.3.3
-  json_serializable: ^6.6.1
-  espresso: ^0.3.0
+  analyzer: ^5.12.0
+  freezed: ^2.3.3
+  build_runner: ^2.4.2
+  json_serializable: ^6.6.2
+  espresso: ^0.3.0+4
 dependency_overrides:
   archive: 3.3.7
   collection: 1.17.1

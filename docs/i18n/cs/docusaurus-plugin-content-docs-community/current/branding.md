@@ -42,3 +42,11 @@ Tato aktiva jsou licencována pod [CC-BY-4.0](https://github.com/LinwoodDev/Butt
 ## Písma
 
 * `Roboto`
+
+## Snímek obrazovky
+
+> Používá se v módu Firefox responsivní design
+
+* Telefon: Galaxy S20 Ultra
+* 7palcová tablet: Nexus 7
+* 10palcová tablet: Nexus 10

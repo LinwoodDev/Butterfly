@@ -149,6 +149,8 @@ class InputConfiguration with _$InputConfiguration {
       _$InputConfigurationFromJson(json);
 }
 
+enum BannerVisibility { always, never, onlyOnUpdates }
+
 @freezed
 class ButterflySettings with _$ButterflySettings {
   const ButterflySettings._();
@@ -163,6 +165,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(false) bool penOnlyInput,
     @Default(true) bool inputGestures,
     @Default('') String design,
+    @Default(BannerVisibility.always) BannerVisibility bannerVisibility,
     @Default([]) List<AssetLocation> history,
     @Default(true) bool zoomEnabled,
     String? lastVersion,
@@ -198,6 +201,10 @@ class ButterflySettings with _$ButterflySettings {
       penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
       selectSensitivity: prefs.getDouble('select_sensitivity') ?? 5,
       design: prefs.getString('design') ?? '',
+      bannerVisibility: prefs.containsKey('banner_visibility')
+          ? BannerVisibility.values
+              .byName(prefs.getString('banner_visibility')!)
+          : BannerVisibility.always,
       history: prefs
               .getStringList('history')
               ?.map((e) {
@@ -249,6 +256,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setDouble('pen_sensitivity', penSensitivity);
     await prefs.setDouble('select_sensitivity', selectSensitivity);
     await prefs.setString('design', design);
+    await prefs.setString('banner_visibility', bannerVisibility.name);
     await prefs.setStringList(
         'history', history.map((e) => json.encode(e.toJson())).toList());
     await prefs.setBool('zoom_enabled', zoomEnabled);
@@ -397,6 +405,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
+  Future<void> changeBannerVisibility(BannerVisibility visibility) {
+    emit(state.copyWith(bannerVisibility: visibility));
+    return save();
+  }
+
   Future<void> addRecentHistory(AssetLocation location) async {
     final history = state.history.toList();
     if (!location.path.startsWith('/')) {
@@ -515,7 +528,7 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     emit(state.copyWith(
         remotes: List<RemoteStorage>.from(state.remotes).map((e) {
       if (e.identifier == identifier) {
-        return e.copyWith(lastSynced: DateTime.now());
+        return e.copyWith(lastSynced: DateTime.now().toUtc());
       }
       return e;
     }).toList()));

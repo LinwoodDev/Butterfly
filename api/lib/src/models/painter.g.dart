@@ -96,6 +96,7 @@ Map<String, dynamic> _$$RedoPainterToJson(_$RedoPainter instance) =>
 
 _$LabelPainter _$$LabelPainterFromJson(Map json) => _$LabelPainter(
       name: json['name'] as String? ?? '',
+      zoomDependent: json['zoomDependent'] as bool? ?? true,
       styleSheet: json['styleSheet'] == null
           ? const PackAssetLocation()
           : PackAssetLocation.fromJson(
@@ -106,6 +107,7 @@ _$LabelPainter _$$LabelPainterFromJson(Map json) => _$LabelPainter(
 Map<String, dynamic> _$$LabelPainterToJson(_$LabelPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'zoomDependent': instance.zoomDependent,
       'styleSheet': instance.styleSheet.toJson(),
       'type': instance.$type,
     };

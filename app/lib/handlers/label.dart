@@ -9,7 +9,7 @@ class LabelHandler extends Handler<LabelPainter>
 
   LabelHandler(super.data);
 
-  TextContext _createContext([Point<double>? position]) {
+  TextContext _createContext([Point<double>? position, double zoom = 1]) {
     return TextContext(
       painter: data,
       isCreating: true,
@@ -24,6 +24,7 @@ class LabelHandler extends Handler<LabelPainter>
                 ),
               ),
               styleSheet: data.styleSheet,
+              scale: data.zoomDependent ? 1 / zoom : 1,
             ),
       textPainter: TextPainter(),
       forcedProperty: _context?.forcedProperty,
@@ -31,11 +32,12 @@ class LabelHandler extends Handler<LabelPainter>
   }
 
   @override
-  List<Renderer> createForegrounds(
-          CurrentIndexCubit currentIndexCubit, AppDocument document,
+  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
+          NoteData document, DocumentPage page,
           [Area? currentArea]) =>
       [
-        ...super.createForegrounds(currentIndexCubit, document, currentArea),
+        ...super
+            .createForegrounds(currentIndexCubit, document, page, currentArea),
         if (_context?.element != null) ...[
           if (_context?.isCreating ?? false)
             TextRenderer(_context!.element!, _context),
@@ -122,7 +124,8 @@ class LabelHandler extends Handler<LabelPainter>
     _connection!.show();
     if (hadFocus || _context?.element == null) {
       if (_context?.element != null) _submit(context.getDocumentBloc());
-      _context = _createContext(globalPos.toPoint());
+      _context = _createContext(
+          globalPos.toPoint(), context.getCameraTransform().size);
     }
     if (hit) {
       final position = _context!.textPainter.getPositionForOffset(globalPos -
@@ -182,7 +185,7 @@ class LabelHandler extends Handler<LabelPainter>
         }));
       }
     }
-    if (context.painter.styleSheet != data.styleSheet) {
+    if (context.painter != value.painter) {
       bloc.add(PaintersChanged({data: value.painter}));
     }
     bloc.refresh();
@@ -256,7 +259,7 @@ class LabelHandler extends Handler<LabelPainter>
     final old = _context?.element;
     final state = _bloc?.state;
     if (state is! DocumentLoadSuccess) return;
-    final document = state.document;
+    final data = state.data;
 
     var newIndex = value.length;
 
@@ -264,8 +267,8 @@ class LabelHandler extends Handler<LabelPainter>
       final selection = _context!.selection;
       final start = selection.start;
       final length = selection.end - start;
-      final newSpan =
-          _context!.forcedSpanProperty != _context!.getSpanProperty(document);
+      final newSpan = _context?.getDefinedForcedSpanProperty(data) !=
+          _context!.getSpanProperty(data);
       final paragraph = newSpan
           ? old.area.paragraph.replace(
               text.TextSpan.text(
@@ -325,13 +328,13 @@ class LabelHandler extends Handler<LabelPainter>
     var nextNextLine = paragraph.nextLineIndex(nextLine + 1);
     if (nextNextLine <= nextLine) {
       nextNextLine = paragraph.length + 2;
-      nextLine = paragraph.length + 1;
+      nextLine = paragraph.length;
     }
-    var nextLineLength = nextNextLine - nextLine;
+    var nextLineLength = nextNextLine - nextLine + 1;
     final previousLine = paragraph.previousLineIndex(max(currentLine, 0));
     var previousLineLength = max(currentLine - previousLine, 0);
-    final lineSelection = min(
-        selection - currentLine, forward ? nextLineLength : previousLineLength);
+    final lineSelection = min(max(selection - currentLine, 1),
+        forward ? nextLineLength : previousLineLength);
     return (forward ? nextLine + lineSelection : previousLine + lineSelection)
         .clamp(0, paragraph.length);
   }

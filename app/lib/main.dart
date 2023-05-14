@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
@@ -82,7 +83,7 @@ Future<void> main([List<String> args = const []]) async {
     await windowManager.ensureInitialized();
     const kWindowOptions = WindowOptions(
       minimumSize: Size(410, 300),
-      title: 'Butterfly',
+      title: applicationName,
     );
 
     // Use it only after calling `hiddenWindowAtLaunch`
@@ -103,12 +104,11 @@ Future<void> main([List<String> args = const []]) async {
           create: (context) => DocumentFileSystem.fromPlatform()),
       RepositoryProvider(
           create: (context) => TemplateFileSystem.fromPlatform()),
-      RepositoryProvider(create: (context) => const DocumentJsonConverter()),
     ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)),
   );
 }
 
-const kUnsupportedLanguages = ['pt'];
+const kUnsupportedLanguages = [];
 
 List<Locale> getLocales() =>
     List<Locale>.from(AppLocalizations.supportedLocales)
@@ -189,7 +189,7 @@ class ButterflyApp extends StatelessWidget {
                         GoRoute(
                           path: ':id',
                           builder: (context, state) => ConnectionSettingsPage(
-                              remote: state.params['id']!),
+                              remote: state.pathParameters['id']!),
                         )
                       ],
                     ),
@@ -205,7 +205,7 @@ class ButterflyApp extends StatelessWidget {
                       data: state.extra,
                       location: AssetLocation(
                         remote: defaultRemote,
-                        path: state.queryParams['path'] ?? '',
+                        path: state.queryParameters['path'] ?? '',
                       ),
                     );
                   },
@@ -214,9 +214,10 @@ class ButterflyApp extends StatelessWidget {
                   name: 'local',
                   path: 'local/:path(.*)',
                   builder: (context, state) {
-                    final path = state.params['path'];
+                    final path = state.pathParameters['path'];
                     return ProjectPage(
                         data: state.extra,
+                        type: state.queryParameters['type'] ?? '',
                         location: AssetLocation.local(path ?? ''));
                   },
                 ),
@@ -224,11 +225,12 @@ class ButterflyApp extends StatelessWidget {
                   name: 'remote',
                   path: 'remote/:remote/:path(.*)',
                   builder: (context, state) {
-                    final remote =
-                        Uri.decodeComponent(state.params['remote'] ?? '');
-                    final path = state.params['path'];
+                    final remote = Uri.decodeComponent(
+                        state.pathParameters['remote'] ?? '');
+                    final path = state.pathParameters['path'];
                     return ProjectPage(
                         data: state.extra,
+                        type: state.queryParameters['type'] ?? '',
                         location:
                             AssetLocation(remote: remote, path: path ?? ''));
                   },
@@ -237,8 +239,8 @@ class ButterflyApp extends StatelessWidget {
                   path: 'native',
                   name: 'native',
                   builder: (context, state) {
-                    final type = state.queryParams['type'] ?? '';
-                    final path = state.queryParams['path'] ?? '';
+                    final type = state.queryParameters['type'] ?? '';
+                    final path = state.queryParameters['path'] ?? '';
                     final data = state.extra;
                     return ProjectPage(
                       location: AssetLocation.local(path, true),
@@ -251,7 +253,7 @@ class ButterflyApp extends StatelessWidget {
                   path: 'native/:path(.*)',
                   name: 'native-path',
                   builder: (context, state) {
-                    final path = state.params['path'] ?? '';
+                    final path = state.pathParameters['path'] ?? '';
                     return ProjectPage(
                         location: AssetLocation.local(path, true));
                   },
@@ -263,7 +265,7 @@ class ButterflyApp extends StatelessWidget {
               path: '/embed',
               builder: (context, state) {
                 return ProjectPage(
-                    embedding: Embedding.fromQuery(state.queryParams));
+                    embedding: Embedding.fromQuery(state.queryParameters));
               },
             ),
           ],
@@ -310,13 +312,14 @@ class ButterflyApp extends StatelessWidget {
             previous.design != current.design,
         builder: (context, state) => MaterialApp.router(
               locale: state.locale,
-              title: isNightly ? 'Butterfly Nightly' : 'Butterfly',
+              title: applicationName,
               routeInformationProvider: _router.routeInformationProvider,
               routeInformationParser: _router.routeInformationParser,
               routerDelegate: _router.routerDelegate,
               localizationsDelegates: const [
                 ...AppLocalizations.localizationsDelegates,
                 LocaleNamesLocalizationsDelegate(),
+                LeapLocalizations.delegate,
               ],
               builder: (context, child) {
                 child = virtualWindowFrameBuilder(context, child);
@@ -335,3 +338,5 @@ class ButterflyApp extends StatelessWidget {
 const flavor = String.fromEnvironment('flavor');
 const isNightly =
     flavor == 'nightly' || flavor == 'dev' || flavor == 'development';
+const shortApplicationName = isNightly ? 'Butterfly Nightly' : 'Butterfly';
+const applicationName = 'Linwood $shortApplicationName';

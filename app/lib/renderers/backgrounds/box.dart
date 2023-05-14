@@ -4,8 +4,8 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
   BoxBackgroundRenderer(super.element);
 
   @override
-  void build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
+      CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     canvas.drawColor(Color(element.boxColor), BlendMode.srcOver);
     if (element.boxWidth > 0 && element.boxXCount > 0) {
@@ -67,7 +67,7 @@ class BoxBackgroundRenderer extends Renderer<BoxBackground> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
+  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
     var g =
         xml.getOrCreateElement('svg').createElement('g', id: 'box-background');
 

@@ -42,3 +42,11 @@ Ces actifs sont sous licence [CC-BY-4.0](https://github.com/LinwoodDev/Butterfly
 ## Polices
 
 * `Roboto`
+
+## Captures d'écran
+
+> Utilisé dans le mode de conception réactive de firefox
+
+* Téléphone : Galaxie S20 Ultra
+* tablette de 7 pouces : Nexus 7
+* tablette de 10 pouces : Nexus 10

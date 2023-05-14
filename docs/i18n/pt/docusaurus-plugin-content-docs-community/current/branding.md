@@ -42,3 +42,11 @@ Esses assets são licenciados sob o [CC-BY-4.0](https://github.com/LinwoodDev/Bu
 ## Fontes
 
 * `Roboto`
+
+## Screenshots
+
+> Usado no modo responsivo do firefox
+
+* Telefone: Galaxy S20 Ultra
+* Tábua de 7 polegadas: Nexus 7
+* Tablet de 10 polegadas: Nexus 10

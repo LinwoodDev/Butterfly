@@ -42,3 +42,11 @@ Disse eiendelene er lisensiert under [CC-BY-4.0](https://github.com/LinwoodDev/B
 ## Skrifttyper
 
 * `Roboto`
+
+## Skjermbilder
+
+> Brukes i brannfox responsivt design modus
+
+* Telefon: Galaxy S20 Ultra
+* 7 tommers tablett: Nexus 7
+* 10-tommers tablett: Nexus 10

@@ -1816,6 +1816,141 @@ abstract class _TextSpan extends TextSpan {
       throw _privateConstructorUsedError;
 }
 
+/// @nodoc
+mixin _$IndexedModel<T> {
+  int get index => throw _privateConstructorUsedError;
+  T get model => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $IndexedModelCopyWith<T, IndexedModel<T>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $IndexedModelCopyWith<T, $Res> {
+  factory $IndexedModelCopyWith(
+          IndexedModel<T> value, $Res Function(IndexedModel<T>) then) =
+      _$IndexedModelCopyWithImpl<T, $Res, IndexedModel<T>>;
+  @useResult
+  $Res call({int index, T model});
+}
+
+/// @nodoc
+class _$IndexedModelCopyWithImpl<T, $Res, $Val extends IndexedModel<T>>
+    implements $IndexedModelCopyWith<T, $Res> {
+  _$IndexedModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+    Object? model = freezed,
+  }) {
+    return _then(_value.copyWith(
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      model: freezed == model
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as T,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_IndexedModelCopyWith<T, $Res>
+    implements $IndexedModelCopyWith<T, $Res> {
+  factory _$$_IndexedModelCopyWith(
+          _$_IndexedModel<T> value, $Res Function(_$_IndexedModel<T>) then) =
+      __$$_IndexedModelCopyWithImpl<T, $Res>;
+  @override
+  @useResult
+  $Res call({int index, T model});
+}
+
+/// @nodoc
+class __$$_IndexedModelCopyWithImpl<T, $Res>
+    extends _$IndexedModelCopyWithImpl<T, $Res, _$_IndexedModel<T>>
+    implements _$$_IndexedModelCopyWith<T, $Res> {
+  __$$_IndexedModelCopyWithImpl(
+      _$_IndexedModel<T> _value, $Res Function(_$_IndexedModel<T>) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+    Object? model = freezed,
+  }) {
+    return _then(_$_IndexedModel<T>(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      freezed == model
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as T,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_IndexedModel<T> implements _IndexedModel<T> {
+  const _$_IndexedModel(this.index, this.model);
+
+  @override
+  final int index;
+  @override
+  final T model;
+
+  @override
+  String toString() {
+    return 'IndexedModel<$T>(index: $index, model: $model)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_IndexedModel<T> &&
+            (identical(other.index, index) || other.index == index) &&
+            const DeepCollectionEquality().equals(other.model, model));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, index, const DeepCollectionEquality().hash(model));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_IndexedModelCopyWith<T, _$_IndexedModel<T>> get copyWith =>
+      __$$_IndexedModelCopyWithImpl<T, _$_IndexedModel<T>>(this, _$identity);
+}
+
+abstract class _IndexedModel<T> implements IndexedModel<T> {
+  const factory _IndexedModel(final int index, final T model) =
+      _$_IndexedModel<T>;
+
+  @override
+  int get index;
+  @override
+  T get model;
+  @override
+  @JsonKey(ignore: true)
+  _$$_IndexedModelCopyWith<T, _$_IndexedModel<T>> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 TextParagraph _$TextParagraphFromJson(Map<String, dynamic> json) {
   return _ParagraphProperty.fromJson(json);
 }

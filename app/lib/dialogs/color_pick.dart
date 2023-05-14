@@ -1,24 +1,22 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/visualizer/int.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../widgets/header.dart';
-import '../widgets/exact_slider.dart';
 import 'packs/select.dart';
 
-class ColorPickerDialog extends StatefulWidget {
+class ColorPalettePickerDialog extends StatefulWidget {
   final bool viewMode;
   final Color defaultColor;
   final ColorPalette? palette;
   final ValueChanged<ColorPalette>? onChanged;
   final DocumentBloc? bloc;
 
-  const ColorPickerDialog({
+  const ColorPalettePickerDialog({
     super.key,
     this.defaultColor = Colors.white,
     this.viewMode = false,
@@ -28,10 +26,11 @@ class ColorPickerDialog extends StatefulWidget {
   });
 
   @override
-  _ColorPickerDialogState createState() => _ColorPickerDialogState();
+  _ColorPalettePickerDialogState createState() =>
+      _ColorPalettePickerDialogState();
 }
 
-class _ColorPickerDialogState extends State<ColorPickerDialog> {
+class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
   PackAssetLocation? _selected;
   ColorPalette? _palette;
 
@@ -42,10 +41,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     if (widget.bloc != null) {
       final state = widget.bloc!.state;
       if (state is DocumentLoaded) {
-        final pack = state.document.packs.firstOrNull;
-        final palette = pack?.palettes.firstOrNull;
+        final packName = state.data.getPacks().firstOrNull;
+        final pack = packName == null ? null : state.data.getPack(packName);
+        final palette = pack?.getPalettes().firstOrNull;
         if (palette != null) {
-          _selected = PackAssetLocation(pack: pack!.name, name: palette.name);
+          _selected = PackAssetLocation(pack: packName!, name: palette);
         }
       }
     }
@@ -56,7 +56,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
     if (_selected == null) return null;
     final state = widget.bloc?.state;
     if (state is! DocumentLoaded) return null;
-    return state.document.getPalette(_selected!);
+    return state.data.getPack(_selected!.pack)?.getPalette(_selected!.name);
   }
 
   void _changePalette(ColorPalette palette) {
@@ -69,16 +69,10 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
       final state = widget.bloc?.state;
       if (state is! DocumentLoaded) return;
       final pack =
-          _selected == null ? null : state.document.getPack(_selected!.name);
+          _selected == null ? null : state.data.getPack(_selected!.name);
       if (pack == null) return;
-      final newPalettes = pack.palettes.map((e) {
-        if (e.name == palette.name) {
-          return palette;
-        }
-        return e;
-      }).toList();
-      widget.bloc?.add(
-          DocumentPackUpdated(pack.name, pack.copyWith(palettes: newPalettes)));
+      pack.setPalette(palette);
+      widget.bloc?.add(DocumentPackUpdated(pack.name!, pack));
     }
   }
 
@@ -110,7 +104,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         final value = await showDialog<ColorPickerResponse>(
                             context: context,
                             builder: (context) =>
-                                CustomColorPicker(defaultColor: Color(color)));
+                                ColorPicker(defaultColor: Color(color)));
                         if (value != null) {
                           _changePalette(palette.copyWith(
                               colors: List.from(palette.colors)
@@ -240,7 +234,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                     const BorderRadius.all(Radius.circular(32)),
                                 onLongPress: () => _showColorOperation(index),
                                 onTap: () => Navigator.of(context)
-                                    .pop(palette!.colors[index]),
+                                    .pop(palette.colors[index]),
                                 child: Container(
                                   width: 75,
                                   height: 75,
@@ -278,10 +272,9 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                                   var value =
                                       await showDialog<ColorPickerResponse>(
                                           context: context,
-                                          builder: (context) =>
-                                              CustomColorPicker(
-                                                  defaultColor:
-                                                      widget.defaultColor));
+                                          builder: (context) => ColorPicker(
+                                              defaultColor:
+                                                  widget.defaultColor));
                                   if (value != null) {
                                     _changePalette(palette.copyWith(
                                         colors: List<int>.from(palette.colors)
@@ -302,8 +295,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
                         final navigator = Navigator.of(context);
                         var value = await showDialog<ColorPickerResponse>(
                             context: context,
-                            builder: (context) => CustomColorPicker(
-                                defaultColor: widget.defaultColor));
+                            builder: (context) =>
+                                ColorPicker(defaultColor: widget.defaultColor));
                         if (value != null) navigator.pop(value.color);
                       },
                       child: Text(AppLocalizations.of(context).custom)),
@@ -312,217 +305,4 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
           ),
         ));
   }
-}
-
-class ColorPickerResponse {
-  final int color;
-  final bool pin;
-  final bool delete;
-
-  const ColorPickerResponse(this.color,
-      [this.pin = false, this.delete = false]);
-}
-
-class CustomColorPicker extends StatefulWidget {
-  final Color defaultColor;
-  final bool pinOption, deleteOption;
-
-  const CustomColorPicker(
-      {super.key,
-      this.defaultColor = Colors.white,
-      this.pinOption = false,
-      this.deleteOption = false});
-
-  @override
-  _CustomColorPickerState createState() => _CustomColorPickerState();
-}
-
-class _CustomColorPickerState extends State<CustomColorPicker> {
-  late Color color;
-  late final TextEditingController _hexController;
-
-  @override
-  void initState() {
-    color = widget.defaultColor;
-    _hexController =
-        TextEditingController(text: color.value.toHexColor(alpha: false));
-    super.initState();
-  }
-
-  void _changeColor({int? red, int? green, int? blue}) => setState(() {
-        color = Color.fromARGB(
-            255, red ?? color.red, green ?? color.green, blue ?? color.blue);
-      });
-
-  @override
-  Widget build(BuildContext context) {
-    if (_getColorValueFromHexString(_hexController.text) != color.value) {
-      _hexController.text = color.value.toHexColor(alpha: false);
-    }
-    return Dialog(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxHeight: 500, maxWidth: 1000),
-        child: Column(
-          children: [
-            Header(
-              title: Text(AppLocalizations.of(context).color),
-              leading: const PhosphorIcon(PhosphorIconsLight.palette),
-            ),
-            Flexible(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                child: LayoutBuilder(builder: (context, constraints) {
-                  var isMobile = constraints.maxWidth < 600;
-                  return Column(
-                    children: [
-                      Expanded(
-                          child: isMobile
-                              ? SingleChildScrollView(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      _buildPreview(),
-                                      _buildProperties(),
-                                    ],
-                                  ),
-                                )
-                              : Row(children: [
-                                  Expanded(flex: 2, child: _buildPreview()),
-                                  Expanded(
-                                      flex: 3,
-                                      child: SingleChildScrollView(
-                                          child: _buildProperties()))
-                                ])),
-                      const Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          if (widget.deleteOption) ...[
-                            MaterialButton(
-                                onPressed: () => Navigator.of(context).pop(
-                                    ColorPickerResponse(
-                                        color.value, false, true)),
-                                child:
-                                    Text(AppLocalizations.of(context).delete)),
-                          ] else ...[
-                            Container(),
-                          ],
-                          Row(children: [
-                            TextButton(
-                                child:
-                                    Text(AppLocalizations.of(context).cancel),
-                                onPressed: () => Navigator.of(context).pop()),
-                            const SizedBox(width: 8),
-                            if (widget.pinOption) ...[
-                              OutlinedButton(
-                                  child: Text(AppLocalizations.of(context).ok),
-                                  onPressed: () => Navigator.of(context).pop(
-                                      ColorPickerResponse(color.value, false))),
-                              const SizedBox(width: 8),
-                              ElevatedButton(
-                                  child: Text(AppLocalizations.of(context).pin),
-                                  onPressed: () => Navigator.of(context).pop(
-                                      ColorPickerResponse(color.value, true))),
-                            ] else
-                              ElevatedButton(
-                                  child: Text(AppLocalizations.of(context).ok),
-                                  onPressed: () => Navigator.of(context).pop(
-                                      ColorPickerResponse(color.value, false))),
-                          ]),
-                        ],
-                      )
-                    ],
-                  );
-                }),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPreview() => Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-                constraints:
-                    const BoxConstraints(maxHeight: 200, maxWidth: 200),
-                color: color),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: TextField(
-              controller: _hexController,
-              decoration: const InputDecoration(filled: true),
-              onSubmitted: (value) {
-                final valueNumber = _getColorValueFromHexString(value);
-                if (valueNumber == null) return;
-                setState(() {
-                  color = Color(valueNumber).withAlpha(255);
-                });
-              },
-            ),
-          ),
-        ],
-      );
-
-  int? _getColorValueFromHexString(String value) {
-    value = value.trim();
-    if (value.startsWith('#')) value = value.substring(1);
-    if (value.length == 3) {
-      value = 'f$value';
-    } else if (value.length == 6) {
-      value = 'ff$value';
-    }
-    if (value.length == 4) {
-      value = value[0] +
-          value[0] +
-          value[1] +
-          value[1] +
-          value[2] +
-          value[2] +
-          value[3] +
-          value[3];
-    }
-    value = value.trim();
-    return int.tryParse(value, radix: 16);
-  }
-
-  Widget _buildProperties() => Column(children: [
-        ExactSlider(
-          header: Text(AppLocalizations.of(context).red),
-          fractionDigits: 0,
-          defaultValue: 255,
-          min: 0,
-          max: 255,
-          value: color.red.toDouble(),
-          color: Colors.red,
-          onChanged: (value) => _changeColor(red: value.toInt()),
-        ),
-        ExactSlider(
-          header: Text(AppLocalizations.of(context).green),
-          fractionDigits: 0,
-          defaultValue: 255,
-          min: 0,
-          max: 255,
-          value: color.green.toDouble(),
-          color: Colors.green,
-          onChanged: (value) => _changeColor(green: value.toInt()),
-        ),
-        ExactSlider(
-          header: Text(AppLocalizations.of(context).blue),
-          fractionDigits: 0,
-          defaultValue: 255,
-          min: 0,
-          max: 255,
-          color: Colors.blue,
-          value: color.blue.toDouble(),
-          onChanged: (value) => _changeColor(blue: value.toInt()),
-        ),
-      ]);
 }

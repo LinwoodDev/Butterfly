@@ -871,6 +871,7 @@ mixin _$PadElement {
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)
@@ -887,7 +888,7 @@ mixin _$PadElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)
         svg,
@@ -907,6 +908,7 @@ mixin _$PadElement {
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)?
@@ -923,7 +925,7 @@ mixin _$PadElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)?
         svg,
@@ -943,6 +945,7 @@ mixin _$PadElement {
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)?
@@ -959,7 +962,7 @@ mixin _$PadElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)?
         svg,
@@ -1147,6 +1150,7 @@ class _$PenElement implements PenElement {
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)
@@ -1163,7 +1167,7 @@ class _$PenElement implements PenElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)
         svg,
@@ -1186,6 +1190,7 @@ class _$PenElement implements PenElement {
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)?
@@ -1202,7 +1207,7 @@ class _$PenElement implements PenElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)?
         svg,
@@ -1225,6 +1230,7 @@ class _$PenElement implements PenElement {
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)?
@@ -1241,7 +1247,7 @@ class _$PenElement implements PenElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)?
         svg,
@@ -1339,6 +1345,7 @@ abstract class _$$TextElementCopyWith<$Res>
   $Res call(
       {String layer,
       @DoublePointJsonConverter() Point<double> position,
+      double scale,
       PackAssetLocation styleSheet,
       TextArea area,
       ElementConstraint constraint});
@@ -1361,6 +1368,7 @@ class __$$TextElementCopyWithImpl<$Res>
   $Res call({
     Object? layer = null,
     Object? position = null,
+    Object? scale = null,
     Object? styleSheet = null,
     Object? area = null,
     Object? constraint = null,
@@ -1374,6 +1382,10 @@ class __$$TextElementCopyWithImpl<$Res>
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as Point<double>,
+      scale: null == scale
+          ? _value.scale
+          : scale // ignore: cast_nullable_to_non_nullable
+              as double,
       styleSheet: null == styleSheet
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
@@ -1420,6 +1432,7 @@ class _$TextElement implements TextElement {
   const _$TextElement(
       {this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
+      this.scale = 1.0,
       this.styleSheet = const PackAssetLocation(),
       required this.area,
       this.constraint = const ElementConstraint(size: 1000),
@@ -1438,6 +1451,9 @@ class _$TextElement implements TextElement {
   final Point<double> position;
   @override
   @JsonKey()
+  final double scale;
+  @override
+  @JsonKey()
   final PackAssetLocation styleSheet;
   @override
   final TextArea area;
@@ -1450,7 +1466,7 @@ class _$TextElement implements TextElement {
 
   @override
   String toString() {
-    return 'PadElement.text(layer: $layer, position: $position, styleSheet: $styleSheet, area: $area, constraint: $constraint)';
+    return 'PadElement.text(layer: $layer, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint)';
   }
 
   @JsonKey(ignore: true)
@@ -1468,6 +1484,7 @@ class _$TextElement implements TextElement {
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)
@@ -1484,7 +1501,7 @@ class _$TextElement implements TextElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)
         svg,
@@ -1495,7 +1512,7 @@ class _$TextElement implements TextElement {
             ShapeProperty property)
         shape,
   }) {
-    return text(layer, position, styleSheet, area, constraint);
+    return text(layer, position, scale, styleSheet, area, constraint);
   }
 
   @override
@@ -1507,6 +1524,7 @@ class _$TextElement implements TextElement {
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)?
@@ -1523,7 +1541,7 @@ class _$TextElement implements TextElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)?
         svg,
@@ -1534,7 +1552,7 @@ class _$TextElement implements TextElement {
             ShapeProperty property)?
         shape,
   }) {
-    return text?.call(layer, position, styleSheet, area, constraint);
+    return text?.call(layer, position, scale, styleSheet, area, constraint);
   }
 
   @override
@@ -1546,6 +1564,7 @@ class _$TextElement implements TextElement {
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)?
@@ -1562,7 +1581,7 @@ class _$TextElement implements TextElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)?
         svg,
@@ -1575,7 +1594,7 @@ class _$TextElement implements TextElement {
     required TResult orElse(),
   }) {
     if (text != null) {
-      return text(layer, position, styleSheet, area, constraint);
+      return text(layer, position, scale, styleSheet, area, constraint);
     }
     return orElse();
   }
@@ -1632,6 +1651,7 @@ abstract class TextElement implements PadElement {
   const factory TextElement(
       {final String layer,
       @DoublePointJsonConverter() final Point<double> position,
+      final double scale,
       final PackAssetLocation styleSheet,
       required final TextArea area,
       final ElementConstraint constraint}) = _$TextElement;
@@ -1643,6 +1663,7 @@ abstract class TextElement implements PadElement {
   String get layer;
   @DoublePointJsonConverter()
   Point<double> get position;
+  double get scale;
   PackAssetLocation get styleSheet;
   TextArea get area;
   ElementConstraint get constraint;
@@ -1786,6 +1807,7 @@ class _$ImageElement implements ImageElement {
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)
@@ -1802,7 +1824,7 @@ class _$ImageElement implements ImageElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)
         svg,
@@ -1825,6 +1847,7 @@ class _$ImageElement implements ImageElement {
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)?
@@ -1841,7 +1864,7 @@ class _$ImageElement implements ImageElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)?
         svg,
@@ -1864,6 +1887,7 @@ class _$ImageElement implements ImageElement {
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)?
@@ -1880,7 +1904,7 @@ class _$ImageElement implements ImageElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)?
         svg,
@@ -1946,7 +1970,7 @@ class _$ImageElement implements ImageElement {
   }
 }
 
-abstract class ImageElement implements PadElement {
+abstract class ImageElement implements PadElement, SourcedElement {
   const factory ImageElement(
       {final String layer,
       @DoublePointJsonConverter() final Point<double> position,
@@ -1984,7 +2008,7 @@ abstract class _$$SvgElementCopyWith<$Res>
       {String layer,
       @DoublePointJsonConverter() Point<double> position,
       ElementConstraints? constraints,
-      String data,
+      String source,
       double width,
       double height});
 
@@ -2005,7 +2029,7 @@ class __$$SvgElementCopyWithImpl<$Res>
     Object? layer = null,
     Object? position = null,
     Object? constraints = freezed,
-    Object? data = null,
+    Object? source = null,
     Object? width = null,
     Object? height = null,
   }) {
@@ -2022,9 +2046,9 @@ class __$$SvgElementCopyWithImpl<$Res>
           ? _value.constraints
           : constraints // ignore: cast_nullable_to_non_nullable
               as ElementConstraints?,
-      data: null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
+      source: null == source
+          ? _value.source
+          : source // ignore: cast_nullable_to_non_nullable
               as String,
       width: null == width
           ? _value.width
@@ -2057,7 +2081,7 @@ class _$SvgElement implements SvgElement {
       {this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
       this.constraints = const ScaledElementConstraints(scaleX: 1, scaleY: 1),
-      required this.data,
+      required this.source,
       required this.width,
       required this.height,
       final String? $type})
@@ -2077,7 +2101,7 @@ class _$SvgElement implements SvgElement {
   @JsonKey()
   final ElementConstraints? constraints;
   @override
-  final String data;
+  final String source;
   @override
   final double width;
   @override
@@ -2088,7 +2112,7 @@ class _$SvgElement implements SvgElement {
 
   @override
   String toString() {
-    return 'PadElement.svg(layer: $layer, position: $position, constraints: $constraints, data: $data, width: $width, height: $height)';
+    return 'PadElement.svg(layer: $layer, position: $position, constraints: $constraints, source: $source, width: $width, height: $height)';
   }
 
   @JsonKey(ignore: true)
@@ -2106,6 +2130,7 @@ class _$SvgElement implements SvgElement {
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)
@@ -2122,7 +2147,7 @@ class _$SvgElement implements SvgElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)
         svg,
@@ -2133,7 +2158,7 @@ class _$SvgElement implements SvgElement {
             ShapeProperty property)
         shape,
   }) {
-    return svg(layer, position, constraints, data, width, height);
+    return svg(layer, position, constraints, source, width, height);
   }
 
   @override
@@ -2145,6 +2170,7 @@ class _$SvgElement implements SvgElement {
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)?
@@ -2161,7 +2187,7 @@ class _$SvgElement implements SvgElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)?
         svg,
@@ -2172,7 +2198,7 @@ class _$SvgElement implements SvgElement {
             ShapeProperty property)?
         shape,
   }) {
-    return svg?.call(layer, position, constraints, data, width, height);
+    return svg?.call(layer, position, constraints, source, width, height);
   }
 
   @override
@@ -2184,6 +2210,7 @@ class _$SvgElement implements SvgElement {
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)?
@@ -2200,7 +2227,7 @@ class _$SvgElement implements SvgElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)?
         svg,
@@ -2213,7 +2240,7 @@ class _$SvgElement implements SvgElement {
     required TResult orElse(),
   }) {
     if (svg != null) {
-      return svg(layer, position, constraints, data, width, height);
+      return svg(layer, position, constraints, source, width, height);
     }
     return orElse();
   }
@@ -2266,12 +2293,12 @@ class _$SvgElement implements SvgElement {
   }
 }
 
-abstract class SvgElement implements PadElement {
+abstract class SvgElement implements PadElement, SourcedElement {
   const factory SvgElement(
       {final String layer,
       @DoublePointJsonConverter() final Point<double> position,
       final ElementConstraints? constraints,
-      required final String data,
+      required final String source,
       required final double width,
       required final double height}) = _$SvgElement;
 
@@ -2283,7 +2310,7 @@ abstract class SvgElement implements PadElement {
   @DoublePointJsonConverter()
   Point<double> get position;
   ElementConstraints? get constraints;
-  String get data;
+  String get source;
   double get width;
   double get height;
   @override
@@ -2396,6 +2423,7 @@ class _$ShapeElement implements ShapeElement {
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)
@@ -2412,7 +2440,7 @@ class _$ShapeElement implements ShapeElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)
         svg,
@@ -2435,6 +2463,7 @@ class _$ShapeElement implements ShapeElement {
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)?
@@ -2451,7 +2480,7 @@ class _$ShapeElement implements ShapeElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)?
         svg,
@@ -2474,6 +2503,7 @@ class _$ShapeElement implements ShapeElement {
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
+            double scale,
             PackAssetLocation styleSheet,
             TextArea area,
             ElementConstraint constraint)?
@@ -2490,7 +2520,7 @@ class _$ShapeElement implements ShapeElement {
             String layer,
             @DoublePointJsonConverter() Point<double> position,
             ElementConstraints? constraints,
-            String data,
+            String source,
             double width,
             double height)?
         svg,

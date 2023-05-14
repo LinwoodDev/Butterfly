@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,7 +18,6 @@ import '../actions/new.dart';
 import '../actions/packs.dart';
 import '../actions/pdf_export.dart';
 import '../actions/save.dart';
-import '../actions/settings.dart';
 import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
 import '../dialogs/search.dart';
@@ -29,7 +25,7 @@ import '../embed/action.dart';
 import '../main.dart';
 import '../widgets/window.dart';
 
-class PadAppBar extends StatelessWidget with PreferredSizeWidget {
+class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey viewportKey;
 
   PadAppBar({super.key, required this.viewportKey});
@@ -87,7 +83,7 @@ class _AppBarTitle extends StatelessWidget {
         }
         return previous.currentAreaName != current.currentAreaName ||
             previous.hasAutosave() != current.hasAutosave() ||
-            previous.document.name != current.document.name;
+            previous.metadata != current.metadata;
       }, builder: (context, state) {
         return Row(children: [
           Flexible(
@@ -106,7 +102,7 @@ class _AppBarTitle extends StatelessWidget {
                           ? state.currentAreaName
                           : null;
                       _nameController.text =
-                          state is DocumentLoaded ? state.document.name : '';
+                          state is DocumentLoaded ? state.metadata.name : '';
                       _areaController.text = area?.name ?? '';
                       void submit(String? value) {
                         if (value == null) return;
@@ -202,6 +198,18 @@ class _AppBarTitle extends StatelessWidget {
                         );
                       },
                     ),
+                    if (state.location.path != '' &&
+                        state.embedding == null) ...[
+                      IconButton(
+                        icon: const PhosphorIcon(PhosphorIconsLight.folder),
+                        onPressed: () {
+                          Actions.maybeInvoke<ChangePathIntent>(
+                              context, ChangePathIntent(context));
+                        },
+                        tooltip:
+                            AppLocalizations.of(context).changeDocumentPath,
+                      ),
+                    ],
                   ],
                 ],
               ),
@@ -310,18 +318,6 @@ class _MainPopupMenu extends StatelessWidget {
               },
               child: Text(AppLocalizations.of(context).packs),
             ),
-            if (state.location.path != '' && state.embedding == null) ...[
-              MenuItemButton(
-                leadingIcon: const PhosphorIcon(PhosphorIconsLight.folder),
-                shortcut:
-                    const SingleActivator(LogicalKeyboardKey.keyS, alt: true),
-                onPressed: () {
-                  Actions.maybeInvoke<ChangePathIntent>(
-                      context, ChangePathIntent(context));
-                },
-                child: Text(AppLocalizations.of(context).changeDocumentPath),
-              ),
-            ],
             const PopupMenuDivider(),
             MenuItemButton(
               leadingIcon: const PhosphorIcon(PhosphorIconsLight.filePlus),
@@ -353,26 +349,12 @@ class _MainPopupMenu extends StatelessWidget {
               child: Text(AppLocalizations.of(context).fullScreen),
             ),
           ],
-          if (state.embedding == null) ...[
-            MenuItemButton(
-              leadingIcon: const PhosphorIcon(PhosphorIconsLight.gear),
-              shortcut: const SingleActivator(LogicalKeyboardKey.keyS,
-                  alt: true, control: true),
-              onPressed: () {
-                Actions.maybeInvoke<SettingsIntent>(
-                    context, SettingsIntent(context));
-              },
-              child: Text(AppLocalizations.of(context).settings),
-            ),
-          ] else ...[
+          if (state.embedding != null) ...[
             MenuItemButton(
               leadingIcon: const PhosphorIcon(PhosphorIconsLight.door),
               child: Text(AppLocalizations.of(context).exit),
               onPressed: () {
-                sendEmbedMessage(
-                    'exit',
-                    json.encode(
-                        const DocumentJsonConverter().toJson(state.document)));
+                sendEmbedMessage('exit', state.saveData().save());
               },
             ),
           ],

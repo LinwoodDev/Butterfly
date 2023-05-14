@@ -36,7 +36,7 @@ extension AssetFileTypeHelper on AssetFileType {
     return mimeType == mime;
   }
 
-  static AssetFileType? fromFileExtension(String ext) {
+  static AssetFileType? fromFileExtension(String? ext) {
     return AssetFileType.values.firstWhereOrNull(
       (type) => type.getFileExtensions().contains(ext),
     );

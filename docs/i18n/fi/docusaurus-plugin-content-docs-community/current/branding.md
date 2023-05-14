@@ -42,3 +42,11 @@ Nämä omaisuuserät on lisensoitu [CC-BY-4.0](https://github.com/LinwoodDev/But
 ## Kirjasimet
 
 * `Roboto`
+
+## Kuvakaappaukset
+
+> Käytetään firefox reagoivassa suunnittelutilassa
+
+* Puhelin: Galaxy S20 Ultra
+* 7 tuuman tabletti: Nexus 7
+* 10-tuumainen tabletti: Nexus 10

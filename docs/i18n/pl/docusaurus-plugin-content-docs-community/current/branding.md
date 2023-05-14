@@ -42,3 +42,11 @@ Te aktywa są licencjonowane na licencji [CC-BY-4.0](https://github.com/LinwoodD
 ## Czcionki
 
 * `Roboto`
+
+## Zrzuty ekranu
+
+> Używane w trybie responsywnym Firefoksa
+
+* Telefon: Galaxy S20 Ultra
+* 7-calowa tabletka: Nexus 7
+* 10-calowa tabletka: Nexus 10

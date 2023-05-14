@@ -42,3 +42,11 @@ title: 品牌化
 ## 字体
 
 * `Roboto`
+
+## 屏幕截图
+
+> 用于 firefox 响应设计模式
+
+* 电话: Galaxy S20 Ultra
+* 7英寸的平板电脑: Nexus 7
+* 10英寸的平板电脑: Nexus 10

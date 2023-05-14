@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:butterfly/models/defaults.dart';
@@ -210,25 +209,23 @@ class IOTemplateFileSystem extends TemplateFileSystem {
   }
 
   @override
-  Future<DocumentTemplate?> getTemplate(String name) async {
+  Future<NoteData?> getTemplate(String name) async {
     var file = File(await getAbsolutePath('${escapeName(name)}.bfly'));
     if (await file.exists()) {
-      var json = await file.readAsString();
-      return const TemplateJsonConverter()
-          .fromJson(Map<String, dynamic>.from(jsonDecode(json)));
+      return NoteData.fromData(await file.readAsBytes());
     }
     return null;
   }
 
   @override
-  Future<void> updateTemplate(DocumentTemplate template) async {
+  Future<void> updateTemplate(NoteData template) async {
     final file =
-        File(await getAbsolutePath('${escapeName(template.name)}.bfly'));
+        File(await getAbsolutePath('${escapeName(template.name ?? '')}.bfly'));
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
-    final data = const TemplateJsonConverter().toJson(template);
-    await file.writeAsString(jsonEncode(data));
+    final data = template.save();
+    await file.writeAsBytes(data, flush: true);
   }
 
   @override
@@ -259,16 +256,15 @@ class IOTemplateFileSystem extends TemplateFileSystem {
   }
 
   @override
-  Future<List<DocumentTemplate>> getTemplates() async {
+  Future<List<NoteData>> getTemplates() async {
     var directory = Directory(await getDirectory());
     if (!(await directory.exists())) return const [];
     var files = await directory.list().toList();
-    var templates = <DocumentTemplate>[];
+    var templates = <NoteData>[];
     for (var file in files) {
       if (file is! File) continue;
       try {
-        var json = await file.readAsString();
-        templates.add(const TemplateJsonConverter().fromJson(jsonDecode(json)));
+        templates.add(NoteData.fromData(await file.readAsBytes()));
       } catch (e) {
         if (kDebugMode) {
           print(e);
@@ -289,24 +285,23 @@ class IOPackFileSystem extends PackFileSystem {
   }
 
   @override
-  Future<ButterflyPack?> getPack(String name) async {
+  Future<NoteData?> getPack(String name) async {
     var file = File(await getAbsolutePath('${escapeName(name)}.bfly'));
     if (await file.exists()) {
-      var json = await file.readAsString();
-      return const PackJsonConverter()
-          .fromJson(Map<String, dynamic>.from(jsonDecode(json)));
+      return NoteData.fromData(await file.readAsBytes());
     }
     return null;
   }
 
   @override
-  Future<void> updatePack(ButterflyPack pack) async {
-    final file = File(await getAbsolutePath('${escapeName(pack.name)}.bfly'));
+  Future<void> updatePack(NoteData pack) async {
+    final file =
+        File(await getAbsolutePath('${escapeName(pack.name ?? '')}.bfly'));
     if (!(await file.exists())) {
       await file.create(recursive: true);
     }
-    final data = const PackJsonConverter().toJson(pack);
-    await file.writeAsString(jsonEncode(data));
+    final data = pack.save();
+    await file.writeAsBytes(data, flush: true);
   }
 
   @override
@@ -337,16 +332,15 @@ class IOPackFileSystem extends PackFileSystem {
   }
 
   @override
-  Future<List<ButterflyPack>> getPacks() async {
+  Future<List<NoteData>> getPacks() async {
     var directory = Directory(await getDirectory());
     if (!(await directory.exists())) return const [];
     var files = await directory.list().toList();
-    var packs = <ButterflyPack>[];
+    var packs = <NoteData>[];
     for (var file in files) {
       if (file is! File) continue;
       try {
-        var json = await file.readAsString();
-        packs.add(const PackJsonConverter().fromJson(jsonDecode(json)));
+        packs.add(NoteData.fromData(await file.readAsBytes()));
       } catch (e) {
         if (kDebugMode) {
           print(e);

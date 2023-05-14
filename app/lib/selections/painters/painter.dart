@@ -76,4 +76,13 @@ class PainterSelection<T extends Painter> extends Selection<T> {
     }
     return PhosphorIcons.paintRoller;
   }
+
+  @override
+  List<String> get help {
+    final type = selected.first.runtimeType;
+    if (selected.any((e) => e.runtimeType != type)) {
+      return const [];
+    }
+    return selected.first.help;
+  }
 }

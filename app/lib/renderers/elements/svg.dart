@@ -6,8 +6,8 @@ class SvgRenderer extends Renderer<SvgElement> {
   SvgRenderer(super.element, [this.info]);
 
   @override
-  void build(
-      Canvas canvas, Size size, AppDocument document, CameraTransform transform,
+  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
+      CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final rect = this.rect;
     if (info == null) {
@@ -32,26 +32,24 @@ class SvgRenderer extends Renderer<SvgElement> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, AppDocument document, Rect viewportRect) {
+  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
-    // Create data url
-    final data = utf8.encode(element.data);
-    final encoded = base64Encode(data);
-    final dataUrl = 'data:image/svg+xml;base64,$encoded';
-    // Create image
     xml.getElement('svg')?.createElement('image', attributes: {
       'x': '${rect.left}px',
       'y': '${rect.top}px',
       'width': '${rect.width}px',
       'height': '${rect.height}px',
-      'xlink:href': dataUrl,
+      'xlink:href': element.source,
     });
   }
 
   @override
-  FutureOr<void> setup(AppDocument document) async {
-    info = await vg.loadPicture(SvgStringLoader(element.data), null);
-    super.setup(document);
+  FutureOr<void> setup(NoteData document, DocumentPage page) async {
+    super.setup(document, page);
+    final data = await element.getData(document);
+    if (data != null) {
+      info = await vg.loadPicture(SvgStringLoader(data), null);
+    }
   }
 
   @override

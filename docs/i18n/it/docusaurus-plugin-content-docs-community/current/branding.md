@@ -42,3 +42,11 @@ Questi attivi sono concessi in licenza ai sensi del [CC-BY-4.0](https://github.c
 ## Caratteri
 
 * `Roboto`
+
+## Screenshot
+
+> Utilizzato nella modalità di progettazione reattiva firefox
+
+* Telefono: Galaxy S20 Ultra
+* Compressa da 7 pollici: Nexus 7
+* Compressa da 10 pollici: Nexus 10

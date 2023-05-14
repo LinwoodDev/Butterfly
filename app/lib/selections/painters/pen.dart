@@ -20,7 +20,7 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
                   .map((e) => e.copyWith(
                       zoomDependent: value ?? selected.first.zoomDependent))
                   .toList())),
-      const SizedBox(height: 15),
+      const SizedBox(height: 16),
       ..._propertySelection.build(context, property, updateProperty),
     ];
   }
@@ -32,14 +32,4 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
     }
     return super.insert(element);
   }
-
-  @override
-  String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context).pen;
-
-  @override
-  IconGetter get icon => PhosphorIcons.pen;
-
-  @override
-  List<String> get help => ['painters', 'pen'];
 }

@@ -189,9 +189,6 @@
   "selectCamera": "اختر كاميرا",
   "changeDocumentPath": "تغيير مسار المستند",
   "deleteWholeStroke": "حذف القلم بأكمله",
-  "red": "أحمر",
-  "green": "أخضر",
-  "blue": "أزرق",
   "alpha": "ألفا",
   "area": "المنطقة",
   "selectArea": "حدد منطقة",
@@ -492,5 +489,10 @@
   "noTemplates": "لا توجد حاليا قوالب متاحة",
   "reset": "Reset",
   "importCorePack": "استيراد حزمة النواة",
-  "importCorePackDescription": "استيراد الحزمة الأساسية التي تحتوي على جميع الأصول الأساسية للبدء. وهذا سيتجاوز الحزمة الأساسية الحالية."
+  "importCorePackDescription": "استيراد الحزمة الأساسية التي تحتوي على جميع الأصول الأساسية للبدء. وهذا سيتجاوز الحزمة الأساسية الحالية.",
+  "never": "لا",
+  "onlyOnUpdates": "فقط على التحديثات",
+  "visibility": "الظهور",
+  "captureThumbnail": "التقط الصورة المصغرة",
+  "capturedThumbnail": "تم التقاط الصورة المصغرة بنجاح"
 }

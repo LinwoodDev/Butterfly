@@ -189,9 +189,6 @@
   "selectCamera": "Valitse kamera",
   "changeDocumentPath": "Muuta asiakirjan polkua",
   "deleteWholeStroke": "Poista koko aivohalvaus",
-  "red": "Punainen",
-  "green": "Vihreä",
-  "blue": "Sininen",
   "alpha": "Alfa",
   "area": "Alue",
   "selectArea": "Valitse alue",
@@ -492,5 +489,10 @@
   "noTemplates": "Tällä hetkellä pohjia ei ole saatavilla",
   "reset": "Reset",
   "importCorePack": "Tuo ydinpaketti",
-  "importCorePackDescription": "Tuo ydin, joka sisältää kaikki perusassetit päästäksesi alkuun. Tämä ohittaa nykyisen ydinpaketin."
+  "importCorePackDescription": "Tuo ydin, joka sisältää kaikki perusassetit päästäksesi alkuun. Tämä ohittaa nykyisen ydinpaketin.",
+  "never": "Ei Koskaan",
+  "onlyOnUpdates": "Vain päivityksissä",
+  "visibility": "Näkyvyys",
+  "captureThumbnail": "Tallenna pikkukuva",
+  "capturedThumbnail": "Pienoiskuvan talteenotto onnistui"
 }

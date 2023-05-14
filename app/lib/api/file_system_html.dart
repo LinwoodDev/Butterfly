@@ -328,7 +328,7 @@ class WebTemplateFileSystem extends TemplateFileSystem {
   }
 
   @override
-  Future<DocumentTemplate?> getTemplate(String name) async {
+  Future<NoteData?> getTemplate(String name) async {
     var db = await _getDatabase();
     var txn = db.transaction('templates', 'readonly');
     var store = txn.objectStore('templates');
@@ -337,17 +337,16 @@ class WebTemplateFileSystem extends TemplateFileSystem {
       await txn.completed;
       return null;
     }
-    var map = Map<String, dynamic>.from(data as Map);
     await txn.completed;
-    return const TemplateJsonConverter().fromJson(map);
+    return NoteData.fromData(Uint8List.fromList(List<int>.from(data as List)));
   }
 
   @override
-  Future<void> updateTemplate(DocumentTemplate template) async {
+  Future<void> updateTemplate(NoteData template) async {
     var db = await _getDatabase();
     var txn = db.transaction('templates', 'readwrite');
     var store = txn.objectStore('templates');
-    var doc = const TemplateJsonConverter().toJson(template);
+    var doc = template.save();
     await store.put(doc, template.name);
   }
 
@@ -375,17 +374,16 @@ class WebTemplateFileSystem extends TemplateFileSystem {
   }
 
   @override
-  Future<List<DocumentTemplate>> getTemplates() async {
+  Future<List<NoteData>> getTemplates() async {
     var db = await _getDatabase();
     var txn = db.transaction('templates', 'readonly');
     var store = txn.objectStore('templates');
     var cursor = store.openCursor(autoAdvance: true);
-    var templates = <DocumentTemplate>[];
+    var templates = <NoteData>[];
     await cursor.forEach((cursor) {
       try {
-        var map = cursor.value as Map;
-        templates.add(const TemplateJsonConverter()
-            .fromJson(Map<String, dynamic>.from(map)));
+        templates.add(NoteData.fromData(
+            Uint8List.fromList(List<int>.from(cursor.value as List))));
       } catch (e) {
         if (kDebugMode) {
           print(e);
@@ -408,7 +406,7 @@ class WebPackFileSystem extends PackFileSystem {
   }
 
   @override
-  Future<ButterflyPack?> getPack(String name) async {
+  Future<NoteData?> getPack(String name) async {
     var db = await _getDatabase();
     var txn = db.transaction('packs', 'readonly');
     var store = txn.objectStore('packs');
@@ -417,17 +415,16 @@ class WebPackFileSystem extends PackFileSystem {
       await txn.completed;
       return null;
     }
-    var map = Map<String, dynamic>.from(data as Map);
     await txn.completed;
-    return const PackJsonConverter().fromJson(map);
+    return NoteData.fromData(Uint8List.fromList(List<int>.from(data as List)));
   }
 
   @override
-  Future<void> updatePack(ButterflyPack pack) async {
+  Future<void> updatePack(NoteData pack) async {
     var db = await _getDatabase();
     var txn = db.transaction('packs', 'readwrite');
     var store = txn.objectStore('packs');
-    var doc = const PackJsonConverter().toJson(pack);
+    var doc = pack.save();
     await store.put(doc, pack.name);
   }
 
@@ -442,17 +439,16 @@ class WebPackFileSystem extends PackFileSystem {
   }
 
   @override
-  Future<List<ButterflyPack>> getPacks() async {
+  Future<List<NoteData>> getPacks() async {
     var db = await _getDatabase();
     var txn = db.transaction('packs', 'readonly');
     var store = txn.objectStore('packs');
     var cursor = store.openCursor(autoAdvance: true);
-    var packs = <ButterflyPack>[];
+    var packs = <NoteData>[];
     await cursor.forEach((cursor) {
       try {
-        var map = cursor.value as Map;
-        packs.add(
-            const PackJsonConverter().fromJson(Map<String, dynamic>.from(map)));
+        packs.add(NoteData.fromData(
+            Uint8List.fromList(List<int>.from(cursor.value as List))));
       } catch (e) {
         if (kDebugMode) {
           print(e);

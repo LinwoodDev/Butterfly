@@ -99,6 +99,7 @@ _$TextElement _$$TextElementFromJson(Map json) => _$TextElement(
       position: json['position'] == null
           ? const Point(0.0, 0.0)
           : const DoublePointJsonConverter().fromJson(json['position'] as Map),
+      scale: (json['scale'] as num?)?.toDouble() ?? 1.0,
       styleSheet: json['styleSheet'] == null
           ? const PackAssetLocation()
           : PackAssetLocation.fromJson(
@@ -115,6 +116,7 @@ Map<String, dynamic> _$$TextElementToJson(_$TextElement instance) =>
     <String, dynamic>{
       'layer': instance.layer,
       'position': const DoublePointJsonConverter().toJson(instance.position),
+      'scale': instance.scale,
       'styleSheet': instance.styleSheet.toJson(),
       'area': instance.area.toJson(),
       'constraint': instance.constraint.toJson(),
@@ -156,7 +158,7 @@ _$SvgElement _$$SvgElementFromJson(Map json) => _$SvgElement(
           ? const ScaledElementConstraints(scaleX: 1, scaleY: 1)
           : ElementConstraints.fromJson(
               Map<String, dynamic>.from(json['constraints'] as Map)),
-      data: json['data'] as String,
+      source: json['source'] as String,
       width: (json['width'] as num).toDouble(),
       height: (json['height'] as num).toDouble(),
       $type: json['type'] as String?,
@@ -167,7 +169,7 @@ Map<String, dynamic> _$$SvgElementToJson(_$SvgElement instance) =>
       'layer': instance.layer,
       'position': const DoublePointJsonConverter().toJson(instance.position),
       'constraints': instance.constraints?.toJson(),
-      'data': instance.data,
+      'source': instance.source,
       'width': instance.width,
       'height': instance.height,
       'type': instance.$type,

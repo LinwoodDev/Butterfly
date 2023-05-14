@@ -1,13 +1,11 @@
-import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/api/file_system.dart';
 import 'package:butterfly/api/file_system_remote.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/dialogs/export.dart';
 import 'package:butterfly/dialogs/name.dart';
-import 'package:butterfly/helpers/element_helper.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/services/sync.dart';
 import 'package:butterfly/visualizer/asset.dart';
@@ -15,7 +13,6 @@ import 'package:butterfly/visualizer/sync.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,9 +22,58 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:popover/popover.dart';
 
 import '../api/open_release_notes.dart';
+import '../api/save_data.dart';
 import '../dialogs/file_system/move.dart';
 import '../dialogs/file_system/sync.dart';
-import '../dialogs/import.dart';
+import '../main.dart';
+
+PhosphorIconData _getIconOfBannerVisibility(BannerVisibility visibility) {
+  switch (visibility) {
+    case BannerVisibility.always:
+      return PhosphorIconsLight.caretDown;
+    case BannerVisibility.never:
+      return PhosphorIconsLight.caretUp;
+    case BannerVisibility.onlyOnUpdates:
+      return PhosphorIconsLight.caretRight;
+  }
+}
+
+String _getLocalizedNameOfBannerVisibility(
+    BuildContext context, BannerVisibility visibility) {
+  switch (visibility) {
+    case BannerVisibility.always:
+      return AppLocalizations.of(context).always;
+    case BannerVisibility.never:
+      return AppLocalizations.of(context).never;
+    case BannerVisibility.onlyOnUpdates:
+      return AppLocalizations.of(context).onlyOnUpdates;
+  }
+}
+
+Widget _getBannerVisibilityWidget(
+    BuildContext context, ButterflySettings settings) {
+  return MenuAnchor(
+    builder: (context, controller, child) => IconButton(
+      tooltip: AppLocalizations.of(context).visibility,
+      icon: PhosphorIcon(_getIconOfBannerVisibility(settings.bannerVisibility)),
+      onPressed: () =>
+          controller.isOpen ? controller.close() : controller.open(),
+    ),
+    menuChildren: BannerVisibility.values
+        .map(
+          (e) => MenuItemButton(
+            leadingIcon: Icon(
+              _getIconOfBannerVisibility(e),
+            ),
+            onPressed: () {
+              context.read<SettingsCubit>().changeBannerVisibility(e);
+            },
+            child: Text(_getLocalizedNameOfBannerVisibility(context, e)),
+          ),
+        )
+        .toList(),
+  );
+}
 
 class HomePage extends StatefulWidget {
   final AssetLocation? selectedAsset;
@@ -60,77 +106,105 @@ class _HomePageState extends State<HomePage> {
         RepositoryProvider<ImportService>(
             create: (context) => ImportService(context)),
       ],
-      child: Scaffold(
-        appBar: const WindowTitleBar(
-          title: Text('Butterfly'),
-          onlyShowOnDesktop: true,
-        ),
-        body: SingleChildScrollView(
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 32),
-              constraints: const BoxConstraints(maxWidth: 1400),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: 64),
-                  const _HeaderHomeView(),
-                  const SizedBox(height: 64),
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      if (constraints.maxWidth > 1000) {
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                                child: _FilesHomeView(
-                              selectedAsset: widget.selectedAsset,
-                              remote: _remote,
-                              onRemoteChanged: (value) =>
-                                  setState(() => _remote = value),
-                            )),
-                            const SizedBox(width: 32),
-                            SizedBox(
-                              width: 500,
-                              child: _QuickstartHomeView(
-                                remote: _remote,
-                                onReload: () => setState(() {}),
-                              ),
-                            ),
-                          ],
-                        );
-                      } else {
-                        return Column(
-                          children: [
-                            _QuickstartHomeView(
-                              remote: _remote,
-                              onReload: () => setState(() {}),
-                            ),
-                            const SizedBox(height: 32),
-                            _FilesHomeView(
-                              selectedAsset: widget.selectedAsset,
-                              remote: _remote,
-                              onRemoteChanged: (value) =>
-                                  setState(() => _remote = value),
-                            ),
-                          ],
-                        );
-                      }
-                    },
+      child: BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) =>
+            previous.bannerVisibility != current.bannerVisibility,
+        builder: (context, settings) {
+          return FutureBuilder<bool>(
+            future: context.read<SettingsCubit>().hasNewerVersion(),
+            builder: (context, snapshot) {
+              final hasNewerVersion = snapshot.data ?? false;
+              final showBanner =
+                  settings.bannerVisibility == BannerVisibility.always ||
+                      (settings.bannerVisibility ==
+                              BannerVisibility.onlyOnUpdates &&
+                          hasNewerVersion);
+              return Scaffold(
+                appBar: WindowTitleBar(
+                  title: const Text(shortApplicationName),
+                  onlyShowOnDesktop: showBanner,
+                  actions: [
+                    if (!showBanner) ...[
+                      _getBannerVisibilityWidget(context, settings),
+                      IconButton(
+                        icon: const PhosphorIcon(PhosphorIconsLight.gear),
+                        onPressed: () => openSettings(context),
+                      ),
+                    ],
+                  ],
+                ),
+                body: SingleChildScrollView(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 32),
+                      constraints: const BoxConstraints(maxWidth: 1400),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const SizedBox(height: 64),
+                          if (showBanner)
+                            _HeaderHomeView(hasNewerVersion: hasNewerVersion),
+                          const SizedBox(height: 64),
+                          LayoutBuilder(
+                            builder: (context, constraints) {
+                              if (constraints.maxWidth > 1000) {
+                                return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                        child: _FilesHomeView(
+                                      selectedAsset: widget.selectedAsset,
+                                      remote: _remote,
+                                      onRemoteChanged: (value) =>
+                                          setState(() => _remote = value),
+                                    )),
+                                    const SizedBox(width: 32),
+                                    SizedBox(
+                                      width: 500,
+                                      child: _QuickstartHomeView(
+                                        remote: _remote,
+                                        onReload: () => setState(() {}),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return Column(
+                                  children: [
+                                    _QuickstartHomeView(
+                                      remote: _remote,
+                                      onReload: () => setState(() {}),
+                                    ),
+                                    const SizedBox(height: 32),
+                                    _FilesHomeView(
+                                      selectedAsset: widget.selectedAsset,
+                                      remote: _remote,
+                                      onRemoteChanged: (value) =>
+                                          setState(() => _remote = value),
+                                    ),
+                                  ],
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ],
-              ),
-            ),
-          ),
-        ),
+                ),
+              );
+            },
+          );
+        },
       ),
     );
   }
 }
 
 class _HeaderHomeView extends StatelessWidget {
-  const _HeaderHomeView();
+  final bool hasNewerVersion;
+  const _HeaderHomeView({this.hasNewerVersion = false});
 
   @override
   Widget build(BuildContext context) {
@@ -149,54 +223,51 @@ class _HeaderHomeView extends StatelessWidget {
             icon: const PhosphorIcon(PhosphorIconsLight.gear),
             tooltip: AppLocalizations.of(context).settings,
           ),
+          _getBannerVisibilityWidget(
+              context, context.read<SettingsCubit>().state),
         ],
       );
       final isDesktop = constraints.maxWidth > 1000;
       final settingsCubit = context.read<SettingsCubit>();
-      final whatsNew = FutureBuilder<bool>(
-        future: settingsCubit.hasNewerVersion(),
-        builder: (context, snapshot) {
-          final style = FilledButton.styleFrom(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 32,
-              vertical: 20,
-            ),
-            textStyle: const TextStyle(fontSize: 20),
-          );
-          void openNew() {
-            openReleaseNotes();
-            settingsCubit.updateLastVersion();
-          }
+      final style = FilledButton.styleFrom(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 32,
+          vertical: 20,
+        ),
+        textStyle: const TextStyle(fontSize: 20),
+      );
+      void openNew() {
+        openReleaseNotes();
+        settingsCubit.updateLastVersion();
+      }
 
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              (snapshot.data ?? false)
-                  ? FilledButton(
-                      onPressed: openNew,
-                      style: style,
-                      child: Text(AppLocalizations.of(context).whatsNew),
-                    )
-                  : ElevatedButton(
-                      onPressed: openNew,
-                      style: style,
-                      child: Text(AppLocalizations.of(context).whatsNew),
-                    ),
-              if (snapshot.data ?? false)
-                SizedBox(
-                  height: 0,
-                  child: Stack(
-                    children: const [
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: PhosphorIcon(PhosphorIconsLight.caretUp),
-                      ),
-                    ],
-                  ),
+      final whatsNew = Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          hasNewerVersion
+              ? FilledButton(
+                  onPressed: openNew,
+                  style: style,
+                  child: Text(AppLocalizations.of(context).whatsNew),
+                )
+              : ElevatedButton(
+                  onPressed: openNew,
+                  style: style,
+                  child: Text(AppLocalizations.of(context).whatsNew),
                 ),
-            ],
-          );
-        },
+          if (hasNewerVersion)
+            const SizedBox(
+              height: 0,
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: PhosphorIcon(PhosphorIconsLight.caretUp),
+                  ),
+                ],
+              ),
+            ),
+        ],
       );
       final logo = Row(
         mainAxisSize: MainAxisSize.min,
@@ -256,7 +327,8 @@ class _HeaderHomeView extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                colorScheme.inverseSurface,
+                Color.alphaBlend(colorScheme.inverseSurface.withOpacity(0.3),
+                    colorScheme.surface),
                 colorScheme.primary,
               ],
               stops: const [0, 0.8],
@@ -325,8 +397,8 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.remote != widget.remote) {
       _remote = widget.remote;
+      _setFilesFuture();
     }
-    _setFilesFuture();
   }
 
   String getLocalizedNameOfSortBy(_SortBy sortBy) {
@@ -392,43 +464,26 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                 children: [
                   Text(AppLocalizations.of(context).source),
                   const SizedBox(width: 8),
-                  SizedBox(
-                    width: 200,
-                    child: BlocBuilder<SettingsCubit, ButterflySettings>(
-                        builder: (context, state) {
-                      return DropdownButtonFormField<String?>(
-                        items: [
-                          DropdownMenuItem(
-                            value: null,
-                            child: Text(AppLocalizations.of(context).local),
-                          ),
-                          ...state.remotes
-                              .map((e) => DropdownMenuItem(
-                                    value: e.identifier,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(e.uri.host),
-                                        Text(e.username),
-                                      ],
-                                    ),
-                                  ))
-                              .toList(),
-                        ],
-                        itemHeight: 50,
-                        selectedItemBuilder: (context) => [
-                          Text(AppLocalizations.of(context).local),
-                          ...state.remotes.map((e) =>
-                              Text(e.uri.host, overflow: TextOverflow.ellipsis))
-                        ],
-                        borderRadius: BorderRadius.circular(16),
-                        value: _remote?.identifier,
-                        onChanged: (value) => _setRemote(
-                            value == null ? null : state.getRemote(value)),
-                      );
-                    }),
-                  ),
+                  BlocBuilder<SettingsCubit, ButterflySettings>(
+                      builder: (context, state) {
+                    return DropdownMenu<String?>(
+                      dropdownMenuEntries: [
+                        DropdownMenuEntry(
+                          value: null,
+                          label: AppLocalizations.of(context).local,
+                        ),
+                        ...state.remotes
+                            .map((e) => DropdownMenuEntry(
+                                  value: e.identifier,
+                                  label: e.uri.host,
+                                ))
+                            .toList(),
+                      ],
+                      initialSelection: _remote?.identifier,
+                      onSelected: (value) => _setRemote(
+                          value == null ? null : state.getRemote(value)),
+                    );
+                  }),
                   BlocBuilder<SettingsCubit, ButterflySettings>(
                     buildWhen: (previous, current) =>
                         previous.remotes != current.remotes,
@@ -443,20 +498,16 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                 children: [
                   Text(AppLocalizations.of(context).sortBy),
                   const SizedBox(width: 8),
-                  SizedBox(
-                    width: 150,
-                    child: DropdownButtonFormField<_SortBy>(
-                      items: _SortBy.values
-                          .map((e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(getLocalizedNameOfSortBy(e)),
-                              ))
-                          .toList(),
-                      borderRadius: BorderRadius.circular(16),
-                      value: _sortBy,
-                      onChanged: (value) =>
-                          setState(() => _sortBy = value ?? _sortBy),
-                    ),
+                  DropdownMenu<_SortBy>(
+                    dropdownMenuEntries: _SortBy.values
+                        .map((e) => DropdownMenuEntry(
+                              value: e,
+                              label: getLocalizedNameOfSortBy(e),
+                            ))
+                        .toList(),
+                    initialSelection: _sortBy,
+                    onSelected: (value) =>
+                        setState(() => _sortBy = value ?? _sortBy),
                   ),
                 ],
               ),
@@ -509,7 +560,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                     }
                     final templates = await templateFileSystem.getTemplates();
                     if (context.mounted) {
-                      final asset = await showDialog<DocumentTemplate>(
+                      final asset = await showDialog<NoteData>(
                           context: context,
                           builder: (context) => AlertDialog(
                                 title: Text(
@@ -519,7 +570,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: templates
                                       .map((e) => ListTile(
-                                            title: Text(e.name),
+                                            title: Text(e.name!),
                                             onTap: () =>
                                                 Navigator.of(context).pop(e),
                                           ))
@@ -540,7 +591,7 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                       if (!newPath.endsWith('.bfly')) {
                         newPath += '.bfly';
                       }
-                      await _fileSystem.updateDocument(newPath, asset.document);
+                      await _fileSystem.updateDocument(newPath, asset);
                       _reloadFileSystem();
                     }
                   },
@@ -553,19 +604,11 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                   onPressed: () async {
                     final router = GoRouter.of(context);
                     final importService = context.read<ImportService>();
-                    final result = await showDialog<String>(
-                        builder: (context) => const ImportDialog(),
-                        context: context);
+                    final result = await openBfly();
                     if (result == null) return;
-                    final model = await importService.importBfly(
-                      Uint8List.fromList(result.codeUnits),
-                    );
-                    await model?.maybeMap(
-                      document: (value) => router.push(
-                          '/native?name=document.bfly&type=note',
-                          extra: value),
-                      orElse: () {},
-                    );
+                    final model = await importService.importBfly(result);
+                    router.push('/native?name=document.bfly&type=note',
+                        extra: model);
                     _reloadFileSystem();
                   },
                   child: Column(
@@ -611,7 +654,6 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                   hintText: AppLocalizations.of(context).location,
                   prefixIcon: const PhosphorIcon(PhosphorIconsLight.folder),
                   filled: true,
-                  contentPadding: const EdgeInsets.only(left: 32),
                 ),
                 controller: _locationController,
                 onFieldSubmitted: (value) => _reloadFileSystem(),
@@ -682,16 +724,22 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
                     }
                     final location = entity.location;
                     if (location.remote != '') {
-                      await GoRouter.of(context).pushNamed('remote', params: {
+                      await GoRouter.of(context)
+                          .pushNamed('remote', pathParameters: {
                         'remote': location.remote,
                         'path': location.pathWithoutLeadingSlash,
+                      }, queryParameters: {
+                        'type': location.fileType?.name,
                       });
                       _reloadFileSystem();
                       return;
                     }
                     await GoRouter.of(context).pushNamed('local',
-                        params: {
+                        pathParameters: {
                           'path': location.pathWithoutLeadingSlash,
+                        },
+                        queryParameters: {
+                          'type': location.fileType?.name,
                         },
                         extra: entity);
                     _reloadFileSystem();
@@ -705,55 +753,67 @@ class _FilesHomeViewState extends State<_FilesHomeView> {
   }
 
   int _sortAssets(AppDocumentEntity a, AppDocumentEntity b) {
-    final settings = _settingsCubit.state;
-    // Test if starred
-    final aStarred = settings.isStarred(a.location);
-    final bStarred = settings.isStarred(b.location);
-    if (aStarred && !bStarred) {
-      return -1;
-    }
-    if (bStarred && !aStarred) {
-      return 1;
-    }
-    if (a is AppDocumentDirectory) {
-      return -1;
-    }
-    if (b is AppDocumentDirectory) {
-      return 1;
-    }
-    final aFile = a as AppDocumentFile;
-    final bFile = b as AppDocumentFile;
-    final aInfo = aFile.getDocumentInfo();
-    final bInfo = bFile.getDocumentInfo();
-    if (aInfo == null) {
-      return 1;
-    }
-    if (bInfo == null) {
-      return -1;
-    }
-    switch (_sortBy) {
-      case _SortBy.name:
-        return aFile.fileName.compareTo(bFile.fileName);
-      case _SortBy.created:
-        final aCreatedAt = aInfo.createdAt;
-        final bCreatedAt = bInfo.createdAt;
-        if (aCreatedAt == null) {
-          return 1;
+    try {
+      final settings = _settingsCubit.state;
+      // Test if starred
+      final aStarred = settings.isStarred(a.location);
+      final bStarred = settings.isStarred(b.location);
+      if (aStarred && !bStarred) {
+        return -1;
+      }
+      if (bStarred && !aStarred) {
+        return 1;
+      }
+      if (a is AppDocumentDirectory) {
+        return -1;
+      }
+      if (b is AppDocumentDirectory) {
+        return 1;
+      }
+      final aFile = a as AppDocumentFile;
+      final bFile = b as AppDocumentFile;
+      FileMetadata? aInfo, bInfo;
+      try {
+        aInfo = aFile.load().getMetadata();
+      } catch (_) {}
+      try {
+        bInfo = bFile.load().getMetadata();
+      } catch (_) {}
+      if (aInfo == null) {
+        if (bInfo == null) {
+          return aFile.fileName.compareTo(bFile.fileName);
         }
-        if (bCreatedAt == null) {
-          return -1;
-        }
-        return aCreatedAt.compareTo(bCreatedAt);
-      case _SortBy.modified:
-        final aModifiedAt = aInfo.updatedAt;
-        final bModifiedAt = bInfo.updatedAt;
-        if (aModifiedAt == null) {
-          return 1;
-        }
-        if (bModifiedAt == null) {
-          return -1;
-        }
-        return aModifiedAt.compareTo(bModifiedAt);
+        return 1;
+      }
+      if (bInfo == null) {
+        return -1;
+      }
+      switch (_sortBy) {
+        case _SortBy.name:
+          return aFile.fileName.compareTo(bFile.fileName);
+        case _SortBy.created:
+          final aCreatedAt = aInfo.createdAt;
+          final bCreatedAt = bInfo.createdAt;
+          if (aCreatedAt == null) {
+            return 1;
+          }
+          if (bCreatedAt == null) {
+            return -1;
+          }
+          return bCreatedAt.compareTo(aCreatedAt);
+        case _SortBy.modified:
+          final aModifiedAt = aInfo.updatedAt;
+          final bModifiedAt = bInfo.updatedAt;
+          if (aModifiedAt == null) {
+            return 1;
+          }
+          if (bModifiedAt == null) {
+            return -1;
+          }
+          return bModifiedAt.compareTo(aModifiedAt);
+      }
+    } catch (e) {
+      return 0;
     }
   }
 }
@@ -777,22 +837,26 @@ class _FileEntityListTile extends StatelessWidget {
     final remote = settingsCubit.getRemote(entity.location.remote);
     final fileSystem = DocumentFileSystem.fromPlatform(remote: remote);
     final syncService = context.read<SyncService>();
-    DocumentInfo? info;
+    FileMetadata? metadata;
+    Uint8List? thumbnail;
     String? modifiedText, createdText;
     PhosphorIconData icon = PhosphorIconsLight.folder;
     try {
       if (entity is AppDocumentFile) {
         final file = entity as AppDocumentFile;
         icon = file.fileType.getIcon();
-        info = file.getDocumentInfo();
+        final data = file.load();
+        thumbnail = data.getThumbnail();
+        if (thumbnail?.isEmpty ?? false) thumbnail = null;
+        metadata = data.getMetadata();
         final locale = Localizations.localeOf(context).languageCode;
         final dateFormatter = DateFormat.yMd(locale);
         final timeFormatter = DateFormat.Hm(locale);
-        modifiedText = info?.updatedAt != null
-            ? '${dateFormatter.format(info!.updatedAt!)} ${timeFormatter.format(info.updatedAt!)}'
+        modifiedText = metadata?.updatedAt != null
+            ? '${dateFormatter.format(metadata!.updatedAt!)} ${timeFormatter.format(metadata.updatedAt!)}'
             : null;
-        createdText = info?.createdAt != null
-            ? '${dateFormatter.format(info!.createdAt!)} ${timeFormatter.format(info.createdAt!)}'
+        createdText = metadata?.createdAt != null
+            ? '${dateFormatter.format(metadata!.createdAt!)} ${timeFormatter.format(metadata.createdAt!)}'
             : null;
       }
     } catch (_) {}
@@ -844,12 +908,24 @@ class _FileEntityListTile extends StatelessWidget {
                   ),
                   child: StatefulBuilder(builder: (context, setState) {
                     return LayoutBuilder(builder: (context, constraints) {
+                      final leading = PhosphorIcon(
+                        icon,
+                        color: colorScheme.outline,
+                      );
                       final fileName = Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          PhosphorIcon(
-                            icon,
-                            color: colorScheme.outline,
+                          SizedBox(
+                            width: 32,
+                            height: 32,
+                            child: thumbnail != null
+                                ? Image.memory(
+                                    thumbnail,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) => leading,
+                                  )
+                                : leading,
                           ),
                           const SizedBox(width: 8),
                           Flexible(
@@ -1084,11 +1160,8 @@ class _FileEntityListTile extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       try {
-                        final data =
-                            utf8.decode((entity as AppDocumentFile).data);
-                        showDialog(
-                            context: context,
-                            builder: (context) => ExportDialog(data: data));
+                        final data = (entity as AppDocumentFile).data;
+                        saveData(context, data);
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -1189,7 +1262,7 @@ class _FileEntityListTile extends StatelessWidget {
   }
 }
 
-class _QuickstartHomeView extends StatelessWidget {
+class _QuickstartHomeView extends StatefulWidget {
   final RemoteStorage? remote;
   final VoidCallback onReload;
 
@@ -1199,9 +1272,44 @@ class _QuickstartHomeView extends StatelessWidget {
   });
 
   @override
+  State<_QuickstartHomeView> createState() => _QuickstartHomeViewState();
+}
+
+class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
+  late final TemplateFileSystem _templateFileSystem;
+  late Future<List<NoteData>> _templatesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _templateFileSystem =
+        TemplateFileSystem.fromPlatform(remote: widget.remote);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    _templatesFuture = _fetchTemplates();
+  }
+
+  @override
+  void didUpdateWidget(covariant _QuickstartHomeView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.remote != widget.remote) {
+      setState(() {
+        _templatesFuture = _fetchTemplates();
+      });
+    }
+  }
+
+  Future<List<NoteData>> _fetchTemplates() => _templateFileSystem
+      .createDefault(context)
+      .then((value) => _templateFileSystem.getTemplates());
+
+  @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final templateFileSystem = TemplateFileSystem.fromPlatform(remote: remote);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
@@ -1215,10 +1323,8 @@ class _QuickstartHomeView extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(height: 16),
-          FutureBuilder<List<DocumentTemplate>>(
-              future: templateFileSystem
-                  .createDefault(context)
-                  .then((value) => templateFileSystem.getTemplates()),
+          FutureBuilder<List<NoteData>>(
+              future: _templatesFuture,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
@@ -1241,9 +1347,12 @@ class _QuickstartHomeView extends StatelessWidget {
                       const SizedBox(height: 16),
                       FilledButton(
                         onPressed: () async {
-                          await templateFileSystem.createDefault(context,
+                          await _templateFileSystem.createDefault(context,
                               force: true);
-                          onReload();
+                          setState(() {
+                            _templatesFuture = _fetchTemplates();
+                          });
+                          widget.onReload();
                         },
                         child: Text(
                           AppLocalizations.of(context).reset,
@@ -1259,74 +1368,66 @@ class _QuickstartHomeView extends StatelessWidget {
                   crossAxisAlignment: WrapCrossAlignment.center,
                   runSpacing: 16,
                   spacing: 16,
-                  children: templates
-                      .map(
-                        (e) => FutureBuilder<List<int>>(
-                            future: e.document.getThumbnailData(),
-                            builder: (context, snapshot) => ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(maxHeight: 200),
-                                  child: AspectRatio(
-                                    aspectRatio: 16 / 9,
-                                    child: Card(
-                                      elevation: 5,
-                                      clipBehavior: Clip.hardEdge,
-                                      child: InkWell(
-                                        onTap: () async {
-                                          await GoRouter.of(context).pushNamed(
-                                              'new',
-                                              queryParams: {
-                                                'path': e.directory
-                                              },
-                                              extra: e.document);
-                                          onReload();
-                                        },
-                                        child: Stack(
-                                          children: [
-                                            if (snapshot.data?.isNotEmpty ??
-                                                false)
-                                              Align(
-                                                child: Image.memory(
-                                                  Uint8List.fromList(
-                                                      snapshot.data!),
-                                                  fit: BoxFit.cover,
-                                                  width: 640,
-                                                  alignment: Alignment.center,
-                                                ),
+                  children: templates.map(
+                    (e) {
+                      final thumbnail = e.getThumbnail();
+                      final metadata = e.getMetadata()!;
+                      return ConstrainedBox(
+                          constraints: const BoxConstraints(maxHeight: 200),
+                          child: AspectRatio(
+                            aspectRatio: 16 / 9,
+                            child: Card(
+                              elevation: 5,
+                              clipBehavior: Clip.hardEdge,
+                              child: InkWell(
+                                onTap: () async {
+                                  await GoRouter.of(context).pushNamed('new',
+                                      queryParameters: {
+                                        'path': metadata.directory
+                                      },
+                                      extra: e.createDocument());
+                                  widget.onReload();
+                                },
+                                child: Stack(
+                                  children: [
+                                    if (thumbnail?.isNotEmpty ?? false)
+                                      Align(
+                                        child: Image.memory(
+                                          thumbnail!,
+                                          fit: BoxFit.cover,
+                                          width: 640,
+                                          alignment: Alignment.center,
+                                        ),
+                                      ),
+                                    Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        margin: const EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          color: colorScheme.primaryContainer
+                                              .withAlpha(200),
+                                        ),
+                                        child: Text(
+                                          metadata.name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.copyWith(
+                                                color: colorScheme.onSurface,
                                               ),
-                                            Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                margin: const EdgeInsets.all(8),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color: colorScheme
-                                                      .primaryContainer
-                                                      .withAlpha(200),
-                                                ),
-                                                child: Text(
-                                                  e.name,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.copyWith(
-                                                        color: colorScheme
-                                                            .onSurface,
-                                                      ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
                                         ),
                                       ),
                                     ),
-                                  ),
-                                )),
-                      )
-                      .toList(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ));
+                    },
+                  ).toList(),
                 );
               }),
         ]),

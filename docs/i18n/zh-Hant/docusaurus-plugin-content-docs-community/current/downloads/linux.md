@@ -11,7 +11,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
 
 :::note
 
-Please use the flatpak version if possible. Please use the flatpak version if possible. Otherwise you need to install `libsecret-1-dev` and `libjsoncpp-dev`.
+Please use the flatpak version if possible. Please use the flatpak version if possible. Please use the flatpak version if possible. Otherwise you need to install `libsecret-1-dev` and `libjsoncpp-dev`.
 
 :::
 
@@ -67,5 +67,8 @@ Read more about the nightly version of Butterfly [here](/nightly).
 <div className="row margin-bottom--lg padding--sm">
 <a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
   Flathub
+</a>
+<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+  Snap
 </a>
 </div>

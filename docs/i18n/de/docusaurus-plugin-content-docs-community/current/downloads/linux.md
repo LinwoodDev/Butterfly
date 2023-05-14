@@ -68,4 +68,7 @@ Lesen Sie mehr über die nächtliche Version von Butterfly [hier](/nightly).
 <a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
   Flathub
 </a>
+<a className="button button--outline button--primary button--lg margin--sm" href="https://snapcraft.io/butterfly">
+  Einrasten
+</a>
 </div>
