@@ -4,4 +4,4 @@ sidebar_label: "Παρουσίαση"
 sidebar_position: 5
 ---
 
-The waypoint painter allows you to create waypoints in your notes. Open the property view to navigate to them.
+Ο ζωγράφος της διαδρομής σας επιτρέπει να δημιουργήσετε σημεία στις σημειώσεις σας. Ανοίξτε την προβολή του ακινήτου για να πλοηγηθείτε σε αυτούς.
