@@ -4,4 +4,4 @@ sidebar_label: "Präsentation"
 sidebar_position: 5
 ---
 
-The waypoint painter allows you to create waypoints in your notes. Open the property view to navigate to them.
+Mit dem Wegpunkt-Maler können Sie Wegpunkte in Ihren Notizen erstellen. Öffne die Objektansicht um zu ihnen zu navigieren.
