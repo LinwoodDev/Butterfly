@@ -1,6 +1,7 @@
 part of '../selection.dart';
 
-class PenPropertySelection extends PathPropertySelection<PenProperty> {
+class PenPropertySelection extends PropertySelection<PenProperty>
+    with PathPropertySelection<PenProperty> {
   PenPropertySelection();
 
   @override

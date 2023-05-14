@@ -1,8 +1,6 @@
 part of '../selection.dart';
 
-class PathPropertySelection<T extends PathProperty> with PropertySelection<T> {
-  PathPropertySelection();
-
+mixin PathPropertySelection<T extends PathProperty> on PropertySelection<T> {
   @override
   List<Widget> build(
     BuildContext context,

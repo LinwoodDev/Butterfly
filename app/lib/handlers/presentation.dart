@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-abstract class GeneralPresentationHandler {
+mixin GeneralPresentationHandler {
   Timer? _timer;
   PresentationRunningState _state = PresentationRunningState.paused;
 
