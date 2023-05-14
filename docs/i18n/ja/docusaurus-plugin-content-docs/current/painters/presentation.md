@@ -4,4 +4,4 @@ sidebar_label: "プレゼンテーション"
 sidebar_position: 5
 ---
 
-The presentation painter allows you to create your own animations inside your notes.
+プレゼンテーション画家は、メモの中に自分のアニメーションを作成することができます。
