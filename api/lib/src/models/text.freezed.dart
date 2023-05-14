@@ -44,7 +44,8 @@ mixin _$SpanProperty {
             double? letterSpacing,
             int? decorationColor,
             TextDecorationStyle? decorationStyle,
-            double? decorationThickness)
+            double? decorationThickness,
+            int? backgroundColor)
         defined,
     required TResult Function(String name) named,
     required TResult Function() undefined,
@@ -63,7 +64,8 @@ mixin _$SpanProperty {
             double? letterSpacing,
             int? decorationColor,
             TextDecorationStyle? decorationStyle,
-            double? decorationThickness)?
+            double? decorationThickness,
+            int? backgroundColor)?
         defined,
     TResult? Function(String name)? named,
     TResult? Function()? undefined,
@@ -82,7 +84,8 @@ mixin _$SpanProperty {
             double? letterSpacing,
             int? decorationColor,
             TextDecorationStyle? decorationStyle,
-            double? decorationThickness)?
+            double? decorationThickness,
+            int? backgroundColor)?
         defined,
     TResult Function(String name)? named,
     TResult Function()? undefined,
@@ -149,7 +152,8 @@ abstract class _$$DefinedSpanPropertyCopyWith<$Res> {
       double? letterSpacing,
       int? decorationColor,
       TextDecorationStyle? decorationStyle,
-      double? decorationThickness});
+      double? decorationThickness,
+      int? backgroundColor});
 }
 
 /// @nodoc
@@ -174,6 +178,7 @@ class __$$DefinedSpanPropertyCopyWithImpl<$Res>
     Object? decorationColor = freezed,
     Object? decorationStyle = freezed,
     Object? decorationThickness = freezed,
+    Object? backgroundColor = freezed,
   }) {
     return _then(_$DefinedSpanProperty(
       size: freezed == size
@@ -220,6 +225,10 @@ class __$$DefinedSpanPropertyCopyWithImpl<$Res>
           ? _value.decorationThickness
           : decorationThickness // ignore: cast_nullable_to_non_nullable
               as double?,
+      backgroundColor: freezed == backgroundColor
+          ? _value.backgroundColor
+          : backgroundColor // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -239,6 +248,7 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
       this.decorationColor,
       this.decorationStyle,
       this.decorationThickness,
+      this.backgroundColor,
       final String? $type})
       : $type = $type ?? 'defined';
 
@@ -267,13 +277,15 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
   final TextDecorationStyle? decorationStyle;
   @override
   final double? decorationThickness;
+  @override
+  final int? backgroundColor;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'SpanProperty.defined(size: $size, color: $color, fontWeight: $fontWeight, lineThrough: $lineThrough, underline: $underline, overline: $overline, italic: $italic, letterSpacing: $letterSpacing, decorationColor: $decorationColor, decorationStyle: $decorationStyle, decorationThickness: $decorationThickness)';
+    return 'SpanProperty.defined(size: $size, color: $color, fontWeight: $fontWeight, lineThrough: $lineThrough, underline: $underline, overline: $overline, italic: $italic, letterSpacing: $letterSpacing, decorationColor: $decorationColor, decorationStyle: $decorationStyle, decorationThickness: $decorationThickness, backgroundColor: $backgroundColor)';
   }
 
   @override
@@ -299,7 +311,9 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
             (identical(other.decorationStyle, decorationStyle) ||
                 other.decorationStyle == decorationStyle) &&
             (identical(other.decorationThickness, decorationThickness) ||
-                other.decorationThickness == decorationThickness));
+                other.decorationThickness == decorationThickness) &&
+            (identical(other.backgroundColor, backgroundColor) ||
+                other.backgroundColor == backgroundColor));
   }
 
   @JsonKey(ignore: true)
@@ -316,7 +330,8 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
       letterSpacing,
       decorationColor,
       decorationStyle,
-      decorationThickness);
+      decorationThickness,
+      backgroundColor);
 
   @JsonKey(ignore: true)
   @override
@@ -339,7 +354,8 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
             double? letterSpacing,
             int? decorationColor,
             TextDecorationStyle? decorationStyle,
-            double? decorationThickness)
+            double? decorationThickness,
+            int? backgroundColor)
         defined,
     required TResult Function(String name) named,
     required TResult Function() undefined,
@@ -355,7 +371,8 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
         letterSpacing,
         decorationColor,
         decorationStyle,
-        decorationThickness);
+        decorationThickness,
+        backgroundColor);
   }
 
   @override
@@ -372,7 +389,8 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
             double? letterSpacing,
             int? decorationColor,
             TextDecorationStyle? decorationStyle,
-            double? decorationThickness)?
+            double? decorationThickness,
+            int? backgroundColor)?
         defined,
     TResult? Function(String name)? named,
     TResult? Function()? undefined,
@@ -388,7 +406,8 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
         letterSpacing,
         decorationColor,
         decorationStyle,
-        decorationThickness);
+        decorationThickness,
+        backgroundColor);
   }
 
   @override
@@ -405,7 +424,8 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
             double? letterSpacing,
             int? decorationColor,
             TextDecorationStyle? decorationStyle,
-            double? decorationThickness)?
+            double? decorationThickness,
+            int? backgroundColor)?
         defined,
     TResult Function(String name)? named,
     TResult Function()? undefined,
@@ -423,7 +443,8 @@ class _$DefinedSpanProperty implements DefinedSpanProperty {
           letterSpacing,
           decorationColor,
           decorationStyle,
-          decorationThickness);
+          decorationThickness,
+          backgroundColor);
     }
     return orElse();
   }
@@ -482,7 +503,8 @@ abstract class DefinedSpanProperty implements SpanProperty {
       final double? letterSpacing,
       final int? decorationColor,
       final TextDecorationStyle? decorationStyle,
-      final double? decorationThickness}) = _$DefinedSpanProperty;
+      final double? decorationThickness,
+      final int? backgroundColor}) = _$DefinedSpanProperty;
 
   factory DefinedSpanProperty.fromJson(Map<String, dynamic> json) =
       _$DefinedSpanProperty.fromJson;
@@ -498,6 +520,7 @@ abstract class DefinedSpanProperty implements SpanProperty {
   int? get decorationColor;
   TextDecorationStyle? get decorationStyle;
   double? get decorationThickness;
+  int? get backgroundColor;
   @JsonKey(ignore: true)
   _$$DefinedSpanPropertyCopyWith<_$DefinedSpanProperty> get copyWith =>
       throw _privateConstructorUsedError;
@@ -586,7 +609,8 @@ class _$NamedSpanProperty implements NamedSpanProperty {
             double? letterSpacing,
             int? decorationColor,
             TextDecorationStyle? decorationStyle,
-            double? decorationThickness)
+            double? decorationThickness,
+            int? backgroundColor)
         defined,
     required TResult Function(String name) named,
     required TResult Function() undefined,
@@ -608,7 +632,8 @@ class _$NamedSpanProperty implements NamedSpanProperty {
             double? letterSpacing,
             int? decorationColor,
             TextDecorationStyle? decorationStyle,
-            double? decorationThickness)?
+            double? decorationThickness,
+            int? backgroundColor)?
         defined,
     TResult? Function(String name)? named,
     TResult? Function()? undefined,
@@ -630,7 +655,8 @@ class _$NamedSpanProperty implements NamedSpanProperty {
             double? letterSpacing,
             int? decorationColor,
             TextDecorationStyle? decorationStyle,
-            double? decorationThickness)?
+            double? decorationThickness,
+            int? backgroundColor)?
         defined,
     TResult Function(String name)? named,
     TResult Function()? undefined,
@@ -753,7 +779,8 @@ class _$UndefinedSpanProperty implements UndefinedSpanProperty {
             double? letterSpacing,
             int? decorationColor,
             TextDecorationStyle? decorationStyle,
-            double? decorationThickness)
+            double? decorationThickness,
+            int? backgroundColor)
         defined,
     required TResult Function(String name) named,
     required TResult Function() undefined,
@@ -775,7 +802,8 @@ class _$UndefinedSpanProperty implements UndefinedSpanProperty {
             double? letterSpacing,
             int? decorationColor,
             TextDecorationStyle? decorationStyle,
-            double? decorationThickness)?
+            double? decorationThickness,
+            int? backgroundColor)?
         defined,
     TResult? Function(String name)? named,
     TResult? Function()? undefined,
@@ -797,7 +825,8 @@ class _$UndefinedSpanProperty implements UndefinedSpanProperty {
             double? letterSpacing,
             int? decorationColor,
             TextDecorationStyle? decorationStyle,
-            double? decorationThickness)?
+            double? decorationThickness,
+            int? backgroundColor)?
         defined,
     TResult Function(String name)? named,
     TResult Function()? undefined,

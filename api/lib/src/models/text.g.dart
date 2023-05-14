@@ -20,6 +20,7 @@ _$DefinedSpanProperty _$$DefinedSpanPropertyFromJson(Map json) =>
       decorationStyle: $enumDecodeNullable(
           _$TextDecorationStyleEnumMap, json['decorationStyle']),
       decorationThickness: (json['decorationThickness'] as num?)?.toDouble(),
+      backgroundColor: json['backgroundColor'] as int?,
       $type: json['type'] as String?,
     );
 
@@ -37,6 +38,7 @@ Map<String, dynamic> _$$DefinedSpanPropertyToJson(
       'decorationColor': instance.decorationColor,
       'decorationStyle': _$TextDecorationStyleEnumMap[instance.decorationStyle],
       'decorationThickness': instance.decorationThickness,
+      'backgroundColor': instance.backgroundColor,
       'type': instance.$type,
     };
 

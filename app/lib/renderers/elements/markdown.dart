@@ -12,7 +12,7 @@ class MarkdownRenderer extends Renderer<MarkdownElement> {
     _tp ??= context?.textPainter ?? TextPainter();
     _tp?.text = _buildParagraph(document);
     _tp?.textDirection = TextDirection.ltr;
-    _tp?.textScaleFactor = 1.0;
+    _tp?.textScaleFactor = element.scale;
   }
 
   List<md.Node> _parse() => md.Document().parse(element.text);
@@ -36,10 +36,9 @@ class MarkdownRenderer extends Renderer<MarkdownElement> {
       final spanStyle = styleSheet?.getSpanProperty(tag);
       TextStyle? style;
       if (paragraphStyle != null) {
-        style = paragraphStyle.span
-            .toFlutter(element.scale, null, element.foreground);
+        style = paragraphStyle.span.toFlutter(null, element.foreground);
       } else {
-        style = spanStyle?.toFlutter(element.scale, null, element.foreground);
+        style = spanStyle?.toFlutter(null, element.foreground);
       }
       return TextSpan(
         style: style,

@@ -32,6 +32,7 @@ class SpanProperty with _$SpanProperty {
     int? decorationColor,
     TextDecorationStyle? decorationStyle,
     double? decorationThickness,
+    int? backgroundColor,
   }) = DefinedSpanProperty;
 
   static const kDefault = DefinedSpanProperty(
@@ -46,6 +47,7 @@ class SpanProperty with _$SpanProperty {
     decorationColor: kColorBlack,
     decorationStyle: TextDecorationStyle.solid,
     decorationThickness: 1,
+    backgroundColor: kColorTransparent,
   );
 
   const factory SpanProperty.named(String name) = NamedSpanProperty;
@@ -417,4 +419,8 @@ extension SpanPropertyGetter on DefinedSpanProperty {
       decorationThickness ??
       paragraphProperty?.span.decorationThickness ??
       SpanProperty.kDefault.decorationThickness!;
+  int getBackgroundColor([DefinedParagraphProperty? paragraphProperty]) =>
+      backgroundColor ??
+      paragraphProperty?.span.backgroundColor ??
+      SpanProperty.kDefault.backgroundColor!;
 }

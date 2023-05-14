@@ -16,7 +16,7 @@ class TextRenderer extends Renderer<TextElement> {
     _tp ??= context?.textPainter ?? TextPainter();
     _tp?.text = _createParagraphSpan(document, paragraph);
     _tp?.textDirection = TextDirection.ltr;
-    _tp?.textScaleFactor = 1.0;
+    _tp?.textScaleFactor = element.scale;
     _tp?.textAlign = style.alignment.toFlutter();
   }
 
@@ -29,7 +29,7 @@ class TextRenderer extends Renderer<TextElement> {
       text: (p) => TextSpan(
         children:
             p.textSpans.map((e) => _createSpan(document, e, style)).toList(),
-        style: style.span.toFlutter(element.scale, null, element.foreground),
+        style: style.span.toFlutter(null, element.foreground),
       ),
     );
   }
@@ -43,7 +43,7 @@ class TextRenderer extends Renderer<TextElement> {
     final style = styleSheet.resolveSpanProperty(span.property);
     return TextSpan(
       text: span.text,
-      style: style?.toFlutter(element.scale, parent, element.foreground),
+      style: style?.toFlutter(parent, element.foreground),
     );
   }
 
