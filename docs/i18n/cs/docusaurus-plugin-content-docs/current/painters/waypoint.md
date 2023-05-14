@@ -4,4 +4,4 @@ sidebar_label: "Zobrazení"
 sidebar_position: 5
 ---
 
-The waypoint painter allows you to create waypoints in your notes. Open the property view to navigate to them.
+Paměť trasových bodů vám umožní vytvořit trasové body ve vašich poznámkách. Otevřete zobrazení vlastnosti a přejděte na ně.
