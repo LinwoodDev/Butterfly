@@ -4,4 +4,4 @@ sidebar_label: "Παρουσίαση"
 sidebar_position: 5
 ---
 
-The presentation painter allows you to create your own animations inside your notes.
+Ο ζωγράφος παρουσίασης σας επιτρέπει να δημιουργήσετε τα δικά σας κινούμενα σχέδια μέσα στις σημειώσεις σας.
