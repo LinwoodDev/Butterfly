@@ -87,7 +87,7 @@ class PadElement with _$PadElement {
     @Default(PenProperty()) PenProperty property,
   }) = PenElement;
 
-  @Implements<LabelElement>()
+  @With<LabelElement>()
   const factory PadElement.text({
     @Default('')
         String layer,
@@ -103,7 +103,7 @@ class PadElement with _$PadElement {
         ElementConstraint constraint,
   }) = TextElement;
 
-  @Implements<LabelElement>()
+  @With<LabelElement>()
   const factory PadElement.markdown({
     @Default('')
         String layer,

@@ -1490,7 +1490,7 @@ class __$$TextElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TextElement implements TextElement {
+class _$TextElement with LabelElement implements TextElement {
   const _$TextElement(
       {this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
@@ -1865,7 +1865,7 @@ class __$$MarkdownElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$MarkdownElement implements MarkdownElement {
+class _$MarkdownElement with LabelElement implements MarkdownElement {
   const _$MarkdownElement(
       {this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
