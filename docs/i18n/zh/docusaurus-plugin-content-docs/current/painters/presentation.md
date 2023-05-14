@@ -4,4 +4,4 @@ sidebar_label: "列报内容"
 sidebar_position: 5
 ---
 
-The presentation painter allows you to create your own animations inside your notes.
+演示绘制器允许您在笔记中创建自己的动画。
