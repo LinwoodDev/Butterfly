@@ -4,4 +4,4 @@ sidebar_label: "Presentatie"
 sidebar_position: 5
 ---
 
-The waypoint painter allows you to create waypoints in your notes. Open the property view to navigate to them.
+Met de waypoint schilder kunt u markeringspunten in uw notities maken. Open de eigenschapsweergave om naar ze te navigeren.
