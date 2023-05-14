@@ -1,6 +1,6 @@
 ---
 title: "وسام"
-sidebar_label: "شكل"
+sidebar_label: "وسام"
 sidebar_position: 3
 ---
 
