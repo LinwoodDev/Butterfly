@@ -75,7 +75,6 @@ class DocumentDefaults {
         'h6': AppLocalizations.of(context).headline(6),
         'p': AppLocalizations.of(context).paragraph,
         'quote': AppLocalizations.of(context).quote,
-        'code': AppLocalizations.of(context).code,
         'blockquote': AppLocalizations.of(context).quote,
       };
 
@@ -90,6 +89,7 @@ class DocumentDefaults {
         'img': AppLocalizations.of(context).image,
         'listBullet': AppLocalizations.of(context).listBullet,
         'strong': AppLocalizations.of(context).strong,
+        'code': AppLocalizations.of(context).code,
       };
 
   static String translateBlock(String key, BuildContext context) =>

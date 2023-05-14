@@ -10,6 +10,7 @@ class LabelHandler extends Handler<LabelPainter>
   LabelHandler(super.data);
 
   LabelContext _createContext([Point<double>? position, double zoom = 1]) {
+    final scale = data.zoomDependent ? 1 / zoom : 1.0;
     switch (data.mode) {
       case LabelMode.text:
         final forced = _context?.mapOrNull(text: (e) => e.forcedProperty);
@@ -27,7 +28,7 @@ class LabelHandler extends Handler<LabelPainter>
                     ),
                   ),
                   styleSheet: data.styleSheet,
-                  scale: data.zoomDependent ? 1 / zoom : 1,
+                  scale: scale,
                 ),
           textPainter: TextPainter(),
           forcedProperty: forced,
@@ -42,7 +43,7 @@ class LabelHandler extends Handler<LabelPainter>
                   position: position,
                   text: '',
                   styleSheet: data.styleSheet,
-                  scale: data.zoomDependent ? 1 / zoom : 1,
+                  scale: scale,
                   foreground: data.foreground,
                 ),
           textPainter: TextPainter(),
