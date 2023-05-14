@@ -4,4 +4,4 @@ sidebar_label: "Prezentare"
 sidebar_position: 5
 ---
 
-The waypoint painter allows you to create waypoints in your notes. Open the property view to navigate to them.
+Pictorul punct îți permite să creezi puncte în notițele tale. Deschideți vizualizarea proprietății pentru a le naviga.
