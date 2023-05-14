@@ -65,7 +65,7 @@ mixin _$Painter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -104,7 +104,7 @@ mixin _$Painter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -142,7 +142,7 @@ mixin _$Painter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -337,7 +337,7 @@ class _$HandPainter implements HandPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -379,7 +379,7 @@ class _$HandPainter implements HandPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -420,7 +420,7 @@ class _$HandPainter implements HandPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -649,7 +649,7 @@ class _$ImportPainter implements ImportPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -691,7 +691,7 @@ class _$ImportPainter implements ImportPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -732,7 +732,7 @@ class _$ImportPainter implements ImportPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -934,7 +934,7 @@ class _$UndoPainter implements UndoPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -976,7 +976,7 @@ class _$UndoPainter implements UndoPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -1017,7 +1017,7 @@ class _$UndoPainter implements UndoPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -1214,7 +1214,7 @@ class _$RedoPainter implements RedoPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -1256,7 +1256,7 @@ class _$RedoPainter implements RedoPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -1297,7 +1297,7 @@ class _$RedoPainter implements RedoPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -1436,6 +1436,7 @@ abstract class _$$LabelPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
       {String name,
       LabelMode mode,
       bool zoomDependent,
+      int foreground,
       PackAssetLocation styleSheet});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
@@ -1455,6 +1456,7 @@ class __$$LabelPainterCopyWithImpl<$Res>
     Object? name = null,
     Object? mode = null,
     Object? zoomDependent = null,
+    Object? foreground = null,
     Object? styleSheet = null,
   }) {
     return _then(_$LabelPainter(
@@ -1470,6 +1472,10 @@ class __$$LabelPainterCopyWithImpl<$Res>
           ? _value.zoomDependent
           : zoomDependent // ignore: cast_nullable_to_non_nullable
               as bool,
+      foreground: null == foreground
+          ? _value.foreground
+          : foreground // ignore: cast_nullable_to_non_nullable
+              as int,
       styleSheet: null == styleSheet
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
@@ -1493,6 +1499,7 @@ class _$LabelPainter implements LabelPainter {
       {this.name = '',
       this.mode = LabelMode.text,
       this.zoomDependent = true,
+      this.foreground = kColorBlack,
       this.styleSheet = const PackAssetLocation(),
       final String? $type})
       : $type = $type ?? 'label';
@@ -1511,6 +1518,9 @@ class _$LabelPainter implements LabelPainter {
   final bool zoomDependent;
   @override
   @JsonKey()
+  final int foreground;
+  @override
+  @JsonKey()
   final PackAssetLocation styleSheet;
 
   @JsonKey(name: 'type')
@@ -1518,7 +1528,7 @@ class _$LabelPainter implements LabelPainter {
 
   @override
   String toString() {
-    return 'Painter.label(name: $name, mode: $mode, zoomDependent: $zoomDependent, styleSheet: $styleSheet)';
+    return 'Painter.label(name: $name, mode: $mode, zoomDependent: $zoomDependent, foreground: $foreground, styleSheet: $styleSheet)';
   }
 
   @JsonKey(ignore: true)
@@ -1537,7 +1547,7 @@ class _$LabelPainter implements LabelPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -1567,7 +1577,7 @@ class _$LabelPainter implements LabelPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
-    return label(name, mode, zoomDependent, styleSheet);
+    return label(name, mode, zoomDependent, foreground, styleSheet);
   }
 
   @override
@@ -1579,7 +1589,7 @@ class _$LabelPainter implements LabelPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -1608,7 +1618,7 @@ class _$LabelPainter implements LabelPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
-    return label?.call(name, mode, zoomDependent, styleSheet);
+    return label?.call(name, mode, zoomDependent, foreground, styleSheet);
   }
 
   @override
@@ -1620,7 +1630,7 @@ class _$LabelPainter implements LabelPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -1651,7 +1661,7 @@ class _$LabelPainter implements LabelPainter {
     required TResult orElse(),
   }) {
     if (label != null) {
-      return label(name, mode, zoomDependent, styleSheet);
+      return label(name, mode, zoomDependent, foreground, styleSheet);
     }
     return orElse();
   }
@@ -1739,6 +1749,7 @@ abstract class LabelPainter implements Painter {
       {final String name,
       final LabelMode mode,
       final bool zoomDependent,
+      final int foreground,
       final PackAssetLocation styleSheet}) = _$LabelPainter;
 
   factory LabelPainter.fromJson(Map<String, dynamic> json) =
@@ -1748,6 +1759,7 @@ abstract class LabelPainter implements Painter {
   String get name;
   LabelMode get mode;
   bool get zoomDependent;
+  int get foreground;
   PackAssetLocation get styleSheet;
   @override
   @JsonKey(ignore: true)
@@ -1844,7 +1856,7 @@ class _$PenPainter implements PenPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -1886,7 +1898,7 @@ class _$PenPainter implements PenPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -1927,7 +1939,7 @@ class _$PenPainter implements PenPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -2138,7 +2150,7 @@ class _$EraserPainter implements EraserPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -2180,7 +2192,7 @@ class _$EraserPainter implements EraserPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -2221,7 +2233,7 @@ class _$EraserPainter implements EraserPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -2430,7 +2442,7 @@ class _$PathEraserPainter implements PathEraserPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -2472,7 +2484,7 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -2513,7 +2525,7 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -2720,7 +2732,7 @@ class _$LayerPainter implements LayerPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -2762,7 +2774,7 @@ class _$LayerPainter implements LayerPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -2803,7 +2815,7 @@ class _$LayerPainter implements LayerPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3045,7 +3057,7 @@ class _$AreaPainter implements AreaPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -3088,7 +3100,7 @@ class _$AreaPainter implements AreaPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3130,7 +3142,7 @@ class _$AreaPainter implements AreaPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3338,7 +3350,7 @@ class _$WaypointPainter implements WaypointPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -3380,7 +3392,7 @@ class _$WaypointPainter implements WaypointPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3421,7 +3433,7 @@ class _$WaypointPainter implements WaypointPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3661,7 +3673,7 @@ class _$LaserPainter implements LaserPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -3703,7 +3715,7 @@ class _$LaserPainter implements LaserPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3744,7 +3756,7 @@ class _$LaserPainter implements LaserPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -4003,7 +4015,7 @@ class _$ShapePainter implements ShapePainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -4046,7 +4058,7 @@ class _$ShapePainter implements ShapePainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -4088,7 +4100,7 @@ class _$ShapePainter implements ShapePainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -4318,7 +4330,7 @@ class _$StampPainter implements StampPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -4360,7 +4372,7 @@ class _$StampPainter implements StampPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -4401,7 +4413,7 @@ class _$StampPainter implements StampPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -4602,7 +4614,7 @@ class _$PresentationPainter implements PresentationPainter {
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
     required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -4644,7 +4656,7 @@ class _$PresentationPainter implements PresentationPainter {
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
     TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -4685,7 +4697,7 @@ class _$PresentationPainter implements PresentationPainter {
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
     TResult Function(String name, LabelMode mode, bool zoomDependent,
-            PackAssetLocation styleSheet)?
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,

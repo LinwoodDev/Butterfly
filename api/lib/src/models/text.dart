@@ -375,8 +375,12 @@ extension ResolveProperty on TextStyleSheet? {
 extension SpanPropertyGetter on DefinedSpanProperty {
   double getSize([DefinedParagraphProperty? paragraphProperty]) =>
       size ?? paragraphProperty?.span.size ?? SpanProperty.kDefault.size!;
-  int getColor([DefinedParagraphProperty? paragraphProperty]) =>
-      color ?? paragraphProperty?.span.color ?? SpanProperty.kDefault.color!;
+  int getColor(
+          [DefinedParagraphProperty? paragraphProperty, int? foreground]) =>
+      color ??
+      paragraphProperty?.span.color ??
+      foreground ??
+      SpanProperty.kDefault.color!;
   int getFontWeight([DefinedParagraphProperty? paragraphProperty]) =>
       fontWeight ??
       paragraphProperty?.span.fontWeight ??

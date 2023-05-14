@@ -43,6 +43,7 @@ class LabelHandler extends Handler<LabelPainter>
                   text: '',
                   styleSheet: data.styleSheet,
                   scale: data.zoomDependent ? 1 / zoom : 1,
+                  foreground: data.foreground,
                 ),
           textPainter: TextPainter(),
         );
@@ -284,6 +285,7 @@ class LabelHandler extends Handler<LabelPainter>
     final selection = _context!.selection;
     final start = selection.start;
     final length = selection.end - start;
+    newIndex += selection.start;
     _context = _context?.map(text: (e) {
       final old = e.element;
       if (old != null) {
@@ -303,7 +305,6 @@ class LabelHandler extends Handler<LabelPainter>
           paragraph: paragraph,
         );
         element = old.copyWith(area: area);
-        newIndex += min(selection.start, paragraph.length);
       } else {
         final paragraph = text.TextParagraph.text(
           textSpans: [text.TextSpan.text(text: value)],
@@ -321,11 +322,14 @@ class LabelHandler extends Handler<LabelPainter>
       );
     }, markdown: (e) {
       var text = e.text ?? '';
-      text = text.replaceRange(start, selection.end, value);
+      text =
+          text.replaceRange(start, selection.end.clamp(0, text.length), value);
       return e.copyWith(
-          element: e.element?.copyWith(
-        text: text,
-      ));
+        element: e.element?.copyWith(
+          text: text,
+        ),
+        selection: TextSelection.collapsed(offset: newIndex),
+      );
     });
     _connection?.setEditingState(const TextEditingValue(
       text: '',
@@ -403,8 +407,8 @@ class LabelHandler extends Handler<LabelPainter>
           }, markdown: (e) {
             var element = e.element;
             if (element == null) return e;
-            element =
-                element.copyWith(text: element.text.replaceRange(start, 1, ''));
+            element = element.copyWith(
+                text: element.text.replaceRange(start, selection.end, ''));
             return e.copyWith(
               element: element,
               selection: TextSelection.collapsed(offset: start),

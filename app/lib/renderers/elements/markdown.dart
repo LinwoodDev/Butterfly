@@ -10,18 +10,44 @@ class MarkdownRenderer extends Renderer<MarkdownElement> {
 
   void _createPainter(NoteData document, DocumentPage page) {
     _tp ??= context?.textPainter ?? TextPainter();
-    _tp?.text = _buildParagraph();
+    _tp?.text = _buildParagraph(document);
     _tp?.textDirection = TextDirection.ltr;
     _tp?.textScaleFactor = 1.0;
   }
 
   List<md.Node> _parse() => md.Document().parse(element.text);
 
-  TextSpan _buildParagraph() => TextSpan(
-        children: _parse().map(_createSpan).toList(),
-      );
+  TextSpan _buildParagraph(NoteData document) {
+    final styleSheet = element.styleSheet.resolveStyle(document);
 
-  TextSpan _createSpan(md.Node node) {
+    return TextSpan(
+      children: context == null
+          ? _parse().map((e) => _createSpan(e, styleSheet)).toList()
+          : null,
+      text: context == null ? null : element.text,
+      style: TextStyle(color: Color(element.foreground)),
+    );
+  }
+
+  TextSpan _createSpan(final md.Node node, text.TextStyleSheet? styleSheet) {
+    if (node is md.Element) {
+      final tag = node.tag;
+      final paragraphStyle = styleSheet?.getParagraphProperty(tag);
+      final spanStyle = styleSheet?.getSpanProperty(tag);
+      TextStyle? style;
+      if (paragraphStyle != null) {
+        style = paragraphStyle.span
+            .toFlutter(element.scale, null, element.foreground);
+      } else {
+        style = spanStyle?.toFlutter(element.scale, null, element.foreground);
+      }
+      return TextSpan(
+        style: style,
+        children:
+            node.children?.map((e) => _createSpan(e, styleSheet)).toList(),
+        text: '\n',
+      );
+    }
     return TextSpan(text: node.textContent);
   }
 

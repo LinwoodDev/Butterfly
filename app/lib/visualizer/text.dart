@@ -35,10 +35,12 @@ extension TextDecorationStyleFlutterConverter on text.TextDecorationStyle {
 
 extension DefinedSpanPropertyFlutterConverter on text.DefinedSpanProperty {
   TextStyle toFlutter(
-      [double scale = 1, text.DefinedParagraphProperty? parent]) {
+      [double scale = 1,
+      text.DefinedParagraphProperty? parent,
+      int? foreground]) {
     return TextStyle(
       fontSize: getSize(parent) * scale,
-      color: Color(getColor(parent)),
+      color: Color(getColor(parent, foreground)),
       fontFamily: 'Roboto',
       fontStyle: getItalic(parent) ? FontStyle.italic : FontStyle.normal,
       fontWeight: FontWeight.values[getFontWeight(parent)],

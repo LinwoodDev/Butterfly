@@ -34,7 +34,7 @@ class LabelContext with _$LabelContext {
 
   String? get text => labelElement?.text;
 
-  LabelElement? get labelElement => element as LabelElement;
+  LabelElement? get labelElement => element as LabelElement?;
 
   PackAssetLocation get styleSheet =>
       labelElement?.styleSheet ?? painter.styleSheet;

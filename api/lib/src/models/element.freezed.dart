@@ -885,7 +885,8 @@ mixin _$PadElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         markdown,
     required TResult Function(
             String layer,
@@ -931,7 +932,8 @@ mixin _$PadElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult? Function(
             String layer,
@@ -977,7 +979,8 @@ mixin _$PadElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult Function(
             String layer,
@@ -1194,7 +1197,8 @@ class _$PenElement implements PenElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         markdown,
     required TResult Function(
             String layer,
@@ -1243,7 +1247,8 @@ class _$PenElement implements PenElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult? Function(
             String layer,
@@ -1292,7 +1297,8 @@ class _$PenElement implements PenElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult Function(
             String layer,
@@ -1558,7 +1564,8 @@ class _$TextElement with LabelElement implements TextElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         markdown,
     required TResult Function(
             String layer,
@@ -1607,7 +1614,8 @@ class _$TextElement with LabelElement implements TextElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult? Function(
             String layer,
@@ -1656,7 +1664,8 @@ class _$TextElement with LabelElement implements TextElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult Function(
             String layer,
@@ -1780,7 +1789,8 @@ abstract class _$$MarkdownElementCopyWith<$Res>
       PackAssetLocation styleSheet,
       AreaProperty areaProperty,
       String text,
-      ElementConstraint constraint});
+      ElementConstraint constraint,
+      int foreground});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
   $AreaPropertyCopyWith<$Res> get areaProperty;
@@ -1805,6 +1815,7 @@ class __$$MarkdownElementCopyWithImpl<$Res>
     Object? areaProperty = null,
     Object? text = null,
     Object? constraint = null,
+    Object? foreground = null,
   }) {
     return _then(_$MarkdownElement(
       layer: null == layer
@@ -1835,6 +1846,10 @@ class __$$MarkdownElementCopyWithImpl<$Res>
           ? _value.constraint
           : constraint // ignore: cast_nullable_to_non_nullable
               as ElementConstraint,
+      foreground: null == foreground
+          ? _value.foreground
+          : foreground // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -1874,6 +1889,7 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
       this.areaProperty = const AreaProperty(),
       required this.text,
       this.constraint = const ElementConstraint(size: 1000),
+      this.foreground = kColorBlack,
       final String? $type})
       : $type = $type ?? 'markdown';
 
@@ -1901,13 +1917,16 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
   @override
   @JsonKey()
   final ElementConstraint constraint;
+  @override
+  @JsonKey()
+  final int foreground;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'PadElement.markdown(layer: $layer, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint)';
+    return 'PadElement.markdown(layer: $layer, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint, foreground: $foreground)';
   }
 
   @JsonKey(ignore: true)
@@ -1937,7 +1956,8 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         markdown,
     required TResult Function(
             String layer,
@@ -1963,7 +1983,7 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
         shape,
   }) {
     return markdown(layer, position, scale, styleSheet, areaProperty, this.text,
-        constraint);
+        constraint, foreground);
   }
 
   @override
@@ -1987,7 +2007,8 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult? Function(
             String layer,
@@ -2013,7 +2034,7 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
         shape,
   }) {
     return markdown?.call(layer, position, scale, styleSheet, areaProperty,
-        this.text, constraint);
+        this.text, constraint, foreground);
   }
 
   @override
@@ -2037,7 +2058,8 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult Function(
             String layer,
@@ -2065,7 +2087,7 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
   }) {
     if (markdown != null) {
       return markdown(layer, position, scale, styleSheet, areaProperty,
-          this.text, constraint);
+          this.text, constraint, foreground);
     }
     return orElse();
   }
@@ -2129,7 +2151,8 @@ abstract class MarkdownElement implements PadElement, LabelElement {
       final PackAssetLocation styleSheet,
       final AreaProperty areaProperty,
       required final String text,
-      final ElementConstraint constraint}) = _$MarkdownElement;
+      final ElementConstraint constraint,
+      final int foreground}) = _$MarkdownElement;
 
   factory MarkdownElement.fromJson(Map<String, dynamic> json) =
       _$MarkdownElement.fromJson;
@@ -2143,6 +2166,7 @@ abstract class MarkdownElement implements PadElement, LabelElement {
   AreaProperty get areaProperty;
   String get text;
   ElementConstraint get constraint;
+  int get foreground;
   @override
   @JsonKey(ignore: true)
   _$$MarkdownElementCopyWith<_$MarkdownElement> get copyWith =>
@@ -2295,7 +2319,8 @@ class _$ImageElement implements ImageElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         markdown,
     required TResult Function(
             String layer,
@@ -2344,7 +2369,8 @@ class _$ImageElement implements ImageElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult? Function(
             String layer,
@@ -2393,7 +2419,8 @@ class _$ImageElement implements ImageElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult Function(
             String layer,
@@ -2648,7 +2675,8 @@ class _$SvgElement implements SvgElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         markdown,
     required TResult Function(
             String layer,
@@ -2697,7 +2725,8 @@ class _$SvgElement implements SvgElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult? Function(
             String layer,
@@ -2746,7 +2775,8 @@ class _$SvgElement implements SvgElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult Function(
             String layer,
@@ -2971,7 +3001,8 @@ class _$ShapeElement implements ShapeElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         markdown,
     required TResult Function(
             String layer,
@@ -3020,7 +3051,8 @@ class _$ShapeElement implements ShapeElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult? Function(
             String layer,
@@ -3069,7 +3101,8 @@ class _$ShapeElement implements ShapeElement {
             PackAssetLocation styleSheet,
             AreaProperty areaProperty,
             String text,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         markdown,
     TResult Function(
             String layer,

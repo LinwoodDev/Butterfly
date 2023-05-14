@@ -3,6 +3,7 @@ import 'dart:math';
 import '../converter/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'colors.dart';
 import 'pack.dart';
 import 'point.dart';
 import 'property.dart';
@@ -119,6 +120,8 @@ class PadElement with _$PadElement {
     required String text,
     @Default(ElementConstraint(size: 1000))
         ElementConstraint constraint,
+    @Default(kColorBlack)
+        int foreground,
   }) = MarkdownElement;
 
   @Implements<SourcedElement>()

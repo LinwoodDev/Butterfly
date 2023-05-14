@@ -142,6 +142,7 @@ _$MarkdownElement _$$MarkdownElementFromJson(Map json) => _$MarkdownElement(
           ? const ElementConstraint(size: 1000)
           : ElementConstraint.fromJson(
               Map<String, dynamic>.from(json['constraint'] as Map)),
+      foreground: json['foreground'] as int? ?? kColorBlack,
       $type: json['type'] as String?,
     );
 
@@ -154,6 +155,7 @@ Map<String, dynamic> _$$MarkdownElementToJson(_$MarkdownElement instance) =>
       'areaProperty': instance.areaProperty.toJson(),
       'text': instance.text,
       'constraint': instance.constraint.toJson(),
+      'foreground': instance.foreground,
       'type': instance.$type,
     };
 

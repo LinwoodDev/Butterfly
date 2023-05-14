@@ -55,6 +55,7 @@ class Painter with _$Painter {
     @Default('') String name,
     @Default(LabelMode.text) LabelMode mode,
     @Default(true) bool zoomDependent,
+    @Default(kColorBlack) int foreground,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
   }) = LabelPainter;
 

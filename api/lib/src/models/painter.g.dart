@@ -63,6 +63,7 @@ _$LabelPainter _$$LabelPainterFromJson(Map json) => _$LabelPainter(
       mode: $enumDecodeNullable(_$LabelModeEnumMap, json['mode']) ??
           LabelMode.text,
       zoomDependent: json['zoomDependent'] as bool? ?? true,
+      foreground: json['foreground'] as int? ?? kColorBlack,
       styleSheet: json['styleSheet'] == null
           ? const PackAssetLocation()
           : PackAssetLocation.fromJson(
@@ -75,6 +76,7 @@ Map<String, dynamic> _$$LabelPainterToJson(_$LabelPainter instance) =>
       'name': instance.name,
       'mode': _$LabelModeEnumMap[instance.mode]!,
       'zoomDependent': instance.zoomDependent,
+      'foreground': instance.foreground,
       'styleSheet': instance.styleSheet.toJson(),
       'type': instance.$type,
     };
