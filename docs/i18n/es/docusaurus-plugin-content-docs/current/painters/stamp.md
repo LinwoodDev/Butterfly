@@ -1,6 +1,6 @@
 ---
 title: "Sello"
-sidebar_label: "Forma"
+sidebar_label: "Sello"
 sidebar_position: 3
 ---
 
