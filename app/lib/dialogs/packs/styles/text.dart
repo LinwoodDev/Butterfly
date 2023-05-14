@@ -60,7 +60,7 @@ class _TextStyleViewState extends State<TextStyleView> {
             custom: true,
             value: widget.value.backgroundColor == null
                 ? Colors.transparent
-                : Color(widget.value.color!),
+                : Color(widget.value.backgroundColor!),
             leading: widget.value.color == null
                 ? null
                 : IconButton(

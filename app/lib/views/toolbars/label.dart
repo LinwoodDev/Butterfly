@@ -57,11 +57,18 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
             AppLocalizations.of(context).headline(e.key + 1),
             '#' * (e.key + 1)
           )),
-      (PhosphorIcons.quotes, AppLocalizations.of(context).quote, '>')
+      (PhosphorIcons.quotes, AppLocalizations.of(context).quote, '>'),
+      (PhosphorIcons.codeBlock, AppLocalizations.of(context).code, '```'),
     ];
     final markdownSpanTools = <(IconGetter, String, String)>[
       (PhosphorIcons.textB, AppLocalizations.of(context).bold, '**'),
-      (PhosphorIcons.textItalic, AppLocalizations.of(context).italic, '*')
+      (PhosphorIcons.textItalic, AppLocalizations.of(context).italic, '*'),
+      (
+        PhosphorIcons.textStrikethrough,
+        AppLocalizations.of(context).strikethrough,
+        '~~'
+      ),
+      (PhosphorIcons.code, AppLocalizations.of(context).code, '`'),
     ];
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
@@ -599,17 +606,22 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 .map((e) =>
                                     linePrefix?.startsWith('${e.$3} ') ?? false)
                                 .toList(),
-                            onPressed: (index) {
-                              final current = markdownParagraphTools[index];
-                              final prefix = current.$3;
-                              final text = value.text;
-                              if (text == null) return;
-                              final newText = text.replaceRange(
-                                  lineIndex + 1, lineIndex + 1, '$prefix ');
-                              widget.onChanged(value.copyWith(
-                                  element:
-                                      value.element?.copyWith(text: newText)));
-                            },
+                            onPressed: value.element == null
+                                ? null
+                                : (index) {
+                                    final current =
+                                        markdownParagraphTools[index];
+                                    final prefix = current.$3;
+                                    final text = value.text;
+                                    if (text == null) return;
+                                    final newText = text.replaceRange(
+                                        lineIndex + 1,
+                                        lineIndex + 1,
+                                        '$prefix ');
+                                    widget.onChanged(value.copyWith(
+                                        element: value.element
+                                            ?.copyWith(text: newText)));
+                                  },
                             children: markdownParagraphTools
                                 .map((e) => Tooltip(
                                       message: e.$2,
@@ -621,31 +633,40 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         ToggleButtons(
                             isSelected:
                                 markdownSpanTools.map((e) => false).toList(),
-                            onPressed: (index) {
-                              final current = markdownSpanTools[index];
-                              final prefix = current.$3;
-                              final selection = value.selection;
-                              final text = value.text;
-                              if (text == null) return;
-                              final newText = text.substring(
-                                      0, selection.start) +
-                                  prefix +
-                                  text.substring(
-                                      selection.start, value.selection.end) +
-                                  prefix +
-                                  text.substring(selection.end);
-                              widget.onChanged(
-                                value.copyWith(
-                                  element:
-                                      value.element?.copyWith(text: newText),
-                                  selection: selection.isCollapsed
-                                      ? TextSelection.collapsed(
-                                          offset:
-                                              selection.start + prefix.length)
-                                      : selection,
-                                ),
-                              );
-                            },
+                            onPressed: value.element == null
+                                ? null
+                                : (index) {
+                                    final current = markdownSpanTools[index];
+                                    final prefix = current.$3;
+                                    final selection = value.selection;
+                                    final text = value.text;
+                                    if (text == null) return;
+                                    final newText =
+                                        text.substring(0, selection.start) +
+                                            prefix +
+                                            text.substring(selection.start,
+                                                value.selection.end) +
+                                            prefix +
+                                            text.substring(selection.end);
+                                    widget.onChanged(
+                                      value.copyWith(
+                                        element: value.element
+                                            ?.copyWith(text: newText),
+                                        selection: selection.isCollapsed
+                                            ? TextSelection.collapsed(
+                                                offset: selection.start +
+                                                    prefix.length)
+                                            : TextSelection(
+                                                baseOffset: selection.start,
+                                                extentOffset: selection.end +
+                                                    prefix.length * 2,
+                                                affinity: selection.affinity,
+                                                isDirectional:
+                                                    selection.isDirectional,
+                                              ),
+                                      ),
+                                    );
+                                  },
                             children: markdownSpanTools
                                 .map((e) => Tooltip(
                                       message: e.$2,

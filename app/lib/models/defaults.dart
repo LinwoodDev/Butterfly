@@ -74,7 +74,6 @@ class DocumentDefaults {
         'h5': AppLocalizations.of(context).headline(5),
         'h6': AppLocalizations.of(context).headline(6),
         'p': AppLocalizations.of(context).paragraph,
-        'quote': AppLocalizations.of(context).quote,
         'blockquote': AppLocalizations.of(context).quote,
       };
 
