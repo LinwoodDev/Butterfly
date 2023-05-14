@@ -44,7 +44,6 @@ class MarkdownRenderer extends Renderer<MarkdownElement> {
         style: style,
         children:
             node.children?.map((e) => _createSpan(e, styleSheet)).toList(),
-        text: '\n',
       );
     }
     return TextSpan(text: node.textContent);

@@ -88,7 +88,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
       ...style?.paragraphProperties.keys ?? <String>[],
       ''
     ];
-    final lineIndex = value.previousLineIndex(value.selection.baseOffset);
+    final lineIndex = value.previousLineIndex(
+        value.selection.baseOffset.clamp(0, value.text?.length ?? 0));
     final linePrefix = value.text?.substring(lineIndex + 1);
     final mode = value.painter.mode;
     if (!paragraphSelections.contains(paragraphSelection)) {
@@ -614,13 +615,25 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                     final prefix = current.$3;
                                     final text = value.text;
                                     if (text == null) return;
-                                    final newText = text.replaceRange(
-                                        lineIndex + 1,
-                                        lineIndex + 1,
-                                        '$prefix ');
-                                    widget.onChanged(value.copyWith(
+                                    final enabled =
+                                        linePrefix?.startsWith('$prefix ') ??
+                                            false;
+                                    final newText = enabled
+                                        ? text.replaceRange(lineIndex + 1,
+                                            lineIndex + 2 + prefix.length, '')
+                                        : text.replaceRange(lineIndex + 1,
+                                            lineIndex + 1, '$prefix ');
+                                    var newSelection = value.selection.start +
+                                        (prefix.length + 1) *
+                                            (enabled ? -1 : 1);
+                                    widget.onChanged(
+                                      value.copyWith(
                                         element: value.element
-                                            ?.copyWith(text: newText)));
+                                            ?.copyWith(text: newText),
+                                        selection: TextSelection.collapsed(
+                                            offset: newSelection),
+                                      ),
+                                    );
                                   },
                             children: markdownParagraphTools
                                 .map((e) => Tooltip(
