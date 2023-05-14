@@ -4,4 +4,4 @@ sidebar_label: "プレゼンテーション"
 sidebar_position: 5
 ---
 
-The waypoint painter allows you to create waypoints in your notes. Open the property view to navigate to them.
+ウェイポイント画家は、ノートにウェイポイントを作成することができます。 プロパティ ビューを開き、移動します。
