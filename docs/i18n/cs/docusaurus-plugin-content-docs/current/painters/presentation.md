@@ -4,4 +4,4 @@ sidebar_label: "Zobrazení"
 sidebar_position: 5
 ---
 
-The presentation painter allows you to create your own animations inside your notes.
+Paměť prezentace vám umožní vytvářet vlastní animace uvnitř vašich poznámek.
