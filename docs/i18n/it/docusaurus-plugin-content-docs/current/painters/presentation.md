@@ -4,4 +4,4 @@ sidebar_label: "Presentazione"
 sidebar_position: 5
 ---
 
-The presentation painter allows you to create your own animations inside your notes.
+Il pittore di presentazione ti permette di creare le tue animazioni all'interno delle tue note.
