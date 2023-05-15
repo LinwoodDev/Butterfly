@@ -475,6 +475,7 @@
   "emphasis": "重点：",
   "listBullet": "列表符号",
   "strong": "强度",
+  "markdown": "Markdown",
   "home": "首页",
   "files": "文件",
   "sortBy": "排序方式",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "仅在更新",
   "visibility": "可见性",
   "captureThumbnail": "捕获缩略图",
-  "capturedThumbnail": "成功抓取缩略图"
+  "capturedThumbnail": "成功抓取缩略图",
+  "chooseLabelMode": "Choose label mode",
+  "foreground": "Foreground"
 }
