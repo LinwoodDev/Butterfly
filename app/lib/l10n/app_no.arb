@@ -475,6 +475,7 @@
   "emphasis": "Emphasis",
   "listBullet": "Liste punkt",
   "strong": "Sterk",
+  "markdown": "Markdown",
   "home": "Hjem",
   "files": "Filer",
   "sortBy": "Sorter etter",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Bare når det gjelder oppdateringer",
   "visibility": "Synlighet",
   "captureThumbnail": "Ta opp miniatyrbilde",
-  "capturedThumbnail": "Miniatyrbildet ble tatt opp"
+  "capturedThumbnail": "Miniatyrbildet ble tatt opp",
+  "chooseLabelMode": "Choose label mode",
+  "foreground": "Foreground"
 }
