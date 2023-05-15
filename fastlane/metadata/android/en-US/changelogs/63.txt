@@ -1,0 +1,4 @@
+* Add markdown element
+* Add modes for label painter
+* Add foreground property for painter, markdown and text element
+* Add extra file icon ([#374](https://github.com/LinwoodDev/Butterfly/issues/374))

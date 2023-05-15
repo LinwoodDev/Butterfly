@@ -37,7 +37,7 @@ UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-Uninstallable=not IsTaskSelected('portablemode')
+Uninstallable=not WizardIsTaskSelected('portablemode')
 ChangesAssociations=yes
 
 [Languages]
@@ -63,13 +63,13 @@ Source: "{#BaseDirRelease}\*"; DestDir: "{app}"; Flags: ignoreversion recursesub
 [Registry]
 Root: HKA; Subkey: "Software\Classes\.bfly"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-File"; Tasks: bfly; Flags: uninsdeletevalue
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-File"; Tasks: bfly; Flags: uninsdeletekey
-Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"
+Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\data\flutter_assets\images\file.ico,0"
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-File\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".bfly"; ValueData: ""
 
 Root: HKA; Subkey: "Software\Classes\.pdf\OpenWithProgids"; ValueType: string; ValueName: "{#MyAppName}-PDF"; ValueData: ""; Tasks: pdf; Flags: uninsdeletevalue
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-PDF"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-PDF"; Tasks: pdf; Flags: uninsdeletekey
-Root: HKA; Subkey: "Software\Classes\{#MyAppName}-PDF\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"
+Root: HKA; Subkey: "Software\Classes\{#MyAppName}-PDF\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\data\flutter_assets\images\file.ico,0"
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-PDF\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".pdf"; ValueData: ""
 
@@ -86,7 +86,7 @@ Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes
 Root: HKA; Subkey: "Software\Classes\.ico\OpenWithProgids"; ValueType: string; ValueName: "{#MyAppName}-IMG"; ValueData: ""; Tasks: img; Flags: uninsdeletevalue
 Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".ico"; ValueData: ""
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-IMG"; ValueType: string; ValueName: ""; ValueData: "Open in {#MyAppName}"; Tasks: img; Flags: uninsdeletekey
-Root: HKA; Subkey: "Software\Classes\{#MyAppName}-IMG\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppExeName},0"
+Root: HKA; Subkey: "Software\Classes\{#MyAppName}-IMG\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\data\flutter_assets\images\file.ico,0"
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-IMG\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 
 [Icons]
