@@ -475,6 +475,7 @@
   "emphasis": "У Emphasє",
   "listBullet": "Список кулі",
   "strong": "Сильний",
+  "markdown": "Markdown",
   "home": "Домашній екран",
   "files": "Файли",
   "sortBy": "Сортувати за",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Тільки при оновленні",
   "visibility": "Видимість",
   "captureThumbnail": "Захопити ескіз",
-  "capturedThumbnail": "Успішно захоплено ескіз"
+  "capturedThumbnail": "Успішно захоплено ескіз",
+  "chooseLabelMode": "Choose label mode",
+  "foreground": "Foreground"
 }
