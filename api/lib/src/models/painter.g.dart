@@ -6,42 +6,6 @@ part of 'painter.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TextOption _$$TextOptionFromJson(Map json) => _$TextOption(
-      property: json['property'] == null
-          ? const AreaProperty()
-          : AreaProperty.fromJson(
-              Map<String, dynamic>.from(json['property'] as Map)),
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$TextOptionToJson(_$TextOption instance) =>
-    <String, dynamic>{
-      'property': instance.property.toJson(),
-      'type': instance.$type,
-    };
-
-_$MarkdownOption _$$MarkdownOptionFromJson(Map json) => _$MarkdownOption(
-      styleSheet: json['styleSheet'] as String?,
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$MarkdownOptionToJson(_$MarkdownOption instance) =>
-    <String, dynamic>{
-      'styleSheet': instance.styleSheet,
-      'type': instance.$type,
-    };
-
-_$RichTextOption _$$RichTextOptionFromJson(Map json) => _$RichTextOption(
-      styleSheet: json['styleSheet'] as String?,
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$RichTextOptionToJson(_$RichTextOption instance) =>
-    <String, dynamic>{
-      'styleSheet': instance.styleSheet,
-      'type': instance.$type,
-    };
-
 _$HandPainter _$$HandPainterFromJson(Map json) => _$HandPainter(
       name: json['name'] as String? ?? '',
       $type: json['type'] as String?,
@@ -96,7 +60,10 @@ Map<String, dynamic> _$$RedoPainterToJson(_$RedoPainter instance) =>
 
 _$LabelPainter _$$LabelPainterFromJson(Map json) => _$LabelPainter(
       name: json['name'] as String? ?? '',
+      mode: $enumDecodeNullable(_$LabelModeEnumMap, json['mode']) ??
+          LabelMode.text,
       zoomDependent: json['zoomDependent'] as bool? ?? true,
+      foreground: json['foreground'] as int? ?? kColorBlack,
       styleSheet: json['styleSheet'] == null
           ? const PackAssetLocation()
           : PackAssetLocation.fromJson(
@@ -107,10 +74,17 @@ _$LabelPainter _$$LabelPainterFromJson(Map json) => _$LabelPainter(
 Map<String, dynamic> _$$LabelPainterToJson(_$LabelPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'mode': _$LabelModeEnumMap[instance.mode]!,
       'zoomDependent': instance.zoomDependent,
+      'foreground': instance.foreground,
       'styleSheet': instance.styleSheet.toJson(),
       'type': instance.$type,
     };
+
+const _$LabelModeEnumMap = {
+  LabelMode.markdown: 'markdown',
+  LabelMode.text: 'text',
+};
 
 _$PenPainter _$$PenPainterFromJson(Map json) => _$PenPainter(
       name: json['name'] as String? ?? '',

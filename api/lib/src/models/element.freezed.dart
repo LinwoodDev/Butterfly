@@ -847,6 +847,8 @@ PadElement _$PadElementFromJson(Map<String, dynamic> json) {
       return PenElement.fromJson(json);
     case 'text':
       return TextElement.fromJson(json);
+    case 'markdown':
+      return MarkdownElement.fromJson(json);
     case 'image':
       return ImageElement.fromJson(json);
     case 'svg':
@@ -874,8 +876,19 @@ mixin _$PadElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         text,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)
+        markdown,
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -911,8 +924,19 @@ mixin _$PadElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -948,8 +972,19 @@ mixin _$PadElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -979,6 +1014,7 @@ mixin _$PadElement {
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
     required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
@@ -988,6 +1024,7 @@ mixin _$PadElement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
     TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
@@ -997,6 +1034,7 @@ mixin _$PadElement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
     TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
@@ -1153,8 +1191,19 @@ class _$PenElement implements PenElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         text,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)
+        markdown,
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -1193,8 +1242,19 @@ class _$PenElement implements PenElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -1233,8 +1293,19 @@ class _$PenElement implements PenElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -1270,6 +1341,7 @@ class _$PenElement implements PenElement {
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
     required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
@@ -1282,6 +1354,7 @@ class _$PenElement implements PenElement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
     TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
@@ -1294,6 +1367,7 @@ class _$PenElement implements PenElement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
     TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
@@ -1348,7 +1422,8 @@ abstract class _$$TextElementCopyWith<$Res>
       double scale,
       PackAssetLocation styleSheet,
       TextArea area,
-      ElementConstraint constraint});
+      ElementConstraint constraint,
+      int foreground});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
   $TextAreaCopyWith<$Res> get area;
@@ -1372,6 +1447,7 @@ class __$$TextElementCopyWithImpl<$Res>
     Object? styleSheet = null,
     Object? area = null,
     Object? constraint = null,
+    Object? foreground = null,
   }) {
     return _then(_$TextElement(
       layer: null == layer
@@ -1398,6 +1474,10 @@ class __$$TextElementCopyWithImpl<$Res>
           ? _value.constraint
           : constraint // ignore: cast_nullable_to_non_nullable
               as ElementConstraint,
+      foreground: null == foreground
+          ? _value.foreground
+          : foreground // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -1428,7 +1508,7 @@ class __$$TextElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TextElement implements TextElement {
+class _$TextElement with LabelElement implements TextElement {
   const _$TextElement(
       {this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
@@ -1436,6 +1516,7 @@ class _$TextElement implements TextElement {
       this.styleSheet = const PackAssetLocation(),
       required this.area,
       this.constraint = const ElementConstraint(size: 1000),
+      this.foreground = kColorBlack,
       final String? $type})
       : $type = $type ?? 'text';
 
@@ -1460,13 +1541,16 @@ class _$TextElement implements TextElement {
   @override
   @JsonKey()
   final ElementConstraint constraint;
+  @override
+  @JsonKey()
+  final int foreground;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'PadElement.text(layer: $layer, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint)';
+    return 'PadElement.text(layer: $layer, position: $position, scale: $scale, styleSheet: $styleSheet, area: $area, constraint: $constraint, foreground: $foreground)';
   }
 
   @JsonKey(ignore: true)
@@ -1487,8 +1571,19 @@ class _$TextElement implements TextElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         text,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)
+        markdown,
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -1512,7 +1607,8 @@ class _$TextElement implements TextElement {
             ShapeProperty property)
         shape,
   }) {
-    return text(layer, position, scale, styleSheet, area, constraint);
+    return text(
+        layer, position, scale, styleSheet, area, constraint, foreground);
   }
 
   @override
@@ -1527,8 +1623,19 @@ class _$TextElement implements TextElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -1552,7 +1659,8 @@ class _$TextElement implements TextElement {
             ShapeProperty property)?
         shape,
   }) {
-    return text?.call(layer, position, scale, styleSheet, area, constraint);
+    return text?.call(
+        layer, position, scale, styleSheet, area, constraint, foreground);
   }
 
   @override
@@ -1567,8 +1675,19 @@ class _$TextElement implements TextElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -1594,7 +1713,8 @@ class _$TextElement implements TextElement {
     required TResult orElse(),
   }) {
     if (text != null) {
-      return text(layer, position, scale, styleSheet, area, constraint);
+      return text(
+          layer, position, scale, styleSheet, area, constraint, foreground);
     }
     return orElse();
   }
@@ -1604,6 +1724,7 @@ class _$TextElement implements TextElement {
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
     required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
@@ -1616,6 +1737,7 @@ class _$TextElement implements TextElement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
     TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
@@ -1628,6 +1750,7 @@ class _$TextElement implements TextElement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
     TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
@@ -1647,14 +1770,15 @@ class _$TextElement implements TextElement {
   }
 }
 
-abstract class TextElement implements PadElement {
+abstract class TextElement implements PadElement, LabelElement {
   const factory TextElement(
       {final String layer,
       @DoublePointJsonConverter() final Point<double> position,
       final double scale,
       final PackAssetLocation styleSheet,
       required final TextArea area,
-      final ElementConstraint constraint}) = _$TextElement;
+      final ElementConstraint constraint,
+      final int foreground}) = _$TextElement;
 
   factory TextElement.fromJson(Map<String, dynamic> json) =
       _$TextElement.fromJson;
@@ -1667,9 +1791,412 @@ abstract class TextElement implements PadElement {
   PackAssetLocation get styleSheet;
   TextArea get area;
   ElementConstraint get constraint;
+  int get foreground;
   @override
   @JsonKey(ignore: true)
   _$$TextElementCopyWith<_$TextElement> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MarkdownElementCopyWith<$Res>
+    implements $PadElementCopyWith<$Res> {
+  factory _$$MarkdownElementCopyWith(
+          _$MarkdownElement value, $Res Function(_$MarkdownElement) then) =
+      __$$MarkdownElementCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String layer,
+      @DoublePointJsonConverter() Point<double> position,
+      double scale,
+      PackAssetLocation styleSheet,
+      AreaProperty areaProperty,
+      String text,
+      ElementConstraint constraint,
+      int foreground});
+
+  $PackAssetLocationCopyWith<$Res> get styleSheet;
+  $AreaPropertyCopyWith<$Res> get areaProperty;
+  $ElementConstraintCopyWith<$Res> get constraint;
+}
+
+/// @nodoc
+class __$$MarkdownElementCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$MarkdownElement>
+    implements _$$MarkdownElementCopyWith<$Res> {
+  __$$MarkdownElementCopyWithImpl(
+      _$MarkdownElement _value, $Res Function(_$MarkdownElement) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? layer = null,
+    Object? position = null,
+    Object? scale = null,
+    Object? styleSheet = null,
+    Object? areaProperty = null,
+    Object? text = null,
+    Object? constraint = null,
+    Object? foreground = null,
+  }) {
+    return _then(_$MarkdownElement(
+      layer: null == layer
+          ? _value.layer
+          : layer // ignore: cast_nullable_to_non_nullable
+              as String,
+      position: null == position
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as Point<double>,
+      scale: null == scale
+          ? _value.scale
+          : scale // ignore: cast_nullable_to_non_nullable
+              as double,
+      styleSheet: null == styleSheet
+          ? _value.styleSheet
+          : styleSheet // ignore: cast_nullable_to_non_nullable
+              as PackAssetLocation,
+      areaProperty: null == areaProperty
+          ? _value.areaProperty
+          : areaProperty // ignore: cast_nullable_to_non_nullable
+              as AreaProperty,
+      text: null == text
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String,
+      constraint: null == constraint
+          ? _value.constraint
+          : constraint // ignore: cast_nullable_to_non_nullable
+              as ElementConstraint,
+      foreground: null == foreground
+          ? _value.foreground
+          : foreground // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PackAssetLocationCopyWith<$Res> get styleSheet {
+    return $PackAssetLocationCopyWith<$Res>(_value.styleSheet, (value) {
+      return _then(_value.copyWith(styleSheet: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AreaPropertyCopyWith<$Res> get areaProperty {
+    return $AreaPropertyCopyWith<$Res>(_value.areaProperty, (value) {
+      return _then(_value.copyWith(areaProperty: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ElementConstraintCopyWith<$Res> get constraint {
+    return $ElementConstraintCopyWith<$Res>(_value.constraint, (value) {
+      return _then(_value.copyWith(constraint: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MarkdownElement with LabelElement implements MarkdownElement {
+  const _$MarkdownElement(
+      {this.layer = '',
+      @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
+      this.scale = 1.0,
+      this.styleSheet = const PackAssetLocation(),
+      this.areaProperty = const AreaProperty(),
+      required this.text,
+      this.constraint = const ElementConstraint(size: 1000),
+      this.foreground = kColorBlack,
+      final String? $type})
+      : $type = $type ?? 'markdown';
+
+  factory _$MarkdownElement.fromJson(Map<String, dynamic> json) =>
+      _$$MarkdownElementFromJson(json);
+
+  @override
+  @JsonKey()
+  final String layer;
+  @override
+  @JsonKey()
+  @DoublePointJsonConverter()
+  final Point<double> position;
+  @override
+  @JsonKey()
+  final double scale;
+  @override
+  @JsonKey()
+  final PackAssetLocation styleSheet;
+  @override
+  @JsonKey()
+  final AreaProperty areaProperty;
+  @override
+  final String text;
+  @override
+  @JsonKey()
+  final ElementConstraint constraint;
+  @override
+  @JsonKey()
+  final int foreground;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'PadElement.markdown(layer: $layer, position: $position, scale: $scale, styleSheet: $styleSheet, areaProperty: $areaProperty, text: $text, constraint: $constraint, foreground: $foreground)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MarkdownElementCopyWith<_$MarkdownElement> get copyWith =>
+      __$$MarkdownElementCopyWithImpl<_$MarkdownElement>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)
+        pen,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            TextArea area,
+            ElementConstraint constraint,
+            int foreground)
+        text,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)
+        markdown,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)
+        image,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)
+        svg,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            ShapeProperty property)
+        shape,
+  }) {
+    return markdown(layer, position, scale, styleSheet, areaProperty, this.text,
+        constraint, foreground);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String layer, double? zoom, List<PathPoint> points,
+            PenProperty property)?
+        pen,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            TextArea area,
+            ElementConstraint constraint,
+            int foreground)?
+        text,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)?
+        image,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)?
+        svg,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            ShapeProperty property)?
+        shape,
+  }) {
+    return markdown?.call(layer, position, scale, styleSheet, areaProperty,
+        this.text, constraint, foreground);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String layer, double? zoom, List<PathPoint> points,
+            PenProperty property)?
+        pen,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            TextArea area,
+            ElementConstraint constraint,
+            int foreground)?
+        text,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)?
+        image,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)?
+        svg,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            ShapeProperty property)?
+        shape,
+    required TResult orElse(),
+  }) {
+    if (markdown != null) {
+      return markdown(layer, position, scale, styleSheet, areaProperty,
+          this.text, constraint, foreground);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PenElement value) pen,
+    required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
+    required TResult Function(ImageElement value) image,
+    required TResult Function(SvgElement value) svg,
+    required TResult Function(ShapeElement value) shape,
+  }) {
+    return markdown(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PenElement value)? pen,
+    TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
+    TResult? Function(ImageElement value)? image,
+    TResult? Function(SvgElement value)? svg,
+    TResult? Function(ShapeElement value)? shape,
+  }) {
+    return markdown?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PenElement value)? pen,
+    TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
+    TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
+    TResult Function(ShapeElement value)? shape,
+    required TResult orElse(),
+  }) {
+    if (markdown != null) {
+      return markdown(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MarkdownElementToJson(
+      this,
+    );
+  }
+}
+
+abstract class MarkdownElement implements PadElement, LabelElement {
+  const factory MarkdownElement(
+      {final String layer,
+      @DoublePointJsonConverter() final Point<double> position,
+      final double scale,
+      final PackAssetLocation styleSheet,
+      final AreaProperty areaProperty,
+      required final String text,
+      final ElementConstraint constraint,
+      final int foreground}) = _$MarkdownElement;
+
+  factory MarkdownElement.fromJson(Map<String, dynamic> json) =
+      _$MarkdownElement.fromJson;
+
+  @override
+  String get layer;
+  @DoublePointJsonConverter()
+  Point<double> get position;
+  double get scale;
+  PackAssetLocation get styleSheet;
+  AreaProperty get areaProperty;
+  String get text;
+  ElementConstraint get constraint;
+  int get foreground;
+  @override
+  @JsonKey(ignore: true)
+  _$$MarkdownElementCopyWith<_$MarkdownElement> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1810,8 +2337,19 @@ class _$ImageElement implements ImageElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         text,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)
+        markdown,
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -1850,8 +2388,19 @@ class _$ImageElement implements ImageElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -1890,8 +2439,19 @@ class _$ImageElement implements ImageElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -1927,6 +2487,7 @@ class _$ImageElement implements ImageElement {
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
     required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
@@ -1939,6 +2500,7 @@ class _$ImageElement implements ImageElement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
     TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
@@ -1951,6 +2513,7 @@ class _$ImageElement implements ImageElement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
     TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
@@ -2133,8 +2696,19 @@ class _$SvgElement implements SvgElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         text,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)
+        markdown,
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -2173,8 +2747,19 @@ class _$SvgElement implements SvgElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -2213,8 +2798,19 @@ class _$SvgElement implements SvgElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -2250,6 +2846,7 @@ class _$SvgElement implements SvgElement {
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
     required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
@@ -2262,6 +2859,7 @@ class _$SvgElement implements SvgElement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
     TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
@@ -2274,6 +2872,7 @@ class _$SvgElement implements SvgElement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
     TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
@@ -2426,8 +3025,19 @@ class _$ShapeElement implements ShapeElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)
+            ElementConstraint constraint,
+            int foreground)
         text,
+    required TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)
+        markdown,
     required TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -2466,8 +3076,19 @@ class _$ShapeElement implements ShapeElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
+    TResult? Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
     TResult? Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -2506,8 +3127,19 @@ class _$ShapeElement implements ShapeElement {
             double scale,
             PackAssetLocation styleSheet,
             TextArea area,
-            ElementConstraint constraint)?
+            ElementConstraint constraint,
+            int foreground)?
         text,
+    TResult Function(
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
     TResult Function(
             String layer,
             @DoublePointJsonConverter() Point<double> position,
@@ -2543,6 +3175,7 @@ class _$ShapeElement implements ShapeElement {
   TResult map<TResult extends Object?>({
     required TResult Function(PenElement value) pen,
     required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
@@ -2555,6 +3188,7 @@ class _$ShapeElement implements ShapeElement {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PenElement value)? pen,
     TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
@@ -2567,6 +3201,7 @@ class _$ShapeElement implements ShapeElement {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PenElement value)? pen,
     TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,

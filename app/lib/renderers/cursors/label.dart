@@ -5,28 +5,29 @@ import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../models/cursor.dart';
-import '../../models/text.dart';
+import '../../models/label.dart';
 import '../renderer.dart';
 
 @immutable
-class TextCursorData extends PainterCursorData<LabelPainter> {
-  final TextContext? context;
+class LabelCursorData extends PainterCursorData<LabelPainter> {
+  final LabelContext? context;
 
-  const TextCursorData(super.painter, super.position, this.context);
+  const LabelCursorData(super.painter, super.position, this.context);
 }
 
-class TextCursor extends Renderer<TextCursorData> {
-  TextCursor(super.element);
+class LabelCursor extends Renderer<LabelCursorData> {
+  LabelCursor(super.element);
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     const icon = PhosphorIconsLight.cursorText;
-    final property = element.context?.getDefinedProperty(document);
+    final property =
+        element.context?.mapOrNull(text: (e) => e.getDefinedProperty(document));
     final iconSize =
         (property ?? const text.DefinedParagraphProperty()).span.getSize() *
-            (element.context?.element?.scale ??
+            (element.context?.labelElement?.scale ??
                 (element.painter.zoomDependent ? 1 / transform.size : 1));
     final iconColor = Color(property?.span.color ??
         colorScheme?.primary.value ??
@@ -56,8 +57,8 @@ class TextCursor extends Renderer<TextCursorData> {
   }
 }
 
-class TextSelectionCursor extends Renderer<TextContext> {
-  TextSelectionCursor(super.element);
+class LabelSelectionCursor extends Renderer<LabelContext> {
+  LabelSelectionCursor(super.element);
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
@@ -66,13 +67,13 @@ class TextSelectionCursor extends Renderer<TextContext> {
     final color = colorScheme?.primary ?? Colors.blue;
     // Paint vertical line
     final selection = element.selection;
-    final textElement = element.element;
-    if (textElement == null) return;
+    final labelElement = element.labelElement;
+    if (labelElement == null) return;
     final boxes = element.textPainter.getBoxesForSelection(selection);
     for (final box in boxes) {
       final rect = box.toRect().translate(
-            textElement.position.x,
-            textElement.position.y,
+            labelElement.position.x,
+            labelElement.position.y,
           );
       canvas.drawRect(
         rect,
@@ -87,8 +88,8 @@ class TextSelectionCursor extends Renderer<TextContext> {
             0;
     canvas.drawRect(
       Rect.fromLTWH(
-        textElement.position.x + cursorBox.dx - 1 / transform.size,
-        textElement.position.y + cursorBox.dy,
+        labelElement.position.x + cursorBox.dx - 1 / transform.size,
+        labelElement.position.y + cursorBox.dy,
         2 / transform.size,
         height,
       ),

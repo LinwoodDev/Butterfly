@@ -36,20 +36,20 @@ class DocumentDefaults {
           .toList();
 
   static Future<List<NoteData>> getDefaults(BuildContext context) async {
-    return Future.wait(<dynamic>[
-      [
+    return Future.wait([
+      (
         AppLocalizations.of(context).light,
         BackgroundTemplate.plain.create(),
-      ],
-      [
+      ),
+      (
         AppLocalizations.of(context).dark,
         BackgroundTemplate.plainDark.create(),
-      ],
+      ),
     ].map((e) async {
-      final bg = e[1] as Background;
+      final bg = e.$2;
       final color = bg.defaultColor;
       return createTemplate(
-        name: e[0] as String,
+        name: e.$1,
         thumbnail: await _createPlainThumnail(Color(color)),
         background: bg,
       );
@@ -74,8 +74,6 @@ class DocumentDefaults {
         'h5': AppLocalizations.of(context).headline(5),
         'h6': AppLocalizations.of(context).headline(6),
         'p': AppLocalizations.of(context).paragraph,
-        'quote': AppLocalizations.of(context).quote,
-        'code': AppLocalizations.of(context).code,
         'blockquote': AppLocalizations.of(context).quote,
       };
 
@@ -90,6 +88,7 @@ class DocumentDefaults {
         'img': AppLocalizations.of(context).image,
         'listBullet': AppLocalizations.of(context).listBullet,
         'strong': AppLocalizations.of(context).strong,
+        'code': AppLocalizations.of(context).code,
       };
 
   static String translateBlock(String key, BuildContext context) =>

@@ -52,31 +52,31 @@ class _PackDialogState extends State<PackDialog> {
               if (widget.pack != null)
                 TabBar(
                     isScrollable: true,
-                    tabs: <dynamic>[
-                      [
+                    tabs: [
+                      (
                         PhosphorIconsLight.gear,
                         AppLocalizations.of(context).general
-                      ],
-                      [
+                      ),
+                      (
                         PhosphorIconsLight.puzzlePiece,
                         AppLocalizations.of(context).components
-                      ],
-                      [
+                      ),
+                      (
                         PhosphorIconsLight.pencilCircle,
                         AppLocalizations.of(context).styles
-                      ],
-                      [
+                      ),
+                      (
                         PhosphorIconsLight.palette,
                         AppLocalizations.of(context).palettes
-                      ]
+                      )
                     ]
                         .map((e) => Tab(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  PhosphorIcon(e[0]),
+                                  PhosphorIcon(e.$1),
                                   const SizedBox(width: 8),
-                                  Text(e[1]),
+                                  Text(e.$2),
                                 ],
                               ),
                             ))

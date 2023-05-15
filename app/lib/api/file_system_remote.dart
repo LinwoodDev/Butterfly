@@ -58,7 +58,7 @@ class SyncFile {
   String get path => location.path;
 }
 
-abstract class DavRemoteSystem {
+mixin DavRemoteSystem {
   DavRemoteStorage get remote;
 
   Future<String> getRemoteCacheDirectory() async {

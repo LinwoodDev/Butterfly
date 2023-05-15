@@ -22,6 +22,12 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
                   .map((e) => e.copyWith(
                       zoomDependent: value ?? selected.first.zoomDependent))
                   .toList())),
+      ColorField(
+        value: Color(selected.first.foreground),
+        onChanged: (value) => update(context,
+            selected.map((e) => e.copyWith(foreground: value.value)).toList()),
+        title: Text(AppLocalizations.of(context).foreground),
+      ),
       const SizedBox(height: 16),
       DropdownButtonFormField<String>(
         items: packs

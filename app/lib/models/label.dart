@@ -5,14 +5,14 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:butterfly_api/butterfly_text.dart' as text;
+import 'package:butterfly_api/butterfly_text.dart' as txt;
 
-part 'text.freezed.dart';
+part 'label.freezed.dart';
 
 @freezed
-class TextContext with _$TextContext {
-  const TextContext._();
-  const factory TextContext(
+class LabelContext with _$LabelContext {
+  const LabelContext._();
+  const factory LabelContext.text(
       {required LabelPainter painter,
       required TextPainter textPainter,
       TextElement? element,
@@ -21,20 +21,85 @@ class TextContext with _$TextContext {
       @Default(TextSelection.collapsed(offset: 0)) TextSelection selection,
       ParagraphProperty? forcedProperty,
       SpanProperty? forcedSpanProperty,
-      bool? forceParagraph}) = _TextContext;
+      bool? forceParagraph}) = TextContext;
 
+  const factory LabelContext.markdown({
+    required LabelPainter painter,
+    required TextPainter textPainter,
+    MarkdownElement? element,
+    @Default(false) bool isCreating,
+    @Default(1.0) double zoom,
+    @Default(TextSelection.collapsed(offset: 0)) TextSelection selection,
+  }) = MarkdownContext;
+
+  String? get text => labelElement?.text;
+
+  LabelElement? get labelElement => element as LabelElement?;
+
+  PackAssetLocation get styleSheet =>
+      labelElement?.styleSheet ?? painter.styleSheet;
+
+  int get length =>
+      map(
+          text: (e) => e.area?.length,
+          markdown: (e) => e.element?.text.length) ??
+      0;
+
+  bool isParagraph() {
+    if (element == null) return true;
+    final force =
+        maybeMap(text: (value) => value.forceParagraph, orElse: () => false);
+    if (force != null) return force;
+    return selection.start <= 0 && selection.end >= length;
+  }
+
+  bool? get isEmpty => length == 0;
+
+  Rect? getRect() {
+    final current = labelElement;
+    if (current == null) return null;
+    return Rect.fromLTWH(current.position.x, current.position.y,
+        textPainter.width, labelElement!.getHeight(textPainter.height));
+  }
+
+  int nextWordIndex(int index) {
+    if (text == null) return 0;
+    return text!.substring(index).indexOf(RegExp(r'\w')) + index;
+  }
+
+  int previousWordIndex(int index) {
+    if (text == null) return 0;
+    return text!.substring(0, index).lastIndexOf(RegExp(r'\w'));
+  }
+
+  int nextLineIndex(int index) {
+    if (text == null) return 0;
+    if (index >= length) {
+      return length;
+    }
+    final current = text!.substring(index);
+    if (current.isEmpty) {
+      return index;
+    }
+    final next = current.indexOf(RegExp(r'\n'));
+    if (next == -1) {
+      return length;
+    }
+    return next + index;
+  }
+
+  int previousLineIndex(int index) {
+    if (text == null) return 0;
+    if (index <= 0) {
+      return 0;
+    }
+    return text!.substring(0, index).lastIndexOf(RegExp(r'\n'));
+  }
+}
+
+extension TextContextHelper on TextContext {
   TextArea? get area => element?.area;
-  PackAssetLocation? get styleSheet =>
-      element?.styleSheet ?? painter.styleSheet;
   TextParagraph? get paragraph => area?.paragraph;
-
-  int length() => 0;
-
-  bool isParagraph() =>
-      element == null ||
-      (forceParagraph ?? (selection.start <= 0 && selection.end >= length()));
-
-  bool? get isEmpty => length() == 0;
 
   ParagraphProperty getProperty() {
     return forcedProperty ??
@@ -47,11 +112,8 @@ class TextContext with _$TextContext {
     if (property is DefinedParagraphProperty) {
       return property;
     }
-    if (styleSheet == null) {
-      return null;
-    }
     return styleSheet
-        ?.resolveStyle(document)
+        .resolveStyle(document)
         ?.resolveParagraphProperty(property);
   }
 
@@ -70,7 +132,7 @@ class TextContext with _$TextContext {
           defined: (p) => p,
           undefined: (_) => null,
           named: (p) =>
-              styleSheet?.resolveStyle(document)?.resolveSpanProperty(p),
+              styleSheet.resolveStyle(document)?.resolveSpanProperty(p),
         ) ??
         const DefinedSpanProperty();
   }
@@ -80,7 +142,7 @@ class TextContext with _$TextContext {
           defined: (p) => p,
           undefined: (_) => null,
           named: (p) =>
-              styleSheet?.resolveStyle(document)?.resolveParagraphProperty(p),
+              styleSheet.resolveStyle(document)?.resolveParagraphProperty(p),
         ) ??
         const DefinedParagraphProperty();
   }
@@ -91,7 +153,7 @@ class TextContext with _$TextContext {
           defined: (p) => p,
           undefined: (_) => null,
           named: (p) =>
-              styleSheet?.resolveStyle(document)?.resolveSpanProperty(p),
+              styleSheet.resolveStyle(document)?.resolveSpanProperty(p),
         ) ??
         (fallback
             ? getDefinedSpanProperty(document)
@@ -110,15 +172,9 @@ class TextContext with _$TextContext {
 
   bool modified(NoteData document) =>
       isParagraph() ? paragraphModified() : spanModified(document);
-
-  Rect? getRect() {
-    if (element == null) return null;
-    return Rect.fromLTWH(element!.position.x, element!.position.y,
-        textPainter.width, element!.getHeight(textPainter.height));
-  }
 }
 
-extension TextElementLayouter on TextElement {
+extension LabelElementLayouter on LabelElement {
   double getMaxWidth([Area? area]) {
     var maxWidth = double.infinity;
     if (constraint.size > 0) maxWidth = constraint.size;
@@ -139,14 +195,14 @@ extension TextElementLayouter on TextElement {
   }
 
   Point<double> getOffset(double height) {
-    final align = area.areaProperty.alignment;
+    final align = areaProperty.alignment;
     final current = position;
     switch (align) {
-      case text.VerticalAlignment.top:
+      case txt.VerticalAlignment.top:
         return current;
-      case text.VerticalAlignment.bottom:
+      case txt.VerticalAlignment.bottom:
         return current + Point(0, height);
-      case text.VerticalAlignment.center:
+      case txt.VerticalAlignment.center:
         return current + Point(0, height / 2);
     }
   }

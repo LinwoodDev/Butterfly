@@ -14,574 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-LabelOption _$LabelOptionFromJson(Map<String, dynamic> json) {
-  switch (json['type']) {
-    case 'text':
-      return TextOption.fromJson(json);
-    case 'markdown':
-      return MarkdownOption.fromJson(json);
-    case 'richText':
-      return RichTextOption.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(
-          json, 'type', 'LabelOption', 'Invalid union type "${json['type']}"!');
-  }
-}
-
-/// @nodoc
-mixin _$LabelOption {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(AreaProperty property) text,
-    required TResult Function(String? styleSheet) markdown,
-    required TResult Function(String? styleSheet) richText,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AreaProperty property)? text,
-    TResult? Function(String? styleSheet)? markdown,
-    TResult? Function(String? styleSheet)? richText,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AreaProperty property)? text,
-    TResult Function(String? styleSheet)? markdown,
-    TResult Function(String? styleSheet)? richText,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(TextOption value) text,
-    required TResult Function(MarkdownOption value) markdown,
-    required TResult Function(RichTextOption value) richText,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(TextOption value)? text,
-    TResult? Function(MarkdownOption value)? markdown,
-    TResult? Function(RichTextOption value)? richText,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(TextOption value)? text,
-    TResult Function(MarkdownOption value)? markdown,
-    TResult Function(RichTextOption value)? richText,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $LabelOptionCopyWith<$Res> {
-  factory $LabelOptionCopyWith(
-          LabelOption value, $Res Function(LabelOption) then) =
-      _$LabelOptionCopyWithImpl<$Res, LabelOption>;
-}
-
-/// @nodoc
-class _$LabelOptionCopyWithImpl<$Res, $Val extends LabelOption>
-    implements $LabelOptionCopyWith<$Res> {
-  _$LabelOptionCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$TextOptionCopyWith<$Res> {
-  factory _$$TextOptionCopyWith(
-          _$TextOption value, $Res Function(_$TextOption) then) =
-      __$$TextOptionCopyWithImpl<$Res>;
-  @useResult
-  $Res call({AreaProperty property});
-
-  $AreaPropertyCopyWith<$Res> get property;
-}
-
-/// @nodoc
-class __$$TextOptionCopyWithImpl<$Res>
-    extends _$LabelOptionCopyWithImpl<$Res, _$TextOption>
-    implements _$$TextOptionCopyWith<$Res> {
-  __$$TextOptionCopyWithImpl(
-      _$TextOption _value, $Res Function(_$TextOption) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? property = null,
-  }) {
-    return _then(_$TextOption(
-      property: null == property
-          ? _value.property
-          : property // ignore: cast_nullable_to_non_nullable
-              as AreaProperty,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $AreaPropertyCopyWith<$Res> get property {
-    return $AreaPropertyCopyWith<$Res>(_value.property, (value) {
-      return _then(_value.copyWith(property: value));
-    });
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$TextOption implements TextOption {
-  const _$TextOption(
-      {this.property = const AreaProperty(), final String? $type})
-      : $type = $type ?? 'text';
-
-  factory _$TextOption.fromJson(Map<String, dynamic> json) =>
-      _$$TextOptionFromJson(json);
-
-  @override
-  @JsonKey()
-  final AreaProperty property;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'LabelOption.text(property: $property)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$TextOption &&
-            (identical(other.property, property) ||
-                other.property == property));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, property);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$TextOptionCopyWith<_$TextOption> get copyWith =>
-      __$$TextOptionCopyWithImpl<_$TextOption>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(AreaProperty property) text,
-    required TResult Function(String? styleSheet) markdown,
-    required TResult Function(String? styleSheet) richText,
-  }) {
-    return text(property);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AreaProperty property)? text,
-    TResult? Function(String? styleSheet)? markdown,
-    TResult? Function(String? styleSheet)? richText,
-  }) {
-    return text?.call(property);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AreaProperty property)? text,
-    TResult Function(String? styleSheet)? markdown,
-    TResult Function(String? styleSheet)? richText,
-    required TResult orElse(),
-  }) {
-    if (text != null) {
-      return text(property);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(TextOption value) text,
-    required TResult Function(MarkdownOption value) markdown,
-    required TResult Function(RichTextOption value) richText,
-  }) {
-    return text(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(TextOption value)? text,
-    TResult? Function(MarkdownOption value)? markdown,
-    TResult? Function(RichTextOption value)? richText,
-  }) {
-    return text?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(TextOption value)? text,
-    TResult Function(MarkdownOption value)? markdown,
-    TResult Function(RichTextOption value)? richText,
-    required TResult orElse(),
-  }) {
-    if (text != null) {
-      return text(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$TextOptionToJson(
-      this,
-    );
-  }
-}
-
-abstract class TextOption implements LabelOption {
-  const factory TextOption({final AreaProperty property}) = _$TextOption;
-
-  factory TextOption.fromJson(Map<String, dynamic> json) =
-      _$TextOption.fromJson;
-
-  AreaProperty get property;
-  @JsonKey(ignore: true)
-  _$$TextOptionCopyWith<_$TextOption> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$MarkdownOptionCopyWith<$Res> {
-  factory _$$MarkdownOptionCopyWith(
-          _$MarkdownOption value, $Res Function(_$MarkdownOption) then) =
-      __$$MarkdownOptionCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String? styleSheet});
-}
-
-/// @nodoc
-class __$$MarkdownOptionCopyWithImpl<$Res>
-    extends _$LabelOptionCopyWithImpl<$Res, _$MarkdownOption>
-    implements _$$MarkdownOptionCopyWith<$Res> {
-  __$$MarkdownOptionCopyWithImpl(
-      _$MarkdownOption _value, $Res Function(_$MarkdownOption) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? styleSheet = freezed,
-  }) {
-    return _then(_$MarkdownOption(
-      styleSheet: freezed == styleSheet
-          ? _value.styleSheet
-          : styleSheet // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$MarkdownOption implements MarkdownOption {
-  const _$MarkdownOption({this.styleSheet, final String? $type})
-      : $type = $type ?? 'markdown';
-
-  factory _$MarkdownOption.fromJson(Map<String, dynamic> json) =>
-      _$$MarkdownOptionFromJson(json);
-
-  @override
-  final String? styleSheet;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'LabelOption.markdown(styleSheet: $styleSheet)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$MarkdownOption &&
-            (identical(other.styleSheet, styleSheet) ||
-                other.styleSheet == styleSheet));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, styleSheet);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$MarkdownOptionCopyWith<_$MarkdownOption> get copyWith =>
-      __$$MarkdownOptionCopyWithImpl<_$MarkdownOption>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(AreaProperty property) text,
-    required TResult Function(String? styleSheet) markdown,
-    required TResult Function(String? styleSheet) richText,
-  }) {
-    return markdown(styleSheet);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AreaProperty property)? text,
-    TResult? Function(String? styleSheet)? markdown,
-    TResult? Function(String? styleSheet)? richText,
-  }) {
-    return markdown?.call(styleSheet);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AreaProperty property)? text,
-    TResult Function(String? styleSheet)? markdown,
-    TResult Function(String? styleSheet)? richText,
-    required TResult orElse(),
-  }) {
-    if (markdown != null) {
-      return markdown(styleSheet);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(TextOption value) text,
-    required TResult Function(MarkdownOption value) markdown,
-    required TResult Function(RichTextOption value) richText,
-  }) {
-    return markdown(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(TextOption value)? text,
-    TResult? Function(MarkdownOption value)? markdown,
-    TResult? Function(RichTextOption value)? richText,
-  }) {
-    return markdown?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(TextOption value)? text,
-    TResult Function(MarkdownOption value)? markdown,
-    TResult Function(RichTextOption value)? richText,
-    required TResult orElse(),
-  }) {
-    if (markdown != null) {
-      return markdown(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$MarkdownOptionToJson(
-      this,
-    );
-  }
-}
-
-abstract class MarkdownOption implements LabelOption {
-  const factory MarkdownOption({final String? styleSheet}) = _$MarkdownOption;
-
-  factory MarkdownOption.fromJson(Map<String, dynamic> json) =
-      _$MarkdownOption.fromJson;
-
-  String? get styleSheet;
-  @JsonKey(ignore: true)
-  _$$MarkdownOptionCopyWith<_$MarkdownOption> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$RichTextOptionCopyWith<$Res> {
-  factory _$$RichTextOptionCopyWith(
-          _$RichTextOption value, $Res Function(_$RichTextOption) then) =
-      __$$RichTextOptionCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String? styleSheet});
-}
-
-/// @nodoc
-class __$$RichTextOptionCopyWithImpl<$Res>
-    extends _$LabelOptionCopyWithImpl<$Res, _$RichTextOption>
-    implements _$$RichTextOptionCopyWith<$Res> {
-  __$$RichTextOptionCopyWithImpl(
-      _$RichTextOption _value, $Res Function(_$RichTextOption) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? styleSheet = freezed,
-  }) {
-    return _then(_$RichTextOption(
-      styleSheet: freezed == styleSheet
-          ? _value.styleSheet
-          : styleSheet // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$RichTextOption implements RichTextOption {
-  const _$RichTextOption({this.styleSheet, final String? $type})
-      : $type = $type ?? 'richText';
-
-  factory _$RichTextOption.fromJson(Map<String, dynamic> json) =>
-      _$$RichTextOptionFromJson(json);
-
-  @override
-  final String? styleSheet;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'LabelOption.richText(styleSheet: $styleSheet)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RichTextOption &&
-            (identical(other.styleSheet, styleSheet) ||
-                other.styleSheet == styleSheet));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, styleSheet);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RichTextOptionCopyWith<_$RichTextOption> get copyWith =>
-      __$$RichTextOptionCopyWithImpl<_$RichTextOption>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(AreaProperty property) text,
-    required TResult Function(String? styleSheet) markdown,
-    required TResult Function(String? styleSheet) richText,
-  }) {
-    return richText(styleSheet);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AreaProperty property)? text,
-    TResult? Function(String? styleSheet)? markdown,
-    TResult? Function(String? styleSheet)? richText,
-  }) {
-    return richText?.call(styleSheet);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AreaProperty property)? text,
-    TResult Function(String? styleSheet)? markdown,
-    TResult Function(String? styleSheet)? richText,
-    required TResult orElse(),
-  }) {
-    if (richText != null) {
-      return richText(styleSheet);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(TextOption value) text,
-    required TResult Function(MarkdownOption value) markdown,
-    required TResult Function(RichTextOption value) richText,
-  }) {
-    return richText(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(TextOption value)? text,
-    TResult? Function(MarkdownOption value)? markdown,
-    TResult? Function(RichTextOption value)? richText,
-  }) {
-    return richText?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(TextOption value)? text,
-    TResult Function(MarkdownOption value)? markdown,
-    TResult Function(RichTextOption value)? richText,
-    required TResult orElse(),
-  }) {
-    if (richText != null) {
-      return richText(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$RichTextOptionToJson(
-      this,
-    );
-  }
-}
-
-abstract class RichTextOption implements LabelOption {
-  const factory RichTextOption({final String? styleSheet}) = _$RichTextOption;
-
-  factory RichTextOption.fromJson(Map<String, dynamic> json) =
-      _$RichTextOption.fromJson;
-
-  String? get styleSheet;
-  @JsonKey(ignore: true)
-  _$$RichTextOptionCopyWith<_$RichTextOption> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 Painter _$PainterFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'hand':
@@ -632,8 +64,8 @@ mixin _$Painter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -671,8 +103,8 @@ mixin _$Painter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -709,8 +141,8 @@ mixin _$Painter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -904,8 +336,8 @@ class _$HandPainter implements HandPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -946,8 +378,8 @@ class _$HandPainter implements HandPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -987,8 +419,8 @@ class _$HandPainter implements HandPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -1216,8 +648,8 @@ class _$ImportPainter implements ImportPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -1258,8 +690,8 @@ class _$ImportPainter implements ImportPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -1299,8 +731,8 @@ class _$ImportPainter implements ImportPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -1501,8 +933,8 @@ class _$UndoPainter implements UndoPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -1543,8 +975,8 @@ class _$UndoPainter implements UndoPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -1584,8 +1016,8 @@ class _$UndoPainter implements UndoPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -1781,8 +1213,8 @@ class _$RedoPainter implements RedoPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -1823,8 +1255,8 @@ class _$RedoPainter implements RedoPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -1864,8 +1296,8 @@ class _$RedoPainter implements RedoPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -2000,7 +1432,12 @@ abstract class _$$LabelPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
       __$$LabelPainterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, bool zoomDependent, PackAssetLocation styleSheet});
+  $Res call(
+      {String name,
+      LabelMode mode,
+      bool zoomDependent,
+      int foreground,
+      PackAssetLocation styleSheet});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
 }
@@ -2017,7 +1454,9 @@ class __$$LabelPainterCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? mode = null,
     Object? zoomDependent = null,
+    Object? foreground = null,
     Object? styleSheet = null,
   }) {
     return _then(_$LabelPainter(
@@ -2025,10 +1464,18 @@ class __$$LabelPainterCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      mode: null == mode
+          ? _value.mode
+          : mode // ignore: cast_nullable_to_non_nullable
+              as LabelMode,
       zoomDependent: null == zoomDependent
           ? _value.zoomDependent
           : zoomDependent // ignore: cast_nullable_to_non_nullable
               as bool,
+      foreground: null == foreground
+          ? _value.foreground
+          : foreground // ignore: cast_nullable_to_non_nullable
+              as int,
       styleSheet: null == styleSheet
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
@@ -2050,7 +1497,9 @@ class __$$LabelPainterCopyWithImpl<$Res>
 class _$LabelPainter implements LabelPainter {
   _$LabelPainter(
       {this.name = '',
+      this.mode = LabelMode.text,
       this.zoomDependent = true,
+      this.foreground = kColorBlack,
       this.styleSheet = const PackAssetLocation(),
       final String? $type})
       : $type = $type ?? 'label';
@@ -2063,7 +1512,13 @@ class _$LabelPainter implements LabelPainter {
   final String name;
   @override
   @JsonKey()
+  final LabelMode mode;
+  @override
+  @JsonKey()
   final bool zoomDependent;
+  @override
+  @JsonKey()
+  final int foreground;
   @override
   @JsonKey()
   final PackAssetLocation styleSheet;
@@ -2073,7 +1528,7 @@ class _$LabelPainter implements LabelPainter {
 
   @override
   String toString() {
-    return 'Painter.label(name: $name, zoomDependent: $zoomDependent, styleSheet: $styleSheet)';
+    return 'Painter.label(name: $name, mode: $mode, zoomDependent: $zoomDependent, foreground: $foreground, styleSheet: $styleSheet)';
   }
 
   @JsonKey(ignore: true)
@@ -2091,8 +1546,8 @@ class _$LabelPainter implements LabelPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -2122,7 +1577,7 @@ class _$LabelPainter implements LabelPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
   }) {
-    return label(name, zoomDependent, styleSheet);
+    return label(name, mode, zoomDependent, foreground, styleSheet);
   }
 
   @override
@@ -2133,8 +1588,8 @@ class _$LabelPainter implements LabelPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -2163,7 +1618,7 @@ class _$LabelPainter implements LabelPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
   }) {
-    return label?.call(name, zoomDependent, styleSheet);
+    return label?.call(name, mode, zoomDependent, foreground, styleSheet);
   }
 
   @override
@@ -2174,8 +1629,8 @@ class _$LabelPainter implements LabelPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -2206,7 +1661,7 @@ class _$LabelPainter implements LabelPainter {
     required TResult orElse(),
   }) {
     if (label != null) {
-      return label(name, zoomDependent, styleSheet);
+      return label(name, mode, zoomDependent, foreground, styleSheet);
     }
     return orElse();
   }
@@ -2292,7 +1747,9 @@ class _$LabelPainter implements LabelPainter {
 abstract class LabelPainter implements Painter {
   factory LabelPainter(
       {final String name,
+      final LabelMode mode,
       final bool zoomDependent,
+      final int foreground,
       final PackAssetLocation styleSheet}) = _$LabelPainter;
 
   factory LabelPainter.fromJson(Map<String, dynamic> json) =
@@ -2300,7 +1757,9 @@ abstract class LabelPainter implements Painter {
 
   @override
   String get name;
+  LabelMode get mode;
   bool get zoomDependent;
+  int get foreground;
   PackAssetLocation get styleSheet;
   @override
   @JsonKey(ignore: true)
@@ -2396,8 +1855,8 @@ class _$PenPainter implements PenPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -2438,8 +1897,8 @@ class _$PenPainter implements PenPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -2479,8 +1938,8 @@ class _$PenPainter implements PenPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -2690,8 +2149,8 @@ class _$EraserPainter implements EraserPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -2732,8 +2191,8 @@ class _$EraserPainter implements EraserPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -2773,8 +2232,8 @@ class _$EraserPainter implements EraserPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -2982,8 +2441,8 @@ class _$PathEraserPainter implements PathEraserPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -3024,8 +2483,8 @@ class _$PathEraserPainter implements PathEraserPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3065,8 +2524,8 @@ class _$PathEraserPainter implements PathEraserPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3272,8 +2731,8 @@ class _$LayerPainter implements LayerPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -3314,8 +2773,8 @@ class _$LayerPainter implements LayerPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3355,8 +2814,8 @@ class _$LayerPainter implements LayerPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3597,8 +3056,8 @@ class _$AreaPainter implements AreaPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -3640,8 +3099,8 @@ class _$AreaPainter implements AreaPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3682,8 +3141,8 @@ class _$AreaPainter implements AreaPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3890,8 +3349,8 @@ class _$WaypointPainter implements WaypointPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -3932,8 +3391,8 @@ class _$WaypointPainter implements WaypointPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -3973,8 +3432,8 @@ class _$WaypointPainter implements WaypointPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -4213,8 +3672,8 @@ class _$LaserPainter implements LaserPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -4255,8 +3714,8 @@ class _$LaserPainter implements LaserPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -4296,8 +3755,8 @@ class _$LaserPainter implements LaserPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -4555,8 +4014,8 @@ class _$ShapePainter implements ShapePainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -4598,8 +4057,8 @@ class _$ShapePainter implements ShapePainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -4640,8 +4099,8 @@ class _$ShapePainter implements ShapePainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -4870,8 +4329,8 @@ class _$StampPainter implements StampPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -4912,8 +4371,8 @@ class _$StampPainter implements StampPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -4953,8 +4412,8 @@ class _$StampPainter implements StampPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -5154,8 +4613,8 @@ class _$PresentationPainter implements PresentationPainter {
         import,
     required TResult Function(String name) undo,
     required TResult Function(String name) redo,
-    required TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
         label,
     required TResult Function(
             String name, bool zoomDependent, PenProperty property)
@@ -5196,8 +4655,8 @@ class _$PresentationPainter implements PresentationPainter {
         import,
     TResult? Function(String name)? undo,
     TResult? Function(String name)? redo,
-    TResult? Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult? Function(String name, bool zoomDependent, PenProperty property)?
         pen,
@@ -5237,8 +4696,8 @@ class _$PresentationPainter implements PresentationPainter {
         import,
     TResult Function(String name)? undo,
     TResult Function(String name)? redo,
-    TResult Function(
-            String name, bool zoomDependent, PackAssetLocation styleSheet)?
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
         label,
     TResult Function(String name, bool zoomDependent, PenProperty property)?
         pen,

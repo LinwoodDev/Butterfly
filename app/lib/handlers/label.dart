@@ -2,33 +2,54 @@ part of 'handler.dart';
 
 class LabelHandler extends Handler<LabelPainter>
     with HandlerWithCursor, TextInputClient {
-  TextContext? _context;
+  LabelContext? _context;
   DocumentBloc? _bloc;
 
-  bool get isCurrentlyEditing => _context?.area != null;
+  bool get isCurrentlyEditing => _context?.element != null;
 
   LabelHandler(super.data);
 
-  TextContext _createContext([Point<double>? position, double zoom = 1]) {
-    return TextContext(
-      painter: data,
-      isCreating: true,
-      element: position == null
-          ? null
-          : TextElement(
-              position: position,
-              area: text.TextArea(
-                paragraph: text.TextParagraph.text(
-                  property: _context?.forcedProperty ??
-                      const text.ParagraphProperty.undefined(),
+  LabelContext _createContext([Point<double>? position, double zoom = 1]) {
+    final scale = data.zoomDependent ? 1 / zoom : 1.0;
+    switch (data.mode) {
+      case LabelMode.text:
+        final forced = _context?.mapOrNull(text: (e) => e.forcedProperty);
+        return TextContext(
+          painter: data,
+          isCreating: true,
+          element: position == null
+              ? null
+              : TextElement(
+                  position: position,
+                  area: text.TextArea(
+                    paragraph: text.TextParagraph.text(
+                      property:
+                          forced ?? const text.ParagraphProperty.undefined(),
+                    ),
+                  ),
+                  styleSheet: data.styleSheet,
+                  scale: scale,
+                  foreground: data.foreground,
                 ),
-              ),
-              styleSheet: data.styleSheet,
-              scale: data.zoomDependent ? 1 / zoom : 1,
-            ),
-      textPainter: TextPainter(),
-      forcedProperty: _context?.forcedProperty,
-    );
+          textPainter: TextPainter(),
+          forcedProperty: forced,
+        );
+      case LabelMode.markdown:
+        return MarkdownContext(
+          painter: data,
+          isCreating: true,
+          element: position == null
+              ? null
+              : MarkdownElement(
+                  position: position,
+                  text: '',
+                  styleSheet: data.styleSheet,
+                  scale: scale,
+                  foreground: data.foreground,
+                ),
+          textPainter: TextPainter(),
+        );
+    }
   }
 
   @override
@@ -40,8 +61,10 @@ class LabelHandler extends Handler<LabelPainter>
             .createForegrounds(currentIndexCubit, document, page, currentArea),
         if (_context?.element != null) ...[
           if (_context?.isCreating ?? false)
-            TextRenderer(_context!.element!, _context),
-          TextSelectionCursor(_context!)
+            _context!.map(
+                text: (e) => TextRenderer(e.element!, e),
+                markdown: (e) => MarkdownRenderer(e.element!, e)),
+          LabelSelectionCursor(_context!)
         ],
       ];
 
@@ -170,10 +193,10 @@ class LabelHandler extends Handler<LabelPainter>
 
   @override
   Renderer createCursor(Offset position) {
-    return TextCursor(TextCursorData(data, position, _context));
+    return LabelCursor(LabelCursorData(data, position, _context));
   }
 
-  void _change(DocumentBloc bloc, TextContext value) {
+  void _change(DocumentBloc bloc, LabelContext value) {
     final context = _context;
     _context = value;
     if (context == null) return;
@@ -210,7 +233,7 @@ class LabelHandler extends Handler<LabelPainter>
     final context = _context;
     if (context == null) return;
     final element = context.element;
-    final isEmpty = element?.area.paragraph.isEmpty ?? true;
+    final isEmpty = context.isEmpty ?? true;
     if (element != null) {
       if (context.isCreating) {
         bloc.add(ElementsCreated([element]));
@@ -256,49 +279,60 @@ class LabelHandler extends Handler<LabelPainter>
 
   void _updateText(String value) {
     TextElement element;
-    final old = _context?.element;
     final state = _bloc?.state;
-    if (state is! DocumentLoadSuccess) return;
+    if (state is! DocumentLoadSuccess || _context == null) return;
     final data = state.data;
 
     var newIndex = value.length;
-
-    if (old != null) {
-      final selection = _context!.selection;
-      final start = selection.start;
-      final length = selection.end - start;
-      final newSpan = _context?.getDefinedForcedSpanProperty(data) !=
-          _context!.getSpanProperty(data);
-      final paragraph = newSpan
-          ? old.area.paragraph.replace(
-              text.TextSpan.text(
-                text: value,
-                property: _context?.forcedSpanProperty ??
-                    const text.SpanProperty.undefined(),
-              ),
-              start,
-              length)
-          : old.area.paragraph.replaceText(value, start, length);
-      final area = old.area.copyWith(
-        paragraph: paragraph,
+    final selection = _context!.selection;
+    final start = selection.start;
+    final length = selection.end - start;
+    newIndex += selection.start;
+    _context = _context?.map(text: (e) {
+      final old = e.element;
+      if (old != null) {
+        final newSpan =
+            e.getDefinedForcedSpanProperty(data) != e.getSpanProperty(data);
+        final paragraph = newSpan
+            ? old.area.paragraph.replace(
+                text.TextSpan.text(
+                  text: value,
+                  property: e.forcedSpanProperty ??
+                      const text.SpanProperty.undefined(),
+                ),
+                start,
+                length)
+            : old.area.paragraph.replaceText(value, start, length);
+        final area = old.area.copyWith(
+          paragraph: paragraph,
+        );
+        element = old.copyWith(area: area);
+      } else {
+        final paragraph = text.TextParagraph.text(
+          textSpans: [text.TextSpan.text(text: value)],
+          property:
+              e.forcedProperty ?? const text.ParagraphProperty.undefined(),
+        );
+        final area = text.TextArea(
+          paragraph: paragraph,
+        );
+        element = TextElement(area: area);
+      }
+      return e.copyWith(
+        element: element,
+        selection: TextSelection.collapsed(offset: newIndex),
       );
-      element = old.copyWith(area: area);
-      newIndex += min(selection.start, paragraph.length);
-    } else {
-      final paragraph = text.TextParagraph.text(
-        textSpans: [text.TextSpan.text(text: value)],
-        property: _context!.forcedProperty ??
-            const text.ParagraphProperty.undefined(),
+    }, markdown: (e) {
+      var text = e.text ?? '';
+      text =
+          text.replaceRange(start, selection.end.clamp(0, text.length), value);
+      return e.copyWith(
+        element: e.element?.copyWith(
+          text: text,
+        ),
+        selection: TextSelection.collapsed(offset: newIndex),
       );
-      final area = text.TextArea(
-        paragraph: paragraph,
-      );
-      element = TextElement(area: area);
-    }
-    _context = _context!.copyWith(
-      element: element,
-      selection: TextSelection.collapsed(offset: newIndex),
-    );
+    });
     _connection?.setEditingState(const TextEditingValue(
       text: '',
     ));
@@ -319,24 +353,24 @@ class LabelHandler extends Handler<LabelPainter>
   }
 
   int _getVerticalNewSelection(bool forward) {
-    final selection = _context?.selection.start ?? 0;
-    final paragraph = _context?.area?.paragraph;
-    if (paragraph == null) return selection;
-    var nextLine = paragraph.nextLineIndex(selection);
-    final currentLine = paragraph.previousLineIndex(selection);
-    if (nextLine <= 0) nextLine = paragraph.length + 1;
-    var nextNextLine = paragraph.nextLineIndex(nextLine + 1);
+    final context = _context;
+    if (context == null) return 0;
+    final selection = context.selection.start;
+    var nextLine = context.nextLineIndex(selection);
+    final currentLine = context.previousLineIndex(selection);
+    if (nextLine <= 0) nextLine = context.length + 1;
+    var nextNextLine = context.nextLineIndex(nextLine + 1);
     if (nextNextLine <= nextLine) {
-      nextNextLine = paragraph.length + 2;
-      nextLine = paragraph.length;
+      nextNextLine = context.length + 2;
+      nextLine = context.length;
     }
     var nextLineLength = nextNextLine - nextLine + 1;
-    final previousLine = paragraph.previousLineIndex(max(currentLine, 0));
+    final previousLine = context.previousLineIndex(max(currentLine, 0));
     var previousLineLength = max(currentLine - previousLine, 0);
     final lineSelection = min(max(selection - currentLine, 1),
         forward ? nextLineLength : previousLineLength);
     return (forward ? nextLine + lineSelection : previousLine + lineSelection)
-        .clamp(0, paragraph.length);
+        .clamp(0, context.length);
   }
 
   @override
@@ -348,8 +382,6 @@ class LabelHandler extends Handler<LabelPainter>
           final element = _context?.element;
           final selection = _context?.selection;
           if (element == null || selection == null) return null;
-          var area = element.area;
-          var paragraph = area.paragraph;
           var start = selection.start;
           var length = selection.end - start;
           if (length == 0) {
@@ -359,17 +391,31 @@ class LabelHandler extends Handler<LabelPainter>
             }
             length = 1;
           }
-          paragraph = paragraph.remove(
-            start,
-            length,
-          );
-          area = area.copyWith(paragraph: paragraph);
-          final newElement = element.copyWith(area: area);
+          _context = _context?.map(text: (e) {
+            var element = e.element;
+            if (element == null) return e;
+            var area = element.area;
+            final paragraph = area.paragraph.remove(
+              start,
+              length,
+            );
+            area = area.copyWith(paragraph: paragraph);
+            final newElement = element.copyWith(area: area);
 
-          _context = _context!.copyWith(
-            element: newElement,
-            selection: TextSelection.collapsed(offset: start),
-          );
+            return e.copyWith(
+              element: newElement,
+              selection: TextSelection.collapsed(offset: start),
+            );
+          }, markdown: (e) {
+            var element = e.element;
+            if (element == null) return e;
+            element = element.copyWith(
+                text: element.text.replaceRange(start, selection.end, ''));
+            return e.copyWith(
+              element: element,
+              selection: TextSelection.collapsed(offset: start),
+            );
+          });
           bloc.refresh();
           _refreshToolbar(bloc);
           return null;
@@ -394,17 +440,21 @@ class LabelHandler extends Handler<LabelPainter>
       ),
       SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
         onInvoke: (intent) {
-          final length = _context?.area?.length ?? 0;
+          final length = _context?.length ?? 0;
           _context = _context?.copyWith(
             selection: TextSelection(
               baseOffset: length,
               extentOffset: 0,
             ),
-            forcedSpanProperty:
-                _context?.element?.area.paragraph.getSpan(length)?.property ??
-                    _context?.forcedSpanProperty,
-            forceParagraph: null,
           );
+          _context = _context?.maybeMap(
+              text: (e) => e.copyWith(
+                    forcedSpanProperty:
+                        e.element?.area.paragraph.getSpan(length)?.property ??
+                            e.forcedSpanProperty,
+                    forceParagraph: null,
+                  ),
+              orElse: () => _context);
           bloc.refresh();
           _refreshToolbar(bloc);
           return null;
@@ -413,7 +463,7 @@ class LabelHandler extends Handler<LabelPainter>
       ExtendSelectionByCharacterIntent:
           CallbackAction<ExtendSelectionByCharacterIntent>(
         onInvoke: (intent) {
-          final maxLength = _context?.area?.length ?? 0;
+          final maxLength = _context?.length ?? 0;
           var selection =
               _context?.selection ?? const TextSelection.collapsed(offset: 0);
           if (intent.collapseSelection) {
@@ -430,11 +480,16 @@ class LabelHandler extends Handler<LabelPainter>
           }
           _context = _context?.copyWith(
             selection: selection,
-            forcedSpanProperty: _context?.element?.area.paragraph
-                    .getSpan(selection.baseOffset)
-                    ?.property ??
-                _context?.forcedSpanProperty,
-            forceParagraph: null,
+          );
+          _context = _context?.maybeMap(
+            text: (e) => e.copyWith(
+              forcedSpanProperty: e.element?.area.paragraph
+                      .getSpan(selection.baseOffset)
+                      ?.property ??
+                  e.forcedSpanProperty,
+              forceParagraph: null,
+            ),
+            orElse: () => _context,
           );
           bloc.refresh();
           _refreshToolbar(bloc);
@@ -459,28 +514,44 @@ class LabelHandler extends Handler<LabelPainter>
       DeleteToNextWordBoundaryIntent:
           CallbackAction<DeleteToNextWordBoundaryIntent>(
         onInvoke: (intent) {
-          final element = _context?.element;
           final selection = _context?.selection;
-          if (element == null || selection == null) return null;
+          if (selection == null) return null;
           var index = selection.baseOffset;
-          var wordIndex = element.area.paragraph.previousWordIndex(index);
+          var wordIndex = _context?.previousWordIndex(index) ?? 0;
           if (wordIndex > 0) wordIndex--;
           if (wordIndex < 0) {
             index = wordIndex;
           }
-          var area = element.area;
-          var paragraph = area.paragraph;
           final length = selection.end - wordIndex;
-          paragraph = paragraph.remove(
-            wordIndex,
-            length.abs(),
-          );
-          area = area.copyWith(paragraph: paragraph);
-          final newElement = element.copyWith(area: area);
+          _context = _context?.map(
+            text: (e) {
+              final element = e.element;
+              if (element == null) return e;
+              var area = element.area;
+              var paragraph = area.paragraph;
+              paragraph = paragraph.remove(
+                wordIndex,
+                length.abs(),
+              );
+              area = area.copyWith(paragraph: paragraph);
+              final newElement = element.copyWith(area: area);
 
-          _context = _context!.copyWith(
-            element: newElement,
-            selection: TextSelection.collapsed(offset: wordIndex),
+              return e.copyWith(
+                element: newElement,
+                selection: TextSelection.collapsed(offset: wordIndex),
+              );
+            },
+            markdown: (e) {
+              final element = e.element;
+              if (element == null) return e;
+              final text =
+                  element.text.replaceRange(wordIndex, length.abs(), '');
+
+              return e.copyWith(
+                element: element.copyWith(text: text),
+                selection: TextSelection.collapsed(offset: wordIndex),
+              );
+            },
           );
 
           bloc.refresh();
@@ -492,7 +563,7 @@ class LabelHandler extends Handler<LabelPainter>
         onInvoke: (intent) {
           final selection = _context?.selection;
           if (selection == null) return null;
-          final text = _context?.area?.paragraph.text;
+          final text = _context?.text;
           if (text == null) return null;
           Clipboard.setData(ClipboardData(
               text: text.substring(selection.start, selection.end)));

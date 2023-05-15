@@ -23,6 +23,7 @@ Painter updatePainterDefaultColor(Painter painter, int color) {
         pen.copyWith(property: pen.property.copyWith(color: defaultColor)),
     shape: (shape) =>
         shape.copyWith(property: shape.property.copyWith(color: defaultColor)),
+    label: (label) => label.copyWith(foreground: defaultColor),
     orElse: () => painter,
   );
 }

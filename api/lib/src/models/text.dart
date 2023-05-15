@@ -32,6 +32,7 @@ class SpanProperty with _$SpanProperty {
     int? decorationColor,
     TextDecorationStyle? decorationStyle,
     double? decorationThickness,
+    int? backgroundColor,
   }) = DefinedSpanProperty;
 
   static const kDefault = DefinedSpanProperty(
@@ -46,6 +47,7 @@ class SpanProperty with _$SpanProperty {
     decorationColor: kColorBlack,
     decorationStyle: TextDecorationStyle.solid,
     decorationThickness: 1,
+    backgroundColor: kColorTransparent,
   );
 
   const factory SpanProperty.named(String name) = NamedSpanProperty;
@@ -281,36 +283,6 @@ class TextParagraph with _$TextParagraph {
       length,
     );
   }
-
-  int nextWordIndex(int index) {
-    return text.substring(index).indexOf(RegExp(r'\w')) + index;
-  }
-
-  int previousWordIndex(int index) {
-    return text.substring(0, index).lastIndexOf(RegExp(r'\w'));
-  }
-
-  int nextLineIndex(int index) {
-    if (index >= length) {
-      return length;
-    }
-    final current = text.substring(index);
-    if (current.isEmpty) {
-      return index;
-    }
-    final next = current.indexOf(RegExp(r'\n'));
-    if (next == -1) {
-      return length;
-    }
-    return next + index;
-  }
-
-  int previousLineIndex(int index) {
-    if (index <= 0) {
-      return 0;
-    }
-    return text.substring(0, index).lastIndexOf(RegExp(r'\n'));
-  }
 }
 
 @freezed
@@ -405,8 +377,12 @@ extension ResolveProperty on TextStyleSheet? {
 extension SpanPropertyGetter on DefinedSpanProperty {
   double getSize([DefinedParagraphProperty? paragraphProperty]) =>
       size ?? paragraphProperty?.span.size ?? SpanProperty.kDefault.size!;
-  int getColor([DefinedParagraphProperty? paragraphProperty]) =>
-      color ?? paragraphProperty?.span.color ?? SpanProperty.kDefault.color!;
+  int getColor(
+          [DefinedParagraphProperty? paragraphProperty, int? foreground]) =>
+      color ??
+      paragraphProperty?.span.color ??
+      foreground ??
+      SpanProperty.kDefault.color!;
   int getFontWeight([DefinedParagraphProperty? paragraphProperty]) =>
       fontWeight ??
       paragraphProperty?.span.fontWeight ??
@@ -443,4 +419,8 @@ extension SpanPropertyGetter on DefinedSpanProperty {
       decorationThickness ??
       paragraphProperty?.span.decorationThickness ??
       SpanProperty.kDefault.decorationThickness!;
+  int getBackgroundColor([DefinedParagraphProperty? paragraphProperty]) =>
+      backgroundColor ??
+      paragraphProperty?.span.backgroundColor ??
+      SpanProperty.kDefault.backgroundColor!;
 }

@@ -109,6 +109,7 @@ _$TextElement _$$TextElementFromJson(Map json) => _$TextElement(
           ? const ElementConstraint(size: 1000)
           : ElementConstraint.fromJson(
               Map<String, dynamic>.from(json['constraint'] as Map)),
+      foreground: json['foreground'] as int? ?? kColorBlack,
       $type: json['type'] as String?,
     );
 
@@ -120,6 +121,43 @@ Map<String, dynamic> _$$TextElementToJson(_$TextElement instance) =>
       'styleSheet': instance.styleSheet.toJson(),
       'area': instance.area.toJson(),
       'constraint': instance.constraint.toJson(),
+      'foreground': instance.foreground,
+      'type': instance.$type,
+    };
+
+_$MarkdownElement _$$MarkdownElementFromJson(Map json) => _$MarkdownElement(
+      layer: json['layer'] as String? ?? '',
+      position: json['position'] == null
+          ? const Point(0.0, 0.0)
+          : const DoublePointJsonConverter().fromJson(json['position'] as Map),
+      scale: (json['scale'] as num?)?.toDouble() ?? 1.0,
+      styleSheet: json['styleSheet'] == null
+          ? const PackAssetLocation()
+          : PackAssetLocation.fromJson(
+              Map<String, dynamic>.from(json['styleSheet'] as Map)),
+      areaProperty: json['areaProperty'] == null
+          ? const AreaProperty()
+          : AreaProperty.fromJson(
+              Map<String, dynamic>.from(json['areaProperty'] as Map)),
+      text: json['text'] as String,
+      constraint: json['constraint'] == null
+          ? const ElementConstraint(size: 1000)
+          : ElementConstraint.fromJson(
+              Map<String, dynamic>.from(json['constraint'] as Map)),
+      foreground: json['foreground'] as int? ?? kColorBlack,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$MarkdownElementToJson(_$MarkdownElement instance) =>
+    <String, dynamic>{
+      'layer': instance.layer,
+      'position': const DoublePointJsonConverter().toJson(instance.position),
+      'scale': instance.scale,
+      'styleSheet': instance.styleSheet.toJson(),
+      'areaProperty': instance.areaProperty.toJson(),
+      'text': instance.text,
+      'constraint': instance.constraint.toJson(),
+      'foreground': instance.foreground,
       'type': instance.$type,
     };
 

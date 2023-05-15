@@ -14,31 +14,31 @@ class PresentationControlsDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ...<dynamic>[
-            [
+          ...[
+            (
               PhosphorIconsLight.arrowRight,
               AppLocalizations.of(context).nextSlide,
               AppLocalizations.of(context).nextSlideDescription,
-            ],
-            [
+            ),
+            (
               PhosphorIconsLight.arrowLeft,
               AppLocalizations.of(context).previousSlide,
               AppLocalizations.of(context).previousSlideDescription,
-            ],
-            [
+            ),
+            (
               PhosphorIconsLight.pauseCircle,
               AppLocalizations.of(context).pausePresentation,
               AppLocalizations.of(context).pausePresentationDescription,
-            ],
-            [
+            ),
+            (
               PhosphorIconsLight.door,
               AppLocalizations.of(context).exitPresentation,
               AppLocalizations.of(context).exitPresentationDescription,
-            ]
+            )
           ].map((e) => ListTile(
-                leading: PhosphorIcon(e[0]),
-                title: Text(e[1]),
-                subtitle: Text(e[2]),
+                leading: PhosphorIcon(e.$1),
+                title: Text(e.$2),
+                subtitle: Text(e.$3),
               )),
           FutureBuilder<bool>(
             future: Future.value(isFullScreen()),

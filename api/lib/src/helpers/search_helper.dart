@@ -12,7 +12,7 @@ class SearchResult<T> {
 
 extension ElementSearchHelper on PadElement {
   SearchResult<PadElement>? matches(Pattern query) {
-    return maybeMap(
+    return mapOrNull(
       text: (value) {
         if (!value.area.paragraph.text.contains(query)) return null;
         return SearchResult(
@@ -21,7 +21,6 @@ extension ElementSearchHelper on PadElement {
           this,
         );
       },
-      orElse: () => null,
     );
   }
 }

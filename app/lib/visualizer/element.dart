@@ -14,6 +14,7 @@ extension ElementVisualizer on PadElement {
       image: (_) => loc.image,
       shape: (_) => loc.shape,
       svg: (_) => loc.svg,
+      markdown: (_) => loc.markdown,
     );
   }
 
@@ -24,6 +25,7 @@ extension ElementVisualizer on PadElement {
       image: (_) => PhosphorIcons.image,
       shape: (element) => element.property.shape.icon,
       svg: (_) => PhosphorIcons.sun,
+      markdown: (_) => PhosphorIcons.textbox,
     );
   }
 }
@@ -65,5 +67,25 @@ extension ElementConstraintsVisualizer on ElementConstraints? {
       }
     }
     return ScaledElementConstraints(scaleX: scaleX, scaleY: scaleY);
+  }
+}
+
+extension LabelModeVisualizer on LabelMode {
+  String getLocalizedName(BuildContext context) {
+    switch (this) {
+      case LabelMode.markdown:
+        return AppLocalizations.of(context).markdown;
+      case LabelMode.text:
+        return AppLocalizations.of(context).text;
+    }
+  }
+
+  IconGetter get icon {
+    switch (this) {
+      case LabelMode.markdown:
+        return PhosphorIcons.textbox;
+      case LabelMode.text:
+        return PhosphorIcons.textT;
+    }
   }
 }
