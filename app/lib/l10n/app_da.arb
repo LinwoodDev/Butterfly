@@ -475,6 +475,7 @@
   "emphasis": "Fremhævelse",
   "listBullet": "List punkt",
   "strong": "Stærk",
+  "markdown": "Markdown",
   "home": "Hjem",
   "files": "Filer",
   "sortBy": "Sorter efter",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Kun ved opdateringer",
   "visibility": "Synlighed",
   "captureThumbnail": "Optag miniature",
-  "capturedThumbnail": "Miniaturebillede med succes"
+  "capturedThumbnail": "Miniaturebillede med succes",
+  "chooseLabelMode": "Choose label mode",
+  "foreground": "Foreground"
 }
