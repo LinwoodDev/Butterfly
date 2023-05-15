@@ -15,7 +15,15 @@ class MarkdownRenderer extends Renderer<MarkdownElement> {
     _tp?.textScaleFactor = element.scale;
   }
 
-  List<md.Node> _parse() => md.Document().parse(element.text);
+  List<md.Node> _parse() => md.Document(
+        extensionSet: md.ExtensionSet.gitHubWeb,
+        inlineSyntaxes: [
+          md.LineBreakSyntax(),
+        ],
+        withDefaultBlockSyntaxes: true,
+        withDefaultInlineSyntaxes: true,
+        encodeHtml: true,
+      ).parse(element.text);
 
   TextSpan _buildParagraph(NoteData document) {
     final styleSheet = element.styleSheet.resolveStyle(document);
