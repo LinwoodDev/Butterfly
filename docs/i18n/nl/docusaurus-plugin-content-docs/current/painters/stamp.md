@@ -1,6 +1,6 @@
 ---
 title: "Zegel"
-sidebar_label: "Vorm"
+sidebar_label: "Zegel"
 sidebar_position: 3
 ---
 

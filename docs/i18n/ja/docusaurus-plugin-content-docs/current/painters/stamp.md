@@ -1,6 +1,6 @@
 ---
 title: "切手（スタンプ）"
-sidebar_label: "形状"
+sidebar_label: "切手（スタンプ）"
 sidebar_position: 3
 ---
 

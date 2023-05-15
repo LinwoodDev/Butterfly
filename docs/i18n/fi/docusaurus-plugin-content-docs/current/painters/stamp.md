@@ -1,6 +1,6 @@
 ---
 title: "Leima"
-sidebar_label: "Muoto"
+sidebar_label: "Leima"
 sidebar_position: 3
 ---
 

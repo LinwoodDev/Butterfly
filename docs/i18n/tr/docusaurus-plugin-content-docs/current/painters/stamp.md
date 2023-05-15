@@ -1,6 +1,6 @@
 ---
 title: "Damga"
-sidebar_label: "Şekil"
+sidebar_label: "Damga"
 sidebar_position: 3
 ---
 

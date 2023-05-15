@@ -1,6 +1,6 @@
 ---
 title: "Stamp"
-sidebar_label: "Shape"
+sidebar_label: "Stamp"
 sidebar_position: 3
 ---
 

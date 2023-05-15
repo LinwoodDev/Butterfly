@@ -11,14 +11,14 @@ import 'packs/select.dart';
 
 class ColorPalettePickerDialog extends StatefulWidget {
   final bool viewMode;
-  final Color defaultColor;
+  final Color value;
   final ColorPalette? palette;
   final ValueChanged<ColorPalette>? onChanged;
   final DocumentBloc? bloc;
 
   const ColorPalettePickerDialog({
     super.key,
-    this.defaultColor = Colors.white,
+    this.value = Colors.white,
     this.viewMode = false,
     this.bloc,
     this.palette,
@@ -104,7 +104,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                         final value = await showDialog<ColorPickerResponse>(
                             context: context,
                             builder: (context) =>
-                                ColorPicker(defaultColor: Color(color)));
+                                ColorPicker(value: Color(color)));
                         if (value != null) {
                           _changePalette(palette.copyWith(
                               colors: List.from(palette.colors)
@@ -272,9 +272,8 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                   var value =
                                       await showDialog<ColorPickerResponse>(
                                           context: context,
-                                          builder: (context) => ColorPicker(
-                                              defaultColor:
-                                                  widget.defaultColor));
+                                          builder: (context) =>
+                                              ColorPicker(value: widget.value));
                                   if (value != null) {
                                     _changePalette(palette.copyWith(
                                         colors: List<int>.from(palette.colors)
@@ -296,7 +295,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                         var value = await showDialog<ColorPickerResponse>(
                             context: context,
                             builder: (context) =>
-                                ColorPicker(defaultColor: widget.defaultColor));
+                                ColorPicker(value: widget.value));
                         if (value != null) navigator.pop(value.color);
                       },
                       child: Text(AppLocalizations.of(context).custom)),

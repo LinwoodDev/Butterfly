@@ -1,6 +1,6 @@
 ---
 title: "Stempel"
-sidebar_label: "Form"
+sidebar_label: "Stempel"
 sidebar_position: 3
 ---
 

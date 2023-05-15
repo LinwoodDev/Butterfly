@@ -112,7 +112,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                                 await showDialog<ColorPickerResponse>(
                               context: context,
                               builder: (context) => ColorPicker(
-                                defaultColor: Color(widget.color),
+                                value: Color(widget.color),
                                 pinOption: palette != null,
                               ),
                             );
@@ -194,7 +194,7 @@ class _ColorButton extends StatelessWidget {
       final newColor = await showDialog<ColorPickerResponse>(
         context: context,
         builder: (context) => ColorPicker(
-          defaultColor: Color(current),
+          value: Color(current),
           deleteOption: onDeleted != null,
         ),
       );

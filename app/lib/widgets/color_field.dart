@@ -38,7 +38,7 @@ class ColorField extends StatelessWidget {
           final response = await showDialog<ColorPickerResponse>(
             context: context,
             builder: (ctx) => ColorPicker(
-              defaultColor: value,
+              value: value,
             ),
           );
           nextColor = response?.color;
@@ -46,7 +46,7 @@ class ColorField extends StatelessWidget {
           nextColor = await showDialog<int>(
             context: context,
             builder: (ctx) => ColorPalettePickerDialog(
-              defaultColor: value,
+              value: value,
               bloc: context.read<DocumentBloc>(),
             ),
           );

@@ -2,6 +2,22 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-alpha.3 (2023-05-15)
+
+* Add archive format
+* Add thumbnails on documents
+* Add ability to open other files than notes from home page
+* Add missing painter help pages
+* Add popup menu when long pressing on window title bar
+* Improve text update in zoom view
+* Improve sorting at home page
+* Move change document path to appbar
+* Fix appearing zoom view and disappearing on focus
+* Fix importing of documents
+* Disallow saving in json format
+* Remove save and load dialog (including load and saving from clipboard)
+* Upgrade to flutter 3.10
+
 ## 2.0.0-alpha.2 (2023-05-05)
 
 * Add option to change visibility of banner ([#372](https://github.com/LinwoodDev/Butterfly/issues/372))

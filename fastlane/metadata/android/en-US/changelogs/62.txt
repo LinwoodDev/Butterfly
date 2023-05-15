@@ -2,6 +2,7 @@
 * Add thumbnails on documents
 * Add ability to open other files than notes from home page
 * Add missing painter help pages
+* Add popup menu when long pressing on window title bar
 * Improve text update in zoom view
 * Improve sorting at home page
 * Move change document path to appbar

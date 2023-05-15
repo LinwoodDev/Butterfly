@@ -1,6 +1,6 @@
 ---
 title: "Pieczęć"
-sidebar_label: "Kształt"
+sidebar_label: "Pieczęć"
 sidebar_position: 3
 ---
 

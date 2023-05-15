@@ -1,6 +1,6 @@
 ---
 title: "Відзнака"
-sidebar_label: "Форма"
+sidebar_label: "Відзнака"
 sidebar_position: 3
 ---
 
