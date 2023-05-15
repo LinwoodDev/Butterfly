@@ -475,6 +475,7 @@
   "emphasis": "Tonvikt",
   "listBullet": "Lista punkt",
   "strong": "Stark",
+  "markdown": "Markdown",
   "home": "Hem",
   "files": "Filer",
   "sortBy": "Sortera efter",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Endast på uppdateringar",
   "visibility": "Synlighet",
   "captureThumbnail": "Fånga miniatyrbild",
-  "capturedThumbnail": "Framgångsrikt fångad miniatyrbild"
+  "capturedThumbnail": "Framgångsrikt fångad miniatyrbild",
+  "chooseLabelMode": "Choose label mode",
+  "foreground": "Foreground"
 }
