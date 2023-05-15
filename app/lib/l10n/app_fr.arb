@@ -475,6 +475,7 @@
   "emphasis": "Emphasis",
   "listBullet": "Lister les puces",
   "strong": "Forte",
+  "markdown": "Markdown",
   "home": "Domicile",
   "files": "Fichiers",
   "sortBy": "Trier par",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Uniquement sur les mises à jour",
   "visibility": "Visibilité",
   "captureThumbnail": "Capture miniature",
-  "capturedThumbnail": "La vignette a été capturée avec succès"
+  "capturedThumbnail": "La vignette a été capturée avec succès",
+  "chooseLabelMode": "Choose label mode",
+  "foreground": "Foreground"
 }
