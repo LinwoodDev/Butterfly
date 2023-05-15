@@ -1,6 +1,6 @@
 ---
 title: "Razítko"
-sidebar_label: "Tvar"
+sidebar_label: "Razítko"
 sidebar_position: 3
 ---
 

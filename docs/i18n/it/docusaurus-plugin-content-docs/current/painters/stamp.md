@@ -1,6 +1,6 @@
 ---
 title: "Timbro"
-sidebar_label: "Forma"
+sidebar_label: "Timbro"
 sidebar_position: 3
 ---
 

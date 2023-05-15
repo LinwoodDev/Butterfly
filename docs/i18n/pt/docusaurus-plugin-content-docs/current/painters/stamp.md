@@ -1,6 +1,6 @@
 ---
 title: "Selo"
-sidebar_label: "Forma"
+sidebar_label: "Selo"
 sidebar_position: 3
 ---
 

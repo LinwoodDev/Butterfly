@@ -1,6 +1,6 @@
 ---
 title: "Σφραγίδα"
-sidebar_label: "Σχήμα"
+sidebar_label: "Σφραγίδα"
 sidebar_position: 3
 ---
 

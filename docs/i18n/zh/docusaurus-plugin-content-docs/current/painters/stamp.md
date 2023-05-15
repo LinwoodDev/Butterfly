@@ -1,6 +1,6 @@
 ---
 title: "印章"
-sidebar_label: "形状"
+sidebar_label: "印章"
 sidebar_position: 3
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Médaille"
-sidebar_label: "Forme"
+sidebar_label: "Médaille"
 sidebar_position: 3
 ---
 

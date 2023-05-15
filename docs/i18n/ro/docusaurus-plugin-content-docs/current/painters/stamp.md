@@ -1,6 +1,6 @@
 ---
 title: "Timbru"
-sidebar_label: "Formă"
+sidebar_label: "Timbru"
 sidebar_position: 3
 ---
 
