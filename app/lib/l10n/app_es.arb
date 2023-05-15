@@ -475,6 +475,7 @@
   "emphasis": "Vacío",
   "listBullet": "Lista de bala",
   "strong": "Fuerte",
+  "markdown": "Markdown",
   "home": "Inicio",
   "files": "Archivos",
   "sortBy": "Ordenar por",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Sólo en actualizaciones",
   "visibility": "Visibilidad",
   "captureThumbnail": "Capturar miniatura",
-  "capturedThumbnail": "Miniatura capturada con éxito"
+  "capturedThumbnail": "Miniatura capturada con éxito",
+  "chooseLabelMode": "Choose label mode",
+  "foreground": "Foreground"
 }
