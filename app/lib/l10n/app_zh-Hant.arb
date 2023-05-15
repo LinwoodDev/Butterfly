@@ -475,6 +475,7 @@
   "emphasis": "Emphasis",
   "listBullet": "List bullet",
   "strong": "Strong",
+  "markdown": "Markdown",
   "home": "Home",
   "files": "Files",
   "sortBy": "Sort by",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Only on updates",
   "visibility": "Visibility",
   "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "capturedThumbnail": "Successfully captured thumbnail",
+  "chooseLabelMode": "Choose label mode",
+  "foreground": "Foreground"
 }
