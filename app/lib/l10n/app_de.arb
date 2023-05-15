@@ -475,6 +475,7 @@
   "emphasis": "Hervorhebung",
   "listBullet": "Auflistungskugel",
   "strong": "Stark",
+  "markdown": "Markdown",
   "home": "Zuhause",
   "files": "Dateien",
   "sortBy": "Sortieren nach",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Nur bei Updates",
   "visibility": "Sichtbarkeit",
   "captureThumbnail": "Thumbnail aufnehmen",
-  "capturedThumbnail": "Miniaturbild erfolgreich erfasst"
+  "capturedThumbnail": "Miniaturbild erfolgreich erfasst",
+  "chooseLabelMode": "Choose label mode",
+  "foreground": "Foreground"
 }
