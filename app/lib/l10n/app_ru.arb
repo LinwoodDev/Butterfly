@@ -475,6 +475,7 @@
   "emphasis": "Акцент",
   "listBullet": "Список пули",
   "strong": "Крепкий",
+  "markdown": "Markdown",
   "home": "Домашний",
   "files": "Файлы",
   "sortBy": "Сортировать по",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Только при обновлении",
   "visibility": "Видимость",
   "captureThumbnail": "Захват эскиза",
-  "capturedThumbnail": "Успешно записанные миниатюры"
+  "capturedThumbnail": "Успешно записанные миниатюры",
+  "chooseLabelMode": "Choose label mode",
+  "foreground": "Foreground"
 }
