@@ -15,11 +15,11 @@ Please use the flatpak version if possible. Please use the flatpak version if po
 
 :::
 
-## Binaries
+## 二進制檔
 
 <div className="row margin-bottom--lg padding--sm">
 <div className="dropdown dropdown--hoverable margin--sm">
-  <button className="button button--outline button--info button--lg">Stable</button>
+  <button className="button button--outline button--info button--lg">穩定版</button>
   <ul className="dropdown__menu">
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/stable/linwood-butterfly-linux.tar.gz">
@@ -60,9 +60,9 @@ Please use the flatpak version if possible. Please use the flatpak version if po
 </div>
 </div>
 
-Read more about the nightly version of Butterfly [here](/nightly).
+到[這裏](/nightly)閱讀更多關於《Butterfly》夜間版的資訊。
 
-## Stores
+## 商店
 
 <div className="row margin-bottom--lg padding--sm">
 <a className="button button--outline button--primary button--lg margin--sm" href="https://flathub.org/apps/details/dev.linwood.butterfly">
