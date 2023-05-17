@@ -9,7 +9,7 @@ This guide will show you how to migrate to the latest version.
 
 **Version: 2.0**
 
-### Breaking changes
+### 重大更新
 
 The eraser layer will be removed. The eraser layer will be removed. On migration, the eraser layer will be removed.
 
