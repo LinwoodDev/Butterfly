@@ -119,7 +119,7 @@
   "altKey": "Alt",
   "copyVersion": "Copy version",
   "input": "Input",
-  "behaviors": "Behaviors",
+  "behaviors": "行爲",
   "documentDirectory": "Document directory",
   "defaultPath": "預設路徑",
   "dateFormat": "Date format",
@@ -327,7 +327,7 @@
   "keepConnection": "Keep connection",
   "keepBoth": "Keep both",
   "forAll": "For all",
-  "fileConflict": "{file} in {connection} has a conflict",
+  "fileConflict": "「{connection}」中的「{file}」有衝突",
   "@fileConflict": {
     "placeholders": {
       "file": {
@@ -496,6 +496,6 @@
   "visibility": "Visibility",
   "captureThumbnail": "Capture thumbnail",
   "capturedThumbnail": "Successfully captured thumbnail",
-  "chooseLabelMode": "Choose label mode",
+  "chooseLabelMode": "選擇標籤模式",
   "foreground": "Foreground"
 }
