@@ -1,6 +1,6 @@
 ---
 title: "Stamp"
-sidebar_label: "Shape"
+sidebar_label: "形狀"
 sidebar_position: 3
 ---
 
