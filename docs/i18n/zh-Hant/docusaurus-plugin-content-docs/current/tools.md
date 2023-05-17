@@ -7,6 +7,6 @@ sidebar_position: 3
 
 The grid allows you to exactly position elements. The grid allows you to exactly position elements. You can use it to move elements or create shapes.
 
-## Ruler
+## 標尺
 
 The ruler allows you to measure the distance between two points. Additionally you can use it to create a line with the pen tool. Additionally you can use it to create a line with the pen tool.
