@@ -40,7 +40,7 @@
     "description": "The label of footer link with label=Contribution guide linking to https://github.com/LinwoodDev/butterfly/blob/develop/CONTRIBUTING.md"
   },
   "link.item.label.Imprint": {
-    "message": "Imprint",
+    "message": "發行頁面",
     "description": "The label of footer link with label=Imprint linking to https://go.linwood.dev/imprint"
   },
   "link.item.label.Privacy Policy of the app": {
