@@ -496,6 +496,6 @@
   "visibility": "Viditelnost",
   "captureThumbnail": "Snímat miniaturu",
   "capturedThumbnail": "Náhledy úspěšně zachyceny",
-  "chooseLabelMode": "Choose label mode",
-  "foreground": "Foreground"
+  "chooseLabelMode": "Zvolte mód popisku",
+  "foreground": "Popředí"
 }
