@@ -25,14 +25,14 @@ Use this painter to draw shapes on the paper. Use this painter to draw shapes on
 
 | Property |   Default   | Description                                       |
 | --------:|:-----------:|:------------------------------------------------- |
-|     Fill | Transparent | The color that will be drawn inside the rectangle |
+|       填滿 | Transparent | The color that will be drawn inside the rectangle |
 |     圓角半徑 | 0, 0, 0, 0  | The radius of the corners of the rectangle        |
 
 #### 圓形
 
 | Property |   Default   | Description                                       |
 | --------:|:-----------:|:------------------------------------------------- |
-|     Fill | Transparent | The color that will be drawn inside the rectangle |
+|       填滿 | Transparent | The color that will be drawn inside the rectangle |
 
 #### 直線
 
