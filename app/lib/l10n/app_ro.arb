@@ -496,6 +496,6 @@
   "visibility": "Vizibilitate",
   "captureThumbnail": "Capturează miniatura",
   "capturedThumbnail": "Miniatură captată cu succes",
-  "chooseLabelMode": "Choose label mode",
-  "foreground": "Foreground"
+  "chooseLabelMode": "Alege modul etichetă",
+  "foreground": "prim-plan"
 }
