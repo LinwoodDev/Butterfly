@@ -496,6 +496,6 @@
   "visibility": "Näkyvyys",
   "captureThumbnail": "Tallenna pikkukuva",
   "capturedThumbnail": "Pienoiskuvan talteenotto onnistui",
-  "chooseLabelMode": "Choose label mode",
-  "foreground": "Foreground"
+  "chooseLabelMode": "Valitse tunnistetila",
+  "foreground": "Etuala"
 }
