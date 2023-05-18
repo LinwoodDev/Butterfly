@@ -496,6 +496,6 @@
   "visibility": "Visibilité",
   "captureThumbnail": "Capture miniature",
   "capturedThumbnail": "La vignette a été capturée avec succès",
-  "chooseLabelMode": "Choose label mode",
-  "foreground": "Foreground"
+  "chooseLabelMode": "Choisir le mode d'étiquette",
+  "foreground": "Premier plan"
 }
