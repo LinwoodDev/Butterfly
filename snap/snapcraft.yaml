@@ -72,9 +72,7 @@ parts:
       mkdir -p $CRAFT_PART_INSTALL/metainfo
       cp -r linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml $CRAFT_PART_INSTALL/metainfo/
       mkdir -p $CRAFT_PART_INSTALL/meta/gui
-      cp -r linux/debian/usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png $CRAFT_PART_INSTALL/meta/gui
       mv linux/debian/usr/share/applications/dev.linwood.butterfly.desktop $CRAFT_PART_INSTALL/meta/gui/butterfly.desktop
-      #sed -i 's|Icon=dev.linwood.butterfly|Icon=dev.linwood.butterfly.png|' $CRAFT_PART_INSTALL/meta/gui/butterfly.desktop
     stage-packages:
       - libsecret-1-0
       - libjsoncpp25
