@@ -496,6 +496,6 @@
   "visibility": "Visibilità",
   "captureThumbnail": "Cattura miniatura",
   "capturedThumbnail": "Miniatura catturata con successo",
-  "chooseLabelMode": "Choose label mode",
-  "foreground": "Foreground"
+  "chooseLabelMode": "Scegli la modalità etichetta",
+  "foreground": "Primo Piano"
 }
