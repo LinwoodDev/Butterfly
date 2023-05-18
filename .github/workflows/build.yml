@@ -340,9 +340,9 @@ jobs:
   build-snap:
     name: Build Snap
     runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          architecture:
+    strategy:
+      matrix:
+        architecture:
           - amd64
           # - armhf
           - arm64
