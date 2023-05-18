@@ -3,3 +3,4 @@
 * Add foreground property for painter, markdown and text element
 * Add extra file icon ([#374](https://github.com/LinwoodDev/Butterfly/issues/374))
 * Fix connection title bar
+* Fix zoom view showing above the property view

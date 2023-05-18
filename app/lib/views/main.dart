@@ -370,7 +370,6 @@ class _ProjectPageState extends State<ProjectPage> {
                                     final isLandscape =
                                         MediaQuery.of(context).size.height <
                                             400;
-                                    const property = PropertyView();
                                     return Stack(
                                       children: [
                                         Column(
@@ -388,7 +387,10 @@ class _ProjectPageState extends State<ProjectPage> {
                                                           children: [
                                                             ToolbarView(),
                                                           ]),
-                                                      if (!isLandscape) property
+                                                      ZoomView(
+                                                          isMobile: isMobile),
+                                                      if (!isLandscape)
+                                                        const PropertyView()
                                                     ],
                                                   )),
                                               if (isMobile)
@@ -402,8 +404,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                                             isMobile:
                                                                 isMobile))),
                                             ]),
-                                        const ZoomView(),
-                                        if (isLandscape) property
+                                        if (isLandscape) const PropertyView(),
                                       ],
                                     );
                                   })),

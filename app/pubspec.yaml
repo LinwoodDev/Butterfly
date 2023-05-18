@@ -48,7 +48,7 @@ dependencies:
   camera: ^0.10.5
   camera_windows: ^0.2.1+6
   window_manager: ^0.3.2
-  flex_color_scheme: ^7.1.0
+  flex_color_scheme: ^7.1.2
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.1
   path: ^1.8.3
@@ -78,7 +78,7 @@ dependencies:
   popover: ^0.2.8+2
   markdown: ^7.1.0
 dev_dependencies:
-  flutter_native_splash: ^2.2.19
+  flutter_native_splash: ^2.3.0
   #flutter_launcher_icons: ^0.11.0
   flutter_lints: ^2.0.1
   flutter_test:
@@ -88,7 +88,7 @@ dev_dependencies:
   analyzer: ^5.12.0
   freezed: ^2.3.3
   build_runner: ^2.4.4
-  json_serializable: ^6.6.2
+  json_serializable: ^6.7.0
   espresso: ^0.3.0+4
 dependency_overrides:
   archive: 3.3.7
