@@ -496,6 +496,6 @@
   "visibility": "Synlighet",
   "captureThumbnail": "Ta opp miniatyrbilde",
   "capturedThumbnail": "Miniatyrbildet ble tatt opp",
-  "chooseLabelMode": "Choose label mode",
-  "foreground": "Foreground"
+  "chooseLabelMode": "Velg etikett-modus",
+  "foreground": "Forgrunn"
 }
