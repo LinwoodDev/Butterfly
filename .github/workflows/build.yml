@@ -339,17 +339,13 @@ jobs:
   #          app/build/macos/Build/Products/Release/butterfly.app
   build-snap:
     name: Build Snap
-    on:
-    - push
-    jobs:
-      snapcraft-build:
-        runs-on: ubuntu-latest
-        strategy:
-          matrix:
-            architecture:
-            - amd64
-            # - armhf
-            - arm64
+    runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          architecture:
+          - amd64
+          # - armhf
+          - arm64
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-qemu-action@v1
