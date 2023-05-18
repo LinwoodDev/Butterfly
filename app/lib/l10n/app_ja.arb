@@ -496,6 +496,6 @@
   "visibility": "公開範囲",
   "captureThumbnail": "サムネイルをキャプチャする",
   "capturedThumbnail": "サムネイルをキャプチャしました",
-  "chooseLabelMode": "Choose label mode",
-  "foreground": "Foreground"
+  "chooseLabelMode": "ラベルモードを選択",
+  "foreground": "フォアグラウンド（前面）"
 }
