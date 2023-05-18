@@ -1,16 +1,13 @@
 name: butterfly
 grade: stable
 adopt-info: butterfly
-summary: Powerful, minimalistic, cross-platform, opensource note-taking app.
-description: |
-  Butterfly is a note app where your ideas come first. You can paint, add texts and export them easily on every device.
+icon: app/linux/debian/usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png
 base: core22
 confinement: strict
 compression: lzo
 architectures:
   - build-on: amd64
-    build-for: amd64
-  
+
 apps:
   butterfly:
     command: butterfly
@@ -21,26 +18,73 @@ apps:
       - optical-drive
       - removable-media
     common-id: dev.linwood.butterfly
-    desktop: usr/share/applications/dev.linwood.butterfly.desktop
+    desktop: meta/gui/butterfly.desktop
 
 parts:
-  butterfly:
-    plugin: dump
-    source: https://github.com/LinwoodDev/Butterfly.git
+  flutter-git:
+    source: https://github.com/flutter/flutter.git
+    source-tag: 3.10.1
+    plugin: nil
+    override-build: |
+      set -eux
+      mkdir -p $CRAFT_PART_INSTALL/usr/bin
+      mkdir -p $CRAFT_PART_INSTALL/usr/libexec
+      cp -r $CRAFT_PART_SRC $CRAFT_PART_INSTALL/usr/libexec/flutter
+      ln -sf $CRAFT_PART_INSTALL/usr/libexec/flutter/bin/flutter $CRAFT_PART_INSTALL/usr/bin/flutter
+      export PATH="$CRAFT_PART_INSTALL/usr/bin:$PATH"
+      flutter doctor
     build-packages:
-      - build-essential
-      - wget
+      - clang
+      - cmake
       - curl
+      - ninja-build
+      - unzip
+    override-prime: ''
+  butterfly:
+    after: [ flutter-git ]
+    plugin: nil
+    #plugin: flutter
+    source: https://github.com/LinwoodDev/Butterfly.git
+    source-tag: v2.0.0-alpha.3
+    source-subdir: app
+    build-snaps:
+      - cmake
+    build-packages:
+      - curl
+      - libsecret-1-dev
+      - libjsoncpp-dev
     override-pull: |
       craftctl default
-      craftctl set version=$(git describe --tags --abbrev=0)
-      VER="$(git describe --tags --abbrev=0)"
-      wget -q -O- https://github.com/LinwoodDev/Butterfly/releases/download/${VER}/linwood-butterfly-linux.tar.gz |\
-           tar xzf - --strip-components=1 -C $CRAFT_PART_SRC
+      craftctl set version=$(git describe --tags --abbrev=0 | cut -c 2-)
     override-build: |
       craftctl default
-      chmod a+x ./butterfly
+      set -eux
+      cd $CRAFT_PART_SRC_WORK
+      flutter pub get || true
+      flutter build linux --release --verbose --target lib/main.dart
+      cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/
+      mkdir -p $CRAFT_PART_INSTALL/metainfo
+      cp -r linux/debian/usr/share/metainfo/dev.linwood.butterfly.appdata.xml $CRAFT_PART_INSTALL/metainfo/
+      mkdir -p $CRAFT_PART_INSTALL/meta/gui
+      cp -r linux/debian/usr/share/icons/hicolor/256x256/apps/dev.linwood.butterfly.png $CRAFT_PART_INSTALL/meta/gui
+      mv linux/debian/usr/share/applications/dev.linwood.butterfly.desktop $CRAFT_PART_INSTALL/meta/gui/butterfly.desktop
+      #sed -i 's|Icon=dev.linwood.butterfly|Icon=dev.linwood.butterfly.png|' $CRAFT_PART_INSTALL/meta/gui/butterfly.desktop
     stage-packages:
       - libsecret-1-0
       - libjsoncpp25
-    parse-info: [usr/share/metainfo/dev.linwood.butterfly.appdata.xml]
+    parse-info: [ metainfo/dev.linwood.butterfly.appdata.xml ]
+  cleanup:
+    after:  # Make this part run last; list all your other parts here
+      - butterfly
+      - flutter-git
+    plugin: nil
+    build-snaps:  # List all content-snaps and base snaps you're using here
+      - core22
+      - gnome-42-2204
+      - gtk-common-themes
+    override-prime: |
+      set -eux
+      for snap in "core22" "gnome-42-2204" "gtk-common-themes" ; do  # List all content-snaps and base snaps you're using here
+        cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$SNAPCRAFT_PRIME/{}" \;
+      done
+      rm -rf $CRAFT_PRIME/usr/share/doc
