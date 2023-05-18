@@ -1,5 +1,5 @@
 ---
-sidebar_label: "Area"
+sidebar_label: "分區"
 title: "Area painter"
 ---
 
