@@ -337,6 +337,25 @@ jobs:
   #        name: macos-build
   #        path: |
   #          app/build/macos/Build/Products/Release/butterfly.app
+  build-snap:
+    name: Build Snap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [x86_64]
+      fail-fast: false
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v3
+      - name: Build Snap
+        uses: snapcore/action-build@v1
+        id: snapcraft-build
+        with:
+          snapcraft-args: "-v"
+      - uses: actions/upload-artifact@v3
+        with:
+          name: butterfly-snap_x86-64
+          path: ${{ steps.snapcraft-build.outputs.snap }} 
   deploy:
     runs-on: ubuntu-22.04
     if: github.event_name == 'push'
