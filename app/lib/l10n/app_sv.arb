@@ -496,6 +496,6 @@
   "visibility": "Synlighet",
   "captureThumbnail": "Fånga miniatyrbild",
   "capturedThumbnail": "Framgångsrikt fångad miniatyrbild",
-  "chooseLabelMode": "Choose label mode",
-  "foreground": "Foreground"
+  "chooseLabelMode": "Välj etikettläge",
+  "foreground": "Förgrund"
 }
