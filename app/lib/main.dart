@@ -89,8 +89,6 @@ Future<void> main([List<String> args = const []]) async {
     // Use it only after calling `hiddenWindowAtLaunch`
     windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
       await windowManager.setResizable(true);
-      // await windowManager.maximize();
-      await windowManager.show();
       await windowManager.focus();
     });
   }
@@ -283,10 +281,12 @@ class ButterflyApp extends StatelessWidget {
           builder: (context, settings) {
             if (!kIsWeb && isWindow) {
               windowManager.waitUntilReadyToShow().then((_) async {
-                windowManager.setTitleBarStyle(settings.nativeWindowTitleBar
-                    ? TitleBarStyle.normal
-                    : TitleBarStyle.hidden);
-                windowManager.setFullScreen(settings.startInFullScreen);
+                await windowManager.setTitleBarStyle(
+                    settings.nativeWindowTitleBar
+                        ? TitleBarStyle.normal
+                        : TitleBarStyle.hidden);
+                await windowManager.setFullScreen(settings.startInFullScreen);
+                windowManager.show();
               });
             } else {
               setFullScreen(settings.startInFullScreen);

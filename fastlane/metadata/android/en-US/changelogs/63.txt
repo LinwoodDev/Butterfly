@@ -4,3 +4,4 @@
 * Add extra file icon ([#374](https://github.com/LinwoodDev/Butterfly/issues/374))
 * Fix connection title bar
 * Fix zoom view showing above the property view
+* Show only window if title bar was set ([#385](https://github.com/LinwoodDev/Butterfly/issues/385))
