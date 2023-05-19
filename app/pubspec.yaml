@@ -77,8 +77,6 @@ dependencies:
   dynamic_color: ^1.6.5
   popover: ^0.2.8+2
   markdown: ^7.1.0
-  googleapis: ^11.1.0
-  google_sign_in: ^6.1.0
 dev_dependencies:
   flutter_native_splash: ^2.3.0
   #flutter_launcher_icons: ^0.11.0
