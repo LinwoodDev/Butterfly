@@ -51,7 +51,7 @@ parts:
     plugin: nil
     #plugin: flutter
     source: https://github.com/LinwoodDev/Butterfly.git
-    source-tag: v2.0.0-alpha.3
+    source-tag: nightly
     source-subdir: app
     build-snaps:
       - cmake
