@@ -123,7 +123,7 @@
   "documentDirectory": "Document directory",
   "defaultPath": "預設路徑",
   "dateFormat": "日期格式",
-  "updatedAt": "Updated at: {dateTime}",
+  "updatedAt": "更新於：{dateTime}",
   "@updatedAt": {
     "placeholders": {
       "dateTime": {
@@ -133,7 +133,7 @@
       }
     }
   },
-  "createdAt": "Created at: {dateTime}",
+  "createdAt": "建立於：{dateTime}",
   "@createdAt": {
     "placeholders": {
       "dateTime": {
@@ -143,7 +143,7 @@
       }
     }
   },
-  "rename": "更名",
+  "rename": "改名",
   "duplicate": "Duplicate",
   "hand": "Hand",
   "folder": "資料夾",
