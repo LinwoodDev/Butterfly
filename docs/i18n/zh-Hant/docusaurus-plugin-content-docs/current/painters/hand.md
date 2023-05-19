@@ -1,6 +1,6 @@
 ---
-title: "Hand"
-sidebar_label: "Hand"
+title: "手"
+sidebar_label: "手"
 ---
 
 
