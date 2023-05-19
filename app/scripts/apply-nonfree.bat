@@ -1,0 +1,1 @@
+git apply nonfree.patch
