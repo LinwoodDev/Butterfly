@@ -1,5 +1,5 @@
 ---
-title: "Stamp"
+title: "圖章"
 sidebar_label: "形狀"
 sidebar_position: 3
 ---
