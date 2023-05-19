@@ -1,6 +1,6 @@
 ---
 title: "Label painter"
-sidebar_label: "標籤"
+sidebar_label: "標記"
 sidebar_position: 5
 ---
 
