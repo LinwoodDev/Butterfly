@@ -61,7 +61,8 @@ parts:
       - libjsoncpp-dev
     override-pull: |
       craftctl default
-      craftctl set version=$(git describe --tags --abbrev=0 | cut -c 2-)
+      git fetch --tags
+      craftctl set version=$(git tag --sort=-creatordate --list 'v*' --sort=-v:refname | head -n 1 | cut -c 2-)
     override-build: |
       craftctl default
       set -eux
