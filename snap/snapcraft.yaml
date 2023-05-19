@@ -29,8 +29,10 @@ apps:
 parts:
   flutter-git:
     source: https://github.com/flutter/flutter.git
-    source-tag: $(curl https://raw.githubusercontent.com/LinwoodDev/Butterfly/nightly/FLUTTER_VERSION)
+    #source-tag: $(curl https://raw.githubusercontent.com/LinwoodDev/Butterfly/nightly/FLUTTER_VERSION)
     plugin: nil
+    override-pull: |
+      git clone --recursive --branch $(curl https://raw.githubusercontent.com/LinwoodDev/Butterfly/nightly/FLUTTER_VERSION) https://github.com/flutter/flutter.git $CRAFT_PART_SRC
     override-build: |
       set -eux
       mkdir -p $CRAFT_PART_INSTALL/usr/bin
