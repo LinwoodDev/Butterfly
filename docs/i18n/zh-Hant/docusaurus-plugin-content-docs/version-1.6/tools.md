@@ -3,7 +3,7 @@ title: "Tools"
 sidebar_position: 3
 ---
 
-## Grid
+## 格線
 
 The grid allows you to exactly position elements. The grid allows you to exactly position elements. You can use it to move elements or create shapes.
 
