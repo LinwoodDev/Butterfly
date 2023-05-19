@@ -1,6 +1,6 @@
 ---
-title: "Stamp"
-sidebar_label: "Stamp"
+title: "圖章"
+sidebar_label: "圖章"
 sidebar_position: 3
 ---
 
