@@ -120,10 +120,8 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     if (kIsWeb) {
       return WebDocumentFileSystem();
     } else {
-      if (remote is DavRemoteStorage) {
-        return DavRemoteDocumentFileSystem(remote);
-      }
-      return IODocumentFileSystem();
+      return remote?.map(dav: (e) => DavRemoteDocumentFileSystem(e)) ??
+          IODocumentFileSystem();
     }
   }
 
@@ -187,10 +185,8 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
     if (kIsWeb) {
       return WebTemplateFileSystem();
     } else {
-      if (remote is DavRemoteStorage) {
-        return DavRemoteTemplateFileSystem(remote);
-      }
-      return IOTemplateFileSystem();
+      return remote?.map(dav: (e) => DavRemoteTemplateFileSystem(e)) ??
+          IOTemplateFileSystem();
     }
   }
 }

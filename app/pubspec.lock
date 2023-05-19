@@ -252,10 +252,10 @@ packages:
     dependency: "direct main"
     description:
       name: connectivity_plus
-      sha256: "45262924896ff72a8cd92b722bb7e3d5020f9e0724531a3e10e22ddae2005991"
+      sha256: "8599ae9edca5ff96163fca3e36f8e481ea917d1e71cdad912c084b5579913f34"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   connectivity_plus_platform_interface:
     dependency: transitive
     description:
@@ -499,10 +499,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_svg
-      sha256: f991fdb1533c3caeee0cdc14b04f50f0c3916f0dbcbc05237ccbe4e3c6b93f3f
+      sha256: "6ff8c902c8056af9736de2689f63f81c42e2d642b9f4c79dbf8790ae48b63012"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.5"
+    version: "2.0.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -747,10 +747,10 @@ packages:
     dependency: "direct main"
     description:
       name: package_info_plus
-      sha256: d39e8fbff4c5aef4592737e25ad6ac500df006ce7a7a8e1f838ce1256e167542
+      sha256: "28386bbe89ab5a7919a47cea99cdd1128e5a6e0bbd7eaafe20440ead84a15de3"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   package_info_plus_platform_interface:
     dependency: transitive
     description:
@@ -997,10 +997,10 @@ packages:
     dependency: "direct main"
     description:
       name: share_plus
-      sha256: "322a1ec9d9fe07e2e2252c098ce93d12dbd06133cc4c00ffe6a4ef505c295c17"
+      sha256: "44fc0bc2d35a8fafa1b564e1c6888bdc4fbb2d0197e4a4c21bac0e66123be9cd"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0"
+    version: "7.0.1"
   share_plus_platform_interface:
     dependency: transitive
     description:
@@ -1274,26 +1274,26 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics
-      sha256: "59a230f8bf37dd8b077335d1d64d895bccef0fb14f50730e3d79e8990bf3ed2b"
+      sha256: b96f10cbdfcbd03a65758633a43e7d04574438f059b1043104b5d61b23d38a4f
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.5+1"
+    version: "1.1.6"
   vector_graphics_codec:
     dependency: transitive
     description:
       name: vector_graphics_codec
-      sha256: "40781fe91c6d10a617c0289f7ec16cdb2d85a7f3654af2778c6d0adbf3bf45a3"
+      sha256: "57a8e6e24662a3bdfe3b3d61257db91768700c0b8f844e235877b56480f31c69"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.5+1"
+    version: "1.1.6"
   vector_graphics_compiler:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: "6ca1298b70edcc3486fdb14032f1a186a593f1b5f6b5e82fb10febddcb1c61bb"
+      sha256: "7430f5d834d0db4560d7b19863362cd892f1e52b43838553a3c5cdfc9ab28e5b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.5+1"
+    version: "1.1.6"
   vector_math:
     dependency: transitive
     description:
