@@ -17,7 +17,7 @@ Use this painter to draw shapes on the paper. Use this painter to draw shapes on
 |             形狀 | rectangle | The shape that will be drawn                                                                                                                                                                                                                         |
 |             寬度 |     0     | The fixed width of the area. The fixed width of the area. If set to 0, the width will be calculated automatically.                                                                                                                                   |
 |             高度 |     0     | The fixed height of the area. The fixed height of the area. If set to 0, the height will be calculated automatically.                                                                                                                                |
-|   Aspect ratio |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
+|            長寬比 |     0     | The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. The fixed aspect ratio of the area. If set to 0, the aspect ratio will be calculated automatically. A aspect ratio is defined as width / height. |
 
 ### Shape types
 
