@@ -15,7 +15,7 @@ The area painter allows you to create, edit and remove areas.
 
 ## Configuration
 
-|     Property | Default | Description                                                                                                                                                                                                                                          |
+|     Property | Default | 說明                                                                                                                                                                                                                                                   |
 | ------------:|:-------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |           寬度 |    0    | The fixed width of the area. The fixed width of the area. If set to 0, the width will be calculated automatically.                                                                                                                                   |
 |           高度 |    0    | The fixed height of the area. The fixed height of the area. If set to 0, the height will be calculated automatically.                                                                                                                                |
