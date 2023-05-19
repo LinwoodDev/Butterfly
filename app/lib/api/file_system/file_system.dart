@@ -5,10 +5,10 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
+import 'file_system_dav.dart';
 import 'file_system_io.dart';
 import 'file_system_html_stub.dart'
     if (dart.library.js) 'file_system_html.dart';
-import 'file_system_remote.dart';
 
 abstract class GeneralFileSystem {
   static String? dataPath;
@@ -255,10 +255,8 @@ abstract class PackFileSystem extends GeneralFileSystem {
     if (kIsWeb) {
       return WebPackFileSystem();
     } else {
-      if (remote is DavRemoteStorage) {
-        return DavRemotePackFileSystem(remote);
-      }
-      return IOPackFileSystem();
+      return remote?.map(dav: (e) => DavRemotePackFileSystem(e)) ??
+          IOPackFileSystem();
     }
   }
 }

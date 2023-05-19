@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../api/file_system.dart';
+import '../../api/file_system/file_system.dart';
 
 typedef PathSelectedCallback = void Function(String path);
 

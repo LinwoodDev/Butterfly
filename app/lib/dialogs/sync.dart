@@ -1,4 +1,4 @@
-import 'package:butterfly/api/file_system_remote.dart';
+import 'package:butterfly/api/file_system/file_system_remote.dart';
 import 'package:butterfly/visualizer/sync.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

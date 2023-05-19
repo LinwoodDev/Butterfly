@@ -17,7 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 
-import 'api/file_system.dart';
+import 'api/file_system/file_system.dart';
 import 'api/full_screen.dart';
 import 'cubits/settings.dart';
 import 'embed/embedding.dart';
