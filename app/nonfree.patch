@@ -1,0 +1,1307 @@
+diff --git a/app/lib/api/file_system/file_system.dart b/app/lib/api/file_system/file_system.dart
+index 266ebe24..63a8d592 100644
+--- a/app/lib/api/file_system/file_system.dart
++++ b/app/lib/api/file_system/file_system.dart
+@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
+ import 'package:flutter/widgets.dart';
+ 
+ import 'file_system_dav.dart';
++import 'file_system_google.dart';
+ import 'file_system_io.dart';
+ import 'file_system_html_stub.dart'
+     if (dart.library.js) 'file_system_html.dart';
+@@ -120,7 +121,9 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
+     if (kIsWeb) {
+       return WebDocumentFileSystem();
+     } else {
+-      return remote?.map(dav: (e) => DavRemoteDocumentFileSystem(e)) ??
++      return remote?.map(
++              dav: (e) => DavRemoteDocumentFileSystem(e),
++              google: (e) => GoogleRemoteDocumentFileSystem(e)) ??
+           IODocumentFileSystem();
+     }
+   }
+@@ -185,7 +188,9 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
+     if (kIsWeb) {
+       return WebTemplateFileSystem();
+     } else {
+-      return remote?.map(dav: (e) => DavRemoteTemplateFileSystem(e)) ??
++      return remote?.map(
++              dav: (e) => DavRemoteTemplateFileSystem(e),
++              google: (e) => GoogleRemoteTemplateFileSystem(e)) ??
+           IOTemplateFileSystem();
+     }
+   }
+@@ -251,7 +256,9 @@ abstract class PackFileSystem extends GeneralFileSystem {
+     if (kIsWeb) {
+       return WebPackFileSystem();
+     } else {
+-      return remote?.map(dav: (e) => DavRemotePackFileSystem(e)) ??
++      return remote?.map(
++              dav: (e) => DavRemotePackFileSystem(e),
++              google: (e) => GoogleRemotePackFileSystem(e)) ??
+           IOPackFileSystem();
+     }
+   }
+diff --git a/app/lib/api/file_system/file_system_google.dart b/app/lib/api/file_system/file_system_google.dart
+new file mode 100644
+index 00000000..6c76d67c
+--- /dev/null
++++ b/app/lib/api/file_system/file_system_google.dart
+@@ -0,0 +1,473 @@
++import 'dart:convert';
++import 'dart:io';
++import 'dart:typed_data';
++
++import 'package:butterfly_api/butterfly_api.dart';
++import 'package:collection/collection.dart';
++import 'package:flutter/material.dart';
++import 'package:http/http.dart' as http;
++import 'package:path/path.dart' as p;
++import 'package:xml/xml.dart';
++
++import '../../cubits/settings.dart';
++import '../../models/defaults.dart';
++import 'file_system.dart';
++import 'file_system_remote.dart';
++
++class GoogleRemoteDocumentFileSystem extends DocumentRemoteSystem {
++  @override
++  final GoogleRemoteStorage remote;
++
++  GoogleRemoteDocumentFileSystem(this.remote);
++
++  final http.Client client = http.Client();
++  Future<http.StreamedResponse> _createRequest(List<String> path,
++      {String method = 'GET', List<int>? body}) async {
++    path = List<String>.from(path);
++    if (path.firstOrNull?.isEmpty ?? false) {
++      path.removeAt(0);
++    }
++    final url = remote.buildDocumentsUri(path: path);
++    final request = http.Request(method, url);
++    if (body != null) {
++      request.bodyBytes = body;
++    }
++    request.headers['Authorization'] =
++        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}';
++    return client.send(request);
++  }
++
++  @override
++  Future<String> getRemoteCacheDirectory() async =>
++      p.join(await super.getRemoteCacheDirectory(), 'Documents');
++
++  @override
++  Future<AppDocumentDirectory> createDirectory(String path) async {
++    if (path.startsWith('/')) {
++      path = path.substring(1);
++    }
++    if (!path.endsWith('/')) {
++      path = '$path/';
++    }
++    final response = await _createRequest(path.split('/'), method: 'MKCOL');
++    if (response.statusCode != 201) {
++      throw Exception('Failed to create directory: ${response.statusCode}');
++    }
++    return AppDocumentDirectory(
++        AssetLocation(
++            remote: remote.identifier,
++            path: path.substring(0, path.length - 1)),
++        const []);
++  }
++
++  @override
++  Future<void> deleteAsset(String path) async {
++    final response = await _createRequest(path.split('/'), method: 'DELETE');
++    if (response.statusCode != 204) {
++      throw Exception('Failed to delete asset: ${response.statusCode}');
++    }
++  }
++
++  @override
++  Future<AppDocumentEntity?> getAsset(String path,
++      {bool forceRemote = false}) async {
++    if (path.endsWith('/')) {
++      path = path.substring(0, path.length - 1);
++    }
++    if (path.startsWith('/')) {
++      path = path.substring(1);
++    }
++    final cached = await getCachedContent(path);
++    if (cached != null && !forceRemote) {
++      return AppDocumentFile(
++          AssetLocation(remote: remote.identifier, path: path), cached);
++    }
++
++    var response = await _createRequest(path.split('/'), method: 'PROPFIND');
++    if (response.statusCode != 207) {
++      return null;
++    }
++    var content = await response.stream.bytesToString();
++    final xml = XmlDocument.parse(content);
++    final fileName = remote.buildDocumentsUri(path: path.split('/')).path;
++    final currentElement = xml.findAllElements('d:response').where((element) {
++      final current = element.getElement('d:href')?.value;
++      return current == fileName || current == '$fileName/';
++    }).first;
++    final resourceType = currentElement
++        .findElements('d:propstat')
++        .first
++        .findElements('d:prop')
++        .first
++        .findElements('d:resourcetype')
++        .first;
++    if (resourceType.getElement('d:collection') != null) {
++      final assets = await Future.wait(xml
++          .findAllElements('d:response')
++          .where((element) =>
++              element.getElement('d:href')?.value?.startsWith(fileName) ??
++              false)
++          .where((element) {
++        final current = element.getElement('d:href')?.value;
++        return current != fileName && current != '$fileName/';
++      }).map((e) async {
++        final currentResourceType = e
++            .findElements('d:propstat')
++            .first
++            .findElements('d:prop')
++            .first
++            .findElements('d:resourcetype')
++            .first;
++        var path = e
++                .findElements('d:href')
++                .first
++                .value
++                ?.substring(remote.buildDocumentsUri().path.length) ??
++            '';
++        if (path.endsWith('/')) {
++          path = path.substring(0, path.length - 1);
++        }
++        if (!path.startsWith('/')) {
++          path = '/$path';
++        }
++        path = Uri.decodeComponent(path);
++        if (currentResourceType.getElement('d:collection') != null) {
++          return AppDocumentEntity.file(
++              AssetLocation(remote: remote.identifier, path: path), const []);
++        } else {
++          return AppDocumentEntity.fileFromMap(
++              AssetLocation(remote: remote.identifier, path: path), const {});
++        }
++      }).toList());
++      return AppDocumentEntity.directory(
++          AssetLocation(remote: remote.identifier, path: path), assets);
++    }
++    response = await _createRequest(path.split('/'), method: 'GET');
++    if (response.statusCode != 200) {
++      throw Exception('Failed to get asset: ${response.statusCode}');
++    }
++    var fileContent = await response.stream.toBytes();
++    return AppDocumentFile(
++        AssetLocation(remote: remote.identifier, path: path), fileContent);
++  }
++
++  @override
++  Future<DateTime?> getRemoteFileModified(String path) async {
++    final response = await _createRequest(path.split('/'), method: 'PROPFIND');
++    if (response.statusCode != 207) {
++      return null;
++    }
++    final body = await response.stream.bytesToString();
++    final xml = XmlDocument.parse(body);
++    final lastModified = xml
++        .findAllElements('d:response')
++        .firstOrNull
++        ?.findElements('d:propstat')
++        .firstOrNull
++        ?.findElements('d:prop')
++        .firstOrNull
++        ?.findElements('d:getlastmodified')
++        .firstOrNull
++        ?.value;
++    if (lastModified == null) {
++      return null;
++    }
++    //  Parse lastModified rfc1123-date to Iso8601
++
++    return HttpDate.parse(lastModified);
++  }
++
++  @override
++  Future<bool> hasAsset(String path) async {
++    final response = await _createRequest(path.split('/'));
++    return response.statusCode == 200;
++  }
++
++  @override
++  Future<AppDocumentFile> updateFile(String path, List<int> data,
++      {bool forceSync = false}) async {
++    if (!forceSync && remote.hasDocumentCached(path)) {
++      cacheContent(path, data);
++      return AppDocumentFile(
++          AssetLocation(remote: remote.identifier, path: path), data);
++    }
++    // Create directory if not exists
++    final directoryPath = path.substring(0, path.lastIndexOf('/'));
++    if (!await hasAsset(directoryPath)) {
++      await createDirectory(directoryPath);
++    }
++    final response =
++        await _createRequest(path.split('/'), method: 'PUT', body: data);
++    if (response.statusCode != 201 && response.statusCode != 204) {
++      throw Exception(
++          'Failed to update document: ${response.statusCode} ${response.reasonPhrase}');
++    }
++    return AppDocumentFile(
++        AssetLocation(remote: remote.identifier, path: path), data);
++  }
++
++  @override
++  Future<AppDocumentFile> updateDocument(String path, NoteData document,
++          {bool forceSync = false}) =>
++      updateFile(path, document.save(), forceSync: forceSync);
++
++  @override
++  Future<AppDocumentFile> importDocument(NoteData document,
++      {String path = '', bool forceSync = false}) {
++    if (path.endsWith('/')) {
++      path = path.substring(0, path.length - 1);
++    }
++    return createFile('$path/${document.name}.bfly', document.save(),
++        forceSync: forceSync);
++  }
++
++  @override
++  Future<AppDocumentFile> createFile(String path, List<int> data,
++          {bool forceSync = false}) async =>
++      updateFile(await findAvailableName(path), data);
++}
++
++class GoogleRemoteTemplateFileSystem extends TemplateFileSystem with RemoteSystem {
++  @override
++  final GoogleRemoteStorage remote;
++
++  GoogleRemoteTemplateFileSystem(this.remote);
++
++  final http.Client client = http.Client();
++  Future<http.StreamedResponse> _createRequest(String path,
++      {String method = 'GET', String? body, Uint8List? bodyBytes}) async {
++    final url = remote.buildTemplatesUri(path: path.split('/'));
++    final request = http.Request(method, url);
++    if (body != null) {
++      request.body = body;
++    } else if (bodyBytes != null) {
++      request.bodyBytes = bodyBytes;
++    }
++    request.headers['Authorization'] =
++        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}';
++    return client.send(request);
++  }
++
++  @override
++  Future<bool> createDefault(BuildContext context, {bool force = false}) async {
++    try {
++      var defaults = await DocumentDefaults.getDefaults(context);
++      // test if directory exists
++      final response = await _createRequest('', method: 'PROPFIND');
++      if (response.statusCode != 404 && !force) {
++        return false;
++      }
++      // Create directory if it doesn't exist
++      await _createRequest('', method: 'MKCOL');
++      await Future.wait(defaults.map((e) => updateTemplate(e)));
++      return true;
++    } on SocketException catch (_) {
++      return false;
++    }
++  }
++
++  @override
++  Future<void> deleteTemplate(String name) async {
++    final response = await _createRequest(name, method: 'DELETE');
++    if (response.statusCode != 204) {
++      throw Exception('Failed to delete template: ${response.statusCode}');
++    }
++  }
++
++  @override
++  Future<NoteData?> getTemplate(String name) async {
++    if (name.startsWith('/')) {
++      name = name.substring(1);
++    }
++    try {
++      final response = await _createRequest(name);
++      if (response.statusCode != 200) {
++        return null;
++      }
++      final content = await response.stream.toBytes();
++      cacheContent(name, content);
++      return NoteData.fromData(content);
++    } catch (e) {
++      return getCachedTemplate(name);
++    }
++  }
++
++  Future<NoteData?> getCachedTemplate(String name) async {
++    final content = await getCachedContent(name);
++    if (content == null) {
++      return null;
++    }
++    return NoteData.fromData(content);
++  }
++
++  @override
++  Future<List<NoteData>> getTemplates() async {
++    try {
++      final response = await _createRequest('', method: 'PROPFIND');
++      if (response.statusCode == 404) {
++        return [];
++      }
++      if (response.statusCode != 207) {
++        throw Exception(
++            'Failed to get templates: ${response.statusCode} ${response.reasonPhrase}');
++      }
++      final content = await response.stream.bytesToString();
++      final xml = XmlDocument.parse(content);
++      clearCachedContent();
++      return (await Future.wait(xml
++              .findAllElements('d:href')
++              .where((element) => element.value?.endsWith('.bfly') ?? false)
++              .map((e) {
++        var path = e.value!.substring(remote.buildTemplatesUri().path.length);
++        path = Uri.decodeComponent(path);
++        return getTemplate(path);
++      })))
++          .whereNotNull()
++          .toList();
++    } on SocketException catch (_) {
++      return await getCachedTemplates();
++    }
++  }
++
++  @override
++  Future<bool> hasTemplate(String name) {
++    return _createRequest(name).then((response) => response.statusCode == 200);
++  }
++
++  @override
++  Future<void> updateTemplate(NoteData template) {
++    return _createRequest('${template.name}.bfly',
++        method: 'PUT', bodyBytes: Uint8List.fromList(template.save()));
++  }
++
++  Future<List<NoteData>> getCachedTemplates() async {
++    final cachedFiles = await getCachedFiles();
++    return cachedFiles.values.map(NoteData.fromData).toList();
++  }
++
++  @override
++  Future<String> getRemoteCacheDirectory() async =>
++      p.join(await super.getRemoteCacheDirectory(), 'Templates');
++}
++
++class GoogleRemotePackFileSystem extends PackFileSystem with RemoteSystem {
++  @override
++  final GoogleRemoteStorage remote;
++
++  GoogleRemotePackFileSystem(this.remote);
++
++  final http.Client client = http.Client();
++  Future<http.StreamedResponse> _createRequest(String path,
++      {String method = 'GET', Uint8List? bodyBytes, String? body}) async {
++    final url = remote.buildPacksUri(path: path.split('/'));
++    final request = http.Request(method, url);
++    if (body != null) {
++      request.body = body;
++    } else if (bodyBytes != null) {
++      request.bodyBytes = bodyBytes;
++    }
++    request.headers['Authorization'] =
++        'Basic ${base64Encode(utf8.encode('${remote.username}:${await remote.getRemotePassword()}'))}';
++    return client.send(request);
++  }
++
++  @override
++  Future<void> deletePack(String name) async {
++    final response = await _createRequest(name, method: 'DELETE');
++    if (response.statusCode != 204) {
++      throw Exception('Failed to delete pack: ${response.statusCode}');
++    }
++  }
++
++  @override
++  Future<NoteData?> getPack(String name) async {
++    if (name.startsWith('/')) {
++      name = name.substring(1);
++    }
++    try {
++      final response = await _createRequest(name);
++      if (response.statusCode != 200) {
++        return null;
++      }
++      final content = await response.stream.toBytes();
++      cacheContent(name, content);
++      return NoteData.fromData(content);
++    } catch (e) {
++      return getCachedPack(name);
++    }
++  }
++
++  Future<NoteData?> getCachedPack(String name) async {
++    final content = await getCachedContent(name);
++    if (content == null) {
++      return null;
++    }
++    return NoteData.fromData(content);
++  }
++
++  @override
++  Future<List<NoteData>> getPacks() async {
++    try {
++      final response = await _createRequest('', method: 'PROPFIND');
++      if (response.statusCode == 404) {
++        return [];
++      }
++      if (response.statusCode != 207) {
++        throw Exception(
++            'Failed to get packs: ${response.statusCode} ${response.reasonPhrase}');
++      }
++      final content = await response.stream.bytesToString();
++      final xml = XmlDocument.parse(content);
++      clearCachedContent();
++      return (await Future.wait(xml
++              .findAllElements('d:href')
++              .where((element) => element.value?.endsWith('.bfly') ?? false)
++              .map((e) {
++        var path = e.value!.substring(remote.buildPacksUri().path.length);
++        path = Uri.decodeComponent(path);
++        return getPack(path);
++      })))
++          .whereNotNull()
++          .toList();
++    } on SocketException catch (_) {
++      return await getCachedPacks();
++    }
++  }
++
++  @override
++  Future<bool> hasPack(String name) {
++    return _createRequest(name).then((response) => response.statusCode == 200);
++  }
++
++  @override
++  Future<void> updatePack(NoteData pack) {
++    return _createRequest('${pack.name}.bfly',
++        method: 'PUT', bodyBytes: Uint8List.fromList(pack.save()));
++  }
++
++  Future<List<NoteData>> getCachedPacks() async {
++    final cachedFiles = await getCachedFiles();
++    return cachedFiles.values.map(NoteData.fromData).toList();
++  }
++
++  @override
++  Future<String> getRemoteCacheDirectory() async =>
++      p.join(await super.getRemoteCacheDirectory(), 'Packs');
++
++  @override
++  Future<bool> createDefault(BuildContext context, {bool force = false}) async {
++    try {
++      // test if directory exists
++      final response = await _createRequest('', method: 'PROPFIND');
++      if (response.statusCode != 404 && !force) {
++        return false;
++      }
++      // Create directory if it doesn't exist
++      await _createRequest('', method: 'MKCOL');
++      await updatePack(await DocumentDefaults.getCorePack());
++      return true;
++    } on SocketException catch (_) {
++      return false;
++    }
++  }
++}
+diff --git a/app/lib/cubits/settings.dart b/app/lib/cubits/settings.dart
+index 683a8ce2..bc1cc4ad 100644
+--- a/app/lib/cubits/settings.dart
++++ b/app/lib/cubits/settings.dart
+@@ -36,6 +36,19 @@ class RemoteStorage with _$RemoteStorage {
+     DateTime? lastSynced,
+   }) = DavRemoteStorage;
+ 
++  const factory RemoteStorage.google({
++    required String username,
++    required String url,
++    required String path,
++    required String documentsPath,
++    required String templatesPath,
++    required String packsPath,
++    @Default([]) List<String> cachedDocuments,
++    @Default([]) List<String> starred,
++    @Uint8ListJsonConverter() required Uint8List icon,
++    DateTime? lastSynced,
++  }) = GoogleRemoteStorage;
++
+   factory RemoteStorage.fromJson(Map<String, dynamic> json) =>
+       _$RemoteStorageFromJson(json);
+ 
+diff --git a/app/lib/cubits/settings.freezed.dart b/app/lib/cubits/settings.freezed.dart
+index 836395c8..4ce10741 100644
+--- a/app/lib/cubits/settings.freezed.dart
++++ b/app/lib/cubits/settings.freezed.dart
+@@ -15,7 +15,16 @@ final _privateConstructorUsedError = UnsupportedError(
+     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+ 
+ RemoteStorage _$RemoteStorageFromJson(Map<String, dynamic> json) {
+-  return DavRemoteStorage.fromJson(json);
++  switch (json['type']) {
++    case 'dav':
++      return DavRemoteStorage.fromJson(json);
++    case 'google':
++      return GoogleRemoteStorage.fromJson(json);
++
++    default:
++      throw CheckedFromJsonException(json, 'type', 'RemoteStorage',
++          'Invalid union type "${json['type']}"!');
++  }
+ }
+ 
+ /// @nodoc
+@@ -45,6 +54,18 @@ mixin _$RemoteStorage {
+             @Uint8ListJsonConverter() Uint8List icon,
+             DateTime? lastSynced)
+         dav,
++    required TResult Function(
++            String username,
++            String url,
++            String path,
++            String documentsPath,
++            String templatesPath,
++            String packsPath,
++            List<String> cachedDocuments,
++            List<String> starred,
++            @Uint8ListJsonConverter() Uint8List icon,
++            DateTime? lastSynced)
++        google,
+   }) =>
+       throw _privateConstructorUsedError;
+   @optionalTypeArgs
+@@ -61,6 +82,18 @@ mixin _$RemoteStorage {
+             @Uint8ListJsonConverter() Uint8List icon,
+             DateTime? lastSynced)?
+         dav,
++    TResult? Function(
++            String username,
++            String url,
++            String path,
++            String documentsPath,
++            String templatesPath,
++            String packsPath,
++            List<String> cachedDocuments,
++            List<String> starred,
++            @Uint8ListJsonConverter() Uint8List icon,
++            DateTime? lastSynced)?
++        google,
+   }) =>
+       throw _privateConstructorUsedError;
+   @optionalTypeArgs
+@@ -77,22 +110,37 @@ mixin _$RemoteStorage {
+             @Uint8ListJsonConverter() Uint8List icon,
+             DateTime? lastSynced)?
+         dav,
++    TResult Function(
++            String username,
++            String url,
++            String path,
++            String documentsPath,
++            String templatesPath,
++            String packsPath,
++            List<String> cachedDocuments,
++            List<String> starred,
++            @Uint8ListJsonConverter() Uint8List icon,
++            DateTime? lastSynced)?
++        google,
+     required TResult orElse(),
+   }) =>
+       throw _privateConstructorUsedError;
+   @optionalTypeArgs
+   TResult map<TResult extends Object?>({
+     required TResult Function(DavRemoteStorage value) dav,
++    required TResult Function(GoogleRemoteStorage value) google,
+   }) =>
+       throw _privateConstructorUsedError;
+   @optionalTypeArgs
+   TResult? mapOrNull<TResult extends Object?>({
+     TResult? Function(DavRemoteStorage value)? dav,
++    TResult? Function(GoogleRemoteStorage value)? google,
+   }) =>
+       throw _privateConstructorUsedError;
+   @optionalTypeArgs
+   TResult maybeMap<TResult extends Object?>({
+     TResult Function(DavRemoteStorage value)? dav,
++    TResult Function(GoogleRemoteStorage value)? google,
+     required TResult orElse(),
+   }) =>
+       throw _privateConstructorUsedError;
+@@ -291,9 +339,11 @@ class _$DavRemoteStorage extends DavRemoteStorage {
+       final List<String> cachedDocuments = const [],
+       final List<String> starred = const [],
+       @Uint8ListJsonConverter() required this.icon,
+-      this.lastSynced})
++      this.lastSynced,
++      final String? $type})
+       : _cachedDocuments = cachedDocuments,
+         _starred = starred,
++        $type = $type ?? 'dav',
+         super._();
+ 
+   factory _$DavRemoteStorage.fromJson(Map<String, dynamic> json) =>
+@@ -335,6 +385,9 @@ class _$DavRemoteStorage extends DavRemoteStorage {
+   @override
+   final DateTime? lastSynced;
+ 
++  @JsonKey(name: 'type')
++  final String $type;
++
+   @override
+   String toString() {
+     return 'RemoteStorage.dav(username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, starred: $starred, icon: $icon, lastSynced: $lastSynced)';
+@@ -399,6 +452,18 @@ class _$DavRemoteStorage extends DavRemoteStorage {
+             @Uint8ListJsonConverter() Uint8List icon,
+             DateTime? lastSynced)
+         dav,
++    required TResult Function(
++            String username,
++            String url,
++            String path,
++            String documentsPath,
++            String templatesPath,
++            String packsPath,
++            List<String> cachedDocuments,
++            List<String> starred,
++            @Uint8ListJsonConverter() Uint8List icon,
++            DateTime? lastSynced)
++        google,
+   }) {
+     return dav(username, url, path, documentsPath, templatesPath, packsPath,
+         cachedDocuments, starred, icon, lastSynced);
+@@ -419,6 +484,18 @@ class _$DavRemoteStorage extends DavRemoteStorage {
+             @Uint8ListJsonConverter() Uint8List icon,
+             DateTime? lastSynced)?
+         dav,
++    TResult? Function(
++            String username,
++            String url,
++            String path,
++            String documentsPath,
++            String templatesPath,
++            String packsPath,
++            List<String> cachedDocuments,
++            List<String> starred,
++            @Uint8ListJsonConverter() Uint8List icon,
++            DateTime? lastSynced)?
++        google,
+   }) {
+     return dav?.call(username, url, path, documentsPath, templatesPath,
+         packsPath, cachedDocuments, starred, icon, lastSynced);
+@@ -439,6 +516,18 @@ class _$DavRemoteStorage extends DavRemoteStorage {
+             @Uint8ListJsonConverter() Uint8List icon,
+             DateTime? lastSynced)?
+         dav,
++    TResult Function(
++            String username,
++            String url,
++            String path,
++            String documentsPath,
++            String templatesPath,
++            String packsPath,
++            List<String> cachedDocuments,
++            List<String> starred,
++            @Uint8ListJsonConverter() Uint8List icon,
++            DateTime? lastSynced)?
++        google,
+     required TResult orElse(),
+   }) {
+     if (dav != null) {
+@@ -452,6 +541,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
+   @optionalTypeArgs
+   TResult map<TResult extends Object?>({
+     required TResult Function(DavRemoteStorage value) dav,
++    required TResult Function(GoogleRemoteStorage value) google,
+   }) {
+     return dav(this);
+   }
+@@ -460,6 +550,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
+   @optionalTypeArgs
+   TResult? mapOrNull<TResult extends Object?>({
+     TResult? Function(DavRemoteStorage value)? dav,
++    TResult? Function(GoogleRemoteStorage value)? google,
+   }) {
+     return dav?.call(this);
+   }
+@@ -468,6 +559,7 @@ class _$DavRemoteStorage extends DavRemoteStorage {
+   @optionalTypeArgs
+   TResult maybeMap<TResult extends Object?>({
+     TResult Function(DavRemoteStorage value)? dav,
++    TResult Function(GoogleRemoteStorage value)? google,
+     required TResult orElse(),
+   }) {
+     if (dav != null) {
+@@ -528,6 +620,389 @@ abstract class DavRemoteStorage extends RemoteStorage {
+       throw _privateConstructorUsedError;
+ }
+ 
++/// @nodoc
++abstract class _$$GoogleRemoteStorageCopyWith<$Res>
++    implements $RemoteStorageCopyWith<$Res> {
++  factory _$$GoogleRemoteStorageCopyWith(_$GoogleRemoteStorage value,
++          $Res Function(_$GoogleRemoteStorage) then) =
++      __$$GoogleRemoteStorageCopyWithImpl<$Res>;
++  @override
++  @useResult
++  $Res call(
++      {String username,
++      String url,
++      String path,
++      String documentsPath,
++      String templatesPath,
++      String packsPath,
++      List<String> cachedDocuments,
++      List<String> starred,
++      @Uint8ListJsonConverter() Uint8List icon,
++      DateTime? lastSynced});
++}
++
++/// @nodoc
++class __$$GoogleRemoteStorageCopyWithImpl<$Res>
++    extends _$RemoteStorageCopyWithImpl<$Res, _$GoogleRemoteStorage>
++    implements _$$GoogleRemoteStorageCopyWith<$Res> {
++  __$$GoogleRemoteStorageCopyWithImpl(
++      _$GoogleRemoteStorage _value, $Res Function(_$GoogleRemoteStorage) _then)
++      : super(_value, _then);
++
++  @pragma('vm:prefer-inline')
++  @override
++  $Res call({
++    Object? username = null,
++    Object? url = null,
++    Object? path = null,
++    Object? documentsPath = null,
++    Object? templatesPath = null,
++    Object? packsPath = null,
++    Object? cachedDocuments = null,
++    Object? starred = null,
++    Object? icon = null,
++    Object? lastSynced = freezed,
++  }) {
++    return _then(_$GoogleRemoteStorage(
++      username: null == username
++          ? _value.username
++          : username // ignore: cast_nullable_to_non_nullable
++              as String,
++      url: null == url
++          ? _value.url
++          : url // ignore: cast_nullable_to_non_nullable
++              as String,
++      path: null == path
++          ? _value.path
++          : path // ignore: cast_nullable_to_non_nullable
++              as String,
++      documentsPath: null == documentsPath
++          ? _value.documentsPath
++          : documentsPath // ignore: cast_nullable_to_non_nullable
++              as String,
++      templatesPath: null == templatesPath
++          ? _value.templatesPath
++          : templatesPath // ignore: cast_nullable_to_non_nullable
++              as String,
++      packsPath: null == packsPath
++          ? _value.packsPath
++          : packsPath // ignore: cast_nullable_to_non_nullable
++              as String,
++      cachedDocuments: null == cachedDocuments
++          ? _value._cachedDocuments
++          : cachedDocuments // ignore: cast_nullable_to_non_nullable
++              as List<String>,
++      starred: null == starred
++          ? _value._starred
++          : starred // ignore: cast_nullable_to_non_nullable
++              as List<String>,
++      icon: null == icon
++          ? _value.icon
++          : icon // ignore: cast_nullable_to_non_nullable
++              as Uint8List,
++      lastSynced: freezed == lastSynced
++          ? _value.lastSynced
++          : lastSynced // ignore: cast_nullable_to_non_nullable
++              as DateTime?,
++    ));
++  }
++}
++
++/// @nodoc
++@JsonSerializable()
++class _$GoogleRemoteStorage extends GoogleRemoteStorage {
++  const _$GoogleRemoteStorage(
++      {required this.username,
++      required this.url,
++      required this.path,
++      required this.documentsPath,
++      required this.templatesPath,
++      required this.packsPath,
++      final List<String> cachedDocuments = const [],
++      final List<String> starred = const [],
++      @Uint8ListJsonConverter() required this.icon,
++      this.lastSynced,
++      final String? $type})
++      : _cachedDocuments = cachedDocuments,
++        _starred = starred,
++        $type = $type ?? 'google',
++        super._();
++
++  factory _$GoogleRemoteStorage.fromJson(Map<String, dynamic> json) =>
++      _$$GoogleRemoteStorageFromJson(json);
++
++  @override
++  final String username;
++  @override
++  final String url;
++  @override
++  final String path;
++  @override
++  final String documentsPath;
++  @override
++  final String templatesPath;
++  @override
++  final String packsPath;
++  final List<String> _cachedDocuments;
++  @override
++  @JsonKey()
++  List<String> get cachedDocuments {
++    if (_cachedDocuments is EqualUnmodifiableListView) return _cachedDocuments;
++    // ignore: implicit_dynamic_type
++    return EqualUnmodifiableListView(_cachedDocuments);
++  }
++
++  final List<String> _starred;
++  @override
++  @JsonKey()
++  List<String> get starred {
++    if (_starred is EqualUnmodifiableListView) return _starred;
++    // ignore: implicit_dynamic_type
++    return EqualUnmodifiableListView(_starred);
++  }
++
++  @override
++  @Uint8ListJsonConverter()
++  final Uint8List icon;
++  @override
++  final DateTime? lastSynced;
++
++  @JsonKey(name: 'type')
++  final String $type;
++
++  @override
++  String toString() {
++    return 'RemoteStorage.google(username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, starred: $starred, icon: $icon, lastSynced: $lastSynced)';
++  }
++
++  @override
++  bool operator ==(dynamic other) {
++    return identical(this, other) ||
++        (other.runtimeType == runtimeType &&
++            other is _$GoogleRemoteStorage &&
++            (identical(other.username, username) ||
++                other.username == username) &&
++            (identical(other.url, url) || other.url == url) &&
++            (identical(other.path, path) || other.path == path) &&
++            (identical(other.documentsPath, documentsPath) ||
++                other.documentsPath == documentsPath) &&
++            (identical(other.templatesPath, templatesPath) ||
++                other.templatesPath == templatesPath) &&
++            (identical(other.packsPath, packsPath) ||
++                other.packsPath == packsPath) &&
++            const DeepCollectionEquality()
++                .equals(other._cachedDocuments, _cachedDocuments) &&
++            const DeepCollectionEquality().equals(other._starred, _starred) &&
++            const DeepCollectionEquality().equals(other.icon, icon) &&
++            (identical(other.lastSynced, lastSynced) ||
++                other.lastSynced == lastSynced));
++  }
++
++  @JsonKey(ignore: true)
++  @override
++  int get hashCode => Object.hash(
++      runtimeType,
++      username,
++      url,
++      path,
++      documentsPath,
++      templatesPath,
++      packsPath,
++      const DeepCollectionEquality().hash(_cachedDocuments),
++      const DeepCollectionEquality().hash(_starred),
++      const DeepCollectionEquality().hash(icon),
++      lastSynced);
++
++  @JsonKey(ignore: true)
++  @override
++  @pragma('vm:prefer-inline')
++  _$$GoogleRemoteStorageCopyWith<_$GoogleRemoteStorage> get copyWith =>
++      __$$GoogleRemoteStorageCopyWithImpl<_$GoogleRemoteStorage>(
++          this, _$identity);
++
++  @override
++  @optionalTypeArgs
++  TResult when<TResult extends Object?>({
++    required TResult Function(
++            String username,
++            String url,
++            String path,
++            String documentsPath,
++            String templatesPath,
++            String packsPath,
++            List<String> cachedDocuments,
++            List<String> starred,
++            @Uint8ListJsonConverter() Uint8List icon,
++            DateTime? lastSynced)
++        dav,
++    required TResult Function(
++            String username,
++            String url,
++            String path,
++            String documentsPath,
++            String templatesPath,
++            String packsPath,
++            List<String> cachedDocuments,
++            List<String> starred,
++            @Uint8ListJsonConverter() Uint8List icon,
++            DateTime? lastSynced)
++        google,
++  }) {
++    return google(username, url, path, documentsPath, templatesPath, packsPath,
++        cachedDocuments, starred, icon, lastSynced);
++  }
++
++  @override
++  @optionalTypeArgs
++  TResult? whenOrNull<TResult extends Object?>({
++    TResult? Function(
++            String username,
++            String url,
++            String path,
++            String documentsPath,
++            String templatesPath,
++            String packsPath,
++            List<String> cachedDocuments,
++            List<String> starred,
++            @Uint8ListJsonConverter() Uint8List icon,
++            DateTime? lastSynced)?
++        dav,
++    TResult? Function(
++            String username,
++            String url,
++            String path,
++            String documentsPath,
++            String templatesPath,
++            String packsPath,
++            List<String> cachedDocuments,
++            List<String> starred,
++            @Uint8ListJsonConverter() Uint8List icon,
++            DateTime? lastSynced)?
++        google,
++  }) {
++    return google?.call(username, url, path, documentsPath, templatesPath,
++        packsPath, cachedDocuments, starred, icon, lastSynced);
++  }
++
++  @override
++  @optionalTypeArgs
++  TResult maybeWhen<TResult extends Object?>({
++    TResult Function(
++            String username,
++            String url,
++            String path,
++            String documentsPath,
++            String templatesPath,
++            String packsPath,
++            List<String> cachedDocuments,
++            List<String> starred,
++            @Uint8ListJsonConverter() Uint8List icon,
++            DateTime? lastSynced)?
++        dav,
++    TResult Function(
++            String username,
++            String url,
++            String path,
++            String documentsPath,
++            String templatesPath,
++            String packsPath,
++            List<String> cachedDocuments,
++            List<String> starred,
++            @Uint8ListJsonConverter() Uint8List icon,
++            DateTime? lastSynced)?
++        google,
++    required TResult orElse(),
++  }) {
++    if (google != null) {
++      return google(username, url, path, documentsPath, templatesPath,
++          packsPath, cachedDocuments, starred, icon, lastSynced);
++    }
++    return orElse();
++  }
++
++  @override
++  @optionalTypeArgs
++  TResult map<TResult extends Object?>({
++    required TResult Function(DavRemoteStorage value) dav,
++    required TResult Function(GoogleRemoteStorage value) google,
++  }) {
++    return google(this);
++  }
++
++  @override
++  @optionalTypeArgs
++  TResult? mapOrNull<TResult extends Object?>({
++    TResult? Function(DavRemoteStorage value)? dav,
++    TResult? Function(GoogleRemoteStorage value)? google,
++  }) {
++    return google?.call(this);
++  }
++
++  @override
++  @optionalTypeArgs
++  TResult maybeMap<TResult extends Object?>({
++    TResult Function(DavRemoteStorage value)? dav,
++    TResult Function(GoogleRemoteStorage value)? google,
++    required TResult orElse(),
++  }) {
++    if (google != null) {
++      return google(this);
++    }
++    return orElse();
++  }
++
++  @override
++  Map<String, dynamic> toJson() {
++    return _$$GoogleRemoteStorageToJson(
++      this,
++    );
++  }
++}
++
++abstract class GoogleRemoteStorage extends RemoteStorage {
++  const factory GoogleRemoteStorage(
++      {required final String username,
++      required final String url,
++      required final String path,
++      required final String documentsPath,
++      required final String templatesPath,
++      required final String packsPath,
++      final List<String> cachedDocuments,
++      final List<String> starred,
++      @Uint8ListJsonConverter() required final Uint8List icon,
++      final DateTime? lastSynced}) = _$GoogleRemoteStorage;
++  const GoogleRemoteStorage._() : super._();
++
++  factory GoogleRemoteStorage.fromJson(Map<String, dynamic> json) =
++      _$GoogleRemoteStorage.fromJson;
++
++  @override
++  String get username;
++  @override
++  String get url;
++  @override
++  String get path;
++  @override
++  String get documentsPath;
++  @override
++  String get templatesPath;
++  @override
++  String get packsPath;
++  @override
++  List<String> get cachedDocuments;
++  @override
++  List<String> get starred;
++  @override
++  @Uint8ListJsonConverter()
++  Uint8List get icon;
++  @override
++  DateTime? get lastSynced;
++  @override
++  @JsonKey(ignore: true)
++  _$$GoogleRemoteStorageCopyWith<_$GoogleRemoteStorage> get copyWith =>
++      throw _privateConstructorUsedError;
++}
++
+ InputConfiguration _$InputConfigurationFromJson(Map<String, dynamic> json) {
+   return _InputConfiguration.fromJson(json);
+ }
+diff --git a/app/lib/cubits/settings.g.dart b/app/lib/cubits/settings.g.dart
+index f45e3d1d..dbecf1da 100644
+--- a/app/lib/cubits/settings.g.dart
++++ b/app/lib/cubits/settings.g.dart
+@@ -25,6 +25,7 @@ _$DavRemoteStorage _$$DavRemoteStorageFromJson(Map json) => _$DavRemoteStorage(
+       lastSynced: json['lastSynced'] == null
+           ? null
+           : DateTime.parse(json['lastSynced'] as String),
++      $type: json['type'] as String?,
+     );
+ 
+ Map<String, dynamic> _$$DavRemoteStorageToJson(_$DavRemoteStorage instance) =>
+@@ -39,6 +40,46 @@ Map<String, dynamic> _$$DavRemoteStorageToJson(_$DavRemoteStorage instance) =>
+       'starred': instance.starred,
+       'icon': const Uint8ListJsonConverter().toJson(instance.icon),
+       'lastSynced': instance.lastSynced?.toIso8601String(),
++      'type': instance.$type,
++    };
++
++_$GoogleRemoteStorage _$$GoogleRemoteStorageFromJson(Map json) =>
++    _$GoogleRemoteStorage(
++      username: json['username'] as String,
++      url: json['url'] as String,
++      path: json['path'] as String,
++      documentsPath: json['documentsPath'] as String,
++      templatesPath: json['templatesPath'] as String,
++      packsPath: json['packsPath'] as String,
++      cachedDocuments: (json['cachedDocuments'] as List<dynamic>?)
++              ?.map((e) => e as String)
++              .toList() ??
++          const [],
++      starred: (json['starred'] as List<dynamic>?)
++              ?.map((e) => e as String)
++              .toList() ??
++          const [],
++      icon: const Uint8ListJsonConverter().fromJson(json['icon'] as String),
++      lastSynced: json['lastSynced'] == null
++          ? null
++          : DateTime.parse(json['lastSynced'] as String),
++      $type: json['type'] as String?,
++    );
++
++Map<String, dynamic> _$$GoogleRemoteStorageToJson(
++        _$GoogleRemoteStorage instance) =>
++    <String, dynamic>{
++      'username': instance.username,
++      'url': instance.url,
++      'path': instance.path,
++      'documentsPath': instance.documentsPath,
++      'templatesPath': instance.templatesPath,
++      'packsPath': instance.packsPath,
++      'cachedDocuments': instance.cachedDocuments,
++      'starred': instance.starred,
++      'icon': const Uint8ListJsonConverter().toJson(instance.icon),
++      'lastSynced': instance.lastSynced?.toIso8601String(),
++      'type': instance.$type,
+     };
+ 
+ _$_InputConfiguration _$$_InputConfigurationFromJson(Map json) =>
+diff --git a/app/pubspec.lock b/app/pubspec.lock
+index 5aa2e505..a628ac48 100644
+--- a/app/pubspec.lock
++++ b/app/pubspec.lock
+@@ -1,6 +1,14 @@
+ # Generated by pub
+ # See https://dart.dev/tools/pub/glossary#lockfile
+ packages:
++  _discoveryapis_commons:
++    dependency: transitive
++    description:
++      name: _discoveryapis_commons
++      sha256: efd530ec09e3fea98529b0d2b192495e252e336c6e93ea8df1875e6e823ebc62
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.0.5"
+   _fe_analyzer_shared:
+     dependency: transitive
+     description:
+@@ -332,10 +340,10 @@ packages:
+     dependency: "direct dev"
+     description:
+       name: espresso
+-      sha256: a4e2c6fab553d4d7d113f8de39b754c34640a53c7905606c1d8c89a8d6fe3c8e
++      sha256: a4fbd5c7ae65a322c93463b3ea428b04677a87ce9807c84a85e29cd3eca79cd7
+       url: "https://pub.dev"
+     source: hosted
+-    version: "0.3.0+4"
++    version: "0.3.0+5"
+   fake_async:
+     dependency: transitive
+     description:
+@@ -558,6 +566,62 @@ packages:
+       url: "https://pub.dev"
+     source: hosted
+     version: "7.0.1"
++  google_identity_services_web:
++    dependency: transitive
++    description:
++      name: google_identity_services_web
++      sha256: "7940fdc3b1035db4d65d387c1bdd6f9574deaa6777411569c05ecc25672efacd"
++      url: "https://pub.dev"
++    source: hosted
++    version: "0.2.1"
++  google_sign_in:
++    dependency: "direct main"
++    description:
++      name: google_sign_in
++      sha256: "776a4c988dc179c3b8e9201de0ad61bf350a4e75d378ff9d94c76880378c7bca"
++      url: "https://pub.dev"
++    source: hosted
++    version: "6.1.0"
++  google_sign_in_android:
++    dependency: transitive
++    description:
++      name: google_sign_in_android
++      sha256: "2a8b90b766ce00b03e7543f4ffeec97b6eb51fb6c3f31ce2a364bd1f1b9dd7fc"
++      url: "https://pub.dev"
++    source: hosted
++    version: "6.1.14"
++  google_sign_in_ios:
++    dependency: transitive
++    description:
++      name: google_sign_in_ios
++      sha256: "6ec0e13a4c5c646471b9f6a25ceb3ae76d339889d4c0f79b729bf0714215a63e"
++      url: "https://pub.dev"
++    source: hosted
++    version: "5.6.2"
++  google_sign_in_platform_interface:
++    dependency: transitive
++    description:
++      name: google_sign_in_platform_interface
++      sha256: "95a9e0a8701b5485f2ca330fd1fc6f918f5ce088042ce1019c5e389d8574ae4c"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.4.0"
++  google_sign_in_web:
++    dependency: transitive
++    description:
++      name: google_sign_in_web
++      sha256: "7e0ec507f4752383a6daa67d0cc775253cfc3b1d87907e7004e2c1b99c0a723f"
++      url: "https://pub.dev"
++    source: hosted
++    version: "0.12.0"
++  googleapis:
++    dependency: "direct main"
++    description:
++      name: googleapis
++      sha256: d02ede69d06f408ed929c615cafeb96fabb2a836432e0a576f96157aafa96278
++      url: "https://pub.dev"
++    source: hosted
++    version: "11.1.0"
+   graphs:
+     dependency: transitive
+     description:
+diff --git a/app/pubspec.yaml b/app/pubspec.yaml
+index 4e0c9b49..650b2d33 100644
+--- a/app/pubspec.yaml
++++ b/app/pubspec.yaml
+@@ -77,6 +77,8 @@ dependencies:
+   dynamic_color: ^1.6.5
+   popover: ^0.2.8+2
+   markdown: ^7.1.0
++  googleapis: ^11.1.0
++  google_sign_in: ^6.1.0
+ dev_dependencies:
+   flutter_native_splash: ^2.3.0
+   #flutter_launcher_icons: ^0.11.0

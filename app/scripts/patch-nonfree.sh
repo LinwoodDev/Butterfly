@@ -6,3 +6,4 @@ git restore .
 cp build/nonfree.patch .
 git add nonfree.patch
 git restore .
+git clean -f
