@@ -90,51 +90,39 @@ class PadElement with _$PadElement {
 
   @With<LabelElement>()
   const factory PadElement.text({
-    @Default('')
-        String layer,
+    @Default('') String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
-        Point<double> position,
-    @Default(1.0)
-        double scale,
-    @Default(PackAssetLocation())
-        PackAssetLocation styleSheet,
+    Point<double> position,
+    @Default(1.0) double scale,
+    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
     required TextArea area,
-    @Default(ElementConstraint(size: 1000))
-        ElementConstraint constraint,
-    @Default(kColorBlack)
-        int foreground,
+    @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
+    @Default(kColorBlack) int foreground,
   }) = TextElement;
 
   @With<LabelElement>()
   const factory PadElement.markdown({
-    @Default('')
-        String layer,
+    @Default('') String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
-        Point<double> position,
-    @Default(1.0)
-        double scale,
-    @Default(PackAssetLocation())
-        PackAssetLocation styleSheet,
-    @Default(AreaProperty())
-        AreaProperty areaProperty,
+    Point<double> position,
+    @Default(1.0) double scale,
+    @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    @Default(AreaProperty()) AreaProperty areaProperty,
     required String text,
-    @Default(ElementConstraint(size: 1000))
-        ElementConstraint constraint,
-    @Default(kColorBlack)
-        int foreground,
+    @Default(ElementConstraint(size: 1000)) ElementConstraint constraint,
+    @Default(kColorBlack) int foreground,
   }) = MarkdownElement;
 
   @Implements<SourcedElement>()
   const factory PadElement.image({
-    @Default('')
-        String layer,
+    @Default('') String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
-        Point<double> position,
+    Point<double> position,
     @Default(ScaledElementConstraints(scaleX: 1, scaleY: 1))
-        ElementConstraints? constraints,
+    ElementConstraints? constraints,
     required String source,
     required double width,
     required double height,
@@ -142,29 +130,26 @@ class PadElement with _$PadElement {
 
   @Implements<SourcedElement>()
   const factory PadElement.svg({
-    @Default('')
-        String layer,
+    @Default('') String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
-        Point<double> position,
+    Point<double> position,
     @Default(ScaledElementConstraints(scaleX: 1, scaleY: 1))
-        ElementConstraints? constraints,
+    ElementConstraints? constraints,
     required String source,
     required double width,
     required double height,
   }) = SvgElement;
 
   const factory PadElement.shape({
-    @Default('')
-        String layer,
+    @Default('') String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
-        Point<double> firstPosition,
+    Point<double> firstPosition,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
-        Point<double> secondPosition,
-    @Default(ShapeProperty(shape: RectangleShape()))
-        ShapeProperty property,
+    Point<double> secondPosition,
+    @Default(ShapeProperty(shape: RectangleShape())) ShapeProperty property,
   }) = ShapeElement;
 
   factory PadElement.fromJson(Map<String, dynamic> json) =>

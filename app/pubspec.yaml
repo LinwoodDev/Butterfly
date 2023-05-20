@@ -104,38 +104,18 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   fonts:
-    - family: Roboto
+    - family: Comfortaa
       fonts:
-        - asset: fonts/Roboto-Thin.ttf
-          weight: 100
-        - asset: fonts/Roboto-ThinItalic.ttf
-          weight: 100
-          style: italic
-        - asset: fonts/Roboto-Light.ttf
+        - asset: fonts/Comfortaa-Light.ttf
           weight: 300
-        - asset: fonts/Roboto-LightItalic.ttf
-          weight: 300
-          style: italic
-        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/Comfortaa-Regular.ttf
           weight: 400
-        - asset: fonts/Roboto-Italic.ttf
-          weight: 400
-          style: italic
-        - asset: fonts/Roboto-Medium.ttf
+        - asset: fonts/Comfortaa-Medium.ttf
           weight: 500
-        - asset: fonts/Roboto-MediumItalic.ttf
-          weight: 500
-          style: italic
-        - asset: fonts/Roboto-Bold.ttf
+        - asset: fonts/Comfortaa-SemiBold.ttf
+          weight: 600
+        - asset: fonts/Comfortaa-Bold.ttf
           weight: 700
-        - asset: fonts/Roboto-BoldItalic.ttf
-          weight: 700
-          style: italic
-        - asset: fonts/Roboto-Black.ttf
-          weight: 900
-        - asset: fonts/Roboto-BlackItalic.ttf
-          weight: 900
-          style: italic
   assets:
     - images/
     - templates/
