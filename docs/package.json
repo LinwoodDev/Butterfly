@@ -53,6 +53,6 @@
     "@tsconfig/docusaurus": "^1.0.7",
     "markdownlint-cli2": "^0.7.1",
     "typescript": "^5.0.4",
-    "webpack": "^5.82.1"
+    "webpack": "^5.83.1"
   }
 }

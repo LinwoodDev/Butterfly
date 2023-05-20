@@ -1669,20 +1669,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docsearch/css@npm:3.3.4":
-  version: 3.3.4
-  resolution: "@docsearch/css@npm:3.3.4"
-  checksum: 56e3ae677423fa4cf508ffb964d0616862a4af22affad308f47edf5c1ad097a2b21187c53d240f83463c4e7add3cd60e3630022a68e2089bb3066bfbaded64a0
+"@docsearch/css@npm:3.3.5":
+  version: 3.3.5
+  resolution: "@docsearch/css@npm:3.3.5"
+  checksum: 4ed57fe5014d80d516095c5d1d2aa6cf809c3b0ea730a905651d45cd1492dcc8703b2d18ca013e45eb60b1b05676b857117fa579e784e678f11026bbee6aad3d
   languageName: node
   linkType: hard
 
 "@docsearch/react@npm:^3.1.1":
-  version: 3.3.4
-  resolution: "@docsearch/react@npm:3.3.4"
+  version: 3.3.5
+  resolution: "@docsearch/react@npm:3.3.5"
   dependencies:
     "@algolia/autocomplete-core": 1.8.2
     "@algolia/autocomplete-preset-algolia": 1.8.2
-    "@docsearch/css": 3.3.4
+    "@docsearch/css": 3.3.5
     algoliasearch: ^4.0.0
   peerDependencies:
     "@types/react": ">= 16.8.0 < 19.0.0"
@@ -1695,7 +1695,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 50f122f08c543711fffe8ba3b507311a01defef6db5d47401bd2b5c7759512357fa26d2a88a68b50916b9084fd922f7340ad03e479b4d60ac2e22b4a198dc06d
+  checksum: 9786fa969a273c5d427b79b8470fd565bcb78b90c9bd6d7ddb42ccdd0f2244790f8d51d56b7f4ff6fc0f41ce67fadd99925272eb5bb4f5bca3b55960398bd956
   languageName: node
   linkType: hard
 
@@ -3087,9 +3087,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 20.1.7
-  resolution: "@types/node@npm:20.1.7"
-  checksum: b722794290d22db1741e739c256876ca774b76ea2d647d9ec9d52c49b1b01049cc6f6332499a01ac81d641e8d078b33e4c5c59e409db80390ac6b8d7ef0c08a7
+  version: 20.2.0
+  resolution: "@types/node@npm:20.2.0"
+  checksum: 9b937367448a07482af14e3518125ae531bff99e16d51e0945f4f93dbd7051d8a270811bdeb57f0b52c629fb0c9c401a238a7352dfbc87e26495b6f0f59cbdb6
   languageName: node
   linkType: hard
 
@@ -4113,7 +4113,7 @@ __metadata:
     swc-loader: ^0.2.3
     typescript: ^5.0.4
     ua-parser-js: ^1.0.35
-    webpack: ^5.82.1
+    webpack: ^5.83.1
   languageName: unknown
   linkType: soft
 
@@ -4226,9 +4226,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001449, caniuse-lite@npm:^1.0.30001464":
-  version: 1.0.30001487
-  resolution: "caniuse-lite@npm:1.0.30001487"
-  checksum: b5a9e72ec165765fb3e07913cc389685ce8a30ac48967f99baec773a4353d2037fb534241e87b3c95d40a5081079be2263710b784883183bb2998b73f7202233
+  version: 1.0.30001488
+  resolution: "caniuse-lite@npm:1.0.30001488"
+  checksum: ef0caf2914f9fca700b75d22921f500241f4e988ded9985e62737136031787052185d8136a65a3a6d6d12b559cf75ab99f5488931f8bd060f1b7810a2c1ee1d1
   languageName: node
   linkType: hard
 
@@ -5306,9 +5306,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.284":
-  version: 1.4.397
-  resolution: "electron-to-chromium@npm:1.4.397"
-  checksum: d3551c0624d4eb29a514ef5e2161beb62c06c359c5340e765d349ea114e0eaf6a13eb4adc655d7eec880b0edcb493118888ce07b37e92476baf05ec5a96e99a3
+  version: 1.4.399
+  resolution: "electron-to-chromium@npm:1.4.399"
+  checksum: 51995e6e4dd6d2f630d56b21bd0ae47d8078dc7414b9648e644ba11fad99631da742ffd7a0f8af0abcb0bdb1749a678f95c87ead9b604fbc4625395b4236c94a
   languageName: node
   linkType: hard
 
@@ -10955,8 +10955,8 @@ __metadata:
   linkType: hard
 
 "terser-webpack-plugin@npm:^5.3.3, terser-webpack-plugin@npm:^5.3.7":
-  version: 5.3.8
-  resolution: "terser-webpack-plugin@npm:5.3.8"
+  version: 5.3.9
+  resolution: "terser-webpack-plugin@npm:5.3.9"
   dependencies:
     "@jridgewell/trace-mapping": ^0.3.17
     jest-worker: ^27.4.5
@@ -10972,7 +10972,7 @@ __metadata:
       optional: true
     uglify-js:
       optional: true
-  checksum: 0ffc2a1949b1fd60ef9c815c4629b9817656db612bb58c5db96e3b04204c86afd142b115392e48733364edc7bf95131f54c10174c05f046ba8f2adead6b06c3c
+  checksum: 41705713d6f9cb83287936b21e27c658891c78c4392159f5148b5623f0e8c48559869779619b058382a4c9758e7820ea034695e57dc7c474b4962b79f553bc5f
   languageName: node
   linkType: hard
 
@@ -11093,9 +11093,9 @@ __metadata:
   linkType: hard
 
 "tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.4.0":
-  version: 2.5.0
-  resolution: "tslib@npm:2.5.0"
-  checksum: ae3ed5f9ce29932d049908ebfdf21b3a003a85653a9a140d614da6b767a93ef94f460e52c3d787f0e4f383546981713f165037dc2274df212ea9f8a4541004e1
+  version: 2.5.1
+  resolution: "tslib@npm:2.5.1"
+  checksum: 535e41e956b32d21aeff007a2c74989d1a6bf3fecb2b0141d80e5b9920bf90e23b4f0cd3772704bc03637c762dbdc1a314d75a407dd7189afbe3e83d80df9392
   languageName: node
   linkType: hard
 
@@ -11752,9 +11752,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.73.0, webpack@npm:^5.82.1":
-  version: 5.82.1
-  resolution: "webpack@npm:5.82.1"
+"webpack@npm:^5.73.0, webpack@npm:^5.83.1":
+  version: 5.83.1
+  resolution: "webpack@npm:5.83.1"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^1.0.0
@@ -11785,7 +11785,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 747ee7ebd238c15249c2652060e3c6ca6d62cc66dcf7e4e2824ecd4875b7ea5e01fce8f4179080a3e84dfdb3c8d0992700444c7c5a05ef47b38c0623d3ac76de
+  checksum: 219d5ef50380bc0fd3702ed17feddf13819d8173b78f7a5b857dc74ac177e63d1f79c050792754411cc088bbc02e0971b989efddadbb8e393cf27d64c0ad9ff8
   languageName: node
   linkType: hard
 

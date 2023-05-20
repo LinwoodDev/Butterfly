@@ -5,89 +5,39 @@
  * work well for content-centric websites.
  */
 
-/* Import Montserrat font from file */
 @font-face {
-  font-family: 'Roboto';
-  font-weight: 100;
-  font-style: normal;
-  src: url('/fonts/Roboto-Thin.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-weight: 100;
-  font-style: italic;
-  src: url('/fonts/Roboto-ThinItalic.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Roboto';
+  font-family: 'Comfortaa';
   font-weight: 300;
   font-style: normal;
-  src: url('/fonts/Roboto-Light.ttf') format('truetype');
+  src: url('/fonts/Comfortaa-Light.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Roboto';
-  font-weight: 300;
-  font-style: italic;
-  src: url('/fonts/Roboto-LightItalic.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Roboto';
+  font-family: 'Comfortaa';
   font-weight: 400;
   font-style: normal;
-  src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+  src: url('/fonts/Comfortaa-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Roboto';
-  font-weight: 400;
-  font-style: italic;
-  src: url('/fonts/Roboto-Italic.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Roboto';
+  font-family: 'Comfortaa';
   font-weight: 500;
   font-style: normal;
-  src: url('/fonts/Roboto-Medium.ttf') format('truetype');
+  src: url('/fonts/Comfortaa-Medium.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Roboto';
-  font-weight: 500;
-  font-style: italic;
-  src: url('/fonts/Roboto-MediumItalic.ttf') format('truetype');
+  font-family: 'Comfortaa';
+  font-weight: 600;
+  font-style: normal;
+  src: url('/fonts/Comfortaa-SemiBold.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'Comfortaa';
   font-weight: 700;
   font-style: normal;
-  src: url('/fonts/Roboto-Bold.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-weight: 700;
-  font-style: italic;
-  src: url('/fonts/Roboto-BoldItalic.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-weight: 900;
-  font-style: normal;
-  src: url('/fonts/Roboto-Black.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-weight: 900;
-  font-style: italic;
-  src: url('/fonts/Roboto-BlackItalic.ttf') format('truetype');
+  src: url('/fonts/Comfortaa-Bold.ttf') format('truetype');
 }
 
 /* You can override the default Infima variables here. */
@@ -102,7 +52,7 @@
   --ifm-color-primary-lighter: #f5c162;
   --ifm-color-primary-lightest: #f7d28c;
   --ifm-code-font-size: 95%;
-  --ifm-font-family-base: 'Roboto', sans-serif;
+  --ifm-font-family-base: 'Comfortaa', sans-serif;
   --ifm-menu-color-background-active: var(--ifm-color-primary-darkest);
   --ifm-menu-link-padding-vertical: 0.75rem;
   --ifm-menu-color-active: var(--ifm-color-gray-100);

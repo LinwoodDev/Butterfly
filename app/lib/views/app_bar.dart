@@ -88,7 +88,7 @@ class _AppBarTitle extends StatelessWidget {
         return Row(children: [
           Flexible(
               child: Align(
-            alignment: Alignment.centerLeft,
+            alignment: isMobile ? Alignment.center : Alignment.centerLeft,
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 300),
               child: Row(
