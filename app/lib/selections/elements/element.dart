@@ -33,8 +33,7 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final multi = selected.length > 1;
-    final position = multi ? null : selected.first.rect?.center;
+    final position = selected.length > 1 ? null : selected.first.rect?.topLeft;
     return [
       ...super.buildProperties(context),
       OffsetPropertyView(
@@ -45,7 +44,9 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
           updateElements(
               context,
               selected
-                  .map((e) => e.transform(position: value, relative: multi))
+                  .map((e) =>
+                      e.transform(position: value, relative: false)?.element ??
+                      e.element)
                   .whereType<T>()
                   .toList());
         },

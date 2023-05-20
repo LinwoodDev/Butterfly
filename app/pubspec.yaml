@@ -93,6 +93,7 @@ dev_dependencies:
 dependency_overrides:
   archive: 3.3.7
   collection: 1.17.2
+  intl: 0.18.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
