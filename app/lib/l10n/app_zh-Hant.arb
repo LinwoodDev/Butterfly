@@ -203,7 +203,7 @@
   "alreadyExists": "此元素已存在",
   "currentArea": "目前分區",
   "fullScreen": "全螢幕",
-  "design": "Design",
+  "design": "配色",
   "text": "文字",
   "selectSensitivity": "選擇靈敏度",
   "welcome": "嗨，在下 Linwood Butterfly",
@@ -375,7 +375,7 @@
       }
     }
   },
-  "startInFullScreen": "Start in full screen",
+  "startInFullScreen": "以全螢幕啟動",
   "inputs": "輸入",
   "mouse": "Mouse",
   "touch": "Touch",
