@@ -51,6 +51,8 @@ class _ToolView extends StatefulWidget {
 
 class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
   late final TabController _tabController;
+  final TextEditingController _nameController = TextEditingController(),
+      _descriptionController = TextEditingController();
 
   @override
   void initState() {
@@ -72,8 +74,16 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<DocumentBloc>().state;
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
     if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
+    final metadata = state.metadata;
+    if (_nameController.text != metadata.name) {
+      _nameController.text = metadata.name;
+    }
+    if (_descriptionController.text != metadata.description) {
+      _descriptionController.text = metadata.description;
+    }
     return Column(children: [
       TabBar(
         controller: _tabController,
@@ -101,27 +111,29 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                   children: [
                     const SizedBox(height: 16),
                     TextFormField(
-                      validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return AppLocalizations.of(context).shouldNotEmpty;
-                        }
-                        return null;
-                      },
-                      initialValue: state.data.name,
+                      controller: _nameController,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context).name,
                         filled: true,
                       ),
+                      onChanged: (value) {
+                        bloc.add(DocumentDescriptorChanged(name: value));
+                        state.save();
+                      },
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
                       minLines: 3,
                       maxLines: 5,
-                      initialValue: state.metadata.description,
+                      controller: _descriptionController,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context).description,
                         border: const OutlineInputBorder(),
                       ),
+                      onChanged: (value) {
+                        bloc.add(DocumentDescriptorChanged(description: value));
+                        state.save();
+                      },
                     ),
                     const SizedBox(height: 8),
                     const Divider(),

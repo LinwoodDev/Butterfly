@@ -12,7 +12,6 @@ import 'package:butterfly/actions/save.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/actions/undo.dart';
-import 'package:butterfly/actions/waypoints.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
@@ -75,7 +74,6 @@ class _ProjectPageState extends State<ProjectPage> {
     PdfExportIntent: PdfExportAction(),
     ExportIntent: ExportAction(),
     SettingsIntent: SettingsAction(),
-    WaypointsIntent: WaypointsAction(),
     AreasIntent: AreasAction(),
     ColorPaletteIntent: ColorPaletteAction(),
     BackgroundIntent: BackgroundAction(),
@@ -277,10 +275,6 @@ class _ProjectPageState extends State<ProjectPage> {
                               LogicalKeyboardKey.shift,
                               LogicalKeyboardKey.keyN):
                           NewIntent(context, fromTemplate: true),
-                      LogicalKeySet(
-                          LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.shift,
-                          LogicalKeyboardKey.keyP): WaypointsIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.control,
                           LogicalKeyboardKey.keyP): ColorPaletteIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.control,

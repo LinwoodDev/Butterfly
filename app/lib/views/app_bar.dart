@@ -85,6 +85,14 @@ class _AppBarTitle extends StatelessWidget {
             previous.hasAutosave() != current.hasAutosave() ||
             previous.metadata != current.metadata;
       }, builder: (context, state) {
+        final area = state is DocumentLoadSuccess ? state.currentArea : null;
+        final areaName =
+            state is DocumentLoadSuccess ? state.currentAreaName : null;
+        if (state is DocumentLoaded &&
+            state.metadata.name != _nameController.text) {
+          _nameController.text = state.metadata.name;
+        }
+        _areaController.text = area?.name ?? '';
         return Row(children: [
           Flexible(
               child: Align(
@@ -95,15 +103,6 @@ class _AppBarTitle extends StatelessWidget {
                 children: [
                   Flexible(
                     child: StatefulBuilder(builder: (context, setState) {
-                      final area = state is DocumentLoadSuccess
-                          ? state.currentArea
-                          : null;
-                      final areaName = state is DocumentLoadSuccess
-                          ? state.currentAreaName
-                          : null;
-                      _nameController.text =
-                          state is DocumentLoaded ? state.metadata.name : '';
-                      _areaController.text = area?.name ?? '';
                       void submit(String? value) {
                         if (value == null) return;
                         if (area == null || areaName == null) {

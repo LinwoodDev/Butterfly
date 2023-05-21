@@ -6,5 +6,6 @@
 * Fix connection title bar
 * Fix zoom view showing above the property view
 * Fix setting position in property view
+* Fix name and description not updating in property view
 * Show only window if title bar was set ([#385](https://github.com/LinwoodDev/Butterfly/issues/385))
 * Remove tab shortcut to reset the document
