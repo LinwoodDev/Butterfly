@@ -5,7 +5,7 @@ sidebar_position: 3
 ---
 
 
-Use this painter to draw shapes on the paper. Use this painter to draw shapes on the paper. You can draw rectangles, circles, and other shapes. Use this painter to draw shapes on the paper. You can draw rectangles, circles, and other shapes.
+Use this painter to draw shapes on the paper. You can draw rectangles, circles, and other shapes.
 
 ## Configuration
 
