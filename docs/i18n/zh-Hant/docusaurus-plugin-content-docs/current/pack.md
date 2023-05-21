@@ -1,5 +1,5 @@
 ---
-title: "Pack"
+title: "素材包"
 sidebar_position: 2
 ---
 
