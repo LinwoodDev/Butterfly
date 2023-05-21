@@ -3,7 +3,7 @@ title: Embed
 sidebar_label: Intro
 ---
 
-Embedding is a simple way to include the app in your website. Add the following code to your website: Add the following code to your website: Add the following code to your website: Add the following code to your website: Add the following code to your website:
+Embedding is a simple way to include the app in your website. Add the following code to your website:
 
 ```html
 <iframe src="https://butterfly.linwood.dev/embed" width="100%" height="500px" allowtransparency="true"></iframe>
