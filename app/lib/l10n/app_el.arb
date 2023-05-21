@@ -475,6 +475,7 @@
   "emphasis": "Έμφαση",
   "listBullet": "Λίστα κουκκίδας",
   "strong": "Ισχυρός",
+  "markdown": "Markdown",
   "home": "Αρχική",
   "files": "Αρχεία",
   "sortBy": "Ταξινόμηση κατά",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Μόνο στις ενημερώσεις",
   "visibility": "Ορατότητα",
   "captureThumbnail": "Σύλληψη μικρογραφίας",
-  "capturedThumbnail": "Επιτυχής λήψη μικρογραφίας"
+  "capturedThumbnail": "Επιτυχής λήψη μικρογραφίας",
+  "chooseLabelMode": "Επιλέξτε λειτουργία ετικέτας",
+  "foreground": "Προσκήνιο"
 }

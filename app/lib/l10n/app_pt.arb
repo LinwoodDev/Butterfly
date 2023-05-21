@@ -475,6 +475,7 @@
   "emphasis": "Enxofre",
   "listBullet": "Lista de marcadores",
   "strong": "Forte",
+  "markdown": "Markdown",
   "home": "Residencial",
   "files": "arquivos",
   "sortBy": "Classificar por",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Somente em atualizações",
   "visibility": "Visibilidade",
   "captureThumbnail": "Capturar miniatura",
-  "capturedThumbnail": "Miniatura capturada com sucesso"
+  "capturedThumbnail": "Miniatura capturada com sucesso",
+  "chooseLabelMode": "Escolher modo de rótulo",
+  "foreground": "Primeiro plano"
 }

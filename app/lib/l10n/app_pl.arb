@@ -475,6 +475,7 @@
   "emphasis": "Nacisk",
   "listBullet": "Lista punktowa",
   "strong": "Silny",
+  "markdown": "Markdown",
   "home": "Strona główna",
   "files": "Pliki",
   "sortBy": "Sortuj według",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Tylko przy aktualizacjach",
   "visibility": "Widoczność",
   "captureThumbnail": "Przechwyć miniaturę",
-  "capturedThumbnail": "Pomyślnie przechwycono miniaturę"
+  "capturedThumbnail": "Pomyślnie przechwycono miniaturę",
+  "chooseLabelMode": "Wybierz tryb etykiety",
+  "foreground": "Pierwszy plan"
 }

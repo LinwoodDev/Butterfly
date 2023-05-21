@@ -475,6 +475,7 @@
   "emphasis": "強調表示",
   "listBullet": "箇条書きリスト",
   "strong": "強い",
+  "markdown": "Markdown",
   "home": "ホーム",
   "files": "ファイル",
   "sortBy": "並び替え",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "更新時のみ",
   "visibility": "公開範囲",
   "captureThumbnail": "サムネイルをキャプチャする",
-  "capturedThumbnail": "サムネイルをキャプチャしました"
+  "capturedThumbnail": "サムネイルをキャプチャしました",
+  "chooseLabelMode": "ラベルモードを選択",
+  "foreground": "フォアグラウンド（前面）"
 }

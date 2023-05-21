@@ -475,6 +475,7 @@
   "emphasis": "Nadruk",
   "listBullet": "Lijst opsommingsteken",
   "strong": "Sterk",
+  "markdown": "Markdown",
   "home": "Startpagina",
   "files": "Bestanden",
   "sortBy": "Sorteren op",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Alleen op updates",
   "visibility": "Zichtbaarheid",
   "captureThumbnail": "Thumbnail opnemen",
-  "capturedThumbnail": "Miniatuurweergave succesvol vastgelegd"
+  "capturedThumbnail": "Miniatuurweergave succesvol vastgelegd",
+  "chooseLabelMode": "Kies labelmodus",
+  "foreground": "Voorgrond"
 }

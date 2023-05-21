@@ -1,6 +1,6 @@
 ---
-title: "Stamp"
-sidebar_label: "Stamp"
+title: "圖章"
+sidebar_label: "圖章"
 sidebar_position: 3
 ---
 
@@ -8,7 +8,7 @@ The stamp painter allows you to add components to your canvas. Use an existing p
 
 ## Configuration
 
-|  Property | Default | Description                                     |
+|  Property | Default | 說明                                              |
 | ---------:|:-------:|:----------------------------------------------- |
 |      Pack |  None   | The pack where the component is located.        |
 | Component |  None   | The component that will be added to the canvas. |

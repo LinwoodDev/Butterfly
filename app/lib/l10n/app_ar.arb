@@ -475,6 +475,7 @@
   "emphasis": "التوكيد",
   "listBullet": "رصاصة القائمة",
   "strong": "قوي",
+  "markdown": "Markdown",
   "home": "المنزل",
   "files": "الملفات",
   "sortBy": "الترتيب حسب",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "فقط على التحديثات",
   "visibility": "الظهور",
   "captureThumbnail": "التقط الصورة المصغرة",
-  "capturedThumbnail": "تم التقاط الصورة المصغرة بنجاح"
+  "capturedThumbnail": "تم التقاط الصورة المصغرة بنجاح",
+  "chooseLabelMode": "اختيار وضع التسمية",
+  "foreground": "تمهيد"
 }

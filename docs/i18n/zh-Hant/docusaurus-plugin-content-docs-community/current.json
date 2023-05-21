@@ -4,7 +4,7 @@
     "description": "The label for version current"
   },
   "sidebar.sidebar.category.Embedding": {
-    "message": "Embedding",
+    "message": "嵌入",
     "description": "The label for category Embedding in sidebar sidebar"
   },
   "sidebar.sidebar.link.Discord": {

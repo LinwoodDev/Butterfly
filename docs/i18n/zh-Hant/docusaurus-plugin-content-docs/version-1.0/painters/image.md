@@ -1,6 +1,6 @@
 ---
 title: "Image painter"
-sidebar_label: "Image"
+sidebar_label: "圖片"
 sidebar_position: 3
 ---
 

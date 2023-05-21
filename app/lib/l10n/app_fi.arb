@@ -475,6 +475,7 @@
   "emphasis": "Korostus",
   "listBullet": "Listaa luettelomerkki",
   "strong": "Vahva",
+  "markdown": "Markdown",
   "home": "Koti",
   "files": "Tiedostot",
   "sortBy": "Järjestä",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Vain päivityksissä",
   "visibility": "Näkyvyys",
   "captureThumbnail": "Tallenna pikkukuva",
-  "capturedThumbnail": "Pienoiskuvan talteenotto onnistui"
+  "capturedThumbnail": "Pienoiskuvan talteenotto onnistui",
+  "chooseLabelMode": "Valitse tunnistetila",
+  "foreground": "Etuala"
 }

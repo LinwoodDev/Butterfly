@@ -475,6 +475,7 @@
   "emphasis": "Enfasi",
   "listBullet": "Elenco proiettile",
   "strong": "Forte",
+  "markdown": "Markdown",
   "home": "Home",
   "files": "File",
   "sortBy": "Ordina per",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Solo sugli aggiornamenti",
   "visibility": "Visibilità",
   "captureThumbnail": "Cattura miniatura",
-  "capturedThumbnail": "Miniatura catturata con successo"
+  "capturedThumbnail": "Miniatura catturata con successo",
+  "chooseLabelMode": "Scegli la modalità etichetta",
+  "foreground": "Primo Piano"
 }

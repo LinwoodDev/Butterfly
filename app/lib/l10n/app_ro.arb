@@ -475,6 +475,7 @@
   "emphasis": "Accentuarea",
   "listBullet": "Listă marcaje",
   "strong": "Puternic",
+  "markdown": "Markdown",
   "home": "Acasă",
   "files": "Fișiere",
   "sortBy": "Sortează după",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Numai la actualizări",
   "visibility": "Vizibilitate",
   "captureThumbnail": "Capturează miniatura",
-  "capturedThumbnail": "Miniatură captată cu succes"
+  "capturedThumbnail": "Miniatură captată cu succes",
+  "chooseLabelMode": "Alege modul etichetă",
+  "foreground": "prim-plan"
 }

@@ -475,6 +475,7 @@
   "emphasis": "Důraz",
   "listBullet": "Seznam odrážek",
   "strong": "Silný",
+  "markdown": "Markdown",
   "home": "Domů",
   "files": "Soubory",
   "sortBy": "Seřadit podle",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Pouze při aktualizacích",
   "visibility": "Viditelnost",
   "captureThumbnail": "Snímat miniaturu",
-  "capturedThumbnail": "Náhledy úspěšně zachyceny"
+  "capturedThumbnail": "Náhledy úspěšně zachyceny",
+  "chooseLabelMode": "Zvolte mód popisku",
+  "foreground": "Popředí"
 }

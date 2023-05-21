@@ -475,6 +475,7 @@
   "emphasis": "Vurgu",
   "listBullet": "Liste madde işareti",
   "strong": "Kalın",
+  "markdown": "Markdown",
   "home": "Ana sayfa",
   "files": "Dosyalar",
   "sortBy": "Şuna göre sırala",
@@ -494,5 +495,7 @@
   "onlyOnUpdates": "Only on updates",
   "visibility": "Visibility",
   "captureThumbnail": "Capture thumbnail",
-  "capturedThumbnail": "Successfully captured thumbnail"
+  "capturedThumbnail": "Successfully captured thumbnail",
+  "chooseLabelMode": "Choose label mode",
+  "foreground": "Foreground"
 }

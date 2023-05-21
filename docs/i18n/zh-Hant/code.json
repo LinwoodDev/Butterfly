@@ -1,6 +1,6 @@
 {
   "Cross platform": {
-    "message": "Cross platform",
+    "message": "跨平臺",
     "description": "Features cross-platform title"
   },
   "You can use the app on your phone, tablet, laptop, or desktop. The app is available on Linux, Android, and Windows. You can also use the app on the web.": {
@@ -52,7 +52,7 @@
     "description": "homepage web button"
   },
   "Downloads": {
-    "message": "Downloads",
+    "message": "下載",
     "description": "homepage downloads button"
   },
   "theme.ErrorPageContent.title": {
@@ -227,7 +227,7 @@
     "description": "The label alongside a tag list"
   },
   "theme.AnnouncementBar.closeButtonAriaLabel": {
-    "message": "Close",
+    "message": "關閉",
     "description": "The ARIA label for close button of announcement bar"
   },
   "theme.blog.sidebar.navAriaLabel": {
@@ -243,7 +243,7 @@
     "description": "The ARIA label for copy code blocks button"
   },
   "theme.CodeBlock.copy": {
-    "message": "Copy",
+    "message": "複製",
     "description": "The copy button label on code blocks"
   },
   "theme.CodeBlock.wordWrapToggle": {
@@ -334,7 +334,7 @@
     "description": "The placeholder for search page input"
   },
   "theme.SearchPage.inputLabel": {
-    "message": "Search",
+    "message": "搜尋",
     "description": "The ARIA label for search page input"
   },
   "theme.SearchPage.algoliaLabel": {
@@ -350,7 +350,7 @@
     "description": "The paragraph for fetching new search results"
   },
   "theme.SearchBar.label": {
-    "message": "Search",
+    "message": "搜尋",
     "description": "The ARIA label and placeholder for search button"
   },
   "theme.SearchModal.searchBox.resetButtonTitle": {
@@ -454,7 +454,7 @@
     "description": "The text for PWA reload button"
   },
   "theme.PwaReloadPopup.closeButtonAriaLabel": {
-    "message": "Close",
+    "message": "關閉",
     "description": "The ARIA label for close button of PWA reload popup"
   },
   "theme.ErrorPageContent.tryAgain": {
