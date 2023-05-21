@@ -2,6 +2,20 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-alpha.4 (2023-05-21)
+
+* Add markdown element
+* Add modes for label painter
+* Add foreground property for painter, markdown and text element
+* Add extra file icon ([#374](https://github.com/LinwoodDev/Butterfly/issues/374))
+* Include font in assets
+* Fix connection title bar
+* Fix zoom view showing above the property view
+* Fix setting position in property view
+* Fix name and description not updating in property view
+* Show only window if title bar was set ([#385](https://github.com/LinwoodDev/Butterfly/issues/385))
+* Remove tab shortcut to reset the document
+
 ## 2.0.0-alpha.3 (2023-05-15)
 
 * Add archive format
