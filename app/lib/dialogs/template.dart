@@ -90,12 +90,20 @@ class _TemplateDialogState extends State<TemplateDialog> {
                               TextButton(
                                 child: Text(AppLocalizations.of(context).ok),
                                 onPressed: () async {
-                                  final navigator = Navigator.of(context);
-                                  await _fileSystem.createDefault(this.context,
-                                      force: true);
-                                  navigator.pop();
-                                  load();
-                                  setState(() {});
+                                  for (final template
+                                      in await _fileSystem.getTemplates()) {
+                                    _fileSystem.deleteTemplate(template.name!);
+                                  }
+                                  if (context.mounted) {
+                                    await _fileSystem.createDefault(
+                                        this.context,
+                                        force: true);
+                                  }
+                                  if (context.mounted) {
+                                    Navigator.of(context).pop();
+                                    load();
+                                    setState(() {});
+                                  }
                                 },
                               ),
                             ],

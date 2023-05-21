@@ -252,7 +252,12 @@ class LabelHandler extends Handler<LabelPainter>
   AutofillScope? get currentAutofillScope => null;
 
   @override
-  TextEditingValue? get currentTextEditingValue => null;
+  TextEditingValue? get currentTextEditingValue => _context?.element == null
+      ? null
+      : TextEditingValue(
+          text: _context!.text!,
+          selection: _context!.selection,
+        );
 
   @override
   void performAction(TextInputAction action) {
