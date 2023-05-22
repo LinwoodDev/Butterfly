@@ -497,5 +497,7 @@
   "captureThumbnail": "Capture thumbnail",
   "capturedThumbnail": "Successfully captured thumbnail",
   "chooseLabelMode": "Choose label mode",
-  "foreground": "Foreground"
+  "foreground": "Foreground",
+  "version": "Version",
+  "repository": "Repository"
 }
