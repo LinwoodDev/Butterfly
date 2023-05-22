@@ -497,5 +497,7 @@
   "captureThumbnail": "サムネイルをキャプチャする",
   "capturedThumbnail": "サムネイルをキャプチャしました",
   "chooseLabelMode": "ラベルモードを選択",
-  "foreground": "フォアグラウンド（前面）"
+  "foreground": "フォアグラウンド（前面）",
+  "version": "バージョン",
+  "repository": "Repository"
 }
