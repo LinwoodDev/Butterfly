@@ -497,5 +497,7 @@
   "captureThumbnail": "Przechwyć miniaturę",
   "capturedThumbnail": "Pomyślnie przechwycono miniaturę",
   "chooseLabelMode": "Wybierz tryb etykiety",
-  "foreground": "Pierwszy plan"
+  "foreground": "Pierwszy plan",
+  "version": "Wersja",
+  "repository": "Repository"
 }
