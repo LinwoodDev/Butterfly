@@ -497,5 +497,7 @@
   "captureThumbnail": "Fånga miniatyrbild",
   "capturedThumbnail": "Framgångsrikt fångad miniatyrbild",
   "chooseLabelMode": "Välj etikettläge",
-  "foreground": "Förgrund"
+  "foreground": "Förgrund",
+  "version": "Version",
+  "repository": "Repository"
 }
