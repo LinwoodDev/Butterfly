@@ -497,5 +497,7 @@
   "captureThumbnail": "Optag miniature",
   "capturedThumbnail": "Miniaturebillede med succes",
   "chooseLabelMode": "Vælg etiket tilstand",
-  "foreground": "Forgrund"
+  "foreground": "Forgrund",
+  "version": "Version",
+  "repository": "Repository"
 }
