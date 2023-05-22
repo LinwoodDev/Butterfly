@@ -497,5 +497,7 @@
   "captureThumbnail": "Σύλληψη μικρογραφίας",
   "capturedThumbnail": "Επιτυχής λήψη μικρογραφίας",
   "chooseLabelMode": "Επιλέξτε λειτουργία ετικέτας",
-  "foreground": "Προσκήνιο"
+  "foreground": "Προσκήνιο",
+  "version": "Έκδοση",
+  "repository": "Repository"
 }
