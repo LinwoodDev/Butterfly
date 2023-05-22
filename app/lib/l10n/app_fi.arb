@@ -497,5 +497,7 @@
   "captureThumbnail": "Tallenna pikkukuva",
   "capturedThumbnail": "Pienoiskuvan talteenotto onnistui",
   "chooseLabelMode": "Valitse tunnistetila",
-  "foreground": "Etuala"
+  "foreground": "Etuala",
+  "version": "Versio",
+  "repository": "Repository"
 }
