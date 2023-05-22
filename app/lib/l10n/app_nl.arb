@@ -497,5 +497,7 @@
   "captureThumbnail": "Thumbnail opnemen",
   "capturedThumbnail": "Miniatuurweergave succesvol vastgelegd",
   "chooseLabelMode": "Kies labelmodus",
-  "foreground": "Voorgrond"
+  "foreground": "Voorgrond",
+  "version": "Versie",
+  "repository": "Repository"
 }
