@@ -497,5 +497,7 @@
   "captureThumbnail": "Capture miniature",
   "capturedThumbnail": "La vignette a été capturée avec succès",
   "chooseLabelMode": "Choisir le mode d'étiquette",
-  "foreground": "Premier plan"
+  "foreground": "Premier plan",
+  "version": "Version",
+  "repository": "Repository"
 }
