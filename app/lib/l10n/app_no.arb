@@ -497,5 +497,7 @@
   "captureThumbnail": "Ta opp miniatyrbilde",
   "capturedThumbnail": "Miniatyrbildet ble tatt opp",
   "chooseLabelMode": "Velg etikett-modus",
-  "foreground": "Forgrunn"
+  "foreground": "Forgrunn",
+  "version": "Versjon",
+  "repository": "Repository"
 }
