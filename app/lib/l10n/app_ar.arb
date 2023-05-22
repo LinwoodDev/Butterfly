@@ -497,5 +497,7 @@
   "captureThumbnail": "التقط الصورة المصغرة",
   "capturedThumbnail": "تم التقاط الصورة المصغرة بنجاح",
   "chooseLabelMode": "اختيار وضع التسمية",
-  "foreground": "تمهيد"
+  "foreground": "تمهيد",
+  "version": "الإصدار",
+  "repository": "Repository"
 }
