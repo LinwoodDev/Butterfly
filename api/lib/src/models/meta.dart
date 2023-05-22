@@ -19,10 +19,17 @@ class FileMetadata with _$FileMetadata {
     @Default('') String description,
     @Default('') String author,
     @Default('') String directory,
+    @Default('') String version,
+    @Default('') String repository,
   }) = _FileMetadata;
 
   factory FileMetadata.fromJson(Map<String, dynamic> json) =>
       _$FileMetadataFromJson(json);
+
+  bool isSame(String repository, String author, String name) =>
+      this.repository == repository &&
+      this.author == author &&
+      this.name == name;
 }
 
 enum NoteFileType {

@@ -34,18 +34,40 @@ class GeneralPackView extends StatelessWidget {
             filled: true,
           ),
           initialValue: metadata.name,
-          onChanged: (name) => changeMetadata(metadata.copyWith(name: name)),
+          onChanged: (value) => changeMetadata(metadata.copyWith(name: value)),
         ),
         const SizedBox(height: 8),
         TextFormField(
           decoration: InputDecoration(
             labelText: AppLocalizations.of(context).author,
-            icon: const PhosphorIcon(PhosphorIconsLight.person),
+            icon: const PhosphorIcon(PhosphorIconsLight.user),
             filled: true,
           ),
           initialValue: metadata.author,
-          onChanged: (author) =>
-              changeMetadata(metadata.copyWith(author: author)),
+          onChanged: (value) =>
+              changeMetadata(metadata.copyWith(author: value)),
+        ),
+        const SizedBox(height: 8),
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).version,
+            icon: const PhosphorIcon(PhosphorIconsLight.info),
+            filled: true,
+          ),
+          initialValue: metadata.author,
+          onChanged: (value) =>
+              changeMetadata(metadata.copyWith(version: value)),
+        ),
+        const SizedBox(height: 8),
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context).repository,
+            icon: const PhosphorIcon(PhosphorIconsLight.globe),
+            filled: true,
+          ),
+          initialValue: metadata.author,
+          onChanged: (value) =>
+              changeMetadata(metadata.copyWith(repository: value)),
         ),
         const SizedBox(height: 8),
         TextFormField(
@@ -57,8 +79,8 @@ class GeneralPackView extends StatelessWidget {
           minLines: 3,
           maxLines: 5,
           initialValue: metadata.description,
-          onChanged: (description) =>
-              changeMetadata(metadata.copyWith(description: description)),
+          onChanged: (value) =>
+              changeMetadata(metadata.copyWith(description: value)),
         ),
       ],
     );

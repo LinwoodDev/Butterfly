@@ -9,6 +9,8 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DocumentDefaults {
+  static NoteData? _corePack;
+
   DocumentDefaults._();
 
   static Future<Uint8List> _createPlainThumnail(Color color) async {
@@ -56,8 +58,11 @@ class DocumentDefaults {
     }).toList());
   }
 
-  static Future<NoteData> getCorePack() async => NoteData.fromData(
-      Uint8List.sublistView(await rootBundle.load('defaults/pack.bfly')));
+  static Future<NoteData> getCorePack() async {
+    _corePack ??= NoteData.fromData(
+        Uint8List.sublistView(await rootBundle.load('defaults/pack.bfly')));
+    return _corePack!;
+  }
 
   static String translate(String key, Map<String, String> translations) {
     if (key.startsWith('\\/')) return key.substring(1);
