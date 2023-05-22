@@ -497,5 +497,7 @@
   "captureThumbnail": "Захват эскиза",
   "capturedThumbnail": "Успешно записанные миниатюры",
   "chooseLabelMode": "Выберите режим метки",
-  "foreground": "Передний план"
+  "foreground": "Передний план",
+  "version": "Версии",
+  "repository": "Repository"
 }
