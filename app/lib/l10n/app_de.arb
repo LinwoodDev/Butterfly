@@ -497,5 +497,7 @@
   "captureThumbnail": "Thumbnail aufnehmen",
   "capturedThumbnail": "Miniaturbild erfolgreich erfasst",
   "chooseLabelMode": "Labelmodus wählen",
-  "foreground": "Vordergrund"
+  "foreground": "Vordergrund",
+  "version": "Version",
+  "repository": "Repository"
 }
