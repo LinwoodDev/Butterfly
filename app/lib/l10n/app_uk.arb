@@ -497,5 +497,7 @@
   "captureThumbnail": "Захопити ескіз",
   "capturedThumbnail": "Успішно захоплено ескіз",
   "chooseLabelMode": "Виберіть режим мітки",
-  "foreground": "Активний режим"
+  "foreground": "Активний режим",
+  "version": "Версія",
+  "repository": "Repository"
 }
