@@ -497,5 +497,7 @@
   "captureThumbnail": "Capturează miniatura",
   "capturedThumbnail": "Miniatură captată cu succes",
   "chooseLabelMode": "Alege modul etichetă",
-  "foreground": "prim-plan"
+  "foreground": "prim-plan",
+  "version": "Versiune",
+  "repository": "Repository"
 }
