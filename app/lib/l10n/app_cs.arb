@@ -497,5 +497,7 @@
   "captureThumbnail": "Snímat miniaturu",
   "capturedThumbnail": "Náhledy úspěšně zachyceny",
   "chooseLabelMode": "Zvolte mód popisku",
-  "foreground": "Popředí"
+  "foreground": "Popředí",
+  "version": "Verze",
+  "repository": "Repository"
 }
