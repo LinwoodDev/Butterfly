@@ -22,7 +22,6 @@ ToolState _$ToolStateFromJson(Map<String, dynamic> json) {
 mixin _$ToolState {
   bool get rulerEnabled => throw _privateConstructorUsedError;
   bool get gridEnabled => throw _privateConstructorUsedError;
-  bool get navbarEnabled => throw _privateConstructorUsedError;
   @DoublePointJsonConverter()
   Point<double> get rulerPosition => throw _privateConstructorUsedError;
   double get rulerAngle => throw _privateConstructorUsedError;
@@ -41,7 +40,6 @@ abstract class $ToolStateCopyWith<$Res> {
   $Res call(
       {bool rulerEnabled,
       bool gridEnabled,
-      bool navbarEnabled,
       @DoublePointJsonConverter() Point<double> rulerPosition,
       double rulerAngle});
 }
@@ -61,7 +59,6 @@ class _$ToolStateCopyWithImpl<$Res, $Val extends ToolState>
   $Res call({
     Object? rulerEnabled = null,
     Object? gridEnabled = null,
-    Object? navbarEnabled = null,
     Object? rulerPosition = null,
     Object? rulerAngle = null,
   }) {
@@ -73,10 +70,6 @@ class _$ToolStateCopyWithImpl<$Res, $Val extends ToolState>
       gridEnabled: null == gridEnabled
           ? _value.gridEnabled
           : gridEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      navbarEnabled: null == navbarEnabled
-          ? _value.navbarEnabled
-          : navbarEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       rulerPosition: null == rulerPosition
           ? _value.rulerPosition
@@ -100,7 +93,6 @@ abstract class _$$_ToolStateCopyWith<$Res> implements $ToolStateCopyWith<$Res> {
   $Res call(
       {bool rulerEnabled,
       bool gridEnabled,
-      bool navbarEnabled,
       @DoublePointJsonConverter() Point<double> rulerPosition,
       double rulerAngle});
 }
@@ -118,7 +110,6 @@ class __$$_ToolStateCopyWithImpl<$Res>
   $Res call({
     Object? rulerEnabled = null,
     Object? gridEnabled = null,
-    Object? navbarEnabled = null,
     Object? rulerPosition = null,
     Object? rulerAngle = null,
   }) {
@@ -130,10 +121,6 @@ class __$$_ToolStateCopyWithImpl<$Res>
       gridEnabled: null == gridEnabled
           ? _value.gridEnabled
           : gridEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      navbarEnabled: null == navbarEnabled
-          ? _value.navbarEnabled
-          : navbarEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       rulerPosition: null == rulerPosition
           ? _value.rulerPosition
@@ -153,7 +140,6 @@ class _$_ToolState implements _ToolState {
   const _$_ToolState(
       {this.rulerEnabled = false,
       this.gridEnabled = false,
-      this.navbarEnabled = true,
       @DoublePointJsonConverter() this.rulerPosition = const Point(0.0, 0.0),
       this.rulerAngle = 0});
 
@@ -168,9 +154,6 @@ class _$_ToolState implements _ToolState {
   final bool gridEnabled;
   @override
   @JsonKey()
-  final bool navbarEnabled;
-  @override
-  @JsonKey()
   @DoublePointJsonConverter()
   final Point<double> rulerPosition;
   @override
@@ -179,7 +162,7 @@ class _$_ToolState implements _ToolState {
 
   @override
   String toString() {
-    return 'ToolState(rulerEnabled: $rulerEnabled, gridEnabled: $gridEnabled, navbarEnabled: $navbarEnabled, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
+    return 'ToolState(rulerEnabled: $rulerEnabled, gridEnabled: $gridEnabled, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
   }
 
   @override
@@ -191,8 +174,6 @@ class _$_ToolState implements _ToolState {
                 other.rulerEnabled == rulerEnabled) &&
             (identical(other.gridEnabled, gridEnabled) ||
                 other.gridEnabled == gridEnabled) &&
-            (identical(other.navbarEnabled, navbarEnabled) ||
-                other.navbarEnabled == navbarEnabled) &&
             (identical(other.rulerPosition, rulerPosition) ||
                 other.rulerPosition == rulerPosition) &&
             (identical(other.rulerAngle, rulerAngle) ||
@@ -201,8 +182,8 @@ class _$_ToolState implements _ToolState {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, rulerEnabled, gridEnabled,
-      navbarEnabled, rulerPosition, rulerAngle);
+  int get hashCode => Object.hash(
+      runtimeType, rulerEnabled, gridEnabled, rulerPosition, rulerAngle);
 
   @JsonKey(ignore: true)
   @override
@@ -222,7 +203,6 @@ abstract class _ToolState implements ToolState {
   const factory _ToolState(
       {final bool rulerEnabled,
       final bool gridEnabled,
-      final bool navbarEnabled,
       @DoublePointJsonConverter() final Point<double> rulerPosition,
       final double rulerAngle}) = _$_ToolState;
 
@@ -233,8 +213,6 @@ abstract class _ToolState implements ToolState {
   bool get rulerEnabled;
   @override
   bool get gridEnabled;
-  @override
-  bool get navbarEnabled;
   @override
   @DoublePointJsonConverter()
   Point<double> get rulerPosition;

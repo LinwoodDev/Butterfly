@@ -20,6 +20,7 @@ import '../actions/pdf_export.dart';
 import '../actions/save.dart';
 import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
+import '../cubits/settings.dart';
 import '../dialogs/search.dart';
 import '../embed/action.dart';
 import '../main.dart';
@@ -257,13 +258,9 @@ class _MainPopupMenu extends StatelessWidget {
               child: Text(AppLocalizations.of(context).files),
               onPressed: () {
                 if (MediaQuery.of(context).size.width >= kLargeWidth) {
-                  final cubit = context.read<CurrentIndexCubit>();
-                  final toolState = cubit.state.cameraViewport.tool.element;
-                  cubit.updateTool(
-                      state.data,
-                      state.page,
-                      toolState.copyWith(
-                          navbarEnabled: !toolState.navbarEnabled));
+                  final settingsCubit = context.read<SettingsCubit>();
+                  settingsCubit
+                      .changeNavbarEnabled(!settingsCubit.state.navbarEnabled);
                 } else {
                   Scaffold.of(context).openDrawer();
                 }

@@ -11,7 +11,6 @@ class ToolState with _$ToolState {
   const factory ToolState({
     @Default(false) bool rulerEnabled,
     @Default(false) bool gridEnabled,
-    @Default(true) bool navbarEnabled,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
     Point<double> rulerPosition,

@@ -1,5 +1,4 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/files.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -43,95 +42,87 @@ class _DocumentNavbarState extends State<DocumentNavbar>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
       buildWhen: (previous, current) =>
-          previous.cameraViewport.tool.element.navbarEnabled !=
-          current.cameraViewport.tool.element.navbarEnabled,
-      builder: (context, currentIndex) {
-        Widget content;
-        if (!currentIndex.cameraViewport.tool.element.navbarEnabled &&
-            !widget.asDrawer) {
-          content = const SizedBox.shrink();
-          _controller.reverse(from: 1);
-        } else {
-          _controller.forward(from: 0);
-          content = Padding(
-            padding: const EdgeInsets.all(12),
-            child: ListView(
-              children: [
-                Header(
-                  title: Text(AppLocalizations.of(context).files),
-                  actions: [
-                    IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: () {
-                          if (widget.asDrawer) {
-                            Navigator.of(context).pop();
-                            return;
-                          }
-                          final state = context.read<DocumentBloc>().state;
-                          if (state is! DocumentLoaded) return;
-                          final document = state.data;
-                          final page = state.page;
-                          final toolState = context
-                              .read<CurrentIndexCubit>()
-                              .state
-                              .cameraViewport
-                              .tool
-                              .element;
-                          context.read<CurrentIndexCubit>().updateTool(
-                                document,
-                                page,
-                                toolState.copyWith(navbarEnabled: false),
-                              );
-                        }),
+          previous.navbarEnabled != current.navbarEnabled,
+      builder: (context, settings) {
+        return BlocBuilder<DocumentBloc, DocumentState>(
+          buildWhen: (previous, current) =>
+              (previous is DocumentLoadSuccess &&
+                  current is! DocumentLoadSuccess) ||
+              (previous is! DocumentLoadSuccess &&
+                  current is DocumentLoadSuccess) ||
+              (current is DocumentLoaded &&
+                  previous is DocumentLoaded &&
+                  current.location != previous.location),
+          builder: (context, state) {
+            AssetLocation? location;
+            if (state is DocumentLoaded) {
+              location = state.location;
+            }
+            Widget content;
+            if (!settings.navbarEnabled && !widget.asDrawer ||
+                state is! DocumentLoadSuccess) {
+              content = const SizedBox.shrink();
+              _controller.reverse(from: 1);
+            } else {
+              _controller.forward(from: 0);
+              content = Padding(
+                padding: const EdgeInsets.all(12),
+                child: ListView(
+                  children: [
+                    Header(
+                      title: Text(AppLocalizations.of(context).files),
+                      actions: [
+                        IconButton(
+                            icon: const Icon(Icons.close),
+                            onPressed: () {
+                              if (widget.asDrawer) {
+                                Navigator.of(context).pop();
+                                return;
+                              }
+                              context
+                                  .read<SettingsCubit>()
+                                  .changeNavbarEnabled(false);
+                            }),
+                      ],
+                    ),
+                    FilesView(
+                      remote: _remote,
+                      selectedAsset: location,
+                      collapsed: true,
+                    ),
                   ],
                 ),
-                BlocBuilder<DocumentBloc, DocumentState>(
-                    buildWhen: (previous, current) =>
-                        previous is! DocumentLoaded ||
-                        current is! DocumentLoaded ||
-                        current.location != previous.location,
-                    builder: (context, state) {
-                      AssetLocation? location;
-                      if (state is DocumentLoaded) {
-                        location = state.location;
-                      }
-                      return FilesView(
-                        remote: _remote,
-                        selectedAsset: location,
-                        collapsed: true,
-                      );
-                    }),
-              ],
-            ),
-          );
-        }
-        if (widget.asDrawer) {
-          return Drawer(
-            width: 400,
-            child: content,
-          );
-        } else {
-          return AnimatedBuilder(
-            animation: _animation,
-            builder: (context, child) {
-              if (_animation.value == 0) return const SizedBox.shrink();
-              return SizedBox(
-                width: 400 * _animation.value,
-                child: ClipRect(
-                  child: Transform.translate(
-                    offset: Offset(-400 * (1 - _animation.value), 0),
-                    child: OverflowBox(
-                        maxWidth: double.infinity,
-                        child: SizedBox(width: 400, child: child)),
-                  ),
-                ),
               );
-            },
-            child: content,
-          );
-        }
+            }
+            if (widget.asDrawer) {
+              return Drawer(
+                width: 400,
+                child: content,
+              );
+            } else {
+              return AnimatedBuilder(
+                animation: _animation,
+                builder: (context, child) {
+                  if (_animation.value == 0) return const SizedBox.shrink();
+                  return SizedBox(
+                    width: 400 * _animation.value,
+                    child: ClipRect(
+                      child: Transform.translate(
+                        offset: Offset(-400 * (1 - _animation.value), 0),
+                        child: OverflowBox(
+                            maxWidth: double.infinity,
+                            child: SizedBox(width: 400, child: child)),
+                      ),
+                    ),
+                  );
+                },
+                child: content,
+              );
+            }
+          },
+        );
       },
     );
   }
