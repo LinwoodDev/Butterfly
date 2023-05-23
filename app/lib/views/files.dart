@@ -293,9 +293,13 @@ class _FilesViewState extends State<FilesView> {
                     final result = await openBfly();
                     if (result == null) return;
                     final model = await importService.importBfly(result);
-                    router.push('/native?name=document.bfly&type=note',
-                        extra: model);
-                    _reloadFileSystem();
+                    const route = '/native?name=document.bfly&type=note';
+                    if (widget.collapsed) {
+                      router.go(route, extra: model);
+                    } else {
+                      router.push(route, extra: model);
+                      _reloadFileSystem();
+                    }
                   },
                   child: Column(
                     children: [
@@ -411,25 +415,45 @@ class _FilesViewState extends State<FilesView> {
                     }
                     final location = entity.location;
                     if (location.remote != '') {
-                      await GoRouter.of(context)
-                          .pushNamed('remote', pathParameters: {
-                        'remote': location.remote,
-                        'path': location.pathWithoutLeadingSlash,
-                      }, queryParameters: {
-                        'type': location.fileType?.name,
-                      });
-                      _reloadFileSystem();
+                      if (widget.collapsed) {
+                        GoRouter.of(context).goNamed('remote', pathParameters: {
+                          'remote': location.remote,
+                          'path': location.pathWithoutLeadingSlash,
+                        }, queryParameters: {
+                          'type': location.fileType?.name,
+                        });
+                      } else {
+                        await GoRouter.of(context)
+                            .pushNamed('remote', pathParameters: {
+                          'remote': location.remote,
+                          'path': location.pathWithoutLeadingSlash,
+                        }, queryParameters: {
+                          'type': location.fileType?.name,
+                        });
+                        _reloadFileSystem();
+                      }
                       return;
                     }
-                    await GoRouter.of(context).pushNamed('local',
-                        pathParameters: {
-                          'path': location.pathWithoutLeadingSlash,
-                        },
-                        queryParameters: {
-                          'type': location.fileType?.name,
-                        },
-                        extra: entity);
-                    _reloadFileSystem();
+                    if (widget.collapsed) {
+                      GoRouter.of(context).goNamed('local',
+                          pathParameters: {
+                            'path': location.pathWithoutLeadingSlash,
+                          },
+                          queryParameters: {
+                            'type': location.fileType?.name,
+                          },
+                          extra: entity);
+                    } else {
+                      await GoRouter.of(context).pushNamed('local',
+                          pathParameters: {
+                            'path': location.pathWithoutLeadingSlash,
+                          },
+                          queryParameters: {
+                            'type': location.fileType?.name,
+                          },
+                          extra: entity);
+                      _reloadFileSystem();
+                    }
                   },
                   onReload: _reloadFileSystem,
                 );
