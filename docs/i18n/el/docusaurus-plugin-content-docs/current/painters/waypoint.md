@@ -1,6 +1,6 @@
 ---
-title: "Παρουσίαση"
-sidebar_label: "Παρουσίαση"
+title: "Σημείο Πορείας"
+sidebar_label: "Σημείο Πορείας"
 sidebar_position: 5
 ---
 
