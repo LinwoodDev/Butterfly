@@ -1,6 +1,6 @@
 ---
-title: "Презентація"
-sidebar_label: "Презентація"
+title: "Шляхова Точка"
+sidebar_label: "Шляхова Точка"
 sidebar_position: 5
 ---
 
