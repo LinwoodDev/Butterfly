@@ -39,6 +39,7 @@ import 'views/main.dart';
 import 'widgets/window.dart';
 
 const kMobileWidth = 600.0;
+const kLargeWidth = 1200.0;
 
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();

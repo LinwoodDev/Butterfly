@@ -356,14 +356,12 @@ class _ProjectPageState extends State<ProjectPage> {
                                   child: LayoutBuilder(
                                       builder: (context, constraints) {
                                     final isMobile =
-                                        MediaQuery.of(context).size.width <
-                                            kMobileWidth;
-                                    final isLandscape =
-                                        MediaQuery.of(context).size.height >
-                                            400;
+                                        constraints.maxWidth < kMobileWidth;
+                                    final isLarge =
+                                        constraints.maxWidth > kLargeWidth;
                                     return Row(
                                       children: [
-                                        if (isLandscape)
+                                        if (isLarge)
                                           const SizedBox(
                                             width: 400,
                                             child: DocumentNavbar(),
@@ -391,7 +389,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                                             ZoomView(
                                                                 isMobile:
                                                                     isMobile),
-                                                            if (isLandscape)
+                                                            if (!isMobile)
                                                               const PropertyView()
                                                           ],
                                                         )),
@@ -407,7 +405,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                                                   isMobile:
                                                                       isMobile))),
                                                   ]),
-                                              if (!isLandscape)
+                                              if (isMobile)
                                                 const PropertyView(),
                                             ],
                                           ),

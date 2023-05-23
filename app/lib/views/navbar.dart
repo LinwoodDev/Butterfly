@@ -22,24 +22,28 @@ class _DocumentNavbarState extends State<DocumentNavbar> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        BlocBuilder<DocumentBloc, DocumentState>(
-            buildWhen: (previous, current) =>
-                previous is! DocumentLoaded ||
-                current is! DocumentLoaded ||
-                current.location != previous.location,
-            builder: (context, state) {
-              AssetLocation? location;
-              if (state is DocumentLoaded) {
-                location = state.location;
-              }
-              return FilesView(
-                remote: _remote,
-                selectedAsset: location,
-              );
-            }),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: ListView(
+        children: [
+          BlocBuilder<DocumentBloc, DocumentState>(
+              buildWhen: (previous, current) =>
+                  previous is! DocumentLoaded ||
+                  current is! DocumentLoaded ||
+                  current.location != previous.location,
+              builder: (context, state) {
+                AssetLocation? location;
+                if (state is DocumentLoaded) {
+                  location = state.location;
+                }
+                return FilesView(
+                  remote: _remote,
+                  selectedAsset: location,
+                  collapsed: true,
+                );
+              }),
+        ],
+      ),
     );
   }
 }

@@ -27,9 +27,15 @@ class FilesView extends StatefulWidget {
   final AssetLocation? selectedAsset;
   final RemoteStorage? remote;
   final ValueChanged<RemoteStorage?>? onRemoteChanged;
+  final bool collapsed;
 
-  const FilesView(
-      {super.key, this.selectedAsset, this.remote, this.onRemoteChanged});
+  const FilesView({
+    super.key,
+    this.selectedAsset,
+    this.remote,
+    this.onRemoteChanged,
+    this.collapsed = false,
+  });
 
   @override
   State<FilesView> createState() => _FilesViewState();
@@ -97,19 +103,27 @@ class _FilesViewState extends State<FilesView> {
     final parent = _locationController.text.substring(0, index < 0 ? 0 : index);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Wrap(
-        alignment: WrapAlignment.spaceBetween,
-        runAlignment: WrapAlignment.spaceBetween,
+        alignment: widget.collapsed
+            ? WrapAlignment.spaceAround
+            : WrapAlignment.spaceBetween,
+        runAlignment: widget.collapsed
+            ? WrapAlignment.spaceAround
+            : WrapAlignment.spaceBetween,
         runSpacing: 16,
         spacing: 16,
         children: [
-          Text(
-            AppLocalizations.of(context).files,
-            style: Theme.of(context).textTheme.headlineMedium,
-            textAlign: TextAlign.start,
-          ),
+          if (!widget.collapsed)
+            Text(
+              AppLocalizations.of(context).files,
+              style: Theme.of(context).textTheme.headlineMedium,
+              textAlign: TextAlign.start,
+            ),
           Wrap(
             runSpacing: 16,
             spacing: 16,
+            alignment: widget.collapsed
+                ? WrapAlignment.spaceBetween
+                : WrapAlignment.end,
             children: [
               /*Row(
           mainAxisSize: MainAxisSize.min,
@@ -126,11 +140,15 @@ class _FilesViewState extends State<FilesView> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(AppLocalizations.of(context).source),
-                  const SizedBox(width: 8),
+                  if (!widget.collapsed) ...[
+                    Text(AppLocalizations.of(context).source),
+                    const SizedBox(width: 8),
+                  ],
                   BlocBuilder<SettingsCubit, ButterflySettings>(
                       builder: (context, state) {
                     return DropdownMenu<String?>(
+                      leadingIcon:
+                          const PhosphorIcon(PhosphorIconsLight.cloudArrowDown),
                       dropdownMenuEntries: [
                         DropdownMenuEntry(
                           value: null,
@@ -160,9 +178,13 @@ class _FilesViewState extends State<FilesView> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(AppLocalizations.of(context).sortBy),
-                  const SizedBox(width: 8),
+                  if (!widget.collapsed) ...[
+                    Text(AppLocalizations.of(context).sortBy),
+                    const SizedBox(width: 8),
+                  ],
                   DropdownMenu<_SortBy>(
+                    leadingIcon:
+                        const PhosphorIcon(PhosphorIconsLight.sortAscending),
                     dropdownMenuEntries: _SortBy.values
                         .map((e) => DropdownMenuEntry(
                               value: e,
@@ -377,6 +399,7 @@ class _FilesViewState extends State<FilesView> {
                 return _FileEntityListTile(
                   entity: entity,
                   selected: selected,
+                  collapsed: widget.collapsed,
                   onTap: () async {
                     if (entity is AppDocumentDirectory) {
                       setState(() {
@@ -486,11 +509,13 @@ class _FileEntityListTile extends StatelessWidget {
   final AppDocumentEntity entity;
   final bool selected;
   final VoidCallback onTap, onReload;
+  final bool collapsed;
   final TextEditingController _nameController = TextEditingController();
 
   _FileEntityListTile(
       {required this.entity,
       this.selected = false,
+      this.collapsed = false,
       required this.onTap,
       required this.onReload});
 
@@ -813,97 +838,99 @@ class _FileEntityListTile extends StatelessWidget {
                   }),
                 )),
           )),
-          const SizedBox(width: 16),
-          SizedBox(
-            width: 80,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (entity is AppDocumentFile)
-                  IconButton(
-                    onPressed: () {
-                      try {
-                        final data = (entity as AppDocumentFile).data;
-                        saveData(context, data);
-                      } catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              AppLocalizations.of(context).error,
+          if (!collapsed) ...[
+            const SizedBox(width: 16),
+            SizedBox(
+              width: 80,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (entity is AppDocumentFile)
+                    IconButton(
+                      onPressed: () {
+                        try {
+                          final data = (entity as AppDocumentFile).data;
+                          saveData(context, data);
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                AppLocalizations.of(context).error,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      icon: const PhosphorIcon(
+                          PhosphorIconsLight.paperPlaneRight),
+                      tooltip: AppLocalizations.of(context).export,
+                    ),
+                  Builder(builder: (context) {
+                    return IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                      highlightColor: colorScheme.error.withOpacity(0.2),
+                      tooltip: AppLocalizations.of(context).delete,
+                      onPressed: () {
+                        showPopover(
+                          backgroundColor: colorScheme.inverseSurface,
+                          context: context,
+                          bodyBuilder: (ctx) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 16),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context).areYouSure,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                        color: colorScheme.onInverseSurface,
+                                      ),
+                                ),
+                                const SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.of(ctx).pop();
+                                      },
+                                      child: const PhosphorIcon(
+                                          PhosphorIconsLight.x),
+                                    ),
+                                    FilledButton(
+                                      onPressed: () {
+                                        Navigator.of(ctx).pop();
+                                        fileSystem
+                                            .deleteAsset(entity.location.path);
+                                        onReload();
+                                      },
+                                      child: const PhosphorIcon(
+                                          PhosphorIconsLight.check),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
+                          direction: PopoverDirection.bottom,
+                          width: 200,
+                          height: 130,
+                          arrowHeight: 15,
+                          arrowWidth: 20,
                         );
-                      }
-                    },
-                    icon:
-                        const PhosphorIcon(PhosphorIconsLight.paperPlaneRight),
-                    tooltip: AppLocalizations.of(context).export,
-                  ),
-                Builder(builder: (context) {
-                  return IconButton(
-                    icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                    highlightColor: colorScheme.error.withOpacity(0.2),
-                    tooltip: AppLocalizations.of(context).delete,
-                    onPressed: () {
-                      showPopover(
-                        backgroundColor: colorScheme.inverseSurface,
-                        context: context,
-                        bodyBuilder: (ctx) => Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 16),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context).areYouSure,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.copyWith(
-                                      color: colorScheme.onInverseSurface,
-                                    ),
-                              ),
-                              const SizedBox(height: 16),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.of(ctx).pop();
-                                    },
-                                    child: const PhosphorIcon(
-                                        PhosphorIconsLight.x),
-                                  ),
-                                  FilledButton(
-                                    onPressed: () {
-                                      Navigator.of(ctx).pop();
-                                      fileSystem
-                                          .deleteAsset(entity.location.path);
-                                      onReload();
-                                    },
-                                    child: const PhosphorIcon(
-                                        PhosphorIconsLight.check),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        direction: PopoverDirection.bottom,
-                        width: 200,
-                        height: 130,
-                        arrowHeight: 15,
-                        arrowWidth: 20,
-                      );
-                    },
-                  );
-                }),
-              ],
+                      },
+                    );
+                  }),
+                ],
+              ),
             ),
-          ),
+          ],
         ],
       ),
     );
