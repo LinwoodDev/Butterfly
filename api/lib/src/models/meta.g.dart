@@ -18,7 +18,6 @@ _$_FileMetadata _$$_FileMetadataFromJson(Map json) => _$_FileMetadata(
       author: json['author'] as String? ?? '',
       directory: json['directory'] as String? ?? '',
       version: json['version'] as String? ?? '',
-      repository: json['repository'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$_FileMetadataToJson(_$_FileMetadata instance) =>
@@ -34,7 +33,6 @@ Map<String, dynamic> _$$_FileMetadataToJson(_$_FileMetadata instance) =>
       'author': instance.author,
       'directory': instance.directory,
       'version': instance.version,
-      'repository': instance.repository,
     };
 
 const _$NoteFileTypeEnumMap = {

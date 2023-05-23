@@ -61,17 +61,6 @@ class GeneralPackView extends StatelessWidget {
         const SizedBox(height: 8),
         TextFormField(
           decoration: InputDecoration(
-            labelText: AppLocalizations.of(context).repository,
-            icon: const PhosphorIcon(PhosphorIconsLight.globe),
-            filled: true,
-          ),
-          initialValue: metadata.author,
-          onChanged: (value) =>
-              changeMetadata(metadata.copyWith(repository: value)),
-        ),
-        const SizedBox(height: 8),
-        TextFormField(
-          decoration: InputDecoration(
             labelText: AppLocalizations.of(context).description,
             icon: const PhosphorIcon(PhosphorIconsLight.paragraph),
             border: const OutlineInputBorder(),

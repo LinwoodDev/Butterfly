@@ -31,7 +31,6 @@ mixin _$FileMetadata {
   String get author => throw _privateConstructorUsedError;
   String get directory => throw _privateConstructorUsedError;
   String get version => throw _privateConstructorUsedError;
-  String get repository => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,8 +53,7 @@ abstract class $FileMetadataCopyWith<$Res> {
       String description,
       String author,
       String directory,
-      String version,
-      String repository});
+      String version});
 }
 
 /// @nodoc
@@ -80,7 +78,6 @@ class _$FileMetadataCopyWithImpl<$Res, $Val extends FileMetadata>
     Object? author = null,
     Object? directory = null,
     Object? version = null,
-    Object? repository = null,
   }) {
     return _then(_value.copyWith(
       fileVersion: freezed == fileVersion
@@ -119,10 +116,6 @@ class _$FileMetadataCopyWithImpl<$Res, $Val extends FileMetadata>
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as String,
-      repository: null == repository
-          ? _value.repository
-          : repository // ignore: cast_nullable_to_non_nullable
-              as String,
     ) as $Val);
   }
 }
@@ -144,8 +137,7 @@ abstract class _$$_FileMetadataCopyWith<$Res>
       String description,
       String author,
       String directory,
-      String version,
-      String repository});
+      String version});
 }
 
 /// @nodoc
@@ -168,7 +160,6 @@ class __$$_FileMetadataCopyWithImpl<$Res>
     Object? author = null,
     Object? directory = null,
     Object? version = null,
-    Object? repository = null,
   }) {
     return _then(_$_FileMetadata(
       fileVersion: freezed == fileVersion
@@ -207,10 +198,6 @@ class __$$_FileMetadataCopyWithImpl<$Res>
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as String,
-      repository: null == repository
-          ? _value.repository
-          : repository // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -227,8 +214,7 @@ class _$_FileMetadata implements _FileMetadata {
       this.description = '',
       this.author = '',
       this.directory = '',
-      this.version = '',
-      this.repository = ''});
+      this.version = ''});
 
   factory _$_FileMetadata.fromJson(Map<String, dynamic> json) =>
       _$$_FileMetadataFromJson(json);
@@ -258,13 +244,10 @@ class _$_FileMetadata implements _FileMetadata {
   @override
   @JsonKey()
   final String version;
-  @override
-  @JsonKey()
-  final String repository;
 
   @override
   String toString() {
-    return 'FileMetadata(fileVersion: $fileVersion, type: $type, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, author: $author, directory: $directory, version: $version, repository: $repository)';
+    return 'FileMetadata(fileVersion: $fileVersion, type: $type, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, author: $author, directory: $directory, version: $version)';
   }
 
   @override
@@ -285,15 +268,13 @@ class _$_FileMetadata implements _FileMetadata {
             (identical(other.author, author) || other.author == author) &&
             (identical(other.directory, directory) ||
                 other.directory == directory) &&
-            (identical(other.version, version) || other.version == version) &&
-            (identical(other.repository, repository) ||
-                other.repository == repository));
+            (identical(other.version, version) || other.version == version));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, fileVersion, type, createdAt,
-      updatedAt, name, description, author, directory, version, repository);
+      updatedAt, name, description, author, directory, version);
 
   @JsonKey(ignore: true)
   @override
@@ -319,8 +300,7 @@ abstract class _FileMetadata implements FileMetadata {
       final String description,
       final String author,
       final String directory,
-      final String version,
-      final String repository}) = _$_FileMetadata;
+      final String version}) = _$_FileMetadata;
 
   factory _FileMetadata.fromJson(Map<String, dynamic> json) =
       _$_FileMetadata.fromJson;
@@ -345,8 +325,6 @@ abstract class _FileMetadata implements FileMetadata {
   String get directory;
   @override
   String get version;
-  @override
-  String get repository;
   @override
   @JsonKey(ignore: true)
   _$$_FileMetadataCopyWith<_$_FileMetadata> get copyWith =>

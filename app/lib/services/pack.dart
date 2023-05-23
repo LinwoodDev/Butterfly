@@ -11,11 +11,12 @@ class PackService {
     return [(await DocumentDefaults.getCorePack()).getMetadata()!];
   }
 
-  Future<NoteData?> getPack(
-      String repository, String author, String name) async {
+  Future<NoteData?> getPack(String repository, String name) async {
     final core = await DocumentDefaults.getCorePack();
-    if (core.getMetadata()!.isSame(repository, author, name)) {
-      return core;
+    if (repository == '') {
+      if (name == core.getMetadata()!.name) {
+        return core;
+      }
     }
     return null;
   }

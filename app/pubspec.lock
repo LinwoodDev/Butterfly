@@ -164,10 +164,10 @@ packages:
     dependency: "direct main"
     description:
       name: camera
-      sha256: "309b823e61f15ff6b5b2e4c0ff2e1512ea661cad5355f71fc581e510ae5b26bb"
+      sha256: "42b9cade168e57e298fbb1e5d73e8f501548933529899311020ec4c071d48856"
       url: "https://pub.dev"
     source: hosted
-    version: "0.10.5"
+    version: "0.10.5+1"
   camera_android:
     dependency: transitive
     description:
@@ -554,10 +554,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: b185cf91b5a6861f4c2a92ddaa65f8919909416ee033e00751f7c67ebee1588d
+      sha256: "00d1b67d6e9fa443331da229084dd3eb04407f5a2dff22940bd7bba6af5722c3"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.2"
+    version: "7.1.1"
   graphs:
     dependency: transitive
     description:

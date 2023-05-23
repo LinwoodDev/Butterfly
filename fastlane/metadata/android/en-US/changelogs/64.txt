@@ -1,1 +1,1 @@
-* Add version and repository to pack metadata
+* Add version to pack metadata
