@@ -1,6 +1,6 @@
 ---
-title: "Presentation"
-sidebar_label: "Presentation"
+title: "簡報"
+sidebar_label: "簡報"
 sidebar_position: 5
 ---
 
