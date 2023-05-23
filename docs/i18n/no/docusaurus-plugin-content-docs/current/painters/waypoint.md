@@ -1,6 +1,6 @@
 ---
-title: "Presentasjon"
-sidebar_label: "Presentasjon"
+title: "Veipunkt"
+sidebar_label: "Veipunkt"
 sidebar_position: 5
 ---
 
