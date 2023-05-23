@@ -93,7 +93,7 @@
   "help": "幫助",
   "reallyReset": "確定要重設嗎？",
   "whatToDo": "What do you want to do?",
-  "ignore": "Ignore",
+  "ignore": "略過",
   "backup": "備份",
   "createdInNewerVersion": "「{fileName}」是在第 {fileVersion} 版（較新的版本）中建立的。要如何處理這份檔案？",
   "@createdInNewerVersion": {
