@@ -1,6 +1,6 @@
 ---
-title: "Sunum"
-sidebar_label: "Sunum"
+title: "Yer İşareti"
+sidebar_label: "Yer İşareti"
 sidebar_position: 5
 ---
 
