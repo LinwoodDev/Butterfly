@@ -22,6 +22,7 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
+import 'package:butterfly/views/navbar.dart';
 import 'package:butterfly/views/toolbar.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/error.dart';
@@ -358,43 +359,59 @@ class _ProjectPageState extends State<ProjectPage> {
                                         MediaQuery.of(context).size.width <
                                             kMobileWidth;
                                     final isLandscape =
-                                        MediaQuery.of(context).size.height <
+                                        MediaQuery.of(context).size.height >
                                             400;
-                                    return Stack(
+                                    return Row(
                                       children: [
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
+                                        if (isLandscape)
+                                          const SizedBox(
+                                            width: 400,
+                                            child: DocumentNavbar(),
+                                          ),
+                                        Expanded(
+                                          child: Stack(
                                             children: [
-                                              Expanded(
-                                                  key: _viewportKey,
-                                                  child: Stack(
-                                                    children: [
-                                                      const MainViewViewport(),
-                                                      const Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
+                                              Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .stretch,
+                                                  children: [
+                                                    Expanded(
+                                                        key: _viewportKey,
+                                                        child: Stack(
                                                           children: [
-                                                            ToolbarView(),
-                                                          ]),
-                                                      ZoomView(
-                                                          isMobile: isMobile),
-                                                      if (!isLandscape)
-                                                        const PropertyView()
-                                                    ],
-                                                  )),
-                                              if (isMobile)
-                                                Align(
-                                                    alignment: Alignment.center,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: EditToolbar(
-                                                            isMobile:
-                                                                isMobile))),
-                                            ]),
-                                        if (isLandscape) const PropertyView(),
+                                                            const MainViewViewport(),
+                                                            const Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  ToolbarView(),
+                                                                ]),
+                                                            ZoomView(
+                                                                isMobile:
+                                                                    isMobile),
+                                                            if (isLandscape)
+                                                              const PropertyView()
+                                                          ],
+                                                        )),
+                                                    if (isMobile)
+                                                      Align(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: EditToolbar(
+                                                                  isMobile:
+                                                                      isMobile))),
+                                                  ]),
+                                              if (!isLandscape)
+                                                const PropertyView(),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     );
                                   })),
