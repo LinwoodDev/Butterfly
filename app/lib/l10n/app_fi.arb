@@ -499,5 +499,5 @@
   "chooseLabelMode": "Valitse tunnistetila",
   "foreground": "Etuala",
   "version": "Versio",
-  "repository": "Repository"
+  "repository": "Versiovarasto"
 }
