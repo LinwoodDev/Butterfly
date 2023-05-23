@@ -1,6 +1,6 @@
 ---
-title: "簡報"
-sidebar_label: "簡報"
+title: "定位點"
+sidebar_label: "定位點"
 sidebar_position: 5
 ---
 
