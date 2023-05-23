@@ -108,7 +108,7 @@
       }
     }
   },
-  "shouldNotEmpty": "This value should not be empty",
+  "shouldNotEmpty": "此欄位必填",
   "waypoints": "定位點",
   "origin": "Origin",
   "import": "匯入",
@@ -359,13 +359,13 @@
   "pin": "釘選",
   "unpin": "取消釘選",
   "element": "元素",
-  "painter": "Painter",
+  "painter": "畫具",
   "position": "位置",
   "note": "Note",
   "packs": "素材包",
   "pack": "素材包",
   "more": "More",
-  "askForName": "Ask for name",
+  "askForName": "討取名稱",
   "areaIndex": "分區 {index}",
   "@areaIndex": {
     "placeholders": {
