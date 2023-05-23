@@ -1,6 +1,6 @@
 ---
-title: "Zobrazení"
-sidebar_label: "Zobrazení"
+title: "Trasový bod"
+sidebar_label: "Trasový bod"
 sidebar_position: 5
 ---
 
