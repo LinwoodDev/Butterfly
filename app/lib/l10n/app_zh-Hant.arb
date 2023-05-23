@@ -89,7 +89,7 @@
   "spacing": "間距",
   "image": "圖片",
   "enterUrl": "輸入網址",
-  "scale": "Scale",
+  "scale": "縮放",
   "help": "幫助",
   "reallyReset": "確定要重設嗎？",
   "whatToDo": "What do you want to do?",
@@ -149,7 +149,7 @@
   "folder": "資料夾",
   "move": "移動",
   "copy": "複製",
-  "back": "收起",
+  "back": "返回",
   "zoomDependent": "隨應縮放",
   "defaultLayer": "預設圖層",
   "layer": "圖層",
@@ -184,7 +184,7 @@
   "defaultTemplate": "預設模板",
   "insert": "插入",
   "document": "文件",
-  "camera": "相機",
+  "camera": "鏡頭",
   "printout": "印出",
   "selectCamera": "選擇鏡頭",
   "changeDocumentPath": "修改文件路徑",
@@ -458,7 +458,7 @@
   "endOfPresentation": "You have reached the end of the presentation",
   "startOfPresentation": "You have reached the start of the presentation",
   "palettes": "調色板",
-  "headline": "Headline {index}",
+  "headline": "標題 {index}",
   "@headline": {
     "placeholders": {
       "index": {
