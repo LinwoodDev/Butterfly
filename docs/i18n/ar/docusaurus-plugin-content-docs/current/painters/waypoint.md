@@ -1,6 +1,6 @@
 ---
-title: "عرض"
-sidebar_label: "عرض"
+title: "إحداثية"
+sidebar_label: "إحداثية"
 sidebar_position: 5
 ---
 
