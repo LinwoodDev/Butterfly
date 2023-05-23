@@ -1,6 +1,6 @@
 ---
-title: "Présentation"
-sidebar_label: "Présentation"
+title: "Point de repère"
+sidebar_label: "Point de repère"
 sidebar_position: 5
 ---
 
