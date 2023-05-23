@@ -1,6 +1,6 @@
 ---
-title: "列报内容"
-sidebar_label: "列报内容"
+title: "航点"
+sidebar_label: "航点"
 sidebar_position: 5
 ---
 
