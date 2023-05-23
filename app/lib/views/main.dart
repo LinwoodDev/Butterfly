@@ -351,6 +351,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                   : PadAppBar(
                                       viewportKey: _viewportKey,
                                     ),
+                              drawer: state is DocumentLoadSuccess
+                                  ? const DocumentNavbar(asDrawer: true)
+                                  : null,
                               body: Actions(
                                   actions: _actions,
                                   child: LayoutBuilder(
@@ -361,11 +364,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                         constraints.maxWidth > kLargeWidth;
                                     return Row(
                                       children: [
-                                        if (isLarge)
-                                          const SizedBox(
-                                            width: 400,
-                                            child: DocumentNavbar(),
-                                          ),
+                                        if (isLarge) const DocumentNavbar(),
                                         Expanded(
                                           child: Stack(
                                             children: [

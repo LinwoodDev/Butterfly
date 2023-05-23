@@ -618,28 +618,36 @@ class _FileEntityListTile extends StatelessWidget {
                           ),
                           const SizedBox(width: 8),
                           Flexible(
-                              child: editable
-                                  ? TextField(
-                                      controller: _nameController,
-                                      autofocus: true,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall
-                                          ?.copyWith(
-                                            color: colorScheme.onBackground,
-                                          ),
-                                      onSubmitted: (value) async {
-                                        await fileSystem.renameAsset(
-                                            entity.location.path, value);
-                                        setState(() {
-                                          editable = false;
-                                        });
-                                        onReload();
-                                      },
-                                    )
-                                  : Text(entity.fileName,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis)),
+                            child: SizedBox(
+                                child: editable
+                                    ? ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                          maxWidth: constraints.maxWidth,
+                                          minWidth: 100,
+                                        ),
+                                        child: TextField(
+                                          controller: _nameController,
+                                          autofocus: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.copyWith(
+                                                color: colorScheme.onBackground,
+                                              ),
+                                          onSubmitted: (value) async {
+                                            await fileSystem.renameAsset(
+                                                entity.location.path, value);
+                                            setState(() {
+                                              editable = false;
+                                            });
+                                            onReload();
+                                          },
+                                        ),
+                                      )
+                                    : Text(entity.fileName,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis)),
+                          ),
                         ],
                       );
                       final edit = editable
@@ -788,10 +796,12 @@ class _FileEntityListTile extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            const SizedBox(width: 32),
-                            info,
-                            const SizedBox(width: 32),
-                            actions,
+                            if (!collapsed) ...[
+                              const SizedBox(width: 32),
+                              info,
+                              const SizedBox(width: 32),
+                              actions,
+                            ],
                           ],
                         );
                       } else if (isTablet) {
@@ -800,18 +810,19 @@ class _FileEntityListTile extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Flexible(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                              child: Wrap(
+                                spacing: 2,
                                 children: [
                                   fileName,
-                                  const SizedBox(height: 8),
-                                  info,
+                                  if (!collapsed) info,
                                 ],
                               ),
                             ),
                             const SizedBox(width: 8),
                             edit,
-                            actions,
+                            if (!collapsed) ...[
+                              actions,
+                            ],
                           ],
                         );
                       } else {

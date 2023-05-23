@@ -252,6 +252,23 @@ class _MainPopupMenu extends StatelessWidget {
                 }
               },
             ),
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.compass),
+              child: Text(AppLocalizations.of(context).files),
+              onPressed: () {
+                if (MediaQuery.of(context).size.width >= kLargeWidth) {
+                  final cubit = context.read<CurrentIndexCubit>();
+                  final toolState = cubit.state.cameraViewport.tool.element;
+                  cubit.updateTool(
+                      state.data,
+                      state.page,
+                      toolState.copyWith(
+                          navbarEnabled: !toolState.navbarEnabled));
+                } else {
+                  Scaffold.of(context).openDrawer();
+                }
+              },
+            ),
             const Divider(),
             SubmenuButton(
               menuChildren: [
