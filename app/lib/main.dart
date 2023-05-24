@@ -82,6 +82,7 @@ Future<void> main([List<String> args = const []]) async {
 
   if (!kIsWeb && isWindow) {
     await windowManager.ensureInitialized();
+    final wasMaximized = await windowManager.isMaximized();
     const kWindowOptions = WindowOptions(
       minimumSize: Size(410, 300),
       title: applicationName,
@@ -90,7 +91,6 @@ Future<void> main([List<String> args = const []]) async {
     // Use it only after calling `hiddenWindowAtLaunch`
     windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
       await windowManager.setResizable(true);
-      await windowManager.focus();
     });
   }
   final argParser = ArgParser();

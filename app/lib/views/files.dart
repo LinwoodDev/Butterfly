@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:butterfly/main.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly/visualizer/sync.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -102,105 +103,114 @@ class _FilesViewState extends State<FilesView> {
     final index = _locationController.text.lastIndexOf('/');
     final parent = _locationController.text.substring(0, index < 0 ? 0 : index);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      Wrap(
-        alignment: widget.collapsed
-            ? WrapAlignment.spaceAround
-            : WrapAlignment.spaceBetween,
-        runAlignment: widget.collapsed
-            ? WrapAlignment.spaceAround
-            : WrapAlignment.spaceBetween,
-        runSpacing: 16,
-        spacing: 16,
-        children: [
-          if (!widget.collapsed)
-            Text(
-              AppLocalizations.of(context).files,
-              style: Theme.of(context).textTheme.headlineMedium,
-              textAlign: TextAlign.start,
-            ),
-          Wrap(
-            runSpacing: 16,
-            spacing: 16,
-            alignment: widget.collapsed
-                ? WrapAlignment.spaceBetween
-                : WrapAlignment.end,
-            children: [
-              /*Row(
-          mainAxisSize: MainAxisSize.min,
+      LayoutBuilder(builder: (context, constraints) {
+        final text = Text(
+          AppLocalizations.of(context).files,
+          style: Theme.of(context).textTheme.headlineMedium,
+          textAlign: TextAlign.start,
+        );
+        final actions = Wrap(
+          runSpacing: 16,
+          spacing: 16,
+          alignment: constraints.maxWidth <= kMobileWidth
+              ? WrapAlignment.spaceBetween
+              : WrapAlignment.end,
           children: [
-            const Text('Switch view'),
-            IconButton(
-              onPressed: () => setState(() => _gridView = !_gridView),
-              icon: _gridView
-                  ? PhosphorIcon(PhosphorIconsLight.list)
-                  : PhosphorIcon(PhosphorIconsLight.gridFour),
+            /*Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text('Switch view'),
+                IconButton(
+                  onPressed: () => setState(() => _gridView = !_gridView),
+                  icon: _gridView
+                      ? PhosphorIcon(PhosphorIconsLight.list)
+                      : PhosphorIcon(PhosphorIconsLight.gridFour),
+                ),
+              ],
+              ),*/
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (!widget.collapsed) ...[
+                  Text(AppLocalizations.of(context).source),
+                  const SizedBox(width: 8),
+                ],
+                BlocBuilder<SettingsCubit, ButterflySettings>(
+                    builder: (context, state) {
+                  return DropdownMenu<String?>(
+                    leadingIcon:
+                        const PhosphorIcon(PhosphorIconsLight.cloudArrowDown),
+                    dropdownMenuEntries: [
+                      DropdownMenuEntry(
+                        value: null,
+                        label: AppLocalizations.of(context).local,
+                      ),
+                      ...state.remotes
+                          .map((e) => DropdownMenuEntry(
+                                value: e.identifier,
+                                label: e.uri.host,
+                              ))
+                          .toList(),
+                    ],
+                    initialSelection: _remote?.identifier,
+                    onSelected: (value) => _setRemote(
+                        value == null ? null : state.getRemote(value)),
+                  );
+                }),
+                BlocBuilder<SettingsCubit, ButterflySettings>(
+                  buildWhen: (previous, current) =>
+                      previous.remotes != current.remotes,
+                  builder: (context, state) => state.remotes.isEmpty
+                      ? const SizedBox.shrink()
+                      : const SyncButton(),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (!widget.collapsed) ...[
+                  Text(AppLocalizations.of(context).sortBy),
+                  const SizedBox(width: 8),
+                ],
+                DropdownMenu<_SortBy>(
+                  leadingIcon:
+                      const PhosphorIcon(PhosphorIconsLight.sortAscending),
+                  dropdownMenuEntries: _SortBy.values
+                      .map((e) => DropdownMenuEntry(
+                            value: e,
+                            label: getLocalizedNameOfSortBy(e),
+                          ))
+                      .toList(),
+                  initialSelection: _sortBy,
+                  onSelected: (value) =>
+                      setState(() => _sortBy = value ?? _sortBy),
+                ),
+              ],
             ),
           ],
-          ),*/
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (!widget.collapsed) ...[
-                    Text(AppLocalizations.of(context).source),
-                    const SizedBox(width: 8),
-                  ],
-                  BlocBuilder<SettingsCubit, ButterflySettings>(
-                      builder: (context, state) {
-                    return DropdownMenu<String?>(
-                      leadingIcon:
-                          const PhosphorIcon(PhosphorIconsLight.cloudArrowDown),
-                      dropdownMenuEntries: [
-                        DropdownMenuEntry(
-                          value: null,
-                          label: AppLocalizations.of(context).local,
-                        ),
-                        ...state.remotes
-                            .map((e) => DropdownMenuEntry(
-                                  value: e.identifier,
-                                  label: e.uri.host,
-                                ))
-                            .toList(),
-                      ],
-                      initialSelection: _remote?.identifier,
-                      onSelected: (value) => _setRemote(
-                          value == null ? null : state.getRemote(value)),
-                    );
-                  }),
-                  BlocBuilder<SettingsCubit, ButterflySettings>(
-                    buildWhen: (previous, current) =>
-                        previous.remotes != current.remotes,
-                    builder: (context, state) => state.remotes.isEmpty
-                        ? const SizedBox.shrink()
-                        : const SyncButton(),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (!widget.collapsed) ...[
-                    Text(AppLocalizations.of(context).sortBy),
-                    const SizedBox(width: 8),
-                  ],
-                  DropdownMenu<_SortBy>(
-                    leadingIcon:
-                        const PhosphorIcon(PhosphorIconsLight.sortAscending),
-                    dropdownMenuEntries: _SortBy.values
-                        .map((e) => DropdownMenuEntry(
-                              value: e,
-                              label: getLocalizedNameOfSortBy(e),
-                            ))
-                        .toList(),
-                    initialSelection: _sortBy,
-                    onSelected: (value) =>
-                        setState(() => _sortBy = value ?? _sortBy),
-                  ),
-                ],
-              ),
+        );
+        if (widget.collapsed) {
+          return actions;
+        }
+        if (constraints.maxWidth <= kMobileWidth) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              text,
+              const SizedBox(height: 16),
+              actions,
             ],
-          ),
-        ],
-      ),
+          );
+        }
+        return Row(
+          children: [
+            text,
+            const SizedBox(width: 8),
+            Expanded(child: actions),
+          ],
+        );
+      }),
       const SizedBox(height: 16),
       LayoutBuilder(builder: (context, constraints) {
         final searchBar = TextFormField(
