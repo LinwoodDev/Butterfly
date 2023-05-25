@@ -104,6 +104,7 @@ class _FilesViewState extends State<FilesView> {
     final parent = _locationController.text.substring(0, index < 0 ? 0 : index);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       LayoutBuilder(builder: (context, constraints) {
+        final isMobile = constraints.maxWidth <= kMobileWidth;
         final text = Text(
           AppLocalizations.of(context).files,
           style: Theme.of(context).textTheme.headlineMedium,
@@ -112,9 +113,7 @@ class _FilesViewState extends State<FilesView> {
         final actions = Wrap(
           runSpacing: 16,
           spacing: 16,
-          alignment: constraints.maxWidth <= kMobileWidth
-              ? WrapAlignment.spaceBetween
-              : WrapAlignment.end,
+          alignment: isMobile ? WrapAlignment.spaceBetween : WrapAlignment.end,
           children: [
             /*Row(
               mainAxisSize: MainAxisSize.min,
@@ -131,7 +130,7 @@ class _FilesViewState extends State<FilesView> {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (!widget.collapsed) ...[
+                if (!isMobile) ...[
                   Text(AppLocalizations.of(context).source),
                   const SizedBox(width: 8),
                 ],
@@ -169,7 +168,7 @@ class _FilesViewState extends State<FilesView> {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (!widget.collapsed) ...[
+                if (!isMobile) ...[
                   Text(AppLocalizations.of(context).sortBy),
                   const SizedBox(width: 8),
                 ],
@@ -193,7 +192,7 @@ class _FilesViewState extends State<FilesView> {
         if (widget.collapsed) {
           return actions;
         }
-        if (constraints.maxWidth <= kMobileWidth) {
+        if (isMobile) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -406,6 +405,7 @@ class _FilesViewState extends State<FilesView> {
             return ListView.builder(
               shrinkWrap: true,
               itemCount: assets.length,
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 final entity = assets[index];
                 final selected =

@@ -82,7 +82,6 @@ Future<void> main([List<String> args = const []]) async {
 
   if (!kIsWeb && isWindow) {
     await windowManager.ensureInitialized();
-    final wasMaximized = await windowManager.isMaximized();
     const kWindowOptions = WindowOptions(
       minimumSize: Size(410, 300),
       title: applicationName,
