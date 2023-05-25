@@ -68,7 +68,7 @@
   "close": "關閉",
   "custom": "自訂",
   "decoration": "Decoration",
-  "underline": "Underline",
+  "underline": "底線",
   "overline": "Overline",
   "strikethrough": "刪除線",
   "thickness": "Thickness",
@@ -144,7 +144,7 @@
     }
   },
   "rename": "改名",
-  "duplicate": "複製",
+  "duplicate": "再製",
   "hand": "手",
   "folder": "資料夾",
   "move": "移動",
