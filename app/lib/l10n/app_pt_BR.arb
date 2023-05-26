@@ -499,5 +499,7 @@
   "chooseLabelMode": "Escolher modo de rótulo",
   "foreground": "Primeiro plano",
   "version": "Versão",
-  "repository": "Repositório"
+  "repository": "Repositório",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
