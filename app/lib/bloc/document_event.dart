@@ -7,6 +7,15 @@ abstract class DocumentEvent extends ReplayEvent with EquatableMixin {
   List<Object?> get props => [];
 }
 
+class PageChanged extends DocumentEvent {
+  final String pageName;
+
+  const PageChanged(this.pageName);
+
+  @override
+  List<Object?> get props => [pageName];
+}
+
 class ToolChanged extends DocumentEvent {
   final ToolOption? option;
   final ToolState? state;
@@ -14,6 +23,9 @@ class ToolChanged extends DocumentEvent {
   ToolChanged({this.option, this.state});
   ToolChanged.option(this.option) : state = null;
   ToolChanged.state(this.state) : option = null;
+
+  @override
+  List<Object?> get props => [option, state];
 }
 
 class ElementsCreated extends DocumentEvent {

@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import 'delete.dart';
 import 'packs/select.dart';
 
 class ColorPalettePickerDialog extends StatefulWidget {
@@ -114,31 +115,17 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                   ListTile(
                     leading: const PhosphorIcon(PhosphorIconsLight.trash),
                     title: Text(AppLocalizations.of(context).delete),
-                    onTap: () {
-                      showDialog<void>(
+                    onTap: () async {
+                      final result = await showDialog<bool>(
                           context: context,
-                          builder: (ctx) => AlertDialog(
-                                title: Text(
-                                    AppLocalizations.of(context).areYouSure),
-                                content: Text(
-                                    AppLocalizations.of(context).reallyDelete),
-                                actions: [
-                                  TextButton(
-                                      child:
-                                          Text(AppLocalizations.of(context).no),
-                                      onPressed: () => Navigator.of(ctx).pop()),
-                                  ElevatedButton(
-                                      child: Text(
-                                          AppLocalizations.of(context).yes),
-                                      onPressed: () {
-                                        Navigator.of(ctx).pop();
-                                        Navigator.of(ctx).pop();
-                                        _changePalette(palette.copyWith(
-                                            colors: List.from(palette.colors)
-                                              ..removeAt(index)));
-                                      })
-                                ],
-                              ));
+                          builder: (ctx) => const DeleteDialog());
+                      if (result != true) return;
+                      if (context.mounted) {
+                        Navigator.of(context).pop();
+                        _changePalette(palette.copyWith(
+                            colors: List.from(palette.colors)
+                              ..removeAt(index)));
+                      }
                     },
                   )
                 ]))

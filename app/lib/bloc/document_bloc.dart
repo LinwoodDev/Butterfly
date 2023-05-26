@@ -26,16 +26,18 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     CurrentIndexCubit currentIndexCubit,
     SettingsCubit settingsCubit,
     NoteData initial,
-    DocumentPage page,
     AssetLocation location,
     Renderer<Background> background,
-    List<Renderer<PadElement>> renderer,
-  ) : super(DocumentLoadSuccess(
+    List<Renderer<PadElement>> renderer, [
+    DocumentPage? page,
+    String? pageName,
+  ]) : super(DocumentLoadSuccess(
           initial,
           page: page,
           currentIndexCubit: currentIndexCubit,
           location: location,
           settingsCubit: settingsCubit,
+          pageName: pageName ?? initial.getPages().firstOrNull ?? 'default',
         )) {
     _init();
   }
@@ -45,6 +47,21 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc.placeholder() : super(const DocumentLoadFailure(''));
 
   void _init() {
+    on<PageChanged>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      final page = current.data.getPage(event.pageName);
+      if (page == null) return;
+      current.currentIndexCubit.loadElements(current.data, page);
+      return _saveState(
+        emit,
+        current.copyWith(
+          page: page,
+          pageName: event.pageName,
+        ),
+        null,
+      );
+    });
     on<ToolChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
@@ -660,7 +677,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       current.currentIndexCubit.fetchHandler<PresentationHandler>()?.stop(this);
       emit(DocumentPresentationState(
-          this, current, event.track, event.fullScreen));
+        this,
+        current,
+        event.track,
+        event.fullScreen,
+        pageName: current.pageName,
+        page: current.page,
+        metadata: current.metadata,
+      ));
     });
     on<PresentationModeExited>((event, emit) {
       final current = state;
@@ -742,12 +766,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     await background.setup(document, page);
     final tool = ToolRenderer(const ToolState());
     await tool.setup(document, page);
-    final renderers =
-        page.content.map((e) => Renderer.fromInstance(e)).toList();
-    await Future.wait(
-        renderers.map((e) async => await e.setup(document, page)));
-    currentIndexCubit.unbake(
-        background: background, tool: tool, unbakedElements: renderers);
+    currentIndexCubit.unbake(background: background, tool: tool);
+    currentIndexCubit.loadElements(document, page);
     currentIndexCubit.init(this);
   }
 }

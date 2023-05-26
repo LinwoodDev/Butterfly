@@ -255,12 +255,12 @@ class _MainPopupMenu extends StatelessWidget {
             ),
             MenuItemButton(
               leadingIcon: const PhosphorIcon(PhosphorIconsLight.compass),
-              child: Text(AppLocalizations.of(context).files),
+              child: Text(AppLocalizations.of(context).navigator),
               onPressed: () {
                 if (MediaQuery.of(context).size.width >= kLargeWidth) {
                   final settingsCubit = context.read<SettingsCubit>();
-                  settingsCubit
-                      .changeNavbarEnabled(!settingsCubit.state.navbarEnabled);
+                  settingsCubit.changeNavigatorEnabled(
+                      !settingsCubit.state.navigatorEnabled);
                 } else {
                   Scaffold.of(context).openDrawer();
                 }
