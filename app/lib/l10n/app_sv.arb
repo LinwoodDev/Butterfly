@@ -499,5 +499,7 @@
   "chooseLabelMode": "Välj etikettläge",
   "foreground": "Förgrund",
   "version": "Version",
-  "repository": "Utveckling"
+  "repository": "Utveckling",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
