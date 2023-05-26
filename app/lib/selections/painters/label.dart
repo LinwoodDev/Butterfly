@@ -28,6 +28,21 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
             selected.map((e) => e.copyWith(foreground: value.value)).toList()),
         title: Text(AppLocalizations.of(context).foreground),
       ),
+      ExactSlider(
+        header: Text(AppLocalizations.of(context).alpha),
+        value: Color(selected.first.foreground).alpha.toDouble(),
+        defaultValue: 255,
+        min: 0,
+        max: 255,
+        fractionDigits: 0,
+        onChangeEnd: (value) => update(
+            context,
+            selected
+                .map((e) => e.copyWith(
+                    foreground:
+                        Color(e.foreground).withAlpha(value.toInt()).value))
+                .toList()),
+      ),
       const SizedBox(height: 16),
       DropdownButtonFormField<String>(
         items: packs

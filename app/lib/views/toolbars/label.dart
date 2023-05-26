@@ -504,8 +504,12 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 ),
                               );
                               if (result == null) return;
-                              updateSpan(
-                                  (value) => value.copyWith(color: result));
+                              updateSpan((value) => value.copyWith(
+                                  color: Color(result)
+                                      .withAlpha(
+                                          Color(widget.value.painter.foreground)
+                                              .alpha)
+                                      .value));
                             },
                           ),
                           const SizedBox(width: 16),

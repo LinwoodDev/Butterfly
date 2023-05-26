@@ -1,2 +1,5 @@
 * Add version to pack metadata
 * Add navbar ([#391](https://github.com/LinwoodDev/Butterfly/issues/391))
+* Add pages
+* Add alpha to grid
+* Add alpha to label

@@ -37,6 +37,7 @@ class OptionButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 )
               : null,
+          margin: highlighted ? null : const EdgeInsets.all(2),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
             child: IconTheme(

@@ -217,6 +217,22 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                       widget.option.copyWith(gridColor: value.value),
                     ),
                   ),
+                  const SizedBox(height: 8),
+                  ExactSlider(
+                    header: Text(AppLocalizations.of(context).alpha),
+                    value: Color(widget.option.gridColor).alpha.toDouble(),
+                    defaultValue: 255,
+                    min: 0,
+                    max: 255,
+                    fractionDigits: 0,
+                    onChangeEnd: (value) => widget.onToolChanged(
+                      widget.option.copyWith(
+                        gridColor: Color(widget.option.gridColor)
+                            .withAlpha(value.toInt())
+                            .value,
+                      ),
+                    ),
+                  ),
                 ]),
                 Column(children: [
                   CheckboxListTile(
