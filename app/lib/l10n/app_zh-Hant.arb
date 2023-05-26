@@ -499,5 +499,7 @@
   "chooseLabelMode": "選擇標記模式",
   "foreground": "前景",
   "version": "Version",
-  "repository": "儲存庫"
+  "repository": "儲存庫",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
