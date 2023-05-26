@@ -499,5 +499,7 @@
   "chooseLabelMode": "Velg etikett-modus",
   "foreground": "Forgrunn",
   "version": "Versjon",
-  "repository": "Kodelager"
+  "repository": "Kodelager",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
