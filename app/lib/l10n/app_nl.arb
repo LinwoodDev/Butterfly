@@ -499,5 +499,7 @@
   "chooseLabelMode": "Kies labelmodus",
   "foreground": "Voorgrond",
   "version": "Versie",
-  "repository": "Bewaarplaats"
+  "repository": "Bewaarplaats",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
