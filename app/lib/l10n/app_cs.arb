@@ -499,5 +499,7 @@
   "chooseLabelMode": "Zvolte mód popisku",
   "foreground": "Popředí",
   "version": "Verze",
-  "repository": "Repozitář"
+  "repository": "Repozitář",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
