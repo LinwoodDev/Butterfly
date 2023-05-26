@@ -499,5 +499,7 @@
   "chooseLabelMode": "اختيار وضع التسمية",
   "foreground": "تمهيد",
   "version": "الإصدار",
-  "repository": "المستودع"
+  "repository": "المستودع",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
