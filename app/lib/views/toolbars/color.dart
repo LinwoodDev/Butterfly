@@ -51,6 +51,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
       final bloc = context.read<DocumentBloc>();
       ColorPalette? palette;
       NoteData? pack;
+      int color = Color(widget.color).withAlpha(255).value;
 
       if (state is! DocumentLoadSuccess) return Container();
       try {
@@ -62,7 +63,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (!(palette?.colors.contains(widget.color) ?? false)) ...[
+            if (!(palette?.colors.contains(color) ?? false)) ...[
               _ColorButton(
                 current: widget.color,
                 color: widget.color,
@@ -86,7 +87,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                         final current = palette!.colors[index];
                         return _ColorButton(
                           bloc: bloc,
-                          color: widget.color,
+                          color: color,
                           current: current,
                           onChanged: (value) {
                             widget.onChanged(value);

@@ -3,3 +3,5 @@
 * Add pages
 * Add alpha to grid
 * Add alpha to label
+* Fix offset when selecting painters
+* Fix alpha in color toolbar
