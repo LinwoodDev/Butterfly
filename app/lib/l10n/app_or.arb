@@ -499,5 +499,7 @@
   "chooseLabelMode": "Choose label mode",
   "foreground": "Foreground",
   "version": "Version",
-  "repository": "Repository"
+  "repository": "Repository",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
