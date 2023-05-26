@@ -16,6 +16,7 @@ class PagesView extends StatelessWidget {
     return BlocBuilder<DocumentBloc, DocumentState>(
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
+        final currentName = state.pageName;
         final current = state.page;
         return StreamBuilder<NoteData>(
             stream: state.data.onChange,
@@ -32,6 +33,10 @@ class PagesView extends StatelessWidget {
                         final page = pages[index];
                         return ListTile(
                           title: Text(page),
+                          selected: page == currentName,
+                          onTap: () => context
+                              .read<DocumentBloc>()
+                              .add(PageChanged(page)),
                           trailing: MenuAnchor(
                             builder: (context, controller, child) => IconButton(
                               icon: const PhosphorIcon(
@@ -44,7 +49,7 @@ class PagesView extends StatelessWidget {
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(
                                     PhosphorIconsLight.trash),
-                                onPressed: 'default' == page
+                                onPressed: currentName == page
                                     ? null
                                     : () async {
                                         final result = await showDialog<bool>(

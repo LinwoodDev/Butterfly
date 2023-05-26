@@ -125,7 +125,6 @@ class _ProjectPageState extends State<ProjectPage> {
           _currentIndexCubit!,
           settingsCubit,
           document,
-          document.getPage()!,
           widget.location ?? const AssetLocation(path: ''),
           BoxBackgroundRenderer(const BoxBackground()),
           [],
@@ -192,7 +191,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
             CameraViewport.unbaked(ToolRenderer()), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
-            page, location!, background, renderers);
+            location!, background, renderers, page);
         _bloc?.load();
       });
     } catch (e) {

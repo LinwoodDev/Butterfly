@@ -117,7 +117,8 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                     title: Text(AppLocalizations.of(context).delete),
                     onTap: () async {
                       final result = await showDialog<bool>(
-                          context: context, builder: (ctx) => const DeleteDialog());
+                          context: context,
+                          builder: (ctx) => const DeleteDialog());
                       if (result != true) return;
                       if (context.mounted) {
                         Navigator.of(context).pop();

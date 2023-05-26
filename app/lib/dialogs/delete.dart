@@ -14,10 +14,11 @@ class DeleteDialog extends StatelessWidget {
             child: Text(AppLocalizations.of(context).no),
             onPressed: () => Navigator.of(context).pop(false)),
         ElevatedButton(
-            child: Text(AppLocalizations.of(context).yes),
-            onPressed: () {
-              Navigator.of(context).pop(true);
-            },)
+          child: Text(AppLocalizations.of(context).yes),
+          onPressed: () {
+            Navigator.of(context).pop(true);
+          },
+        )
       ],
     );
   }
