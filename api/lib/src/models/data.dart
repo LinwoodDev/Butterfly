@@ -59,24 +59,24 @@ class NoteData {
     _controller.add(this);
   }
 
-  String addAsset(String path, List<int> data, String extension,
+  String addAsset(String path, List<int> data, String fileExtension,
       [String name = '']) {
-    final newPath = '$path/${findUniqueName(path, extension, name)}';
+    final newPath = '$path/${findUniqueName(path, fileExtension, name)}';
     setAsset(newPath, data);
     return newPath;
   }
 
-  String _getFileName(String name, String extension) =>
-      '$name${extension.isNotEmpty ? '.$extension' : ''}';
+  String _getFileName(String name, String fileExtension) =>
+      '$name${fileExtension.isNotEmpty ? '.$fileExtension' : ''}';
 
-  String findUniqueName(String path, String extension, [String name = '']) {
+  String findUniqueName(String path, String fileExtension, [String name = '']) {
     final assets = getAssets(path);
-    if (!assets.contains(_getFileName(name, extension)) &&
+    if (!assets.contains(_getFileName(name, fileExtension)) &&
         name.trim().isNotEmpty) {
-      return _getFileName(name, extension);
+      return _getFileName(name, fileExtension);
     }
     var i = 1;
-    String getName() => _getFileName('$name ($i)', extension).trim();
+    String getName() => _getFileName('$name ($i)', fileExtension).trim();
     while (assets.contains(getName())) {
       i++;
     }
@@ -166,8 +166,8 @@ class NoteData {
     return document;
   }
 
-  DocumentPage? getPage() {
-    final data = getAsset('$kPagesArchiveDirectory/default.json');
+  DocumentPage? getPage([String name = 'default']) {
+    final data = getAsset('$kPagesArchiveDirectory/$name.json');
     if (data == null) {
       return null;
     }
@@ -176,13 +176,15 @@ class NoteData {
     return DocumentPage.fromJson(json);
   }
 
-  void setPage(DocumentPage page) {
+  void setPage(DocumentPage page, [String name = 'default']) {
     final content = jsonEncode(page.toJson());
-    setAsset('$kPagesArchiveDirectory/default.json', utf8.encode(content));
+    setAsset('$kPagesArchiveDirectory/$name.json', utf8.encode(content));
   }
 
-  String addImage(Uint8List data, String extension, [String name = '']) =>
-      addAsset(kImagesArchiveDirectory, data, extension, name);
+  List<String> getPages() => getAssets(kPagesArchiveDirectory, true);
+
+  String addImage(Uint8List data, String fileExtension, [String name = '']) =>
+      addAsset(kImagesArchiveDirectory, data, fileExtension, name);
 
   Uint8List? getFont(String fontName) =>
       getAsset('$kFontsArchiveDirectory/$fontName');
