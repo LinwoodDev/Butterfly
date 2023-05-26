@@ -499,5 +499,7 @@
   "chooseLabelMode": "Vælg etiket tilstand",
   "foreground": "Forgrund",
   "version": "Version",
-  "repository": "Lagre"
+  "repository": "Lagre",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
