@@ -499,5 +499,7 @@
   "chooseLabelMode": "Wybierz tryb etykiety",
   "foreground": "Pierwszy plan",
   "version": "Wersja",
-  "repository": "Repozytorium"
+  "repository": "Repozytorium",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
