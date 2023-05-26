@@ -26,6 +26,7 @@ import '../actions/packs.dart';
 import '../api/open.dart';
 import '../cubits/transform.dart';
 import '../dialogs/layer.dart';
+import '../models/tool.dart';
 import '../renderers/renderer.dart';
 import '../widgets/color_field.dart';
 

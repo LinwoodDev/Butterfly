@@ -22,6 +22,7 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
+import 'package:butterfly/views/navbar.dart';
 import 'package:butterfly/views/toolbar.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/error.dart';
@@ -350,51 +351,64 @@ class _ProjectPageState extends State<ProjectPage> {
                                   : PadAppBar(
                                       viewportKey: _viewportKey,
                                     ),
+                              drawer: state is DocumentLoadSuccess
+                                  ? const DocumentNavbar(asDrawer: true)
+                                  : null,
                               body: Actions(
                                   actions: _actions,
                                   child: LayoutBuilder(
                                       builder: (context, constraints) {
                                     final isMobile =
-                                        MediaQuery.of(context).size.width <
-                                            kMobileWidth;
-                                    final isLandscape =
-                                        MediaQuery.of(context).size.height <
-                                            400;
-                                    return Stack(
+                                        constraints.maxWidth < kMobileWidth;
+                                    final isLarge =
+                                        constraints.maxWidth > kLargeWidth;
+                                    return Row(
                                       children: [
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
+                                        if (isLarge) const DocumentNavbar(),
+                                        Expanded(
+                                          child: Stack(
                                             children: [
-                                              Expanded(
-                                                  key: _viewportKey,
-                                                  child: Stack(
-                                                    children: [
-                                                      const MainViewViewport(),
-                                                      const Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
+                                              Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .stretch,
+                                                  children: [
+                                                    Expanded(
+                                                        key: _viewportKey,
+                                                        child: Stack(
                                                           children: [
-                                                            ToolbarView(),
-                                                          ]),
-                                                      ZoomView(
-                                                          isMobile: isMobile),
-                                                      if (!isLandscape)
-                                                        const PropertyView()
-                                                    ],
-                                                  )),
+                                                            const MainViewViewport(),
+                                                            const Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: [
+                                                                  ToolbarView(),
+                                                                ]),
+                                                            ZoomView(
+                                                                isMobile:
+                                                                    isMobile),
+                                                            if (!isMobile)
+                                                              const PropertyView()
+                                                          ],
+                                                        )),
+                                                    if (isMobile)
+                                                      Align(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: EditToolbar(
+                                                                  isMobile:
+                                                                      isMobile))),
+                                                  ]),
                                               if (isMobile)
-                                                Align(
-                                                    alignment: Alignment.center,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: EditToolbar(
-                                                            isMobile:
-                                                                isMobile))),
-                                            ]),
-                                        if (isLandscape) const PropertyView(),
+                                                const PropertyView(),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     );
                                   })),

@@ -20,6 +20,7 @@ import '../actions/pdf_export.dart';
 import '../actions/save.dart';
 import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
+import '../cubits/settings.dart';
 import '../dialogs/search.dart';
 import '../embed/action.dart';
 import '../main.dart';
@@ -249,6 +250,19 @@ class _MainPopupMenu extends StatelessWidget {
                   router.pop();
                 } else {
                   router.go('/');
+                }
+              },
+            ),
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.compass),
+              child: Text(AppLocalizations.of(context).files),
+              onPressed: () {
+                if (MediaQuery.of(context).size.width >= kLargeWidth) {
+                  final settingsCubit = context.read<SettingsCubit>();
+                  settingsCubit
+                      .changeNavbarEnabled(!settingsCubit.state.navbarEnabled);
+                } else {
+                  Scaffold.of(context).openDrawer();
                 }
               },
             ),

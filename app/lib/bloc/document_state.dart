@@ -39,6 +39,9 @@ abstract class DocumentLoaded extends DocumentState {
 
   Area? get currentArea => null;
 
+  AssetLocation get location => currentIndexCubit.state.location;
+  bool get saved => !location.absolute && currentIndexCubit.state.saved;
+
   CurrentIndexCubit get currentIndexCubit;
   SettingsCubit get settingsCubit;
 
@@ -97,9 +100,6 @@ class DocumentLoadSuccess extends DocumentLoaded {
   CameraViewport get cameraViewport => currentIndexCubit.state.cameraViewport;
 
   List<Renderer<PadElement>> get renderers => currentIndexCubit.renderers;
-
-  AssetLocation get location => currentIndexCubit.state.location;
-  bool get saved => !location.absolute && currentIndexCubit.state.saved;
 
   Embedding? get embedding => currentIndexCubit.state.embedding;
 

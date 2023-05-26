@@ -813,6 +813,7 @@ mixin _$ButterflySettings {
   String get design => throw _privateConstructorUsedError;
   BannerVisibility get bannerVisibility => throw _privateConstructorUsedError;
   List<AssetLocation> get history => throw _privateConstructorUsedError;
+  bool get navbarEnabled => throw _privateConstructorUsedError;
   bool get zoomEnabled => throw _privateConstructorUsedError;
   String? get lastVersion => throw _privateConstructorUsedError;
   List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
@@ -849,6 +850,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       String design,
       BannerVisibility bannerVisibility,
       List<AssetLocation> history,
+      bool navbarEnabled,
       bool zoomEnabled,
       String? lastVersion,
       List<RemoteStorage> remotes,
@@ -888,6 +890,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? design = null,
     Object? bannerVisibility = null,
     Object? history = null,
+    Object? navbarEnabled = null,
     Object? zoomEnabled = null,
     Object? lastVersion = freezed,
     Object? remotes = null,
@@ -948,6 +951,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.history
           : history // ignore: cast_nullable_to_non_nullable
               as List<AssetLocation>,
+      navbarEnabled: null == navbarEnabled
+          ? _value.navbarEnabled
+          : navbarEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       zoomEnabled: null == zoomEnabled
           ? _value.zoomEnabled
           : zoomEnabled // ignore: cast_nullable_to_non_nullable
@@ -1022,6 +1029,7 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       String design,
       BannerVisibility bannerVisibility,
       List<AssetLocation> history,
+      bool navbarEnabled,
       bool zoomEnabled,
       String? lastVersion,
       List<RemoteStorage> remotes,
@@ -1060,6 +1068,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? design = null,
     Object? bannerVisibility = null,
     Object? history = null,
+    Object? navbarEnabled = null,
     Object? zoomEnabled = null,
     Object? lastVersion = freezed,
     Object? remotes = null,
@@ -1120,6 +1129,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value._history
           : history // ignore: cast_nullable_to_non_nullable
               as List<AssetLocation>,
+      navbarEnabled: null == navbarEnabled
+          ? _value.navbarEnabled
+          : navbarEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       zoomEnabled: null == zoomEnabled
           ? _value.zoomEnabled
           : zoomEnabled // ignore: cast_nullable_to_non_nullable
@@ -1180,6 +1193,7 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.design = '',
       this.bannerVisibility = BannerVisibility.always,
       final List<AssetLocation> history = const [],
+      this.navbarEnabled = true,
       this.zoomEnabled = true,
       this.lastVersion,
       final List<RemoteStorage> remotes = const [],
@@ -1239,6 +1253,9 @@ class _$_ButterflySettings extends _ButterflySettings {
 
   @override
   @JsonKey()
+  final bool navbarEnabled;
+  @override
+  @JsonKey()
   final bool zoomEnabled;
   @override
   final String? lastVersion;
@@ -1280,7 +1297,7 @@ class _$_ButterflySettings extends _ButterflySettings {
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navbarEnabled: $navbarEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred)';
   }
 
   @override
@@ -1309,6 +1326,8 @@ class _$_ButterflySettings extends _ButterflySettings {
             (identical(other.bannerVisibility, bannerVisibility) ||
                 other.bannerVisibility == bannerVisibility) &&
             const DeepCollectionEquality().equals(other._history, _history) &&
+            (identical(other.navbarEnabled, navbarEnabled) ||
+                other.navbarEnabled == navbarEnabled) &&
             (identical(other.zoomEnabled, zoomEnabled) ||
                 other.zoomEnabled == zoomEnabled) &&
             (identical(other.lastVersion, lastVersion) ||
@@ -1344,6 +1363,7 @@ class _$_ButterflySettings extends _ButterflySettings {
         design,
         bannerVisibility,
         const DeepCollectionEquality().hash(_history),
+        navbarEnabled,
         zoomEnabled,
         lastVersion,
         const DeepCollectionEquality().hash(_remotes),
@@ -1378,6 +1398,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final String design,
       final BannerVisibility bannerVisibility,
       final List<AssetLocation> history,
+      final bool navbarEnabled,
       final bool zoomEnabled,
       final String? lastVersion,
       final List<RemoteStorage> remotes,
@@ -1414,6 +1435,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   BannerVisibility get bannerVisibility;
   @override
   List<AssetLocation> get history;
+  @override
+  bool get navbarEnabled;
   @override
   bool get zoomEnabled;
   @override

@@ -39,6 +39,7 @@ import 'views/main.dart';
 import 'widgets/window.dart';
 
 const kMobileWidth = 600.0;
+const kLargeWidth = 1200.0;
 
 Future<void> main([List<String> args = const []]) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -89,7 +90,6 @@ Future<void> main([List<String> args = const []]) async {
     // Use it only after calling `hiddenWindowAtLaunch`
     windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
       await windowManager.setResizable(true);
-      await windowManager.focus();
     });
   }
   final argParser = ArgParser();
