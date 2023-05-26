@@ -499,5 +499,7 @@
   "chooseLabelMode": "Valitse tunnistetila",
   "foreground": "Etuala",
   "version": "Versio",
-  "repository": "Versiovarasto"
+  "repository": "Versiovarasto",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
