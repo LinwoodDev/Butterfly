@@ -109,9 +109,9 @@ class _DocumentNavbarState extends State<DocumentNavbar>
                       ),
                       const SizedBox(height: 16),
                       Expanded(
-                        child: TabBarView(
-                          children: [
-                            FilesView(
+                        child: TabBarView(children: [
+                          SingleChildScrollView(
+                            child: FilesView(
                               remote: _remote,
                               selectedAsset: location,
                               onRemoteChanged: (remote) {
@@ -121,11 +121,9 @@ class _DocumentNavbarState extends State<DocumentNavbar>
                               },
                               collapsed: true,
                             ),
-                            const PagesView(),
-                          ]
-                              .map((e) => SingleChildScrollView(child: e))
-                              .toList(),
-                        ),
+                          ),
+                          const PagesView(),
+                        ]),
                       )
                     ],
                   ),

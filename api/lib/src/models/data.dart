@@ -183,6 +183,9 @@ class NoteData {
 
   List<String> getPages() => getAssets(kPagesArchiveDirectory, true);
 
+  void removePage(String page) =>
+      removeAsset('$kPagesArchiveDirectory/$page.json');
+
   String addImage(Uint8List data, String fileExtension, [String name = '']) =>
       addAsset(kImagesArchiveDirectory, data, fileExtension, name);
 
