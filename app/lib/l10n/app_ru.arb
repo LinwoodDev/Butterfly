@@ -499,5 +499,7 @@
   "chooseLabelMode": "Выберите режим метки",
   "foreground": "Передний план",
   "version": "Версии",
-  "repository": "Репозиторий"
+  "repository": "Репозиторий",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
