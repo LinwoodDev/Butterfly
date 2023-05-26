@@ -499,5 +499,7 @@
   "chooseLabelMode": "Alege modul etichetă",
   "foreground": "prim-plan",
   "version": "Versiune",
-  "repository": "Depozit"
+  "repository": "Depozit",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
