@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/file_system/file_system.dart';
 import '../bloc/document_bloc.dart';
+import 'delete.dart';
 
 class TemplateDialog extends StatefulWidget {
   final NoteData? currentDocument;
@@ -292,32 +293,14 @@ class _TemplateItem extends StatelessWidget {
                   title: Text(AppLocalizations.of(context).delete),
                   onTap: () async {
                     Navigator.of(context).pop();
-                    showDialog<void>(
+                    final result = await showDialog<bool>(
                         context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text(AppLocalizations.of(context).delete),
-                            content:
-                                Text(AppLocalizations.of(context).reallyDelete),
-                            actions: <Widget>[
-                              TextButton(
-                                child:
-                                    Text(AppLocalizations.of(context).cancel),
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                              ElevatedButton(
-                                child:
-                                    Text(AppLocalizations.of(context).delete),
-                                onPressed: () async {
-                                  Navigator.of(context).pop();
-                                  await fileSystem
-                                      .deleteTemplate(metadata.name);
-                                  onChanged();
-                                },
-                              ),
-                            ],
-                          );
-                        });
+                        builder: (ctx) => const DeleteDialog());
+                    if (result != true) return;
+                    if (context.mounted) {
+                      await fileSystem.deleteTemplate(metadata.name);
+                      onChanged();
+                    }
                   }))
         ],
       ),

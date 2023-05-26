@@ -26,13 +26,15 @@ class DocumentLoadFailure extends DocumentState {
 abstract class DocumentLoaded extends DocumentState {
   final NoteData data;
   final DocumentPage page;
+  final String pageName;
   final FileMetadata metadata;
 
   set page(DocumentPage page) => data.setPage(page);
   set metadata(FileMetadata metadata) => data.setMetadata(metadata);
 
-  DocumentLoaded(this.data, {DocumentPage? page, FileMetadata? metadata})
-      : page = page ?? data.getPage()!,
+  DocumentLoaded(this.data,
+      {DocumentPage? page, required this.pageName, FileMetadata? metadata})
+      : page = page ?? data.getPage(pageName)!,
         metadata = metadata ?? data.getMetadata()!;
 
   List<String> get invisibleLayers => [];
@@ -48,7 +50,7 @@ abstract class DocumentLoaded extends DocumentState {
   TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
 
   NoteData saveData() {
-    data.setPage(page);
+    data.setPage(page, pageName);
     data.setMetadata(metadata);
     return data;
   }
@@ -67,6 +69,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
 
   DocumentLoadSuccess(super.data,
       {super.page,
+      required super.pageName,
       super.metadata,
       AssetLocation? location,
       this.storageType = StorageType.local,
@@ -85,6 +88,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
         invisibleLayers,
         data,
         page,
+        pageName,
         metadata,
         currentLayer,
         currentAreaName,
@@ -105,6 +109,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
 
   DocumentLoadSuccess copyWith({
     DocumentPage? page,
+    String? pageName,
     FileMetadata? metadata,
     bool? editMode,
     String? currentLayer,
@@ -114,6 +119,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
       DocumentLoadSuccess(
         data,
         page: page ?? this.page,
+        pageName: pageName ?? this.pageName,
         metadata: metadata ?? this.metadata,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
@@ -175,13 +181,13 @@ class DocumentPresentationState extends DocumentLoaded {
 
   DocumentPresentationState(
       DocumentBloc bloc, this.oldState, this.track, this.fullScreen,
-      {this.frame = 0, super.metadata, super.page})
+      {this.frame = 0, super.metadata, super.page, required super.pageName})
       : handler = PresentationStateHandler(track, bloc),
         super(oldState.data);
 
   DocumentPresentationState.withHandler(
       this.handler, this.oldState, this.track, this.fullScreen,
-      {this.frame = 0, super.metadata, super.page})
+      {this.frame = 0, super.metadata, super.page, required super.pageName})
       : super(oldState.data);
 
   @override
@@ -201,6 +207,7 @@ class DocumentPresentationState extends DocumentLoaded {
         frame: frame ?? this.frame,
         metadata: metadata,
         page: page,
+        pageName: pageName,
       );
 
   @override

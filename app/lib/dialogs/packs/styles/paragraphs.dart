@@ -3,9 +3,9 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_text.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../delete.dart';
 import 'paragraph.dart';
 
 class ParagraphsStyleView extends StatefulWidget {
@@ -164,42 +164,20 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                         IconButton(
                           icon: const PhosphorIcon(PhosphorIconsLight.trash),
                           onPressed: () async {
-                            final result = await showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title:
-                                    Text(AppLocalizations.of(context).delete),
-                                content: Text(
-                                    AppLocalizations.of(context).reallyDelete),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop(false);
-                                    },
-                                    child: Text(
-                                        AppLocalizations.of(context).cancel),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop(true);
-                                    },
-                                    child: Text(
-                                        AppLocalizations.of(context).delete),
-                                  ),
-                                ],
-                              ),
-                            );
-                            if (result != true) {
-                              return;
+                            final result = await showDialog<bool>(
+                                context: context,
+                                builder: (ctx) => const DeleteDialog());
+                            if (result != true) return;
+                            if (context.mounted) {
+                              final lastStyle = _currentStyle;
+                              _currentStyle = null;
+                              widget.onChanged(widget.value.copyWith(
+                                paragraphProperties:
+                                    Map<String, DefinedParagraphProperty>.from(
+                                        widget.value.paragraphProperties)
+                                      ..remove(lastStyle),
+                              ));
                             }
-                            final lastStyle = _currentStyle;
-                            _currentStyle = null;
-                            widget.onChanged(widget.value.copyWith(
-                              paragraphProperties:
-                                  Map<String, DefinedParagraphProperty>.from(
-                                      widget.value.paragraphProperties)
-                                    ..remove(lastStyle),
-                            ));
                           },
                         ),
                       ]

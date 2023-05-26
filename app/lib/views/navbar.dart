@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import 'pages.dart';
 
 class DocumentNavbar extends StatefulWidget {
   final bool asDrawer;
@@ -44,7 +47,7 @@ class _DocumentNavbarState extends State<DocumentNavbar>
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
       buildWhen: (previous, current) =>
-          previous.navbarEnabled != current.navbarEnabled,
+          previous.navigatorEnabled != current.navigatorEnabled,
       builder: (context, settings) {
         return BlocBuilder<DocumentBloc, DocumentState>(
           buildWhen: (previous, current) =>
@@ -61,21 +64,22 @@ class _DocumentNavbarState extends State<DocumentNavbar>
               location = state.location;
             }
             Widget content;
-            if (!settings.navbarEnabled && !widget.asDrawer ||
+            if (!settings.navigatorEnabled && !widget.asDrawer ||
                 state is! DocumentLoadSuccess) {
               content = const SizedBox.shrink();
               _controller.reverse(from: 1);
             } else {
               _controller.forward(from: 0);
-              content = Padding(
-                padding: const EdgeInsets.all(12),
-                child: ListView(
-                  children: [
-                    Header(
-                      title: Text(AppLocalizations.of(context).files),
-                      actions: [
-                        IconButton(
-                            icon: const Icon(Icons.close),
+              content = DefaultTabController(
+                length: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    children: [
+                      Header(
+                        actions: [
+                          IconButton(
+                            icon: const PhosphorIcon(PhosphorIconsLight.x),
                             onPressed: () {
                               if (widget.asDrawer) {
                                 Navigator.of(context).pop();
@@ -83,16 +87,46 @@ class _DocumentNavbarState extends State<DocumentNavbar>
                               }
                               context
                                   .read<SettingsCubit>()
-                                  .changeNavbarEnabled(false);
-                            }),
-                      ],
-                    ),
-                    FilesView(
-                      remote: _remote,
-                      selectedAsset: location,
-                      collapsed: true,
-                    ),
-                  ],
+                                  .changeNavigatorEnabled(false);
+                            },
+                          ),
+                        ],
+                        title: Text(AppLocalizations.of(context).navigator),
+                      ),
+                      TabBar(
+                        tabs: [
+                          (
+                            PhosphorIconsLight.file,
+                            AppLocalizations.of(context).files
+                          ),
+                          (
+                            PhosphorIconsLight.book,
+                            AppLocalizations.of(context).pages
+                          ),
+                        ]
+                            .map((e) => Tab(icon: Icon(e.$1), text: e.$2))
+                            .toList(),
+                      ),
+                      const SizedBox(height: 16),
+                      Expanded(
+                        child: TabBarView(children: [
+                          SingleChildScrollView(
+                            child: FilesView(
+                              remote: _remote,
+                              selectedAsset: location,
+                              onRemoteChanged: (remote) {
+                                setState(() {
+                                  _remote = remote;
+                                });
+                              },
+                              collapsed: true,
+                            ),
+                          ),
+                          const PagesView(),
+                        ]),
+                      )
+                    ],
+                  ),
                 ),
               );
             }

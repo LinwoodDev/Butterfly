@@ -167,7 +167,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default('') String design,
     @Default(BannerVisibility.always) BannerVisibility bannerVisibility,
     @Default([]) List<AssetLocation> history,
-    @Default(true) bool navbarEnabled,
+    @Default(true) bool navigatorEnabled,
     @Default(true) bool zoomEnabled,
     String? lastVersion,
     @Default([]) List<RemoteStorage> remotes,
@@ -219,7 +219,7 @@ class ButterflySettings with _$ButterflySettings {
               .whereType<AssetLocation>()
               .toList() ??
           [],
-      navbarEnabled: prefs.getBool('navbar_enabled') ?? true,
+      navigatorEnabled: prefs.getBool('navigator_enabled') ?? true,
       zoomEnabled: prefs.getBool('zoom_enabled') ?? true,
       lastVersion: prefs.getString('last_version'),
       remotes: remotes,
@@ -261,7 +261,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('banner_visibility', bannerVisibility.name);
     await prefs.setStringList(
         'history', history.map((e) => json.encode(e.toJson())).toList());
-    await prefs.setBool('navbar_enabled', navbarEnabled);
+    await prefs.setBool('navigator_enabled', navigatorEnabled);
     await prefs.setBool('zoom_enabled', zoomEnabled);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');
@@ -601,8 +601,8 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> changeNavbarEnabled(bool value) {
-    emit(state.copyWith(navbarEnabled: value));
+  Future<void> changeNavigatorEnabled(bool value) {
+    emit(state.copyWith(navigatorEnabled: value));
     return save();
   }
 }
