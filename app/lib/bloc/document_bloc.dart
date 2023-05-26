@@ -37,7 +37,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           currentIndexCubit: currentIndexCubit,
           location: location,
           settingsCubit: settingsCubit,
-          pageName: pageName ?? initial.getPacks().firstOrNull ?? 'default',
+          pageName: pageName ?? initial.getPages().firstOrNull ?? 'default',
         )) {
     _init();
   }
@@ -52,6 +52,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       final page = current.data.getPage(event.pageName);
       if (page == null) return;
+      current.currentIndexCubit.loadElements(current.data, page);
       return _saveState(
         emit,
         current.copyWith(
@@ -765,12 +766,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     await background.setup(document, page);
     final tool = ToolRenderer(const ToolState());
     await tool.setup(document, page);
-    final renderers =
-        page.content.map((e) => Renderer.fromInstance(e)).toList();
-    await Future.wait(
-        renderers.map((e) async => await e.setup(document, page)));
-    currentIndexCubit.unbake(
-        background: background, tool: tool, unbakedElements: renderers);
+    currentIndexCubit.unbake(background: background, tool: tool);
+    currentIndexCubit.loadElements(document, page);
     currentIndexCubit.init(this);
   }
 }

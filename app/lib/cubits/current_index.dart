@@ -442,6 +442,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             background: background)));
   }
 
+  Future<void> loadElements(NoteData document, DocumentPage page) async {
+    final renderers =
+        page.content.map((e) => Renderer.fromInstance(e)).toList();
+    await Future.wait(
+        renderers.map((e) async => await e.setup(document, page)));
+    emit(state.copyWith(
+        cameraViewport: state.cameraViewport.withUnbaked(renderers)));
+  }
+
   void withUnbaked(List<Renderer<PadElement>> unbakedElements) {
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.withUnbaked(unbakedElements)));
