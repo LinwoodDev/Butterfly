@@ -499,5 +499,7 @@
   "chooseLabelMode": "Виберіть режим мітки",
   "foreground": "Активний режим",
   "version": "Версія",
-  "repository": "Репозиторій"
+  "repository": "Репозиторій",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
