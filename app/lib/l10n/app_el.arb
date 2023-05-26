@@ -499,5 +499,7 @@
   "chooseLabelMode": "Επιλέξτε λειτουργία ετικέτας",
   "foreground": "Προσκήνιο",
   "version": "Έκδοση",
-  "repository": "Αποθετήριο"
+  "repository": "Αποθετήριο",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }
