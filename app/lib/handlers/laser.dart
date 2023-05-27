@@ -1,8 +1,8 @@
 part of 'handler.dart';
 
 class LaserHandler extends Handler<LaserPainter> {
-  Map<int, PenElement> elements = {};
-  List<PenElement> submittedElements = [];
+  final Map<int, PenElement> elements = {};
+  final List<PenElement> submittedElements = [];
   DateTime? _lastChanged;
   Timer? _timer;
 
@@ -19,8 +19,8 @@ class LaserHandler extends Handler<LaserPainter> {
       final difference = now.difference(_lastChanged!);
       if (difference > _getDuration()) {
         _lastChanged = null;
-        submittedElements = [];
-        elements = {};
+        submittedElements.clear();
+        elements.clear();
         _stopTimer();
       }
       // Fade out the elements
@@ -36,16 +36,16 @@ class LaserHandler extends Handler<LaserPainter> {
     final duration = _getDuration();
     var color = Color(data.color);
     final painterOpacity = color.opacity;
-    submittedElements = submittedElements.map((element) {
+    submittedElements.forEachIndexed((index, element) {
       var color = Color(element.property.color);
       final opacity =
           (1 - (difference.inMilliseconds / duration.inMilliseconds)) *
               painterOpacity;
       color = color.withOpacity(opacity.clamp(0, 1));
-      return element.copyWith(
+      submittedElements[index] = element.copyWith(
         property: element.property.copyWith(color: color.value),
       );
-    }).toList();
+    });
     // Fade out opacity
     final opacity =
         (1 - (difference.inMilliseconds / duration.inMilliseconds)) *

@@ -1,9 +1,9 @@
 part of 'handler.dart';
 
 class PenHandler extends Handler<PenPainter> {
-  Map<int, PenElement> elements = {};
+  final Map<int, PenElement> elements = {};
 
-  Map<int, Offset> lastPosition = {};
+  final Map<int, Offset> lastPosition = {};
 
   PenHandler(super.data);
 

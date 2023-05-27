@@ -1,8 +1,8 @@
 part of 'handler.dart';
 
 class ShapeHandler extends Handler {
-  Map<int, ShapeElement> elements = {};
-  List<ShapeElement> submittedElements = [];
+  final Map<int, ShapeElement> elements = {};
+  final List<ShapeElement> submittedElements = [];
 
   ShapeHandler(super.data);
 

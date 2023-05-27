@@ -113,7 +113,8 @@ class _MainViewViewportState extends State<MainViewViewport>
         });
       }
 
-      void changeTemporaryPainter(PointerDeviceKind kind, int buttons) {
+      Future<void> changeTemporaryPainter(
+          PointerDeviceKind kind, int buttons) async {
         int? nextPointerIndex;
         final bloc = context.read<DocumentBloc>();
         final config = context.read<SettingsCubit>().state.inputConfiguration;
@@ -147,7 +148,7 @@ class _MainViewViewportState extends State<MainViewViewport>
         } else if (nextPointerIndex <= 0) {
           cubit.changeTemporaryHandlerMove();
         } else {
-          cubit.changeTemporaryHandlerIndex(bloc, nextPointerIndex);
+          await cubit.changeTemporaryHandlerIndex(bloc, nextPointerIndex);
         }
       }
 
@@ -279,12 +280,13 @@ class _MainViewViewportState extends State<MainViewViewport>
                               delayBake();
                             }
                           },
-                          onPointerDown: (PointerDownEvent event) {
+                          onPointerDown: (PointerDownEvent event) async {
                             cubit.addPointer(event.pointer);
                             cubit.setButtons(event.buttons);
                             final handler = getHandler();
                             if (handler.canChange(event, getEventContext())) {
-                              changeTemporaryPainter(event.kind, event.buttons);
+                              await changeTemporaryPainter(
+                                  event.kind, event.buttons);
                             }
                             getHandler()
                                 .onPointerDown(event, getEventContext());

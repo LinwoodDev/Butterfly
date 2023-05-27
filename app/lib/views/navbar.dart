@@ -138,6 +138,7 @@ class _DocumentNavbarState extends State<DocumentNavbar>
             } else {
               return AnimatedBuilder(
                 animation: _animation,
+                child: content,
                 builder: (context, child) {
                   if (_animation.value == 0) return const SizedBox.shrink();
                   return SizedBox(
@@ -152,7 +153,6 @@ class _DocumentNavbarState extends State<DocumentNavbar>
                     ),
                   );
                 },
-                child: content,
               );
             }
           },
