@@ -1,16 +1,16 @@
 part of '../renderer.dart';
 
 class SvgRenderer extends Renderer<SvgElement> {
-  PictureInfo? info;
+  PictureInfo? pictureInfo;
 
-  SvgRenderer(super.element, [this.info]);
+  SvgRenderer(super.element, [this.pictureInfo]);
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      CameraTransform transform,
+      DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final rect = this.rect;
-    if (info == null) {
+    if (pictureInfo == null) {
       // Render placeholder
       final paint = Paint()
         ..color = Colors.grey
@@ -20,9 +20,9 @@ class SvgRenderer extends Renderer<SvgElement> {
     }
     canvas.save();
     canvas.translate(element.position.x, element.position.y);
-    final picture = info!.picture;
-    final sx = rect.width / info!.size.width;
-    final sy = rect.height / info!.size.height;
+    final picture = pictureInfo!.picture;
+    final sx = rect.width / pictureInfo!.size.width;
+    final sy = rect.height / pictureInfo!.size.height;
     canvas.scale(sx, sy);
     canvas.drawPicture(picture);
     canvas.scale(1 / sx, 1 / sy);
@@ -48,14 +48,14 @@ class SvgRenderer extends Renderer<SvgElement> {
     super.setup(document, page);
     final data = await element.getData(document);
     if (data != null) {
-      info = await vg.loadPicture(SvgStringLoader(data), null);
+      pictureInfo = await vg.loadPicture(SvgStringLoader(data), null);
     }
   }
 
   @override
   Rect get rect {
     final constraints = element.constraints;
-    final size = info?.size ?? Size(element.width, element.height);
+    final size = pictureInfo?.size ?? Size(element.width, element.height);
     if (constraints is ScaledElementConstraints) {
       final scaleX = constraints.scaleX <= 0 ? 1 : constraints.scaleX;
       final scaleY = constraints.scaleY <= 0 ? 1 : constraints.scaleY;
@@ -112,16 +112,16 @@ class SvgRenderer extends Renderer<SvgElement> {
             position: element.position + position.toPoint(),
             constraints: element.constraints.scale(scaleX, scaleY),
           ),
-          info);
+          pictureInfo);
     }
     final rect = this.rect;
-    final size = info?.size;
+    final size = pictureInfo?.size;
     return SvgRenderer(
         element.copyWith(
           position: position.toPoint() - Point(rect.width / 2, rect.height / 2),
           width: (size?.width ?? element.width) * scaleX,
           height: (size?.height ?? element.height) * scaleY,
         ),
-        info);
+        pictureInfo);
   }
 }

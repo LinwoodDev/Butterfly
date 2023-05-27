@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
+import 'package:butterfly_api/src/models/info.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../butterfly_text.dart';
@@ -23,7 +24,7 @@ class NoteData {
     _controller.add(this);
   }
 
-  factory NoteData.fromData(Uint8List data) => NoteData(noteDataMigrator(data));
+  factory NoteData.fromData(Uint8List data) => noteDataMigrator(data);
 
   NoteFileType? get type => getMetadata()?.type;
 
@@ -185,6 +186,21 @@ class NoteData {
 
   void removePage(String page) =>
       removeAsset('$kPagesArchiveDirectory/$page.json');
+
+  DocumentInfo? getInfo() {
+    final data = getAsset(kInfoArchiveFile);
+    if (data == null) {
+      return null;
+    }
+    final content = utf8.decode(data);
+    final json = jsonDecode(content) as Map<String, dynamic>;
+    return DocumentInfo.fromJson(json);
+  }
+
+  void setInfo(DocumentInfo info) {
+    final content = jsonEncode(info.toJson());
+    setAsset(kInfoArchiveFile, utf8.encode(content));
+  }
 
   String addImage(Uint8List data, String fileExtension, [String name = '']) =>
       addAsset(kImagesArchiveDirectory, data, fileExtension, name);

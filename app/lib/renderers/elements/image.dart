@@ -7,7 +7,7 @@ class ImageRenderer extends Renderer<ImageElement> {
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      CameraTransform transform,
+      DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     if (image == null) {
       // Render placeholder

@@ -95,7 +95,7 @@ mixin GeneralPresentationHandler {
     if (position == null && zoom == null) return;
     if (position != null) transformCubit.setPosition(position.toOffset());
     if (zoom != null) transformCubit.size(zoom);
-    cubit.bake(state.data, state.page);
+    bloc.bake();
   }
 
   void _applyAnimationFromBloc(DocumentBloc bloc) {

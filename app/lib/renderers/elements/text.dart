@@ -72,7 +72,7 @@ class TextRenderer extends Renderer<TextElement> {
 
   @override
   FutureOr<void> build(Canvas canvas, Size size, NoteData document,
-      DocumentPage page, CameraTransform transform,
+      DocumentPage page, DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     _tp?.layout(maxWidth: rect.width);
     _tp?.paint(canvas, element.getOffset(rect.height).toOffset());

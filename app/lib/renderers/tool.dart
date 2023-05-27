@@ -27,9 +27,9 @@ class ToolRenderer extends Renderer<ToolState> {
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      CameraTransform transform,
+      DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    final option = page.tool;
+    final option = info.tool;
     if (element.gridEnabled) {
       if (option.gridXSize > 0) {
         double x = 0;
@@ -173,10 +173,10 @@ class ToolRenderer extends Renderer<ToolState> {
     return position;
   }
 
-  Offset getGridPosition(
-      Offset position, DocumentPage page, CurrentIndexCubit cubit) {
+  Offset getGridPosition(Offset position, DocumentPage page, DocumentInfo info,
+      CurrentIndexCubit cubit) {
     if (!element.gridEnabled) return position;
-    final option = page.tool;
+    final option = info.tool;
     final x = (position.dx ~/ option.gridXSize) * option.gridXSize;
     final y = (position.dy ~/ option.gridYSize) * option.gridYSize;
     return Offset(x, y);

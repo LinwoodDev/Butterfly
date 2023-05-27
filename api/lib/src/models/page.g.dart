@@ -35,14 +35,6 @@ _$_DocumentPage _$$_DocumentPageFromJson(Map json) => _$_DocumentPage(
                   ExportPreset.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
-      painters: (json['painters'] as List<dynamic>?)
-              ?.map(
-                  (e) => Painter.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
-      tool: json['tool'] == null
-          ? const ToolOption()
-          : ToolOption.fromJson(Map<String, dynamic>.from(json['tool'] as Map)),
     );
 
 Map<String, dynamic> _$$_DocumentPageToJson(_$_DocumentPage instance) =>
@@ -53,6 +45,4 @@ Map<String, dynamic> _$$_DocumentPageToJson(_$_DocumentPage instance) =>
       'waypoints': instance.waypoints.map((e) => e.toJson()).toList(),
       'areas': instance.areas.map((e) => e.toJson()).toList(),
       'exportPresets': instance.exportPresets.map((e) => e.toJson()).toList(),
-      'painters': instance.painters.map((e) => e.toJson()).toList(),
-      'tool': instance.tool.toJson(),
     };

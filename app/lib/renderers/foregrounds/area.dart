@@ -9,7 +9,7 @@ class AreaForegroundRenderer extends Renderer<Area> {
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage? page,
-      CameraTransform transform,
+      DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     var paint = Paint()
       ..style = PaintingStyle.stroke

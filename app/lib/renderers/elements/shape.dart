@@ -27,7 +27,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
 
   @override
   FutureOr<void> build(Canvas canvas, Size size, NoteData document,
-      DocumentPage page, CameraTransform transform,
+      DocumentPage page, DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     _updateRect();
     final shape = element.property.shape;

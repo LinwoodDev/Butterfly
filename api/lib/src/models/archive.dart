@@ -8,7 +8,7 @@ const kMetaArchiveFile = '$kMetaInfoArchiveDirectory/butterfly.json';
 const kBflyArchiveDirectory = 'BFLY';
 const kThumbnailArchiveFile = '$kBflyArchiveDirectory/thumbnail.png';
 // Document specific
-const kPaintersArchiveFile = '$kBflyArchiveDirectory/painters.json';
+const kInfoArchiveFile = '$kBflyArchiveDirectory/info.json';
 const kFontsArchiveDirectory = '$kBflyArchiveDirectory/fonts';
 const kImagesArchiveDirectory = '$kBflyArchiveDirectory/images';
 const kPacksArchiveDirectory = '$kBflyArchiveDirectory/packs';

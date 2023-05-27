@@ -7,7 +7,7 @@ class WaypointHandler extends Handler<WaypointPainter> {
 
   @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page,
+          NoteData document, DocumentPage page, DocumentInfo info,
           [Area? currentArea]) =>
       page.waypoints.map((e) => WaypointForegroundRenderer(e, radius)).toList();
 

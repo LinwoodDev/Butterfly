@@ -73,7 +73,7 @@ abstract class Renderer<T> {
 
   Rect? get rect => null;
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      CameraTransform transform,
+      DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]);
   HitCalculator getHitCalculator() => DefaultHitCalculator(rect);
   void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {}

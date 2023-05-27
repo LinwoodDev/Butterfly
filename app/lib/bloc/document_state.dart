@@ -26,6 +26,7 @@ class DocumentLoadFailure extends DocumentState {
 abstract class DocumentLoaded extends DocumentState {
   final NoteData data;
   final DocumentPage page;
+  final DocumentInfo info;
   final String pageName;
   final FileMetadata metadata;
 
@@ -33,9 +34,13 @@ abstract class DocumentLoaded extends DocumentState {
   set metadata(FileMetadata metadata) => data.setMetadata(metadata);
 
   DocumentLoaded(this.data,
-      {DocumentPage? page, required this.pageName, FileMetadata? metadata})
+      {DocumentPage? page,
+      required this.pageName,
+      FileMetadata? metadata,
+      DocumentInfo? info})
       : page = page ?? data.getPage(pageName)!,
-        metadata = metadata ?? data.getMetadata()!;
+        metadata = metadata ?? data.getMetadata()!,
+        info = info ?? data.getInfo()!;
 
   List<String> get invisibleLayers => [];
 
@@ -52,6 +57,7 @@ abstract class DocumentLoaded extends DocumentState {
   NoteData saveData() {
     data.setPage(page, pageName);
     data.setMetadata(metadata);
+    data.setInfo(info);
     return data;
   }
 }
@@ -71,6 +77,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
       {super.page,
       required super.pageName,
       super.metadata,
+      super.info,
       AssetLocation? location,
       this.storageType = StorageType.local,
       required this.settingsCubit,
@@ -87,6 +94,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
   List<Object?> get props => [
         invisibleLayers,
         data,
+        info,
         page,
         pageName,
         metadata,
@@ -111,6 +119,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
     DocumentPage? page,
     String? pageName,
     FileMetadata? metadata,
+    DocumentInfo? info,
     bool? editMode,
     String? currentLayer,
     String? currentAreaName,
@@ -121,6 +130,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
         page: page ?? this.page,
         pageName: pageName ?? this.pageName,
         metadata: metadata ?? this.metadata,
+        info: info ?? this.info,
         invisibleLayers: invisibleLayers ?? this.invisibleLayers,
         currentLayer: currentLayer ?? this.currentLayer,
         currentAreaName: currentAreaName ?? this.currentAreaName,
@@ -166,7 +176,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
 
   Future<void> bake(
           {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
-      currentIndexCubit.bake(data, page,
+      currentIndexCubit.bake(data, page, info,
           viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
 
   Painter? get painter => currentIndexCubit.state.handler.data;

@@ -26,8 +26,6 @@ mixin _$DocumentPage {
   List<Waypoint> get waypoints => throw _privateConstructorUsedError;
   List<Area> get areas => throw _privateConstructorUsedError;
   List<ExportPreset> get exportPresets => throw _privateConstructorUsedError;
-  List<Painter> get painters => throw _privateConstructorUsedError;
-  ToolOption get tool => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,12 +45,9 @@ abstract class $DocumentPageCopyWith<$Res> {
       Background background,
       List<Waypoint> waypoints,
       List<Area> areas,
-      List<ExportPreset> exportPresets,
-      List<Painter> painters,
-      ToolOption tool});
+      List<ExportPreset> exportPresets});
 
   $BackgroundCopyWith<$Res> get background;
-  $ToolOptionCopyWith<$Res> get tool;
 }
 
 /// @nodoc
@@ -74,8 +69,6 @@ class _$DocumentPageCopyWithImpl<$Res, $Val extends DocumentPage>
     Object? waypoints = null,
     Object? areas = null,
     Object? exportPresets = null,
-    Object? painters = null,
-    Object? tool = null,
   }) {
     return _then(_value.copyWith(
       animations: null == animations
@@ -102,14 +95,6 @@ class _$DocumentPageCopyWithImpl<$Res, $Val extends DocumentPage>
           ? _value.exportPresets
           : exportPresets // ignore: cast_nullable_to_non_nullable
               as List<ExportPreset>,
-      painters: null == painters
-          ? _value.painters
-          : painters // ignore: cast_nullable_to_non_nullable
-              as List<Painter>,
-      tool: null == tool
-          ? _value.tool
-          : tool // ignore: cast_nullable_to_non_nullable
-              as ToolOption,
     ) as $Val);
   }
 
@@ -118,14 +103,6 @@ class _$DocumentPageCopyWithImpl<$Res, $Val extends DocumentPage>
   $BackgroundCopyWith<$Res> get background {
     return $BackgroundCopyWith<$Res>(_value.background, (value) {
       return _then(_value.copyWith(background: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ToolOptionCopyWith<$Res> get tool {
-    return $ToolOptionCopyWith<$Res>(_value.tool, (value) {
-      return _then(_value.copyWith(tool: value) as $Val);
     });
   }
 }
@@ -144,14 +121,10 @@ abstract class _$$_DocumentPageCopyWith<$Res>
       Background background,
       List<Waypoint> waypoints,
       List<Area> areas,
-      List<ExportPreset> exportPresets,
-      List<Painter> painters,
-      ToolOption tool});
+      List<ExportPreset> exportPresets});
 
   @override
   $BackgroundCopyWith<$Res> get background;
-  @override
-  $ToolOptionCopyWith<$Res> get tool;
 }
 
 /// @nodoc
@@ -171,8 +144,6 @@ class __$$_DocumentPageCopyWithImpl<$Res>
     Object? waypoints = null,
     Object? areas = null,
     Object? exportPresets = null,
-    Object? painters = null,
-    Object? tool = null,
   }) {
     return _then(_$_DocumentPage(
       animations: null == animations
@@ -199,14 +170,6 @@ class __$$_DocumentPageCopyWithImpl<$Res>
           ? _value._exportPresets
           : exportPresets // ignore: cast_nullable_to_non_nullable
               as List<ExportPreset>,
-      painters: null == painters
-          ? _value._painters
-          : painters // ignore: cast_nullable_to_non_nullable
-              as List<Painter>,
-      tool: null == tool
-          ? _value.tool
-          : tool // ignore: cast_nullable_to_non_nullable
-              as ToolOption,
     ));
   }
 }
@@ -220,15 +183,12 @@ class _$_DocumentPage extends _DocumentPage {
       this.background = const Background.empty(),
       final List<Waypoint> waypoints = const [],
       final List<Area> areas = const [],
-      final List<ExportPreset> exportPresets = const [],
-      final List<Painter> painters = const [],
-      this.tool = const ToolOption()})
+      final List<ExportPreset> exportPresets = const []})
       : _animations = animations,
         _content = content,
         _waypoints = waypoints,
         _areas = areas,
         _exportPresets = exportPresets,
-        _painters = painters,
         super._();
 
   factory _$_DocumentPage.fromJson(Map<String, dynamic> json) =>
@@ -282,22 +242,9 @@ class _$_DocumentPage extends _DocumentPage {
     return EqualUnmodifiableListView(_exportPresets);
   }
 
-  final List<Painter> _painters;
-  @override
-  @JsonKey()
-  List<Painter> get painters {
-    if (_painters is EqualUnmodifiableListView) return _painters;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_painters);
-  }
-
-  @override
-  @JsonKey()
-  final ToolOption tool;
-
   @override
   String toString() {
-    return 'DocumentPage(animations: $animations, content: $content, background: $background, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets, painters: $painters, tool: $tool)';
+    return 'DocumentPage(animations: $animations, content: $content, background: $background, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets)';
   }
 
   @override
@@ -314,9 +261,7 @@ class _$_DocumentPage extends _DocumentPage {
                 .equals(other._waypoints, _waypoints) &&
             const DeepCollectionEquality().equals(other._areas, _areas) &&
             const DeepCollectionEquality()
-                .equals(other._exportPresets, _exportPresets) &&
-            const DeepCollectionEquality().equals(other._painters, _painters) &&
-            (identical(other.tool, tool) || other.tool == tool));
+                .equals(other._exportPresets, _exportPresets));
   }
 
   @JsonKey(ignore: true)
@@ -328,9 +273,7 @@ class _$_DocumentPage extends _DocumentPage {
       background,
       const DeepCollectionEquality().hash(_waypoints),
       const DeepCollectionEquality().hash(_areas),
-      const DeepCollectionEquality().hash(_exportPresets),
-      const DeepCollectionEquality().hash(_painters),
-      tool);
+      const DeepCollectionEquality().hash(_exportPresets));
 
   @JsonKey(ignore: true)
   @override
@@ -353,9 +296,7 @@ abstract class _DocumentPage extends DocumentPage {
       final Background background,
       final List<Waypoint> waypoints,
       final List<Area> areas,
-      final List<ExportPreset> exportPresets,
-      final List<Painter> painters,
-      final ToolOption tool}) = _$_DocumentPage;
+      final List<ExportPreset> exportPresets}) = _$_DocumentPage;
   const _DocumentPage._() : super._();
 
   factory _DocumentPage.fromJson(Map<String, dynamic> json) =
@@ -373,10 +314,6 @@ abstract class _DocumentPage extends DocumentPage {
   List<Area> get areas;
   @override
   List<ExportPreset> get exportPresets;
-  @override
-  List<Painter> get painters;
-  @override
-  ToolOption get tool;
   @override
   @JsonKey(ignore: true)
   _$$_DocumentPageCopyWith<_$_DocumentPage> get copyWith =>

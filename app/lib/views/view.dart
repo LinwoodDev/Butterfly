@@ -327,6 +327,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   ],
                                   state.data,
                                   state.page,
+                                  state.info,
                                   Theme.of(context).colorScheme,
                                   transform,
                                   cubit.state.selection,
@@ -335,6 +336,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                 painter: ViewPainter(
                                   state.data,
                                   state.page,
+                                  state.info,
                                   cameraViewport: currentIndex.cameraViewport,
                                   transform: transform,
                                   invisibleLayers: state.invisibleLayers,

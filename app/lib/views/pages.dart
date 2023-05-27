@@ -83,7 +83,6 @@ class PagesView extends StatelessWidget {
                             snapshot.data?.setPage(
                               DocumentPage(
                                 background: current.background,
-                                painters: current.painters,
                               ),
                               name,
                             );

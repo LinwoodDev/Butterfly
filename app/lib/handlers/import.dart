@@ -72,7 +72,7 @@ class ImportHandler extends Handler<ImportPainter> {
 
   @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page,
+          NoteData document, DocumentPage page, DocumentInfo info,
           [Area? currentArea]) =>
       _load(true).map((e) => e.transform(position: _position) ?? e).toList();
 }

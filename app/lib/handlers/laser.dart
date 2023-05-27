@@ -66,8 +66,8 @@ class LaserHandler extends Handler<LaserPainter> {
   }
 
   @override
-  List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, NoteData document, DocumentPage page,
+  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
+      NoteData document, DocumentPage page, DocumentInfo info,
       [Area? currentArea]) {
     return elements.values
         .map((e) {

@@ -12,7 +12,7 @@ class HandSelectionRenderer extends Renderer<Rect> {
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      CameraTransform transform,
+      DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final paint = Paint()
       ..color = scheme.primary
@@ -183,14 +183,16 @@ class HandHandler extends Handler<HandPainter> {
   }
 
   @override
-  List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, NoteData document, DocumentPage page,
+  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
+      NoteData document, DocumentPage page, DocumentInfo info,
       [Area? currentArea]) {
     final foregrounds = <Renderer>[];
     if (_movingElements.isNotEmpty && _currentMovePosition != null) {
       final renderers = _movingElements.map((e) {
         final position = currentIndexCubit.getGridPosition(
-            (e.rect?.topLeft ?? Offset.zero) + _currentMovePosition!, page);
+            (e.rect?.topLeft ?? Offset.zero) + _currentMovePosition!,
+            page,
+            info);
 
         return _currentMovePosition == null
             ? e
@@ -233,7 +235,7 @@ class HandHandler extends Handler<HandPainter> {
         .map((e) {
           var position = (e.rect?.topLeft ?? Offset.zero) +
               (_currentMovePosition ?? Offset.zero);
-          position = tool.getGridPosition(position, page, cubit);
+          position = tool.getGridPosition(position, page, state.info, cubit);
           return e.transform(position: position, relative: false) ?? e;
         })
         .map((e) => e.element)

@@ -12,12 +12,14 @@ class ForegroundPainter extends CustomPainter {
   final ColorScheme colorScheme;
   final NoteData document;
   final DocumentPage page;
+  final DocumentInfo info;
   final List<Renderer> renderers;
   final CameraTransform transform;
   final Selection? selection;
   final Renderer<ToolState>? tool;
 
-  ForegroundPainter(this.renderers, this.document, this.page, this.colorScheme,
+  ForegroundPainter(
+      this.renderers, this.document, this.page, this.info, this.colorScheme,
       [this.transform = const CameraTransform(), this.selection, this.tool]);
 
   @override
@@ -25,7 +27,8 @@ class ForegroundPainter extends CustomPainter {
     canvas.scale(transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var element in renderers) {
-      element.build(canvas, size, document, page, transform, colorScheme, true);
+      element.build(
+          canvas, size, document, page, info, transform, colorScheme, true);
     }
     final selection = this.selection;
     if (selection is ElementSelection) {
@@ -39,7 +42,8 @@ class ForegroundPainter extends CustomPainter {
       _drawSelection(canvas, selection);
     }
     if (tool != null) {
-      tool!.build(canvas, size, document, page, transform, colorScheme, true);
+      tool!.build(
+          canvas, size, document, page, info, transform, colorScheme, true);
     }
   }
 
@@ -66,6 +70,7 @@ class ForegroundPainter extends CustomPainter {
 class ViewPainter extends CustomPainter {
   final NoteData document;
   final DocumentPage page;
+  final DocumentInfo info;
   final Area? currentArea;
   final bool renderBackground, renderBaked;
   final CameraViewport cameraViewport;
@@ -75,7 +80,8 @@ class ViewPainter extends CustomPainter {
 
   const ViewPainter(
     this.document,
-    this.page, {
+    this.page,
+    this.info, {
     this.currentArea,
     this.invisibleLayers = const [],
     this.renderBackground = true,
@@ -105,7 +111,7 @@ class ViewPainter extends CustomPainter {
     }
     if (renderBackground) {
       cameraViewport.background
-          ?.build(canvas, size, document, page, transform, colorScheme);
+          ?.build(canvas, size, document, page, info, transform, colorScheme);
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     if (cameraViewport.bakedElements.isNotEmpty && renderBaked) {
@@ -129,7 +135,7 @@ class ViewPainter extends CustomPainter {
     for (var renderer in cameraViewport.unbakedElements) {
       if (!invisibleLayers.contains(renderer.element.layer)) {
         renderer.build(
-            canvas, size, document, page, transform, colorScheme, false);
+            canvas, size, document, page, info, transform, colorScheme, false);
       }
     }
     canvas.restore();

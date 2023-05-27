@@ -14,7 +14,8 @@ class EraserHandler extends Handler<EraserPainter> {
 
   @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page, [Area? currentArea]) =>
+          NoteData document, DocumentPage page, DocumentInfo info,
+          [Area? currentArea]) =>
       [
         if (_currentPos != null)
           EraserCursor(PainterCursorData(data, _currentPos!))

@@ -86,6 +86,6 @@ extension EntityFileTypeExtension on AppDocumentEntity {
   AssetFileType? get fileType => location.fileType;
 }
 
-extension AppDocumentInfoExtension on AppDocumentFile {
+extension AppDocumentLoadExtension on AppDocumentFile {
   NoteData load() => NoteData.fromData(Uint8List.fromList(data));
 }

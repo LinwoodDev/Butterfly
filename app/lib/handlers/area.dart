@@ -7,7 +7,7 @@ class AreaHandler extends Handler<AreaPainter> {
 
   @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page,
+          NoteData document, DocumentPage page, DocumentInfo info,
           [Area? currentArea]) =>
       [
         if (currentArea == null) ...[
@@ -37,7 +37,7 @@ class AreaHandler extends Handler<AreaPainter> {
     var localPosition = event.localPosition;
     final cubit = context.getCurrentIndexCubit();
     localPosition = cubit.state.cameraViewport.tool
-        .getGridPosition(localPosition, state.page, cubit);
+        .getGridPosition(localPosition, state.page, state.info, cubit);
     final globalPosition = transform.localToGlobal(localPosition);
     final area = state.page.getArea(globalPosition);
     final currentIndexCubit = context.getCurrentIndexCubit();
@@ -78,7 +78,7 @@ class AreaHandler extends Handler<AreaPainter> {
     var localPosition = event.localPosition;
     final cubit = context.getCurrentIndexCubit();
     localPosition = cubit.state.cameraViewport.tool
-        .getGridPosition(localPosition, state.page, cubit);
+        .getGridPosition(localPosition, state.page, state.info, cubit);
     final position = transform.localToGlobal(localPosition);
     _setRect(state.page, position);
     context.refresh();
@@ -152,7 +152,7 @@ class AreaHandler extends Handler<AreaPainter> {
     final state = context.getState();
     if (state == null) return;
     localPosition = cubit.state.cameraViewport.tool
-        .getGridPosition(localPosition, state.page, cubit);
+        .getGridPosition(localPosition, state.page, state.info, cubit);
     final position = transform.localToGlobal(localPosition);
     _setRect(state.page, position);
     currentRect = currentRect?.normalized();

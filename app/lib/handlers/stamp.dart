@@ -9,8 +9,8 @@ class StampHandler extends Handler<StampPainter> {
 
   @override
   @override
-  List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, NoteData document, DocumentPage page,
+  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
+      NoteData document, DocumentPage page, DocumentInfo info,
       [Area? currentArea]) {
     final currentPos = currentIndexCubit.state.cameraViewport.toOffset();
     return _elements
@@ -50,14 +50,13 @@ class StampHandler extends Handler<StampPainter> {
 
   void _moveComponent(EventContext context, Offset offset) {
     final transform = context.getCameraTransform();
-    final document = context.getPage();
-    final global = transform.localToGlobal(offset);
-    final grid = document == null
-        ? global
-        : context.getCurrentIndexCubit().getGridPosition(global, document);
-    final local = transform.globalToLocal(grid);
     final state = context.getState();
     if (state == null) return;
+    final global = transform.localToGlobal(offset);
+    final grid = context
+        .getCurrentIndexCubit()
+        .getGridPosition(global, state.page, state.info);
+    final local = transform.globalToLocal(grid);
     _loadComponent(state.data, state.page);
     _position = local;
     context.refresh();

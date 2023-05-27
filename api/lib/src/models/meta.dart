@@ -5,7 +5,7 @@ import '../converter/core.dart';
 part 'meta.freezed.dart';
 part 'meta.g.dart';
 
-const kFileVersion = 8;
+const kFileVersion = 9;
 const kBreakingChangesVersion = 7;
 
 @freezed

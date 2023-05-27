@@ -54,11 +54,11 @@ class LabelHandler extends Handler<LabelPainter>
 
   @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page,
+          NoteData document, DocumentPage page, DocumentInfo info,
           [Area? currentArea]) =>
       [
-        ...super
-            .createForegrounds(currentIndexCubit, document, page, currentArea),
+        ...super.createForegrounds(
+            currentIndexCubit, document, page, info, currentArea),
         if (_context?.element != null) ...[
           if (_context?.isCreating ?? false)
             _context!.map(

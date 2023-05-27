@@ -20,7 +20,7 @@ class LabelCursor extends Renderer<LabelCursorData> {
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      CameraTransform transform,
+      DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     const icon = PhosphorIconsLight.cursorText;
     final property =
@@ -62,7 +62,7 @@ class LabelSelectionCursor extends Renderer<LabelContext> {
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
-      CameraTransform transform,
+      DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final color = colorScheme?.primary ?? Colors.blue;
     // Paint vertical line

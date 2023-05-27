@@ -105,7 +105,8 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                             return Container();
                           }
                           return FutureBuilder<ByteData?>(
-                            future: currentIndex.render(state.data, state.page,
+                            future: currentIndex.render(
+                                state.data, state.page, state.info,
                                 width: area.width,
                                 height: area.height,
                                 quality: e.quality,
@@ -144,8 +145,9 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                         onPressed: () async {
                           final localization = AppLocalizations.of(context);
                           Navigator.of(context).pop();
-                          final document = await currentIndex
-                              .renderPDF(state.data, state.page, areas: areas);
+                          final document = await currentIndex.renderPDF(
+                              state.data, state.page, state.info,
+                              areas: areas);
                           final data = await document.save();
                           if (!kIsWeb &&
                               (Platform.isWindows ||

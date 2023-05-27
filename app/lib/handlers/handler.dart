@@ -135,7 +135,7 @@ abstract class Handler<T> {
       true;
 
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page,
+          NoteData document, DocumentPage page, DocumentInfo info,
           [Area? currentArea]) =>
       [];
 
@@ -181,8 +181,8 @@ abstract class Handler<T> {
 
   PainterStatus getStatus(DocumentBloc bloc) => PainterStatus.normal;
 
-  static Handler fromDocument(DocumentPage page, int index) {
-    final painter = page.painters[index];
+  static Handler fromDocument(DocumentInfo info, int index) {
+    final painter = info.painters[index];
     return Handler.fromPainter(painter);
   }
 
@@ -220,11 +220,11 @@ mixin HandlerWithCursor<T> on Handler<T> {
 
   @mustCallSuper
   @override
-  List<Renderer> createForegrounds(
-      CurrentIndexCubit currentIndexCubit, NoteData document, DocumentPage page,
+  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
+      NoteData document, DocumentPage page, DocumentInfo info,
       [Area? currentArea]) {
     final renderers =
-        super.createForegrounds(currentIndexCubit, document, page);
+        super.createForegrounds(currentIndexCubit, document, page, info);
     if (_currentPos != null) {
       renderers.add(createCursor(_currentPos!));
     }

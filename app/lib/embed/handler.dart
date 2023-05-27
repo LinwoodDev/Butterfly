@@ -52,6 +52,7 @@ class EmbedHandler {
         final data = await state.currentIndexCubit.render(
           state.data,
           state.page,
+          state.info,
           width: width,
           height: height,
           x: x,

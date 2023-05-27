@@ -114,13 +114,16 @@ class DocumentDefaults {
     );
     data.setMetadata(metadata);
     data.setPage(page);
+    data.setInfo(createInfo());
     return data;
   }
 
   static DocumentPage createPage() {
-    return DocumentPage(
-      painters: DocumentDefaults.createPainters(),
-    );
+    return const DocumentPage();
+  }
+
+  static DocumentInfo createInfo([int? background]) {
+    return DocumentInfo(painters: createPainters(background));
   }
 
   static NoteData createPack() {
@@ -151,8 +154,8 @@ class DocumentDefaults {
     data.setMetadata(metadata);
     final page = DocumentPage(
       background: background,
-      painters: DocumentDefaults.createPainters(background.defaultColor),
     );
+    data.setInfo(createInfo(background.defaultColor));
     data.setPage(page);
     if (thumbnail != null) data.setThumbnail(thumbnail);
     return data;

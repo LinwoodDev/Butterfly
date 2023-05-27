@@ -18,7 +18,7 @@ class ToolSelection extends Selection<ToolState> {
       ...super.buildProperties(context),
       _ToolView(
         state: selected.first,
-        option: state.page.tool,
+        option: state.info.tool,
         onStateChanged: (state) => updateState(context, state),
         onToolChanged: (option) =>
             context.read<DocumentBloc>().add(ToolChanged.option(option)),
@@ -166,6 +166,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                         final thumbnail = await state.currentIndexCubit.render(
                           state.data,
                           state.page,
+                          state.info,
                           width: width,
                           height: height,
                           quality: quality,

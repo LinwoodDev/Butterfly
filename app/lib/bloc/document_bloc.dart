@@ -70,8 +70,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       return _saveState(
         emit,
         current.copyWith(
-          page: current.page.copyWith(
-            tool: event.option ?? current.page.tool,
+          info: current.info.copyWith(
+            tool: event.option ?? current.info.tool,
           ),
         ),
       );
@@ -221,12 +221,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         return _saveState(
                 emit,
                 current.copyWith(
-                    page: current.page.copyWith(
-                        painters: List.from(current.page.painters)
+                    info: current.info.copyWith(
+                        painters: List.from(current.info.painters)
                           ..add(event.painter))))
             .then((value) {
           current.currentIndexCubit
-              .changePainter(this, current.page.painters.length, null, true);
+              .changePainter(this, current.info.painters.length, null, true);
         });
       }
     });
@@ -237,9 +237,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         await _saveState(
             emit,
             current.copyWith(
-                page: current.page.copyWith(
+                info: current.info.copyWith(
                     painters:
-                        List<Painter>.from(current.page.painters).map((e) {
+                        List<Painter>.from(current.info.painters).map((e) {
               final updated = event.updatedPainters[e];
               if (updated != null) {
                 return updated;
@@ -268,8 +268,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         return _saveState(
                 emit,
                 current.copyWith(
-                    page: current.page.copyWith(
-                        painters: List.from(current.page.painters)
+                    info: current.info.copyWith(
+                        painters: List.from(current.info.painters)
                           ..removeWhere(
                               (element) => event.painters.contains(element)))))
             .then((value) {
@@ -281,7 +281,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
-        var painters = List<Painter>.from(current.page.painters);
+        var painters = List<Painter>.from(current.info.painters);
         var oldIndex = event.oldIndex;
         var newIndex = event.newIndex;
         if (oldIndex < newIndex) {
@@ -306,7 +306,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         return _saveState(
             emit,
             current.copyWith(
-              page: current.page.copyWith(painters: painters),
+              info: current.info.copyWith(painters: painters),
             ));
       }
     });
@@ -489,7 +489,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       final data = current.saveData();
       final render = await current.currentIndexCubit.render(
-          current.data, current.page,
+          current.data, current.page, current.info,
           width: kThumbnailWidth.toDouble(),
           height: kThumbnailHeight.toDouble());
       final thumbnail = render?.buffer.asUint8List();
@@ -744,7 +744,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   void refresh() {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
-    current.currentIndexCubit.refresh(current.data, current.page);
+    current.currentIndexCubit.refresh(current.data, current.page, current.info);
   }
 
   Future<void> bake(
