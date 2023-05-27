@@ -10,15 +10,15 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'pages.dart';
 
-class DocumentNavbar extends StatefulWidget {
+class DocumentNavigator extends StatefulWidget {
   final bool asDrawer;
-  const DocumentNavbar({super.key, this.asDrawer = false});
+  const DocumentNavigator({super.key, this.asDrawer = false});
 
   @override
-  State<DocumentNavbar> createState() => _DocumentNavbarState();
+  State<DocumentNavigator> createState() => _DocumentNavigatorState();
 }
 
-class _DocumentNavbarState extends State<DocumentNavbar>
+class _DocumentNavigatorState extends State<DocumentNavigator>
     with SingleTickerProviderStateMixin {
   RemoteStorage? _remote;
   late final AnimationController _controller = AnimationController(
@@ -142,7 +142,7 @@ class _DocumentNavbarState extends State<DocumentNavbar>
                 builder: (context, child) {
                   if (_animation.value == 0) return const SizedBox.shrink();
                   return SizedBox(
-                    width: 400 * _animation.value,
+                    width: 400,
                     child: ClipRect(
                       child: Transform.translate(
                         offset: Offset(-400 * (1 - _animation.value), 0),

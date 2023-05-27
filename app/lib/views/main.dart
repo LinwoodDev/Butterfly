@@ -22,7 +22,7 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
-import 'package:butterfly/views/navbar.dart';
+import 'package:butterfly/views/navigator.dart';
 import 'package:butterfly/views/toolbar.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/error.dart';
@@ -352,7 +352,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                       viewportKey: _viewportKey,
                                     ),
                               drawer: state is DocumentLoadSuccess
-                                  ? const DocumentNavbar(asDrawer: true)
+                                  ? const DocumentNavigator(asDrawer: true)
                                   : null,
                               body: Actions(
                                   actions: _actions,
@@ -364,7 +364,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                         constraints.maxWidth > kLargeWidth;
                                     return Row(
                                       children: [
-                                        if (isLarge) const DocumentNavbar(),
+                                        if (isLarge) const DocumentNavigator(),
                                         Expanded(
                                           child: Stack(
                                             children: [
