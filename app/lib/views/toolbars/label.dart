@@ -11,8 +11,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../bloc/document_bloc.dart';
 import '../../dialogs/packs/select.dart';
 import '../../models/label.dart';
+import '../toolbar.dart';
 
-class LabelToolbarView extends StatefulWidget {
+class LabelToolbarView extends StatefulWidget implements PreferredSizeWidget {
   final LabelContext value;
   final ValueChanged<LabelContext> onChanged;
 
@@ -24,6 +25,9 @@ class LabelToolbarView extends StatefulWidget {
 
   @override
   State<LabelToolbarView> createState() => _LabelToolbarViewState();
+
+  @override
+  Size get preferredSize => kToolbarLarge;
 }
 
 class _LabelToolbarViewState extends State<LabelToolbarView> {

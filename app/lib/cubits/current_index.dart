@@ -45,8 +45,8 @@ class CurrentIndex with _$CurrentIndex {
     @Default(AssetLocation(path: '')) AssetLocation location,
     Embedding? embedding,
     @Default(false) bool saved,
-    Widget? toolbar,
-    Widget? temporaryToolbar,
+    PreferredSizeWidget? toolbar,
+    PreferredSizeWidget? temporaryToolbar,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>

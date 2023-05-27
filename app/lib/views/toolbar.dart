@@ -3,6 +3,9 @@ import 'package:butterfly/cubits/current_index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+const kToolbarSmall = Size.fromHeight(48.0);
+const kToolbarLarge = Size.fromHeight(75.0);
+
 class ToolbarView extends StatefulWidget {
   const ToolbarView({super.key});
 
@@ -13,16 +16,6 @@ class ToolbarView extends StatefulWidget {
 class _ToolbarViewState extends State<ToolbarView> {
   String? currentPalette;
   final GlobalKey _animatedKey = GlobalKey();
-  double _height = 75;
-
-  void _setOpened(bool opened) {
-    if (opened && _height == 0) {
-      _height = 75;
-    }
-    if (!opened && _height != 0) {
-      _height = 0;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +27,17 @@ class _ToolbarViewState extends State<ToolbarView> {
               previous.toolbar != current.toolbar,
           builder: (context, currentIndex) {
             Widget? child;
-            if (state is! DocumentLoadSuccess) {
-              _setOpened(false);
-            } else {
+            var height = 0.0;
+            if (state is DocumentLoadSuccess) {
               final toolbar =
                   currentIndex.temporaryToolbar ?? currentIndex.toolbar;
-              if (toolbar == null) {
-                _setOpened(false);
-              } else {
-                _setOpened(true);
+              if (toolbar != null) {
+                height = toolbar.preferredSize.height;
                 child = toolbar;
               }
             }
             return AnimatedContainer(
-              height: _height,
+              height: height,
               key: _animatedKey,
               curve: Curves.fastOutSlowIn,
               duration: const Duration(milliseconds: 200),

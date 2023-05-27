@@ -167,7 +167,7 @@ class ShapeHandler extends Handler {
       event.kind);
 
   @override
-  Widget getToolbar(DocumentBloc bloc) => ColorToolbarView(
+  PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
         color: data.property.color,
         onChanged: (value) {
           bloc.add(PaintersChanged({

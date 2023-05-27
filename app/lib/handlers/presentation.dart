@@ -116,7 +116,7 @@ class PresentationHandler extends GeneralMoveHandler<PresentationPainter>
   PresentationHandler(super.data);
 
   @override
-  Widget? getToolbar(DocumentBloc bloc) => PresentationToolbarView(
+  PreferredSizeWidget getToolbar(DocumentBloc bloc) => PresentationToolbarView(
         animation: _currentAnimation,
         frame: _currentFrame,
         onAnimationChanged: (animation) {

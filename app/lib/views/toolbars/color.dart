@@ -1,4 +1,5 @@
 import 'package:butterfly/dialogs/packs/select.dart';
+import 'package:butterfly/views/toolbar.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../bloc/document_bloc.dart';
 
-class ColorToolbarView extends StatefulWidget {
+class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
   final int color;
   final ValueChanged<int> onChanged;
 
@@ -20,6 +21,9 @@ class ColorToolbarView extends StatefulWidget {
 
   @override
   State<ColorToolbarView> createState() => _ColorToolbarViewState();
+
+  @override
+  Size get preferredSize => kToolbarSmall;
 }
 
 class _ColorToolbarViewState extends State<ColorToolbarView> {
@@ -140,29 +144,26 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                       ),
                     ]),
               )),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: IconButton(
-                    onPressed: () async {
-                      final result = await showDialog<PackAssetLocation>(
-                          context: context,
-                          builder: (context) => BlocProvider.value(
-                                value: bloc,
-                                child: SelectPackAssetDialog(
-                                  type: PackAssetType.palette,
-                                  selected: currentPalette,
-                                ),
-                              ));
+            AspectRatio(
+              aspectRatio: 1,
+              child: IconButton(
+                  onPressed: () async {
+                    final result = await showDialog<PackAssetLocation>(
+                        context: context,
+                        builder: (context) => BlocProvider.value(
+                              value: bloc,
+                              child: SelectPackAssetDialog(
+                                type: PackAssetType.palette,
+                                selected: currentPalette,
+                              ),
+                            ));
 
-                      if (result == null) return;
-                      setState(() {
-                        currentPalette = result;
-                      });
-                    },
-                    icon: const PhosphorIcon(PhosphorIconsLight.package)),
-              ),
+                    if (result == null) return;
+                    setState(() {
+                      currentPalette = result;
+                    });
+                  },
+                  icon: const PhosphorIcon(PhosphorIconsLight.package)),
             ),
           ],
         );

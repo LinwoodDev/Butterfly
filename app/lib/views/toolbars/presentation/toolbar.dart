@@ -4,6 +4,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/dialogs/presentation.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
+import 'package:butterfly/views/toolbar.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,8 @@ import '../../../dialogs/pdf_export.dart';
 import '../../../handlers/handler.dart';
 import 'timeline.dart';
 
-class PresentationToolbarView extends StatefulWidget {
+class PresentationToolbarView extends StatefulWidget
+    implements PreferredSizeWidget {
   final ValueChanged<int>? onFrameChanged;
   final ValueChanged<String?>? onAnimationChanged;
   final int frame;
@@ -38,6 +40,9 @@ class PresentationToolbarView extends StatefulWidget {
   @override
   State<PresentationToolbarView> createState() =>
       _PresentationToolbarViewState();
+
+  @override
+  Size get preferredSize => kToolbarLarge;
 }
 
 class _PresentationToolbarViewState extends State<PresentationToolbarView> {

@@ -113,7 +113,7 @@ class PenHandler extends Handler<PenPainter> {
   }
 
   @override
-  Widget getToolbar(DocumentBloc bloc) => ColorToolbarView(
+  PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
         color: data.property.color,
         onChanged: (value) {
           bloc.add(PaintersChanged({

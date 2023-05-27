@@ -165,7 +165,7 @@ class LaserHandler extends Handler<LaserPainter> {
   }
 
   @override
-  Widget getToolbar(DocumentBloc bloc) => ColorToolbarView(
+  PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
         color: data.color,
         onChanged: (value) {
           bloc.add(PaintersChanged({

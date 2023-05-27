@@ -206,7 +206,7 @@ abstract class Handler<T> {
     );
   }
 
-  Widget? getToolbar(DocumentBloc bloc) => null;
+  PreferredSizeWidget? getToolbar(DocumentBloc bloc) => null;
 
   void dispose(DocumentBloc bloc) {}
 

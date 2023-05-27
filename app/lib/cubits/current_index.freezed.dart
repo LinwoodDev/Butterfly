@@ -31,8 +31,9 @@ mixin _$CurrentIndex {
   AssetLocation get location => throw _privateConstructorUsedError;
   Embedding? get embedding => throw _privateConstructorUsedError;
   bool get saved => throw _privateConstructorUsedError;
-  Widget? get toolbar => throw _privateConstructorUsedError;
-  Widget? get temporaryToolbar => throw _privateConstructorUsedError;
+  PreferredSizeWidget? get toolbar => throw _privateConstructorUsedError;
+  PreferredSizeWidget? get temporaryToolbar =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CurrentIndexCopyWith<CurrentIndex> get copyWith =>
@@ -60,8 +61,8 @@ abstract class $CurrentIndexCopyWith<$Res> {
       AssetLocation location,
       Embedding? embedding,
       bool saved,
-      Widget? toolbar,
-      Widget? temporaryToolbar});
+      PreferredSizeWidget? toolbar,
+      PreferredSizeWidget? temporaryToolbar});
 
   $AssetLocationCopyWith<$Res> get location;
 }
@@ -156,11 +157,11 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
       toolbar: freezed == toolbar
           ? _value.toolbar
           : toolbar // ignore: cast_nullable_to_non_nullable
-              as Widget?,
+              as PreferredSizeWidget?,
       temporaryToolbar: freezed == temporaryToolbar
           ? _value.temporaryToolbar
           : temporaryToolbar // ignore: cast_nullable_to_non_nullable
-              as Widget?,
+              as PreferredSizeWidget?,
     ) as $Val);
   }
 
@@ -196,8 +197,8 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
       AssetLocation location,
       Embedding? embedding,
       bool saved,
-      Widget? toolbar,
-      Widget? temporaryToolbar});
+      PreferredSizeWidget? toolbar,
+      PreferredSizeWidget? temporaryToolbar});
 
   @override
   $AssetLocationCopyWith<$Res> get location;
@@ -291,11 +292,11 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
       toolbar: freezed == toolbar
           ? _value.toolbar
           : toolbar // ignore: cast_nullable_to_non_nullable
-              as Widget?,
+              as PreferredSizeWidget?,
       temporaryToolbar: freezed == temporaryToolbar
           ? _value.temporaryToolbar
           : temporaryToolbar // ignore: cast_nullable_to_non_nullable
-              as Widget?,
+              as PreferredSizeWidget?,
     ));
   }
 }
@@ -375,9 +376,9 @@ class _$_CurrentIndex extends _CurrentIndex {
   @JsonKey()
   final bool saved;
   @override
-  final Widget? toolbar;
+  final PreferredSizeWidget? toolbar;
   @override
-  final Widget? temporaryToolbar;
+  final PreferredSizeWidget? temporaryToolbar;
 
   @override
   String toString() {
@@ -407,8 +408,8 @@ abstract class _CurrentIndex extends CurrentIndex {
       final AssetLocation location,
       final Embedding? embedding,
       final bool saved,
-      final Widget? toolbar,
-      final Widget? temporaryToolbar}) = _$_CurrentIndex;
+      final PreferredSizeWidget? toolbar,
+      final PreferredSizeWidget? temporaryToolbar}) = _$_CurrentIndex;
   const _CurrentIndex._() : super._();
 
   @override
@@ -440,9 +441,9 @@ abstract class _CurrentIndex extends CurrentIndex {
   @override
   bool get saved;
   @override
-  Widget? get toolbar;
+  PreferredSizeWidget? get toolbar;
   @override
-  Widget? get temporaryToolbar;
+  PreferredSizeWidget? get temporaryToolbar;
   @override
   @JsonKey(ignore: true)
   _$$_CurrentIndexCopyWith<_$_CurrentIndex> get copyWith =>
