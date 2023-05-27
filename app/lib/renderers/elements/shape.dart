@@ -166,45 +166,27 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       double scaleY = 1,
       bool relative = false}) {
     var rect = this.rect;
-    if (relative) {
-      var newFirstPos = element.firstPosition.toOffset() + position;
-      var newSecondPos = element.secondPosition.toOffset() + position;
-      var newRect = rect.translate(position.dx, position.dy);
-      final topLeft = newRect.topLeft;
+    var delta = relative ? position : (position - rect.topLeft);
+    var newFirstPos = element.firstPosition.toOffset() + delta;
+    var newSecondPos = element.secondPosition.toOffset() + delta;
+    var newRect = rect.translate(delta.dx, delta.dy);
+    final topLeft = newRect.topLeft;
 
-      newFirstPos = topLeft + (newFirstPos - topLeft).scale(scaleX, scaleY);
-      newSecondPos = topLeft + (newSecondPos - topLeft).scale(scaleX, scaleY);
+    newFirstPos = topLeft + (newFirstPos - topLeft).scale(scaleX, scaleY);
+    newSecondPos = topLeft + (newSecondPos - topLeft).scale(scaleX, scaleY);
 
-      newRect = newRect.topLeft &
-          Size(
-            newRect.width * scaleX,
-            newRect.height * scaleY,
-          );
-      return ShapeRenderer(
-        element.copyWith(
-          firstPosition: newFirstPos.toPoint(),
-          secondPosition: newSecondPos.toPoint(),
-        ),
-        newRect,
-      );
-    }
-    // Center of firstPosition and secondPosition
-    final center =
-        (element.firstPosition.toOffset() + element.secondPosition.toOffset()) /
-            2;
-    // Apply scale
-    final newFirstPos =
-        (element.firstPosition.toOffset() - center) * scaleX + center;
-    final newSecondPos =
-        (element.secondPosition.toOffset() - center) * scaleY + center;
-    rect = Rect.fromPoints(newFirstPos, newSecondPos).normalized();
-    rect = rect.topLeft & Size(rect.width * scaleX, rect.height * scaleY);
+    newRect = newRect.topLeft &
+        Size(
+          newRect.width * scaleX,
+          newRect.height * scaleY,
+        );
     return ShapeRenderer(
-        element.copyWith(
-          firstPosition: rect.topLeft.toPoint(),
-          secondPosition: rect.bottomRight.toPoint(),
-        ),
-        rect);
+      element.copyWith(
+        firstPosition: newFirstPos.toPoint(),
+        secondPosition: newSecondPos.toPoint(),
+      ),
+      newRect,
+    );
   }
 
   @override
