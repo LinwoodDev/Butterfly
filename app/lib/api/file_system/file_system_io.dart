@@ -191,12 +191,10 @@ class IOTemplateFileSystem extends TemplateFileSystem {
     var defaults = await DocumentDefaults.getDefaults(context);
     final path = await getDirectory();
     final dir = Directory(path);
-    if (await dir.exists()) {
-      if (force) {
-        await dir.delete(recursive: true);
-      } else {
-        return false;
-      }
+    if (!await dir.exists() || force) {
+      await dir.delete(recursive: true);
+    } else {
+      return false;
     }
     await dir.create(recursive: true);
     await Future.wait(defaults.map((e) => createTemplate(e)));

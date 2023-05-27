@@ -6,3 +6,4 @@
 * Add dynamic height to toolbar
 * Fix offset when selecting painters
 * Fix alpha in color toolbar
+* Fix creating default templates if directory doesn't exist
