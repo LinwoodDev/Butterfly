@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../models/defaults.dart';
+import '../../../widgets/menu.dart';
 import '../../delete.dart';
 import 'text.dart';
 
@@ -95,18 +96,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                 },
               ),
               MenuAnchor(
-                builder: (context, controller, _) {
-                  return IconButton(
-                    icon: const PhosphorIcon(PhosphorIconsLight.list),
-                    onPressed: () {
-                      if (controller.isOpen) {
-                        controller.close();
-                      } else {
-                        controller.open();
-                      }
-                    },
-                  );
-                },
+                builder: defaultMenuButton(),
                 menuChildren: DocumentDefaults.getSpanTranslations(context)
                     .entries
                     .where((element) =>

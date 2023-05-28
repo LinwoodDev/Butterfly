@@ -1,5 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/dialogs/delete.dart';
 import 'package:butterfly/dialogs/name.dart';
+import 'package:butterfly/widgets/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,10 +15,9 @@ class LayerDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (popupMenu) {
-      return PopupMenuButton(
-          itemBuilder: (context) => _buildListTiles(context)
-              .map((e) => PopupMenuItem(padding: EdgeInsets.zero, child: e))
-              .toList());
+      return MenuAnchor(
+          builder: defaultMenuButton(),
+          menuChildren: _buildMenuItems(context).toList());
     }
     return AlertDialog(
       title: Row(
@@ -29,7 +30,7 @@ class LayerDialog extends StatelessWidget {
         ],
       ),
       content: Column(
-          mainAxisSize: MainAxisSize.min, children: _buildListTiles(context)),
+          mainAxisSize: MainAxisSize.min, children: _buildMenuItems(context)),
       actions: [
         TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -38,7 +39,7 @@ class LayerDialog extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildListTiles(BuildContext context) => [
+  List<Widget> _buildMenuItems(BuildContext context) => [
         ListTile(
           title: Text(AppLocalizations.of(context).rename),
           leading: const PhosphorIcon(PhosphorIconsLight.textT),
@@ -57,39 +58,22 @@ class LayerDialog extends StatelessWidget {
         ListTile(
           title: Text(AppLocalizations.of(context).deleteElements),
           leading: const PhosphorIcon(PhosphorIconsLight.trash),
-          onTap: () {
-            showDialog<void>(
-                context: context,
-                builder: (ctx) => AlertDialog(
-                      title: Text(AppLocalizations.of(ctx).deleteElements),
-                      content:
-                          Text(AppLocalizations.of(ctx).deleteElementsConfirm),
-                      actions: [
-                        TextButton(
-                          child: Text(AppLocalizations.of(ctx).no),
-                          onPressed: () => Navigator.pop(ctx),
-                        ),
-                        ElevatedButton(
-                          child: Text(AppLocalizations.of(ctx).yes),
-                          onPressed: () {
-                            Navigator.pop(ctx);
-                            context
-                                .read<DocumentBloc>()
-                                .add(LayerElementsDeleted(layer));
-                            Navigator.pop(ctx);
-                          },
-                        ),
-                      ],
-                    ));
+          onTap: () async {
+            final bloc = context.read<DocumentBloc>();
+            final result = await showDialog<bool>(
+                context: context, builder: (context) => const DeleteDialog());
+            if (result != true) return;
+            bloc.add(LayerElementsDeleted(layer));
+            if (context.mounted) Navigator.pop(context);
           },
         ),
-        ListTile(
-          title: Text(AppLocalizations.of(context).remove),
-          leading: const PhosphorIcon(PhosphorIconsLight.x),
-          onTap: () {
+        MenuItemButton(
+          leadingIcon: const PhosphorIcon(PhosphorIconsLight.x),
+          onPressed: () {
             context.read<DocumentBloc>().add(LayerRemoved(layer));
             Navigator.pop(context);
           },
+          child: Text(AppLocalizations.of(context).remove),
         ),
       ];
 }

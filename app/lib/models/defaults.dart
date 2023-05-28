@@ -139,10 +139,10 @@ class DocumentDefaults {
     return data;
   }
 
-  static NoteData createTemplate(
+  static Future<NoteData> createTemplate(
       {String name = '',
       Uint8List? thumbnail,
-      Background background = const Background.box()}) {
+      Background background = const Background.box()}) async {
     final data = NoteData(Archive());
     final metadata = FileMetadata(
       name: name,
@@ -157,6 +157,7 @@ class DocumentDefaults {
     );
     data.setInfo(createInfo(background.defaultColor));
     data.setPage(page);
+    data.setPack(await getCorePack(), 'core');
     if (thumbnail != null) data.setThumbnail(thumbnail);
     return data;
   }

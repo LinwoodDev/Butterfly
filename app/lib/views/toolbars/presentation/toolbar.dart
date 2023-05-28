@@ -16,6 +16,7 @@ import '../../../api/full_screen.dart';
 import '../../../bloc/document_bloc.dart';
 import '../../../dialogs/pdf_export.dart';
 import '../../../handlers/handler.dart';
+import '../../../widgets/menu.dart';
 import 'timeline.dart';
 
 class PresentationToolbarView extends StatefulWidget
@@ -167,19 +168,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           initialSelection: _selected,
                         ),
                         MenuAnchor(
-                          builder: (context, controller, child) {
-                            return IconButton(
-                              onPressed: () {
-                                if (controller.isOpen) {
-                                  controller.close();
-                                } else {
-                                  controller.open();
-                                }
-                              },
-                              icon: const PhosphorIcon(
-                                  PhosphorIconsLight.dotsThreeVertical),
-                            );
-                          },
+                          builder: defaultMenuButton(),
                           menuChildren: [
                             MenuItemButton(
                               leadingIcon:
@@ -521,17 +510,8 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           ),
                           const SizedBox(width: 8),
                           MenuAnchor(
-                            builder: (context, controller, child) => IconButton(
-                              onPressed: () {
-                                if (controller.isOpen) {
-                                  controller.close();
-                                } else {
-                                  controller.open();
-                                }
-                              },
-                              icon: const PhosphorIcon(
-                                  PhosphorIconsLight.presentation),
-                            ),
+                            builder: defaultMenuButton(
+                                PhosphorIconsLight.presentation),
                             menuChildren: [
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(

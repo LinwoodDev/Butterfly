@@ -216,11 +216,12 @@ class NoteData {
     return NoteData.fromData(data);
   }
 
-  void setPack(NoteData pack) {
+  void setPack(NoteData pack, [String? name]) {
     final data = ZipEncoder().encode(pack.archive);
     if (data != null) {
       setAsset(
-          '$kPacksArchiveDirectory/${pack.getMetadata()?.name}.bfly', data);
+          '$kPacksArchiveDirectory/${name ?? pack.getMetadata()?.name}.bfly',
+          data);
     }
   }
 

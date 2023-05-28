@@ -3,6 +3,7 @@ import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/models/defaults.dart';
+import 'package:butterfly/widgets/menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -133,61 +134,48 @@ class _PacksDialogState extends State<PacksDialog>
                                             bloc.add(DocumentPackUpdated(
                                                 metadata.name, newPack));
                                           },
-                                          trailing: PopupMenuButton(
-                                            itemBuilder: (context) => [
-                                              PopupMenuItem(
-                                                padding: EdgeInsets.zero,
-                                                child: ListTile(
-                                                  leading: const PhosphorIcon(
-                                                      PhosphorIconsLight
-                                                          .appWindow),
-                                                  title: Text(
-                                                      AppLocalizations.of(
-                                                              context)
-                                                          .local),
-                                                  onTap: () async {
-                                                    Navigator.of(context).pop();
-                                                    _addPack(pack!, true);
-                                                  },
-                                                ),
+                                          trailing: MenuAnchor(
+                                            builder: defaultMenuButton(),
+                                            menuChildren: [
+                                              MenuItemButton(
+                                                leadingIcon: const PhosphorIcon(
+                                                    PhosphorIconsLight
+                                                        .appWindow),
+                                                child: Text(
+                                                    AppLocalizations.of(context)
+                                                        .local),
+                                                onPressed: () async {
+                                                  Navigator.of(context).pop();
+                                                  _addPack(pack!, true);
+                                                },
                                               ),
-                                              PopupMenuItem(
-                                                padding: EdgeInsets.zero,
-                                                child: ListTile(
-                                                  leading: const PhosphorIcon(
-                                                      PhosphorIconsLight
-                                                          .download),
-                                                  title: Text(
-                                                      AppLocalizations.of(
-                                                              context)
-                                                          .export),
-                                                  onTap: () async {
-                                                    Navigator.of(context).pop();
-                                                    _exportPack(pack!);
-                                                  },
-                                                ),
+                                              MenuItemButton(
+                                                leadingIcon: const PhosphorIcon(
+                                                    PhosphorIconsLight
+                                                        .download),
+                                                child: Text(
+                                                    AppLocalizations.of(context)
+                                                        .export),
+                                                onPressed: () async {
+                                                  Navigator.of(context).pop();
+                                                  _exportPack(pack!);
+                                                },
                                               ),
-                                              PopupMenuItem(
-                                                padding: EdgeInsets.zero,
-                                                child: ListTile(
-                                                  leading: const PhosphorIcon(
-                                                      PhosphorIconsLight.trash),
-                                                  title: Text(
-                                                      AppLocalizations.of(
-                                                              context)
-                                                          .delete),
-                                                  onTap: () {
-                                                    Navigator.of(context).pop();
-                                                    context
-                                                        .read<DocumentBloc>()
-                                                        .add(
-                                                            DocumentPackRemoved(
-                                                                metadata.name));
-                                                  },
-                                                ),
+                                              MenuItemButton(
+                                                leadingIcon: const PhosphorIcon(
+                                                    PhosphorIconsLight.trash),
+                                                child: Text(
+                                                    AppLocalizations.of(context)
+                                                        .delete),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                  context
+                                                      .read<DocumentBloc>()
+                                                      .add(DocumentPackRemoved(
+                                                          metadata.name));
+                                                },
                                               ),
                                             ],
-                                            onSelected: (value) {},
                                           ),
                                         ),
                                       );
@@ -258,57 +246,48 @@ class _PacksDialogState extends State<PacksDialog>
                                       await _fileSystem.updatePack(newPack);
                                       setState(() {});
                                     },
-                                    trailing: PopupMenuButton(
-                                      itemBuilder: (context) => [
+                                    trailing: MenuAnchor(
+                                      builder: defaultMenuButton(),
+                                      menuChildren: [
                                         if (!widget.globalOnly)
-                                          PopupMenuItem(
-                                            padding: EdgeInsets.zero,
-                                            child: ListTile(
-                                              leading: const PhosphorIcon(
-                                                  PhosphorIconsLight.file),
-                                              title: Text(
-                                                  AppLocalizations.of(context)
-                                                      .document),
-                                              onTap: () async {
-                                                Navigator.of(context).pop();
-                                                _addPack(pack, false);
-                                              },
-                                            ),
-                                          ),
-                                        PopupMenuItem(
-                                          padding: EdgeInsets.zero,
-                                          child: ListTile(
-                                            leading: const PhosphorIcon(
-                                                PhosphorIconsLight.download),
-                                            title: Text(
+                                          MenuItemButton(
+                                            leadingIcon: const PhosphorIcon(
+                                                PhosphorIconsLight.file),
+                                            child: Text(
                                                 AppLocalizations.of(context)
-                                                    .export),
-                                            onTap: () async {
+                                                    .document),
+                                            onPressed: () async {
                                               Navigator.of(context).pop();
-                                              _exportPack(pack);
+                                              _addPack(pack, false);
                                             },
                                           ),
+                                        MenuItemButton(
+                                          leadingIcon: const PhosphorIcon(
+                                              PhosphorIconsLight.download),
+                                          child: Text(
+                                              AppLocalizations.of(context)
+                                                  .export),
+                                          onPressed: () async {
+                                            Navigator.of(context).pop();
+                                            _exportPack(pack);
+                                          },
                                         ),
-                                        PopupMenuItem(
-                                          padding: EdgeInsets.zero,
-                                          child: ListTile(
-                                            leading: const PhosphorIcon(
-                                                PhosphorIconsLight.trash),
-                                            title: Text(
-                                                AppLocalizations.of(context)
-                                                    .delete),
-                                            onTap: () async {
-                                              await _fileSystem
-                                                  .deletePack(metadata.name);
-                                              if (mounted) {
-                                                Navigator.of(context).pop();
-                                              }
-                                              setState(() {});
-                                            },
-                                          ),
+                                        MenuItemButton(
+                                          leadingIcon: const PhosphorIcon(
+                                              PhosphorIconsLight.trash),
+                                          child: Text(
+                                              AppLocalizations.of(context)
+                                                  .delete),
+                                          onPressed: () async {
+                                            await _fileSystem
+                                                .deletePack(metadata.name);
+                                            if (mounted) {
+                                              Navigator.of(context).pop();
+                                            }
+                                            setState(() {});
+                                          },
                                         ),
                                       ],
-                                      onSelected: (value) {},
                                     ),
                                   ),
                                 );

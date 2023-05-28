@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../dialogs/delete.dart';
+import '../widgets/menu.dart';
 
 class PagesView extends StatelessWidget {
   const PagesView({super.key});
@@ -38,13 +39,7 @@ class PagesView extends StatelessWidget {
                               .read<DocumentBloc>()
                               .add(PageChanged(page)),
                           trailing: MenuAnchor(
-                            builder: (context, controller, child) => IconButton(
-                              icon: const PhosphorIcon(
-                                  PhosphorIconsLight.dotsThreeVertical),
-                              onPressed: () => controller.isOpen
-                                  ? controller.close()
-                                  : controller.open(),
-                            ),
+                            builder: defaultMenuButton(),
                             menuChildren: [
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(

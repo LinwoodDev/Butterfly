@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../../widgets/menu.dart';
 import '../../delete.dart';
 import 'paragraph.dart';
 
@@ -96,18 +97,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                         },
                       ),
                       MenuAnchor(
-                        builder: (context, controller, _) {
-                          return IconButton(
-                            icon: const PhosphorIcon(PhosphorIconsLight.list),
-                            onPressed: () {
-                              if (controller.isOpen) {
-                                controller.close();
-                              } else {
-                                controller.open();
-                              }
-                            },
-                          );
-                        },
+                        builder: defaultMenuButton(),
                         menuChildren:
                             DocumentDefaults.getParagraphTranslations(context)
                                 .entries

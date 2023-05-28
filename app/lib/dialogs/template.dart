@@ -1,5 +1,6 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/name.dart';
+import 'package:butterfly/widgets/menu.dart';
 import 'package:butterfly/widgets/remote_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -247,61 +248,55 @@ class _TemplateItem extends StatelessWidget {
     return ListTile(
       title: Text(metadata.name),
       subtitle: Text(metadata.description),
-      trailing: PopupMenuButton(
-        itemBuilder: (context) => [
-          PopupMenuItem(
-            padding: EdgeInsets.zero,
-            child: CheckboxListTile(
-                value: isDefault,
-                controlAffinity: ListTileControlAffinity.leading,
-                title: Text(AppLocalizations.of(context).defaultTemplate),
-                onChanged: (value) async {
-                  final name = metadata.name;
-                  if (value ?? true) {
-                    prefs.setString('default_template', name);
-                  } else {
-                    prefs.remove('default_template');
-                  }
-                  Navigator.of(context).pop();
-                  onChanged();
-                }),
+      trailing: MenuAnchor(
+        builder: defaultMenuButton(),
+        menuChildren: [
+          CheckboxMenuButton(
+            value: isDefault,
+            child: Text(AppLocalizations.of(context).defaultTemplate),
+            onChanged: (value) async {
+              final name = metadata.name;
+              if (value ?? true) {
+                prefs.setString('default_template', name);
+              } else {
+                prefs.remove('default_template');
+              }
+              Navigator.of(context).pop();
+              onChanged();
+            },
           ),
-          PopupMenuItem(
-            padding: EdgeInsets.zero,
-            child: ListTile(
-                leading: const PhosphorIcon(PhosphorIconsLight.textT),
-                title: Text(AppLocalizations.of(context).rename),
-                onTap: () async {
-                  Navigator.of(context).pop();
-                  final name = await showDialog<String>(
-                    context: context,
-                    builder: (context) => NameDialog(
-                      value: metadata.name,
-                    ),
-                  );
-                  if (name == null || name.isEmpty) {
-                    return;
-                  }
-                  await fileSystem.renameTemplate(metadata.name, name);
-                  onChanged();
-                }),
+          MenuItemButton(
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.textT),
+            child: Text(AppLocalizations.of(context).rename),
+            onPressed: () async {
+              Navigator.of(context).pop();
+              final name = await showDialog<String>(
+                context: context,
+                builder: (context) => NameDialog(
+                  value: metadata.name,
+                ),
+              );
+              if (name == null || name.isEmpty) {
+                return;
+              }
+              await fileSystem.renameTemplate(metadata.name, name);
+              onChanged();
+            },
           ),
-          PopupMenuItem(
-              padding: EdgeInsets.zero,
-              child: ListTile(
-                  leading: const PhosphorIcon(PhosphorIconsLight.trash),
-                  title: Text(AppLocalizations.of(context).delete),
-                  onTap: () async {
-                    Navigator.of(context).pop();
-                    final result = await showDialog<bool>(
-                        context: context,
-                        builder: (ctx) => const DeleteDialog());
-                    if (result != true) return;
-                    if (context.mounted) {
-                      await fileSystem.deleteTemplate(metadata.name);
-                      onChanged();
-                    }
-                  }))
+          MenuItemButton(
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
+            child: Text(AppLocalizations.of(context).delete),
+            onPressed: () async {
+              Navigator.of(context).pop();
+              final result = await showDialog<bool>(
+                  context: context, builder: (ctx) => const DeleteDialog());
+              if (result != true) return;
+              if (context.mounted) {
+                await fileSystem.deleteTemplate(metadata.name);
+                onChanged();
+              }
+            },
+          ),
         ],
       ),
       onTap: () => Navigator.of(context).pop(template),
