@@ -135,6 +135,8 @@ enum SyncMode { always, noMobile, manual }
 
 @freezed
 class InputConfiguration with _$InputConfiguration {
+  const InputConfiguration._();
+
   const factory InputConfiguration({
     int? leftMouse,
     @Default(-1) int? middleMouse,
@@ -147,6 +149,16 @@ class InputConfiguration with _$InputConfiguration {
 
   factory InputConfiguration.fromJson(Map<String, dynamic> json) =>
       _$InputConfigurationFromJson(json);
+
+  Set<int> getShortcuts() => {
+        leftMouse,
+        middleMouse,
+        rightMouse,
+        pen,
+        firstPenButton,
+        secondPenButton,
+        touch
+      }.whereNotNull().toSet();
 }
 
 enum BannerVisibility { always, never, onlyOnUpdates }

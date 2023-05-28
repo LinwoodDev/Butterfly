@@ -690,7 +690,7 @@ class __$$_InputConfigurationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_InputConfiguration implements _InputConfiguration {
+class _$_InputConfiguration extends _InputConfiguration {
   const _$_InputConfiguration(
       {this.leftMouse,
       this.middleMouse = -1,
@@ -698,7 +698,8 @@ class _$_InputConfiguration implements _InputConfiguration {
       this.pen,
       this.firstPenButton = 2,
       this.secondPenButton = 1,
-      this.touch});
+      this.touch})
+      : super._();
 
   factory _$_InputConfiguration.fromJson(Map<String, dynamic> json) =>
       _$$_InputConfigurationFromJson(json);
@@ -766,7 +767,7 @@ class _$_InputConfiguration implements _InputConfiguration {
   }
 }
 
-abstract class _InputConfiguration implements InputConfiguration {
+abstract class _InputConfiguration extends InputConfiguration {
   const factory _InputConfiguration(
       {final int? leftMouse,
       final int? middleMouse,
@@ -775,6 +776,7 @@ abstract class _InputConfiguration implements InputConfiguration {
       final int? firstPenButton,
       final int? secondPenButton,
       final int? touch}) = _$_InputConfiguration;
+  const _InputConfiguration._() : super._();
 
   factory _InputConfiguration.fromJson(Map<String, dynamic> json) =
       _$_InputConfiguration.fromJson;

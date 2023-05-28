@@ -42,20 +42,19 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              PopupMenuButton<AspectRatioPreset>(
-                itemBuilder: (context) => AspectRatioPreset.values
-                    .map((e) => PopupMenuItem(
-                          value: e,
+              MenuAnchor(
+                builder: defaultMenuButton(),
+                menuChildren: AspectRatioPreset.values
+                    .map((e) => MenuItemButton(
                           child: Text(e.getLocalizedName(context)),
+                          onPressed: () => update(
+                              context,
+                              selected
+                                  .map((c) => c.copyWith(
+                                      constrainedAspectRatio: e.ratio))
+                                  .toList()),
                         ))
                     .toList(),
-                onSelected: (preset) => update(
-                    context,
-                    selected
-                        .map((e) =>
-                            e.copyWith(constrainedAspectRatio: preset.ratio))
-                        .toList()),
-                tooltip: AppLocalizations.of(context).presets,
               )
             ],
           ),

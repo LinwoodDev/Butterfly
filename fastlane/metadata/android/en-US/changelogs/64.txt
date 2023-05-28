@@ -4,6 +4,7 @@
 * Add alpha to grid
 * Add alpha to label
 * Add dynamic height to toolbar
+* Add shortcut indication to painters
 * Migrate more components to material 3
 * Fix offset when selecting painters
 * Fix alpha in color toolbar

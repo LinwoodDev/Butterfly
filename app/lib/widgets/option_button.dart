@@ -5,18 +5,21 @@ class OptionButton extends StatelessWidget {
   final Widget icon;
   final Widget? selectedIcon;
   final VoidCallback? onPressed, onLongPressed;
-  final bool selected, highlighted;
+  final bool selected, highlighted, focussed;
   final String tooltip;
 
-  const OptionButton(
-      {super.key,
-      this.tooltip = '',
-      required this.icon,
-      this.selectedIcon,
-      this.onPressed,
-      this.onLongPressed,
-      this.selected = false,
-      this.highlighted = false});
+  const OptionButton({
+    super.key,
+    this.tooltip = '',
+    required this.icon,
+    this.selectedIcon,
+    this.onPressed,
+    this.onLongPressed,
+    this.selected = false,
+    this.highlighted = false,
+    this.focussed = false,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Tooltip(
@@ -36,10 +39,19 @@ class OptionButton extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(12),
                 )
-              : null,
-          margin: highlighted ? null : const EdgeInsets.all(2),
+              : (focussed
+                  ? BoxDecoration(
+                      // Border
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.outlineVariant,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    )
+                  : null),
+          margin: (highlighted || focussed) ? null : const EdgeInsets.all(2),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
             child: IconTheme(
                 data: Theme.of(context).iconTheme.copyWith(
                     size: 28,
