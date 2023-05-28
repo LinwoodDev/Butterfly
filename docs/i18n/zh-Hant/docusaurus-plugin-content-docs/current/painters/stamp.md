@@ -10,5 +10,5 @@ The stamp painter allows you to add components to your canvas. Use an existing p
 
 |  Property | Default | 說明                                              |
 | ---------:|:-------:|:----------------------------------------------- |
-|       素材包 |  None   | The pack where the component is located.        |
-| Component |  None   | The component that will be added to the canvas. |
+|       素材包 |    無    | The pack where the component is located.        |
+| Component |    無    | The component that will be added to the canvas. |
