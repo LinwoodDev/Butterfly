@@ -31,7 +31,7 @@ void _migrate(NoteData noteData, FileMetadata metadata) {
     final page = noteData.getAsset(pagePath);
     if (page != null) {
       final pageData = json.decode(utf8.decode(page)) as Map<String, dynamic>;
-      final documentInfo = DocumentInfo.fromJson(pageData['documentInfo']);
+      final documentInfo = DocumentInfo.fromJson(pageData);
       noteData.setInfo(documentInfo);
     }
   }

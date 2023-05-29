@@ -71,7 +71,8 @@ Future<void> main(List<String> args) async {
   }
 
   // Run flutter pub get in app directory
-  await Process.run('flutter', ['pub', 'get'], workingDirectory: 'app');
+  await Process.run('flutter', ['pub', 'get'],
+      workingDirectory: 'app', runInShell: true);
 
   print('Successfully updated!');
 }

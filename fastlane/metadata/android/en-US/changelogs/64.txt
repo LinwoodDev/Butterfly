@@ -5,6 +5,8 @@
 * Add alpha to label
 * Add dynamic height to toolbar
 * Add shortcut indication to painters
+* Bump file version
+    * Painters and tool is now global instead of page specific and was moved to a info.json file
 * Migrate more components to material 3
 * Fix offset when selecting painters
 * Fix alpha in color toolbar
