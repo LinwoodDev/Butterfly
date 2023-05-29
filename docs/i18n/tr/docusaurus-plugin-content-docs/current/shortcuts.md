@@ -25,7 +25,6 @@ Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmel
 * `Ctrl` + `P`: Renk paleti iletişim kutusunu aç
 * `Ctrl` + `B`: Arkaplan iletişim kutusunu aç
 * `Ctrl` + `Shift` + `A`: Alanlar iletişim kutusunu aç
-* `Ctrl` + `L`: Katmanlar iletişim kutusunu aç
 * `Ctrl` + `S`: Kaydet
 * `Alt` + `S`: Yolu değiştir
 * `Ctrl` + (`1` - `0`): Araca geçii yap
