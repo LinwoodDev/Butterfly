@@ -25,7 +25,6 @@ Existem alguns atalhos que você pode usar no editor. Alguns deles estão escrit
 * `Ctrl` + `P`: Abrir caixa de diálogo da paleta de cores
 * `Ctrl` + `B`: Abrir diálogo em segundo plano
 * `Ctrl` + `Shift` + `A`: Abrir diálogo de áreas
-* `Ctrl` + `L`: Abrir caixa de diálogo de camadas
 * `Ctrl` + `S`: Salvar
 * `Alt` + `S`: Mudar caminho
 * `Ctrl` + (`1` - `0`): Mudar para pintor
