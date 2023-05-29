@@ -25,7 +25,6 @@ sidebar_position: 2
 * `Ctrl` + `P`: 打开色板对话框
 * `Ctrl` + `B`: 打开后台对话框
 * `Ctrl` + `Shift` + `A`: 打开区域对话框
-* `Ctrl` + `L`: 打开图层对话框
 * `Ctrl` + `S`: 保存
 * `Alt` + `S`: 更改路径
 * `Ctrl` + (`1` - `0`): 切换到画家
