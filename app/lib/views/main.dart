@@ -4,7 +4,6 @@ import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/color_palette.dart';
 import 'package:butterfly/actions/export.dart';
 import 'package:butterfly/actions/image_export.dart';
-import 'package:butterfly/actions/layers.dart';
 import 'package:butterfly/actions/new.dart';
 import 'package:butterfly/actions/pdf_export.dart';
 import 'package:butterfly/actions/redo.dart';
@@ -78,7 +77,6 @@ class _ProjectPageState extends State<ProjectPage> {
     AreasIntent: AreasAction(),
     ColorPaletteIntent: ColorPaletteAction(),
     BackgroundIntent: BackgroundAction(),
-    LayersIntent: LayersAction(),
     ChangePathIntent: ChangePathAction(),
     SaveIntent: SaveAction(),
     ChangePainterIntent: ChangePainterAction(),
@@ -284,8 +282,6 @@ class _ProjectPageState extends State<ProjectPage> {
                           LogicalKeyboardKey.control,
                           LogicalKeyboardKey.shift,
                           LogicalKeyboardKey.keyA): AreasIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyL): LayersIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.escape):
                           ExitIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.arrowRight):

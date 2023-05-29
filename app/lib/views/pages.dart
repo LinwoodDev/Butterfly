@@ -27,8 +27,6 @@ class PagesView extends StatelessWidget {
               return Stack(
                 children: [
                   ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
                       itemCount: pages.length,
                       itemBuilder: (BuildContext context, int index) {
                         final page = pages[index];

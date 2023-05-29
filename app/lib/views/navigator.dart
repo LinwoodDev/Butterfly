@@ -8,6 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import 'layers.dart';
 import 'pages.dart';
 
 class DocumentNavigator extends StatefulWidget {
@@ -71,7 +72,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
             } else {
               _controller.forward(from: 0);
               content = DefaultTabController(
-                length: 2,
+                length: 3,
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
@@ -94,22 +95,36 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                         title: Text(AppLocalizations.of(context).navigator),
                       ),
                       TabBar(
+                        isScrollable: true,
                         tabs: [
                           (
-                            PhosphorIconsLight.file,
-                            AppLocalizations.of(context).files
+                            PhosphorIconsLight.stack,
+                            AppLocalizations.of(context).layers
                           ),
                           (
                             PhosphorIconsLight.book,
                             AppLocalizations.of(context).pages
                           ),
+                          (
+                            PhosphorIconsLight.file,
+                            AppLocalizations.of(context).files
+                          ),
                         ]
-                            .map((e) => Tab(icon: Icon(e.$1), text: e.$2))
+                            .map((e) => Tab(
+                                    child: Row(
+                                  children: [
+                                    PhosphorIcon(e.$1),
+                                    const SizedBox(width: 8),
+                                    Text(e.$2),
+                                  ],
+                                )))
                             .toList(),
                       ),
                       const SizedBox(height: 16),
                       Expanded(
                         child: TabBarView(children: [
+                          const LayersView(),
+                          const PagesView(),
                           SingleChildScrollView(
                             child: FilesView(
                               remote: _remote,
@@ -122,7 +137,6 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                               collapsed: true,
                             ),
                           ),
-                          const PagesView(),
                         ]),
                       )
                     ],

@@ -26,7 +26,6 @@ Some of them are written below the buttons.
 * `Ctrl` + `P`: Open color palette dialog
 * `Ctrl` + `B`: Open background dialog
 * `Ctrl` + `Shift` + `A`: Open areas dialog
-* `Ctrl` + `L`: Open layers dialog
 * `Ctrl` + `S`: Save
 * `Alt` + `S`: Change path
 * `Ctrl` + (`1` - `0`): Switch to painter

@@ -1,10 +1,14 @@
 * Add version to pack metadata
 * Add navbar ([#391](https://github.com/LinwoodDev/Butterfly/issues/391))
+    * Layers view
+    * Pages view
+    * Files view
 * Add pages
 * Add alpha to grid
 * Add alpha to label
 * Add dynamic height to toolbar
 * Add shortcut indication to painters
+* Add layers ui
 * Bump file version
     * Painters and tool is now global instead of page specific and was moved to a info.json file
 * Migrate more components to material 3
