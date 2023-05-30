@@ -81,7 +81,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   Future<ByteData?> generateImage() async {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return null;
+    if (state is! DocumentLoaded) return null;
     return state.currentIndexCubit.render(
       state.data,
       state.page,

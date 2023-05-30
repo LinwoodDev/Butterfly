@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -14,8 +13,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../view_painter.dart';
 
 class SvgExportDialog extends StatefulWidget {
   final double x, y;
@@ -78,27 +75,18 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
   }
 
   Future<ByteData?> _generateImage() async {
-    var recorder = ui.PictureRecorder();
-    var canvas = Canvas(recorder);
-    var current = context.read<DocumentBloc>().state as DocumentLoadSuccess;
-    final currentPosition = Offset(
-      width < 0 ? x + width : x,
-      height < 0 ? y + height : y,
+    final state = context.read<DocumentBloc>().state;
+    if (state is! DocumentLoaded) return null;
+    return state.currentIndexCubit.render(
+      state.data,
+      state.page,
+      state.info,
+      width: width.toDouble(),
+      height: height.toDouble(),
+      x: x,
+      y: y,
+      renderBackground: _renderBackground,
     );
-    final currentSize = Size(
-      width.abs().toDouble(),
-      height.abs().toDouble(),
-    );
-    var painter = ViewPainter(current.data, current.page, current.info,
-        renderBackground: _renderBackground,
-        cameraViewport:
-            current.cameraViewport.unbake(unbakedElements: current.renderers),
-        transform: CameraTransform(-currentPosition, 1));
-    painter.paint(canvas, currentSize);
-    var picture = recorder.endRecording();
-    var image = await picture.toImage(
-        currentSize.width.toInt(), currentSize.height.toInt());
-    return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 
   Future<void> _exportSvg() async {
@@ -109,14 +97,10 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
       width < 0 ? x + width : x,
       height < 0 ? y + height : y,
     );
-    final currentSize = Size(
-      width.abs().toDouble(),
-      height.abs().toDouble(),
-    );
     final data = state.currentIndexCubit.renderSVG(
       state.page,
-      width: currentSize.width.toInt(),
-      height: currentSize.height.toInt(),
+      width: width,
+      height: height,
       x: currentPosition.dx,
       y: currentPosition.dy,
       renderBackground: _renderBackground,
@@ -241,26 +225,30 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
   Widget _buildProperties() => Column(children: [
         TextField(
             controller: _xController,
-            decoration: const InputDecoration(labelText: 'X'),
+            decoration: const InputDecoration(labelText: 'X', filled: true),
             onChanged: (value) => x = double.tryParse(value) ?? x,
             onSubmitted: (value) => _regeneratePreviewImage()),
+        const SizedBox(height: 8),
         TextField(
             controller: _yController,
-            decoration: const InputDecoration(labelText: 'Y'),
+            decoration: const InputDecoration(labelText: 'Y', filled: true),
             onChanged: (value) => y = double.tryParse(value) ?? y,
             onSubmitted: (value) => _regeneratePreviewImage()),
+        const SizedBox(height: 8),
         TextField(
             controller: _widthController,
-            decoration:
-                InputDecoration(labelText: AppLocalizations.of(context).width),
+            decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).width, filled: true),
             onChanged: (value) => width = int.tryParse(value) ?? width,
             onSubmitted: (value) => _regeneratePreviewImage()),
+        const SizedBox(height: 8),
         TextField(
             controller: _heightController,
-            decoration:
-                InputDecoration(labelText: AppLocalizations.of(context).height),
+            decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).height, filled: true),
             onChanged: (value) => height = int.tryParse(value) ?? height,
             onSubmitted: (value) => _regeneratePreviewImage()),
+        const SizedBox(height: 8),
         CheckboxListTile(
             value: _renderBackground,
             title: Text(AppLocalizations.of(context).background),
