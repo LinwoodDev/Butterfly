@@ -4,23 +4,19 @@ import 'dart:ui' as ui;
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../view_painter.dart';
-
 class ImageExportDialog extends StatefulWidget {
   final double x, y;
-  final int width, height;
-  final double scale;
+  final double width, height;
+  final double scale, quality;
 
   const ImageExportDialog(
       {super.key,
@@ -28,7 +24,8 @@ class ImageExportDialog extends StatefulWidget {
       this.y = 0,
       this.width = 1000,
       this.height = 1000,
-      this.scale = 1});
+      this.scale = 1,
+      this.quality = 1});
 
   @override
   State<ImageExportDialog> createState() => _ImageExportDialogState();
@@ -47,21 +44,22 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
       TextEditingController(text: '1000');
 
   bool _renderBackground = true;
-  double x = 0, y = 0;
-  int width = 1000, height = 1000;
-  double scale = 1;
+  double _x = 0, y = 0;
+  double width = 1000.0, height = 1000.0;
+  double scale = 1, quality = 1;
 
   ByteData? _previewImage;
   Future<ByteData?>? _regeneratingFuture;
 
   @override
   void initState() {
-    x = widget.x;
+    _x = widget.x;
     y = widget.y;
     width = widget.width;
     height = widget.height;
     scale = widget.scale;
-    _xController.text = x.toString();
+    quality = widget.quality;
+    _xController.text = _x.toString();
     _yController.text = y.toString();
     _widthController.text = width.toString();
     _heightController.text = height.toString();
@@ -81,27 +79,21 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   }
 
   Future<ByteData?> generateImage() async {
-    var recorder = ui.PictureRecorder();
-    var canvas = Canvas(recorder);
-    var current = context.read<DocumentBloc>().state as DocumentLoadSuccess;
-    final currentPosition = Offset(
-      width < 0 ? x + width : x,
-      height < 0 ? y + height : y,
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return null;
+    return state.currentIndexCubit.render(
+      state.data,
+      state.page,
+      state.info,
+      width: width,
+      height: height,
+      renderBackground: _renderBackground,
+      x: _x,
+      y: y,
+      scale: scale,
+      quality: quality,
     );
-    final currentSize = Size(
-      width.abs().toDouble(),
-      height.abs().toDouble(),
-    );
-    var painter = ViewPainter(current.data, current.page, current.info,
-        renderBackground: _renderBackground,
-        cameraViewport:
-            current.cameraViewport.unbake(unbakedElements: current.renderers),
-        transform: CameraTransform(-currentPosition, scale));
-    painter.paint(canvas, currentSize);
-    var picture = recorder.endRecording();
-    var image = await picture.toImage(
-        currentSize.width.toInt(), currentSize.height.toInt());
-    return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 
   @override
@@ -212,6 +204,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
             return const Center(child: CircularProgressIndicator());
           }
           return Image(
+            fit: BoxFit.contain,
             image: MemoryImage(_previewImage!.buffer.asUint8List()),
             loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) {
@@ -233,29 +226,30 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
   Widget _buildProperties() => Column(children: [
         TextField(
             controller: _xController,
-            decoration: const InputDecoration(labelText: 'X'),
-            onChanged: (value) => x = double.tryParse(value) ?? x,
+            decoration: const InputDecoration(labelText: 'X', filled: true),
+            onChanged: (value) => _x = double.tryParse(value) ?? _x,
             onSubmitted: (value) => _regeneratePreviewImage()),
         const SizedBox(height: 8),
         TextField(
             controller: _yController,
-            decoration: const InputDecoration(labelText: 'Y'),
+            decoration: const InputDecoration(labelText: 'Y', filled: true),
             onChanged: (value) => y = double.tryParse(value) ?? y,
             onSubmitted: (value) => _regeneratePreviewImage()),
         const SizedBox(height: 8),
         TextField(
             controller: _widthController,
-            decoration:
-                InputDecoration(labelText: AppLocalizations.of(context).width),
-            onChanged: (value) => width = int.tryParse(value) ?? width,
+            decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).width, filled: true),
+            onChanged: (value) => width = double.tryParse(value) ?? width,
             onSubmitted: (value) => _regeneratePreviewImage()),
         const SizedBox(height: 8),
         TextField(
             controller: _heightController,
-            decoration:
-                InputDecoration(labelText: AppLocalizations.of(context).height),
-            onChanged: (value) => height = int.tryParse(value) ?? height,
+            decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).height, filled: true),
+            onChanged: (value) => height = double.tryParse(value) ?? height,
             onSubmitted: (value) => _regeneratePreviewImage()),
+        const SizedBox(height: 8),
         ExactSlider(
             header: Text(AppLocalizations.of(context).scale),
             min: 0.1,
@@ -266,6 +260,18 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
               scale = value;
               _regeneratePreviewImage();
             }),
+        const SizedBox(height: 8),
+        ExactSlider(
+            header: Text(AppLocalizations.of(context).quality),
+            min: 0.1,
+            max: 10,
+            value: quality,
+            defaultValue: 1,
+            onChangeEnd: (value) {
+              quality = value;
+              _regeneratePreviewImage();
+            }),
+        const SizedBox(height: 8),
         CheckboxListTile(
             value: _renderBackground,
             title: Text(AppLocalizations.of(context).background),

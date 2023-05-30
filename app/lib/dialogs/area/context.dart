@@ -99,8 +99,8 @@ class AreaContextMenu extends StatelessWidget {
                                 builder: (context) => BlocProvider.value(
                                       value: bloc,
                                       child: ImageExportDialog(
-                                        width: area.width.round(),
-                                        height: area.height.round(),
+                                        width: area.width,
+                                        height: area.height,
                                         x: area.position.x,
                                         y: area.position.y,
                                         scale: 1,

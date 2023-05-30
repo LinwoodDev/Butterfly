@@ -22,8 +22,8 @@ class ImageExportAction extends Action<ImageExportIntent> {
         builder: (context) => BlocProvider.value(
               value: bloc,
               child: ImageExportDialog(
-                width: size.width.round(),
-                height: size.height.round(),
+                width: size.width,
+                height: size.height,
                 x: -transform.position.dx,
                 y: -transform.position.dy,
                 scale: transform.size,

@@ -9,6 +9,7 @@
 * Add dynamic height to toolbar
 * Add shortcut indication to painters
 * Add layers ui
+* Add quality to image export dialog
 * Bump file version
     * Painters and tool is now global instead of page specific and was moved to a info.json file
 * Migrate more components to material 3

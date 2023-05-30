@@ -327,8 +327,8 @@ class ImportService {
             builder: (context) => BlocProvider.value(
                 value: bloc!,
                 child: ImageExportDialog(
-                  height: viewport.height ?? 1000,
-                  width: viewport.width ?? 1000,
+                  height: viewport.height?.toDouble() ?? 1000.0,
+                  width: viewport.width?.toDouble() ?? 1000.0,
                   scale: viewport.scale,
                   x: viewport.x,
                   y: viewport.y,
