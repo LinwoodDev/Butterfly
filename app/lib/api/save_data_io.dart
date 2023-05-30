@@ -1,10 +1,21 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 Future<void> saveData(BuildContext context, List<int> data) async {
+  if (Platform.isAndroid) {
+    final tempDir = await getTemporaryDirectory();
+    final tempPath = tempDir.path;
+    final tempFile = File('$tempPath/butterfly.bfly');
+    await tempFile.writeAsBytes(data);
+    await Share.shareXFiles([XFile(tempFile.path)]);
+    return;
+  }
   var fileName = await FilePicker.platform.saveFile(
       fileName: 'butterfly.bfly',
       type: FileType.custom,
