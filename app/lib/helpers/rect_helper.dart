@@ -40,6 +40,14 @@ extension DocumentAreaHelper on DocumentPage {
   Area? getArea(Offset offset) {
     return areas.firstWhereOrNull((e) => e.hit(offset));
   }
+
+  List<Area> getAreasByRect(Rect rect) {
+    return areas.where((e) => rect.overlaps(e.rect)).toList();
+  }
+
+  List<Area> getAreas(Offset offset) {
+    return areas.where((e) => e.hit(offset)).toList();
+  }
 }
 
 extension RectHelper on Rect {

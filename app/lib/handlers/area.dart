@@ -1,191 +1,162 @@
 part of 'handler.dart';
 
 class AreaHandler extends Handler<AreaPainter> {
-  Rect? currentRect;
+  Offset? start, end;
 
   AreaHandler(super.data);
 
+  Rect? get currentRect {
+    if (start == null || end == null) return null;
+    return Rect.fromPoints(start!, end!);
+  }
+
+  set currentRect(Rect? value) {
+    if (value == null) {
+      start = null;
+      end = null;
+    } else {
+      start = value.topLeft;
+      end = value.bottomRight;
+    }
+  }
+
+  @override
+  bool canChange(PointerDownEvent event, EventContext context) =>
+      event.kind == PointerDeviceKind.mouse &&
+      event.buttons != kSecondaryMouseButton;
+
   @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-          NoteData document, DocumentPage page, DocumentInfo info,
-          [Area? currentArea]) =>
-      [
-        if (currentArea == null) ...[
-          if (currentRect != null)
-            AreaForegroundRenderer(Area(
-                width: currentRect!.width,
-                height: currentRect!.height,
-                position: currentRect!.topLeft.toPoint())),
-          ...page.areas.map((e) => AreaForegroundRenderer(e)).toList()
-        ],
-      ];
+      NoteData document, DocumentPage page, DocumentInfo info,
+      [Area? currentArea]) {
+    final rect = currentRect;
+    return [
+      if (currentArea == null) ...[
+        if (rect != null)
+          AreaForegroundRenderer(Area(
+              width: rect.width,
+              height: rect.height,
+              position: rect.topLeft.toPoint())),
+        ...page.areas.map((e) => AreaForegroundRenderer(e)).toList()
+      ],
+    ];
+  }
 
   @override
   void resetInput(DocumentBloc bloc) => currentRect = null;
 
   @override
-  void onPointerDown(PointerDownEvent event, EventContext context) {
-    if (context.getCurrentIndex().moveEnabled) {
+  bool onScaleStart(ScaleStartDetails details, EventContext context) {
+    if (details.pointerCount > 1) return true;
+    final globalPosition =
+        context.getCameraTransform().localToGlobal(details.localFocalPoint);
+
+    start = globalPosition;
+    return false;
+  }
+
+  @override
+  void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
+    if (details.pointerCount > 1) {
       currentRect = null;
       context.refresh();
       return;
     }
-    final bloc = context.getDocumentBloc();
-    final state = context.getState();
-    if (state == null) return;
-    final transform = context.getCameraTransform();
-    var localPosition = event.localPosition;
-    final cubit = context.getCurrentIndexCubit();
-    localPosition = cubit.state.cameraViewport.tool
-        .getGridPosition(localPosition, state.page, state.info, cubit);
-    final globalPosition = transform.localToGlobal(localPosition);
-    final area = state.page.getArea(globalPosition);
-    final currentIndexCubit = context.getCurrentIndexCubit();
-    if (area != null || state.currentArea != null) {
-      showContextMenu(
-        position: event.position,
-        context: context.buildContext,
-        builder: (context) => MultiBlocProvider(
-            providers: [
-              BlocProvider<DocumentBloc>.value(
-                value: bloc,
-              ),
-              BlocProvider<CurrentIndexCubit>.value(
-                value: currentIndexCubit,
-              ),
-            ],
-            child: AreaContextMenu(
-              position: event.localPosition,
-              area: (state.currentArea ?? area)!,
-            )),
-      );
-      return;
-    }
-    currentRect = Rect.fromLTWH(globalPosition.dx, globalPosition.dy, 0, 0);
-    if (state.page.getAreaByRect(currentRect!) != null) {
-      currentRect = null;
-      return;
-    }
+    final globalPosition =
+        context.getCameraTransform().localToGlobal(details.localFocalPoint);
+
+    end = globalPosition;
     context.refresh();
   }
 
   @override
-  void onPointerMove(PointerMoveEvent event, EventContext context) {
-    if (currentRect == null) return;
-    final transform = context.getCameraTransform();
+  Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
+    if (details.pointerCount > 1) {
+      currentRect = null;
+      context.refresh();
+      return;
+    }
+    final rect = currentRect;
+    if (rect == null) return;
     final state = context.getState();
     if (state == null) return;
-    var localPosition = event.localPosition;
-    final cubit = context.getCurrentIndexCubit();
-    localPosition = cubit.state.cameraViewport.tool
-        .getGridPosition(localPosition, state.page, state.info, cubit);
-    final position = transform.localToGlobal(localPosition);
-    _setRect(state.page, position);
     context.refresh();
-  }
-
-  Future<String?> _showAreaLabelDialog(BuildContext context) async {
-    final state = context.read<DocumentBloc>().state;
-    if (state is! DocumentLoadSuccess) return null;
+    String? name = AppLocalizations.of(context.buildContext)
+        .areaIndex(state.page.areas.length + 1);
     if (data.askForName) {
-      return showDialog<String>(
-          context: context,
-          builder: (_) => BlocProvider.value(
-              value: context.read<DocumentBloc>(),
-              child: NameDialog(
-                  validator: defaultNameValidator(
-                      context, state.page.getAreaNames().toList()))));
+      name = await showDialog<String>(
+          context: context.buildContext,
+          builder: (_) => NameDialog(
+                value: name,
+                validator: defaultNameValidator(
+                    context.buildContext, state.page.getAreaNames().toList()),
+              ));
     }
-    var name = '', index = 1;
-    while (name.isEmpty || state.page.getAreaByName(name) != null) {
-      name = AppLocalizations.of(context).areaIndex(index);
-      index++;
-    }
-    return name;
-  }
-
-  void _setRect(DocumentPage page, Offset nextPosition) {
-    currentRect ??= Rect.fromLTWH(nextPosition.dx, nextPosition.dy, 0, 0);
-    double width = 0, height = 0;
-    final nextWidth = nextPosition.dx - currentRect!.left;
-    final nextHeight = nextPosition.dy - currentRect!.top;
-    if (data.constrainedHeight != 0 && data.constrainedWidth != 0) {
-      width = data.constrainedWidth;
-      height = data.constrainedHeight;
-    }
-    if (data.constrainedAspectRatio != 0) {
-      if (data.constrainedHeight != 0) {
-        height = data.constrainedHeight;
-        width = data.constrainedAspectRatio * height;
-      } else if (data.constrainedWidth != 0) {
-        width = data.constrainedWidth;
-        height = width / data.constrainedAspectRatio;
-      } else {
-        final largest = nextHeight > nextWidth ? nextWidth : nextHeight;
-        width = data.constrainedAspectRatio * largest;
-        height = largest / data.constrainedAspectRatio;
-      }
-    } else {
-      if (data.constrainedHeight != 0) {
-        height = data.constrainedHeight;
-        width = nextWidth;
-      } else if (data.constrainedWidth != 0) {
-        width = data.constrainedWidth;
-        height = nextHeight;
-      } else {
-        width = nextWidth;
-        height = nextHeight;
-      }
-    }
-    final nextRect =
-        Rect.fromLTWH(currentRect!.left, currentRect!.top, width, height);
-    if (page.getAreaByRect(nextRect.normalized()) == null) {
-      currentRect = nextRect;
-    }
+    if (name == null) return;
+    context.getDocumentBloc().add(AreasCreated([
+          Area(
+            width: rect.width,
+            height: rect.height,
+            position: rect.topLeft.toPoint(),
+            name: name,
+          )
+        ]));
+    context.refresh();
   }
 
   @override
-  Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
-    final transform = context.getCameraTransform();
-    var localPosition = event.localPosition;
-    final cubit = context.getCurrentIndexCubit();
+  void onLongPressEnd(LongPressEndDetails details, EventContext context) =>
+      _inspectArea(details.localPosition, context);
+
+  @override
+  void onSecondaryTapUp(TapUpDetails details, EventContext context) =>
+      _inspectArea(details.localPosition, context);
+
+  Future<void> _inspectArea(Offset localPosition, EventContext context) async {
     final state = context.getState();
     if (state == null) return;
-    localPosition = cubit.state.cameraViewport.tool
-        .getGridPosition(localPosition, state.page, state.info, cubit);
-    final position = transform.localToGlobal(localPosition);
-    _setRect(state.page, position);
-    currentRect = currentRect?.normalized();
-    if (currentRect?.size.isEmpty ?? true) {
-      currentRect = null;
-      context.refresh();
-      return;
+    final globalPosition =
+        context.getCameraTransform().localToGlobal(localPosition);
+    final areas = state.page.getAreas(globalPosition);
+    var area = areas.firstOrNull ?? state.currentArea;
+    if (area == null) return;
+    if (areas.length > 1) {
+      area = await showDialog<Area>(
+        context: context.buildContext,
+        builder: (context) => AlertDialog(
+          title: Text(AppLocalizations.of(context).selectArea),
+          scrollable: true,
+          content: Column(
+            children: areas
+                .map((e) => ListTile(
+                      title: Text(e.name),
+                      onTap: () => Navigator.of(context).pop(e),
+                    ))
+                .toList(),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(AppLocalizations.of(context).cancel),
+            ),
+          ],
+        ),
+      );
+      if (area == null) return;
     }
-    if (state.page.getAreaByRect(currentRect!) != null) {
-      currentRect = null;
-      context.refresh();
-      return;
+    var buildContext = context.buildContext;
+    if (buildContext.mounted) {
+      _openAreaContextMenu(buildContext, localPosition, area);
     }
-    final name = await _showAreaLabelDialog(context.buildContext);
-    if (name == null) {
-      currentRect = null;
-      context.refresh();
-      return;
-    }
-    if (state.page.getAreaByName(name) != null) {
-      currentRect = null;
-      context.refresh();
-      return;
-    }
-
-    context.addDocumentEvent(AreasCreated([
-      Area(
-          name: name,
-          width: currentRect!.width,
-          height: currentRect!.height,
-          position: currentRect!.topLeft.toPoint())
-    ]));
-    context.refresh();
-    currentRect = null;
   }
+
+  void _openAreaContextMenu(
+          BuildContext context, Offset localPosition, Area area) =>
+      showContextMenu(
+        context: context,
+        position: localPosition,
+        builder: (_) => BlocProvider<DocumentBloc>.value(
+            value: context.read<DocumentBloc>(),
+            child: AreaContextMenu(area: area)),
+      );
 }

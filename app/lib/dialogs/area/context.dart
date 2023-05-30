@@ -14,11 +14,9 @@ import '../packs/asset.dart';
 import '../pdf_export.dart';
 
 class AreaContextMenu extends StatelessWidget {
-  final Offset position;
   final Area area;
 
-  const AreaContextMenu(
-      {super.key, required this.position, required this.area});
+  const AreaContextMenu({super.key, required this.area});
 
   @override
   Widget build(BuildContext context) {
