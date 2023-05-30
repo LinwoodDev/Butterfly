@@ -886,7 +886,7 @@ class _FileEntityListTile extends StatelessWidget {
           if (!collapsed) ...[
             const SizedBox(width: 16),
             SizedBox(
-              width: 80,
+              width: 96,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
