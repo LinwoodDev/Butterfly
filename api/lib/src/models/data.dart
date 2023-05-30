@@ -145,7 +145,7 @@ class NoteData {
     return NoteData(archive);
   }
 
-  NoteData? createDocument({String name = '', DateTime? createdAt}) {
+  NoteData createDocument({String name = '', DateTime? createdAt}) {
     final archive = Archive();
     for (var file in this.archive.files) {
       archive
@@ -153,7 +153,7 @@ class NoteData {
     }
     final document = NoteData(archive);
     final metadata = getMetadata();
-    createdAt ??= DateTime.now();
+    createdAt ??= DateTime.now().toUtc();
     final newMetadata = FileMetadata(
       type: NoteFileType.document,
       name: name,

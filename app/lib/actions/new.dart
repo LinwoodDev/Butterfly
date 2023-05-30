@@ -1,4 +1,3 @@
-import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -6,7 +5,6 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../cubits/current_index.dart';
 import '../dialogs/template.dart';
@@ -33,12 +31,11 @@ class NewAction extends Action<NewIntent> {
     final router = GoRouter.of(context);
     var path = '';
     var document = DocumentDefaults.createDocument();
-    final prefs = await SharedPreferences.getInstance();
-    final remote = settings.getDefaultRemote();
+    NoteData? template;
     if (intent.fromTemplate && context.mounted) {
       var state = bloc.state;
       if (state is DocumentLoadSuccess) document = state.data;
-      var template = await showDialog<NoteData>(
+      template = await showDialog<NoteData>(
           context: context,
           builder: (context) => MultiBlocProvider(
                 providers: [
@@ -51,25 +48,21 @@ class NewAction extends Action<NewIntent> {
                 ),
               ));
       if (template == null) return;
-      document = template;
-      final metadata = template.getMetadata();
-      if (metadata != null) {
-        template.setMetadata(metadata.copyWith(
-          createdAt: DateTime.now().toUtc(),
-        ));
-        path = metadata.directory;
-      }
-    } else if (prefs.containsKey('default_template')) {
-      var template = await TemplateFileSystem.fromPlatform(remote: remote)
-          .getTemplate(prefs.getString('default_template')!);
+    } else {
+      final templateSystem = settings.getDefaultTemplateFileSystem();
+      final defaultTemplate = settings.defaultTemplate;
+      template = await templateSystem.getTemplate(defaultTemplate);
       if (template != null) {
-        final metadata = template.getMetadata();
-        if (metadata != null) {
-          template.setMetadata(metadata.copyWith(
-            createdAt: DateTime.now().toUtc(),
-          ));
-          path = metadata.directory;
-        }
+        final templates =
+            await settings.getDefaultTemplateFileSystem().getTemplates();
+        template = templates.firstOrNull;
+      }
+    }
+    if (template != null) {
+      document = template.createDocument();
+      final metadata = document.getMetadata();
+      if (metadata != null) {
+        path = metadata.directory;
       }
     }
     router.pushReplacementNamed('new',

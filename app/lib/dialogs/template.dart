@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/file_system/file_system.dart';
 import '../bloc/document_bloc.dart';
@@ -26,14 +25,12 @@ class _TemplateDialogState extends State<TemplateDialog> {
   late TemplateFileSystem _fileSystem;
   late Future<List<NoteData>>? _templatesFuture;
   final TextEditingController _searchController = TextEditingController();
-  SharedPreferences? _prefs;
 
   @override
   void initState() {
     super.initState();
     _fileSystem =
         context.read<SettingsCubit>().state.getDefaultTemplateFileSystem();
-    SharedPreferences.getInstance().then((value) => _prefs = value);
   }
 
   void load() {
@@ -132,7 +129,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                         if (snapshot.hasError) {
                           return Text(snapshot.error.toString());
                         }
-                        if (!snapshot.hasData || _prefs == null) {
+                        if (!snapshot.hasData) {
                           return const Center(
                               child: CircularProgressIndicator());
                         }
@@ -164,7 +161,6 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                       itemBuilder: (context, index) {
                                         var template = templates[index];
                                         return _TemplateItem(
-                                          prefs: _prefs!,
                                           template: template,
                                           fileSystem: _fileSystem,
                                           onChanged: () {
@@ -231,16 +227,17 @@ class _TemplateItem extends StatelessWidget {
   final NoteData template;
   final TemplateFileSystem fileSystem;
   final VoidCallback onChanged;
-  final SharedPreferences prefs;
-  const _TemplateItem(
-      {required this.template,
-      required this.fileSystem,
-      required this.onChanged,
-      required this.prefs});
+  const _TemplateItem({
+    required this.template,
+    required this.fileSystem,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final isDefault = prefs.getString('default_template') == template.name;
+    final settingsCubit = context.read<SettingsCubit>();
+    final settings = settingsCubit.state;
+    final isDefault = settings.defaultTemplate == template.name;
     final metadata = template.getMetadata();
     if (metadata == null) {
       return const SizedBox();
@@ -256,11 +253,7 @@ class _TemplateItem extends StatelessWidget {
             child: Text(AppLocalizations.of(context).defaultTemplate),
             onChanged: (value) async {
               final name = metadata.name;
-              if (value ?? true) {
-                prefs.setString('default_template', name);
-              } else {
-                prefs.remove('default_template');
-              }
+              settingsCubit.changeDefaultTemplate(name);
               Navigator.of(context).pop();
               onChanged();
             },

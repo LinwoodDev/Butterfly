@@ -21,3 +21,4 @@
 * Fix creating default templates if directory doesn't exist
 * Fix temporary handler
 * Fix moving shapes
+* Fix default template

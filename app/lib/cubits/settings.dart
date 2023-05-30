@@ -190,6 +190,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
     @Default('') String fallbackPack,
     @Default([]) List<String> starred,
+    @Default('') String defaultTemplate,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
@@ -245,6 +246,7 @@ class ButterflySettings with _$ButterflySettings {
       ),
       fallbackPack: prefs.getString('fallback_pack') ?? '',
       starred: prefs.getStringList('starred') ?? [],
+      defaultTemplate: prefs.getString('default_template') ?? '',
     );
   }
 
@@ -291,6 +293,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('fallback_pack', fallbackPack);
     await prefs.setStringList('starred', starred);
     await prefs.setInt('version', 0);
+    await prefs.setString('default_template', defaultTemplate);
   }
 
   RemoteStorage? getRemote(String? identifier) {
@@ -615,6 +618,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> changeNavigatorEnabled(bool value) {
     emit(state.copyWith(navigatorEnabled: value));
+    return save();
+  }
+
+  Future<void> changeDefaultTemplate(String name) {
+    emit(state.copyWith(defaultTemplate: name));
     return save();
   }
 }
