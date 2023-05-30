@@ -157,6 +157,9 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 
 Read the whole 1.6 changelog at <https://go.linwood.dev/butterfly/1-6>
 
+<details>
+ <summary>1.6 Nightly Changelog</summary>
+
 ## 1.6.0-rc.1 (2022-12-19)
 
 * Fix precision of offset property view
@@ -202,6 +205,8 @@ Read the whole 1.6 changelog at <https://go.linwood.dev/butterfly/1-6>
     * Add dialog to decide if the program should be installed for all users or just the current user ([#306](https://github.com/LinwoodDev/Butterfly/issues/306))
     * Add icon for the uninstall window in the windows control panel ([#305](https://github.com/LinwoodDev/Butterfly/issues/305))
 * Fix start in full screen on desktop ([#307](https://github.com/LinwoodDev/Butterfly/issues/307))
+
+</details>
 
 ## 1.5.0 (2022-10-21)
 
@@ -338,10 +343,6 @@ Read the whole 1.5 changelog at https://go.linwood.dev/butterfly/1-5
 * Fix slider do not update after changing outside of the slider
 * Fix unintential behavior when deleting all elements in a layer
 * Fix save button in embed mode
-
-## 1.4.0 (2022-07-26)
-
-Read the whole 1.4 changelog at https://go.linwood.dev/butterfly/1-4
 
 ## 1.4.0 (2022-07-26)
 

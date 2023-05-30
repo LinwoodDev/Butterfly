@@ -1,5 +1,3 @@
-const redirects = require("./redirects.js");
-
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: "Linwood Butterfly",
@@ -255,12 +253,6 @@ module.exports = {
         path: "community",
         routeBasePath: "/",
         sidebarPath: require.resolve("./sidebarsCommunity.js"),
-      },
-    ],
-    [
-      "@docusaurus/plugin-client-redirects",
-      {
-        redirects: redirects,
       },
     ],
     [
