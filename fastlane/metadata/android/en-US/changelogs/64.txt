@@ -15,6 +15,7 @@
 * Bump file version
     * Painters and tool is now global instead of page specific and was moved to a info.json file
 * Migrate more components to material 3
+* Fix migrating old documents
 * Fix exporting documents on android
 * Fix offset when selecting painters
 * Fix alpha in color toolbar

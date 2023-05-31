@@ -4,15 +4,15 @@ import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:butterfly_api/src/models/text.dart';
 
+import '../models/archive.dart';
 import '../models/data.dart';
 import '../models/meta.dart';
 import '../models/pack.dart';
-import '../models/page.dart';
 import '../models/palette.dart';
 
 Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
   data = {
-    'version': data['fileVersion'],
+    'fileVersion': data['fileVersion'],
     ...legacyNoteDataJsonMigrator(data),
   };
   final archive = Archive();
@@ -42,8 +42,10 @@ Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
       break;
     case NoteFileType.template:
     case NoteFileType.document:
-      final page = DocumentPage.fromJson(data);
-      reader.setPage(page);
+      reader.setAsset(
+          '$kPagesArchiveDirectory/default.json',
+          utf8.encode(jsonEncode(
+              meta.type == NoteFileType.document ? data : data['document'])));
       final packs = (data['packs'] ?? [])
           .map((e) => NoteData.fromData(Uint8List.fromList(
               utf8.encode(jsonEncode({'type': 'pack', ...e})))))
@@ -52,8 +54,8 @@ Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
         reader.setPack(pack);
       }
       final thumbnail = data['thumbnail'] as String?;
-      if (thumbnail != null) {
-        final data = UriData.parse(thumbnail).contentAsBytes();
+      if (thumbnail?.isNotEmpty == true) {
+        final data = UriData.parse(thumbnail!).contentAsBytes();
         reader.setThumbnail(data);
       }
   }
