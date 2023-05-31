@@ -157,7 +157,7 @@ class DocumentDefaults {
     );
     data.setInfo(createInfo(background.defaultColor));
     data.setPage(page);
-    data.setPack(await getCorePack(), 'core');
+    data.setPack(await getCorePack());
     if (thumbnail != null) data.setThumbnail(thumbnail);
     return data;
   }

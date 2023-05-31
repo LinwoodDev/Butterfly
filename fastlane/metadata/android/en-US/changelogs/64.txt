@@ -23,3 +23,5 @@
 * Fix temporary handler
 * Fix moving shapes
 * Fix default template
+* Fix changing color palette in color toolbar
+* Fix duplicating core pack because of case sensitivity

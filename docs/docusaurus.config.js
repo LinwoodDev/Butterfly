@@ -200,7 +200,7 @@ module.exports = {
             if (locale !== 'en') {
               return `https://translate.linwood.dev/butterfly/${locale}`;
             }
-            return `https://github.com/LinwoodDev/butterfly/edit/develop/docs/docs`;
+            return `https://github.com/LinwoodDev/butterfly/edit/develop/docs/docs/${docPath}`;
           },
           versions: {
             current: {
