@@ -122,12 +122,14 @@ Future<T?> showContextMenu<T>(
     required ContextMenuBuilder builder,
     double maxHeight = 400,
     double maxWidth = 300}) async {
+  final RenderBox box = context.findRenderObject() as RenderBox;
+  final Offset globalPos = box.localToGlobal(position);
   return showModal<T>(
       context: context,
       useRootNavigator: true,
       builder: (context) {
         return ContextMenu(
-          position: position,
+          position: globalPos,
           builder: builder,
           maxHeight: maxHeight,
           maxWidth: maxWidth,

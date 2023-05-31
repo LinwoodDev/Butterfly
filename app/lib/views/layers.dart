@@ -23,6 +23,7 @@ class LayersView extends StatelessWidget {
             builder: (context, snapshot) {
               if (!snapshot.hasData) return const SizedBox.shrink();
               var layers = (state.page.content.map((e) => e.layer).toSet()
+                    ..add(currentLayer)
                     ..remove(''))
                   .toList();
               return Stack(

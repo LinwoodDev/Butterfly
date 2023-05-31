@@ -47,7 +47,9 @@ class AreaHandler extends Handler<AreaPainter> {
 
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
-    if (details.pointerCount > 1) return true;
+    final currentIndex = context.getCurrentIndex();
+    if (details.pointerCount > 1 ||
+        currentIndex.buttons == kSecondaryMouseButton) return true;
     final globalPosition =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
 
@@ -57,7 +59,9 @@ class AreaHandler extends Handler<AreaPainter> {
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
-    if (details.pointerCount > 1) {
+    final currentIndex = context.getCurrentIndex();
+    if (details.pointerCount > 1 ||
+        currentIndex.buttons == kSecondaryMouseButton) {
       currentRect = null;
       context.refresh();
       return;
@@ -71,7 +75,9 @@ class AreaHandler extends Handler<AreaPainter> {
 
   @override
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
-    if (details.pointerCount > 1) {
+    final currentIndex = context.getCurrentIndex();
+    if (details.pointerCount > 1 ||
+        currentIndex.buttons == kSecondaryMouseButton) {
       currentRect = null;
       context.refresh();
       return;
