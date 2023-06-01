@@ -1,10 +1,11 @@
 * Rebuild area painter handler
-    * Areas can now intersect
+  * Areas can now intersect
 * Add version to pack metadata
-* Add navbar ([#391](https://github.com/LinwoodDev/Butterfly/issues/391))
-    * Layers view
-    * Pages view
-    * Files view
+* Add navigator ([#391](https://github.com/LinwoodDev/Butterfly/issues/391))
+  * Waypoints view
+  * Layers view
+  * Pages view
+  * Files view
 * Add pages
 * Add alpha to grid
 * Add alpha to label
@@ -13,7 +14,8 @@
 * Add layers ui
 * Add quality to image export dialog
 * Bump file version
-    * Painters and tool is now global instead of page specific and was moved to a info.json file
+  * Painters and tool is now global instead of page specific and was moved to a info.json file
+  * Remove waypoint painter in favor of the navigator
 * Migrate more components to material 3
 * Fix migrating old documents
 * Fix exporting documents on android

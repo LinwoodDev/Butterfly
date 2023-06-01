@@ -36,8 +36,6 @@ Painter _$PainterFromJson(Map<String, dynamic> json) {
       return LayerPainter.fromJson(json);
     case 'area':
       return AreaPainter.fromJson(json);
-    case 'waypoint':
-      return WaypointPainter.fromJson(json);
     case 'laser':
       return LaserPainter.fromJson(json);
     case 'shape':
@@ -80,7 +78,6 @@ mixin _$Painter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -118,7 +115,6 @@ mixin _$Painter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -156,7 +152,6 @@ mixin _$Painter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -185,7 +180,6 @@ mixin _$Painter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -204,7 +198,6 @@ mixin _$Painter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -223,7 +216,6 @@ mixin _$Painter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -352,7 +344,6 @@ class _$HandPainter implements HandPainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -393,7 +384,6 @@ class _$HandPainter implements HandPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -434,7 +424,6 @@ class _$HandPainter implements HandPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -469,7 +458,6 @@ class _$HandPainter implements HandPainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -491,7 +479,6 @@ class _$HandPainter implements HandPainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -513,7 +500,6 @@ class _$HandPainter implements HandPainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -664,7 +650,6 @@ class _$ImportPainter implements ImportPainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -705,7 +690,6 @@ class _$ImportPainter implements ImportPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -746,7 +730,6 @@ class _$ImportPainter implements ImportPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -781,7 +764,6 @@ class _$ImportPainter implements ImportPainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -803,7 +785,6 @@ class _$ImportPainter implements ImportPainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -825,7 +806,6 @@ class _$ImportPainter implements ImportPainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -949,7 +929,6 @@ class _$UndoPainter implements UndoPainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -990,7 +969,6 @@ class _$UndoPainter implements UndoPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -1031,7 +1009,6 @@ class _$UndoPainter implements UndoPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -1066,7 +1043,6 @@ class _$UndoPainter implements UndoPainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -1088,7 +1064,6 @@ class _$UndoPainter implements UndoPainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -1110,7 +1085,6 @@ class _$UndoPainter implements UndoPainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -1229,7 +1203,6 @@ class _$RedoPainter implements RedoPainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -1270,7 +1243,6 @@ class _$RedoPainter implements RedoPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -1311,7 +1283,6 @@ class _$RedoPainter implements RedoPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -1346,7 +1317,6 @@ class _$RedoPainter implements RedoPainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -1368,7 +1338,6 @@ class _$RedoPainter implements RedoPainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -1390,7 +1359,6 @@ class _$RedoPainter implements RedoPainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -1562,7 +1530,6 @@ class _$LabelPainter implements LabelPainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -1603,7 +1570,6 @@ class _$LabelPainter implements LabelPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -1644,7 +1610,6 @@ class _$LabelPainter implements LabelPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -1679,7 +1644,6 @@ class _$LabelPainter implements LabelPainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -1701,7 +1665,6 @@ class _$LabelPainter implements LabelPainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -1723,7 +1686,6 @@ class _$LabelPainter implements LabelPainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -1871,7 +1833,6 @@ class _$PenPainter implements PenPainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -1912,7 +1873,6 @@ class _$PenPainter implements PenPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -1953,7 +1913,6 @@ class _$PenPainter implements PenPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -1988,7 +1947,6 @@ class _$PenPainter implements PenPainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -2010,7 +1968,6 @@ class _$PenPainter implements PenPainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -2032,7 +1989,6 @@ class _$PenPainter implements PenPainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -2165,7 +2121,6 @@ class _$EraserPainter implements EraserPainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -2206,7 +2161,6 @@ class _$EraserPainter implements EraserPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -2247,7 +2201,6 @@ class _$EraserPainter implements EraserPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -2282,7 +2235,6 @@ class _$EraserPainter implements EraserPainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -2304,7 +2256,6 @@ class _$EraserPainter implements EraserPainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -2326,7 +2277,6 @@ class _$EraserPainter implements EraserPainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -2457,7 +2407,6 @@ class _$PathEraserPainter implements PathEraserPainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -2498,7 +2447,6 @@ class _$PathEraserPainter implements PathEraserPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -2539,7 +2487,6 @@ class _$PathEraserPainter implements PathEraserPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -2574,7 +2521,6 @@ class _$PathEraserPainter implements PathEraserPainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -2596,7 +2542,6 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -2618,7 +2563,6 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -2747,7 +2691,6 @@ class _$LayerPainter implements LayerPainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -2788,7 +2731,6 @@ class _$LayerPainter implements LayerPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -2829,7 +2771,6 @@ class _$LayerPainter implements LayerPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -2864,7 +2805,6 @@ class _$LayerPainter implements LayerPainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -2886,7 +2826,6 @@ class _$LayerPainter implements LayerPainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -2908,7 +2847,6 @@ class _$LayerPainter implements LayerPainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -3072,7 +3010,6 @@ class _$AreaPainter implements AreaPainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -3114,7 +3051,6 @@ class _$AreaPainter implements AreaPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -3156,7 +3092,6 @@ class _$AreaPainter implements AreaPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -3192,7 +3127,6 @@ class _$AreaPainter implements AreaPainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -3214,7 +3148,6 @@ class _$AreaPainter implements AreaPainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -3236,7 +3169,6 @@ class _$AreaPainter implements AreaPainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -3277,287 +3209,6 @@ abstract class AreaPainter implements Painter {
   @override
   @JsonKey(ignore: true)
   _$$AreaPainterCopyWith<_$AreaPainter> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$WaypointPainterCopyWith<$Res>
-    implements $PainterCopyWith<$Res> {
-  factory _$$WaypointPainterCopyWith(
-          _$WaypointPainter value, $Res Function(_$WaypointPainter) then) =
-      __$$WaypointPainterCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String name});
-}
-
-/// @nodoc
-class __$$WaypointPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$WaypointPainter>
-    implements _$$WaypointPainterCopyWith<$Res> {
-  __$$WaypointPainterCopyWithImpl(
-      _$WaypointPainter _value, $Res Function(_$WaypointPainter) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-  }) {
-    return _then(_$WaypointPainter(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$WaypointPainter implements WaypointPainter {
-  _$WaypointPainter({this.name = '', final String? $type})
-      : $type = $type ?? 'waypoint';
-
-  factory _$WaypointPainter.fromJson(Map<String, dynamic> json) =>
-      _$$WaypointPainterFromJson(json);
-
-  @override
-  @JsonKey()
-  final String name;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'Painter.waypoint(name: $name)';
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$WaypointPainterCopyWith<_$WaypointPainter> get copyWith =>
-      __$$WaypointPainterCopyWithImpl<_$WaypointPainter>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String name) hand,
-    required TResult Function(
-            String name, List<PadElement> elements, List<Area> areas)
-        import,
-    required TResult Function(String name) undo,
-    required TResult Function(String name) redo,
-    required TResult Function(String name, LabelMode mode, bool zoomDependent,
-            int foreground, PackAssetLocation styleSheet)
-        label,
-    required TResult Function(
-            String name, bool zoomDependent, PenProperty property)
-        pen,
-    required TResult Function(String name, double strokeWidth) eraser,
-    required TResult Function(String name, double strokeWidth) pathEraser,
-    required TResult Function(String name, double strokeWidth) layer,
-    required TResult Function(
-            String name,
-            double constrainedWidth,
-            double constrainedHeight,
-            double constrainedAspectRatio,
-            bool askForName)
-        area,
-    required TResult Function(String name) waypoint,
-    required TResult Function(String name, double duration, double strokeWidth,
-            double thinning, int color)
-        laser,
-    required TResult Function(
-            String name,
-            bool zoomDependent,
-            double constrainedWidth,
-            double constrainedHeight,
-            double constrainedAspectRatio,
-            ShapeProperty property)
-        shape,
-    required TResult Function(String name, PackAssetLocation component) stamp,
-    required TResult Function(String name) presentation,
-  }) {
-    return waypoint(name);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name)? hand,
-    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
-        import,
-    TResult? Function(String name)? undo,
-    TResult? Function(String name)? redo,
-    TResult? Function(String name, LabelMode mode, bool zoomDependent,
-            int foreground, PackAssetLocation styleSheet)?
-        label,
-    TResult? Function(String name, bool zoomDependent, PenProperty property)?
-        pen,
-    TResult? Function(String name, double strokeWidth)? eraser,
-    TResult? Function(String name, double strokeWidth)? pathEraser,
-    TResult? Function(String name, double strokeWidth)? layer,
-    TResult? Function(
-            String name,
-            double constrainedWidth,
-            double constrainedHeight,
-            double constrainedAspectRatio,
-            bool askForName)?
-        area,
-    TResult? Function(String name)? waypoint,
-    TResult? Function(String name, double duration, double strokeWidth,
-            double thinning, int color)?
-        laser,
-    TResult? Function(
-            String name,
-            bool zoomDependent,
-            double constrainedWidth,
-            double constrainedHeight,
-            double constrainedAspectRatio,
-            ShapeProperty property)?
-        shape,
-    TResult? Function(String name, PackAssetLocation component)? stamp,
-    TResult? Function(String name)? presentation,
-  }) {
-    return waypoint?.call(name);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name)? hand,
-    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
-        import,
-    TResult Function(String name)? undo,
-    TResult Function(String name)? redo,
-    TResult Function(String name, LabelMode mode, bool zoomDependent,
-            int foreground, PackAssetLocation styleSheet)?
-        label,
-    TResult Function(String name, bool zoomDependent, PenProperty property)?
-        pen,
-    TResult Function(String name, double strokeWidth)? eraser,
-    TResult Function(String name, double strokeWidth)? pathEraser,
-    TResult Function(String name, double strokeWidth)? layer,
-    TResult Function(
-            String name,
-            double constrainedWidth,
-            double constrainedHeight,
-            double constrainedAspectRatio,
-            bool askForName)?
-        area,
-    TResult Function(String name)? waypoint,
-    TResult Function(String name, double duration, double strokeWidth,
-            double thinning, int color)?
-        laser,
-    TResult Function(
-            String name,
-            bool zoomDependent,
-            double constrainedWidth,
-            double constrainedHeight,
-            double constrainedAspectRatio,
-            ShapeProperty property)?
-        shape,
-    TResult Function(String name, PackAssetLocation component)? stamp,
-    TResult Function(String name)? presentation,
-    required TResult orElse(),
-  }) {
-    if (waypoint != null) {
-      return waypoint(name);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-  }) {
-    return waypoint(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-  }) {
-    return waypoint?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    required TResult orElse(),
-  }) {
-    if (waypoint != null) {
-      return waypoint(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WaypointPainterToJson(
-      this,
-    );
-  }
-}
-
-abstract class WaypointPainter implements Painter {
-  factory WaypointPainter({final String name}) = _$WaypointPainter;
-
-  factory WaypointPainter.fromJson(Map<String, dynamic> json) =
-      _$WaypointPainter.fromJson;
-
-  @override
-  String get name;
-  @override
-  @JsonKey(ignore: true)
-  _$$WaypointPainterCopyWith<_$WaypointPainter> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -3688,7 +3339,6 @@ class _$LaserPainter implements LaserPainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -3729,7 +3379,6 @@ class _$LaserPainter implements LaserPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -3770,7 +3419,6 @@ class _$LaserPainter implements LaserPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -3805,7 +3453,6 @@ class _$LaserPainter implements LaserPainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -3827,7 +3474,6 @@ class _$LaserPainter implements LaserPainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -3849,7 +3495,6 @@ class _$LaserPainter implements LaserPainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -4030,7 +3675,6 @@ class _$ShapePainter implements ShapePainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -4072,7 +3716,6 @@ class _$ShapePainter implements ShapePainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -4114,7 +3757,6 @@ class _$ShapePainter implements ShapePainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -4150,7 +3792,6 @@ class _$ShapePainter implements ShapePainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -4172,7 +3813,6 @@ class _$ShapePainter implements ShapePainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -4194,7 +3834,6 @@ class _$ShapePainter implements ShapePainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -4345,7 +3984,6 @@ class _$StampPainter implements StampPainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -4386,7 +4024,6 @@ class _$StampPainter implements StampPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -4427,7 +4064,6 @@ class _$StampPainter implements StampPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -4462,7 +4098,6 @@ class _$StampPainter implements StampPainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -4484,7 +4119,6 @@ class _$StampPainter implements StampPainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -4506,7 +4140,6 @@ class _$StampPainter implements StampPainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
@@ -4629,7 +4262,6 @@ class _$PresentationPainter implements PresentationPainter {
             double constrainedAspectRatio,
             bool askForName)
         area,
-    required TResult Function(String name) waypoint,
     required TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)
         laser,
@@ -4670,7 +4302,6 @@ class _$PresentationPainter implements PresentationPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult? Function(String name)? waypoint,
     TResult? Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -4711,7 +4342,6 @@ class _$PresentationPainter implements PresentationPainter {
             double constrainedAspectRatio,
             bool askForName)?
         area,
-    TResult Function(String name)? waypoint,
     TResult Function(String name, double duration, double strokeWidth,
             double thinning, int color)?
         laser,
@@ -4746,7 +4376,6 @@ class _$PresentationPainter implements PresentationPainter {
     required TResult Function(PathEraserPainter value) pathEraser,
     required TResult Function(LayerPainter value) layer,
     required TResult Function(AreaPainter value) area,
-    required TResult Function(WaypointPainter value) waypoint,
     required TResult Function(LaserPainter value) laser,
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
@@ -4768,7 +4397,6 @@ class _$PresentationPainter implements PresentationPainter {
     TResult? Function(PathEraserPainter value)? pathEraser,
     TResult? Function(LayerPainter value)? layer,
     TResult? Function(AreaPainter value)? area,
-    TResult? Function(WaypointPainter value)? waypoint,
     TResult? Function(LaserPainter value)? laser,
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
@@ -4790,7 +4418,6 @@ class _$PresentationPainter implements PresentationPainter {
     TResult Function(PathEraserPainter value)? pathEraser,
     TResult Function(LayerPainter value)? layer,
     TResult Function(AreaPainter value)? area,
-    TResult Function(WaypointPainter value)? waypoint,
     TResult Function(LaserPainter value)? laser,
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,

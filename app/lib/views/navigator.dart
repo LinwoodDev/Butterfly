@@ -1,6 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/views/files.dart';
+import 'package:butterfly/views/waypoints.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,7 +73,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
             } else {
               _controller.forward(from: 0);
               content = DefaultTabController(
-                length: 3,
+                length: 4,
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
@@ -97,6 +98,10 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                       TabBar(
                         isScrollable: true,
                         tabs: [
+                          (
+                            PhosphorIconsLight.mapPin,
+                            AppLocalizations.of(context).waypoints
+                          ),
                           (
                             PhosphorIconsLight.stack,
                             AppLocalizations.of(context).layers
@@ -123,6 +128,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                       const SizedBox(height: 16),
                       Expanded(
                         child: TabBarView(children: [
+                          const WaypointsView(),
                           const LayersView(),
                           const PagesView(),
                           SingleChildScrollView(

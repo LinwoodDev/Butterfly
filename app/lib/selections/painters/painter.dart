@@ -15,7 +15,6 @@ class PainterSelection<T extends Painter> extends Selection<T> {
       laser: (value) => LaserPainterSelection([value]),
       shape: (value) => ShapePainterSelection([value]),
       stamp: (value) => StampPainterSelection([value]),
-      waypoint: (value) => WaypointSelection([value]),
       orElse: () => PainterSelection<T>([selected]),
     ) as PainterSelection<T>;
   }

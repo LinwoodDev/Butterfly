@@ -164,17 +164,6 @@ Map<String, dynamic> _$$AreaPainterToJson(_$AreaPainter instance) =>
       'type': instance.$type,
     };
 
-_$WaypointPainter _$$WaypointPainterFromJson(Map json) => _$WaypointPainter(
-      name: json['name'] as String? ?? '',
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$WaypointPainterToJson(_$WaypointPainter instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'type': instance.$type,
-    };
-
 _$LaserPainter _$$LaserPainterFromJson(Map json) => _$LaserPainter(
       name: json['name'] as String? ?? '',
       duration: (json['duration'] as num?)?.toDouble() ?? 5,

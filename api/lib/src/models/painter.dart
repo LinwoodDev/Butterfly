@@ -88,10 +88,6 @@ class Painter with _$Painter {
     @Default(false) bool askForName,
   }) = AreaPainter;
 
-  factory Painter.waypoint({
-    @Default('') String name,
-  }) = WaypointPainter;
-
   factory Painter.laser({
     @Default('') String name,
     @Default(5) double duration,

@@ -21,7 +21,6 @@ extension PainterVisualizer on Painter {
       pathEraser: (_) => loc.pathEraser,
       layer: (_) => loc.layer,
       area: (_) => loc.area,
-      waypoint: (_) => loc.waypoint,
       laser: (_) => loc.laser,
       shape: (_) => loc.shape,
       stamp: (_) => loc.stamp,
@@ -41,7 +40,6 @@ extension PainterVisualizer on Painter {
       pathEraser: (_) => PhosphorIcons.path,
       layer: (_) => PhosphorIcons.squaresFour,
       area: (_) => PhosphorIcons.monitor,
-      waypoint: (_) => PhosphorIcons.mapPin,
       laser: (_) => PhosphorIcons.cursor,
       shape: (painter) => painter.property.shape.icon,
       stamp: (_) => PhosphorIcons.stamp,
@@ -64,7 +62,6 @@ extension PainterVisualizer on Painter {
       hand: (_) => 'hand',
       layer: (_) => 'layer',
       presentation: (_) => 'presentation',
-      waypoint: (_) => 'waypoint',
     );
     if (page == null) return [];
     return ['painters', page];

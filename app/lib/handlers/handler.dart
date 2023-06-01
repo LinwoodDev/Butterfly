@@ -11,7 +11,6 @@ import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
-import 'package:butterfly/renderers/foregrounds/waypoint.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
@@ -21,7 +20,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../cubits/current_index.dart';
 import '../dialogs/name.dart';
@@ -52,7 +50,6 @@ part 'redo.dart';
 part 'shape.dart';
 part 'stamp.dart';
 part 'undo.dart';
-part 'waypoint.dart';
 
 @immutable
 class EventContext {
@@ -198,7 +195,6 @@ abstract class Handler<T> {
       pathEraser: (value) => PathEraserHandler(value),
       layer: (value) => LayerHandler(value),
       area: (value) => AreaHandler(value),
-      waypoint: (value) => WaypointHandler(value),
       laser: (value) => LaserHandler(value),
       shape: (value) => ShapeHandler(value),
       stamp: (value) => StampHandler(value),

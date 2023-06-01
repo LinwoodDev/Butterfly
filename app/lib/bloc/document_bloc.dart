@@ -331,15 +331,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
         return _saveState(
-                emit,
-                current.copyWith(
-                    page: current.page.copyWith(
-                        waypoints: List<Waypoint>.from(current.page.waypoints)
-                          ..add(event.waypoint))))
-            .then((value) {
-          final handler = current.currentIndexCubit.getHandler();
-          if (handler is WaypointHandler) refresh();
-        });
+            emit,
+            current.copyWith(
+                page: current.page.copyWith(
+                    waypoints: List<Waypoint>.from(current.page.waypoints)
+                      ..add(event.waypoint))));
       }
     });
     on<WaypointRemoved>((event, emit) async {
@@ -347,15 +343,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
         return _saveState(
-                emit,
-                current.copyWith(
-                    page: current.page.copyWith(
-                        waypoints: List<Waypoint>.from(current.page.waypoints)
-                          ..removeAt(event.index))))
-            .then((value) {
-          final handler = current.currentIndexCubit.getHandler();
-          if (handler is WaypointHandler) refresh();
-        });
+            emit,
+            current.copyWith(
+                page: current.page.copyWith(
+                    waypoints: List<Waypoint>.from(current.page.waypoints)
+                      ..removeAt(event.index))));
       }
     });
 

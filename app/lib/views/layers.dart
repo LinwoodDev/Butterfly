@@ -15,6 +15,10 @@ class LayersView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(
+      buildWhen: (previous, current) =>
+          previous is DocumentLoadSuccess &&
+          current is DocumentLoadSuccess &&
+          previous.currentLayer != current.currentLayer,
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
         final currentLayer = state.currentLayer;

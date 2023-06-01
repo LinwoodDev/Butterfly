@@ -16,10 +16,17 @@ NoteData noteDataMigrator(Uint8List data) {
     archive = ZipDecoder().decodeBytes(data);
   }
   final noteData = NoteData(archive);
-  final metadata = noteData.getMetadata();
+  var metadata = noteData.getMetadata();
   if (metadata != null &&
       (metadata.fileVersion ?? kFileVersion) < kFileVersion) {
     _migrate(noteData, metadata);
+    metadata = noteData.getMetadata();
+    if (metadata != null) {
+      noteData.setMetadata(metadata.copyWith(
+        fileVersion: kFileVersion,
+        updatedAt: DateTime.now(),
+      ));
+    }
   }
   return noteData;
 }
@@ -31,8 +38,13 @@ void _migrate(NoteData noteData, FileMetadata metadata) {
     final page = noteData.getAsset(pagePath);
     if (page != null) {
       final pageData = json.decode(utf8.decode(page)) as Map<String, dynamic>;
-      final documentInfo = DocumentInfo.fromJson(pageData);
-      noteData.setInfo(documentInfo);
+      noteData.setAsset(
+          kInfoArchiveFile,
+          utf8.encode(json.encode({
+            'painters': (pageData['painters'] as List?)
+                ?.where((element) => element['type'] != 'waypoint'),
+            ...pageData,
+          })));
     }
   }
 }
