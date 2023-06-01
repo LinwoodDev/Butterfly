@@ -828,6 +828,7 @@ mixin _$ButterflySettings {
   String get fallbackPack => throw _privateConstructorUsedError;
   List<String> get starred => throw _privateConstructorUsedError;
   String get defaultTemplate => throw _privateConstructorUsedError;
+  int get navigatorTab => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -864,7 +865,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       InputConfiguration inputConfiguration,
       String fallbackPack,
       List<String> starred,
-      String defaultTemplate});
+      String defaultTemplate,
+      int navigatorTab});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
 }
@@ -906,6 +908,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? fallbackPack = null,
     Object? starred = null,
     Object? defaultTemplate = null,
+    Object? navigatorTab = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -1004,6 +1007,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.defaultTemplate
           : defaultTemplate // ignore: cast_nullable_to_non_nullable
               as String,
+      navigatorTab: null == navigatorTab
+          ? _value.navigatorTab
+          : navigatorTab // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 
@@ -1049,7 +1056,8 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       InputConfiguration inputConfiguration,
       String fallbackPack,
       List<String> starred,
-      String defaultTemplate});
+      String defaultTemplate,
+      int navigatorTab});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -1090,6 +1098,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? fallbackPack = null,
     Object? starred = null,
     Object? defaultTemplate = null,
+    Object? navigatorTab = null,
   }) {
     return _then(_$_ButterflySettings(
       theme: null == theme
@@ -1188,6 +1197,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.defaultTemplate
           : defaultTemplate // ignore: cast_nullable_to_non_nullable
               as String,
+      navigatorTab: null == navigatorTab
+          ? _value.navigatorTab
+          : navigatorTab // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -1219,7 +1232,8 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.inputConfiguration = const InputConfiguration(),
       this.fallbackPack = '',
       final List<String> starred = const [],
-      this.defaultTemplate = ''})
+      this.defaultTemplate = '',
+      this.navigatorTab = 0})
       : _history = history,
         _remotes = remotes,
         _starred = starred,
@@ -1314,10 +1328,13 @@ class _$_ButterflySettings extends _ButterflySettings {
   @override
   @JsonKey()
   final String defaultTemplate;
+  @override
+  @JsonKey()
+  final int navigatorTab;
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorTab: $navigatorTab)';
   }
 
   @override
@@ -1367,7 +1384,9 @@ class _$_ButterflySettings extends _ButterflySettings {
                 other.fallbackPack == fallbackPack) &&
             const DeepCollectionEquality().equals(other._starred, _starred) &&
             (identical(other.defaultTemplate, defaultTemplate) ||
-                other.defaultTemplate == defaultTemplate));
+                other.defaultTemplate == defaultTemplate) &&
+            (identical(other.navigatorTab, navigatorTab) ||
+                other.navigatorTab == navigatorTab));
   }
 
   @override
@@ -1396,7 +1415,8 @@ class _$_ButterflySettings extends _ButterflySettings {
         inputConfiguration,
         fallbackPack,
         const DeepCollectionEquality().hash(_starred),
-        defaultTemplate
+        defaultTemplate,
+        navigatorTab
       ]);
 
   @JsonKey(ignore: true)
@@ -1432,7 +1452,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final InputConfiguration inputConfiguration,
       final String fallbackPack,
       final List<String> starred,
-      final String defaultTemplate}) = _$_ButterflySettings;
+      final String defaultTemplate,
+      final int navigatorTab}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
   @override
@@ -1483,6 +1504,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   List<String> get starred;
   @override
   String get defaultTemplate;
+  @override
+  int get navigatorTab;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>

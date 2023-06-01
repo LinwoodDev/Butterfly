@@ -74,6 +74,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
               _controller.forward(from: 0);
               content = DefaultTabController(
                 length: 4,
+                initialIndex: context.read<SettingsCubit>().state.navigatorTab,
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
@@ -97,6 +98,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                       ),
                       TabBar(
                         isScrollable: true,
+                        onTap: context.read<SettingsCubit>().setNavigatorTab,
                         tabs: [
                           (
                             PhosphorIconsLight.mapPin,

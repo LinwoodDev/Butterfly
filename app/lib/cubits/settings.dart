@@ -191,6 +191,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default('') String fallbackPack,
     @Default([]) List<String> starred,
     @Default('') String defaultTemplate,
+    @Default(0) int navigatorTab,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
@@ -624,5 +625,9 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   Future<void> changeDefaultTemplate(String name) {
     emit(state.copyWith(defaultTemplate: name));
     return save();
+  }
+
+  void setNavigatorTab(int index) {
+    emit(state.copyWith(navigatorTab: index));
   }
 }
