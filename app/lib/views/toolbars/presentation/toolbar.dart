@@ -9,6 +9,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -16,7 +17,6 @@ import '../../../api/full_screen.dart';
 import '../../../bloc/document_bloc.dart';
 import '../../../dialogs/pdf_export.dart';
 import '../../../handlers/handler.dart';
-import '../../../widgets/menu.dart';
 import 'timeline.dart';
 
 class PresentationToolbarView extends StatefulWidget

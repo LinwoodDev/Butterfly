@@ -1,6 +1,5 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/name.dart';
-import 'package:butterfly/widgets/menu.dart';
 import 'package:butterfly/widgets/remote_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';

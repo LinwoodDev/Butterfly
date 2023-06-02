@@ -3,9 +3,9 @@ import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly_api/butterfly_text.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../widgets/menu.dart';
 import '../../delete.dart';
 import 'paragraph.dart';
 
