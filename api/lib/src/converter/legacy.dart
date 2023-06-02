@@ -12,7 +12,7 @@ import '../models/palette.dart';
 
 Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
   data = {
-    'fileVersion': data['fileVersion'],
+    'fileVersion': 8,
     ...legacyNoteDataJsonMigrator(data),
   };
   final archive = Archive();

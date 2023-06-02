@@ -14,6 +14,7 @@ import '../api/full_screen.dart';
 import '../cubits/settings.dart';
 import '../cubits/transform.dart';
 import '../embed/embedding.dart';
+import '../models/defaults.dart';
 import '../models/tool.dart';
 import '../models/viewport.dart';
 import '../renderers/renderer.dart';

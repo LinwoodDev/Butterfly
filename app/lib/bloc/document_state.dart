@@ -38,9 +38,10 @@ abstract class DocumentLoaded extends DocumentState {
       required this.pageName,
       FileMetadata? metadata,
       DocumentInfo? info})
-      : page = page ?? data.getPage(pageName)!,
-        metadata = metadata ?? data.getMetadata()!,
-        info = info ?? data.getInfo()!;
+      : page = page ?? data.getPage(pageName) ?? DocumentDefaults.createPage(),
+        metadata =
+            metadata ?? data.getMetadata() ?? DocumentDefaults.createMetadata(),
+        info = info ?? data.getInfo() ?? DocumentDefaults.createInfo();
 
   List<String> get invisibleLayers => [];
 

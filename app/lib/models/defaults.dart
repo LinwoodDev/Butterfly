@@ -105,13 +105,7 @@ class DocumentDefaults {
   }) {
     page ??= createPage();
     final data = NoteData(Archive());
-    final metadata = FileMetadata(
-      name: name,
-      createdAt: DateTime.now().toUtc(),
-      type: NoteFileType.document,
-      fileVersion: kFileVersion,
-      updatedAt: DateTime.now().toUtc(),
-    );
+    final metadata = createMetadata(name: name);
     data.setMetadata(metadata);
     data.setPage(page);
     data.setInfo(createInfo());
@@ -128,12 +122,8 @@ class DocumentDefaults {
 
   static NoteData createPack() {
     final data = NoteData(Archive());
-    final metadata = FileMetadata(
-      name: '',
-      createdAt: DateTime.now().toUtc(),
+    final metadata = createMetadata(
       type: NoteFileType.pack,
-      fileVersion: kFileVersion,
-      updatedAt: DateTime.now().toUtc(),
     );
     data.setMetadata(metadata);
     return data;
@@ -144,12 +134,9 @@ class DocumentDefaults {
       Uint8List? thumbnail,
       Background background = const Background.box()}) async {
     final data = NoteData(Archive());
-    final metadata = FileMetadata(
-      name: name,
-      createdAt: DateTime.now().toUtc(),
+    final metadata = createMetadata(
       type: NoteFileType.template,
-      fileVersion: kFileVersion,
-      updatedAt: DateTime.now().toUtc(),
+      name: name,
     );
     data.setMetadata(metadata);
     final page = DocumentPage(
@@ -161,4 +148,14 @@ class DocumentDefaults {
     if (thumbnail != null) data.setThumbnail(thumbnail);
     return data;
   }
+
+  static createMetadata(
+          {NoteFileType type = NoteFileType.document, String name = ''}) =>
+      FileMetadata(
+        name: name,
+        createdAt: DateTime.now().toUtc(),
+        type: type,
+        fileVersion: kFileVersion,
+        updatedAt: DateTime.now().toUtc(),
+      );
 }
