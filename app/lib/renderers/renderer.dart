@@ -8,7 +8,6 @@ import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly/visualizer/element.dart';
-import 'package:butterfly/visualizer/int.dart';
 import 'package:butterfly/visualizer/text.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
@@ -16,6 +15,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:markdown/markdown.dart' as md;
+import 'package:material_leap/material_leap.dart';
 import 'package:perfect_freehand/perfect_freehand.dart' as freehand;
 import 'package:xml/xml.dart';
 

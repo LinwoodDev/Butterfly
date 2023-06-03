@@ -698,8 +698,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: ee0c9578446a9051e8b0e0933030b0e467ce5af8
-      resolved-ref: ee0c9578446a9051e8b0e0933030b0e467ce5af8
+      ref: "6a23b269d59aab0d84e60f0308f0730c2632a2d4"
+      resolved-ref: "6a23b269d59aab0d84e60f0308f0730c2632a2d4"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class BehaviorsSettingsPage extends StatelessWidget {
@@ -92,37 +93,34 @@ class BehaviorsSettingsPage extends StatelessWidget {
         }));
   }
 
-  Future<void> _openSyncModeModal(BuildContext context) => showModalBottomSheet(
-      constraints: const BoxConstraints(maxWidth: 640),
+  Future<void> _openSyncModeModal(BuildContext context) => showLeapBottomSheet(
       context: context,
-      builder: (ctx) {
+      title: AppLocalizations.of(context).syncMode,
+      childrenBuilder: (ctx) {
         final settingsCubit = context.read<SettingsCubit>();
         void changeSyncMode(SyncMode syncMode) {
           settingsCubit.changeSyncMode(syncMode);
           Navigator.of(context).pop();
         }
 
-        return Container(
-            margin: const EdgeInsets.only(bottom: 20),
-            child: ListView(shrinkWrap: true, children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                child: Text(
-                  AppLocalizations.of(context).syncMode,
-                  style: Theme.of(context).textTheme.headlineSmall,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              ...SyncMode.values.map((syncMode) {
-                return ListTile(
-                  title: Text(syncMode.getLocalizedName(context)),
-                  leading: PhosphorIcon(syncMode.getIcon()),
-                  selected: syncMode == settingsCubit.state.syncMode,
-                  onTap: () => changeSyncMode(syncMode),
-                );
-              }),
-              const SizedBox(height: 32),
-            ]));
+        return [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: Text(
+              AppLocalizations.of(context).syncMode,
+              style: Theme.of(context).textTheme.headlineSmall,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          ...SyncMode.values.map((syncMode) {
+            return ListTile(
+              title: Text(syncMode.getLocalizedName(context)),
+              leading: PhosphorIcon(syncMode.getIcon()),
+              selected: syncMode == settingsCubit.state.syncMode,
+              onTap: () => changeSyncMode(syncMode),
+            );
+          }),
+          const SizedBox(height: 32),
+        ];
       });
 }

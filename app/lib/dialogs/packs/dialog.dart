@@ -306,118 +306,105 @@ class _PacksDialogState extends State<PacksDialog>
                       icon: const PhosphorIcon(PhosphorIconsLight.plus),
                       label: Text(AppLocalizations.of(context).add),
                       onPressed: () {
-                        showModalBottomSheet<ThemeMode>(
+                        showLeapBottomSheet(
                           context: context,
-                          constraints: const BoxConstraints(maxWidth: 640),
-                          builder: (ctx) => Container(
-                            margin: const EdgeInsets.only(bottom: 20),
-                            child: ListView(shrinkWrap: true, children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 20),
-                                child: Text(
-                                  AppLocalizations.of(ctx).add,
-                                  style: Theme.of(ctx).textTheme.headlineSmall,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              ListTile(
-                                title: Text(AppLocalizations.of(ctx).import),
-                                leading: const PhosphorIcon(
-                                    PhosphorIconsLight.arrowSquareIn),
-                                onTap: () async {
-                                  Navigator.of(ctx).pop();
-                                  final data = await openBfly();
-                                  if (data == null) return;
-                                  final pack = NoteData.fromData(data);
-                                  final metadata = pack.getMetadata();
-                                  if (metadata?.type != NoteFileType.pack) {
-                                    return;
-                                  }
-                                  if (context.mounted) {
-                                    final success = await showDialog<bool>(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
-                                            title: Text(
-                                                AppLocalizations.of(context)
-                                                    .sureImportPack),
-                                            scrollable: true,
-                                            content: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Text(metadata!.name,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleLarge),
-                                                Text(AppLocalizations.of(
-                                                        context)
-                                                    .byAuthor(metadata.author)),
-                                                Text(metadata.description),
-                                              ],
-                                            ),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () =>
-                                                    Navigator.of(context).pop(),
-                                                child: Text(
-                                                    AppLocalizations.of(context)
-                                                        .cancel),
-                                              ),
-                                              ElevatedButton(
-                                                onPressed: () =>
-                                                    Navigator.of(context)
-                                                        .pop(true),
-                                                child: Text(
-                                                    AppLocalizations.of(context)
-                                                        .import),
-                                              ),
+                          title: AppLocalizations.of(context).add,
+                          childrenBuilder: (ctx) => [
+                            ListTile(
+                              title: Text(AppLocalizations.of(ctx).import),
+                              leading: const PhosphorIcon(
+                                  PhosphorIconsLight.arrowSquareIn),
+                              onTap: () async {
+                                Navigator.of(ctx).pop();
+                                final data = await openBfly();
+                                if (data == null) return;
+                                final pack = NoteData.fromData(data);
+                                final metadata = pack.getMetadata();
+                                if (metadata?.type != NoteFileType.pack) {
+                                  return;
+                                }
+                                if (context.mounted) {
+                                  final success = await showDialog<bool>(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: Text(
+                                              AppLocalizations.of(context)
+                                                  .sureImportPack),
+                                          scrollable: true,
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(metadata!.name,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleLarge),
+                                              Text(AppLocalizations.of(context)
+                                                  .byAuthor(metadata.author)),
+                                              Text(metadata.description),
                                             ],
                                           ),
-                                        ) ??
-                                        false;
-                                    if (!success) return;
-                                    _addPack(pack);
-                                  }
-                                },
-                              ),
-                              ListTile(
-                                title: Text(AppLocalizations.of(ctx).create),
-                                leading: const PhosphorIcon(
-                                    PhosphorIconsLight.plusCircle),
-                                onTap: () async {
-                                  Navigator.of(ctx).pop();
-                                  final pack = await showDialog<NoteData>(
-                                    context: ctx,
-                                    builder: (context) => const PackDialog(),
-                                  );
-                                  if (pack != null) {
-                                    _addPack(pack);
-                                  }
-                                },
-                              ),
-                              ListTile(
-                                title: Text(
-                                    AppLocalizations.of(ctx).importCorePack),
-                                subtitle: Text(AppLocalizations.of(ctx)
-                                    .importCorePackDescription),
-                                leading:
-                                    const PhosphorIcon(PhosphorIconsLight.cube),
-                                onTap: () async {
-                                  Navigator.of(ctx).pop();
-                                  final pack =
-                                      await DocumentDefaults.getCorePack();
-                                  if (_isGlobal()) {
-                                    await _fileSystem.deletePack(pack.name!);
-                                    setState(() {});
-                                  } else if (context.mounted) {
-                                    final bloc = context.read<DocumentBloc>();
-                                    bloc.add(DocumentPackRemoved(pack.name!));
-                                  }
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () =>
+                                                  Navigator.of(context).pop(),
+                                              child: Text(
+                                                  AppLocalizations.of(context)
+                                                      .cancel),
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () =>
+                                                  Navigator.of(context)
+                                                      .pop(true),
+                                              child: Text(
+                                                  AppLocalizations.of(context)
+                                                      .import),
+                                            ),
+                                          ],
+                                        ),
+                                      ) ??
+                                      false;
+                                  if (!success) return;
                                   _addPack(pack);
-                                },
-                              ),
-                            ]),
-                          ),
+                                }
+                              },
+                            ),
+                            ListTile(
+                              title: Text(AppLocalizations.of(ctx).create),
+                              leading: const PhosphorIcon(
+                                  PhosphorIconsLight.plusCircle),
+                              onTap: () async {
+                                Navigator.of(ctx).pop();
+                                final pack = await showDialog<NoteData>(
+                                  context: ctx,
+                                  builder: (context) => const PackDialog(),
+                                );
+                                if (pack != null) {
+                                  _addPack(pack);
+                                }
+                              },
+                            ),
+                            ListTile(
+                              title:
+                                  Text(AppLocalizations.of(ctx).importCorePack),
+                              subtitle: Text(AppLocalizations.of(ctx)
+                                  .importCorePackDescription),
+                              leading:
+                                  const PhosphorIcon(PhosphorIconsLight.cube),
+                              onTap: () async {
+                                Navigator.of(ctx).pop();
+                                final pack =
+                                    await DocumentDefaults.getCorePack();
+                                if (_isGlobal()) {
+                                  await _fileSystem.deletePack(pack.name!);
+                                  setState(() {});
+                                } else if (context.mounted) {
+                                  final bloc = context.read<DocumentBloc>();
+                                  bloc.add(DocumentPackRemoved(pack.name!));
+                                }
+                                _addPack(pack);
+                              },
+                            ),
+                          ],
                         );
                       },
                     ),

@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly/theme.dart';
-import 'package:butterfly/visualizer/string.dart';
 import 'package:butterfly/widgets/window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class PersonalizationSettingsPage extends StatelessWidget {
@@ -68,7 +68,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
                                 ? AppLocalizations.of(context).systemTheme
                                 : design.toDisplayString(),
                           ),
-                          trailing: _ThemeBox(
+                          trailing: ThemeBox(
                             theme: getThemeData(state.design, false),
                           ),
                           onTap: () => _openDesignModal(context),
@@ -132,51 +132,37 @@ class PersonalizationSettingsPage extends StatelessWidget {
     final cubit = context.read<SettingsCubit>();
     final design = cubit.state.design;
 
-    showModalBottomSheet(
-        constraints: const BoxConstraints(maxWidth: 640),
+    showLeapBottomSheet(
         context: context,
-        builder: (context) {
+        title: AppLocalizations.of(context).theme,
+        childrenBuilder: (context) {
           void changeDesign(String design) {
             cubit.changeDesign(design);
             Navigator.of(context).pop();
           }
 
-          return Container(
-              margin: const EdgeInsets.only(bottom: 20),
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 20),
-                    child: Text(
-                      AppLocalizations.of(context).theme,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  ListTile(
-                    title: Text(AppLocalizations.of(context).systemTheme),
-                    selected: design.isEmpty,
-                    onTap: () => changeDesign(''),
-                    leading: _ThemeBox(
-                      theme: getThemeData('', false),
-                    ),
-                  ),
-                  ...getThemes().map(
-                    (e) {
-                      final theme = getThemeData(e, false);
-                      return ListTile(
-                          title: Text(e.toDisplayString()),
-                          selected: e == design,
-                          onTap: () => changeDesign(e),
-                          leading: _ThemeBox(
-                            theme: theme,
-                          ));
-                    },
-                  ),
-                ],
-              ));
+          return [
+            ListTile(
+              title: Text(AppLocalizations.of(context).systemTheme),
+              selected: design.isEmpty,
+              onTap: () => changeDesign(''),
+              leading: ThemeBox(
+                theme: getThemeData('', false),
+              ),
+            ),
+            ...getThemes().map(
+              (e) {
+                final theme = getThemeData(e, false);
+                return ListTile(
+                    title: Text(e.toDisplayString()),
+                    selected: e == design,
+                    onTap: () => changeDesign(e),
+                    leading: ThemeBox(
+                      theme: theme,
+                    ));
+              },
+            ),
+          ];
         });
   }
 
@@ -184,44 +170,32 @@ class PersonalizationSettingsPage extends StatelessWidget {
     final cubit = context.read<SettingsCubit>();
     final currentTheme = cubit.state.theme;
 
-    showModalBottomSheet(
-        constraints: const BoxConstraints(maxWidth: 640),
+    showLeapBottomSheet(
         context: context,
-        builder: (ctx) {
+        title: AppLocalizations.of(context).theme,
+        childrenBuilder: (context) {
           void changeTheme(ThemeMode themeMode) {
             cubit.changeTheme(themeMode);
             Navigator.of(context).pop();
           }
 
-          return Container(
-              margin: const EdgeInsets.only(bottom: 20),
-              child: ListView(shrinkWrap: true, children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: Text(
-                    AppLocalizations.of(context).theme,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                ListTile(
-                    title: Text(AppLocalizations.of(context).systemTheme),
-                    selected: currentTheme == ThemeMode.system,
-                    leading: const PhosphorIcon(PhosphorIconsLight.power),
-                    onTap: () => changeTheme(ThemeMode.system)),
-                ListTile(
-                    title: Text(AppLocalizations.of(context).lightTheme),
-                    selected: currentTheme == ThemeMode.light,
-                    leading: const PhosphorIcon(PhosphorIconsLight.sun),
-                    onTap: () => changeTheme(ThemeMode.light)),
-                ListTile(
-                    title: Text(AppLocalizations.of(context).darkTheme),
-                    selected: currentTheme == ThemeMode.dark,
-                    leading: const PhosphorIcon(PhosphorIconsLight.moon),
-                    onTap: () => changeTheme(ThemeMode.dark)),
-                const SizedBox(height: 32),
-              ]));
+          return [
+            ListTile(
+                title: Text(AppLocalizations.of(context).systemTheme),
+                selected: currentTheme == ThemeMode.system,
+                leading: const PhosphorIcon(PhosphorIconsLight.power),
+                onTap: () => changeTheme(ThemeMode.system)),
+            ListTile(
+                title: Text(AppLocalizations.of(context).lightTheme),
+                selected: currentTheme == ThemeMode.light,
+                leading: const PhosphorIcon(PhosphorIconsLight.sun),
+                onTap: () => changeTheme(ThemeMode.light)),
+            ListTile(
+                title: Text(AppLocalizations.of(context).darkTheme),
+                selected: currentTheme == ThemeMode.dark,
+                leading: const PhosphorIcon(PhosphorIconsLight.moon),
+                onTap: () => changeTheme(ThemeMode.dark)),
+          ];
         });
   }
 
@@ -229,99 +203,27 @@ class PersonalizationSettingsPage extends StatelessWidget {
     final cubit = context.read<SettingsCubit>();
     var currentLocale = cubit.state.localeTag;
     var locales = getLocales();
-    showModalBottomSheet<String>(
-        constraints: const BoxConstraints(maxWidth: 640),
+    showLeapBottomSheet(
         context: context,
-        builder: (context) {
+        childrenBuilder: (context) {
           void changeLocale(Locale? locale) {
             cubit.changeLocale(locale);
             Navigator.of(context).pop();
           }
 
-          return Container(
-              margin: const EdgeInsets.only(bottom: 20),
-              child: ListView(shrinkWrap: true, children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: Text(
-                    AppLocalizations.of(context).locale,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                ListTile(
-                    title: Text(AppLocalizations.of(context).defaultLocale),
-                    selected: currentLocale.isEmpty,
-                    onTap: () => changeLocale(null)),
-                ...locales
-                    .map((e) => ListTile(
-                        title: Text(_getLocaleName(context, e.toLanguageTag())),
-                        selected: currentLocale == e.toLanguageTag(),
-                        onTap: () => changeLocale(e)))
-                    .toList(),
-                const SizedBox(height: 32),
-              ]));
+          return [
+            ListTile(
+                title: Text(AppLocalizations.of(context).defaultLocale),
+                selected: currentLocale.isEmpty,
+                onTap: () => changeLocale(null)),
+            ...locales
+                .map((e) => ListTile(
+                    title: Text(_getLocaleName(context, e.toLanguageTag())),
+                    selected: currentLocale == e.toLanguageTag(),
+                    onTap: () => changeLocale(e)))
+                .toList(),
+            const SizedBox(height: 32),
+          ];
         });
-  }
-}
-
-class _ThemeBox extends StatelessWidget {
-  final ThemeData theme;
-  static const double size = 12;
-  const _ThemeBox({required this.theme});
-
-  @override
-  Widget build(BuildContext context) {
-    // 2x2 grid of colors
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(mainAxisSize: MainAxisSize.min, children: [
-          Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              color: theme.colorScheme.primary,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(size),
-              ),
-            ),
-          ),
-          Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              color: theme.colorScheme.secondary,
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(size),
-              ),
-            ),
-          ),
-        ]),
-        Row(mainAxisSize: MainAxisSize.min, children: [
-          Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              color: theme.colorScheme.primaryContainer,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(size),
-              ),
-            ),
-          ),
-          Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              color: theme.colorScheme.tertiary,
-              borderRadius: const BorderRadius.only(
-                bottomRight: Radius.circular(size),
-              ),
-            ),
-          ),
-        ]),
-      ],
-    );
   }
 }
