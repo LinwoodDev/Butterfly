@@ -348,7 +348,7 @@
   "syncRootDirectory": "同步根目錄",
   "penOnlyInput": "只讓筆輸入",
   "inputGestures": "手勢輸入",
-  "nativeWindowTitleBar": "原生視窗標題列",
+  "nativeTitleBar": "Native title bar",
   "syncMode": "同步模式",
   "connection": "連線",
   "always": "一律",
