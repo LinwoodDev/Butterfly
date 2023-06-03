@@ -348,7 +348,7 @@
   "syncRootDirectory": "Sync-Stammverzeichnis",
   "penOnlyInput": "Nur-Pen-Eingabe",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Native Fenstertitelleiste",
+  "nativeTitleBar": "Native title bar",
   "syncMode": "Sync-Modus",
   "connection": "Verbindung",
   "always": "Immer",
