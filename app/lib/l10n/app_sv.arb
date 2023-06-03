@@ -348,7 +348,7 @@
   "syncRootDirectory": "Synkronisera rotkatalog",
   "penOnlyInput": "Endast penna inmatning",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Namnfält för infödda fönster",
+  "nativeTitleBar": "Native title bar",
   "syncMode": "Synkronisera läge",
   "connection": "Anslutning",
   "always": "Alltid",
