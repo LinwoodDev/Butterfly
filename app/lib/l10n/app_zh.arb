@@ -348,7 +348,7 @@
   "syncRootDirectory": "同步根目录",
   "penOnlyInput": "只输入笔数",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "本地窗口标题栏",
+  "nativeTitleBar": "Native title bar",
   "syncMode": "同步模式",
   "connection": "连接",
   "always": "总是显示",
