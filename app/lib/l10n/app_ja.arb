@@ -348,7 +348,7 @@
   "syncRootDirectory": "ルートディレクトリを同期",
   "penOnlyInput": "ペンのみ入力",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "ネイティブウインドウのタイトルバー",
+  "nativeTitleBar": "Native title bar",
   "syncMode": "同期モード",
   "connection": "接続",
   "always": "常に表示",
