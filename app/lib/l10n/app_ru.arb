@@ -348,7 +348,7 @@
   "syncRootDirectory": "Корневой каталог синхронизации",
   "penOnlyInput": "Только ввод ручки",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Родной заголовок окна",
+  "nativeTitleBar": "Native title bar",
   "syncMode": "Режим синхронизации",
   "connection": "Подключение",
   "always": "Всегда",
