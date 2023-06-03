@@ -348,7 +348,7 @@
   "syncRootDirectory": "Synkronoi juurikansio",
   "penOnlyInput": "Vain kynä syöttö",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Alkuperäinen ikkunan otsikkopalkki",
+  "nativeTitleBar": "Native title bar",
   "syncMode": "Synkronoinnin tila",
   "connection": "Yhteys",
   "always": "Aina",
