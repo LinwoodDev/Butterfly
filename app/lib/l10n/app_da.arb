@@ -348,7 +348,7 @@
   "syncRootDirectory": "Synkroniser rodmappen",
   "penOnlyInput": "Kun pen input",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Lokal vindues titellinje",
+  "nativeTitleBar": "Native title bar",
   "syncMode": "Synkroniser tilstand",
   "connection": "Forbindelse",
   "always": "Altid",
