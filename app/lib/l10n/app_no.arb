@@ -348,7 +348,7 @@
   "syncRootDirectory": "Synkroniser rotkatalogen",
   "penOnlyInput": "Pennen er kun inndata",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Nativt vindus tittellinje",
+  "nativeTitleBar": "Native title bar",
   "syncMode": "Synk modus",
   "connection": "Tilkobling",
   "always": "Alltid",
