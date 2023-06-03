@@ -277,14 +277,13 @@ class ButterflyApp extends StatelessWidget {
         create: (_) => SettingsCubit.fromPrefs(prefs),
         child: BlocBuilder<SettingsCubit, ButterflySettings>(
           buildWhen: (previous, current) =>
-              previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
+              previous.nativeTitleBar != current.nativeTitleBar,
           builder: (context, settings) {
             if (!kIsWeb && isWindow) {
               windowManager.waitUntilReadyToShow().then((_) async {
-                await windowManager.setTitleBarStyle(
-                    settings.nativeWindowTitleBar
-                        ? TitleBarStyle.normal
-                        : TitleBarStyle.hidden);
+                await windowManager.setTitleBarStyle(settings.nativeTitleBar
+                    ? TitleBarStyle.normal
+                    : TitleBarStyle.hidden);
                 await windowManager.setFullScreen(settings.startInFullScreen);
                 windowManager.show();
               });

@@ -92,14 +92,14 @@ class PersonalizationSettingsPage extends StatelessWidget {
                       children: [
                         if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
                           SwitchListTile(
-                            value: state.nativeWindowTitleBar,
-                            title: Text(AppLocalizations.of(context)
-                                .nativeWindowTitleBar),
+                            value: state.nativeTitleBar,
+                            title: Text(
+                                AppLocalizations.of(context).nativeTitleBar),
                             secondary: const PhosphorIcon(
                                 PhosphorIconsLight.appWindow),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
-                                .changeNativeWindowTitleBar(value),
+                                .changeNativeTitleBar(value),
                           ),
                         SwitchListTile(
                           secondary: const PhosphorIcon(

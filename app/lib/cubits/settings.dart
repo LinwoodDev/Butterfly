@@ -184,7 +184,7 @@ class ButterflySettings with _$ButterflySettings {
     String? lastVersion,
     @Default([]) List<RemoteStorage> remotes,
     @Default('') String defaultRemote,
-    @Default(false) bool nativeWindowTitleBar,
+    @Default(false) bool nativeTitleBar,
     @Default(false) bool startInFullScreen,
     @Default(SyncMode.noMobile) SyncMode syncMode,
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
@@ -238,7 +238,7 @@ class ButterflySettings with _$ButterflySettings {
       lastVersion: prefs.getString('last_version'),
       remotes: remotes,
       defaultRemote: prefs.getString('default_remote') ?? '',
-      nativeWindowTitleBar: prefs.getBool('native_window_title_bar') ?? false,
+      nativeTitleBar: prefs.getBool('native_title_bar') ?? false,
       startInFullScreen: prefs.getBool('start_in_full_screen') ?? false,
       syncMode:
           SyncMode.values.byName(prefs.getString('sync_mode') ?? 'noMobile'),
@@ -286,7 +286,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setStringList(
         'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
     await prefs.setString('default_remote', defaultRemote);
-    await prefs.setBool('native_window_title_bar', nativeWindowTitleBar);
+    await prefs.setBool('native_window_title_bar', nativeTitleBar);
     await prefs.setBool('start_in_full_screen', startInFullScreen);
     await prefs.setString('sync_mode', syncMode.name);
     await prefs.setString(
@@ -565,12 +565,12 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> changeNativeWindowTitleBar(bool value) {
-    emit(state.copyWith(nativeWindowTitleBar: value));
+  Future<void> changeNativeTitleBar(bool value) {
+    emit(state.copyWith(nativeTitleBar: value));
     return save();
   }
 
-  Future<void> resetNativeWindowTitleBar() => changeNativeWindowTitleBar(false);
+  Future<void> resetNativeTitleBar() => changeNativeTitleBar(false);
 
   Future<void> changeSyncMode(SyncMode syncMode) {
     emit(state.copyWith(syncMode: syncMode));

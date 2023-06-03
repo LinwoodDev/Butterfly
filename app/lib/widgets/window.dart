@@ -40,7 +40,7 @@ class WindowTitleBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
-            previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
+            previous.nativeTitleBar != current.nativeTitleBar,
         builder: (context, settings) {
           final isDesktop = isWindow && !kIsWeb;
           if (onlyShowOnDesktop && !isDesktop) return const SizedBox.shrink();
@@ -60,7 +60,7 @@ class WindowTitleBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
             ],
           );
-          if (isDesktop && !settings.nativeWindowTitleBar) {
+          if (isDesktop && !settings.nativeTitleBar) {
             return GestureDetector(
               child: DragToMoveArea(
                 child: appBar,
@@ -143,9 +143,9 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
-            previous.nativeWindowTitleBar != current.nativeWindowTitleBar,
+            previous.nativeTitleBar != current.nativeTitleBar,
         builder: (context, settings) {
-          if (!kIsWeb && isWindow && !settings.nativeWindowTitleBar) {
+          if (!kIsWeb && isWindow && !settings.nativeTitleBar) {
             return LayoutBuilder(
               builder: (context, constraints) => Card(
                 child: Padding(

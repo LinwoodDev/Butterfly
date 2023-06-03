@@ -820,7 +820,7 @@ mixin _$ButterflySettings {
   String? get lastVersion => throw _privateConstructorUsedError;
   List<RemoteStorage> get remotes => throw _privateConstructorUsedError;
   String get defaultRemote => throw _privateConstructorUsedError;
-  bool get nativeWindowTitleBar => throw _privateConstructorUsedError;
+  bool get nativeTitleBar => throw _privateConstructorUsedError;
   bool get startInFullScreen => throw _privateConstructorUsedError;
   SyncMode get syncMode => throw _privateConstructorUsedError;
   InputConfiguration get inputConfiguration =>
@@ -859,7 +859,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       String? lastVersion,
       List<RemoteStorage> remotes,
       String defaultRemote,
-      bool nativeWindowTitleBar,
+      bool nativeTitleBar,
       bool startInFullScreen,
       SyncMode syncMode,
       InputConfiguration inputConfiguration,
@@ -901,7 +901,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? lastVersion = freezed,
     Object? remotes = null,
     Object? defaultRemote = null,
-    Object? nativeWindowTitleBar = null,
+    Object? nativeTitleBar = null,
     Object? startInFullScreen = null,
     Object? syncMode = null,
     Object? inputConfiguration = null,
@@ -979,9 +979,9 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.defaultRemote
           : defaultRemote // ignore: cast_nullable_to_non_nullable
               as String,
-      nativeWindowTitleBar: null == nativeWindowTitleBar
-          ? _value.nativeWindowTitleBar
-          : nativeWindowTitleBar // ignore: cast_nullable_to_non_nullable
+      nativeTitleBar: null == nativeTitleBar
+          ? _value.nativeTitleBar
+          : nativeTitleBar // ignore: cast_nullable_to_non_nullable
               as bool,
       startInFullScreen: null == startInFullScreen
           ? _value.startInFullScreen
@@ -1050,7 +1050,7 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       String? lastVersion,
       List<RemoteStorage> remotes,
       String defaultRemote,
-      bool nativeWindowTitleBar,
+      bool nativeTitleBar,
       bool startInFullScreen,
       SyncMode syncMode,
       InputConfiguration inputConfiguration,
@@ -1091,7 +1091,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? lastVersion = freezed,
     Object? remotes = null,
     Object? defaultRemote = null,
-    Object? nativeWindowTitleBar = null,
+    Object? nativeTitleBar = null,
     Object? startInFullScreen = null,
     Object? syncMode = null,
     Object? inputConfiguration = null,
@@ -1169,9 +1169,9 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.defaultRemote
           : defaultRemote // ignore: cast_nullable_to_non_nullable
               as String,
-      nativeWindowTitleBar: null == nativeWindowTitleBar
-          ? _value.nativeWindowTitleBar
-          : nativeWindowTitleBar // ignore: cast_nullable_to_non_nullable
+      nativeTitleBar: null == nativeTitleBar
+          ? _value.nativeTitleBar
+          : nativeTitleBar // ignore: cast_nullable_to_non_nullable
               as bool,
       startInFullScreen: null == startInFullScreen
           ? _value.startInFullScreen
@@ -1226,7 +1226,7 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.lastVersion,
       final List<RemoteStorage> remotes = const [],
       this.defaultRemote = '',
-      this.nativeWindowTitleBar = false,
+      this.nativeTitleBar = false,
       this.startInFullScreen = false,
       this.syncMode = SyncMode.noMobile,
       this.inputConfiguration = const InputConfiguration(),
@@ -1303,7 +1303,7 @@ class _$_ButterflySettings extends _ButterflySettings {
   final String defaultRemote;
   @override
   @JsonKey()
-  final bool nativeWindowTitleBar;
+  final bool nativeTitleBar;
   @override
   @JsonKey()
   final bool startInFullScreen;
@@ -1334,7 +1334,7 @@ class _$_ButterflySettings extends _ButterflySettings {
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeWindowTitleBar: $nativeWindowTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorTab: $navigatorTab)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorTab: $navigatorTab)';
   }
 
   @override
@@ -1372,8 +1372,8 @@ class _$_ButterflySettings extends _ButterflySettings {
             const DeepCollectionEquality().equals(other._remotes, _remotes) &&
             (identical(other.defaultRemote, defaultRemote) ||
                 other.defaultRemote == defaultRemote) &&
-            (identical(other.nativeWindowTitleBar, nativeWindowTitleBar) ||
-                other.nativeWindowTitleBar == nativeWindowTitleBar) &&
+            (identical(other.nativeTitleBar, nativeTitleBar) ||
+                other.nativeTitleBar == nativeTitleBar) &&
             (identical(other.startInFullScreen, startInFullScreen) ||
                 other.startInFullScreen == startInFullScreen) &&
             (identical(other.syncMode, syncMode) ||
@@ -1409,7 +1409,7 @@ class _$_ButterflySettings extends _ButterflySettings {
         lastVersion,
         const DeepCollectionEquality().hash(_remotes),
         defaultRemote,
-        nativeWindowTitleBar,
+        nativeTitleBar,
         startInFullScreen,
         syncMode,
         inputConfiguration,
@@ -1446,7 +1446,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final String? lastVersion,
       final List<RemoteStorage> remotes,
       final String defaultRemote,
-      final bool nativeWindowTitleBar,
+      final bool nativeTitleBar,
       final bool startInFullScreen,
       final SyncMode syncMode,
       final InputConfiguration inputConfiguration,
@@ -1491,7 +1491,7 @@ abstract class _ButterflySettings extends ButterflySettings {
   @override
   String get defaultRemote;
   @override
-  bool get nativeWindowTitleBar;
+  bool get nativeTitleBar;
   @override
   bool get startInFullScreen;
   @override
