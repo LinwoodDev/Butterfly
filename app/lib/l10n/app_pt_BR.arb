@@ -348,7 +348,7 @@
   "syncRootDirectory": "Sincronizar diretório raiz",
   "penOnlyInput": "Pen apenas entrada",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Barra de título da janela nativa",
+  "nativeTitleBar": "Native title bar",
   "syncMode": "Modo de sincronização",
   "connection": "Ligação",
   "always": "sempre",
