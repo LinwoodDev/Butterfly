@@ -348,7 +348,7 @@
   "syncRootDirectory": "Sincronizare director rădăcină",
   "penOnlyInput": "Numai introducerea stiloului injector",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Bară titlu fereastră nativă",
+  "nativeTitleBar": "Native title bar",
   "syncMode": "Mod sincronizare",
   "connection": "Conexiune",
   "always": "Întotdeauna",
