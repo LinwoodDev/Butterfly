@@ -30,11 +30,6 @@ _$_DocumentPage _$$_DocumentPageFromJson(Map json) => _$_DocumentPage(
               ?.map((e) => Area.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
-      exportPresets: (json['exportPresets'] as List<dynamic>?)
-              ?.map((e) =>
-                  ExportPreset.fromJson(Map<String, dynamic>.from(e as Map)))
-              .toList() ??
-          const [],
     );
 
 Map<String, dynamic> _$$_DocumentPageToJson(_$_DocumentPage instance) =>
@@ -44,5 +39,4 @@ Map<String, dynamic> _$$_DocumentPageToJson(_$_DocumentPage instance) =>
       'background': instance.background.toJson(),
       'waypoints': instance.waypoints.map((e) => e.toJson()).toList(),
       'areas': instance.areas.map((e) => e.toJson()).toList(),
-      'exportPresets': instance.exportPresets.map((e) => e.toJson()).toList(),
     };

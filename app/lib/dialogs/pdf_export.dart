@@ -70,16 +70,15 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                 ),
                 IconButton(
                   onPressed: () async {
-                    final area = await showDialog<String>(
+                    final result = await showDialog<(String, String)>(
                       context: context,
-                      builder: (context) => _AreaSelectionDialog(
-                          areas: state.page.areas
-                              .map((element) => element.name)
-                              .toList()),
+                      builder: (context) =>
+                          _AreaSelectionDialog(document: state.data),
                     );
-                    if (area != null) {
+                    if (result != null) {
+                      final (page, area) = result;
                       setState(() {
-                        areas.add(AreaPreset(name: area));
+                        areas.add(AreaPreset(name: area, page: page));
                       });
                     }
                   },
@@ -145,9 +144,8 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                         onPressed: () async {
                           final localization = AppLocalizations.of(context);
                           Navigator.of(context).pop();
-                          final document = await currentIndex.renderPDF(
-                              state.data, state.page, state.info,
-                              areas: areas);
+                          final document = await currentIndex
+                              .renderPDF(state.data, state.info, areas: areas);
                           final data = await document.save();
                           if (!kIsWeb &&
                               (Platform.isWindows ||
@@ -230,9 +228,9 @@ class _AreaPreview extends StatelessWidget {
 }
 
 class _AreaSelectionDialog extends StatefulWidget {
-  final List<String> areas;
+  final NoteData document;
 
-  const _AreaSelectionDialog({required this.areas});
+  const _AreaSelectionDialog({required this.document});
 
   @override
   State<_AreaSelectionDialog> createState() => _AreaSelectionDialogState();
@@ -265,14 +263,25 @@ class _AreaSelectionDialogState extends State<_AreaSelectionDialog> {
           Flexible(
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: widget.areas
-                  .where((element) => element.contains(_searchQuery))
-                  .map((e) {
-                return ListTile(
-                  title: Text(e),
-                  onTap: () => Navigator.of(context).pop(e),
-                );
-              }).toList(),
+              children: widget.document
+                  .getPages()
+                  .expand(
+                    (page) =>
+                        widget.document
+                            .getPage(page)
+                            ?.areas
+                            .where((element) =>
+                                element.name.contains(_searchQuery))
+                            .map((e) {
+                          return ListTile(
+                            title: Text(e.name),
+                            subtitle: Text(page),
+                            onTap: () => Navigator.of(context).pop((page, e)),
+                          );
+                        }).toList() ??
+                        <Widget>[],
+                  )
+                  .toList(),
             ),
           ),
           Padding(
@@ -317,7 +326,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                     context: context,
                     builder: (context) => NameDialog(
                       validator: defaultNameValidator(context,
-                          state.page.exportPresets.map((e) => e.name).toList()),
+                          state.info.exportPresets.map((e) => e.name).toList()),
                     ),
                   );
                   if (name == null) return;
@@ -346,7 +355,7 @@ class _ExportPresetsDialogState extends State<ExportPresetsDialog> {
                 builder: (context, state) {
               if (state is! DocumentLoadSuccess) return Container();
               return Column(mainAxisSize: MainAxisSize.min, children: [
-                ...state.page.exportPresets
+                ...state.info.exportPresets
                     .where((element) => element.name.contains(_searchQuery))
                     .map((e) {
                   return Dismissible(

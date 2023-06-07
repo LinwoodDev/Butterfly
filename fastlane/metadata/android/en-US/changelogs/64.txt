@@ -14,7 +14,7 @@
 * Add layers ui
 * Add quality to image export dialog
 * Bump file version
-  * Painters and tool is now global instead of page specific and was moved to a info.json file
+  * Painters, export presets and tool are now global instead of page specific and was moved to a info.json file
   * Remove waypoint painter in favor of the navigator
 * Migrate more components to material 3
 * Rename native window title bar to native title bar

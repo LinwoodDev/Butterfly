@@ -183,6 +183,7 @@ AreaPreset _$AreaPresetFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AreaPreset {
+  String get page => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   double get quality => throw _privateConstructorUsedError;
   Area? get area => throw _privateConstructorUsedError;
@@ -199,7 +200,7 @@ abstract class $AreaPresetCopyWith<$Res> {
           AreaPreset value, $Res Function(AreaPreset) then) =
       _$AreaPresetCopyWithImpl<$Res, AreaPreset>;
   @useResult
-  $Res call({String name, double quality, Area? area});
+  $Res call({String page, String name, double quality, Area? area});
 
   $AreaCopyWith<$Res>? get area;
 }
@@ -217,11 +218,16 @@ class _$AreaPresetCopyWithImpl<$Res, $Val extends AreaPreset>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? page = null,
     Object? name = null,
     Object? quality = null,
     Object? area = freezed,
   }) {
     return _then(_value.copyWith(
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -258,7 +264,7 @@ abstract class _$$_AreaPresetCopyWith<$Res>
       __$$_AreaPresetCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, double quality, Area? area});
+  $Res call({String page, String name, double quality, Area? area});
 
   @override
   $AreaCopyWith<$Res>? get area;
@@ -275,11 +281,16 @@ class __$$_AreaPresetCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? page = null,
     Object? name = null,
     Object? quality = null,
     Object? area = freezed,
   }) {
     return _then(_$_AreaPreset(
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -299,11 +310,15 @@ class __$$_AreaPresetCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_AreaPreset implements _AreaPreset {
-  const _$_AreaPreset({this.name = '', this.quality = 1, this.area});
+  const _$_AreaPreset(
+      {this.page = 'default', this.name = '', this.quality = 1, this.area});
 
   factory _$_AreaPreset.fromJson(Map<String, dynamic> json) =>
       _$$_AreaPresetFromJson(json);
 
+  @override
+  @JsonKey()
+  final String page;
   @override
   @JsonKey()
   final String name;
@@ -315,7 +330,7 @@ class _$_AreaPreset implements _AreaPreset {
 
   @override
   String toString() {
-    return 'AreaPreset(name: $name, quality: $quality, area: $area)';
+    return 'AreaPreset(page: $page, name: $name, quality: $quality, area: $area)';
   }
 
   @override
@@ -323,6 +338,7 @@ class _$_AreaPreset implements _AreaPreset {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AreaPreset &&
+            (identical(other.page, page) || other.page == page) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.quality, quality) || other.quality == quality) &&
             (identical(other.area, area) || other.area == area));
@@ -330,7 +346,7 @@ class _$_AreaPreset implements _AreaPreset {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, quality, area);
+  int get hashCode => Object.hash(runtimeType, page, name, quality, area);
 
   @JsonKey(ignore: true)
   @override
@@ -348,13 +364,16 @@ class _$_AreaPreset implements _AreaPreset {
 
 abstract class _AreaPreset implements AreaPreset {
   const factory _AreaPreset(
-      {final String name,
+      {final String page,
+      final String name,
       final double quality,
       final Area? area}) = _$_AreaPreset;
 
   factory _AreaPreset.fromJson(Map<String, dynamic> json) =
       _$_AreaPreset.fromJson;
 
+  @override
+  String get page;
   @override
   String get name;
   @override

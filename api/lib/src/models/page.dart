@@ -5,7 +5,6 @@ import 'animation.dart';
 import 'area.dart';
 import 'background.dart';
 import 'element.dart';
-import 'export.dart';
 import 'waypoint.dart';
 
 part 'page.g.dart';
@@ -21,7 +20,6 @@ class DocumentPage with _$DocumentPage {
     @Default(Background.empty()) Background background,
     @Default([]) List<Waypoint> waypoints,
     @Default([]) List<Area> areas,
-    @Default([]) List<ExportPreset> exportPresets,
   }) = _DocumentPage;
 
   factory DocumentPage.fromJson(Map<String, dynamic> json) =>
@@ -37,10 +35,6 @@ class DocumentPage with _$DocumentPage {
 
   Set<String> getLayerNames() {
     return content.map((e) => e.layer).toSet();
-  }
-
-  ExportPreset? getExportPreset(String name) {
-    return exportPresets.firstWhereOrNull((e) => e.name == name);
   }
 
   AnimationTrack? getAnimation(String name) {

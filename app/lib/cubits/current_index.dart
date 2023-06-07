@@ -467,7 +467,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   Future<pw.Document> renderPDF(
     NoteData document,
-    DocumentPage page,
     DocumentInfo info, {
     required List<AreaPreset> areas,
     bool renderBackground = true,
@@ -476,8 +475,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     for (final preset in areas) {
       final areaName = preset.name;
       final quality = preset.quality;
-      final area = preset.area ?? page.getAreaByName(areaName);
-      if (area == null) {
+      final page = document.getPage(preset.page);
+      final area = preset.area ?? page?.getAreaByName(areaName);
+      if (area == null || page == null) {
         continue;
       }
       final pageFormat =

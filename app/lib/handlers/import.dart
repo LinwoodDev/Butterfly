@@ -2,14 +2,8 @@ part of 'handler.dart';
 
 class ImportHandler extends Handler<ImportPainter> {
   Offset _position = Offset.zero;
-  List<Renderer<PadElement>>? _renderers;
 
   ImportHandler(super.data);
-
-  @override
-  void dispose(DocumentBloc bloc) {
-    _renderers?.forEach((e) => e.dispose());
-  }
 
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
@@ -40,15 +34,10 @@ class ImportHandler extends Handler<ImportPainter> {
 
   @override
   Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
-    _renderers = _load(true);
     final state = context.getState();
     if (state == null) return;
-    await Future.wait(_renderers!.map((e) async {
-      e.setup(state.data, state.page);
-    }));
-    context.addDocumentEvent(ElementsCreated.renderers(_renderers
-        ?.map((e) => e.transform(position: _position) ?? e)
-        .toList()));
+    context.addDocumentEvent(ElementsCreated.renderers(
+        _load().map((e) => e.transform(position: _position) ?? e).toList()));
     context.addDocumentEvent(AreasCreated(data.areas
         .map((e) => e.copyWith(
               position: e.position + _position.toPoint(),
@@ -62,12 +51,10 @@ class ImportHandler extends Handler<ImportPainter> {
   }
 
   List<Renderer<PadElement>> _load([bool force = false]) {
-    if (_renderers != null && !force) return _renderers!;
-    _renderers = data.elements
+    return data.elements
         .map((e) => Renderer.fromInstance(e))
         .whereType<Renderer<PadElement>>()
         .toList();
-    return _renderers!;
   }
 
   @override

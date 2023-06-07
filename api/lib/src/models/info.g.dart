@@ -12,6 +12,11 @@ _$_DocumentInfo _$$_DocumentInfoFromJson(Map json) => _$_DocumentInfo(
                   (e) => Painter.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
+      exportPresets: (json['exportPresets'] as List<dynamic>?)
+              ?.map((e) =>
+                  ExportPreset.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const [],
       tool: json['tool'] == null
           ? const ToolOption()
           : ToolOption.fromJson(Map<String, dynamic>.from(json['tool'] as Map)),
@@ -20,5 +25,6 @@ _$_DocumentInfo _$$_DocumentInfoFromJson(Map json) => _$_DocumentInfo(
 Map<String, dynamic> _$$_DocumentInfoToJson(_$_DocumentInfo instance) =>
     <String, dynamic>{
       'painters': instance.painters.map((e) => e.toJson()).toList(),
+      'exportPresets': instance.exportPresets.map((e) => e.toJson()).toList(),
       'tool': instance.tool.toJson(),
     };

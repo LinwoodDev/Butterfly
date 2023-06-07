@@ -189,14 +189,16 @@ class HandHandler extends Handler<HandPainter> {
     final foregrounds = <Renderer>[];
     if (_movingElements.isNotEmpty && _currentMovePosition != null) {
       final renderers = _movingElements.map((e) {
+        final newRenderer = Renderer.fromInstance(e.element);
         final position = currentIndexCubit.getGridPosition(
             (e.rect?.topLeft ?? Offset.zero) + _currentMovePosition!,
             page,
             info);
 
         return _currentMovePosition == null
-            ? e
-            : (e.transform(position: position, relative: false) ?? e);
+            ? newRenderer
+            : (newRenderer.transform(position: position, relative: false) ??
+                newRenderer);
       }).toList();
       foregrounds.addAll(renderers);
     }

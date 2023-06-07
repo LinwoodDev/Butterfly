@@ -22,6 +22,7 @@ Map<String, dynamic> _$$_ExportPresetToJson(_$_ExportPreset instance) =>
     };
 
 _$_AreaPreset _$$_AreaPresetFromJson(Map json) => _$_AreaPreset(
+      page: json['page'] as String? ?? 'default',
       name: json['name'] as String? ?? '',
       quality: (json['quality'] as num?)?.toDouble() ?? 1,
       area: json['area'] == null
@@ -31,6 +32,7 @@ _$_AreaPreset _$$_AreaPresetFromJson(Map json) => _$_AreaPreset(
 
 Map<String, dynamic> _$$_AreaPresetToJson(_$_AreaPreset instance) =>
     <String, dynamic>{
+      'page': instance.page,
       'name': instance.name,
       'quality': instance.quality,
       'area': instance.area?.toJson(),

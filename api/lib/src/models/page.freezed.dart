@@ -25,7 +25,6 @@ mixin _$DocumentPage {
   Background get background => throw _privateConstructorUsedError;
   List<Waypoint> get waypoints => throw _privateConstructorUsedError;
   List<Area> get areas => throw _privateConstructorUsedError;
-  List<ExportPreset> get exportPresets => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,8 +43,7 @@ abstract class $DocumentPageCopyWith<$Res> {
       List<PadElement> content,
       Background background,
       List<Waypoint> waypoints,
-      List<Area> areas,
-      List<ExportPreset> exportPresets});
+      List<Area> areas});
 
   $BackgroundCopyWith<$Res> get background;
 }
@@ -68,7 +66,6 @@ class _$DocumentPageCopyWithImpl<$Res, $Val extends DocumentPage>
     Object? background = null,
     Object? waypoints = null,
     Object? areas = null,
-    Object? exportPresets = null,
   }) {
     return _then(_value.copyWith(
       animations: null == animations
@@ -91,10 +88,6 @@ class _$DocumentPageCopyWithImpl<$Res, $Val extends DocumentPage>
           ? _value.areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>,
-      exportPresets: null == exportPresets
-          ? _value.exportPresets
-          : exportPresets // ignore: cast_nullable_to_non_nullable
-              as List<ExportPreset>,
     ) as $Val);
   }
 
@@ -120,8 +113,7 @@ abstract class _$$_DocumentPageCopyWith<$Res>
       List<PadElement> content,
       Background background,
       List<Waypoint> waypoints,
-      List<Area> areas,
-      List<ExportPreset> exportPresets});
+      List<Area> areas});
 
   @override
   $BackgroundCopyWith<$Res> get background;
@@ -143,7 +135,6 @@ class __$$_DocumentPageCopyWithImpl<$Res>
     Object? background = null,
     Object? waypoints = null,
     Object? areas = null,
-    Object? exportPresets = null,
   }) {
     return _then(_$_DocumentPage(
       animations: null == animations
@@ -166,10 +157,6 @@ class __$$_DocumentPageCopyWithImpl<$Res>
           ? _value._areas
           : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>,
-      exportPresets: null == exportPresets
-          ? _value._exportPresets
-          : exportPresets // ignore: cast_nullable_to_non_nullable
-              as List<ExportPreset>,
     ));
   }
 }
@@ -182,13 +169,11 @@ class _$_DocumentPage extends _DocumentPage {
       final List<PadElement> content = const [],
       this.background = const Background.empty(),
       final List<Waypoint> waypoints = const [],
-      final List<Area> areas = const [],
-      final List<ExportPreset> exportPresets = const []})
+      final List<Area> areas = const []})
       : _animations = animations,
         _content = content,
         _waypoints = waypoints,
         _areas = areas,
-        _exportPresets = exportPresets,
         super._();
 
   factory _$_DocumentPage.fromJson(Map<String, dynamic> json) =>
@@ -233,18 +218,9 @@ class _$_DocumentPage extends _DocumentPage {
     return EqualUnmodifiableListView(_areas);
   }
 
-  final List<ExportPreset> _exportPresets;
-  @override
-  @JsonKey()
-  List<ExportPreset> get exportPresets {
-    if (_exportPresets is EqualUnmodifiableListView) return _exportPresets;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_exportPresets);
-  }
-
   @override
   String toString() {
-    return 'DocumentPage(animations: $animations, content: $content, background: $background, waypoints: $waypoints, areas: $areas, exportPresets: $exportPresets)';
+    return 'DocumentPage(animations: $animations, content: $content, background: $background, waypoints: $waypoints, areas: $areas)';
   }
 
   @override
@@ -259,9 +235,7 @@ class _$_DocumentPage extends _DocumentPage {
                 other.background == background) &&
             const DeepCollectionEquality()
                 .equals(other._waypoints, _waypoints) &&
-            const DeepCollectionEquality().equals(other._areas, _areas) &&
-            const DeepCollectionEquality()
-                .equals(other._exportPresets, _exportPresets));
+            const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
   @JsonKey(ignore: true)
@@ -272,8 +246,7 @@ class _$_DocumentPage extends _DocumentPage {
       const DeepCollectionEquality().hash(_content),
       background,
       const DeepCollectionEquality().hash(_waypoints),
-      const DeepCollectionEquality().hash(_areas),
-      const DeepCollectionEquality().hash(_exportPresets));
+      const DeepCollectionEquality().hash(_areas));
 
   @JsonKey(ignore: true)
   @override
@@ -295,8 +268,7 @@ abstract class _DocumentPage extends DocumentPage {
       final List<PadElement> content,
       final Background background,
       final List<Waypoint> waypoints,
-      final List<Area> areas,
-      final List<ExportPreset> exportPresets}) = _$_DocumentPage;
+      final List<Area> areas}) = _$_DocumentPage;
   const _DocumentPage._() : super._();
 
   factory _DocumentPage.fromJson(Map<String, dynamic> json) =
@@ -312,8 +284,6 @@ abstract class _DocumentPage extends DocumentPage {
   List<Waypoint> get waypoints;
   @override
   List<Area> get areas;
-  @override
-  List<ExportPreset> get exportPresets;
   @override
   @JsonKey(ignore: true)
   _$$_DocumentPageCopyWith<_$_DocumentPage> get copyWith =>

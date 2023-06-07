@@ -13,7 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'general.dart';
 import 'connections.dart';
 
-enum SettingsView { general, data, behaviors, personalization, remotes }
+enum SettingsView { general, data, behaviors, personalization, connections }
 
 class SettingsPage extends StatefulWidget {
   final bool isDialog;
@@ -131,7 +131,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             title:
                                 Text(AppLocalizations.of(context).connections),
                             selected: !isMobile
-                                ? _view == SettingsView.remotes
+                                ? _view == SettingsView.connections
                                 : false,
                             onTap: () {
                               if (isMobile) {
@@ -140,7 +140,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     .go('/settings/connections');
                               } else {
                                 setState(() {
-                                  _view = SettingsView.remotes;
+                                  _view = SettingsView.connections;
                                 });
                               }
                             }),
@@ -192,7 +192,7 @@ class _SettingsPageState extends State<SettingsPage> {
             case SettingsView.personalization:
               content = const PersonalizationSettingsPage(inView: true);
               break;
-            case SettingsView.remotes:
+            case SettingsView.connections:
               content = const ConnectionsSettingsPage(inView: true);
               break;
           }

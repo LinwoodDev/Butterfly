@@ -54,6 +54,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final page = current.data.getPage(event.pageName);
       if (page == null) return;
       current.currentIndexCubit.loadElements(current.data, page);
+      refresh();
       return _saveState(
         emit,
         current.copyWith(
@@ -559,36 +560,36 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ExportPresetCreated>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      if (current.page.getExportPreset(event.name) != null) return;
+      if (current.info.getExportPreset(event.name) != null) return;
       final preset = ExportPreset(name: event.name, areas: event.areas);
-      var currentDocument = current.page;
-      currentDocument = currentDocument.copyWith(
-          exportPresets: List<ExportPreset>.from(currentDocument.exportPresets)
+      var currentInfo = current.info;
+      currentInfo = currentInfo.copyWith(
+          exportPresets: List<ExportPreset>.from(currentInfo.exportPresets)
             ..add(preset));
-      _saveState(emit, current.copyWith(page: currentDocument));
+      _saveState(emit, current.copyWith(info: currentInfo));
     });
     on<ExportPresetUpdated>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      var currentPage = current.page;
-      final presets = currentPage.exportPresets.map((e) {
+      var currentInfo = current.info;
+      final presets = currentInfo.exportPresets.map((e) {
         if (e.name == event.name) {
           return e.copyWith(areas: event.areas);
         }
         return e;
       }).toList();
-      currentPage = currentPage.copyWith(exportPresets: presets);
-      _saveState(emit, current.copyWith(page: currentPage));
+      currentInfo = currentInfo.copyWith(exportPresets: presets);
+      _saveState(emit, current.copyWith(info: currentInfo));
     });
     on<ExportPresetRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      var currentPage = current.page;
-      currentPage = currentPage.copyWith(
-          exportPresets: currentPage.exportPresets
+      var currentInfo = current.info;
+      currentInfo = currentInfo.copyWith(
+          exportPresets: currentInfo.exportPresets
               .where((element) => element.name != event.name)
               .toList());
-      _saveState(emit, current.copyWith(page: currentPage));
+      _saveState(emit, current.copyWith(info: currentInfo));
     });
     on<CurrentAreaChanged>((event, emit) {
       final current = state;
