@@ -48,10 +48,11 @@ class TextRenderer extends Renderer<TextElement> {
   }
 
   @override
-  FutureOr<void> setup(NoteData document, DocumentPage page) async {
+  FutureOr<void> setup(
+      NoteData document, AssetService assetService, DocumentPage page) async {
     _createPainter(document, page);
     _updateRect();
-    await super.setup(document, page);
+    await super.setup(document, assetService, page);
     _updateRect();
   }
 

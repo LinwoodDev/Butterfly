@@ -8,14 +8,10 @@ class ShapeHandler extends Handler {
 
   @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-      NoteData document, DocumentPage page, DocumentInfo info,
-      [Area? currentArea]) {
-    return elements.values
-        .map((e) => ShapeRenderer(e)..setup(document, page))
-        .toList()
-      ..addAll(submittedElements
-          .map((e) => ShapeRenderer(e)..setup(document, page)));
-  }
+          NoteData document, DocumentPage page, DocumentInfo info,
+          [Area? currentArea]) =>
+      elements.values.map((e) => ShapeRenderer(e)).toList()
+        ..addAll(submittedElements.map((e) => ShapeRenderer(e)));
 
   @override
   void resetInput(DocumentBloc bloc) {

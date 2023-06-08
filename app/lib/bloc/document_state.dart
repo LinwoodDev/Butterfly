@@ -29,6 +29,7 @@ abstract class DocumentLoaded extends DocumentState {
   final DocumentInfo info;
   final String pageName;
   final FileMetadata metadata;
+  final AssetService assetService;
 
   set page(DocumentPage page) => data.setPage(page);
   set metadata(FileMetadata metadata) => data.setMetadata(metadata);
@@ -36,9 +37,11 @@ abstract class DocumentLoaded extends DocumentState {
   DocumentLoaded(this.data,
       {DocumentPage? page,
       required this.pageName,
+      AssetService? assetService,
       FileMetadata? metadata,
       DocumentInfo? info})
       : page = page ?? data.getPage(pageName) ?? DocumentDefaults.createPage(),
+        assetService = assetService ?? AssetService(data),
         metadata =
             metadata ?? data.getMetadata() ?? DocumentDefaults.createMetadata(),
         info = info ?? data.getInfo() ?? DocumentDefaults.createInfo();
@@ -76,6 +79,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
 
   DocumentLoadSuccess(super.data,
       {super.page,
+      super.assetService,
       required super.pageName,
       super.metadata,
       super.info,
@@ -128,6 +132,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
   }) =>
       DocumentLoadSuccess(
         data,
+        assetService: assetService,
         page: page ?? this.page,
         pageName: pageName ?? this.pageName,
         metadata: metadata ?? this.metadata,
@@ -192,13 +197,21 @@ class DocumentPresentationState extends DocumentLoaded {
 
   DocumentPresentationState(
       DocumentBloc bloc, this.oldState, this.track, this.fullScreen,
-      {this.frame = 0, super.metadata, super.page, required super.pageName})
+      {this.frame = 0,
+      super.metadata,
+      super.page,
+      required super.pageName,
+      required super.assetService})
       : handler = PresentationStateHandler(track, bloc),
         super(oldState.data);
 
   DocumentPresentationState.withHandler(
       this.handler, this.oldState, this.track, this.fullScreen,
-      {this.frame = 0, super.metadata, super.page, required super.pageName})
+      {this.frame = 0,
+      super.metadata,
+      super.page,
+      required super.pageName,
+      required super.assetService})
       : super(oldState.data);
 
   @override
@@ -215,6 +228,7 @@ class DocumentPresentationState extends DocumentLoaded {
         oldState,
         track,
         fullScreen,
+        assetService: assetService,
         frame: frame ?? this.frame,
         metadata: metadata,
         page: page,

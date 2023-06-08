@@ -72,9 +72,10 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
     if (state is! DocumentLoadSuccess) return;
     final page = state.page;
     final document = state.data;
+    final assetService = state.assetService;
     final renderers = await Future.wait(elements.map((e) async {
       final renderer = Renderer.fromInstance(e);
-      await renderer.setup(document, page);
+      await renderer.setup(document, assetService, page);
       return renderer;
     }).toList());
     // ignore: use_build_context_synchronously

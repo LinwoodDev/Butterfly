@@ -24,13 +24,14 @@ class StampHandler extends Handler<StampPainter> {
   ButterflyComponent? getComponent(NoteData document) =>
       document.getPack(data.component.pack)?.getComponent(data.component.name);
 
-  Future<void> _loadComponent(NoteData document, DocumentPage page) async {
+  Future<void> _loadComponent(
+      NoteData document, AssetService assetService, DocumentPage page) async {
     _position = Offset.zero;
     _component = getComponent(document);
     if (_component == null) return;
     _elements = await Future.wait(_component!.elements.map((e) async {
       final element = Renderer.fromInstance(e);
-      element.setup(document, page);
+      element.setup(document, assetService, page);
       return element;
     })).then((value) => value.toList());
     Rect? rect;
@@ -57,7 +58,7 @@ class StampHandler extends Handler<StampPainter> {
         .getCurrentIndexCubit()
         .getGridPosition(global, state.page, state.info);
     final local = transform.globalToLocal(grid);
-    _loadComponent(state.data, state.page);
+    _loadComponent(state.data, state.assetService, state.page);
     _position = local;
     context.refresh();
   }

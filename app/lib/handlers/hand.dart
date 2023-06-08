@@ -189,16 +189,12 @@ class HandHandler extends Handler<HandPainter> {
     final foregrounds = <Renderer>[];
     if (_movingElements.isNotEmpty && _currentMovePosition != null) {
       final renderers = _movingElements.map((e) {
-        final newRenderer = Renderer.fromInstance(e.element);
         final position = currentIndexCubit.getGridPosition(
-            (e.rect?.topLeft ?? Offset.zero) + _currentMovePosition!,
+            (e.rect?.center ?? Offset.zero) + _currentMovePosition!,
             page,
             info);
 
-        return _currentMovePosition == null
-            ? newRenderer
-            : (newRenderer.transform(position: position, relative: false) ??
-                newRenderer);
+        return e.transform(position: position, relative: false) ?? e;
       }).toList();
       foregrounds.addAll(renderers);
     }
@@ -232,12 +228,13 @@ class HandHandler extends Handler<HandPainter> {
     if (state is! DocumentLoadSuccess) return;
     final page = state.page;
     final cubit = state.currentIndexCubit;
-    final tool = cubit.state.cameraViewport.tool;
     final current = _movingElements
         .map((e) {
-          var position = (e.rect?.topLeft ?? Offset.zero) +
-              (_currentMovePosition ?? Offset.zero);
-          position = tool.getGridPosition(position, page, state.info, cubit);
+          var position = cubit.getGridPosition(
+              (e.rect?.center ?? Offset.zero) +
+                  (_currentMovePosition ?? Offset.zero),
+              page,
+              state.info);
           return e.transform(position: position, relative: false) ?? e;
         })
         .map((e) => e.element)
@@ -431,7 +428,7 @@ class HandHandler extends Handler<HandPainter> {
       _rotation = currentRotation;
       context
           .getCurrentIndexCubit()
-          .updateTool(state.data, state.page, toolState);
+          .updateTool(state.data, state.page, state.assetService, toolState);
       return;
     }
     if (_transformMode != null) {

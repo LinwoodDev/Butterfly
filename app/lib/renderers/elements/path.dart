@@ -11,7 +11,8 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   Paint buildPaint([DocumentPage? page, bool foreground = false]);
 
   @override
-  FutureOr<void> setup(NoteData document, DocumentPage page) {
+  FutureOr<void> setup(
+      NoteData document, AssetService assetService, DocumentPage page) {
     final current = element as PathElement;
     final points = current.points;
     final property = current.property;
@@ -26,7 +27,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     }
     rect = Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
         bottomRightCorner.dx, bottomRightCorner.dy);
-    super.setup(document, page);
+    super.setup(document, assetService, page);
   }
 
   @override

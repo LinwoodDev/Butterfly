@@ -41,6 +41,7 @@ import '../actions/previous.dart';
 import '../actions/primary.dart';
 import '../main.dart';
 import '../models/viewport.dart';
+import '../services/asset.dart';
 import 'changes.dart';
 import 'view.dart';
 import 'zoom.dart';
@@ -179,10 +180,11 @@ class _ProjectPageState extends State<ProjectPage> {
       final page = document.getPage(pageName) ?? DocumentDefaults.createPage();
       final renderers =
           page.content.map((e) => Renderer.fromInstance(e)).toList();
-      await Future.wait(
-          renderers.map((e) async => await e.setup(document!, page)));
+      final assetService = AssetService(document);
+      await Future.wait(renderers
+          .map((e) async => await e.setup(document!, assetService, page)));
       final background = Renderer.fromInstance(page.background);
-      await background.setup(document, page);
+      await background.setup(document, assetService, page);
       location ??= AssetLocation(
           path: widget.location?.path ?? '', remote: _remote?.identifier ?? '');
       setState(() {
@@ -190,7 +192,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
             CameraViewport.unbaked(ToolRenderer()), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
-            location!, background, renderers, page, pageName);
+            location!, background, renderers, assetService, page, pageName);
         _bloc?.load();
       });
     } catch (e) {

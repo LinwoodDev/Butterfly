@@ -18,6 +18,7 @@ import '../models/defaults.dart';
 import '../models/tool.dart';
 import '../models/viewport.dart';
 import '../renderers/renderer.dart';
+import '../services/asset.dart';
 
 part 'document_event.dart';
 part 'document_state.dart';
@@ -30,11 +31,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     AssetLocation location,
     Renderer<Background> background,
     List<Renderer<PadElement>> renderer, [
+    AssetService? assetService,
     DocumentPage? page,
     String? pageName,
   ]) : super(DocumentLoadSuccess(
           initial,
           page: page,
+          assetService: assetService,
           currentIndexCubit: currentIndexCubit,
           location: location,
           settingsCubit: settingsCubit,
@@ -53,7 +56,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       final page = current.data.getPage(event.pageName);
       if (page == null) return;
-      current.currentIndexCubit.loadElements(current.data, page);
+      current.currentIndexCubit
+          .loadElements(current.data, current.assetService, page);
       refresh();
       return _saveState(
         emit,
@@ -67,7 +71,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ToolChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      await current.currentIndexCubit.updateTool(current.data, current.page,
+      await current.currentIndexCubit.updateTool(
+          current.data,
+          current.page,
+          current.assetService,
           event.state ?? current.cameraViewport.tool.element);
       return _saveState(
         emit,
@@ -131,7 +138,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           if (updated != null) {
             for (var element in updated) {
               newRenderer = Renderer.fromInstance(element);
-              await newRenderer.setup(current.data, current.page);
+              await newRenderer.setup(
+                  current.data, current.assetService, current.page);
               oldRenderer = renderer;
               oldRenderer.dispose();
               renderers.add(newRenderer);
@@ -318,7 +326,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         if (!(current.embedding?.editable ?? true)) return;
         final Renderer<Background> background =
             Renderer.fromInstance(event.background);
-        await background.setup(current.data, current.page);
+        await background.setup(
+            current.data, current.assetService, current.page);
         await _saveState(
             emit,
             current.copyWith(
@@ -362,8 +371,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 e.layer == event.oldName ? e.copyWith(layer: event.newName) : e)
             .toList();
         final renderer = content.map((e) => Renderer.fromInstance(e)).toList();
-        await Future.wait(renderer
-            .map((e) async => await e.setup(current.data, current.page)));
+        await Future.wait(renderer.map((e) async =>
+            await e.setup(current.data, current.assetService, current.page)));
         await _saveState(
             emit,
             current.copyWith(
@@ -384,7 +393,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             List<Renderer<PadElement>>.from(current.renderers).map((e) async {
           if (e.element.layer == event.name) {
             var renderer = Renderer.fromInstance(e.element.copyWith(layer: ''));
-            await renderer.setup(current.data, current.page);
+            await renderer.setup(
+                current.data, current.assetService, current.page);
             return renderer;
           }
           return e;
@@ -465,8 +475,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           }
         }
         final renderer = content.map((e) => Renderer.fromInstance(e)).toList();
-        await Future.wait(renderer
-            .map((e) async => await e.setup(current.data, current.page)));
+        await Future.wait(renderer.map((e) async =>
+            await e.setup(current.data, current.assetService, current.page)));
         await _saveState(
             emit,
             current.copyWith(
@@ -675,6 +685,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         current,
         event.track,
         event.fullScreen,
+        assetService: current.assetService,
         pageName: current.pageName,
         page: current.page,
         metadata: current.metadata,
@@ -703,7 +714,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     var elements = cameraViewport.unbakedElements;
     if (unbakedElements != null) {
       for (var renderer in unbakedElements) {
-        await renderer.setup(current.data, current.page);
+        await renderer.setup(current.data, current.assetService, current.page);
       }
       elements = List<Renderer<PadElement>>.from(elements)
         ..addAll(unbakedElements);
@@ -738,7 +749,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   void refresh() {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
-    current.currentIndexCubit.refresh(current.data, current.page, current.info);
+    current.currentIndexCubit.refresh(
+        current.data, current.assetService, current.page, current.info);
   }
 
   Future<void> bake(
@@ -755,13 +767,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final currentIndexCubit = current.currentIndexCubit;
     final document = current.data;
     final page = current.page;
+    final assetService = current.assetService;
     currentIndexCubit.setSaveState(saved: true);
     final background = Renderer.fromInstance(page.background);
-    await background.setup(document, page);
+    await background.setup(document, assetService, page);
     final tool = ToolRenderer(const ToolState());
-    await tool.setup(document, page);
+    await tool.setup(document, assetService, page);
     currentIndexCubit.unbake(background: background, tool: tool);
-    currentIndexCubit.loadElements(document, page);
+    currentIndexCubit.loadElements(document, assetService, page);
     currentIndexCubit.init(this);
   }
 }

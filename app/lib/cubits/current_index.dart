@@ -22,6 +22,7 @@ import '../handlers/handler.dart';
 import '../models/tool.dart';
 import '../models/viewport.dart';
 import '../selections/selection.dart';
+import '../services/asset.dart';
 import '../theme.dart';
 import '../view_painter.dart';
 
@@ -120,7 +121,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final newForegrounds = handler.createForegrounds(this, docState.data,
         docState.page, docState.info, docState.currentArea);
     for (final r in newForegrounds) {
-      await r.setup(docState.data, docState.page);
+      await r.setup(docState.data, docState.assetService, docState.page);
     }
     emit(state.copyWith(
       index: state.index,
@@ -139,8 +140,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     _disposeTemporaryForegrounds();
     final temporaryForegrounds = handler.createForegrounds(this, docState.data,
         docState.page, docState.info, docState.currentArea);
-    await Future.wait(temporaryForegrounds
-        .map((r) async => await r.setup(docState.data, docState.page)));
+    await Future.wait(temporaryForegrounds.map((r) async =>
+        await r.setup(docState.data, docState.assetService, docState.page)));
     emit(state.copyWith(
       temporaryHandler: handler,
       temporaryForegrounds: temporaryForegrounds,
@@ -169,7 +170,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Future<void> refresh(NoteData document, DocumentPage page, DocumentInfo info,
+  Future<void> refresh(NoteData document, AssetService assetService,
+      DocumentPage page, DocumentInfo info,
       [Area? currentArea]) async {
     if (!isClosed) {
       _disposeForegrounds();
@@ -177,12 +179,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           ?.createForegrounds(this, document, page, info, currentArea);
       if (temporaryForegrounds != null) {
         await Future.wait(temporaryForegrounds
-            .map((e) async => await e.setup(document, page)));
+            .map((e) async => await e.setup(document, assetService, page)));
       }
       final foregrounds = state.handler
           .createForegrounds(this, document, page, info, currentArea);
-      await Future.wait(
-          foregrounds.map((e) async => await e.setup(document, page)));
+      await Future.wait(foregrounds
+          .map((e) async => await e.setup(document, assetService, page)));
       emit(state.copyWith(
         temporaryForegrounds: temporaryForegrounds,
         foregrounds: foregrounds,
@@ -271,8 +273,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       _disposeTemporaryForegrounds();
       final temporaryForegrounds = handler.createForegrounds(
           this, document, page, blocState.info, currentArea);
-      await Future.wait(
-          temporaryForegrounds.map((e) async => await e.setup(document, page)));
+      await Future.wait(temporaryForegrounds.map(
+          (e) async => await e.setup(document, blocState.assetService, page)));
       emit(state.copyWith(
         temporaryHandler: handler,
         temporaryForegrounds: temporaryForegrounds,
@@ -446,11 +448,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             background: background)));
   }
 
-  Future<void> loadElements(NoteData document, DocumentPage page) async {
+  Future<void> loadElements(
+      NoteData document, AssetService assetService, DocumentPage page) async {
     final renderers =
         page.content.map((e) => Renderer.fromInstance(e)).toList();
-    await Future.wait(
-        renderers.map((e) async => await e.setup(document, page)));
+    await Future.wait(renderers
+        .map((e) async => await e.setup(document, assetService, page)));
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.withUnbaked(renderers)));
   }
@@ -563,10 +566,10 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(temporaryHandler: MoveHandler()));
   }
 
-  FutureOr<void> updateTool(
-      NoteData document, DocumentPage page, ToolState toolState) async {
+  FutureOr<void> updateTool(NoteData document, DocumentPage page,
+      AssetService assetService, ToolState toolState) async {
     final renderer = ToolRenderer(toolState);
-    await renderer.setup(document, page);
+    await renderer.setup(document, assetService, page);
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.withTool(renderer)));
   }

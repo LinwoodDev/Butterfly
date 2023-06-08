@@ -43,14 +43,12 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  FutureOr<void> setup(NoteData document, DocumentPage page) async {
-    super.setup(document, page);
+  FutureOr<void> setup(
+      NoteData document, AssetService assetService, DocumentPage page) async {
+    super.setup(document, assetService, page);
     if (image != null) return;
     try {
-      final data = await element.getData(document);
-      if (data != null) {
-        image = await decodeImageFromList(Uint8List.fromList(data));
-      }
+      image = await assetService.getImage(element.source);
     } catch (_) {}
   }
 
@@ -118,5 +116,6 @@ class ImageRenderer extends Renderer<ImageElement> {
   @override
   void dispose() {
     image?.dispose();
+    image = null;
   }
 }

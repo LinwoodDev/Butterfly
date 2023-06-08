@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:butterfly/helpers/element_helper.dart';
@@ -24,6 +23,7 @@ import '../cubits/transform.dart';
 import '../helpers/xml_helper.dart';
 import '../models/label.dart';
 import '../models/tool.dart';
+import '../services/asset.dart';
 
 part 'backgrounds/box.dart';
 part 'backgrounds/empty.dart';
@@ -56,7 +56,8 @@ abstract class Renderer<T> {
   Renderer(this.element);
 
   @mustCallSuper
-  FutureOr<void> setup(NoteData document, DocumentPage page) async =>
+  FutureOr<void> setup(NoteData document, AssetService assetService,
+          DocumentPage page) async =>
       _updateArea(page);
 
   void dispose() {}

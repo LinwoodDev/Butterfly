@@ -44,8 +44,9 @@ class SvgRenderer extends Renderer<SvgElement> {
   }
 
   @override
-  FutureOr<void> setup(NoteData document, DocumentPage page) async {
-    super.setup(document, page);
+  FutureOr<void> setup(
+      NoteData document, AssetService assetService, DocumentPage page) async {
+    super.setup(document, assetService, page);
     final data = await element.getData(document);
     if (data != null) {
       pictureInfo = await vg.loadPicture(SvgStringLoader(data), null);

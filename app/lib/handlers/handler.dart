@@ -29,6 +29,7 @@ import '../models/viewport.dart';
 import '../renderers/cursors/eraser.dart';
 import '../renderers/cursors/label.dart';
 import '../renderers/renderer.dart';
+import '../services/asset.dart';
 import '../services/import.dart';
 import '../views/toolbars/color.dart';
 import '../views/toolbars/label.dart';

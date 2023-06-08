@@ -13,6 +13,7 @@
 * Add shortcut indication to painters
 * Add layers ui
 * Add quality to image export dialog
+* Add asset service to manage disposing of images
 * Bump file version
   * Painters, export presets and tool are now global instead of page specific and was moved to a info.json file
   * Remove waypoint painter in favor of the navigator
