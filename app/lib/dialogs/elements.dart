@@ -42,7 +42,12 @@ class ElementsDialog extends StatelessWidget {
               context
                   .read<CurrentIndexCubit>()
                   .fetchHandler<HandHandler>()
-                  ?.move(context.read<DocumentBloc>(), renderers, true);
+                  ?.move(
+                      context.read<DocumentBloc>(),
+                      renderers
+                          .map((e) => Renderer.fromInstance(e.element))
+                          .toList(),
+                      true);
             },
             child: Text(AppLocalizations.of(context).duplicate),
           ),

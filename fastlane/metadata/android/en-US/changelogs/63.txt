@@ -9,3 +9,5 @@
 * Fix name and description not updating in property view
 * Show only window if title bar was set ([#385](https://github.com/LinwoodDev/Butterfly/issues/385))
 * Remove tab shortcut to reset the document
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0

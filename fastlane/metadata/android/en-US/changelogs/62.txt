@@ -11,3 +11,5 @@
 * Disallow saving in json format
 * Remove save and load dialog (including load and saving from clipboard)
 * Upgrade to flutter 3.10
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0
