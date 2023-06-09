@@ -1,6 +1,6 @@
 ---
-title: "Представление"
-sidebar_label: "Представление"
+title: "Путевая точка"
+sidebar_label: "Путевая точка"
 sidebar_position: 5
 ---
 

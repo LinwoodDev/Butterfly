@@ -1,6 +1,6 @@
 ---
-title: "Prezentare"
-sidebar_label: "Prezentare"
+title: "Punct"
+sidebar_label: "Punct"
 sidebar_position: 5
 ---
 

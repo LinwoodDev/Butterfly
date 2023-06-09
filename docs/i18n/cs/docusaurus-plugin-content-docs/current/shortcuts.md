@@ -25,7 +25,6 @@ Existuje několik zkratek, které můžete použít v editoru. Některé z nich 
 * `Ctrl` + `P`: Otevřít dialog barevné palety
 * `Ctrl` + `B`: Otevřít dialog na pozadí
 * `Ctrl` + `Shift` + `A`: dialogové okno
-* `Ctrl` + `L`: Otevřené vrstvy
 * `Ctrl` + `S`: Uložit
 * `Alt` + `S`: Změna cesty
 * `Ctrl` + (`1` - `0`) ): Přepnout na malování

@@ -25,7 +25,6 @@ Det er noen snarveier du kan benytte i editoren. Noen av dem er skrevet under kn
 * `Ctrl` + `P`: Automatisk fargepalett dialog
 * `Ctrl` + `B`: Åpne bakgrunnsdialog
 * `Ctrl` + `Shift` + `A`: Åpne områder dialog
-* `Ctrl` + `L`: Åpne lag-dialog
 * `Ctrl` + `S`: Lagre
 * `Alt` + `S`: Endre bane
 * `Ctrl` + (`1` - `0`): Bytt til maling

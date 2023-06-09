@@ -1,6 +1,6 @@
 ---
-title: "プレゼンテーション"
-sidebar_label: "プレゼンテーション"
+title: "通過点"
+sidebar_label: "通過点"
 sidebar_position: 5
 ---
 

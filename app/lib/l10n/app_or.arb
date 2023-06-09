@@ -348,7 +348,7 @@
   "syncRootDirectory": "Sync root directory",
   "penOnlyInput": "Pen only input",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Native window title bar",
+  "nativeTitleBar": "Native title bar",
   "syncMode": "Sync mode",
   "connection": "Connection",
   "always": "Always",
@@ -497,5 +497,9 @@
   "captureThumbnail": "Capture thumbnail",
   "capturedThumbnail": "Successfully captured thumbnail",
   "chooseLabelMode": "Choose label mode",
-  "foreground": "Foreground"
+  "foreground": "Foreground",
+  "version": "Version",
+  "repository": "Repository",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }

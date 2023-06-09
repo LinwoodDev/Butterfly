@@ -25,7 +25,6 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 * `Ctrl` + `P`: Avaa väripaletti valintaikkuna
 * `Ctrl` + `B`: Avaa taustaikkuna
 * `Ctrl` + `Vaihto` + `A`: Avaa alueet -valintaikkuna
-* `Ctrl` + `L`: Avoimet kerrokset -valintaikkuna
 * `Ctrl` + `S`: Tallenna
 * `Alt` + `S`: Muuta polkua
 * `Ctrl` + (`1` - `0`): Vaihda maalariin

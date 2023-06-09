@@ -1,6 +1,6 @@
 ---
-title: "Præsentation"
-sidebar_label: "Præsentation"
+title: "Waypoint"
+sidebar_label: "Waypoint"
 sidebar_position: 5
 ---
 

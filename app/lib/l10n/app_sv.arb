@@ -348,7 +348,7 @@
   "syncRootDirectory": "Synkronisera rotkatalog",
   "penOnlyInput": "Endast penna inmatning",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Namnfält för infödda fönster",
+  "nativeTitleBar": "Namnfält med ursprungsbeteckning",
   "syncMode": "Synkronisera läge",
   "connection": "Anslutning",
   "always": "Alltid",
@@ -497,5 +497,9 @@
   "captureThumbnail": "Fånga miniatyrbild",
   "capturedThumbnail": "Framgångsrikt fångad miniatyrbild",
   "chooseLabelMode": "Välj etikettläge",
-  "foreground": "Förgrund"
+  "foreground": "Förgrund",
+  "version": "Version",
+  "repository": "Utveckling",
+  "pages": "Sidor",
+  "navigator": "Navigator"
 }

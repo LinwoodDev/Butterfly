@@ -348,7 +348,7 @@
   "syncRootDirectory": "Synkroniser rodmappen",
   "penOnlyInput": "Kun pen input",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Lokal vindues titellinje",
+  "nativeTitleBar": "Lokal titellinje",
   "syncMode": "Synkroniser tilstand",
   "connection": "Forbindelse",
   "always": "Altid",
@@ -497,5 +497,9 @@
   "captureThumbnail": "Optag miniature",
   "capturedThumbnail": "Miniaturebillede med succes",
   "chooseLabelMode": "Vælg etiket tilstand",
-  "foreground": "Forgrund"
+  "foreground": "Forgrund",
+  "version": "Version",
+  "repository": "Lagre",
+  "pages": "Sider",
+  "navigator": "Navigator"
 }

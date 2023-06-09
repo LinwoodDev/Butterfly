@@ -348,7 +348,7 @@
   "syncRootDirectory": "Синхронізація кореневого каталогу",
   "penOnlyInput": "Тільки введення Pen",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Заголовкова панель вікна",
+  "nativeTitleBar": "Область заголовка",
   "syncMode": "Режим синхронізації",
   "connection": "З'єднання",
   "always": "Завжди",
@@ -497,5 +497,9 @@
   "captureThumbnail": "Захопити ескіз",
   "capturedThumbnail": "Успішно захоплено ескіз",
   "chooseLabelMode": "Виберіть режим мітки",
-  "foreground": "Активний режим"
+  "foreground": "Активний режим",
+  "version": "Версія",
+  "repository": "Репозиторій",
+  "pages": "Сторінки",
+  "navigator": "Navigator"
 }

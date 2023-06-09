@@ -348,7 +348,7 @@
   "syncRootDirectory": "Synchronizovat kořenový adresář",
   "penOnlyInput": "Pen pouze vstup",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Nativní záhlaví okna",
+  "nativeTitleBar": "Nativní titulek",
   "syncMode": "Režim synchronizace",
   "connection": "Připojení",
   "always": "Vždy",
@@ -497,5 +497,9 @@
   "captureThumbnail": "Snímat miniaturu",
   "capturedThumbnail": "Náhledy úspěšně zachyceny",
   "chooseLabelMode": "Zvolte mód popisku",
-  "foreground": "Popředí"
+  "foreground": "Popředí",
+  "version": "Verze",
+  "repository": "Repozitář",
+  "pages": "Stránky",
+  "navigator": "Navigator"
 }

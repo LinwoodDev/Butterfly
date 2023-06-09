@@ -3,7 +3,7 @@ title: "Shortcuts"
 sidebar_position: 2
 ---
 
-There are a few shortcuts that you can use in the editor. Some of them are written below the buttons. Some of them are written below the buttons.
+There are a few shortcuts that you can use in the editor. Some of them are written below the buttons.
 
 ## 一般
 

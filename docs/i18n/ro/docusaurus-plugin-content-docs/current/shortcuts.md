@@ -25,7 +25,6 @@ Există câteva comenzi rapide pe care le poți folosi în editor. Unele dintre 
 * `Ctrl` + `P`: Deschide paleta de culori
 * `Ctrl` + `B`: Deschide dialogul de fundal
 * `Ctrl` + `Shift` + `A`: Dialog zone deschise
-* `Ctrl` + `L`: Deschidere dialog straturi
 * `Ctrl` + `S`: Salvare
 * `Alt` + `S`: Schimbare cale
 * `Ctrl` + (`1` - `0`): Comutator la pictor

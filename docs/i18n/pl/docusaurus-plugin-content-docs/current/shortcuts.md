@@ -25,7 +25,6 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 * `Ctrl` + `P`: Otwórz okno dialogowe palety kolorów
 * `Ctrl` + `B`: Otwórz okno w tle
 * `Ctrl` + `Shift` + `A`: Otwarte okno dialogowe
-* `Ctrl` + `L`: Otwarte okno dialogowe
 * `Ctrl` + `S`: Zapisz
 * `Alt` + `S`: Zmień ścieżkę
 * `Ctrl` + (`1` - `0`): Przełącz na malarz

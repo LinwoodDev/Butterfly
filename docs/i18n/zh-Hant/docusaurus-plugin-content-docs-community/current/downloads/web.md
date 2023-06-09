@@ -25,4 +25,4 @@ This is a progressive web application. You can install it on your browser and us
 
 ## Versions
 
-The main and the preview (develop) versions of Butterfly are not the same as the stable and nightly versions. They are not directly associated with a release. They are updated as soon as a new commit is pushed to the repository. They are not directly associated with a release. They are updated as soon as a new commit is pushed to the repository.
+The main and the preview (develop) versions of Butterfly are not the same as the stable and nightly versions. They are not directly associated with a release. They are updated as soon as a new commit is pushed to the repository.

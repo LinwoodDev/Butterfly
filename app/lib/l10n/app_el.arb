@@ -348,7 +348,7 @@
   "syncRootDirectory": "Συγχρονισμός ριζικού καταλόγου",
   "penOnlyInput": "Είσοδος μόνο πένας",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Εγγενής γραμμή τίτλου παραθύρου",
+  "nativeTitleBar": "Εγγενής γραμμή τίτλου",
   "syncMode": "Λειτουργία συγχρονισμού",
   "connection": "Σύνδεση",
   "always": "Πάντα",
@@ -497,5 +497,9 @@
   "captureThumbnail": "Σύλληψη μικρογραφίας",
   "capturedThumbnail": "Επιτυχής λήψη μικρογραφίας",
   "chooseLabelMode": "Επιλέξτε λειτουργία ετικέτας",
-  "foreground": "Προσκήνιο"
+  "foreground": "Προσκήνιο",
+  "version": "Έκδοση",
+  "repository": "Αποθετήριο",
+  "pages": "Σελίδες",
+  "navigator": "Navigator"
 }

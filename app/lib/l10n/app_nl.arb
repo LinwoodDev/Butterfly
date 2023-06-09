@@ -348,7 +348,7 @@
   "syncRootDirectory": "Synchroniseer hoofdmap",
   "penOnlyInput": "Alleen invoer pen",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Oorspronkelijke titelbalk",
+  "nativeTitleBar": "Oorspronkelijke titelbalk",
   "syncMode": "Synchronisatie modus",
   "connection": "Verbindingsinstellingen",
   "always": "altijd",
@@ -497,5 +497,9 @@
   "captureThumbnail": "Thumbnail opnemen",
   "capturedThumbnail": "Miniatuurweergave succesvol vastgelegd",
   "chooseLabelMode": "Kies labelmodus",
-  "foreground": "Voorgrond"
+  "foreground": "Voorgrond",
+  "version": "Versie",
+  "repository": "Bewaarplaats",
+  "pages": "Pagina's",
+  "navigator": "Navigator"
 }

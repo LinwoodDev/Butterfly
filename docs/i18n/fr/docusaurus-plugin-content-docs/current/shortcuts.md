@@ -25,7 +25,6 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 * `Ctrl` + `P`: Ouvrir la fenêtre de la palette de couleurs
 * `Ctrl` + `B`: Ouvrir la boîte de dialogue d'arrière-plan
 * `Ctrl` + `Maj` + `A`: Ouvrir la boîte de dialogue des zones
-* `Ctrl` + `L`: Ouvrir la boîte de dialogue des calques
 * `Ctrl` + `S`: Enregistrer
 * `Alt` + `S`: Changer le chemin
 * `Ctrl` + (`1` - `0`) : Basculer vers le peintre

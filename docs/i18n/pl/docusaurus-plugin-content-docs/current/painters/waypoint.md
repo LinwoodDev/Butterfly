@@ -1,6 +1,6 @@
 ---
-title: "Prezentacja"
-sidebar_label: "Prezentacja"
+title: "Punkt drogi"
+sidebar_label: "Punkt drogi"
 sidebar_position: 5
 ---
 

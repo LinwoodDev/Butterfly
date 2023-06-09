@@ -348,7 +348,7 @@
   "syncRootDirectory": "Kök dizini eşitle",
   "penOnlyInput": "Sadece kalem girişi",
   "inputGestures": "Giriş hareketleri",
-  "nativeWindowTitleBar": "Yerel pencere başlık çubuğu",
+  "nativeTitleBar": "Native title bar",
   "syncMode": "Eşitleme kipi",
   "connection": "Bağlantı",
   "always": "Her zaman",
@@ -497,5 +497,9 @@
   "captureThumbnail": "Capture thumbnail",
   "capturedThumbnail": "Successfully captured thumbnail",
   "chooseLabelMode": "Choose label mode",
-  "foreground": "Foreground"
+  "foreground": "Foreground",
+  "version": "Sürüm",
+  "repository": "Repository",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }

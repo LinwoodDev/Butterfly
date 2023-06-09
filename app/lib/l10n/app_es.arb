@@ -348,7 +348,7 @@
   "syncRootDirectory": "Directorio raíz de sincronización",
   "penOnlyInput": "Entrada de Pen sólo",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Barra de título de ventana nativa",
+  "nativeTitleBar": "Barra de título nativa",
   "syncMode": "Modo de sincronización",
   "connection": "Conexión",
   "always": "Siempre",
@@ -497,5 +497,9 @@
   "captureThumbnail": "Capturar miniatura",
   "capturedThumbnail": "Miniatura capturada con éxito",
   "chooseLabelMode": "Elegir modo de etiqueta",
-  "foreground": "Primer plano"
+  "foreground": "Primer plano",
+  "version": "Versión",
+  "repository": "Repositorio",
+  "pages": "Páginas",
+  "navigator": "Navigator"
 }

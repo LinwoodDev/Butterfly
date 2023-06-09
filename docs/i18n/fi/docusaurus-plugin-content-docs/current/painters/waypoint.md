@@ -1,6 +1,6 @@
 ---
-title: "Esitys"
-sidebar_label: "Esitys"
+title: "Reittipiste"
+sidebar_label: "Reittipiste"
 sidebar_position: 5
 ---
 

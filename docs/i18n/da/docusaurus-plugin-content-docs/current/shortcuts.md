@@ -25,7 +25,6 @@ Der er et par genveje, som du kan bruge i editoren. Nogle af dem er skrevet unde
 * `Ctrl` + `P`: Åbn farvepalet dialog
 * `Ctrl` + `B`: Åbn baggrundsdialog
 * `Ctrl` + `Shift` + `A`: Åbne områder dialog
-* `Ctrl` + `L`: dialogen Åbn lag
 * `Ctrl` + `S`: Gem
 * `Alt` + `S`: Skift sti
 * `Ctrl` + (`1` - `0`): Skift til maler

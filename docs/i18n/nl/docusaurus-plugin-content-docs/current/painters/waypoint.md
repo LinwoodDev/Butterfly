@@ -1,6 +1,6 @@
 ---
-title: "Presentatie"
-sidebar_label: "Presentatie"
+title: "Routepunt"
+sidebar_label: "Routepunt"
 sidebar_position: 5
 ---
 

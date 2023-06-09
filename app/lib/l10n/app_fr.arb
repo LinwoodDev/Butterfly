@@ -348,7 +348,7 @@
   "syncRootDirectory": "Synchroniser le répertoire racine",
   "penOnlyInput": "Seules les entrées du stylet",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Barre de titre de la fenêtre native",
+  "nativeTitleBar": "Barre de titre native",
   "syncMode": "Mode de synchronisation",
   "connection": "Raccordement",
   "always": "Toujours",
@@ -497,5 +497,9 @@
   "captureThumbnail": "Capture miniature",
   "capturedThumbnail": "La vignette a été capturée avec succès",
   "chooseLabelMode": "Choisir le mode d'étiquette",
-  "foreground": "Premier plan"
+  "foreground": "Premier plan",
+  "version": "Version",
+  "repository": "Dépôt",
+  "pages": "Pages",
+  "navigator": "Navigator"
 }

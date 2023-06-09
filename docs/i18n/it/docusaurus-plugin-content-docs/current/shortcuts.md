@@ -25,7 +25,6 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `P`: Apri la finestra della tavolozza colori
 * `Ctrl` + `B`: Apri finestra di dialogo di sfondo
 * `Ctrl` + `Maiusc` + `A`: Apri aree finestra
-* `Ctrl` + `L`: Apri la finestra dei livelli
 * `Ctrl` + `S`: Salva
 * `Alt` + `S`: Cambia percorso
 * `Ctrl` + (`1` - `0`): Passa al pittore

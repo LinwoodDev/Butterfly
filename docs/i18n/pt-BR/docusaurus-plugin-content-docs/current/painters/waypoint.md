@@ -1,6 +1,6 @@
 ---
-title: "Apresentação"
-sidebar_label: "Apresentação"
+title: "Ponto"
+sidebar_label: "Ponto"
 sidebar_position: 5
 ---
 

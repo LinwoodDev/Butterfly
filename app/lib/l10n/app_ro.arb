@@ -348,7 +348,7 @@
   "syncRootDirectory": "Sincronizare director rădăcină",
   "penOnlyInput": "Numai introducerea stiloului injector",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "Bară titlu fereastră nativă",
+  "nativeTitleBar": "Bară titlu nativ",
   "syncMode": "Mod sincronizare",
   "connection": "Conexiune",
   "always": "Întotdeauna",
@@ -497,5 +497,9 @@
   "captureThumbnail": "Capturează miniatura",
   "capturedThumbnail": "Miniatură captată cu succes",
   "chooseLabelMode": "Alege modul etichetă",
-  "foreground": "prim-plan"
+  "foreground": "prim-plan",
+  "version": "Versiune",
+  "repository": "Depozit",
+  "pages": "Pagini",
+  "navigator": "Navigator"
 }

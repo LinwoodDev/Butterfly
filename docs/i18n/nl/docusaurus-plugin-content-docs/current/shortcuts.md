@@ -25,7 +25,6 @@ Er zijn een paar snelkoppelingen die je in de editor kunt gebruiken. Sommige erv
 * `Ctrl` + `P`: Open kleurenpalet venster
 * `Ctrl` + `B`: Open achtergronddialoog
 * `Ctrl` + `Shift` + `A`: Open gebieden dialoog
-* `Ctrl` + `L`: Open lagen dialoogvenster
 * `Ctrl` + `S`: Opslaan
 * `ALT` + `S`: pad wijzigen
 * `Ctrl` + (`1` - `0`): Schakel over naar schilder

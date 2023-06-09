@@ -348,7 +348,7 @@
   "syncRootDirectory": "مزامنة دليل الجذر",
   "penOnlyInput": "القلم الإدخال فقط",
   "inputGestures": "Input gestures",
-  "nativeWindowTitleBar": "شريط عنوان النافذة الأصلية",
+  "nativeTitleBar": "شريط العنوان الأصلي",
   "syncMode": "وضع المزامنة",
   "connection": "اتصال",
   "always": "دائما",
@@ -497,5 +497,9 @@
   "captureThumbnail": "التقط الصورة المصغرة",
   "capturedThumbnail": "تم التقاط الصورة المصغرة بنجاح",
   "chooseLabelMode": "اختيار وضع التسمية",
-  "foreground": "تمهيد"
+  "foreground": "تمهيد",
+  "version": "الإصدار",
+  "repository": "المستودع",
+  "pages": "الصفحات",
+  "navigator": "Navigator"
 }
