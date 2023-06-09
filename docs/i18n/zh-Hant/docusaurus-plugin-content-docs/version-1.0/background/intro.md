@@ -4,7 +4,7 @@ sidebar_label: "Introduction"
 ---
 
 
-You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available. You can customize the background of the paper. Click on the background icon in the view tool to add it.
+You can customize the background of the paper. You can customize the background of the paper. Click on the background icon in the view tool to add it.
 
 ## Configuration
 
