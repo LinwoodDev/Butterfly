@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/cubits/current_index.dart';
@@ -94,12 +96,12 @@ class _AppBarTitle extends StatelessWidget {
           _nameController.text = state.metadata.name;
         }
         _areaController.text = area?.name ?? '';
-        return Row(children: [
-          Flexible(
-              child: Align(
-            alignment: isMobile ? Alignment.center : Alignment.centerLeft,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 300),
+        return LayoutBuilder(
+          builder: (context, constraints) =>
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                  maxWidth: min(300.0, constraints.maxWidth - 8)),
               child: Row(
                 children: [
                   Flexible(
@@ -215,14 +217,14 @@ class _AppBarTitle extends StatelessWidget {
                 ],
               ),
             ),
-          )),
-          const SizedBox(width: 8),
-          if (!isMobile)
-            const Flexible(
-                child: EditToolbar(
-              isMobile: false,
-            )),
-        ]);
+            const SizedBox(width: 8),
+            if (!isMobile)
+              const Flexible(
+                  child: EditToolbar(
+                isMobile: false,
+              )),
+          ]),
+        );
       }),
     );
   }
