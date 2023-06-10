@@ -176,9 +176,11 @@ class ToolRenderer extends Renderer<ToolState> {
   Offset getGridPosition(Offset position, DocumentPage page, DocumentInfo info,
       CurrentIndexCubit cubit) {
     if (!element.gridEnabled) return position;
+    final transform = cubit.state.transformCubit.state;
+    final localPosition = transform.globalToLocal(position);
     final option = info.tool;
-    final x = (position.dx ~/ option.gridXSize) * option.gridXSize;
-    final y = (position.dy ~/ option.gridYSize) * option.gridYSize;
-    return Offset(x, y);
+    final x = (localPosition.dx ~/ option.gridXSize) * option.gridXSize;
+    final y = (localPosition.dy ~/ option.gridYSize) * option.gridYSize;
+    return transform.localToGlobal(Offset(x, y));
   }
 }

@@ -33,5 +33,6 @@
 * Fix duplicating core pack because of case sensitivity
 * Fix opening of non butterfly files
 * Fix position when moving of imported elements
+* Fix snapping in grid when zoomed
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0
