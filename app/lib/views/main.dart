@@ -65,6 +65,7 @@ class _ProjectPageState extends State<ProjectPage> {
   TransformCubit? _transformCubit;
   CurrentIndexCubit? _currentIndexCubit;
   RemoteStorage? _remote;
+  ImportService? _importService;
   final GlobalKey _viewportKey = GlobalKey();
   final _actions = <Type, Action<Intent>>{
     UndoIntent: UndoAction(),
@@ -193,6 +194,7 @@ class _ProjectPageState extends State<ProjectPage> {
             CameraViewport.unbaked(ToolRenderer()), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
             location!, background, renderers, assetService, page, pageName);
+        _importService = ImportService(context, _bloc);
         _bloc?.load();
       });
     } catch (e) {
@@ -205,6 +207,13 @@ class _ProjectPageState extends State<ProjectPage> {
             CameraViewport.unbaked(ToolRenderer()), null);
         _bloc = DocumentBloc.error(e.toString());
       });
+    }
+    WidgetsBinding.instance.addPostFrameCallback(_onAfterBuild);
+  }
+
+  void _onAfterBuild(Duration _) {
+    if (widget.type.isNotEmpty && widget.type != 'note') {
+      _importService?.load(type: widget.type, data: widget.data);
     }
   }
 
@@ -240,16 +249,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   value: TemplateFileSystem.fromPlatform(remote: _remote)),
               RepositoryProvider<PackFileSystem>.value(
                   value: PackFileSystem.fromPlatform(remote: _remote)),
-              RepositoryProvider(
-                create: (context) {
-                  final service = ImportService(context, _bloc);
-                  if (widget.type.isNotEmpty && widget.type != 'note') {
-                    service.load(type: widget.type, data: widget.data);
-                  }
-                  return service;
-                },
-                lazy: false,
-              )
+              RepositoryProvider.value(value: _importService!)
             ],
             child: GestureDetector(
               onTap: () {

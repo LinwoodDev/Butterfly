@@ -4,6 +4,7 @@ import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/dialogs/svg_export.dart';
 import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -170,7 +171,7 @@ class AreaContextMenu extends StatelessWidget {
                     .map((e) => e.transform(
                         position: -area.position.toOffset(), relative: true))
                     .map((e) => e?.element)
-                    .whereType<PadElement>()
+                    .whereNotNull()
                     .toList();
                 final document = state.data;
                 Navigator.of(context).pop();

@@ -51,7 +51,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<DocumentBloc>().state;
+    final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
     return StreamBuilder<NoteData>(
         stream: state.data.onChange,

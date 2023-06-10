@@ -15,7 +15,7 @@ class WaypointsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<DocumentBloc>().state;
+    final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
     const origin = Waypoint.origin;
     return BlocBuilder<TransformCubit, CameraTransform>(

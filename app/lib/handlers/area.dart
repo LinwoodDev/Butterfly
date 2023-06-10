@@ -152,11 +152,12 @@ class AreaHandler extends Handler<AreaPainter> {
     }
     var buildContext = context.buildContext;
     if (buildContext.mounted) {
-      _openAreaContextMenu(buildContext, localPosition, area);
+      await _openAreaContextMenu(buildContext, localPosition, area);
+      context.refresh();
     }
   }
 
-  void _openAreaContextMenu(
+  Future<void> _openAreaContextMenu(
           BuildContext context, Offset localPosition, Area area) =>
       showContextMenu(
         context: context,

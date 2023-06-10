@@ -151,6 +151,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
       !(embedding?.save ?? true) ||
       (!kIsWeb &&
           !location.absolute &&
+          location.fileType == AssetFileType.note &&
           (location.remote.isEmpty ||
               (settingsCubit.state
                       .getRemote(location.remote)
@@ -166,7 +167,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
         location.absolute ||
         location.fileType != AssetFileType.note) {
       return DocumentFileSystem.fromPlatform(remote: storage)
-          .importDocument(saveData(), path: location.pathWithLeadingSlash)
+          .importDocument(saveData())
           .then((value) => value.location)
         ..then(settingsCubit.addRecentHistory);
     }

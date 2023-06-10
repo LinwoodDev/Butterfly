@@ -205,7 +205,7 @@ class ImportService {
   }
 
   Future<NoteData?> importSvg(Uint8List bytes,
-      [Offset? position, NoteData? document]) async {
+      [Offset? position, NoteData? data]) async {
     try {
       final firstPos = position ?? Offset.zero;
       final contentString = String.fromCharCodes(bytes);
@@ -233,7 +233,7 @@ class ImportService {
             source: dataPath,
             position: firstPos.toPoint(),
           ),
-        ], choosePosition: position == null, document: document);
+        ], choosePosition: position == null, document: data);
       } catch (e, stackTrace) {
         showDialog<void>(
             context: context,
@@ -253,7 +253,7 @@ class ImportService {
   }
 
   Future<NoteData?> importPdf(Uint8List bytes,
-      [Offset? position, bool createAreas = false, NoteData? document]) async {
+      [Offset? position, bool createAreas = false, NoteData? data]) async {
     try {
       final firstPos = position ?? Offset.zero;
       final elements = <Uint8List>[];
@@ -266,7 +266,7 @@ class ImportService {
         final callback = await showDialog<PageDialogCallback>(
             context: context,
             builder: (context) => PagesDialog(pages: elements));
-        if (callback == null) return document;
+        if (callback == null) return data;
         final selectedElements = <ImageElement>[];
         final areas = <Area>[];
         var y = firstPos.dx;
@@ -277,10 +277,12 @@ class ImportService {
           final scale = 1 / callback.quality;
           final height = page.height;
           final width = page.width;
+          final assetPath = data!.addImage(png, 'png');
+          final dataPath = Uri.file(assetPath, windows: false).toString();
           selectedElements.add(ImageElement(
               height: height.toDouble(),
               width: width.toDouble(),
-              source: UriData.fromBytes(png, mimeType: 'image/png').toString(),
+              source: dataPath,
               constraints:
                   ElementConstraints.scaled(scaleX: scale, scaleY: scale),
               position: Point(firstPos.dx, y)));
@@ -292,12 +294,13 @@ class ImportService {
               name: localizations.pageIndex(areas.length + 1),
             ));
           }
+          y += height * scale;
         }
         return _submit(
           elements: selectedElements,
           areas: createAreas ? areas : [],
           choosePosition: position == null,
-          document: document,
+          document: data,
         );
       }
     } catch (e) {
