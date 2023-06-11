@@ -77,10 +77,8 @@ class ConnectionsSettingsPage extends StatelessWidget {
                         leading: remote.icon.isEmpty
                             ? null
                             : Image.memory(remote.icon),
-                        onTap: () {
-                          GoRouter.of(context).push(
-                              '/settings/connections/${Uri.encodeComponent(remote.identifier)}');
-                        },
+                        onTap: () => context.pushNamed('connection',
+                            pathParameters: {'id': remote.identifier}),
                         trailing: IconButton(
                           icon: remote.identifier == state.defaultRemote
                               ? const PhosphorIcon(PhosphorIconsFill.cloud)

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:butterfly/actions/change_path.dart';
+import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/services/import.dart';
@@ -353,6 +354,15 @@ class _MainPopupMenu extends StatelessWidget {
                     context, NewIntent(context, fromTemplate: true));
               },
               child: Text(AppLocalizations.of(context).templates),
+            ),
+          ],
+          if (state.embedding == null) ...[
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.gear),
+              shortcut: const SingleActivator(LogicalKeyboardKey.keyS,
+                  alt: true, control: true),
+              onPressed: () => openSettings(context),
+              child: Text(AppLocalizations.of(context).settings),
             ),
           ],
           if (state.embedding == null && (kIsWeb || !isWindow)) ...[

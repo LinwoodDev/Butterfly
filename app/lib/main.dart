@@ -186,6 +186,7 @@ class ButterflyApp extends StatelessWidget {
                       routes: [
                         GoRoute(
                           path: ':id',
+                          name: 'connection',
                           builder: (context, state) => ConnectionSettingsPage(
                               remote: state.pathParameters['id']!),
                         )

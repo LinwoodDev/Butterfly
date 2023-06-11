@@ -63,28 +63,28 @@ class BehaviorsSettingsPage extends StatelessWidget {
                             leading:
                                 const PhosphorIcon(PhosphorIconsLight.mouse),
                             title: Text(AppLocalizations.of(context).mouse),
-                            onTap: () => GoRouter.of(context)
-                                .go('/settings/behaviors/mouse'),
+                            onTap: () =>
+                                context.push('/settings/behaviors/mouse'),
                           ),
                           ListTile(
                             leading:
                                 const PhosphorIcon(PhosphorIconsLight.hand),
                             title: Text(AppLocalizations.of(context).touch),
-                            onTap: () => GoRouter.of(context)
-                                .go('/settings/behaviors/touch'),
+                            onTap: () =>
+                                context.push('/settings/behaviors/touch'),
                           ),
                           ListTile(
                             leading:
                                 const PhosphorIcon(PhosphorIconsLight.keyboard),
                             title: Text(AppLocalizations.of(context).keyboard),
-                            onTap: () => GoRouter.of(context)
-                                .go('/settings/behaviors/keyboard'),
+                            onTap: () =>
+                                context.push('/settings/behaviors/keyboard'),
                           ),
                           ListTile(
                             leading: const PhosphorIcon(PhosphorIconsLight.pen),
                             title: Text(AppLocalizations.of(context).pen),
-                            onTap: () => GoRouter.of(context)
-                                .go('/settings/behaviors/pen'),
+                            onTap: () =>
+                                context.push('/settings/behaviors/pen'),
                           ),
                         ]),
                   )),

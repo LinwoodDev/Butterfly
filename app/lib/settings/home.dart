@@ -13,7 +13,45 @@ import 'package:url_launcher/url_launcher.dart';
 import 'general.dart';
 import 'connections.dart';
 
-enum SettingsView { general, data, behaviors, personalization, connections }
+enum SettingsView {
+  general,
+  data,
+  behaviors,
+  personalization,
+  connections;
+
+  String getLocalizedName(BuildContext context) {
+    switch (this) {
+      case SettingsView.general:
+        return AppLocalizations.of(context).general;
+      case SettingsView.data:
+        return AppLocalizations.of(context).data;
+      case SettingsView.behaviors:
+        return AppLocalizations.of(context).behaviors;
+      case SettingsView.personalization:
+        return AppLocalizations.of(context).personalization;
+      case SettingsView.connections:
+        return AppLocalizations.of(context).connections;
+    }
+  }
+
+  PhosphorIconData getIcon() {
+    switch (this) {
+      case SettingsView.general:
+        return PhosphorIconsLight.gear;
+      case SettingsView.data:
+        return PhosphorIconsLight.database;
+      case SettingsView.behaviors:
+        return PhosphorIconsLight.faders;
+      case SettingsView.personalization:
+        return PhosphorIconsLight.monitor;
+      case SettingsView.connections:
+        return PhosphorIconsLight.cloud;
+    }
+  }
+
+  String get path => '/settings/$name';
+}
 
 class SettingsPage extends StatefulWidget {
   final bool isDialog;
@@ -41,6 +79,18 @@ class _SettingsPageState extends State<SettingsPage> {
         color: widget.isDialog ? Colors.transparent : null,
         child: LayoutBuilder(builder: (context, constraints) {
           final isMobile = constraints.maxWidth < 600;
+
+          void navigateTo(SettingsView view) {
+            if (isMobile) {
+              Navigator.of(context).pop();
+              context.go(view.path);
+            } else {
+              setState(() {
+                _view = view;
+              });
+            }
+          }
+
           var navigation = Column(children: [
             Header(
               title: Text(AppLocalizations.of(context).settings),
@@ -56,94 +106,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     controller: _scrollController,
                     shrinkWrap: true,
                     children: [
-                      ListTile(
-                        title: Text(AppLocalizations.of(context).general),
-                        leading: const PhosphorIcon(PhosphorIconsLight.gear),
-                        selected:
-                            !isMobile ? _view == SettingsView.general : false,
-                        onTap: () {
-                          if (isMobile) {
-                            Navigator.of(context).pop();
-                            GoRouter.of(context).go('/settings/general');
-                          } else {
-                            setState(() {
-                              _view = SettingsView.general;
-                            });
-                          }
-                        },
-                      ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context).data),
-                        leading:
-                            const PhosphorIcon(PhosphorIconsLight.database),
-                        selected:
-                            !isMobile ? _view == SettingsView.data : false,
-                        onTap: () {
-                          if (isMobile) {
-                            Navigator.of(context).pop();
-                            GoRouter.of(context).go('/settings/data');
-                          } else {
-                            setState(() {
-                              _view = SettingsView.data;
-                            });
-                          }
-                        },
-                      ),
-                      ListTile(
-                        title: Text(AppLocalizations.of(context).behaviors),
-                        leading: const PhosphorIcon(PhosphorIconsLight.faders),
-                        selected:
-                            !isMobile ? _view == SettingsView.behaviors : false,
-                        onTap: () {
-                          if (isMobile) {
-                            Navigator.of(context).pop();
-                            GoRouter.of(context).go('/settings/behaviors');
-                          } else {
-                            setState(() {
-                              _view = SettingsView.behaviors;
-                            });
-                          }
-                        },
-                      ),
-                      ListTile(
-                          leading:
-                              const PhosphorIcon(PhosphorIconsLight.monitor),
-                          title: Text(
-                              AppLocalizations.of(context).personalization),
-                          selected: !isMobile
-                              ? _view == SettingsView.personalization
-                              : false,
-                          onTap: () {
-                            if (isMobile) {
-                              Navigator.of(context).pop();
-                              GoRouter.of(context)
-                                  .go('/settings/personalization');
-                            } else {
-                              setState(() {
-                                _view = SettingsView.personalization;
-                              });
-                            }
-                          }),
-                      if (!kIsWeb)
-                        ListTile(
-                            leading:
-                                const PhosphorIcon(PhosphorIconsLight.cloud),
-                            title:
-                                Text(AppLocalizations.of(context).connections),
-                            selected: !isMobile
-                                ? _view == SettingsView.connections
-                                : false,
-                            onTap: () {
-                              if (isMobile) {
-                                Navigator.of(context).pop();
-                                GoRouter.of(context)
-                                    .go('/settings/connections');
-                              } else {
-                                setState(() {
-                                  _view = SettingsView.connections;
-                                });
-                              }
-                            }),
+                      ...SettingsView.values.map((view) => ListTile(
+                            leading: PhosphorIcon(view.getIcon()),
+                            title: Text(view.getLocalizedName(context)),
+                            onTap: () => navigateTo(view),
+                            selected: _view == view,
+                          )),
                       if (kIsWeb) ...[
                         const Divider(),
                         Padding(

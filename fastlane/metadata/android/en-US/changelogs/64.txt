@@ -15,11 +15,13 @@
 * Add quality to image export dialog
 * Add asset service to manage disposing of images
 * Add more space for edit toolbar
+* Add settings menu item button in top left corner
 * Bump file version
   * Painters, export presets and tool are now global instead of page specific and was moved to a info.json file
   * Remove waypoint painter in favor of the navigator
 * Migrate more components to material 3
 * Rename native window title bar to native title bar
+* Fix clearing history after navigating in behavior settings
 * Fix moving of elements
 * Fix migrating old documents
 * Fix exporting documents on android
