@@ -235,9 +235,9 @@ class LabelHandler extends Handler<LabelPainter>
     final element = context.element;
     final isEmpty = context.isEmpty ?? true;
     if (element != null) {
-      if (context.isCreating) {
+      if (context.isCreating && !isEmpty) {
         bloc.add(ElementsCreated([element]));
-      } else if (isEmpty) {
+      } else if (!context.isCreating && isEmpty) {
         bloc.add(ElementsRemoved([element]));
       }
     }
