@@ -37,5 +37,6 @@
 * Fix position when moving of imported elements
 * Fix snapping in grid when zoomed
 * Fix label created empty text elements
+* Fix backwards compatibility with stamp painter
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0

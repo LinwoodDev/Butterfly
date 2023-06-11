@@ -182,6 +182,15 @@ Map<String, dynamic> _legacyDocumentJsonMigrator(
         }
         return e;
       }).toList();
+      data['painters'] = List.from(data['painters'] as List).map((e) {
+        if (e['type'] == 'stamp') {
+          return {
+            ...e,
+            'component': null,
+          };
+        }
+        return e;
+      }).toList();
     }
   }
   return data;

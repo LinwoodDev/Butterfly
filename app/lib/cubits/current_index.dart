@@ -74,7 +74,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     } else {
       return state.temporaryHandler ?? state.handler;
     }
-  }
+  }  
 
   Offset getGridPosition(
       Offset position, DocumentPage page, DocumentInfo info) {
