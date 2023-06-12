@@ -18,7 +18,8 @@ class LayersView extends StatelessWidget {
       buildWhen: (previous, current) =>
           previous is DocumentLoadSuccess &&
           current is DocumentLoadSuccess &&
-          previous.currentLayer != current.currentLayer,
+          (previous.currentLayer != current.currentLayer ||
+              previous.invisibleLayers != current.invisibleLayers),
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
         final currentLayer = state.currentLayer;
@@ -65,10 +66,9 @@ class LayersView extends StatelessWidget {
                                 .read<DocumentBloc>()
                                 .add(CurrentLayerChanged(layer)),
                             leading: IconButton(
-                              icon: PhosphorIcon(
-                                  state.isLayerVisible(layers[index])
-                                      ? PhosphorIconsLight.eye
-                                      : PhosphorIconsLight.eyeSlash),
+                              icon: PhosphorIcon(state.isLayerVisible(layer)
+                                  ? PhosphorIconsLight.eye
+                                  : PhosphorIconsLight.eyeSlash),
                               onPressed: () {
                                 context
                                     .read<DocumentBloc>()

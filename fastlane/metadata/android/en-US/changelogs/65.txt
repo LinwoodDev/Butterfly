@@ -1,1 +1,2 @@
 * Add grid view
+* Fix layer view not updating when layer visibility changes
