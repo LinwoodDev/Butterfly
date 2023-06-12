@@ -2,6 +2,51 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.0 (2023-06-12)
+
+* Rebuild area painter handler
+  * Areas can now intersect
+* Add version to pack metadata
+* Add navigator ([#391](https://github.com/LinwoodDev/Butterfly/issues/391))
+  * Waypoints view
+  * Layers view
+  * Pages view
+  * Files view
+* Add pages
+* Add alpha to grid
+* Add alpha to label
+* Add dynamic height to toolbar
+* Add shortcut indication to painters
+* Add layers ui
+* Add quality to image export dialog
+* Add asset service to manage disposing of images
+* Add more space for edit toolbar
+* Add settings menu item button in top left corner
+* Bump file version
+  * Painters, export presets and tool are now global instead of page specific and was moved to a info.json file
+  * Remove waypoint painter in favor of the navigator
+* Migrate more components to material 3
+* Rename native window title bar to native title bar
+* Fix clearing history after navigating in behavior settings
+* Fix moving of elements
+* Fix migrating old documents
+* Fix exporting documents on android
+* Fix offset when selecting painters
+* Fix alpha in color toolbar
+* Fix creating default templates if directory doesn't exist
+* Fix temporary handler
+* Fix moving shapes
+* Fix default template
+* Fix changing color palette in color toolbar
+* Fix duplicating core pack because of case sensitivity
+* Fix opening of non butterfly files
+* Fix position when moving of imported elements
+* Fix snapping in grid when zoomed
+* Fix label created empty text elements
+* Fix backwards compatibility with stamp painter
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0
+
 ## 2.0.0-alpha.4 (2023-05-21)
 
 * Add markdown element
