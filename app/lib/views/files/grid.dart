@@ -36,6 +36,7 @@ class _FileEntityGridItem extends StatelessWidget {
     final leading = PhosphorIcon(
       icon,
       color: colorScheme.outline,
+      size: 48,
     );
     return Card(
       elevation: 5,
@@ -64,141 +65,29 @@ class _FileEntityGridItem extends StatelessWidget {
             vertical: 8,
             horizontal: 16,
           ),
-          width: 150,
-          height: 150,
+          width: 160,
+          height: 192,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: 32,
-                    height: 32,
-                    child: thumbnail != null
-                        ? Image.memory(
-                            thumbnail!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                leading,
-                          )
-                        : leading,
-                  ),
-                  MenuAnchor(
-                    builder: defaultMenuButton(),
-                    menuChildren: [
-                      if (remote != null)
-                        StreamBuilder<List<SyncFile>>(
-                          stream: syncService
-                              .getSync(remote.identifier)
-                              ?.filesStream,
-                          builder: (context, snapshot) {
-                            final currentStatus = snapshot.data
-                                ?.lastWhereOrNull((element) => entity
-                                    .location.pathWithLeadingSlash
-                                    .startsWith(
-                                        element.location.pathWithLeadingSlash))
-                                ?.status;
-                            return MenuItemButton(
-                              leadingIcon: PhosphorIcon(currentStatus.getIcon(),
-                                  color: currentStatus
-                                      .getColor(Theme.of(context).colorScheme)),
-                              child:
-                                  Text(currentStatus.getLocalizedName(context)),
-                              onPressed: () {
-                                syncService.getSync(remote.identifier)?.sync();
-                              },
-                            );
-                          },
-                        ),
-                      BlocBuilder<SettingsCubit, ButterflySettings>(
-                          builder: (context, state) {
-                        final starred = state.isStarred(entity.location);
-                        return MenuItemButton(
-                          onPressed: () {
-                            settingsCubit.toggleStarred(entity.location);
-                            onReload();
-                          },
-                          leadingIcon: starred
-                              ? const PhosphorIcon(PhosphorIconsFill.star)
-                              : const PhosphorIcon(PhosphorIconsLight.star),
-                          child: Text(starred
-                              ? AppLocalizations.of(context).unstar
-                              : AppLocalizations.of(context).star),
-                        );
-                      }),
-                      if (!editable)
-                        MenuItemButton(
-                          onPressed: () {
-                            onEdit(true);
-                            nameController.text = entity.fileName;
-                          },
-                          leadingIcon:
-                              const PhosphorIcon(PhosphorIconsLight.pencil),
-                          child: Text(AppLocalizations.of(context).rename),
-                        ),
-                      if (entity is AppDocumentFile)
-                        MenuItemButton(
-                          onPressed: () {
-                            try {
-                              final data = (entity as AppDocumentFile).data;
-                              saveData(context, data);
-                            } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    AppLocalizations.of(context).error,
-                                  ),
-                                ),
-                              );
-                            }
-                          },
-                          leadingIcon: const PhosphorIcon(
-                              PhosphorIconsLight.paperPlaneRight),
-                          child: Text(AppLocalizations.of(context).export),
-                        ),
-                      MenuItemButton(
-                        onPressed: onDelete,
-                        leadingIcon:
-                            const PhosphorIcon(PhosphorIconsLight.trash),
-                        child: Text(AppLocalizations.of(context).delete),
-                      ),
-                    ],
-                  ),
-                ],
+              SizedBox(
+                height: 64,
+                child: thumbnail != null
+                    ? Image.memory(
+                        thumbnail!,
+                        fit: BoxFit.contain,
+                        cacheWidth: 64,
+                        cacheHeight: 64,
+                        errorBuilder: (context, error, stackTrace) => leading,
+                      )
+                    : leading,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    SizedBox(
-                      height: 32,
-                      child: editable
-                          ? ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                maxWidth: 200,
-                              ),
-                              child: TextField(
-                                controller: nameController,
-                                autofocus: true,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                      color: colorScheme.onBackground,
-                                    ),
-                                onSubmitted: (value) async {
-                                  await fileSystem.renameAsset(
-                                      entity.location.path, value);
-                                  onEdit(false);
-                                  onReload();
-                                },
-                              ),
-                            )
-                          : Text(entity.fileName,
-                              maxLines: 1, overflow: TextOverflow.ellipsis),
-                    ),
                     SizedBox(
                       height: 16,
                       child: modifiedText != null
@@ -252,6 +141,134 @@ class _FileEntityGridItem extends StatelessWidget {
                               ),
                             )
                           : null,
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 32,
+                            child: editable
+                                ? ConstrainedBox(
+                                    constraints: const BoxConstraints(
+                                      maxWidth: 200,
+                                    ),
+                                    child: TextField(
+                                      controller: nameController,
+                                      autofocus: true,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                            color: colorScheme.onBackground,
+                                          ),
+                                      onSubmitted: (value) async {
+                                        await fileSystem.renameAsset(
+                                            entity.location.path, value);
+                                        onEdit(false);
+                                        onReload();
+                                      },
+                                    ),
+                                  )
+                                : Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      entity.fileName,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                          ),
+                        ),
+                        MenuAnchor(
+                          builder: defaultMenuButton(),
+                          menuChildren: [
+                            if (remote != null)
+                              StreamBuilder<List<SyncFile>>(
+                                stream: syncService
+                                    .getSync(remote.identifier)
+                                    ?.filesStream,
+                                builder: (context, snapshot) {
+                                  final currentStatus = snapshot.data
+                                      ?.lastWhereOrNull((element) => entity
+                                          .location.pathWithLeadingSlash
+                                          .startsWith(element
+                                              .location.pathWithLeadingSlash))
+                                      ?.status;
+                                  return MenuItemButton(
+                                    leadingIcon: PhosphorIcon(
+                                        currentStatus.getIcon(),
+                                        color: currentStatus.getColor(
+                                            Theme.of(context).colorScheme)),
+                                    child: Text(currentStatus
+                                        .getLocalizedName(context)),
+                                    onPressed: () {
+                                      syncService
+                                          .getSync(remote.identifier)
+                                          ?.sync();
+                                    },
+                                  );
+                                },
+                              ),
+                            BlocBuilder<SettingsCubit, ButterflySettings>(
+                                builder: (context, state) {
+                              final starred = state.isStarred(entity.location);
+                              return MenuItemButton(
+                                onPressed: () {
+                                  settingsCubit.toggleStarred(entity.location);
+                                  onReload();
+                                },
+                                leadingIcon: starred
+                                    ? const PhosphorIcon(PhosphorIconsFill.star)
+                                    : const PhosphorIcon(
+                                        PhosphorIconsLight.star),
+                                child: Text(starred
+                                    ? AppLocalizations.of(context).unstar
+                                    : AppLocalizations.of(context).star),
+                              );
+                            }),
+                            if (!editable)
+                              MenuItemButton(
+                                onPressed: () {
+                                  onEdit(true);
+                                  nameController.text = entity.fileName;
+                                },
+                                leadingIcon: const PhosphorIcon(
+                                    PhosphorIconsLight.pencil),
+                                child:
+                                    Text(AppLocalizations.of(context).rename),
+                              ),
+                            if (entity is AppDocumentFile)
+                              MenuItemButton(
+                                onPressed: () {
+                                  try {
+                                    final data =
+                                        (entity as AppDocumentFile).data;
+                                    saveData(context, data);
+                                  } catch (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          AppLocalizations.of(context).error,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                                leadingIcon: const PhosphorIcon(
+                                    PhosphorIconsLight.paperPlaneRight),
+                                child:
+                                    Text(AppLocalizations.of(context).export),
+                              ),
+                            MenuItemButton(
+                              onPressed: onDelete,
+                              leadingIcon:
+                                  const PhosphorIcon(PhosphorIconsLight.trash),
+                              child: Text(AppLocalizations.of(context).delete),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
