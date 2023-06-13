@@ -64,15 +64,15 @@ class ElementsRemoved extends DocumentEvent {
   List<Object?> get props => [elements];
 }
 
-enum Arangement { forward, backward, front, back }
+enum Arrangement { forward, backward, front, back }
 
 class ElementsArranged extends DocumentEvent {
   final List<PadElement> elements;
-  final Arangement arangement;
+  final Arrangement arrangement;
 
-  const ElementsArranged(this.elements, this.arangement);
+  const ElementsArranged(this.elements, this.arrangement);
   @override
-  List<Object?> get props => [elements, arangement];
+  List<Object?> get props => [elements, arrangement];
 }
 
 class DocumentDescriptorChanged extends DocumentEvent {

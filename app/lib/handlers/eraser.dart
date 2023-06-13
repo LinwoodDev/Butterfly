@@ -40,7 +40,8 @@ class EraserHandler extends Handler<EraserPainter> {
     if (!_currentlyErasing) {
       _currentlyErasing = true;
       // Raycast
-      final ray = await rayCast(globalPos, context.buildContext, size);
+      final ray = await rayCast(globalPos, context.getDocumentBloc(),
+          context.getCameraTransform(), size);
       final newElements = ray
           .map((e) => e.element)
           .whereType<PenElement>()

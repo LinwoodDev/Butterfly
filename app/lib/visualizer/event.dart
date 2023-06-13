@@ -4,30 +4,30 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-extension ArangementVisualizer on Arangement {
+extension ArangementVisualizer on Arrangement {
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);
     switch (this) {
-      case Arangement.back:
+      case Arrangement.back:
         return loc.sendToBack;
-      case Arangement.front:
+      case Arrangement.front:
         return loc.bringToFront;
-      case Arangement.backward:
+      case Arrangement.backward:
         return loc.sendBackward;
-      case Arangement.forward:
+      case Arrangement.forward:
         return loc.bringForward;
     }
   }
 
   IconGetter get icon {
     switch (this) {
-      case Arangement.back:
+      case Arrangement.back:
         return PhosphorIcons.arrowDown;
-      case Arangement.front:
+      case Arrangement.front:
         return PhosphorIcons.arrowUp;
-      case Arangement.backward:
+      case Arrangement.backward:
         return PhosphorIcons.arrowDownLeft;
-      case Arangement.forward:
+      case Arrangement.forward:
         return PhosphorIcons.arrowUpRight;
     }
   }

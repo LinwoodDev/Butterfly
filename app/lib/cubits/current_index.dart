@@ -450,6 +450,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   Future<void> loadElements(
       NoteData document, AssetService assetService, DocumentPage page) async {
+    for (var e in state.cameraViewport.unbakedElements) {
+      e.dispose();
+    }
+    for (var e in state.cameraViewport.bakedElements) {
+      e.dispose();
+    }
     final renderers =
         page.content.map((e) => Renderer.fromInstance(e)).toList();
     await Future.wait(renderers

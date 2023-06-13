@@ -75,7 +75,7 @@ class ElementsDialog extends StatelessWidget {
           SubmenuButton(
             leadingIcon: const Icon(PhosphorIconsLight.layout),
             menuStyle: const MenuStyle(alignment: Alignment.centerRight),
-            menuChildren: Arangement.values
+            menuChildren: Arrangement.values
                 .map((e) => MenuItemButton(
                       leadingIcon: Icon(e.icon(PhosphorIconsStyle.light)),
                       child: Text(e.getLocalizedName(context)),
