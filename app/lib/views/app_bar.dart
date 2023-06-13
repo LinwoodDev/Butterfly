@@ -161,15 +161,30 @@ class _AppBarTitle extends StatelessWidget {
                   ),
                   if (state is DocumentLoadSuccess) ...[
                     if (!state.hasAutosave())
-                      IconButton(
-                        icon: state.saved
-                            ? const PhosphorIcon(PhosphorIconsFill.floppyDisk)
-                            : const PhosphorIcon(PhosphorIconsLight.floppyDisk),
-                        tooltip: AppLocalizations.of(context).save,
-                        onPressed: () {
-                          Actions.maybeInvoke<SaveIntent>(
-                              context, SaveIntent(context));
-                        },
+                      SizedBox(
+                        width: 8,
+                        child: Builder(builder: (context) {
+                          Widget icon;
+                          switch (currentIndex.saved) {
+                            case SaveState.saved:
+                              icon = const Icon(PhosphorIconsFill.floppyDisk);
+                              break;
+                            case SaveState.unsaved:
+                              icon = const Icon(PhosphorIconsLight.floppyDisk);
+                              break;
+                            case SaveState.saving:
+                              icon = const CircularProgressIndicator();
+                              break;
+                          }
+                          return IconButton(
+                            icon: icon,
+                            tooltip: AppLocalizations.of(context).save,
+                            onPressed: () {
+                              Actions.maybeInvoke<SaveIntent>(
+                                  context, SaveIntent(context));
+                            },
+                          );
+                        }),
                       ),
                     if (state.currentAreaName.isNotEmpty)
                       IconButton(

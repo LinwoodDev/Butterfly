@@ -28,6 +28,8 @@ import '../view_painter.dart';
 
 part 'current_index.freezed.dart';
 
+enum SaveState { saved, saving, unsaved }
+
 @Freezed(equal: false)
 class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
@@ -45,7 +47,7 @@ class CurrentIndex with _$CurrentIndex {
     int? buttons,
     @Default(AssetLocation(path: '')) AssetLocation location,
     Embedding? embedding,
-    @Default(false) bool saved,
+    @Default(SaveState.unsaved) SaveState saved,
     PreferredSizeWidget? toolbar,
     PreferredSizeWidget? temporaryToolbar,
   }) = _CurrentIndex;
@@ -469,7 +471,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         cameraViewport: state.cameraViewport.withUnbaked(unbakedElements)));
   }
 
-  void setSaveState({AssetLocation? location, bool? saved}) {
+  void setSaveState({AssetLocation? location, SaveState? saved}) {
     emit(state.copyWith(
         location: location ?? state.location, saved: saved ?? state.saved));
   }

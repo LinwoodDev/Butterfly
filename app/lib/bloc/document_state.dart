@@ -51,7 +51,8 @@ abstract class DocumentLoaded extends DocumentState {
   Area? get currentArea => null;
 
   AssetLocation get location => currentIndexCubit.state.location;
-  bool get saved => !location.absolute && currentIndexCubit.state.saved;
+  SaveState get saved =>
+      location.absolute ? SaveState.unsaved : currentIndexCubit.state.saved;
 
   CurrentIndexCubit get currentIndexCubit;
   SettingsCubit get settingsCubit;

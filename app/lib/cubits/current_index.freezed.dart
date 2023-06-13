@@ -30,7 +30,7 @@ mixin _$CurrentIndex {
   int? get buttons => throw _privateConstructorUsedError;
   AssetLocation get location => throw _privateConstructorUsedError;
   Embedding? get embedding => throw _privateConstructorUsedError;
-  bool get saved => throw _privateConstructorUsedError;
+  SaveState get saved => throw _privateConstructorUsedError;
   PreferredSizeWidget? get toolbar => throw _privateConstructorUsedError;
   PreferredSizeWidget? get temporaryToolbar =>
       throw _privateConstructorUsedError;
@@ -60,7 +60,7 @@ abstract class $CurrentIndexCopyWith<$Res> {
       int? buttons,
       AssetLocation location,
       Embedding? embedding,
-      bool saved,
+      SaveState saved,
       PreferredSizeWidget? toolbar,
       PreferredSizeWidget? temporaryToolbar});
 
@@ -153,7 +153,7 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
       saved: null == saved
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as SaveState,
       toolbar: freezed == toolbar
           ? _value.toolbar
           : toolbar // ignore: cast_nullable_to_non_nullable
@@ -196,7 +196,7 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
       int? buttons,
       AssetLocation location,
       Embedding? embedding,
-      bool saved,
+      SaveState saved,
       PreferredSizeWidget? toolbar,
       PreferredSizeWidget? temporaryToolbar});
 
@@ -288,7 +288,7 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
       saved: null == saved
           ? _value.saved
           : saved // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as SaveState,
       toolbar: freezed == toolbar
           ? _value.toolbar
           : toolbar // ignore: cast_nullable_to_non_nullable
@@ -314,7 +314,7 @@ class _$_CurrentIndex extends _CurrentIndex {
       this.buttons,
       this.location = const AssetLocation(path: ''),
       this.embedding,
-      this.saved = false,
+      this.saved = SaveState.unsaved,
       this.toolbar,
       this.temporaryToolbar})
       : _foregrounds = foregrounds,
@@ -374,7 +374,7 @@ class _$_CurrentIndex extends _CurrentIndex {
   final Embedding? embedding;
   @override
   @JsonKey()
-  final bool saved;
+  final SaveState saved;
   @override
   final PreferredSizeWidget? toolbar;
   @override
@@ -407,7 +407,7 @@ abstract class _CurrentIndex extends CurrentIndex {
       final int? buttons,
       final AssetLocation location,
       final Embedding? embedding,
-      final bool saved,
+      final SaveState saved,
       final PreferredSizeWidget? toolbar,
       final PreferredSizeWidget? temporaryToolbar}) = _$_CurrentIndex;
   const _CurrentIndex._() : super._();
@@ -439,7 +439,7 @@ abstract class _CurrentIndex extends CurrentIndex {
   @override
   Embedding? get embedding;
   @override
-  bool get saved;
+  SaveState get saved;
   @override
   PreferredSizeWidget? get toolbar;
   @override

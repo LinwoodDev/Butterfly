@@ -729,7 +729,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       current.currentIndexCubit
-          .setSaveState(saved: true, location: event.location);
+          .setSaveState(saved: SaveState.saved, location: event.location);
     });
     on<PresentationModeEntered>((event, emit) {
       final current = state;
@@ -784,14 +784,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       current.currentIndexCubit.withUnbaked(elements);
     }
 
-    current.currentIndexCubit.setSaveState(saved: false);
+    current.currentIndexCubit.setSaveState(saved: SaveState.unsaved);
     if (current.embedding != null) {
       return;
     }
     AssetLocation? path = current.location;
     if (current.hasAutosave()) {
+      current.currentIndexCubit.setSaveState(saved: SaveState.saving);
       path = await current.save();
-      current.currentIndexCubit.setSaveState(saved: true, location: path);
+      current.currentIndexCubit
+          .setSaveState(saved: SaveState.saved, location: path);
     }
   }
 
@@ -823,7 +825,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final document = current.data;
     final page = current.page;
     final assetService = current.assetService;
-    currentIndexCubit.setSaveState(saved: true);
+    currentIndexCubit.setSaveState(saved: SaveState.saved);
     final background = Renderer.fromInstance(page.background);
     await background.setup(document, assetService, page);
     final tool = ToolRenderer(const ToolState());
