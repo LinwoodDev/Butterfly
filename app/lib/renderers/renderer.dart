@@ -22,7 +22,6 @@ import '../cubits/current_index.dart';
 import '../cubits/transform.dart';
 import '../helpers/xml_helper.dart';
 import '../models/label.dart';
-import '../models/tool.dart';
 import '../services/asset.dart';
 
 part 'backgrounds/box.dart';

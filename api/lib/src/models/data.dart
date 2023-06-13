@@ -26,6 +26,10 @@ class NoteData {
 
   factory NoteData.fromData(Uint8List data) => noteDataMigrator(data);
 
+  factory NoteData.fromJson(dynamic json) => NoteData.fromData(
+        base64Decode(json as String),
+      );
+
   NoteFileType? get type => getMetadata()?.type;
 
   String? get name => getMetadata()?.name;
@@ -296,4 +300,8 @@ class NoteData {
       removeAsset('$kPalettesArchiveDirectory/$name.json');
 
   List<int> save() => ZipEncoder().encode(archive)!;
+
+  dynamic toJson() {
+    return base64Encode(save());
+  }
 }

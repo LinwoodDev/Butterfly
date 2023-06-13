@@ -15,12 +15,10 @@ import '../cubits/settings.dart';
 import '../cubits/transform.dart';
 import '../embed/embedding.dart';
 import '../models/defaults.dart';
-import '../models/tool.dart';
 import '../models/viewport.dart';
 import '../renderers/renderer.dart';
 import '../services/asset.dart';
 
-part 'document_event.dart';
 part 'document_state.dart';
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
@@ -69,7 +67,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         null,
       );
     });
-    on<ToolChanged>((event, emit) async {
+    on<ToolStateChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       await current.currentIndexCubit.updateTool(
@@ -77,6 +75,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           current.page,
           current.assetService,
           event.state ?? current.cameraViewport.tool.element);
+    });
+    on<ToolOptionChanged>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
       return _saveState(
         emit,
         current.copyWith(
@@ -90,11 +92,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      if ((event.elements?.isEmpty ?? true) &&
-          (event.renderers?.isEmpty ?? true)) return;
-      final renderers = event.renderers ??
-          event.elements?.map((e) => Renderer.fromInstance(e)).toList();
-      if (renderers == null) return;
+      final renderers =
+          event.elements.map((e) => Renderer.fromInstance(e)).toList();
       return _saveState(
           emit,
           current.copyWith(
@@ -111,13 +110,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         renderers = List<Renderer<PadElement>>.from(renderers);
         event.replacedElements.forEach((index, element) {
           final current = element.map((e) => Renderer.fromInstance(e));
-          if (index == null) {
-            renderers.addAll(current);
-          } else {
-            renderers[index].dispose();
-            renderers.removeAt(index);
-            renderers.insertAll(index, current);
-          }
+          renderers[index].dispose();
+          renderers.removeAt(index);
+          renderers.insertAll(index, current);
         });
         return _saveState(
             emit,
