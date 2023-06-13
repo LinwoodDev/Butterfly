@@ -501,5 +501,10 @@
   "version": "Version",
   "repository": "儲存庫",
   "pages": "頁",
-  "navigator": "導覽"
+  "navigator": "導覽",
+  "arrange": "Arrange",
+  "bringToFront": "Bring to front",
+  "sendToBack": "Send to back",
+  "bringForward": "Bring forward",
+  "sendBackward": "Send backward"
 }
