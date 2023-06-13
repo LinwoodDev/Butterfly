@@ -11,6 +11,7 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../api/save_data.dart';
+import '../../widgets/remote_button.dart';
 import 'pack.dart';
 
 class PacksDialog extends StatefulWidget {
@@ -24,7 +25,7 @@ class PacksDialog extends StatefulWidget {
 class _PacksDialogState extends State<PacksDialog>
     with TickerProviderStateMixin {
   late final TabController _controller;
-  late final PackFileSystem _fileSystem;
+  late PackFileSystem _fileSystem;
 
   @override
   initState() {
@@ -54,6 +55,17 @@ class _PacksDialogState extends State<PacksDialog>
                   children: [
                     Header(
                       title: Text(AppLocalizations.of(context).packs),
+                      actions: [
+                        RemoteButton(
+                          currentRemote: _fileSystem.remote?.identifier ?? '',
+                          onChanged: (value) {
+                            setState(() {
+                              _fileSystem =
+                                  PackFileSystem.fromPlatform(remote: value);
+                            });
+                          },
+                        ),
+                      ],
                     ),
                     if (!widget.globalOnly)
                       TabBar(

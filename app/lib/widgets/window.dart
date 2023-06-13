@@ -119,24 +119,16 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
   }
 
   @override
-  void onWindowUnmaximize() {
-    setState(() => maximized = false);
-  }
+  void onWindowUnmaximize() => setState(() => maximized = false);
 
   @override
-  void onWindowMaximize() {
-    setState(() => maximized = true);
-  }
+  void onWindowMaximize() => setState(() => maximized = true);
 
   @override
-  void onWindowEnterFullScreen() {
-    setState(() => fullScreen = true);
-  }
+  void onWindowEnterFullScreen() => setState(() => fullScreen = true);
 
   @override
-  void onWindowLeaveFullScreen() {
-    setState(() => fullScreen = false);
-  }
+  void onWindowLeaveFullScreen() => setState(() => fullScreen = false);
 
   @override
   @override

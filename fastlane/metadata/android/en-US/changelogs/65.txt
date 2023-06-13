@@ -1,5 +1,6 @@
 * Add grid view
 * Add move elements in the z axis ([#396](https://github.com/LinwoodDev/Butterfly/issues/396))
 * Add saving indicator ([#402](https://github.com/LinwoodDev/Butterfly/issues/402))
+* Add pack remote directory ([#389](https://github.com/LinwoodDev/Butterfly/issues/389))
 * Fix layer view not updating when layer visibility changes
 * Fix page won't be saved if autosave is disabled on page change
