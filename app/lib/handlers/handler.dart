@@ -267,21 +267,22 @@ class _RayCastParams {
 
 Future<Set<Renderer<PadElement>>> rayCast(
   Offset globalPosition,
-  BuildContext context,
+  DocumentBloc bloc,
+  CameraTransform transform,
   double radius,
 ) async {
   return rayCastRect(
     Rect.fromCircle(center: globalPosition, radius: radius),
-    context,
+    bloc,
+    transform,
   );
 }
 
 Future<Set<Renderer<PadElement>>> rayCastRect(
   Rect rect,
-  BuildContext context,
+  DocumentBloc bloc,
+  CameraTransform transform,
 ) async {
-  final bloc = context.read<DocumentBloc>();
-  final transform = context.read<TransformCubit>().state;
   final state = bloc.state;
   if (state is! DocumentLoadSuccess) return {};
   final renderers = state.cameraViewport.visibleElements;

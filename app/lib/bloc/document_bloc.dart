@@ -174,41 +174,95 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             null);
       }
     }, transformer: sequential());
-    on<ElementsRemoved>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        if (event.elements.isEmpty ||
-            !current.page.content
-                .any((element) => event.elements.contains(element))) return;
-        final page = current.page;
-        final renderers = current.renderers;
-        current.currentIndexCubit.unbake(
-          unbakedElements: renderers.where((element) {
-            final remaining = !event.elements.contains(
-              element.element,
-            );
-            if (!remaining) element.dispose();
-            return remaining;
-          }).toList(),
-        );
-        final newPage = page.copyWith(
-            content: List.from(page.content)
-              ..removeWhere((element) => event.elements.contains(element)));
-        // Remove unused assets
-        final unusedAssets = <String>{};
-        event.elements.whereType<SourcedElement>().forEach((element) {
-          final uri = Uri.tryParse(element.source);
-          if (uri?.scheme == '' && !newPage.usesSource(element.source)) {
-            unusedAssets.add(element.source);
-          }
-        });
-        for (var asset in unusedAssets) {
-          current.data.removeAsset(asset);
+    on<ElementsArranged>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      final renderers = await Future.wait(event.elements.map((e) async {
+        final renderer = Renderer.fromInstance(e);
+        await renderer.setup(current.data, current.assetService, current.page);
+        return renderer;
+      }).toList());
+      var content = List<PadElement>.from(current.page.content);
+      final transform = current.transformCubit.state;
+      for (var renderer in renderers) {
+        final index = content.indexOf(renderer.element);
+        if (index == -1) {
+          content.add(renderer.element);
+          continue;
         }
-
-        await _saveState(emit, current.copyWith(page: newPage), null);
+        content.removeAt(index);
+        var newIndex = index;
+        if (event.arrangement == Arrangement.front) {
+          newIndex = content.length - 1;
+        } else if (event.arrangement == Arrangement.back) {
+          newIndex = 0;
+        } else {
+          final rect = renderer.rect;
+          if (rect != null) {
+            final hits = (await rayCastRect(rect, this, transform))
+                .map((e) => e.element)
+                .toList();
+            final hitIndex = hits.indexOf(renderer.element);
+            if (hitIndex != -1) {
+              if (event.arrangement == Arrangement.backward && hitIndex != 0) {
+                newIndex = content.indexOf(hits[hitIndex - 1]);
+              } else if (event.arrangement == Arrangement.forward &&
+                  hitIndex != hits.length - 1) {
+                newIndex = content.indexOf(hits[hitIndex + 1]) + 1;
+              }
+            }
+          }
+        }
+        if (newIndex >= 0) {
+          content.insert(newIndex, renderer.element);
+        } else {
+          content.add(renderer.element);
+        }
       }
+      final newPage = current.page.copyWith(content: content);
+      return _saveState(
+              emit,
+              current.copyWith(
+                page: newPage,
+              ),
+              null)
+          .whenComplete(() => current.currentIndexCubit
+              .loadElements(current.data, current.assetService, newPage));
+    });
+    on<ElementsRemoved>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      if (event.elements.isEmpty ||
+          !current.page.content
+              .any((element) => event.elements.contains(element))) return;
+      final page = current.page;
+      final renderers = current.renderers;
+      current.currentIndexCubit.unbake(
+        unbakedElements: renderers.where((element) {
+          final remaining = !event.elements.contains(
+            element.element,
+          );
+          if (!remaining) element.dispose();
+          return remaining;
+        }).toList(),
+      );
+      final newPage = page.copyWith(
+          content: List.from(page.content)
+            ..removeWhere((element) => event.elements.contains(element)));
+      // Remove unused assets
+      final unusedAssets = <String>{};
+      event.elements.whereType<SourcedElement>().forEach((element) {
+        final uri = Uri.tryParse(element.source);
+        if (uri?.scheme == '' && !newPage.usesSource(element.source)) {
+          unusedAssets.add(element.source);
+        }
+      });
+      for (var asset in unusedAssets) {
+        current.data.removeAsset(asset);
+      }
+
+      await _saveState(emit, current.copyWith(page: newPage), null);
     }, transformer: sequential());
     on<DocumentDescriptorChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {

@@ -9,8 +9,11 @@ class LayerHandler extends Handler<LayerPainter> {
     final transform = context.getCameraTransform();
     final state = context.getState();
     if (state == null) return;
-    final hits = await rayCast(transform.localToGlobal(event.localPosition),
-        context.buildContext, data.strokeWidth / transform.size);
+    final hits = await rayCast(
+        transform.localToGlobal(event.localPosition),
+        context.getDocumentBloc(),
+        context.getCameraTransform(),
+        data.strokeWidth / transform.size);
     context.addDocumentEvent(ElementsLayerChanged(
         state.currentLayer, hits.map((e) => e.element).toList()));
   }
