@@ -1,2 +1,3 @@
 * Add grid view
 * Fix layer view not updating when layer visibility changes
+* Fix page won't be saved if autosave is disabled on page change

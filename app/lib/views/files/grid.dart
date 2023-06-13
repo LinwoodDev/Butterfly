@@ -172,10 +172,13 @@ class _FileEntityGridItem extends StatelessWidget {
                                   )
                                 : Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      entity.fileName,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                                    child: Tooltip(
+                                      message: entity.fileName,
+                                      child: Text(
+                                        entity.fileName,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                                   ),
                           ),

@@ -54,6 +54,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PageChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
+      current.data.setPage(current.page, current.pageName);
       final page = current.data.getPage(event.pageName);
       if (page == null) return;
       current.currentIndexCubit
