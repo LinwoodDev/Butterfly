@@ -502,9 +502,9 @@
   "repository": "Bewaarplaats",
   "pages": "Pagina's",
   "navigator": "Navigator",
-  "arrange": "Arrange",
-  "bringToFront": "Bring to front",
-  "sendToBack": "Send to back",
-  "bringForward": "Bring forward",
-  "sendBackward": "Send backward"
+  "arrange": "Ordenen",
+  "bringToFront": "Naar voren brengen",
+  "sendToBack": "Stuur naar achterkant",
+  "bringForward": "Breng naar voren",
+  "sendBackward": "Stuur achteruit"
 }
