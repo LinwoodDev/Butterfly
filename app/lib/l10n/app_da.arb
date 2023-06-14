@@ -502,9 +502,9 @@
   "repository": "Lagre",
   "pages": "Sider",
   "navigator": "Navigator",
-  "arrange": "Arrange",
-  "bringToFront": "Bring to front",
-  "sendToBack": "Send to back",
-  "bringForward": "Bring forward",
-  "sendBackward": "Send backward"
+  "arrange": "Arrangér",
+  "bringToFront": "Bring til forsiden",
+  "sendToBack": "Send til tilbage",
+  "bringForward": "Bring fremad",
+  "sendBackward": "Send tilbage"
 }
