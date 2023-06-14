@@ -46,6 +46,7 @@ class ImportService {
         : null;
     final location = state?.location;
     document ??= state?.data;
+    document ??= DocumentDefaults.createDocument();
     Uint8List? bytes;
     if (data is Uint8List) {
       bytes = data;
@@ -60,33 +61,35 @@ class ImportService {
         ? AssetFileType.values.byName(type)
         : location?.fileType;
     if (bytes == null || fileType == null) return null;
-    return import(fileType, bytes, document: document);
+    return import(fileType, bytes, document);
   }
 
-  Future<NoteData?> import(AssetFileType type, Uint8List bytes,
-      {Offset? position, NoteData? document}) async {
+  Future<NoteData?> import(
+      AssetFileType type, Uint8List bytes, NoteData document,
+      {Offset? position}) async {
     switch (type) {
       case AssetFileType.note:
-        return importBfly(bytes, position, document);
+        return importBfly(bytes, document, position);
       case AssetFileType.image:
-        return importImage(bytes, position, document);
+        return importImage(bytes, document, position);
       case AssetFileType.svg:
-        return importSvg(bytes, position, document);
+        return importSvg(bytes, document, position);
       case AssetFileType.pdf:
-        return importPdf(bytes, position, true, document);
+        return importPdf(bytes, document, position, true);
       default:
         return Future.value();
     }
   }
 
   FutureOr<NoteData?> importBfly(Uint8List bytes,
-      [Offset? position, NoteData? document]) {
+      [NoteData? document, Offset? position]) {
     try {
+      document ??= DocumentDefaults.createDocument();
       final data = NoteData.fromData(bytes);
       final type = data.getMetadata()?.type;
       switch (type) {
         case NoteFileType.document:
-          return _importDocument(data, position, document);
+          return _importDocument(data, document, position);
         case NoteFileType.template:
           _importTemplate(data);
           break;
@@ -110,8 +113,8 @@ class ImportService {
     return null;
   }
 
-  NoteData? _importDocument(NoteData data,
-      [Offset? position, NoteData? document]) {
+  NoteData? _importDocument(NoteData data, NoteData document,
+      [Offset? position]) {
     final firstPos = position ?? Offset.zero;
     final docPage = data.getPage();
     if (docPage == null) return null;
@@ -125,10 +128,9 @@ class ImportService {
                 ?.element ??
             e)
         .toList();
-    return _submit(
+    return _submit(document,
             elements: content,
             areas: areas,
-            document: document,
             choosePosition: position == null) ??
         data.createDocument(
           createdAt: DateTime.now(),
@@ -164,8 +166,8 @@ class ImportService {
     return true;
   }
 
-  Future<NoteData?> importImage(Uint8List bytes,
-      [Offset? position, NoteData? data]) async {
+  Future<NoteData?> importImage(Uint8List bytes, NoteData document,
+      [Offset? position]) async {
     try {
       final firstPos = position ?? Offset.zero;
       final codec = await ui.instantiateImageCodec(bytes);
@@ -177,23 +179,18 @@ class ImportService {
       String dataPath;
       if (newBytes == null) return null;
       final newData = newBytes.buffer.asUint8List();
-      if (data != null) {
-        final assetPath = data.addImage(newData, 'png');
-        dataPath = Uri.file(assetPath, windows: false).toString();
-      } else {
-        dataPath = UriData.fromBytes(
-          newData,
-          mimeType: 'image/png',
-        ).toString();
-      }
-      return _submit(elements: [
-        ImageElement(
-            height: image.height.toDouble(),
-            width: image.width.toDouble(),
-            layer: state?.currentLayer ?? '',
-            source: dataPath,
-            position: firstPos.toPoint())
-      ], choosePosition: position == null);
+      final assetPath = document.addImage(newData, 'png');
+      dataPath = Uri.file(assetPath, windows: false).toString();
+      return _submit(document,
+          elements: [
+            ImageElement(
+                height: image.height.toDouble(),
+                width: image.width.toDouble(),
+                layer: state?.currentLayer ?? '',
+                source: dataPath,
+                position: firstPos.toPoint())
+          ],
+          choosePosition: position == null);
     } catch (e) {
       showDialog(
         context: context,
@@ -204,8 +201,8 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importSvg(Uint8List bytes,
-      [Offset? position, NoteData? data]) async {
+  Future<NoteData?> importSvg(Uint8List bytes, NoteData document,
+      [Offset? position]) async {
     try {
       final firstPos = position ?? Offset.zero;
       final contentString = String.fromCharCodes(bytes);
@@ -226,14 +223,16 @@ class ImportService {
             mimeType: 'image/svg+xml',
           ).toString();
         }
-        return _submit(elements: [
-          SvgElement(
-            width: width,
-            height: height,
-            source: dataPath,
-            position: firstPos.toPoint(),
-          ),
-        ], choosePosition: position == null, document: data);
+        return _submit(document,
+            elements: [
+              SvgElement(
+                width: width,
+                height: height,
+                source: dataPath,
+                position: firstPos.toPoint(),
+              ),
+            ],
+            choosePosition: position == null);
       } catch (e, stackTrace) {
         showDialog<void>(
             context: context,
@@ -252,8 +251,8 @@ class ImportService {
     return null;
   }
 
-  Future<NoteData?> importPdf(Uint8List bytes,
-      [Offset? position, bool createAreas = false, NoteData? data]) async {
+  Future<NoteData?> importPdf(Uint8List bytes, NoteData document,
+      [Offset? position, bool createAreas = false]) async {
     try {
       final firstPos = position ?? Offset.zero;
       final elements = <Uint8List>[];
@@ -266,7 +265,7 @@ class ImportService {
         final callback = await showDialog<PageDialogCallback>(
             context: context,
             builder: (context) => PagesDialog(pages: elements));
-        if (callback == null) return data;
+        if (callback == null) return document;
         final selectedElements = <ImageElement>[];
         final areas = <Area>[];
         var y = firstPos.dx;
@@ -277,7 +276,7 @@ class ImportService {
           final scale = 1 / callback.quality;
           final height = page.height;
           final width = page.width;
-          final assetPath = data!.addImage(png, 'png');
+          final assetPath = document.addImage(png, 'png');
           final dataPath = Uri.file(assetPath, windows: false).toString();
           selectedElements.add(ImageElement(
               height: height.toDouble(),
@@ -297,10 +296,10 @@ class ImportService {
           y += height * scale;
         }
         return _submit(
+          document,
           elements: selectedElements,
           areas: createAreas ? areas : [],
           choosePosition: position == null,
-          document: data,
         );
       }
     } catch (e) {
@@ -361,11 +360,11 @@ class ImportService {
     }
   }
 
-  NoteData? _submit({
+  NoteData? _submit(
+    NoteData document, {
     required List<PadElement> elements,
     List<Area> areas = const [],
     bool choosePosition = false,
-    NoteData? document,
   }) {
     final state = _getState();
     if (choosePosition && state is DocumentLoadSuccess) {
@@ -376,15 +375,12 @@ class ImportService {
         ?..add(ElementsCreated(elements))
         ..add(AreasCreated(areas));
     }
-    document ??= state?.data;
-    if (document != null) {
-      var page = document.getPage() ?? DocumentDefaults.createPage();
-      page = page.copyWith(
-        content: [...page.content, ...elements],
-        areas: [...page.areas, ...areas],
-      );
-      document.setPage(page);
-    }
+    var page = document.getPage() ?? DocumentDefaults.createPage();
+    page = page.copyWith(
+      content: [...page.content, ...elements],
+      areas: [...page.areas, ...areas],
+    );
+    document.setPage(page);
     return document;
   }
 }

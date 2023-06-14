@@ -54,6 +54,8 @@ class _MainViewViewportState extends State<MainViewViewport>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     final bloc = context.read<DocumentBloc>();
+    final blocState = bloc.state;
+    if (blocState is! DocumentLoadSuccess) return;
     if (state == AppLifecycleState.resumed) {
       if (!kIsWeb && Platform.isAndroid) {
         final intentType = await getIntentType();
@@ -62,7 +64,9 @@ class _MainViewViewportState extends State<MainViewViewport>
           final assetType = AssetFileTypeHelper.fromMime(intentType);
           if (assetType == null) return;
           if (mounted) {
-            context.read<ImportService>().import(assetType, intentData);
+            context
+                .read<ImportService>()
+                .import(assetType, intentData, blocState.data);
           }
         }
       }
