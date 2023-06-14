@@ -502,9 +502,9 @@
   "repository": "Kodelager",
   "pages": "Sider",
   "navigator": "Navigator",
-  "arrange": "Arrange",
-  "bringToFront": "Bring to front",
-  "sendToBack": "Send to back",
-  "bringForward": "Bring forward",
-  "sendBackward": "Send backward"
+  "arrange": "Ordne",
+  "bringToFront": "Plasser lengst frem",
+  "sendToBack": "Send til tilbake",
+  "bringForward": "Send fremover",
+  "sendBackward": "Send bakover"
 }
