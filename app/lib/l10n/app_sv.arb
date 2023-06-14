@@ -502,9 +502,9 @@
   "repository": "Utveckling",
   "pages": "Sidor",
   "navigator": "Navigator",
-  "arrange": "Arrange",
-  "bringToFront": "Bring to front",
-  "sendToBack": "Send to back",
-  "bringForward": "Bring forward",
-  "sendBackward": "Send backward"
+  "arrange": "Ordna",
+  "bringToFront": "Ta fram",
+  "sendToBack": "Skicka till baksidan",
+  "bringForward": "Ta fram",
+  "sendBackward": "Skicka bakåt"
 }
