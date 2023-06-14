@@ -502,9 +502,9 @@
   "repository": "Репозиторій",
   "pages": "Сторінки",
   "navigator": "Navigator",
-  "arrange": "Arrange",
-  "bringToFront": "Bring to front",
-  "sendToBack": "Send to back",
-  "bringForward": "Bring forward",
-  "sendBackward": "Send backward"
+  "arrange": "Організувати",
+  "bringToFront": "Привести на передній план",
+  "sendToBack": "Відправити на задній план",
+  "bringForward": "Поверніть вперед",
+  "sendBackward": "Відправити назад"
 }
