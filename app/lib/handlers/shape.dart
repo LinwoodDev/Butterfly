@@ -166,11 +166,14 @@ class ShapeHandler extends Handler {
   PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
         color: data.property.color,
         onChanged: (value) {
-          bloc.add(PaintersChanged({
-            data: data.copyWith(
-                property: data.property.copyWith(
-                    color: convertOldColor(value, data.property.color))),
-          }));
+          bloc.add(PaintersChanged([
+            (
+              data,
+              data.copyWith(
+                  property: data.property.copyWith(
+                      color: convertOldColor(value, data.property.color))),
+            )
+          ]));
         },
       );
 }

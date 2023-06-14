@@ -70,7 +70,7 @@ class AreaContextMenu extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
                 if (area.name == state.currentAreaName) {
-                  bloc.add(const CurrentAreaChanged.exit());
+                  bloc.add(const CurrentAreaChanged(''));
                 } else {
                   bloc.add(CurrentAreaChanged(area.name));
                 }
@@ -192,7 +192,7 @@ class AreaContextMenu extends StatelessWidget {
                   name: result.name,
                   elements: elements,
                 ));
-                bloc.add(DocumentPackUpdated(result.pack, pack));
+                bloc.add(PackUpdated(result.pack, pack));
               },
             )
           ],

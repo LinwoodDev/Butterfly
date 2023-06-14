@@ -203,13 +203,13 @@ class LabelHandler extends Handler<LabelPainter>
 
     if (context.element != null && value.element != null) {
       if (!value.isCreating) {
-        bloc.add(ElementsChanged({
-          context.element!: [value.element!]
-        }));
+        bloc.add(ElementsChanged([
+          (context.element!, [value.element!]),
+        ]));
       }
     }
     if (context.painter != value.painter) {
-      bloc.add(PaintersChanged({data: value.painter}));
+      bloc.add(PaintersChanged([(data, value.painter)]));
     }
     bloc.refresh();
     _refreshToolbar(bloc);

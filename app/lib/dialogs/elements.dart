@@ -82,7 +82,7 @@ class ElementsDialog extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pop(true);
                         context.read<DocumentBloc>().add(ElementsArranged(
-                            renderers.map((r) => r.element).toList(), e));
+                            e, renderers.map((r) => r.element).toList()));
                       },
                     ))
                 .toList(),

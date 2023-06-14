@@ -38,6 +38,8 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
       return DocumentPathChanged.fromJson(json);
     case 'documentSaved':
       return DocumentSaved.fromJson(json);
+    case 'painterCreated':
+      return PainterCreated.fromJson(json);
     case 'paintersChanged':
       return PaintersChanged.fromJson(json);
     case 'paintersRemoved':
@@ -60,6 +62,8 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
       return LayerVisibilityChanged.fromJson(json);
     case 'currentLayerChanged':
       return CurrentLayerChanged.fromJson(json);
+    case 'elementsLayerChanged':
+      return ElementsLayerChanged.fromJson(json);
     case 'templateCreated':
       return TemplateCreated.fromJson(json);
     case 'areasCreated':
@@ -115,11 +119,14 @@ mixin _$DocumentEvent {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -130,14 +137,19 @@ mixin _$DocumentEvent {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -148,7 +160,8 @@ mixin _$DocumentEvent {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) =>
@@ -164,11 +177,13 @@ mixin _$DocumentEvent {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -178,14 +193,17 @@ mixin _$DocumentEvent {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -194,7 +212,8 @@ mixin _$DocumentEvent {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) =>
@@ -210,11 +229,13 @@ mixin _$DocumentEvent {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -224,14 +245,17 @@ mixin _$DocumentEvent {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -240,7 +264,8 @@ mixin _$DocumentEvent {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -260,6 +285,7 @@ mixin _$DocumentEvent {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -273,6 +299,7 @@ mixin _$DocumentEvent {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -308,6 +335,7 @@ mixin _$DocumentEvent {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -320,6 +348,7 @@ mixin _$DocumentEvent {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -353,6 +382,7 @@ mixin _$DocumentEvent {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -365,6 +395,7 @@ mixin _$DocumentEvent {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -490,11 +521,14 @@ class _$PageChanged extends PageChanged {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -505,14 +539,19 @@ class _$PageChanged extends PageChanged {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -523,7 +562,8 @@ class _$PageChanged extends PageChanged {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -542,11 +582,13 @@ class _$PageChanged extends PageChanged {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -556,14 +598,17 @@ class _$PageChanged extends PageChanged {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -572,7 +617,8 @@ class _$PageChanged extends PageChanged {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -591,11 +637,13 @@ class _$PageChanged extends PageChanged {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -605,14 +653,17 @@ class _$PageChanged extends PageChanged {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -621,7 +672,8 @@ class _$PageChanged extends PageChanged {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -647,6 +699,7 @@ class _$PageChanged extends PageChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -660,6 +713,7 @@ class _$PageChanged extends PageChanged {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -698,6 +752,7 @@ class _$PageChanged extends PageChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -710,6 +765,7 @@ class _$PageChanged extends PageChanged {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -746,6 +802,7 @@ class _$PageChanged extends PageChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -758,6 +815,7 @@ class _$PageChanged extends PageChanged {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -901,11 +959,14 @@ class _$ToolOptionChanged extends ToolOptionChanged {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -916,14 +977,19 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -934,7 +1000,8 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -953,11 +1020,13 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -967,14 +1036,17 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -983,7 +1055,8 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -1002,11 +1075,13 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -1016,14 +1091,17 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -1032,7 +1110,8 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -1058,6 +1137,7 @@ class _$ToolOptionChanged extends ToolOptionChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -1071,6 +1151,7 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -1109,6 +1190,7 @@ class _$ToolOptionChanged extends ToolOptionChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -1121,6 +1203,7 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -1157,6 +1240,7 @@ class _$ToolOptionChanged extends ToolOptionChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -1169,6 +1253,7 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -1313,11 +1398,14 @@ class _$ToolStateChanged extends ToolStateChanged {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -1328,14 +1416,19 @@ class _$ToolStateChanged extends ToolStateChanged {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -1346,7 +1439,8 @@ class _$ToolStateChanged extends ToolStateChanged {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -1365,11 +1459,13 @@ class _$ToolStateChanged extends ToolStateChanged {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -1379,14 +1475,17 @@ class _$ToolStateChanged extends ToolStateChanged {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -1395,7 +1494,8 @@ class _$ToolStateChanged extends ToolStateChanged {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -1414,11 +1514,13 @@ class _$ToolStateChanged extends ToolStateChanged {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -1428,14 +1530,17 @@ class _$ToolStateChanged extends ToolStateChanged {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -1444,7 +1549,8 @@ class _$ToolStateChanged extends ToolStateChanged {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -1470,6 +1576,7 @@ class _$ToolStateChanged extends ToolStateChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -1483,6 +1590,7 @@ class _$ToolStateChanged extends ToolStateChanged {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -1521,6 +1629,7 @@ class _$ToolStateChanged extends ToolStateChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -1533,6 +1642,7 @@ class _$ToolStateChanged extends ToolStateChanged {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -1569,6 +1679,7 @@ class _$ToolStateChanged extends ToolStateChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -1581,6 +1692,7 @@ class _$ToolStateChanged extends ToolStateChanged {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -1718,11 +1830,14 @@ class _$ElementsCreated extends ElementsCreated {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -1733,14 +1848,19 @@ class _$ElementsCreated extends ElementsCreated {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -1751,7 +1871,8 @@ class _$ElementsCreated extends ElementsCreated {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -1770,11 +1891,13 @@ class _$ElementsCreated extends ElementsCreated {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -1784,14 +1907,17 @@ class _$ElementsCreated extends ElementsCreated {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -1800,7 +1926,8 @@ class _$ElementsCreated extends ElementsCreated {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -1819,11 +1946,13 @@ class _$ElementsCreated extends ElementsCreated {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -1833,14 +1962,17 @@ class _$ElementsCreated extends ElementsCreated {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -1849,7 +1981,8 @@ class _$ElementsCreated extends ElementsCreated {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -1875,6 +2008,7 @@ class _$ElementsCreated extends ElementsCreated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -1888,6 +2022,7 @@ class _$ElementsCreated extends ElementsCreated {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -1926,6 +2061,7 @@ class _$ElementsCreated extends ElementsCreated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -1938,6 +2074,7 @@ class _$ElementsCreated extends ElementsCreated {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -1974,6 +2111,7 @@ class _$ElementsCreated extends ElementsCreated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -1986,6 +2124,7 @@ class _$ElementsCreated extends ElementsCreated {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -2125,11 +2264,14 @@ class _$ElementsReplaced extends ElementsReplaced {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -2140,14 +2282,19 @@ class _$ElementsReplaced extends ElementsReplaced {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -2158,7 +2305,8 @@ class _$ElementsReplaced extends ElementsReplaced {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -2177,11 +2325,13 @@ class _$ElementsReplaced extends ElementsReplaced {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -2191,14 +2341,17 @@ class _$ElementsReplaced extends ElementsReplaced {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -2207,7 +2360,8 @@ class _$ElementsReplaced extends ElementsReplaced {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -2226,11 +2380,13 @@ class _$ElementsReplaced extends ElementsReplaced {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -2240,14 +2396,17 @@ class _$ElementsReplaced extends ElementsReplaced {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -2256,7 +2415,8 @@ class _$ElementsReplaced extends ElementsReplaced {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -2282,6 +2442,7 @@ class _$ElementsReplaced extends ElementsReplaced {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -2295,6 +2456,7 @@ class _$ElementsReplaced extends ElementsReplaced {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -2333,6 +2495,7 @@ class _$ElementsReplaced extends ElementsReplaced {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -2345,6 +2508,7 @@ class _$ElementsReplaced extends ElementsReplaced {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -2381,6 +2545,7 @@ class _$ElementsReplaced extends ElementsReplaced {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -2393,6 +2558,7 @@ class _$ElementsReplaced extends ElementsReplaced {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -2533,11 +2699,14 @@ class _$ElementsChanged extends ElementsChanged {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -2548,14 +2717,19 @@ class _$ElementsChanged extends ElementsChanged {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -2566,7 +2740,8 @@ class _$ElementsChanged extends ElementsChanged {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -2585,11 +2760,13 @@ class _$ElementsChanged extends ElementsChanged {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -2599,14 +2776,17 @@ class _$ElementsChanged extends ElementsChanged {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -2615,7 +2795,8 @@ class _$ElementsChanged extends ElementsChanged {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -2634,11 +2815,13 @@ class _$ElementsChanged extends ElementsChanged {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -2648,14 +2831,17 @@ class _$ElementsChanged extends ElementsChanged {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -2664,7 +2850,8 @@ class _$ElementsChanged extends ElementsChanged {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -2690,6 +2877,7 @@ class _$ElementsChanged extends ElementsChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -2703,6 +2891,7 @@ class _$ElementsChanged extends ElementsChanged {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -2741,6 +2930,7 @@ class _$ElementsChanged extends ElementsChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -2753,6 +2943,7 @@ class _$ElementsChanged extends ElementsChanged {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -2789,6 +2980,7 @@ class _$ElementsChanged extends ElementsChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -2801,6 +2993,7 @@ class _$ElementsChanged extends ElementsChanged {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -2940,11 +3133,14 @@ class _$ElementsRemoved extends ElementsRemoved {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -2955,14 +3151,19 @@ class _$ElementsRemoved extends ElementsRemoved {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -2973,7 +3174,8 @@ class _$ElementsRemoved extends ElementsRemoved {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -2992,11 +3194,13 @@ class _$ElementsRemoved extends ElementsRemoved {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -3006,14 +3210,17 @@ class _$ElementsRemoved extends ElementsRemoved {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -3022,7 +3229,8 @@ class _$ElementsRemoved extends ElementsRemoved {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -3041,11 +3249,13 @@ class _$ElementsRemoved extends ElementsRemoved {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -3055,14 +3265,17 @@ class _$ElementsRemoved extends ElementsRemoved {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -3071,7 +3284,8 @@ class _$ElementsRemoved extends ElementsRemoved {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -3097,6 +3311,7 @@ class _$ElementsRemoved extends ElementsRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -3110,6 +3325,7 @@ class _$ElementsRemoved extends ElementsRemoved {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -3148,6 +3364,7 @@ class _$ElementsRemoved extends ElementsRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -3160,6 +3377,7 @@ class _$ElementsRemoved extends ElementsRemoved {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -3196,6 +3414,7 @@ class _$ElementsRemoved extends ElementsRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -3208,6 +3427,7 @@ class _$ElementsRemoved extends ElementsRemoved {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -3261,7 +3481,7 @@ abstract class _$$ElementsArrangedCopyWith<$Res> {
           _$ElementsArranged value, $Res Function(_$ElementsArranged) then) =
       __$$ElementsArrangedCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<PadElement> elements});
+  $Res call({Arrangement arrangement, List<PadElement> elements});
 }
 
 /// @nodoc
@@ -3275,9 +3495,14 @@ class __$$ElementsArrangedCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? arrangement = null,
     Object? elements = null,
   }) {
     return _then(_$ElementsArranged(
+      null == arrangement
+          ? _value.arrangement
+          : arrangement // ignore: cast_nullable_to_non_nullable
+              as Arrangement,
       null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
@@ -3289,7 +3514,7 @@ class __$$ElementsArrangedCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ElementsArranged extends ElementsArranged {
-  const _$ElementsArranged(final List<PadElement> elements,
+  const _$ElementsArranged(this.arrangement, final List<PadElement> elements,
       {final String? $type})
       : _elements = elements,
         $type = $type ?? 'elementsArranged',
@@ -3298,6 +3523,8 @@ class _$ElementsArranged extends ElementsArranged {
   factory _$ElementsArranged.fromJson(Map<String, dynamic> json) =>
       _$$ElementsArrangedFromJson(json);
 
+  @override
+  final Arrangement arrangement;
   final List<PadElement> _elements;
   @override
   List<PadElement> get elements {
@@ -3311,7 +3538,7 @@ class _$ElementsArranged extends ElementsArranged {
 
   @override
   String toString() {
-    return 'DocumentEvent.elementsArranged(elements: $elements)';
+    return 'DocumentEvent.elementsArranged(arrangement: $arrangement, elements: $elements)';
   }
 
   @override
@@ -3319,13 +3546,15 @@ class _$ElementsArranged extends ElementsArranged {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ElementsArranged &&
+            (identical(other.arrangement, arrangement) ||
+                other.arrangement == arrangement) &&
             const DeepCollectionEquality().equals(other._elements, _elements));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_elements));
+  int get hashCode => Object.hash(
+      runtimeType, arrangement, const DeepCollectionEquality().hash(_elements));
 
   @JsonKey(ignore: true)
   @override
@@ -3346,11 +3575,14 @@ class _$ElementsArranged extends ElementsArranged {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -3361,14 +3593,19 @@ class _$ElementsArranged extends ElementsArranged {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -3379,11 +3616,12 @@ class _$ElementsArranged extends ElementsArranged {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return elementsArranged(elements);
+    return elementsArranged(arrangement, elements);
   }
 
   @override
@@ -3398,11 +3636,13 @@ class _$ElementsArranged extends ElementsArranged {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -3412,14 +3652,17 @@ class _$ElementsArranged extends ElementsArranged {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -3428,11 +3671,12 @@ class _$ElementsArranged extends ElementsArranged {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return elementsArranged?.call(elements);
+    return elementsArranged?.call(arrangement, elements);
   }
 
   @override
@@ -3447,11 +3691,13 @@ class _$ElementsArranged extends ElementsArranged {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -3461,14 +3707,17 @@ class _$ElementsArranged extends ElementsArranged {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -3477,13 +3726,14 @@ class _$ElementsArranged extends ElementsArranged {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
   }) {
     if (elementsArranged != null) {
-      return elementsArranged(elements);
+      return elementsArranged(arrangement, elements);
     }
     return orElse();
   }
@@ -3503,6 +3753,7 @@ class _$ElementsArranged extends ElementsArranged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -3516,6 +3767,7 @@ class _$ElementsArranged extends ElementsArranged {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -3554,6 +3806,7 @@ class _$ElementsArranged extends ElementsArranged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -3566,6 +3819,7 @@ class _$ElementsArranged extends ElementsArranged {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -3602,6 +3856,7 @@ class _$ElementsArranged extends ElementsArranged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -3614,6 +3869,7 @@ class _$ElementsArranged extends ElementsArranged {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -3648,13 +3904,15 @@ class _$ElementsArranged extends ElementsArranged {
 }
 
 abstract class ElementsArranged extends DocumentEvent {
-  const factory ElementsArranged(final List<PadElement> elements) =
+  const factory ElementsArranged(
+          final Arrangement arrangement, final List<PadElement> elements) =
       _$ElementsArranged;
   const ElementsArranged._() : super._();
 
   factory ElementsArranged.fromJson(Map<String, dynamic> json) =
       _$ElementsArranged.fromJson;
 
+  Arrangement get arrangement;
   List<PadElement> get elements;
   @JsonKey(ignore: true)
   _$$ElementsArrangedCopyWith<_$ElementsArranged> get copyWith =>
@@ -3757,11 +4015,14 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -3772,14 +4033,19 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -3790,7 +4056,8 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -3809,11 +4076,13 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -3823,14 +4092,17 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -3839,7 +4111,8 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -3858,11 +4131,13 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -3872,14 +4147,17 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -3888,7 +4166,8 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -3914,6 +4193,7 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -3927,6 +4207,7 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -3965,6 +4246,7 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -3977,6 +4259,7 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -4013,6 +4296,7 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -4025,6 +4309,7 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -4158,11 +4443,14 @@ class _$DocumentPathChanged extends DocumentPathChanged {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -4173,14 +4461,19 @@ class _$DocumentPathChanged extends DocumentPathChanged {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -4191,7 +4484,8 @@ class _$DocumentPathChanged extends DocumentPathChanged {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -4210,11 +4504,13 @@ class _$DocumentPathChanged extends DocumentPathChanged {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -4224,14 +4520,17 @@ class _$DocumentPathChanged extends DocumentPathChanged {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -4240,7 +4539,8 @@ class _$DocumentPathChanged extends DocumentPathChanged {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -4259,11 +4559,13 @@ class _$DocumentPathChanged extends DocumentPathChanged {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -4273,14 +4575,17 @@ class _$DocumentPathChanged extends DocumentPathChanged {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -4289,7 +4594,8 @@ class _$DocumentPathChanged extends DocumentPathChanged {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -4315,6 +4621,7 @@ class _$DocumentPathChanged extends DocumentPathChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -4328,6 +4635,7 @@ class _$DocumentPathChanged extends DocumentPathChanged {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -4366,6 +4674,7 @@ class _$DocumentPathChanged extends DocumentPathChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -4378,6 +4687,7 @@ class _$DocumentPathChanged extends DocumentPathChanged {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -4414,6 +4724,7 @@ class _$DocumentPathChanged extends DocumentPathChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -4426,6 +4737,7 @@ class _$DocumentPathChanged extends DocumentPathChanged {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -4570,11 +4882,14 @@ class _$DocumentSaved extends DocumentSaved {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -4585,14 +4900,19 @@ class _$DocumentSaved extends DocumentSaved {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -4603,7 +4923,8 @@ class _$DocumentSaved extends DocumentSaved {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -4622,11 +4943,13 @@ class _$DocumentSaved extends DocumentSaved {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -4636,14 +4959,17 @@ class _$DocumentSaved extends DocumentSaved {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -4652,7 +4978,8 @@ class _$DocumentSaved extends DocumentSaved {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -4671,11 +4998,13 @@ class _$DocumentSaved extends DocumentSaved {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -4685,14 +5014,17 @@ class _$DocumentSaved extends DocumentSaved {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -4701,7 +5033,8 @@ class _$DocumentSaved extends DocumentSaved {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -4727,6 +5060,7 @@ class _$DocumentSaved extends DocumentSaved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -4740,6 +5074,7 @@ class _$DocumentSaved extends DocumentSaved {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -4778,6 +5113,7 @@ class _$DocumentSaved extends DocumentSaved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -4790,6 +5126,7 @@ class _$DocumentSaved extends DocumentSaved {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -4826,6 +5163,7 @@ class _$DocumentSaved extends DocumentSaved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -4838,6 +5176,7 @@ class _$DocumentSaved extends DocumentSaved {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -4882,6 +5221,440 @@ abstract class DocumentSaved extends DocumentEvent {
   AssetLocation? get location;
   @JsonKey(ignore: true)
   _$$DocumentSavedCopyWith<_$DocumentSaved> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PainterCreatedCopyWith<$Res> {
+  factory _$$PainterCreatedCopyWith(
+          _$PainterCreated value, $Res Function(_$PainterCreated) then) =
+      __$$PainterCreatedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Painter painter});
+
+  $PainterCopyWith<$Res> get painter;
+}
+
+/// @nodoc
+class __$$PainterCreatedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PainterCreated>
+    implements _$$PainterCreatedCopyWith<$Res> {
+  __$$PainterCreatedCopyWithImpl(
+      _$PainterCreated _value, $Res Function(_$PainterCreated) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? painter = null,
+  }) {
+    return _then(_$PainterCreated(
+      null == painter
+          ? _value.painter
+          : painter // ignore: cast_nullable_to_non_nullable
+              as Painter,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PainterCopyWith<$Res> get painter {
+    return $PainterCopyWith<$Res>(_value.painter, (value) {
+      return _then(_value.copyWith(painter: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PainterCreated extends PainterCreated {
+  const _$PainterCreated(this.painter, {final String? $type})
+      : $type = $type ?? 'painterCreated',
+        super._();
+
+  factory _$PainterCreated.fromJson(Map<String, dynamic> json) =>
+      _$$PainterCreatedFromJson(json);
+
+  @override
+  final Painter painter;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.painterCreated(painter: $painter)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PainterCreated &&
+            (identical(other.painter, painter) || other.painter == painter));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, painter);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PainterCreatedCopyWith<_$PainterCreated> get copyWith =>
+      __$$PainterCreatedCopyWithImpl<_$PainterCreated>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String pageName) pageChanged,
+    required TResult Function(ToolOption? option) toolOptionChanged,
+    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(List<PadElement> elements) elementsCreated,
+    required TResult Function(Map<int, List<PadElement>> replacedElements)
+        elementsReplaced,
+    required TResult Function(
+            List<(PadElement, List<PadElement>)> changedElements)
+        elementsChanged,
+    required TResult Function(List<PadElement> elements) elementsRemoved,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
+    required TResult Function(String? name, String? description)
+        documentDescriptionChanged,
+    required TResult Function(String path) documentPathChanged,
+    required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
+    required TResult Function(List<(Painter, Painter)> painters)
+        paintersChanged,
+    required TResult Function(List<Painter> painters) paintersRemoved,
+    required TResult Function(int oldIndex, int newIndex) painterReordered,
+    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String oldName, String newName) layerRenamed,
+    required TResult Function(String name) layerRemoved,
+    required TResult Function(String name) layerElementsRemoved,
+    required TResult Function(String name) layerVisibilityChanged,
+    required TResult Function(String name) currentLayerChanged,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
+    required TResult Function(List<Area> areas) areasCreated,
+    required TResult Function(List<String> areas) areasRemoved,
+    required TResult Function(String name, Area area) areaChanged,
+    required TResult Function(String name) currentAreaChanged,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetUpdated,
+    required TResult Function(String name) exportPresetRemoved,
+    required TResult Function(NoteData pack) packAdded,
+    required TResult Function(String name, NoteData pack) packUpdated,
+    required TResult Function(String name) packRemoved,
+    required TResult Function(AnimationTrack animation) animationAdded,
+    required TResult Function(String name, AnimationTrack animation)
+        animationUpdated,
+    required TResult Function(String name) animationRemoved,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
+    required TResult Function() presentationModeExited,
+    required TResult Function(int tick) presentationTick,
+  }) {
+    return painterCreated(painter);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String pageName)? pageChanged,
+    TResult? Function(ToolOption? option)? toolOptionChanged,
+    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(List<PadElement> elements)? elementsCreated,
+    TResult? Function(Map<int, List<PadElement>> replacedElements)?
+        elementsReplaced,
+    TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
+        elementsChanged,
+    TResult? Function(List<PadElement> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
+    TResult? Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult? Function(String path)? documentPathChanged,
+    TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
+    TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
+    TResult? Function(List<Painter> painters)? paintersRemoved,
+    TResult? Function(int oldIndex, int newIndex)? painterReordered,
+    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String oldName, String newName)? layerRenamed,
+    TResult? Function(String name)? layerRemoved,
+    TResult? Function(String name)? layerElementsRemoved,
+    TResult? Function(String name)? layerVisibilityChanged,
+    TResult? Function(String name)? currentLayerChanged,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult? Function(List<Area> areas)? areasCreated,
+    TResult? Function(List<String> areas)? areasRemoved,
+    TResult? Function(String name, Area area)? areaChanged,
+    TResult? Function(String name)? currentAreaChanged,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult? Function(String name)? exportPresetRemoved,
+    TResult? Function(NoteData pack)? packAdded,
+    TResult? Function(String name, NoteData pack)? packUpdated,
+    TResult? Function(String name)? packRemoved,
+    TResult? Function(AnimationTrack animation)? animationAdded,
+    TResult? Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult? Function(String name)? animationRemoved,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult? Function()? presentationModeExited,
+    TResult? Function(int tick)? presentationTick,
+  }) {
+    return painterCreated?.call(painter);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String pageName)? pageChanged,
+    TResult Function(ToolOption? option)? toolOptionChanged,
+    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(List<PadElement> elements)? elementsCreated,
+    TResult Function(Map<int, List<PadElement>> replacedElements)?
+        elementsReplaced,
+    TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
+        elementsChanged,
+    TResult Function(List<PadElement> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
+    TResult Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult Function(String path)? documentPathChanged,
+    TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
+    TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
+    TResult Function(List<Painter> painters)? paintersRemoved,
+    TResult Function(int oldIndex, int newIndex)? painterReordered,
+    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index)? waypointRemoved,
+    TResult Function(String oldName, String newName)? layerRenamed,
+    TResult Function(String name)? layerRemoved,
+    TResult Function(String name)? layerElementsRemoved,
+    TResult Function(String name)? layerVisibilityChanged,
+    TResult Function(String name)? currentLayerChanged,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult Function(List<Area> areas)? areasCreated,
+    TResult Function(List<String> areas)? areasRemoved,
+    TResult Function(String name, Area area)? areaChanged,
+    TResult Function(String name)? currentAreaChanged,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult Function(String name)? exportPresetRemoved,
+    TResult Function(NoteData pack)? packAdded,
+    TResult Function(String name, NoteData pack)? packUpdated,
+    TResult Function(String name)? packRemoved,
+    TResult Function(AnimationTrack animation)? animationAdded,
+    TResult Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult Function(String name)? animationRemoved,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult Function()? presentationModeExited,
+    TResult Function(int tick)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (painterCreated != null) {
+      return painterCreated(painter);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(ToolOptionChanged value) toolOptionChanged,
+    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ElementsCreated value) elementsCreated,
+    required TResult Function(ElementsReplaced value) elementsReplaced,
+    required TResult Function(ElementsChanged value) elementsChanged,
+    required TResult Function(ElementsRemoved value) elementsRemoved,
+    required TResult Function(ElementsArranged value) elementsArranged,
+    required TResult Function(DocumentDescriptionChanged value)
+        documentDescriptionChanged,
+    required TResult Function(DocumentPathChanged value) documentPathChanged,
+    required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
+    required TResult Function(PaintersChanged value) paintersChanged,
+    required TResult Function(PaintersRemoved value) paintersRemoved,
+    required TResult Function(PainterReordered value) painterReordered,
+    required TResult Function(DocumentBackgroundChanged value)
+        documentBackgroundChanged,
+    required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(LayerRenamed value) layerRenamed,
+    required TResult Function(LayerRemoved value) layerRemoved,
+    required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
+    required TResult Function(LayerVisibilityChanged value)
+        layerVisibilityChanged,
+    required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
+    required TResult Function(TemplateCreated value) templateCreated,
+    required TResult Function(AreasCreated value) areasCreated,
+    required TResult Function(AreasRemoved value) areasRemoved,
+    required TResult Function(AreaChanged value) areaChanged,
+    required TResult Function(CurrentAreaChanged value) currentAreaChanged,
+    required TResult Function(ExportPresetCreated value) exportPresetCreated,
+    required TResult Function(ExportPresetUpdated value) exportPresetUpdated,
+    required TResult Function(ExportPresetRemoved value) exportPresetRemoved,
+    required TResult Function(PackAdded value) packAdded,
+    required TResult Function(PackUpdated value) packUpdated,
+    required TResult Function(PackRemoved value) packRemoved,
+    required TResult Function(AnimationAdded value) animationAdded,
+    required TResult Function(AnimationUpdated value) animationUpdated,
+    required TResult Function(AnimationRemoved value) animationRemoved,
+    required TResult Function(PresentationModeEntered value)
+        presentationModeEntered,
+    required TResult Function(PresentationModeExited value)
+        presentationModeExited,
+    required TResult Function(PresentationTick value) presentationTick,
+  }) {
+    return painterCreated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
+    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ElementsCreated value)? elementsCreated,
+    TResult? Function(ElementsReplaced value)? elementsReplaced,
+    TResult? Function(ElementsChanged value)? elementsChanged,
+    TResult? Function(ElementsRemoved value)? elementsRemoved,
+    TResult? Function(ElementsArranged value)? elementsArranged,
+    TResult? Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult? Function(DocumentPathChanged value)? documentPathChanged,
+    TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
+    TResult? Function(PaintersChanged value)? paintersChanged,
+    TResult? Function(PaintersRemoved value)? paintersRemoved,
+    TResult? Function(PainterReordered value)? painterReordered,
+    TResult? Function(DocumentBackgroundChanged value)?
+        documentBackgroundChanged,
+    TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(LayerRenamed value)? layerRenamed,
+    TResult? Function(LayerRemoved value)? layerRemoved,
+    TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult? Function(TemplateCreated value)? templateCreated,
+    TResult? Function(AreasCreated value)? areasCreated,
+    TResult? Function(AreasRemoved value)? areasRemoved,
+    TResult? Function(AreaChanged value)? areaChanged,
+    TResult? Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult? Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult? Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult? Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult? Function(PackAdded value)? packAdded,
+    TResult? Function(PackUpdated value)? packUpdated,
+    TResult? Function(PackRemoved value)? packRemoved,
+    TResult? Function(AnimationAdded value)? animationAdded,
+    TResult? Function(AnimationUpdated value)? animationUpdated,
+    TResult? Function(AnimationRemoved value)? animationRemoved,
+    TResult? Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult? Function(PresentationModeExited value)? presentationModeExited,
+    TResult? Function(PresentationTick value)? presentationTick,
+  }) {
+    return painterCreated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageChanged value)? pageChanged,
+    TResult Function(ToolOptionChanged value)? toolOptionChanged,
+    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ElementsCreated value)? elementsCreated,
+    TResult Function(ElementsReplaced value)? elementsReplaced,
+    TResult Function(ElementsChanged value)? elementsChanged,
+    TResult Function(ElementsRemoved value)? elementsRemoved,
+    TResult Function(ElementsArranged value)? elementsArranged,
+    TResult Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult Function(DocumentPathChanged value)? documentPathChanged,
+    TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
+    TResult Function(PaintersChanged value)? paintersChanged,
+    TResult Function(PaintersRemoved value)? paintersRemoved,
+    TResult Function(PainterReordered value)? painterReordered,
+    TResult Function(DocumentBackgroundChanged value)?
+        documentBackgroundChanged,
+    TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(LayerRenamed value)? layerRenamed,
+    TResult Function(LayerRemoved value)? layerRemoved,
+    TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult Function(TemplateCreated value)? templateCreated,
+    TResult Function(AreasCreated value)? areasCreated,
+    TResult Function(AreasRemoved value)? areasRemoved,
+    TResult Function(AreaChanged value)? areaChanged,
+    TResult Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult Function(PackAdded value)? packAdded,
+    TResult Function(PackUpdated value)? packUpdated,
+    TResult Function(PackRemoved value)? packRemoved,
+    TResult Function(AnimationAdded value)? animationAdded,
+    TResult Function(AnimationUpdated value)? animationUpdated,
+    TResult Function(AnimationRemoved value)? animationRemoved,
+    TResult Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult Function(PresentationModeExited value)? presentationModeExited,
+    TResult Function(PresentationTick value)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (painterCreated != null) {
+      return painterCreated(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PainterCreatedToJson(
+      this,
+    );
+  }
+}
+
+abstract class PainterCreated extends DocumentEvent {
+  const factory PainterCreated(final Painter painter) = _$PainterCreated;
+  const PainterCreated._() : super._();
+
+  factory PainterCreated.fromJson(Map<String, dynamic> json) =
+      _$PainterCreated.fromJson;
+
+  Painter get painter;
+  @JsonKey(ignore: true)
+  _$$PainterCreatedCopyWith<_$PainterCreated> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -4976,11 +5749,14 @@ class _$PaintersChanged extends PaintersChanged {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -4991,14 +5767,19 @@ class _$PaintersChanged extends PaintersChanged {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -5009,7 +5790,8 @@ class _$PaintersChanged extends PaintersChanged {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -5028,11 +5810,13 @@ class _$PaintersChanged extends PaintersChanged {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -5042,14 +5826,17 @@ class _$PaintersChanged extends PaintersChanged {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -5058,7 +5845,8 @@ class _$PaintersChanged extends PaintersChanged {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -5077,11 +5865,13 @@ class _$PaintersChanged extends PaintersChanged {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -5091,14 +5881,17 @@ class _$PaintersChanged extends PaintersChanged {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -5107,7 +5900,8 @@ class _$PaintersChanged extends PaintersChanged {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -5133,6 +5927,7 @@ class _$PaintersChanged extends PaintersChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -5146,6 +5941,7 @@ class _$PaintersChanged extends PaintersChanged {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -5184,6 +5980,7 @@ class _$PaintersChanged extends PaintersChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -5196,6 +5993,7 @@ class _$PaintersChanged extends PaintersChanged {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -5232,6 +6030,7 @@ class _$PaintersChanged extends PaintersChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -5244,6 +6043,7 @@ class _$PaintersChanged extends PaintersChanged {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -5381,11 +6181,14 @@ class _$PaintersRemoved extends PaintersRemoved {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -5396,14 +6199,19 @@ class _$PaintersRemoved extends PaintersRemoved {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -5414,7 +6222,8 @@ class _$PaintersRemoved extends PaintersRemoved {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -5433,11 +6242,13 @@ class _$PaintersRemoved extends PaintersRemoved {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -5447,14 +6258,17 @@ class _$PaintersRemoved extends PaintersRemoved {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -5463,7 +6277,8 @@ class _$PaintersRemoved extends PaintersRemoved {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -5482,11 +6297,13 @@ class _$PaintersRemoved extends PaintersRemoved {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -5496,14 +6313,17 @@ class _$PaintersRemoved extends PaintersRemoved {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -5512,7 +6332,8 @@ class _$PaintersRemoved extends PaintersRemoved {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -5538,6 +6359,7 @@ class _$PaintersRemoved extends PaintersRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -5551,6 +6373,7 @@ class _$PaintersRemoved extends PaintersRemoved {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -5589,6 +6412,7 @@ class _$PaintersRemoved extends PaintersRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -5601,6 +6425,7 @@ class _$PaintersRemoved extends PaintersRemoved {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -5637,6 +6462,7 @@ class _$PaintersRemoved extends PaintersRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -5649,6 +6475,7 @@ class _$PaintersRemoved extends PaintersRemoved {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -5789,11 +6616,14 @@ class _$PainterReordered extends PainterReordered {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -5804,14 +6634,19 @@ class _$PainterReordered extends PainterReordered {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -5822,7 +6657,8 @@ class _$PainterReordered extends PainterReordered {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -5841,11 +6677,13 @@ class _$PainterReordered extends PainterReordered {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -5855,14 +6693,17 @@ class _$PainterReordered extends PainterReordered {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -5871,7 +6712,8 @@ class _$PainterReordered extends PainterReordered {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -5890,11 +6732,13 @@ class _$PainterReordered extends PainterReordered {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -5904,14 +6748,17 @@ class _$PainterReordered extends PainterReordered {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -5920,7 +6767,8 @@ class _$PainterReordered extends PainterReordered {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -5946,6 +6794,7 @@ class _$PainterReordered extends PainterReordered {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -5959,6 +6808,7 @@ class _$PainterReordered extends PainterReordered {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -5997,6 +6847,7 @@ class _$PainterReordered extends PainterReordered {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -6009,6 +6860,7 @@ class _$PainterReordered extends PainterReordered {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -6045,6 +6897,7 @@ class _$PainterReordered extends PainterReordered {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -6057,6 +6910,7 @@ class _$PainterReordered extends PainterReordered {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -6201,11 +7055,14 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -6216,14 +7073,19 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -6234,7 +7096,8 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -6253,11 +7116,13 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -6267,14 +7132,17 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -6283,7 +7151,8 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -6302,11 +7171,13 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -6316,14 +7187,17 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -6332,7 +7206,8 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -6358,6 +7233,7 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -6371,6 +7247,7 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -6409,6 +7286,7 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -6421,6 +7299,7 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -6457,6 +7336,7 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -6469,6 +7349,7 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -6610,11 +7491,14 @@ class _$WaypointCreated extends WaypointCreated {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -6625,14 +7509,19 @@ class _$WaypointCreated extends WaypointCreated {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -6643,7 +7532,8 @@ class _$WaypointCreated extends WaypointCreated {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -6662,11 +7552,13 @@ class _$WaypointCreated extends WaypointCreated {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -6676,14 +7568,17 @@ class _$WaypointCreated extends WaypointCreated {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -6692,7 +7587,8 @@ class _$WaypointCreated extends WaypointCreated {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -6711,11 +7607,13 @@ class _$WaypointCreated extends WaypointCreated {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -6725,14 +7623,17 @@ class _$WaypointCreated extends WaypointCreated {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -6741,7 +7642,8 @@ class _$WaypointCreated extends WaypointCreated {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -6767,6 +7669,7 @@ class _$WaypointCreated extends WaypointCreated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -6780,6 +7683,7 @@ class _$WaypointCreated extends WaypointCreated {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -6818,6 +7722,7 @@ class _$WaypointCreated extends WaypointCreated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -6830,6 +7735,7 @@ class _$WaypointCreated extends WaypointCreated {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -6866,6 +7772,7 @@ class _$WaypointCreated extends WaypointCreated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -6878,6 +7785,7 @@ class _$WaypointCreated extends WaypointCreated {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -7007,11 +7915,14 @@ class _$WaypointRemoved extends WaypointRemoved {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -7022,14 +7933,19 @@ class _$WaypointRemoved extends WaypointRemoved {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -7040,7 +7956,8 @@ class _$WaypointRemoved extends WaypointRemoved {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -7059,11 +7976,13 @@ class _$WaypointRemoved extends WaypointRemoved {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -7073,14 +7992,17 @@ class _$WaypointRemoved extends WaypointRemoved {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -7089,7 +8011,8 @@ class _$WaypointRemoved extends WaypointRemoved {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -7108,11 +8031,13 @@ class _$WaypointRemoved extends WaypointRemoved {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -7122,14 +8047,17 @@ class _$WaypointRemoved extends WaypointRemoved {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -7138,7 +8066,8 @@ class _$WaypointRemoved extends WaypointRemoved {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -7164,6 +8093,7 @@ class _$WaypointRemoved extends WaypointRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -7177,6 +8107,7 @@ class _$WaypointRemoved extends WaypointRemoved {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -7215,6 +8146,7 @@ class _$WaypointRemoved extends WaypointRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -7227,6 +8159,7 @@ class _$WaypointRemoved extends WaypointRemoved {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -7263,6 +8196,7 @@ class _$WaypointRemoved extends WaypointRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -7275,6 +8209,7 @@ class _$WaypointRemoved extends WaypointRemoved {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -7412,11 +8347,14 @@ class _$LayerRenamed extends LayerRenamed {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -7427,14 +8365,19 @@ class _$LayerRenamed extends LayerRenamed {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -7445,7 +8388,8 @@ class _$LayerRenamed extends LayerRenamed {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -7464,11 +8408,13 @@ class _$LayerRenamed extends LayerRenamed {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -7478,14 +8424,17 @@ class _$LayerRenamed extends LayerRenamed {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -7494,7 +8443,8 @@ class _$LayerRenamed extends LayerRenamed {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -7513,11 +8463,13 @@ class _$LayerRenamed extends LayerRenamed {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -7527,14 +8479,17 @@ class _$LayerRenamed extends LayerRenamed {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -7543,7 +8498,8 @@ class _$LayerRenamed extends LayerRenamed {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -7569,6 +8525,7 @@ class _$LayerRenamed extends LayerRenamed {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -7582,6 +8539,7 @@ class _$LayerRenamed extends LayerRenamed {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -7620,6 +8578,7 @@ class _$LayerRenamed extends LayerRenamed {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -7632,6 +8591,7 @@ class _$LayerRenamed extends LayerRenamed {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -7668,6 +8628,7 @@ class _$LayerRenamed extends LayerRenamed {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -7680,6 +8641,7 @@ class _$LayerRenamed extends LayerRenamed {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -7811,11 +8773,14 @@ class _$LayerRemoved extends LayerRemoved {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -7826,14 +8791,19 @@ class _$LayerRemoved extends LayerRemoved {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -7844,7 +8814,8 @@ class _$LayerRemoved extends LayerRemoved {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -7863,11 +8834,13 @@ class _$LayerRemoved extends LayerRemoved {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -7877,14 +8850,17 @@ class _$LayerRemoved extends LayerRemoved {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -7893,7 +8869,8 @@ class _$LayerRemoved extends LayerRemoved {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -7912,11 +8889,13 @@ class _$LayerRemoved extends LayerRemoved {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -7926,14 +8905,17 @@ class _$LayerRemoved extends LayerRemoved {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -7942,7 +8924,8 @@ class _$LayerRemoved extends LayerRemoved {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -7968,6 +8951,7 @@ class _$LayerRemoved extends LayerRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -7981,6 +8965,7 @@ class _$LayerRemoved extends LayerRemoved {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -8019,6 +9004,7 @@ class _$LayerRemoved extends LayerRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -8031,6 +9017,7 @@ class _$LayerRemoved extends LayerRemoved {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -8067,6 +9054,7 @@ class _$LayerRemoved extends LayerRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -8079,6 +9067,7 @@ class _$LayerRemoved extends LayerRemoved {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -8209,11 +9198,14 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -8224,14 +9216,19 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -8242,7 +9239,8 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -8261,11 +9259,13 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -8275,14 +9275,17 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -8291,7 +9294,8 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -8310,11 +9314,13 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -8324,14 +9330,17 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -8340,7 +9349,8 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -8366,6 +9376,7 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -8379,6 +9390,7 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -8417,6 +9429,7 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -8429,6 +9442,7 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -8465,6 +9479,7 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -8477,6 +9492,7 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -8530,7 +9546,7 @@ abstract class _$$LayerVisibilityChangedCopyWith<$Res> {
           $Res Function(_$LayerVisibilityChanged) then) =
       __$$LayerVisibilityChangedCopyWithImpl<$Res>;
   @useResult
-  $Res call({String name, bool visible});
+  $Res call({String name});
 }
 
 /// @nodoc
@@ -8545,17 +9561,12 @@ class __$$LayerVisibilityChangedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? visible = null,
   }) {
     return _then(_$LayerVisibilityChanged(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      null == visible
-          ? _value.visible
-          : visible // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -8563,7 +9574,7 @@ class __$$LayerVisibilityChangedCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$LayerVisibilityChanged extends LayerVisibilityChanged {
-  const _$LayerVisibilityChanged(this.name, this.visible, {final String? $type})
+  const _$LayerVisibilityChanged(this.name, {final String? $type})
       : $type = $type ?? 'layerVisibilityChanged',
         super._();
 
@@ -8572,15 +9583,13 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
 
   @override
   final String name;
-  @override
-  final bool visible;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.layerVisibilityChanged(name: $name, visible: $visible)';
+    return 'DocumentEvent.layerVisibilityChanged(name: $name)';
   }
 
   @override
@@ -8588,13 +9597,12 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LayerVisibilityChanged &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.visible, visible) || other.visible == visible));
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, visible);
+  int get hashCode => Object.hash(runtimeType, name);
 
   @JsonKey(ignore: true)
   @override
@@ -8616,11 +9624,14 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -8631,14 +9642,19 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -8649,11 +9665,12 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return layerVisibilityChanged(name, visible);
+    return layerVisibilityChanged(name);
   }
 
   @override
@@ -8668,11 +9685,13 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -8682,14 +9701,17 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -8698,11 +9720,12 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return layerVisibilityChanged?.call(name, visible);
+    return layerVisibilityChanged?.call(name);
   }
 
   @override
@@ -8717,11 +9740,13 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -8731,14 +9756,17 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -8747,13 +9775,14 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
   }) {
     if (layerVisibilityChanged != null) {
-      return layerVisibilityChanged(name, visible);
+      return layerVisibilityChanged(name);
     }
     return orElse();
   }
@@ -8773,6 +9802,7 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -8786,6 +9816,7 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -8824,6 +9855,7 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -8836,6 +9868,7 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -8872,6 +9905,7 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -8884,6 +9918,7 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -8918,7 +9953,7 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
 }
 
 abstract class LayerVisibilityChanged extends DocumentEvent {
-  const factory LayerVisibilityChanged(final String name, final bool visible) =
+  const factory LayerVisibilityChanged(final String name) =
       _$LayerVisibilityChanged;
   const LayerVisibilityChanged._() : super._();
 
@@ -8926,7 +9961,6 @@ abstract class LayerVisibilityChanged extends DocumentEvent {
       _$LayerVisibilityChanged.fromJson;
 
   String get name;
-  bool get visible;
   @JsonKey(ignore: true)
   _$$LayerVisibilityChangedCopyWith<_$LayerVisibilityChanged> get copyWith =>
       throw _privateConstructorUsedError;
@@ -9016,11 +10050,14 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -9031,14 +10068,19 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -9049,7 +10091,8 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -9068,11 +10111,13 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -9082,14 +10127,17 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -9098,7 +10146,8 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -9117,11 +10166,13 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -9131,14 +10182,17 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -9147,7 +10201,8 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -9173,6 +10228,7 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -9186,6 +10242,7 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -9224,6 +10281,7 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -9236,6 +10294,7 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -9272,6 +10331,7 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -9284,6 +10344,7 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -9331,12 +10392,456 @@ abstract class CurrentLayerChanged extends DocumentEvent {
 }
 
 /// @nodoc
+abstract class _$$ElementsLayerChangedCopyWith<$Res> {
+  factory _$$ElementsLayerChangedCopyWith(_$ElementsLayerChanged value,
+          $Res Function(_$ElementsLayerChanged) then) =
+      __$$ElementsLayerChangedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String layer, List<PadElement> elements});
+}
+
+/// @nodoc
+class __$$ElementsLayerChangedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ElementsLayerChanged>
+    implements _$$ElementsLayerChangedCopyWith<$Res> {
+  __$$ElementsLayerChangedCopyWithImpl(_$ElementsLayerChanged _value,
+      $Res Function(_$ElementsLayerChanged) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? layer = null,
+    Object? elements = null,
+  }) {
+    return _then(_$ElementsLayerChanged(
+      null == layer
+          ? _value.layer
+          : layer // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == elements
+          ? _value._elements
+          : elements // ignore: cast_nullable_to_non_nullable
+              as List<PadElement>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ElementsLayerChanged extends ElementsLayerChanged {
+  const _$ElementsLayerChanged(this.layer, final List<PadElement> elements,
+      {final String? $type})
+      : _elements = elements,
+        $type = $type ?? 'elementsLayerChanged',
+        super._();
+
+  factory _$ElementsLayerChanged.fromJson(Map<String, dynamic> json) =>
+      _$$ElementsLayerChangedFromJson(json);
+
+  @override
+  final String layer;
+  final List<PadElement> _elements;
+  @override
+  List<PadElement> get elements {
+    if (_elements is EqualUnmodifiableListView) return _elements;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_elements);
+  }
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.elementsLayerChanged(layer: $layer, elements: $elements)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ElementsLayerChanged &&
+            (identical(other.layer, layer) || other.layer == layer) &&
+            const DeepCollectionEquality().equals(other._elements, _elements));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, layer, const DeepCollectionEquality().hash(_elements));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ElementsLayerChangedCopyWith<_$ElementsLayerChanged> get copyWith =>
+      __$$ElementsLayerChangedCopyWithImpl<_$ElementsLayerChanged>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String pageName) pageChanged,
+    required TResult Function(ToolOption? option) toolOptionChanged,
+    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(List<PadElement> elements) elementsCreated,
+    required TResult Function(Map<int, List<PadElement>> replacedElements)
+        elementsReplaced,
+    required TResult Function(
+            List<(PadElement, List<PadElement>)> changedElements)
+        elementsChanged,
+    required TResult Function(List<PadElement> elements) elementsRemoved,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
+    required TResult Function(String? name, String? description)
+        documentDescriptionChanged,
+    required TResult Function(String path) documentPathChanged,
+    required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
+    required TResult Function(List<(Painter, Painter)> painters)
+        paintersChanged,
+    required TResult Function(List<Painter> painters) paintersRemoved,
+    required TResult Function(int oldIndex, int newIndex) painterReordered,
+    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String oldName, String newName) layerRenamed,
+    required TResult Function(String name) layerRemoved,
+    required TResult Function(String name) layerElementsRemoved,
+    required TResult Function(String name) layerVisibilityChanged,
+    required TResult Function(String name) currentLayerChanged,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
+    required TResult Function(List<Area> areas) areasCreated,
+    required TResult Function(List<String> areas) areasRemoved,
+    required TResult Function(String name, Area area) areaChanged,
+    required TResult Function(String name) currentAreaChanged,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetUpdated,
+    required TResult Function(String name) exportPresetRemoved,
+    required TResult Function(NoteData pack) packAdded,
+    required TResult Function(String name, NoteData pack) packUpdated,
+    required TResult Function(String name) packRemoved,
+    required TResult Function(AnimationTrack animation) animationAdded,
+    required TResult Function(String name, AnimationTrack animation)
+        animationUpdated,
+    required TResult Function(String name) animationRemoved,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
+    required TResult Function() presentationModeExited,
+    required TResult Function(int tick) presentationTick,
+  }) {
+    return elementsLayerChanged(layer, elements);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String pageName)? pageChanged,
+    TResult? Function(ToolOption? option)? toolOptionChanged,
+    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(List<PadElement> elements)? elementsCreated,
+    TResult? Function(Map<int, List<PadElement>> replacedElements)?
+        elementsReplaced,
+    TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
+        elementsChanged,
+    TResult? Function(List<PadElement> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
+    TResult? Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult? Function(String path)? documentPathChanged,
+    TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
+    TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
+    TResult? Function(List<Painter> painters)? paintersRemoved,
+    TResult? Function(int oldIndex, int newIndex)? painterReordered,
+    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String oldName, String newName)? layerRenamed,
+    TResult? Function(String name)? layerRemoved,
+    TResult? Function(String name)? layerElementsRemoved,
+    TResult? Function(String name)? layerVisibilityChanged,
+    TResult? Function(String name)? currentLayerChanged,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult? Function(List<Area> areas)? areasCreated,
+    TResult? Function(List<String> areas)? areasRemoved,
+    TResult? Function(String name, Area area)? areaChanged,
+    TResult? Function(String name)? currentAreaChanged,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult? Function(String name)? exportPresetRemoved,
+    TResult? Function(NoteData pack)? packAdded,
+    TResult? Function(String name, NoteData pack)? packUpdated,
+    TResult? Function(String name)? packRemoved,
+    TResult? Function(AnimationTrack animation)? animationAdded,
+    TResult? Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult? Function(String name)? animationRemoved,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult? Function()? presentationModeExited,
+    TResult? Function(int tick)? presentationTick,
+  }) {
+    return elementsLayerChanged?.call(layer, elements);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String pageName)? pageChanged,
+    TResult Function(ToolOption? option)? toolOptionChanged,
+    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(List<PadElement> elements)? elementsCreated,
+    TResult Function(Map<int, List<PadElement>> replacedElements)?
+        elementsReplaced,
+    TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
+        elementsChanged,
+    TResult Function(List<PadElement> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
+    TResult Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult Function(String path)? documentPathChanged,
+    TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
+    TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
+    TResult Function(List<Painter> painters)? paintersRemoved,
+    TResult Function(int oldIndex, int newIndex)? painterReordered,
+    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index)? waypointRemoved,
+    TResult Function(String oldName, String newName)? layerRenamed,
+    TResult Function(String name)? layerRemoved,
+    TResult Function(String name)? layerElementsRemoved,
+    TResult Function(String name)? layerVisibilityChanged,
+    TResult Function(String name)? currentLayerChanged,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult Function(List<Area> areas)? areasCreated,
+    TResult Function(List<String> areas)? areasRemoved,
+    TResult Function(String name, Area area)? areaChanged,
+    TResult Function(String name)? currentAreaChanged,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult Function(String name)? exportPresetRemoved,
+    TResult Function(NoteData pack)? packAdded,
+    TResult Function(String name, NoteData pack)? packUpdated,
+    TResult Function(String name)? packRemoved,
+    TResult Function(AnimationTrack animation)? animationAdded,
+    TResult Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult Function(String name)? animationRemoved,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult Function()? presentationModeExited,
+    TResult Function(int tick)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (elementsLayerChanged != null) {
+      return elementsLayerChanged(layer, elements);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(ToolOptionChanged value) toolOptionChanged,
+    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ElementsCreated value) elementsCreated,
+    required TResult Function(ElementsReplaced value) elementsReplaced,
+    required TResult Function(ElementsChanged value) elementsChanged,
+    required TResult Function(ElementsRemoved value) elementsRemoved,
+    required TResult Function(ElementsArranged value) elementsArranged,
+    required TResult Function(DocumentDescriptionChanged value)
+        documentDescriptionChanged,
+    required TResult Function(DocumentPathChanged value) documentPathChanged,
+    required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
+    required TResult Function(PaintersChanged value) paintersChanged,
+    required TResult Function(PaintersRemoved value) paintersRemoved,
+    required TResult Function(PainterReordered value) painterReordered,
+    required TResult Function(DocumentBackgroundChanged value)
+        documentBackgroundChanged,
+    required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(LayerRenamed value) layerRenamed,
+    required TResult Function(LayerRemoved value) layerRemoved,
+    required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
+    required TResult Function(LayerVisibilityChanged value)
+        layerVisibilityChanged,
+    required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
+    required TResult Function(TemplateCreated value) templateCreated,
+    required TResult Function(AreasCreated value) areasCreated,
+    required TResult Function(AreasRemoved value) areasRemoved,
+    required TResult Function(AreaChanged value) areaChanged,
+    required TResult Function(CurrentAreaChanged value) currentAreaChanged,
+    required TResult Function(ExportPresetCreated value) exportPresetCreated,
+    required TResult Function(ExportPresetUpdated value) exportPresetUpdated,
+    required TResult Function(ExportPresetRemoved value) exportPresetRemoved,
+    required TResult Function(PackAdded value) packAdded,
+    required TResult Function(PackUpdated value) packUpdated,
+    required TResult Function(PackRemoved value) packRemoved,
+    required TResult Function(AnimationAdded value) animationAdded,
+    required TResult Function(AnimationUpdated value) animationUpdated,
+    required TResult Function(AnimationRemoved value) animationRemoved,
+    required TResult Function(PresentationModeEntered value)
+        presentationModeEntered,
+    required TResult Function(PresentationModeExited value)
+        presentationModeExited,
+    required TResult Function(PresentationTick value) presentationTick,
+  }) {
+    return elementsLayerChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
+    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ElementsCreated value)? elementsCreated,
+    TResult? Function(ElementsReplaced value)? elementsReplaced,
+    TResult? Function(ElementsChanged value)? elementsChanged,
+    TResult? Function(ElementsRemoved value)? elementsRemoved,
+    TResult? Function(ElementsArranged value)? elementsArranged,
+    TResult? Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult? Function(DocumentPathChanged value)? documentPathChanged,
+    TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
+    TResult? Function(PaintersChanged value)? paintersChanged,
+    TResult? Function(PaintersRemoved value)? paintersRemoved,
+    TResult? Function(PainterReordered value)? painterReordered,
+    TResult? Function(DocumentBackgroundChanged value)?
+        documentBackgroundChanged,
+    TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(LayerRenamed value)? layerRenamed,
+    TResult? Function(LayerRemoved value)? layerRemoved,
+    TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult? Function(TemplateCreated value)? templateCreated,
+    TResult? Function(AreasCreated value)? areasCreated,
+    TResult? Function(AreasRemoved value)? areasRemoved,
+    TResult? Function(AreaChanged value)? areaChanged,
+    TResult? Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult? Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult? Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult? Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult? Function(PackAdded value)? packAdded,
+    TResult? Function(PackUpdated value)? packUpdated,
+    TResult? Function(PackRemoved value)? packRemoved,
+    TResult? Function(AnimationAdded value)? animationAdded,
+    TResult? Function(AnimationUpdated value)? animationUpdated,
+    TResult? Function(AnimationRemoved value)? animationRemoved,
+    TResult? Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult? Function(PresentationModeExited value)? presentationModeExited,
+    TResult? Function(PresentationTick value)? presentationTick,
+  }) {
+    return elementsLayerChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageChanged value)? pageChanged,
+    TResult Function(ToolOptionChanged value)? toolOptionChanged,
+    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ElementsCreated value)? elementsCreated,
+    TResult Function(ElementsReplaced value)? elementsReplaced,
+    TResult Function(ElementsChanged value)? elementsChanged,
+    TResult Function(ElementsRemoved value)? elementsRemoved,
+    TResult Function(ElementsArranged value)? elementsArranged,
+    TResult Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult Function(DocumentPathChanged value)? documentPathChanged,
+    TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
+    TResult Function(PaintersChanged value)? paintersChanged,
+    TResult Function(PaintersRemoved value)? paintersRemoved,
+    TResult Function(PainterReordered value)? painterReordered,
+    TResult Function(DocumentBackgroundChanged value)?
+        documentBackgroundChanged,
+    TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(LayerRenamed value)? layerRenamed,
+    TResult Function(LayerRemoved value)? layerRemoved,
+    TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult Function(TemplateCreated value)? templateCreated,
+    TResult Function(AreasCreated value)? areasCreated,
+    TResult Function(AreasRemoved value)? areasRemoved,
+    TResult Function(AreaChanged value)? areaChanged,
+    TResult Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult Function(PackAdded value)? packAdded,
+    TResult Function(PackUpdated value)? packUpdated,
+    TResult Function(PackRemoved value)? packRemoved,
+    TResult Function(AnimationAdded value)? animationAdded,
+    TResult Function(AnimationUpdated value)? animationUpdated,
+    TResult Function(AnimationRemoved value)? animationRemoved,
+    TResult Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult Function(PresentationModeExited value)? presentationModeExited,
+    TResult Function(PresentationTick value)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (elementsLayerChanged != null) {
+      return elementsLayerChanged(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ElementsLayerChangedToJson(
+      this,
+    );
+  }
+}
+
+abstract class ElementsLayerChanged extends DocumentEvent {
+  const factory ElementsLayerChanged(
+          final String layer, final List<PadElement> elements) =
+      _$ElementsLayerChanged;
+  const ElementsLayerChanged._() : super._();
+
+  factory ElementsLayerChanged.fromJson(Map<String, dynamic> json) =
+      _$ElementsLayerChanged.fromJson;
+
+  String get layer;
+  List<PadElement> get elements;
+  @JsonKey(ignore: true)
+  _$$ElementsLayerChangedCopyWith<_$ElementsLayerChanged> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 abstract class _$$TemplateCreatedCopyWith<$Res> {
   factory _$$TemplateCreatedCopyWith(
           _$TemplateCreated value, $Res Function(_$TemplateCreated) then) =
       __$$TemplateCreatedCopyWithImpl<$Res>;
   @useResult
-  $Res call({String name});
+  $Res call({String directory, String? remote, bool deleteDocument});
 }
 
 /// @nodoc
@@ -9350,13 +10855,23 @@ class __$$TemplateCreatedCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? directory = null,
+    Object? remote = freezed,
+    Object? deleteDocument = null,
   }) {
     return _then(_$TemplateCreated(
-      null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      null == directory
+          ? _value.directory
+          : directory // ignore: cast_nullable_to_non_nullable
               as String,
+      freezed == remote
+          ? _value.remote
+          : remote // ignore: cast_nullable_to_non_nullable
+              as String?,
+      null == deleteDocument
+          ? _value.deleteDocument
+          : deleteDocument // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -9364,7 +10879,8 @@ class __$$TemplateCreatedCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$TemplateCreated extends TemplateCreated {
-  const _$TemplateCreated(this.name, {final String? $type})
+  const _$TemplateCreated(this.directory,
+      [this.remote, this.deleteDocument = true, final String? $type])
       : $type = $type ?? 'templateCreated',
         super._();
 
@@ -9372,14 +10888,19 @@ class _$TemplateCreated extends TemplateCreated {
       _$$TemplateCreatedFromJson(json);
 
   @override
-  final String name;
+  final String directory;
+  @override
+  final String? remote;
+  @override
+  @JsonKey()
+  final bool deleteDocument;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.templateCreated(name: $name)';
+    return 'DocumentEvent.templateCreated(directory: $directory, remote: $remote, deleteDocument: $deleteDocument)';
   }
 
   @override
@@ -9387,12 +10908,17 @@ class _$TemplateCreated extends TemplateCreated {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TemplateCreated &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.directory, directory) ||
+                other.directory == directory) &&
+            (identical(other.remote, remote) || other.remote == remote) &&
+            (identical(other.deleteDocument, deleteDocument) ||
+                other.deleteDocument == deleteDocument));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name);
+  int get hashCode =>
+      Object.hash(runtimeType, directory, remote, deleteDocument);
 
   @JsonKey(ignore: true)
   @override
@@ -9413,11 +10939,14 @@ class _$TemplateCreated extends TemplateCreated {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -9428,14 +10957,19 @@ class _$TemplateCreated extends TemplateCreated {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -9446,11 +10980,12 @@ class _$TemplateCreated extends TemplateCreated {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return templateCreated(name);
+    return templateCreated(directory, remote, deleteDocument);
   }
 
   @override
@@ -9465,11 +11000,13 @@ class _$TemplateCreated extends TemplateCreated {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -9479,14 +11016,17 @@ class _$TemplateCreated extends TemplateCreated {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -9495,11 +11035,12 @@ class _$TemplateCreated extends TemplateCreated {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return templateCreated?.call(name);
+    return templateCreated?.call(directory, remote, deleteDocument);
   }
 
   @override
@@ -9514,11 +11055,13 @@ class _$TemplateCreated extends TemplateCreated {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -9528,14 +11071,17 @@ class _$TemplateCreated extends TemplateCreated {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -9544,13 +11090,14 @@ class _$TemplateCreated extends TemplateCreated {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
   }) {
     if (templateCreated != null) {
-      return templateCreated(name);
+      return templateCreated(directory, remote, deleteDocument);
     }
     return orElse();
   }
@@ -9570,6 +11117,7 @@ class _$TemplateCreated extends TemplateCreated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -9583,6 +11131,7 @@ class _$TemplateCreated extends TemplateCreated {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -9621,6 +11170,7 @@ class _$TemplateCreated extends TemplateCreated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -9633,6 +11183,7 @@ class _$TemplateCreated extends TemplateCreated {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -9669,6 +11220,7 @@ class _$TemplateCreated extends TemplateCreated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -9681,6 +11233,7 @@ class _$TemplateCreated extends TemplateCreated {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -9715,13 +11268,16 @@ class _$TemplateCreated extends TemplateCreated {
 }
 
 abstract class TemplateCreated extends DocumentEvent {
-  const factory TemplateCreated(final String name) = _$TemplateCreated;
+  const factory TemplateCreated(final String directory,
+      [final String? remote, final bool deleteDocument]) = _$TemplateCreated;
   const TemplateCreated._() : super._();
 
   factory TemplateCreated.fromJson(Map<String, dynamic> json) =
       _$TemplateCreated.fromJson;
 
-  String get name;
+  String get directory;
+  String? get remote;
+  bool get deleteDocument;
   @JsonKey(ignore: true)
   _$$TemplateCreatedCopyWith<_$TemplateCreated> get copyWith =>
       throw _privateConstructorUsedError;
@@ -9817,11 +11373,14 @@ class _$AreasCreated extends AreasCreated {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -9832,14 +11391,19 @@ class _$AreasCreated extends AreasCreated {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -9850,7 +11414,8 @@ class _$AreasCreated extends AreasCreated {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -9869,11 +11434,13 @@ class _$AreasCreated extends AreasCreated {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -9883,14 +11450,17 @@ class _$AreasCreated extends AreasCreated {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -9899,7 +11469,8 @@ class _$AreasCreated extends AreasCreated {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -9918,11 +11489,13 @@ class _$AreasCreated extends AreasCreated {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -9932,14 +11505,17 @@ class _$AreasCreated extends AreasCreated {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -9948,7 +11524,8 @@ class _$AreasCreated extends AreasCreated {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -9974,6 +11551,7 @@ class _$AreasCreated extends AreasCreated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -9987,6 +11565,7 @@ class _$AreasCreated extends AreasCreated {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -10025,6 +11604,7 @@ class _$AreasCreated extends AreasCreated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -10037,6 +11617,7 @@ class _$AreasCreated extends AreasCreated {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -10073,6 +11654,7 @@ class _$AreasCreated extends AreasCreated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -10085,6 +11667,7 @@ class _$AreasCreated extends AreasCreated {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -10221,11 +11804,14 @@ class _$AreasRemoved extends AreasRemoved {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -10236,14 +11822,19 @@ class _$AreasRemoved extends AreasRemoved {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -10254,7 +11845,8 @@ class _$AreasRemoved extends AreasRemoved {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -10273,11 +11865,13 @@ class _$AreasRemoved extends AreasRemoved {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -10287,14 +11881,17 @@ class _$AreasRemoved extends AreasRemoved {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -10303,7 +11900,8 @@ class _$AreasRemoved extends AreasRemoved {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -10322,11 +11920,13 @@ class _$AreasRemoved extends AreasRemoved {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -10336,14 +11936,17 @@ class _$AreasRemoved extends AreasRemoved {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -10352,7 +11955,8 @@ class _$AreasRemoved extends AreasRemoved {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -10378,6 +11982,7 @@ class _$AreasRemoved extends AreasRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -10391,6 +11996,7 @@ class _$AreasRemoved extends AreasRemoved {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -10429,6 +12035,7 @@ class _$AreasRemoved extends AreasRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -10441,6 +12048,7 @@ class _$AreasRemoved extends AreasRemoved {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -10477,6 +12085,7 @@ class _$AreasRemoved extends AreasRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -10489,6 +12098,7 @@ class _$AreasRemoved extends AreasRemoved {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -10636,11 +12246,14 @@ class _$AreaChanged extends AreaChanged {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -10651,14 +12264,19 @@ class _$AreaChanged extends AreaChanged {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -10669,7 +12287,8 @@ class _$AreaChanged extends AreaChanged {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -10688,11 +12307,13 @@ class _$AreaChanged extends AreaChanged {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -10702,14 +12323,17 @@ class _$AreaChanged extends AreaChanged {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -10718,7 +12342,8 @@ class _$AreaChanged extends AreaChanged {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -10737,11 +12362,13 @@ class _$AreaChanged extends AreaChanged {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -10751,14 +12378,17 @@ class _$AreaChanged extends AreaChanged {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -10767,7 +12397,8 @@ class _$AreaChanged extends AreaChanged {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -10793,6 +12424,7 @@ class _$AreaChanged extends AreaChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -10806,6 +12438,7 @@ class _$AreaChanged extends AreaChanged {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -10844,6 +12477,7 @@ class _$AreaChanged extends AreaChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -10856,6 +12490,7 @@ class _$AreaChanged extends AreaChanged {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -10892,6 +12527,7 @@ class _$AreaChanged extends AreaChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -10904,6 +12540,7 @@ class _$AreaChanged extends AreaChanged {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -11035,11 +12672,14 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -11050,14 +12690,19 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -11068,7 +12713,8 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -11087,11 +12733,13 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -11101,14 +12749,17 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -11117,7 +12768,8 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -11136,11 +12788,13 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -11150,14 +12804,17 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -11166,7 +12823,8 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -11192,6 +12850,7 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -11205,6 +12864,7 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -11243,6 +12903,7 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -11255,6 +12916,7 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -11291,6 +12953,7 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -11303,6 +12966,7 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -11355,7 +13019,7 @@ abstract class _$$ExportPresetCreatedCopyWith<$Res> {
           $Res Function(_$ExportPresetCreated) then) =
       __$$ExportPresetCreatedCopyWithImpl<$Res>;
   @useResult
-  $Res call({String name});
+  $Res call({String name, List<AreaPreset> areas});
 }
 
 /// @nodoc
@@ -11370,12 +13034,17 @@ class __$$ExportPresetCreatedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? areas = null,
   }) {
     return _then(_$ExportPresetCreated(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      null == areas
+          ? _value._areas
+          : areas // ignore: cast_nullable_to_non_nullable
+              as List<AreaPreset>,
     ));
   }
 }
@@ -11383,8 +13052,10 @@ class __$$ExportPresetCreatedCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ExportPresetCreated extends ExportPresetCreated {
-  const _$ExportPresetCreated(this.name, {final String? $type})
-      : $type = $type ?? 'exportPresetCreated',
+  const _$ExportPresetCreated(this.name,
+      [final List<AreaPreset> areas = const [], final String? $type])
+      : _areas = areas,
+        $type = $type ?? 'exportPresetCreated',
         super._();
 
   factory _$ExportPresetCreated.fromJson(Map<String, dynamic> json) =>
@@ -11392,13 +13063,21 @@ class _$ExportPresetCreated extends ExportPresetCreated {
 
   @override
   final String name;
+  final List<AreaPreset> _areas;
+  @override
+  @JsonKey()
+  List<AreaPreset> get areas {
+    if (_areas is EqualUnmodifiableListView) return _areas;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_areas);
+  }
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.exportPresetCreated(name: $name)';
+    return 'DocumentEvent.exportPresetCreated(name: $name, areas: $areas)';
   }
 
   @override
@@ -11406,12 +13085,14 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ExportPresetCreated &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality().equals(other._areas, _areas));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name);
+  int get hashCode => Object.hash(
+      runtimeType, name, const DeepCollectionEquality().hash(_areas));
 
   @JsonKey(ignore: true)
   @override
@@ -11433,11 +13114,14 @@ class _$ExportPresetCreated extends ExportPresetCreated {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -11448,14 +13132,19 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -11466,11 +13155,12 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return exportPresetCreated(name);
+    return exportPresetCreated(name, areas);
   }
 
   @override
@@ -11485,11 +13175,13 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -11499,14 +13191,17 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -11515,11 +13210,12 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return exportPresetCreated?.call(name);
+    return exportPresetCreated?.call(name, areas);
   }
 
   @override
@@ -11534,11 +13230,13 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -11548,14 +13246,17 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -11564,13 +13265,14 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
   }) {
     if (exportPresetCreated != null) {
-      return exportPresetCreated(name);
+      return exportPresetCreated(name, areas);
     }
     return orElse();
   }
@@ -11590,6 +13292,7 @@ class _$ExportPresetCreated extends ExportPresetCreated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -11603,6 +13306,7 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -11641,6 +13345,7 @@ class _$ExportPresetCreated extends ExportPresetCreated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -11653,6 +13358,7 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -11689,6 +13395,7 @@ class _$ExportPresetCreated extends ExportPresetCreated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -11701,6 +13408,7 @@ class _$ExportPresetCreated extends ExportPresetCreated {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -11735,13 +13443,15 @@ class _$ExportPresetCreated extends ExportPresetCreated {
 }
 
 abstract class ExportPresetCreated extends DocumentEvent {
-  const factory ExportPresetCreated(final String name) = _$ExportPresetCreated;
+  const factory ExportPresetCreated(final String name,
+      [final List<AreaPreset> areas]) = _$ExportPresetCreated;
   const ExportPresetCreated._() : super._();
 
   factory ExportPresetCreated.fromJson(Map<String, dynamic> json) =
       _$ExportPresetCreated.fromJson;
 
   String get name;
+  List<AreaPreset> get areas;
   @JsonKey(ignore: true)
   _$$ExportPresetCreatedCopyWith<_$ExportPresetCreated> get copyWith =>
       throw _privateConstructorUsedError;
@@ -11847,11 +13557,14 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -11862,14 +13575,19 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -11880,7 +13598,8 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -11899,11 +13618,13 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -11913,14 +13634,17 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -11929,7 +13653,8 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -11948,11 +13673,13 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -11962,14 +13689,17 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -11978,7 +13708,8 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -12004,6 +13735,7 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -12017,6 +13749,7 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -12055,6 +13788,7 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -12067,6 +13801,7 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -12103,6 +13838,7 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -12115,6 +13851,7 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -12247,11 +13984,14 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -12262,14 +14002,19 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -12280,7 +14025,8 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -12299,11 +14045,13 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -12313,14 +14061,17 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -12329,7 +14080,8 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -12348,11 +14100,13 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -12362,14 +14116,17 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -12378,7 +14135,8 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -12404,6 +14162,7 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -12417,6 +14176,7 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -12455,6 +14215,7 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -12467,6 +14228,7 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -12503,6 +14265,7 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -12515,6 +14278,7 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -12644,11 +14408,14 @@ class _$PackAdded extends PackAdded {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -12659,14 +14426,19 @@ class _$PackAdded extends PackAdded {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -12677,7 +14449,8 @@ class _$PackAdded extends PackAdded {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -12696,11 +14469,13 @@ class _$PackAdded extends PackAdded {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -12710,14 +14485,17 @@ class _$PackAdded extends PackAdded {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -12726,7 +14504,8 @@ class _$PackAdded extends PackAdded {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -12745,11 +14524,13 @@ class _$PackAdded extends PackAdded {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -12759,14 +14540,17 @@ class _$PackAdded extends PackAdded {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -12775,7 +14559,8 @@ class _$PackAdded extends PackAdded {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -12801,6 +14586,7 @@ class _$PackAdded extends PackAdded {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -12814,6 +14600,7 @@ class _$PackAdded extends PackAdded {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -12852,6 +14639,7 @@ class _$PackAdded extends PackAdded {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -12864,6 +14652,7 @@ class _$PackAdded extends PackAdded {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -12900,6 +14689,7 @@ class _$PackAdded extends PackAdded {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -12912,6 +14702,7 @@ class _$PackAdded extends PackAdded {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -13048,11 +14839,14 @@ class _$PackUpdated extends PackUpdated {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -13063,14 +14857,19 @@ class _$PackUpdated extends PackUpdated {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -13081,7 +14880,8 @@ class _$PackUpdated extends PackUpdated {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -13100,11 +14900,13 @@ class _$PackUpdated extends PackUpdated {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -13114,14 +14916,17 @@ class _$PackUpdated extends PackUpdated {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -13130,7 +14935,8 @@ class _$PackUpdated extends PackUpdated {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -13149,11 +14955,13 @@ class _$PackUpdated extends PackUpdated {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -13163,14 +14971,17 @@ class _$PackUpdated extends PackUpdated {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -13179,7 +14990,8 @@ class _$PackUpdated extends PackUpdated {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -13205,6 +15017,7 @@ class _$PackUpdated extends PackUpdated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -13218,6 +15031,7 @@ class _$PackUpdated extends PackUpdated {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -13256,6 +15070,7 @@ class _$PackUpdated extends PackUpdated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -13268,6 +15083,7 @@ class _$PackUpdated extends PackUpdated {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -13304,6 +15120,7 @@ class _$PackUpdated extends PackUpdated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -13316,6 +15133,7 @@ class _$PackUpdated extends PackUpdated {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -13447,11 +15265,14 @@ class _$PackRemoved extends PackRemoved {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -13462,14 +15283,19 @@ class _$PackRemoved extends PackRemoved {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -13480,7 +15306,8 @@ class _$PackRemoved extends PackRemoved {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -13499,11 +15326,13 @@ class _$PackRemoved extends PackRemoved {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -13513,14 +15342,17 @@ class _$PackRemoved extends PackRemoved {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -13529,7 +15361,8 @@ class _$PackRemoved extends PackRemoved {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -13548,11 +15381,13 @@ class _$PackRemoved extends PackRemoved {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -13562,14 +15397,17 @@ class _$PackRemoved extends PackRemoved {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -13578,7 +15416,8 @@ class _$PackRemoved extends PackRemoved {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -13604,6 +15443,7 @@ class _$PackRemoved extends PackRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -13617,6 +15457,7 @@ class _$PackRemoved extends PackRemoved {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -13655,6 +15496,7 @@ class _$PackRemoved extends PackRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -13667,6 +15509,7 @@ class _$PackRemoved extends PackRemoved {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -13703,6 +15546,7 @@ class _$PackRemoved extends PackRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -13715,6 +15559,7 @@ class _$PackRemoved extends PackRemoved {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -13855,11 +15700,14 @@ class _$AnimationAdded extends AnimationAdded {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -13870,14 +15718,19 @@ class _$AnimationAdded extends AnimationAdded {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -13888,7 +15741,8 @@ class _$AnimationAdded extends AnimationAdded {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -13907,11 +15761,13 @@ class _$AnimationAdded extends AnimationAdded {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -13921,14 +15777,17 @@ class _$AnimationAdded extends AnimationAdded {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -13937,7 +15796,8 @@ class _$AnimationAdded extends AnimationAdded {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -13956,11 +15816,13 @@ class _$AnimationAdded extends AnimationAdded {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -13970,14 +15832,17 @@ class _$AnimationAdded extends AnimationAdded {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -13986,7 +15851,8 @@ class _$AnimationAdded extends AnimationAdded {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -14012,6 +15878,7 @@ class _$AnimationAdded extends AnimationAdded {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -14025,6 +15892,7 @@ class _$AnimationAdded extends AnimationAdded {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -14063,6 +15931,7 @@ class _$AnimationAdded extends AnimationAdded {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -14075,6 +15944,7 @@ class _$AnimationAdded extends AnimationAdded {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -14111,6 +15981,7 @@ class _$AnimationAdded extends AnimationAdded {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -14123,6 +15994,7 @@ class _$AnimationAdded extends AnimationAdded {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -14272,11 +16144,14 @@ class _$AnimationUpdated extends AnimationUpdated {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -14287,14 +16162,19 @@ class _$AnimationUpdated extends AnimationUpdated {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -14305,7 +16185,8 @@ class _$AnimationUpdated extends AnimationUpdated {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -14324,11 +16205,13 @@ class _$AnimationUpdated extends AnimationUpdated {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -14338,14 +16221,17 @@ class _$AnimationUpdated extends AnimationUpdated {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -14354,7 +16240,8 @@ class _$AnimationUpdated extends AnimationUpdated {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -14373,11 +16260,13 @@ class _$AnimationUpdated extends AnimationUpdated {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -14387,14 +16276,17 @@ class _$AnimationUpdated extends AnimationUpdated {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -14403,7 +16295,8 @@ class _$AnimationUpdated extends AnimationUpdated {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -14429,6 +16322,7 @@ class _$AnimationUpdated extends AnimationUpdated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -14442,6 +16336,7 @@ class _$AnimationUpdated extends AnimationUpdated {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -14480,6 +16375,7 @@ class _$AnimationUpdated extends AnimationUpdated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -14492,6 +16388,7 @@ class _$AnimationUpdated extends AnimationUpdated {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -14528,6 +16425,7 @@ class _$AnimationUpdated extends AnimationUpdated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -14540,6 +16438,7 @@ class _$AnimationUpdated extends AnimationUpdated {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -14671,11 +16570,14 @@ class _$AnimationRemoved extends AnimationRemoved {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -14686,14 +16588,19 @@ class _$AnimationRemoved extends AnimationRemoved {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -14704,7 +16611,8 @@ class _$AnimationRemoved extends AnimationRemoved {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -14723,11 +16631,13 @@ class _$AnimationRemoved extends AnimationRemoved {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -14737,14 +16647,17 @@ class _$AnimationRemoved extends AnimationRemoved {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -14753,7 +16666,8 @@ class _$AnimationRemoved extends AnimationRemoved {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -14772,11 +16686,13 @@ class _$AnimationRemoved extends AnimationRemoved {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -14786,14 +16702,17 @@ class _$AnimationRemoved extends AnimationRemoved {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -14802,7 +16721,8 @@ class _$AnimationRemoved extends AnimationRemoved {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -14828,6 +16748,7 @@ class _$AnimationRemoved extends AnimationRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -14841,6 +16762,7 @@ class _$AnimationRemoved extends AnimationRemoved {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -14879,6 +16801,7 @@ class _$AnimationRemoved extends AnimationRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -14891,6 +16814,7 @@ class _$AnimationRemoved extends AnimationRemoved {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -14927,6 +16851,7 @@ class _$AnimationRemoved extends AnimationRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -14939,6 +16864,7 @@ class _$AnimationRemoved extends AnimationRemoved {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -14990,6 +16916,10 @@ abstract class _$$PresentationModeEnteredCopyWith<$Res> {
   factory _$$PresentationModeEnteredCopyWith(_$PresentationModeEntered value,
           $Res Function(_$PresentationModeEntered) then) =
       __$$PresentationModeEnteredCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AnimationTrack track, bool fullScreen});
+
+  $AnimationTrackCopyWith<$Res> get track;
 }
 
 /// @nodoc
@@ -14999,36 +16929,78 @@ class __$$PresentationModeEnteredCopyWithImpl<$Res>
   __$$PresentationModeEnteredCopyWithImpl(_$PresentationModeEntered _value,
       $Res Function(_$PresentationModeEntered) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? track = null,
+    Object? fullScreen = null,
+  }) {
+    return _then(_$PresentationModeEntered(
+      null == track
+          ? _value.track
+          : track // ignore: cast_nullable_to_non_nullable
+              as AnimationTrack,
+      null == fullScreen
+          ? _value.fullScreen
+          : fullScreen // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AnimationTrackCopyWith<$Res> get track {
+    return $AnimationTrackCopyWith<$Res>(_value.track, (value) {
+      return _then(_value.copyWith(track: value));
+    });
+  }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$PresentationModeEntered extends PresentationModeEntered {
-  const _$PresentationModeEntered({final String? $type})
+  const _$PresentationModeEntered(this.track, this.fullScreen,
+      {final String? $type})
       : $type = $type ?? 'presentationModeEntered',
         super._();
 
   factory _$PresentationModeEntered.fromJson(Map<String, dynamic> json) =>
       _$$PresentationModeEnteredFromJson(json);
 
+  @override
+  final AnimationTrack track;
+  @override
+  final bool fullScreen;
+
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.presentationModeEntered()';
+    return 'DocumentEvent.presentationModeEntered(track: $track, fullScreen: $fullScreen)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PresentationModeEntered);
+            other is _$PresentationModeEntered &&
+            (identical(other.track, track) || other.track == track) &&
+            (identical(other.fullScreen, fullScreen) ||
+                other.fullScreen == fullScreen));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, track, fullScreen);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PresentationModeEnteredCopyWith<_$PresentationModeEntered> get copyWith =>
+      __$$PresentationModeEnteredCopyWithImpl<_$PresentationModeEntered>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -15043,11 +17015,14 @@ class _$PresentationModeEntered extends PresentationModeEntered {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -15058,14 +17033,19 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -15076,11 +17056,12 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return presentationModeEntered();
+    return presentationModeEntered(track, fullScreen);
   }
 
   @override
@@ -15095,11 +17076,13 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -15109,14 +17092,17 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -15125,11 +17111,12 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return presentationModeEntered?.call();
+    return presentationModeEntered?.call(track, fullScreen);
   }
 
   @override
@@ -15144,11 +17131,13 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -15158,14 +17147,17 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -15174,13 +17166,14 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
   }) {
     if (presentationModeEntered != null) {
-      return presentationModeEntered();
+      return presentationModeEntered(track, fullScreen);
     }
     return orElse();
   }
@@ -15200,6 +17193,7 @@ class _$PresentationModeEntered extends PresentationModeEntered {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -15213,6 +17207,7 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -15251,6 +17246,7 @@ class _$PresentationModeEntered extends PresentationModeEntered {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -15263,6 +17259,7 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -15299,6 +17296,7 @@ class _$PresentationModeEntered extends PresentationModeEntered {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -15311,6 +17309,7 @@ class _$PresentationModeEntered extends PresentationModeEntered {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -15345,11 +17344,19 @@ class _$PresentationModeEntered extends PresentationModeEntered {
 }
 
 abstract class PresentationModeEntered extends DocumentEvent {
-  const factory PresentationModeEntered() = _$PresentationModeEntered;
+  const factory PresentationModeEntered(
+          final AnimationTrack track, final bool fullScreen) =
+      _$PresentationModeEntered;
   const PresentationModeEntered._() : super._();
 
   factory PresentationModeEntered.fromJson(Map<String, dynamic> json) =
       _$PresentationModeEntered.fromJson;
+
+  AnimationTrack get track;
+  bool get fullScreen;
+  @JsonKey(ignore: true)
+  _$$PresentationModeEnteredCopyWith<_$PresentationModeEntered> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -15409,11 +17416,14 @@ class _$PresentationModeExited extends PresentationModeExited {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -15424,14 +17434,19 @@ class _$PresentationModeExited extends PresentationModeExited {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -15442,7 +17457,8 @@ class _$PresentationModeExited extends PresentationModeExited {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -15461,11 +17477,13 @@ class _$PresentationModeExited extends PresentationModeExited {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -15475,14 +17493,17 @@ class _$PresentationModeExited extends PresentationModeExited {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -15491,7 +17512,8 @@ class _$PresentationModeExited extends PresentationModeExited {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -15510,11 +17532,13 @@ class _$PresentationModeExited extends PresentationModeExited {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -15524,14 +17548,17 @@ class _$PresentationModeExited extends PresentationModeExited {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -15540,7 +17567,8 @@ class _$PresentationModeExited extends PresentationModeExited {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -15566,6 +17594,7 @@ class _$PresentationModeExited extends PresentationModeExited {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -15579,6 +17608,7 @@ class _$PresentationModeExited extends PresentationModeExited {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -15617,6 +17647,7 @@ class _$PresentationModeExited extends PresentationModeExited {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -15629,6 +17660,7 @@ class _$PresentationModeExited extends PresentationModeExited {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -15665,6 +17697,7 @@ class _$PresentationModeExited extends PresentationModeExited {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -15677,6 +17710,7 @@ class _$PresentationModeExited extends PresentationModeExited {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,
@@ -15801,11 +17835,14 @@ class _$PresentationTick extends PresentationTick {
             List<(PadElement, List<PadElement>)> changedElements)
         elementsChanged,
     required TResult Function(List<PadElement> elements) elementsRemoved,
-    required TResult Function(List<PadElement> elements) elementsArranged,
+    required TResult Function(
+            Arrangement arrangement, List<PadElement> elements)
+        elementsArranged,
     required TResult Function(String? name, String? description)
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Painter painter) painterCreated,
     required TResult Function(List<(Painter, Painter)> painters)
         paintersChanged,
     required TResult Function(List<Painter> painters) paintersRemoved,
@@ -15816,14 +17853,19 @@ class _$PresentationTick extends PresentationTick {
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
     required TResult Function(String name) layerElementsRemoved,
-    required TResult Function(String name, bool visible) layerVisibilityChanged,
+    required TResult Function(String name) layerVisibilityChanged,
     required TResult Function(String name) currentLayerChanged,
-    required TResult Function(String name) templateCreated,
+    required TResult Function(String layer, List<PadElement> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
     required TResult Function(List<Area> areas) areasCreated,
     required TResult Function(List<String> areas) areasRemoved,
     required TResult Function(String name, Area area) areaChanged,
     required TResult Function(String name) currentAreaChanged,
-    required TResult Function(String name) exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
     required TResult Function(String name, List<AreaPreset> areas)
         exportPresetUpdated,
     required TResult Function(String name) exportPresetRemoved,
@@ -15834,7 +17876,8 @@ class _$PresentationTick extends PresentationTick {
     required TResult Function(String name, AnimationTrack animation)
         animationUpdated,
     required TResult Function(String name) animationRemoved,
-    required TResult Function() presentationModeEntered,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
@@ -15853,11 +17896,13 @@ class _$PresentationTick extends PresentationTick {
     TResult? Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult? Function(List<PadElement> elements)? elementsRemoved,
-    TResult? Function(List<PadElement> elements)? elementsArranged,
+    TResult? Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult? Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Painter painter)? painterCreated,
     TResult? Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult? Function(List<Painter> painters)? paintersRemoved,
     TResult? Function(int oldIndex, int newIndex)? painterReordered,
@@ -15867,14 +17912,17 @@ class _$PresentationTick extends PresentationTick {
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
     TResult? Function(String name)? layerElementsRemoved,
-    TResult? Function(String name, bool visible)? layerVisibilityChanged,
+    TResult? Function(String name)? layerVisibilityChanged,
     TResult? Function(String name)? currentLayerChanged,
-    TResult? Function(String name)? templateCreated,
+    TResult? Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult? Function(List<Area> areas)? areasCreated,
     TResult? Function(List<String> areas)? areasRemoved,
     TResult? Function(String name, Area area)? areaChanged,
     TResult? Function(String name)? currentAreaChanged,
-    TResult? Function(String name)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult? Function(String name)? exportPresetRemoved,
     TResult? Function(NoteData pack)? packAdded,
@@ -15883,7 +17931,8 @@ class _$PresentationTick extends PresentationTick {
     TResult? Function(AnimationTrack animation)? animationAdded,
     TResult? Function(String name, AnimationTrack animation)? animationUpdated,
     TResult? Function(String name)? animationRemoved,
-    TResult? Function()? presentationModeEntered,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
@@ -15902,11 +17951,13 @@ class _$PresentationTick extends PresentationTick {
     TResult Function(List<(PadElement, List<PadElement>)> changedElements)?
         elementsChanged,
     TResult Function(List<PadElement> elements)? elementsRemoved,
-    TResult Function(List<PadElement> elements)? elementsArranged,
+    TResult Function(Arrangement arrangement, List<PadElement> elements)?
+        elementsArranged,
     TResult Function(String? name, String? description)?
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Painter painter)? painterCreated,
     TResult Function(List<(Painter, Painter)> painters)? paintersChanged,
     TResult Function(List<Painter> painters)? paintersRemoved,
     TResult Function(int oldIndex, int newIndex)? painterReordered,
@@ -15916,14 +17967,17 @@ class _$PresentationTick extends PresentationTick {
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
     TResult Function(String name)? layerElementsRemoved,
-    TResult Function(String name, bool visible)? layerVisibilityChanged,
+    TResult Function(String name)? layerVisibilityChanged,
     TResult Function(String name)? currentLayerChanged,
-    TResult Function(String name)? templateCreated,
+    TResult Function(String layer, List<PadElement> elements)?
+        elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
     TResult Function(List<Area> areas)? areasCreated,
     TResult Function(List<String> areas)? areasRemoved,
     TResult Function(String name, Area area)? areaChanged,
     TResult Function(String name)? currentAreaChanged,
-    TResult Function(String name)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
     TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
     TResult Function(String name)? exportPresetRemoved,
     TResult Function(NoteData pack)? packAdded,
@@ -15932,7 +17986,8 @@ class _$PresentationTick extends PresentationTick {
     TResult Function(AnimationTrack animation)? animationAdded,
     TResult Function(String name, AnimationTrack animation)? animationUpdated,
     TResult Function(String name)? animationRemoved,
-    TResult Function()? presentationModeEntered,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
     TResult Function()? presentationModeExited,
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
@@ -15958,6 +18013,7 @@ class _$PresentationTick extends PresentationTick {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(PainterCreated value) painterCreated,
     required TResult Function(PaintersChanged value) paintersChanged,
     required TResult Function(PaintersRemoved value) paintersRemoved,
     required TResult Function(PainterReordered value) painterReordered,
@@ -15971,6 +18027,7 @@ class _$PresentationTick extends PresentationTick {
     required TResult Function(LayerVisibilityChanged value)
         layerVisibilityChanged,
     required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
     required TResult Function(TemplateCreated value) templateCreated,
     required TResult Function(AreasCreated value) areasCreated,
     required TResult Function(AreasRemoved value) areasRemoved,
@@ -16009,6 +18066,7 @@ class _$PresentationTick extends PresentationTick {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(PainterCreated value)? painterCreated,
     TResult? Function(PaintersChanged value)? paintersChanged,
     TResult? Function(PaintersRemoved value)? paintersRemoved,
     TResult? Function(PainterReordered value)? painterReordered,
@@ -16021,6 +18079,7 @@ class _$PresentationTick extends PresentationTick {
     TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult? Function(TemplateCreated value)? templateCreated,
     TResult? Function(AreasCreated value)? areasCreated,
     TResult? Function(AreasRemoved value)? areasRemoved,
@@ -16057,6 +18116,7 @@ class _$PresentationTick extends PresentationTick {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(PainterCreated value)? painterCreated,
     TResult Function(PaintersChanged value)? paintersChanged,
     TResult Function(PaintersRemoved value)? paintersRemoved,
     TResult Function(PainterReordered value)? painterReordered,
@@ -16069,6 +18129,7 @@ class _$PresentationTick extends PresentationTick {
     TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
     TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
     TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
     TResult Function(TemplateCreated value)? templateCreated,
     TResult Function(AreasCreated value)? areasCreated,
     TResult Function(AreasRemoved value)? areasRemoved,

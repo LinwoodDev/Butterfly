@@ -124,7 +124,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
     void setKey(AnimationKey key) {
       final bloc = context.read<DocumentBloc>();
       bloc.add(
-        DocumentAnimationUpdated(
+        AnimationUpdated(
           animation!.name,
           animation.copyWith(
             keys: Map.of(animation.keys)..[_frame] = key,
@@ -187,7 +187,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 );
                                 if (name == null) return;
                                 bloc.add(
-                                  DocumentAnimationAdded(AnimationTrack(
+                                  AnimationAdded(AnimationTrack(
                                     name: name,
                                   )),
                                 );
@@ -214,7 +214,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                       );
                                       if (name == null) return;
                                       bloc.add(
-                                        DocumentAnimationAdded(
+                                        AnimationAdded(
                                             animation.copyWith(name: name)),
                                       );
                                       _setAnimation(name);
@@ -243,8 +243,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                       );
                                       if (name == null) return;
                                       bloc.add(
-                                        DocumentAnimationAdded(
-                                            animation.copyWith(
+                                        AnimationAdded(animation.copyWith(
                                           name: name,
                                         )),
                                       );
@@ -260,8 +259,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   : () {
                                       final bloc = context.read<DocumentBloc>();
                                       bloc.add(
-                                        DocumentAnimationRemoved(
-                                            animation.name),
+                                        AnimationRemoved(animation.name),
                                       );
                                       setState(() {
                                         _resetSelection();
@@ -417,7 +415,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   ? null
                                   : () {
                                       final bloc = context.read<DocumentBloc>();
-                                      bloc.add(DocumentAnimationUpdated(
+                                      bloc.add(AnimationUpdated(
                                           animation!.name,
                                           animation.copyWith(
                                             keys: Map.from(animation.keys)
@@ -498,7 +496,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 final duration = int.tryParse(value.trim());
                                 if (duration != null && duration > 0) {
                                   context.read<DocumentBloc>().add(
-                                        DocumentAnimationUpdated(
+                                        AnimationUpdated(
                                           animation.name,
                                           animation.copyWith(
                                               duration: duration),

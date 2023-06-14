@@ -37,8 +37,15 @@ class PainterSelection<T extends Painter> extends Selection<T> {
 
   @override
   void update(BuildContext context, List<T> selected) {
-    final updatedElements = Map<T, T>.fromIterables(this.selected, selected);
-    context.read<DocumentBloc>().add(PaintersChanged(updatedElements));
+    final updatedPainters = <(Painter, Painter)>[];
+    for (var i = 0; i < selected.length; i++) {
+      final painter = selected[i];
+      final oldPainter = this.selected[i];
+      if (painter != oldPainter) {
+        updatedPainters.add((oldPainter, painter));
+      }
+    }
+    context.read<DocumentBloc>().add(PaintersChanged(updatedPainters));
     super.update(context, selected);
   }
 

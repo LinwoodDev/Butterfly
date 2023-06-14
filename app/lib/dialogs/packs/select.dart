@@ -87,7 +87,7 @@ class SelectPackAssetDialog extends StatelessWidget {
                   final pack = state.data.getPack(result.pack);
                   if (pack == null) return;
                   _createAsset(pack, result.name);
-                  bloc.add(DocumentPackUpdated(pack.name!, pack));
+                  bloc.add(PackUpdated(pack.name!, pack));
                   Navigator.of(context).pop(result);
                 }
               },

@@ -65,7 +65,7 @@ class AssetDialog extends StatelessWidget {
                       builder: (context) => const PackDialog(),
                     );
                     if (pack == null) return;
-                    bloc.add(DocumentPackAdded(pack));
+                    bloc.add(PackAdded(pack));
                   },
                 ),
               ],

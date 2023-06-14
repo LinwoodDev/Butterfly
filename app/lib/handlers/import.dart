@@ -52,12 +52,12 @@ class ImportHandler extends Handler<ImportPainter> {
   Future<void> onPointerUp(PointerUpEvent event, EventContext context) async {
     final state = context.getState();
     if (state == null) return;
-    context.addDocumentEvent(ElementsCreated.renderers((await _load(
+    context.addDocumentEvent(ElementsCreated((await _load(
       state.data,
       state.assetService,
       state.page,
     ))
-        .map((e) => e.transform(position: _offset, relative: true))
+        .map((e) => e.transform(position: _offset, relative: true)?.element)
         .whereNotNull()
         .toList()));
     context.addDocumentEvent(AreasCreated(data.areas

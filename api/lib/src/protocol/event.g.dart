@@ -125,6 +125,7 @@ Map<String, dynamic> _$$ElementsRemovedToJson(_$ElementsRemoved instance) =>
     };
 
 _$ElementsArranged _$$ElementsArrangedFromJson(Map json) => _$ElementsArranged(
+      $enumDecode(_$ArrangementEnumMap, json['arrangement']),
       (json['elements'] as List<dynamic>)
           .map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
@@ -133,9 +134,17 @@ _$ElementsArranged _$$ElementsArrangedFromJson(Map json) => _$ElementsArranged(
 
 Map<String, dynamic> _$$ElementsArrangedToJson(_$ElementsArranged instance) =>
     <String, dynamic>{
+      'arrangement': _$ArrangementEnumMap[instance.arrangement]!,
       'elements': instance.elements.map((e) => e.toJson()).toList(),
       'type': instance.$type,
     };
+
+const _$ArrangementEnumMap = {
+  Arrangement.forward: 'forward',
+  Arrangement.backward: 'backward',
+  Arrangement.front: 'front',
+  Arrangement.back: 'back',
+};
 
 _$DocumentDescriptionChanged _$$DocumentDescriptionChangedFromJson(Map json) =>
     _$DocumentDescriptionChanged(
@@ -176,6 +185,17 @@ _$DocumentSaved _$$DocumentSavedFromJson(Map json) => _$DocumentSaved(
 Map<String, dynamic> _$$DocumentSavedToJson(_$DocumentSaved instance) =>
     <String, dynamic>{
       'location': instance.location?.toJson(),
+      'type': instance.$type,
+    };
+
+_$PainterCreated _$$PainterCreatedFromJson(Map json) => _$PainterCreated(
+      Painter.fromJson(Map<String, dynamic>.from(json['painter'] as Map)),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$PainterCreatedToJson(_$PainterCreated instance) =>
+    <String, dynamic>{
+      'painter': instance.painter.toJson(),
       'type': instance.$type,
     };
 
@@ -306,7 +326,6 @@ Map<String, dynamic> _$$LayerElementsRemovedToJson(
 _$LayerVisibilityChanged _$$LayerVisibilityChangedFromJson(Map json) =>
     _$LayerVisibilityChanged(
       json['name'] as String,
-      json['visible'] as bool,
       $type: json['type'] as String?,
     );
 
@@ -314,7 +333,6 @@ Map<String, dynamic> _$$LayerVisibilityChangedToJson(
         _$LayerVisibilityChanged instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'visible': instance.visible,
       'type': instance.$type,
     };
 
@@ -331,14 +349,35 @@ Map<String, dynamic> _$$CurrentLayerChangedToJson(
       'type': instance.$type,
     };
 
-_$TemplateCreated _$$TemplateCreatedFromJson(Map json) => _$TemplateCreated(
-      json['name'] as String,
+_$ElementsLayerChanged _$$ElementsLayerChangedFromJson(Map json) =>
+    _$ElementsLayerChanged(
+      json['layer'] as String,
+      (json['elements'] as List<dynamic>)
+          .map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList(),
       $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ElementsLayerChangedToJson(
+        _$ElementsLayerChanged instance) =>
+    <String, dynamic>{
+      'layer': instance.layer,
+      'elements': instance.elements.map((e) => e.toJson()).toList(),
+      'type': instance.$type,
+    };
+
+_$TemplateCreated _$$TemplateCreatedFromJson(Map json) => _$TemplateCreated(
+      json['directory'] as String,
+      json['remote'] as String?,
+      json['deleteDocument'] as bool? ?? true,
+      json['type'] as String?,
     );
 
 Map<String, dynamic> _$$TemplateCreatedToJson(_$TemplateCreated instance) =>
     <String, dynamic>{
-      'name': instance.name,
+      'directory': instance.directory,
+      'remote': instance.remote,
+      'deleteDocument': instance.deleteDocument,
       'type': instance.$type,
     };
 
@@ -395,13 +434,19 @@ Map<String, dynamic> _$$CurrentAreaChangedToJson(
 _$ExportPresetCreated _$$ExportPresetCreatedFromJson(Map json) =>
     _$ExportPresetCreated(
       json['name'] as String,
-      $type: json['type'] as String?,
+      (json['areas'] as List<dynamic>?)
+              ?.map((e) =>
+                  AreaPreset.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const [],
+      json['type'] as String?,
     );
 
 Map<String, dynamic> _$$ExportPresetCreatedToJson(
         _$ExportPresetCreated instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'areas': instance.areas.map((e) => e.toJson()).toList(),
       'type': instance.$type,
     };
 
@@ -509,12 +554,16 @@ Map<String, dynamic> _$$AnimationRemovedToJson(_$AnimationRemoved instance) =>
 
 _$PresentationModeEntered _$$PresentationModeEnteredFromJson(Map json) =>
     _$PresentationModeEntered(
+      AnimationTrack.fromJson(Map<String, dynamic>.from(json['track'] as Map)),
+      json['fullScreen'] as bool,
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$PresentationModeEnteredToJson(
         _$PresentationModeEntered instance) =>
     <String, dynamic>{
+      'track': instance.track.toJson(),
+      'fullScreen': instance.fullScreen,
       'type': instance.$type,
     };
 

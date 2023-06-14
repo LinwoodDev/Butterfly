@@ -107,9 +107,9 @@ class _PacksDialogState extends State<PacksDialog>
                                         key: ValueKey(
                                             'localpack:${metadata.name}'),
                                         onDismissed: (direction) {
-                                          context.read<DocumentBloc>().add(
-                                              DocumentPackRemoved(
-                                                  metadata.name));
+                                          context
+                                              .read<DocumentBloc>()
+                                              .add(PackRemoved(metadata.name));
                                         },
                                         background: Container(
                                           color: Colors.red,
@@ -142,7 +142,7 @@ class _PacksDialogState extends State<PacksDialog>
                                                             child: PackDialog(
                                                                 pack: pack)));
                                             if (newPack == null) return;
-                                            bloc.add(DocumentPackUpdated(
+                                            bloc.add(PackUpdated(
                                                 metadata.name, newPack));
                                           },
                                           trailing: MenuAnchor(
@@ -182,7 +182,7 @@ class _PacksDialogState extends State<PacksDialog>
                                                   Navigator.of(context).pop();
                                                   context
                                                       .read<DocumentBloc>()
-                                                      .add(DocumentPackRemoved(
+                                                      .add(PackRemoved(
                                                           metadata.name));
                                                 },
                                               ),
@@ -411,7 +411,7 @@ class _PacksDialogState extends State<PacksDialog>
                                   setState(() {});
                                 } else if (context.mounted) {
                                   final bloc = context.read<DocumentBloc>();
-                                  bloc.add(DocumentPackRemoved(pack.name!));
+                                  bloc.add(PackRemoved(pack.name!));
                                 }
                                 _addPack(pack);
                               },
@@ -449,7 +449,7 @@ class _PacksDialogState extends State<PacksDialog>
       await _fileSystem.createPack(pack);
       setState(() {});
     } else {
-      context.read<DocumentBloc>().add(DocumentPackAdded(pack));
+      context.read<DocumentBloc>().add(PackAdded(pack));
     }
   }
 

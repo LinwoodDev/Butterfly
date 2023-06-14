@@ -56,8 +56,14 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
 
   @override
   void update(BuildContext context, List<Renderer<T>> selected) {
-    final updatedElements = Map<T, List<T>>.fromIterables(
-        elements, selected.map((e) => [e.element]));
+    final updatedElements = <(PadElement, List<PadElement>)>[];
+    for (var i = 0; i < selected.length; i++) {
+      final element = selected[i];
+      final oldElement = this.selected[i];
+      if (element.element != oldElement.element) {
+        updatedElements.add((element.element, [oldElement.element]));
+      }
+    }
     context.read<DocumentBloc>().add(ElementsChanged(updatedElements));
     super.update(context, selected);
   }

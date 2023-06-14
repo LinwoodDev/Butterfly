@@ -53,7 +53,7 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
                         currentPack.removeComponent(component);
-                        bloc.add(DocumentPackUpdated(packName, currentPack));
+                        bloc.add(PackUpdated(packName, currentPack));
                       },
                       child: ListTile(
                         title: Text(component),

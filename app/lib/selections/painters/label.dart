@@ -82,8 +82,8 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
                       key: ValueKey(style),
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
-                        // Implement remove style
-                        bloc.add(DocumentPackUpdated(packName, currentPack));
+                        currentPack.removeStyle(style);
+                        bloc.add(PackUpdated(packName, currentPack));
                       },
                       child: ListTile(
                         title: Text(style),

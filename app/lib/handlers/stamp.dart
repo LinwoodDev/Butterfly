@@ -78,11 +78,13 @@ class StampHandler extends Handler<StampPainter> {
     final currentPos = context.getCurrentIndex().cameraViewport.toOffset();
     final elements = _elements
         .map((e) =>
-            e.transform(
-                position: -currentPos - _center + _position, relative: true) ??
-            e)
+            e
+                .transform(
+                    position: -currentPos - _center + _position, relative: true)
+                ?.element ??
+            e.element)
         .toList();
-    bloc.add(ElementsCreated.renderers(elements));
+    bloc.add(ElementsCreated(elements));
     bloc.refresh();
     bloc.bake();
   }

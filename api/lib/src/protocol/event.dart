@@ -41,6 +41,7 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   ) = ElementsRemoved;
 
   const factory DocumentEvent.elementsArranged(
+    Arrangement arrangement,
     List<PadElement> elements,
   ) = ElementsArranged;
 
@@ -54,6 +55,10 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.documentSaved([AssetLocation? location]) =
       DocumentSaved;
+
+  const factory DocumentEvent.painterCreated(
+    Painter painter,
+  ) = PainterCreated;
 
   const factory DocumentEvent.paintersChanged(
     List<(Painter, Painter)> painters,
@@ -95,16 +100,19 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
 
   const factory DocumentEvent.layerVisibilityChanged(
     String name,
-    bool visible,
   ) = LayerVisibilityChanged;
 
   const factory DocumentEvent.currentLayerChanged(
     String name,
   ) = CurrentLayerChanged;
 
-  const factory DocumentEvent.templateCreated(
-    String name,
-  ) = TemplateCreated;
+  const factory DocumentEvent.elementsLayerChanged(
+    String layer,
+    List<PadElement> elements,
+  ) = ElementsLayerChanged;
+
+  const factory DocumentEvent.templateCreated(String directory,
+      [String? remote, @Default(true) bool deleteDocument]) = TemplateCreated;
 
   const factory DocumentEvent.areasCreated(
     List<Area> areas,
@@ -123,9 +131,8 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String name,
   ) = CurrentAreaChanged;
 
-  const factory DocumentEvent.exportPresetCreated(
-    String name,
-  ) = ExportPresetCreated;
+  const factory DocumentEvent.exportPresetCreated(String name,
+      [@Default([]) List<AreaPreset> areas]) = ExportPresetCreated;
 
   const factory DocumentEvent.exportPresetUpdated(
     String name,
@@ -162,8 +169,11 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String name,
   ) = AnimationRemoved;
 
-  const factory DocumentEvent.presentationModeEntered() =
-      PresentationModeEntered;
+  const factory DocumentEvent.presentationModeEntered(
+    AnimationTrack track,
+    bool fullScreen,
+  ) = PresentationModeEntered;
+
   const factory DocumentEvent.presentationModeExited() = PresentationModeExited;
 
   const factory DocumentEvent.presentationTick(int tick) = PresentationTick;
@@ -177,6 +187,7 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
         documentSaved: (_) => false,
         documentPathChanged: (_) => false,
         currentAreaChanged: (_) => false,
+        layerVisibilityChanged: (_) => false,
         toolStateChanged: (_) => false,
         presentationModeEntered: (_) => false,
         presentationModeExited: (_) => false,

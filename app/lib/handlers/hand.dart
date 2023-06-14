@@ -553,7 +553,9 @@ class HandHandler extends Handler<HandPainter> {
     _transformCorner = null;
     _currentTransformOffset = null;
     bloc.add(ElementsChanged(
-      updated.map((key, value) => MapEntry(key.element, [value.element])),
+      updated.entries
+          .map((entry) => (entry.key.element, [entry.value.element]))
+          .toList(),
     ));
     bloc.refresh();
     return true;

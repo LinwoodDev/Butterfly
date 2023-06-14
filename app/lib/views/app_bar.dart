@@ -7,6 +7,7 @@ import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -110,7 +111,7 @@ class _AppBarTitle extends StatelessWidget {
                       void submit(String? value) {
                         if (value == null) return;
                         if (area == null || areaName == null) {
-                          bloc.add(DocumentDescriptorChanged(name: value));
+                          bloc.add(DocumentDescriptionChanged(name: value));
                         } else {
                           bloc.add(AreaChanged(
                             areaName,
@@ -193,7 +194,7 @@ class _AppBarTitle extends StatelessWidget {
                         onPressed: () {
                           context
                               .read<DocumentBloc>()
-                              .add(const CurrentAreaChanged.exit());
+                              .add(const CurrentAreaChanged(''));
                         },
                       ),
                     if (state.location.absolute)

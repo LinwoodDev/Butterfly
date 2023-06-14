@@ -21,7 +21,7 @@ class ToolSelection extends Selection<ToolState> {
         option: state.info.tool,
         onStateChanged: (state) => updateState(context, state),
         onToolChanged: (option) =>
-            context.read<DocumentBloc>().add(ToolChanged.option(option)),
+            context.read<DocumentBloc>().add(ToolOptionChanged(option)),
       )
     ];
   }
@@ -29,7 +29,7 @@ class ToolSelection extends Selection<ToolState> {
   void updateState(BuildContext context, ToolState selected) {
     update(context, [selected]);
 
-    context.read<DocumentBloc>().add(ToolChanged.state(selected));
+    context.read<DocumentBloc>().add(ToolStateChanged(selected));
   }
 }
 
@@ -117,7 +117,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                         filled: true,
                       ),
                       onChanged: (value) {
-                        bloc.add(DocumentDescriptorChanged(name: value));
+                        bloc.add(DocumentDescriptionChanged(name: value));
                         state.save();
                       },
                     ),
@@ -131,7 +131,8 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                         border: const OutlineInputBorder(),
                       ),
                       onChanged: (value) {
-                        bloc.add(DocumentDescriptorChanged(description: value));
+                        bloc.add(
+                            DocumentDescriptionChanged(description: value));
                         state.save();
                       },
                     ),

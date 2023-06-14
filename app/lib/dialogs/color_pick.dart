@@ -73,7 +73,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
           _selected == null ? null : state.data.getPack(_selected!.name);
       if (pack == null) return;
       pack.setPalette(palette);
-      widget.bloc?.add(DocumentPackUpdated(pack.name!, pack));
+      widget.bloc?.add(PackUpdated(pack.name!, pack));
     }
   }
 
