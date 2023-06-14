@@ -502,9 +502,9 @@
   "repository": "Depozit",
   "pages": "Pagini",
   "navigator": "Navigator",
-  "arrange": "Arrange",
-  "bringToFront": "Bring to front",
-  "sendToBack": "Send to back",
-  "bringForward": "Bring forward",
-  "sendBackward": "Send backward"
+  "arrange": "Aranjare",
+  "bringToFront": "Aduce în față",
+  "sendToBack": "Trimite înapoi",
+  "bringForward": "Adu înainte",
+  "sendBackward": "Trimite înapoi"
 }
