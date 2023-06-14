@@ -502,9 +502,9 @@
   "repository": "Dépôt",
   "pages": "Pages",
   "navigator": "Navigator",
-  "arrange": "Arrange",
-  "bringToFront": "Bring to front",
-  "sendToBack": "Send to back",
-  "bringForward": "Bring forward",
-  "sendBackward": "Send backward"
+  "arrange": "Arranger",
+  "bringToFront": "Amener au premier plan",
+  "sendToBack": "Envoyer à l'arrière",
+  "bringForward": "Avancer",
+  "sendBackward": "Envoyer vers l'arrière"
 }
