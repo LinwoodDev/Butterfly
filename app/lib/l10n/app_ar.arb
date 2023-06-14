@@ -502,9 +502,9 @@
   "repository": "المستودع",
   "pages": "الصفحات",
   "navigator": "Navigator",
-  "arrange": "Arrange",
-  "bringToFront": "Bring to front",
-  "sendToBack": "Send to back",
-  "bringForward": "Bring forward",
-  "sendBackward": "Send backward"
+  "arrange": "ترتيب",
+  "bringToFront": "إحضار إلى الأمام",
+  "sendToBack": "إرسال إلى الخلف",
+  "bringForward": "إحضار للأمام",
+  "sendBackward": "إرسال إلى الخلف"
 }
