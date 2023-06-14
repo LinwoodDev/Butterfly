@@ -502,9 +502,9 @@
   "repository": "Αποθετήριο",
   "pages": "Σελίδες",
   "navigator": "Navigator",
-  "arrange": "Arrange",
-  "bringToFront": "Bring to front",
-  "sendToBack": "Send to back",
-  "bringForward": "Bring forward",
-  "sendBackward": "Send backward"
+  "arrange": "Τακτοποίηση",
+  "bringToFront": "Φέρτε μπροστά",
+  "sendToBack": "Αποστολή πίσω",
+  "bringForward": "Φέρτε μπροστά",
+  "sendBackward": "Αποστολή πίσω"
 }
