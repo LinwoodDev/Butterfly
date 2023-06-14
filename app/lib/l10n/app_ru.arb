@@ -502,9 +502,9 @@
   "repository": "Репозиторий",
   "pages": "Страницы",
   "navigator": "Navigator",
-  "arrange": "Arrange",
-  "bringToFront": "Bring to front",
-  "sendToBack": "Send to back",
-  "bringForward": "Bring forward",
-  "sendBackward": "Send backward"
+  "arrange": "Организовать",
+  "bringToFront": "Вывести на передний план",
+  "sendToBack": "Отправить на задний план",
+  "bringForward": "Перенос вперед",
+  "sendBackward": "Отправить назад"
 }
