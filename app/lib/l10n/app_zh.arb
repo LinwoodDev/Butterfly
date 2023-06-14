@@ -502,9 +502,9 @@
   "repository": "存储库",
   "pages": "页 次",
   "navigator": "Navigator",
-  "arrange": "Arrange",
-  "bringToFront": "Bring to front",
-  "sendToBack": "Send to back",
-  "bringForward": "Bring forward",
-  "sendBackward": "Send backward"
+  "arrange": "安排",
+  "bringToFront": "置于前端",
+  "sendToBack": "发送到背面",
+  "bringForward": "前进中",
+  "sendBackward": "向后发送"
 }
