@@ -502,9 +502,9 @@
   "repository": "Versiovarasto",
   "pages": "Sivut",
   "navigator": "Navigator",
-  "arrange": "Arrange",
-  "bringToFront": "Bring to front",
-  "sendToBack": "Send to back",
-  "bringForward": "Bring forward",
-  "sendBackward": "Send backward"
+  "arrange": "Järjestä",
+  "bringToFront": "Tuo eteen",
+  "sendToBack": "Lähetä takaisin",
+  "bringForward": "Tuo eteenpäin",
+  "sendBackward": "Lähetä taaksepäin"
 }
