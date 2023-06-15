@@ -33,7 +33,10 @@ class AddDialog extends StatelessWidget {
     }
 
     void importAsset(AssetFileType type, Uint8List bytes) {
-      context.read<ImportService>().import(type, bytes);
+      final bloc = context.read<DocumentBloc>();
+      final state = bloc.state;
+      if (state is! DocumentLoaded) return;
+      context.read<ImportService>().import(type, bytes, state.data);
       Navigator.of(context).pop();
     }
 
