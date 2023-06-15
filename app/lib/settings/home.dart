@@ -110,7 +110,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             leading: PhosphorIcon(view.getIcon()),
                             title: Text(view.getLocalizedName(context)),
                             onTap: () => navigateTo(view),
-                            selected: _view == view,
+                            selected: _view == view && !isMobile,
                           )),
                       if (kIsWeb) ...[
                         const Divider(),
