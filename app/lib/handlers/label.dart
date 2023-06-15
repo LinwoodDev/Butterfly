@@ -197,19 +197,23 @@ class LabelHandler extends Handler<LabelPainter>
   }
 
   void _change(DocumentBloc bloc, LabelContext value) {
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return;
+    final content = state.page.content;
+    final painters = state.info.painters;
     final context = _context;
     _context = value;
     if (context == null) return;
 
     if (context.element != null && value.element != null) {
       if (!value.isCreating) {
-        bloc.add(ElementsChanged([
-          (context.element!, [value.element!]),
-        ]));
+        bloc.add(ElementsChanged({
+          content.indexOf(context.element!): [value.element!],
+        }));
       }
     }
     if (context.painter != value.painter) {
-      bloc.add(PaintersChanged([(data, value.painter)]));
+      bloc.add(PaintersChanged({painters.indexOf(data): value.painter}));
     }
     bloc.refresh();
     _refreshToolbar(bloc);
@@ -230,6 +234,9 @@ class LabelHandler extends Handler<LabelPainter>
   }
 
   void _submit(DocumentBloc bloc) {
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return;
+    final content = state.page.content;
     final context = _context;
     if (context == null) return;
     final element = context.element;
@@ -238,7 +245,7 @@ class LabelHandler extends Handler<LabelPainter>
       if (context.isCreating && !isEmpty) {
         bloc.add(ElementsCreated([element]));
       } else if (!context.isCreating && isEmpty) {
-        bloc.add(ElementsRemoved([element]));
+        bloc.add(ElementsRemoved([content.indexOf(element)]));
       }
     }
   }

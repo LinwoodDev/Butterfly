@@ -116,15 +116,14 @@ class PenHandler extends Handler<PenPainter> {
   PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
         color: data.property.color,
         onChanged: (value) {
-          bloc.add(PaintersChanged([
-            (
-              data,
-              // ignore: unused_result
-              data.copyWith(
-                  property: data.property.copyWith(
-                      color: convertOldColor(value, data.property.color)))
-            ),
-          ]));
+          final state = bloc.state;
+          if (state is! DocumentLoadSuccess) return;
+          final index = state.info.painters.indexOf(data);
+          bloc.add(PaintersChanged({
+            index: data.copyWith(
+                property: data.property.copyWith(
+                    color: convertOldColor(value, data.property.color)))
+          }));
         },
       );
 }

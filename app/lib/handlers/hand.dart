@@ -212,12 +212,16 @@ class HandHandler extends Handler<HandPainter> {
 
   void move(DocumentBloc bloc, List<Renderer<PadElement>> next,
       [bool duplicate = false]) {
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final content = state.page.content;
     submitMove(bloc);
     _movingElements = next;
     _selected = [];
     _currentMovePosition = null;
     if (!duplicate) {
-      bloc.add(ElementsRemoved(next.map((e) => e.element).toList()));
+      bloc.add(ElementsRemoved(
+          next.map((e) => content.indexOf(e.element)).toList()));
       bloc.refresh();
     }
   }
@@ -480,6 +484,9 @@ class HandHandler extends Handler<HandPainter> {
   }
 
   bool _handleTransform(DocumentBloc bloc) {
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return false;
+    final content = state.page.content;
     final selectionRect = getSelectionRect();
     final corner = _transformCorner;
     final offset = _currentTransformOffset;
@@ -552,11 +559,8 @@ class HandHandler extends Handler<HandPainter> {
     _selected = updated.values.toList();
     _transformCorner = null;
     _currentTransformOffset = null;
-    bloc.add(ElementsChanged(
-      updated.entries
-          .map((entry) => (entry.key.element, [entry.value.element]))
-          .toList(),
-    ));
+    bloc.add(ElementsChanged(Map.fromEntries(updated.entries.map((entry) =>
+        MapEntry(content.indexOf(entry.key.element), [entry.value.element])))));
     bloc.refresh();
     return true;
   }

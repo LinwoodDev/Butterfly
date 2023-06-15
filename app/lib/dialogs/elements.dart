@@ -19,6 +19,11 @@ class ElementsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
+    final cubit = context.read<CurrentIndexCubit>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return const SizedBox();
+    final content = state.page.content;
     return Column(mainAxisSize: MainAxisSize.min, children: [
       Flexible(
           child: ListView(
@@ -29,8 +34,7 @@ class ElementsDialog extends StatelessWidget {
                 const PhosphorIcon(PhosphorIconsLight.arrowsOutCardinal),
             onPressed: () {
               Navigator.of(context).pop(true);
-              context
-                  .read<CurrentIndexCubit>()
+              cubit
                   .fetchHandler<HandHandler>()
                   ?.move(context.read<DocumentBloc>(), renderers, false);
             },
@@ -40,15 +44,12 @@ class ElementsDialog extends StatelessWidget {
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
             onPressed: () {
               Navigator.of(context).pop(true);
-              context
-                  .read<CurrentIndexCubit>()
-                  .fetchHandler<HandHandler>()
-                  ?.move(
-                      context.read<DocumentBloc>(),
-                      renderers
-                          .map((e) => Renderer.fromInstance(e.element))
-                          .toList(),
-                      true);
+              cubit.fetchHandler<HandHandler>()?.move(
+                  context.read<DocumentBloc>(),
+                  renderers
+                      .map((e) => Renderer.fromInstance(e.element))
+                      .toList(),
+                  true);
             },
             child: Text(AppLocalizations.of(context).duplicate),
           ),
@@ -56,8 +57,7 @@ class ElementsDialog extends StatelessWidget {
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsOut),
             onPressed: () {
               Navigator.of(context).pop(false);
-              context
-                  .read<CurrentIndexCubit>()
+              cubit
                   .fetchHandler<HandHandler>()
                   ?.setScaleMode(context.read<DocumentBloc>());
             },
@@ -66,8 +66,8 @@ class ElementsDialog extends StatelessWidget {
           MenuItemButton(
             onPressed: () {
               Navigator.of(context).pop(true);
-              context.read<DocumentBloc>().add(
-                  ElementsRemoved(renderers.map((r) => r.element).toList()));
+              bloc.add(ElementsRemoved(
+                  renderers.map((r) => content.indexOf(r.element)).toList()));
             },
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
             child: Text(AppLocalizations.of(context).delete),
@@ -81,8 +81,11 @@ class ElementsDialog extends StatelessWidget {
                       child: Text(e.getLocalizedName(context)),
                       onPressed: () {
                         Navigator.of(context).pop(true);
-                        context.read<DocumentBloc>().add(ElementsArranged(
-                            e, renderers.map((r) => r.element).toList()));
+                        bloc.add(ElementsArranged(
+                            e,
+                            renderers
+                                .map((r) => content.indexOf(r.element))
+                                .toList()));
                       },
                     ))
                 .toList(),

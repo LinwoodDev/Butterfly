@@ -73,7 +73,9 @@ class EraserHandler extends Handler<EraserPainter> {
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     _changeElement(event.localPosition, context);
-    context.addDocumentEvent(ElementsChanged(
-        _elements.entries.map((e) => (e.key, e.value)).toList()));
+    final content = context.getPage()?.content;
+    if (content == null) return;
+    context.addDocumentEvent(ElementsChanged(Map.fromEntries(_elements.entries
+        .map((e) => MapEntry(content.indexOf(e.key), e.value)))));
   }
 }

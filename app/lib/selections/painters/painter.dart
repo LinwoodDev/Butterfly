@@ -37,15 +37,20 @@ class PainterSelection<T extends Painter> extends Selection<T> {
 
   @override
   void update(BuildContext context, List<T> selected) {
-    final updatedPainters = <(Painter, Painter)>[];
+    final updatedPainters = <int, Painter>{};
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final oldPainters = state.info.painters;
     for (var i = 0; i < selected.length; i++) {
       final painter = selected[i];
       final oldPainter = this.selected[i];
-      if (painter != oldPainter) {
-        updatedPainters.add((oldPainter, painter));
+      final painterIndex = oldPainters.indexOf(oldPainter);
+      if (painter != oldPainter && painterIndex >= 0) {
+        updatedPainters[painterIndex] = painter;
       }
     }
-    context.read<DocumentBloc>().add(PaintersChanged(updatedPainters));
+    bloc.add(PaintersChanged(updatedPainters));
     super.update(context, selected);
   }
 
@@ -54,7 +59,12 @@ class PainterSelection<T extends Painter> extends Selection<T> {
 
   @override
   void onDelete(BuildContext context) {
-    context.read<DocumentBloc>().add(PaintersRemoved(selected));
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final painters = state.info.painters;
+    context.read<DocumentBloc>().add(
+        PaintersRemoved(selected.map((p) => painters.indexOf(p)).toList()));
   }
 
   @override

@@ -168,10 +168,12 @@ class LaserHandler extends Handler<LaserPainter> {
   PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
         color: data.color,
         onChanged: (value) {
-          bloc.add(PaintersChanged([
-            // ignore: unused_result
-            (data, data.copyWith(color: convertOldColor(value, data.color))),
-          ]));
+          final state = bloc.state;
+          if (state is! DocumentLoadSuccess) return;
+          final index = state.info.painters.indexOf(data);
+          bloc.add(PaintersChanged({
+            index: data.copyWith(color: convertOldColor(value, data.color)),
+          }));
         },
       );
 }

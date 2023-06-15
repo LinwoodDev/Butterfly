@@ -119,6 +119,7 @@ class EventContext {
   NoteData? getData() => getState()?.data;
 
   DocumentPage? getPage() => getState()?.page;
+  DocumentInfo? getInfo() => getState()?.info;
 }
 
 enum PainterStatus { normal, disabled }

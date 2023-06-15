@@ -58,8 +58,8 @@ Map<String, dynamic> _$$ElementsCreatedToJson(_$ElementsCreated instance) =>
       'type': instance.$type,
     };
 
-_$ElementsReplaced _$$ElementsReplacedFromJson(Map json) => _$ElementsReplaced(
-      (json['replacedElements'] as Map).map(
+_$ElementsChanged _$$ElementsChangedFromJson(Map json) => _$ElementsChanged(
+      (json['elements'] as Map).map(
         (k, e) => MapEntry(
             int.parse(k as String),
             (e as List<dynamic>)
@@ -70,72 +70,34 @@ _$ElementsReplaced _$$ElementsReplacedFromJson(Map json) => _$ElementsReplaced(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$ElementsReplacedToJson(_$ElementsReplaced instance) =>
+Map<String, dynamic> _$$ElementsChangedToJson(_$ElementsChanged instance) =>
     <String, dynamic>{
-      'replacedElements': instance.replacedElements.map(
+      'elements': instance.elements.map(
           (k, e) => MapEntry(k.toString(), e.map((e) => e.toJson()).toList())),
       'type': instance.$type,
     };
 
-_$ElementsChanged _$$ElementsChangedFromJson(Map json) => _$ElementsChanged(
-      (json['changedElements'] as List<dynamic>)
-          .map((e) => _$recordConvertAny(
-                e,
-                ($jsonValue) => (
-                  PadElement.fromJson(
-                      Map<String, dynamic>.from($jsonValue[r'$1'] as Map)),
-                  ($jsonValue[r'$2'] as List<dynamic>)
-                      .map((e) => PadElement.fromJson(
-                          Map<String, dynamic>.from(e as Map)))
-                      .toList(),
-                ),
-              ))
-          .toList(),
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$ElementsChangedToJson(_$ElementsChanged instance) =>
-    <String, dynamic>{
-      'changedElements': instance.changedElements
-          .map((e) => {
-                r'$1': e.$1.toJson(),
-                r'$2': e.$2.map((e) => e.toJson()).toList(),
-              })
-          .toList(),
-      'type': instance.$type,
-    };
-
-$Rec _$recordConvertAny<$Rec>(
-  Object? value,
-  $Rec Function(Map) convert,
-) =>
-    convert(value as Map);
-
 _$ElementsRemoved _$$ElementsRemovedFromJson(Map json) => _$ElementsRemoved(
-      (json['elements'] as List<dynamic>)
-          .map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
-          .toList(),
+      (json['elements'] as List<dynamic>).map((e) => e as int).toList(),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$ElementsRemovedToJson(_$ElementsRemoved instance) =>
     <String, dynamic>{
-      'elements': instance.elements.map((e) => e.toJson()).toList(),
+      'elements': instance.elements,
       'type': instance.$type,
     };
 
 _$ElementsArranged _$$ElementsArrangedFromJson(Map json) => _$ElementsArranged(
       $enumDecode(_$ArrangementEnumMap, json['arrangement']),
-      (json['elements'] as List<dynamic>)
-          .map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
-          .toList(),
+      (json['elements'] as List<dynamic>).map((e) => e as int).toList(),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$ElementsArrangedToJson(_$ElementsArranged instance) =>
     <String, dynamic>{
       'arrangement': _$ArrangementEnumMap[instance.arrangement]!,
-      'elements': instance.elements.map((e) => e.toJson()).toList(),
+      'elements': instance.elements,
       'type': instance.$type,
     };
 
@@ -200,41 +162,28 @@ Map<String, dynamic> _$$PainterCreatedToJson(_$PainterCreated instance) =>
     };
 
 _$PaintersChanged _$$PaintersChangedFromJson(Map json) => _$PaintersChanged(
-      (json['painters'] as List<dynamic>)
-          .map((e) => _$recordConvertAny(
-                e,
-                ($jsonValue) => (
-                  Painter.fromJson(
-                      Map<String, dynamic>.from($jsonValue[r'$1'] as Map)),
-                  Painter.fromJson(
-                      Map<String, dynamic>.from($jsonValue[r'$2'] as Map)),
-                ),
-              ))
-          .toList(),
+      (json['painters'] as Map).map(
+        (k, e) => MapEntry(int.parse(k as String),
+            Painter.fromJson(Map<String, dynamic>.from(e as Map))),
+      ),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$PaintersChangedToJson(_$PaintersChanged instance) =>
     <String, dynamic>{
-      'painters': instance.painters
-          .map((e) => {
-                r'$1': e.$1.toJson(),
-                r'$2': e.$2.toJson(),
-              })
-          .toList(),
+      'painters':
+          instance.painters.map((k, e) => MapEntry(k.toString(), e.toJson())),
       'type': instance.$type,
     };
 
 _$PaintersRemoved _$$PaintersRemovedFromJson(Map json) => _$PaintersRemoved(
-      (json['painters'] as List<dynamic>)
-          .map((e) => Painter.fromJson(Map<String, dynamic>.from(e as Map)))
-          .toList(),
+      (json['painters'] as List<dynamic>).map((e) => e as int).toList(),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$PaintersRemovedToJson(_$PaintersRemoved instance) =>
     <String, dynamic>{
-      'painters': instance.painters.map((e) => e.toJson()).toList(),
+      'painters': instance.painters,
       'type': instance.$type,
     };
 
@@ -352,9 +301,7 @@ Map<String, dynamic> _$$CurrentLayerChangedToJson(
 _$ElementsLayerChanged _$$ElementsLayerChangedFromJson(Map json) =>
     _$ElementsLayerChanged(
       json['layer'] as String,
-      (json['elements'] as List<dynamic>)
-          .map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
-          .toList(),
+      (json['elements'] as List<dynamic>).map((e) => e as int).toList(),
       $type: json['type'] as String?,
     );
 
@@ -362,7 +309,7 @@ Map<String, dynamic> _$$ElementsLayerChangedToJson(
         _$ElementsLayerChanged instance) =>
     <String, dynamic>{
       'layer': instance.layer,
-      'elements': instance.elements.map((e) => e.toJson()).toList(),
+      'elements': instance.elements,
       'type': instance.$type,
     };
 

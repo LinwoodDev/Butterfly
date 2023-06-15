@@ -16,8 +16,10 @@ class PathEraserHandler extends Handler<PathEraserPainter> {
       context.getCameraTransform(),
       data.strokeWidth / transform.size,
     );
-    context
-        .addDocumentEvent(ElementsRemoved(hits.map((e) => e.element).toList()));
+    final page = context.getPage();
+    if (page == null) return;
+    final indexes = hits.map((e) => page.content.indexOf(e.element)).toList();
+    context.addDocumentEvent(ElementsRemoved(indexes));
     _removeRunning = false;
   }
 }

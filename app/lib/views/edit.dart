@@ -193,7 +193,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                                     context
                                                         .read<DocumentBloc>()
                                                         .add(PaintersRemoved(
-                                                            [painter]));
+                                                            [i]));
                                                   },
                                                 ),
                                               ],
@@ -290,8 +290,8 @@ class _EditToolbarState extends State<EditToolbar> {
                                           final delete =
                                               newIndex > painters.length;
                                           if (delete) {
-                                            bloc.add(PaintersRemoved(
-                                                [painters[oldIndex]]));
+                                            bloc.add(
+                                                PaintersRemoved([oldIndex]));
                                             return;
                                           }
                                           bloc.add(PainterReordered(
