@@ -102,7 +102,7 @@ class _AppBarTitle extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             ConstrainedBox(
               constraints: BoxConstraints(
-                  maxWidth: min(300.0, constraints.maxWidth - 8)),
+                  maxWidth: min(350.0, constraints.maxWidth - 16)),
               child: Row(
                 children: [
                   Flexible(
@@ -162,7 +162,7 @@ class _AppBarTitle extends StatelessWidget {
                   if (state is DocumentLoadSuccess) ...[
                     if (!state.hasAutosave())
                       SizedBox(
-                        width: 8,
+                        width: 42,
                         child: Builder(builder: (context) {
                           Widget icon;
                           switch (currentIndex.saved) {
