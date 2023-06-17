@@ -7,8 +7,9 @@ class OptionButton extends StatelessWidget {
   final VoidCallback? onPressed, onLongPressed;
   final bool selected, highlighted, focussed;
   final String tooltip;
+  final GlobalKey<TooltipState> _tooltipKey = GlobalKey();
 
-  const OptionButton({
+  OptionButton({
     super.key,
     this.tooltip = '',
     required this.icon,
@@ -23,12 +24,17 @@ class OptionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
+      triggerMode: TooltipTriggerMode.manual,
       message: tooltip,
+      key: _tooltipKey,
       child: InkWell(
         radius: 12,
         borderRadius: BorderRadius.circular(12),
         onTap: onPressed,
-        onLongPress: onLongPressed,
+        onLongPress: () {
+          _tooltipKey.currentState?.ensureTooltipVisible();
+          onLongPressed?.call();
+        },
         child: Container(
           decoration: highlighted
               ? BoxDecoration(
