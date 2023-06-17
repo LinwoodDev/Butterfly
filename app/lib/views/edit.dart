@@ -278,7 +278,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                                               e, true);
                                                     }
                                                   }));
-                                          return ReorderableDragStartListener(
+                                          return ReorderableDelayedDragStartListener(
                                             key: ObjectKey(i),
                                             index: i,
                                             child: toolWidget,
