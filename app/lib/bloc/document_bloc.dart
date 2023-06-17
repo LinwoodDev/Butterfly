@@ -19,8 +19,11 @@ import '../models/defaults.dart';
 import '../models/viewport.dart';
 import '../renderers/renderer.dart';
 import '../services/asset.dart';
+import '../services/network.dart';
 
 part 'document_state.dart';
+
+enum ConnectionStatus { none, server, client }
 
 class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc(
@@ -37,6 +40,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           initial,
           page: page,
           assetService: assetService,
+          networkService: NetworkService(),
           currentIndexCubit: currentIndexCubit,
           location: location,
           settingsCubit: settingsCubit,
@@ -50,6 +54,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   DocumentBloc.placeholder() : super(const DocumentLoadFailure(''));
 
   void _init() {
+    (state as DocumentLoaded).networkService.setup(this);
     on<PageChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
@@ -699,6 +704,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         current,
         event.track,
         event.fullScreen,
+        networkService: current.networkService,
         assetService: current.assetService,
         pageName: current.pageName,
         page: current.page,

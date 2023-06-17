@@ -190,4 +190,12 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
         presentationTick: (_) => false,
         orElse: () => true,
       );
+
+  bool isAllowed(DocumentPermission permission) {
+    if (permission == DocumentPermission.read) return false;
+    if (!shouldSync()) return false;
+    return maybeMap(
+      orElse: () => true,
+    );
+  }
 }

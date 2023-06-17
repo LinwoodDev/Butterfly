@@ -30,6 +30,7 @@ abstract class DocumentLoaded extends DocumentState {
   final String pageName;
   final FileMetadata metadata;
   final AssetService assetService;
+  final NetworkService networkService;
 
   set page(DocumentPage page) => data.setPage(page);
   set metadata(FileMetadata metadata) => data.setMetadata(metadata);
@@ -38,6 +39,7 @@ abstract class DocumentLoaded extends DocumentState {
       {DocumentPage? page,
       required this.pageName,
       AssetService? assetService,
+      required this.networkService,
       FileMetadata? metadata,
       DocumentInfo? info})
       : page = page ?? data.getPage(pageName) ?? DocumentDefaults.createPage(),
@@ -82,6 +84,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
       {super.page,
       super.assetService,
       required super.pageName,
+      required super.networkService,
       super.metadata,
       super.info,
       AssetLocation? location,
@@ -134,6 +137,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
       DocumentLoadSuccess(
         data,
         assetService: assetService,
+        networkService: networkService,
         page: page ?? this.page,
         pageName: pageName ?? this.pageName,
         metadata: metadata ?? this.metadata,
@@ -202,6 +206,7 @@ class DocumentPresentationState extends DocumentLoaded {
       {this.frame = 0,
       super.metadata,
       super.page,
+      required super.networkService,
       required super.pageName,
       required super.assetService})
       : handler = PresentationStateHandler(track, bloc),
@@ -212,6 +217,7 @@ class DocumentPresentationState extends DocumentLoaded {
       {this.frame = 0,
       super.metadata,
       super.page,
+      required super.networkService,
       required super.pageName,
       required super.assetService})
       : super(oldState.data);
@@ -231,6 +237,7 @@ class DocumentPresentationState extends DocumentLoaded {
         track,
         fullScreen,
         assetService: assetService,
+        networkService: networkService,
         frame: frame ?? this.frame,
         metadata: metadata,
         page: page,
