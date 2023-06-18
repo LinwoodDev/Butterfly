@@ -69,7 +69,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
             if (!settings.navigatorEnabled && !widget.asDrawer ||
                 state is! DocumentLoadSuccess) {
               content = const SizedBox.shrink();
-              _controller.reverse(from: 1);
+              _controller.reverse();
             } else {
               _controller.forward(from: 0);
               content = DefaultTabController(
@@ -162,6 +162,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                 animation: _animation,
                 child: content,
                 builder: (context, child) {
+                  print(_animation.value);
                   if (_animation.value == 0) return const SizedBox.shrink();
                   return SizedBox(
                     width: 400,

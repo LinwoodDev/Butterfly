@@ -7,3 +7,4 @@
 * Fix page won't be saved if autosave is disabled on page change
 * Fix importing of assets
 * Fix showing selected settings page in mobile
+* Fix flashing navigation bar if not enabled

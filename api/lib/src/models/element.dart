@@ -52,7 +52,7 @@ abstract class PathElement {
   PathProperty get property;
 }
 
-abstract class LabelElement {
+mixin LabelElement {
   String get layer;
   Point<double> get position;
   double get scale;
