@@ -111,6 +111,7 @@ class _EditToolbarState extends State<EditToolbar> {
                           }
                         }
                         tooltip ??= '';
+                        int lastReorderable = 0;
 
                         return Material(
                           color: Colors.transparent,
@@ -223,16 +224,19 @@ class _EditToolbarState extends State<EditToolbar> {
                                                   PainterStatus.disabled
                                               ? Theme.of(context).disabledColor
                                               : null;
-
-                                          Widget toolWidget = Padding(
+                                          final toolWidget = Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
                                                       horizontal: 4.0),
                                               child: OptionButton(
                                                   tooltip: tooltip,
-                                                  onLongPressed: () => context
-                                                      .read<CurrentIndexCubit>()
-                                                      .insertSelection(e, true),
+                                                  onLongPressed: () {
+                                                    context
+                                                        .read<
+                                                            CurrentIndexCubit>()
+                                                        .insertSelection(
+                                                            e, true);
+                                                  },
                                                   focussed:
                                                       shortcuts.contains(i),
                                                   selected: selected,
@@ -279,12 +283,25 @@ class _EditToolbarState extends State<EditToolbar> {
                                                     }
                                                   }));
                                           return ReorderableDelayedDragStartListener(
-                                            key: ObjectKey(i),
                                             index: i,
+                                            key: ObjectKey(i),
+                                            enabled: selected,
                                             child: toolWidget,
                                           );
                                         },
+                                        onReorderStart: (index) =>
+                                            lastReorderable = index,
+                                        onReorderEnd: (index) {
+                                          if (lastReorderable != index) return;
+                                          context
+                                              .read<CurrentIndexCubit>()
+                                              .insertSelection(
+                                                  painters[index], true);
+                                        },
                                         onReorder: (oldIndex, newIndex) {
+                                          if (oldIndex == newIndex) {
+                                            return;
+                                          }
                                           final bloc =
                                               context.read<DocumentBloc>();
                                           final delete =
