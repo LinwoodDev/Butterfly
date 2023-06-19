@@ -14,10 +14,9 @@ class ImageElementSelection extends ElementSelection<ImageElement> {
         onChanged: (constraints) => updateElements(context,
             elements.map((e) => e.copyWith(constraints: constraints)).toList()),
       ),
-      ListTile(
-        title: Text(AppLocalizations.of(context).export),
-        leading: const PhosphorIcon(PhosphorIconsLight.export),
-        onTap: () async {
+      MenuItemButton(
+        leadingIcon: const PhosphorIcon(PhosphorIconsLight.export),
+        onPressed: () async {
           final localization = AppLocalizations.of(context);
           final state = context.read<DocumentBloc>().state;
           if (state is! DocumentLoaded) {
@@ -45,6 +44,7 @@ class ImageElementSelection extends ElementSelection<ImageElement> {
             openImage(data);
           }
         },
+        child: Text(AppLocalizations.of(context).export),
       ),
     ];
   }

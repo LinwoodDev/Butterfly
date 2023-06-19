@@ -9,28 +9,33 @@ class LabelHandler extends Handler<LabelPainter>
 
   LabelHandler(super.data);
 
-  LabelContext _createContext([Point<double>? position, double zoom = 1]) {
+  LabelContext _createContext(
+      {Point<double>? position, double zoom = 1, LabelElement? element}) {
     final scale = data.zoomDependent ? 1 / zoom : 1.0;
-    switch (data.mode) {
+    final mode = element != null
+        ? (element is TextElement ? LabelMode.text : LabelMode.markdown)
+        : data.mode;
+    switch (mode) {
       case LabelMode.text:
         final forced = _context?.mapOrNull(text: (e) => e.forcedProperty);
         return TextContext(
           painter: data,
           isCreating: true,
-          element: position == null
-              ? null
-              : TextElement(
-                  position: position,
-                  area: text.TextArea(
-                    paragraph: text.TextParagraph.text(
-                      property:
-                          forced ?? const text.ParagraphProperty.undefined(),
-                    ),
-                  ),
-                  styleSheet: data.styleSheet,
-                  scale: scale,
-                  foreground: data.foreground,
-                ),
+          element: (element as TextElement?) ??
+              (position == null
+                  ? null
+                  : TextElement(
+                      position: position,
+                      area: text.TextArea(
+                        paragraph: text.TextParagraph.text(
+                          property: forced ??
+                              const text.ParagraphProperty.undefined(),
+                        ),
+                      ),
+                      styleSheet: data.styleSheet,
+                      scale: scale,
+                      foreground: data.foreground,
+                    )),
           textPainter: TextPainter(),
           forcedProperty: forced,
         );
@@ -38,15 +43,16 @@ class LabelHandler extends Handler<LabelPainter>
         return MarkdownContext(
           painter: data,
           isCreating: true,
-          element: position == null
-              ? null
-              : MarkdownElement(
-                  position: position,
-                  text: '',
-                  styleSheet: data.styleSheet,
-                  scale: scale,
-                  foreground: data.foreground,
-                ),
+          element: (element as MarkdownElement?) ??
+              (position == null
+                  ? null
+                  : MarkdownElement(
+                      position: position,
+                      text: '',
+                      styleSheet: data.styleSheet,
+                      scale: scale,
+                      foreground: data.foreground,
+                    )),
           textPainter: TextPainter(),
         );
     }
@@ -113,11 +119,18 @@ class LabelHandler extends Handler<LabelPainter>
   }
 
   @override
-  Future<void> onTapUp(TapUpDetails details, EventContext context) async {
+  void onTapUp(TapUpDetails details, EventContext context) =>
+      create(context, details.localPosition, context.isShiftPressed);
+
+  @override
+  void onLongPressEnd(LongPressEndDetails details, EventContext context) =>
+      create(context, details.localPosition, true);
+
+  Future<void> create(EventContext context, Offset localPosition,
+      [bool forceCreate = false]) async {
     final pixelRatio = context.devicePixelRatio;
     final focusNode = Focus.of(context.buildContext);
-    final globalPos =
-        context.getCameraTransform().localToGlobal(details.localPosition);
+    final globalPos = context.getCameraTransform().localToGlobal(localPosition);
     final hitRect = _context?.getRect();
     final hit = hitRect?.contains(globalPos) ?? false;
     final hadFocus = focusNode.hasFocus && !hit;
@@ -147,8 +160,19 @@ class LabelHandler extends Handler<LabelPainter>
     _connection!.show();
     if (hadFocus || _context?.element == null) {
       if (_context?.element != null) _submit(context.getDocumentBloc());
-      _context = _createContext(
-          globalPos.toPoint(), context.getCameraTransform().size);
+      final hit = await rayCast(globalPos, context.getDocumentBloc(),
+          context.getCameraTransform(), 0.0);
+      final labelRenderer = hit.whereType<Renderer<LabelElement>>().firstOrNull;
+      if (labelRenderer == null) {
+        _context = _createContext(
+            position: globalPos.toPoint(),
+            zoom: context.getCameraTransform().size);
+      } else {
+        context
+            .getDocumentBloc()
+            .add(ElementsRemoved([labelRenderer.element as PadElement]));
+        _context = _createContext(element: labelRenderer.element);
+      }
     }
     if (hit) {
       final position = _context!.textPainter.getPositionForOffset(globalPos -
