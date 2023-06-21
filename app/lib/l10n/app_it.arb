@@ -506,5 +506,6 @@
   "bringToFront": "Porta avanti",
   "sendToBack": "Invia al retro",
   "bringForward": "Avanti",
-  "sendBackward": "Invia indietro"
+  "sendBackward": "Invia indietro",
+  "invalidName": "Invalid name"
 }
