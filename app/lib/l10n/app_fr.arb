@@ -506,5 +506,6 @@
   "bringToFront": "Amener au premier plan",
   "sendToBack": "Envoyer à l'arrière",
   "bringForward": "Avancer",
-  "sendBackward": "Envoyer vers l'arrière"
+  "sendBackward": "Envoyer vers l'arrière",
+  "invalidName": "Invalid name"
 }
