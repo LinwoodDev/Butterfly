@@ -506,5 +506,6 @@
   "bringToFront": "Φέρτε μπροστά",
   "sendToBack": "Αποστολή πίσω",
   "bringForward": "Φέρτε μπροστά",
-  "sendBackward": "Αποστολή πίσω"
+  "sendBackward": "Αποστολή πίσω",
+  "invalidName": "Invalid name"
 }
