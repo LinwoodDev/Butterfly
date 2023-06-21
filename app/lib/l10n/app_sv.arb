@@ -506,5 +506,6 @@
   "bringToFront": "Ta fram",
   "sendToBack": "Skicka till baksidan",
   "bringForward": "Ta fram",
-  "sendBackward": "Skicka bakåt"
+  "sendBackward": "Skicka bakåt",
+  "invalidName": "Invalid name"
 }
