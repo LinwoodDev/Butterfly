@@ -97,6 +97,11 @@ class _EditToolbarState extends State<EditToolbar> {
                         );
 
                     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                      buildWhen: (previous, current) =>
+                          previous.handler != current.handler ||
+                          previous.temporaryHandler !=
+                              current.temporaryHandler ||
+                          previous.selection != current.selection,
                       builder: (context, currentIndex) {
                         final temp = currentIndex.temporaryHandler;
                         final tempData = temp?.data;
