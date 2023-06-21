@@ -168,9 +168,10 @@ class LabelHandler extends Handler<LabelPainter>
             position: globalPos.toPoint(),
             zoom: context.getCameraTransform().size);
       } else {
-        context
-            .getDocumentBloc()
-            .add(ElementsRemoved([labelRenderer.element as PadElement]));
+        final page = context.getPage();
+        if (page == null) return;
+        final index = page.content.indexOf(labelRenderer.element as PadElement);
+        context.getDocumentBloc().add(ElementsRemoved([index]));
         _context = _createContext(element: labelRenderer.element);
       }
     }

@@ -328,6 +328,14 @@ class _FilesViewState extends State<FilesView> {
                     ],
                   ),
                 ),
+                MenuItemButton(
+                  leadingIcon:
+                      const PhosphorIcon(PhosphorIconsLight.shareNetwork),
+                  child: Text(AppLocalizations.of(context).connect),
+                  onPressed: () {
+                    // TODO: Connect
+                  },
+                ),
               ],
               builder: (context, controller, child) =>
                   FloatingActionButton.small(
