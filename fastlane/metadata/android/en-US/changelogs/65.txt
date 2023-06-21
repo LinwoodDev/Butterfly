@@ -3,6 +3,7 @@
 * Add move elements in the z axis ([#396](https://github.com/LinwoodDev/Butterfly/issues/396))
 * Add saving indicator ([#402](https://github.com/LinwoodDev/Butterfly/issues/402))
 * Add pack remote directory ([#389](https://github.com/LinwoodDev/Butterfly/issues/389))
+* Add folder structure to pages ([#398](https://github.com/LinwoodDev/Butterfly/issues/398))
 * Use delay on reorder item for painters
 * Use delay on files in home page
 * Migrate selection context menu to new menu button widget
