@@ -506,5 +506,6 @@
   "bringToFront": "Tuo eteen",
   "sendToBack": "Lähetä takaisin",
   "bringForward": "Tuo eteenpäin",
-  "sendBackward": "Lähetä taaksepäin"
+  "sendBackward": "Lähetä taaksepäin",
+  "invalidName": "Invalid name"
 }
