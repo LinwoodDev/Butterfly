@@ -49,7 +49,8 @@ class NameDialog extends StatelessWidget {
 }
 
 FormFieldValidator<String> Function(String?) defaultNameValidator(
-    BuildContext context, List<String> existingNames) {
+    BuildContext context,
+    [List<String> existingNames = const []]) {
   return (currentName) => (value) {
         if (value == null || value.isEmpty) {
           return AppLocalizations.of(context).shouldNotEmpty;
@@ -57,6 +58,31 @@ FormFieldValidator<String> Function(String?) defaultNameValidator(
         if (value == currentName) return null;
         if (existingNames.contains(value)) {
           return AppLocalizations.of(context).alreadyExists;
+        }
+        return null;
+      };
+}
+
+const fileNameRegex = r'^[a-zA-Z0-9_\-\.]+$';
+// fileNameRegex with slashes but only if they are not at the beginning and minimum one letter is before them
+const fileNameRegexWithSlashes = r'^[a-z0-9]+(?:\/[a-z0-9]+)*(?:\.[a-z0-9]+)?$';
+
+FormFieldValidator<String> Function(String?) defaultFileNameValidator(
+    BuildContext context,
+    [List<String> existingNames = const [],
+    bool allowSlashes = true]) {
+  final nameValidator = defaultNameValidator(context, existingNames);
+  return (currentName) => (value) {
+        final nameError = nameValidator(currentName)(value);
+        if (nameError != null) return nameError;
+        if (allowSlashes) {
+          if (!RegExp(fileNameRegexWithSlashes).hasMatch(value!)) {
+            return AppLocalizations.of(context).invalidName;
+          }
+        } else {
+          if (!RegExp(fileNameRegex).hasMatch(value!)) {
+            return AppLocalizations.of(context).invalidName;
+          }
         }
         return null;
       };

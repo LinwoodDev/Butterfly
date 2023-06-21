@@ -62,7 +62,8 @@ class PalettesPackView extends StatelessWidget {
               final name = await showDialog<String>(
                 context: context,
                 builder: (context) => NameDialog(
-                  validator: defaultNameValidator(context, value.getPalettes()),
+                  validator:
+                      defaultFileNameValidator(context, value.getPalettes()),
                 ),
               );
               if (name == null) return;

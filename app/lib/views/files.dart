@@ -238,7 +238,9 @@ class _FilesViewState extends State<FilesView> {
                   onPressed: () async {
                     final name = await showDialog<String>(
                       context: context,
-                      builder: (context) => NameDialog(),
+                      builder: (context) => NameDialog(
+                        validator: defaultFileNameValidator(context),
+                      ),
                     );
                     if (name == null) return;
                     final path = _locationController.text;
@@ -251,7 +253,9 @@ class _FilesViewState extends State<FilesView> {
                   onPressed: () async {
                     final name = await showDialog<String>(
                       context: context,
-                      builder: (context) => NameDialog(),
+                      builder: (context) => NameDialog(
+                        validator: defaultFileNameValidator(context),
+                      ),
                     );
                     if (name?.isEmpty ?? true) return;
                     final templateFileSystem =

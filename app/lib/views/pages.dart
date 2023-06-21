@@ -113,8 +113,8 @@ class PagesView extends StatelessWidget {
                             final name = await showDialog<String>(
                                 context: context,
                                 builder: (context) => NameDialog(
-                                    validator:
-                                        defaultNameValidator(context, pages)));
+                                    validator: defaultFileNameValidator(
+                                        context, pages)));
                             if (name == null) return;
                             snapshot.data?.setPage(
                               DocumentPage(
