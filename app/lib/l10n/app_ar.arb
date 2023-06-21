@@ -506,5 +506,6 @@
   "bringToFront": "إحضار إلى الأمام",
   "sendToBack": "إرسال إلى الخلف",
   "bringForward": "إحضار للأمام",
-  "sendBackward": "إرسال إلى الخلف"
+  "sendBackward": "إرسال إلى الخلف",
+  "invalidName": "Invalid name"
 }
