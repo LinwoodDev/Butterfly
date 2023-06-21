@@ -100,7 +100,7 @@ class _FileEntityItemState extends State<_FileEntityItem> {
       );
     }
 
-    final draggable = Draggable<String>(
+    final draggable = LongPressDraggable<String>(
       data: widget.entity.pathWithLeadingSlash,
       feedback: Material(
         elevation: 5,

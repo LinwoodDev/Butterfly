@@ -5,9 +5,17 @@ import '../../butterfly_api.dart';
 class SearchResult<T> {
   final String name;
   final Point<double> location;
+  final String? page;
   final T item;
 
-  SearchResult(this.name, this.location, this.item);
+  SearchResult(this.name, this.location, this.item, [this.page]);
+
+  SearchResult withPage(String page) => SearchResult(
+        name,
+        location,
+        item,
+        page,
+      );
 }
 
 extension ElementSearchHelper on PadElement {
@@ -47,21 +55,30 @@ extension WaypointSearchHelper on Waypoint {
   }
 }
 
+extension GlobalSearchHelper on NoteData {
+  Iterable<SearchResult> search(Pattern query) sync* {
+    for (final pageName in getPages()) {
+      final page = getPage(pageName);
+      if (page == null) continue;
+      yield SearchResult(pageName, Point(0, 0), page, pageName);
+      yield* page.search(query).map((e) => e.withPage(pageName));
+    }
+  }
+}
+
 extension SearchHelper on DocumentPage {
-  List<SearchResult> search(Pattern query) {
-    final results = <SearchResult>[];
+  Iterable<SearchResult> search(Pattern query) sync* {
     for (final area in areas) {
       final result = area.matches(query);
-      if (result != null) results.add(result);
+      if (result != null) yield result;
     }
     for (final waypoint in waypoints) {
       final result = waypoint.matches(query);
-      if (result != null) results.add(result);
+      if (result != null) yield result;
     }
     for (final element in content) {
       final result = element.matches(query);
-      if (result != null) results.add(result);
+      if (result != null) yield result;
     }
-    return results;
   }
 }

@@ -1,4 +1,3 @@
-import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,21 +19,18 @@ class _ToolbarViewState extends State<ToolbarView> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: BlocBuilder<DocumentBloc, DocumentState>(
-      builder: (context, state) => BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+      child: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
           buildWhen: (previous, current) =>
               previous.temporaryToolbar != current.temporaryToolbar ||
               previous.toolbar != current.toolbar,
           builder: (context, currentIndex) {
             Widget? child;
             var height = 0.0;
-            if (state is DocumentLoadSuccess) {
-              final toolbar =
-                  currentIndex.temporaryToolbar ?? currentIndex.toolbar;
-              if (toolbar != null) {
-                height = toolbar.preferredSize.height;
-                child = toolbar;
-              }
+            final toolbar =
+                currentIndex.temporaryToolbar ?? currentIndex.toolbar;
+            if (toolbar != null) {
+              height = toolbar.preferredSize.height;
+              child = toolbar;
             }
             return AnimatedContainer(
               height: height,
@@ -44,6 +40,6 @@ class _ToolbarViewState extends State<ToolbarView> {
               child: child,
             );
           }),
-    ));
+    );
   }
 }

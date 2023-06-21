@@ -178,7 +178,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 final name = await showDialog<String>(
                                   context: context,
                                   builder: (context) => NameDialog(
-                                    validator: defaultNameValidator(
+                                    validator: defaultFileNameValidator(
                                         context,
                                         state.page.animations
                                             .map((e) => e.name)
@@ -205,7 +205,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                       final name = await showDialog<String>(
                                         context: context,
                                         builder: (context) => NameDialog(
-                                          validator: defaultNameValidator(
+                                          validator: defaultFileNameValidator(
                                               context,
                                               state.page.animations
                                                   .map((e) => e.name)
