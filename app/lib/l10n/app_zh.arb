@@ -506,5 +506,6 @@
   "bringToFront": "置于前端",
   "sendToBack": "发送到背面",
   "bringForward": "前进中",
-  "sendBackward": "向后发送"
+  "sendBackward": "向后发送",
+  "invalidName": "Invalid name"
 }
