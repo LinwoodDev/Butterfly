@@ -506,5 +506,6 @@
   "bringToFront": "Bring til forsiden",
   "sendToBack": "Send til tilbage",
   "bringForward": "Bring fremad",
-  "sendBackward": "Send tilbage"
+  "sendBackward": "Send tilbage",
+  "invalidName": "Invalid name"
 }
