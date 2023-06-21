@@ -506,5 +506,6 @@
   "bringToFront": "Přivést do popředí",
   "sendToBack": "Poslat zpět",
   "bringForward": "Posunout vpřed",
-  "sendBackward": "Poslat zpět"
+  "sendBackward": "Poslat zpět",
+  "invalidName": "Invalid name"
 }
