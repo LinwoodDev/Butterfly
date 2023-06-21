@@ -506,5 +506,6 @@
   "bringToFront": "Вывести на передний план",
   "sendToBack": "Отправить на задний план",
   "bringForward": "Перенос вперед",
-  "sendBackward": "Отправить назад"
+  "sendBackward": "Отправить назад",
+  "invalidName": "Invalid name"
 }
