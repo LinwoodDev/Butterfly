@@ -506,5 +506,6 @@
   "bringToFront": "Plasser lengst frem",
   "sendToBack": "Send til tilbake",
   "bringForward": "Send fremover",
-  "sendBackward": "Send bakover"
+  "sendBackward": "Send bakover",
+  "invalidName": "Invalid name"
 }
