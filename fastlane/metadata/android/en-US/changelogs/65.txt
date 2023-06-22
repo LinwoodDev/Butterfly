@@ -4,6 +4,7 @@
 * Add saving indicator ([#402](https://github.com/LinwoodDev/Butterfly/issues/402))
 * Add pack remote directory ([#389](https://github.com/LinwoodDev/Butterfly/issues/389))
 * Add folder structure to pages ([#398](https://github.com/LinwoodDev/Butterfly/issues/398))
+* Add stacktrace to error page
 * Use delay on reorder item for painters
 * Use delay on files in home page
 * Validate file name on creation

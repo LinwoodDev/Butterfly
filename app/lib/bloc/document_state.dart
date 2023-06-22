@@ -23,11 +23,12 @@ class DocumentLoadInProgress extends DocumentState {}
 
 class DocumentLoadFailure extends DocumentState {
   final String message;
+  final StackTrace? stackTrace;
 
-  const DocumentLoadFailure(this.message);
+  const DocumentLoadFailure(this.message, [this.stackTrace]);
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [message, stackTrace];
 }
 
 abstract class DocumentLoaded extends DocumentState {

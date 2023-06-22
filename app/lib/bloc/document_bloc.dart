@@ -46,7 +46,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     _init();
   }
 
-  DocumentBloc.error(String message) : super(DocumentLoadFailure(message));
+  DocumentBloc.error(String message, [StackTrace? stackTrace])
+      : super(DocumentLoadFailure(message, stackTrace));
 
   DocumentBloc.placeholder() : super(const DocumentLoadFailure(''));
 

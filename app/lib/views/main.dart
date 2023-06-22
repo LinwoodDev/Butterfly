@@ -195,7 +195,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _importService = ImportService(context, _bloc);
         _bloc?.load();
       });
-    } catch (e) {
+    } catch (e, stackTrace) {
       if (kDebugMode) {
         print(e);
       }
@@ -203,7 +203,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
             CameraViewport.unbaked(ToolRenderer()), null);
-        _bloc = DocumentBloc.error(e.toString());
+        _bloc = DocumentBloc.error(e.toString(), stackTrace);
       });
     }
     WidgetsBinding.instance.addPostFrameCallback(_onAfterBuild);
@@ -237,7 +237,8 @@ class _ProjectPageState extends State<ProjectPage> {
             previous.runtimeType != current.runtimeType,
         builder: (context, state) {
           if (state is DocumentLoadFailure) {
-            return ErrorPage(message: state.message);
+            return ErrorPage(
+                message: state.message, stackTrace: state.stackTrace);
           }
           return MultiRepositoryProvider(
             providers: [
