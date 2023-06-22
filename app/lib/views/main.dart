@@ -38,7 +38,6 @@ import '../actions/exit.dart';
 import '../actions/next.dart';
 import '../actions/packs.dart';
 import '../actions/previous.dart';
-import '../actions/primary.dart';
 import '../main.dart';
 import '../models/viewport.dart';
 import '../services/asset.dart';
@@ -86,7 +85,6 @@ class _ProjectPageState extends State<ProjectPage> {
     ExitIntent: ExitAction(),
     NextIntent: NextAction(),
     PreviousIntent: PreviousAction(),
-    PrimaryIntent: PrimaryAction(),
   };
 
   @override
@@ -290,8 +288,6 @@ class _ProjectPageState extends State<ProjectPage> {
                           NextIntent(context),
                       LogicalKeySet(LogicalKeyboardKey.arrowLeft):
                           PreviousIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.space):
-                          PrimaryIntent(context),
                       if (widget.embedding == null) ...{
                         LogicalKeySet(LogicalKeyboardKey.control,
                             LogicalKeyboardKey.keyE): ExportIntent(context),

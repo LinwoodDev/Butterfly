@@ -180,7 +180,9 @@ class _MainViewViewportState extends State<MainViewViewport>
 
         return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
             buildWhen: (previous, current) =>
-                previous.cameraViewport != current.cameraViewport,
+                previous.cameraViewport != current.cameraViewport ||
+                previous.foregrounds != current.foregrounds ||
+                previous.temporaryForegrounds != current.temporaryForegrounds,
             builder: (context, currentIndex) => Actions(
                 actions: getHandler().getActions(context),
                 child: DefaultTextEditingShortcuts(
