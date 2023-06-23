@@ -2,6 +2,30 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.1 (2023-06-23)
+
+* Add grid view
+* Add editing of label elements
+* Add move elements in the z axis ([#396](https://github.com/LinwoodDev/Butterfly/issues/396))
+* Add saving indicator ([#402](https://github.com/LinwoodDev/Butterfly/issues/402))
+* Add pack remote directory ([#389](https://github.com/LinwoodDev/Butterfly/issues/389))
+* Add folder structure to pages ([#398](https://github.com/LinwoodDev/Butterfly/issues/398))
+* Add stacktrace to error page
+* Use delay on reorder item for painters
+* Use delay on files in home page
+* Validate file name on creation
+* Migrate selection context menu to new menu button widget
+* Improve performance
+* Fix loading files with file args
+* Fix not working spacebar in label
+* Fix layer view not updating when layer visibility changes
+* Fix page won't be saved if autosave is disabled on page change
+* Fix importing of assets
+* Fix showing selected settings page in mobile
+* Fix flashing navigation bar if not enabled
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0
+
 ## 2.0.0-beta.0 (2023-06-12)
 
 * Rebuild area painter handler
