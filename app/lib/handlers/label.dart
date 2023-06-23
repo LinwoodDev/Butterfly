@@ -135,29 +135,8 @@ class LabelHandler extends Handler<LabelPainter>
     final hit = hitRect?.contains(globalPos) ?? false;
     final hadFocus = focusNode.hasFocus && !hit;
     FocusScope.of(context.buildContext).requestFocus(focusNode);
-    final style = Theme.of(context.buildContext).textTheme.bodyLarge!;
-    if (!(_connection?.attached ?? false)) {
-      _connection = TextInput.attach(
-          this,
-          TextInputConfiguration(
-            inputType: TextInputType.text,
-            obscureText: false,
-            autocorrect: true,
-            inputAction: TextInputAction.newline,
-            keyboardAppearance: Theme.of(context.buildContext).brightness,
-            textCapitalization: TextCapitalization.sentences,
-          ))
-        ..setEditingState(const TextEditingValue())
-        ..setStyle(
-          fontFamily: style.fontFamily,
-          fontSize: style.fontSize! * pixelRatio,
-          fontWeight: style.fontWeight,
-          textDirection: TextDirection.ltr,
-          textAlign: TextAlign.left,
-        );
-    }
-    _bloc = context.getDocumentBloc();
-    _connection!.show();
+    final theme = Theme.of(context.buildContext);
+    final style = theme.textTheme.bodyLarge!;
     if (hadFocus || _context?.element == null) {
       if (_context?.element != null) _submit(context.getDocumentBloc());
       final hit = await rayCast(globalPos, context.getDocumentBloc(),
@@ -186,6 +165,30 @@ class LabelHandler extends Handler<LabelPainter>
         ),
       );
     }
+    if (!(_connection?.attached ?? false)) {
+      _connection = TextInput.attach(
+          this,
+          TextInputConfiguration(
+            inputType: TextInputType.text,
+            obscureText: false,
+            autocorrect: false,
+            inputAction: TextInputAction.newline,
+            keyboardAppearance: theme.brightness,
+            enableDeltaModel: false,
+            enableSuggestions: false,
+            enableInteractiveSelection: true,
+          ))
+        ..setEditingState(currentTextEditingValue ?? const TextEditingValue())
+        ..setStyle(
+          fontFamily: style.fontFamily,
+          fontSize: style.fontSize! * pixelRatio,
+          fontWeight: style.fontWeight,
+          textDirection: TextDirection.ltr,
+          textAlign: TextAlign.left,
+        );
+    }
+    _bloc = context.getDocumentBloc();
+    _connection!.show();
     context.refresh();
   }
 
@@ -269,6 +272,7 @@ class LabelHandler extends Handler<LabelPainter>
 
   @override
   void connectionClosed() {
+    _connection?.connectionClosedReceived();
     _connection = null;
   }
 
@@ -281,6 +285,7 @@ class LabelHandler extends Handler<LabelPainter>
       : TextEditingValue(
           text: _context!.text!,
           selection: _context!.selection,
+          composing: TextRange(start: 0, end: _context!.text!.length),
         );
 
   @override

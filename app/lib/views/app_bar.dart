@@ -38,7 +38,7 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return windowTitleBar;
+    return RepaintBoundary(child: windowTitleBar);
   }
 
   WindowTitleBar _buildWindowTitleBar() => WindowTitleBar(
@@ -74,6 +74,9 @@ class _AppBarTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+      buildWhen: (previous, current) =>
+          previous.location != current.location ||
+          previous.saved != current.saved,
       builder: (context, currentIndex) =>
           BlocBuilder<DocumentBloc, DocumentState>(
               buildWhen: (previous, current) {

@@ -501,5 +501,11 @@
   "version": "Verze",
   "repository": "Repozitář",
   "pages": "Stránky",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Uspořádat",
+  "bringToFront": "Přivést do popředí",
+  "sendToBack": "Poslat zpět",
+  "bringForward": "Posunout vpřed",
+  "sendBackward": "Poslat zpět",
+  "invalidName": "Invalid name"
 }

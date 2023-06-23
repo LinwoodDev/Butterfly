@@ -501,5 +501,11 @@
   "version": "Έκδοση",
   "repository": "Αποθετήριο",
   "pages": "Σελίδες",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Τακτοποίηση",
+  "bringToFront": "Φέρτε μπροστά",
+  "sendToBack": "Αποστολή πίσω",
+  "bringForward": "Φέρτε μπροστά",
+  "sendBackward": "Αποστολή πίσω",
+  "invalidName": "Invalid name"
 }

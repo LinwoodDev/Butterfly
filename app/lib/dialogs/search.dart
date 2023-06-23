@@ -18,12 +18,13 @@ class SearchDialog extends StatefulWidget {
   State<SearchDialog> createState() => _SearchDialogState();
 }
 
-Future<List<SearchResult>> _searchIsolate(DocumentPage page, String query) =>
+Future<Iterable<SearchResult>> _searchIsolate(
+        DocumentPage page, String query) =>
     Isolate.run(() => page.search(RegExp(query, caseSensitive: false)));
 
 class _SearchDialogState extends State<SearchDialog> {
   final TextEditingController _searchController = TextEditingController();
-  Future<List<SearchResult>> _searchResults = Future.value([]);
+  Future<Iterable<SearchResult>> _searchResults = Future.value([]);
   final FocusNode _focusNode = FocusNode();
 
   @override
@@ -114,7 +115,7 @@ class _SearchDialogState extends State<SearchDialog> {
                     ),
                     const SizedBox(height: 16),
                     Flexible(
-                      child: FutureBuilder<List<SearchResult>>(
+                      child: FutureBuilder<Iterable<SearchResult>>(
                           future: _searchResults,
                           builder: (context, snapshot) {
                             if (snapshot.hasError) {
@@ -129,7 +130,7 @@ class _SearchDialogState extends State<SearchDialog> {
                                 ],
                               );
                             }
-                            final results = snapshot.data ?? [];
+                            final results = snapshot.data?.toList() ?? [];
                             return ListView.builder(
                               itemCount: results.length,
                               shrinkWrap: true,

@@ -501,5 +501,11 @@
   "version": "الإصدار",
   "repository": "المستودع",
   "pages": "الصفحات",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "ترتيب",
+  "bringToFront": "إحضار إلى الأمام",
+  "sendToBack": "إرسال إلى الخلف",
+  "bringForward": "إحضار للأمام",
+  "sendBackward": "إرسال إلى الخلف",
+  "invalidName": "Invalid name"
 }

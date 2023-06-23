@@ -193,12 +193,12 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                   ],
                 ),
                 Column(children: [
-                  CheckboxMenuButton(
+                  CheckboxListTile(
                     value: widget.state.gridEnabled,
                     onChanged: (value) => widget.onStateChanged(
                       widget.state.copyWith(gridEnabled: value ?? false),
                     ),
-                    child: Text(AppLocalizations.of(context).showGrid),
+                    title: Text(AppLocalizations.of(context).showGrid),
                   ),
                   const SizedBox(height: 8),
                   OffsetPropertyView(
@@ -236,11 +236,11 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
                   ),
                 ]),
                 Column(children: [
-                  CheckboxMenuButton(
+                  CheckboxListTile(
                     value: widget.state.rulerEnabled,
                     onChanged: (value) => widget.onStateChanged(
                         widget.state.copyWith(rulerEnabled: value ?? false)),
-                    child: Text(AppLocalizations.of(context).ruler),
+                    title: Text(AppLocalizations.of(context).ruler),
                   ),
                   const SizedBox(height: 8),
                   OffsetPropertyView(

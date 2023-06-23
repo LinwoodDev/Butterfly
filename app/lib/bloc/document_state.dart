@@ -10,25 +10,39 @@ abstract class DocumentState extends Equatable {
 
   @override
   List<Object?> get props => [];
+
+  NoteData? get data => null;
+  DocumentPage? get page => null;
+  DocumentInfo? get info => null;
+  String? get pageName => null;
+  FileMetadata? get metadata => null;
+  AssetService? get assetService => null;
 }
 
 class DocumentLoadInProgress extends DocumentState {}
 
 class DocumentLoadFailure extends DocumentState {
   final String message;
+  final StackTrace? stackTrace;
 
-  const DocumentLoadFailure(this.message);
+  const DocumentLoadFailure(this.message, [this.stackTrace]);
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [message, stackTrace];
 }
 
 abstract class DocumentLoaded extends DocumentState {
+  @override
   final NoteData data;
+  @override
   final DocumentPage page;
+  @override
   final DocumentInfo info;
+  @override
   final String pageName;
+  @override
   final FileMetadata metadata;
+  @override
   final AssetService assetService;
 
   set page(DocumentPage page) => data.setPage(page);

@@ -501,5 +501,11 @@
   "version": "Версии",
   "repository": "Репозиторий",
   "pages": "Страницы",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Организовать",
+  "bringToFront": "Вывести на передний план",
+  "sendToBack": "Отправить на задний план",
+  "bringForward": "Перенос вперед",
+  "sendBackward": "Отправить назад",
+  "invalidName": "Invalid name"
 }

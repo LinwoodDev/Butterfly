@@ -501,5 +501,11 @@
   "version": "Version",
   "repository": "Utveckling",
   "pages": "Sidor",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Ordna",
+  "bringToFront": "Ta fram",
+  "sendToBack": "Skicka till baksidan",
+  "bringForward": "Ta fram",
+  "sendBackward": "Skicka bakåt",
+  "invalidName": "Invalid name"
 }
