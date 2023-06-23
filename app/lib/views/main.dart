@@ -142,20 +142,24 @@ class _ProjectPageState extends State<ProjectPage> {
       final fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
       final prefs = await SharedPreferences.getInstance();
       NoteData? document;
-      if (widget.location != null) {
-        if (!widget.location!.absolute) {
-          final asset = await fileSystem.getAsset(widget.location!.path);
+      if (location != null) {
+        if (!location.absolute) {
+          final asset = await fileSystem.getAsset(location.path);
           if (!mounted) return;
           if (asset?.fileType == AssetFileType.note) {
             document = await checkFileChanges(context, asset);
           }
+        } else {
+          final data = await fileSystem.loadAbsolute(location.path);
+          if (data != null) {
+            document = NoteData.fromData(data);
+          }
         }
       }
       if (!mounted) return;
-      final name =
-          (widget.location?.absolute ?? false) ? widget.location!.fileName : '';
+      final name = (location?.absolute ?? false) ? location!.fileName : '';
       var documentOpened = document != null;
-      if (!documentOpened) {
+      if (!documentOpened && !(location?.absolute ?? false)) {
         location = null;
       }
       if (widget.data is NoteData) {
