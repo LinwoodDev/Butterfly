@@ -1,6 +1,6 @@
 name: butterfly_api
 description: The Linwood Butterfly API
-version: 2.0.0-beta.1
+version: 2.0.0-beta.2
 
 environment:
   sdk: '>=2.19.0 <3.0.0'
