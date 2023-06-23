@@ -501,5 +501,11 @@
   "version": "Versión",
   "repository": "Repositorio",
   "pages": "Páginas",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Ordenar",
+  "bringToFront": "Traer al frente",
+  "sendToBack": "Enviar al reverso",
+  "bringForward": "Avanzar",
+  "sendBackward": "Enviar atrás",
+  "invalidName": "Invalid name"
 }

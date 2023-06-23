@@ -501,5 +501,11 @@
   "version": "Versiune",
   "repository": "Depozit",
   "pages": "Pagini",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Aranjare",
+  "bringToFront": "Aduce în față",
+  "sendToBack": "Trimite înapoi",
+  "bringForward": "Adu înainte",
+  "sendBackward": "Trimite înapoi",
+  "invalidName": "Invalid name"
 }

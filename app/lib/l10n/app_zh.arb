@@ -501,5 +501,11 @@
   "version": "版本",
   "repository": "存储库",
   "pages": "页 次",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "安排",
+  "bringToFront": "置于前端",
+  "sendToBack": "发送到背面",
+  "bringForward": "前进中",
+  "sendBackward": "向后发送",
+  "invalidName": "Invalid name"
 }
