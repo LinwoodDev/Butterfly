@@ -1,2 +1,5 @@
 * Fix label toolbar if text is empty
 * Fix updating of tool selection
+* Fix line breaks in markdown
+* Fix core pack styling
+* Fix pack exporting

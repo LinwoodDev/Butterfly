@@ -50,7 +50,7 @@ class LabelHandler extends Handler<LabelPainter>
                   : MarkdownElement(
                       position: position,
                       text: '',
-                      styleSheet: data.styleSheet,
+                      styleSheet: styleSheet,
                       scale: scale,
                       foreground: data.foreground,
                     )),
