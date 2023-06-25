@@ -46,7 +46,7 @@ class _PropertyViewState extends State<PropertyView>
       Selection? lastSelection;
       return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
           buildWhen: (previous, current) =>
-              previous.selection != current.selection,
+              previous.selection?.selected != current.selection?.selected,
           builder: (context, state) {
             var selection = state.selection;
             if (selection == null) {

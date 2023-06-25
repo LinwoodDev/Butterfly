@@ -1,1 +1,2 @@
 * Fix label toolbar if text is empty
+* Fix updating of tool selection
