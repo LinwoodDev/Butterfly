@@ -67,8 +67,7 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
           update(
               context,
               selected
-                  .map((e) =>
-                      e.copyWith(styleSheet: PackAssetLocation(pack: pack)))
+                  .map((e) => e.copyWith(styleSheet: PackAssetLocation(pack)))
                   .toList());
         },
       ),
@@ -92,10 +91,8 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
                             context,
                             selected
                                 .map((e) => e.copyWith(
-                                        styleSheet: PackAssetLocation(
-                                      pack: packName,
-                                      name: style,
-                                    )))
+                                    styleSheet:
+                                        PackAssetLocation(packName, style)))
                                 .toList()),
                       )))
                   .toList() ??

@@ -42,8 +42,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         if (palettes?.isEmpty ?? true) return;
         final palette = pack?.getPalette(palettes!.first);
         if (palette != null) {
-          currentPalette =
-              PackAssetLocation(pack: packName, name: palette.name);
+          currentPalette = PackAssetLocation(packName, palette.name);
         }
       } catch (_) {}
     }

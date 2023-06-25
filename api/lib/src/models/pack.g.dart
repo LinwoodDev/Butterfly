@@ -100,8 +100,8 @@ Map<String, dynamic> _$$DoubleParameterToJson(_$DoubleParameter instance) =>
 
 _$_PackAssetLocation _$$_PackAssetLocationFromJson(Map json) =>
     _$_PackAssetLocation(
-      pack: json['pack'] as String? ?? '',
-      name: json['name'] as String? ?? '',
+      json['pack'] as String? ?? '',
+      json['name'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$_PackAssetLocationToJson(

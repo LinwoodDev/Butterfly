@@ -1,0 +1,1 @@
+* Fix label toolbar if text is empty

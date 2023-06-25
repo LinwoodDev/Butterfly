@@ -94,8 +94,8 @@ class AssetDialog extends StatelessWidget {
             onPressed: () {
               if (pack == null) return;
               Navigator.of(context).pop(PackAssetLocation(
-                pack: pack!,
-                name: name,
+                pack!,
+                name,
               ));
             },
             child: Text(AppLocalizations.of(context).ok),

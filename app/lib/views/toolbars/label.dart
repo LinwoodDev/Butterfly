@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/dialogs/color_pick.dart';
 import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -94,7 +96,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
     ];
     final lineIndex = value.previousLineIndex(
         value.selection.baseOffset.clamp(0, value.text?.length ?? 0));
-    final linePrefix = value.text?.substring(lineIndex + 1);
+    final linePrefix =
+        value.text?.substring(min(lineIndex + 1, value.text!.length)) ?? '';
     final mode = value.painter.mode;
     if (!paragraphSelections.contains(paragraphSelection)) {
       paragraphSelection = '';
@@ -612,8 +615,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                       markdown: (value) => Row(children: [
                         ToggleButtons(
                             isSelected: markdownParagraphTools
-                                .map((e) =>
-                                    linePrefix?.startsWith('${e.$3} ') ?? false)
+                                .map((e) => linePrefix.startsWith('${e.$3} '))
                                 .toList(),
                             onPressed: value.element == null
                                 ? null
@@ -624,8 +626,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                     final text = value.text;
                                     if (text == null) return;
                                     final enabled =
-                                        linePrefix?.startsWith('$prefix ') ??
-                                            false;
+                                        linePrefix.startsWith('$prefix ');
                                     final newText = enabled
                                         ? text.replaceRange(lineIndex + 1,
                                             lineIndex + 2 + prefix.length, '')

@@ -1298,11 +1298,11 @@ class __$$_PackAssetLocationCopyWithImpl<$Res>
     Object? name = null,
   }) {
     return _then(_$_PackAssetLocation(
-      pack: null == pack
+      null == pack
           ? _value.pack
           : pack // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
+      null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1313,7 +1313,7 @@ class __$$_PackAssetLocationCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_PackAssetLocation extends _PackAssetLocation {
-  const _$_PackAssetLocation({this.pack = '', this.name = ''}) : super._();
+  const _$_PackAssetLocation([this.pack = '', this.name = '']) : super._();
 
   factory _$_PackAssetLocation.fromJson(Map<String, dynamic> json) =>
       _$$_PackAssetLocationFromJson(json);
@@ -1359,7 +1359,7 @@ class _$_PackAssetLocation extends _PackAssetLocation {
 }
 
 abstract class _PackAssetLocation extends PackAssetLocation {
-  const factory _PackAssetLocation({final String pack, final String name}) =
+  const factory _PackAssetLocation([final String pack, final String name]) =
       _$_PackAssetLocation;
   const _PackAssetLocation._() : super._();
 

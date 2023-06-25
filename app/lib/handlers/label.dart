@@ -9,12 +9,13 @@ class LabelHandler extends Handler<LabelPainter>
 
   LabelHandler(super.data);
 
-  LabelContext _createContext(
+  LabelContext _createContext(NoteData document,
       {Point<double>? position, double zoom = 1, LabelElement? element}) {
     final scale = data.zoomDependent ? 1 / zoom : 1.0;
     final mode = element != null
         ? (element is TextElement ? LabelMode.text : LabelMode.markdown)
         : data.mode;
+    final styleSheet = data.styleSheet.fixStyle(document);
     switch (mode) {
       case LabelMode.text:
         final forced = _context?.mapOrNull(text: (e) => e.forcedProperty);
@@ -32,7 +33,7 @@ class LabelHandler extends Handler<LabelPainter>
                               const text.ParagraphProperty.undefined(),
                         ),
                       ),
-                      styleSheet: data.styleSheet,
+                      styleSheet: styleSheet,
                       scale: scale,
                       foreground: data.foreground,
                     )),
@@ -129,6 +130,8 @@ class LabelHandler extends Handler<LabelPainter>
   Future<void> create(EventContext context, Offset localPosition,
       [bool forceCreate = false]) async {
     final pixelRatio = context.devicePixelRatio;
+    final document = context.getData();
+    if (document == null) return;
     final focusNode = Focus.of(context.buildContext);
     final globalPos = context.getCameraTransform().localToGlobal(localPosition);
     final hitRect = _context?.getRect();
@@ -143,14 +146,14 @@ class LabelHandler extends Handler<LabelPainter>
           context.getCameraTransform(), 0.0);
       final labelRenderer = hit.whereType<Renderer<LabelElement>>().firstOrNull;
       if (labelRenderer == null) {
-        _context = _createContext(
+        _context = _createContext(document,
             position: globalPos.toPoint(),
             zoom: context.getCameraTransform().size);
       } else {
         context
             .getDocumentBloc()
             .add(ElementsRemoved([labelRenderer.element as PadElement]));
-        _context = _createContext(element: labelRenderer.element);
+        _context = _createContext(document, element: labelRenderer.element);
       }
     }
     if (hit) {
@@ -210,8 +213,10 @@ class LabelHandler extends Handler<LabelPainter>
   }
 
   @override
-  PreferredSizeWidget getToolbar(DocumentBloc bloc) {
-    _context ??= _createContext();
+  PreferredSizeWidget? getToolbar(DocumentBloc bloc) {
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return null;
+    _context ??= _createContext(state.data);
     return LabelToolbarView(
       value: _context!,
       onChanged: (value) => _change(bloc, value),

@@ -37,8 +37,7 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
           update(
               context,
               selected
-                  .map((e) =>
-                      e.copyWith(component: PackAssetLocation(pack: pack)))
+                  .map((e) => e.copyWith(component: PackAssetLocation(pack)))
                   .toList());
         },
       ),
@@ -62,10 +61,8 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
                             context,
                             selected
                                 .map((e) => e.copyWith(
-                                        component: PackAssetLocation(
-                                      pack: packName,
-                                      name: component,
-                                    )))
+                                    component:
+                                        PackAssetLocation(packName, component)))
                                 .toList()),
                       )))
                   .toList() ??
