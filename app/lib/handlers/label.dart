@@ -123,9 +123,15 @@ class LabelHandler extends Handler<LabelPainter>
   void onTapUp(TapUpDetails details, EventContext context) =>
       create(context, details.localPosition, context.isShiftPressed);
 
+  Offset _doubleTapPos = Offset.zero;
+
   @override
-  void onLongPressEnd(LongPressEndDetails details, EventContext context) =>
-      create(context, details.localPosition, true);
+  void onDoubleTapDown(TapDownDetails details, EventContext context) =>
+      _doubleTapPos = details.localPosition;
+
+  @override
+  void onDoubleTap(EventContext context) =>
+      create(context, _doubleTapPos, true);
 
   Future<void> create(EventContext context, Offset localPosition,
       [bool forceCreate = false]) async {
@@ -276,6 +282,43 @@ class LabelHandler extends Handler<LabelPainter>
   }
 
   @override
+  void onSecondaryTapUp(TapUpDetails details, EventContext context) =>
+      _onContextMenu(details.localPosition, context);
+
+  @override
+  void onLongPressEnd(LongPressEndDetails details, EventContext context) =>
+      _onContextMenu(details.localPosition, context);
+
+  Future<void> _onContextMenu(
+      Offset localPosition, EventContext context) async {
+    if (_context == null) return;
+    showModal(
+        context: context.buildContext,
+        useRootNavigator: true,
+        builder: (context) => AdaptiveTextSelectionToolbar.editable(
+            clipboardStatus: ClipboardStatus.pasteable,
+            onCopy: () {
+              _copyText(false);
+              Navigator.of(context).pop();
+            },
+            onCut: () {
+              _copyText(true);
+              Navigator.of(context).pop();
+            },
+            onPaste: () {
+              _pasteText();
+              Navigator.of(context).pop();
+            },
+            onSelectAll: () {
+              _selectAllText();
+              Navigator.of(context).pop();
+            },
+            anchors: TextSelectionToolbarAnchors(
+              primaryAnchor: localPosition,
+            )));
+  }
+
+  @override
   void connectionClosed() {
     _connection?.connectionClosedReceived();
     _connection = null;
@@ -380,6 +423,11 @@ class LabelHandler extends Handler<LabelPainter>
   }
 
   @override
+  bool canChange(PointerDownEvent event, EventContext context) =>
+      event.kind == PointerDeviceKind.mouse &&
+      event.buttons != kSecondaryMouseButton;
+
+  @override
   void updateFloatingCursor(RawFloatingCursorPoint point) {}
 
   @override
@@ -478,26 +526,7 @@ class LabelHandler extends Handler<LabelPainter>
         },
       ),
       SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
-        onInvoke: (intent) {
-          final length = _context?.length ?? 0;
-          _context = _context?.copyWith(
-            selection: TextSelection(
-              baseOffset: length,
-              extentOffset: 0,
-            ),
-          );
-          _context = _context?.maybeMap(
-              text: (e) => e.copyWith(
-                    forcedSpanProperty:
-                        e.element?.area.paragraph.getSpan(length)?.property ??
-                            e.forcedSpanProperty,
-                    forceParagraph: null,
-                  ),
-              orElse: () => _context);
-          bloc.refresh();
-          _refreshToolbar(bloc);
-          return null;
-        },
+        onInvoke: (intent) => _selectAllText(),
       ),
       ExtendSelectionByCharacterIntent:
           CallbackAction<ExtendSelectionByCharacterIntent>(
@@ -599,29 +628,52 @@ class LabelHandler extends Handler<LabelPainter>
         },
       ),
       CopySelectionTextIntent: CallbackAction<CopySelectionTextIntent>(
-        onInvoke: (intent) {
-          final selection = _context?.selection;
-          if (selection == null) return null;
-          final text = _context?.text;
-          if (text == null) return null;
-          Clipboard.setData(ClipboardData(
-              text: text.substring(selection.start, selection.end)));
-          if (intent.collapseSelection) {
-            _updateText('');
-          }
-          return null;
-        },
+        onInvoke: (intent) => _copyText(intent.collapseSelection),
       ),
       PasteTextIntent: CallbackAction<PasteTextIntent>(
-        onInvoke: (intent) {
-          Clipboard.getData(Clipboard.kTextPlain).then((value) {
-            if (value == null) return;
-            _updateText(value.text ?? '');
-            _refreshToolbar(bloc);
-          });
-          return null;
-        },
+        onInvoke: (intent) => _pasteText(),
       ),
     };
+  }
+
+  void _copyText(bool cut) {
+    final selection = _context?.selection;
+    if (selection == null) return;
+    final text = _context?.text;
+    if (text == null) return;
+    Clipboard.setData(
+        ClipboardData(text: text.substring(selection.start, selection.end)));
+    if (cut) {
+      _updateText('');
+    }
+    return;
+  }
+
+  void _pasteText() {
+    Clipboard.getData(Clipboard.kTextPlain).then((value) {
+      if (value == null) return;
+      _updateText(value.text ?? '');
+      if (_bloc != null) _refreshToolbar(_bloc!);
+    });
+  }
+
+  void _selectAllText() {
+    final length = _context?.length ?? 0;
+    _context = _context?.copyWith(
+      selection: TextSelection(
+        baseOffset: length,
+        extentOffset: 0,
+      ),
+    );
+    _context = _context?.maybeMap(
+        text: (e) => e.copyWith(
+              forcedSpanProperty:
+                  e.element?.area.paragraph.getSpan(length)?.property ??
+                      e.forcedSpanProperty,
+              forceParagraph: null,
+            ),
+        orElse: () => _context);
+    _bloc?.refresh();
+    if (_bloc != null) _refreshToolbar(_bloc!);
   }
 }
