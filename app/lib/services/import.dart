@@ -6,7 +6,6 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/confirmation.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/models/defaults.dart';
@@ -19,6 +18,7 @@ import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../api/save_data.dart';
 import '../dialogs/error.dart';
 import '../dialogs/image_export.dart';
 import '../dialogs/pages.dart';
@@ -147,7 +147,7 @@ class ImportService {
     );
     if (result != true) return false;
     if (context.mounted) {
-      context.read<TemplateFileSystem>().createTemplate(template);
+      getTemplateFileSystem().createTemplate(template);
     }
     return true;
   }
@@ -317,11 +317,11 @@ class ImportService {
     if (state == null) return;
     final location = state.location;
     final fileType = location.fileType;
-    final viewport = context.read<CurrentIndexCubit>().state.cameraViewport;
+    final currentIndexCubit = state.currentIndexCubit;
+    final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
-        getFileSystem().saveAbsolute(
-            location.path, Uint8List.fromList(state.saveData().save()));
+        saveData(context, Uint8List.fromList(state.saveData().save()));
         break;
       case AssetFileType.image:
         return showDialog<void>(

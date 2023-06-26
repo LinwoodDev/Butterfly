@@ -1,4 +1,6 @@
 * Add label context menu
+* Improve document load performance
+* Fix export button when loading absolute document
 * Fix label toolbar if text is empty
 * Fix updating of tool selection
 * Fix line breaks in markdown

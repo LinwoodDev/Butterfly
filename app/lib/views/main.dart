@@ -90,7 +90,7 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   void initState() {
     super.initState();
-    load();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _load());
   }
 
   @override
@@ -98,12 +98,12 @@ class _ProjectPageState extends State<ProjectPage> {
     if (oldWidget.location != widget.location) {
       _bloc?.close();
       _bloc = null;
-      load();
+      _load();
     }
     super.didUpdateWidget(oldWidget);
   }
 
-  Future<void> load() async {
+  Future<void> _load() async {
     final settingsCubit = context.read<SettingsCubit>();
     final embedding = widget.embedding;
     if (embedding != null) {
