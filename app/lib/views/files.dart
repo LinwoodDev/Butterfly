@@ -315,9 +315,9 @@ class _FilesViewState extends State<FilesView> {
                     if (model == null) return;
                     const route = '/native?name=document.bfly&type=note';
                     if (widget.collapsed) {
-                      router.go(route, extra: model);
+                      router.go(route, extra: model.save());
                     } else {
-                      router.push(route, extra: model);
+                      router.push(route, extra: model.save());
                       _reloadFileSystem();
                     }
                   },

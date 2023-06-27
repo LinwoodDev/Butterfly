@@ -45,8 +45,9 @@ abstract class DocumentLoaded extends DocumentState {
   @override
   final AssetService assetService;
 
-  set page(DocumentPage page) => data.setPage(page);
-  set metadata(FileMetadata metadata) => data.setMetadata(metadata);
+  void _updatePage() => data.setPage(page, pageName);
+  void _updateMetadata() => data.setMetadata(metadata);
+  void _updateInfo() => data.setInfo(info);
 
   DocumentLoaded(this.data,
       {DocumentPage? page,
@@ -74,9 +75,9 @@ abstract class DocumentLoaded extends DocumentState {
   TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
 
   NoteData saveData() {
-    data.setPage(page, pageName);
-    data.setMetadata(metadata);
-    data.setInfo(info);
+    _updatePage();
+    _updateMetadata();
+    _updateInfo();
     return data;
   }
 }

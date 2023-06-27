@@ -140,7 +140,11 @@ class _ProjectPageState extends State<ProjectPage> {
       final fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
       final prefs = await SharedPreferences.getInstance();
       NoteData? document;
-      if (location != null && location.path.isNotEmpty) {
+      if (widget.data != null) {
+        document ??= await ImportService(context)
+            .load(type: widget.type, data: widget.data);
+      }
+      if (location != null && location.path.isNotEmpty && document == null) {
         if (!location.absolute) {
           final asset = await fileSystem.getAsset(location.path);
           if (!mounted) return;
@@ -159,9 +163,6 @@ class _ProjectPageState extends State<ProjectPage> {
       var documentOpened = document != null;
       if (!documentOpened && !(location?.absolute ?? false)) {
         location = null;
-      }
-      if (widget.data is NoteData) {
-        document = (widget.data as NoteData);
       }
       if (document == null && prefs.containsKey('default_template')) {
         var template = await TemplateFileSystem.fromPlatform(remote: _remote)
@@ -197,7 +198,6 @@ class _ProjectPageState extends State<ProjectPage> {
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
             location!, background, renderers, assetService, page, pageName);
         _importService = ImportService(context, _bloc);
-        _bloc?.load();
       });
     } catch (e, stackTrace) {
       if (kDebugMode) {
@@ -210,8 +210,9 @@ class _ProjectPageState extends State<ProjectPage> {
         _bloc = DocumentBloc.error(e.toString(), stackTrace);
       });
     }
-    WidgetsBinding.instance.scheduleFrameCallback(
-        (_) => _importService?.load(type: widget.type, data: widget.data));
+    WidgetsBinding.instance.scheduleFrameCallback((_) async {
+      _bloc?.load();
+    });
   }
 
   @override
