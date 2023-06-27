@@ -6,3 +6,6 @@
 * Fix line breaks in markdown
 * Fix core pack styling
 * Fix pack exporting
+* Fix importing assets from home page
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0

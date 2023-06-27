@@ -82,7 +82,7 @@ class ImportService {
   }
 
   FutureOr<NoteData?> importBfly(Uint8List bytes,
-      [NoteData? document, Offset? position]) {
+      [NoteData? document, Offset? position]) async {
     try {
       document ??= DocumentDefaults.createDocument();
       final data = NoteData.fromData(bytes);
@@ -91,10 +91,10 @@ class ImportService {
         case NoteFileType.document:
           return _importDocument(data, document, position);
         case NoteFileType.template:
-          _importTemplate(data);
+          await _importTemplate(data);
           break;
         case NoteFileType.pack:
-          _importPack(data);
+          await _importPack(data);
           break;
         default:
           showDialog(

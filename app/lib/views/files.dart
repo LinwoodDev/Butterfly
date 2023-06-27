@@ -312,6 +312,7 @@ class _FilesViewState extends State<FilesView> {
                     final result = await openBfly();
                     if (result == null) return;
                     final model = await importService.importBfly(result);
+                    if (model == null) return;
                     const route = '/native?name=document.bfly&type=note';
                     if (widget.collapsed) {
                       router.go(route, extra: model);
