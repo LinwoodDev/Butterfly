@@ -140,7 +140,7 @@ class _ProjectPageState extends State<ProjectPage> {
       final fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
       final prefs = await SharedPreferences.getInstance();
       NoteData? document;
-      if (location != null) {
+      if (location != null && location.path.isNotEmpty) {
         if (!location.absolute) {
           final asset = await fileSystem.getAsset(location.path);
           if (!mounted) return;
@@ -210,13 +210,8 @@ class _ProjectPageState extends State<ProjectPage> {
         _bloc = DocumentBloc.error(e.toString(), stackTrace);
       });
     }
-    WidgetsBinding.instance.addPostFrameCallback(_onAfterBuild);
-  }
-
-  void _onAfterBuild(Duration _) {
-    if (widget.type.isNotEmpty && widget.type != 'note') {
-      _importService?.load(type: widget.type, data: widget.data);
-    }
+    WidgetsBinding.instance.scheduleFrameCallback(
+        (_) => _importService?.load(type: widget.type, data: widget.data));
   }
 
   @override

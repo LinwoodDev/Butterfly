@@ -456,7 +456,7 @@ class _FilesViewState extends State<FilesView> {
   }
 
   Future<void> _onFileTap(AppDocumentEntity entity) async {
-    if (entity is AppDocumentDirectory) {
+    if (entity is! AppDocumentFile) {
       setState(() {
         _locationController.text = entity.pathWithoutLeadingSlash;
         _setFilesFuture();
@@ -464,21 +464,28 @@ class _FilesViewState extends State<FilesView> {
       return;
     }
     final location = entity.location;
+    final data = entity.data;
     if (location.remote != '') {
       if (widget.collapsed) {
-        GoRouter.of(context).goNamed('remote', pathParameters: {
-          'remote': location.remote,
-          'path': location.pathWithoutLeadingSlash,
-        }, queryParameters: {
-          'type': location.fileType?.name,
-        });
+        GoRouter.of(context).goNamed('remote',
+            pathParameters: {
+              'remote': location.remote,
+              'path': location.pathWithoutLeadingSlash,
+            },
+            queryParameters: {
+              'type': location.fileType?.name,
+            },
+            extra: data);
       } else {
-        await GoRouter.of(context).pushNamed('remote', pathParameters: {
-          'remote': location.remote,
-          'path': location.pathWithoutLeadingSlash,
-        }, queryParameters: {
-          'type': location.fileType?.name,
-        });
+        await GoRouter.of(context).pushNamed('remote',
+            pathParameters: {
+              'remote': location.remote,
+              'path': location.pathWithoutLeadingSlash,
+            },
+            queryParameters: {
+              'type': location.fileType?.name,
+            },
+            extra: data);
         _reloadFileSystem();
       }
       return;
@@ -491,7 +498,7 @@ class _FilesViewState extends State<FilesView> {
           queryParameters: {
             'type': location.fileType?.name,
           },
-          extra: entity);
+          extra: data);
     } else {
       await GoRouter.of(context).pushNamed('local',
           pathParameters: {
@@ -500,7 +507,7 @@ class _FilesViewState extends State<FilesView> {
           queryParameters: {
             'type': location.fileType?.name,
           },
-          extra: entity);
+          extra: data);
       _reloadFileSystem();
     }
   }

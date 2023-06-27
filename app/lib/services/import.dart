@@ -56,6 +56,8 @@ class ImportService {
       bytes = Uint8List.fromList(data.data);
     } else if (location != null) {
       bytes = await getFileSystem().loadAbsolute(location.path);
+    } else if (data is List) {
+      bytes = Uint8List.fromList(List<int>.from(data));
     }
     final fileType = type.isNotEmpty
         ? AssetFileType.values.byName(type)
