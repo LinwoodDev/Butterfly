@@ -110,10 +110,10 @@ abstract class Renderer<T> {
   }
 
   Renderer<T>? transform({
-    Offset position = Offset.zero,
+    Offset? position,
     double scaleX = 1,
     double scaleY = 1,
-    double rotation = 0,
+    double? rotation,
     bool relative = true,
   }) =>
       null;

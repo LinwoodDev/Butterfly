@@ -162,14 +162,16 @@ class ShapeRenderer extends Renderer<ShapeElement> {
 
   @override
   ShapeRenderer transform({
-    Offset position = Offset.zero,
-    double rotation = 0,
+    Offset? position,
+    double? rotation,
     double scaleX = 1,
     double scaleY = 1,
     bool relative = false,
   }) {
     var rect = this.rect;
-    var delta = relative ? position : (position - rect.topLeft);
+    final usePosition = position ?? Offset.zero;
+    var delta =
+        relative || position == null ? usePosition : (position - rect.topLeft);
     var newFirstPos = element.firstPosition.toOffset() + delta;
     var newSecondPos = element.secondPosition.toOffset() + delta;
     var newRect = rect.translate(delta.dx, delta.dy);
@@ -187,7 +189,9 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       element.copyWith(
         firstPosition: newFirstPos.toPoint(),
         secondPosition: newSecondPos.toPoint(),
-        rotation: relative ? element.rotation + rotation : rotation,
+        rotation: relative || rotation == null
+            ? element.rotation + (rotation ?? 0)
+            : rotation,
       ),
       newRect,
     );

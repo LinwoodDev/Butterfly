@@ -5,6 +5,7 @@ import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ import '../models/defaults.dart';
 import '../models/tool.dart';
 import '../models/viewport.dart';
 import '../renderers/renderer.dart';
+import '../selections/selection.dart';
 import '../services/asset.dart';
 
 part 'document_event.dart';
@@ -134,6 +136,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is DocumentLoadSuccess) {
         if (!(current.embedding?.editable ?? true)) return;
         final renderers = <Renderer<PadElement>>[];
+        var selection = current.currentIndexCubit.state.selection;
         Renderer<PadElement>? oldRenderer, newRenderer;
         for (var renderer in current.renderers) {
           final updated = event.changedElements[renderer.element];
@@ -145,6 +148,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               oldRenderer = renderer;
               oldRenderer.dispose();
               renderers.add(newRenderer);
+              var newSelection = selection?.remove(oldRenderer);
+              if (newSelection != selection) {
+                if (newSelection == null) {
+                  newSelection = Selection.from(newRenderer);
+                } else {
+                  newSelection.insert(newRenderer);
+                }
+                selection = newSelection;
+              }
             }
           } else {
             renderers.add(renderer);
@@ -173,6 +185,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               ),
             ),
             null);
+        current.currentIndexCubit.changeSelection(selection);
       }
     }, transformer: sequential());
     on<ElementsArranged>((event, emit) async {

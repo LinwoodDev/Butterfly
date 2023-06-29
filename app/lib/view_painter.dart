@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -134,10 +136,24 @@ class ViewPainter extends CustomPainter {
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var renderer in cameraViewport.unbakedElements) {
       if (!invisibleLayers.contains(renderer.element.layer)) {
-        canvas.rotate(renderer.rotation);
+        final center = renderer.rect?.center;
+        final radian = renderer.element.rotation * (pi / 180);
+        if (center != null) {
+          canvas.translate(center.dx, center.dy);
+        }
+        canvas.rotate(radian);
+        if (center != null) {
+          canvas.translate(-center.dx, -center.dy);
+        }
         renderer.build(
             canvas, size, document, page, info, transform, colorScheme, false);
-        canvas.rotate(-renderer.rotation);
+        if (center != null) {
+          canvas.translate(center.dx, center.dy);
+        }
+        canvas.rotate(-radian);
+        if (center != null) {
+          canvas.translate(-center.dx, -center.dy);
+        }
       }
     }
     canvas.restore();

@@ -8,5 +8,6 @@
 * Fix pack exporting
 * Fix importing assets from home page
 * Fix importing of documents in web
+* Fix changing elements multiple times in property view
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0

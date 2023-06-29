@@ -37,15 +37,19 @@ class PenRenderer extends PathRenderer<PenElement> {
 
   @override
   PenRenderer transform({
-    Offset position = Offset.zero,
-    double rotation = 0,
+    Offset? position,
+    double? rotation,
     double scaleX = 1,
     double scaleY = 1,
     bool relative = false,
   }) =>
       PenRenderer(
           element.copyWith(
-              rotation: relative ? element.rotation + rotation : rotation,
-              points: movePoints(position, scaleX, scaleY, relative)),
-          moveRect(position, scaleX, scaleY, relative));
+              rotation: relative || rotation == null
+                  ? element.rotation + (rotation ?? 0)
+                  : rotation,
+              points: movePoints(position ?? Offset.zero, scaleX, scaleY,
+                  relative || position == null)),
+          moveRect(position ?? Offset.zero, scaleX, scaleY,
+              relative || position == null));
 }

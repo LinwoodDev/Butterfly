@@ -99,17 +99,19 @@ class ImageRenderer extends Renderer<ImageElement> {
 
   @override
   ImageRenderer transform({
-    Offset position = Offset.zero,
-    double rotation = 0,
+    Offset? position,
+    double? rotation,
     double scaleX = 1,
     double scaleY = 1,
     bool relative = false,
   }) {
     return ImageRenderer(element.copyWith(
-      position: relative
-          ? element.position + position.toPoint()
+      position: relative || position == null
+          ? element.position + (position?.toPoint() ?? const Point(0, 0))
           : position.toPoint() - Point(rect.width / 2, rect.height / 2),
-      rotation: relative ? element.rotation + rotation : rotation,
+      rotation: relative || rotation == null
+          ? element.rotation + (rotation ?? 0)
+          : rotation,
       constraints: element.constraints.scale(scaleX, scaleY),
     ));
   }
