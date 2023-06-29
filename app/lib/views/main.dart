@@ -133,6 +133,7 @@ class _ProjectPageState extends State<ProjectPage> {
       return;
     }
     try {
+      final globalImportService = ImportService(context);
       var location = widget.location;
       _remote = location != null
           ? settingsCubit.state.getRemote(location.remote)
@@ -141,8 +142,8 @@ class _ProjectPageState extends State<ProjectPage> {
       final prefs = await SharedPreferences.getInstance();
       NoteData? document;
       if (widget.data != null) {
-        document ??= await ImportService(context)
-            .load(type: widget.type, data: widget.data);
+        document ??= await globalImportService.load(
+            type: widget.type, data: widget.data);
       }
       if (location != null && location.path.isNotEmpty && document == null) {
         if (!location.absolute) {
