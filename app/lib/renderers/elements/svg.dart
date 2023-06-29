@@ -102,11 +102,13 @@ class SvgRenderer extends Renderer<SvgElement> {
   }*/
 
   @override
-  SvgRenderer transform(
-      {Offset position = Offset.zero,
-      double scaleX = 1,
-      double scaleY = 1,
-      bool relative = false}) {
+  SvgRenderer transform({
+    Offset position = Offset.zero,
+    double rotation = 0,
+    double scaleX = 1,
+    double scaleY = 1,
+    bool relative = false,
+  }) {
     if (relative) {
       return SvgRenderer(
           element.copyWith(
@@ -120,6 +122,7 @@ class SvgRenderer extends Renderer<SvgElement> {
     return SvgRenderer(
         element.copyWith(
           position: position.toPoint() - Point(rect.width / 2, rect.height / 2),
+          rotation: relative ? element.rotation + rotation : rotation,
           width: (size?.width ?? element.width) * scaleX,
           height: (size?.height ?? element.height) * scaleY,
         ),

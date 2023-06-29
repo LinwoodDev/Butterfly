@@ -55,6 +55,9 @@ abstract class Renderer<T> {
 
   Renderer(this.element);
 
+  double get rotation =>
+      element is PadElement ? (element as PadElement).rotation : 0.0;
+
   @mustCallSuper
   FutureOr<void> setup(NoteData document, AssetService assetService,
           DocumentPage page) async =>
@@ -106,10 +109,12 @@ abstract class Renderer<T> {
     throw Exception('Invalid instance type');
   }
 
-  Renderer<T>? transform(
-          {Offset position = Offset.zero,
-          double scaleX = 1,
-          double scaleY = 1,
-          bool relative = true}) =>
+  Renderer<T>? transform({
+    Offset position = Offset.zero,
+    double scaleX = 1,
+    double scaleY = 1,
+    double rotation = 0,
+    bool relative = true,
+  }) =>
       null;
 }
