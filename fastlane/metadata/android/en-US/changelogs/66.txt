@@ -9,5 +9,6 @@
 * Fix importing assets from home page
 * Fix importing of documents in web
 * Fix changing elements multiple times in property view
+* Fix loading non documents with open with ([#417](https://github.com/LinwoodDev/Butterfly/issues/417))
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0
