@@ -340,7 +340,7 @@ class HandHandler extends Handler<HandPainter> {
     final hits = await rayCast(
         position, context.getDocumentBloc(), context.getCameraTransform(), 0.0);
     final hit = hits.firstOrNull;
-    final rect = hit?.rect;
+    final rect = hit?.expandedRect;
     if ((rect != null && !(getSelectionRect()?.contains(position) ?? false)) &&
         !context.isCtrlPressed) {
       _selected.clear();

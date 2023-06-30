@@ -211,7 +211,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         } else if (event.arrangement == Arrangement.back) {
           newIndex = 0;
         } else {
-          final rect = renderer.rect;
+          final rect = renderer.expandedRect;
           if (rect != null) {
             final hits = (await rayCastRect(rect, this, transform))
                 .map((e) => e.element)

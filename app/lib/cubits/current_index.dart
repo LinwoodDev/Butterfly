@@ -334,7 +334,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     if (reset) {
       renderers = List<Renderer<PadElement>>.from(this.renderers);
       visibleElements = renderers
-          .where((renderer) => renderer.rect?.overlaps(rect) ?? true)
+          .where((renderer) => renderer.expandedRect?.overlaps(rect) ?? true)
           .toList();
     } else {
       visibleElements = List.from(cameraViewport.visibleElements)
