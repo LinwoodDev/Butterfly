@@ -149,7 +149,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               oldRenderer.dispose();
               renderers.add(newRenderer);
               var newSelection = selection?.remove(oldRenderer);
-              if (newSelection != selection) {
+              if (newSelection != selection && selection != null) {
                 if (newSelection == null) {
                   newSelection = Selection.from(newRenderer);
                 } else {
@@ -170,6 +170,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           refresh();
         }
         final page = current.page;
+        if (selection != null) {
+          current.currentIndexCubit.changeSelection(selection);
+        }
         await _saveState(
             emit,
             current.copyWith(
@@ -185,7 +188,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               ),
             ),
             null);
-        current.currentIndexCubit.changeSelection(selection);
       }
     }, transformer: sequential());
     on<ElementsArranged>((event, emit) async {
