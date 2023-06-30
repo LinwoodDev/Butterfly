@@ -2,6 +2,25 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.2 (2023-06-30)
+
+* Add label context menu
+* Improve document load performance
+* Fix export button when loading absolute document
+* Fix label toolbar if text is empty
+* Fix updating of tool selection
+* Fix line breaks in markdown
+* Fix core pack styling
+* Fix pack exporting
+* Fix importing assets from home page
+* Fix importing of documents in web
+* Fix changing elements multiple times in property view
+* Fix missing title in locale bottom sheet
+* Fix wrong title in design bottom sheet
+* Fix loading non documents with open with ([#417](https://github.com/LinwoodDev/Butterfly/issues/417))
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0
+
 ## 2.0.0-beta.1 (2023-06-23)
 
 * Add grid view
