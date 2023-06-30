@@ -134,7 +134,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
 
     showLeapBottomSheet(
         context: context,
-        title: AppLocalizations.of(context).theme,
+        title: AppLocalizations.of(context).design,
         childrenBuilder: (context) {
           void changeDesign(String design) {
             cubit.changeDesign(design);
@@ -205,6 +205,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
     var locales = getLocales();
     showLeapBottomSheet(
         context: context,
+        title: AppLocalizations.of(context).locale,
         childrenBuilder: (context) {
           void changeLocale(Locale? locale) {
             cubit.changeLocale(locale);

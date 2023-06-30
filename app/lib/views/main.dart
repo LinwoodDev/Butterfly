@@ -140,11 +140,29 @@ class _ProjectPageState extends State<ProjectPage> {
           : settingsCubit.state.getDefaultRemote();
       final fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
       final prefs = await SharedPreferences.getInstance();
+      final fileType =
+          AssetFileTypeHelper.fromFileExtension(location?.fileExtension)?.name;
       NoteData? document;
       if (widget.data != null) {
         document ??= await globalImportService.load(
-            type: widget.type, data: widget.data);
+            type: widget.type.isEmpty ? (fileType ?? widget.type) : widget.type,
+            data: widget.data);
       }
+      final name = (location?.absolute ?? false) ? location!.fileName : '';
+      NoteData? defaultDocument;
+      if (document == null && prefs.containsKey('default_template')) {
+        var template = await TemplateFileSystem.fromPlatform(remote: _remote)
+            .getTemplate(prefs.getString('default_template')!);
+        if (template != null && mounted) {
+          defaultDocument = template.createDocument(
+            name: name,
+            createdAt: DateTime.now(),
+          );
+        }
+      }
+      defaultDocument ??= DocumentDefaults.createDocument(
+        name: name,
+      );
       if (location != null && location.path.isNotEmpty && document == null) {
         if (!location.absolute) {
           final asset = await fileSystem.getAsset(location.path);
@@ -155,32 +173,24 @@ class _ProjectPageState extends State<ProjectPage> {
         } else {
           final data = await fileSystem.loadAbsolute(location.path);
           if (data != null) {
-            document = NoteData.fromData(data);
+            document = await globalImportService.load(
+                document: defaultDocument,
+                type: widget.type.isEmpty
+                    ? (fileType ?? widget.type)
+                    : widget.type,
+                data: data);
           }
         }
       }
       if (!mounted) return;
-      final name = (location?.absolute ?? false) ? location!.fileName : '';
       var documentOpened = document != null;
       if (!documentOpened && !(location?.absolute ?? false)) {
         location = null;
       }
-      if (document == null && prefs.containsKey('default_template')) {
-        var template = await TemplateFileSystem.fromPlatform(remote: _remote)
-            .getTemplate(prefs.getString('default_template')!);
-        if (template != null && mounted) {
-          document = template.createDocument(
-            name: name,
-            createdAt: DateTime.now(),
-          );
-        }
-      }
       if (!mounted) {
         return;
       }
-      document ??= DocumentDefaults.createDocument(
-        name: name,
-      );
+      document ??= defaultDocument;
       final pageName = document.getPages().firstOrNull ?? 'default';
       final page = document.getPage(pageName) ?? DocumentDefaults.createPage();
       final renderers =
