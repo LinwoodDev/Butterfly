@@ -118,7 +118,7 @@ extension HandTransformCornerExtension on HandTransformCorner {
 }
 
 class HandHandler extends Handler<HandPainter> {
-  HandTransformMode? _transformMode;
+  HandTransformMode _transformMode = HandTransformMode.scale;
   HandTransformCorner? _transformCorner;
   List<Renderer<PadElement>> _movingElements = [];
   List<Renderer<PadElement>> _selected = [];
@@ -129,11 +129,6 @@ class HandHandler extends Handler<HandPainter> {
   double _rotation = 0;
 
   HandHandler(super.data);
-
-  void setScaleMode(DocumentBloc bloc) {
-    _transformMode = HandTransformMode.scale;
-    bloc.refresh();
-  }
 
   void toggleScaleMode(DocumentBloc bloc) {
     _transformMode = _transformMode == HandTransformMode.scaleProp
@@ -274,15 +269,12 @@ class HandHandler extends Handler<HandPainter> {
     }
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(localPosition);
-    if (_transformMode != null) {
-      final selectionRect = getSelectionRect();
-      if (selectionRect?.contains(globalPos) ?? false) {
-        toggleScaleMode(context.getDocumentBloc());
-        return;
-      }
-      _resetTransform();
+    final selectionRect = getSelectionRect();
+    if (selectionRect?.contains(globalPos) ?? false) {
+      toggleScaleMode(context.getDocumentBloc());
       return;
     }
+    _resetTransform();
     final settings = context.getSettings();
     final radius = settings.selectSensitivity / transform.size;
     final hits = await rayCast(globalPos, context.getDocumentBloc(),
@@ -312,7 +304,7 @@ class HandHandler extends Handler<HandPainter> {
 
   void _resetTransform() {
     _transformCorner = null;
-    _transformMode = null;
+    _transformMode = HandTransformMode.scale;
     _currentTransformOffset = null;
   }
 
@@ -391,10 +383,8 @@ class HandHandler extends Handler<HandPainter> {
           (_movingElements.first.rect?.center ?? Offset.zero) *
               context.getCameraTransform().size;
     }
-    if (_transformMode != null) {
-      _transformCorner = _getCornerHit(globalPos);
-      context.refresh();
-    }
+    _transformCorner = _getCornerHit(globalPos);
+    context.refresh();
     return false;
   }
 
@@ -433,10 +423,8 @@ class HandHandler extends Handler<HandPainter> {
           .updateTool(state.data, state.page, state.assetService, toolState);
       return;
     }
-    if (_transformMode != null) {
-      _currentTransformOffset = globalPos;
-      return;
-    }
+    _currentTransformOffset = globalPos;
+    if (_transformCorner != null) return;
     if (currentIndex.buttons != kSecondaryMouseButton &&
         details.pointerCount == 1) {
       if (details.scale == 1.0) {

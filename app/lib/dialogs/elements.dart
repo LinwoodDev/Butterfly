@@ -53,17 +53,6 @@ class ElementsDialog extends StatelessWidget {
             child: Text(AppLocalizations.of(context).duplicate),
           ),
           MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsOut),
-            onPressed: () {
-              Navigator.of(context).pop(false);
-              context
-                  .read<CurrentIndexCubit>()
-                  .fetchHandler<HandHandler>()
-                  ?.setScaleMode(context.read<DocumentBloc>());
-            },
-            child: Text(AppLocalizations.of(context).scale),
-          ),
-          MenuItemButton(
             onPressed: () {
               Navigator.of(context).pop(true);
               context.read<DocumentBloc>().add(
