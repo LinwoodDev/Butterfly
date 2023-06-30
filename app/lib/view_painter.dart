@@ -50,7 +50,7 @@ class ForegroundPainter extends CustomPainter {
   }
 
   void _drawSelection(Canvas canvas, ElementSelection selection) {
-    final rect = selection.rect;
+    final rect = selection.expandedRect;
     if (rect == null) return;
     canvas.drawRRect(
         RRect.fromRectAndRadius(

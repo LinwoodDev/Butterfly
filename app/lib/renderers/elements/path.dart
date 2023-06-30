@@ -128,15 +128,16 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   }
 
   @override
-  PathHitCalculator getHitCalculator() =>
-      PathHitCalculator(rect, (element as PathElement).points);
+  PathHitCalculator getHitCalculator() => PathHitCalculator(
+      expandedRect!, (element as PathElement).points, rotation * pi / 180);
 }
 
 class PathHitCalculator extends HitCalculator {
   final Rect elementRect;
   final List<PathPoint> points;
+  final double rotation;
 
-  PathHitCalculator(this.elementRect, this.points);
+  PathHitCalculator(this.elementRect, this.points, this.rotation);
 
   List<PathPoint> _interpolate(PathPoint a, PathPoint b) {
     final result = <PathPoint>[];
@@ -149,7 +150,11 @@ class PathHitCalculator extends HitCalculator {
 
     for (int i = 1; i <= distance; i++) {
       result.add(PathPoint(a.x + (distanceX / distance * i).floor(),
-          a.y + (distanceY / distance * i).floor()));
+              a.y + (distanceY / distance * i).floor())
+          .rotate(
+        elementRect.center,
+        rotation,
+      ));
     }
 
     result.add(b);

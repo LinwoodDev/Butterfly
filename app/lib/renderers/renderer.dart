@@ -76,10 +76,31 @@ abstract class Renderer<T> {
   }
 
   Rect? get rect => null;
+
+  Rect? get expandedRect {
+    final current = rect;
+    if (current == null) return null;
+    final rotation = this.rotation * (pi / 180);
+    if (rotation == 0) return current;
+    final center = current.center;
+    final topLeft = current.topLeft.rotate(center, rotation);
+    final topRight = current.topRight.rotate(center, rotation);
+    final bottomLeft = current.bottomLeft.rotate(center, rotation);
+    final bottomRight = current.bottomRight.rotate(center, rotation);
+    final all = [topLeft, topRight, bottomLeft, bottomRight];
+    final xs = all.map((p) => p.dx);
+    final ys = all.map((p) => p.dy);
+    final left = xs.reduce(min);
+    final right = xs.reduce(max);
+    final top = ys.reduce(min);
+    final bottom = ys.reduce(max);
+    return Rect.fromLTRB(left, top, right, bottom);
+  }
+
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]);
-  HitCalculator getHitCalculator() => DefaultHitCalculator(rect);
+  HitCalculator getHitCalculator() => DefaultHitCalculator(expandedRect);
   void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {}
   factory Renderer.fromInstance(T element) {
     // Elements

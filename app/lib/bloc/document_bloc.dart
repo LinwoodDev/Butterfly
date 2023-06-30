@@ -170,6 +170,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           refresh();
         }
         final page = current.page;
+        current.currentIndexCubit.changeSelection(selection);
         await _saveState(
             emit,
             current.copyWith(
@@ -185,7 +186,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               ),
             ),
             null);
-        current.currentIndexCubit.changeSelection(selection);
       }
     }, transformer: sequential());
     on<ElementsArranged>((event, emit) async {

@@ -100,7 +100,10 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   }
 
   Rect? get rect =>
-      _expandRects(selected.map((e) => e.rect).whereType<Rect>().toList());
+      _expandRects(selected.map((e) => e.rect).whereNotNull().toList());
+
+  Rect? get expandedRect =>
+      _expandRects(selected.map((e) => e.expandedRect).whereNotNull().toList());
 
   Rect? _expandRects(List<Rect> rects) {
     var rect = rects.firstOrNull;

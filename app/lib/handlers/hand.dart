@@ -174,7 +174,7 @@ class HandHandler extends Handler<HandPainter> {
   Rect? getSelectionRect() {
     Rect? rect;
     for (final element in _selected) {
-      final current = element.rect;
+      final current = element.expandedRect;
       if (current != null) {
         rect = rect?.expandToInclude(current) ?? current;
       }
