@@ -508,6 +508,8 @@
   "bringForward": "Bring fremad",
   "sendBackward": "Send tilbage",
   "invalidName": "Ugyldigt navn",
+  "rotation": "Rotation",
   "onlyAvailableLargerScreen": "Kun tilgængelig på større skærme",
-  "toolbarPosition": "Værktøjslinjens position"
+  "toolbarPosition": "Værktøjslinjens position",
+  "rotate": "Rotate"
 }
