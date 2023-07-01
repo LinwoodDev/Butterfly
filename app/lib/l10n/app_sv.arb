@@ -508,6 +508,8 @@
   "bringForward": "Ta fram",
   "sendBackward": "Skicka bakåt",
   "invalidName": "Ogiltigt namn",
+  "rotation": "Rotation",
   "onlyAvailableLargerScreen": "Finns endast på större skärmar",
-  "toolbarPosition": "Verktygsfältets position"
+  "toolbarPosition": "Verktygsfältets position",
+  "rotate": "Rotate"
 }
