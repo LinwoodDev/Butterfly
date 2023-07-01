@@ -508,6 +508,8 @@
   "bringForward": "Tuo eteenpäin",
   "sendBackward": "Lähetä taaksepäin",
   "invalidName": "Virheellinen nimi",
+  "rotation": "Rotation",
   "onlyAvailableLargerScreen": "Saatavilla vain suuremmilla näytöillä",
-  "toolbarPosition": "Työkalupalkin sijainti"
+  "toolbarPosition": "Työkalupalkin sijainti",
+  "rotate": "Rotate"
 }
