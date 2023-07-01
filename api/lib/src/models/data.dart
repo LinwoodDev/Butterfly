@@ -187,6 +187,13 @@ class NoteData {
   void removePage(String page) =>
       removeAsset('$kPagesArchiveDirectory/$page.json');
 
+  void renamePage(String oldName, String newName) {
+    final page = getPage(oldName);
+    if (page == null) return;
+    removePage(oldName);
+    setPage(page, newName);
+  }
+
   DocumentInfo? getInfo() {
     final data = getAsset(kInfoArchiveFile);
     if (data == null) {
@@ -296,4 +303,17 @@ class NoteData {
       removeAsset('$kPalettesArchiveDirectory/$name.json');
 
   List<int> save() => ZipEncoder().encode(archive)!;
+
+  void addPage([DocumentPage? page]) {
+    var name = 'Page ${getPages().length + 1}';
+    var index = 1;
+    while (getPages().contains(name)) {
+      name = 'Page ${index++}';
+    }
+    setPage(
+        page == null
+            ? DocumentPage()
+            : DocumentPage(background: page.background),
+        name);
+  }
 }

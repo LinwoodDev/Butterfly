@@ -107,22 +107,10 @@ class PagesView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: FloatingActionButton.extended(
-                          label: Text(AppLocalizations.of(context).create),
-                          icon: const PhosphorIcon(PhosphorIconsLight.plus),
-                          onPressed: () async {
-                            final name = await showDialog<String>(
-                                context: context,
-                                builder: (context) => NameDialog(
-                                    validator: defaultFileNameValidator(
-                                        context, pages)));
-                            if (name == null) return;
-                            snapshot.data?.setPage(
-                              DocumentPage(
-                                background: current.background,
-                              ),
-                              name,
-                            );
-                          }),
+                        label: Text(AppLocalizations.of(context).create),
+                        icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                        onPressed: () => snapshot.data?.addPage(current),
+                      ),
                     ),
                   )
                 ],
@@ -161,23 +149,36 @@ class _PageEntityListTile extends StatelessWidget {
           locationController.text = entity.path;
         }
       },
-      trailing: entity.isFile
+      trailing: entity.isFile && !selected
           ? MenuAnchor(
               builder: defaultMenuButton(),
               menuChildren: [
                 MenuItemButton(
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.textT),
+                  onPressed: () async {
+                    final result = await showDialog<String>(
+                        context: context,
+                        builder: (context) => NameDialog(
+                              value: entity.name,
+                              validator: defaultFileNameValidator(
+                                  context, data.getPages()),
+                            ));
+                    if (result == null) return;
+                    data.renamePage(entity.path, result);
+                  },
+                  child: Text(AppLocalizations.of(context).rename),
+                ),
+                MenuItemButton(
                   leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
-                  onPressed: selected
-                      ? null
-                      : () async {
-                          final result = await showDialog<bool>(
-                              context: context,
-                              builder: (context) => const DeleteDialog());
-                          if (result != true) {
-                            return;
-                          }
-                          data.removePage(entity.path);
-                        },
+                  onPressed: () async {
+                    final result = await showDialog<bool>(
+                        context: context,
+                        builder: (context) => const DeleteDialog());
+                    if (result != true) {
+                      return;
+                    }
+                    data.removePage(entity.path);
+                  },
                   child: Text(AppLocalizations.of(context).delete),
                 )
               ],

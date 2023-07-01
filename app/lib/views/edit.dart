@@ -16,8 +16,15 @@ import '../handlers/handler.dart';
 
 class EditToolbar extends StatefulWidget {
   final bool isMobile;
+  final bool? centered;
+  final Axis direction;
 
-  const EditToolbar({super.key, required this.isMobile});
+  const EditToolbar({
+    super.key,
+    required this.isMobile,
+    this.centered,
+    this.direction = Axis.horizontal,
+  });
 
   @override
   State<EditToolbar> createState() => _EditToolbarState();
@@ -56,7 +63,8 @@ class _EditToolbarState extends State<EditToolbar> {
     return Scrollbar(
         controller: _scrollController,
         child: SizedBox(
-          height: 60,
+          height: widget.direction == Axis.horizontal ? 60 : null,
+          width: widget.direction == Axis.horizontal ? null : 80,
           child: BlocBuilder<SettingsCubit, ButterflySettings>(
               buildWhen: (previous, current) =>
                   previous.inputConfiguration != current.inputConfiguration,
@@ -121,14 +129,14 @@ class _EditToolbarState extends State<EditToolbar> {
                         return Material(
                           color: Colors.transparent,
                           child: Align(
-                            alignment: widget.isMobile
+                            alignment: widget.centered ?? widget.isMobile
                                 ? Alignment.center
                                 : Alignment.centerRight,
                             child: Card(
                               elevation: 10,
                               child: ListView(
                                   controller: _scrollController,
-                                  scrollDirection: Axis.horizontal,
+                                  scrollDirection: widget.direction,
                                   shrinkWrap: true,
                                   children: [
                                     if (state.embedding?.editable ?? true) ...[
@@ -167,43 +175,56 @@ class _EditToolbarState extends State<EditToolbar> {
                                       ReorderableListView.builder(
                                         shrinkWrap: true,
                                         buildDefaultDragHandles: false,
-                                        scrollDirection: Axis.horizontal,
+                                        scrollDirection: widget.direction,
                                         physics:
                                             const NeverScrollableScrollPhysics(),
                                         itemCount: painters.length + 1,
                                         itemBuilder: (context, i) {
                                           if (painters.length <= i) {
-                                            return Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
-                                              key: const ValueKey('add'),
-                                              children: [
-                                                const VerticalDivider(),
-                                                const SizedBox(width: 8),
-                                                IconButton(
-                                                  tooltip: AppLocalizations.of(
-                                                          context)
+                                            final trash = IconButton(
+                                              tooltip:
+                                                  AppLocalizations.of(context)
                                                       .delete,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .error,
-                                                  icon: const PhosphorIcon(
-                                                      PhosphorIconsLight.trash),
-                                                  onPressed: () async {
-                                                    final painter = currentIndex
-                                                        .handler.data;
-                                                    if (painter is! Painter) {
-                                                      return;
-                                                    }
-                                                    context
-                                                        .read<DocumentBloc>()
-                                                        .add(PaintersRemoved(
-                                                            [painter]));
-                                                  },
-                                                ),
-                                              ],
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .error,
+                                              icon: const PhosphorIcon(
+                                                  PhosphorIconsLight.trash),
+                                              onPressed: () async {
+                                                final painter =
+                                                    currentIndex.handler.data;
+                                                if (painter is! Painter) {
+                                                  return;
+                                                }
+                                                context
+                                                    .read<DocumentBloc>()
+                                                    .add(PaintersRemoved(
+                                                        [painter]));
+                                              },
                                             );
+
+                                            if (widget.direction ==
+                                                Axis.horizontal) {
+                                              return Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                key: const ValueKey('add'),
+                                                children: [
+                                                  const VerticalDivider(),
+                                                  const SizedBox(width: 8),
+                                                  trash,
+                                                ],
+                                              );
+                                            } else {
+                                              return Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                key: const ValueKey('add'),
+                                                children: [
+                                                  const Divider(),
+                                                  const SizedBox(height: 8),
+                                                  trash,
+                                                ],
+                                              );
+                                            }
                                           }
                                           var e = painters[i];
                                           final selected =
@@ -321,7 +342,10 @@ class _EditToolbarState extends State<EditToolbar> {
                                         },
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding:
+                                            widget.direction == Axis.horizontal
+                                                ? const EdgeInsets.all(8)
+                                                : const EdgeInsets.all(16),
                                         child: AspectRatio(
                                           aspectRatio: 1,
                                           child: FloatingActionButton.small(

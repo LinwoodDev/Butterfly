@@ -508,5 +508,7 @@
   "bringForward": "Bring forward",
   "sendBackward": "Send backward",
   "invalidName": "Invalid name",
-  "rotation": "Rotation"
+  "rotation": "Rotation",
+  "onlyAvailableLargerScreen": "Only available on larger screens",
+  "toolbarPosition": "Toolbar position"
 }
