@@ -508,6 +508,8 @@
   "bringForward": "上提一層",
   "sendBackward": "下推一層",
   "invalidName": "名稱無效",
+  "rotation": "Rotation",
   "onlyAvailableLargerScreen": "Only available on larger screens",
-  "toolbarPosition": "Toolbar position"
+  "toolbarPosition": "Toolbar position",
+  "rotate": "Rotate"
 }
