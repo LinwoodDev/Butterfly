@@ -36,20 +36,16 @@ class PenRenderer extends PathRenderer<PenElement> {
     ..strokeCap = StrokeCap.round;
 
   @override
-  PenRenderer transform({
+  PenRenderer _transform({
     Offset? position,
     double? rotation,
     double scaleX = 1,
     double scaleY = 1,
-    bool relative = false,
   }) =>
       PenRenderer(
           element.copyWith(
-              rotation: relative || rotation == null
-                  ? element.rotation + (rotation ?? 0)
-                  : rotation,
-              points: movePoints(position ?? Offset.zero, scaleX, scaleY,
-                  relative || position == null)),
-          moveRect(position ?? Offset.zero, scaleX, scaleY,
-              relative || position == null));
+              rotation: rotation ?? element.rotation,
+              points: movePoints(
+                  position ?? Offset.zero, scaleX, scaleY, position == null)),
+          moveRect(position ?? Offset.zero, scaleX, scaleY, position == null));
 }

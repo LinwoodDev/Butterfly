@@ -102,17 +102,14 @@ class SvgRenderer extends Renderer<SvgElement> {
   }*/
 
   @override
-  SvgRenderer transform({
+  SvgRenderer _transform({
     Offset? position,
     double? rotation,
     double scaleX = 1,
     double scaleY = 1,
-    bool relative = false,
   }) {
-    final newRotation = relative || rotation == null
-        ? element.rotation + (rotation ?? 0)
-        : rotation;
-    if (relative || position == null) {
+    final newRotation = rotation ?? element.rotation;
+    if (position == null) {
       return SvgRenderer(
           element.copyWith(
             position:

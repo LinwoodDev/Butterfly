@@ -86,22 +86,20 @@ class TextRenderer extends Renderer<TextElement> {
   }
 
   @override
-  TextRenderer transform(
-      {Offset? position,
-      double? rotation,
-      double scaleX = 1,
-      double scaleY = 1,
-      bool relative = false}) {
+  TextRenderer _transform({
+    Offset? position,
+    double? rotation,
+    double scaleX = 1,
+    double scaleY = 1,
+  }) {
     // final size = Size(rect.width * scaleX, rect.height * scaleY);
-    final next = relative || position == null
+    final next = position == null
         ? element.position + (position?.toPoint() ?? const Point(0, 0))
         : position.toPoint();
     return TextRenderer(
         element.copyWith(
           position: next,
-          rotation: relative || rotation == null
-              ? element.rotation + (rotation ?? 0)
-              : rotation,
+          rotation: rotation ?? element.rotation,
         ),
         context);
   }

@@ -136,6 +136,38 @@ abstract class Renderer<T> {
     double scaleY = 1,
     double? rotation,
     bool relative = true,
+  }) {
+    final angle = this.rotation * (pi / 180);
+    if (angle != 0) {
+      final newScaleX = scaleX * cos(angle) + scaleY * sin(angle);
+      final newScaleY = scaleX * sin(angle) + scaleY * cos(angle);
+      scaleX = newScaleX;
+      scaleY = newScaleY;
+      if (relative && position != null) {
+        position = position.rotate(Offset.zero, angle);
+      }
+    }
+    return _transform(
+      position: position == null
+          ? null
+          : relative
+              ? (rect?.topLeft ?? Offset.zero + position)
+              : position,
+      scaleX: scaleX,
+      scaleY: scaleY,
+      rotation: rotation == null
+          ? null
+          : relative
+              ? rotation + this.rotation
+              : rotation,
+    );
+  }
+
+  Renderer<T>? _transform({
+    Offset? position,
+    double scaleX = 1,
+    double scaleY = 1,
+    double? rotation,
   }) =>
       null;
 }

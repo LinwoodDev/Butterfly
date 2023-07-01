@@ -98,20 +98,17 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  ImageRenderer transform({
+  ImageRenderer _transform({
     Offset? position,
     double? rotation,
     double scaleX = 1,
     double scaleY = 1,
-    bool relative = false,
   }) {
     return ImageRenderer(element.copyWith(
-      position: relative || position == null
-          ? element.position + (position?.toPoint() ?? const Point(0, 0))
+      position: position == null
+          ? element.position
           : position.toPoint() - Point(rect.width / 2, rect.height / 2),
-      rotation: relative || rotation == null
-          ? element.rotation + (rotation ?? 0)
-          : rotation,
+      rotation: rotation ?? element.rotation,
       constraints: element.constraints.scale(scaleX, scaleY),
     ));
   }
