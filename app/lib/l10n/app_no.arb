@@ -507,7 +507,7 @@
   "sendToBack": "Send til tilbake",
   "bringForward": "Send fremover",
   "sendBackward": "Send bakover",
-  "invalidName": "Invalid name",
-  "onlyAvailableLargerScreen": "Only available on larger screens",
-  "toolbarPosition": "Toolbar position"
+  "invalidName": "Ugyldig navn",
+  "onlyAvailableLargerScreen": "Bare tilgjengelig på større skjermer",
+  "toolbarPosition": "Plassering av verktøylinje"
 }
