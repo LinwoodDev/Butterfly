@@ -507,7 +507,7 @@
   "sendToBack": "Envoyer à l'arrière",
   "bringForward": "Avancer",
   "sendBackward": "Envoyer vers l'arrière",
-  "invalidName": "Invalid name",
-  "onlyAvailableLargerScreen": "Only available on larger screens",
-  "toolbarPosition": "Toolbar position"
+  "invalidName": "Nom invalide",
+  "onlyAvailableLargerScreen": "Disponible uniquement sur les écrans plus grands",
+  "toolbarPosition": "Position de la barre d'outils"
 }
