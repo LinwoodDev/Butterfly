@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -26,9 +28,25 @@ class ForegroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     canvas.scale(transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
-    for (var element in renderers) {
-      element.build(
+    for (var renderer in renderers) {
+      final center = renderer.rect?.center;
+      final radian = renderer.rotation * (pi / 180);
+      if (center != null) {
+        canvas.translate(center.dx, center.dy);
+      }
+      canvas.rotate(radian);
+      if (center != null) {
+        canvas.translate(-center.dx, -center.dy);
+      }
+      renderer.build(
           canvas, size, document, page, info, transform, colorScheme, true);
+      if (center != null) {
+        canvas.translate(center.dx, center.dy);
+      }
+      canvas.rotate(-radian);
+      if (center != null) {
+        canvas.translate(-center.dx, -center.dy);
+      }
     }
     final selection = this.selection;
     if (selection is ElementSelection) {
@@ -48,7 +66,7 @@ class ForegroundPainter extends CustomPainter {
   }
 
   void _drawSelection(Canvas canvas, ElementSelection selection) {
-    final rect = selection.rect;
+    final rect = selection.expandedRect;
     if (rect == null) return;
     canvas.drawRRect(
         RRect.fromRectAndRadius(
@@ -134,8 +152,24 @@ class ViewPainter extends CustomPainter {
     canvas.translate(transform.position.dx, transform.position.dy);
     for (var renderer in cameraViewport.unbakedElements) {
       if (!invisibleLayers.contains(renderer.element.layer)) {
+        final center = renderer.rect?.center;
+        final radian = renderer.rotation * (pi / 180);
+        if (center != null) {
+          canvas.translate(center.dx, center.dy);
+        }
+        canvas.rotate(radian);
+        if (center != null) {
+          canvas.translate(-center.dx, -center.dy);
+        }
         renderer.build(
             canvas, size, document, page, info, transform, colorScheme, false);
+        if (center != null) {
+          canvas.translate(center.dx, center.dy);
+        }
+        canvas.rotate(-radian);
+        if (center != null) {
+          canvas.translate(-center.dx, -center.dy);
+        }
       }
     }
     canvas.restore();

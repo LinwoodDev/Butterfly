@@ -37,6 +37,17 @@ class ElementsDialog extends StatelessWidget {
             child: Text(AppLocalizations.of(context).move),
           ),
           MenuItemButton(
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsClockwise),
+            onPressed: () {
+              Navigator.of(context).pop(true);
+              context
+                  .read<CurrentIndexCubit>()
+                  .fetchHandler<HandHandler>()
+                  ?.rotate(context.read<DocumentBloc>(), renderers, false);
+            },
+            child: Text(AppLocalizations.of(context).rotate),
+          ),
+          MenuItemButton(
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
             onPressed: () {
               Navigator.of(context).pop(true);
@@ -51,17 +62,6 @@ class ElementsDialog extends StatelessWidget {
                       true);
             },
             child: Text(AppLocalizations.of(context).duplicate),
-          ),
-          MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsOut),
-            onPressed: () {
-              Navigator.of(context).pop(false);
-              context
-                  .read<CurrentIndexCubit>()
-                  .fetchHandler<HandHandler>()
-                  ?.setScaleMode(context.read<DocumentBloc>());
-            },
-            child: Text(AppLocalizations.of(context).scale),
           ),
           MenuItemButton(
             onPressed: () {

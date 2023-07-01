@@ -118,7 +118,7 @@ extension HandTransformCornerExtension on HandTransformCorner {
 }
 
 class HandHandler extends Handler<HandPainter> {
-  HandTransformMode? _transformMode;
+  HandTransformMode _transformMode = HandTransformMode.scale;
   HandTransformCorner? _transformCorner;
   List<Renderer<PadElement>> _movingElements = [];
   List<Renderer<PadElement>> _selected = [];
@@ -127,13 +127,9 @@ class HandHandler extends Handler<HandPainter> {
   Offset _contextMenuOffset = Offset.zero;
   Rect? _freeSelection;
   double _rotation = 0;
+  Offset? _currentRotationTransform;
 
   HandHandler(super.data);
-
-  void setScaleMode(DocumentBloc bloc) {
-    _transformMode = HandTransformMode.scale;
-    bloc.refresh();
-  }
 
   void toggleScaleMode(DocumentBloc bloc) {
     _transformMode = _transformMode == HandTransformMode.scaleProp
@@ -142,10 +138,21 @@ class HandHandler extends Handler<HandPainter> {
     bloc.refresh();
   }
 
+  void rotate(DocumentBloc bloc, List<Renderer<PadElement>> next,
+      [bool duplicate = false]) {
+    submitTransformation(bloc);
+    _movingElements = next;
+    _selected = [];
+    _currentMovePosition = null;
+    _currentRotationTransform = Offset.zero;
+    bloc.add(ElementsRemoved(next.map((e) => e.element).toList()));
+    bloc.refresh();
+  }
+
   @override
   void resetInput(DocumentBloc bloc) {
     _resetTransform();
-    submitMove(bloc);
+    submitTransformation(bloc);
     _movingElements.clear();
     _selected.clear();
     _currentMovePosition = null;
@@ -174,7 +181,7 @@ class HandHandler extends Handler<HandPainter> {
   Rect? getSelectionRect() {
     Rect? rect;
     for (final element in _selected) {
-      final current = element.rect;
+      final current = element.expandedRect;
       if (current != null) {
         rect = rect?.expandToInclude(current) ?? current;
       }
@@ -187,14 +194,23 @@ class HandHandler extends Handler<HandPainter> {
       NoteData document, DocumentPage page, DocumentInfo info,
       [Area? currentArea]) {
     final foregrounds = <Renderer>[];
-    if (_movingElements.isNotEmpty && _currentMovePosition != null) {
+    if (_movingElements.isNotEmpty) {
       final renderers = _movingElements.map((e) {
-        final position = currentIndexCubit.getGridPosition(
-            (e.rect?.center ?? Offset.zero) + _currentMovePosition!,
-            page,
-            info);
-
-        return e.transform(position: position, relative: false) ?? e;
+        return e.transform(
+              position: _currentMovePosition == null
+                  ? null
+                  : currentIndexCubit.getGridPosition(
+                      (e.rect?.center ?? Offset.zero) + _currentMovePosition!,
+                      page,
+                      info),
+              rotation: _currentRotationTransform == null
+                  ? null
+                  : _currentRotationTransform!.getRotation(e.rect!.center) /
+                      pi *
+                      180,
+              relative: false,
+            ) ??
+            e;
       }).toList();
       foregrounds.addAll(renderers);
     }
@@ -212,17 +228,17 @@ class HandHandler extends Handler<HandPainter> {
 
   void move(DocumentBloc bloc, List<Renderer<PadElement>> next,
       [bool duplicate = false]) {
-    submitMove(bloc);
+    submitTransformation(bloc);
     _movingElements = next;
     _selected = [];
-    _currentMovePosition = null;
+    _currentMovePosition = Offset.zero;
     if (!duplicate) {
       bloc.add(ElementsRemoved(next.map((e) => e.element).toList()));
       bloc.refresh();
     }
   }
 
-  void submitMove(DocumentBloc bloc) {
+  void submitTransformation(DocumentBloc bloc) {
     if (_movingElements.isEmpty) return;
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
@@ -230,17 +246,29 @@ class HandHandler extends Handler<HandPainter> {
     final cubit = state.currentIndexCubit;
     final current = _movingElements
         .map((e) {
-          var position = cubit.getGridPosition(
-              (e.rect?.center ?? Offset.zero) +
-                  (_currentMovePosition ?? Offset.zero),
-              page,
-              state.info);
-          return e.transform(position: position, relative: false) ?? e;
+          return e.transform(
+                position: _currentMovePosition == null
+                    ? null
+                    : cubit.getGridPosition(
+                        (e.rect?.center ?? Offset.zero) +
+                            (_currentMovePosition ?? Offset.zero),
+                        page,
+                        state.info),
+                rotation: _currentRotationTransform == null
+                    ? null
+                    : _currentRotationTransform!.getRotation(e.rect!.center) /
+                        pi *
+                        180,
+                relative: false,
+              ) ??
+              e;
         })
         .map((e) => e.element)
         .toList();
     _currentMovePosition = null;
+    _currentRotationTransform = null;
     _movingElements = [];
+    _transformMode = HandTransformMode.scale;
     bloc.add(ElementsCreated(current));
     bloc.refresh();
   }
@@ -274,15 +302,12 @@ class HandHandler extends Handler<HandPainter> {
     }
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(localPosition);
-    if (_transformMode != null) {
-      final selectionRect = getSelectionRect();
-      if (selectionRect?.contains(globalPos) ?? false) {
-        toggleScaleMode(context.getDocumentBloc());
-        return;
-      }
-      _resetTransform();
+    final selectionRect = getSelectionRect();
+    if (selectionRect?.contains(globalPos) ?? false) {
+      toggleScaleMode(context.getDocumentBloc());
       return;
     }
+    _resetTransform();
     final settings = context.getSettings();
     final radius = settings.selectSensitivity / transform.size;
     final hits = await rayCast(globalPos, context.getDocumentBloc(),
@@ -312,7 +337,7 @@ class HandHandler extends Handler<HandPainter> {
 
   void _resetTransform() {
     _transformCorner = null;
-    _transformMode = null;
+    _transformMode = HandTransformMode.scale;
     _currentTransformOffset = null;
   }
 
@@ -340,7 +365,7 @@ class HandHandler extends Handler<HandPainter> {
     final hits = await rayCast(
         position, context.getDocumentBloc(), context.getCameraTransform(), 0.0);
     final hit = hits.firstOrNull;
-    final rect = hit?.rect;
+    final rect = hit?.expandedRect;
     if ((rect != null && !(getSelectionRect()?.contains(position) ?? false)) &&
         !context.isCtrlPressed) {
       _selected.clear();
@@ -386,15 +411,11 @@ class HandHandler extends Handler<HandPainter> {
     }
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
-    if (_movingElements.isNotEmpty) {
-      _currentMovePosition = globalPos -
-          (_movingElements.first.rect?.center ?? Offset.zero) *
-              context.getCameraTransform().size;
-    }
-    if (_transformMode != null) {
-      _transformCorner = _getCornerHit(globalPos);
-      context.refresh();
-    }
+    final bloc = context.getDocumentBloc();
+    _setMove(bloc, globalPos, false);
+    _setRotation(bloc, globalPos, false);
+    _transformCorner = _getCornerHit(globalPos);
+    context.refresh();
     return false;
   }
 
@@ -433,10 +454,8 @@ class HandHandler extends Handler<HandPainter> {
           .updateTool(state.data, state.page, state.assetService, toolState);
       return;
     }
-    if (_transformMode != null) {
-      _currentTransformOffset = globalPos;
-      return;
-    }
+    _currentTransformOffset = globalPos;
+    if (_transformCorner != null) return;
     if (currentIndex.buttons != kSecondaryMouseButton &&
         details.pointerCount == 1) {
       if (details.scale == 1.0) {
@@ -559,20 +578,32 @@ class HandHandler extends Handler<HandPainter> {
     return true;
   }
 
+  void _setRotation(DocumentBloc bloc, Offset current, [bool refresh = true]) {
+    if (_currentRotationTransform == null) return;
+    _currentRotationTransform = current;
+    if (refresh) bloc.refresh();
+  }
+
+  void _setMove(DocumentBloc bloc, Offset current, [bool refresh = true]) {
+    if (_currentMovePosition == null) return;
+    _currentMovePosition =
+        current - (_movingElements.first.rect?.center ?? Offset.zero);
+    if (refresh) bloc.refresh();
+  }
+
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
-    if (_movingElements.isNotEmpty) {
-      _currentMovePosition =
-          context.getCameraTransform().localToGlobal(event.localPosition) -
-              (_movingElements.first.rect?.center ?? Offset.zero);
-      context.refresh();
-    }
+    final bloc = context.getDocumentBloc();
+    final globalPos =
+        context.getCameraTransform().localToGlobal(event.localPosition);
+    _setMove(bloc, globalPos);
+    _setRotation(bloc, globalPos);
   }
 
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     if (_movingElements.isNotEmpty) {
-      submitMove(context.getDocumentBloc());
+      submitTransformation(context.getDocumentBloc());
     }
   }
 }

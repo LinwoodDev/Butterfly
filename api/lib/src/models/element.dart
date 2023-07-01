@@ -82,6 +82,7 @@ mixin LabelElement {
 class PadElement with _$PadElement {
   @Implements<PathElement>()
   const factory PadElement.pen({
+    @Default(0) double rotation,
     @Default('') String layer,
     double? zoom,
     @Default([]) List<PathPoint> points,
@@ -90,6 +91,7 @@ class PadElement with _$PadElement {
 
   @With<LabelElement>()
   const factory PadElement.text({
+    @Default(0) double rotation,
     @Default('') String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
@@ -103,6 +105,7 @@ class PadElement with _$PadElement {
 
   @With<LabelElement>()
   const factory PadElement.markdown({
+    @Default(0) double rotation,
     @Default('') String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
@@ -117,6 +120,7 @@ class PadElement with _$PadElement {
 
   @Implements<SourcedElement>()
   const factory PadElement.image({
+    @Default(0) double rotation,
     @Default('') String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
@@ -130,6 +134,7 @@ class PadElement with _$PadElement {
 
   @Implements<SourcedElement>()
   const factory PadElement.svg({
+    @Default(0) double rotation,
     @Default('') String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))
@@ -142,6 +147,7 @@ class PadElement with _$PadElement {
   }) = SvgElement;
 
   const factory PadElement.shape({
+    @Default(0) double rotation,
     @Default('') String layer,
     @DoublePointJsonConverter()
     @Default(Point(0.0, 0.0))

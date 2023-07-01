@@ -18,5 +18,11 @@ extension OffsetHelper on Offset {
         (dy - center.dy) * zoom + center.dy,
       );
 
+  double getRotation(Offset pivot) {
+    final x = dx - pivot.dx;
+    final y = dy - pivot.dy;
+    return atan2(y, x);
+  }
+
   Point<double> toPoint() => Point(dx, dy);
 }
