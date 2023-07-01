@@ -160,7 +160,16 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                           menuChildren: [
                                             ...pages
                                                     ?.map((e) => MenuItemButton(
-                                                          child: Text(e),
+                                                          child: Text(
+                                                            e,
+                                                            style: pageName == e
+                                                                ? TextStyle(
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .primaryColor,
+                                                                  )
+                                                                : null,
+                                                          ),
                                                           onPressed: () => context
                                                               .read<
                                                                   DocumentBloc>()
