@@ -1,3 +1,6 @@
 * Add ability to customize position of the toolbar ([#408](https://github.com/LinwoodDev/Butterfly/issues/408))
+* Add option to rename page
+* Don't ask for name when adding a page (single click) ([#411](https://github.com/LinwoodDev/Butterfly/issues/411))
+* Add pages button to zoom view ([#411](https://github.com/LinwoodDev/Butterfly/issues/411))  
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0

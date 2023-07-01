@@ -2,8 +2,12 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ZoomView extends StatefulWidget {
   final bool isMobile;
@@ -58,99 +62,145 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
-        buildWhen: (previous, current) =>
-            previous.zoomEnabled != current.zoomEnabled,
-        builder: (context, settings) =>
-            BlocBuilder<TransformCubit, CameraTransform>(
-          buildWhen: (previous, current) => previous.size != current.size,
-          builder: (context, transform) {
-            var scale = transform.size;
-            final currentIndexCubit = context.read<CurrentIndexCubit>();
-            void zoom(double value) {
-              final state = context.read<DocumentBloc>().state;
-              if (state is! DocumentLoaded) {
-                return;
-              }
-              final viewport =
-                  context.read<CurrentIndexCubit>().state.cameraViewport;
-              final center = Offset(
-                (viewport.width ?? 0) / 2,
-                (viewport.height ?? 0) / 2,
-              );
-              context.read<TransformCubit>().size(value, center);
-              currentIndexCubit.bake(state.data, state.page, state.info);
-              if (!_focusNode.hasFocus &&
-                  widget.isMobile &&
-                  !_controller.isAnimating &&
-                  _controller.value == 1) {
-                _controller.reverse(from: 1);
-              }
+      buildWhen: (previous, current) =>
+          previous.zoomEnabled != current.zoomEnabled,
+      builder: (context, settings) =>
+          BlocBuilder<TransformCubit, CameraTransform>(
+        buildWhen: (previous, current) => previous.size != current.size,
+        builder: (context, transform) {
+          var scale = transform.size;
+          final currentIndexCubit = context.read<CurrentIndexCubit>();
+          void zoom(double value) {
+            final state = context.read<DocumentBloc>().state;
+            if (state is! DocumentLoaded) {
+              return;
             }
-
-            if (widget.isMobile && !_focusNode.hasFocus) {
+            final viewport =
+                context.read<CurrentIndexCubit>().state.cameraViewport;
+            final center = Offset(
+              (viewport.width ?? 0) / 2,
+              (viewport.height ?? 0) / 2,
+            );
+            context.read<TransformCubit>().size(value, center);
+            currentIndexCubit.bake(state.data, state.page, state.info);
+            if (!_focusNode.hasFocus &&
+                widget.isMobile &&
+                !_controller.isAnimating &&
+                _controller.value == 1) {
               _controller.reverse(from: 1);
-            } else {
-              if (_controller.status != AnimationStatus.completed) {
-                _controller.forward(from: 0);
-              }
             }
-            return AnimatedBuilder(
-              animation: _animation,
-              builder: (context, child) => Opacity(
-                opacity: _animation.value,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: StatefulBuilder(
-                      builder: (context, setState) {
-                        final text = (scale * 100).toStringAsFixed(0);
-                        if (text != _zoomController.text) {
-                          _zoomController.text = text;
-                        }
-                        return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 75,
-                                child: TextFormField(
-                                  textAlign: TextAlign.center,
-                                  controller: _zoomController,
-                                  keyboardType: TextInputType.number,
-                                  focusNode: _focusNode,
-                                  onChanged: (value) {
-                                    setState(() => scale =
-                                        (double.tryParse(value) ??
-                                                (scale * 100)) /
-                                            100);
-                                  },
-                                  onEditingComplete: () => zoom(scale),
-                                  onTapOutside: (event) {
-                                    zoom(scale);
-                                    _focusNode.unfocus();
-                                  },
-                                  onFieldSubmitted: (value) => zoom(scale),
+          }
+
+          if (widget.isMobile && !_focusNode.hasFocus) {
+            _controller.reverse(from: 1);
+          } else {
+            if (_controller.status != AnimationStatus.completed) {
+              _controller.forward(from: 0);
+            }
+          }
+          return AnimatedBuilder(
+            animation: _animation,
+            builder: (context, child) => Opacity(
+              opacity: _animation.value,
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: StatefulBuilder(
+                    builder: (context, setState) {
+                      final text = (scale * 100).toStringAsFixed(0);
+                      if (text != _zoomController.text) {
+                        _zoomController.text = text;
+                      }
+                      return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 75,
+                              child: TextFormField(
+                                textAlign: TextAlign.center,
+                                controller: _zoomController,
+                                keyboardType: TextInputType.number,
+                                focusNode: _focusNode,
+                                onChanged: (value) {
+                                  setState(() => scale =
+                                      (double.tryParse(value) ??
+                                              (scale * 100)) /
+                                          100);
+                                },
+                                onEditingComplete: () => zoom(scale),
+                                onTapOutside: (event) {
+                                  zoom(scale);
+                                  _focusNode.unfocus();
+                                },
+                                onFieldSubmitted: (value) => zoom(scale),
+                              ),
+                            ),
+                            if (!widget.isMobile) ...[
+                              Expanded(
+                                child: Slider(
+                                  value: scale.clamp(kMinZoom, 10),
+                                  min: kMinZoom,
+                                  max: 10,
+                                  onChanged: (value) =>
+                                      setState(() => scale = value),
+                                  onChangeEnd: zoom,
                                 ),
                               ),
-                              if (!widget.isMobile)
-                                Expanded(
-                                  child: Slider(
-                                    value: scale.clamp(kMinZoom, 10),
-                                    min: kMinZoom,
-                                    max: 10,
-                                    onChanged: (value) =>
-                                        setState(() => scale = value),
-                                    onChangeEnd: zoom,
-                                  ),
-                                ),
-                            ]);
-                      },
-                    ),
+                              BlocBuilder<DocumentBloc, DocumentState>(
+                                buildWhen: (previous, current) =>
+                                    previous.pageName != current.pageName ||
+                                    previous.data != current.data,
+                                builder: (context, state) {
+                                  final pageName = state.pageName;
+                                  return StreamBuilder<NoteData>(
+                                      stream: state.data?.onChange,
+                                      builder: (context, snapshot) {
+                                        final pages = snapshot.data?.getPages();
+                                        return MenuAnchor(
+                                          menuChildren: [
+                                            ...pages
+                                                    ?.map((e) => MenuItemButton(
+                                                          child: Text(e),
+                                                          onPressed: () => context
+                                                              .read<
+                                                                  DocumentBloc>()
+                                                              .add(PageChanged(
+                                                                  e)),
+                                                        ))
+                                                    .toList() ??
+                                                [],
+                                            const Divider(),
+                                            MenuItemButton(
+                                                child: Text(
+                                                    AppLocalizations.of(context)
+                                                        .add),
+                                                onPressed: () {
+                                                  final state = context
+                                                      .read<DocumentBloc>()
+                                                      .state;
+                                                  state.data
+                                                      ?.addPage(state.page);
+                                                }),
+                                          ],
+                                          style: const MenuStyle(
+                                            alignment: Alignment.bottomRight,
+                                          ),
+                                          builder: defaultMenuButton(
+                                              PhosphorIconsLight.book),
+                                        );
+                                      });
+                                },
+                              ),
+                            ],
+                          ]);
+                    },
                   ),
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

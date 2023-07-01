@@ -417,8 +417,8 @@ class _MainBody extends StatelessWidget {
                                 const ToolbarView(),
                                 if (pos == ToolbarPosition.top)
                                   Positioned(
-                                    bottom: 70,
-                                    right: 50,
+                                    bottom: 25,
+                                    right: 25,
                                     width: isMobile ? 100 : 400,
                                     child: ZoomView(isMobile: isMobile),
                                   ),
