@@ -507,5 +507,7 @@
   "sendToBack": "Skicka till baksidan",
   "bringForward": "Ta fram",
   "sendBackward": "Skicka bakåt",
-  "invalidName": "Invalid name"
+  "invalidName": "Invalid name",
+  "onlyAvailableLargerScreen": "Only available on larger screens",
+  "toolbarPosition": "Toolbar position"
 }
