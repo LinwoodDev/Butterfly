@@ -508,6 +508,8 @@
   "bringForward": "Send fremover",
   "sendBackward": "Send bakover",
   "invalidName": "Ugyldig navn",
+  "rotation": "Rotation",
   "onlyAvailableLargerScreen": "Bare tilgjengelig på større skjermer",
-  "toolbarPosition": "Plassering av verktøylinje"
+  "toolbarPosition": "Plassering av verktøylinje",
+  "rotate": "Rotate"
 }
