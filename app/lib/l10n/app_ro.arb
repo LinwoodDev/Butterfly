@@ -508,6 +508,8 @@
   "bringForward": "Adu înainte",
   "sendBackward": "Trimite înapoi",
   "invalidName": "Nume invalid",
+  "rotation": "Rotation",
   "onlyAvailableLargerScreen": "Disponibil doar pe ecrane mai mari",
-  "toolbarPosition": "Poziția barei de instrumente"
+  "toolbarPosition": "Poziția barei de instrumente",
+  "rotate": "Rotate"
 }
