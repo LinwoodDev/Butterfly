@@ -507,7 +507,7 @@
   "sendToBack": "发送到背面",
   "bringForward": "前进中",
   "sendBackward": "向后发送",
-  "invalidName": "Invalid name",
-  "onlyAvailableLargerScreen": "Only available on larger screens",
-  "toolbarPosition": "Toolbar position"
+  "invalidName": "无效的名称",
+  "onlyAvailableLargerScreen": "仅在大屏幕上可用",
+  "toolbarPosition": "工具栏位置"
 }
