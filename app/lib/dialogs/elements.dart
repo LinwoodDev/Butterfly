@@ -43,7 +43,7 @@ class ElementsDialog extends StatelessWidget {
               context
                   .read<CurrentIndexCubit>()
                   .fetchHandler<HandHandler>()
-                  ?.setRotate(context.read<DocumentBloc>());
+                  ?.rotate(context.read<DocumentBloc>(), renderers, false);
             },
             child: Text(AppLocalizations.of(context).rotate),
           ),
