@@ -57,11 +57,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 25,
-      right: 25,
-      width: widget.isMobile ? 100 : 400,
-      child: BlocBuilder<SettingsCubit, ButterflySettings>(
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
             previous.zoomEnabled != current.zoomEnabled,
         builder: (context, settings) =>
@@ -155,7 +151,6 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
             );
           },
         ),
-      ),
     );
   }
 }

@@ -5,7 +5,9 @@ import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -163,6 +165,34 @@ class InputConfiguration with _$InputConfiguration {
 
 enum BannerVisibility { always, never, onlyOnUpdates }
 
+enum ToolbarPosition {
+  top,
+  bottom,
+  left,
+  right;
+
+  String getLocalizedName(BuildContext context) => switch (this) {
+        ToolbarPosition.top => AppLocalizations.of(context).top,
+        ToolbarPosition.bottom => AppLocalizations.of(context).bottom,
+        ToolbarPosition.left => AppLocalizations.of(context).left,
+        ToolbarPosition.right => AppLocalizations.of(context).right
+      };
+
+  Alignment get alignment => switch (this) {
+        ToolbarPosition.left => Alignment.centerLeft,
+        ToolbarPosition.right => Alignment.centerRight,
+        ToolbarPosition.top => Alignment.topCenter,
+        ToolbarPosition.bottom => Alignment.bottomCenter,
+      };
+
+  Axis get axis => switch (this) {
+        ToolbarPosition.left => Axis.vertical,
+        ToolbarPosition.right => Axis.vertical,
+        ToolbarPosition.top => Axis.horizontal,
+        ToolbarPosition.bottom => Axis.horizontal,
+      };
+}
+
 @freezed
 class ButterflySettings with _$ButterflySettings {
   const ButterflySettings._();
@@ -192,6 +222,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default([]) List<String> starred,
     @Default('') String defaultTemplate,
     @Default(0) int navigatorTab,
+    @Default(ToolbarPosition.top) ToolbarPosition toolbarPosition,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
@@ -248,6 +279,9 @@ class ButterflySettings with _$ButterflySettings {
       fallbackPack: prefs.getString('fallback_pack') ?? '',
       starred: prefs.getStringList('starred') ?? [],
       defaultTemplate: prefs.getString('default_template') ?? '',
+      toolbarPosition: prefs.containsKey('toolbar_position')
+          ? ToolbarPosition.values.byName(prefs.getString('toolbar_position')!)
+          : ToolbarPosition.top,
     );
   }
 
@@ -295,6 +329,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setStringList('starred', starred);
     await prefs.setInt('version', 0);
     await prefs.setString('default_template', defaultTemplate);
+    await prefs.setString('toolbar_position', toolbarPosition.name);
   }
 
   RemoteStorage? getRemote(String? identifier) {
@@ -352,6 +387,16 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> resetLocale() {
     emit(state.copyWith(localeTag: ''));
+    return save();
+  }
+
+  Future<void> changeToolbarPosition(ToolbarPosition pos) {
+    emit(state.copyWith(toolbarPosition: pos));
+    return save();
+  }
+
+  Future<void> resetToolbarPosition() {
+    emit(state.copyWith(toolbarPosition: ToolbarPosition.top));
     return save();
   }
 

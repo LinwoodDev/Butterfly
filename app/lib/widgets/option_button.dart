@@ -57,7 +57,7 @@ class OptionButton extends StatelessWidget {
                   : null),
           margin: (highlighted || focussed) ? null : const EdgeInsets.all(2),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
+            padding: const EdgeInsets.all(4),
             child: IconTheme(
                 data: Theme.of(context).iconTheme.copyWith(
                     size: 28,

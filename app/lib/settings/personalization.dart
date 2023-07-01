@@ -74,12 +74,13 @@ class PersonalizationSettingsPage extends StatelessWidget {
                           onTap: () => _openDesignModal(context),
                         ),
                         ListTile(
-                            leading: const PhosphorIcon(
-                                PhosphorIconsLight.translate),
-                            title: Text(AppLocalizations.of(context).locale),
-                            subtitle:
-                                Text(_getLocaleName(context, state.localeTag)),
-                            onTap: () => _openLocaleModal(context)),
+                          leading:
+                              const PhosphorIcon(PhosphorIconsLight.translate),
+                          title: Text(AppLocalizations.of(context).locale),
+                          subtitle:
+                              Text(_getLocaleName(context, state.localeTag)),
+                          onTap: () => _openLocaleModal(context),
+                        ),
                       ]),
                 ),
               ),
@@ -119,6 +120,26 @@ class PersonalizationSettingsPage extends StatelessWidget {
                               AppLocalizations.of(context).startInFullScreen),
                           secondary:
                               const PhosphorIcon(PhosphorIconsLight.arrowsOut),
+                        ),
+                        ListTile(
+                          leading:
+                              const PhosphorIcon(PhosphorIconsLight.toolbox),
+                          title: Text(
+                              AppLocalizations.of(context).toolbarPosition),
+                          subtitle: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(state.toolbarPosition
+                                  .getLocalizedName(context)),
+                              Text(
+                                AppLocalizations.of(context)
+                                    .onlyAvailableLargerScreen,
+                                style: Theme.of(context).textTheme.labelSmall,
+                              ),
+                            ],
+                          ),
+                          onTap: () => _openToolbarPositionModal(context),
                         ),
                       ]),
                 ),
@@ -222,6 +243,30 @@ class PersonalizationSettingsPage extends StatelessWidget {
                     title: Text(_getLocaleName(context, e.toLanguageTag())),
                     selected: currentLocale == e.toLanguageTag(),
                     onTap: () => changeLocale(e)))
+                .toList(),
+            const SizedBox(height: 32),
+          ];
+        });
+  }
+
+  void _openToolbarPositionModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    var currentPos = cubit.state.toolbarPosition;
+    showLeapBottomSheet(
+        context: context,
+        title: AppLocalizations.of(context).toolbarPosition,
+        childrenBuilder: (context) {
+          void changePos(ToolbarPosition pos) {
+            cubit.changeToolbarPosition(pos);
+            Navigator.of(context).pop();
+          }
+
+          return [
+            ...ToolbarPosition.values
+                .map((e) => ListTile(
+                    title: Text(e.getLocalizedName(context)),
+                    selected: currentPos == e,
+                    onTap: () => changePos(e)))
                 .toList(),
             const SizedBox(height: 32),
           ];

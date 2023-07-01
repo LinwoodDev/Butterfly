@@ -348,10 +348,10 @@ class _ProjectPageState extends State<ProjectPage> {
                     child: SafeArea(
                       child: ClipRect(
                         child: Focus(
-                            autofocus: true,
-                            skipTraversal: true,
-                            onFocusChange: (_) => false,
-                            child: Scaffold(
+                          autofocus: true,
+                          skipTraversal: true,
+                          onFocusChange: (_) => false,
+                          child: Scaffold(
                               appBar: state is DocumentPresentationState
                                   ? null
                                   : PadAppBar(
@@ -361,64 +361,10 @@ class _ProjectPageState extends State<ProjectPage> {
                                   ? const DocumentNavigator(asDrawer: true)
                                   : null,
                               body: Actions(
-                                  actions: _actions,
-                                  child: LayoutBuilder(
-                                      builder: (context, constraints) {
-                                    final isMobile =
-                                        constraints.maxWidth < kMobileWidth;
-                                    final isLarge =
-                                        constraints.maxWidth > kLargeWidth;
-                                    return Row(
-                                      children: [
-                                        if (isLarge) const DocumentNavigator(),
-                                        Expanded(
-                                          child: Stack(
-                                            children: [
-                                              Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .stretch,
-                                                  children: [
-                                                    Expanded(
-                                                        key: _viewportKey,
-                                                        child: Stack(
-                                                          children: [
-                                                            const MainViewViewport(),
-                                                            const Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  ToolbarView(),
-                                                                ]),
-                                                            ZoomView(
-                                                                isMobile:
-                                                                    isMobile),
-                                                            if (!isMobile)
-                                                              const PropertyView()
-                                                          ],
-                                                        )),
-                                                    if (isMobile)
-                                                      Align(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: EditToolbar(
-                                                                  isMobile:
-                                                                      isMobile))),
-                                                  ]),
-                                              if (isMobile)
-                                                const PropertyView(),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  })),
-                            )),
+                                actions: _actions,
+                                child: const _MainBody(),
+                              )),
+                        ),
                       ),
                     ),
                   ),
@@ -429,5 +375,72 @@ class _ProjectPageState extends State<ProjectPage> {
         },
       ),
     );
+  }
+}
+
+class _MainBody extends StatelessWidget {
+  const _MainBody();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) =>
+            previous.toolbarPosition != current.toolbarPosition,
+        builder: (context, state) {
+          final pos = state.toolbarPosition;
+          return LayoutBuilder(builder: (context, constraints) {
+            final isMobile = constraints.maxWidth < kMobileWidth;
+            final isLarge = constraints.maxWidth > kLargeWidth;
+            final toolbar = isMobile
+                ? const SizedBox.shrink()
+                : EditToolbar(
+                    isMobile: false,
+                    centered: true,
+                    direction: pos == ToolbarPosition.bottom
+                        ? Axis.horizontal
+                        : Axis.vertical,
+                  );
+            return Row(
+              children: [
+                if (isLarge) const DocumentNavigator(),
+                if (pos == ToolbarPosition.left) toolbar,
+                Expanded(
+                  child: Stack(
+                    children: [
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Expanded(
+                                child: Stack(
+                              children: [
+                                const MainViewViewport(),
+                                const ToolbarView(),
+                                if (pos == ToolbarPosition.top)
+                                  Positioned(
+                                    bottom: 70,
+                                    right: 50,
+                                    width: isMobile ? 100 : 400,
+                                    child: ZoomView(isMobile: isMobile),
+                                  ),
+                                if (!isMobile) const PropertyView()
+                              ],
+                            )),
+                            if (isMobile)
+                              Align(
+                                  alignment: Alignment.center,
+                                  child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: EditToolbar(isMobile: isMobile))),
+                            if (pos == ToolbarPosition.bottom) toolbar,
+                          ]),
+                      if (isMobile) const PropertyView(),
+                    ],
+                  ),
+                ),
+                if (pos == ToolbarPosition.right) toolbar,
+              ],
+            );
+          });
+        });
   }
 }

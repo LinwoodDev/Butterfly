@@ -30,7 +30,7 @@ dependencies:
   image: ^4.0.17
   intl: ^0.18.0
   path_provider: ^2.0.14
-  shared_preferences: ^2.1.2
+  shared_preferences: ^2.2.0
   url_launcher: ^6.1.11
   file_picker: ^5.3.2
   phosphor_flutter:
@@ -47,7 +47,7 @@ dependencies:
   bloc_concurrency: ^0.2.2
   camera: ^0.10.5+2
   camera_windows: ^0.2.1+7
-  window_manager: ^0.3.4
+  window_manager: ^0.3.5
   flex_color_scheme: ^7.1.2
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.1
@@ -88,7 +88,7 @@ dev_dependencies:
   analyzer: ^5.13.0
   freezed: ^2.3.5
   build_runner: ^2.4.6
-  json_serializable: ^6.7.0
+  json_serializable: ^6.7.1
   espresso: ^0.3.0+5
 dependency_overrides:
   archive: 3.3.7

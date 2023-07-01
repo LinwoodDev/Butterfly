@@ -1,4 +1,5 @@
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,28 +19,43 @@ class _ToolbarViewState extends State<ToolbarView> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-          buildWhen: (previous, current) =>
-              previous.temporaryToolbar != current.temporaryToolbar ||
-              previous.toolbar != current.toolbar,
-          builder: (context, currentIndex) {
-            Widget? child;
-            var height = 0.0;
-            final toolbar =
-                currentIndex.temporaryToolbar ?? currentIndex.toolbar;
-            if (toolbar != null) {
-              height = toolbar.preferredSize.height;
-              child = toolbar;
-            }
-            return AnimatedContainer(
-              height: height,
-              key: _animatedKey,
-              curve: Curves.fastOutSlowIn,
-              duration: const Duration(milliseconds: 200),
-              child: child,
-            );
-          }),
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
+      buildWhen: (previous, current) =>
+          previous.toolbarPosition != current.toolbarPosition,
+      builder: (context, state) {
+        Alignment alignment = switch (state.toolbarPosition) {
+          ToolbarPosition.left => Alignment.bottomLeft,
+          ToolbarPosition.right => Alignment.bottomRight,
+          ToolbarPosition.top => Alignment.topCenter,
+          ToolbarPosition.bottom => Alignment.bottomCenter,
+        };
+        return Align(
+          alignment: alignment,
+          child: Card(
+            child: BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                buildWhen: (previous, current) =>
+                    previous.temporaryToolbar != current.temporaryToolbar ||
+                    previous.toolbar != current.toolbar,
+                builder: (context, currentIndex) {
+                  Widget? child;
+                  var height = 0.0;
+                  final toolbar =
+                      currentIndex.temporaryToolbar ?? currentIndex.toolbar;
+                  if (toolbar != null) {
+                    height = toolbar.preferredSize.height;
+                    child = toolbar;
+                  }
+                  return AnimatedContainer(
+                    height: height,
+                    key: _animatedKey,
+                    curve: Curves.fastOutSlowIn,
+                    duration: const Duration(milliseconds: 200),
+                    child: child,
+                  );
+                }),
+          ),
+        );
+      },
     );
   }
 }
