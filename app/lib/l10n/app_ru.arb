@@ -507,5 +507,7 @@
   "sendToBack": "Отправить на задний план",
   "bringForward": "Перенос вперед",
   "sendBackward": "Отправить назад",
-  "invalidName": "Invalid name"
+  "invalidName": "Invalid name",
+  "onlyAvailableLargerScreen": "Only available on larger screens",
+  "toolbarPosition": "Toolbar position"
 }
