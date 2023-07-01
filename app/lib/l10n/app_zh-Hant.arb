@@ -507,5 +507,7 @@
   "sendToBack": "推至底層",
   "bringForward": "上提一層",
   "sendBackward": "下推一層",
-  "invalidName": "名稱無效"
+  "invalidName": "名稱無效",
+  "onlyAvailableLargerScreen": "Only available on larger screens",
+  "toolbarPosition": "Toolbar position"
 }
