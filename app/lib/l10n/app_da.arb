@@ -507,5 +507,7 @@
   "sendToBack": "Send til tilbage",
   "bringForward": "Bring fremad",
   "sendBackward": "Send tilbage",
-  "invalidName": "Invalid name"
+  "invalidName": "Invalid name",
+  "onlyAvailableLargerScreen": "Only available on larger screens",
+  "toolbarPosition": "Toolbar position"
 }
