@@ -508,6 +508,8 @@
   "bringForward": "Φέρτε μπροστά",
   "sendBackward": "Αποστολή πίσω",
   "invalidName": "Μη έγκυρο όνομα",
+  "rotation": "Rotation",
   "onlyAvailableLargerScreen": "Διαθέσιμο μόνο σε μεγαλύτερες οθόνες",
-  "toolbarPosition": "Θέση γραμμής εργαλείων"
+  "toolbarPosition": "Θέση γραμμής εργαλείων",
+  "rotate": "Rotate"
 }
