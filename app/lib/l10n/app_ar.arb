@@ -508,6 +508,8 @@
   "bringForward": "إحضار للأمام",
   "sendBackward": "إرسال إلى الخلف",
   "invalidName": "اسم غير صالح",
+  "rotation": "Rotation",
   "onlyAvailableLargerScreen": "متوفر فقط على شاشات أكبر",
-  "toolbarPosition": "موضع شريط الأدوات"
+  "toolbarPosition": "موضع شريط الأدوات",
+  "rotate": "Rotate"
 }
