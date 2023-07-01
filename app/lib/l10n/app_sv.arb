@@ -507,7 +507,7 @@
   "sendToBack": "Skicka till baksidan",
   "bringForward": "Ta fram",
   "sendBackward": "Skicka bakåt",
-  "invalidName": "Invalid name",
-  "onlyAvailableLargerScreen": "Only available on larger screens",
-  "toolbarPosition": "Toolbar position"
+  "invalidName": "Ogiltigt namn",
+  "onlyAvailableLargerScreen": "Finns endast på större skärmar",
+  "toolbarPosition": "Verktygsfältets position"
 }
