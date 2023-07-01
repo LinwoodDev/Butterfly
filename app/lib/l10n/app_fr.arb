@@ -507,5 +507,7 @@
   "sendToBack": "Envoyer à l'arrière",
   "bringForward": "Avancer",
   "sendBackward": "Envoyer vers l'arrière",
-  "invalidName": "Invalid name"
+  "invalidName": "Invalid name",
+  "onlyAvailableLargerScreen": "Only available on larger screens",
+  "toolbarPosition": "Toolbar position"
 }
