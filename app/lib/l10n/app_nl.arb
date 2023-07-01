@@ -507,7 +507,7 @@
   "sendToBack": "Stuur naar achterkant",
   "bringForward": "Breng naar voren",
   "sendBackward": "Stuur achteruit",
-  "invalidName": "Invalid name",
-  "onlyAvailableLargerScreen": "Only available on larger screens",
-  "toolbarPosition": "Toolbar position"
+  "invalidName": "Ongeldige naam",
+  "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
+  "toolbarPosition": "Werkbalk positie"
 }
