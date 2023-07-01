@@ -507,7 +507,7 @@
   "sendToBack": "Lähetä takaisin",
   "bringForward": "Tuo eteenpäin",
   "sendBackward": "Lähetä taaksepäin",
-  "invalidName": "Invalid name",
-  "onlyAvailableLargerScreen": "Only available on larger screens",
-  "toolbarPosition": "Toolbar position"
+  "invalidName": "Virheellinen nimi",
+  "onlyAvailableLargerScreen": "Saatavilla vain suuremmilla näytöillä",
+  "toolbarPosition": "Työkalupalkin sijainti"
 }
