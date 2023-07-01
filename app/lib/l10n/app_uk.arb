@@ -507,5 +507,7 @@
   "sendToBack": "Відправити на задній план",
   "bringForward": "Поверніть вперед",
   "sendBackward": "Відправити назад",
-  "invalidName": "Invalid name"
+  "invalidName": "Invalid name",
+  "onlyAvailableLargerScreen": "Only available on larger screens",
+  "toolbarPosition": "Toolbar position"
 }
