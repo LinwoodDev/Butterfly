@@ -510,5 +510,6 @@
   "invalidName": "Invalid name",
   "rotation": "Rotation",
   "onlyAvailableLargerScreen": "Only available on larger screens",
-  "toolbarPosition": "Toolbar position"
+  "toolbarPosition": "Toolbar position",
+  "rotate": "Rotate"
 }

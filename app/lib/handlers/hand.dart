@@ -69,7 +69,7 @@ class HandSelectionRenderer extends Renderer<Rect> {
   }
 }
 
-enum HandTransformMode { scale, scaleProp }
+enum HandTransformMode { scale, scaleProp, rotate }
 
 enum HandTransformCorner {
   topLeft,
@@ -134,6 +134,11 @@ class HandHandler extends Handler<HandPainter> {
     _transformMode = _transformMode == HandTransformMode.scaleProp
         ? HandTransformMode.scale
         : HandTransformMode.scaleProp;
+    bloc.refresh();
+  }
+
+  void setRotate(DocumentBloc bloc) {
+    _transformMode = HandTransformMode.rotate;
     bloc.refresh();
   }
 
