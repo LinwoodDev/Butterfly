@@ -507,5 +507,7 @@
   "sendToBack": "Trimite înapoi",
   "bringForward": "Adu înainte",
   "sendBackward": "Trimite înapoi",
-  "invalidName": "Invalid name"
+  "invalidName": "Invalid name",
+  "onlyAvailableLargerScreen": "Only available on larger screens",
+  "toolbarPosition": "Toolbar position"
 }
