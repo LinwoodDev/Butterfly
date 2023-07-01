@@ -106,7 +106,7 @@ class _AppBarTitle extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             ConstrainedBox(
               constraints: BoxConstraints(
-                  maxWidth: min(350.0, constraints.maxWidth - 16)),
+                  maxWidth: min(250.0, constraints.maxWidth - 16)),
               child: Row(
                 children: [
                   Flexible(
@@ -251,7 +251,7 @@ class _AppBarTitle extends StatelessWidget {
                         : Align(
                             child: ConstrainedBox(
                               constraints: const BoxConstraints(maxWidth: 500),
-                              child: const ZoomView(),
+                              child: const ZoomView(floating: false),
                             ),
                           ),
               )),

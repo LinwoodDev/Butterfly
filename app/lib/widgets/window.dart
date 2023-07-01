@@ -141,7 +141,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
             return LayoutBuilder(
               builder: (context, constraints) => Card(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxHeight: 42),
                     child: Row(

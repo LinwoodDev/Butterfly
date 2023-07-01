@@ -11,8 +11,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ZoomView extends StatefulWidget {
   final bool isMobile;
+  final bool floating;
 
-  const ZoomView({super.key, this.isMobile = false});
+  const ZoomView({super.key, this.isMobile = false, this.floating = true});
 
   @override
   State<ZoomView> createState() => _ZoomViewState();
@@ -61,154 +62,157 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsCubit, ButterflySettings>(
-      buildWhen: (previous, current) =>
-          previous.zoomEnabled != current.zoomEnabled,
-      builder: (context, settings) =>
-          BlocBuilder<TransformCubit, CameraTransform>(
-        buildWhen: (previous, current) => previous.size != current.size,
-        builder: (context, transform) {
-          var scale = transform.size;
-          final currentIndexCubit = context.read<CurrentIndexCubit>();
-          void zoom(double value) {
-            final state = context.read<DocumentBloc>().state;
-            if (state is! DocumentLoaded) {
-              return;
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minWidth: 400),
+      child: BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) =>
+            previous.zoomEnabled != current.zoomEnabled,
+        builder: (context, settings) =>
+            BlocBuilder<TransformCubit, CameraTransform>(
+          buildWhen: (previous, current) => previous.size != current.size,
+          builder: (context, transform) {
+            var scale = transform.size;
+            final currentIndexCubit = context.read<CurrentIndexCubit>();
+            void zoom(double value) {
+              final state = context.read<DocumentBloc>().state;
+              if (state is! DocumentLoaded) {
+                return;
+              }
+              final viewport =
+                  context.read<CurrentIndexCubit>().state.cameraViewport;
+              final center = Offset(
+                (viewport.width ?? 0) / 2,
+                (viewport.height ?? 0) / 2,
+              );
+              context.read<TransformCubit>().size(value, center);
+              currentIndexCubit.bake(state.data, state.page, state.info);
+              if (!_focusNode.hasFocus &&
+                  widget.isMobile &&
+                  !_controller.isAnimating &&
+                  _controller.value == 1) {
+                _controller.reverse(from: 1);
+              }
             }
-            final viewport =
-                context.read<CurrentIndexCubit>().state.cameraViewport;
-            final center = Offset(
-              (viewport.width ?? 0) / 2,
-              (viewport.height ?? 0) / 2,
-            );
-            context.read<TransformCubit>().size(value, center);
-            currentIndexCubit.bake(state.data, state.page, state.info);
-            if (!_focusNode.hasFocus &&
-                widget.isMobile &&
-                !_controller.isAnimating &&
-                _controller.value == 1) {
-              _controller.reverse(from: 1);
-            }
-          }
 
-          if (widget.isMobile && !_focusNode.hasFocus) {
-            _controller.reverse(from: 1);
-          } else {
-            if (_controller.status != AnimationStatus.completed) {
-              _controller.forward(from: 0);
-            }
-          }
-          return AnimatedBuilder(
-            animation: _animation,
-            builder: (context, child) => Opacity(
-              opacity: _animation.value,
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: StatefulBuilder(
-                    builder: (context, setState) {
-                      final text = (scale * 100).toStringAsFixed(0);
-                      if (text != _zoomController.text) {
-                        _zoomController.text = text;
-                      }
-                      return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 75,
-                              child: TextFormField(
-                                textAlign: TextAlign.center,
-                                controller: _zoomController,
-                                keyboardType: TextInputType.number,
-                                focusNode: _focusNode,
-                                onChanged: (value) {
-                                  setState(() => scale =
-                                      (double.tryParse(value) ??
-                                              (scale * 100)) /
-                                          100);
-                                },
-                                onEditingComplete: () => zoom(scale),
-                                onTapOutside: (event) {
-                                  zoom(scale);
-                                  _focusNode.unfocus();
-                                },
-                                onFieldSubmitted: (value) => zoom(scale),
+            final body = StatefulBuilder(
+              builder: (context, setState) {
+                final text = (scale * 100).toStringAsFixed(0);
+                if (text != _zoomController.text) {
+                  _zoomController.text = text;
+                }
+                return LayoutBuilder(
+                  builder: (context, constraints) => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 75,
+                          child: TextFormField(
+                            textAlign: TextAlign.center,
+                            controller: _zoomController,
+                            keyboardType: TextInputType.number,
+                            focusNode: _focusNode,
+                            onChanged: (value) {
+                              setState(() => scale =
+                                  (double.tryParse(value) ?? (scale * 100)) /
+                                      100);
+                            },
+                            onEditingComplete: () => zoom(scale),
+                            onTapOutside: (event) {
+                              zoom(scale);
+                              _focusNode.unfocus();
+                            },
+                            onFieldSubmitted: (value) => zoom(scale),
+                          ),
+                        ),
+                        if (!widget.isMobile) ...[
+                          if (constraints.maxWidth > 200)
+                            Expanded(
+                              child: Slider(
+                                value: scale.clamp(kMinZoom, 10),
+                                min: kMinZoom,
+                                max: 10,
+                                onChanged: (value) =>
+                                    setState(() => scale = value),
+                                onChangeEnd: zoom,
                               ),
                             ),
-                            if (!widget.isMobile) ...[
-                              Expanded(
-                                child: Slider(
-                                  value: scale.clamp(kMinZoom, 10),
-                                  min: kMinZoom,
-                                  max: 10,
-                                  onChanged: (value) =>
-                                      setState(() => scale = value),
-                                  onChangeEnd: zoom,
-                                ),
-                              ),
-                              BlocBuilder<DocumentBloc, DocumentState>(
-                                buildWhen: (previous, current) =>
-                                    previous.pageName != current.pageName ||
-                                    previous.data != current.data,
-                                builder: (context, state) {
-                                  final pageName = state.pageName;
-                                  return StreamBuilder<NoteData>(
-                                      stream: state.data?.onChange,
-                                      builder: (context, snapshot) {
-                                        final pages = snapshot.data?.getPages();
-                                        return MenuAnchor(
-                                          menuChildren: [
-                                            ...pages
-                                                    ?.map((e) => MenuItemButton(
-                                                          child: Text(
-                                                            e,
-                                                            style: pageName == e
-                                                                ? TextStyle(
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .primaryColor,
-                                                                  )
-                                                                : null,
-                                                          ),
-                                                          onPressed: () => context
-                                                              .read<
-                                                                  DocumentBloc>()
-                                                              .add(PageChanged(
-                                                                  e)),
-                                                        ))
-                                                    .toList() ??
-                                                [],
-                                            const Divider(),
-                                            MenuItemButton(
-                                                child: Text(
-                                                    AppLocalizations.of(context)
-                                                        .add),
-                                                onPressed: () {
-                                                  final state = context
-                                                      .read<DocumentBloc>()
-                                                      .state;
-                                                  state.data
-                                                      ?.addPage(state.page);
-                                                }),
-                                          ],
-                                          style: const MenuStyle(
-                                            alignment: Alignment.bottomRight,
-                                          ),
-                                          builder: defaultMenuButton(
-                                              PhosphorIconsLight.book),
-                                        );
-                                      });
-                                },
-                              ),
-                            ],
-                          ]);
-                    },
-                  ),
+                          BlocBuilder<DocumentBloc, DocumentState>(
+                            buildWhen: (previous, current) =>
+                                previous.pageName != current.pageName ||
+                                previous.data != current.data,
+                            builder: (context, state) {
+                              final pageName = state.pageName;
+                              return StreamBuilder<NoteData>(
+                                  stream: state.data?.onChange,
+                                  builder: (context, snapshot) {
+                                    final pages = snapshot.data?.getPages();
+                                    return MenuAnchor(
+                                      menuChildren: [
+                                        ...pages
+                                                ?.map((e) => MenuItemButton(
+                                                      child: Text(
+                                                        e,
+                                                        style: pageName == e
+                                                            ? TextStyle(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                              )
+                                                            : null,
+                                                      ),
+                                                      onPressed: () => context
+                                                          .read<DocumentBloc>()
+                                                          .add(PageChanged(e)),
+                                                    ))
+                                                .toList() ??
+                                            [],
+                                        const Divider(),
+                                        MenuItemButton(
+                                            child: Text(
+                                                AppLocalizations.of(context)
+                                                    .add),
+                                            onPressed: () {
+                                              final state = context
+                                                  .read<DocumentBloc>()
+                                                  .state;
+                                              state.data?.addPage(state.page);
+                                            }),
+                                      ],
+                                      style: const MenuStyle(
+                                        alignment: Alignment.bottomRight,
+                                      ),
+                                      builder: defaultMenuButton(
+                                          PhosphorIconsLight.book),
+                                    );
+                                  });
+                            },
+                          ),
+                        ],
+                      ]),
+                );
+              },
+            );
+
+            if (widget.isMobile && !_focusNode.hasFocus) {
+              _controller.reverse(from: 1);
+            } else {
+              if (_controller.status != AnimationStatus.completed) {
+                _controller.forward(from: 0);
+              }
+            }
+            if (!widget.floating) return body;
+            return AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) => Opacity(
+                opacity: _animation.value,
+                child: Card(
+                  child:
+                      Padding(padding: const EdgeInsets.all(8.0), child: body),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

@@ -2,5 +2,7 @@
 * Add option to rename page
 * Don't ask for name when adding a page (single click) ([#411](https://github.com/LinwoodDev/Butterfly/issues/411))
 * Add pages button to zoom view ([#411](https://github.com/LinwoodDev/Butterfly/issues/411))  
+* Reduce size of title text field
+* Reduce size of window buttons
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0

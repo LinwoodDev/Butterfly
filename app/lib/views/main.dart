@@ -415,7 +415,7 @@ class _MainBody extends StatelessWidget {
                               children: [
                                 const MainViewViewport(),
                                 const ToolbarView(),
-                                if (pos == ToolbarPosition.top)
+                                if (pos == ToolbarPosition.top || isMobile)
                                   Positioned(
                                     bottom: 25,
                                     right: 25,
