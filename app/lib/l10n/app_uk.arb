@@ -508,6 +508,8 @@
   "bringForward": "Поверніть вперед",
   "sendBackward": "Відправити назад",
   "invalidName": "Невірне ім'я",
+  "rotation": "Rotation",
   "onlyAvailableLargerScreen": "Доступно тільки на більших екранах",
-  "toolbarPosition": "Позиція панелі інструментів"
+  "toolbarPosition": "Позиція панелі інструментів",
+  "rotate": "Rotate"
 }
