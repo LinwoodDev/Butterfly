@@ -508,8 +508,8 @@
   "bringForward": "前方へ移動",
   "sendBackward": "後方に送る",
   "invalidName": "無効な名前",
-  "rotation": "Rotation",
+  "rotation": "回転",
   "onlyAvailableLargerScreen": "より大きな画面でのみ利用可能",
   "toolbarPosition": "ツールバーの位置",
-  "rotate": "Rotate"
+  "rotate": "回転"
 }
