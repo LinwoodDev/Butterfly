@@ -508,8 +508,8 @@
   "bringForward": "Trazer para frente",
   "sendBackward": "Enviar para trás",
   "invalidName": "Nome inválido",
-  "rotation": "Rotation",
+  "rotation": "Rotação",
   "onlyAvailableLargerScreen": "Disponível apenas em telas maiores",
   "toolbarPosition": "Posição da barra",
-  "rotate": "Rotate"
+  "rotate": "Rotacionar"
 }
