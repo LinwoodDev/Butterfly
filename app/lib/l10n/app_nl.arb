@@ -508,8 +508,8 @@
   "bringForward": "Breng naar voren",
   "sendBackward": "Stuur achteruit",
   "invalidName": "Ongeldige naam",
-  "rotation": "Rotation",
+  "rotation": "Rotatie",
   "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
   "toolbarPosition": "Werkbalk positie",
-  "rotate": "Rotate"
+  "rotate": "Draaien"
 }
