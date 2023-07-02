@@ -508,8 +508,8 @@
   "bringForward": "Posunout vpřed",
   "sendBackward": "Poslat zpět",
   "invalidName": "Neplatný název",
-  "rotation": "Rotation",
+  "rotation": "Otáčení",
   "onlyAvailableLargerScreen": "Dostupné pouze na větších obrazovkách",
   "toolbarPosition": "Pozice panelu nástrojů",
-  "rotate": "Rotate"
+  "rotate": "Otočit"
 }
