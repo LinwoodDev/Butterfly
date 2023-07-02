@@ -508,8 +508,8 @@
   "bringForward": "前进中",
   "sendBackward": "向后发送",
   "invalidName": "无效的名称",
-  "rotation": "Rotation",
+  "rotation": "旋转",
   "onlyAvailableLargerScreen": "仅在大屏幕上可用",
   "toolbarPosition": "工具栏位置",
-  "rotate": "Rotate"
+  "rotate": "旋转"
 }
