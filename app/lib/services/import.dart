@@ -61,6 +61,7 @@ class ImportService {
     } else if (data is NoteData) {
       return data;
     }
+    if (type.isEmpty) type = 'note';
     final fileType = type.isNotEmpty
         ? AssetFileType.values.byName(type)
         : location?.fileType;
@@ -119,7 +120,10 @@ class ImportService {
 
   NoteData? _importDocument(NoteData data, NoteData document,
       [Offset? position]) {
-    final firstPos = position ?? Offset.zero;
+    if (position == null) {
+      return data;
+    }
+    final firstPos = position;
     final docPage = data.getPage();
     if (docPage == null) return null;
     final areas = docPage.areas
@@ -133,9 +137,7 @@ class ImportService {
             e)
         .toList();
     return _submit(document,
-            elements: content,
-            areas: areas,
-            choosePosition: position == null) ??
+            elements: content, areas: areas, choosePosition: true) ??
         data.createDocument(
           createdAt: DateTime.now(),
         );

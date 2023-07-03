@@ -218,14 +218,10 @@ class _FilesViewState extends State<FilesView> {
       }),
       const SizedBox(height: 16),
       LayoutBuilder(builder: (context, constraints) {
-        final searchBar = TextFormField(
-          decoration: InputDecoration(
-            hintText: AppLocalizations.of(context).search,
-            prefixIcon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-            filled: true,
-          ),
-          initialValue: _search,
+        final searchBar = SearchBar(
           onChanged: (value) => setState(() => _search = value),
+          hintText: AppLocalizations.of(context).search,
+          leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
         );
         final locationBar = Row(
           mainAxisSize: MainAxisSize.min,
