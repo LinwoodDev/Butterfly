@@ -11,14 +11,14 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
       [ColorScheme? colorScheme, bool foreground = false]) {
     if (image == null) return;
     final sizeX = element.width * element.scaleX * transform.size;
-    var offsetX = transform.position.dx * transform.size;
-    if (offsetX > 0) {
-      offsetX -= sizeX * (offsetX ~/ sizeX + 1);
-    }
     final sizeY = element.height * element.scaleY * transform.size;
-    var offsetY = transform.position.dy * transform.size;
+    var offsetX = (transform.position.dx * transform.size) % sizeX;
+    if (offsetX > 0) {
+      offsetX -= sizeX;
+    }
+    var offsetY = (transform.position.dy * transform.size) % sizeY;
     if (offsetY > 0) {
-      offsetY -= sizeY * (offsetY ~/ sizeY + 1);
+      offsetY -= sizeY;
     }
 
     var paint = Paint();

@@ -80,7 +80,7 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                 selected: value is ImageBackground,
                 size: 120,
               ),
-              BoxTile(
+              /*BoxTile(
                 title: Text(AppLocalizations.of(context).svg),
                 icon: const Icon(PhosphorIconsLight.fileSvg),
                 onTap: () async {
@@ -115,7 +115,7 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                 },
                 selected: value is SvgBackground,
                 size: 120,
-              ),
+              ),*/
             ],
           ),
         ),
