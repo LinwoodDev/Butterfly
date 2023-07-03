@@ -304,7 +304,7 @@ class _MainPopupMenu extends StatelessWidget {
             SubmenuButton(
               menuChildren: [
                 MenuItemButton(
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.sun),
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
                   shortcut: const SingleActivator(LogicalKeyboardKey.keyE,
                       alt: true, control: true),
                   onPressed: () async {

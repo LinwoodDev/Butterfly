@@ -27,6 +27,7 @@ import '../services/asset.dart';
 
 part 'backgrounds/box.dart';
 part 'backgrounds/empty.dart';
+part 'backgrounds/image.dart';
 part 'elements/image.dart';
 part 'elements/markdown.dart';
 part 'elements/text.dart';
@@ -120,6 +121,8 @@ abstract class Renderer<T> {
       return element.map(
         empty: (value) => EmptyBackgroundRenderer(value),
         box: (value) => BoxBackgroundRenderer(value),
+        image: (value) => ImageBackgroundRenderer(value),
+        svg: (value) => EmptyBackgroundRenderer(value),
       ) as Renderer<T>;
     }
 

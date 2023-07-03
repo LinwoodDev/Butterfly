@@ -1,6 +1,6 @@
 part of '../renderer.dart';
 
-class EmptyBackgroundRenderer extends Renderer<EmptyBackground> {
+class EmptyBackgroundRenderer extends Renderer<Background> {
   EmptyBackgroundRenderer(super.element);
 
   @override

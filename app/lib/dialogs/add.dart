@@ -129,7 +129,7 @@ class AddDialog extends StatelessWidget {
                       AppLocalizations.of(context).svg,
                       textAlign: TextAlign.center,
                     ),
-                    icon: const PhosphorIcon(PhosphorIconsLight.sun),
+                    icon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
                     onTap: () async {
                       final files = await FilePicker.platform.pickFiles(
                           type: FileType.custom,

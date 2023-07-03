@@ -178,7 +178,7 @@ class ImportService {
       final firstPos = position ?? Offset.zero;
       final codec = await ui.instantiateImageCodec(bytes);
       final frame = await codec.getNextFrame();
-      final image = frame.image.clone();
+      final image = frame.image;
 
       final newBytes = await image.toByteData(format: ui.ImageByteFormat.png);
       final state = _getState();
@@ -187,11 +187,13 @@ class ImportService {
       final newData = newBytes.buffer.asUint8List();
       final assetPath = document.addImage(newData, 'png');
       dataPath = Uri.file(assetPath, windows: false).toString();
+      final height = image.height.toDouble(), width = image.width.toDouble();
+      image.dispose();
       return _submit(document,
           elements: [
             ImageElement(
-                height: image.height.toDouble(),
-                width: image.width.toDouble(),
+                height: height,
+                width: width,
                 layer: state?.currentLayer ?? '',
                 source: dataPath,
                 position: firstPos.toPoint())
