@@ -82,11 +82,9 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
               );
               context.read<TransformCubit>().size(value, center);
               currentIndexCubit.bake(state.data, state.page, state.info);
-              if (!_focusNode.hasFocus &&
-                  widget.isMobile &&
-                  !_controller.isAnimating &&
-                  _controller.value == 1) {
-                _controller.reverse(from: 1);
+              if (((!_focusNode.hasFocus && widget.isMobile) ||
+                  !settings.zoomEnabled)) {
+                _controller.reverse();
               }
             }
 
@@ -138,8 +136,9 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
               },
             );
 
-            if (widget.isMobile && !_focusNode.hasFocus) {
-              _controller.reverse(from: 1);
+            if (((!_focusNode.hasFocus && widget.isMobile) ||
+                !settings.zoomEnabled)) {
+              _controller.reverse();
             } else {
               if (_controller.status != AnimationStatus.completed) {
                 _controller.forward(from: 0);
