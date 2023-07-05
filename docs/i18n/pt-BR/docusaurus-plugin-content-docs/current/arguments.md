@@ -5,7 +5,7 @@ title: Parâmetros
 
 Você pode iniciar o aplicativo com argumentos.
 
-`borboleta.exe <Path>`
+`butterfly.exe <Path>`
 
 O caminho é o caminho para o arquivo que você deseja abrir
 
