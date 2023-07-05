@@ -5,7 +5,7 @@ title: Argumenter
 
 Du kan starte appen med argumenter.
 
-`sommerfly.exe <Path>`
+`butterfly.exe <Path>`
 
 Banen er stien til filen du vil åpne.
 
