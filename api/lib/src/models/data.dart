@@ -304,7 +304,7 @@ class NoteData {
 
   List<int> save() => ZipEncoder().encode(archive)!;
 
-  void addPage([DocumentPage? page]) {
+  String addPage([DocumentPage? page]) {
     var name = 'Page ${getPages().length + 1}';
     var index = 1;
     while (getPages().contains(name)) {
@@ -315,5 +315,6 @@ class NoteData {
             ? DocumentPage()
             : DocumentPage(background: page.background),
         name);
+    return name;
   }
 }

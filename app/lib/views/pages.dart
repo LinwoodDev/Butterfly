@@ -109,7 +109,11 @@ class PagesView extends StatelessWidget {
                       child: FloatingActionButton.extended(
                         label: Text(AppLocalizations.of(context).create),
                         icon: const PhosphorIcon(PhosphorIconsLight.plus),
-                        onPressed: () => snapshot.data?.addPage(current),
+                        onPressed: () {
+                          final name = snapshot.data?.addPage(current);
+                          if (name == null) return;
+                          context.read<DocumentBloc>().add(PageChanged(name));
+                        },
                       ),
                     ),
                   )

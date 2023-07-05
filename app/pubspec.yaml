@@ -74,7 +74,7 @@ dependencies:
       ref: 75a6afbbe765b628529c0e13b4117917ea0fd8e3
       path: packages/material_leap
   flutter_localized_locales: ^2.0.4
-  dynamic_color: ^1.6.5
+  dynamic_color: ^1.6.6
   popover: ^0.2.8+2
   markdown: ^7.1.0
 dev_dependencies:

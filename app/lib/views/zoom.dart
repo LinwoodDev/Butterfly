@@ -2,12 +2,8 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:material_leap/material_leap.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ZoomView extends StatefulWidget {
   final bool isMobile;
@@ -136,57 +132,6 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                 onChangeEnd: zoom,
                               ),
                             ),
-                          BlocBuilder<DocumentBloc, DocumentState>(
-                            buildWhen: (previous, current) =>
-                                previous.pageName != current.pageName ||
-                                previous.data != current.data,
-                            builder: (context, state) {
-                              final pageName = state.pageName;
-                              return StreamBuilder<NoteData>(
-                                  stream: state.data?.onChange,
-                                  builder: (context, snapshot) {
-                                    final pages = snapshot.data?.getPages();
-                                    return MenuAnchor(
-                                      menuChildren: [
-                                        ...pages
-                                                ?.map((e) => MenuItemButton(
-                                                      child: Text(
-                                                        e,
-                                                        style: pageName == e
-                                                            ? TextStyle(
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .primaryColor,
-                                                              )
-                                                            : null,
-                                                      ),
-                                                      onPressed: () => context
-                                                          .read<DocumentBloc>()
-                                                          .add(PageChanged(e)),
-                                                    ))
-                                                .toList() ??
-                                            [],
-                                        const Divider(),
-                                        MenuItemButton(
-                                            child: Text(
-                                                AppLocalizations.of(context)
-                                                    .add),
-                                            onPressed: () {
-                                              final state = context
-                                                  .read<DocumentBloc>()
-                                                  .state;
-                                              state.data?.addPage(state.page);
-                                            }),
-                                      ],
-                                      style: const MenuStyle(
-                                        alignment: Alignment.bottomRight,
-                                      ),
-                                      builder: defaultMenuButton(
-                                          PhosphorIconsLight.book),
-                                    );
-                                  });
-                            },
-                          ),
                         ],
                       ]),
                 );
