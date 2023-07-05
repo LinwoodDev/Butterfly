@@ -20,6 +20,10 @@ Background _$BackgroundFromJson(Map<String, dynamic> json) {
       return EmptyBackground.fromJson(json);
     case 'box':
       return BoxBackground.fromJson(json);
+    case 'image':
+      return ImageBackground.fromJson(json);
+    case 'svg':
+      return SvgBackground.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -45,6 +49,12 @@ mixin _$Background {
             double boxXStroke,
             double boxYStroke)
         box,
+    required TResult Function(String source, double width, double height,
+            double scaleX, double scaleY)
+        image,
+    required TResult Function(String source, double width, double height,
+            double scaleX, double scaleY)
+        svg,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +73,12 @@ mixin _$Background {
             double boxXStroke,
             double boxYStroke)?
         box,
+    TResult? Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        image,
+    TResult? Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        svg,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -81,6 +97,12 @@ mixin _$Background {
             double boxXStroke,
             double boxYStroke)?
         box,
+    TResult Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        image,
+    TResult Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        svg,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -88,18 +110,24 @@ mixin _$Background {
   TResult map<TResult extends Object?>({
     required TResult Function(EmptyBackground value) empty,
     required TResult Function(BoxBackground value) box,
+    required TResult Function(ImageBackground value) image,
+    required TResult Function(SvgBackground value) svg,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EmptyBackground value)? empty,
     TResult? Function(BoxBackground value)? box,
+    TResult? Function(ImageBackground value)? image,
+    TResult? Function(SvgBackground value)? svg,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EmptyBackground value)? empty,
     TResult Function(BoxBackground value)? box,
+    TResult Function(ImageBackground value)? image,
+    TResult Function(SvgBackground value)? svg,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -183,6 +211,12 @@ class _$EmptyBackground implements EmptyBackground {
             double boxXStroke,
             double boxYStroke)
         box,
+    required TResult Function(String source, double width, double height,
+            double scaleX, double scaleY)
+        image,
+    required TResult Function(String source, double width, double height,
+            double scaleX, double scaleY)
+        svg,
   }) {
     return empty();
   }
@@ -204,6 +238,12 @@ class _$EmptyBackground implements EmptyBackground {
             double boxXStroke,
             double boxYStroke)?
         box,
+    TResult? Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        image,
+    TResult? Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        svg,
   }) {
     return empty?.call();
   }
@@ -225,6 +265,12 @@ class _$EmptyBackground implements EmptyBackground {
             double boxXStroke,
             double boxYStroke)?
         box,
+    TResult Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        image,
+    TResult Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        svg,
     required TResult orElse(),
   }) {
     if (empty != null) {
@@ -238,6 +284,8 @@ class _$EmptyBackground implements EmptyBackground {
   TResult map<TResult extends Object?>({
     required TResult Function(EmptyBackground value) empty,
     required TResult Function(BoxBackground value) box,
+    required TResult Function(ImageBackground value) image,
+    required TResult Function(SvgBackground value) svg,
   }) {
     return empty(this);
   }
@@ -247,6 +295,8 @@ class _$EmptyBackground implements EmptyBackground {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EmptyBackground value)? empty,
     TResult? Function(BoxBackground value)? box,
+    TResult? Function(ImageBackground value)? image,
+    TResult? Function(SvgBackground value)? svg,
   }) {
     return empty?.call(this);
   }
@@ -256,6 +306,8 @@ class _$EmptyBackground implements EmptyBackground {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EmptyBackground value)? empty,
     TResult Function(BoxBackground value)? box,
+    TResult Function(ImageBackground value)? image,
+    TResult Function(SvgBackground value)? svg,
     required TResult orElse(),
   }) {
     if (empty != null) {
@@ -502,6 +554,12 @@ class _$BoxBackground implements BoxBackground {
             double boxXStroke,
             double boxYStroke)
         box,
+    required TResult Function(String source, double width, double height,
+            double scaleX, double scaleY)
+        image,
+    required TResult Function(String source, double width, double height,
+            double scaleX, double scaleY)
+        svg,
   }) {
     return box(boxWidth, boxHeight, boxXCount, boxYCount, boxXSpace, boxYSpace,
         boxXColor, boxYColor, boxColor, boxXStroke, boxYStroke);
@@ -524,6 +582,12 @@ class _$BoxBackground implements BoxBackground {
             double boxXStroke,
             double boxYStroke)?
         box,
+    TResult? Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        image,
+    TResult? Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        svg,
   }) {
     return box?.call(boxWidth, boxHeight, boxXCount, boxYCount, boxXSpace,
         boxYSpace, boxXColor, boxYColor, boxColor, boxXStroke, boxYStroke);
@@ -546,6 +610,12 @@ class _$BoxBackground implements BoxBackground {
             double boxXStroke,
             double boxYStroke)?
         box,
+    TResult Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        image,
+    TResult Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        svg,
     required TResult orElse(),
   }) {
     if (box != null) {
@@ -560,6 +630,8 @@ class _$BoxBackground implements BoxBackground {
   TResult map<TResult extends Object?>({
     required TResult Function(EmptyBackground value) empty,
     required TResult Function(BoxBackground value) box,
+    required TResult Function(ImageBackground value) image,
+    required TResult Function(SvgBackground value) svg,
   }) {
     return box(this);
   }
@@ -569,6 +641,8 @@ class _$BoxBackground implements BoxBackground {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EmptyBackground value)? empty,
     TResult? Function(BoxBackground value)? box,
+    TResult? Function(ImageBackground value)? image,
+    TResult? Function(SvgBackground value)? svg,
   }) {
     return box?.call(this);
   }
@@ -578,6 +652,8 @@ class _$BoxBackground implements BoxBackground {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EmptyBackground value)? empty,
     TResult Function(BoxBackground value)? box,
+    TResult Function(ImageBackground value)? image,
+    TResult Function(SvgBackground value)? svg,
     required TResult orElse(),
   }) {
     if (box != null) {
@@ -624,5 +700,537 @@ abstract class BoxBackground implements Background {
   double get boxYStroke;
   @JsonKey(ignore: true)
   _$$BoxBackgroundCopyWith<_$BoxBackground> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ImageBackgroundCopyWith<$Res> {
+  factory _$$ImageBackgroundCopyWith(
+          _$ImageBackground value, $Res Function(_$ImageBackground) then) =
+      __$$ImageBackgroundCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {String source,
+      double width,
+      double height,
+      double scaleX,
+      double scaleY});
+}
+
+/// @nodoc
+class __$$ImageBackgroundCopyWithImpl<$Res>
+    extends _$BackgroundCopyWithImpl<$Res, _$ImageBackground>
+    implements _$$ImageBackgroundCopyWith<$Res> {
+  __$$ImageBackgroundCopyWithImpl(
+      _$ImageBackground _value, $Res Function(_$ImageBackground) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? source = null,
+    Object? width = null,
+    Object? height = null,
+    Object? scaleX = null,
+    Object? scaleY = null,
+  }) {
+    return _then(_$ImageBackground(
+      source: null == source
+          ? _value.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as String,
+      width: null == width
+          ? _value.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as double,
+      height: null == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as double,
+      scaleX: null == scaleX
+          ? _value.scaleX
+          : scaleX // ignore: cast_nullable_to_non_nullable
+              as double,
+      scaleY: null == scaleY
+          ? _value.scaleY
+          : scaleY // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ImageBackground implements ImageBackground {
+  const _$ImageBackground(
+      {required this.source,
+      required this.width,
+      required this.height,
+      this.scaleX = 1,
+      this.scaleY = 1,
+      final String? $type})
+      : $type = $type ?? 'image';
+
+  factory _$ImageBackground.fromJson(Map<String, dynamic> json) =>
+      _$$ImageBackgroundFromJson(json);
+
+  @override
+  final String source;
+  @override
+  final double width;
+  @override
+  final double height;
+  @override
+  @JsonKey()
+  final double scaleX;
+  @override
+  @JsonKey()
+  final double scaleY;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Background.image(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ImageBackground &&
+            (identical(other.source, source) || other.source == source) &&
+            (identical(other.width, width) || other.width == width) &&
+            (identical(other.height, height) || other.height == height) &&
+            (identical(other.scaleX, scaleX) || other.scaleX == scaleX) &&
+            (identical(other.scaleY, scaleY) || other.scaleY == scaleY));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, source, width, height, scaleX, scaleY);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ImageBackgroundCopyWith<_$ImageBackground> get copyWith =>
+      __$$ImageBackgroundCopyWithImpl<_$ImageBackground>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(
+            double boxWidth,
+            double boxHeight,
+            int boxXCount,
+            int boxYCount,
+            double boxXSpace,
+            double boxYSpace,
+            int boxXColor,
+            int boxYColor,
+            int boxColor,
+            double boxXStroke,
+            double boxYStroke)
+        box,
+    required TResult Function(String source, double width, double height,
+            double scaleX, double scaleY)
+        image,
+    required TResult Function(String source, double width, double height,
+            double scaleX, double scaleY)
+        svg,
+  }) {
+    return image(source, width, height, scaleX, scaleY);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(
+            double boxWidth,
+            double boxHeight,
+            int boxXCount,
+            int boxYCount,
+            double boxXSpace,
+            double boxYSpace,
+            int boxXColor,
+            int boxYColor,
+            int boxColor,
+            double boxXStroke,
+            double boxYStroke)?
+        box,
+    TResult? Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        image,
+    TResult? Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        svg,
+  }) {
+    return image?.call(source, width, height, scaleX, scaleY);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(
+            double boxWidth,
+            double boxHeight,
+            int boxXCount,
+            int boxYCount,
+            double boxXSpace,
+            double boxYSpace,
+            int boxXColor,
+            int boxYColor,
+            int boxColor,
+            double boxXStroke,
+            double boxYStroke)?
+        box,
+    TResult Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        image,
+    TResult Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        svg,
+    required TResult orElse(),
+  }) {
+    if (image != null) {
+      return image(source, width, height, scaleX, scaleY);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyBackground value) empty,
+    required TResult Function(BoxBackground value) box,
+    required TResult Function(ImageBackground value) image,
+    required TResult Function(SvgBackground value) svg,
+  }) {
+    return image(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyBackground value)? empty,
+    TResult? Function(BoxBackground value)? box,
+    TResult? Function(ImageBackground value)? image,
+    TResult? Function(SvgBackground value)? svg,
+  }) {
+    return image?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyBackground value)? empty,
+    TResult Function(BoxBackground value)? box,
+    TResult Function(ImageBackground value)? image,
+    TResult Function(SvgBackground value)? svg,
+    required TResult orElse(),
+  }) {
+    if (image != null) {
+      return image(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ImageBackgroundToJson(
+      this,
+    );
+  }
+}
+
+abstract class ImageBackground implements Background {
+  const factory ImageBackground(
+      {required final String source,
+      required final double width,
+      required final double height,
+      final double scaleX,
+      final double scaleY}) = _$ImageBackground;
+
+  factory ImageBackground.fromJson(Map<String, dynamic> json) =
+      _$ImageBackground.fromJson;
+
+  String get source;
+  double get width;
+  double get height;
+  double get scaleX;
+  double get scaleY;
+  @JsonKey(ignore: true)
+  _$$ImageBackgroundCopyWith<_$ImageBackground> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SvgBackgroundCopyWith<$Res> {
+  factory _$$SvgBackgroundCopyWith(
+          _$SvgBackground value, $Res Function(_$SvgBackground) then) =
+      __$$SvgBackgroundCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {String source,
+      double width,
+      double height,
+      double scaleX,
+      double scaleY});
+}
+
+/// @nodoc
+class __$$SvgBackgroundCopyWithImpl<$Res>
+    extends _$BackgroundCopyWithImpl<$Res, _$SvgBackground>
+    implements _$$SvgBackgroundCopyWith<$Res> {
+  __$$SvgBackgroundCopyWithImpl(
+      _$SvgBackground _value, $Res Function(_$SvgBackground) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? source = null,
+    Object? width = null,
+    Object? height = null,
+    Object? scaleX = null,
+    Object? scaleY = null,
+  }) {
+    return _then(_$SvgBackground(
+      source: null == source
+          ? _value.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as String,
+      width: null == width
+          ? _value.width
+          : width // ignore: cast_nullable_to_non_nullable
+              as double,
+      height: null == height
+          ? _value.height
+          : height // ignore: cast_nullable_to_non_nullable
+              as double,
+      scaleX: null == scaleX
+          ? _value.scaleX
+          : scaleX // ignore: cast_nullable_to_non_nullable
+              as double,
+      scaleY: null == scaleY
+          ? _value.scaleY
+          : scaleY // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SvgBackground implements SvgBackground {
+  const _$SvgBackground(
+      {required this.source,
+      required this.width,
+      required this.height,
+      this.scaleX = 1,
+      this.scaleY = 1,
+      final String? $type})
+      : $type = $type ?? 'svg';
+
+  factory _$SvgBackground.fromJson(Map<String, dynamic> json) =>
+      _$$SvgBackgroundFromJson(json);
+
+  @override
+  final String source;
+  @override
+  final double width;
+  @override
+  final double height;
+  @override
+  @JsonKey()
+  final double scaleX;
+  @override
+  @JsonKey()
+  final double scaleY;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Background.svg(source: $source, width: $width, height: $height, scaleX: $scaleX, scaleY: $scaleY)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SvgBackground &&
+            (identical(other.source, source) || other.source == source) &&
+            (identical(other.width, width) || other.width == width) &&
+            (identical(other.height, height) || other.height == height) &&
+            (identical(other.scaleX, scaleX) || other.scaleX == scaleX) &&
+            (identical(other.scaleY, scaleY) || other.scaleY == scaleY));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, source, width, height, scaleX, scaleY);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SvgBackgroundCopyWith<_$SvgBackground> get copyWith =>
+      __$$SvgBackgroundCopyWithImpl<_$SvgBackground>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function(
+            double boxWidth,
+            double boxHeight,
+            int boxXCount,
+            int boxYCount,
+            double boxXSpace,
+            double boxYSpace,
+            int boxXColor,
+            int boxYColor,
+            int boxColor,
+            double boxXStroke,
+            double boxYStroke)
+        box,
+    required TResult Function(String source, double width, double height,
+            double scaleX, double scaleY)
+        image,
+    required TResult Function(String source, double width, double height,
+            double scaleX, double scaleY)
+        svg,
+  }) {
+    return svg(source, width, height, scaleX, scaleY);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? empty,
+    TResult? Function(
+            double boxWidth,
+            double boxHeight,
+            int boxXCount,
+            int boxYCount,
+            double boxXSpace,
+            double boxYSpace,
+            int boxXColor,
+            int boxYColor,
+            int boxColor,
+            double boxXStroke,
+            double boxYStroke)?
+        box,
+    TResult? Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        image,
+    TResult? Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        svg,
+  }) {
+    return svg?.call(source, width, height, scaleX, scaleY);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function(
+            double boxWidth,
+            double boxHeight,
+            int boxXCount,
+            int boxYCount,
+            double boxXSpace,
+            double boxYSpace,
+            int boxXColor,
+            int boxYColor,
+            int boxColor,
+            double boxXStroke,
+            double boxYStroke)?
+        box,
+    TResult Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        image,
+    TResult Function(String source, double width, double height, double scaleX,
+            double scaleY)?
+        svg,
+    required TResult orElse(),
+  }) {
+    if (svg != null) {
+      return svg(source, width, height, scaleX, scaleY);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EmptyBackground value) empty,
+    required TResult Function(BoxBackground value) box,
+    required TResult Function(ImageBackground value) image,
+    required TResult Function(SvgBackground value) svg,
+  }) {
+    return svg(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(EmptyBackground value)? empty,
+    TResult? Function(BoxBackground value)? box,
+    TResult? Function(ImageBackground value)? image,
+    TResult? Function(SvgBackground value)? svg,
+  }) {
+    return svg?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EmptyBackground value)? empty,
+    TResult Function(BoxBackground value)? box,
+    TResult Function(ImageBackground value)? image,
+    TResult Function(SvgBackground value)? svg,
+    required TResult orElse(),
+  }) {
+    if (svg != null) {
+      return svg(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SvgBackgroundToJson(
+      this,
+    );
+  }
+}
+
+abstract class SvgBackground implements Background {
+  const factory SvgBackground(
+      {required final String source,
+      required final double width,
+      required final double height,
+      final double scaleX,
+      final double scaleY}) = _$SvgBackground;
+
+  factory SvgBackground.fromJson(Map<String, dynamic> json) =
+      _$SvgBackground.fromJson;
+
+  String get source;
+  double get width;
+  double get height;
+  double get scaleX;
+  double get scaleY;
+  @JsonKey(ignore: true)
+  _$$SvgBackgroundCopyWith<_$SvgBackground> get copyWith =>
       throw _privateConstructorUsedError;
 }

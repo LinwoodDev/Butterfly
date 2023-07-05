@@ -71,7 +71,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: b25911bcc3e966cf6c94c00f4e01955ab2b0269d
+      ref: 75a6afbbe765b628529c0e13b4117917ea0fd8e3
       path: packages/material_leap
   flutter_localized_locales: ^2.0.4
   dynamic_color: ^1.6.5
