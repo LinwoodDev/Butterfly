@@ -83,7 +83,7 @@ class _SettingsPageState extends State<SettingsPage> {
           void navigateTo(SettingsView view) {
             if (isMobile) {
               Navigator.of(context).pop();
-              context.go(view.path);
+              context.push(view.path);
             } else {
               setState(() {
                 _view = view;

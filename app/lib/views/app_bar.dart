@@ -243,17 +243,19 @@ class _AppBarTitle extends StatelessWidget {
                   child: BlocBuilder<SettingsCubit, ButterflySettings>(
                 buildWhen: (previous, current) =>
                     previous.toolbarPosition != current.toolbarPosition,
-                builder: (context, state) =>
-                    state.toolbarPosition == ToolbarPosition.top
-                        ? const EditToolbar(
-                            isMobile: false,
-                          )
-                        : Align(
+                builder: (context, settings) => settings.toolbarPosition ==
+                        ToolbarPosition.top
+                    ? const EditToolbar(
+                        isMobile: false,
+                      )
+                    : settings.zoomEnabled
+                        ? Align(
                             child: ConstrainedBox(
                               constraints: const BoxConstraints(maxWidth: 500),
                               child: const ZoomView(floating: false),
                             ),
-                          ),
+                          )
+                        : const SizedBox.shrink(),
               )),
           ]),
         );
