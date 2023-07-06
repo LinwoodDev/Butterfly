@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:butterfly/api/full_screen.dart' as full_screen_api;
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -215,6 +216,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default('') String defaultRemote,
     @Default(false) bool nativeTitleBar,
     @Default(false) bool startInFullScreen,
+    required bool fullScreen,
     @Default(SyncMode.noMobile) SyncMode syncMode,
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
     @Default('') String fallbackPack,
@@ -224,7 +226,8 @@ class ButterflySettings with _$ButterflySettings {
     @Default(ToolbarPosition.top) ToolbarPosition toolbarPosition,
   }) = _ButterflySettings;
 
-  factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
+  factory ButterflySettings.fromPrefs(
+      SharedPreferences prefs, bool fullScreen) {
     final remotes = prefs.getStringList('remotes')?.map((e) {
           final data = json.decode(e) as Map<String, dynamic>;
           if (!data.containsKey('packsPath')) {
@@ -234,6 +237,7 @@ class ButterflySettings with _$ButterflySettings {
         }).toList() ??
         const [];
     return ButterflySettings(
+      fullScreen: fullScreen,
       localeTag: prefs.getString('locale') ?? '',
       penOnlyInput: prefs.getBool('pen_only_input') ?? false,
       inputGestures: prefs.getBool('input_gestures') ?? true,
@@ -359,10 +363,8 @@ class ButterflySettings with _$ButterflySettings {
 }
 
 class SettingsCubit extends Cubit<ButterflySettings> {
-  SettingsCubit() : super(const ButterflySettings());
-
-  SettingsCubit.fromPrefs(SharedPreferences prefs)
-      : super(ButterflySettings.fromPrefs(prefs));
+  SettingsCubit(SharedPreferences prefs, bool fullScreen)
+      : super(ButterflySettings.fromPrefs(prefs, fullScreen));
 
   Future<void> changeTheme(ThemeMode theme) async {
     emit(state.copyWith(theme: theme));
@@ -674,4 +676,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   void setNavigatorTab(int index) {
     emit(state.copyWith(navigatorTab: index));
   }
+
+  void setFullScreen(bool value) {
+    emit(state.copyWith(fullScreen: value));
+    full_screen_api.setFullScreen(value);
+  }
+
+  void toggleFullScreen() => setFullScreen(!state.fullScreen);
 }

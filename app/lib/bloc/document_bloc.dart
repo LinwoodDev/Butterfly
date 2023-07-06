@@ -11,7 +11,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
-import '../api/full_screen.dart';
 import '../cubits/settings.dart';
 import '../cubits/transform.dart';
 import '../embed/embedding.dart';
@@ -767,7 +766,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentPresentationState) return;
       current.handler.dispose(this);
       emit(current.oldState);
-      setFullScreen(current.fullScreen);
+      current.settingsCubit.setFullScreen(current.fullScreen);
     });
     on<PresentationTick>((event, emit) {
       final current = state;

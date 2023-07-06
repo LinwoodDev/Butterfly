@@ -822,6 +822,7 @@ mixin _$ButterflySettings {
   String get defaultRemote => throw _privateConstructorUsedError;
   bool get nativeTitleBar => throw _privateConstructorUsedError;
   bool get startInFullScreen => throw _privateConstructorUsedError;
+  bool get fullScreen => throw _privateConstructorUsedError;
   SyncMode get syncMode => throw _privateConstructorUsedError;
   InputConfiguration get inputConfiguration =>
       throw _privateConstructorUsedError;
@@ -862,6 +863,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       String defaultRemote,
       bool nativeTitleBar,
       bool startInFullScreen,
+      bool fullScreen,
       SyncMode syncMode,
       InputConfiguration inputConfiguration,
       String fallbackPack,
@@ -905,6 +907,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? defaultRemote = null,
     Object? nativeTitleBar = null,
     Object? startInFullScreen = null,
+    Object? fullScreen = null,
     Object? syncMode = null,
     Object? inputConfiguration = null,
     Object? fallbackPack = null,
@@ -990,6 +993,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.startInFullScreen
           : startInFullScreen // ignore: cast_nullable_to_non_nullable
               as bool,
+      fullScreen: null == fullScreen
+          ? _value.fullScreen
+          : fullScreen // ignore: cast_nullable_to_non_nullable
+              as bool,
       syncMode: null == syncMode
           ? _value.syncMode
           : syncMode // ignore: cast_nullable_to_non_nullable
@@ -1059,6 +1066,7 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       String defaultRemote,
       bool nativeTitleBar,
       bool startInFullScreen,
+      bool fullScreen,
       SyncMode syncMode,
       InputConfiguration inputConfiguration,
       String fallbackPack,
@@ -1101,6 +1109,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? defaultRemote = null,
     Object? nativeTitleBar = null,
     Object? startInFullScreen = null,
+    Object? fullScreen = null,
     Object? syncMode = null,
     Object? inputConfiguration = null,
     Object? fallbackPack = null,
@@ -1186,6 +1195,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.startInFullScreen
           : startInFullScreen // ignore: cast_nullable_to_non_nullable
               as bool,
+      fullScreen: null == fullScreen
+          ? _value.fullScreen
+          : fullScreen // ignore: cast_nullable_to_non_nullable
+              as bool,
       syncMode: null == syncMode
           ? _value.syncMode
           : syncMode // ignore: cast_nullable_to_non_nullable
@@ -1241,6 +1254,7 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.defaultRemote = '',
       this.nativeTitleBar = false,
       this.startInFullScreen = false,
+      required this.fullScreen,
       this.syncMode = SyncMode.noMobile,
       this.inputConfiguration = const InputConfiguration(),
       this.fallbackPack = '',
@@ -1322,6 +1336,8 @@ class _$_ButterflySettings extends _ButterflySettings {
   @JsonKey()
   final bool startInFullScreen;
   @override
+  final bool fullScreen;
+  @override
   @JsonKey()
   final SyncMode syncMode;
   @override
@@ -1351,7 +1367,7 @@ class _$_ButterflySettings extends _ButterflySettings {
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorTab: $navigatorTab, toolbarPosition: $toolbarPosition)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorTab: $navigatorTab, toolbarPosition: $toolbarPosition)';
   }
 
   @override
@@ -1393,6 +1409,8 @@ class _$_ButterflySettings extends _ButterflySettings {
                 other.nativeTitleBar == nativeTitleBar) &&
             (identical(other.startInFullScreen, startInFullScreen) ||
                 other.startInFullScreen == startInFullScreen) &&
+            (identical(other.fullScreen, fullScreen) ||
+                other.fullScreen == fullScreen) &&
             (identical(other.syncMode, syncMode) ||
                 other.syncMode == syncMode) &&
             (identical(other.inputConfiguration, inputConfiguration) ||
@@ -1430,6 +1448,7 @@ class _$_ButterflySettings extends _ButterflySettings {
         defaultRemote,
         nativeTitleBar,
         startInFullScreen,
+        fullScreen,
         syncMode,
         inputConfiguration,
         fallbackPack,
@@ -1468,6 +1487,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final String defaultRemote,
       final bool nativeTitleBar,
       final bool startInFullScreen,
+      required final bool fullScreen,
       final SyncMode syncMode,
       final InputConfiguration inputConfiguration,
       final String fallbackPack,
@@ -1515,6 +1535,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   bool get nativeTitleBar;
   @override
   bool get startInFullScreen;
+  @override
+  bool get fullScreen;
   @override
   SyncMode get syncMode;
   @override
