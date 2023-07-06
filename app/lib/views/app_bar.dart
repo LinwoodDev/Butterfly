@@ -397,14 +397,19 @@ class _MainPopupMenu extends StatelessWidget {
             ),
           ],
           if (state.embedding == null) ...[
-            MenuItemButton(
-              leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsOut),
-              shortcut: const SingleActivator(LogicalKeyboardKey.f11),
-              onPressed: () async {
-                context.read<SettingsCubit>().toggleFullScreen();
-              },
-              child: Text(AppLocalizations.of(context).fullScreen),
-            ),
+            BlocBuilder<SettingsCubit, ButterflySettings>(
+                buildWhen: (previous, current) =>
+                    previous.fullScreen != current.fullScreen,
+                builder: (context, settings) => MenuItemButton(
+                      leadingIcon: settings.fullScreen
+                          ? const PhosphorIcon(PhosphorIconsLight.arrowsIn)
+                          : const PhosphorIcon(PhosphorIconsLight.arrowsOut),
+                      shortcut: const SingleActivator(LogicalKeyboardKey.f11),
+                      onPressed: () async {
+                        context.read<SettingsCubit>().toggleFullScreen();
+                      },
+                      child: Text(AppLocalizations.of(context).fullScreen),
+                    )),
           ],
           if (state.embedding != null) ...[
             MenuItemButton(

@@ -275,6 +275,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       });
       for (var asset in unusedAssets) {
         current.data.removeAsset(asset);
+        current.assetService.removeImage(asset);
       }
 
       await _saveState(emit, current.copyWith(page: newPage), null);

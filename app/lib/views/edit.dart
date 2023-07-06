@@ -340,7 +340,7 @@ class _EditToolbarState extends State<EditToolbar> {
             ),
             if (settings.fullScreen)
               IconButton(
-                icon: const PhosphorIcon(PhosphorIconsLight.door),
+                icon: const PhosphorIcon(PhosphorIconsLight.arrowsIn),
                 tooltip: AppLocalizations.of(context).exitFullScreen,
                 onPressed: () {
                   context.read<SettingsCubit>().setFullScreen(false);

@@ -154,7 +154,7 @@ abstract class Renderer<T> {
       position: position == null
           ? null
           : relative
-              ? (rect?.topLeft ?? Offset.zero + position)
+              ? (rect?.topLeft ?? Offset.zero) + position
               : position,
       scaleX: scaleX,
       scaleY: scaleY,
