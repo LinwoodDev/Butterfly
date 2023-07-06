@@ -49,10 +49,12 @@ class NoteData {
     _controller.add(this);
   }
 
-  void removeAsset(String path) {
+  void removeAsset(String path) => removeAssets([path]);
+
+  void removeAssets(List<String> path) {
     final newArchive = Archive();
     for (final file in archive.files) {
-      if (file.name != path) {
+      if (path.contains(file.name)) {
         newArchive.addFile(ArchiveFile(file.name, file.size, file.content));
       }
     }
@@ -168,7 +170,11 @@ class NoteData {
   }
 
   DocumentPage? getPage([String name = 'default']) {
-    final data = getAsset('$kPagesArchiveDirectory/$name.json');
+    final pages = getPages();
+    final end = '.$name.json';
+    final fileName =
+        pages.where((element) => element.endsWith(end)).firstOrNull;
+    final data = getAsset(fileName ?? '$kPagesArchiveDirectory/$name.json');
     if (data == null) {
       return null;
     }
@@ -177,15 +183,20 @@ class NoteData {
     return DocumentPage.fromJson(json);
   }
 
-  void setPage(DocumentPage page, [String name = 'default']) {
+  void setPage(DocumentPage page, [String name = 'default', int? index]) {
+    index ??= getPages().length;
     final content = jsonEncode(page.toJson());
-    setAsset('$kPagesArchiveDirectory/$name.json', utf8.encode(content));
+    setAsset('$kPagesArchiveDirectory/$index.$name.json', utf8.encode(content));
   }
 
-  List<String> getPages() => getAssets(kPagesArchiveDirectory, true);
+  List<String> getPages() => getAssets(kPagesArchiveDirectory, true)
+      .map((e) => e.contains('.') ? e.split('.').sublist(1).join('.') : e)
+      .toList();
 
-  void removePage(String page) =>
-      removeAsset('$kPagesArchiveDirectory/$page.json');
+  void removePage(String page) => removeAssets(getPages()
+        .where((e) => e.endsWith('$page.json'))
+        .map((e) => '$kPagesArchiveDirectory/$e.json')
+        .toList());
 
   void renamePage(String oldName, String newName) {
     final page = getPage(oldName);
