@@ -184,19 +184,29 @@ class NoteData {
   }
 
   void setPage(DocumentPage page, [String name = 'default', int? index]) {
-    index ??= getPages().length;
+    final pages = getPages(true);
+    index ??= pages.length;
     final content = jsonEncode(page.toJson());
+    final fileName =
+        pages.where((element) => element.endsWith(name)).firstOrNull;
+    if (fileName != null) {
+      setAsset('$kPagesArchiveDirectory/$fileName.json', utf8.encode(content));
+      return;
+    }
     setAsset('$kPagesArchiveDirectory/$index.$name.json', utf8.encode(content));
   }
 
-  List<String> getPages() => getAssets(kPagesArchiveDirectory, true)
-      .map((e) => e.contains('.') ? e.split('.').sublist(1).join('.') : e)
-      .toList();
+  List<String> getPages([bool realName = false]) =>
+      getAssets(kPagesArchiveDirectory, true)
+          .map((e) => e.contains('.') && !realName
+              ? e.split('.').sublist(1).join('.')
+              : e)
+          .toList();
 
   void removePage(String page) => removeAssets(getPages()
-        .where((e) => e.endsWith('$page.json'))
-        .map((e) => '$kPagesArchiveDirectory/$e.json')
-        .toList());
+      .where((e) => e.endsWith('$page.json'))
+      .map((e) => '$kPagesArchiveDirectory/$e.json')
+      .toList());
 
   void renamePage(String oldName, String newName) {
     final page = getPage(oldName);
