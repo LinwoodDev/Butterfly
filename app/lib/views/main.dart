@@ -269,107 +269,117 @@ class _ProjectPageState extends State<ProjectPage> {
                   FocusManager.instance.primaryFocus?.unfocus();
                 }
               },
-              child: Builder(builder: (context) {
-                return Actions(
-                  actions: _actions,
-                  child: Shortcuts(
-                    shortcuts: {
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyZ): UndoIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyY): RedoIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                              LogicalKeyboardKey.keyN):
-                          NewIntent(context, fromTemplate: false),
-                      LogicalKeySet(
+              child: BlocBuilder<SettingsCubit, ButterflySettings>(
+                  buildWhen: (previous, current) =>
+                      previous.fullScreen != current.fullScreen,
+                  builder: (context, settings) {
+                    return Actions(
+                      actions: _actions,
+                      child: Shortcuts(
+                        shortcuts: {
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                              LogicalKeyboardKey.keyZ): UndoIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                              LogicalKeyboardKey.keyY): RedoIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.keyN):
+                              NewIntent(context, fromTemplate: false),
+                          LogicalKeySet(
+                                  LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.shift,
+                                  LogicalKeyboardKey.keyN):
+                              NewIntent(context, fromTemplate: true),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.keyP):
+                              ColorPaletteIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.keyB):
+                              BackgroundIntent(context),
+                          LogicalKeySet(
                               LogicalKeyboardKey.control,
                               LogicalKeyboardKey.shift,
-                              LogicalKeyboardKey.keyN):
-                          NewIntent(context, fromTemplate: true),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyP): ColorPaletteIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyB): BackgroundIntent(context),
-                      LogicalKeySet(
-                          LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.shift,
-                          LogicalKeyboardKey.keyA): AreasIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.escape):
-                          ExitIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.arrowRight):
-                          NextIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.arrowLeft):
-                          PreviousIntent(context),
-                      if (widget.embedding == null) ...{
-                        LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.keyE): ExportIntent(context),
-                        LogicalKeySet(
+                              LogicalKeyboardKey.keyA): AreasIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.escape):
+                              ExitIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.arrowRight):
+                              NextIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.arrowLeft):
+                              PreviousIntent(context),
+                          if (widget.embedding == null) ...{
+                            LogicalKeySet(LogicalKeyboardKey.control,
+                                LogicalKeyboardKey.keyE): ExportIntent(context),
+                            LogicalKeySet(
+                                    LogicalKeyboardKey.control,
+                                    LogicalKeyboardKey.shift,
+                                    LogicalKeyboardKey.keyE):
+                                ImageExportIntent(context),
+                            LogicalKeySet(
+                                    LogicalKeyboardKey.control,
+                                    LogicalKeyboardKey.alt,
+                                    LogicalKeyboardKey.shift,
+                                    LogicalKeyboardKey.keyE):
+                                PdfExportIntent(context),
+                            LogicalKeySet(
+                                    LogicalKeyboardKey.control,
+                                    LogicalKeyboardKey.alt,
+                                    LogicalKeyboardKey.keyE):
+                                SvgExportIntent(context),
+                            LogicalKeySet(
+                                    LogicalKeyboardKey.control,
+                                    LogicalKeyboardKey.alt,
+                                    LogicalKeyboardKey.keyS):
+                                SettingsIntent(context),
+                            LogicalKeySet(LogicalKeyboardKey.alt,
+                                    LogicalKeyboardKey.keyS):
+                                ChangePathIntent(context),
+                            LogicalKeySet(LogicalKeyboardKey.control,
+                                LogicalKeyboardKey.keyS): SaveIntent(context),
+                            LogicalKeySet(
                                 LogicalKeyboardKey.control,
-                                LogicalKeyboardKey.shift,
-                                LogicalKeyboardKey.keyE):
-                            ImageExportIntent(context),
-                        LogicalKeySet(
-                            LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.shift,
-                            LogicalKeyboardKey.keyE): PdfExportIntent(context),
-                        LogicalKeySet(
-                            LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.keyE): SvgExportIntent(context),
-                        LogicalKeySet(
-                            LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.keyS): SettingsIntent(context),
-                        LogicalKeySet(LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.keyS): ChangePathIntent(context),
-                        LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.keyS): SaveIntent(context),
-                        LogicalKeySet(
-                            LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.keyP): PacksIntent(context),
-                        ...[
-                          LogicalKeyboardKey.digit1,
-                          LogicalKeyboardKey.digit2,
-                          LogicalKeyboardKey.digit3,
-                          LogicalKeyboardKey.digit4,
-                          LogicalKeyboardKey.digit5,
-                          LogicalKeyboardKey.digit6,
-                          LogicalKeyboardKey.digit7,
-                          LogicalKeyboardKey.digit8,
-                          LogicalKeyboardKey.digit9,
-                          LogicalKeyboardKey.digit0
-                        ].asMap().map((k, v) => MapEntry(
-                            LogicalKeySet(LogicalKeyboardKey.control, v),
-                            ChangePainterIntent(context, k))),
-                      },
-                    },
-                    child: SafeArea(
-                      child: ClipRect(
-                        child: Focus(
-                          autofocus: true,
-                          skipTraversal: true,
-                          onFocusChange: (_) => false,
-                          child: Scaffold(
-                              appBar: state is DocumentPresentationState
-                                  ? null
-                                  : PadAppBar(
-                                      viewportKey: _viewportKey,
-                                    ),
-                              drawer: state is DocumentLoadSuccess
-                                  ? const DocumentNavigator(asDrawer: true)
-                                  : null,
-                              body: Actions(
-                                actions: _actions,
-                                child: const _MainBody(),
-                              )),
+                                LogicalKeyboardKey.alt,
+                                LogicalKeyboardKey.keyP): PacksIntent(context),
+                            ...[
+                              LogicalKeyboardKey.digit1,
+                              LogicalKeyboardKey.digit2,
+                              LogicalKeyboardKey.digit3,
+                              LogicalKeyboardKey.digit4,
+                              LogicalKeyboardKey.digit5,
+                              LogicalKeyboardKey.digit6,
+                              LogicalKeyboardKey.digit7,
+                              LogicalKeyboardKey.digit8,
+                              LogicalKeyboardKey.digit9,
+                              LogicalKeyboardKey.digit0
+                            ].asMap().map((k, v) => MapEntry(
+                                LogicalKeySet(LogicalKeyboardKey.control, v),
+                                ChangePainterIntent(context, k))),
+                          },
+                        },
+                        child: SafeArea(
+                          child: ClipRect(
+                            child: Focus(
+                              autofocus: true,
+                              skipTraversal: true,
+                              onFocusChange: (_) => false,
+                              child: Scaffold(
+                                  appBar: state is DocumentPresentationState ||
+                                          settings.fullScreen
+                                      ? null
+                                      : PadAppBar(
+                                          viewportKey: _viewportKey,
+                                        ),
+                                  drawer: state is DocumentLoadSuccess
+                                      ? const DocumentNavigator(asDrawer: true)
+                                      : null,
+                                  body: Actions(
+                                    actions: _actions,
+                                    child: const _MainBody(),
+                                  )),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                );
-              }),
+                    );
+                  }),
             ),
           );
         },
@@ -385,9 +395,10 @@ class _MainBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
-            previous.toolbarPosition != current.toolbarPosition,
-        builder: (context, state) {
-          final pos = state.toolbarPosition;
+            previous.toolbarPosition != current.toolbarPosition ||
+            previous.fullScreen != current.fullScreen,
+        builder: (context, settings) {
+          final pos = settings.toolbarPosition;
           return LayoutBuilder(builder: (context, constraints) {
             final isMobile = constraints.maxWidth < kMobileWidth;
             final isLarge = constraints.maxWidth > kLargeWidth;
@@ -396,7 +407,8 @@ class _MainBody extends StatelessWidget {
                 : EditToolbar(
                     isMobile: false,
                     centered: true,
-                    direction: pos == ToolbarPosition.bottom
+                    direction: pos == ToolbarPosition.bottom ||
+                            pos == ToolbarPosition.top
                         ? Axis.horizontal
                         : Axis.vertical,
                   );
@@ -410,6 +422,9 @@ class _MainBody extends StatelessWidget {
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
+                            if (settings.fullScreen &&
+                                pos == ToolbarPosition.top)
+                              toolbar,
                             Expanded(
                                 child: Stack(
                               children: [

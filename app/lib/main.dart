@@ -46,7 +46,8 @@ Future<void> main([List<String> args = const []]) async {
   usePathUrlStrategy();
 
   await setup();
-  var prefs = await SharedPreferences.getInstance();
+  final prefs = await SharedPreferences.getInstance();
+  final isFullscreen = await isFullScreen();
   var initialLocation = '/';
   if (args.isNotEmpty && !kIsWeb) {
     var path = args[0].replaceAll('\\', '/');
@@ -97,12 +98,18 @@ Future<void> main([List<String> args = const []]) async {
   final result = argParser.parse(args);
   GeneralFileSystem.dataPath = result['path'];
   runApp(
-    MultiRepositoryProvider(providers: [
-      RepositoryProvider(
-          create: (context) => DocumentFileSystem.fromPlatform()),
-      RepositoryProvider(
-          create: (context) => TemplateFileSystem.fromPlatform()),
-    ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)),
+    MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider(
+              create: (context) => DocumentFileSystem.fromPlatform()),
+          RepositoryProvider(
+              create: (context) => TemplateFileSystem.fromPlatform()),
+        ],
+        child: ButterflyApp(
+          prefs: prefs,
+          initialLocation: initialLocation,
+          isFullScreen: isFullscreen,
+        )),
   );
 }
 
@@ -117,10 +124,12 @@ class ButterflyApp extends StatelessWidget {
   final String initialLocation;
   final String importedLocation;
   final SharedPreferences prefs;
+  final bool isFullScreen;
 
   ButterflyApp(
       {super.key,
       required this.prefs,
+      required this.isFullScreen,
       this.initialLocation = '/',
       this.importedLocation = ''})
       : _router = GoRouter(
@@ -275,7 +284,7 @@ class ButterflyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) => BlocProvider(
-        create: (_) => SettingsCubit.fromPrefs(prefs),
+        create: (_) => SettingsCubit(prefs, isFullScreen),
         child: BlocBuilder<SettingsCubit, ButterflySettings>(
           buildWhen: (previous, current) =>
               previous.nativeTitleBar != current.nativeTitleBar,

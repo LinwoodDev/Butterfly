@@ -62,7 +62,8 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
       constraints: const BoxConstraints(minWidth: 400),
       child: BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
-            previous.zoomEnabled != current.zoomEnabled,
+            previous.zoomEnabled != current.zoomEnabled ||
+            previous.fullScreen != current.fullScreen,
         builder: (context, settings) =>
             BlocBuilder<TransformCubit, CameraTransform>(
           buildWhen: (previous, current) => previous.size != current.size,
@@ -83,7 +84,8 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
               context.read<TransformCubit>().size(value, center);
               currentIndexCubit.bake(state.data, state.page, state.info);
               if (((!_focusNode.hasFocus && widget.isMobile) ||
-                  !settings.zoomEnabled)) {
+                  !settings.zoomEnabled ||
+                  settings.fullScreen)) {
                 _controller.reverse();
               }
             }
@@ -137,7 +139,8 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
             );
 
             if (((!_focusNode.hasFocus && widget.isMobile) ||
-                !settings.zoomEnabled)) {
+                !settings.zoomEnabled ||
+                settings.fullScreen)) {
               _controller.reverse();
             } else {
               if (_controller.status != AnimationStatus.completed) {

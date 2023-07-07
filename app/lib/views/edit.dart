@@ -68,7 +68,8 @@ class _EditToolbarState extends State<EditToolbar> {
           width: widget.direction == Axis.horizontal ? null : 80,
           child: BlocBuilder<SettingsCubit, ButterflySettings>(
               buildWhen: (previous, current) =>
-                  previous.inputConfiguration != current.inputConfiguration,
+                  previous.inputConfiguration != current.inputConfiguration ||
+                  previous.fullScreen != current.fullScreen,
               builder: (context, settings) {
                 final shortcuts = settings.inputConfiguration.getShortcuts();
                 return BlocBuilder<DocumentBloc, DocumentState>(
@@ -99,6 +100,7 @@ class _EditToolbarState extends State<EditToolbar> {
                               child: _buildBody(
                                 state,
                                 currentIndex,
+                                settings,
                                 painters,
                                 shortcuts,
                               ),
@@ -137,6 +139,7 @@ class _EditToolbarState extends State<EditToolbar> {
   ListView _buildBody(
     DocumentLoadSuccess state,
     CurrentIndex currentIndex,
+    ButterflySettings settings,
     List<Painter> painters,
     Set<int> shortcuts,
   ) {
@@ -328,12 +331,21 @@ class _EditToolbarState extends State<EditToolbar> {
             ),
             IconButton(
               icon: const PhosphorIcon(PhosphorIconsLight.wrench),
+              tooltip: AppLocalizations.of(context).tools,
               onPressed: () {
                 final cubit = context.read<CurrentIndexCubit>();
                 final state = cubit.state.cameraViewport.tool.element;
                 cubit.changeSelection(state);
               },
             ),
+            if (settings.fullScreen)
+              IconButton(
+                icon: const PhosphorIcon(PhosphorIconsLight.arrowsIn),
+                tooltip: AppLocalizations.of(context).exitFullScreen,
+                onPressed: () {
+                  context.read<SettingsCubit>().setFullScreen(false);
+                },
+              ),
             BlocBuilder<DocumentBloc, DocumentState>(
               buildWhen: (previous, current) =>
                   previous.pageName != current.pageName ||

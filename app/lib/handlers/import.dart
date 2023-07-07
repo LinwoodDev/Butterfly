@@ -76,9 +76,6 @@ class ImportHandler extends Handler<ImportPainter> {
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
           NoteData document, DocumentPage page, DocumentInfo info,
           [Area? currentArea]) =>
-      _renderers
-          ?.map((e) => e.transform(position: _offset, relative: true))
-          .whereNotNull()
-          .toList() ??
+      _renderers?.map((e) => e.transform(position: _offset) ?? e).toList() ??
       [];
 }

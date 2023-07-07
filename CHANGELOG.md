@@ -2,6 +2,26 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.3 (2023-07-07)
+
+* Add image background ([#419](https://github.com/LinwoodDev/Butterfly/issues/419))
+* Add ability to customize position of the toolbar ([#408](https://github.com/LinwoodDev/Butterfly/issues/408))
+* Add option to rename page
+* Add changing of page after adding a new page
+* Add pages button to the toolbar ([#411](https://github.com/LinwoodDev/Butterfly/issues/411))
+* Add real fullscreen mode ([#421](https://github.com/LinwoodDev/Butterfly/issues/421))
+* Don't ask for name when adding a page (single click) ([#411](https://github.com/LinwoodDev/Butterfly/issues/411))
+* Fix many properties (background, animations, ...) missing when opening a document
+* Fix name check not allowing spaces, - and _
+* Fix zoom enable setting will be ignored
+* Fix setting navigation clears page history
+* Fix elements can't be moved on import ([#423](https://github.com/LinwoodDev/Butterfly/issues/423))
+* Reduce size of title text field
+* Reduce size of window buttons
+* Remove delete painter. Use the delete button in the properties instead or move the painter to the right of the add button
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0
+
 ## 2.0.0-beta.2 (2023-06-30)
 
 * Add label context menu

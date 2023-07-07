@@ -507,5 +507,9 @@
   "sendToBack": "Skicka till baksidan",
   "bringForward": "Ta fram",
   "sendBackward": "Skicka bakåt",
-  "invalidName": "Invalid name"
+  "invalidName": "Ogiltigt namn",
+  "rotation": "Rotation",
+  "onlyAvailableLargerScreen": "Finns endast på större skärmar",
+  "toolbarPosition": "Verktygsfältets position",
+  "rotate": "Rotera"
 }

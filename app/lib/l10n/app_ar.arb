@@ -507,5 +507,9 @@
   "sendToBack": "إرسال إلى الخلف",
   "bringForward": "إحضار للأمام",
   "sendBackward": "إرسال إلى الخلف",
-  "invalidName": "Invalid name"
+  "invalidName": "اسم غير صالح",
+  "rotation": "دوران",
+  "onlyAvailableLargerScreen": "متوفر فقط على شاشات أكبر",
+  "toolbarPosition": "موضع شريط الأدوات",
+  "rotate": "تدوير"
 }

@@ -5,7 +5,7 @@ title: حجج
 
 يمكنك بدء التطبيق بالحجج.
 
-`<Path> butterfly.exe`
+`butterfly.exe <Path>`
 
 المسار هو المسار إلى الملف الذي تريد فتحه.
 

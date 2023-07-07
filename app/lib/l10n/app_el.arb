@@ -507,5 +507,9 @@
   "sendToBack": "Αποστολή πίσω",
   "bringForward": "Φέρτε μπροστά",
   "sendBackward": "Αποστολή πίσω",
-  "invalidName": "Invalid name"
+  "invalidName": "Μη έγκυρο όνομα",
+  "rotation": "Περιστροφή",
+  "onlyAvailableLargerScreen": "Διαθέσιμο μόνο σε μεγαλύτερες οθόνες",
+  "toolbarPosition": "Θέση γραμμής εργαλείων",
+  "rotate": "Περιστροφή"
 }

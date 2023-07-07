@@ -8,7 +8,6 @@ import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/views/zoom.dart';
 import 'package:butterfly/visualizer/asset.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +21,6 @@ import '../actions/new.dart';
 import '../actions/packs.dart';
 import '../actions/pdf_export.dart';
 import '../actions/save.dart';
-import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/settings.dart';
 import '../dialogs/search.dart';
@@ -243,17 +241,19 @@ class _AppBarTitle extends StatelessWidget {
                   child: BlocBuilder<SettingsCubit, ButterflySettings>(
                 buildWhen: (previous, current) =>
                     previous.toolbarPosition != current.toolbarPosition,
-                builder: (context, state) =>
-                    state.toolbarPosition == ToolbarPosition.top
-                        ? const EditToolbar(
-                            isMobile: false,
-                          )
-                        : Align(
+                builder: (context, settings) => settings.toolbarPosition ==
+                        ToolbarPosition.top
+                    ? const EditToolbar(
+                        isMobile: false,
+                      )
+                    : settings.zoomEnabled
+                        ? Align(
                             child: ConstrainedBox(
                               constraints: const BoxConstraints(maxWidth: 500),
                               child: const ZoomView(floating: false),
                             ),
-                          ),
+                          )
+                        : const SizedBox.shrink(),
               )),
           ]),
         );
@@ -396,15 +396,20 @@ class _MainPopupMenu extends StatelessWidget {
               child: Text(AppLocalizations.of(context).settings),
             ),
           ],
-          if (state.embedding == null && (kIsWeb || !isWindow)) ...[
-            MenuItemButton(
-              leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsOut),
-              shortcut: const SingleActivator(LogicalKeyboardKey.f11),
-              onPressed: () async {
-                setFullScreen(!(await isFullScreen()));
-              },
-              child: Text(AppLocalizations.of(context).fullScreen),
-            ),
+          if (state.embedding == null) ...[
+            BlocBuilder<SettingsCubit, ButterflySettings>(
+                buildWhen: (previous, current) =>
+                    previous.fullScreen != current.fullScreen,
+                builder: (context, settings) => MenuItemButton(
+                      leadingIcon: settings.fullScreen
+                          ? const PhosphorIcon(PhosphorIconsLight.arrowsIn)
+                          : const PhosphorIcon(PhosphorIconsLight.arrowsOut),
+                      shortcut: const SingleActivator(LogicalKeyboardKey.f11),
+                      onPressed: () async {
+                        context.read<SettingsCubit>().toggleFullScreen();
+                      },
+                      child: Text(AppLocalizations.of(context).fullScreen),
+                    )),
           ],
           if (state.embedding != null) ...[
             MenuItemButton(

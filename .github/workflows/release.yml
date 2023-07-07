@@ -206,6 +206,12 @@ jobs:
           git config --global user.email "ci@linwood.dev"
           git config --global user.name "Linwood CI"
       - name: Get flutter version
+        if: ${{ github.ref == 'refs/heads/develop' }}
+        run: |
+          FLUTTER_VERSION=$(cat app/FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
+      - name: Get flutter version
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           FLUTTER_VERSION=$(cat FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV

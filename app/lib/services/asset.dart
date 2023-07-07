@@ -25,4 +25,8 @@ class AssetService {
     _images[path] = image;
     return image.clone();
   }
+
+  void removeImage(String path) {
+    _images.remove(path)?.dispose();
+  }
 }

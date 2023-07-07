@@ -88,7 +88,7 @@ class WindowButtons extends StatefulWidget {
 }
 
 class _WindowButtonsState extends State<WindowButtons> with WindowListener {
-  bool maximized = false, alwaysOnTop = false, fullScreen = false;
+  bool maximized = false, alwaysOnTop = false;
 
   @override
   void initState() {
@@ -108,12 +108,10 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
   Future<void> updateStates() async {
     final nextMaximized = await windowManager.isMaximized();
     final nextAlwaysOnTop = await windowManager.isAlwaysOnTop();
-    final nextFullScreen = await windowManager.isFullScreen();
     if (mounted) {
       setState(() {
         maximized = nextMaximized;
         alwaysOnTop = nextAlwaysOnTop;
-        fullScreen = nextFullScreen;
       });
     }
   }
@@ -125,17 +123,19 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
   void onWindowMaximize() => setState(() => maximized = true);
 
   @override
-  void onWindowEnterFullScreen() => setState(() => fullScreen = true);
+  void onWindowEnterFullScreen() =>
+      context.read<SettingsCubit>().setFullScreen(true);
 
   @override
-  void onWindowLeaveFullScreen() => setState(() => fullScreen = false);
+  void onWindowLeaveFullScreen() =>
+      context.read<SettingsCubit>().setFullScreen(false);
 
-  @override
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
-            previous.nativeTitleBar != current.nativeTitleBar,
+            previous.nativeTitleBar != current.nativeTitleBar ||
+            previous.fullScreen != current.fullScreen,
         builder: (context, settings) {
           if (!kIsWeb && isWindow && !settings.nativeTitleBar) {
             return LayoutBuilder(
@@ -151,7 +151,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                         Builder(builder: (context) {
                           return Row(
                             children: [
-                              if (!fullScreen) ...[
+                              if (!settings.fullScreen) ...[
                                 IconButton(
                                   icon: const PhosphorIcon(
                                       PhosphorIconsLight.minus),
@@ -205,19 +205,19 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                                       },
                                     ),
                                     MenuItemButton(
-                                      leadingIcon: PhosphorIcon(fullScreen
-                                          ? PhosphorIconsLight.arrowsIn
-                                          : PhosphorIconsLight.arrowsOut),
-                                      child: Text(fullScreen
+                                      leadingIcon: PhosphorIcon(
+                                          settings.fullScreen
+                                              ? PhosphorIconsLight.arrowsIn
+                                              : PhosphorIconsLight.arrowsOut),
+                                      child: Text(settings.fullScreen
                                           ? AppLocalizations.of(context)
                                               .exitFullScreen
                                           : AppLocalizations.of(context)
                                               .enterFullScreen),
                                       onPressed: () async {
-                                        setState(
-                                            () => fullScreen = !fullScreen);
-                                        await windowManager
-                                            .setFullScreen(fullScreen);
+                                        context
+                                            .read<SettingsCubit>()
+                                            .toggleFullScreen();
                                       },
                                     ),
                                   ],

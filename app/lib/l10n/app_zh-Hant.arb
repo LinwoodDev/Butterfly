@@ -227,9 +227,9 @@
   "includeArea": "包含分區",
   "verticalAlignment": "垂直對齊",
   "horizontalAlignment": "水平對齊",
-  "top": "Top",
-  "center": "Center",
-  "bottom": "Bottom",
+  "top": "上",
+  "center": "中",
+  "bottom": "下",
   "left": "左",
   "right": "右",
   "justify": "左右對齊",
@@ -326,7 +326,7 @@
   "keepLocal": "保留在本機",
   "keepConnection": "保持連線",
   "keepBoth": "兩者皆保留",
-  "forAll": "For all",
+  "forAll": "都保留",
   "fileConflict": "「{connection}」中的「{file}」有衝突",
   "@fileConflict": {
     "placeholders": {
@@ -507,5 +507,9 @@
   "sendToBack": "推至底層",
   "bringForward": "上提一層",
   "sendBackward": "下推一層",
-  "invalidName": "名稱無效"
+  "invalidName": "名稱無效",
+  "rotation": "Rotation",
+  "onlyAvailableLargerScreen": "Only available on larger screens",
+  "toolbarPosition": "Toolbar position",
+  "rotate": "Rotate"
 }

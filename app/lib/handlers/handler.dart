@@ -209,6 +209,8 @@ abstract class Handler<T> {
   void dispose(DocumentBloc bloc) {}
 
   Map<Type, Action<Intent>> getActions(BuildContext context) => {};
+
+  MouseCursor? getCursor(DocumentBloc bloc) => null;
 }
 
 mixin HandlerWithCursor<T> on Handler<T> {
