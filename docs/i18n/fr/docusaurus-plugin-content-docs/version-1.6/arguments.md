@@ -5,7 +5,7 @@ title: Arguments
 
 Vous pouvez démarrer l'application avec des arguments.
 
-`paptterfly.exe <Path>`
+`butterfly.exe <Path>`
 
 Le chemin d'accès est le chemin vers le fichier que vous voulez ouvrir.
 

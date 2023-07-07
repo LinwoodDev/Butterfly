@@ -507,5 +507,9 @@
   "sendToBack": "Отправить на задний план",
   "bringForward": "Перенос вперед",
   "sendBackward": "Отправить назад",
-  "invalidName": "Invalid name"
+  "invalidName": "Неверное имя",
+  "rotation": "Поворот",
+  "onlyAvailableLargerScreen": "Доступно только на больших экранах",
+  "toolbarPosition": "Положение панели инструментов",
+  "rotate": "Повернуть"
 }

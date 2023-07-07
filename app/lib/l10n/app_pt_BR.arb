@@ -507,5 +507,9 @@
   "sendToBack": "Enviar para trás",
   "bringForward": "Trazer para frente",
   "sendBackward": "Enviar para trás",
-  "invalidName": "Invalid name"
+  "invalidName": "Nome inválido",
+  "rotation": "Rotação",
+  "onlyAvailableLargerScreen": "Disponível apenas em telas maiores",
+  "toolbarPosition": "Posição da barra",
+  "rotate": "Rotacionar"
 }
