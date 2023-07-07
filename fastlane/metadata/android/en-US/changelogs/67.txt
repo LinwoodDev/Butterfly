@@ -1,3 +1,4 @@
+* Add image background ([#419](https://github.com/LinwoodDev/Butterfly/issues/419))
 * Add ability to customize position of the toolbar ([#408](https://github.com/LinwoodDev/Butterfly/issues/408))
 * Add option to rename page
 * Add changing of page after adding a new page
