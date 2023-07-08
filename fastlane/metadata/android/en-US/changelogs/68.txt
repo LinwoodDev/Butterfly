@@ -2,5 +2,6 @@
 * Add spacer painter ([#424](https://github.com/LinwoodDev/Butterfly/issues/424))
 * Add full screen painter ([#432](https://github.com/LinwoodDev/Butterfly/issues/432))
 * Add move by dragging selection, add rotate button ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
-* Fix window does not open with start in fullscreen mode enabled ([#430](https://github.com/LinwoodDev/Butterfly/issues/430))
 * Recode hand tool to allow realtime transformation
+* Fix window does not open with start in fullscreen mode enabled ([#430](https://github.com/LinwoodDev/Butterfly/issues/430))
+* Fix resizing with multiple elements ([#434](https://github.com/LinwoodDev/Butterfly/issues/434))

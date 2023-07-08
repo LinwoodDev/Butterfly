@@ -268,17 +268,17 @@ class _EditToolbarState extends State<EditToolbar> {
                         PainterStatus.disabled
                     ? Theme.of(context).disabledColor
                     : null;
-                var icon =
-                    handler.getIcon(bloc) ?? e.icon(PhosphorIconsStyle.light);
+                var icon = handler.getIcon(bloc) ??
+                    e.icon(selected
+                        ? PhosphorIconsStyle.fill
+                        : PhosphorIconsStyle.light);
                 final toolWidget = Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: OptionButton(
                         tooltip: tooltip,
-                        onLongPressed: () {
-                          context
-                              .read<CurrentIndexCubit>()
-                              .insertSelection(e, true);
-                        },
+                        onLongPressed: () => context
+                            .read<CurrentIndexCubit>()
+                            .insertSelection(e, true),
                         focussed: shortcuts.contains(i),
                         selected: selected,
                         highlighted: highlighted,
