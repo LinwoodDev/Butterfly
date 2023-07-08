@@ -75,4 +75,7 @@ class EraserHandler extends Handler<EraserPainter> {
     _changeElement(event.localPosition, context);
     context.addDocumentEvent(ElementsChanged(_elements));
   }
+
+  @override
+  MouseCursor get cursor => SystemMouseCursors.precise;
 }

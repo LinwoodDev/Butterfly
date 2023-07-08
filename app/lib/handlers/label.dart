@@ -676,4 +676,7 @@ class LabelHandler extends Handler<LabelPainter>
     _bloc?.refresh();
     if (_bloc != null) _refreshToolbar(_bloc!);
   }
+
+  @override
+  MouseCursor get cursor => SystemMouseCursors.text;
 }

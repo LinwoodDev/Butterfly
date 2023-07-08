@@ -78,4 +78,7 @@ class ImportHandler extends Handler<ImportPainter> {
           [Area? currentArea]) =>
       _renderers?.map((e) => e.transform(position: _offset) ?? e).toList() ??
       [];
+
+  @override
+  MouseCursor get cursor => SystemMouseCursors.grabbing;
 }

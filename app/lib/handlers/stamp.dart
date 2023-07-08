@@ -91,4 +91,7 @@ class StampHandler extends Handler<StampPainter> {
   void onPointerUp(PointerUpEvent event, EventContext context) {
     _stamp(context);
   }
+
+  @override
+  MouseCursor get cursor => SystemMouseCursors.click;
 }

@@ -128,6 +128,7 @@ class HandHandler extends Handler<HandPainter> {
   Rect? _freeSelection;
   double _rotation = 0;
   Offset? _currentRotationTransform;
+  Offset? _currentMousePosition;
 
   HandHandler(super.data);
 
@@ -596,8 +597,10 @@ class HandHandler extends Handler<HandPainter> {
     final bloc = context.getDocumentBloc();
     final globalPos =
         context.getCameraTransform().localToGlobal(event.localPosition);
-    _setMove(bloc, globalPos);
-    _setRotation(bloc, globalPos);
+    _setMove(bloc, globalPos, false);
+    _setRotation(bloc, globalPos, false);
+    _currentMousePosition = globalPos;
+    context.refresh();
   }
 
   @override
@@ -611,6 +614,22 @@ class HandHandler extends Handler<HandPainter> {
   MouseCursor? get cursor {
     if (_currentMovePosition != null) return SystemMouseCursors.move;
     if (_currentRotationTransform != null) return SystemMouseCursors.grab;
-    return null;
+    if (_currentMousePosition == null) return null;
+    final corner = _getCornerHit(_currentMousePosition!);
+    return switch (corner) {
+      HandTransformCorner.bottomCenter ||
+      HandTransformCorner.topCenter =>
+        SystemMouseCursors.resizeUpDown,
+      HandTransformCorner.centerLeft ||
+      HandTransformCorner.centerRight =>
+        SystemMouseCursors.resizeLeftRight,
+      HandTransformCorner.topLeft ||
+      HandTransformCorner.bottomRight =>
+        SystemMouseCursors.resizeUpLeftDownRight,
+      HandTransformCorner.topRight ||
+      HandTransformCorner.bottomLeft =>
+        SystemMouseCursors.resizeUpRightDownLeft,
+      _ => null,
+    };
   }
 }
