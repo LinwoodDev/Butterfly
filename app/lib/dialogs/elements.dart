@@ -36,7 +36,8 @@ class ElementsDialog extends StatelessWidget {
                       renderers
                           .map((e) => Renderer.fromInstance(e.element))
                           .toList(),
-                      null);
+                      null,
+                      true);
             },
             child: Text(AppLocalizations.of(context).duplicate),
           ),
