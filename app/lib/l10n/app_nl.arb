@@ -511,5 +511,6 @@
   "rotation": "Rotatie",
   "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
   "toolbarPosition": "Werkbalk positie",
-  "rotate": "Draaien"
+  "rotate": "Draaien",
+  "spacer": "Spacer"
 }
