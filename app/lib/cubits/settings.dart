@@ -677,9 +677,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     emit(state.copyWith(navigatorTab: index));
   }
 
-  void setFullScreen(bool value) {
+  void setFullScreen(bool value, [bool modify = true]) {
+    if (value != state.fullScreen && modify) {
+      full_screen_api.setFullScreen(value);
+    }
     emit(state.copyWith(fullScreen: value));
-    full_screen_api.setFullScreen(value);
   }
 
   void toggleFullScreen() => setFullScreen(!state.fullScreen);

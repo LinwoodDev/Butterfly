@@ -1,3 +1,4 @@
 * Add custom mouse cursors for painters ([#426](https://github.com/LinwoodDev/Butterfly/issues/426))
 * Add spacer painter ([#424](https://github.com/LinwoodDev/Butterfly/issues/424))
-* Add move by dragging selection ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
+* Add move by dragging selection, add rotate button ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
+* Fix window does not open with start in fullscreen mode enabled ([#430](https://github.com/LinwoodDev/Butterfly/issues/430))

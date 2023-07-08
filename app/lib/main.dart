@@ -284,7 +284,11 @@ class ButterflyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) => BlocProvider(
-        create: (_) => SettingsCubit(prefs, isFullScreen),
+        create: (_) {
+          final cubit = SettingsCubit(prefs, isFullScreen);
+          cubit.setFullScreen(cubit.state.startInFullScreen);
+          return cubit;
+        },
         child: BlocBuilder<SettingsCubit, ButterflySettings>(
           buildWhen: (previous, current) =>
               previous.nativeTitleBar != current.nativeTitleBar,
@@ -294,11 +298,8 @@ class ButterflyApp extends StatelessWidget {
                 await windowManager.setTitleBarStyle(settings.nativeTitleBar
                     ? TitleBarStyle.normal
                     : TitleBarStyle.hidden);
-                await windowManager.setFullScreen(settings.startInFullScreen);
                 windowManager.show();
               });
-            } else {
-              setFullScreen(settings.startInFullScreen);
             }
             return RepositoryProvider(
               create: (context) =>
