@@ -511,5 +511,6 @@
   "rotation": "Rotation",
   "onlyAvailableLargerScreen": "Finns endast på större skärmar",
   "toolbarPosition": "Verktygsfältets position",
-  "rotate": "Rotera"
+  "rotate": "Rotera",
+  "spacer": "Spacer"
 }
