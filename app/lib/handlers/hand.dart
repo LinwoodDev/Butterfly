@@ -606,4 +606,11 @@ class HandHandler extends Handler<HandPainter> {
       submitTransformation(context.getDocumentBloc());
     }
   }
+
+  @override
+  MouseCursor? get cursor {
+    if (_currentMovePosition != null) return SystemMouseCursors.move;
+    if (_currentRotationTransform != null) return SystemMouseCursors.grab;
+    return null;
+  }
 }

@@ -210,7 +210,7 @@ abstract class Handler<T> {
 
   Map<Type, Action<Intent>> getActions(BuildContext context) => {};
 
-  MouseCursor? getCursor(DocumentBloc bloc) => null;
+  MouseCursor? get cursor => null;
 }
 
 mixin HandlerWithCursor<T> on Handler<T> {

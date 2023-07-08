@@ -106,7 +106,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       emit(state.copyWith(
         index: index,
         handler: handler,
-        cursor: handler.getCursor(bloc) ?? MouseCursor.defer,
+        cursor: handler.cursor ?? MouseCursor.defer,
         foregrounds: handler.createForegrounds(
             this, document, blocState.page, info, blocState.currentArea),
         toolbar: handler.getToolbar(bloc),
@@ -136,7 +136,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       handler: handler,
       foregrounds: foregrounds,
       toolbar: handler.getToolbar(bloc),
-      cursor: handler.getCursor(bloc) ?? MouseCursor.defer,
+      cursor: handler.cursor ?? MouseCursor.defer,
     ));
   }
 
@@ -155,7 +155,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       temporaryHandler: handler,
       temporaryForegrounds: temporaryForegrounds,
       temporaryToolbar: handler.getToolbar(bloc),
-      temporaryCursor: handler.getCursor(bloc),
+      temporaryCursor: handler.cursor,
     ));
   }
 
@@ -198,6 +198,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       emit(state.copyWith(
         temporaryForegrounds: temporaryForegrounds,
         foregrounds: foregrounds,
+        cursor: state.handler.cursor ?? MouseCursor.defer,
+        temporaryCursor: state.temporaryHandler?.cursor,
       ));
     }
   }
@@ -291,7 +293,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         temporaryHandler: handler,
         temporaryForegrounds: temporaryForegrounds,
         temporaryToolbar: handler.getToolbar(bloc),
-        temporaryCursor: handler.getCursor(bloc),
+        temporaryCursor: handler.cursor,
       ));
     }
     return handler;
