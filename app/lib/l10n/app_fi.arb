@@ -511,5 +511,6 @@
   "rotation": "Kierto",
   "onlyAvailableLargerScreen": "Saatavilla vain suuremmilla näytöillä",
   "toolbarPosition": "Työkalupalkin sijainti",
-  "rotate": "Kierrä"
+  "rotate": "Kierrä",
+  "spacer": "Spacer"
 }
