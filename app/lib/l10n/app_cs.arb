@@ -511,5 +511,6 @@
   "rotation": "Otáčení",
   "onlyAvailableLargerScreen": "Dostupné pouze na větších obrazovkách",
   "toolbarPosition": "Pozice panelu nástrojů",
-  "rotate": "Otočit"
+  "rotate": "Otočit",
+  "spacer": "Spacer"
 }
