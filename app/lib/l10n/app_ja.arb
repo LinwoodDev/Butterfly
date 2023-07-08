@@ -511,5 +511,6 @@
   "rotation": "回転",
   "onlyAvailableLargerScreen": "より大きな画面でのみ利用可能",
   "toolbarPosition": "ツールバーの位置",
-  "rotate": "回転"
+  "rotate": "回転",
+  "spacer": "Spacer"
 }
