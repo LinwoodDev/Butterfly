@@ -238,6 +238,7 @@ class AddDialog extends StatelessWidget {
                 children: [
                   Painter.undo,
                   Painter.redo,
+                  Painter.fullSceen,
                 ].map(buildPainter).toList(),
               ),
             ],

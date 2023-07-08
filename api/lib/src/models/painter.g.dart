@@ -255,3 +255,15 @@ const _$Axis2DEnumMap = {
   Axis2D.horizontal: 'horizontal',
   Axis2D.vertical: 'vertical',
 };
+
+_$FullScreenPainter _$$FullScreenPainterFromJson(Map json) =>
+    _$FullScreenPainter(
+      name: json['name'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$FullScreenPainterToJson(_$FullScreenPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': instance.$type,
+    };

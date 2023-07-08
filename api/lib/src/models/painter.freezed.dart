@@ -46,6 +46,8 @@ Painter _$PainterFromJson(Map<String, dynamic> json) {
       return PresentationPainter.fromJson(json);
     case 'spacer':
       return SpacerPainter.fromJson(json);
+    case 'fullSceen':
+      return FullScreenPainter.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -94,6 +96,7 @@ mixin _$Painter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -132,6 +135,7 @@ mixin _$Painter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -170,6 +174,7 @@ mixin _$Painter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -190,6 +195,7 @@ mixin _$Painter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -209,6 +215,7 @@ mixin _$Painter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -228,6 +235,7 @@ mixin _$Painter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -366,6 +374,7 @@ class _$HandPainter implements HandPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return hand(name);
   }
@@ -407,6 +416,7 @@ class _$HandPainter implements HandPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return hand?.call(name);
   }
@@ -448,6 +458,7 @@ class _$HandPainter implements HandPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -474,6 +485,7 @@ class _$HandPainter implements HandPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return hand(this);
   }
@@ -496,6 +508,7 @@ class _$HandPainter implements HandPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return hand?.call(this);
   }
@@ -518,6 +531,7 @@ class _$HandPainter implements HandPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -678,6 +692,7 @@ class _$ImportPainter implements ImportPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return import(name, elements, areas);
   }
@@ -719,6 +734,7 @@ class _$ImportPainter implements ImportPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return import?.call(name, elements, areas);
   }
@@ -760,6 +776,7 @@ class _$ImportPainter implements ImportPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (import != null) {
@@ -786,6 +803,7 @@ class _$ImportPainter implements ImportPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return import(this);
   }
@@ -808,6 +826,7 @@ class _$ImportPainter implements ImportPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return import?.call(this);
   }
@@ -830,6 +849,7 @@ class _$ImportPainter implements ImportPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (import != null) {
@@ -963,6 +983,7 @@ class _$UndoPainter implements UndoPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return undo(name);
   }
@@ -1004,6 +1025,7 @@ class _$UndoPainter implements UndoPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return undo?.call(name);
   }
@@ -1045,6 +1067,7 @@ class _$UndoPainter implements UndoPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -1071,6 +1094,7 @@ class _$UndoPainter implements UndoPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return undo(this);
   }
@@ -1093,6 +1117,7 @@ class _$UndoPainter implements UndoPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return undo?.call(this);
   }
@@ -1115,6 +1140,7 @@ class _$UndoPainter implements UndoPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -1243,6 +1269,7 @@ class _$RedoPainter implements RedoPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return redo(name);
   }
@@ -1284,6 +1311,7 @@ class _$RedoPainter implements RedoPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return redo?.call(name);
   }
@@ -1325,6 +1353,7 @@ class _$RedoPainter implements RedoPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -1351,6 +1380,7 @@ class _$RedoPainter implements RedoPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return redo(this);
   }
@@ -1373,6 +1403,7 @@ class _$RedoPainter implements RedoPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return redo?.call(this);
   }
@@ -1395,6 +1426,7 @@ class _$RedoPainter implements RedoPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -1576,6 +1608,7 @@ class _$LabelPainter implements LabelPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return label(name, mode, zoomDependent, foreground, styleSheet);
   }
@@ -1617,6 +1650,7 @@ class _$LabelPainter implements LabelPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return label?.call(name, mode, zoomDependent, foreground, styleSheet);
   }
@@ -1658,6 +1692,7 @@ class _$LabelPainter implements LabelPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -1684,6 +1719,7 @@ class _$LabelPainter implements LabelPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return label(this);
   }
@@ -1706,6 +1742,7 @@ class _$LabelPainter implements LabelPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return label?.call(this);
   }
@@ -1728,6 +1765,7 @@ class _$LabelPainter implements LabelPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -1885,6 +1923,7 @@ class _$PenPainter implements PenPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return pen(name, zoomDependent, property);
   }
@@ -1926,6 +1965,7 @@ class _$PenPainter implements PenPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return pen?.call(name, zoomDependent, property);
   }
@@ -1967,6 +2007,7 @@ class _$PenPainter implements PenPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -1993,6 +2034,7 @@ class _$PenPainter implements PenPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return pen(this);
   }
@@ -2015,6 +2057,7 @@ class _$PenPainter implements PenPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return pen?.call(this);
   }
@@ -2037,6 +2080,7 @@ class _$PenPainter implements PenPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -2179,6 +2223,7 @@ class _$EraserPainter implements EraserPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return eraser(name, strokeWidth);
   }
@@ -2220,6 +2265,7 @@ class _$EraserPainter implements EraserPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return eraser?.call(name, strokeWidth);
   }
@@ -2261,6 +2307,7 @@ class _$EraserPainter implements EraserPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (eraser != null) {
@@ -2287,6 +2334,7 @@ class _$EraserPainter implements EraserPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return eraser(this);
   }
@@ -2309,6 +2357,7 @@ class _$EraserPainter implements EraserPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return eraser?.call(this);
   }
@@ -2331,6 +2380,7 @@ class _$EraserPainter implements EraserPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (eraser != null) {
@@ -2471,6 +2521,7 @@ class _$PathEraserPainter implements PathEraserPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return pathEraser(name, strokeWidth);
   }
@@ -2512,6 +2563,7 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return pathEraser?.call(name, strokeWidth);
   }
@@ -2553,6 +2605,7 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (pathEraser != null) {
@@ -2579,6 +2632,7 @@ class _$PathEraserPainter implements PathEraserPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return pathEraser(this);
   }
@@ -2601,6 +2655,7 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return pathEraser?.call(this);
   }
@@ -2623,6 +2678,7 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (pathEraser != null) {
@@ -2761,6 +2817,7 @@ class _$LayerPainter implements LayerPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return layer(name, strokeWidth);
   }
@@ -2802,6 +2859,7 @@ class _$LayerPainter implements LayerPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return layer?.call(name, strokeWidth);
   }
@@ -2843,6 +2901,7 @@ class _$LayerPainter implements LayerPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (layer != null) {
@@ -2869,6 +2928,7 @@ class _$LayerPainter implements LayerPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return layer(this);
   }
@@ -2891,6 +2951,7 @@ class _$LayerPainter implements LayerPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return layer?.call(this);
   }
@@ -2913,6 +2974,7 @@ class _$LayerPainter implements LayerPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (layer != null) {
@@ -3086,6 +3148,7 @@ class _$AreaPainter implements AreaPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return area(name, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, askForName);
@@ -3128,6 +3191,7 @@ class _$AreaPainter implements AreaPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return area?.call(name, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, askForName);
@@ -3170,6 +3234,7 @@ class _$AreaPainter implements AreaPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (area != null) {
@@ -3197,6 +3262,7 @@ class _$AreaPainter implements AreaPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return area(this);
   }
@@ -3219,6 +3285,7 @@ class _$AreaPainter implements AreaPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return area?.call(this);
   }
@@ -3241,6 +3308,7 @@ class _$AreaPainter implements AreaPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (area != null) {
@@ -3421,6 +3489,7 @@ class _$LaserPainter implements LaserPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return laser(name, duration, strokeWidth, thinning, color);
   }
@@ -3462,6 +3531,7 @@ class _$LaserPainter implements LaserPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return laser?.call(name, duration, strokeWidth, thinning, color);
   }
@@ -3503,6 +3573,7 @@ class _$LaserPainter implements LaserPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (laser != null) {
@@ -3529,6 +3600,7 @@ class _$LaserPainter implements LaserPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return laser(this);
   }
@@ -3551,6 +3623,7 @@ class _$LaserPainter implements LaserPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return laser?.call(this);
   }
@@ -3573,6 +3646,7 @@ class _$LaserPainter implements LaserPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (laser != null) {
@@ -3763,6 +3837,7 @@ class _$ShapePainter implements ShapePainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return shape(name, zoomDependent, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, property);
@@ -3805,6 +3880,7 @@ class _$ShapePainter implements ShapePainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return shape?.call(name, zoomDependent, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, property);
@@ -3847,6 +3923,7 @@ class _$ShapePainter implements ShapePainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -3874,6 +3951,7 @@ class _$ShapePainter implements ShapePainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return shape(this);
   }
@@ -3896,6 +3974,7 @@ class _$ShapePainter implements ShapePainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return shape?.call(this);
   }
@@ -3918,6 +3997,7 @@ class _$ShapePainter implements ShapePainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -4078,6 +4158,7 @@ class _$StampPainter implements StampPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return stamp(name, component);
   }
@@ -4119,6 +4200,7 @@ class _$StampPainter implements StampPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return stamp?.call(name, component);
   }
@@ -4160,6 +4242,7 @@ class _$StampPainter implements StampPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (stamp != null) {
@@ -4186,6 +4269,7 @@ class _$StampPainter implements StampPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return stamp(this);
   }
@@ -4208,6 +4292,7 @@ class _$StampPainter implements StampPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return stamp?.call(this);
   }
@@ -4230,6 +4315,7 @@ class _$StampPainter implements StampPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (stamp != null) {
@@ -4362,6 +4448,7 @@ class _$PresentationPainter implements PresentationPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return presentation(name);
   }
@@ -4403,6 +4490,7 @@ class _$PresentationPainter implements PresentationPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return presentation?.call(name);
   }
@@ -4444,6 +4532,7 @@ class _$PresentationPainter implements PresentationPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (presentation != null) {
@@ -4470,6 +4559,7 @@ class _$PresentationPainter implements PresentationPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return presentation(this);
   }
@@ -4492,6 +4582,7 @@ class _$PresentationPainter implements PresentationPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return presentation?.call(this);
   }
@@ -4514,6 +4605,7 @@ class _$PresentationPainter implements PresentationPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (presentation != null) {
@@ -4652,6 +4744,7 @@ class _$SpacerPainter implements SpacerPainter {
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
     required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
   }) {
     return spacer(name, axis);
   }
@@ -4693,6 +4786,7 @@ class _$SpacerPainter implements SpacerPainter {
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
     TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
   }) {
     return spacer?.call(name, axis);
   }
@@ -4734,6 +4828,7 @@ class _$SpacerPainter implements SpacerPainter {
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
     TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
     required TResult orElse(),
   }) {
     if (spacer != null) {
@@ -4760,6 +4855,7 @@ class _$SpacerPainter implements SpacerPainter {
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
     required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
   }) {
     return spacer(this);
   }
@@ -4782,6 +4878,7 @@ class _$SpacerPainter implements SpacerPainter {
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
     TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
   }) {
     return spacer?.call(this);
   }
@@ -4804,6 +4901,7 @@ class _$SpacerPainter implements SpacerPainter {
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
     TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
     required TResult orElse(),
   }) {
     if (spacer != null) {
@@ -4833,5 +4931,292 @@ abstract class SpacerPainter implements Painter {
   @override
   @JsonKey(ignore: true)
   _$$SpacerPainterCopyWith<_$SpacerPainter> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FullScreenPainterCopyWith<$Res>
+    implements $PainterCopyWith<$Res> {
+  factory _$$FullScreenPainterCopyWith(
+          _$FullScreenPainter value, $Res Function(_$FullScreenPainter) then) =
+      __$$FullScreenPainterCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name});
+}
+
+/// @nodoc
+class __$$FullScreenPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$FullScreenPainter>
+    implements _$$FullScreenPainterCopyWith<$Res> {
+  __$$FullScreenPainterCopyWithImpl(
+      _$FullScreenPainter _value, $Res Function(_$FullScreenPainter) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+  }) {
+    return _then(_$FullScreenPainter(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$FullScreenPainter implements FullScreenPainter {
+  _$FullScreenPainter({this.name = '', final String? $type})
+      : $type = $type ?? 'fullSceen';
+
+  factory _$FullScreenPainter.fromJson(Map<String, dynamic> json) =>
+      _$$FullScreenPainterFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Painter.fullSceen(name: $name)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FullScreenPainterCopyWith<_$FullScreenPainter> get copyWith =>
+      __$$FullScreenPainterCopyWithImpl<_$FullScreenPainter>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name) hand,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
+    required TResult Function(String name) undo,
+    required TResult Function(String name) redo,
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
+        label,
+    required TResult Function(
+            String name, bool zoomDependent, PenProperty property)
+        pen,
+    required TResult Function(String name, double strokeWidth) eraser,
+    required TResult Function(String name, double strokeWidth) pathEraser,
+    required TResult Function(String name, double strokeWidth) layer,
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
+        area,
+    required TResult Function(String name, double duration, double strokeWidth,
+            double thinning, int color)
+        laser,
+    required TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
+        shape,
+    required TResult Function(String name, PackAssetLocation component) stamp,
+    required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+  }) {
+    return fullSceen(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name)? hand,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
+        pen,
+    TResult? Function(String name, double strokeWidth)? eraser,
+    TResult? Function(String name, double strokeWidth)? pathEraser,
+    TResult? Function(String name, double strokeWidth)? layer,
+    TResult? Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult? Function(String name, double duration, double strokeWidth,
+            double thinning, int color)?
+        laser,
+    TResult? Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
+    TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+  }) {
+    return fullSceen?.call(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name)? hand,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult Function(String name)? undo,
+    TResult Function(String name)? redo,
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult Function(String name, bool zoomDependent, PenProperty property)?
+        pen,
+    TResult Function(String name, double strokeWidth)? eraser,
+    TResult Function(String name, double strokeWidth)? pathEraser,
+    TResult Function(String name, double strokeWidth)? layer,
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult Function(String name, double duration, double strokeWidth,
+            double thinning, int color)?
+        laser,
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult Function(String name, PackAssetLocation component)? stamp,
+    TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    required TResult orElse(),
+  }) {
+    if (fullSceen != null) {
+      return fullSceen(name);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(HandPainter value) hand,
+    required TResult Function(ImportPainter value) import,
+    required TResult Function(UndoPainter value) undo,
+    required TResult Function(RedoPainter value) redo,
+    required TResult Function(LabelPainter value) label,
+    required TResult Function(PenPainter value) pen,
+    required TResult Function(EraserPainter value) eraser,
+    required TResult Function(PathEraserPainter value) pathEraser,
+    required TResult Function(LayerPainter value) layer,
+    required TResult Function(AreaPainter value) area,
+    required TResult Function(LaserPainter value) laser,
+    required TResult Function(ShapePainter value) shape,
+    required TResult Function(StampPainter value) stamp,
+    required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+  }) {
+    return fullSceen(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(ImportPainter value)? import,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
+    TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+  }) {
+    return fullSceen?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(HandPainter value)? hand,
+    TResult Function(ImportPainter value)? import,
+    TResult Function(UndoPainter value)? undo,
+    TResult Function(RedoPainter value)? redo,
+    TResult Function(LabelPainter value)? label,
+    TResult Function(PenPainter value)? pen,
+    TResult Function(EraserPainter value)? eraser,
+    TResult Function(PathEraserPainter value)? pathEraser,
+    TResult Function(LayerPainter value)? layer,
+    TResult Function(AreaPainter value)? area,
+    TResult Function(LaserPainter value)? laser,
+    TResult Function(ShapePainter value)? shape,
+    TResult Function(StampPainter value)? stamp,
+    TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    required TResult orElse(),
+  }) {
+    if (fullSceen != null) {
+      return fullSceen(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$FullScreenPainterToJson(
+      this,
+    );
+  }
+}
+
+abstract class FullScreenPainter implements Painter {
+  factory FullScreenPainter({final String name}) = _$FullScreenPainter;
+
+  factory FullScreenPainter.fromJson(Map<String, dynamic> json) =
+      _$FullScreenPainter.fromJson;
+
+  @override
+  String get name;
+  @override
+  @JsonKey(ignore: true)
+  _$$FullScreenPainterCopyWith<_$FullScreenPainter> get copyWith =>
       throw _privateConstructorUsedError;
 }

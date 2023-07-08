@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../cubits/current_index.dart';
 import '../dialogs/name.dart';
@@ -40,6 +41,7 @@ import 'move.dart';
 
 part 'area.dart';
 part 'eraser.dart';
+part 'full_screen.dart';
 part 'hand.dart';
 part 'import.dart';
 part 'label.dart';
@@ -181,6 +183,8 @@ abstract class Handler<T> {
 
   PainterStatus getStatus(DocumentBloc bloc) => PainterStatus.normal;
 
+  PhosphorIconData? getIcon(DocumentBloc bloc) => null;
+
   static Handler fromDocument(DocumentInfo info, int index) {
     final painter = info.painters[index];
     return Handler.fromPainter(painter);
@@ -203,6 +207,7 @@ abstract class Handler<T> {
       stamp: (value) => StampHandler(value),
       presentation: (value) => PresentationHandler(value),
       spacer: (value) => SpacerHandler(value),
+      fullSceen: (value) => FullScreenHandler(value),
     );
   }
 

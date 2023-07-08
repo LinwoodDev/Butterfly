@@ -47,10 +47,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     _init();
   }
 
-  DocumentBloc.error(String message, [StackTrace? stackTrace])
-      : super(DocumentLoadFailure(message, stackTrace));
+  DocumentBloc.error(SettingsCubit settingsCubit, String message,
+      [StackTrace? stackTrace])
+      : super(DocumentLoadFailure(settingsCubit, message, stackTrace));
 
-  DocumentBloc.placeholder() : super(const DocumentLoadFailure(''));
+  DocumentBloc.placeholder(
+    SettingsCubit settingsCubit,
+  ) : super(DocumentLoadFailure(settingsCubit, ''));
 
   void _init() {
     on<PageChanged>((event, emit) async {

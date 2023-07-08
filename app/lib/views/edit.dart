@@ -260,12 +260,16 @@ class _EditToolbarState extends State<EditToolbar> {
                   tooltip = e.getLocalizedName(context);
                 }
 
+                final bloc = context.read<DocumentBloc>();
+
                 final handler = Handler.fromPainter(e);
 
                 final color = handler.getStatus(context.read<DocumentBloc>()) ==
                         PainterStatus.disabled
                     ? Theme.of(context).disabledColor
                     : null;
+                var icon =
+                    handler.getIcon(bloc) ?? e.icon(PhosphorIconsStyle.light);
                 final toolWidget = Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: OptionButton(
@@ -278,12 +282,8 @@ class _EditToolbarState extends State<EditToolbar> {
                         focussed: shortcuts.contains(i),
                         selected: selected,
                         highlighted: highlighted,
-                        selectedIcon: _buildIcon(
-                            e.icon(PhosphorIconsStyle.fill),
-                            e.isAction(),
-                            color),
-                        icon: _buildIcon(e.icon(PhosphorIconsStyle.light),
-                            e.isAction(), color),
+                        selectedIcon: _buildIcon(icon, e.isAction(), color),
+                        icon: _buildIcon(icon, e.isAction(), color),
                         onPressed: () {
                           if (_mouseState == _MouseState.multi) {
                             context
@@ -338,7 +338,8 @@ class _EditToolbarState extends State<EditToolbar> {
                 cubit.changeSelection(state);
               },
             ),
-            if (settings.fullScreen)
+            if (settings.fullScreen &&
+                painters.every((e) => e is! FullScreenPainter))
               IconButton(
                 icon: const PhosphorIcon(PhosphorIconsLight.arrowsIn),
                 tooltip: AppLocalizations.of(context).exitFullScreen,

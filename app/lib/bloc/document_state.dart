@@ -17,15 +17,24 @@ abstract class DocumentState extends Equatable {
   String? get pageName => null;
   FileMetadata? get metadata => null;
   AssetService? get assetService => null;
+  SettingsCubit get settingsCubit;
 }
 
-class DocumentLoadInProgress extends DocumentState {}
+class DocumentLoadInProgress extends DocumentState {
+  @override
+  final SettingsCubit settingsCubit;
+
+  const DocumentLoadInProgress(this.settingsCubit);
+}
 
 class DocumentLoadFailure extends DocumentState {
   final String message;
   final StackTrace? stackTrace;
+  @override
+  final SettingsCubit settingsCubit;
 
-  const DocumentLoadFailure(this.message, [this.stackTrace]);
+  const DocumentLoadFailure(this.settingsCubit, this.message,
+      [this.stackTrace]);
 
   @override
   List<Object?> get props => [message, stackTrace];
@@ -70,7 +79,6 @@ abstract class DocumentLoaded extends DocumentState {
       location.absolute ? SaveState.unsaved : currentIndexCubit.state.saved;
 
   CurrentIndexCubit get currentIndexCubit;
-  SettingsCubit get settingsCubit;
 
   TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
 

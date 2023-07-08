@@ -121,6 +121,10 @@ class Painter with _$Painter {
     @Default(Axis2D.horizontal) Axis2D axis,
   }) = SpacerPainter;
 
+  factory Painter.fullSceen({
+    @Default('') String name,
+  }) = FullScreenPainter;
+
   factory Painter.fromJson(Map<String, dynamic> json) =>
       _$PainterFromJson(json);
 }

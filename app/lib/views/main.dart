@@ -218,7 +218,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
             CameraViewport.unbaked(ToolRenderer()), null);
-        _bloc = DocumentBloc.error(e.toString(), stackTrace);
+        _bloc = DocumentBloc.error(settingsCubit, e.toString(), stackTrace);
       });
     }
     WidgetsBinding.instance.scheduleFrameCallback((_) async {

@@ -26,6 +26,7 @@ extension PainterVisualizer on Painter {
       spacer: (_) => loc.spacer,
       stamp: (_) => loc.stamp,
       presentation: (_) => loc.presentation,
+      fullSceen: (_) => loc.fullScreen,
     );
   }
 
@@ -48,6 +49,7 @@ extension PainterVisualizer on Painter {
           : PhosphorIcons.splitVertical,
       stamp: (_) => PhosphorIcons.stamp,
       presentation: (_) => PhosphorIcons.presentation,
+      fullSceen: (_) => PhosphorIcons.arrowsOut,
     );
   }
 
