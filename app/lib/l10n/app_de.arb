@@ -511,5 +511,6 @@
   "rotation": "Drehung",
   "onlyAvailableLargerScreen": "Nur auf größeren Bildschirmen verfügbar",
   "toolbarPosition": "Position der Werkzeugleiste",
-  "rotate": "Drehen"
+  "rotate": "Drehen",
+  "spacer": "Spacer"
 }
