@@ -25,41 +25,18 @@ class ElementsDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           MenuItemButton(
-            leadingIcon:
-                const PhosphorIcon(PhosphorIconsLight.arrowsOutCardinal),
-            onPressed: () {
-              Navigator.of(context).pop(true);
-              context
-                  .read<CurrentIndexCubit>()
-                  .fetchHandler<HandHandler>()
-                  ?.move(context.read<DocumentBloc>(), renderers, false);
-            },
-            child: Text(AppLocalizations.of(context).move),
-          ),
-          MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsClockwise),
-            onPressed: () {
-              Navigator.of(context).pop(true);
-              context
-                  .read<CurrentIndexCubit>()
-                  .fetchHandler<HandHandler>()
-                  ?.rotate(context.read<DocumentBloc>(), renderers, false);
-            },
-            child: Text(AppLocalizations.of(context).rotate),
-          ),
-          MenuItemButton(
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
             onPressed: () {
               Navigator.of(context).pop(true);
               context
                   .read<CurrentIndexCubit>()
                   .fetchHandler<HandHandler>()
-                  ?.move(
+                  ?.transform(
                       context.read<DocumentBloc>(),
                       renderers
                           .map((e) => Renderer.fromInstance(e.element))
                           .toList(),
-                      true);
+                      null);
             },
             child: Text(AppLocalizations.of(context).duplicate),
           ),

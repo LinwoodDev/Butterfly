@@ -89,7 +89,7 @@ Future<void> main([List<String> args = const []]) async {
     );
 
     // Use it only after calling `hiddenWindowAtLaunch`
-    windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
+    await windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
       await windowManager.setResizable(true);
     });
   }
@@ -298,7 +298,7 @@ class ButterflyApp extends StatelessWidget {
                 await windowManager.setTitleBarStyle(settings.nativeTitleBar
                     ? TitleBarStyle.normal
                     : TitleBarStyle.hidden);
-                windowManager.show();
+                await windowManager.show();
               });
             }
             return RepositoryProvider(

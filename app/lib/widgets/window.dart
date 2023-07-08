@@ -124,11 +124,11 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
 
   @override
   void onWindowEnterFullScreen() =>
-      context.read<SettingsCubit>().setFullScreen(true);
+      context.read<SettingsCubit>().setFullScreen(true, false);
 
   @override
   void onWindowLeaveFullScreen() =>
-      context.read<SettingsCubit>().setFullScreen(false);
+      context.read<SettingsCubit>().setFullScreen(false, false);
 
   @override
   Widget build(BuildContext context) {
