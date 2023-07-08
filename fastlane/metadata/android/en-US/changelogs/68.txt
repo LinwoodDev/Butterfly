@@ -1,2 +1,3 @@
 * Add custom mouse cursors for painters ([#426](https://github.com/LinwoodDev/Butterfly/issues/426))
 * Add spacer painter ([#424](https://github.com/LinwoodDev/Butterfly/issues/424))
+* Add move by dragging selection ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))

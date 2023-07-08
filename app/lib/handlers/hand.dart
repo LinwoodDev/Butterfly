@@ -416,7 +416,12 @@ class HandHandler extends Handler<HandPainter> {
     _setMove(bloc, globalPos, false);
     _setRotation(bloc, globalPos, false);
     _transformCorner = _getCornerHit(globalPos);
-    context.refresh();
+    if (_transformCorner == null &&
+        (getSelectionRect()?.contains(globalPos) ?? false)) {
+      move(context.getDocumentBloc(), _selected);
+    } else {
+      context.refresh();
+    }
     return false;
   }
 
@@ -458,7 +463,8 @@ class HandHandler extends Handler<HandPainter> {
     _currentTransformOffset = globalPos;
     if (_transformCorner != null) return;
     if (currentIndex.buttons != kSecondaryMouseButton &&
-        details.pointerCount == 1) {
+        details.pointerCount == 1 &&
+        _currentMovePosition == null) {
       if (details.scale == 1.0) {
         final topLeft = _freeSelection?.topLeft ?? globalPos;
         _freeSelection =
@@ -617,19 +623,22 @@ class HandHandler extends Handler<HandPainter> {
     if (_currentMousePosition == null) return null;
     final corner = _getCornerHit(_currentMousePosition!);
     return switch (corner) {
-      HandTransformCorner.bottomCenter ||
-      HandTransformCorner.topCenter =>
-        SystemMouseCursors.resizeUpDown,
-      HandTransformCorner.centerLeft ||
-      HandTransformCorner.centerRight =>
-        SystemMouseCursors.resizeLeftRight,
-      HandTransformCorner.topLeft ||
-      HandTransformCorner.bottomRight =>
-        SystemMouseCursors.resizeUpLeftDownRight,
-      HandTransformCorner.topRight ||
-      HandTransformCorner.bottomLeft =>
-        SystemMouseCursors.resizeUpRightDownLeft,
-      _ => null,
-    };
+          HandTransformCorner.bottomCenter ||
+          HandTransformCorner.topCenter =>
+            SystemMouseCursors.resizeUpDown,
+          HandTransformCorner.centerLeft ||
+          HandTransformCorner.centerRight =>
+            SystemMouseCursors.resizeLeftRight,
+          HandTransformCorner.topLeft ||
+          HandTransformCorner.bottomRight =>
+            SystemMouseCursors.resizeUpLeftDownRight,
+          HandTransformCorner.topRight ||
+          HandTransformCorner.bottomLeft =>
+            SystemMouseCursors.resizeUpRightDownLeft,
+          _ => null,
+        } ??
+        (getSelectionRect()?.contains(_currentMousePosition!) ?? false
+            ? SystemMouseCursors.move
+            : null);
   }
 }
