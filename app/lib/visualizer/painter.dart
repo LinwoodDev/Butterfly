@@ -23,6 +23,7 @@ extension PainterVisualizer on Painter {
       area: (_) => loc.area,
       laser: (_) => loc.laser,
       shape: (_) => loc.shape,
+      spacer: (_) => loc.spacer,
       stamp: (_) => loc.stamp,
       presentation: (_) => loc.presentation,
     );
@@ -42,6 +43,9 @@ extension PainterVisualizer on Painter {
       area: (_) => PhosphorIcons.monitor,
       laser: (_) => PhosphorIcons.cursor,
       shape: (painter) => painter.property.shape.icon,
+      spacer: (painter) => painter.axis == Axis2D.horizontal
+          ? PhosphorIcons.splitHorizontal
+          : PhosphorIcons.splitVertical,
       stamp: (_) => PhosphorIcons.stamp,
       presentation: (_) => PhosphorIcons.presentation,
     );

@@ -198,6 +198,8 @@ class AddDialog extends StatelessWidget {
                   Painter.layer,
                   Painter.area,
                   Painter.presentation,
+                  () => Painter.spacer(axis: Axis2D.vertical),
+                  () => Painter.spacer(axis: Axis2D.horizontal),
                 ].map(buildPainter).toList(),
               ),
               const SizedBox(height: 32),

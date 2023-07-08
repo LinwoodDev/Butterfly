@@ -50,6 +50,7 @@ part 'pen.dart';
 part 'presentation.dart';
 part 'redo.dart';
 part 'shape.dart';
+part 'spacer.dart';
 part 'stamp.dart';
 part 'undo.dart';
 
@@ -201,6 +202,7 @@ abstract class Handler<T> {
       shape: (value) => ShapeHandler(value),
       stamp: (value) => StampHandler(value),
       presentation: (value) => PresentationHandler(value),
+      spacer: (value) => SpacerHandler(value),
     );
   }
 

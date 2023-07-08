@@ -236,3 +236,22 @@ Map<String, dynamic> _$$PresentationPainterToJson(
       'name': instance.name,
       'type': instance.$type,
     };
+
+_$SpacerPainter _$$SpacerPainterFromJson(Map json) => _$SpacerPainter(
+      name: json['name'] as String? ?? '',
+      axis: $enumDecodeNullable(_$Axis2DEnumMap, json['axis']) ??
+          Axis2D.horizontal,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$SpacerPainterToJson(_$SpacerPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'axis': _$Axis2DEnumMap[instance.axis]!,
+      'type': instance.$type,
+    };
+
+const _$Axis2DEnumMap = {
+  Axis2D.horizontal: 'horizontal',
+  Axis2D.vertical: 'vertical',
+};

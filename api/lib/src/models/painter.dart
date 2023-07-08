@@ -31,6 +31,8 @@ extension RatioPresetExtension on AspectRatioPreset {
 
 enum LabelMode { markdown, text }
 
+enum Axis2D { horizontal, vertical }
+
 @Freezed(equal: false)
 class Painter with _$Painter {
   factory Painter.hand({
@@ -113,6 +115,11 @@ class Painter with _$Painter {
   factory Painter.presentation({
     @Default('') String name,
   }) = PresentationPainter;
+
+  factory Painter.spacer({
+    @Default('') String name,
+    @Default(Axis2D.horizontal) Axis2D axis,
+  }) = SpacerPainter;
 
   factory Painter.fromJson(Map<String, dynamic> json) =>
       _$PainterFromJson(json);
