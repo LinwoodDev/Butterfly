@@ -28,6 +28,7 @@ class SpacerHandler extends Handler<SpacerPainter> {
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
+    if (details.pointerCount > 1) return;
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(details.localFocalPoint);
     _spacing = (data.axis == Axis2D.horizontal

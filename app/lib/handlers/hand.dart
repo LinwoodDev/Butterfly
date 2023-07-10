@@ -507,6 +507,7 @@ class HandHandler extends Handler<HandPainter> {
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
+    if (details.pointerCount > 1) return;
     final currentIndex = context.getCurrentIndex();
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
@@ -519,9 +520,7 @@ class HandHandler extends Handler<HandPainter> {
       context.refresh();
       return;
     }
-    if (currentIndex.buttons != kSecondaryMouseButton &&
-        details.pointerCount == 1 &&
-        _transformed.isEmpty) {
+    if (currentIndex.buttons != kSecondaryMouseButton && _transformed.isEmpty) {
       if (details.scale == 1.0) {
         final topLeft = _freeSelection?.topLeft ?? globalPos;
         _freeSelection =
