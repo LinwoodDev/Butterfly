@@ -509,7 +509,7 @@
   "sendBackward": "下推一層",
   "invalidName": "名稱無效",
   "rotation": "Rotation",
-  "onlyAvailableLargerScreen": "Only available on larger screens",
+  "onlyAvailableLargerScreen": "僅適用於大螢幕設備",
   "toolbarPosition": "Toolbar position",
   "rotate": "Rotate",
   "spacer": "Spacer"
