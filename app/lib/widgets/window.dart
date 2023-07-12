@@ -44,7 +44,7 @@ class WindowTitleBar extends StatelessWidget implements PreferredSizeWidget {
         builder: (context, settings) {
           final isDesktop = isWindow && !kIsWeb;
           if (onlyShowOnDesktop && !isDesktop) return const SizedBox.shrink();
-          final appBar = AppBar(
+          return AppBar(
             title: title,
             backgroundColor: backgroundColor,
             automaticallyImplyLeading: !inView,
@@ -52,6 +52,7 @@ class WindowTitleBar extends StatelessWidget implements PreferredSizeWidget {
             bottom: bottom,
             leadingWidth: leadingWidth,
             toolbarHeight: height,
+            flexibleSpace: const WindowFreeSpace(),
             actions: [
               ...actions,
               if (isDesktop && !inView)
@@ -60,22 +61,30 @@ class WindowTitleBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
             ],
           );
-          if (isDesktop && !settings.nativeTitleBar) {
-            return GestureDetector(
-              child: DragToMoveArea(
-                child: appBar,
-              ),
-              onSecondaryTap: () => windowManager.popUpWindowMenu(),
-              onLongPress: () => windowManager.popUpWindowMenu(),
-            );
-          }
-          return appBar;
         });
   }
 
   @override
   Size get preferredSize =>
       Size.fromHeight(height + (bottom?.preferredSize.height ?? 0));
+}
+
+class WindowFreeSpace extends StatelessWidget {
+  const WindowFreeSpace({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    if (!isWindow || kIsWeb) return const SizedBox.shrink();
+    return GestureDetector(
+      child: DragToMoveArea(
+        child: Container(
+          color: Colors.transparent,
+        ),
+      ),
+      onSecondaryTap: () => windowManager.popUpWindowMenu(),
+      onLongPress: () => windowManager.popUpWindowMenu(),
+    );
+  }
 }
 
 class WindowButtons extends StatefulWidget {
