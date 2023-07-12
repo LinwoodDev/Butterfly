@@ -98,7 +98,6 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                 }
                 return LayoutBuilder(
                   builder: (context, constraints) {
-                    print(constraints.maxWidth);
                     return Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

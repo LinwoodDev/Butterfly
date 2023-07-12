@@ -439,12 +439,17 @@ class _MainBody extends StatelessWidget {
                                   width: isMobile ? 100 : 400,
                                   child: ZoomView(isMobile: isMobile),
                                 ),
-                                if (!isMobile) const PropertyView(),
                                 if (pos != ToolbarPosition.top)
                                   Align(
                                     alignment: pos.alignment,
                                     child: toolbar,
                                   ),
+                                if (!isMobile)
+                                  Positioned(
+                                      right:
+                                          pos == ToolbarPosition.right ? 75 : 0,
+                                      top: 0,
+                                      child: const PropertyView()),
                               ],
                             )),
                             const ToolbarView(),
