@@ -8,3 +8,4 @@
 * Fix resizing with multiple elements ([#434](https://github.com/LinwoodDev/Butterfly/issues/434))
 * Fix resizing with rotated elements
 * Fix not waiting for creating default templates on native platforms
+* Fix native title bar setting not saved
