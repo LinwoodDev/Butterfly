@@ -6,7 +6,6 @@ import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
-import 'package:butterfly/views/zoom.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -248,13 +247,7 @@ class _AppBarTitle extends StatelessWidget {
                         ? const EditToolbar(
                             isMobile: false,
                           )
-                        : settings.zoomEnabled
-                            ? ConstrainedBox(
-                                constraints:
-                                    const BoxConstraints(maxWidth: 500),
-                                child: const ZoomView(floating: false),
-                              )
-                            : const SizedBox.shrink(),
+                        : const SizedBox.shrink(),
                   ],
                 ),
               )),

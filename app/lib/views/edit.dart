@@ -89,22 +89,14 @@ class _EditToolbarState extends State<EditToolbar> {
                               current.temporaryHandler ||
                           previous.selection != current.selection,
                       builder: (context, currentIndex) {
-                        return Material(
-                          color: Colors.transparent,
-                          child: Align(
-                            alignment: widget.centered ?? widget.isMobile
-                                ? Alignment.center
-                                : Alignment.centerRight,
-                            child: Card(
-                              elevation: 10,
-                              child: _buildBody(
-                                state,
-                                currentIndex,
-                                settings,
-                                painters,
-                                shortcuts,
-                              ),
-                            ),
+                        return Card(
+                          elevation: 10,
+                          child: _buildBody(
+                            state,
+                            currentIndex,
+                            settings,
+                            painters,
+                            shortcuts,
                           ),
                         );
                       },

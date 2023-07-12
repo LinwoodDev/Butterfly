@@ -74,16 +74,23 @@ class WindowFreeSpace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!isWindow || kIsWeb) return const SizedBox.shrink();
-    return GestureDetector(
-      child: DragToMoveArea(
-        child: Container(
-          color: Colors.transparent,
-        ),
-      ),
-      onSecondaryTap: () => windowManager.popUpWindowMenu(),
-      onLongPress: () => windowManager.popUpWindowMenu(),
-    );
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) =>
+            previous.nativeTitleBar != current.nativeTitleBar,
+        builder: (context, settings) {
+          if (!isWindow || kIsWeb || settings.nativeTitleBar) {
+            return const SizedBox.shrink();
+          }
+          return GestureDetector(
+            child: DragToMoveArea(
+              child: Container(
+                color: Colors.transparent,
+              ),
+            ),
+            onSecondaryTap: () => windowManager.popUpWindowMenu(),
+            onLongPress: () => windowManager.popUpWindowMenu(),
+          );
+        });
   }
 }
 

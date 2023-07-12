@@ -97,43 +97,46 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                   _zoomController.text = text;
                 }
                 return LayoutBuilder(
-                  builder: (context, constraints) => Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 75,
-                          child: TextFormField(
-                            textAlign: TextAlign.center,
-                            controller: _zoomController,
-                            keyboardType: TextInputType.number,
-                            focusNode: _focusNode,
-                            onChanged: (value) {
-                              setState(() => scale =
-                                  (double.tryParse(value) ?? (scale * 100)) /
-                                      100);
-                            },
-                            onEditingComplete: () => zoom(scale),
-                            onTapOutside: (event) {
-                              zoom(scale);
-                              _focusNode.unfocus();
-                            },
-                            onFieldSubmitted: (value) => zoom(scale),
-                          ),
-                        ),
-                        if (!widget.isMobile) ...[
-                          if (constraints.maxWidth > 200)
-                            Expanded(
-                              child: Slider(
-                                value: scale.clamp(kMinZoom, 10),
-                                min: kMinZoom,
-                                max: 10,
-                                onChanged: (value) =>
-                                    setState(() => scale = value),
-                                onChangeEnd: zoom,
-                              ),
+                  builder: (context, constraints) {
+                    print(constraints.maxWidth);
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 75,
+                            child: TextFormField(
+                              textAlign: TextAlign.center,
+                              controller: _zoomController,
+                              keyboardType: TextInputType.number,
+                              focusNode: _focusNode,
+                              onChanged: (value) {
+                                setState(() => scale =
+                                    (double.tryParse(value) ?? (scale * 100)) /
+                                        100);
+                              },
+                              onEditingComplete: () => zoom(scale),
+                              onTapOutside: (event) {
+                                zoom(scale);
+                                _focusNode.unfocus();
+                              },
+                              onFieldSubmitted: (value) => zoom(scale),
                             ),
-                        ],
-                      ]),
+                          ),
+                          if (!widget.isMobile) ...[
+                            if (constraints.maxWidth > 200)
+                              Flexible(
+                                child: Slider(
+                                  value: scale.clamp(kMinZoom, 10),
+                                  min: kMinZoom,
+                                  max: 10,
+                                  onChanged: (value) =>
+                                      setState(() => scale = value),
+                                  onChangeEnd: zoom,
+                                ),
+                              ),
+                          ],
+                        ]);
+                  },
                 );
               },
             );
