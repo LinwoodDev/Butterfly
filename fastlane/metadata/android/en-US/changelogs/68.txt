@@ -3,6 +3,8 @@
 * Add full screen painter ([#432](https://github.com/LinwoodDev/Butterfly/issues/432))
 * Add move by dragging selection, add rotate button ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
 * Add floating toolbar ([#445](https://github.com/LinwoodDev/Butterfly/issues/445))
+* Add settings animation and blur
+* Add responsive main view ui
 * Recode hand tool to allow realtime transformation
 * Improve window title bar
 * Fix window does not open with start in fullscreen mode enabled ([#430](https://github.com/LinwoodDev/Butterfly/issues/430))

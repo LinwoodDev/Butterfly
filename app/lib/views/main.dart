@@ -399,11 +399,6 @@ class _MainBody extends StatelessWidget {
             previous.fullScreen != current.fullScreen,
         builder: (context, settings) {
           final pos = settings.toolbarPosition;
-          final zoomOffset = switch (pos) {
-            ToolbarPosition.bottom => (25.0, 60.0),
-            ToolbarPosition.right => (75.0, 25.0),
-            _ => (25.0, 25.0),
-          };
           return LayoutBuilder(builder: (context, constraints) {
             final isMobile = constraints.maxWidth < kMobileWidth;
             final isLarge = constraints.maxWidth > kLargeWidth;
@@ -423,44 +418,44 @@ class _MainBody extends StatelessWidget {
                 Expanded(
                   child: Stack(
                     children: [
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            if (settings.fullScreen &&
-                                pos == ToolbarPosition.top)
-                              toolbar,
-                            Expanded(
-                                child: Stack(
+                      const MainViewViewport(),
+                      if (!isMobile)
+                        Positioned(
+                            right: pos == ToolbarPosition.right ? 75 : 0,
+                            top: 0,
+                            child: const PropertyView()),
+                      Row(
+                        children: [
+                          if (pos == ToolbarPosition.left) toolbar,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const MainViewViewport(),
-                                Positioned(
-                                  bottom: zoomOffset.$2,
-                                  right: zoomOffset.$1,
-                                  width: isMobile ? 100 : 400,
-                                  child: ZoomView(isMobile: isMobile),
+                                if (settings.fullScreen &&
+                                    pos == ToolbarPosition.top)
+                                  toolbar,
+                                if (pos == ToolbarPosition.top)
+                                  const ToolbarView(),
+                                const Expanded(child: SizedBox.shrink()),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: SizedBox(
+                                      width: isMobile ? 100 : 400,
+                                      child: ZoomView(isMobile: isMobile),
+                                    ),
+                                  ),
                                 ),
                                 if (pos != ToolbarPosition.top)
-                                  Align(
-                                    alignment: pos.alignment,
-                                    child: toolbar,
-                                  ),
-                                if (!isMobile)
-                                  Positioned(
-                                      right:
-                                          pos == ToolbarPosition.right ? 75 : 0,
-                                      top: 0,
-                                      child: const PropertyView()),
+                                  const ToolbarView(),
+                                if (pos == ToolbarPosition.bottom) toolbar,
                               ],
-                            )),
-                            const ToolbarView(),
-                            if (isMobile)
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: EditToolbar(isMobile: isMobile))),
-                          ]),
-                      if (isMobile) const PropertyView(),
+                            ),
+                          ),
+                          if (pos == ToolbarPosition.right) toolbar,
+                        ],
+                      ),
                     ],
                   ),
                 ),
