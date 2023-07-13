@@ -80,6 +80,8 @@ abstract class DocumentLoaded extends DocumentState {
 
   CurrentIndexCubit get currentIndexCubit;
 
+  Embedding? get embedding => currentIndexCubit.state.embedding;
+
   TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
 
   NoteData saveData() {
@@ -142,8 +144,6 @@ class DocumentLoadSuccess extends DocumentLoaded {
 
   List<Renderer<PadElement>> get renderers => currentIndexCubit.renderers;
 
-  Embedding? get embedding => currentIndexCubit.state.embedding;
-
   DocumentLoadSuccess copyWith({
     DocumentPage? page,
     String? pageName,
@@ -175,7 +175,8 @@ class DocumentLoadSuccess extends DocumentLoaded {
       !(embedding?.save ?? true) ||
       (!kIsWeb &&
           !location.absolute &&
-          location.fileType == AssetFileType.note &&
+          (location.fileType == AssetFileType.note ||
+              location.fileType == null) &&
           (location.remote.isEmpty ||
               (settingsCubit.state
                       .getRemote(location.remote)

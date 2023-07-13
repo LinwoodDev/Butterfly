@@ -109,7 +109,7 @@ class _FilesViewState extends State<FilesView> {
     final parent = _locationController.text.substring(0, index < 0 ? 0 : index);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       LayoutBuilder(builder: (context, constraints) {
-        final isMobile = constraints.maxWidth <= kMobileWidth;
+        final isMobile = constraints.maxWidth <= kLargeWidth;
         final text = Text(
           AppLocalizations.of(context).files,
           style: Theme.of(context).textTheme.headlineMedium,

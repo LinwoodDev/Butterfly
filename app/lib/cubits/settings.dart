@@ -323,7 +323,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setStringList(
         'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
     await prefs.setString('default_remote', defaultRemote);
-    await prefs.setBool('native_window_title_bar', nativeTitleBar);
+    await prefs.setBool('native_title_bar', nativeTitleBar);
     await prefs.setBool('start_in_full_screen', startInFullScreen);
     await prefs.setString('sync_mode', syncMode.name);
     await prefs.setString(
