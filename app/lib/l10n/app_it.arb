@@ -511,5 +511,6 @@
   "rotation": "Rotazione",
   "onlyAvailableLargerScreen": "Disponibile solo su schermi più grandi",
   "toolbarPosition": "Posizione barra strumenti",
-  "rotate": "Ruota"
+  "rotate": "Ruota",
+  "spacer": "Spaziatore"
 }

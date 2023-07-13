@@ -511,5 +511,6 @@
   "rotation": "Rotasjon",
   "onlyAvailableLargerScreen": "Bare tilgjengelig på større skjermer",
   "toolbarPosition": "Plassering av verktøylinje",
-  "rotate": "Roter"
+  "rotate": "Roter",
+  "spacer": "Mellomrom"
 }

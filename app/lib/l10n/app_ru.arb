@@ -511,5 +511,6 @@
   "rotation": "Поворот",
   "onlyAvailableLargerScreen": "Доступно только на больших экранах",
   "toolbarPosition": "Положение панели инструментов",
-  "rotate": "Повернуть"
+  "rotate": "Повернуть",
+  "spacer": "Пробел"
 }

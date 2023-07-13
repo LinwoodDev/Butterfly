@@ -511,5 +511,6 @@
   "rotation": "Rotation",
   "onlyAvailableLargerScreen": "Kun tilgængelig på større skærme",
   "toolbarPosition": "Værktøjslinjens position",
-  "rotate": "Rotér"
+  "rotate": "Rotér",
+  "spacer": "Mellemrum"
 }
