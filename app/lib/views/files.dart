@@ -469,9 +469,6 @@ class _FilesViewState extends State<FilesView> {
             'type': location.fileType?.name,
           },
           extra: data);
-      if (!widget.collapsed) {
-        _reloadFileSystem();
-      }
       return;
     }
     GoRouter.of(context).goNamed('local',
@@ -482,9 +479,6 @@ class _FilesViewState extends State<FilesView> {
           'type': location.fileType?.name,
         },
         extra: data);
-    if (!widget.collapsed) {
-      _reloadFileSystem();
-    }
   }
 
   int _sortAssets(AppDocumentEntity a, AppDocumentEntity b) {

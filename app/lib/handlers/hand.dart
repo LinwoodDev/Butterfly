@@ -15,30 +15,23 @@ class HandSelectionRenderer extends Renderer<Rect> {
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final paint = Paint()
-      ..color = scheme.primary
+      ..color = scheme.primaryContainer
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4 / transform.size
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..isAntiAlias = true
-      ..filterQuality = FilterQuality.high
-      ..colorFilter =
-          ColorFilter.mode(Colors.grey.withOpacity(0.5), BlendMode.srcATop);
+      ..isAntiAlias = true;
     canvas.drawRect(element, paint);
     if (transformMode == null) return;
-    final color = transformMode == HandTransformMode.scaleProp
-        ? scheme.secondary
-        : scheme.error;
+    final color =
+        transformMode == HandTransformMode.scaleProp ? Colors.red : Colors.blue;
     final transformPaint = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2 / transform.size
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..isAntiAlias = true
-      ..filterQuality = FilterQuality.high
-      ..colorFilter =
-          ColorFilter.mode(Colors.grey.withOpacity(0.5), BlendMode.srcATop);
+      ..isAntiAlias = true;
     final realSize = visibleSize / transform.size;
     if (element.width < 2 * realSize || element.height < 2 * realSize) return;
     final showCenter =
@@ -48,39 +41,26 @@ class HandSelectionRenderer extends Renderer<Rect> {
         .forEach((corner) {
       final position = corner.getFromRect(element);
       if (corner == HandTransformCorner.center) {
-        if (corner == transformCorner) {
-          canvas.drawCircle(
-            position,
-            realSize,
-            paint..style = PaintingStyle.fill,
-          );
-        } else {
-          canvas.drawCircle(
-            position,
-            realSize,
-            transformPaint..style = PaintingStyle.stroke,
-          );
-        }
+        canvas.drawCircle(
+          position,
+          realSize,
+          transformPaint
+            ..style = corner == transformCorner
+                ? PaintingStyle.fill
+                : PaintingStyle.stroke,
+        );
       } else {
-        if (corner == transformCorner) {
-          canvas.drawRect(
-            Rect.fromCenter(
-              center: position,
-              width: realSize,
-              height: realSize,
-            ),
-            paint..style = PaintingStyle.fill,
-          );
-        } else {
-          canvas.drawRect(
-            Rect.fromCenter(
-              center: position,
-              width: realSize,
-              height: realSize,
-            ),
-            transformPaint..style = PaintingStyle.stroke,
-          );
-        }
+        canvas.drawRect(
+          Rect.fromCenter(
+            center: position,
+            width: realSize,
+            height: realSize,
+          ),
+          transformPaint
+            ..style = corner == transformCorner
+                ? PaintingStyle.fill
+                : PaintingStyle.stroke,
+        );
       }
     });
   }
