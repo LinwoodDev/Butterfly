@@ -512,5 +512,6 @@
   "onlyAvailableLargerScreen": "僅適用於大螢幕設備",
   "toolbarPosition": "工具列位置",
   "rotate": "Rotate",
-  "spacer": "間隔"
+  "spacer": "間隔",
+  "navigationRail": "Navigation rail"
 }
