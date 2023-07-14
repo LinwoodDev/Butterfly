@@ -3,7 +3,7 @@ title: "Datenschutzerklärung"
 slug: /privacypolicy
 ---
 
-Dies ist die Datenschutzerklärung der App. Bitte lesen Sie es sorgfältig. Click [here](https://go.linwood.dev/privacypolicy) to read the privacy policy of the website.
+Dies ist die Datenschutzerklärung der App. Bitte lesen Sie es sorgfältig. Klicken Sie [hier](https://go.linwood.dev/privacypolicy) um die Datenschutzerklärung der Website zu lesen.
 
 CodeDoctor hat die Butterfly-App als Open Source App entwickelt. Dieser SERVICE wird von CodeDoctor kostenlos zur Verfügung gestellt und ist so konzipiert, wie er ist.
 
