@@ -545,6 +545,7 @@ class HandHandler extends Handler<HandPainter> {
 
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
+    Focus.of(context.buildContext).requestFocus();
     if (_transformed.isNotEmpty) {
       _submitTransform(context.getDocumentBloc());
     }
@@ -573,5 +574,30 @@ class HandHandler extends Handler<HandPainter> {
         (getSelectionRect()?.contains(_currentMousePosition!) ?? false
             ? SystemMouseCursors.move
             : null);
+  }
+
+  @override
+  Map<Type, Action<Intent>> getActions(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
+    return {
+      SelectAllTextIntent:
+          CallbackAction<SelectAllTextIntent>(onInvoke: (intent) {
+        final state = bloc.state;
+        if (state is! DocumentLoadSuccess) return null;
+        _selected.clear();
+        _selected.addAll(state.renderers);
+        bloc.refresh();
+        return null;
+      }),
+      DeleteCharacterIntent:
+          CallbackAction<DeleteCharacterIntent>(onInvoke: (intent) {
+        context
+            .read<DocumentBloc>()
+            .add(ElementsRemoved(_selected.map((r) => r.element).toList()));
+        _selected.clear();
+        bloc.refresh();
+        return null;
+      }),
+    };
   }
 }

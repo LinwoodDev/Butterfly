@@ -14,3 +14,5 @@
 * Fix native title bar setting not saved
 * Fix home page not refreshing
 * Fix save indicator on web
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0

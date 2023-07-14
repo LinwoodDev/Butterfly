@@ -1,0 +1,4 @@
+* Add keyboard shortcuts
+  * Add ctrl + a to select all to hand painter
+  * Add del to delete selected to hand painter
+* Fix mobile ui

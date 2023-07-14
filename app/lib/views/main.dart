@@ -402,16 +402,14 @@ class _MainBody extends StatelessWidget {
           return LayoutBuilder(builder: (context, constraints) {
             final isMobile = constraints.maxWidth < kMobileWidth;
             final isLarge = constraints.maxWidth > kLargeWidth;
-            final toolbar = isMobile
-                ? const SizedBox.shrink()
-                : EditToolbar(
-                    isMobile: false,
-                    centered: true,
-                    direction: pos == ToolbarPosition.bottom ||
-                            pos == ToolbarPosition.top
-                        ? Axis.horizontal
-                        : Axis.vertical,
-                  );
+            final toolbar = EditToolbar(
+              isMobile: false,
+              centered: true,
+              direction:
+                  pos == ToolbarPosition.bottom || pos == ToolbarPosition.top
+                      ? Axis.horizontal
+                      : Axis.vertical,
+            );
             return Row(
               children: [
                 if (isLarge) const DocumentNavigator(),
@@ -436,7 +434,10 @@ class _MainBody extends StatelessWidget {
                                   toolbar,
                                 if (pos == ToolbarPosition.top)
                                   const ToolbarView(),
-                                const Expanded(child: SizedBox.shrink()),
+                                Expanded(
+                                    child: isMobile
+                                        ? const PropertyView()
+                                        : const SizedBox.shrink()),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Align(
@@ -449,7 +450,8 @@ class _MainBody extends StatelessWidget {
                                 ),
                                 if (pos != ToolbarPosition.top)
                                   const ToolbarView(),
-                                if (pos == ToolbarPosition.bottom) toolbar,
+                                if (isMobile || pos == ToolbarPosition.bottom)
+                                  toolbar,
                               ],
                             ),
                           ),

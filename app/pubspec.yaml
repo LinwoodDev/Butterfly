@@ -76,7 +76,7 @@ dependencies:
   flutter_localized_locales: ^2.0.4
   dynamic_color: ^1.6.6
   popover: ^0.2.8+2
-  markdown: ^7.1.0
+  markdown: ^7.1.1
 dev_dependencies:
   flutter_native_splash: ^2.3.1
   #flutter_launcher_icons: ^0.11.0
