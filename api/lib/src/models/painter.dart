@@ -33,6 +33,8 @@ enum LabelMode { markdown, text }
 
 enum Axis2D { horizontal, vertical }
 
+enum ImportType { image, camera, svg, pdf, document }
+
 @Freezed(equal: false)
 class Painter with _$Painter {
   factory Painter.hand({
@@ -124,6 +126,11 @@ class Painter with _$Painter {
   factory Painter.fullSceen({
     @Default('') String name,
   }) = FullScreenPainter;
+
+  factory Painter.asset({
+    @Default('') String name,
+    @Default(ImportType.document) ImportType type,
+  }) = AssetPainter;
 
   factory Painter.fromJson(Map<String, dynamic> json) =>
       _$PainterFromJson(json);

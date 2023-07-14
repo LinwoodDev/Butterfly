@@ -1,5 +1,6 @@
-import '../models/asset.dart';
 import 'package:collection/collection.dart';
+
+import '../models/asset.dart';
 
 extension AssetFileTypeHelper on AssetFileType {
   List<String> getFileExtensions() {

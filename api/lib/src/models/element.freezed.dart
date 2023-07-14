@@ -1162,7 +1162,7 @@ class __$$PenElementCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PenElement implements PenElement {
-  const _$PenElement(
+  _$PenElement(
       {this.rotation = 0,
       this.layer = '',
       this.zoom,
@@ -1434,7 +1434,7 @@ class _$PenElement implements PenElement {
 }
 
 abstract class PenElement implements PadElement, PathElement {
-  const factory PenElement(
+  factory PenElement(
       {final double rotation,
       final String layer,
       final double? zoom,
@@ -1564,7 +1564,7 @@ class __$$TextElementCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$TextElement with LabelElement implements TextElement {
-  const _$TextElement(
+  _$TextElement(
       {this.rotation = 0,
       this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
@@ -1845,7 +1845,7 @@ class _$TextElement with LabelElement implements TextElement {
 }
 
 abstract class TextElement implements PadElement, LabelElement {
-  const factory TextElement(
+  factory TextElement(
       {final double rotation,
       final String layer,
       @DoublePointJsonConverter() final Point<double> position,
@@ -1988,7 +1988,7 @@ class __$$MarkdownElementCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$MarkdownElement with LabelElement implements MarkdownElement {
-  const _$MarkdownElement(
+  _$MarkdownElement(
       {this.rotation = 0,
       this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
@@ -2273,7 +2273,7 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
 }
 
 abstract class MarkdownElement implements PadElement, LabelElement {
-  const factory MarkdownElement(
+  factory MarkdownElement(
       {final double rotation,
       final String layer,
       @DoublePointJsonConverter() final Point<double> position,
@@ -2392,7 +2392,7 @@ class __$$ImageElementCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ImageElement implements ImageElement {
-  const _$ImageElement(
+  _$ImageElement(
       {this.rotation = 0,
       this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
@@ -2666,7 +2666,7 @@ class _$ImageElement implements ImageElement {
 }
 
 abstract class ImageElement implements PadElement, SourcedElement {
-  const factory ImageElement(
+  factory ImageElement(
       {final double rotation,
       final String layer,
       @DoublePointJsonConverter() final Point<double> position,
@@ -2781,7 +2781,7 @@ class __$$SvgElementCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SvgElement implements SvgElement {
-  const _$SvgElement(
+  _$SvgElement(
       {this.rotation = 0,
       this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
@@ -3054,7 +3054,7 @@ class _$SvgElement implements SvgElement {
 }
 
 abstract class SvgElement implements PadElement, SourcedElement {
-  const factory SvgElement(
+  factory SvgElement(
       {final double rotation,
       final String layer,
       @DoublePointJsonConverter() final Point<double> position,
@@ -3143,7 +3143,7 @@ class __$$ShapeElementCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ShapeElement implements ShapeElement {
-  const _$ShapeElement(
+  _$ShapeElement(
       {this.rotation = 0,
       this.layer = '',
       @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
@@ -3412,7 +3412,7 @@ class _$ShapeElement implements ShapeElement {
 }
 
 abstract class ShapeElement implements PadElement {
-  const factory ShapeElement(
+  factory ShapeElement(
       {final double rotation,
       final String layer,
       @DoublePointJsonConverter() final Point<double> firstPosition,

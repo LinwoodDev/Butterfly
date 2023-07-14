@@ -1,5 +1,4 @@
-import 'package:butterfly/handlers/handler.dart';
-import 'package:flutter/material.dart';
+part of 'handler.dart';
 
 abstract class GeneralMoveHandler<T> extends Handler<T> {
   bool _moved = false;

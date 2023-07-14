@@ -37,9 +37,9 @@ import '../views/toolbars/color.dart';
 import '../views/toolbars/label.dart';
 import '../views/toolbars/presentation/toolbar.dart';
 import '../widgets/context_menu.dart';
-import 'move.dart';
 
 part 'area.dart';
+part 'asset.dart';
 part 'eraser.dart';
 part 'full_screen.dart';
 part 'hand.dart';
@@ -47,6 +47,7 @@ part 'import.dart';
 part 'label.dart';
 part 'laser.dart';
 part 'layer.dart';
+part 'move.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
 part 'presentation.dart';
@@ -208,6 +209,7 @@ abstract class Handler<T> {
       presentation: (value) => PresentationHandler(value),
       spacer: (value) => SpacerHandler(value),
       fullSceen: (value) => FullScreenHandler(value),
+      asset: (value) => AssetHandler(value),
     );
   }
 

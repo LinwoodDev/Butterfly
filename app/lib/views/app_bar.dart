@@ -200,7 +200,8 @@ class _AppBarTitle extends StatelessWidget {
                       ),
                     if (state.location.absolute)
                       IconButton(
-                          icon: PhosphorIcon(state.location.fileType.getIcon()),
+                          icon: PhosphorIcon(state.location.fileType
+                              .icon(PhosphorIconsStyle.light)),
                           tooltip: AppLocalizations.of(context).export,
                           onPressed: () =>
                               context.read<ImportService>().export()),

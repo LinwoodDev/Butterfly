@@ -27,31 +27,31 @@ extension PainterVisualizer on Painter {
       stamp: (_) => loc.stamp,
       presentation: (_) => loc.presentation,
       fullSceen: (_) => loc.fullScreen,
+      asset: (painter) => painter.type.getLocalizedName(context),
     );
   }
 
-  IconGetter get icon {
-    return map(
-      hand: (_) => PhosphorIcons.hand,
-      import: (_) => PhosphorIcons.arrowSquareIn,
-      undo: (_) => PhosphorIcons.arrowCounterClockwise,
-      redo: (_) => PhosphorIcons.arrowClockwise,
-      label: (_) => PhosphorIcons.textT,
-      pen: (_) => PhosphorIcons.pen,
-      eraser: (_) => PhosphorIcons.eraser,
-      pathEraser: (_) => PhosphorIcons.path,
-      layer: (_) => PhosphorIcons.squaresFour,
-      area: (_) => PhosphorIcons.monitor,
-      laser: (_) => PhosphorIcons.cursor,
-      shape: (painter) => painter.property.shape.icon,
-      spacer: (painter) => painter.axis == Axis2D.horizontal
-          ? PhosphorIcons.splitHorizontal
-          : PhosphorIcons.splitVertical,
-      stamp: (_) => PhosphorIcons.stamp,
-      presentation: (_) => PhosphorIcons.presentation,
-      fullSceen: (_) => PhosphorIcons.arrowsOut,
-    );
-  }
+  IconGetter get icon => map(
+        hand: (_) => PhosphorIcons.hand,
+        import: (_) => PhosphorIcons.arrowSquareIn,
+        undo: (_) => PhosphorIcons.arrowCounterClockwise,
+        redo: (_) => PhosphorIcons.arrowClockwise,
+        label: (_) => PhosphorIcons.textT,
+        pen: (_) => PhosphorIcons.pen,
+        eraser: (_) => PhosphorIcons.eraser,
+        pathEraser: (_) => PhosphorIcons.path,
+        layer: (_) => PhosphorIcons.squaresFour,
+        area: (_) => PhosphorIcons.monitor,
+        laser: (_) => PhosphorIcons.cursor,
+        shape: (painter) => painter.property.shape.icon,
+        spacer: (painter) => painter.axis == Axis2D.horizontal
+            ? PhosphorIcons.splitHorizontal
+            : PhosphorIcons.splitVertical,
+        stamp: (_) => PhosphorIcons.stamp,
+        presentation: (_) => PhosphorIcons.presentation,
+        fullSceen: (_) => PhosphorIcons.arrowsOut,
+        asset: (painter) => painter.type.icon,
+      );
 
   List<String> get help {
     final page = mapOrNull(
@@ -81,4 +81,22 @@ extension PainterVisualizer on Painter {
       orElse: () => false,
     );
   }
+}
+
+extension ImportTypeVisualizer on ImportType {
+  String getLocalizedName(BuildContext context) => switch (this) {
+        ImportType.document => AppLocalizations.of(context).document,
+        ImportType.image => AppLocalizations.of(context).image,
+        ImportType.pdf => AppLocalizations.of(context).pdf,
+        ImportType.svg => AppLocalizations.of(context).svg,
+        ImportType.camera => AppLocalizations.of(context).camera,
+      };
+
+  IconGetter get icon => switch (this) {
+        ImportType.document => PhosphorIcons.fileText,
+        ImportType.image => PhosphorIcons.image,
+        ImportType.pdf => PhosphorIcons.filePdf,
+        ImportType.svg => PhosphorIcons.fileCode,
+        ImportType.camera => PhosphorIcons.camera,
+      };
 }

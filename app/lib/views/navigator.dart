@@ -82,6 +82,7 @@ class NavigatorView extends StatelessWidget {
               ),
               AnimatedContainer(
                 duration: const Duration(milliseconds: 100),
+                curve: Curves.easeInOut,
                 width: settings.navigatorEnabled ? drawerWidth : 0,
                 child: const ClipRect(
                   child: OverflowBox(

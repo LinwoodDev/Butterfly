@@ -34,7 +34,7 @@ class _FileEntityItemState extends State<_FileEntityItem> {
     try {
       if (widget.entity is AppDocumentFile) {
         final file = widget.entity as AppDocumentFile;
-        icon = file.fileType.getIcon();
+        icon = file.fileType.icon(PhosphorIconsStyle.light);
         final data = file.load();
         thumbnail = data.getThumbnail();
         if (thumbnail?.isEmpty ?? false) thumbnail = null;

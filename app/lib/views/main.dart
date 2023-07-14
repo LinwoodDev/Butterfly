@@ -411,56 +411,48 @@ class _MainBody extends StatelessWidget {
                       ? Axis.horizontal
                       : Axis.vertical,
             );
-            return Row(
+            return Stack(
               children: [
-                if (isLarge && settings.navigationRail) const NavigatorView(),
-                Expanded(
-                  child: Stack(
-                    children: [
-                      const MainViewViewport(),
-                      if (!isMobile)
-                        Positioned(
-                            right: pos == ToolbarPosition.right ? 75 : 0,
-                            top: 0,
-                            child: const PropertyView()),
-                      Row(
+                const MainViewViewport(),
+                if (!isMobile)
+                  Positioned(
+                      right: pos == ToolbarPosition.right ? 75 : 0,
+                      top: 0,
+                      child: const PropertyView()),
+                Row(
+                  children: [
+                    if (isLarge && settings.navigationRail)
+                      const NavigatorView(),
+                    if (pos == ToolbarPosition.left) toolbar,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          if (pos == ToolbarPosition.left) toolbar,
+                          if (settings.fullScreen && pos == ToolbarPosition.top)
+                            toolbar,
+                          if (pos == ToolbarPosition.top) const ToolbarView(),
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                if (settings.fullScreen &&
-                                    pos == ToolbarPosition.top)
-                                  toolbar,
-                                if (pos == ToolbarPosition.top)
-                                  const ToolbarView(),
-                                Expanded(
-                                    child: isMobile
-                                        ? const PropertyView()
-                                        : const SizedBox.shrink()),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: SizedBox(
-                                      width: isMobile ? 100 : 400,
-                                      child: ZoomView(isMobile: isMobile),
-                                    ),
-                                  ),
-                                ),
-                                if (pos != ToolbarPosition.top)
-                                  const ToolbarView(),
-                                if (isMobile || pos == ToolbarPosition.bottom)
-                                  toolbar,
-                              ],
+                              child: isMobile
+                                  ? const PropertyView()
+                                  : const SizedBox.shrink()),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: SizedBox(
+                                width: isMobile ? 100 : 400,
+                                child: ZoomView(isMobile: isMobile),
+                              ),
                             ),
                           ),
-                          if (pos == ToolbarPosition.right) toolbar,
+                          if (pos != ToolbarPosition.top) const ToolbarView(),
+                          if (isMobile || pos == ToolbarPosition.bottom)
+                            toolbar,
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                    if (pos == ToolbarPosition.right) toolbar,
+                  ],
                 ),
               ],
             );

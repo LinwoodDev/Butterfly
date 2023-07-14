@@ -267,3 +267,23 @@ Map<String, dynamic> _$$FullScreenPainterToJson(_$FullScreenPainter instance) =>
       'name': instance.name,
       'type': instance.$type,
     };
+
+_$AssetPainter _$$AssetPainterFromJson(Map json) => _$AssetPainter(
+      name: json['name'] as String? ?? '',
+      type: $enumDecodeNullable(_$ImportTypeEnumMap, json['type']) ??
+          ImportType.document,
+    );
+
+Map<String, dynamic> _$$AssetPainterToJson(_$AssetPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': _$ImportTypeEnumMap[instance.type]!,
+    };
+
+const _$ImportTypeEnumMap = {
+  ImportType.image: 'image',
+  ImportType.camera: 'camera',
+  ImportType.svg: 'svg',
+  ImportType.pdf: 'pdf',
+  ImportType.document: 'document',
+};
