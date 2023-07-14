@@ -421,7 +421,9 @@ class _MainBody extends StatelessWidget {
                       child: const PropertyView()),
                 Row(
                   children: [
-                    if (isLarge && settings.navigationRail)
+                    if (isLarge &&
+                        settings.navigationRail &&
+                        !settings.fullScreen)
                       const NavigatorView(),
                     if (pos == ToolbarPosition.left) toolbar,
                     Expanded(

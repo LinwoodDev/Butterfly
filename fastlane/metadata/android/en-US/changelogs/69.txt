@@ -7,3 +7,4 @@
 * Add asset painter ([#431](https://github.com/LinwoodDev/Butterfly/issues/431))
 * Fix mobile ui
 * Fix hand tool corner selection not working on mobile
+* Fix waypoints not updating in navigator
