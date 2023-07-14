@@ -512,5 +512,6 @@
   "onlyAvailableLargerScreen": "Saatavilla vain suuremmilla näytöillä",
   "toolbarPosition": "Työkalupalkin sijainti",
   "rotate": "Kierrä",
-  "spacer": "Välilyönti"
+  "spacer": "Välilyönti",
+  "navigationRail": "Navigation rail"
 }
