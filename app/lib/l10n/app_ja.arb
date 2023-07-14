@@ -512,5 +512,6 @@
   "onlyAvailableLargerScreen": "より大きな画面でのみ利用可能",
   "toolbarPosition": "ツールバーの位置",
   "rotate": "回転",
-  "spacer": "スペーサー"
+  "spacer": "スペーサー",
+  "navigationRail": "Navigation rail"
 }
