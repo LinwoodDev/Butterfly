@@ -157,7 +157,7 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
     if (metadata == null) return template;
     final name = await findAvailableName(metadata.name);
     template.setMetadata(metadata.copyWith(name: name));
-    updateTemplate(template);
+    await updateTemplate(template);
     return template;
   }
 

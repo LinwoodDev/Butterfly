@@ -6,7 +6,6 @@ import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
-import 'package:butterfly/views/zoom.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -241,19 +240,16 @@ class _AppBarTitle extends StatelessWidget {
                   child: BlocBuilder<SettingsCubit, ButterflySettings>(
                 buildWhen: (previous, current) =>
                     previous.toolbarPosition != current.toolbarPosition,
-                builder: (context, settings) => settings.toolbarPosition ==
-                        ToolbarPosition.top
-                    ? const EditToolbar(
-                        isMobile: false,
-                      )
-                    : settings.zoomEnabled
-                        ? Align(
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(maxWidth: 500),
-                              child: const ZoomView(floating: false),
-                            ),
+                builder: (context, settings) => Row(
+                  children: [
+                    const Expanded(child: WindowFreeSpace()),
+                    settings.toolbarPosition == ToolbarPosition.top
+                        ? const EditToolbar(
+                            isMobile: false,
                           )
                         : const SizedBox.shrink(),
+                  ],
+                ),
               )),
           ]),
         );

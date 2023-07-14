@@ -415,44 +415,50 @@ class _MainBody extends StatelessWidget {
             return Row(
               children: [
                 if (isLarge) const DocumentNavigator(),
-                if (pos == ToolbarPosition.left) toolbar,
                 Expanded(
                   child: Stack(
                     children: [
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            if (settings.fullScreen &&
-                                pos == ToolbarPosition.top)
-                              toolbar,
-                            Expanded(
-                                child: Stack(
+                      const MainViewViewport(),
+                      if (!isMobile)
+                        Positioned(
+                            right: pos == ToolbarPosition.right ? 75 : 0,
+                            top: 0,
+                            child: const PropertyView()),
+                      Row(
+                        children: [
+                          if (pos == ToolbarPosition.left) toolbar,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const MainViewViewport(),
-                                const ToolbarView(),
-                                if (pos == ToolbarPosition.top || isMobile)
-                                  Positioned(
-                                    bottom: 25,
-                                    right: 25,
-                                    width: isMobile ? 100 : 400,
-                                    child: ZoomView(isMobile: isMobile),
+                                if (settings.fullScreen &&
+                                    pos == ToolbarPosition.top)
+                                  toolbar,
+                                if (pos == ToolbarPosition.top)
+                                  const ToolbarView(),
+                                const Expanded(child: SizedBox.shrink()),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: SizedBox(
+                                      width: isMobile ? 100 : 400,
+                                      child: ZoomView(isMobile: isMobile),
+                                    ),
                                   ),
-                                if (!isMobile) const PropertyView(),
+                                ),
+                                if (pos != ToolbarPosition.top)
+                                  const ToolbarView(),
+                                if (pos == ToolbarPosition.bottom) toolbar,
                               ],
-                            )),
-                            if (isMobile)
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: EditToolbar(isMobile: isMobile))),
-                            if (pos == ToolbarPosition.bottom) toolbar,
-                          ]),
-                      if (isMobile) const PropertyView(),
+                            ),
+                          ),
+                          if (pos == ToolbarPosition.right) toolbar,
+                        ],
+                      ),
                     ],
                   ),
                 ),
-                if (pos == ToolbarPosition.right) toolbar,
               ],
             );
           });

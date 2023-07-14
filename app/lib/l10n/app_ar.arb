@@ -511,5 +511,6 @@
   "rotation": "دوران",
   "onlyAvailableLargerScreen": "متوفر فقط على شاشات أكبر",
   "toolbarPosition": "موضع شريط الأدوات",
-  "rotate": "تدوير"
+  "rotate": "تدوير",
+  "spacer": "المساحة"
 }

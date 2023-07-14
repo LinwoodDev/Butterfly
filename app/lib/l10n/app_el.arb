@@ -511,5 +511,6 @@
   "rotation": "Περιστροφή",
   "onlyAvailableLargerScreen": "Διαθέσιμο μόνο σε μεγαλύτερες οθόνες",
   "toolbarPosition": "Θέση γραμμής εργαλείων",
-  "rotate": "Περιστροφή"
+  "rotate": "Περιστροφή",
+  "spacer": "Διάστημα"
 }

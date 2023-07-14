@@ -511,5 +511,6 @@
   "rotation": "旋转",
   "onlyAvailableLargerScreen": "仅在大屏幕上可用",
   "toolbarPosition": "工具栏位置",
-  "rotate": "旋转"
+  "rotate": "旋转",
+  "spacer": "空格"
 }

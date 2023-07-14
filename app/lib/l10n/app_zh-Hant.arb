@@ -473,7 +473,7 @@
   "checkbox": "核取方塊",
   "deleted": "已刪除",
   "emphasis": "強調",
-  "listBullet": "List bullet",
+  "listBullet": "項目符號",
   "strong": "Strong",
   "markdown": "Markdown",
   "home": "Home",
@@ -509,7 +509,8 @@
   "sendBackward": "下推一層",
   "invalidName": "名稱無效",
   "rotation": "Rotation",
-  "onlyAvailableLargerScreen": "Only available on larger screens",
-  "toolbarPosition": "Toolbar position",
-  "rotate": "Rotate"
+  "onlyAvailableLargerScreen": "僅適用於大螢幕設備",
+  "toolbarPosition": "工具列位置",
+  "rotate": "Rotate",
+  "spacer": "間隔"
 }

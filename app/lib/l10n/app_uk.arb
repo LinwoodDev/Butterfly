@@ -511,5 +511,6 @@
   "rotation": "Поворот екрану",
   "onlyAvailableLargerScreen": "Доступно тільки на більших екранах",
   "toolbarPosition": "Позиція панелі інструментів",
-  "rotate": "Обертати"
+  "rotate": "Обертати",
+  "spacer": "Розділювач"
 }
