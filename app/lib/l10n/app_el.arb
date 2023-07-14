@@ -512,5 +512,6 @@
   "onlyAvailableLargerScreen": "Διαθέσιμο μόνο σε μεγαλύτερες οθόνες",
   "toolbarPosition": "Θέση γραμμής εργαλείων",
   "rotate": "Περιστροφή",
-  "spacer": "Διάστημα"
+  "spacer": "Διάστημα",
+  "navigationRail": "Navigation rail"
 }
