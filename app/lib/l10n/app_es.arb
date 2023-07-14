@@ -512,5 +512,6 @@
   "onlyAvailableLargerScreen": "Sólo disponible en pantallas más grandes",
   "toolbarPosition": "Posición de barra de herramientas",
   "rotate": "Rotar",
-  "spacer": "Espaciador"
+  "spacer": "Espaciador",
+  "navigationRail": "Navigation rail"
 }
