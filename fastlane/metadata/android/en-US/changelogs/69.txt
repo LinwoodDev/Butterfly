@@ -1,4 +1,4 @@
 * Add keyboard shortcuts
-  * Add ctrl + a to select all to hand painter
-  * Add del to delete selected to hand painter
+  * Add ctrl + a to select all to hand painter ([#436](https://github.com/LinwoodDev/Butterfly/issues/436))
+  * Add del to delete selected to hand painter ([#435](https://github.com/LinwoodDev/Butterfly/issues/435))
 * Fix mobile ui
