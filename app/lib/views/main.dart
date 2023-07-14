@@ -396,7 +396,8 @@ class _MainBody extends StatelessWidget {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
             previous.toolbarPosition != current.toolbarPosition ||
-            previous.fullScreen != current.fullScreen,
+            previous.fullScreen != current.fullScreen ||
+            previous.navigationRail != current.navigationRail,
         builder: (context, settings) {
           final pos = settings.toolbarPosition;
           return LayoutBuilder(builder: (context, constraints) {
@@ -412,7 +413,7 @@ class _MainBody extends StatelessWidget {
             );
             return Row(
               children: [
-                if (isLarge) const DocumentNavigator(),
+                if (isLarge && settings.navigationRail) const NavigatorView(),
                 Expanded(
                   child: Stack(
                     children: [

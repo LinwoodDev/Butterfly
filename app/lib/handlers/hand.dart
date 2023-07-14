@@ -446,9 +446,10 @@ class HandHandler extends Handler<HandPainter> {
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
     _currentMousePosition = globalPos;
-    final corner = _getCornerHit(globalPos);
-    if (corner != null || (getSelectionRect()?.contains(globalPos) ?? false)) {
-      transform(context.getDocumentBloc(), _selected, corner);
+    _transformCorner = _getCornerHit(globalPos);
+    if (_transformCorner != null ||
+        (getSelectionRect()?.contains(globalPos) ?? false)) {
+      transform(context.getDocumentBloc(), _selected, _transformCorner);
       return true;
     }
     context.refresh();

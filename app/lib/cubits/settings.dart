@@ -13,6 +13,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../views/navigator.dart';
+
 part 'settings.freezed.dart';
 part 'settings.g.dart';
 
@@ -216,13 +218,14 @@ class ButterflySettings with _$ButterflySettings {
     @Default('') String defaultRemote,
     @Default(false) bool nativeTitleBar,
     @Default(false) bool startInFullScreen,
+    @Default(true) bool navigationRail,
     required bool fullScreen,
     @Default(SyncMode.noMobile) SyncMode syncMode,
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
     @Default('') String fallbackPack,
     @Default([]) List<String> starred,
     @Default('') String defaultTemplate,
-    @Default(0) int navigatorTab,
+    @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
     @Default(ToolbarPosition.top) ToolbarPosition toolbarPosition,
   }) = _ButterflySettings;
 
@@ -285,6 +288,7 @@ class ButterflySettings with _$ButterflySettings {
       toolbarPosition: prefs.containsKey('toolbar_position')
           ? ToolbarPosition.values.byName(prefs.getString('toolbar_position')!)
           : ToolbarPosition.top,
+      navigationRail: prefs.getBool('navigation_rail') ?? true,
     );
   }
 
@@ -333,6 +337,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setInt('version', 0);
     await prefs.setString('default_template', defaultTemplate);
     await prefs.setString('toolbar_position', toolbarPosition.name);
+    await prefs.setBool('navigation_rail', navigationRail);
   }
 
   RemoteStorage? getRemote(String? identifier) {
@@ -673,8 +678,8 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  void setNavigatorTab(int index) {
-    emit(state.copyWith(navigatorTab: index));
+  void setNavigatorPage(NavigatorPage page) {
+    emit(state.copyWith(navigatorPage: page));
   }
 
   void setFullScreen(bool value, [bool modify = true]) {
@@ -685,4 +690,9 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   void toggleFullScreen() => setFullScreen(!state.fullScreen);
+
+  Future<void> changeNavigationRail(bool value) {
+    emit(state.copyWith(navigationRail: value));
+    return save();
+  }
 }

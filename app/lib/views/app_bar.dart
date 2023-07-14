@@ -26,6 +26,7 @@ import '../dialogs/search.dart';
 import '../embed/action.dart';
 import '../main.dart';
 import '../widgets/window.dart';
+import 'navigator.dart';
 
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey viewportKey;
@@ -240,12 +241,15 @@ class _AppBarTitle extends StatelessWidget {
                   child: BlocBuilder<SettingsCubit, ButterflySettings>(
                 buildWhen: (previous, current) =>
                     previous.toolbarPosition != current.toolbarPosition,
-                builder: (context, settings) => Row(
+                builder: (context, settings) => Stack(
                   children: [
-                    const Expanded(child: WindowFreeSpace()),
+                    const WindowFreeSpace(),
                     settings.toolbarPosition == ToolbarPosition.top
-                        ? const EditToolbar(
-                            isMobile: false,
+                        ? const Align(
+                            alignment: Alignment.centerRight,
+                            child: EditToolbar(
+                              isMobile: false,
+                            ),
                           )
                         : const SizedBox.shrink(),
                   ],
@@ -283,19 +287,19 @@ class _MainPopupMenu extends StatelessWidget {
                 }
               },
             ),
-            MenuItemButton(
-              leadingIcon: const PhosphorIcon(PhosphorIconsLight.compass),
-              child: Text(AppLocalizations.of(context).navigator),
-              onPressed: () {
-                if (MediaQuery.of(context).size.width >= kLargeWidth) {
-                  final settingsCubit = context.read<SettingsCubit>();
-                  settingsCubit.changeNavigatorEnabled(
-                      !settingsCubit.state.navigatorEnabled);
-                } else {
-                  Scaffold.of(context).openDrawer();
-                }
-              },
-            ),
+            if (MediaQuery.of(context).size.width < kLargeWidth ||
+                !context.read<SettingsCubit>().state.navigationRail)
+              ...NavigatorPage.values.map(
+                (e) => MenuItemButton(
+                  leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                  child: Text(e.getLocalizedName(context)),
+                  onPressed: () {
+                    final settingsCubit = context.read<SettingsCubit>();
+                    settingsCubit.setNavigatorPage(e);
+                    Scaffold.of(context).openDrawer();
+                  },
+                ),
+              ),
             const Divider(),
             SubmenuButton(
               menuChildren: [
