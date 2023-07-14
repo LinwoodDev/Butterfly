@@ -437,7 +437,7 @@ class _MainBody extends StatelessWidget {
                                     width: isMobile ? 100 : 400,
                                     child: ZoomView(isMobile: isMobile),
                                   ),
-                                if (!isMobile) const PropertyView()
+                                if (!isMobile) const PropertyView(),
                               ],
                             )),
                             if (isMobile)

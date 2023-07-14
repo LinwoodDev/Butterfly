@@ -183,6 +183,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
                   false)));
 
   Future<AssetLocation> save() {
+    currentIndexCubit.setSaveState(saved: SaveState.saving);
     final newMeta = metadata.copyWith(updatedAt: DateTime.now().toUtc());
     data.setMetadata(newMeta);
     final storage = getRemoteStorage();
@@ -193,12 +194,16 @@ class DocumentLoadSuccess extends DocumentLoaded {
       return DocumentFileSystem.fromPlatform(remote: storage)
           .importDocument(saveData())
           .then((value) => value.location)
-        ..then(settingsCubit.addRecentHistory);
+        ..then(settingsCubit.addRecentHistory)
+        ..then((value) => currentIndexCubit.setSaveState(
+            location: value, saved: SaveState.saved));
     }
     return DocumentFileSystem.fromPlatform(remote: storage)
         .updateDocument(location.path, saveData())
         .then((value) => value.location)
-      ..then(settingsCubit.addRecentHistory);
+      ..then(settingsCubit.addRecentHistory)
+      ..then((value) => currentIndexCubit.setSaveState(
+          location: value, saved: SaveState.saved));
   }
 
   RemoteStorage? getRemoteStorage() => location.remote.isEmpty

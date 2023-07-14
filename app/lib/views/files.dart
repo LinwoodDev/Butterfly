@@ -460,7 +460,7 @@ class _FilesViewState extends State<FilesView> {
     final location = entity.location;
     final data = entity.data;
     if (location.remote != '') {
-      GoRouter.of(context).goNamed('remote',
+      GoRouter.of(context).pushReplacementNamed('remote',
           pathParameters: {
             'remote': location.remote,
             'path': location.pathWithoutLeadingSlash,
@@ -474,7 +474,7 @@ class _FilesViewState extends State<FilesView> {
       }
       return;
     }
-    GoRouter.of(context).goNamed('local',
+    GoRouter.of(context).pushReplacementNamed('local',
         pathParameters: {
           'path': location.pathWithoutLeadingSlash,
         },

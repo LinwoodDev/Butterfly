@@ -467,12 +467,12 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                               clipBehavior: Clip.hardEdge,
                               child: InkWell(
                                 onTap: () async {
-                                  await GoRouter.of(context).pushNamed('new',
+                                  GoRouter.of(context).pushReplacementNamed(
+                                      'new',
                                       queryParameters: {
                                         'path': metadata.directory
                                       },
                                       extra: e.createDocument().save());
-                                  widget.onReload();
                                 },
                                 child: Stack(
                                   children: [

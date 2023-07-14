@@ -6,3 +6,5 @@
 * Fix window does not open with start in fullscreen mode enabled ([#430](https://github.com/LinwoodDev/Butterfly/issues/430))
 * Fix resizing with multiple elements ([#434](https://github.com/LinwoodDev/Butterfly/issues/434))
 * Fix resizing with rotated elements
+* Fix home page not refreshing
+* Fix save indicator on web
