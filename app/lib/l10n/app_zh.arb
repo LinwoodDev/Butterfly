@@ -241,7 +241,7 @@
   "recentFiles": "最近的文件",
   "start": "开始",
   "noRecentFiles": "没有最近的文件",
-  "countPages": "{count,plural, =0{No pages} =1{1 page} other{{count} pages}}",
+  "countPages": "{count,plural, =0{没有页面} =1{1页面} other{{count} pages}}",
   "@countPages": {
     "placeholders": {
       "count": {
@@ -513,5 +513,5 @@
   "toolbarPosition": "工具栏位置",
   "rotate": "旋转",
   "spacer": "空格",
-  "navigationRail": "Navigation rail"
+  "navigationRail": "导航铁道"
 }
