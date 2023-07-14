@@ -2,6 +2,25 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.4 (2023-07-14)
+
+* Add custom mouse cursors for painters ([#426](https://github.com/LinwoodDev/Butterfly/issues/426))
+* Add spacer painter ([#424](https://github.com/LinwoodDev/Butterfly/issues/424))
+* Add full screen painter ([#432](https://github.com/LinwoodDev/Butterfly/issues/432))
+* Add move by dragging selection, add rotate button ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
+* Add floating toolbar ([#445](https://github.com/LinwoodDev/Butterfly/issues/445))
+* Add settings animation and blur
+* Add responsive main view ui
+* Recode hand tool to allow realtime transformation
+* Improve window title bar
+* Fix window does not open with start in fullscreen mode enabled ([#430](https://github.com/LinwoodDev/Butterfly/issues/430))
+* Fix resizing with multiple elements ([#434](https://github.com/LinwoodDev/Butterfly/issues/434))
+* Fix resizing with rotated elements
+* Fix not waiting for creating default templates on native platforms
+* Fix native title bar setting not saved
+* Fix home page not refreshing
+* Fix save indicator on web
+
 ## 2.0.0-beta.3 (2023-07-07)
 
 * Add image background ([#419](https://github.com/LinwoodDev/Butterfly/issues/419))
