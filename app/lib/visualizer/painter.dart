@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
@@ -96,7 +99,13 @@ extension ImportTypeVisualizer on ImportType {
         ImportType.document => PhosphorIcons.fileText,
         ImportType.image => PhosphorIcons.image,
         ImportType.pdf => PhosphorIcons.filePdf,
-        ImportType.svg => PhosphorIcons.fileCode,
+        ImportType.svg => PhosphorIcons.fileSvg,
         ImportType.camera => PhosphorIcons.camera,
+      };
+
+  bool isAvailable() => switch (this) {
+        ImportType.camera =>
+          kIsWeb || Platform.isWindows || Platform.isAndroid || Platform.isIOS,
+        _ => true,
       };
 }
