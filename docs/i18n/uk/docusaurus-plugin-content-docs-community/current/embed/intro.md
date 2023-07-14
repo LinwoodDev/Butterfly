@@ -23,7 +23,7 @@ sidebar_label: Вступ
 
 ```javascript
 const embedElement = document.querySelector('#butterfly');
-embedElement.addEventListener('message', (data) => {
+embedment.addEventListener('message', (data) =>
   if(data.detail.type === 'save') {
     console.log('Saving...', data.detail.message);
   }
