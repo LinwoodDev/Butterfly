@@ -129,7 +129,7 @@ class Painter with _$Painter {
 
   factory Painter.asset({
     @Default('') String name,
-    @Default(ImportType.document) ImportType type,
+    @Default(ImportType.document) ImportType importType,
   }) = AssetPainter;
 
   factory Painter.fromJson(Map<String, dynamic> json) =>

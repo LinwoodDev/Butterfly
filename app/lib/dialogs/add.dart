@@ -85,7 +85,7 @@ class AddDialog extends StatelessWidget {
                             const SizedBox(width: 8),
                             IconButton(
                               onPressed: () =>
-                                  addPainter(Painter.asset(type: e)),
+                                  addPainter(Painter.asset(importType: e)),
                               icon:
                                   const PhosphorIcon(PhosphorIconsLight.mapPin),
                             ),

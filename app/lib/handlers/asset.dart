@@ -7,7 +7,7 @@ class AssetHandler extends Handler<AssetPainter> {
   void onTapUp(TapUpDetails details, EventContext context) {
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localPosition);
-    showImportAssetWizard(data.type, context.buildContext, globalPos);
+    showImportAssetWizard(data.importType, context.buildContext, globalPos);
   }
 }
 

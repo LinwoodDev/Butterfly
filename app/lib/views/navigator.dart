@@ -88,7 +88,7 @@ class NavigatorView extends StatelessWidget {
                   child: OverflowBox(
                     minWidth: drawerWidth,
                     maxWidth: drawerWidth,
-                    child: DocumentNavigator(asDrawer: false),
+                    child: Card(child: DocumentNavigator(asDrawer: false)),
                   ),
                 ),
               ),

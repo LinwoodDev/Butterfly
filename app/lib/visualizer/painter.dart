@@ -30,7 +30,7 @@ extension PainterVisualizer on Painter {
       stamp: (_) => loc.stamp,
       presentation: (_) => loc.presentation,
       fullSceen: (_) => loc.fullScreen,
-      asset: (painter) => painter.type.getLocalizedName(context),
+      asset: (painter) => painter.importType.getLocalizedName(context),
     );
   }
 
@@ -53,7 +53,7 @@ extension PainterVisualizer on Painter {
         stamp: (_) => PhosphorIcons.stamp,
         presentation: (_) => PhosphorIcons.presentation,
         fullSceen: (_) => PhosphorIcons.arrowsOut,
-        asset: (painter) => painter.type.icon,
+        asset: (painter) => painter.importType.icon,
       );
 
   List<String> get help {
