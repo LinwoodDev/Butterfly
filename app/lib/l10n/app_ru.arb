@@ -513,5 +513,6 @@
   "toolbarPosition": "Положение панели инструментов",
   "rotate": "Повернуть",
   "spacer": "Пробел",
-  "navigationRail": "Навигационные рельсы"
+  "navigationRail": "Навигационные рельсы",
+  "cut": "Cut"
 }
