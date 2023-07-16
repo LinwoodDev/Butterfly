@@ -406,10 +406,11 @@ class _MainBody extends StatelessWidget {
             final toolbar = EditToolbar(
               isMobile: false,
               centered: true,
-              direction:
-                  pos == ToolbarPosition.bottom || pos == ToolbarPosition.top
-                      ? Axis.horizontal
-                      : Axis.vertical,
+              direction: pos == ToolbarPosition.bottom ||
+                      pos == ToolbarPosition.top ||
+                      isMobile
+                  ? Axis.horizontal
+                  : Axis.vertical,
             );
             return Stack(
               children: [
@@ -425,14 +426,17 @@ class _MainBody extends StatelessWidget {
                         settings.navigationRail &&
                         !settings.fullScreen)
                       const NavigatorView(),
-                    if (pos == ToolbarPosition.left) toolbar,
+                    if (pos == ToolbarPosition.left && !isMobile) toolbar,
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          if (settings.fullScreen && pos == ToolbarPosition.top)
+                          if (settings.fullScreen &&
+                              pos == ToolbarPosition.top &&
+                              !isMobile)
                             toolbar,
-                          if (pos == ToolbarPosition.top) const ToolbarView(),
+                          if (pos == ToolbarPosition.top || isMobile)
+                            const ToolbarView(),
                           Expanded(
                               child: isMobile
                                   ? const PropertyView()
@@ -447,7 +451,8 @@ class _MainBody extends StatelessWidget {
                               ),
                             ),
                           ),
-                          if (pos != ToolbarPosition.top) const ToolbarView(),
+                          if (pos != ToolbarPosition.top && !isMobile)
+                            const ToolbarView(),
                           if (isMobile || pos == ToolbarPosition.bottom)
                             toolbar,
                         ],
