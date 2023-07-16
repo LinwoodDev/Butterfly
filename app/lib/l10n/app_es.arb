@@ -513,5 +513,6 @@
   "toolbarPosition": "Posición de barra de herramientas",
   "rotate": "Rotar",
   "spacer": "Espaciador",
-  "navigationRail": "Raíl de navegación"
+  "navigationRail": "Raíl de navegación",
+  "cut": "Cut"
 }
