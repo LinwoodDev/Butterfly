@@ -220,8 +220,8 @@ class HandHandler extends Handler<HandPainter> {
         scaleY += -delta.dy / transformRect.size.height;
         break;
       case HandTransformCorner.topCenter:
-        position = Offset(0, delta.dy);
         scaleY += -delta.dy / transformRect.size.height;
+        position = Offset(0, delta.dy);
         break;
       case HandTransformCorner.topRight:
         position = Offset(0, delta.dy);
@@ -260,6 +260,7 @@ class HandHandler extends Handler<HandPainter> {
       scaleX = scale;
       scaleY = scale;
     }
+    position = position.scale(1 / scaleX, 1 / scaleY);
     return _transformed.map((e) {
       var oldPos = e.rect?.topLeft ?? Offset.zero;
       var diff = oldPos - transformRect.topLeft;

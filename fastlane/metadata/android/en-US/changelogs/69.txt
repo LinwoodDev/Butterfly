@@ -10,3 +10,4 @@
 * Fix hand tool corner selection not working on mobile
 * Fix waypoints not updating in navigator
 * Fix background won't be loaded
+* Fix position when scaling elements
