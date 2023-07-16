@@ -513,5 +513,6 @@
   "toolbarPosition": "Pozycja paska narzędzi",
   "rotate": "Obróć",
   "spacer": "Odstęp",
-  "navigationRail": "Kolej nawigacyjna"
+  "navigationRail": "Kolej nawigacyjna",
+  "cut": "Cut"
 }
