@@ -513,5 +513,6 @@
   "toolbarPosition": "Toolbar position",
   "rotate": "Rotate",
   "spacer": "Spacer",
-  "navigationRail": "Navigation rail"
+  "navigationRail": "Navigation rail",
+  "cut": "Cut"
 }
