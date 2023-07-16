@@ -513,5 +513,6 @@
   "toolbarPosition": "Verktygsfältets position",
   "rotate": "Rotera",
   "spacer": "Mellanslag",
-  "navigationRail": "Navigeringsräls"
+  "navigationRail": "Navigeringsräls",
+  "cut": "Cut"
 }
