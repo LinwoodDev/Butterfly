@@ -513,5 +513,6 @@
   "toolbarPosition": "Værktøjslinjens position",
   "rotate": "Rotér",
   "spacer": "Mellemrum",
-  "navigationRail": "Navigation jernbane"
+  "navigationRail": "Navigation jernbane",
+  "cut": "Cut"
 }
