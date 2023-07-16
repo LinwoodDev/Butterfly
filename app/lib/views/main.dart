@@ -1,16 +1,3 @@
-import 'package:butterfly/actions/areas.dart';
-import 'package:butterfly/actions/background.dart';
-import 'package:butterfly/actions/change_path.dart';
-import 'package:butterfly/actions/color_palette.dart';
-import 'package:butterfly/actions/export.dart';
-import 'package:butterfly/actions/image_export.dart';
-import 'package:butterfly/actions/new.dart';
-import 'package:butterfly/actions/pdf_export.dart';
-import 'package:butterfly/actions/redo.dart';
-import 'package:butterfly/actions/save.dart';
-import 'package:butterfly/actions/settings.dart';
-import 'package:butterfly/actions/svg_export.dart';
-import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
@@ -33,11 +20,25 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../actions/areas.dart';
+import '../actions/background.dart';
 import '../actions/change_painter.dart';
+import '../actions/change_path.dart';
+import '../actions/color_palette.dart';
 import '../actions/exit.dart';
+import '../actions/export.dart';
+import '../actions/image_export.dart';
+import '../actions/new.dart';
 import '../actions/next.dart';
 import '../actions/packs.dart';
+import '../actions/paste.dart';
+import '../actions/pdf_export.dart';
 import '../actions/previous.dart';
+import '../actions/redo.dart';
+import '../actions/save.dart';
+import '../actions/settings.dart';
+import '../actions/svg_export.dart';
+import '../actions/undo.dart';
 import '../main.dart';
 import '../models/viewport.dart';
 import '../services/asset.dart';
@@ -85,6 +86,7 @@ class _ProjectPageState extends State<ProjectPage> {
     ExitIntent: ExitAction(),
     NextIntent: NextAction(),
     PreviousIntent: PreviousAction(),
+    PasteIntent: PasteAction(),
   };
 
   @override
@@ -124,7 +126,6 @@ class _ProjectPageState extends State<ProjectPage> {
           settingsCubit,
           document,
           widget.location ?? const AssetLocation(path: ''),
-          BoxBackgroundRenderer(const BoxBackground()),
           [],
         );
         _bloc?.load();
@@ -205,9 +206,9 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
-            CameraViewport.unbaked(ToolRenderer()), null);
+            CameraViewport.unbaked(ToolRenderer(), background), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
-            location!, background, renderers, assetService, page, pageName);
+            location!, renderers, assetService, page, pageName);
         _importService = ImportService(context, _bloc);
       });
     } catch (e, stackTrace) {

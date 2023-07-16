@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
@@ -96,6 +97,7 @@ Future<void> main([List<String> args = const []]) async {
   final argParser = ArgParser();
   argParser.addOption('path', abbr: 'p');
   final result = argParser.parse(args);
+  final clipboardManager = await SysInfo.getClipboardManager();
   GeneralFileSystem.dataPath = result['path'];
   runApp(
     MultiRepositoryProvider(
@@ -104,6 +106,8 @@ Future<void> main([List<String> args = const []]) async {
               create: (context) => DocumentFileSystem.fromPlatform()),
           RepositoryProvider(
               create: (context) => TemplateFileSystem.fromPlatform()),
+          RepositoryProvider<ClipboardManager>(
+              create: (context) => clipboardManager),
         ],
         child: ButterflyApp(
           prefs: prefs,

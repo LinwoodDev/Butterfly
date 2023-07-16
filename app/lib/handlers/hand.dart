@@ -577,6 +577,28 @@ class HandHandler extends Handler<HandPainter> {
             : null);
   }
 
+  void copySelection(BuildContext context, [bool cut = false]) {
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    if (cut) {
+      bloc.add(ElementsRemoved(_selected.map((r) => r.element).toList()));
+    }
+    final clipboard = (
+      type: AssetFileType.page.name,
+      data: Uint8List.fromList(
+        utf8.encode(
+          json.encode(
+              DocumentPage(content: _selected.map((e) => e.element).toList())
+                  .toJson()),
+        ),
+      ),
+    );
+    context.read<ClipboardManager>().setContent(clipboard);
+    _selected.clear();
+    bloc.refresh();
+  }
+
   @override
   Map<Type, Action<Intent>> getActions(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
@@ -599,6 +621,12 @@ class HandHandler extends Handler<HandPainter> {
         bloc.refresh();
         return null;
       }),
+      CopySelectionTextIntent:
+          CallbackAction<CopySelectionTextIntent>(onInvoke: (intent) {
+        copySelection(context, intent.collapseSelection);
+        return null;
+      }),
+      ...super.getActions(context),
     };
   }
 }

@@ -9,7 +9,7 @@ import 'data.dart';
 part 'asset.freezed.dart';
 part 'asset.g.dart';
 
-enum AssetFileType { note, image, pdf, svg }
+enum AssetFileType { note, page, image, pdf, svg }
 
 @freezed
 class AssetLocation with _$AssetLocation {

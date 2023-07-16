@@ -25,6 +25,28 @@ class ElementsDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           MenuItemButton(
+            onPressed: () {
+              Navigator.of(context).pop(true);
+              context
+                  .read<CurrentIndexCubit>()
+                  .fetchHandler<HandHandler>()
+                  ?.copySelection(context, true);
+            },
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.scissors),
+            child: Text(AppLocalizations.of(context).cut),
+          ),
+          MenuItemButton(
+            onPressed: () {
+              Navigator.of(context).pop(true);
+              context
+                  .read<CurrentIndexCubit>()
+                  .fetchHandler<HandHandler>()
+                  ?.copySelection(context, false);
+            },
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
+            child: Text(AppLocalizations.of(context).copy),
+          ),
+          MenuItemButton(
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
             onPressed: () {
               Navigator.of(context).pop(true);

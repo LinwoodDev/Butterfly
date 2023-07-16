@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
@@ -24,8 +25,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../actions/paste.dart';
 import '../api/open.dart';
 import '../cubits/current_index.dart';
 import '../dialogs/camera.dart';
@@ -222,7 +225,11 @@ abstract class Handler<T> {
 
   void dispose(DocumentBloc bloc) {}
 
-  Map<Type, Action<Intent>> getActions(BuildContext context) => {};
+  Map<Type, Action<Intent>> getActions(BuildContext context) => {
+        PasteTextIntent: CallbackAction<PasteTextIntent>(
+            onInvoke: (intent) =>
+                Actions.maybeInvoke(context, PasteIntent(context))),
+      };
 
   MouseCursor? get cursor => null;
 }

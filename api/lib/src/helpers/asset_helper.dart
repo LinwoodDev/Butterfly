@@ -13,6 +13,8 @@ extension AssetFileTypeHelper on AssetFileType {
         return ['pdf'];
       case AssetFileType.svg:
         return ['svg'];
+      case AssetFileType.page:
+        return [];
     }
   }
 
@@ -26,6 +28,8 @@ extension AssetFileTypeHelper on AssetFileType {
         return 'application/pdf';
       case AssetFileType.svg:
         return 'image/svg+xml';
+      case AssetFileType.page:
+        return 'application/json';
     }
   }
 

@@ -81,8 +81,8 @@ class ImportService {
         return importSvg(bytes, document, position);
       case AssetFileType.pdf:
         return importPdf(bytes, document, position, true);
-      default:
-        return Future.value();
+      case AssetFileType.page:
+        return importPage(bytes, document, position);
     }
   }
 
@@ -123,13 +123,35 @@ class ImportService {
     if (position == null) {
       return data;
     }
-    final firstPos = position;
-    final docPage = data.getPage();
-    if (docPage == null) return null;
-    final areas = docPage.areas
+    return _importPage(data.getPage(), document, position) ??
+        data.createDocument(
+          createdAt: DateTime.now(),
+        );
+  }
+
+  NoteData? importPage(Uint8List bytes, NoteData document, [Offset? position]) {
+    try {
+      final firstPos = position ?? Offset.zero;
+      final page = DocumentPage.fromJson(json.decode(utf8.decode(bytes)));
+      return _importPage(page, document, firstPos);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
+    }
+    return null;
+  }
+
+  NoteData? _importPage(DocumentPage? page, NoteData document,
+      [Offset? position]) {
+    final firstPos = position ?? Offset.zero;
+    if (page == null) return null;
+    final areas = page.areas
         .map((e) => e.copyWith(position: e.position + firstPos.toPoint()))
         .toList();
-    final content = docPage.content
+    final content = page.content
         .map((e) =>
             Renderer.fromInstance(e)
                 .transform(position: firstPos, relative: true)
@@ -137,10 +159,7 @@ class ImportService {
             e)
         .toList();
     return _submit(document,
-            elements: content, areas: areas, choosePosition: true) ??
-        data.createDocument(
-          createdAt: DateTime.now(),
-        );
+        elements: content, areas: areas, choosePosition: true);
   }
 
   Future<bool> _importTemplate(NoteData template) async {

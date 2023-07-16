@@ -30,7 +30,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     SettingsCubit settingsCubit,
     NoteData initial,
     AssetLocation location,
-    Renderer<Background> background,
     List<Renderer<PadElement>> renderer, [
     AssetService? assetService,
     DocumentPage? page,
