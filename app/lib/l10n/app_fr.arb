@@ -513,5 +513,6 @@
   "toolbarPosition": "Position de la barre d'outils",
   "rotate": "Faire pivoter",
   "spacer": "Espaceur",
-  "navigationRail": "Rail de navigation"
+  "navigationRail": "Rail de navigation",
+  "cut": "Cut"
 }
