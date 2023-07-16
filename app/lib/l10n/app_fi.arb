@@ -513,5 +513,6 @@
   "toolbarPosition": "Työkalupalkin sijainti",
   "rotate": "Kierrä",
   "spacer": "Välilyönti",
-  "navigationRail": "Navigointi rautatie"
+  "navigationRail": "Navigointi rautatie",
+  "cut": "Cut"
 }
