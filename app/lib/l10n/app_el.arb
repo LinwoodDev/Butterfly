@@ -513,5 +513,6 @@
   "toolbarPosition": "Θέση γραμμής εργαλείων",
   "rotate": "Περιστροφή",
   "spacer": "Διάστημα",
-  "navigationRail": "Σιδηρόδρομος πλοήγησης"
+  "navigationRail": "Σιδηρόδρομος πλοήγησης",
+  "cut": "Cut"
 }
