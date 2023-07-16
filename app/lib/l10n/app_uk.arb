@@ -513,5 +513,6 @@
   "toolbarPosition": "Позиція панелі інструментів",
   "rotate": "Обертати",
   "spacer": "Розділювач",
-  "navigationRail": "Навігаційна залізниця"
+  "navigationRail": "Навігаційна залізниця",
+  "cut": "Cut"
 }
