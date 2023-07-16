@@ -513,5 +513,6 @@
   "toolbarPosition": "Pozice panelu nástrojů",
   "rotate": "Otočit",
   "spacer": "Mezera",
-  "navigationRail": "Navigační kolejnice"
+  "navigationRail": "Navigační kolejnice",
+  "cut": "Cut"
 }
