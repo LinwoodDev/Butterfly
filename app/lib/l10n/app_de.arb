@@ -513,5 +513,6 @@
   "toolbarPosition": "Position der Werkzeugleiste",
   "rotate": "Drehen",
   "spacer": "Abstand",
-  "navigationRail": "Navigationsschiene"
+  "navigationRail": "Navigationsschiene",
+  "cut": "Cut"
 }
