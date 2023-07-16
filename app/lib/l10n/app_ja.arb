@@ -513,5 +513,6 @@
   "toolbarPosition": "ツールバーの位置",
   "rotate": "回転",
   "spacer": "スペーサー",
-  "navigationRail": "ナビゲーション レール"
+  "navigationRail": "ナビゲーション レール",
+  "cut": "Cut"
 }
