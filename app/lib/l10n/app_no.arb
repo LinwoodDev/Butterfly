@@ -513,5 +513,6 @@
   "toolbarPosition": "Plassering av verktøylinje",
   "rotate": "Roter",
   "spacer": "Mellomrom",
-  "navigationRail": "Navigasjon bane"
+  "navigationRail": "Navigasjon bane",
+  "cut": "Cut"
 }
