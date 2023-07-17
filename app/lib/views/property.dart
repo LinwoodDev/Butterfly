@@ -17,6 +17,8 @@ class PropertyView extends StatefulWidget {
   State<PropertyView> createState() => _PropertyViewState();
 }
 
+const minSize = 500.0;
+
 class _PropertyViewState extends State<PropertyView>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
@@ -29,7 +31,7 @@ class _PropertyViewState extends State<PropertyView>
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.bounceInOut));
   final _scrollController = ScrollController();
 
-  double _size = 500;
+  double _size = minSize;
 
   @override
   void dispose() {
@@ -42,7 +44,8 @@ class _PropertyViewState extends State<PropertyView>
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      final isMobile = MediaQuery.of(context).size.width < _size;
+      final isMobile =
+          constraints.maxWidth < _size || constraints.maxHeight < 500;
       Selection? lastSelection;
       return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
           buildWhen: (previous, current) =>
@@ -96,7 +99,7 @@ class _PropertyViewState extends State<PropertyView>
                                 final delta = details.delta.dx;
                                 setState(() {
                                   _size -= delta;
-                                  _size = max(_size, 450);
+                                  _size = max(_size, minSize);
                                 });
                               },
                             ),

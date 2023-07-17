@@ -44,9 +44,13 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
         leadingWidth: 60,
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: _MainPopupMenu(
-            viewportKey: viewportKey,
-          ),
+          child: LayoutBuilder(builder: (context, constraints) {
+            final isLarge = MediaQuery.of(context).size.width < kLargeWidth;
+            return _MainPopupMenu(
+              viewportKey: viewportKey,
+              isLarge: isLarge,
+            );
+          }),
         ),
         title: LayoutBuilder(builder: (context, constraints) {
           final isMobile = MediaQuery.of(context).size.width < kMobileWidth;
@@ -265,8 +269,9 @@ class _AppBarTitle extends StatelessWidget {
 
 class _MainPopupMenu extends StatelessWidget {
   final GlobalKey viewportKey;
+  final bool isLarge;
 
-  const _MainPopupMenu({required this.viewportKey});
+  const _MainPopupMenu({required this.viewportKey, required this.isLarge});
 
   @override
   Widget build(BuildContext context) {

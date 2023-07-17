@@ -416,7 +416,7 @@ class _MainBody extends StatelessWidget {
             return Stack(
               children: [
                 const MainViewViewport(),
-                if (!isMobile)
+                if (!isMobile && constraints.maxHeight >= 500)
                   Positioned(
                       right: pos == ToolbarPosition.right ? 75 : 0,
                       top: 0,
@@ -439,7 +439,7 @@ class _MainBody extends StatelessWidget {
                           if (pos == ToolbarPosition.top || isMobile)
                             const ToolbarView(),
                           Expanded(
-                              child: isMobile
+                              child: isMobile || constraints.maxHeight < 500
                                   ? const PropertyView()
                                   : const SizedBox.shrink()),
                           Padding(
