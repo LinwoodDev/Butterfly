@@ -514,5 +514,6 @@
   "rotate": "旋转",
   "spacer": "空格",
   "navigationRail": "导航铁道",
-  "cut": "Cut"
+  "cut": "剪辑",
+  "paste": "粘贴"
 }
