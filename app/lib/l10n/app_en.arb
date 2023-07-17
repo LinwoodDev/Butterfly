@@ -514,5 +514,6 @@
   "rotate": "Rotate",
   "spacer": "Spacer",
   "navigationRail": "Navigation rail",
-  "cut": "Cut"
+  "cut": "Cut",
+  "paste": "Paste"
 }
