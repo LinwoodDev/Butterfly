@@ -295,13 +295,21 @@ class ButterflyApp extends StatelessWidget {
         },
         child: BlocBuilder<SettingsCubit, ButterflySettings>(
           buildWhen: (previous, current) =>
-              previous.nativeTitleBar != current.nativeTitleBar,
+              previous.nativeTitleBar != current.nativeTitleBar ||
+              previous.theme != current.theme,
           builder: (context, settings) {
+            final mediaQuery = MediaQuery.of(context);
             if (!kIsWeb && isWindow) {
               windowManager.waitUntilReadyToShow().then((_) async {
                 await windowManager.setTitleBarStyle(settings.nativeTitleBar
                     ? TitleBarStyle.normal
                     : TitleBarStyle.hidden);
+                final brightness = switch (settings.theme) {
+                  ThemeMode.light => Brightness.light,
+                  ThemeMode.dark => Brightness.dark,
+                  ThemeMode.system => mediaQuery.platformBrightness,
+                };
+                await windowManager.setBrightness(brightness);
                 await windowManager.show();
               });
             }
@@ -323,7 +331,8 @@ class ButterflyApp extends StatelessWidget {
         buildWhen: (previous, current) =>
             previous.theme != current.theme ||
             previous.localeTag != current.localeTag ||
-            previous.design != current.design,
+            previous.design != current.design ||
+            previous.nativeTitleBar != current.nativeTitleBar,
         builder: (context, state) => MaterialApp.router(
               locale: state.locale,
               title: applicationName,
@@ -336,8 +345,10 @@ class ButterflyApp extends StatelessWidget {
                 LeapLocalizations.delegate,
               ],
               builder: (context, child) {
-                child = virtualWindowFrameBuilder(context, child);
-                return child;
+                if (!state.nativeTitleBar) {
+                  child = virtualWindowFrameBuilder(context, child);
+                }
+                return child ?? Container();
               },
               supportedLocales: getLocales(),
               themeMode: state.theme,
