@@ -514,5 +514,6 @@
   "rotate": "Obróć",
   "spacer": "Odstęp",
   "navigationRail": "Kolej nawigacyjna",
-  "cut": "Cut"
+  "cut": "Wytnij",
+  "paste": "Wklej"
 }
