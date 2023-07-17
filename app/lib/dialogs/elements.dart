@@ -1,4 +1,3 @@
-import 'package:butterfly/actions/paste.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/visualizer/event.dart';
