@@ -514,5 +514,6 @@
   "rotate": "Otočit",
   "spacer": "Mezera",
   "navigationRail": "Navigační kolejnice",
-  "cut": "Cut"
+  "cut": "Vyjmout",
+  "paste": "Vložit"
 }
