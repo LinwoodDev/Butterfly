@@ -196,26 +196,43 @@ class NoteData {
   }
 
   void setPage(DocumentPage page, [String name = 'default', int? index]) {
-    final pagesOrder = _getPagesOrder();
-    final newIndex = index ?? pagesOrder.length;
+    final pages = getPages();
+    final newIndex = index ?? pages.length;
     final content = jsonEncode(page.toJson());
-    final nextPages =
-        pagesOrder.where((element) => element.$1 >= newIndex).toList();
-    if (nextPages.isNotEmpty && index != null) {
-      final nextPagesData = nextPages.map((e) => (e, getPage(e.$3))).toList();
-      removeAssets(nextPages
-          .map((e) => '$kPagesArchiveDirectory/${e.$3}.json')
-          .toList());
-      var nextIndex = newIndex + 1;
-      for (final ((_, lastName, _), data) in nextPagesData) {
-        setAsset('$kPagesArchiveDirectory/$nextIndex.$lastName.json',
-            utf8.encode(jsonEncode(data?.toJson())));
-        nextIndex++;
-      }
+    if (index != null) {
+      _realignPages(index);
     }
     setAsset(
         '$kPagesArchiveDirectory/${_getPageFileName(name) ?? '$newIndex.$name'}.json',
         utf8.encode(content));
+  }
+
+  void _realignPages(int index) {
+    final pagesOrder = _getPagesOrder();
+    final nextPages =
+        pagesOrder.where((element) => element.$1 >= index).toList();
+    if (nextPages.isEmpty) return;
+    final nextPagesData = nextPages.map((e) => (e, getPage(e.$3))).toList();
+    removeAssets(
+        nextPages.map((e) => '$kPagesArchiveDirectory/${e.$3}.json').toList());
+    var nextIndex = index + 1;
+    for (final ((_, lastName, _), data) in nextPagesData) {
+      setAsset('$kPagesArchiveDirectory/$nextIndex.$lastName.json',
+          utf8.encode(jsonEncode(data?.toJson())));
+      nextIndex++;
+    }
+  }
+
+  void reoderPage(String page, [int? newIndex]) {
+    newIndex ??= getPages().length;
+    final pageName = _getPageFileName(page);
+    final index = getPageIndex(page);
+    final data = getPage(page);
+    if (pageName == null || index == null || data == null || index == newIndex)
+      return;
+    removeAsset('$kPagesArchiveDirectory/$pageName.json');
+    _realignPages(newIndex);
+    setPage(data, page, newIndex);
   }
 
   List<(int, String, String)> _getPagesOrder() =>

@@ -86,8 +86,20 @@ class PagesView extends StatelessWidget {
                               return (path: path, name: e, isFile: false);
                             }).toSet();
                             final all = [...folders, ...files];
-                            return ListView.builder(
+                            return ReorderableListView.builder(
                                 itemCount: all.length,
+                                onReorder: (oldIndex, newIndex) {
+                                  final current = all[oldIndex];
+                                  final name = current.path;
+                                  final isFile = current.isFile;
+                                  if (!isFile) return;
+                                  final next = all[newIndex];
+                                  final nextIndex =
+                                      snapshot.data?.getPageIndex(next.name);
+                                  if (!next.isFile || nextIndex == null) return;
+                                  snapshot.data?.reoderPage(name, nextIndex);
+                                  state.save();
+                                },
                                 itemBuilder: (BuildContext context, int index) {
                                   final entity = all[index];
                                   return _PageEntityListTile(
@@ -95,6 +107,7 @@ class PagesView extends StatelessWidget {
                                     selected: entity.path == currentName,
                                     locationController: locationController,
                                     data: snapshot.data!,
+                                    key: ValueKey(entity.path),
                                   );
                                 });
                           },
@@ -153,6 +166,7 @@ class _PageEntityListTile extends StatelessWidget {
     required this.selected,
     required this.locationController,
     required this.data,
+    super.key,
   });
 
   final _PageEntity entity;
