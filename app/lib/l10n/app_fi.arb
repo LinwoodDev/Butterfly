@@ -514,5 +514,6 @@
   "rotate": "Kierrä",
   "spacer": "Välilyönti",
   "navigationRail": "Navigointi rautatie",
-  "cut": "Cut"
+  "cut": "Leikkaa",
+  "paste": "Liitä"
 }
