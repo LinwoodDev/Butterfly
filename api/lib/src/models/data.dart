@@ -55,7 +55,7 @@ class NoteData {
   void removeAssets(List<String> path) {
     final newArchive = Archive();
     for (final file in archive.files) {
-      if (path.contains(file.name)) {
+      if (!path.contains(file.name)) {
         newArchive.addFile(ArchiveFile(file.name, file.size, file.content));
       }
     }
@@ -197,22 +197,24 @@ class NoteData {
 
   void setPage(DocumentPage page, [String name = 'default', int? index]) {
     final pagesOrder = _getPagesOrder();
-    index ??= pagesOrder.length;
+    final newIndex = index ?? pagesOrder.length;
     final content = jsonEncode(page.toJson());
-    final nextPages = pagesOrder
-        .where((element) => element.$1 >= (index ?? pagesOrder.length))
-        .toList();
-    if (nextPages.isNotEmpty) {
+    final nextPages =
+        pagesOrder.where((element) => element.$1 >= newIndex).toList();
+    if (nextPages.isNotEmpty && index != null) {
       final nextPagesData = nextPages.map((e) => (e, getPage(e.$3))).toList();
-      removeAssets(nextPages.map((e) => e.$3).toList());
-      for (final ((lastIndex, lastName, _), data) in nextPagesData) {
-        setAsset(
-            '$kPagesArchiveDirectory/${lastIndex + 1}.$lastName.json',
+      removeAssets(nextPages
+          .map((e) => '$kPagesArchiveDirectory/${e.$3}.json')
+          .toList());
+      var nextIndex = newIndex + 1;
+      for (final ((_, lastName, _), data) in nextPagesData) {
+        setAsset('$kPagesArchiveDirectory/$nextIndex.$lastName.json',
             utf8.encode(jsonEncode(data?.toJson())));
+        nextIndex++;
       }
     }
     setAsset(
-        '$kPagesArchiveDirectory/${_getPageFileName(name) ?? '$index.$name'}.json',
+        '$kPagesArchiveDirectory/${_getPageFileName(name) ?? '$newIndex.$name'}.json',
         utf8.encode(content));
   }
 
