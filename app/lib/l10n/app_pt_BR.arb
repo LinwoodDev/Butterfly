@@ -514,5 +514,6 @@
   "rotate": "Rotacionar",
   "spacer": "Espaçador",
   "navigationRail": "Trilho de navegação",
-  "cut": "Cut"
+  "cut": "Recortar",
+  "paste": "Colar"
 }
