@@ -106,14 +106,36 @@ class PagesView extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: FloatingActionButton.extended(
-                        label: Text(AppLocalizations.of(context).create),
-                        icon: const PhosphorIcon(PhosphorIconsLight.plus),
-                        onPressed: () {
-                          final name = snapshot.data?.addPage(current);
-                          if (name == null) return;
-                          context.read<DocumentBloc>().add(PageChanged(name));
-                        },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FloatingActionButton.extended(
+                            label: Text(AppLocalizations.of(context).create),
+                            icon: const PhosphorIcon(PhosphorIconsLight.plus),
+                            onPressed: () {
+                              final name = snapshot.data?.addPage(current);
+                              if (name == null) return;
+                              context
+                                  .read<DocumentBloc>()
+                                  .add(PageChanged(name));
+                            },
+                          ),
+                          IconButton(
+                            icon: const PhosphorIcon(
+                                PhosphorIconsLight.plusSquare),
+                            tooltip: AppLocalizations.of(context).insert,
+                            onPressed: () {
+                              final index =
+                                  snapshot.data?.getPageIndex(state.pageName);
+                              final name =
+                                  snapshot.data?.addPage(current, index);
+                              if (name == null) return;
+                              context
+                                  .read<DocumentBloc>()
+                                  .add(PageChanged(name));
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   )
