@@ -514,5 +514,6 @@
   "rotate": "Draaien",
   "spacer": "Afstandshouder",
   "navigationRail": "Navigatie spoor",
-  "cut": "Cut"
+  "cut": "Knippen",
+  "paste": "Plakken"
 }
