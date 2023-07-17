@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly_api/src/models/info.dart';
+import 'package:collection/collection.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../butterfly_text.dart';
@@ -169,12 +170,23 @@ class NoteData {
     return document;
   }
 
+  String? _getPageFileName(String name) {
+    final pages = getPages(true);
+    if (pages.contains(name)) {
+      return name;
+    }
+    final fileName = pages
+        .where((element) => element.split('.').sublist(1).join('.') == name)
+        .firstOrNull;
+    if (fileName != null) {
+      return fileName;
+    }
+    return null;
+  }
+
   DocumentPage? getPage([String name = 'default']) {
-    final pages = getPages();
-    final end = '.$name.json';
-    final fileName =
-        pages.where((element) => element.endsWith(end)).firstOrNull;
-    final data = getAsset(fileName ?? '$kPagesArchiveDirectory/$name.json');
+    final data = getAsset(
+        '$kPagesArchiveDirectory/${_getPageFileName(name) ?? name}.json');
     if (data == null) {
       return null;
     }
@@ -184,19 +196,34 @@ class NoteData {
   }
 
   void setPage(DocumentPage page, [String name = 'default', int? index]) {
-    index ??= getPages().length;
+    final pages = getPages(true);
+    index ??= pages.length;
     final content = jsonEncode(page.toJson());
-    setAsset('$kPagesArchiveDirectory/$index.$name.json', utf8.encode(content));
+    setAsset(
+        '$kPagesArchiveDirectory/${_getPageFileName(name) ?? '$index.$name'}.json',
+        utf8.encode(content));
   }
 
-  List<String> getPages() => getAssets(kPagesArchiveDirectory, true)
-      .map((e) => e.contains('.') ? e.split('.').sublist(1).join('.') : e)
-      .toList();
+  List<String> getPages([bool realName = false]) =>
+      getAssets(kPagesArchiveDirectory, true)
+          .map((e) {
+            if (e.contains('.')) {
+              final split = e.split('.');
+              return (
+                int.tryParse(split.first) ?? -1,
+                realName ? e : split.sublist(1).join('.'),
+              );
+            }
+            return (-1, e);
+          })
+          .sorted((a, b) => a.$1.compareTo(b.$1))
+          .map((e) => e.$2)
+          .toList();
 
   void removePage(String page) => removeAssets(getPages()
-        .where((e) => e.endsWith('$page.json'))
-        .map((e) => '$kPagesArchiveDirectory/$e.json')
-        .toList());
+      .where((e) => e.endsWith('$page.json'))
+      .map((e) => '$kPagesArchiveDirectory/$e.json')
+      .toList());
 
   void renamePage(String oldName, String newName) {
     final page = getPage(oldName);
