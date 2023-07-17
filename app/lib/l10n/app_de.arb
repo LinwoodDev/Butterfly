@@ -514,5 +514,6 @@
   "rotate": "Drehen",
   "spacer": "Abstand",
   "navigationRail": "Navigationsschiene",
-  "cut": "Cut"
+  "cut": "Schneide",
+  "paste": "Einfügen"
 }
