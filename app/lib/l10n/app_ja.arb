@@ -514,5 +514,6 @@
   "rotate": "回転",
   "spacer": "スペーサー",
   "navigationRail": "ナビゲーション レール",
-  "cut": "Cut"
+  "cut": "切り取り",
+  "paste": "貼り付け"
 }
