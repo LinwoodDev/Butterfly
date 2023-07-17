@@ -514,5 +514,6 @@
   "rotate": "Rotera",
   "spacer": "Mellanslag",
   "navigationRail": "Navigeringsräls",
-  "cut": "Cut"
+  "cut": "Klipp",
+  "paste": "Klistra in"
 }
