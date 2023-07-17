@@ -11,7 +11,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
-import '../api/full_screen.dart';
 import '../cubits/settings.dart';
 import '../cubits/transform.dart';
 import '../embed/embedding.dart';
@@ -31,7 +30,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     SettingsCubit settingsCubit,
     NoteData initial,
     AssetLocation location,
-    Renderer<Background> background,
     List<Renderer<PadElement>> renderer, [
     AssetService? assetService,
     DocumentPage? page,
@@ -48,10 +46,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     _init();
   }
 
-  DocumentBloc.error(String message, [StackTrace? stackTrace])
-      : super(DocumentLoadFailure(message, stackTrace));
+  DocumentBloc.error(SettingsCubit settingsCubit, String message,
+      [StackTrace? stackTrace])
+      : super(DocumentLoadFailure(settingsCubit, message, stackTrace));
 
-  DocumentBloc.placeholder() : super(const DocumentLoadFailure(''));
+  DocumentBloc.placeholder(
+    SettingsCubit settingsCubit,
+  ) : super(DocumentLoadFailure(settingsCubit, ''));
 
   void _init() {
     on<PageChanged>((event, emit) async {
@@ -276,6 +277,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       });
       for (var asset in unusedAssets) {
         current.data.removeAsset(asset);
+        current.assetService.removeImage(asset);
       }
 
       await _saveState(emit, current.copyWith(page: newPage), null);
@@ -767,7 +769,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentPresentationState) return;
       current.handler.dispose(this);
       emit(current.oldState);
-      setFullScreen(current.fullScreen);
+      current.settingsCubit.setFullScreen(current.fullScreen);
     });
     on<PresentationTick>((event, emit) {
       final current = state;

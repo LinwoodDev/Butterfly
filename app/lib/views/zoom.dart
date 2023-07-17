@@ -62,7 +62,8 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
       constraints: const BoxConstraints(minWidth: 400),
       child: BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
-            previous.zoomEnabled != current.zoomEnabled,
+            previous.zoomEnabled != current.zoomEnabled ||
+            previous.fullScreen != current.fullScreen,
         builder: (context, settings) =>
             BlocBuilder<TransformCubit, CameraTransform>(
           buildWhen: (previous, current) => previous.size != current.size,
@@ -83,7 +84,8 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
               context.read<TransformCubit>().size(value, center);
               currentIndexCubit.bake(state.data, state.page, state.info);
               if (((!_focusNode.hasFocus && widget.isMobile) ||
-                  !settings.zoomEnabled)) {
+                  !settings.zoomEnabled ||
+                  settings.fullScreen)) {
                 _controller.reverse();
               }
             }
@@ -95,49 +97,52 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                   _zoomController.text = text;
                 }
                 return LayoutBuilder(
-                  builder: (context, constraints) => Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 75,
-                          child: TextFormField(
-                            textAlign: TextAlign.center,
-                            controller: _zoomController,
-                            keyboardType: TextInputType.number,
-                            focusNode: _focusNode,
-                            onChanged: (value) {
-                              setState(() => scale =
-                                  (double.tryParse(value) ?? (scale * 100)) /
-                                      100);
-                            },
-                            onEditingComplete: () => zoom(scale),
-                            onTapOutside: (event) {
-                              zoom(scale);
-                              _focusNode.unfocus();
-                            },
-                            onFieldSubmitted: (value) => zoom(scale),
-                          ),
-                        ),
-                        if (!widget.isMobile) ...[
-                          if (constraints.maxWidth > 200)
-                            Expanded(
-                              child: Slider(
-                                value: scale.clamp(kMinZoom, 10),
-                                min: kMinZoom,
-                                max: 10,
-                                onChanged: (value) =>
-                                    setState(() => scale = value),
-                                onChangeEnd: zoom,
-                              ),
+                  builder: (context, constraints) {
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 75,
+                            child: TextFormField(
+                              textAlign: TextAlign.center,
+                              controller: _zoomController,
+                              keyboardType: TextInputType.number,
+                              focusNode: _focusNode,
+                              onChanged: (value) {
+                                setState(() => scale =
+                                    (double.tryParse(value) ?? (scale * 100)) /
+                                        100);
+                              },
+                              onEditingComplete: () => zoom(scale),
+                              onTapOutside: (event) {
+                                zoom(scale);
+                                _focusNode.unfocus();
+                              },
+                              onFieldSubmitted: (value) => zoom(scale),
                             ),
-                        ],
-                      ]),
+                          ),
+                          if (!widget.isMobile) ...[
+                            if (constraints.maxWidth > 200)
+                              Flexible(
+                                child: Slider(
+                                  value: scale.clamp(kMinZoom, 10),
+                                  min: kMinZoom,
+                                  max: 10,
+                                  onChanged: (value) =>
+                                      setState(() => scale = value),
+                                  onChangeEnd: zoom,
+                                ),
+                              ),
+                          ],
+                        ]);
+                  },
                 );
               },
             );
 
             if (((!_focusNode.hasFocus && widget.isMobile) ||
-                !settings.zoomEnabled)) {
+                !settings.zoomEnabled ||
+                settings.fullScreen)) {
               _controller.reverse();
             } else {
               if (_controller.status != AnimationStatus.completed) {

@@ -123,4 +123,7 @@ class PenHandler extends Handler<PenPainter> {
           }));
         },
       );
+
+  @override
+  MouseCursor get cursor => SystemMouseCursors.precise;
 }

@@ -1,16 +1,3 @@
-import 'package:butterfly/actions/areas.dart';
-import 'package:butterfly/actions/background.dart';
-import 'package:butterfly/actions/change_path.dart';
-import 'package:butterfly/actions/color_palette.dart';
-import 'package:butterfly/actions/export.dart';
-import 'package:butterfly/actions/image_export.dart';
-import 'package:butterfly/actions/new.dart';
-import 'package:butterfly/actions/pdf_export.dart';
-import 'package:butterfly/actions/redo.dart';
-import 'package:butterfly/actions/save.dart';
-import 'package:butterfly/actions/settings.dart';
-import 'package:butterfly/actions/svg_export.dart';
-import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
@@ -33,11 +20,25 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../actions/areas.dart';
+import '../actions/background.dart';
 import '../actions/change_painter.dart';
+import '../actions/change_path.dart';
+import '../actions/color_palette.dart';
 import '../actions/exit.dart';
+import '../actions/export.dart';
+import '../actions/image_export.dart';
+import '../actions/new.dart';
 import '../actions/next.dart';
 import '../actions/packs.dart';
+import '../actions/paste.dart';
+import '../actions/pdf_export.dart';
 import '../actions/previous.dart';
+import '../actions/redo.dart';
+import '../actions/save.dart';
+import '../actions/settings.dart';
+import '../actions/svg_export.dart';
+import '../actions/undo.dart';
 import '../main.dart';
 import '../models/viewport.dart';
 import '../services/asset.dart';
@@ -85,6 +86,7 @@ class _ProjectPageState extends State<ProjectPage> {
     ExitIntent: ExitAction(),
     NextIntent: NextAction(),
     PreviousIntent: PreviousAction(),
+    PasteIntent: PasteAction(),
   };
 
   @override
@@ -124,7 +126,6 @@ class _ProjectPageState extends State<ProjectPage> {
           settingsCubit,
           document,
           widget.location ?? const AssetLocation(path: ''),
-          BoxBackgroundRenderer(const BoxBackground()),
           [],
         );
         _bloc?.load();
@@ -205,9 +206,9 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
-            CameraViewport.unbaked(ToolRenderer()), null);
+            CameraViewport.unbaked(ToolRenderer(), background), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
-            location!, background, renderers, assetService, page, pageName);
+            location!, renderers, assetService, page, pageName);
         _importService = ImportService(context, _bloc);
       });
     } catch (e, stackTrace) {
@@ -218,7 +219,7 @@ class _ProjectPageState extends State<ProjectPage> {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
             CameraViewport.unbaked(ToolRenderer()), null);
-        _bloc = DocumentBloc.error(e.toString(), stackTrace);
+        _bloc = DocumentBloc.error(settingsCubit, e.toString(), stackTrace);
       });
     }
     WidgetsBinding.instance.scheduleFrameCallback((_) async {
@@ -269,107 +270,117 @@ class _ProjectPageState extends State<ProjectPage> {
                   FocusManager.instance.primaryFocus?.unfocus();
                 }
               },
-              child: Builder(builder: (context) {
-                return Actions(
-                  actions: _actions,
-                  child: Shortcuts(
-                    shortcuts: {
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyZ): UndoIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyY): RedoIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                              LogicalKeyboardKey.keyN):
-                          NewIntent(context, fromTemplate: false),
-                      LogicalKeySet(
+              child: BlocBuilder<SettingsCubit, ButterflySettings>(
+                  buildWhen: (previous, current) =>
+                      previous.fullScreen != current.fullScreen,
+                  builder: (context, settings) {
+                    return Actions(
+                      actions: _actions,
+                      child: Shortcuts(
+                        shortcuts: {
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                              LogicalKeyboardKey.keyZ): UndoIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                              LogicalKeyboardKey.keyY): RedoIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.keyN):
+                              NewIntent(context, fromTemplate: false),
+                          LogicalKeySet(
+                                  LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.shift,
+                                  LogicalKeyboardKey.keyN):
+                              NewIntent(context, fromTemplate: true),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.keyP):
+                              ColorPaletteIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.keyB):
+                              BackgroundIntent(context),
+                          LogicalKeySet(
                               LogicalKeyboardKey.control,
                               LogicalKeyboardKey.shift,
-                              LogicalKeyboardKey.keyN):
-                          NewIntent(context, fromTemplate: true),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyP): ColorPaletteIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyB): BackgroundIntent(context),
-                      LogicalKeySet(
-                          LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.shift,
-                          LogicalKeyboardKey.keyA): AreasIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.escape):
-                          ExitIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.arrowRight):
-                          NextIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.arrowLeft):
-                          PreviousIntent(context),
-                      if (widget.embedding == null) ...{
-                        LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.keyE): ExportIntent(context),
-                        LogicalKeySet(
+                              LogicalKeyboardKey.keyA): AreasIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.escape):
+                              ExitIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.arrowRight):
+                              NextIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.arrowLeft):
+                              PreviousIntent(context),
+                          if (widget.embedding == null) ...{
+                            LogicalKeySet(LogicalKeyboardKey.control,
+                                LogicalKeyboardKey.keyE): ExportIntent(context),
+                            LogicalKeySet(
+                                    LogicalKeyboardKey.control,
+                                    LogicalKeyboardKey.shift,
+                                    LogicalKeyboardKey.keyE):
+                                ImageExportIntent(context),
+                            LogicalKeySet(
+                                    LogicalKeyboardKey.control,
+                                    LogicalKeyboardKey.alt,
+                                    LogicalKeyboardKey.shift,
+                                    LogicalKeyboardKey.keyE):
+                                PdfExportIntent(context),
+                            LogicalKeySet(
+                                    LogicalKeyboardKey.control,
+                                    LogicalKeyboardKey.alt,
+                                    LogicalKeyboardKey.keyE):
+                                SvgExportIntent(context),
+                            LogicalKeySet(
+                                    LogicalKeyboardKey.control,
+                                    LogicalKeyboardKey.alt,
+                                    LogicalKeyboardKey.keyS):
+                                SettingsIntent(context),
+                            LogicalKeySet(LogicalKeyboardKey.alt,
+                                    LogicalKeyboardKey.keyS):
+                                ChangePathIntent(context),
+                            LogicalKeySet(LogicalKeyboardKey.control,
+                                LogicalKeyboardKey.keyS): SaveIntent(context),
+                            LogicalKeySet(
                                 LogicalKeyboardKey.control,
-                                LogicalKeyboardKey.shift,
-                                LogicalKeyboardKey.keyE):
-                            ImageExportIntent(context),
-                        LogicalKeySet(
-                            LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.shift,
-                            LogicalKeyboardKey.keyE): PdfExportIntent(context),
-                        LogicalKeySet(
-                            LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.keyE): SvgExportIntent(context),
-                        LogicalKeySet(
-                            LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.keyS): SettingsIntent(context),
-                        LogicalKeySet(LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.keyS): ChangePathIntent(context),
-                        LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.keyS): SaveIntent(context),
-                        LogicalKeySet(
-                            LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.keyP): PacksIntent(context),
-                        ...[
-                          LogicalKeyboardKey.digit1,
-                          LogicalKeyboardKey.digit2,
-                          LogicalKeyboardKey.digit3,
-                          LogicalKeyboardKey.digit4,
-                          LogicalKeyboardKey.digit5,
-                          LogicalKeyboardKey.digit6,
-                          LogicalKeyboardKey.digit7,
-                          LogicalKeyboardKey.digit8,
-                          LogicalKeyboardKey.digit9,
-                          LogicalKeyboardKey.digit0
-                        ].asMap().map((k, v) => MapEntry(
-                            LogicalKeySet(LogicalKeyboardKey.control, v),
-                            ChangePainterIntent(context, k))),
-                      },
-                    },
-                    child: SafeArea(
-                      child: ClipRect(
-                        child: Focus(
-                          autofocus: true,
-                          skipTraversal: true,
-                          onFocusChange: (_) => false,
-                          child: Scaffold(
-                              appBar: state is DocumentPresentationState
-                                  ? null
-                                  : PadAppBar(
-                                      viewportKey: _viewportKey,
-                                    ),
-                              drawer: state is DocumentLoadSuccess
-                                  ? const DocumentNavigator(asDrawer: true)
-                                  : null,
-                              body: Actions(
-                                actions: _actions,
-                                child: const _MainBody(),
-                              )),
+                                LogicalKeyboardKey.alt,
+                                LogicalKeyboardKey.keyP): PacksIntent(context),
+                            ...[
+                              LogicalKeyboardKey.digit1,
+                              LogicalKeyboardKey.digit2,
+                              LogicalKeyboardKey.digit3,
+                              LogicalKeyboardKey.digit4,
+                              LogicalKeyboardKey.digit5,
+                              LogicalKeyboardKey.digit6,
+                              LogicalKeyboardKey.digit7,
+                              LogicalKeyboardKey.digit8,
+                              LogicalKeyboardKey.digit9,
+                              LogicalKeyboardKey.digit0
+                            ].asMap().map((k, v) => MapEntry(
+                                LogicalKeySet(LogicalKeyboardKey.control, v),
+                                ChangePainterIntent(context, k))),
+                          },
+                        },
+                        child: SafeArea(
+                          child: ClipRect(
+                            child: Focus(
+                              autofocus: true,
+                              skipTraversal: true,
+                              onFocusChange: (_) => false,
+                              child: Scaffold(
+                                  appBar: state is DocumentPresentationState ||
+                                          settings.fullScreen
+                                      ? null
+                                      : PadAppBar(
+                                          viewportKey: _viewportKey,
+                                        ),
+                                  drawer: state is DocumentLoadSuccess
+                                      ? const DocumentNavigator(asDrawer: true)
+                                      : null,
+                                  body: Actions(
+                                    actions: _actions,
+                                    child: const _MainBody(),
+                                  )),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                );
-              }),
+                    );
+                  }),
             ),
           );
         },
@@ -385,59 +396,72 @@ class _MainBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
-            previous.toolbarPosition != current.toolbarPosition,
-        builder: (context, state) {
-          final pos = state.toolbarPosition;
+            previous.toolbarPosition != current.toolbarPosition ||
+            previous.fullScreen != current.fullScreen ||
+            previous.navigationRail != current.navigationRail,
+        builder: (context, settings) {
+          final pos = settings.toolbarPosition;
           return LayoutBuilder(builder: (context, constraints) {
             final isMobile = constraints.maxWidth < kMobileWidth;
             final isLarge = constraints.maxWidth > kLargeWidth;
-            final toolbar = isMobile
-                ? const SizedBox.shrink()
-                : EditToolbar(
-                    isMobile: false,
-                    centered: true,
-                    direction: pos == ToolbarPosition.bottom
-                        ? Axis.horizontal
-                        : Axis.vertical,
-                  );
-            return Row(
+            final toolbar = EditToolbar(
+              isMobile: false,
+              centered: true,
+              direction: pos == ToolbarPosition.bottom ||
+                      pos == ToolbarPosition.top ||
+                      isMobile
+                  ? Axis.horizontal
+                  : Axis.vertical,
+            );
+            return Stack(
               children: [
-                if (isLarge) const DocumentNavigator(),
-                if (pos == ToolbarPosition.left) toolbar,
-                Expanded(
-                  child: Stack(
-                    children: [
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Expanded(
-                                child: Stack(
-                              children: [
-                                const MainViewViewport(),
-                                const ToolbarView(),
-                                if (pos == ToolbarPosition.top || isMobile)
-                                  Positioned(
-                                    bottom: 25,
-                                    right: 25,
-                                    width: isMobile ? 100 : 400,
-                                    child: ZoomView(isMobile: isMobile),
-                                  ),
-                                if (!isMobile) const PropertyView()
-                              ],
-                            )),
-                            if (isMobile)
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: EditToolbar(isMobile: isMobile))),
-                            if (pos == ToolbarPosition.bottom) toolbar,
-                          ]),
-                      if (isMobile) const PropertyView(),
-                    ],
-                  ),
+                const MainViewViewport(),
+                if (!isMobile)
+                  Positioned(
+                      right: pos == ToolbarPosition.right ? 75 : 0,
+                      top: 0,
+                      child: const PropertyView()),
+                Row(
+                  children: [
+                    if (isLarge &&
+                        settings.navigationRail &&
+                        !settings.fullScreen)
+                      const NavigatorView(),
+                    if (pos == ToolbarPosition.left && !isMobile) toolbar,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          if (settings.fullScreen &&
+                              pos == ToolbarPosition.top &&
+                              !isMobile)
+                            toolbar,
+                          if (pos == ToolbarPosition.top || isMobile)
+                            const ToolbarView(),
+                          Expanded(
+                              child: isMobile
+                                  ? const PropertyView()
+                                  : const SizedBox.shrink()),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: SizedBox(
+                                width: isMobile ? 100 : 400,
+                                child: ZoomView(isMobile: isMobile),
+                              ),
+                            ),
+                          ),
+                          if (pos != ToolbarPosition.top && !isMobile)
+                            const ToolbarView(),
+                          if (isMobile || pos == ToolbarPosition.bottom)
+                            toolbar,
+                        ],
+                      ),
+                    ),
+                    if (pos == ToolbarPosition.right) toolbar,
+                  ],
                 ),
-                if (pos == ToolbarPosition.right) toolbar,
               ],
             );
           });

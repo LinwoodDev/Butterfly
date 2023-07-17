@@ -507,5 +507,10 @@
   "sendToBack": "Wyślij do powrotu",
   "bringForward": "Przenieś do przodu",
   "sendBackward": "Wyślij do tyłu",
-  "invalidName": "Invalid name"
+  "invalidName": "Nieprawidłowa nazwa",
+  "rotation": "Obrót",
+  "onlyAvailableLargerScreen": "Dostępne tylko na większych ekranach",
+  "toolbarPosition": "Pozycja paska narzędzi",
+  "rotate": "Obróć",
+  "spacer": "Odstęp"
 }

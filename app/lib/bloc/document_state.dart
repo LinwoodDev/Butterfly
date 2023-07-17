@@ -17,15 +17,24 @@ abstract class DocumentState extends Equatable {
   String? get pageName => null;
   FileMetadata? get metadata => null;
   AssetService? get assetService => null;
+  SettingsCubit get settingsCubit;
 }
 
-class DocumentLoadInProgress extends DocumentState {}
+class DocumentLoadInProgress extends DocumentState {
+  @override
+  final SettingsCubit settingsCubit;
+
+  const DocumentLoadInProgress(this.settingsCubit);
+}
 
 class DocumentLoadFailure extends DocumentState {
   final String message;
   final StackTrace? stackTrace;
+  @override
+  final SettingsCubit settingsCubit;
 
-  const DocumentLoadFailure(this.message, [this.stackTrace]);
+  const DocumentLoadFailure(this.settingsCubit, this.message,
+      [this.stackTrace]);
 
   @override
   List<Object?> get props => [message, stackTrace];
@@ -70,7 +79,8 @@ abstract class DocumentLoaded extends DocumentState {
       location.absolute ? SaveState.unsaved : currentIndexCubit.state.saved;
 
   CurrentIndexCubit get currentIndexCubit;
-  SettingsCubit get settingsCubit;
+
+  Embedding? get embedding => currentIndexCubit.state.embedding;
 
   TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
 
@@ -134,8 +144,6 @@ class DocumentLoadSuccess extends DocumentLoaded {
 
   List<Renderer<PadElement>> get renderers => currentIndexCubit.renderers;
 
-  Embedding? get embedding => currentIndexCubit.state.embedding;
-
   DocumentLoadSuccess copyWith({
     DocumentPage? page,
     String? pageName,
@@ -167,7 +175,8 @@ class DocumentLoadSuccess extends DocumentLoaded {
       !(embedding?.save ?? true) ||
       (!kIsWeb &&
           !location.absolute &&
-          location.fileType == AssetFileType.note &&
+          (location.fileType == AssetFileType.note ||
+              location.fileType == null) &&
           (location.remote.isEmpty ||
               (settingsCubit.state
                       .getRemote(location.remote)
@@ -175,6 +184,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
                   false)));
 
   Future<AssetLocation> save() {
+    currentIndexCubit.setSaveState(saved: SaveState.saving);
     final newMeta = metadata.copyWith(updatedAt: DateTime.now().toUtc());
     data.setMetadata(newMeta);
     final storage = getRemoteStorage();
@@ -185,12 +195,16 @@ class DocumentLoadSuccess extends DocumentLoaded {
       return DocumentFileSystem.fromPlatform(remote: storage)
           .importDocument(saveData())
           .then((value) => value.location)
-        ..then(settingsCubit.addRecentHistory);
+        ..then(settingsCubit.addRecentHistory)
+        ..then((value) => currentIndexCubit.setSaveState(
+            location: value, saved: SaveState.saved));
     }
     return DocumentFileSystem.fromPlatform(remote: storage)
         .updateDocument(location.path, saveData())
         .then((value) => value.location)
-      ..then(settingsCubit.addRecentHistory);
+      ..then(settingsCubit.addRecentHistory)
+      ..then((value) => currentIndexCubit.setSaveState(
+          location: value, saved: SaveState.saved));
   }
 
   RemoteStorage? getRemoteStorage() => location.remote.isEmpty

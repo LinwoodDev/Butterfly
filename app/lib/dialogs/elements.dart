@@ -25,27 +25,26 @@ class ElementsDialog extends StatelessWidget {
         shrinkWrap: true,
         children: [
           MenuItemButton(
-            leadingIcon:
-                const PhosphorIcon(PhosphorIconsLight.arrowsOutCardinal),
             onPressed: () {
               Navigator.of(context).pop(true);
               context
                   .read<CurrentIndexCubit>()
                   .fetchHandler<HandHandler>()
-                  ?.move(context.read<DocumentBloc>(), renderers, false);
+                  ?.copySelection(context, true);
             },
-            child: Text(AppLocalizations.of(context).move),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.scissors),
+            child: Text(AppLocalizations.of(context).cut),
           ),
           MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsClockwise),
             onPressed: () {
               Navigator.of(context).pop(true);
               context
                   .read<CurrentIndexCubit>()
                   .fetchHandler<HandHandler>()
-                  ?.rotate(context.read<DocumentBloc>(), renderers, false);
+                  ?.copySelection(context, false);
             },
-            child: Text(AppLocalizations.of(context).rotate),
+            leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
+            child: Text(AppLocalizations.of(context).copy),
           ),
           MenuItemButton(
             leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
@@ -54,11 +53,12 @@ class ElementsDialog extends StatelessWidget {
               context
                   .read<CurrentIndexCubit>()
                   .fetchHandler<HandHandler>()
-                  ?.move(
+                  ?.transform(
                       context.read<DocumentBloc>(),
                       renderers
                           .map((e) => Renderer.fromInstance(e.element))
                           .toList(),
+                      null,
                       true);
             },
             child: Text(AppLocalizations.of(context).duplicate),

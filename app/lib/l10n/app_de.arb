@@ -507,5 +507,10 @@
   "sendToBack": "An zurück senden",
   "bringForward": "Vorwärts bringen",
   "sendBackward": "Rückwärts senden",
-  "invalidName": "Invalid name"
+  "invalidName": "Ungültiger Name",
+  "rotation": "Drehung",
+  "onlyAvailableLargerScreen": "Nur auf größeren Bildschirmen verfügbar",
+  "toolbarPosition": "Position der Werkzeugleiste",
+  "rotate": "Drehen",
+  "spacer": "Abstand"
 }

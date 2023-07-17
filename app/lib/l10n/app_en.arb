@@ -511,5 +511,8 @@
   "rotation": "Rotation",
   "onlyAvailableLargerScreen": "Only available on larger screens",
   "toolbarPosition": "Toolbar position",
-  "rotate": "Rotate"
+  "rotate": "Rotate",
+  "spacer": "Spacer",
+  "navigationRail": "Navigation rail",
+  "cut": "Cut"
 }

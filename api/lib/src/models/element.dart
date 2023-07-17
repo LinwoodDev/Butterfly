@@ -81,7 +81,7 @@ mixin LabelElement {
 @Freezed(equal: false)
 class PadElement with _$PadElement {
   @Implements<PathElement>()
-  const factory PadElement.pen({
+  factory PadElement.pen({
     @Default(0) double rotation,
     @Default('') String layer,
     double? zoom,
@@ -90,7 +90,7 @@ class PadElement with _$PadElement {
   }) = PenElement;
 
   @With<LabelElement>()
-  const factory PadElement.text({
+  factory PadElement.text({
     @Default(0) double rotation,
     @Default('') String layer,
     @DoublePointJsonConverter()
@@ -104,7 +104,7 @@ class PadElement with _$PadElement {
   }) = TextElement;
 
   @With<LabelElement>()
-  const factory PadElement.markdown({
+  factory PadElement.markdown({
     @Default(0) double rotation,
     @Default('') String layer,
     @DoublePointJsonConverter()
@@ -119,7 +119,7 @@ class PadElement with _$PadElement {
   }) = MarkdownElement;
 
   @Implements<SourcedElement>()
-  const factory PadElement.image({
+  factory PadElement.image({
     @Default(0) double rotation,
     @Default('') String layer,
     @DoublePointJsonConverter()
@@ -133,7 +133,7 @@ class PadElement with _$PadElement {
   }) = ImageElement;
 
   @Implements<SourcedElement>()
-  const factory PadElement.svg({
+  factory PadElement.svg({
     @Default(0) double rotation,
     @Default('') String layer,
     @DoublePointJsonConverter()
@@ -146,7 +146,7 @@ class PadElement with _$PadElement {
     required double height,
   }) = SvgElement;
 
-  const factory PadElement.shape({
+  factory PadElement.shape({
     @Default(0) double rotation,
     @Default('') String layer,
     @DoublePointJsonConverter()

@@ -236,3 +236,57 @@ Map<String, dynamic> _$$PresentationPainterToJson(
       'name': instance.name,
       'type': instance.$type,
     };
+
+_$SpacerPainter _$$SpacerPainterFromJson(Map json) => _$SpacerPainter(
+      name: json['name'] as String? ?? '',
+      axis: $enumDecodeNullable(_$Axis2DEnumMap, json['axis']) ??
+          Axis2D.horizontal,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$SpacerPainterToJson(_$SpacerPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'axis': _$Axis2DEnumMap[instance.axis]!,
+      'type': instance.$type,
+    };
+
+const _$Axis2DEnumMap = {
+  Axis2D.horizontal: 'horizontal',
+  Axis2D.vertical: 'vertical',
+};
+
+_$FullScreenPainter _$$FullScreenPainterFromJson(Map json) =>
+    _$FullScreenPainter(
+      name: json['name'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$FullScreenPainterToJson(_$FullScreenPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': instance.$type,
+    };
+
+_$AssetPainter _$$AssetPainterFromJson(Map json) => _$AssetPainter(
+      name: json['name'] as String? ?? '',
+      importType:
+          $enumDecodeNullable(_$ImportTypeEnumMap, json['importType']) ??
+              ImportType.document,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$AssetPainterToJson(_$AssetPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'importType': _$ImportTypeEnumMap[instance.importType]!,
+      'type': instance.$type,
+    };
+
+const _$ImportTypeEnumMap = {
+  ImportType.image: 'image',
+  ImportType.camera: 'camera',
+  ImportType.svg: 'svg',
+  ImportType.pdf: 'pdf',
+  ImportType.document: 'document',
+};

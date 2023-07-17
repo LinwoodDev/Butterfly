@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:animations/animations.dart';
@@ -12,17 +14,24 @@ import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
+import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_sysinfo/lw_sysinfo.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../actions/paste.dart';
+import '../api/open.dart';
 import '../cubits/current_index.dart';
+import '../dialogs/camera.dart';
 import '../dialogs/name.dart';
 import '../helpers/num_helper.dart';
 import '../models/label.dart';
@@ -36,20 +45,23 @@ import '../views/toolbars/color.dart';
 import '../views/toolbars/label.dart';
 import '../views/toolbars/presentation/toolbar.dart';
 import '../widgets/context_menu.dart';
-import 'move.dart';
 
 part 'area.dart';
+part 'asset.dart';
 part 'eraser.dart';
+part 'full_screen.dart';
 part 'hand.dart';
 part 'import.dart';
 part 'label.dart';
 part 'laser.dart';
 part 'layer.dart';
+part 'move.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
 part 'presentation.dart';
 part 'redo.dart';
 part 'shape.dart';
+part 'spacer.dart';
 part 'stamp.dart';
 part 'undo.dart';
 
@@ -180,6 +192,8 @@ abstract class Handler<T> {
 
   PainterStatus getStatus(DocumentBloc bloc) => PainterStatus.normal;
 
+  PhosphorIconData? getIcon(DocumentBloc bloc) => null;
+
   static Handler fromDocument(DocumentInfo info, int index) {
     final painter = info.painters[index];
     return Handler.fromPainter(painter);
@@ -201,6 +215,9 @@ abstract class Handler<T> {
       shape: (value) => ShapeHandler(value),
       stamp: (value) => StampHandler(value),
       presentation: (value) => PresentationHandler(value),
+      spacer: (value) => SpacerHandler(value),
+      fullSceen: (value) => FullScreenHandler(value),
+      asset: (value) => AssetHandler(value),
     );
   }
 
@@ -208,7 +225,13 @@ abstract class Handler<T> {
 
   void dispose(DocumentBloc bloc) {}
 
-  Map<Type, Action<Intent>> getActions(BuildContext context) => {};
+  Map<Type, Action<Intent>> getActions(BuildContext context) => {
+        PasteTextIntent: CallbackAction<PasteTextIntent>(
+            onInvoke: (intent) =>
+                Actions.maybeInvoke(context, PasteIntent(context))),
+      };
+
+  MouseCursor? get cursor => null;
 }
 
 mixin HandlerWithCursor<T> on Handler<T> {

@@ -2,6 +2,45 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.4 (2023-07-14)
+
+* Add custom mouse cursors for painters ([#426](https://github.com/LinwoodDev/Butterfly/issues/426))
+* Add spacer painter ([#424](https://github.com/LinwoodDev/Butterfly/issues/424))
+* Add full screen painter ([#432](https://github.com/LinwoodDev/Butterfly/issues/432))
+* Add move by dragging selection, add rotate button ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
+* Add floating toolbar ([#445](https://github.com/LinwoodDev/Butterfly/issues/445))
+* Add settings animation and blur
+* Add responsive main view ui
+* Recode hand tool to allow realtime transformation
+* Improve window title bar
+* Fix window does not open with start in fullscreen mode enabled ([#430](https://github.com/LinwoodDev/Butterfly/issues/430))
+* Fix resizing with multiple elements ([#434](https://github.com/LinwoodDev/Butterfly/issues/434))
+* Fix resizing with rotated elements
+* Fix not waiting for creating default templates on native platforms
+* Fix native title bar setting not saved
+* Fix home page not refreshing
+* Fix save indicator on web
+
+## 2.0.0-beta.3 (2023-07-07)
+
+* Add image background ([#419](https://github.com/LinwoodDev/Butterfly/issues/419))
+* Add ability to customize position of the toolbar ([#408](https://github.com/LinwoodDev/Butterfly/issues/408))
+* Add option to rename page
+* Add changing of page after adding a new page
+* Add pages button to the toolbar ([#411](https://github.com/LinwoodDev/Butterfly/issues/411))
+* Add real fullscreen mode ([#421](https://github.com/LinwoodDev/Butterfly/issues/421))
+* Don't ask for name when adding a page (single click) ([#411](https://github.com/LinwoodDev/Butterfly/issues/411))
+* Fix many properties (background, animations, ...) missing when opening a document
+* Fix name check not allowing spaces, - and _
+* Fix zoom enable setting will be ignored
+* Fix setting navigation clears page history
+* Fix elements can't be moved on import ([#423](https://github.com/LinwoodDev/Butterfly/issues/423))
+* Reduce size of title text field
+* Reduce size of window buttons
+* Remove delete painter. Use the delete button in the properties instead or move the painter to the right of the add button
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0
+
 ## 2.0.0-beta.2 (2023-06-30)
 
 * Add label context menu

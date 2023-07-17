@@ -109,7 +109,7 @@ class _FilesViewState extends State<FilesView> {
     final parent = _locationController.text.substring(0, index < 0 ? 0 : index);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       LayoutBuilder(builder: (context, constraints) {
-        final isMobile = constraints.maxWidth <= kMobileWidth;
+        final isMobile = constraints.maxWidth <= kLargeWidth;
         final text = Text(
           AppLocalizations.of(context).files,
           style: Theme.of(context).textTheme.headlineMedium,
@@ -460,7 +460,7 @@ class _FilesViewState extends State<FilesView> {
     final location = entity.location;
     final data = entity.data;
     if (location.remote != '') {
-      GoRouter.of(context).goNamed('remote',
+      GoRouter.of(context).pushReplacementNamed('remote',
           pathParameters: {
             'remote': location.remote,
             'path': location.pathWithoutLeadingSlash,
@@ -469,12 +469,9 @@ class _FilesViewState extends State<FilesView> {
             'type': location.fileType?.name,
           },
           extra: data);
-      if (!widget.collapsed) {
-        _reloadFileSystem();
-      }
       return;
     }
-    GoRouter.of(context).goNamed('local',
+    GoRouter.of(context).pushReplacementNamed('local',
         pathParameters: {
           'path': location.pathWithoutLeadingSlash,
         },
@@ -482,9 +479,6 @@ class _FilesViewState extends State<FilesView> {
           'type': location.fileType?.name,
         },
         extra: data);
-    if (!widget.collapsed) {
-      _reloadFileSystem();
-    }
   }
 
   int _sortAssets(AppDocumentEntity a, AppDocumentEntity b) {

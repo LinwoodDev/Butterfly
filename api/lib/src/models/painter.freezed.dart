@@ -44,6 +44,12 @@ Painter _$PainterFromJson(Map<String, dynamic> json) {
       return StampPainter.fromJson(json);
     case 'presentation':
       return PresentationPainter.fromJson(json);
+    case 'spacer':
+      return SpacerPainter.fromJson(json);
+    case 'fullSceen':
+      return FullScreenPainter.fromJson(json);
+    case 'asset':
+      return AssetPainter.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -91,6 +97,9 @@ mixin _$Painter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -128,6 +137,9 @@ mixin _$Painter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -165,6 +177,9 @@ mixin _$Painter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -184,6 +199,9 @@ mixin _$Painter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -202,6 +220,9 @@ mixin _$Painter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -220,6 +241,9 @@ mixin _$Painter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -357,6 +381,9 @@ class _$HandPainter implements HandPainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return hand(name);
   }
@@ -397,6 +424,9 @@ class _$HandPainter implements HandPainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return hand?.call(name);
   }
@@ -437,6 +467,9 @@ class _$HandPainter implements HandPainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -462,6 +495,9 @@ class _$HandPainter implements HandPainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return hand(this);
   }
@@ -483,6 +519,9 @@ class _$HandPainter implements HandPainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return hand?.call(this);
   }
@@ -504,6 +543,9 @@ class _$HandPainter implements HandPainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -663,6 +705,9 @@ class _$ImportPainter implements ImportPainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return import(name, elements, areas);
   }
@@ -703,6 +748,9 @@ class _$ImportPainter implements ImportPainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return import?.call(name, elements, areas);
   }
@@ -743,6 +791,9 @@ class _$ImportPainter implements ImportPainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (import != null) {
@@ -768,6 +819,9 @@ class _$ImportPainter implements ImportPainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return import(this);
   }
@@ -789,6 +843,9 @@ class _$ImportPainter implements ImportPainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return import?.call(this);
   }
@@ -810,6 +867,9 @@ class _$ImportPainter implements ImportPainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (import != null) {
@@ -942,6 +1002,9 @@ class _$UndoPainter implements UndoPainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return undo(name);
   }
@@ -982,6 +1045,9 @@ class _$UndoPainter implements UndoPainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return undo?.call(name);
   }
@@ -1022,6 +1088,9 @@ class _$UndoPainter implements UndoPainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -1047,6 +1116,9 @@ class _$UndoPainter implements UndoPainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return undo(this);
   }
@@ -1068,6 +1140,9 @@ class _$UndoPainter implements UndoPainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return undo?.call(this);
   }
@@ -1089,6 +1164,9 @@ class _$UndoPainter implements UndoPainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -1216,6 +1294,9 @@ class _$RedoPainter implements RedoPainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return redo(name);
   }
@@ -1256,6 +1337,9 @@ class _$RedoPainter implements RedoPainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return redo?.call(name);
   }
@@ -1296,6 +1380,9 @@ class _$RedoPainter implements RedoPainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -1321,6 +1408,9 @@ class _$RedoPainter implements RedoPainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return redo(this);
   }
@@ -1342,6 +1432,9 @@ class _$RedoPainter implements RedoPainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return redo?.call(this);
   }
@@ -1363,6 +1456,9 @@ class _$RedoPainter implements RedoPainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -1543,6 +1639,9 @@ class _$LabelPainter implements LabelPainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return label(name, mode, zoomDependent, foreground, styleSheet);
   }
@@ -1583,6 +1682,9 @@ class _$LabelPainter implements LabelPainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return label?.call(name, mode, zoomDependent, foreground, styleSheet);
   }
@@ -1623,6 +1725,9 @@ class _$LabelPainter implements LabelPainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -1648,6 +1753,9 @@ class _$LabelPainter implements LabelPainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return label(this);
   }
@@ -1669,6 +1777,9 @@ class _$LabelPainter implements LabelPainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return label?.call(this);
   }
@@ -1690,6 +1801,9 @@ class _$LabelPainter implements LabelPainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -1846,6 +1960,9 @@ class _$PenPainter implements PenPainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return pen(name, zoomDependent, property);
   }
@@ -1886,6 +2003,9 @@ class _$PenPainter implements PenPainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return pen?.call(name, zoomDependent, property);
   }
@@ -1926,6 +2046,9 @@ class _$PenPainter implements PenPainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -1951,6 +2074,9 @@ class _$PenPainter implements PenPainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return pen(this);
   }
@@ -1972,6 +2098,9 @@ class _$PenPainter implements PenPainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return pen?.call(this);
   }
@@ -1993,6 +2122,9 @@ class _$PenPainter implements PenPainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -2134,6 +2266,9 @@ class _$EraserPainter implements EraserPainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return eraser(name, strokeWidth);
   }
@@ -2174,6 +2309,9 @@ class _$EraserPainter implements EraserPainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return eraser?.call(name, strokeWidth);
   }
@@ -2214,6 +2352,9 @@ class _$EraserPainter implements EraserPainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (eraser != null) {
@@ -2239,6 +2380,9 @@ class _$EraserPainter implements EraserPainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return eraser(this);
   }
@@ -2260,6 +2404,9 @@ class _$EraserPainter implements EraserPainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return eraser?.call(this);
   }
@@ -2281,6 +2428,9 @@ class _$EraserPainter implements EraserPainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (eraser != null) {
@@ -2420,6 +2570,9 @@ class _$PathEraserPainter implements PathEraserPainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return pathEraser(name, strokeWidth);
   }
@@ -2460,6 +2613,9 @@ class _$PathEraserPainter implements PathEraserPainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return pathEraser?.call(name, strokeWidth);
   }
@@ -2500,6 +2656,9 @@ class _$PathEraserPainter implements PathEraserPainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (pathEraser != null) {
@@ -2525,6 +2684,9 @@ class _$PathEraserPainter implements PathEraserPainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return pathEraser(this);
   }
@@ -2546,6 +2708,9 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return pathEraser?.call(this);
   }
@@ -2567,6 +2732,9 @@ class _$PathEraserPainter implements PathEraserPainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (pathEraser != null) {
@@ -2704,6 +2872,9 @@ class _$LayerPainter implements LayerPainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return layer(name, strokeWidth);
   }
@@ -2744,6 +2915,9 @@ class _$LayerPainter implements LayerPainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return layer?.call(name, strokeWidth);
   }
@@ -2784,6 +2958,9 @@ class _$LayerPainter implements LayerPainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (layer != null) {
@@ -2809,6 +2986,9 @@ class _$LayerPainter implements LayerPainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return layer(this);
   }
@@ -2830,6 +3010,9 @@ class _$LayerPainter implements LayerPainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return layer?.call(this);
   }
@@ -2851,6 +3034,9 @@ class _$LayerPainter implements LayerPainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (layer != null) {
@@ -3023,6 +3209,9 @@ class _$AreaPainter implements AreaPainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return area(name, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, askForName);
@@ -3064,6 +3253,9 @@ class _$AreaPainter implements AreaPainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return area?.call(name, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, askForName);
@@ -3105,6 +3297,9 @@ class _$AreaPainter implements AreaPainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (area != null) {
@@ -3131,6 +3326,9 @@ class _$AreaPainter implements AreaPainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return area(this);
   }
@@ -3152,6 +3350,9 @@ class _$AreaPainter implements AreaPainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return area?.call(this);
   }
@@ -3173,6 +3374,9 @@ class _$AreaPainter implements AreaPainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (area != null) {
@@ -3352,6 +3556,9 @@ class _$LaserPainter implements LaserPainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return laser(name, duration, strokeWidth, thinning, color);
   }
@@ -3392,6 +3599,9 @@ class _$LaserPainter implements LaserPainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return laser?.call(name, duration, strokeWidth, thinning, color);
   }
@@ -3432,6 +3642,9 @@ class _$LaserPainter implements LaserPainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (laser != null) {
@@ -3457,6 +3670,9 @@ class _$LaserPainter implements LaserPainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return laser(this);
   }
@@ -3478,6 +3694,9 @@ class _$LaserPainter implements LaserPainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return laser?.call(this);
   }
@@ -3499,6 +3718,9 @@ class _$LaserPainter implements LaserPainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (laser != null) {
@@ -3688,6 +3910,9 @@ class _$ShapePainter implements ShapePainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return shape(name, zoomDependent, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, property);
@@ -3729,6 +3954,9 @@ class _$ShapePainter implements ShapePainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return shape?.call(name, zoomDependent, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, property);
@@ -3770,6 +3998,9 @@ class _$ShapePainter implements ShapePainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -3796,6 +4027,9 @@ class _$ShapePainter implements ShapePainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return shape(this);
   }
@@ -3817,6 +4051,9 @@ class _$ShapePainter implements ShapePainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return shape?.call(this);
   }
@@ -3838,6 +4075,9 @@ class _$ShapePainter implements ShapePainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -3997,6 +4237,9 @@ class _$StampPainter implements StampPainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return stamp(name, component);
   }
@@ -4037,6 +4280,9 @@ class _$StampPainter implements StampPainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return stamp?.call(name, component);
   }
@@ -4077,6 +4323,9 @@ class _$StampPainter implements StampPainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (stamp != null) {
@@ -4102,6 +4351,9 @@ class _$StampPainter implements StampPainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return stamp(this);
   }
@@ -4123,6 +4375,9 @@ class _$StampPainter implements StampPainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return stamp?.call(this);
   }
@@ -4144,6 +4399,9 @@ class _$StampPainter implements StampPainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (stamp != null) {
@@ -4275,6 +4533,9 @@ class _$PresentationPainter implements PresentationPainter {
         shape,
     required TResult Function(String name, PackAssetLocation component) stamp,
     required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
   }) {
     return presentation(name);
   }
@@ -4315,6 +4576,9 @@ class _$PresentationPainter implements PresentationPainter {
         shape,
     TResult? Function(String name, PackAssetLocation component)? stamp,
     TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
   }) {
     return presentation?.call(name);
   }
@@ -4355,6 +4619,9 @@ class _$PresentationPainter implements PresentationPainter {
         shape,
     TResult Function(String name, PackAssetLocation component)? stamp,
     TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
     required TResult orElse(),
   }) {
     if (presentation != null) {
@@ -4380,6 +4647,9 @@ class _$PresentationPainter implements PresentationPainter {
     required TResult Function(ShapePainter value) shape,
     required TResult Function(StampPainter value) stamp,
     required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
   }) {
     return presentation(this);
   }
@@ -4401,6 +4671,9 @@ class _$PresentationPainter implements PresentationPainter {
     TResult? Function(ShapePainter value)? shape,
     TResult? Function(StampPainter value)? stamp,
     TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
   }) {
     return presentation?.call(this);
   }
@@ -4422,6 +4695,9 @@ class _$PresentationPainter implements PresentationPainter {
     TResult Function(ShapePainter value)? shape,
     TResult Function(StampPainter value)? stamp,
     TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
     required TResult orElse(),
   }) {
     if (presentation != null) {
@@ -4449,5 +4725,907 @@ abstract class PresentationPainter implements Painter {
   @override
   @JsonKey(ignore: true)
   _$$PresentationPainterCopyWith<_$PresentationPainter> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SpacerPainterCopyWith<$Res>
+    implements $PainterCopyWith<$Res> {
+  factory _$$SpacerPainterCopyWith(
+          _$SpacerPainter value, $Res Function(_$SpacerPainter) then) =
+      __$$SpacerPainterCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, Axis2D axis});
+}
+
+/// @nodoc
+class __$$SpacerPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$SpacerPainter>
+    implements _$$SpacerPainterCopyWith<$Res> {
+  __$$SpacerPainterCopyWithImpl(
+      _$SpacerPainter _value, $Res Function(_$SpacerPainter) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? axis = null,
+  }) {
+    return _then(_$SpacerPainter(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      axis: null == axis
+          ? _value.axis
+          : axis // ignore: cast_nullable_to_non_nullable
+              as Axis2D,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SpacerPainter implements SpacerPainter {
+  _$SpacerPainter(
+      {this.name = '', this.axis = Axis2D.horizontal, final String? $type})
+      : $type = $type ?? 'spacer';
+
+  factory _$SpacerPainter.fromJson(Map<String, dynamic> json) =>
+      _$$SpacerPainterFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final Axis2D axis;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Painter.spacer(name: $name, axis: $axis)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SpacerPainterCopyWith<_$SpacerPainter> get copyWith =>
+      __$$SpacerPainterCopyWithImpl<_$SpacerPainter>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name) hand,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
+    required TResult Function(String name) undo,
+    required TResult Function(String name) redo,
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
+        label,
+    required TResult Function(
+            String name, bool zoomDependent, PenProperty property)
+        pen,
+    required TResult Function(String name, double strokeWidth) eraser,
+    required TResult Function(String name, double strokeWidth) pathEraser,
+    required TResult Function(String name, double strokeWidth) layer,
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
+        area,
+    required TResult Function(String name, double duration, double strokeWidth,
+            double thinning, int color)
+        laser,
+    required TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
+        shape,
+    required TResult Function(String name, PackAssetLocation component) stamp,
+    required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
+  }) {
+    return spacer(name, axis);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name)? hand,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
+        pen,
+    TResult? Function(String name, double strokeWidth)? eraser,
+    TResult? Function(String name, double strokeWidth)? pathEraser,
+    TResult? Function(String name, double strokeWidth)? layer,
+    TResult? Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult? Function(String name, double duration, double strokeWidth,
+            double thinning, int color)?
+        laser,
+    TResult? Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
+    TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
+  }) {
+    return spacer?.call(name, axis);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name)? hand,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult Function(String name)? undo,
+    TResult Function(String name)? redo,
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult Function(String name, bool zoomDependent, PenProperty property)?
+        pen,
+    TResult Function(String name, double strokeWidth)? eraser,
+    TResult Function(String name, double strokeWidth)? pathEraser,
+    TResult Function(String name, double strokeWidth)? layer,
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult Function(String name, double duration, double strokeWidth,
+            double thinning, int color)?
+        laser,
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult Function(String name, PackAssetLocation component)? stamp,
+    TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
+    required TResult orElse(),
+  }) {
+    if (spacer != null) {
+      return spacer(name, axis);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(HandPainter value) hand,
+    required TResult Function(ImportPainter value) import,
+    required TResult Function(UndoPainter value) undo,
+    required TResult Function(RedoPainter value) redo,
+    required TResult Function(LabelPainter value) label,
+    required TResult Function(PenPainter value) pen,
+    required TResult Function(EraserPainter value) eraser,
+    required TResult Function(PathEraserPainter value) pathEraser,
+    required TResult Function(LayerPainter value) layer,
+    required TResult Function(AreaPainter value) area,
+    required TResult Function(LaserPainter value) laser,
+    required TResult Function(ShapePainter value) shape,
+    required TResult Function(StampPainter value) stamp,
+    required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
+  }) {
+    return spacer(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(ImportPainter value)? import,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
+    TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
+  }) {
+    return spacer?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(HandPainter value)? hand,
+    TResult Function(ImportPainter value)? import,
+    TResult Function(UndoPainter value)? undo,
+    TResult Function(RedoPainter value)? redo,
+    TResult Function(LabelPainter value)? label,
+    TResult Function(PenPainter value)? pen,
+    TResult Function(EraserPainter value)? eraser,
+    TResult Function(PathEraserPainter value)? pathEraser,
+    TResult Function(LayerPainter value)? layer,
+    TResult Function(AreaPainter value)? area,
+    TResult Function(LaserPainter value)? laser,
+    TResult Function(ShapePainter value)? shape,
+    TResult Function(StampPainter value)? stamp,
+    TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
+    required TResult orElse(),
+  }) {
+    if (spacer != null) {
+      return spacer(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SpacerPainterToJson(
+      this,
+    );
+  }
+}
+
+abstract class SpacerPainter implements Painter {
+  factory SpacerPainter({final String name, final Axis2D axis}) =
+      _$SpacerPainter;
+
+  factory SpacerPainter.fromJson(Map<String, dynamic> json) =
+      _$SpacerPainter.fromJson;
+
+  @override
+  String get name;
+  Axis2D get axis;
+  @override
+  @JsonKey(ignore: true)
+  _$$SpacerPainterCopyWith<_$SpacerPainter> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FullScreenPainterCopyWith<$Res>
+    implements $PainterCopyWith<$Res> {
+  factory _$$FullScreenPainterCopyWith(
+          _$FullScreenPainter value, $Res Function(_$FullScreenPainter) then) =
+      __$$FullScreenPainterCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name});
+}
+
+/// @nodoc
+class __$$FullScreenPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$FullScreenPainter>
+    implements _$$FullScreenPainterCopyWith<$Res> {
+  __$$FullScreenPainterCopyWithImpl(
+      _$FullScreenPainter _value, $Res Function(_$FullScreenPainter) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+  }) {
+    return _then(_$FullScreenPainter(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$FullScreenPainter implements FullScreenPainter {
+  _$FullScreenPainter({this.name = '', final String? $type})
+      : $type = $type ?? 'fullSceen';
+
+  factory _$FullScreenPainter.fromJson(Map<String, dynamic> json) =>
+      _$$FullScreenPainterFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Painter.fullSceen(name: $name)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FullScreenPainterCopyWith<_$FullScreenPainter> get copyWith =>
+      __$$FullScreenPainterCopyWithImpl<_$FullScreenPainter>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name) hand,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
+    required TResult Function(String name) undo,
+    required TResult Function(String name) redo,
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
+        label,
+    required TResult Function(
+            String name, bool zoomDependent, PenProperty property)
+        pen,
+    required TResult Function(String name, double strokeWidth) eraser,
+    required TResult Function(String name, double strokeWidth) pathEraser,
+    required TResult Function(String name, double strokeWidth) layer,
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
+        area,
+    required TResult Function(String name, double duration, double strokeWidth,
+            double thinning, int color)
+        laser,
+    required TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
+        shape,
+    required TResult Function(String name, PackAssetLocation component) stamp,
+    required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
+  }) {
+    return fullSceen(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name)? hand,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
+        pen,
+    TResult? Function(String name, double strokeWidth)? eraser,
+    TResult? Function(String name, double strokeWidth)? pathEraser,
+    TResult? Function(String name, double strokeWidth)? layer,
+    TResult? Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult? Function(String name, double duration, double strokeWidth,
+            double thinning, int color)?
+        laser,
+    TResult? Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
+    TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
+  }) {
+    return fullSceen?.call(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name)? hand,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult Function(String name)? undo,
+    TResult Function(String name)? redo,
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult Function(String name, bool zoomDependent, PenProperty property)?
+        pen,
+    TResult Function(String name, double strokeWidth)? eraser,
+    TResult Function(String name, double strokeWidth)? pathEraser,
+    TResult Function(String name, double strokeWidth)? layer,
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult Function(String name, double duration, double strokeWidth,
+            double thinning, int color)?
+        laser,
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult Function(String name, PackAssetLocation component)? stamp,
+    TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
+    required TResult orElse(),
+  }) {
+    if (fullSceen != null) {
+      return fullSceen(name);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(HandPainter value) hand,
+    required TResult Function(ImportPainter value) import,
+    required TResult Function(UndoPainter value) undo,
+    required TResult Function(RedoPainter value) redo,
+    required TResult Function(LabelPainter value) label,
+    required TResult Function(PenPainter value) pen,
+    required TResult Function(EraserPainter value) eraser,
+    required TResult Function(PathEraserPainter value) pathEraser,
+    required TResult Function(LayerPainter value) layer,
+    required TResult Function(AreaPainter value) area,
+    required TResult Function(LaserPainter value) laser,
+    required TResult Function(ShapePainter value) shape,
+    required TResult Function(StampPainter value) stamp,
+    required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
+  }) {
+    return fullSceen(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(ImportPainter value)? import,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
+    TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
+  }) {
+    return fullSceen?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(HandPainter value)? hand,
+    TResult Function(ImportPainter value)? import,
+    TResult Function(UndoPainter value)? undo,
+    TResult Function(RedoPainter value)? redo,
+    TResult Function(LabelPainter value)? label,
+    TResult Function(PenPainter value)? pen,
+    TResult Function(EraserPainter value)? eraser,
+    TResult Function(PathEraserPainter value)? pathEraser,
+    TResult Function(LayerPainter value)? layer,
+    TResult Function(AreaPainter value)? area,
+    TResult Function(LaserPainter value)? laser,
+    TResult Function(ShapePainter value)? shape,
+    TResult Function(StampPainter value)? stamp,
+    TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
+    required TResult orElse(),
+  }) {
+    if (fullSceen != null) {
+      return fullSceen(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$FullScreenPainterToJson(
+      this,
+    );
+  }
+}
+
+abstract class FullScreenPainter implements Painter {
+  factory FullScreenPainter({final String name}) = _$FullScreenPainter;
+
+  factory FullScreenPainter.fromJson(Map<String, dynamic> json) =
+      _$FullScreenPainter.fromJson;
+
+  @override
+  String get name;
+  @override
+  @JsonKey(ignore: true)
+  _$$FullScreenPainterCopyWith<_$FullScreenPainter> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AssetPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
+  factory _$$AssetPainterCopyWith(
+          _$AssetPainter value, $Res Function(_$AssetPainter) then) =
+      __$$AssetPainterCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, ImportType importType});
+}
+
+/// @nodoc
+class __$$AssetPainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$AssetPainter>
+    implements _$$AssetPainterCopyWith<$Res> {
+  __$$AssetPainterCopyWithImpl(
+      _$AssetPainter _value, $Res Function(_$AssetPainter) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? importType = null,
+  }) {
+    return _then(_$AssetPainter(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      importType: null == importType
+          ? _value.importType
+          : importType // ignore: cast_nullable_to_non_nullable
+              as ImportType,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$AssetPainter implements AssetPainter {
+  _$AssetPainter(
+      {this.name = '',
+      this.importType = ImportType.document,
+      final String? $type})
+      : $type = $type ?? 'asset';
+
+  factory _$AssetPainter.fromJson(Map<String, dynamic> json) =>
+      _$$AssetPainterFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final ImportType importType;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Painter.asset(name: $name, importType: $importType)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AssetPainterCopyWith<_$AssetPainter> get copyWith =>
+      __$$AssetPainterCopyWithImpl<_$AssetPainter>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name) hand,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
+    required TResult Function(String name) undo,
+    required TResult Function(String name) redo,
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
+        label,
+    required TResult Function(
+            String name, bool zoomDependent, PenProperty property)
+        pen,
+    required TResult Function(String name, double strokeWidth) eraser,
+    required TResult Function(String name, double strokeWidth) pathEraser,
+    required TResult Function(String name, double strokeWidth) layer,
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
+        area,
+    required TResult Function(String name, double duration, double strokeWidth,
+            double thinning, int color)
+        laser,
+    required TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
+        shape,
+    required TResult Function(String name, PackAssetLocation component) stamp,
+    required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
+  }) {
+    return asset(name, importType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name)? hand,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
+        pen,
+    TResult? Function(String name, double strokeWidth)? eraser,
+    TResult? Function(String name, double strokeWidth)? pathEraser,
+    TResult? Function(String name, double strokeWidth)? layer,
+    TResult? Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult? Function(String name, double duration, double strokeWidth,
+            double thinning, int color)?
+        laser,
+    TResult? Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
+    TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
+  }) {
+    return asset?.call(name, importType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name)? hand,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult Function(String name)? undo,
+    TResult Function(String name)? redo,
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult Function(String name, bool zoomDependent, PenProperty property)?
+        pen,
+    TResult Function(String name, double strokeWidth)? eraser,
+    TResult Function(String name, double strokeWidth)? pathEraser,
+    TResult Function(String name, double strokeWidth)? layer,
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult Function(String name, double duration, double strokeWidth,
+            double thinning, int color)?
+        laser,
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult Function(String name, PackAssetLocation component)? stamp,
+    TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
+    required TResult orElse(),
+  }) {
+    if (asset != null) {
+      return asset(name, importType);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(HandPainter value) hand,
+    required TResult Function(ImportPainter value) import,
+    required TResult Function(UndoPainter value) undo,
+    required TResult Function(RedoPainter value) redo,
+    required TResult Function(LabelPainter value) label,
+    required TResult Function(PenPainter value) pen,
+    required TResult Function(EraserPainter value) eraser,
+    required TResult Function(PathEraserPainter value) pathEraser,
+    required TResult Function(LayerPainter value) layer,
+    required TResult Function(AreaPainter value) area,
+    required TResult Function(LaserPainter value) laser,
+    required TResult Function(ShapePainter value) shape,
+    required TResult Function(StampPainter value) stamp,
+    required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
+  }) {
+    return asset(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(ImportPainter value)? import,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
+    TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
+  }) {
+    return asset?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(HandPainter value)? hand,
+    TResult Function(ImportPainter value)? import,
+    TResult Function(UndoPainter value)? undo,
+    TResult Function(RedoPainter value)? redo,
+    TResult Function(LabelPainter value)? label,
+    TResult Function(PenPainter value)? pen,
+    TResult Function(EraserPainter value)? eraser,
+    TResult Function(PathEraserPainter value)? pathEraser,
+    TResult Function(LayerPainter value)? layer,
+    TResult Function(AreaPainter value)? area,
+    TResult Function(LaserPainter value)? laser,
+    TResult Function(ShapePainter value)? shape,
+    TResult Function(StampPainter value)? stamp,
+    TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
+    required TResult orElse(),
+  }) {
+    if (asset != null) {
+      return asset(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AssetPainterToJson(
+      this,
+    );
+  }
+}
+
+abstract class AssetPainter implements Painter {
+  factory AssetPainter({final String name, final ImportType importType}) =
+      _$AssetPainter;
+
+  factory AssetPainter.fromJson(Map<String, dynamic> json) =
+      _$AssetPainter.fromJson;
+
+  @override
+  String get name;
+  ImportType get importType;
+  @override
+  @JsonKey(ignore: true)
+  _$$AssetPainterCopyWith<_$AssetPainter> get copyWith =>
       throw _privateConstructorUsedError;
 }

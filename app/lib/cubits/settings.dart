@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:butterfly/api/full_screen.dart' as full_screen_api;
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -11,6 +12,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../views/navigator.dart';
 
 part 'settings.freezed.dart';
 part 'settings.g.dart';
@@ -215,16 +218,19 @@ class ButterflySettings with _$ButterflySettings {
     @Default('') String defaultRemote,
     @Default(false) bool nativeTitleBar,
     @Default(false) bool startInFullScreen,
+    @Default(true) bool navigationRail,
+    required bool fullScreen,
     @Default(SyncMode.noMobile) SyncMode syncMode,
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
     @Default('') String fallbackPack,
     @Default([]) List<String> starred,
     @Default('') String defaultTemplate,
-    @Default(0) int navigatorTab,
+    @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
     @Default(ToolbarPosition.top) ToolbarPosition toolbarPosition,
   }) = _ButterflySettings;
 
-  factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
+  factory ButterflySettings.fromPrefs(
+      SharedPreferences prefs, bool fullScreen) {
     final remotes = prefs.getStringList('remotes')?.map((e) {
           final data = json.decode(e) as Map<String, dynamic>;
           if (!data.containsKey('packsPath')) {
@@ -234,6 +240,7 @@ class ButterflySettings with _$ButterflySettings {
         }).toList() ??
         const [];
     return ButterflySettings(
+      fullScreen: fullScreen,
       localeTag: prefs.getString('locale') ?? '',
       penOnlyInput: prefs.getBool('pen_only_input') ?? false,
       inputGestures: prefs.getBool('input_gestures') ?? true,
@@ -281,6 +288,7 @@ class ButterflySettings with _$ButterflySettings {
       toolbarPosition: prefs.containsKey('toolbar_position')
           ? ToolbarPosition.values.byName(prefs.getString('toolbar_position')!)
           : ToolbarPosition.top,
+      navigationRail: prefs.getBool('navigation_rail') ?? true,
     );
   }
 
@@ -319,7 +327,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setStringList(
         'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
     await prefs.setString('default_remote', defaultRemote);
-    await prefs.setBool('native_window_title_bar', nativeTitleBar);
+    await prefs.setBool('native_title_bar', nativeTitleBar);
     await prefs.setBool('start_in_full_screen', startInFullScreen);
     await prefs.setString('sync_mode', syncMode.name);
     await prefs.setString(
@@ -329,6 +337,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setInt('version', 0);
     await prefs.setString('default_template', defaultTemplate);
     await prefs.setString('toolbar_position', toolbarPosition.name);
+    await prefs.setBool('navigation_rail', navigationRail);
   }
 
   RemoteStorage? getRemote(String? identifier) {
@@ -359,10 +368,8 @@ class ButterflySettings with _$ButterflySettings {
 }
 
 class SettingsCubit extends Cubit<ButterflySettings> {
-  SettingsCubit() : super(const ButterflySettings());
-
-  SettingsCubit.fromPrefs(SharedPreferences prefs)
-      : super(ButterflySettings.fromPrefs(prefs));
+  SettingsCubit(SharedPreferences prefs, bool fullScreen)
+      : super(ButterflySettings.fromPrefs(prefs, fullScreen));
 
   Future<void> changeTheme(ThemeMode theme) async {
     emit(state.copyWith(theme: theme));
@@ -671,7 +678,21 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  void setNavigatorTab(int index) {
-    emit(state.copyWith(navigatorTab: index));
+  void setNavigatorPage(NavigatorPage page) {
+    emit(state.copyWith(navigatorPage: page));
+  }
+
+  void setFullScreen(bool value, [bool modify = true]) {
+    if (value != state.fullScreen && modify) {
+      full_screen_api.setFullScreen(value);
+    }
+    emit(state.copyWith(fullScreen: value));
+  }
+
+  void toggleFullScreen() => setFullScreen(!state.fullScreen);
+
+  Future<void> changeNavigationRail(bool value) {
+    emit(state.copyWith(navigationRail: value));
+    return save();
   }
 }

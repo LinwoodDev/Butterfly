@@ -68,7 +68,8 @@ class _EditToolbarState extends State<EditToolbar> {
           width: widget.direction == Axis.horizontal ? null : 80,
           child: BlocBuilder<SettingsCubit, ButterflySettings>(
               buildWhen: (previous, current) =>
-                  previous.inputConfiguration != current.inputConfiguration,
+                  previous.inputConfiguration != current.inputConfiguration ||
+                  previous.fullScreen != current.fullScreen,
               builder: (context, settings) {
                 final shortcuts = settings.inputConfiguration.getShortcuts();
                 return BlocBuilder<DocumentBloc, DocumentState>(
@@ -88,21 +89,14 @@ class _EditToolbarState extends State<EditToolbar> {
                               current.temporaryHandler ||
                           previous.selection != current.selection,
                       builder: (context, currentIndex) {
-                        return Material(
-                          color: Colors.transparent,
-                          child: Align(
-                            alignment: widget.centered ?? widget.isMobile
-                                ? Alignment.center
-                                : Alignment.centerRight,
-                            child: Card(
-                              elevation: 10,
-                              child: _buildBody(
-                                state,
-                                currentIndex,
-                                painters,
-                                shortcuts,
-                              ),
-                            ),
+                        return Card(
+                          elevation: 10,
+                          child: _buildBody(
+                            state,
+                            currentIndex,
+                            settings,
+                            painters,
+                            shortcuts,
                           ),
                         );
                       },
@@ -137,6 +131,7 @@ class _EditToolbarState extends State<EditToolbar> {
   ListView _buildBody(
     DocumentLoadSuccess state,
     CurrentIndex currentIndex,
+    ButterflySettings settings,
     List<Painter> painters,
     Set<int> shortcuts,
   ) {
@@ -257,30 +252,30 @@ class _EditToolbarState extends State<EditToolbar> {
                   tooltip = e.getLocalizedName(context);
                 }
 
+                final bloc = context.read<DocumentBloc>();
+
                 final handler = Handler.fromPainter(e);
 
                 final color = handler.getStatus(context.read<DocumentBloc>()) ==
                         PainterStatus.disabled
                     ? Theme.of(context).disabledColor
                     : null;
+                var icon = handler.getIcon(bloc) ??
+                    e.icon(selected
+                        ? PhosphorIconsStyle.fill
+                        : PhosphorIconsStyle.light);
                 final toolWidget = Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: OptionButton(
                         tooltip: tooltip,
-                        onLongPressed: () {
-                          context
-                              .read<CurrentIndexCubit>()
-                              .insertSelection(e, true);
-                        },
+                        onLongPressed: () => context
+                            .read<CurrentIndexCubit>()
+                            .insertSelection(e, true),
                         focussed: shortcuts.contains(i),
                         selected: selected,
                         highlighted: highlighted,
-                        selectedIcon: _buildIcon(
-                            e.icon(PhosphorIconsStyle.fill),
-                            e.isAction(),
-                            color),
-                        icon: _buildIcon(e.icon(PhosphorIconsStyle.light),
-                            e.isAction(), color),
+                        selectedIcon: _buildIcon(icon, e.isAction(), color),
+                        icon: _buildIcon(icon, e.isAction(), color),
                         onPressed: () {
                           if (_mouseState == _MouseState.multi) {
                             context
@@ -328,12 +323,22 @@ class _EditToolbarState extends State<EditToolbar> {
             ),
             IconButton(
               icon: const PhosphorIcon(PhosphorIconsLight.wrench),
+              tooltip: AppLocalizations.of(context).tools,
               onPressed: () {
                 final cubit = context.read<CurrentIndexCubit>();
                 final state = cubit.state.cameraViewport.tool.element;
                 cubit.changeSelection(state);
               },
             ),
+            if (settings.fullScreen &&
+                painters.every((e) => e is! FullScreenPainter))
+              IconButton(
+                icon: const PhosphorIcon(PhosphorIconsLight.arrowsIn),
+                tooltip: AppLocalizations.of(context).exitFullScreen,
+                onPressed: () {
+                  context.read<SettingsCubit>().setFullScreen(false);
+                },
+              ),
             BlocBuilder<DocumentBloc, DocumentState>(
               buildWhen: (previous, current) =>
                   previous.pageName != current.pageName ||

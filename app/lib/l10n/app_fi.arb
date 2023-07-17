@@ -507,5 +507,10 @@
   "sendToBack": "Lähetä takaisin",
   "bringForward": "Tuo eteenpäin",
   "sendBackward": "Lähetä taaksepäin",
-  "invalidName": "Invalid name"
+  "invalidName": "Virheellinen nimi",
+  "rotation": "Kierto",
+  "onlyAvailableLargerScreen": "Saatavilla vain suuremmilla näytöillä",
+  "toolbarPosition": "Työkalupalkin sijainti",
+  "rotate": "Kierrä",
+  "spacer": "Välilyönti"
 }

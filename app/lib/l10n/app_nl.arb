@@ -507,5 +507,10 @@
   "sendToBack": "Stuur naar achterkant",
   "bringForward": "Breng naar voren",
   "sendBackward": "Stuur achteruit",
-  "invalidName": "Invalid name"
+  "invalidName": "Ongeldige naam",
+  "rotation": "Rotatie",
+  "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
+  "toolbarPosition": "Werkbalk positie",
+  "rotate": "Draaien",
+  "spacer": "Afstandshouder"
 }

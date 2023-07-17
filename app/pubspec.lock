@@ -159,7 +159,7 @@ packages:
       path: "../api"
       relative: true
     source: path
-    version: "2.0.0-beta.3"
+    version: "2.0.0-beta.5"
   camera:
     dependency: "direct main"
     description:
@@ -526,18 +526,18 @@ packages:
     dependency: "direct dev"
     description:
       name: freezed
-      sha256: a9520490532087cf38bf3f7de478ab6ebeb5f68bb1eb2641546d92719b224445
+      sha256: "2df89855fe181baae3b6d714dc3c4317acf4fccd495a6f36e5e00f24144c6c3b"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.5"
+    version: "2.4.1"
   freezed_annotation:
     dependency: "direct main"
     description:
       name: freezed_annotation
-      sha256: aeac15850ef1b38ee368d4c53ba9a847e900bb2c53a4db3f6881cbb3cb684338
+      sha256: c3fd9336eb55a38cc1bbd79ab17573113a8deccd0ecbbf926cca3c62803b5c2d
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.4.1"
   frontend_server_client:
     dependency: transitive
     description:
@@ -563,10 +563,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "1531542666c2d052c44bbf6e2b48011bf3771da0404b94c60eabec1228a62906"
+      sha256: b33a88c67816312597e5e0f5906c5139a0b9bd9bb137346e872c788da7af8ea0
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.0"
+    version: "9.0.3"
   graphs:
     dependency: transitive
     description:
@@ -679,14 +679,23 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  lw_sysinfo:
+    dependency: "direct main"
+    description:
+      path: "packages/lw_sysinfo"
+      ref: "205347161111273fd40d371c70ab6342bdcabf5c"
+      resolved-ref: "205347161111273fd40d371c70ab6342bdcabf5c"
+      url: "https://github.com/LinwoodDev/dart_pkgs.git"
+    source: git
+    version: "0.0.1"
   markdown:
     dependency: "direct main"
     description:
       name: markdown
-      sha256: "8e332924094383133cee218b676871f42db2514f1f6ac617b6cf6152a7faab8e"
+      sha256: acf35edccc0463a9d7384e437c015a3535772e09714cf60e07eeef3a15870dcd
       url: "https://pub.dev"
     source: hosted
-    version: "7.1.0"
+    version: "7.1.1"
   matcher:
     dependency: transitive
     description:
@@ -1203,10 +1212,10 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: eb1e00ab44303d50dd487aab67ebc575456c146c6af44422f9c13889984c00f3
+      sha256: "781bd58a1eb16069412365c98597726cd8810ae27435f04b3b4d3a470bacd61e"
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.11"
+    version: "6.1.12"
   url_launcher_android:
     dependency: transitive
     description:

@@ -822,13 +822,15 @@ mixin _$ButterflySettings {
   String get defaultRemote => throw _privateConstructorUsedError;
   bool get nativeTitleBar => throw _privateConstructorUsedError;
   bool get startInFullScreen => throw _privateConstructorUsedError;
+  bool get navigationRail => throw _privateConstructorUsedError;
+  bool get fullScreen => throw _privateConstructorUsedError;
   SyncMode get syncMode => throw _privateConstructorUsedError;
   InputConfiguration get inputConfiguration =>
       throw _privateConstructorUsedError;
   String get fallbackPack => throw _privateConstructorUsedError;
   List<String> get starred => throw _privateConstructorUsedError;
   String get defaultTemplate => throw _privateConstructorUsedError;
-  int get navigatorTab => throw _privateConstructorUsedError;
+  NavigatorPage get navigatorPage => throw _privateConstructorUsedError;
   ToolbarPosition get toolbarPosition => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -862,12 +864,14 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       String defaultRemote,
       bool nativeTitleBar,
       bool startInFullScreen,
+      bool navigationRail,
+      bool fullScreen,
       SyncMode syncMode,
       InputConfiguration inputConfiguration,
       String fallbackPack,
       List<String> starred,
       String defaultTemplate,
-      int navigatorTab,
+      NavigatorPage navigatorPage,
       ToolbarPosition toolbarPosition});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -905,12 +909,14 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? defaultRemote = null,
     Object? nativeTitleBar = null,
     Object? startInFullScreen = null,
+    Object? navigationRail = null,
+    Object? fullScreen = null,
     Object? syncMode = null,
     Object? inputConfiguration = null,
     Object? fallbackPack = null,
     Object? starred = null,
     Object? defaultTemplate = null,
-    Object? navigatorTab = null,
+    Object? navigatorPage = null,
     Object? toolbarPosition = null,
   }) {
     return _then(_value.copyWith(
@@ -990,6 +996,14 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.startInFullScreen
           : startInFullScreen // ignore: cast_nullable_to_non_nullable
               as bool,
+      navigationRail: null == navigationRail
+          ? _value.navigationRail
+          : navigationRail // ignore: cast_nullable_to_non_nullable
+              as bool,
+      fullScreen: null == fullScreen
+          ? _value.fullScreen
+          : fullScreen // ignore: cast_nullable_to_non_nullable
+              as bool,
       syncMode: null == syncMode
           ? _value.syncMode
           : syncMode // ignore: cast_nullable_to_non_nullable
@@ -1010,10 +1024,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.defaultTemplate
           : defaultTemplate // ignore: cast_nullable_to_non_nullable
               as String,
-      navigatorTab: null == navigatorTab
-          ? _value.navigatorTab
-          : navigatorTab // ignore: cast_nullable_to_non_nullable
-              as int,
+      navigatorPage: null == navigatorPage
+          ? _value.navigatorPage
+          : navigatorPage // ignore: cast_nullable_to_non_nullable
+              as NavigatorPage,
       toolbarPosition: null == toolbarPosition
           ? _value.toolbarPosition
           : toolbarPosition // ignore: cast_nullable_to_non_nullable
@@ -1059,12 +1073,14 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       String defaultRemote,
       bool nativeTitleBar,
       bool startInFullScreen,
+      bool navigationRail,
+      bool fullScreen,
       SyncMode syncMode,
       InputConfiguration inputConfiguration,
       String fallbackPack,
       List<String> starred,
       String defaultTemplate,
-      int navigatorTab,
+      NavigatorPage navigatorPage,
       ToolbarPosition toolbarPosition});
 
   @override
@@ -1101,12 +1117,14 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? defaultRemote = null,
     Object? nativeTitleBar = null,
     Object? startInFullScreen = null,
+    Object? navigationRail = null,
+    Object? fullScreen = null,
     Object? syncMode = null,
     Object? inputConfiguration = null,
     Object? fallbackPack = null,
     Object? starred = null,
     Object? defaultTemplate = null,
-    Object? navigatorTab = null,
+    Object? navigatorPage = null,
     Object? toolbarPosition = null,
   }) {
     return _then(_$_ButterflySettings(
@@ -1186,6 +1204,14 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.startInFullScreen
           : startInFullScreen // ignore: cast_nullable_to_non_nullable
               as bool,
+      navigationRail: null == navigationRail
+          ? _value.navigationRail
+          : navigationRail // ignore: cast_nullable_to_non_nullable
+              as bool,
+      fullScreen: null == fullScreen
+          ? _value.fullScreen
+          : fullScreen // ignore: cast_nullable_to_non_nullable
+              as bool,
       syncMode: null == syncMode
           ? _value.syncMode
           : syncMode // ignore: cast_nullable_to_non_nullable
@@ -1206,10 +1232,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.defaultTemplate
           : defaultTemplate // ignore: cast_nullable_to_non_nullable
               as String,
-      navigatorTab: null == navigatorTab
-          ? _value.navigatorTab
-          : navigatorTab // ignore: cast_nullable_to_non_nullable
-              as int,
+      navigatorPage: null == navigatorPage
+          ? _value.navigatorPage
+          : navigatorPage // ignore: cast_nullable_to_non_nullable
+              as NavigatorPage,
       toolbarPosition: null == toolbarPosition
           ? _value.toolbarPosition
           : toolbarPosition // ignore: cast_nullable_to_non_nullable
@@ -1241,12 +1267,14 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.defaultRemote = '',
       this.nativeTitleBar = false,
       this.startInFullScreen = false,
+      this.navigationRail = true,
+      required this.fullScreen,
       this.syncMode = SyncMode.noMobile,
       this.inputConfiguration = const InputConfiguration(),
       this.fallbackPack = '',
       final List<String> starred = const [],
       this.defaultTemplate = '',
-      this.navigatorTab = 0,
+      this.navigatorPage = NavigatorPage.waypoints,
       this.toolbarPosition = ToolbarPosition.top})
       : _history = history,
         _remotes = remotes,
@@ -1323,6 +1351,11 @@ class _$_ButterflySettings extends _ButterflySettings {
   final bool startInFullScreen;
   @override
   @JsonKey()
+  final bool navigationRail;
+  @override
+  final bool fullScreen;
+  @override
+  @JsonKey()
   final SyncMode syncMode;
   @override
   @JsonKey()
@@ -1344,14 +1377,14 @@ class _$_ButterflySettings extends _ButterflySettings {
   final String defaultTemplate;
   @override
   @JsonKey()
-  final int navigatorTab;
+  final NavigatorPage navigatorPage;
   @override
   @JsonKey()
   final ToolbarPosition toolbarPosition;
 
   @override
   String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorTab: $navigatorTab, toolbarPosition: $toolbarPosition)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition)';
   }
 
   @override
@@ -1393,6 +1426,10 @@ class _$_ButterflySettings extends _ButterflySettings {
                 other.nativeTitleBar == nativeTitleBar) &&
             (identical(other.startInFullScreen, startInFullScreen) ||
                 other.startInFullScreen == startInFullScreen) &&
+            (identical(other.navigationRail, navigationRail) ||
+                other.navigationRail == navigationRail) &&
+            (identical(other.fullScreen, fullScreen) ||
+                other.fullScreen == fullScreen) &&
             (identical(other.syncMode, syncMode) ||
                 other.syncMode == syncMode) &&
             (identical(other.inputConfiguration, inputConfiguration) ||
@@ -1402,8 +1439,8 @@ class _$_ButterflySettings extends _ButterflySettings {
             const DeepCollectionEquality().equals(other._starred, _starred) &&
             (identical(other.defaultTemplate, defaultTemplate) ||
                 other.defaultTemplate == defaultTemplate) &&
-            (identical(other.navigatorTab, navigatorTab) ||
-                other.navigatorTab == navigatorTab) &&
+            (identical(other.navigatorPage, navigatorPage) ||
+                other.navigatorPage == navigatorPage) &&
             (identical(other.toolbarPosition, toolbarPosition) ||
                 other.toolbarPosition == toolbarPosition));
   }
@@ -1430,12 +1467,14 @@ class _$_ButterflySettings extends _ButterflySettings {
         defaultRemote,
         nativeTitleBar,
         startInFullScreen,
+        navigationRail,
+        fullScreen,
         syncMode,
         inputConfiguration,
         fallbackPack,
         const DeepCollectionEquality().hash(_starred),
         defaultTemplate,
-        navigatorTab,
+        navigatorPage,
         toolbarPosition
       ]);
 
@@ -1468,12 +1507,14 @@ abstract class _ButterflySettings extends ButterflySettings {
       final String defaultRemote,
       final bool nativeTitleBar,
       final bool startInFullScreen,
+      final bool navigationRail,
+      required final bool fullScreen,
       final SyncMode syncMode,
       final InputConfiguration inputConfiguration,
       final String fallbackPack,
       final List<String> starred,
       final String defaultTemplate,
-      final int navigatorTab,
+      final NavigatorPage navigatorPage,
       final ToolbarPosition toolbarPosition}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
@@ -1516,6 +1557,10 @@ abstract class _ButterflySettings extends ButterflySettings {
   @override
   bool get startInFullScreen;
   @override
+  bool get navigationRail;
+  @override
+  bool get fullScreen;
+  @override
   SyncMode get syncMode;
   @override
   InputConfiguration get inputConfiguration;
@@ -1526,7 +1571,7 @@ abstract class _ButterflySettings extends ButterflySettings {
   @override
   String get defaultTemplate;
   @override
-  int get navigatorTab;
+  NavigatorPage get navigatorPage;
   @override
   ToolbarPosition get toolbarPosition;
   @override

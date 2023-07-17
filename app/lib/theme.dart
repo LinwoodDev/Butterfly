@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'main.dart';
 
-const kClassicThemePrimary = isNightly ? Color(0xFF00469E) : Color(0xFFf2b138);
+const kClassicFirstColor = Color(0xFFf2b138);
+const kClassicSecondColor = Color(0xFF00469E);
+const kClassicThemePrimary =
+    isNightly ? kClassicSecondColor : kClassicFirstColor;
+const kClassicThemeSecondary =
+    isNightly ? kClassicFirstColor : kClassicSecondColor;
 const kClassicTheme = FlexSchemeColor(
-    primary: kClassicThemePrimary, secondary: kClassicThemePrimary);
+    primary: kClassicThemePrimary, secondary: kClassicThemeSecondary);
 const kClassicThemeData = FlexSchemeData(
     name: '', description: '', light: kClassicTheme, dark: kClassicTheme);
 

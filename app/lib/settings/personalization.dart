@@ -141,6 +141,27 @@ class PersonalizationSettingsPage extends StatelessWidget {
                           ),
                           onTap: () => _openToolbarPositionModal(context),
                         ),
+                        SwitchListTile(
+                          secondary:
+                              const PhosphorIcon(PhosphorIconsLight.sidebar),
+                          title:
+                              Text(AppLocalizations.of(context).navigationRail),
+                          subtitle: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)
+                                    .onlyAvailableLargerScreen,
+                                style: Theme.of(context).textTheme.labelSmall,
+                              ),
+                            ],
+                          ),
+                          value: state.navigationRail,
+                          onChanged: (value) => context
+                              .read<SettingsCubit>()
+                              .changeNavigationRail(value),
+                        ),
                       ]),
                 ),
               ),

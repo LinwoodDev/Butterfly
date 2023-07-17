@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
@@ -46,7 +47,8 @@ Future<void> main([List<String> args = const []]) async {
   usePathUrlStrategy();
 
   await setup();
-  var prefs = await SharedPreferences.getInstance();
+  final prefs = await SharedPreferences.getInstance();
+  final isFullscreen = await isFullScreen();
   var initialLocation = '/';
   if (args.isNotEmpty && !kIsWeb) {
     var path = args[0].replaceAll('\\', '/');
@@ -88,21 +90,30 @@ Future<void> main([List<String> args = const []]) async {
     );
 
     // Use it only after calling `hiddenWindowAtLaunch`
-    windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
+    await windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
       await windowManager.setResizable(true);
     });
   }
   final argParser = ArgParser();
   argParser.addOption('path', abbr: 'p');
   final result = argParser.parse(args);
+  final clipboardManager = await SysInfo.getClipboardManager();
   GeneralFileSystem.dataPath = result['path'];
   runApp(
-    MultiRepositoryProvider(providers: [
-      RepositoryProvider(
-          create: (context) => DocumentFileSystem.fromPlatform()),
-      RepositoryProvider(
-          create: (context) => TemplateFileSystem.fromPlatform()),
-    ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)),
+    MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider(
+              create: (context) => DocumentFileSystem.fromPlatform()),
+          RepositoryProvider(
+              create: (context) => TemplateFileSystem.fromPlatform()),
+          RepositoryProvider<ClipboardManager>(
+              create: (context) => clipboardManager),
+        ],
+        child: ButterflyApp(
+          prefs: prefs,
+          initialLocation: initialLocation,
+          isFullScreen: isFullscreen,
+        )),
   );
 }
 
@@ -117,10 +128,12 @@ class ButterflyApp extends StatelessWidget {
   final String initialLocation;
   final String importedLocation;
   final SharedPreferences prefs;
+  final bool isFullScreen;
 
   ButterflyApp(
       {super.key,
       required this.prefs,
+      required this.isFullScreen,
       this.initialLocation = '/',
       this.importedLocation = ''})
       : _router = GoRouter(
@@ -275,7 +288,11 @@ class ButterflyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) => BlocProvider(
-        create: (_) => SettingsCubit.fromPrefs(prefs),
+        create: (_) {
+          final cubit = SettingsCubit(prefs, isFullScreen);
+          cubit.setFullScreen(cubit.state.startInFullScreen);
+          return cubit;
+        },
         child: BlocBuilder<SettingsCubit, ButterflySettings>(
           buildWhen: (previous, current) =>
               previous.nativeTitleBar != current.nativeTitleBar,
@@ -285,11 +302,8 @@ class ButterflyApp extends StatelessWidget {
                 await windowManager.setTitleBarStyle(settings.nativeTitleBar
                     ? TitleBarStyle.normal
                     : TitleBarStyle.hidden);
-                await windowManager.setFullScreen(settings.startInFullScreen);
-                windowManager.show();
+                await windowManager.show();
               });
-            } else {
-              setFullScreen(settings.startInFullScreen);
             }
             return RepositoryProvider(
               create: (context) =>

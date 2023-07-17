@@ -82,7 +82,8 @@ class ForegroundPainter extends CustomPainter {
       oldDelegate.renderers != renderers ||
       oldDelegate.transform != transform ||
       oldDelegate.selection != selection ||
-      oldDelegate.tool != tool;
+      oldDelegate.tool != tool ||
+      oldDelegate.colorScheme != colorScheme;
 }
 
 class ViewPainter extends CustomPainter {
@@ -177,10 +178,10 @@ class ViewPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ViewPainter oldDelegate) {
-    final shouldRepaint = page != oldDelegate.page ||
+    return page != oldDelegate.page ||
         renderBackground != oldDelegate.renderBackground ||
         transform != oldDelegate.transform ||
-        cameraViewport != oldDelegate.cameraViewport;
-    return shouldRepaint;
+        cameraViewport != oldDelegate.cameraViewport ||
+        colorScheme != oldDelegate.colorScheme;
   }
 }

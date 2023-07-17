@@ -507,5 +507,10 @@
   "sendToBack": "Send til tilbage",
   "bringForward": "Bring fremad",
   "sendBackward": "Send tilbage",
-  "invalidName": "Invalid name"
+  "invalidName": "Ugyldigt navn",
+  "rotation": "Rotation",
+  "onlyAvailableLargerScreen": "Kun tilgængelig på større skærme",
+  "toolbarPosition": "Værktøjslinjens position",
+  "rotate": "Rotér",
+  "spacer": "Mellemrum"
 }

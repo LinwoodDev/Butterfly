@@ -5,7 +5,6 @@ import 'dart:ui' as ui;
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
-import 'package:butterfly/handlers/move.dart';
 import 'package:butterfly/helpers/xml_helper.dart';
 import 'package:butterfly/renderers/renderer.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -43,6 +42,8 @@ class CurrentIndex with _$CurrentIndex {
     @Default([]) List<Renderer> foregrounds,
     Selection? selection,
     List<Renderer>? temporaryForegrounds,
+    @Default(MouseCursor.defer) MouseCursor cursor,
+    MouseCursor? temporaryCursor,
     @Default([]) List<int> pointers,
     int? buttons,
     @Default(AssetLocation(path: '')) AssetLocation location,
@@ -54,6 +55,8 @@ class CurrentIndex with _$CurrentIndex {
 
   bool get moveEnabled =>
       settingsCubit.state.inputGestures && pointers.length > 1;
+
+  MouseCursor get currentCursor => temporaryCursor ?? cursor;
 }
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
@@ -102,12 +105,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       emit(state.copyWith(
         index: index,
         handler: handler,
+        cursor: handler.cursor ?? MouseCursor.defer,
         foregrounds: handler.createForegrounds(
             this, document, blocState.page, info, blocState.currentArea),
         toolbar: handler.getToolbar(bloc),
         temporaryForegrounds: null,
         temporaryHandler: null,
         temporaryToolbar: null,
+        temporaryCursor: null,
       ));
     }
     return handler;
@@ -130,6 +135,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       handler: handler,
       foregrounds: foregrounds,
       toolbar: handler.getToolbar(bloc),
+      cursor: handler.cursor ?? MouseCursor.defer,
     ));
   }
 
@@ -148,6 +154,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       temporaryHandler: handler,
       temporaryForegrounds: temporaryForegrounds,
       temporaryToolbar: handler.getToolbar(bloc),
+      temporaryCursor: handler.cursor,
     ));
   }
 
@@ -190,6 +197,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       emit(state.copyWith(
         temporaryForegrounds: temporaryForegrounds,
         foregrounds: foregrounds,
+        cursor: state.handler.cursor ?? MouseCursor.defer,
+        temporaryCursor: state.temporaryHandler?.cursor,
       ));
     }
   }
@@ -232,9 +241,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
       index: null,
       handler: MoveHandler(),
+      cursor: MouseCursor.defer,
       foregrounds: [],
       temporaryHandler: null,
       temporaryForegrounds: null,
+      temporaryCursor: null,
       cameraViewport: CameraViewport.unbaked(ToolRenderer()),
     ));
   }
@@ -280,6 +291,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       emit(state.copyWith(
         temporaryHandler: handler,
         temporaryForegrounds: temporaryForegrounds,
+        temporaryToolbar: handler.getToolbar(bloc),
+        temporaryCursor: handler.cursor,
       ));
     }
     return handler;
@@ -297,6 +310,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(
       temporaryHandler: null,
       temporaryForegrounds: null,
+      temporaryToolbar: null,
+      temporaryCursor: null,
     ));
   }
 
@@ -574,7 +589,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void changeTemporaryHandlerMove() {
-    emit(state.copyWith(temporaryHandler: MoveHandler()));
+    emit(
+        state.copyWith(temporaryHandler: MoveHandler(), temporaryCursor: null));
   }
 
   FutureOr<void> updateTool(NoteData document, DocumentPage page,

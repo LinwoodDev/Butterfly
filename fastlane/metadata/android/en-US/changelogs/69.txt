@@ -1,0 +1,13 @@
+* Add navigation rail to large ui ([#444](https://github.com/LinwoodDev/Butterfly/issues/444))
+* Add specific navigator pages to menu in mobile ui ([#442](https://github.com/LinwoodDev/Butterfly/issues/442))
+* Add keyboard shortcuts
+  * Add ctrl + a to select all to hand painter ([#436](https://github.com/LinwoodDev/Butterfly/issues/436))
+  * Add del to delete selected to hand painter ([#435](https://github.com/LinwoodDev/Butterfly/issues/435))
+* Add svg icon to asset file type svg
+* Add asset painter ([#431](https://github.com/LinwoodDev/Butterfly/issues/431))
+* Add clipboard (cut, copy, paste) ([#422](https://github.com/LinwoodDev/Butterfly/issues/422))
+* Fix mobile ui
+* Fix hand tool corner selection not working on mobile
+* Fix waypoints not updating in navigator
+* Fix background won't be loaded
+* Fix position when scaling elements
