@@ -516,5 +516,6 @@
   "navigationRail": "Navigation rail",
   "cut": "Cut",
   "insertBefore": "Insert before",
-  "insertAfter": "Insert after"
+  "insertAfter": "Insert after",
+  "paste": "Paste"
 }

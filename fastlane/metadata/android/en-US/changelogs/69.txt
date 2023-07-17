@@ -11,3 +11,4 @@
 * Fix waypoints not updating in navigator
 * Fix background won't be loaded
 * Fix position when scaling elements
+* Fix window when native title bar is enabled

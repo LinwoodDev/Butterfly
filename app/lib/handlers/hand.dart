@@ -409,9 +409,6 @@ class HandHandler extends Handler<HandPainter> {
     }
     context.refresh();
     final buildContext = context.buildContext;
-    if (_selected.isEmpty && buildContext.mounted) {
-      return;
-    }
     if (buildContext.mounted) {
       final result = await showContextMenu<bool>(
         context: buildContext,
