@@ -228,8 +228,12 @@ class NoteData {
     final pageName = _getPageFileName(page);
     final index = getPageIndex(page);
     final data = getPage(page);
-    if (pageName == null || index == null || data == null || index == newIndex)
+    if (pageName == null ||
+        index == null ||
+        data == null ||
+        index == newIndex) {
       return;
+    }
     removeAsset('$kPagesArchiveDirectory/$pageName.json');
     _realignPages(newIndex);
     setPage(data, page, newIndex);
