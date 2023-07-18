@@ -97,4 +97,19 @@ class MarkdownRenderer extends Renderer<MarkdownElement> {
     _tp?.layout(maxWidth: rect.width);
     _tp?.paint(canvas, element.getOffset(rect.height).toOffset());
   }
+
+  @override
+  MarkdownRenderer _transform({
+    Offset? position,
+    double? rotation,
+    double scaleX = 1,
+    double scaleY = 1,
+  }) =>
+      MarkdownRenderer(
+          element.copyWith(
+            position:
+                element.position + (position?.toPoint() ?? const Point(0, 0)),
+            rotation: rotation ?? element.rotation,
+          ),
+          context);
 }

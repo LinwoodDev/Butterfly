@@ -91,18 +91,12 @@ class TextRenderer extends Renderer<TextElement> {
     double? rotation,
     double scaleX = 1,
     double scaleY = 1,
-  }) {
-    // final size = Size(rect.width * scaleX, rect.height * scaleY);
-    final next = position == null
-        ? element.position + (position?.toPoint() ?? const Point(0, 0))
-        : position.toPoint();
-    return TextRenderer(
+  }) => TextRenderer(
         element.copyWith(
-          position: next,
+          position: element.position + (position?.toPoint() ?? const Point(0, 0)),
           rotation: rotation ?? element.rotation,
         ),
         context);
-  }
 
   @override
   void dispose() {

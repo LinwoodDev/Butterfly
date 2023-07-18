@@ -86,13 +86,16 @@ class AddDialog extends StatelessWidget {
                             IconButton(
                               onPressed: () =>
                                   addPainter(Painter.asset(importType: e)),
-                              icon:
-                                  const PhosphorIcon(PhosphorIconsLight.mapPin),
+                              icon: const PhosphorIcon(
+                                  PhosphorIconsLight.pushPin),
                             ),
                           ],
                         ),
                         icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
-                        onTap: () => showImportAssetWizard(e, context),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          showImportAssetWizard(e, context);
+                        },
                       ),
                     )
                     .toList(),

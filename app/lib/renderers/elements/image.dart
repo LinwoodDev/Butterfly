@@ -105,9 +105,7 @@ class ImageRenderer extends Renderer<ImageElement> {
     double scaleY = 1,
   }) {
     return ImageRenderer(element.copyWith(
-      position: position == null
-          ? element.position
-          : position.toPoint() - Point(rect.width / 2, rect.height / 2),
+      position: position?.toPoint() ?? element.position,
       rotation: rotation ?? element.rotation,
       constraints: element.constraints.scale(scaleX, scaleY),
     ));
