@@ -416,11 +416,6 @@ class _MainBody extends StatelessWidget {
             return Stack(
               children: [
                 const MainViewViewport(),
-                if (!isMobile)
-                  Positioned(
-                      right: pos == ToolbarPosition.right ? 75 : 0,
-                      top: 0,
-                      child: const PropertyView()),
                 Row(
                   children: [
                     if (isLarge &&
@@ -438,10 +433,12 @@ class _MainBody extends StatelessWidget {
                             toolbar,
                           if (pos == ToolbarPosition.top || isMobile)
                             const ToolbarView(),
-                          Expanded(
-                              child: isMobile
-                                  ? const PropertyView()
-                                  : const SizedBox.shrink()),
+                          const Expanded(
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: PropertyView(),
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Align(

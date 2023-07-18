@@ -72,6 +72,7 @@ class AddDialog extends StatelessWidget {
               Wrap(
                 alignment: WrapAlignment.start,
                 children: ImportType.values
+                    .where((e) => e.isAvailable())
                     .map(
                       (e) => BoxTile(
                         size: 128,
@@ -92,9 +93,11 @@ class AddDialog extends StatelessWidget {
                           ],
                         ),
                         icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          showImportAssetWizard(e, context);
+                        onTap: () async {
+                          await showImportAssetWizard(e, context);
+                          if (context.mounted) {
+                            Navigator.of(context).pop();
+                          }
                         },
                       ),
                     )
