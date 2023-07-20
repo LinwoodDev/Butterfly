@@ -512,5 +512,8 @@
   "onlyAvailableLargerScreen": "Bare tilgjengelig på større skjermer",
   "toolbarPosition": "Plassering av verktøylinje",
   "rotate": "Roter",
-  "spacer": "Mellomrom"
+  "spacer": "Mellomrom",
+  "navigationRail": "Navigasjon bane",
+  "cut": "Klipp",
+  "paste": "Lim"
 }

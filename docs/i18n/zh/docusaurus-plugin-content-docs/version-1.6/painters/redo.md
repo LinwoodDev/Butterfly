@@ -10,4 +10,4 @@ sidebar_position: 0
 
 :::
 
-当点击此配对器时，您可以重新做最后的操作。 See the [undo painter](undo) for undoing your last action.
+当点击此配对器时，您可以重新做最后的操作。 若要撤销您的最后操作，请参阅 [撤消引导](undo)。

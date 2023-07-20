@@ -512,5 +512,8 @@
   "onlyAvailableLargerScreen": "Kun tilgængelig på større skærme",
   "toolbarPosition": "Værktøjslinjens position",
   "rotate": "Rotér",
-  "spacer": "Mellemrum"
+  "spacer": "Mellemrum",
+  "navigationRail": "Navigation jernbane",
+  "cut": "Klip",
+  "paste": "Indsæt"
 }

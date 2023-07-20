@@ -512,5 +512,8 @@
   "onlyAvailableLargerScreen": "Disponível apenas em telas maiores",
   "toolbarPosition": "Posição da barra",
   "rotate": "Rotacionar",
-  "spacer": "Espaçador"
+  "spacer": "Espaçador",
+  "navigationRail": "Trilho de navegação",
+  "cut": "Recortar",
+  "paste": "Colar"
 }

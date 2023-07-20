@@ -512,5 +512,8 @@
   "onlyAvailableLargerScreen": "Disponibile solo su schermi più grandi",
   "toolbarPosition": "Posizione barra strumenti",
   "rotate": "Ruota",
-  "spacer": "Spaziatore"
+  "spacer": "Spaziatore",
+  "navigationRail": "Ferrovia di navigazione",
+  "cut": "Taglia",
+  "paste": "Incolla"
 }

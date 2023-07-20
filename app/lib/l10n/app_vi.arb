@@ -512,5 +512,8 @@
   "onlyAvailableLargerScreen": "Only available on larger screens",
   "toolbarPosition": "Toolbar position",
   "rotate": "Rotate",
-  "spacer": "Spacer"
+  "spacer": "Spacer",
+  "navigationRail": "Navigation rail",
+  "cut": "Cut",
+  "paste": "Paste"
 }

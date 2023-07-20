@@ -31,8 +31,8 @@
   "reallyDelete": "確定要刪除此項目嗎？",
   "no": "否",
   "yes": "是",
-  "undo": "復原",
-  "redo": "還原",
+  "undo": "還原",
+  "redo": "復原",
   "project": "Project",
   "general": "一般",
   "copyTitle": "已複製到剪貼簿",
@@ -512,5 +512,8 @@
   "onlyAvailableLargerScreen": "僅適用於大螢幕設備",
   "toolbarPosition": "工具列位置",
   "rotate": "Rotate",
-  "spacer": "間隔"
+  "spacer": "間隔",
+  "navigationRail": "Navigation rail",
+  "cut": "剪下",
+  "paste": "貼上"
 }

@@ -512,5 +512,8 @@
   "onlyAvailableLargerScreen": "Διαθέσιμο μόνο σε μεγαλύτερες οθόνες",
   "toolbarPosition": "Θέση γραμμής εργαλείων",
   "rotate": "Περιστροφή",
-  "spacer": "Διάστημα"
+  "spacer": "Διάστημα",
+  "navigationRail": "Σιδηρόδρομος πλοήγησης",
+  "cut": "Αποκοπή",
+  "paste": "Επικόλληση"
 }

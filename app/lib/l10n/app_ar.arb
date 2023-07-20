@@ -512,5 +512,8 @@
   "onlyAvailableLargerScreen": "متوفر فقط على شاشات أكبر",
   "toolbarPosition": "موضع شريط الأدوات",
   "rotate": "تدوير",
-  "spacer": "المساحة"
+  "spacer": "المساحة",
+  "navigationRail": "سكك حديدية للتنقل",
+  "cut": "قطع",
+  "paste": "لصق"
 }

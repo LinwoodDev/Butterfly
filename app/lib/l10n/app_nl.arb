@@ -512,5 +512,8 @@
   "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
   "toolbarPosition": "Werkbalk positie",
   "rotate": "Draaien",
-  "spacer": "Afstandshouder"
+  "spacer": "Afstandshouder",
+  "navigationRail": "Navigatie spoor",
+  "cut": "Knippen",
+  "paste": "Plakken"
 }

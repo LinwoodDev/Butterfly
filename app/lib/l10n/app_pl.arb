@@ -512,5 +512,8 @@
   "onlyAvailableLargerScreen": "Dostępne tylko na większych ekranach",
   "toolbarPosition": "Pozycja paska narzędzi",
   "rotate": "Obróć",
-  "spacer": "Odstęp"
+  "spacer": "Odstęp",
+  "navigationRail": "Kolej nawigacyjna",
+  "cut": "Wytnij",
+  "paste": "Wklej"
 }

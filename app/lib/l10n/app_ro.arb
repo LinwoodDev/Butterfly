@@ -512,5 +512,8 @@
   "onlyAvailableLargerScreen": "Disponibil doar pe ecrane mai mari",
   "toolbarPosition": "Poziția barei de instrumente",
   "rotate": "Rotire",
-  "spacer": "Spatier"
+  "spacer": "Spatier",
+  "navigationRail": "Cale de navigare",
+  "cut": "Taie",
+  "paste": "Lipește"
 }

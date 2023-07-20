@@ -512,5 +512,8 @@
   "onlyAvailableLargerScreen": "Dostupné pouze na větších obrazovkách",
   "toolbarPosition": "Pozice panelu nástrojů",
   "rotate": "Otočit",
-  "spacer": "Mezera"
+  "spacer": "Mezera",
+  "navigationRail": "Navigační kolejnice",
+  "cut": "Vyjmout",
+  "paste": "Vložit"
 }
