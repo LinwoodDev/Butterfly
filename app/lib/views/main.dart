@@ -394,74 +394,83 @@ class _MainBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsCubit, ButterflySettings>(
+    return BlocBuilder<DocumentBloc, DocumentState>(
         buildWhen: (previous, current) =>
-            previous.toolbarPosition != current.toolbarPosition ||
-            previous.fullScreen != current.fullScreen ||
-            previous.navigationRail != current.navigationRail,
-        builder: (context, settings) {
-          final pos = settings.toolbarPosition;
-          return LayoutBuilder(builder: (context, constraints) {
-            final isMobile = constraints.maxWidth < kMobileWidth;
-            final isLarge = constraints.maxWidth > kLargeWidth;
-            final toolbar = EditToolbar(
-              isMobile: false,
-              centered: true,
-              direction: pos == ToolbarPosition.bottom ||
-                      pos == ToolbarPosition.top ||
-                      isMobile
-                  ? Axis.horizontal
-                  : Axis.vertical,
-            );
-            return Stack(
-              children: [
-                const MainViewViewport(),
-                Row(
-                  children: [
-                    if (isLarge &&
-                        settings.navigationRail &&
-                        !settings.fullScreen)
-                      const NavigatorView(),
-                    if (pos == ToolbarPosition.left && !isMobile) toolbar,
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          if (settings.fullScreen &&
-                              pos == ToolbarPosition.top &&
-                              !isMobile)
-                            toolbar,
-                          if (pos == ToolbarPosition.top || isMobile)
-                            const ToolbarView(),
-                          const Expanded(
-                            child: Align(
-                              alignment: Alignment.topRight,
-                              child: PropertyView(),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: SizedBox(
-                                width: isMobile ? 100 : 400,
-                                child: ZoomView(isMobile: isMobile),
+            (previous is DocumentLoadSuccess &&
+                current is! DocumentLoadSuccess) ||
+            (previous is! DocumentLoadSuccess &&
+                current is DocumentLoadSuccess),
+        builder: (context, state) =>
+            BlocBuilder<SettingsCubit, ButterflySettings>(
+                buildWhen: (previous, current) =>
+                    previous.toolbarPosition != current.toolbarPosition ||
+                    previous.fullScreen != current.fullScreen ||
+                    previous.navigationRail != current.navigationRail,
+                builder: (context, settings) {
+                  final pos = settings.toolbarPosition;
+                  return LayoutBuilder(builder: (context, constraints) {
+                    final isMobile = constraints.maxWidth < kMobileWidth;
+                    final isLarge = constraints.maxWidth > kLargeWidth;
+                    final toolbar = EditToolbar(
+                      isMobile: false,
+                      centered: true,
+                      direction: pos == ToolbarPosition.bottom ||
+                              pos == ToolbarPosition.top ||
+                              isMobile
+                          ? Axis.horizontal
+                          : Axis.vertical,
+                    );
+                    return Stack(
+                      children: [
+                        const MainViewViewport(),
+                        Row(
+                          children: [
+                            if (isLarge &&
+                                settings.navigationRail &&
+                                !settings.fullScreen &&
+                                state is DocumentLoadSuccess)
+                              const NavigatorView(),
+                            if (pos == ToolbarPosition.left && !isMobile)
+                              toolbar,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  if (settings.fullScreen &&
+                                      pos == ToolbarPosition.top &&
+                                      !isMobile)
+                                    toolbar,
+                                  if (pos == ToolbarPosition.top || isMobile)
+                                    const ToolbarView(),
+                                  const Expanded(
+                                    child: Align(
+                                      alignment: Alignment.topRight,
+                                      child: PropertyView(),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: SizedBox(
+                                        width: isMobile ? 100 : 400,
+                                        child: ZoomView(isMobile: isMobile),
+                                      ),
+                                    ),
+                                  ),
+                                  if (pos != ToolbarPosition.top && !isMobile)
+                                    const ToolbarView(),
+                                  if (isMobile || pos == ToolbarPosition.bottom)
+                                    toolbar,
+                                ],
                               ),
                             ),
-                          ),
-                          if (pos != ToolbarPosition.top && !isMobile)
-                            const ToolbarView(),
-                          if (isMobile || pos == ToolbarPosition.bottom)
-                            toolbar,
-                        ],
-                      ),
-                    ),
-                    if (pos == ToolbarPosition.right) toolbar,
-                  ],
-                ),
-              ],
-            );
-          });
-        });
+                            if (pos == ToolbarPosition.right) toolbar,
+                          ],
+                        ),
+                      ],
+                    );
+                  });
+                }));
   }
 }

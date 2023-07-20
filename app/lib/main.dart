@@ -293,6 +293,9 @@ class ButterflyApp extends StatelessWidget {
           cubit.setFullScreen(cubit.state.startInFullScreen);
           cubit.setTheme(MediaQuery.of(context));
           cubit.setNativeTitleBar();
+          if (!kIsWeb && isWindow) {
+            windowManager.show();
+          }
           return cubit;
         },
         lazy: false,
