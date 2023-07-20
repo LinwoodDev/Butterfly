@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:butterfly/api/full_screen.dart' as full_screen_api;
 import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '../views/navigator.dart';
 
@@ -371,7 +373,20 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   SettingsCubit(SharedPreferences prefs, bool fullScreen)
       : super(ButterflySettings.fromPrefs(prefs, fullScreen));
 
-  Future<void> changeTheme(ThemeMode theme) async {
+  void setTheme(MediaQueryData mediaQuery, [ThemeMode? theme]) {
+    if (kIsWeb || !isWindow) return;
+    final brightness = switch (theme ?? state.theme) {
+      ThemeMode.light => Brightness.light,
+      ThemeMode.dark => Brightness.dark,
+      ThemeMode.system => mediaQuery.platformBrightness,
+    };
+    windowManager.setBrightness(brightness);
+  }
+
+  Future<void> changeTheme(ThemeMode theme, [MediaQueryData? modify]) async {
+    if (modify != null) {
+      setTheme(modify, theme);
+    }
     emit(state.copyWith(theme: theme));
     return save();
   }
@@ -616,7 +631,14 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> changeNativeTitleBar(bool value) {
+  void setNativeTitleBar([bool? value]) {
+    windowManager.setTitleBarStyle((value ?? state.nativeTitleBar)
+        ? TitleBarStyle.normal
+        : TitleBarStyle.hidden);
+  }
+
+  Future<void> changeNativeTitleBar(bool value, [bool modify = true]) {
+    if (modify) setNativeTitleBar(value);
     emit(state.copyWith(nativeTitleBar: value));
     return save();
   }

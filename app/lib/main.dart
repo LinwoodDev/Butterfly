@@ -291,35 +291,16 @@ class ButterflyApp extends StatelessWidget {
         create: (_) {
           final cubit = SettingsCubit(prefs, isFullScreen);
           cubit.setFullScreen(cubit.state.startInFullScreen);
+          cubit.setTheme(MediaQuery.of(context));
+          cubit.setNativeTitleBar();
           return cubit;
         },
-        child: BlocBuilder<SettingsCubit, ButterflySettings>(
-          buildWhen: (previous, current) =>
-              previous.nativeTitleBar != current.nativeTitleBar ||
-              previous.theme != current.theme,
-          builder: (context, settings) {
-            final mediaQuery = MediaQuery.of(context);
-            if (!kIsWeb && isWindow) {
-              windowManager.waitUntilReadyToShow().then((_) async {
-                await windowManager.setTitleBarStyle(settings.nativeTitleBar
-                    ? TitleBarStyle.normal
-                    : TitleBarStyle.hidden);
-                final brightness = switch (settings.theme) {
-                  ThemeMode.light => Brightness.light,
-                  ThemeMode.dark => Brightness.dark,
-                  ThemeMode.system => mediaQuery.platformBrightness,
-                };
-                await windowManager.setBrightness(brightness);
-                await windowManager.show();
-              });
-            }
-            return RepositoryProvider(
-              create: (context) =>
-                  SyncService(context, context.read<SettingsCubit>()),
-              lazy: false,
-              child: _buildApp(lightDynamic, darkDynamic),
-            );
-          },
+        lazy: false,
+        child: RepositoryProvider(
+          create: (context) =>
+              SyncService(context, context.read<SettingsCubit>()),
+          lazy: false,
+          child: _buildApp(lightDynamic, darkDynamic),
         ),
       ),
     );

@@ -14,3 +14,4 @@
 * Fix background won't be loaded
 * Fix position when scaling elements
 * Fix window when native title bar is enabled
+* Fix full screen and maximize window ([#449](https://github.com/LinwoodDev/Butterfly/issues/449))

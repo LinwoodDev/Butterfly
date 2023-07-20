@@ -217,7 +217,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
         title: AppLocalizations.of(context).theme,
         childrenBuilder: (context) {
           void changeTheme(ThemeMode themeMode) {
-            cubit.changeTheme(themeMode);
+            cubit.changeTheme(themeMode, MediaQuery.of(context));
             Navigator.of(context).pop();
           }
 
