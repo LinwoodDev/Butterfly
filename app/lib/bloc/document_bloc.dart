@@ -831,14 +831,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   Future<void> bake(
       {Size? viewportSize, double? pixelRatio, bool reset = false}) async {
     final current = state;
-    if (current is! DocumentLoadSuccess) return;
+    if (current is! DocumentLoaded) return;
     return current.bake(
         viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
   }
 
   Future<void> load() async {
     final current = state;
-    if (current is! DocumentLoadSuccess) return;
+    if (current is! DocumentLoaded) return;
     final currentIndexCubit = current.currentIndexCubit;
     final document = current.data;
     final page = current.page;

@@ -90,6 +90,11 @@ abstract class DocumentLoaded extends DocumentState {
     _updateInfo();
     return data;
   }
+
+  Future<void> bake(
+          {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
+      currentIndexCubit.bake(data, page, info,
+          viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
 }
 
 class DocumentLoadSuccess extends DocumentLoaded {
@@ -210,11 +215,6 @@ class DocumentLoadSuccess extends DocumentLoaded {
   RemoteStorage? getRemoteStorage() => location.remote.isEmpty
       ? null
       : settingsCubit.state.getRemote(location.remote);
-
-  Future<void> bake(
-          {Size? viewportSize, double? pixelRatio, bool reset = false}) =>
-      currentIndexCubit.bake(data, page, info,
-          viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
 
   Painter? get painter => currentIndexCubit.state.handler.data;
 }

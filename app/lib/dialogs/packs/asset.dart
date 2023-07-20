@@ -23,6 +23,8 @@ class AssetDialog extends StatelessWidget {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       if (state is! DocumentLoaded) return const SizedBox();
       final document = state.data;
+      final packs = document.getPacks();
+      pack ??= packs.firstOrNull;
       return AlertDialog(
         title: Text(
           value == null
@@ -41,8 +43,7 @@ class AssetDialog extends StatelessWidget {
                   child: DropdownMenu<String>(
                     label: Text(AppLocalizations.of(context).pack),
                     key: UniqueKey(),
-                    dropdownMenuEntries: document
-                        .getPacks()
+                    dropdownMenuEntries: packs
                         .map(
                           (e) => DropdownMenuEntry<String>(
                             value: e,
@@ -53,6 +54,7 @@ class AssetDialog extends StatelessWidget {
                     onSelected: (value) {
                       pack = value;
                     },
+                    initialSelection: pack,
                     width: 250,
                   ),
                 ),

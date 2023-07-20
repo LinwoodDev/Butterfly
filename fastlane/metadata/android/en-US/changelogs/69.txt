@@ -15,3 +15,7 @@
 * Fix position when scaling elements
 * Fix window when native title bar is enabled
 * Fix full screen and maximize window ([#449](https://github.com/LinwoodDev/Butterfly/issues/449))
+* Fix add asset dialog not working
+* Fix baking not working on presentation mode
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0

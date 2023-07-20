@@ -204,9 +204,7 @@ class PresentationStateHandler extends Handler<AnimationTrack>
   }
 
   @override
-  void onTapUp(TapUpDetails details, EventContext context) {
-    toggle(bloc);
-  }
+  void onTapUp(TapUpDetails details, EventContext context) => toggle(bloc);
 
   bool _checkSlideChange(ScaleEndDetails details, EventContext context) {
     final dx = details.velocity.pixelsPerSecond.dx;
