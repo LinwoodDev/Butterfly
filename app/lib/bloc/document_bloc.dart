@@ -317,6 +317,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
+        var selection = current.currentIndexCubit.state.selection;
         await _saveState(
             emit,
             current.copyWith(
@@ -325,6 +326,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                         List<Painter>.from(current.info.painters).map((e) {
               final updated = event.updatedPainters[e];
               if (updated != null) {
+                var newSelection = selection?.remove(e);
+                if (newSelection != selection && selection != null) {
+                  if (newSelection == null) {
+                    newSelection = Selection.from(updated);
+                  } else {
+                    newSelection.insert(updated);
+                  }
+                  selection = newSelection;
+                }
                 return updated;
               } else {
                 return e;
@@ -340,6 +350,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         if (updatedTempCurrent != null) {
           current.currentIndexCubit
               .updateTemporaryPainter(this, updatedTempCurrent);
+        }
+        if (selection != null) {
+          current.currentIndexCubit.changeSelection(selection);
         }
       }
     });

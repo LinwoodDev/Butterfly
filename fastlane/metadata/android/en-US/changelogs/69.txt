@@ -17,5 +17,6 @@
 * Fix full screen and maximize window ([#449](https://github.com/LinwoodDev/Butterfly/issues/449))
 * Fix add asset dialog not working
 * Fix baking not working on presentation mode
+* Fix painters not updated in selection property view
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0
