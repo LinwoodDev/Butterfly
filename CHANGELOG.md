@@ -2,6 +2,31 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.5 (2023-07-21)
+
+* Add navigation rail to large ui ([#444](https://github.com/LinwoodDev/Butterfly/issues/444))
+* Add specific navigator pages to menu in mobile ui ([#442](https://github.com/LinwoodDev/Butterfly/issues/442))
+* Add keyboard shortcuts
+  * Add ctrl + a to select all to hand painter ([#436](https://github.com/LinwoodDev/Butterfly/issues/436))
+  * Add del to delete selected to hand painter ([#435](https://github.com/LinwoodDev/Butterfly/issues/435))
+* Add svg icon to asset file type svg
+* Add asset painter ([#431](https://github.com/LinwoodDev/Butterfly/issues/431))
+* Add clipboard (cut, copy, paste) ([#422](https://github.com/LinwoodDev/Butterfly/issues/422))
+* Add transformation functions for markdown renderer
+* Fix move transformation on image renderer
+* Fix mobile ui
+* Fix hand tool corner selection not working on mobile
+* Fix waypoints not updating in navigator
+* Fix background won't be loaded
+* Fix position when scaling elements
+* Fix window when native title bar is enabled
+* Fix full screen and maximize window ([#449](https://github.com/LinwoodDev/Butterfly/issues/449))
+* Fix add asset dialog not working
+* Fix baking not working on presentation mode
+* Fix painters not updated in selection property view
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0
+
 ## 2.0.0-beta.4 (2023-07-14)
 
 * Add custom mouse cursors for painters ([#426](https://github.com/LinwoodDev/Butterfly/issues/426))
