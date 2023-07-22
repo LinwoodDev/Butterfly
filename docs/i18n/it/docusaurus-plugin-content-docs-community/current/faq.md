@@ -13,12 +13,6 @@ Ecco alcune domande frequenti.
 
 È possibile installare la versione web facendo clic sul pulsante di installazione nella barra del titolo. Dopo di che è possibile utilizzare questa app offline.
 
-### Impossibile inserire immagini nel web
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-Attualmente la decodifica delle immagini non funziona con canvaskit. Si prega di votare [questo numero](https://github.com/flutter/flutter/issues/102683) se si desidera questa opzione!
-
 ### La farfalla non carica su Brave
 
 Gli utenti coraggiosi che hanno impostato l'impostazione dello scudo 'Block Fingerprinting' in Aggressive, devono cambiarlo in 'Standard' o semplicemente 'Block Fingerprinting'. Fare clic sull'icona dello scudo nella barra degli indirizzi per modificare l'impostazione. Prova ad aggiornare il tuo browser all'ultima versione.
@@ -29,7 +23,9 @@ Gli utenti coraggiosi che hanno impostato l'impostazione dello scudo 'Block Fing
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Questo è un problema noto con flutter e il Samsung Z Fold 3. Si prega di votare [questo problema](https://github.com/flutter/flutter/issues/111068) per risolvere questo problema!
+Fixed in the 2.0 alphas.
+
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## Desktop
 
