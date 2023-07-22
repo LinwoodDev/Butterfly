@@ -13,12 +13,6 @@ He aquí algunas preguntas frecuentes.
 
 Puede instalar la versión web haciendo clic en el botón instalar en la barra de título. Después puedes usar esta aplicación sin conexión.
 
-### No se pueden insertar imágenes en la web
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-Actualmente las imágenes de decodificación no funcionan con canvaskit. ¡Por favor, vota [este problema](https://github.com/flutter/flutter/issues/102683) si quieres esta opción!
-
 ### La mariposa no se carga en Brave
 
 Los usuarios que han configurado el escudo 'Bloquear la huella dactilar' a Agresivo, necesitan cambiarlo a 'Estándar' o simplemente 'Bloquear la huella dactilar'. Haga clic en el icono de escudo en la barra de direcciones para cambiar la configuración. Intenta actualizar tu navegador a la última versión.
@@ -29,7 +23,9 @@ Los usuarios que han configurado el escudo 'Bloquear la huella dactilar' a Agres
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Este es un problema conocido con flutter y la Samsung Z Fold 3. ¡Por favor, vota [este problema](https://github.com/flutter/flutter/issues/111068) para arreglarlo!
+Fixed in the 2.0 alphas.
+
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## Escritorio
 
