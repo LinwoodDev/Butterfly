@@ -13,12 +13,6 @@ Daha sık sorulan soruları görüntüleyin…
 
 Başlık çubuğundaki yükle düğmesine tıklayarak web sürümünü yükleyebilirsiniz. Ardından bu uygulamayı çevrimdışı kullanabilirsiniz.
 
-### Web'deyken resim eklenemiyor
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-Şu anda görüntülerin kodunu çözme "canvaskit" ile çalışmıyor. Eğer bu seçeneği istiyorsanız [this issue](https://github.com/flutter/flutter/issues/102683)  lütfen oylayın.
-
 ### Butterfly does not load on Brave
 
 Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'. Click on the shield icon in the address bar to change the setting. Try updating your browser to the latest version.
@@ -29,7 +23,9 @@ Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-This is a known issue with flutter and the Samsung Z Fold 3. Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!
+Fixed in the 2.0 alphas.
+
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## Masaüstü
 
