@@ -13,12 +13,6 @@ Hier sind einige häufig gestellte Fragen.
 
 Sie können die Web-Version installieren, indem Sie auf den Installations-Button in der Titelleiste klicken. Danach können Sie diese App offline nutzen.
 
-### Bilder können nicht im Web eingefügt werden
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-Zur Zeit funktioniert das Dekodieren von Bildern nicht mit Canvaskit. Bitte bewerte [dieses Ticket](https://github.com/flutter/flutter/issues/102683) wenn du diese Option möchtest!
-
 ### Schmetterling lädt nicht auf Brave
 
 Mutige Benutzer, die die 'Fingerabdruck blockieren'-Einstellung auf Aggressiv eingestellt haben, müssen diese in 'Standard' oder einfach nur 'Fingerabdruckblock' ändern. Klicken Sie auf das Schildsymbol in der Adressleiste, um die Einstellung zu ändern. Versuchen Sie, Ihren Browser auf die neueste Version zu aktualisieren.
@@ -29,7 +23,9 @@ Mutige Benutzer, die die 'Fingerabdruck blockieren'-Einstellung auf Aggressiv ei
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Dies ist ein bekanntes Problem mit Flutter und der Samsung Z Fold 3. Bitte bewerte [dieses Ticket](https://github.com/flutter/flutter/issues/111068) um das Problem zu beheben!
+Fixed in the 2.0 alphas.
+
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## Desktop
 
