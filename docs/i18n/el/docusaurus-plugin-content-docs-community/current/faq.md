@@ -13,12 +13,6 @@ sidebar_label: "Συχνές"
 
 Μπορείτε να εγκαταστήσετε την έκδοση ιστού κάνοντας κλικ στο κουμπί εγκατάστασης στη γραμμή τίτλου. Μετά από αυτό μπορείτε να χρησιμοποιήσετε αυτή την εφαρμογή εκτός σύνδεσης.
 
-### Αδυναμία εισαγωγής εικόνων στο διαδίκτυο
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-Αυτή τη στιγμή η αποκωδικοποίηση εικόνων δεν λειτουργεί με canvaskit. Παρακαλώ ψηφίστε [αυτό το ζήτημα](https://github.com/flutter/flutter/issues/102683) αν θέλετε αυτή την επιλογή!
-
 ### Η πεταλούδα δεν φορτώνει στο Brave
 
 Οι Γενναίοι χρήστες που έχουν ορίσει τη ρύθμιση Ασπίδας Δακτυλικών Αποτύπωσης "Block Fingerprinting" σε Επιθετική, πρέπει να την αλλάξουν σε 'Standard' ή απλά 'Block Fingerprinting'. Κάντε κλικ στο εικονίδιο ασπίδας στη γραμμή διευθύνσεων για να αλλάξετε τη ρύθμιση. Δοκιμάστε να ενημερώσετε το πρόγραμμα περιήγησής σας στην τελευταία έκδοση.
@@ -29,7 +23,9 @@ sidebar_label: "Συχνές"
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Αυτό είναι ένα γνωστό ζήτημα με πτερύγιο και το Samsung Z Fold 3. Παρακαλώ ψηφίστε [αυτό το ζήτημα](https://github.com/flutter/flutter/issues/111068) για να το διορθώσετε!
+Fixed in the 2.0 alphas.
+
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## Επιφάνεια Εργασίας
 
