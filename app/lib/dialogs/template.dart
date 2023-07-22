@@ -85,7 +85,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                                     Text(AppLocalizations.of(context).cancel),
                                 onPressed: () => Navigator.of(context).pop(),
                               ),
-                              TextButton(
+                              ElevatedButton(
                                 child: Text(AppLocalizations.of(context).ok),
                                 onPressed: () async {
                                   for (final template
