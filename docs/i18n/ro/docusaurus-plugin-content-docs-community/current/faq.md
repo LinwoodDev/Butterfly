@@ -13,12 +13,6 @@ Iată câteva întrebări puse frecvent.
 
 Puteți instala versiunea web făcând clic pe butonul de instalare din bara de titlu. După aceea poți utiliza această aplicație offline.
 
-### Nu se pot insera imagini în web
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-În prezent, decodarea imaginilor nu funcţionează cu canvaskit. Vă rugăm să susțineți [această problemă](https://github.com/flutter/flutter/issues/102683) dacă doriți această opțiune!
-
 ### Flutura nu se încarcă pe Brave
 
 Utilizatorii curajoși care au setat setarea Scutului "Blocare amprentată" ca Agresiv, trebuie să o schimbe la 'Standard' sau pur și simplu 'Blocare amprentare'. Faceți clic pe pictograma scutul din bara de adrese pentru a schimba setarea. Încercați să actualizați browser-ul la cea mai recentă versiune.
@@ -29,7 +23,9 @@ Utilizatorii curajoși care au setat setarea Scutului "Blocare amprentată" ca A
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Aceasta este o problemă cunoscută cu flutter și Samsung Z Fold 3. Vă rugăm să susțineți [această problemă](https://github.com/flutter/flutter/issues/111068) pentru a rezolva această problemă!
+Fixed in the 2.0 alphas.
+
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## Birou
 
