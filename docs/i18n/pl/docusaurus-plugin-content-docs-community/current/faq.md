@@ -13,12 +13,6 @@ Tutaj często zadawane są pytania.
 
 Możesz zainstalować wersję internetową klikając na przycisk Instaluj na pasku tytułu. Następnie możesz używać tej aplikacji offline.
 
-### Nie można wstawić obrazów w sieci
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-Obecnie dekodowanie obrazów nie działa z canvaskit. Proszę zagłosuj [na ten problem](https://github.com/flutter/flutter/issues/102683) , jeśli chcesz tę opcję!
-
 ### Motylka nie ładuje się na Brave
 
 Odważni użytkownicy, którzy ustawili tarczę "Zablokuj odcisk palca" na Aggresywny, muszą zmienić ją na "Standard" lub po prostu po prostu "Blokuj odcisk palca". Kliknij ikonę tarczy na pasku adresu, aby zmienić ustawienie. Spróbuj zaktualizować przeglądarkę do najnowszej wersji.
@@ -29,7 +23,9 @@ Odważni użytkownicy, którzy ustawili tarczę "Zablokuj odcisk palca" na Aggre
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Jest to znany problem z trzepotaniem i z Samsung Z Fold 3. Proszę zagłosuj [na ten problem](https://github.com/flutter/flutter/issues/111068) , aby to naprawić!
+Fixed in the 2.0 alphas.
+
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## Pulpit
 
