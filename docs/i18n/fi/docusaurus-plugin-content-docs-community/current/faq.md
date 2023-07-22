@@ -13,12 +13,6 @@ Tässä muutamia usein kysyttyjä kysymyksiä.
 
 Voit asentaa web-version klikkaamalla asennuksen painiketta otsikkopalkissa. @ info: whatsthis Sen jälkeen voit käyttää tätä sovellusta offline-tilassa.
 
-### Kuvia ei voi lisätä nettiin
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-Tällä hetkellä kuvien dekoodaus ei toimi kankaalla. Äänestä [tätä ongelmaa](https://github.com/flutter/flutter/issues/102683) jos haluat tämän vaihtoehdon!
-
 ### Perhonen ei lataudu Bravelle
 
 Rohkeiden käyttäjien, jotka ovat asettaneet sormenjälkikilven asetuksen Aggressiivisuuteen, täytyy muuttaa se 'Standard' tai vain 'Block Fingerprinting'. Napsauta suojaimen kuvaketta osoitepalkissa, jotta voit muuttaa asetusta. Yritä päivittää selaimesi uusimpaan versioon.
@@ -29,7 +23,9 @@ Rohkeiden käyttäjien, jotka ovat asettaneet sormenjälkikilven asetuksen Aggre
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Tämä on tunnettu ongelma leikkuri ja Samsung Z Fold 3. Ole hyvä ja suorita [tämä ongelma](https://github.com/flutter/flutter/issues/111068) korjataksesi!
+Fixed in the 2.0 alphas.
+
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## Työpöytä
 
