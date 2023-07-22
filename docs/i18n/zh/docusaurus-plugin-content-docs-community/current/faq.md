@@ -13,12 +13,6 @@ sidebar_label: "常见问题"
 
 您可以通过点击标题栏中的安装按钮来安装网页版本。 之后您可以离线使用此应用程序。
 
-### 无法在网页中插入图像
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-当前解码图像无法使用画布。 如果你想要这个选项请支持 [这个问题](https://github.com/flutter/flutter/issues/102683)！
-
 ### Butterflight 不加载到勇士上
 
 勇敢的用户已将“阻止指纹”设定设置为侵略，需要将其改为“标准”，或只是纯粹的“阻止指纹”。 点击地址栏上的屏蔽图标来更改设置。 尝试更新您的浏览器到最新版本。
@@ -29,7 +23,9 @@ sidebar_label: "常见问题"
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-这是一个众所周知的问题，有流体和三星Z Fold 3。 请支持 [这个问题](https://github.com/flutter/flutter/issues/111068) 来解决这个问题！
+Fixed in the 2.0 alphas.
+
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## 桌面
 
