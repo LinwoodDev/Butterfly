@@ -13,12 +13,6 @@ Här är några vanliga frågor.
 
 Du kan installera webbversionen genom att klicka på installationsknappen i rubrikfältet. Efter det kan du använda denna app offline.
 
-### Kan inte infoga bilder i webben
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-För närvarande avkodning bilder fungerar inte med canvaskit. Vänligen rösta [detta ärende](https://github.com/flutter/flutter/issues/102683) om du vill ha det här alternativet!
-
 ### Fjäril inte ladda på modig
 
 Modiga användare som har satt "Blockera fingeravtryck" sköld till Aggressiv, måste ändra det till "Standard" eller bara enkelt "Blockera fingeravtryck". Klicka på skärmikonen i adressfältet för att ändra inställningen. Prova att uppdatera din webbläsare till den senaste versionen.
@@ -29,7 +23,9 @@ Modiga användare som har satt "Blockera fingeravtryck" sköld till Aggressiv, m
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Detta är ett känt problem med fladder och Samsung Z Vik 3. Vänligen rösta [detta ärende](https://github.com/flutter/flutter/issues/111068) för att få denna rättad!
+Fixed in the 2.0 alphas.
+
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## Skrivbord
 
