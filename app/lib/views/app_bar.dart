@@ -170,18 +170,12 @@ class _AppBarTitle extends StatelessWidget {
                       SizedBox(
                         width: 42,
                         child: Builder(builder: (context) {
-                          Widget icon;
-                          switch (currentIndex.saved) {
-                            case SaveState.saved:
-                              icon = const Icon(PhosphorIconsFill.floppyDisk);
-                              break;
-                            case SaveState.unsaved:
-                              icon = const Icon(PhosphorIconsLight.floppyDisk);
-                              break;
-                            case SaveState.saving:
-                              icon = const CircularProgressIndicator();
-                              break;
-                          }
+                          Widget icon =
+                              PhosphorIcon(switch (currentIndex.saved) {
+                            SaveState.saved => PhosphorIconsFill.floppyDisk,
+                            SaveState.unsaved => PhosphorIconsLight.floppyDisk,
+                            SaveState.saving => PhosphorIconsDuotone.floppyDisk,
+                          });
                           return IconButton(
                             icon: icon,
                             tooltip: AppLocalizations.of(context).save,

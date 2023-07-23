@@ -217,7 +217,7 @@ class ButterflyApp extends StatelessWidget {
                       data: state.extra,
                       location: AssetLocation(
                         remote: defaultRemote,
-                        path: state.queryParameters['path'] ?? '',
+                        path: state.uri.queryParameters['path'] ?? '',
                       ),
                     );
                   },
@@ -229,7 +229,7 @@ class ButterflyApp extends StatelessWidget {
                     final path = state.pathParameters['path'];
                     return ProjectPage(
                         data: state.extra,
-                        type: state.queryParameters['type'] ?? '',
+                        type: state.uri.queryParameters['type'] ?? '',
                         location: AssetLocation.local(path ?? ''));
                   },
                 ),
@@ -242,7 +242,7 @@ class ButterflyApp extends StatelessWidget {
                     final path = state.pathParameters['path'];
                     return ProjectPage(
                         data: state.extra,
-                        type: state.queryParameters['type'] ?? '',
+                        type: state.uri.queryParameters['type'] ?? '',
                         location:
                             AssetLocation(remote: remote, path: path ?? ''));
                   },
@@ -251,8 +251,8 @@ class ButterflyApp extends StatelessWidget {
                   path: 'native',
                   name: 'native',
                   builder: (context, state) {
-                    final type = state.queryParameters['type'] ?? '';
-                    final path = state.queryParameters['path'] ?? '';
+                    final type = state.uri.queryParameters['type'] ?? '';
+                    final path = state.uri.queryParameters['path'] ?? '';
                     final data = state.extra;
                     return ProjectPage(
                       location: AssetLocation.local(path, true),
@@ -277,7 +277,7 @@ class ButterflyApp extends StatelessWidget {
               path: '/embed',
               builder: (context, state) {
                 return ProjectPage(
-                    embedding: Embedding.fromQuery(state.queryParameters));
+                    embedding: Embedding.fromQuery(state.uri.queryParameters));
               },
             ),
           ],
