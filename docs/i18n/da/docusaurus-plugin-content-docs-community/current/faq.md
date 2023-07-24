@@ -23,9 +23,9 @@ Modige brugere, der har indstillet indstillingen 'Blokér fingeraftryk' skjold t
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Fixed in the 2.0 alphas.
+Fast i 2.0 alfa.
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+~~Dette er et kendt problem med flutter og Samsung Z Fold 3.~~ ~~~Opvote [dette issue](https://github.com/flutter/flutter/issues/111068) for at få denne rettelse!~~
 
 ## Skrivebord
 
