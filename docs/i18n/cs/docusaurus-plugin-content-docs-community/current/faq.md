@@ -23,9 +23,9 @@ Hrobní uživatelé, kteří nastavili pole 'Blokovat otisk prstu' na Agresivní
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Fixed in the 2.0 alphas.
+Pevná ve fázi 2.0.
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+~~~Toto je známý problém s futterem a Samsung Z Fold 3.~~ ~~~Prosím hlasujte [tento problém](https://github.com/flutter/flutter/issues/111068) pro opravení!~~
 
 ## Stolní počítače
 
