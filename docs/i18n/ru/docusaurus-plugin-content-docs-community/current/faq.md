@@ -23,9 +23,9 @@ Brave Пользователи, которые установили параме
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Fixed in the 2.0 alphas.
+Исправлено в 2,0 альфазе.
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+~~Это известная проблема с flutter и Samsung Z Fold 3.~~ ~Пожалуйста, проголосуйте [эту проблему](https://github.com/flutter/flutter/issues/111068) , чтобы исправить её!~~
 
 ## Рабочий стол
 
