@@ -23,9 +23,9 @@ Odważni użytkownicy, którzy ustawili tarczę "Zablokuj odcisk palca" na Aggre
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Fixed in the 2.0 alphas.
+Naprawione w 2.0 alfanumerycznie.
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+~~Jest to znany problem z trzepotaniem i składaniem Samsung Z 3.~~ ~~Głosuj [ten problem](https://github.com/flutter/flutter/issues/111068) , aby go naprawić!~~
 
 ## Pulpit
 
