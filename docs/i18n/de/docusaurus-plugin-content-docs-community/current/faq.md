@@ -23,7 +23,7 @@ Mutige Benutzer, die die 'Fingerabdruck blockieren'-Einstellung auf Aggressiv ei
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Fixed in the 2.0 alphas.
+Behoben in den 2.0 Alphas.
 
 ~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
