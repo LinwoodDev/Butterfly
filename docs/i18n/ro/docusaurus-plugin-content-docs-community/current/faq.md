@@ -23,9 +23,9 @@ Utilizatorii curajoși care au setat setarea Scutului "Blocare amprentată" ca A
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Fixed in the 2.0 alphas.
+Rezolvat în cei 2,0 alfa.
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+~~Aceasta este o problemă cunoscută cu flutter și Samsung Z Fold 3.~~ ~Te rog upvote [această problemă](https://github.com/flutter/flutter/issues/111068) pentru a repara asta!~
 
 ## Birou
 
