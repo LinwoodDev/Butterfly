@@ -23,9 +23,9 @@ Les utilisateurs courageux qui ont défini le paramètre de bouclier « Bloc Emp
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Fixed in the 2.0 alphas.
+Correction dans les alphas 2.0.
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+~~Ceci est un problème connu avec flutter et le Samsung Z Fold 3.~~ ~~~Veuillez voter pour [ce problème](https://github.com/flutter/flutter/issues/111068) pour résoudre ce problème !~~
 
 ## Bureau
 
