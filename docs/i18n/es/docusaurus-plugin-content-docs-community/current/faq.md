@@ -23,9 +23,9 @@ Los usuarios que han configurado el escudo 'Bloquear la huella dactilar' a Agres
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Fixed in the 2.0 alphas.
+Fijado en los alfas 2.0.
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+~~~Este es un problema conocido con flutter y el Samsung Z Fold 3.~~ ~~Por favor, ¡vota [este problema](https://github.com/flutter/flutter/issues/111068) para arreglarlo!~~
 
 ## Escritorio
 
