@@ -23,9 +23,9 @@ sidebar_label: "أسئلة متكررة"
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Fixed in the 2.0 alphas.
+ثابت في ألفا 2.0.
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+~هذه مشكلة معروفة بطلاقة و سامسونج Z فولد 3.~~~ ~يرجى التصويت [هذه المشكلة](https://github.com/flutter/flutter/issues/111068) للحصول على هذا الاصلاح!~~
 
 ## سطح المكتب
 
