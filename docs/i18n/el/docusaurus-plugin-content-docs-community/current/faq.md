@@ -23,9 +23,9 @@ sidebar_label: "Συχνές"
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Fixed in the 2.0 alphas.
+Καθορίζεται στη φάση 2. 0.
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## Επιφάνεια Εργασίας
 
