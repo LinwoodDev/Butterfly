@@ -23,9 +23,9 @@ Gli utenti coraggiosi che hanno impostato l'impostazione dello scudo 'Block Fing
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Fixed in the 2.0 alphas.
+Fisso nella fase 2.0.
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+~~Questo è un problema noto con flutter e il Samsung Z Fold 3.~~ ~~Si prega di votare [questo problema](https://github.com/flutter/flutter/issues/111068) per risolvere questo problema!~~
 
 ## Desktop
 
