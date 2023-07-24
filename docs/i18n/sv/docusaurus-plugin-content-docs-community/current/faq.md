@@ -23,9 +23,9 @@ Modiga användare som har satt "Blockera fingeravtryck" sköld till Aggressiv, m
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Fixed in the 2.0 alphas.
+Fast i 2.0 alfas.
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+~~Detta är ett känt problem med fladder och Samsung Z Fold 3.~~ ~~Please upvote [detta problem](https://github.com/flutter/flutter/issues/111068) för att få detta fast!~~
 
 ## Skrivbord
 
