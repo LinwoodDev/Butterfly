@@ -23,9 +23,9 @@ Moedige gebruikers die de Schild instelling 'Blok Vingerafdruk' hebben ingesteld
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Fixed in the 2.0 alphas.
+Vaste in de 2.0 alfa's.
 
-~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
+~~Dit is een bekend probleem met flutter en de Samsung Z gevouwen 3.~~ ~~ Stem [dit probleem](https://github.com/flutter/flutter/issues/111068) op om dit te repareren!~~
 
 ## Startscherm
 
