@@ -1,1 +1,3 @@
 * Improve save state icons
+* Fix native title bar error on mobile devices
+* Fix internet problems on android ([#457](https://github.com/LinwoodDev/Butterfly/issues/457))
