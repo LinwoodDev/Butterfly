@@ -280,7 +280,7 @@ class __$$DavRemoteStorageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DavRemoteStorage extends DavRemoteStorage {
+class _$DavRemoteStorage extends DavRemoteStorage with DiagnosticableTreeMixin {
   const _$DavRemoteStorage(
       {required this.username,
       required this.url,
@@ -336,8 +336,25 @@ class _$DavRemoteStorage extends DavRemoteStorage {
   final DateTime? lastSynced;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RemoteStorage.dav(username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, starred: $starred, icon: $icon, lastSynced: $lastSynced)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RemoteStorage.dav'))
+      ..add(DiagnosticsProperty('username', username))
+      ..add(DiagnosticsProperty('url', url))
+      ..add(DiagnosticsProperty('path', path))
+      ..add(DiagnosticsProperty('documentsPath', documentsPath))
+      ..add(DiagnosticsProperty('templatesPath', templatesPath))
+      ..add(DiagnosticsProperty('packsPath', packsPath))
+      ..add(DiagnosticsProperty('cachedDocuments', cachedDocuments))
+      ..add(DiagnosticsProperty('starred', starred))
+      ..add(DiagnosticsProperty('icon', icon))
+      ..add(DiagnosticsProperty('lastSynced', lastSynced));
   }
 
   @override
@@ -690,7 +707,8 @@ class __$$_InputConfigurationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_InputConfiguration extends _InputConfiguration {
+class _$_InputConfiguration extends _InputConfiguration
+    with DiagnosticableTreeMixin {
   const _$_InputConfiguration(
       {this.leftMouse,
       this.middleMouse = -1,
@@ -724,8 +742,22 @@ class _$_InputConfiguration extends _InputConfiguration {
   final int? touch;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'InputConfiguration'))
+      ..add(DiagnosticsProperty('leftMouse', leftMouse))
+      ..add(DiagnosticsProperty('middleMouse', middleMouse))
+      ..add(DiagnosticsProperty('rightMouse', rightMouse))
+      ..add(DiagnosticsProperty('pen', pen))
+      ..add(DiagnosticsProperty('firstPenButton', firstPenButton))
+      ..add(DiagnosticsProperty('secondPenButton', secondPenButton))
+      ..add(DiagnosticsProperty('touch', touch));
   }
 
   @override
@@ -832,6 +864,8 @@ mixin _$ButterflySettings {
   String get defaultTemplate => throw _privateConstructorUsedError;
   NavigatorPage get navigatorPage => throw _privateConstructorUsedError;
   ToolbarPosition get toolbarPosition => throw _privateConstructorUsedError;
+  SortBy get sortBy => throw _privateConstructorUsedError;
+  SortOrder get sortOrder => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -872,7 +906,9 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       List<String> starred,
       String defaultTemplate,
       NavigatorPage navigatorPage,
-      ToolbarPosition toolbarPosition});
+      ToolbarPosition toolbarPosition,
+      SortBy sortBy,
+      SortOrder sortOrder});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
 }
@@ -918,6 +954,8 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? defaultTemplate = null,
     Object? navigatorPage = null,
     Object? toolbarPosition = null,
+    Object? sortBy = null,
+    Object? sortOrder = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -1032,6 +1070,14 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.toolbarPosition
           : toolbarPosition // ignore: cast_nullable_to_non_nullable
               as ToolbarPosition,
+      sortBy: null == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as SortBy,
+      sortOrder: null == sortOrder
+          ? _value.sortOrder
+          : sortOrder // ignore: cast_nullable_to_non_nullable
+              as SortOrder,
     ) as $Val);
   }
 
@@ -1081,7 +1127,9 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       List<String> starred,
       String defaultTemplate,
       NavigatorPage navigatorPage,
-      ToolbarPosition toolbarPosition});
+      ToolbarPosition toolbarPosition,
+      SortBy sortBy,
+      SortOrder sortOrder});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -1126,6 +1174,8 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? defaultTemplate = null,
     Object? navigatorPage = null,
     Object? toolbarPosition = null,
+    Object? sortBy = null,
+    Object? sortOrder = null,
   }) {
     return _then(_$_ButterflySettings(
       theme: null == theme
@@ -1240,13 +1290,22 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.toolbarPosition
           : toolbarPosition // ignore: cast_nullable_to_non_nullable
               as ToolbarPosition,
+      sortBy: null == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as SortBy,
+      sortOrder: null == sortOrder
+          ? _value.sortOrder
+          : sortOrder // ignore: cast_nullable_to_non_nullable
+              as SortOrder,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_ButterflySettings extends _ButterflySettings {
+class _$_ButterflySettings extends _ButterflySettings
+    with DiagnosticableTreeMixin {
   const _$_ButterflySettings(
       {this.theme = ThemeMode.system,
       this.localeTag = '',
@@ -1275,7 +1334,9 @@ class _$_ButterflySettings extends _ButterflySettings {
       final List<String> starred = const [],
       this.defaultTemplate = '',
       this.navigatorPage = NavigatorPage.waypoints,
-      this.toolbarPosition = ToolbarPosition.top})
+      this.toolbarPosition = ToolbarPosition.top,
+      this.sortBy = SortBy.name,
+      this.sortOrder = SortOrder.ascending})
       : _history = history,
         _remotes = remotes,
         _starred = starred,
@@ -1381,10 +1442,53 @@ class _$_ButterflySettings extends _ButterflySettings {
   @override
   @JsonKey()
   final ToolbarPosition toolbarPosition;
+  @override
+  @JsonKey()
+  final SortBy sortBy;
+  @override
+  @JsonKey()
+  final SortOrder sortOrder;
 
   @override
-  String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ButterflySettings'))
+      ..add(DiagnosticsProperty('theme', theme))
+      ..add(DiagnosticsProperty('localeTag', localeTag))
+      ..add(DiagnosticsProperty('documentPath', documentPath))
+      ..add(DiagnosticsProperty('touchSensitivity', touchSensitivity))
+      ..add(DiagnosticsProperty('mouseSensitivity', mouseSensitivity))
+      ..add(DiagnosticsProperty('penSensitivity', penSensitivity))
+      ..add(DiagnosticsProperty('selectSensitivity', selectSensitivity))
+      ..add(DiagnosticsProperty('penOnlyInput', penOnlyInput))
+      ..add(DiagnosticsProperty('inputGestures', inputGestures))
+      ..add(DiagnosticsProperty('design', design))
+      ..add(DiagnosticsProperty('bannerVisibility', bannerVisibility))
+      ..add(DiagnosticsProperty('history', history))
+      ..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))
+      ..add(DiagnosticsProperty('zoomEnabled', zoomEnabled))
+      ..add(DiagnosticsProperty('lastVersion', lastVersion))
+      ..add(DiagnosticsProperty('remotes', remotes))
+      ..add(DiagnosticsProperty('defaultRemote', defaultRemote))
+      ..add(DiagnosticsProperty('nativeTitleBar', nativeTitleBar))
+      ..add(DiagnosticsProperty('startInFullScreen', startInFullScreen))
+      ..add(DiagnosticsProperty('navigationRail', navigationRail))
+      ..add(DiagnosticsProperty('fullScreen', fullScreen))
+      ..add(DiagnosticsProperty('syncMode', syncMode))
+      ..add(DiagnosticsProperty('inputConfiguration', inputConfiguration))
+      ..add(DiagnosticsProperty('fallbackPack', fallbackPack))
+      ..add(DiagnosticsProperty('starred', starred))
+      ..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))
+      ..add(DiagnosticsProperty('navigatorPage', navigatorPage))
+      ..add(DiagnosticsProperty('toolbarPosition', toolbarPosition))
+      ..add(DiagnosticsProperty('sortBy', sortBy))
+      ..add(DiagnosticsProperty('sortOrder', sortOrder));
   }
 
   @override
@@ -1442,7 +1546,10 @@ class _$_ButterflySettings extends _ButterflySettings {
             (identical(other.navigatorPage, navigatorPage) ||
                 other.navigatorPage == navigatorPage) &&
             (identical(other.toolbarPosition, toolbarPosition) ||
-                other.toolbarPosition == toolbarPosition));
+                other.toolbarPosition == toolbarPosition) &&
+            (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
+            (identical(other.sortOrder, sortOrder) ||
+                other.sortOrder == sortOrder));
   }
 
   @override
@@ -1475,7 +1582,9 @@ class _$_ButterflySettings extends _ButterflySettings {
         const DeepCollectionEquality().hash(_starred),
         defaultTemplate,
         navigatorPage,
-        toolbarPosition
+        toolbarPosition,
+        sortBy,
+        sortOrder
       ]);
 
   @JsonKey(ignore: true)
@@ -1515,7 +1624,9 @@ abstract class _ButterflySettings extends ButterflySettings {
       final List<String> starred,
       final String defaultTemplate,
       final NavigatorPage navigatorPage,
-      final ToolbarPosition toolbarPosition}) = _$_ButterflySettings;
+      final ToolbarPosition toolbarPosition,
+      final SortBy sortBy,
+      final SortOrder sortOrder}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
   @override
@@ -1574,6 +1685,10 @@ abstract class _ButterflySettings extends ButterflySettings {
   NavigatorPage get navigatorPage;
   @override
   ToolbarPosition get toolbarPosition;
+  @override
+  SortBy get sortBy;
+  @override
+  SortOrder get sortOrder;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>

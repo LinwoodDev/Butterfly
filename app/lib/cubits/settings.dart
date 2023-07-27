@@ -167,6 +167,10 @@ class InputConfiguration with _$InputConfiguration {
       }.whereNotNull().toSet();
 }
 
+enum SortBy { name, created, modified }
+
+enum SortOrder { ascending, descending }
+
 enum BannerVisibility { always, never, onlyOnUpdates }
 
 enum ToolbarPosition {
@@ -229,6 +233,8 @@ class ButterflySettings with _$ButterflySettings {
     @Default('') String defaultTemplate,
     @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
     @Default(ToolbarPosition.top) ToolbarPosition toolbarPosition,
+    @Default(SortBy.name) SortBy sortBy,
+    @Default(SortOrder.ascending) SortOrder sortOrder,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -291,6 +297,12 @@ class ButterflySettings with _$ButterflySettings {
           ? ToolbarPosition.values.byName(prefs.getString('toolbar_position')!)
           : ToolbarPosition.top,
       navigationRail: prefs.getBool('navigation_rail') ?? true,
+      sortBy: prefs.containsKey('sort_by')
+          ? SortBy.values.byName(prefs.getString('sort_by')!)
+          : SortBy.name,
+      sortOrder: prefs.containsKey('sort_order')
+          ? SortOrder.values.byName(prefs.getString('sort_order')!)
+          : SortOrder.ascending,
     );
   }
 
@@ -340,6 +352,8 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('default_template', defaultTemplate);
     await prefs.setString('toolbar_position', toolbarPosition.name);
     await prefs.setBool('navigation_rail', navigationRail);
+    await prefs.setString('sort_by', sortBy.name);
+    await prefs.setString('sort_order', sortOrder.name);
   }
 
   RemoteStorage? getRemote(String? identifier) {
@@ -435,17 +449,17 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> changepenOnlyInput(bool penOnlyInput) {
+  Future<void> changePenOnlyInput(bool penOnlyInput) {
     emit(state.copyWith(penOnlyInput: penOnlyInput));
     return save();
   }
 
-  Future<void> resetpenOnlyInput() {
+  Future<void> resetPenOnlyInput() {
     emit(state.copyWith(penOnlyInput: false));
     return save();
   }
 
-  Future<void> changeinputGestures(bool inputGestures) {
+  Future<void> changeInputGestures(bool inputGestures) {
     emit(state.copyWith(inputGestures: inputGestures));
     return save();
   }
@@ -716,6 +730,16 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> changeNavigationRail(bool value) {
     emit(state.copyWith(navigationRail: value));
+    return save();
+  }
+
+  Future<void> changeSortBy(SortBy value) {
+    emit(state.copyWith(sortBy: value));
+    return save();
+  }
+
+  Future<void> changeSortOrder(SortOrder value) {
+    emit(state.copyWith(sortOrder: value));
     return save();
   }
 }

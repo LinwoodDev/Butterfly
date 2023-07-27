@@ -47,18 +47,14 @@ class FilesView extends StatefulWidget {
   State<FilesView> createState() => _FilesViewState();
 }
 
-enum _SortBy { name, created, modified }
-
-enum _SortOrder { ascending, descending }
-
 class _FilesViewState extends State<FilesView> {
   final TextEditingController _locationController = TextEditingController();
   late DocumentFileSystem _fileSystem;
 
   bool _gridView = false;
+  SortBy _sortBy = SortBy.name;
+  SortOrder _sortOrder = SortOrder.ascending;
   RemoteStorage? _remote;
-  _SortBy _sortBy = _SortBy.name;
-  _SortOrder _sortOrder = _SortOrder.ascending;
   String _search = '';
   late final SettingsCubit _settingsCubit;
   late Future<AppDocumentEntity?> _filesFuture;
@@ -67,6 +63,8 @@ class _FilesViewState extends State<FilesView> {
   void initState() {
     super.initState();
     _settingsCubit = context.read<SettingsCubit>();
+    _sortBy = _settingsCubit.state.sortBy;
+    _sortOrder = _settingsCubit.state.sortOrder;
     _remote = widget.remote ?? _settingsCubit.getRemote();
     _setFilesFuture();
   }
@@ -80,13 +78,13 @@ class _FilesViewState extends State<FilesView> {
     }
   }
 
-  String getLocalizedNameOfSortBy(_SortBy sortBy) {
+  String getLocalizedNameOfSortBy(SortBy sortBy) {
     switch (sortBy) {
-      case _SortBy.name:
+      case SortBy.name:
         return AppLocalizations.of(context).name;
-      case _SortBy.created:
+      case SortBy.created:
         return AppLocalizations.of(context).created;
-      case _SortBy.modified:
+      case SortBy.modified:
         return AppLocalizations.of(context).modified;
     }
   }
@@ -171,25 +169,30 @@ class _FilesViewState extends State<FilesView> {
                 ),
               ],
             ),
-            DropdownMenu<_SortBy>(
+            DropdownMenu<SortBy>(
               leadingIcon: IconButton(
-                icon: PhosphorIcon(_sortOrder == _SortOrder.ascending
+                icon: PhosphorIcon(_sortOrder == SortOrder.ascending
                     ? PhosphorIconsLight.sortAscending
                     : PhosphorIconsLight.sortDescending),
-                onPressed: () => setState(() => _sortOrder =
-                    _sortOrder == _SortOrder.ascending
-                        ? _SortOrder.descending
-                        : _SortOrder.ascending),
+                onPressed: () => setState(() {
+                  _sortOrder = _sortOrder == SortOrder.ascending
+                      ? SortOrder.descending
+                      : SortOrder.ascending;
+                  _settingsCubit.changeSortOrder(_sortOrder);
+                }),
               ),
               label: Text(AppLocalizations.of(context).sortBy),
-              dropdownMenuEntries: _SortBy.values
+              dropdownMenuEntries: SortBy.values
                   .map((e) => DropdownMenuEntry(
                         value: e,
                         label: getLocalizedNameOfSortBy(e),
                       ))
                   .toList(),
               initialSelection: _sortBy,
-              onSelected: (value) => setState(() => _sortBy = value ?? _sortBy),
+              onSelected: (value) => setState(() {
+                _sortBy = value ?? _sortBy;
+                _settingsCubit.changeSortBy(_sortBy);
+              }),
             ),
           ],
         );
@@ -516,10 +519,10 @@ class _FilesViewState extends State<FilesView> {
         return -1;
       }
       switch (_sortBy) {
-        case _SortBy.name:
+        case SortBy.name:
           final compared = aFile.fileName.compareTo(bFile.fileName);
-          return _sortOrder == _SortOrder.ascending ? compared : -compared;
-        case _SortBy.created:
+          return _sortOrder == SortOrder.ascending ? compared : -compared;
+        case SortBy.created:
           final aCreatedAt = aInfo.createdAt;
           final bCreatedAt = bInfo.createdAt;
           if (aCreatedAt == null) {
@@ -529,8 +532,8 @@ class _FilesViewState extends State<FilesView> {
             return -1;
           }
           final compared = bCreatedAt.compareTo(aCreatedAt);
-          return _sortOrder == _SortOrder.ascending ? compared : -compared;
-        case _SortBy.modified:
+          return _sortOrder == SortOrder.ascending ? compared : -compared;
+        case SortBy.modified:
           final aModifiedAt = aInfo.updatedAt;
           final bModifiedAt = bInfo.updatedAt;
           if (aModifiedAt == null) {
@@ -540,7 +543,7 @@ class _FilesViewState extends State<FilesView> {
             return -1;
           }
           final compared = bModifiedAt.compareTo(aModifiedAt);
-          return _sortOrder == _SortOrder.ascending ? compared : -compared;
+          return _sortOrder == SortOrder.ascending ? compared : -compared;
       }
     } catch (e) {
       return 0;

@@ -57,7 +57,7 @@ class TouchBehaviorSettings extends StatelessWidget {
                                 AppLocalizations.of(context).inputGestures),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
-                                .changeinputGestures(value ?? true),
+                                .changeInputGestures(value ?? true),
                           ),
                         ],
                       ),
