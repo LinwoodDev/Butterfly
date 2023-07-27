@@ -517,5 +517,7 @@
   "cut": "Schneide",
   "insertBefore": "Vorher einfügen",
   "insertAfter": "Einfügen nach",
-  "paste": "Einfügen"
+  "paste": "Einfügen",
+  "ascending": "Ascending",
+  "descending": "Descending"
 }
