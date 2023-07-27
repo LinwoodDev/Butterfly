@@ -517,5 +517,7 @@
   "cut": "Вирізати",
   "insertBefore": "Вставити до",
   "insertAfter": "Вставити після",
-  "paste": "Вставити"
+  "paste": "Вставити",
+  "ascending": "Ascending",
+  "descending": "Descending"
 }
