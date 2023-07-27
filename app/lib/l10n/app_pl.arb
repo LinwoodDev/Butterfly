@@ -515,5 +515,7 @@
   "spacer": "Odstęp",
   "navigationRail": "Kolej nawigacyjna",
   "cut": "Wytnij",
+  "insertBefore": "Wstaw przed",
+  "insertAfter": "Wstaw po",
   "paste": "Wklej"
 }
