@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:butterfly_api/src/models/info.dart';
+import 'package:collection/collection.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../butterfly_text.dart';
@@ -49,10 +50,12 @@ class NoteData {
     _controller.add(this);
   }
 
-  void removeAsset(String path) {
+  void removeAsset(String path) => removeAssets([path]);
+
+  void removeAssets(List<String> path) {
     final newArchive = Archive();
     for (final file in archive.files) {
-      if (file.name != path) {
+      if (!path.contains(file.name)) {
         newArchive.addFile(ArchiveFile(file.name, file.size, file.content));
       }
     }
@@ -167,8 +170,23 @@ class NoteData {
     return document;
   }
 
+  String? _getPageFileName(String name) {
+    final pages = getPages(true);
+    if (pages.contains(name)) {
+      return name;
+    }
+    final fileName = pages
+        .where((element) => element.split('.').sublist(1).join('.') == name)
+        .firstOrNull;
+    if (fileName != null) {
+      return fileName;
+    }
+    return null;
+  }
+
   DocumentPage? getPage([String name = 'default']) {
-    final data = getAsset('$kPagesArchiveDirectory/$name.json');
+    final data = getAsset(
+        '$kPagesArchiveDirectory/${_getPageFileName(name) ?? name}.json');
     if (data == null) {
       return null;
     }
@@ -177,15 +195,73 @@ class NoteData {
     return DocumentPage.fromJson(json);
   }
 
-  void setPage(DocumentPage page, [String name = 'default']) {
+  void setPage(DocumentPage page, [String name = 'default', int? index]) {
+    final pages = getPages();
+    final newIndex = index ?? pages.length;
     final content = jsonEncode(page.toJson());
-    setAsset('$kPagesArchiveDirectory/$name.json', utf8.encode(content));
+    if (index != null) {
+      _realignPages(index);
+    }
+    setAsset(
+        '$kPagesArchiveDirectory/${_getPageFileName(name) ?? '$newIndex.$name'}.json',
+        utf8.encode(content));
   }
 
-  List<String> getPages() => getAssets(kPagesArchiveDirectory, true);
+  void _realignPages(int index) {
+    final pagesOrder = _getPagesOrder();
+    final nextPages =
+        pagesOrder.where((element) => element.$1 >= index).toList();
+    if (nextPages.isEmpty) return;
+    final nextPagesData = nextPages.map((e) => (e, getPage(e.$3))).toList();
+    removeAssets(
+        nextPages.map((e) => '$kPagesArchiveDirectory/${e.$3}.json').toList());
+    var nextIndex = index + 1;
+    for (final ((_, lastName, _), data) in nextPagesData) {
+      setAsset('$kPagesArchiveDirectory/$nextIndex.$lastName.json',
+          utf8.encode(jsonEncode(data?.toJson())));
+      nextIndex++;
+    }
+  }
 
-  void removePage(String page) =>
-      removeAsset('$kPagesArchiveDirectory/$page.json');
+  void reoderPage(String page, [int? newIndex]) {
+    newIndex ??= getPages().length;
+    final pageName = _getPageFileName(page);
+    final index = getPageIndex(page);
+    final data = getPage(page);
+    if (pageName == null ||
+        index == null ||
+        data == null ||
+        index == newIndex) {
+      return;
+    }
+    removeAsset('$kPagesArchiveDirectory/$pageName.json');
+    _realignPages(newIndex);
+    setPage(data, page, newIndex);
+  }
+
+  List<(int, String, String)> _getPagesOrder() =>
+      getAssets(kPagesArchiveDirectory, true).map((e) {
+        if (e.contains('.')) {
+          final split = e.split('.');
+          return (
+            int.tryParse(split.first) ?? -1,
+            split.sublist(1).join('.'),
+            e
+          );
+        }
+        return (-1, e, e);
+      }).sorted((a, b) => a.$1.compareTo(b.$1));
+
+  List<String> getPages([bool realName = false]) =>
+      _getPagesOrder().map((e) => realName ? e.$3 : e.$2).toList();
+
+  int? getPageIndex(String page) =>
+      _getPagesOrder().firstWhereOrNull((element) => element.$2 == page)?.$1;
+
+  void removePage(String page) => removeAssets(getPages()
+      .where((e) => e.endsWith('$page.json'))
+      .map((e) => '$kPagesArchiveDirectory/$e.json')
+      .toList());
 
   void renamePage(String oldName, String newName) {
     final page = getPage(oldName);
@@ -304,17 +380,18 @@ class NoteData {
 
   List<int> save() => ZipEncoder().encode(archive)!;
 
-  String addPage([DocumentPage? page]) {
+  String addPage([DocumentPage? page, int? index]) {
     var name = 'Page ${getPages().length + 1}';
-    var index = 1;
+    var i = 1;
     while (getPages().contains(name)) {
-      name = 'Page ${index++}';
+      name = 'Page ${i++}';
     }
     setPage(
         page == null
             ? DocumentPage()
             : DocumentPage(background: page.background),
-        name);
+        name,
+        index);
     return name;
   }
 }
