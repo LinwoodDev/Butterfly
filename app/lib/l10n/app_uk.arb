@@ -515,7 +515,7 @@
   "spacer": "Розділювач",
   "navigationRail": "Навігаційна залізниця",
   "cut": "Вирізати",
-  "insertBefore": "Insert before",
-  "insertAfter": "Insert after",
+  "insertBefore": "Вставити до",
+  "insertAfter": "Вставити після",
   "paste": "Вставити"
 }
