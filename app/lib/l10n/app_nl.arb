@@ -517,5 +517,7 @@
   "cut": "Knippen",
   "insertBefore": "Voordat invoegen",
   "insertAfter": "Voeg toe na",
-  "paste": "Plakken"
+  "paste": "Plakken",
+  "ascending": "Ascending",
+  "descending": "Descending"
 }
