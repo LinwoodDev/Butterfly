@@ -515,5 +515,7 @@
   "spacer": "間隔",
   "navigationRail": "Navigation rail",
   "cut": "剪下",
+  "insertBefore": "Insert before",
+  "insertAfter": "Insert after",
   "paste": "貼上"
 }
