@@ -515,5 +515,7 @@
   "spacer": "空格",
   "navigationRail": "导航铁道",
   "cut": "剪辑",
+  "insertBefore": "插入前",
+  "insertAfter": "在此处插入",
   "paste": "粘贴"
 }
