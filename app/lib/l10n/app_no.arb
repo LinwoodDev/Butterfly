@@ -517,5 +517,7 @@
   "cut": "Klipp",
   "insertBefore": "Innsett før",
   "insertAfter": "Innsett etter",
-  "paste": "Lim"
+  "paste": "Lim",
+  "ascending": "Ascending",
+  "descending": "Descending"
 }
