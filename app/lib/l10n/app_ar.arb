@@ -515,5 +515,7 @@
   "spacer": "المساحة",
   "navigationRail": "سكك حديدية للتنقل",
   "cut": "قطع",
+  "insertBefore": "إدراج قبل",
+  "insertAfter": "إدراج بعد",
   "paste": "لصق"
 }
