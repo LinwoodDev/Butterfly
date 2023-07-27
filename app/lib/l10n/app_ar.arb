@@ -517,5 +517,7 @@
   "cut": "قطع",
   "insertBefore": "إدراج قبل",
   "insertAfter": "إدراج بعد",
-  "paste": "لصق"
+  "paste": "لصق",
+  "ascending": "Ascending",
+  "descending": "Descending"
 }
