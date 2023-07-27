@@ -517,5 +517,7 @@
   "cut": "Klip",
   "insertBefore": "Indsæt før",
   "insertAfter": "Indsæt efter",
-  "paste": "Indsæt"
+  "paste": "Indsæt",
+  "ascending": "Ascending",
+  "descending": "Descending"
 }
