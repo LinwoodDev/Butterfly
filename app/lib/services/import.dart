@@ -131,9 +131,8 @@ class ImportService {
 
   NoteData? importPage(Uint8List bytes, NoteData document, [Offset? position]) {
     try {
-      final firstPos = position ?? Offset.zero;
       final page = DocumentPage.fromJson(json.decode(utf8.decode(bytes)));
-      return _importPage(page, document, firstPos);
+      return _importPage(page, document, position);
     } catch (e) {
       showDialog(
         context: context,
@@ -159,7 +158,7 @@ class ImportService {
             e)
         .toList();
     return _submit(document,
-        elements: content, areas: areas, choosePosition: true);
+        elements: content, areas: areas, choosePosition: position == null);
   }
 
   Future<bool> _importTemplate(NoteData template) async {

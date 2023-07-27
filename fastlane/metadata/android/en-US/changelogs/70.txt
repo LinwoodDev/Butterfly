@@ -1,5 +1,8 @@
 * Add sort order ([#469](https://github.com/LinwoodDev/Butterfly/issues/469))
 * Save sort state ([#469](https://github.com/LinwoodDev/Butterfly/issues/469))
 * Improve save state icons
+* Improve import painter position
 * Fix native title bar error on mobile devices
 * Fix internet problems on android ([#457](https://github.com/LinwoodDev/Butterfly/issues/457))
+* Fix position when pasting elements ([#465](https://github.com/LinwoodDev/Butterfly/issues/465))
+* Set position to clicked when pasting ([#465](https://github.com/LinwoodDev/Butterfly/issues/465))

@@ -5,10 +5,12 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../renderers/renderer.dart';
 import '../bloc/document_bloc.dart';
+import '../services/import.dart';
 
 class ElementsDialog extends StatelessWidget {
   final Offset position;
@@ -27,9 +29,20 @@ class ElementsDialog extends StatelessWidget {
           if (renderers.isEmpty) ...[
             MenuItemButton(
               onPressed: () {
+                final importService = context.read<ImportService>();
                 Navigator.of(context).pop(true);
-                Actions.invoke(
-                    context, const PasteTextIntent(SelectionChangedCause.tap));
+                final clipboard = context.read<ClipboardManager>().getContent();
+                if (clipboard == null) return;
+                final state = context.read<DocumentBloc>().state;
+                if (state is! DocumentLoadSuccess) return;
+                try {
+                  importService.import(
+                      AssetFileType.values.byName(clipboard.type),
+                      clipboard.data,
+                      state.data,
+                      position:
+                          state.transformCubit.state.localToGlobal(position));
+                } catch (_) {}
               },
               leadingIcon: const PhosphorIcon(PhosphorIconsLight.clipboard),
               child: Text(AppLocalizations.of(context).paste),

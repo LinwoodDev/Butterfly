@@ -217,7 +217,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default('') String design,
     @Default(BannerVisibility.always) BannerVisibility bannerVisibility,
     @Default([]) List<AssetLocation> history,
-    @Default(true) bool navigatorEnabled,
+    @Default(false) bool navigatorEnabled,
     @Default(true) bool zoomEnabled,
     String? lastVersion,
     @Default([]) List<RemoteStorage> remotes,
@@ -278,7 +278,6 @@ class ButterflySettings with _$ButterflySettings {
               .whereType<AssetLocation>()
               .toList() ??
           [],
-      navigatorEnabled: prefs.getBool('navigator_enabled') ?? true,
       zoomEnabled: prefs.getBool('zoom_enabled') ?? true,
       lastVersion: prefs.getString('last_version'),
       remotes: remotes,
@@ -331,7 +330,6 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('banner_visibility', bannerVisibility.name);
     await prefs.setStringList(
         'history', history.map((e) => json.encode(e.toJson())).toList());
-    await prefs.setBool('navigator_enabled', navigatorEnabled);
     await prefs.setBool('zoom_enabled', zoomEnabled);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');

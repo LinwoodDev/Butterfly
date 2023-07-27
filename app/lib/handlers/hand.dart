@@ -582,13 +582,22 @@ class HandHandler extends Handler<HandPainter> {
     if (cut) {
       bloc.add(ElementsRemoved(_selected.map((r) => r.element).toList()));
     }
+    final point = getSelectionRect()?.topLeft;
+    if (point == null) return;
     final clipboard = (
       type: AssetFileType.page.name,
       data: Uint8List.fromList(
         utf8.encode(
-          json.encode(
-              DocumentPage(content: _selected.map((e) => e.element).toList())
-                  .toJson()),
+          json.encode(DocumentPage(
+                  content: _selected
+                      .map((e) => (e.transform(
+                                position: -point,
+                                relative: true,
+                              ) ??
+                              e)
+                          .element)
+                      .toList())
+              .toJson()),
         ),
       ),
     );
