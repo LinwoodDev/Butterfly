@@ -515,5 +515,7 @@
   "spacer": "Välilyönti",
   "navigationRail": "Navigointi rautatie",
   "cut": "Leikkaa",
+  "insertBefore": "Lisää ennen",
+  "insertAfter": "Lisää jälkeen",
   "paste": "Liitä"
 }
