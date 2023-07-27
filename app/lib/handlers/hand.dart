@@ -69,6 +69,9 @@ class HandSelectionRenderer extends Renderer<Rect> {
 enum HandTransformMode { scale, scaleProp }
 
 enum HandTransformCorner {
+  // For rotating
+  center,
+
   topLeft,
   topCenter,
   topRight,
@@ -77,9 +80,6 @@ enum HandTransformCorner {
   bottomLeft,
   bottomCenter,
   bottomRight,
-
-  // For rotating
-  center
 }
 
 extension HandTransformCornerExtension on HandTransformCorner {
@@ -128,6 +128,7 @@ class HandHandler extends Handler<HandPainter> {
   Offset _contextMenuOffset = Offset.zero;
   Rect? _freeSelection;
   Offset? _currentMousePosition;
+  double _scale = 1.0;
 
   HandHandler(super.data);
 
@@ -326,7 +327,9 @@ class HandHandler extends Handler<HandPainter> {
     return HandTransformCorner.values.firstWhereOrNull((element) {
       final corner = element.getFromRect(selectionRect);
       return Rect.fromCenter(
-              center: corner, width: cornerSize, height: cornerSize)
+              center: corner,
+              width: cornerSize / _scale,
+              height: cornerSize / _scale)
           .contains(position);
     });
   }
@@ -441,9 +444,10 @@ class HandHandler extends Handler<HandPainter> {
       _rulerRotation = 0;
       return true;
     }
-    final globalPos =
-        context.getCameraTransform().localToGlobal(details.localFocalPoint);
+    final cameraTransform = context.getCameraTransform();
+    final globalPos = cameraTransform.localToGlobal(details.localFocalPoint);
     _currentMousePosition = globalPos;
+    _scale = cameraTransform.size;
     _transformCorner = _getCornerHit(globalPos);
     if (_transformCorner != null ||
         (getSelectionRect()?.contains(globalPos) ?? false)) {
@@ -535,9 +539,10 @@ class HandHandler extends Handler<HandPainter> {
 
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
-    final globalPos =
-        context.getCameraTransform().localToGlobal(event.localPosition);
+    final transform = context.getCameraTransform();
+    final globalPos = transform.localToGlobal(event.localPosition);
     _currentMousePosition = globalPos;
+    _scale = transform.size;
     _transformCorner = _getCornerHit(globalPos);
     context.refresh();
   }
