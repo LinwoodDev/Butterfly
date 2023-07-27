@@ -515,5 +515,7 @@
   "spacer": "Afstandshouder",
   "navigationRail": "Navigatie spoor",
   "cut": "Knippen",
+  "insertBefore": "Voordat invoegen",
+  "insertAfter": "Voeg toe na",
   "paste": "Plakken"
 }
