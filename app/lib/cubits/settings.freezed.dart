@@ -1319,7 +1319,7 @@ class _$_ButterflySettings extends _ButterflySettings
       this.design = '',
       this.bannerVisibility = BannerVisibility.always,
       final List<AssetLocation> history = const [],
-      this.navigatorEnabled = true,
+      this.navigatorEnabled = false,
       this.zoomEnabled = true,
       this.lastVersion,
       final List<RemoteStorage> remotes = const [],

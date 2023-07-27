@@ -167,6 +167,9 @@ class PathHitCalculator extends HitCalculator {
     for (int i = 0; i < points.length - 1; i++) {
       result.addAll(_interpolate(points[i], points[i + 1]));
     }
+    if (points.length == 1) {
+      result.add(points.first);
+    }
 
     return result;
   }
