@@ -515,5 +515,7 @@
   "spacer": "スペーサー",
   "navigationRail": "ナビゲーション レール",
   "cut": "切り取り",
+  "insertBefore": "前に挿入",
+  "insertAfter": "後に挿入",
   "paste": "貼り付け"
 }
