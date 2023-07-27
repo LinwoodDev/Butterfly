@@ -515,5 +515,7 @@
   "spacer": "Mezera",
   "navigationRail": "Navigační kolejnice",
   "cut": "Vyjmout",
+  "insertBefore": "Vložit před",
+  "insertAfter": "Vložit po",
   "paste": "Vložit"
 }
