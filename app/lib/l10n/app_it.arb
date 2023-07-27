@@ -517,5 +517,7 @@
   "cut": "Taglia",
   "insertBefore": "Inserisci prima",
   "insertAfter": "Inserisci dopo",
-  "paste": "Incolla"
+  "paste": "Incolla",
+  "ascending": "Ascending",
+  "descending": "Descending"
 }
