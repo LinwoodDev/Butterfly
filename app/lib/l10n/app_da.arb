@@ -515,5 +515,7 @@
   "spacer": "Mellemrum",
   "navigationRail": "Navigation jernbane",
   "cut": "Klip",
+  "insertBefore": "Indsæt før",
+  "insertAfter": "Indsæt efter",
   "paste": "Indsæt"
 }
