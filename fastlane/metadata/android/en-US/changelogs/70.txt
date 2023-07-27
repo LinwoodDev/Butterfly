@@ -6,3 +6,4 @@
 * Fix internet problems on android ([#457](https://github.com/LinwoodDev/Butterfly/issues/457))
 * Fix position when pasting elements ([#465](https://github.com/LinwoodDev/Butterfly/issues/465))
 * Set position to clicked when pasting ([#465](https://github.com/LinwoodDev/Butterfly/issues/465))
+* Improve performance of quick start view in home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
