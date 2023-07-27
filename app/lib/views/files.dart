@@ -174,6 +174,9 @@ class _FilesViewState extends State<FilesView> {
                 icon: PhosphorIcon(_sortOrder == SortOrder.ascending
                     ? PhosphorIconsLight.sortAscending
                     : PhosphorIconsLight.sortDescending),
+                tooltip: _sortOrder == SortOrder.ascending
+                    ? AppLocalizations.of(context).ascending
+                    : AppLocalizations.of(context).descending,
                 onPressed: () => setState(() {
                   _sortOrder = _sortOrder == SortOrder.ascending
                       ? SortOrder.descending
