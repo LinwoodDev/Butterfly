@@ -515,5 +515,7 @@
   "spacer": "Espaçador",
   "navigationRail": "Trilho de navegação",
   "cut": "Recortar",
+  "insertBefore": "Inserir antes",
+  "insertAfter": "Inserir depois",
   "paste": "Colar"
 }
