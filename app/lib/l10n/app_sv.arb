@@ -517,5 +517,7 @@
   "cut": "Klipp",
   "insertBefore": "Infoga före",
   "insertAfter": "Infoga efter",
-  "paste": "Klistra in"
+  "paste": "Klistra in",
+  "ascending": "Ascending",
+  "descending": "Descending"
 }
