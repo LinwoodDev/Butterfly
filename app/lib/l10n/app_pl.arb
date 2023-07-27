@@ -517,5 +517,7 @@
   "cut": "Wytnij",
   "insertBefore": "Wstaw przed",
   "insertAfter": "Wstaw po",
-  "paste": "Wklej"
+  "paste": "Wklej",
+  "ascending": "Ascending",
+  "descending": "Descending"
 }
