@@ -47,15 +47,6 @@ ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
 InputDecorationTheme defaultDropdownInputDecorationTheme() {
   return const InputDecorationTheme(
     filled: true,
-    isDense: true,
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-      borderSide: BorderSide.none,
-    ),
-    contentPadding: EdgeInsets.symmetric(
-      horizontal: 16,
-      vertical: 12,
-    ),
   );
 }
 

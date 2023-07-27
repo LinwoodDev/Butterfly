@@ -49,6 +49,8 @@ class FilesView extends StatefulWidget {
 
 enum _SortBy { name, created, modified }
 
+enum _SortOrder { ascending, descending }
+
 class _FilesViewState extends State<FilesView> {
   final TextEditingController _locationController = TextEditingController();
   late DocumentFileSystem _fileSystem;
@@ -56,6 +58,7 @@ class _FilesViewState extends State<FilesView> {
   bool _gridView = false;
   RemoteStorage? _remote;
   _SortBy _sortBy = _SortBy.name;
+  _SortOrder _sortOrder = _SortOrder.ascending;
   String _search = '';
   late final SettingsCubit _settingsCubit;
   late Future<AppDocumentEntity?> _filesFuture;
@@ -119,6 +122,7 @@ class _FilesViewState extends State<FilesView> {
           runSpacing: 16,
           spacing: 16,
           alignment: isMobile ? WrapAlignment.spaceBetween : WrapAlignment.end,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             if (!widget.collapsed)
               Row(
@@ -135,16 +139,12 @@ class _FilesViewState extends State<FilesView> {
               ),
             Row(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (!isMobile) ...[
-                  Text(AppLocalizations.of(context).source),
-                  const SizedBox(width: 8),
-                ],
                 BlocBuilder<SettingsCubit, ButterflySettings>(
                     builder: (context, state) {
                   return DropdownMenu<String?>(
-                    leadingIcon:
-                        const PhosphorIcon(PhosphorIconsLight.cloudArrowDown),
+                    label: Text(AppLocalizations.of(context).source),
                     dropdownMenuEntries: [
                       DropdownMenuEntry(
                         value: null,
@@ -171,27 +171,25 @@ class _FilesViewState extends State<FilesView> {
                 ),
               ],
             ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (!isMobile) ...[
-                  Text(AppLocalizations.of(context).sortBy),
-                  const SizedBox(width: 8),
-                ],
-                DropdownMenu<_SortBy>(
-                  leadingIcon:
-                      const PhosphorIcon(PhosphorIconsLight.sortAscending),
-                  dropdownMenuEntries: _SortBy.values
-                      .map((e) => DropdownMenuEntry(
-                            value: e,
-                            label: getLocalizedNameOfSortBy(e),
-                          ))
-                      .toList(),
-                  initialSelection: _sortBy,
-                  onSelected: (value) =>
-                      setState(() => _sortBy = value ?? _sortBy),
-                ),
-              ],
+            DropdownMenu<_SortBy>(
+              leadingIcon: IconButton(
+                icon: PhosphorIcon(_sortOrder == _SortOrder.ascending
+                    ? PhosphorIconsLight.sortAscending
+                    : PhosphorIconsLight.sortDescending),
+                onPressed: () => setState(() => _sortOrder =
+                    _sortOrder == _SortOrder.ascending
+                        ? _SortOrder.descending
+                        : _SortOrder.ascending),
+              ),
+              label: Text(AppLocalizations.of(context).sortBy),
+              dropdownMenuEntries: _SortBy.values
+                  .map((e) => DropdownMenuEntry(
+                        value: e,
+                        label: getLocalizedNameOfSortBy(e),
+                      ))
+                  .toList(),
+              initialSelection: _sortBy,
+              onSelected: (value) => setState(() => _sortBy = value ?? _sortBy),
             ),
           ],
         );
@@ -519,7 +517,8 @@ class _FilesViewState extends State<FilesView> {
       }
       switch (_sortBy) {
         case _SortBy.name:
-          return aFile.fileName.compareTo(bFile.fileName);
+          final compared = aFile.fileName.compareTo(bFile.fileName);
+          return _sortOrder == _SortOrder.ascending ? compared : -compared;
         case _SortBy.created:
           final aCreatedAt = aInfo.createdAt;
           final bCreatedAt = bInfo.createdAt;
@@ -529,7 +528,8 @@ class _FilesViewState extends State<FilesView> {
           if (bCreatedAt == null) {
             return -1;
           }
-          return bCreatedAt.compareTo(aCreatedAt);
+          final compared = bCreatedAt.compareTo(aCreatedAt);
+          return _sortOrder == _SortOrder.ascending ? compared : -compared;
         case _SortBy.modified:
           final aModifiedAt = aInfo.updatedAt;
           final bModifiedAt = bInfo.updatedAt;
@@ -539,7 +539,8 @@ class _FilesViewState extends State<FilesView> {
           if (bModifiedAt == null) {
             return -1;
           }
-          return bModifiedAt.compareTo(aModifiedAt);
+          final compared = bModifiedAt.compareTo(aModifiedAt);
+          return _sortOrder == _SortOrder.ascending ? compared : -compared;
       }
     } catch (e) {
       return 0;

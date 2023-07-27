@@ -315,8 +315,7 @@ class ButterflyApp extends StatelessWidget {
         buildWhen: (previous, current) =>
             previous.theme != current.theme ||
             previous.localeTag != current.localeTag ||
-            previous.design != current.design ||
-            previous.nativeTitleBar != current.nativeTitleBar,
+            previous.design != current.design,
         builder: (context, state) => MaterialApp.router(
               locale: state.locale,
               title: applicationName,
