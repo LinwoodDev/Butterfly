@@ -515,5 +515,7 @@
   "spacer": "Espaceur",
   "navigationRail": "Rail de navigation",
   "cut": "Couper",
+  "insertBefore": "Insérer avant",
+  "insertAfter": "Insérer après",
   "paste": "Coller"
 }
