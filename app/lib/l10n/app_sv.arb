@@ -515,5 +515,7 @@
   "spacer": "Mellanslag",
   "navigationRail": "Navigeringsräls",
   "cut": "Klipp",
+  "insertBefore": "Infoga före",
+  "insertAfter": "Infoga efter",
   "paste": "Klistra in"
 }
