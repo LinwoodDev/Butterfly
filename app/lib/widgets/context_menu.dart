@@ -48,71 +48,30 @@ class _ContextMenuState extends State<ContextMenu>
     super.dispose();
   }
 
-  Future<void> _close() async {
-    if (!mounted) return;
-    await _controller.reverse().then<void>((_) async {
-      if (!mounted) return;
-      Navigator.of(context).pop();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      final width = constraints.maxWidth;
-      final height = constraints.maxHeight;
-      final x = widget.position.dx;
-      final y = widget.position.dy;
-      // Responsive context menu
-      final maxWidth = min(width, widget.maxWidth);
-      final maxHeight = min(height, widget.maxHeight);
-      final xOffset = x + maxWidth > width ? width - maxWidth : x;
-      final yOffset = y + maxHeight > height ? height - maxHeight : y;
-      return Stack(
-        children: [
-          Positioned.fill(
-            child: GestureDetector(
-              onTap: _close,
-              child: Container(
-                color: Colors.transparent,
-              ),
-            ),
+    return CustomSingleChildLayout(
+      delegate: DesktopTextSelectionToolbarLayoutDelegate(
+        anchor: widget.position,
+      ),
+      child: SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(0, -.5),
+          end: Offset.zero,
+        ).animate(_animation),
+        transformHitTests: false,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: widget.maxWidth,
+            maxHeight: widget.maxHeight,
           ),
-          Positioned(
-            left: xOffset,
-            top: yOffset,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: maxWidth,
-                maxHeight: maxHeight,
-              ),
-              child: ClipRect(
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: SlideTransition(
-                        position: Tween<Offset>(
-                          begin: const Offset(0, -.5),
-                          end: Offset.zero,
-                        ).animate(_animation),
-                        transformHitTests: false,
-                        child: Material(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: widget.builder(context),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          child: Material(
+            borderRadius: BorderRadius.circular(12),
+            child: widget.builder(context),
           ),
-        ],
-      );
-    });
+        ),
+      ),
+    );
   }
 }
 
@@ -124,6 +83,7 @@ Future<T?> showContextMenu<T>(
     double maxWidth = 300}) async {
   final RenderBox box = context.findRenderObject() as RenderBox;
   final Offset globalPos = box.localToGlobal(position);
+  AdaptiveTextSelectionToolbar;
   return showModal<T>(
       context: context,
       useRootNavigator: true,
