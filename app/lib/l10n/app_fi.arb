@@ -518,6 +518,6 @@
   "insertBefore": "Lisää ennen",
   "insertAfter": "Lisää jälkeen",
   "paste": "Liitä",
-  "ascending": "Ascending",
-  "descending": "Descending"
+  "ascending": "Nouseva",
+  "descending": "Laskeva"
 }
