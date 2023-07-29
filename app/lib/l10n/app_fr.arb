@@ -518,6 +518,6 @@
   "insertBefore": "Insérer avant",
   "insertAfter": "Insérer après",
   "paste": "Coller",
-  "ascending": "Ascending",
-  "descending": "Descending"
+  "ascending": "Ascendant",
+  "descending": "Descendant"
 }
