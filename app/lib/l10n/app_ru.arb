@@ -518,6 +518,6 @@
   "insertBefore": "Вставить снизу",
   "insertAfter": "Вставить после",
   "paste": "Вставить",
-  "ascending": "Ascending",
-  "descending": "Descending"
+  "ascending": "По возрастанию",
+  "descending": "По убыванию"
 }
