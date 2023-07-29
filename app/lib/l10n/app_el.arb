@@ -518,6 +518,6 @@
   "insertBefore": "Εισαγωγή πριν",
   "insertAfter": "Εισαγωγή μετά",
   "paste": "Επικόλληση",
-  "ascending": "Ascending",
-  "descending": "Descending"
+  "ascending": "Αύξουσα",
+  "descending": "Φθίνουσα"
 }
