@@ -518,6 +518,6 @@
   "insertBefore": "Vložit před",
   "insertAfter": "Vložit po",
   "paste": "Vložit",
-  "ascending": "Ascending",
-  "descending": "Descending"
+  "ascending": "Vzestupně",
+  "descending": "sestupně"
 }
