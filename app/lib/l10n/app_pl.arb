@@ -518,6 +518,6 @@
   "insertBefore": "Wstaw przed",
   "insertAfter": "Wstaw po",
   "paste": "Wklej",
-  "ascending": "Ascending",
-  "descending": "Descending"
+  "ascending": "Rosnąco",
+  "descending": "Malejąco"
 }
