@@ -8,6 +8,7 @@
 * Improve hit calculation on single point pen elements
 * Improve performance of quick start view in home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
 * Improve context menu position ([#468](https://github.com/LinwoodDev/Butterfly/issues/468))
+* Align source and sort by in home page
 * Set position to clicked when pasting ([#468](https://github.com/LinwoodDev/Butterfly/issues/468))
 * Fix native title bar error on mobile devices
 * Fix internet problems on android ([#457](https://github.com/LinwoodDev/Butterfly/issues/457))

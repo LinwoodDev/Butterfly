@@ -116,11 +116,8 @@ class _FilesViewState extends State<FilesView> {
           style: Theme.of(context).textTheme.headlineMedium,
           textAlign: TextAlign.start,
         );
-        final actions = Wrap(
-          runSpacing: 16,
+        final actions = OverflowBar(
           spacing: 16,
-          alignment: isMobile ? WrapAlignment.spaceBetween : WrapAlignment.end,
-          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             if (!widget.collapsed)
               Row(
@@ -143,6 +140,7 @@ class _FilesViewState extends State<FilesView> {
                     builder: (context, state) {
                   return DropdownMenu<String?>(
                     label: Text(AppLocalizations.of(context).source),
+                    width: 225,
                     dropdownMenuEntries: [
                       DropdownMenuEntry(
                         value: null,
@@ -185,6 +183,7 @@ class _FilesViewState extends State<FilesView> {
                 }),
               ),
               label: Text(AppLocalizations.of(context).sortBy),
+              width: 225,
               dropdownMenuEntries: SortBy.values
                   .map((e) => DropdownMenuEntry(
                         value: e,
