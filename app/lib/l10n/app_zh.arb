@@ -518,6 +518,6 @@
   "insertBefore": "插入前",
   "insertAfter": "在此处插入",
   "paste": "粘贴",
-  "ascending": "Ascending",
-  "descending": "Descending"
+  "ascending": "升序",
+  "descending": "降序"
 }
