@@ -262,12 +262,18 @@ class HandHandler extends Handler<HandPainter> {
       scaleY = scale;
     }
     position = position.scale(1 / scaleX, 1 / scaleY);
+    final pivot = transformRect.center;
     return _transformed.map((e) {
-      var oldPos = e.rect?.topLeft ?? Offset.zero;
+      var oldPos = e.expandedRect?.topLeft ?? Offset.zero;
       var diff = oldPos - transformRect.topLeft;
       // Scale and calculate relative position based on transformRect
       var newPos =
           -Offset(diff.dx / scaleX, diff.dy / scaleY) + position + diff;
+      // Rotate around center
+      if (rotation != 0) {
+        final center = e.expandedRect?.center ?? Offset.zero;
+        newPos += center.rotate(pivot, rotation / 180 * pi) - center;
+      }
       return e.transform(
               position: newPos,
               scaleX: scaleX,

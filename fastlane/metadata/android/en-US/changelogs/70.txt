@@ -11,3 +11,4 @@
 * Fix internet problems on android ([#457](https://github.com/LinwoodDev/Butterfly/issues/457))
 * Fix position when pasting elements ([#468](https://github.com/LinwoodDev/Butterfly/issues/468))
 * Fix corner hit detection on hand tool when zoomed
+* Fix rotation when selecting multiple elements ([#472](https://github.com/LinwoodDev/Butterfly/issues/472))
