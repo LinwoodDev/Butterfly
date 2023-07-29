@@ -518,6 +518,6 @@
   "insertBefore": "Inserare înainte",
   "insertAfter": "Inserare după",
   "paste": "Lipește",
-  "ascending": "Ascending",
-  "descending": "Descending"
+  "ascending": "Crescător",
+  "descending": "Descrescător"
 }
