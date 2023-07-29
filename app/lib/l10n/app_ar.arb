@@ -518,6 +518,6 @@
   "insertBefore": "إدراج قبل",
   "insertAfter": "إدراج بعد",
   "paste": "لصق",
-  "ascending": "Ascending",
-  "descending": "Descending"
+  "ascending": "تصاعدي",
+  "descending": "تنازلي"
 }
