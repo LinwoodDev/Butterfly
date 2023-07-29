@@ -15,6 +15,7 @@ extension PainterVisualizer on Painter {
     final loc = AppLocalizations.of(context);
     return map(
       hand: (_) => loc.hand,
+      move: (_) => loc.move,
       import: (_) => loc.import,
       undo: (_) => loc.undo,
       redo: (_) => loc.redo,
@@ -35,7 +36,8 @@ extension PainterVisualizer on Painter {
   }
 
   IconGetter get icon => map(
-        hand: (_) => PhosphorIcons.hand,
+        hand: (_) => PhosphorIcons.cursor,
+        move: (_) => PhosphorIcons.hand,
         import: (_) => PhosphorIcons.arrowSquareIn,
         undo: (_) => PhosphorIcons.arrowCounterClockwise,
         redo: (_) => PhosphorIcons.arrowClockwise,

@@ -17,6 +17,17 @@ Map<String, dynamic> _$$HandPainterToJson(_$HandPainter instance) =>
       'type': instance.$type,
     };
 
+_$MovePainter _$$MovePainterFromJson(Map json) => _$MovePainter(
+      name: json['name'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$MovePainterToJson(_$MovePainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': instance.$type,
+    };
+
 _$ImportPainter _$$ImportPainterFromJson(Map json) => _$ImportPainter(
       name: json['name'] as String? ?? '',
       elements: (json['elements'] as List<dynamic>)

@@ -113,6 +113,7 @@ class AddDialog extends StatelessWidget {
                 alignment: WrapAlignment.start,
                 children: [
                   Painter.hand,
+                  Painter.move,
                   Painter.pen,
                   Painter.stamp,
                   Painter.laser,

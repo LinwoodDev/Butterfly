@@ -41,6 +41,10 @@ class Painter with _$Painter {
     @Default('') String name,
   }) = HandPainter;
 
+  factory Painter.move({
+    @Default('') String name,
+  }) = MovePainter;
+
   factory Painter.import({
     @Default('') String name,
     required List<PadElement> elements,

@@ -1,4 +1,5 @@
 * Add sort order ([#469](https://github.com/LinwoodDev/Butterfly/issues/469))
+* Add move painter ([#473](https://github.com/LinwoodDev/Butterfly/issues/473))
 * Save sort state ([#469](https://github.com/LinwoodDev/Butterfly/issues/469))
 * Save deleted images in cache
   * Fix pasting images not working ([#465](https://github.com/LinwoodDev/Butterfly/issues/465))

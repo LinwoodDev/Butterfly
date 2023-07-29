@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-abstract class GeneralMoveHandler<T> extends Handler<T> {
+class GeneralMoveHandler<T> extends Handler<T> {
   bool _moved = false;
 
   GeneralMoveHandler(super.data);
@@ -17,9 +17,20 @@ abstract class GeneralMoveHandler<T> extends Handler<T> {
     if (_moved) {
       context.bake();
     }
+    _moved = false;
   }
+
+  @override
+  bool onScaleStart(ScaleStartDetails details, EventContext context) {
+    _moved = false;
+    return false;
+  }
+
+  @override
+  MouseCursor get cursor =>
+      _moved ? SystemMouseCursors.grabbing : SystemMouseCursors.grab;
 }
 
-class MoveHandler extends GeneralMoveHandler<void> {
-  MoveHandler() : super(null);
+class MoveHandler extends GeneralMoveHandler<MovePainter?> {
+  MoveHandler([super.data]);
 }

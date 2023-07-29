@@ -18,6 +18,8 @@ Painter _$PainterFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'hand':
       return HandPainter.fromJson(json);
+    case 'move':
+      return MovePainter.fromJson(json);
     case 'import':
       return ImportPainter.fromJson(json);
     case 'undo':
@@ -63,6 +65,7 @@ mixin _$Painter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -105,6 +108,7 @@ mixin _$Painter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -145,6 +149,7 @@ mixin _$Painter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -186,6 +191,7 @@ mixin _$Painter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -207,6 +213,7 @@ mixin _$Painter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -228,6 +235,7 @@ mixin _$Painter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -347,6 +355,7 @@ class _$HandPainter implements HandPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -392,6 +401,7 @@ class _$HandPainter implements HandPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -435,6 +445,7 @@ class _$HandPainter implements HandPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -482,6 +493,7 @@ class _$HandPainter implements HandPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -506,6 +518,7 @@ class _$HandPainter implements HandPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -530,6 +543,7 @@ class _$HandPainter implements HandPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -573,6 +587,304 @@ abstract class HandPainter implements Painter {
   @override
   @JsonKey(ignore: true)
   _$$HandPainterCopyWith<_$HandPainter> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MovePainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
+  factory _$$MovePainterCopyWith(
+          _$MovePainter value, $Res Function(_$MovePainter) then) =
+      __$$MovePainterCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name});
+}
+
+/// @nodoc
+class __$$MovePainterCopyWithImpl<$Res>
+    extends _$PainterCopyWithImpl<$Res, _$MovePainter>
+    implements _$$MovePainterCopyWith<$Res> {
+  __$$MovePainterCopyWithImpl(
+      _$MovePainter _value, $Res Function(_$MovePainter) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+  }) {
+    return _then(_$MovePainter(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MovePainter implements MovePainter {
+  _$MovePainter({this.name = '', final String? $type})
+      : $type = $type ?? 'move';
+
+  factory _$MovePainter.fromJson(Map<String, dynamic> json) =>
+      _$$MovePainterFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Painter.move(name: $name)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MovePainterCopyWith<_$MovePainter> get copyWith =>
+      __$$MovePainterCopyWithImpl<_$MovePainter>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name) hand,
+    required TResult Function(String name) move,
+    required TResult Function(
+            String name, List<PadElement> elements, List<Area> areas)
+        import,
+    required TResult Function(String name) undo,
+    required TResult Function(String name) redo,
+    required TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)
+        label,
+    required TResult Function(
+            String name, bool zoomDependent, PenProperty property)
+        pen,
+    required TResult Function(String name, double strokeWidth) eraser,
+    required TResult Function(String name, double strokeWidth) pathEraser,
+    required TResult Function(String name, double strokeWidth) layer,
+    required TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
+        area,
+    required TResult Function(String name, double duration, double strokeWidth,
+            double thinning, int color)
+        laser,
+    required TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
+        shape,
+    required TResult Function(String name, PackAssetLocation component) stamp,
+    required TResult Function(String name) presentation,
+    required TResult Function(String name, Axis2D axis) spacer,
+    required TResult Function(String name) fullSceen,
+    required TResult Function(String name, ImportType importType) asset,
+  }) {
+    return move(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
+    TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult? Function(String name)? undo,
+    TResult? Function(String name)? redo,
+    TResult? Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult? Function(String name, bool zoomDependent, PenProperty property)?
+        pen,
+    TResult? Function(String name, double strokeWidth)? eraser,
+    TResult? Function(String name, double strokeWidth)? pathEraser,
+    TResult? Function(String name, double strokeWidth)? layer,
+    TResult? Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult? Function(String name, double duration, double strokeWidth,
+            double thinning, int color)?
+        laser,
+    TResult? Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult? Function(String name, PackAssetLocation component)? stamp,
+    TResult? Function(String name)? presentation,
+    TResult? Function(String name, Axis2D axis)? spacer,
+    TResult? Function(String name)? fullSceen,
+    TResult? Function(String name, ImportType importType)? asset,
+  }) {
+    return move?.call(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name)? hand,
+    TResult Function(String name)? move,
+    TResult Function(String name, List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult Function(String name)? undo,
+    TResult Function(String name)? redo,
+    TResult Function(String name, LabelMode mode, bool zoomDependent,
+            int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult Function(String name, bool zoomDependent, PenProperty property)?
+        pen,
+    TResult Function(String name, double strokeWidth)? eraser,
+    TResult Function(String name, double strokeWidth)? pathEraser,
+    TResult Function(String name, double strokeWidth)? layer,
+    TResult Function(
+            String name,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult Function(String name, double duration, double strokeWidth,
+            double thinning, int color)?
+        laser,
+    TResult Function(
+            String name,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult Function(String name, PackAssetLocation component)? stamp,
+    TResult Function(String name)? presentation,
+    TResult Function(String name, Axis2D axis)? spacer,
+    TResult Function(String name)? fullSceen,
+    TResult Function(String name, ImportType importType)? asset,
+    required TResult orElse(),
+  }) {
+    if (move != null) {
+      return move(name);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
+    required TResult Function(ImportPainter value) import,
+    required TResult Function(UndoPainter value) undo,
+    required TResult Function(RedoPainter value) redo,
+    required TResult Function(LabelPainter value) label,
+    required TResult Function(PenPainter value) pen,
+    required TResult Function(EraserPainter value) eraser,
+    required TResult Function(PathEraserPainter value) pathEraser,
+    required TResult Function(LayerPainter value) layer,
+    required TResult Function(AreaPainter value) area,
+    required TResult Function(LaserPainter value) laser,
+    required TResult Function(ShapePainter value) shape,
+    required TResult Function(StampPainter value) stamp,
+    required TResult Function(PresentationPainter value) presentation,
+    required TResult Function(SpacerPainter value) spacer,
+    required TResult Function(FullScreenPainter value) fullSceen,
+    required TResult Function(AssetPainter value) asset,
+  }) {
+    return move(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
+    TResult? Function(ImportPainter value)? import,
+    TResult? Function(UndoPainter value)? undo,
+    TResult? Function(RedoPainter value)? redo,
+    TResult? Function(LabelPainter value)? label,
+    TResult? Function(PenPainter value)? pen,
+    TResult? Function(EraserPainter value)? eraser,
+    TResult? Function(PathEraserPainter value)? pathEraser,
+    TResult? Function(LayerPainter value)? layer,
+    TResult? Function(AreaPainter value)? area,
+    TResult? Function(LaserPainter value)? laser,
+    TResult? Function(ShapePainter value)? shape,
+    TResult? Function(StampPainter value)? stamp,
+    TResult? Function(PresentationPainter value)? presentation,
+    TResult? Function(SpacerPainter value)? spacer,
+    TResult? Function(FullScreenPainter value)? fullSceen,
+    TResult? Function(AssetPainter value)? asset,
+  }) {
+    return move?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
+    TResult Function(ImportPainter value)? import,
+    TResult Function(UndoPainter value)? undo,
+    TResult Function(RedoPainter value)? redo,
+    TResult Function(LabelPainter value)? label,
+    TResult Function(PenPainter value)? pen,
+    TResult Function(EraserPainter value)? eraser,
+    TResult Function(PathEraserPainter value)? pathEraser,
+    TResult Function(LayerPainter value)? layer,
+    TResult Function(AreaPainter value)? area,
+    TResult Function(LaserPainter value)? laser,
+    TResult Function(ShapePainter value)? shape,
+    TResult Function(StampPainter value)? stamp,
+    TResult Function(PresentationPainter value)? presentation,
+    TResult Function(SpacerPainter value)? spacer,
+    TResult Function(FullScreenPainter value)? fullSceen,
+    TResult Function(AssetPainter value)? asset,
+    required TResult orElse(),
+  }) {
+    if (move != null) {
+      return move(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MovePainterToJson(
+      this,
+    );
+  }
+}
+
+abstract class MovePainter implements Painter {
+  factory MovePainter({final String name}) = _$MovePainter;
+
+  factory MovePainter.fromJson(Map<String, dynamic> json) =
+      _$MovePainter.fromJson;
+
+  @override
+  String get name;
+  @override
+  @JsonKey(ignore: true)
+  _$$MovePainterCopyWith<_$MovePainter> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -671,6 +983,7 @@ class _$ImportPainter implements ImportPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -716,6 +1029,7 @@ class _$ImportPainter implements ImportPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -759,6 +1073,7 @@ class _$ImportPainter implements ImportPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -806,6 +1121,7 @@ class _$ImportPainter implements ImportPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -830,6 +1146,7 @@ class _$ImportPainter implements ImportPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -854,6 +1171,7 @@ class _$ImportPainter implements ImportPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -968,6 +1286,7 @@ class _$UndoPainter implements UndoPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -1013,6 +1332,7 @@ class _$UndoPainter implements UndoPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -1056,6 +1376,7 @@ class _$UndoPainter implements UndoPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -1103,6 +1424,7 @@ class _$UndoPainter implements UndoPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -1127,6 +1449,7 @@ class _$UndoPainter implements UndoPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -1151,6 +1474,7 @@ class _$UndoPainter implements UndoPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -1260,6 +1584,7 @@ class _$RedoPainter implements RedoPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -1305,6 +1630,7 @@ class _$RedoPainter implements RedoPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -1348,6 +1674,7 @@ class _$RedoPainter implements RedoPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -1395,6 +1722,7 @@ class _$RedoPainter implements RedoPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -1419,6 +1747,7 @@ class _$RedoPainter implements RedoPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -1443,6 +1772,7 @@ class _$RedoPainter implements RedoPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -1605,6 +1935,7 @@ class _$LabelPainter implements LabelPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -1650,6 +1981,7 @@ class _$LabelPainter implements LabelPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -1693,6 +2025,7 @@ class _$LabelPainter implements LabelPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -1740,6 +2073,7 @@ class _$LabelPainter implements LabelPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -1764,6 +2098,7 @@ class _$LabelPainter implements LabelPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -1788,6 +2123,7 @@ class _$LabelPainter implements LabelPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -1926,6 +2262,7 @@ class _$PenPainter implements PenPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -1971,6 +2308,7 @@ class _$PenPainter implements PenPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -2014,6 +2352,7 @@ class _$PenPainter implements PenPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -2061,6 +2400,7 @@ class _$PenPainter implements PenPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -2085,6 +2425,7 @@ class _$PenPainter implements PenPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -2109,6 +2450,7 @@ class _$PenPainter implements PenPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -2232,6 +2574,7 @@ class _$EraserPainter implements EraserPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -2277,6 +2620,7 @@ class _$EraserPainter implements EraserPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -2320,6 +2664,7 @@ class _$EraserPainter implements EraserPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -2367,6 +2712,7 @@ class _$EraserPainter implements EraserPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -2391,6 +2737,7 @@ class _$EraserPainter implements EraserPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -2415,6 +2762,7 @@ class _$EraserPainter implements EraserPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -2536,6 +2884,7 @@ class _$PathEraserPainter implements PathEraserPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -2581,6 +2930,7 @@ class _$PathEraserPainter implements PathEraserPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -2624,6 +2974,7 @@ class _$PathEraserPainter implements PathEraserPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -2671,6 +3022,7 @@ class _$PathEraserPainter implements PathEraserPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -2695,6 +3047,7 @@ class _$PathEraserPainter implements PathEraserPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -2719,6 +3072,7 @@ class _$PathEraserPainter implements PathEraserPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -2838,6 +3192,7 @@ class _$LayerPainter implements LayerPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -2883,6 +3238,7 @@ class _$LayerPainter implements LayerPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -2926,6 +3282,7 @@ class _$LayerPainter implements LayerPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -2973,6 +3330,7 @@ class _$LayerPainter implements LayerPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -2997,6 +3355,7 @@ class _$LayerPainter implements LayerPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -3021,6 +3380,7 @@ class _$LayerPainter implements LayerPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -3175,6 +3535,7 @@ class _$AreaPainter implements AreaPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -3221,6 +3582,7 @@ class _$AreaPainter implements AreaPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -3265,6 +3627,7 @@ class _$AreaPainter implements AreaPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -3313,6 +3676,7 @@ class _$AreaPainter implements AreaPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -3337,6 +3701,7 @@ class _$AreaPainter implements AreaPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -3361,6 +3726,7 @@ class _$AreaPainter implements AreaPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -3522,6 +3888,7 @@ class _$LaserPainter implements LaserPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -3567,6 +3934,7 @@ class _$LaserPainter implements LaserPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -3610,6 +3978,7 @@ class _$LaserPainter implements LaserPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -3657,6 +4026,7 @@ class _$LaserPainter implements LaserPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -3681,6 +4051,7 @@ class _$LaserPainter implements LaserPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -3705,6 +4076,7 @@ class _$LaserPainter implements LaserPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -3876,6 +4248,7 @@ class _$ShapePainter implements ShapePainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -3922,6 +4295,7 @@ class _$ShapePainter implements ShapePainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -3966,6 +4340,7 @@ class _$ShapePainter implements ShapePainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -4014,6 +4389,7 @@ class _$ShapePainter implements ShapePainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -4038,6 +4414,7 @@ class _$ShapePainter implements ShapePainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -4062,6 +4439,7 @@ class _$ShapePainter implements ShapePainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -4203,6 +4581,7 @@ class _$StampPainter implements StampPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -4248,6 +4627,7 @@ class _$StampPainter implements StampPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -4291,6 +4671,7 @@ class _$StampPainter implements StampPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -4338,6 +4719,7 @@ class _$StampPainter implements StampPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -4362,6 +4744,7 @@ class _$StampPainter implements StampPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -4386,6 +4769,7 @@ class _$StampPainter implements StampPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -4499,6 +4883,7 @@ class _$PresentationPainter implements PresentationPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -4544,6 +4929,7 @@ class _$PresentationPainter implements PresentationPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -4587,6 +4973,7 @@ class _$PresentationPainter implements PresentationPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -4634,6 +5021,7 @@ class _$PresentationPainter implements PresentationPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -4658,6 +5046,7 @@ class _$PresentationPainter implements PresentationPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -4682,6 +5071,7 @@ class _$PresentationPainter implements PresentationPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -4801,6 +5191,7 @@ class _$SpacerPainter implements SpacerPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -4846,6 +5237,7 @@ class _$SpacerPainter implements SpacerPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -4889,6 +5281,7 @@ class _$SpacerPainter implements SpacerPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -4936,6 +5329,7 @@ class _$SpacerPainter implements SpacerPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -4960,6 +5354,7 @@ class _$SpacerPainter implements SpacerPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -4984,6 +5379,7 @@ class _$SpacerPainter implements SpacerPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -5096,6 +5492,7 @@ class _$FullScreenPainter implements FullScreenPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -5141,6 +5538,7 @@ class _$FullScreenPainter implements FullScreenPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -5184,6 +5582,7 @@ class _$FullScreenPainter implements FullScreenPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -5231,6 +5630,7 @@ class _$FullScreenPainter implements FullScreenPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -5255,6 +5655,7 @@ class _$FullScreenPainter implements FullScreenPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -5279,6 +5680,7 @@ class _$FullScreenPainter implements FullScreenPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,
@@ -5399,6 +5801,7 @@ class _$AssetPainter implements AssetPainter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) hand,
+    required TResult Function(String name) move,
     required TResult Function(
             String name, List<PadElement> elements, List<Area> areas)
         import,
@@ -5444,6 +5847,7 @@ class _$AssetPainter implements AssetPainter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String name)? hand,
+    TResult? Function(String name)? move,
     TResult? Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult? Function(String name)? undo,
@@ -5487,6 +5891,7 @@ class _$AssetPainter implements AssetPainter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String name)? hand,
+    TResult Function(String name)? move,
     TResult Function(String name, List<PadElement> elements, List<Area> areas)?
         import,
     TResult Function(String name)? undo,
@@ -5534,6 +5939,7 @@ class _$AssetPainter implements AssetPainter {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HandPainter value) hand,
+    required TResult Function(MovePainter value) move,
     required TResult Function(ImportPainter value) import,
     required TResult Function(UndoPainter value) undo,
     required TResult Function(RedoPainter value) redo,
@@ -5558,6 +5964,7 @@ class _$AssetPainter implements AssetPainter {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(HandPainter value)? hand,
+    TResult? Function(MovePainter value)? move,
     TResult? Function(ImportPainter value)? import,
     TResult? Function(UndoPainter value)? undo,
     TResult? Function(RedoPainter value)? redo,
@@ -5582,6 +5989,7 @@ class _$AssetPainter implements AssetPainter {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HandPainter value)? hand,
+    TResult Function(MovePainter value)? move,
     TResult Function(ImportPainter value)? import,
     TResult Function(UndoPainter value)? undo,
     TResult Function(RedoPainter value)? redo,

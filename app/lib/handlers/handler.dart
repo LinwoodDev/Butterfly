@@ -202,6 +202,7 @@ abstract class Handler<T> {
   static Handler fromPainter(Painter painter) {
     return painter.map(
       hand: (value) => HandHandler(value),
+      move: (value) => MoveHandler(value),
       import: (value) => ImportHandler(value),
       undo: (value) => UndoHandler(value),
       redo: (value) => RedoHandler(value),
