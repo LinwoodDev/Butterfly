@@ -518,6 +518,6 @@
   "insertBefore": "Voordat invoegen",
   "insertAfter": "Voeg toe na",
   "paste": "Plakken",
-  "ascending": "Ascending",
-  "descending": "Descending"
+  "ascending": "Oplopend",
+  "descending": "Aflopend"
 }
