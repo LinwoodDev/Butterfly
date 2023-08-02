@@ -76,7 +76,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ToolChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      await current.currentIndexCubit.updateTool(
+      current.currentIndexCubit.updateTool(
           current.data,
           current.page,
           current.assetService,

@@ -474,7 +474,8 @@ class HandHandler extends Handler<HandPainter> {
   void _handleRuler(ScaleUpdateDetails details, EventContext context) {
     final state = context.getState();
     if (state == null) return;
-    var toolState = context.getCameraViewport().tool.element;
+    final viewport = context.getCameraViewport();
+    var toolState = viewport.tool.element;
     final currentRotation = details.rotation * 180 / pi * details.scale;
     final delta = currentRotation - _rulerRotation!;
     var angle = toolState.rulerAngle + delta;
@@ -482,16 +483,17 @@ class HandHandler extends Handler<HandPainter> {
       angle += 360;
     }
     angle %= 360;
+    final currentPos = details.localFocalPoint;
     toolState = toolState.copyWith(
       rulerPosition: toolState.rulerPosition +
           Point(
-            details.localFocalPoint.dx - _rulerPosition!.dx,
-            details.localFocalPoint.dy - _rulerPosition!.dy,
+            currentPos.dx - _rulerPosition!.dx,
+            currentPos.dy - _rulerPosition!.dy,
           ),
       rulerAngle: angle,
     );
     _rulerRotation = currentRotation;
-    _rulerPosition = details.localFocalPoint;
+    _rulerPosition = currentPos;
     context
         .getCurrentIndexCubit()
         .updateTool(state.data, state.page, state.assetService, toolState);

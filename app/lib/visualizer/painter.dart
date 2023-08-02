@@ -36,8 +36,8 @@ extension PainterVisualizer on Painter {
   }
 
   IconGetter get icon => map(
-        hand: (_) => PhosphorIcons.cursor,
-        move: (_) => PhosphorIcons.hand,
+        hand: (_) => PhosphorIcons.hand,
+        move: (_) => PhosphorIcons.arrowsOutCardinal,
         import: (_) => PhosphorIcons.arrowSquareIn,
         undo: (_) => PhosphorIcons.arrowCounterClockwise,
         redo: (_) => PhosphorIcons.arrowClockwise,

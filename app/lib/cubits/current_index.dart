@@ -593,10 +593,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         state.copyWith(temporaryHandler: MoveHandler(), temporaryCursor: null));
   }
 
-  FutureOr<void> updateTool(NoteData document, DocumentPage page,
-      AssetService assetService, ToolState toolState) async {
+  void updateTool(NoteData document, DocumentPage page,
+      AssetService assetService, ToolState toolState) {
     final renderer = ToolRenderer(toolState);
-    await renderer.setup(document, assetService, page);
     var newSelection =
         state.selection?.remove(state.cameraViewport.tool.element);
     if (newSelection == null && state.selection != null) {
