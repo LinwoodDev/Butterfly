@@ -442,12 +442,14 @@ class HandHandler extends Handler<HandPainter> {
   }
 
   double? _rulerRotation;
+  Offset? _rulerPosition;
 
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final viewport = context.getCameraViewport();
     if (viewport.tool.hitRuler(details.localFocalPoint, viewport.toSize())) {
       _rulerRotation = 0;
+      _rulerPosition = details.localFocalPoint;
       return true;
     }
     final cameraTransform = context.getCameraTransform();
@@ -483,12 +485,13 @@ class HandHandler extends Handler<HandPainter> {
     toolState = toolState.copyWith(
       rulerPosition: toolState.rulerPosition +
           Point(
-            details.focalPointDelta.dx,
-            details.focalPointDelta.dy,
+            details.localFocalPoint.dx - _rulerPosition!.dx,
+            details.localFocalPoint.dy - _rulerPosition!.dy,
           ),
       rulerAngle: angle,
     );
     _rulerRotation = currentRotation;
+    _rulerPosition = details.localFocalPoint;
     context
         .getCurrentIndexCubit()
         .updateTool(state.data, state.page, state.assetService, toolState);
@@ -500,7 +503,7 @@ class HandHandler extends Handler<HandPainter> {
     final currentIndex = context.getCurrentIndex();
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
-    if (_rulerRotation != null) {
+    if (_rulerRotation != null && _rulerPosition != null) {
       _handleRuler(details, context);
       return;
     }

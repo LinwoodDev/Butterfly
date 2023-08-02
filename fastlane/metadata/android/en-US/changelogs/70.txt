@@ -15,3 +15,4 @@
 * Fix position when pasting elements ([#468](https://github.com/LinwoodDev/Butterfly/issues/468))
 * Fix corner hit detection on hand tool when zoomed
 * Fix rotation when selecting multiple elements ([#472](https://github.com/LinwoodDev/Butterfly/issues/472))
+* Fix ruler moving speed when zoomed ([#480](https://github.com/LinwoodDev/Butterfly/issues/480))
