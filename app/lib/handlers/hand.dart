@@ -328,11 +328,11 @@ class HandHandler extends Handler<HandPainter> {
     if (state is! DocumentLoadSuccess) return false;
     final current = _getTransformed();
     _selected = current ?? _transformed;
+    _transformCorner = null;
+    _transformed = [];
+    _transformMode = HandTransformMode.scale;
     await Future.sync(() =>
         bloc.add(ElementsCreated(current?.map((e) => e.element).toList())));
-    _transformed = [];
-    _transformCorner = null;
-    _transformMode = HandTransformMode.scale;
     bloc.refresh();
     return true;
   }

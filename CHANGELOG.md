@@ -25,8 +25,6 @@
 * Fix baking not working on presentation mode
 * Fix painters not updated in selection property view
 
-View all changes in the blog: https://linwood.dev/butterfly/2.0
-
 ## 2.0.0-beta.4 (2023-07-14)
 
 * Add custom mouse cursors for painters ([#426](https://github.com/LinwoodDev/Butterfly/issues/426))
@@ -64,8 +62,6 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Reduce size of window buttons
 * Remove delete painter. Use the delete button in the properties instead or move the painter to the right of the add button
 
-View all changes in the blog: https://linwood.dev/butterfly/2.0
-
 ## 2.0.0-beta.2 (2023-06-30)
 
 * Add label context menu
@@ -82,8 +78,6 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Fix missing title in locale bottom sheet
 * Fix wrong title in design bottom sheet
 * Fix loading non documents with open with ([#417](https://github.com/LinwoodDev/Butterfly/issues/417))
-
-View all changes in the blog: https://linwood.dev/butterfly/2.0
 
 ## 2.0.0-beta.1 (2023-06-23)
 
@@ -106,8 +100,6 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Fix importing of assets
 * Fix showing selected settings page in mobile
 * Fix flashing navigation bar if not enabled
-
-View all changes in the blog: https://linwood.dev/butterfly/2.0
 
 ## 2.0.0-beta.0 (2023-06-12)
 
@@ -151,8 +143,6 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Fix snapping in grid when zoomed
 * Fix label created empty text elements
 * Fix backwards compatibility with stamp painter
-
-View all changes in the blog: https://linwood.dev/butterfly/2.0
 
 ## 2.0.0-alpha.4 (2023-05-21)
 
@@ -205,8 +195,6 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Remove file extension on file move dialog
 * Remove settings button in main view
 
-View all changes in the blog: https://linwood.dev/butterfly/2.0
-
 ## 2.0.0-alpha.1 (2023-04-14)
 
 * Add button to reset templates if quickstart is empty
@@ -227,8 +215,6 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Fix file import on mobile devices
 * Fix setting horizontal alignment of text
 * Fix problems with presentation painter if paused
-
-View all changes in the blog: https://linwood.dev/butterfly/2.0
 
 ## 2.0.0-alpha.0 (2023-04-09)
 
@@ -296,8 +282,6 @@ Things that need to be improved:
 * Presentation tool
 * Packs in general
 * File format (there will be an automatic migration)
-
-View all changes in the blog: https://linwood.dev/butterfly/2.0
 
 ## 1.6.1 (2023-01-27)
 
