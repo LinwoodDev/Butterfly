@@ -150,9 +150,10 @@ abstract class Handler<T> {
           [Area? currentArea]) =>
       [];
 
-  Future<bool> onRendererUpdated(
-          DocumentPage page, Renderer old, Renderer updated) async =>
+  bool onRendererUpdated(DocumentPage page, Renderer old, Renderer updated) =>
       false;
+
+  bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) => false;
 
   void onPointerDown(PointerDownEvent event, EventContext context) {}
 

@@ -99,6 +99,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final renderers = event.renderers ??
           event.elements?.map((e) => Renderer.fromInstance(e)).toList();
       if (renderers == null) return;
+      if (current.currentIndexCubit
+          .getHandler()
+          .onRenderersCreated(current.page, renderers)) {
+        refresh();
+      }
       return _saveState(
           emit,
           current.copyWith(
@@ -165,7 +170,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
         current.currentIndexCubit.unbake(unbakedElements: renderers);
         if (oldRenderer == null || newRenderer == null) return;
-        if (await current.currentIndexCubit
+        if (current.currentIndexCubit
             .getHandler()
             .onRendererUpdated(current.page, oldRenderer, newRenderer)) {
           refresh();

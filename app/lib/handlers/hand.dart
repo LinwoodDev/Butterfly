@@ -166,13 +166,33 @@ class HandHandler extends Handler<HandPainter> {
   }
 
   @override
-  Future<bool> onRendererUpdated(
-      DocumentPage page, Renderer old, Renderer updated) async {
+  bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) {
+    var changed = false;
+    _selected = _selected
+        .map((e) {
+          final renderer = renderers
+              .firstWhereOrNull((element) => element.element == e.element);
+          if (renderer is! Renderer<PadElement>) return e;
+          changed = true;
+          return renderer;
+        })
+        .whereNotNull()
+        .toList();
+    return changed;
+  }
+
+  @override
+  bool onRendererUpdated(DocumentPage page, Renderer old, Renderer updated) {
     if (old is Renderer<PadElement> &&
         _selected.contains(old) &&
         updated is Renderer<PadElement>) {
       _selected.remove(old);
       _selected.add(updated);
+    } else if (old is Renderer<PadElement> &&
+        _transformed.contains(old) &&
+        updated is Renderer<PadElement>) {
+      _transformed.remove(old);
+      _transformed.add(updated);
     } else {
       return false;
     }
@@ -302,16 +322,17 @@ class HandHandler extends Handler<HandPainter> {
     return foregrounds;
   }
 
-  bool _submitTransform(DocumentBloc bloc) {
+  Future<bool> _submitTransform(DocumentBloc bloc) async {
     if (_transformed.isEmpty) return false;
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return false;
     final current = _getTransformed();
+    _selected = current ?? _transformed;
+    await Future.sync(() =>
+        bloc.add(ElementsCreated(current?.map((e) => e.element).toList())));
     _transformed = [];
-    _selected.clear();
     _transformCorner = null;
     _transformMode = HandTransformMode.scale;
-    bloc.add(ElementsCreated(current?.map((e) => e.element).toList()));
     bloc.refresh();
     return true;
   }
@@ -535,7 +556,7 @@ class HandHandler extends Handler<HandPainter> {
       _rulerRotation = null;
       return;
     }
-    if (_submitTransform(context.getDocumentBloc())) return;
+    if (await _submitTransform(context.getDocumentBloc())) return;
     if (freeSelection != null && !freeSelection.isEmpty) {
       _freeSelection = null;
       if (!context.isCtrlPressed) {
