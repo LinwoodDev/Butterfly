@@ -3,6 +3,8 @@
 * Save sort state ([#469](https://github.com/LinwoodDev/Butterfly/issues/469))
 * Save deleted images in cache
   * Fix pasting images not working ([#465](https://github.com/LinwoodDev/Butterfly/issues/465))
+* Recode shape painter
+  * Add center, 1:1 features ([#476](https://github.com/LinwoodDev/Butterfly/issues/476))
 * Improve save state icons
 * Improve import painter position
 * Improve hit calculation on single point pen elements
