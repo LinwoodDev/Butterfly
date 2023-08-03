@@ -132,6 +132,22 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   }
 
   @override
+  Selection? remove(dynamic selected) {
+    final selections = List.from(this.selected);
+    selections.removeWhere((element) =>
+        element == selected ||
+        (element is Renderer && element.element == selected));
+    final success = selections.length != this.selected.length;
+    if (!success) return this;
+    if (selections.isEmpty) return null;
+    var selection = Selection.from(selections.first);
+    for (int i = 1; i < selections.length; i++) {
+      selection = selection.insert(selections[i]);
+    }
+    return selection;
+  }
+
+  @override
   String getLocalizedName(BuildContext context) =>
       AppLocalizations.of(context).element;
 

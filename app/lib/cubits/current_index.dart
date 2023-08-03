@@ -41,6 +41,7 @@ class CurrentIndex with _$CurrentIndex {
     Handler? temporaryHandler,
     @Default([]) List<Renderer> foregrounds,
     Selection? selection,
+    @Default(false) bool pinned,
     List<Renderer>? temporaryForegrounds,
     @Default(MouseCursor.defer) MouseCursor cursor,
     MouseCursor? temporaryCursor,
@@ -571,6 +572,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     emit(state.copyWith(selection: selection));
   }
 
+  void removeSelection(List selected) {
+    Selection? selection = state.selection;
+    if (selection == null) {
+      return;
+    }
+    for (final s in selected) {
+      selection = selection?.remove(s);
+    }
+    emit(state.copyWith(selection: selection));
+  }
+
   void resetSelection() {
     emit(state.copyWith(selection: null));
   }
@@ -607,4 +619,6 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         cameraViewport: state.cameraViewport.withTool(renderer),
         selection: newSelection));
   }
+
+  void togglePin() => emit(state.copyWith(pinned: !state.pinned));
 }

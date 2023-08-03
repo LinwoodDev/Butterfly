@@ -423,6 +423,20 @@ class _MainBody extends StatelessWidget {
                     return Stack(
                       children: [
                         const MainViewViewport(),
+                        BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                            builder: (context, state) {
+                          return Listener(
+                            behavior: state.pinned || state.selection == null
+                                ? HitTestBehavior.translucent
+                                : HitTestBehavior.opaque,
+                            onPointerUp: (details) {
+                              if (state.pinned) return;
+                              context
+                                  .read<CurrentIndexCubit>()
+                                  .resetSelection();
+                            },
+                          );
+                        }),
                         Row(
                           children: [
                             if (isLarge &&

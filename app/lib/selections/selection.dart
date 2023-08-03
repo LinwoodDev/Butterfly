@@ -101,7 +101,7 @@ abstract class Selection<T> {
 
   List<String> get help => <String>[];
 
-  Selection? remove(T selected) {
+  Selection? remove(dynamic selected) {
     final selections = List.from(this.selected);
     var success = selections.remove(selected);
     if (!success) return this;

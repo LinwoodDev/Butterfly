@@ -40,7 +40,6 @@ class _PropertyViewState extends State<PropertyView>
     super.dispose();
   }
 
-  bool pinned = false;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
@@ -49,7 +48,8 @@ class _PropertyViewState extends State<PropertyView>
       Selection? lastSelection;
       return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
           buildWhen: (previous, current) =>
-              previous.selection?.selected != current.selection?.selected,
+              previous.selection?.selected != current.selection?.selected ||
+              previous.pinned != current.pinned,
           builder: (context, state) {
             var selection = state.selection;
             if (selection == null) {
@@ -73,110 +73,99 @@ class _PropertyViewState extends State<PropertyView>
               return Container(
                 padding: const EdgeInsets.all(8),
                 constraints: BoxConstraints(maxWidth: _size, maxHeight: 500),
-                child: Stack(children: [
-                  Listener(
-                    behavior: pinned || state.selection == null
-                        ? HitTestBehavior.translucent
-                        : HitTestBehavior.opaque,
-                    onPointerUp: (details) {
-                      if (!pinned) _closeView();
-                    },
-                  ),
-                  SlideTransition(
-                    position: _offsetAnimation,
-                    child: Material(
-                      elevation: 6,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      child: Row(children: [
-                        if (!isMobile)
-                          MouseRegion(
-                            cursor: SystemMouseCursors.resizeLeftRight,
-                            child: GestureDetector(
-                              child: const PhosphorIcon(
-                                  PhosphorIconsLight.dotsSixVertical),
-                              onPanUpdate: (details) {
-                                final delta = details.delta.dx;
-                                setState(() {
-                                  _size -= delta;
-                                  _size = max(_size, minSize);
-                                });
-                              },
-                            ),
+                child: SlideTransition(
+                  position: _offsetAnimation,
+                  child: Material(
+                    elevation: 6,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: Row(children: [
+                      if (!isMobile)
+                        MouseRegion(
+                          cursor: SystemMouseCursors.resizeLeftRight,
+                          child: GestureDetector(
+                            child: const PhosphorIcon(
+                                PhosphorIconsLight.dotsSixVertical),
+                            onPanUpdate: (details) {
+                              final delta = details.delta.dx;
+                              setState(() {
+                                _size -= delta;
+                                _size = max(_size, minSize);
+                              });
+                            },
                           ),
-                        Expanded(child: Builder(builder: (context) {
-                          final help = selection!.help;
-                          return Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Header(
-                                title:
-                                    Text(selection.getLocalizedName(context)),
-                                leading: PhosphorIcon(selection.icon(
-                                    selection.selected.length > 1
-                                        ? PhosphorIconsStyle.fill
-                                        : PhosphorIconsStyle.light)),
-                                actions: [
-                                  if (selection.showDeleteButton)
-                                    IconButton(
-                                        icon: const PhosphorIcon(
-                                            PhosphorIconsLight.trash),
-                                        onPressed: () {
-                                          selection?.onDelete(context);
-                                          context
-                                              .read<CurrentIndexCubit>()
-                                              .resetSelection();
-                                        }),
-                                  if (help.isNotEmpty)
-                                    IconButton(
-                                      tooltip:
-                                          AppLocalizations.of(context).help,
-                                      icon: const PhosphorIcon(
-                                          PhosphorIconsLight.sealQuestion),
-                                      onPressed: () => openHelp(help),
-                                    ),
-                                  const SizedBox(
-                                      height: 16, child: VerticalDivider()),
-                                  if (!isMobile)
-                                    IconButton(
-                                      tooltip: pinned
-                                          ? AppLocalizations.of(context).unpin
-                                          : AppLocalizations.of(context).pin,
-                                      icon: pinned
-                                          ? const PhosphorIcon(
-                                              PhosphorIconsFill.mapPin)
-                                          : const PhosphorIcon(
-                                              PhosphorIconsLight.mapPin),
-                                      onPressed: () =>
-                                          setState(() => pinned = !pinned),
-                                    ),
+                        ),
+                      Expanded(child: Builder(builder: (context) {
+                        final help = selection!.help;
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Header(
+                              title: Text(selection.getLocalizedName(context)),
+                              leading: PhosphorIcon(selection.icon(
+                                  selection.selected.length > 1
+                                      ? PhosphorIconsStyle.fill
+                                      : PhosphorIconsStyle.light)),
+                              actions: [
+                                if (selection.showDeleteButton)
                                   IconButton(
-                                    tooltip: AppLocalizations.of(context).close,
+                                      icon: const PhosphorIcon(
+                                          PhosphorIconsLight.trash),
+                                      onPressed: () {
+                                        selection?.onDelete(context);
+                                        context
+                                            .read<CurrentIndexCubit>()
+                                            .resetSelection();
+                                      }),
+                                if (help.isNotEmpty)
+                                  IconButton(
+                                    tooltip: AppLocalizations.of(context).help,
                                     icon: const PhosphorIcon(
-                                        PhosphorIconsLight.x),
-                                    onPressed: _closeView,
+                                        PhosphorIconsLight.sealQuestion),
+                                    onPressed: () => openHelp(help),
                                   ),
-                                ],
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 16),
-                                  child: ListView(
-                                      shrinkWrap: true,
-                                      primary: true,
-                                      children:
-                                          selection.buildProperties(context)),
+                                const SizedBox(
+                                    height: 16, child: VerticalDivider()),
+                                if (!isMobile)
+                                  IconButton(
+                                    tooltip: state.pinned
+                                        ? AppLocalizations.of(context).unpin
+                                        : AppLocalizations.of(context).pin,
+                                    icon: state.pinned
+                                        ? const PhosphorIcon(
+                                            PhosphorIconsFill.mapPin)
+                                        : const PhosphorIcon(
+                                            PhosphorIconsLight.mapPin),
+                                    onPressed: () => context
+                                        .read<CurrentIndexCubit>()
+                                        .togglePin(),
+                                  ),
+                                IconButton(
+                                  tooltip: AppLocalizations.of(context).close,
+                                  icon:
+                                      const PhosphorIcon(PhosphorIconsLight.x),
+                                  onPressed: _closeView,
                                 ),
+                              ],
+                            ),
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 16),
+                                child: ListView(
+                                    shrinkWrap: true,
+                                    primary: true,
+                                    children:
+                                        selection.buildProperties(context)),
                               ),
-                            ],
-                          );
-                        })),
-                      ]),
-                    ),
+                            ),
+                          ],
+                        );
+                      })),
+                    ]),
                   ),
-                ]),
+                ),
               );
             });
           });

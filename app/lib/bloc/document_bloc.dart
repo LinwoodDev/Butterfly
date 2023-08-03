@@ -269,6 +269,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           return remaining;
         }).toList(),
       );
+      current.currentIndexCubit.removeSelection(event.elements);
       final newPage = page.copyWith(
           content: List.from(page.content)
             ..removeWhere((element) => event.elements.contains(element)));

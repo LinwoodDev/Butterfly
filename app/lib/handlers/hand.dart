@@ -340,6 +340,9 @@ class HandHandler extends Handler<HandPainter> {
   @override
   void onTapUp(TapUpDetails details, EventContext context) async {
     _onSelectionAdd(context, details.localPosition, false);
+    if (_transformed.isNotEmpty) {
+      _submitTransform(context.getDocumentBloc());
+    }
   }
 
   @override
