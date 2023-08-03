@@ -16,3 +16,6 @@
 * Fix corner hit detection on hand tool when zoomed
 * Fix rotation when selecting multiple elements ([#472](https://github.com/LinwoodDev/Butterfly/issues/472))
 * Fix ruler moving speed when zoomed ([#480](https://github.com/LinwoodDev/Butterfly/issues/480))
+* Fix path selection rect when rotated ([#475](https://github.com/LinwoodDev/Butterfly/issues/475))
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0

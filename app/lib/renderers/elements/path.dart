@@ -8,6 +8,9 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
 
   double? get zoom => null;
 
+  @override
+  Rect get expandedRect => rect;
+
   Paint buildPaint([DocumentPage? page, bool foreground = false]);
 
   @override
@@ -16,9 +19,16 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     final current = element as PathElement;
     final points = current.points;
     final property = current.property;
-    var topLeftCorner = points.first.toOffset();
-    var bottomRightCorner = points.first.toOffset();
-    for (var element in points) {
+    Offset center = points.first.toOffset();
+    for (final element in points) {
+      center = Offset(center.dx + element.x, center.dy + element.y);
+    }
+    center = center.scale(1 / points.length, 1 / points.length);
+    final rotatedPoints =
+        points.map((e) => e.rotate(center, rotation / 180 * pi)).toList();
+    var topLeftCorner = rotatedPoints.first.toOffset();
+    var bottomRightCorner = rotatedPoints.first.toOffset();
+    for (final element in rotatedPoints) {
       final width = property.strokeWidth + element.pressure * property.thinning;
       topLeftCorner = Offset(min(topLeftCorner.dx, element.x - width),
           min(topLeftCorner.dy, element.y - width));
@@ -129,7 +139,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
 
   @override
   PathHitCalculator getHitCalculator() => PathHitCalculator(
-      expandedRect!, (element as PathElement).points, rotation * pi / 180);
+      rect, (element as PathElement).points, rotation * pi / 180);
 }
 
 class PathHitCalculator extends HitCalculator {
