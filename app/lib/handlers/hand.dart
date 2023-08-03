@@ -582,9 +582,6 @@ class HandHandler extends Handler<HandPainter> {
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     Focus.of(context.buildContext).requestFocus();
-    if (_transformed.isNotEmpty) {
-      _submitTransform(context.getDocumentBloc());
-    }
   }
 
   @override

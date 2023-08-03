@@ -14,6 +14,6 @@ dependencies:
 dev_dependencies:
   json_serializable: ^6.7.1
   build_runner: ^2.4.6
-  freezed: ^2.4.1
+  freezed: ^2.4.2
   lints: ^2.1.1
-  analyzer: ^5.13.0
+  analyzer: ^6.0.0
