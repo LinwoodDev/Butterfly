@@ -4,12 +4,13 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   @override
   Rect rect = Rect.zero;
 
-  PathRenderer(super.element, [this.rect = Rect.zero]);
+  PathRenderer(super.element,
+      [this.rect = Rect.zero, this.expandedRect = Rect.zero]);
 
   double? get zoom => null;
 
   @override
-  Rect get expandedRect => rect;
+  Rect expandedRect = Rect.zero;
 
   Paint buildPaint([DocumentPage? page, bool foreground = false]);
 
@@ -19,15 +20,21 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     final current = element as PathElement;
     final points = current.points;
     final property = current.property;
-    Offset center = points.first.toOffset();
+    var topLeftCorner = points.first.toOffset();
+    var bottomRightCorner = points.first.toOffset();
     for (final element in points) {
-      center = Offset(center.dx + element.x, center.dy + element.y);
+      topLeftCorner = Offset(
+          min(topLeftCorner.dx, element.x), min(topLeftCorner.dy, element.y));
+      bottomRightCorner = Offset(max(bottomRightCorner.dx, element.x),
+          max(bottomRightCorner.dy, element.y));
     }
-    center = center.scale(1 / points.length, 1 / points.length);
+    rect = Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
+        bottomRightCorner.dx, bottomRightCorner.dy);
+    final center = Rect.fromPoints(topLeftCorner, bottomRightCorner).center;
     final rotatedPoints =
         points.map((e) => e.rotate(center, rotation / 180 * pi)).toList();
-    var topLeftCorner = rotatedPoints.first.toOffset();
-    var bottomRightCorner = rotatedPoints.first.toOffset();
+    topLeftCorner = rotatedPoints.first.toOffset();
+    bottomRightCorner = rotatedPoints.first.toOffset();
     for (final element in rotatedPoints) {
       final width = property.strokeWidth + element.pressure * property.thinning;
       topLeftCorner = Offset(min(topLeftCorner.dx, element.x - width),
@@ -35,7 +42,7 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
       bottomRightCorner = Offset(max(bottomRightCorner.dx, element.x + width),
           max(bottomRightCorner.dy, element.y + width));
     }
-    rect = Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
+    expandedRect = Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
         bottomRightCorner.dx, bottomRightCorner.dy);
     super.setup(document, assetService, page);
   }
@@ -106,34 +113,24 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     }
   }
 
-  List<PathPoint> movePoints(Offset position, double scaleX, double scaleY,
-      [bool relative = false]) {
+  List<PathPoint> movePoints(
+    Offset position,
+    double scaleX,
+    double scaleY,
+  ) {
     var current = element as PathElement;
-    final topLeft = rect.topLeft;
-    if (relative) {
-      return current.points.map((e) {
-        final next = e.toOffset();
-        final x = (next.dx - topLeft.dx) * scaleX + topLeft.dx + position.dx;
-        final y = (next.dy - topLeft.dy) * scaleY + topLeft.dy + position.dy;
-        return e.copyWith(x: x, y: y);
-      }).toList();
-    }
-    var diff = position - topLeft;
-    var points = current.points.map((element) {
-      final next = element.toOffset() + diff;
-      final x = (next.dx - topLeft.dx) * scaleX + topLeft.dx;
-      final y = (next.dy - topLeft.dy) * scaleY + topLeft.dy;
+    final topLeft = expandedRect.topLeft;
+    final points = current.points.map((element) {
+      final old = element.toOffset() - topLeft;
+      final x = old.dx * scaleX + position.dx;
+      final y = old.dy * scaleY + position.dy;
       return element.copyWith(x: x, y: y);
     }).toList();
     return points;
   }
 
-  Rect moveRect(Offset position, double scaleX, double scaleY,
-      [bool relative = false]) {
+  Rect moveRect(Offset position, double scaleX, double scaleY) {
     final size = Size(rect.width * scaleX, rect.height * scaleY);
-    if (relative) {
-      return (rect.topLeft + position) & size;
-    }
     return position & size;
   }
 

@@ -58,7 +58,7 @@ class AddDialog extends StatelessWidget {
         ),
       ],
       content: SizedBox(
-        width: 800,
+        width: 900,
         child: Material(
           color: Colors.transparent,
           child: Column(

@@ -140,19 +140,24 @@ abstract class Renderer<T> {
     double? rotation,
     bool relative = true,
   }) {
+    final rect = this.rect ?? Rect.zero;
+    final nextRotation = rotation == null
+        ? null
+        : relative
+            ? rotation + this.rotation
+            : rotation;
+    final useRotation = nextRotation ?? this.rotation;
+    final scale = Offset(scaleX, scaleY)
+        .rotate(const Offset(1, 1), useRotation / 180 * pi);
     return _transform(
       position: position == null
           ? null
           : relative
-              ? (rect?.topLeft ?? Offset.zero) + position
+              ? position + rect.topLeft
               : position,
-      scaleX: scaleX,
-      scaleY: scaleY,
-      rotation: rotation == null
-          ? null
-          : relative
-              ? rotation + this.rotation
-              : rotation,
+      scaleX: scale.dx,
+      scaleY: scale.dy,
+      rotation: nextRotation,
     );
   }
 

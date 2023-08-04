@@ -167,26 +167,16 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     double scaleX = 1,
     double scaleY = 1,
   }) {
-    var rect = this.rect;
-    final usePosition = position ?? Offset.zero;
-    var delta = position == null ? usePosition : (position - rect.topLeft);
-    var newFirstPos = element.firstPosition.toOffset() + delta;
-    var newSecondPos = element.secondPosition.toOffset() + delta;
-    var newRect = rect.translate(delta.dx, delta.dy);
-    final topLeft = newRect.topLeft;
-
-    newFirstPos = topLeft + (newFirstPos - topLeft).scale(scaleX, scaleY);
-    newSecondPos = topLeft + (newSecondPos - topLeft).scale(scaleX, scaleY);
-
-    newRect = newRect.topLeft &
-        Size(
-          newRect.width * scaleX,
-          newRect.height * scaleY,
-        );
+    position ??= expandedRect?.topLeft ?? rect.topLeft;
+    final newRect = position & Size(rect.width * scaleX, rect.height * scaleY);
+    final sizeX =
+        (element.firstPosition.x - element.secondPosition.x).abs() * scaleX;
+    final sizeY =
+        (element.firstPosition.y - element.secondPosition.y).abs() * scaleY;
     return ShapeRenderer(
       element.copyWith(
-        firstPosition: newFirstPos.toPoint(),
-        secondPosition: newSecondPos.toPoint(),
+        firstPosition: position.toPoint(),
+        secondPosition: position.translate(sizeX, sizeY).toPoint(),
         rotation: rotation ?? element.rotation,
       ),
       newRect,
