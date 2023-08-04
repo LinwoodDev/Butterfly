@@ -1,0 +1,3 @@
+* Fix portable linux build
+  * Fix script.sh
+  * Set executable permission on script.sh and butterfly binary

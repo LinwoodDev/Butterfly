@@ -165,6 +165,9 @@ jobs:
         run: |
           flutter doctor -v
           flutter build linux -v --release --dart-define=flavor=production
+      - name: 🏭 Make binary executable
+        run: |
+          chmod +x build/linux/x64/release/bundle/butterfly
       - name: Build .deb executable
         run: |
           cp -fr build/linux/x64/release/bundle linux/debian/usr/bin
@@ -192,6 +195,7 @@ jobs:
           mv ./*.AppImage linwood-butterfly-linux.AppImage
       - name: Copy portable start script
         run: |
+          chmod +x scripts/start.sh
           cp scripts/start.sh build/linux/x64/release/bundle
       - name: Archive
         uses: actions/upload-artifact@v3
