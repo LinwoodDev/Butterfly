@@ -143,11 +143,11 @@ abstract class Renderer<T> {
     final rect = this.rect ?? Rect.zero;
     rotation ??= relative ? 0 : this.rotation;
     final nextRotation = relative ? rotation + this.rotation : rotation;
-    final useRotation = nextRotation;
     position ??= relative ? Offset.zero : rect.topLeft;
     final nextPosition = relative ? position + rect.topLeft : position;
-    final scale = Offset(scaleX, scaleY)
-        .rotate(const Offset(1, 1), useRotation / 180 * pi);
+
+    final scale = Offset(scaleX, scaleY);
+    //     .rotate(const Offset(1, 1), useRotation / 180 * pi);
 
     return _transform(
       position: nextPosition,
