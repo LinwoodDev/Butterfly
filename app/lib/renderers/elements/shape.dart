@@ -162,12 +162,11 @@ class ShapeRenderer extends Renderer<ShapeElement> {
 
   @override
   ShapeRenderer _transform({
-    Offset? position,
-    double? rotation,
+    required Offset position,
+    required double rotation,
     double scaleX = 1,
     double scaleY = 1,
   }) {
-    position ??= expandedRect?.topLeft ?? rect.topLeft;
     final newRect = position & Size(rect.width * scaleX, rect.height * scaleY);
     final sizeX =
         (element.firstPosition.x - element.secondPosition.x).abs() * scaleX;
@@ -177,7 +176,7 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       element.copyWith(
         firstPosition: position.toPoint(),
         secondPosition: position.translate(sizeX, sizeY).toPoint(),
-        rotation: rotation ?? element.rotation,
+        rotation: rotation,
       ),
       newRect,
     );

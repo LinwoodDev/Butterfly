@@ -87,16 +87,15 @@ class TextRenderer extends Renderer<TextElement> {
 
   @override
   TextRenderer _transform({
-    Offset? position,
-    double? rotation,
+    required Offset position,
+    required double rotation,
     double scaleX = 1,
     double scaleY = 1,
   }) =>
       TextRenderer(
           element.copyWith(
-            position:
-                element.position + (position?.toPoint() ?? const Point(0, 0)),
-            rotation: rotation ?? element.rotation,
+            position: position.toPoint(),
+            rotation: rotation,
           ),
           context);
 
