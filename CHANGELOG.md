@@ -2,6 +2,34 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.6 (2023-08-04)
+
+* Add sort order ([#469](https://github.com/LinwoodDev/Butterfly/issues/469))
+* Add move painter ([#473](https://github.com/LinwoodDev/Butterfly/issues/473))
+* Save sort state ([#469](https://github.com/LinwoodDev/Butterfly/issues/469))
+* Save deleted images in cache
+  * Fix pasting images not working ([#465](https://github.com/LinwoodDev/Butterfly/issues/465))
+* Add to selected after transformed ([#478](https://github.com/LinwoodDev/Butterfly/issues/478))
+* Recode shape painter
+  * Add center, 1:1 features ([#476](https://github.com/LinwoodDev/Butterfly/issues/476))
+* Improve save state icons
+* Improve import painter position
+* Improve hit calculation on single point pen elements
+* Improve performance of quick start view in home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
+* Improve context menu position ([#468](https://github.com/LinwoodDev/Butterfly/issues/468))
+* Align source and sort by in home page
+* Set position to clicked when pasting ([#468](https://github.com/LinwoodDev/Butterfly/issues/468))
+* Fix selection not updated if deleted
+* Fix native title bar error on mobile devices
+* Fix internet problems on android ([#457](https://github.com/LinwoodDev/Butterfly/issues/457))
+* Fix position when pasting elements ([#468](https://github.com/LinwoodDev/Butterfly/issues/468))
+* Fix corner hit detection on hand tool when zoomed
+* Fix rotation when selecting multiple elements ([#472](https://github.com/LinwoodDev/Butterfly/issues/472))
+* Fix ruler moving speed when zoomed ([#480](https://github.com/LinwoodDev/Butterfly/issues/480))
+* Fix path selection rect when rotated ([#475](https://github.com/LinwoodDev/Butterfly/issues/475))
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0
+
 ## 2.0.0-beta.5 (2023-07-21)
 
 * Add navigation rail to large ui ([#444](https://github.com/LinwoodDev/Butterfly/issues/444))
