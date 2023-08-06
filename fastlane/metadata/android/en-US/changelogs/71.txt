@@ -1,3 +1,4 @@
+* Add pen painter icon customization ([#467](https://github.com/LinwoodDev/Butterfly/issues/467))
 * Fix portable linux build
   * Fix script.sh
   * Set executable permission on script.sh and butterfly binary

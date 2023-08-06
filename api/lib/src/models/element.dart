@@ -13,7 +13,7 @@ part 'element.freezed.dart';
 part 'element.g.dart';
 
 @freezed
-class ElementConstraint with _$ElementConstraint {
+sealed class ElementConstraint with _$ElementConstraint {
   const factory ElementConstraint({
     @Default(0) double size,
     @Default(0) double length,

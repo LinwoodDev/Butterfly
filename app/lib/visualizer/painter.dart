@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:butterfly/visualizer/icon.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/foundation.dart';
@@ -42,7 +43,7 @@ extension PainterVisualizer on Painter {
         undo: (_) => PhosphorIcons.arrowCounterClockwise,
         redo: (_) => PhosphorIcons.arrowClockwise,
         label: (_) => PhosphorIcons.textT,
-        pen: (_) => PhosphorIcons.pen,
+        pen: (painter) => DisplayIcons.from(painter),
         eraser: (_) => PhosphorIcons.eraser,
         pathEraser: (_) => PhosphorIcons.path,
         layer: (_) => PhosphorIcons.squaresFour,

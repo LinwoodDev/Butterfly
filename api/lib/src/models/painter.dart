@@ -37,30 +37,38 @@ enum ImportType { image, camera, svg, pdf, document }
 
 @Freezed(equal: false)
 class Painter with _$Painter {
+  Painter._();
+
   factory Painter.hand({
     @Default('') String name,
+    @Default('') String displayIcon,
   }) = HandPainter;
 
   factory Painter.move({
     @Default('') String name,
+    @Default('') String displayIcon,
   }) = MovePainter;
 
   factory Painter.import({
     @Default('') String name,
+    @Default('') String displayIcon,
     required List<PadElement> elements,
     required List<Area> areas,
   }) = ImportPainter;
 
   factory Painter.undo({
     @Default('') String name,
+    @Default('') String displayIcon,
   }) = UndoPainter;
 
   factory Painter.redo({
     @Default('') String name,
+    @Default('') String displayIcon,
   }) = RedoPainter;
 
   factory Painter.label({
     @Default('') String name,
+    @Default('') String displayIcon,
     @Default(LabelMode.text) LabelMode mode,
     @Default(true) bool zoomDependent,
     @Default(kColorBlack) int foreground,
@@ -69,27 +77,32 @@ class Painter with _$Painter {
 
   factory Painter.pen({
     @Default('') String name,
+    @Default('') String displayIcon,
     @Default(true) bool zoomDependent,
     @Default(PenProperty()) PenProperty property,
   }) = PenPainter;
 
   factory Painter.eraser({
     @Default('') String name,
+    @Default('') String displayIcon,
     @Default(5) double strokeWidth,
   }) = EraserPainter;
 
   factory Painter.pathEraser({
     @Default('') String name,
+    @Default('') String displayIcon,
     @Default(5) double strokeWidth,
   }) = PathEraserPainter;
 
   factory Painter.layer({
     @Default('') String name,
+    @Default('') String displayIcon,
     @Default(5) double strokeWidth,
   }) = LayerPainter;
 
   factory Painter.area({
     @Default('') String name,
+    @Default('') String displayIcon,
     @Default(0) double constrainedWidth,
     @Default(0) double constrainedHeight,
     @Default(0) double constrainedAspectRatio,
@@ -98,6 +111,7 @@ class Painter with _$Painter {
 
   factory Painter.laser({
     @Default('') String name,
+    @Default('') String displayIcon,
     @Default(5) double duration,
     @Default(5) double strokeWidth,
     @Default(0.4) double thinning,
@@ -106,6 +120,7 @@ class Painter with _$Painter {
 
   factory Painter.shape({
     @Default('') String name,
+    @Default('') String displayIcon,
     @Default(true) bool zoomDependent,
     @Default(0) double constrainedWidth,
     @Default(0) double constrainedHeight,
@@ -115,24 +130,29 @@ class Painter with _$Painter {
 
   factory Painter.stamp({
     @Default('') String name,
+    @Default('') String displayIcon,
     @Default(PackAssetLocation()) PackAssetLocation component,
   }) = StampPainter;
 
   factory Painter.presentation({
     @Default('') String name,
+    @Default('') String displayIcon,
   }) = PresentationPainter;
 
   factory Painter.spacer({
     @Default('') String name,
+    @Default('') String displayIcon,
     @Default(Axis2D.horizontal) Axis2D axis,
   }) = SpacerPainter;
 
   factory Painter.fullSceen({
     @Default('') String name,
+    @Default('') String displayIcon,
   }) = FullScreenPainter;
 
   factory Painter.asset({
     @Default('') String name,
+    @Default('') String displayIcon,
     @Default(ImportType.document) ImportType importType,
   }) = AssetPainter;
 

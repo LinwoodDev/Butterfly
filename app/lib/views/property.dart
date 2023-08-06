@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:butterfly/api/open.dart';
+import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_leap/material_leap.dart';
@@ -9,6 +11,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../selections/selection.dart';
+import '../visualizer/icon.dart';
 
 class PropertyView extends StatefulWidget {
   const PropertyView({super.key});
@@ -44,7 +47,7 @@ class _PropertyViewState extends State<PropertyView>
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final isMobile =
-          constraints.maxWidth < _size || constraints.maxHeight < 500;
+          constraints.maxWidth < minSize || constraints.maxHeight < 500;
       Selection? lastSelection;
       return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
           buildWhen: (previous, current) =>
@@ -97,16 +100,51 @@ class _PropertyViewState extends State<PropertyView>
                         ),
                       Expanded(child: Builder(builder: (context) {
                         final help = selection!.help;
+                        final multi = selection.selected.length != 1;
+                        final selected = selection.selected.first;
+                        final controller = MenuController();
+                        final menuChildren = multi
+                            ? <Widget>[]
+                            : DisplayIcons.recommended(selected)
+                                .map((e) => IconButton(
+                                    icon: PhosphorIcon(
+                                        e.icon(PhosphorIconsStyle.light)),
+                                    onPressed: selected is! Painter
+                                        ? null
+                                        : () {
+                                            context
+                                                .read<DocumentBloc>()
+                                                .add(PaintersChanged({
+                                                  selected: selected.copyWith(
+                                                      displayIcon: e.name),
+                                                }));
+                                            controller.close();
+                                          }))
+                                .toList();
                         return Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Header(
                               title: Text(selection.getLocalizedName(context)),
-                              leading: PhosphorIcon(selection.icon(
-                                  selection.selected.length > 1
-                                      ? PhosphorIconsStyle.fill
-                                      : PhosphorIconsStyle.light)),
+                              leading: MenuAnchor(
+                                controller: controller,
+                                builder: (context, controller, child) =>
+                                    IconButton(
+                                  icon: PhosphorIcon(
+                                    selection!.icon(multi
+                                        ? PhosphorIconsStyle.fill
+                                        : PhosphorIconsStyle.light),
+                                    color: Theme.of(context).iconTheme.color,
+                                  ),
+                                  onPressed: menuChildren.isEmpty
+                                      ? null
+                                      : () => controller.isOpen
+                                          ? controller.close()
+                                          : controller.open(),
+                                ),
+                                menuChildren: menuChildren,
+                              ),
                               actions: [
                                 if (selection.showDeleteButton)
                                   IconButton(
