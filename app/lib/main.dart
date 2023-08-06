@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:material_leap/l10n/leap_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
@@ -46,7 +47,8 @@ Future<void> main([List<String> args = const []]) async {
   usePathUrlStrategy();
 
   await setup();
-  var prefs = await SharedPreferences.getInstance();
+  final prefs = await SharedPreferences.getInstance();
+  final isFullscreen = await isFullScreen();
   var initialLocation = '/';
   if (args.isNotEmpty && !kIsWeb) {
     var path = args[0].replaceAll('\\', '/');
@@ -88,21 +90,30 @@ Future<void> main([List<String> args = const []]) async {
     );
 
     // Use it only after calling `hiddenWindowAtLaunch`
-    windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
+    await windowManager.waitUntilReadyToShow(kWindowOptions).then((_) async {
       await windowManager.setResizable(true);
     });
   }
   final argParser = ArgParser();
   argParser.addOption('path', abbr: 'p');
   final result = argParser.parse(args);
+  final clipboardManager = await SysInfo.getClipboardManager();
   GeneralFileSystem.dataPath = result['path'];
   runApp(
-    MultiRepositoryProvider(providers: [
-      RepositoryProvider(
-          create: (context) => DocumentFileSystem.fromPlatform()),
-      RepositoryProvider(
-          create: (context) => TemplateFileSystem.fromPlatform()),
-    ], child: ButterflyApp(prefs: prefs, initialLocation: initialLocation)),
+    MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider(
+              create: (context) => DocumentFileSystem.fromPlatform()),
+          RepositoryProvider(
+              create: (context) => TemplateFileSystem.fromPlatform()),
+          RepositoryProvider<ClipboardManager>(
+              create: (context) => clipboardManager),
+        ],
+        child: ButterflyApp(
+          prefs: prefs,
+          initialLocation: initialLocation,
+          isFullScreen: isFullscreen,
+        )),
   );
 }
 
@@ -117,10 +128,12 @@ class ButterflyApp extends StatelessWidget {
   final String initialLocation;
   final String importedLocation;
   final SharedPreferences prefs;
+  final bool isFullScreen;
 
   ButterflyApp(
       {super.key,
       required this.prefs,
+      required this.isFullScreen,
       this.initialLocation = '/',
       this.importedLocation = ''})
       : _router = GoRouter(
@@ -204,7 +217,7 @@ class ButterflyApp extends StatelessWidget {
                       data: state.extra,
                       location: AssetLocation(
                         remote: defaultRemote,
-                        path: state.queryParameters['path'] ?? '',
+                        path: state.uri.queryParameters['path'] ?? '',
                       ),
                     );
                   },
@@ -216,7 +229,7 @@ class ButterflyApp extends StatelessWidget {
                     final path = state.pathParameters['path'];
                     return ProjectPage(
                         data: state.extra,
-                        type: state.queryParameters['type'] ?? '',
+                        type: state.uri.queryParameters['type'] ?? '',
                         location: AssetLocation.local(path ?? ''));
                   },
                 ),
@@ -229,7 +242,7 @@ class ButterflyApp extends StatelessWidget {
                     final path = state.pathParameters['path'];
                     return ProjectPage(
                         data: state.extra,
-                        type: state.queryParameters['type'] ?? '',
+                        type: state.uri.queryParameters['type'] ?? '',
                         location:
                             AssetLocation(remote: remote, path: path ?? ''));
                   },
@@ -238,8 +251,8 @@ class ButterflyApp extends StatelessWidget {
                   path: 'native',
                   name: 'native',
                   builder: (context, state) {
-                    final type = state.queryParameters['type'] ?? '';
-                    final path = state.queryParameters['path'] ?? '';
+                    final type = state.uri.queryParameters['type'] ?? '';
+                    final path = state.uri.queryParameters['path'] ?? '';
                     final data = state.extra;
                     return ProjectPage(
                       location: AssetLocation.local(path, true),
@@ -264,7 +277,7 @@ class ButterflyApp extends StatelessWidget {
               path: '/embed',
               builder: (context, state) {
                 return ProjectPage(
-                    embedding: Embedding.fromQuery(state.queryParameters));
+                    embedding: Embedding.fromQuery(state.uri.queryParameters));
               },
             ),
           ],
@@ -275,29 +288,22 @@ class ButterflyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) => BlocProvider(
-        create: (_) => SettingsCubit.fromPrefs(prefs),
-        child: BlocBuilder<SettingsCubit, ButterflySettings>(
-          buildWhen: (previous, current) =>
-              previous.nativeTitleBar != current.nativeTitleBar,
-          builder: (context, settings) {
-            if (!kIsWeb && isWindow) {
-              windowManager.waitUntilReadyToShow().then((_) async {
-                await windowManager.setTitleBarStyle(settings.nativeTitleBar
-                    ? TitleBarStyle.normal
-                    : TitleBarStyle.hidden);
-                await windowManager.setFullScreen(settings.startInFullScreen);
-                windowManager.show();
-              });
-            } else {
-              setFullScreen(settings.startInFullScreen);
-            }
-            return RepositoryProvider(
-              create: (context) =>
-                  SyncService(context, context.read<SettingsCubit>()),
-              lazy: false,
-              child: _buildApp(lightDynamic, darkDynamic),
-            );
-          },
+        create: (_) {
+          final cubit = SettingsCubit(prefs, isFullScreen);
+          cubit.setFullScreen(cubit.state.startInFullScreen);
+          cubit.setTheme(MediaQuery.of(context));
+          cubit.setNativeTitleBar();
+          if (!kIsWeb && isWindow) {
+            windowManager.show();
+          }
+          return cubit;
+        },
+        lazy: false,
+        child: RepositoryProvider(
+          create: (context) =>
+              SyncService(context, context.read<SettingsCubit>()),
+          lazy: false,
+          child: _buildApp(lightDynamic, darkDynamic),
         ),
       ),
     );
@@ -322,8 +328,10 @@ class ButterflyApp extends StatelessWidget {
                 LeapLocalizations.delegate,
               ],
               builder: (context, child) {
-                child = virtualWindowFrameBuilder(context, child);
-                return child;
+                if (!state.nativeTitleBar) {
+                  child = virtualWindowFrameBuilder(context, child);
+                }
+                return child ?? Container();
               },
               supportedLocales: getLocales(),
               themeMode: state.theme,

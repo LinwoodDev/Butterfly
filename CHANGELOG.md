@@ -2,6 +2,133 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.6 (2023-08-04)
+
+* Add sort order ([#469](https://github.com/LinwoodDev/Butterfly/issues/469))
+* Add move painter ([#473](https://github.com/LinwoodDev/Butterfly/issues/473))
+* Save sort state ([#469](https://github.com/LinwoodDev/Butterfly/issues/469))
+* Save deleted images in cache
+  * Fix pasting images not working ([#465](https://github.com/LinwoodDev/Butterfly/issues/465))
+* Add to selected after transformed ([#478](https://github.com/LinwoodDev/Butterfly/issues/478))
+* Recode shape painter
+  * Add center, 1:1 features ([#476](https://github.com/LinwoodDev/Butterfly/issues/476))
+* Improve save state icons
+* Improve import painter position
+* Improve hit calculation on single point pen elements
+* Improve performance of quick start view in home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
+* Improve context menu position ([#468](https://github.com/LinwoodDev/Butterfly/issues/468))
+* Align source and sort by in home page
+* Set position to clicked when pasting ([#468](https://github.com/LinwoodDev/Butterfly/issues/468))
+* Fix selection not updated if deleted
+* Fix native title bar error on mobile devices
+* Fix internet problems on android ([#457](https://github.com/LinwoodDev/Butterfly/issues/457))
+* Fix position when pasting elements ([#468](https://github.com/LinwoodDev/Butterfly/issues/468))
+* Fix corner hit detection on hand tool when zoomed
+* Fix rotation when selecting multiple elements ([#472](https://github.com/LinwoodDev/Butterfly/issues/472))
+* Fix ruler moving speed when zoomed ([#480](https://github.com/LinwoodDev/Butterfly/issues/480))
+* Fix path selection rect when rotated ([#475](https://github.com/LinwoodDev/Butterfly/issues/475))
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0
+
+## 2.0.0-beta.5 (2023-07-21)
+
+* Add navigation rail to large ui ([#444](https://github.com/LinwoodDev/Butterfly/issues/444))
+* Add specific navigator pages to menu in mobile ui ([#442](https://github.com/LinwoodDev/Butterfly/issues/442))
+* Add keyboard shortcuts
+  * Add ctrl + a to select all to hand painter ([#436](https://github.com/LinwoodDev/Butterfly/issues/436))
+  * Add del to delete selected to hand painter ([#435](https://github.com/LinwoodDev/Butterfly/issues/435))
+* Add svg icon to asset file type svg
+* Add asset painter ([#431](https://github.com/LinwoodDev/Butterfly/issues/431))
+* Add clipboard (cut, copy, paste) ([#422](https://github.com/LinwoodDev/Butterfly/issues/422))
+* Add transformation functions for markdown renderer
+* Fix move transformation on image renderer
+* Fix mobile ui
+* Fix hand tool corner selection not working on mobile
+* Fix waypoints not updating in navigator
+* Fix background won't be loaded
+* Fix position when scaling elements
+* Fix window when native title bar is enabled
+* Fix full screen and maximize window ([#449](https://github.com/LinwoodDev/Butterfly/issues/449))
+* Fix add asset dialog not working
+* Fix baking not working on presentation mode
+* Fix painters not updated in selection property view
+
+## 2.0.0-beta.4 (2023-07-14)
+
+* Add custom mouse cursors for painters ([#426](https://github.com/LinwoodDev/Butterfly/issues/426))
+* Add spacer painter ([#424](https://github.com/LinwoodDev/Butterfly/issues/424))
+* Add full screen painter ([#432](https://github.com/LinwoodDev/Butterfly/issues/432))
+* Add move by dragging selection, add rotate button ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
+* Add floating toolbar ([#445](https://github.com/LinwoodDev/Butterfly/issues/445))
+* Add settings animation and blur
+* Add responsive main view ui
+* Recode hand tool to allow realtime transformation
+* Improve window title bar
+* Fix window does not open with start in fullscreen mode enabled ([#430](https://github.com/LinwoodDev/Butterfly/issues/430))
+* Fix resizing with multiple elements ([#434](https://github.com/LinwoodDev/Butterfly/issues/434))
+* Fix resizing with rotated elements
+* Fix not waiting for creating default templates on native platforms
+* Fix native title bar setting not saved
+* Fix home page not refreshing
+* Fix save indicator on web
+
+## 2.0.0-beta.3 (2023-07-07)
+
+* Add image background ([#419](https://github.com/LinwoodDev/Butterfly/issues/419))
+* Add ability to customize position of the toolbar ([#408](https://github.com/LinwoodDev/Butterfly/issues/408))
+* Add option to rename page
+* Add changing of page after adding a new page
+* Add pages button to the toolbar ([#411](https://github.com/LinwoodDev/Butterfly/issues/411))
+* Add real fullscreen mode ([#421](https://github.com/LinwoodDev/Butterfly/issues/421))
+* Don't ask for name when adding a page (single click) ([#411](https://github.com/LinwoodDev/Butterfly/issues/411))
+* Fix many properties (background, animations, ...) missing when opening a document
+* Fix name check not allowing spaces, - and _
+* Fix zoom enable setting will be ignored
+* Fix setting navigation clears page history
+* Fix elements can't be moved on import ([#423](https://github.com/LinwoodDev/Butterfly/issues/423))
+* Reduce size of title text field
+* Reduce size of window buttons
+* Remove delete painter. Use the delete button in the properties instead or move the painter to the right of the add button
+
+## 2.0.0-beta.2 (2023-06-30)
+
+* Add label context menu
+* Improve document load performance
+* Fix export button when loading absolute document
+* Fix label toolbar if text is empty
+* Fix updating of tool selection
+* Fix line breaks in markdown
+* Fix core pack styling
+* Fix pack exporting
+* Fix importing assets from home page
+* Fix importing of documents in web
+* Fix changing elements multiple times in property view
+* Fix missing title in locale bottom sheet
+* Fix wrong title in design bottom sheet
+* Fix loading non documents with open with ([#417](https://github.com/LinwoodDev/Butterfly/issues/417))
+
+## 2.0.0-beta.1 (2023-06-23)
+
+* Add grid view
+* Add editing of label elements
+* Add move elements in the z axis ([#396](https://github.com/LinwoodDev/Butterfly/issues/396))
+* Add saving indicator ([#402](https://github.com/LinwoodDev/Butterfly/issues/402))
+* Add pack remote directory ([#389](https://github.com/LinwoodDev/Butterfly/issues/389))
+* Add folder structure to pages ([#398](https://github.com/LinwoodDev/Butterfly/issues/398))
+* Add stacktrace to error page
+* Use delay on reorder item for painters
+* Use delay on files in home page
+* Validate file name on creation
+* Migrate selection context menu to new menu button widget
+* Improve performance
+* Fix loading files with file args
+* Fix not working spacebar in label
+* Fix layer view not updating when layer visibility changes
+* Fix page won't be saved if autosave is disabled on page change
+* Fix importing of assets
+* Fix showing selected settings page in mobile
+* Fix flashing navigation bar if not enabled
+
 ## 2.0.0-beta.0 (2023-06-12)
 
 * Rebuild area painter handler
@@ -44,8 +171,6 @@
 * Fix snapping in grid when zoomed
 * Fix label created empty text elements
 * Fix backwards compatibility with stamp painter
-
-View all changes in the blog: https://linwood.dev/butterfly/2.0
 
 ## 2.0.0-alpha.4 (2023-05-21)
 
@@ -98,8 +223,6 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Remove file extension on file move dialog
 * Remove settings button in main view
 
-View all changes in the blog: https://linwood.dev/butterfly/2.0
-
 ## 2.0.0-alpha.1 (2023-04-14)
 
 * Add button to reset templates if quickstart is empty
@@ -120,8 +243,6 @@ View all changes in the blog: https://linwood.dev/butterfly/2.0
 * Fix file import on mobile devices
 * Fix setting horizontal alignment of text
 * Fix problems with presentation painter if paused
-
-View all changes in the blog: https://linwood.dev/butterfly/2.0
 
 ## 2.0.0-alpha.0 (2023-04-09)
 
@@ -189,8 +310,6 @@ Things that need to be improved:
 * Presentation tool
 * Packs in general
 * File format (there will be an automatic migration)
-
-View all changes in the blog: https://linwood.dev/butterfly/2.0
 
 ## 1.6.1 (2023-01-27)
 

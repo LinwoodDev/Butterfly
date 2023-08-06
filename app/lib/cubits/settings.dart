@@ -1,15 +1,21 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
+import 'package:butterfly/api/full_screen.dart' as full_screen_api;
 import 'package:butterfly/api/file_system/file_system.dart';
+import 'package:butterfly/widgets/window.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:window_manager/window_manager.dart';
+
+import '../views/navigator.dart';
 
 part 'settings.freezed.dart';
 part 'settings.g.dart';
@@ -161,7 +167,39 @@ class InputConfiguration with _$InputConfiguration {
       }.whereNotNull().toSet();
 }
 
+enum SortBy { name, created, modified }
+
+enum SortOrder { ascending, descending }
+
 enum BannerVisibility { always, never, onlyOnUpdates }
+
+enum ToolbarPosition {
+  top,
+  bottom,
+  left,
+  right;
+
+  String getLocalizedName(BuildContext context) => switch (this) {
+        ToolbarPosition.top => AppLocalizations.of(context).top,
+        ToolbarPosition.bottom => AppLocalizations.of(context).bottom,
+        ToolbarPosition.left => AppLocalizations.of(context).left,
+        ToolbarPosition.right => AppLocalizations.of(context).right
+      };
+
+  Alignment get alignment => switch (this) {
+        ToolbarPosition.left => Alignment.centerLeft,
+        ToolbarPosition.right => Alignment.centerRight,
+        ToolbarPosition.top => Alignment.topCenter,
+        ToolbarPosition.bottom => Alignment.bottomCenter,
+      };
+
+  Axis get axis => switch (this) {
+        ToolbarPosition.left => Axis.vertical,
+        ToolbarPosition.right => Axis.vertical,
+        ToolbarPosition.top => Axis.horizontal,
+        ToolbarPosition.bottom => Axis.horizontal,
+      };
+}
 
 @freezed
 class ButterflySettings with _$ButterflySettings {
@@ -179,22 +217,28 @@ class ButterflySettings with _$ButterflySettings {
     @Default('') String design,
     @Default(BannerVisibility.always) BannerVisibility bannerVisibility,
     @Default([]) List<AssetLocation> history,
-    @Default(true) bool navigatorEnabled,
+    @Default(false) bool navigatorEnabled,
     @Default(true) bool zoomEnabled,
     String? lastVersion,
     @Default([]) List<RemoteStorage> remotes,
     @Default('') String defaultRemote,
     @Default(false) bool nativeTitleBar,
     @Default(false) bool startInFullScreen,
+    @Default(true) bool navigationRail,
+    required bool fullScreen,
     @Default(SyncMode.noMobile) SyncMode syncMode,
     @Default(InputConfiguration()) InputConfiguration inputConfiguration,
     @Default('') String fallbackPack,
     @Default([]) List<String> starred,
     @Default('') String defaultTemplate,
-    @Default(0) int navigatorTab,
+    @Default(NavigatorPage.waypoints) NavigatorPage navigatorPage,
+    @Default(ToolbarPosition.top) ToolbarPosition toolbarPosition,
+    @Default(SortBy.name) SortBy sortBy,
+    @Default(SortOrder.ascending) SortOrder sortOrder,
   }) = _ButterflySettings;
 
-  factory ButterflySettings.fromPrefs(SharedPreferences prefs) {
+  factory ButterflySettings.fromPrefs(
+      SharedPreferences prefs, bool fullScreen) {
     final remotes = prefs.getStringList('remotes')?.map((e) {
           final data = json.decode(e) as Map<String, dynamic>;
           if (!data.containsKey('packsPath')) {
@@ -204,6 +248,7 @@ class ButterflySettings with _$ButterflySettings {
         }).toList() ??
         const [];
     return ButterflySettings(
+      fullScreen: fullScreen,
       localeTag: prefs.getString('locale') ?? '',
       penOnlyInput: prefs.getBool('pen_only_input') ?? false,
       inputGestures: prefs.getBool('input_gestures') ?? true,
@@ -233,7 +278,6 @@ class ButterflySettings with _$ButterflySettings {
               .whereType<AssetLocation>()
               .toList() ??
           [],
-      navigatorEnabled: prefs.getBool('navigator_enabled') ?? true,
       zoomEnabled: prefs.getBool('zoom_enabled') ?? true,
       lastVersion: prefs.getString('last_version'),
       remotes: remotes,
@@ -248,6 +292,16 @@ class ButterflySettings with _$ButterflySettings {
       fallbackPack: prefs.getString('fallback_pack') ?? '',
       starred: prefs.getStringList('starred') ?? [],
       defaultTemplate: prefs.getString('default_template') ?? '',
+      toolbarPosition: prefs.containsKey('toolbar_position')
+          ? ToolbarPosition.values.byName(prefs.getString('toolbar_position')!)
+          : ToolbarPosition.top,
+      navigationRail: prefs.getBool('navigation_rail') ?? true,
+      sortBy: prefs.containsKey('sort_by')
+          ? SortBy.values.byName(prefs.getString('sort_by')!)
+          : SortBy.name,
+      sortOrder: prefs.containsKey('sort_order')
+          ? SortOrder.values.byName(prefs.getString('sort_order')!)
+          : SortOrder.ascending,
     );
   }
 
@@ -276,7 +330,6 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('banner_visibility', bannerVisibility.name);
     await prefs.setStringList(
         'history', history.map((e) => json.encode(e.toJson())).toList());
-    await prefs.setBool('navigator_enabled', navigatorEnabled);
     await prefs.setBool('zoom_enabled', zoomEnabled);
     if (lastVersion == null && prefs.containsKey('last_version')) {
       await prefs.remove('last_version');
@@ -286,7 +339,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setStringList(
         'remotes', remotes.map((e) => json.encode(e.toJson())).toList());
     await prefs.setString('default_remote', defaultRemote);
-    await prefs.setBool('native_window_title_bar', nativeTitleBar);
+    await prefs.setBool('native_title_bar', nativeTitleBar);
     await prefs.setBool('start_in_full_screen', startInFullScreen);
     await prefs.setString('sync_mode', syncMode.name);
     await prefs.setString(
@@ -295,6 +348,10 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setStringList('starred', starred);
     await prefs.setInt('version', 0);
     await prefs.setString('default_template', defaultTemplate);
+    await prefs.setString('toolbar_position', toolbarPosition.name);
+    await prefs.setBool('navigation_rail', navigationRail);
+    await prefs.setString('sort_by', sortBy.name);
+    await prefs.setString('sort_order', sortOrder.name);
   }
 
   RemoteStorage? getRemote(String? identifier) {
@@ -325,12 +382,23 @@ class ButterflySettings with _$ButterflySettings {
 }
 
 class SettingsCubit extends Cubit<ButterflySettings> {
-  SettingsCubit() : super(const ButterflySettings());
+  SettingsCubit(SharedPreferences prefs, bool fullScreen)
+      : super(ButterflySettings.fromPrefs(prefs, fullScreen));
 
-  SettingsCubit.fromPrefs(SharedPreferences prefs)
-      : super(ButterflySettings.fromPrefs(prefs));
+  void setTheme(MediaQueryData mediaQuery, [ThemeMode? theme]) {
+    if (kIsWeb || !isWindow) return;
+    final brightness = switch (theme ?? state.theme) {
+      ThemeMode.light => Brightness.light,
+      ThemeMode.dark => Brightness.dark,
+      ThemeMode.system => mediaQuery.platformBrightness,
+    };
+    windowManager.setBrightness(brightness);
+  }
 
-  Future<void> changeTheme(ThemeMode theme) async {
+  Future<void> changeTheme(ThemeMode theme, [MediaQueryData? modify]) async {
+    if (modify != null) {
+      setTheme(modify, theme);
+    }
     emit(state.copyWith(theme: theme));
     return save();
   }
@@ -355,6 +423,16 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
+  Future<void> changeToolbarPosition(ToolbarPosition pos) {
+    emit(state.copyWith(toolbarPosition: pos));
+    return save();
+  }
+
+  Future<void> resetToolbarPosition() {
+    emit(state.copyWith(toolbarPosition: ToolbarPosition.top));
+    return save();
+  }
+
   void changeLocaleTemporarily(String locale) {
     emit(state.copyWith(localeTag: locale));
   }
@@ -369,17 +447,17 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> changepenOnlyInput(bool penOnlyInput) {
+  Future<void> changePenOnlyInput(bool penOnlyInput) {
     emit(state.copyWith(penOnlyInput: penOnlyInput));
     return save();
   }
 
-  Future<void> resetpenOnlyInput() {
+  Future<void> resetPenOnlyInput() {
     emit(state.copyWith(penOnlyInput: false));
     return save();
   }
 
-  Future<void> changeinputGestures(bool inputGestures) {
+  Future<void> changeInputGestures(bool inputGestures) {
     emit(state.copyWith(inputGestures: inputGestures));
     return save();
   }
@@ -565,7 +643,15 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  Future<void> changeNativeTitleBar(bool value) {
+  void setNativeTitleBar([bool? value]) {
+    if (kIsWeb || !isWindow) return;
+    windowManager.setTitleBarStyle((value ?? state.nativeTitleBar)
+        ? TitleBarStyle.normal
+        : TitleBarStyle.hidden);
+  }
+
+  Future<void> changeNativeTitleBar(bool value, [bool modify = true]) {
+    if (modify) setNativeTitleBar(value);
     emit(state.copyWith(nativeTitleBar: value));
     return save();
   }
@@ -627,7 +713,31 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     return save();
   }
 
-  void setNavigatorTab(int index) {
-    emit(state.copyWith(navigatorTab: index));
+  void setNavigatorPage(NavigatorPage page) {
+    emit(state.copyWith(navigatorPage: page));
+  }
+
+  void setFullScreen(bool value, [bool modify = true]) {
+    if (value != state.fullScreen && modify) {
+      full_screen_api.setFullScreen(value);
+    }
+    emit(state.copyWith(fullScreen: value));
+  }
+
+  void toggleFullScreen() => setFullScreen(!state.fullScreen);
+
+  Future<void> changeNavigationRail(bool value) {
+    emit(state.copyWith(navigationRail: value));
+    return save();
+  }
+
+  Future<void> changeSortBy(SortBy value) {
+    emit(state.copyWith(sortBy: value));
+    return save();
+  }
+
+  Future<void> changeSortOrder(SortOrder value) {
+    emit(state.copyWith(sortOrder: value));
+    return save();
   }
 }

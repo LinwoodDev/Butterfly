@@ -501,5 +501,19 @@
   "version": "Versiune",
   "repository": "Depozit",
   "pages": "Pagini",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Aranjare",
+  "bringToFront": "Aduce în față",
+  "sendToBack": "Trimite înapoi",
+  "bringForward": "Adu înainte",
+  "sendBackward": "Trimite înapoi",
+  "invalidName": "Nume invalid",
+  "rotation": "Rotație",
+  "onlyAvailableLargerScreen": "Disponibil doar pe ecrane mai mari",
+  "toolbarPosition": "Poziția barei de instrumente",
+  "rotate": "Rotire",
+  "spacer": "Spatier",
+  "navigationRail": "Cale de navigare",
+  "cut": "Taie",
+  "paste": "Lipește"
 }

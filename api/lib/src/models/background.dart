@@ -90,6 +90,22 @@ class Background with _$Background {
       @Default(0.5) double boxXStroke,
       @Default(0.5) double boxYStroke}) = BoxBackground;
 
+  const factory Background.image({
+    required String source,
+    required double width,
+    required double height,
+    @Default(1) double scaleX,
+    @Default(1) double scaleY,
+  }) = ImageBackground;
+
+  const factory Background.svg({
+    required String source,
+    required double width,
+    required double height,
+    @Default(1) double scaleX,
+    @Default(1) double scaleY,
+  }) = SvgBackground;
+
   factory Background.fromJson(Map<String, dynamic> json) =>
       _$BackgroundFromJson(json);
 }

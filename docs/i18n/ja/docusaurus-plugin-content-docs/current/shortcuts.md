@@ -25,7 +25,7 @@ sidebar_position: 2
 * `Ctrl` + `P`: カラーパレットダイアログを開く
 * `Ctrl` + `B`: 背景ダイアログを開く
 * `Ctrl` + `Shift` + `A`: 領域ダイアログを開く
-* `Ctrl` + `S`: Save
+* `Ctrl` + `S`: 保存
 * `Alt` + `S`: パスを変更
 * `Ctrl` + (`1` - `0`): 画家に切り替える
 

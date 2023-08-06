@@ -6,7 +6,6 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/confirmation.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/models/defaults.dart';
@@ -19,6 +18,7 @@ import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../api/save_data.dart';
 import '../dialogs/error.dart';
 import '../dialogs/image_export.dart';
 import '../dialogs/pages.dart';
@@ -56,7 +56,12 @@ class ImportService {
       bytes = Uint8List.fromList(data.data);
     } else if (location != null) {
       bytes = await getFileSystem().loadAbsolute(location.path);
+    } else if (data is List) {
+      bytes = Uint8List.fromList(List<int>.from(data));
+    } else if (data is NoteData) {
+      return data;
     }
+    if (type.isEmpty) type = 'note';
     final fileType = type.isNotEmpty
         ? AssetFileType.values.byName(type)
         : location?.fileType;
@@ -76,13 +81,13 @@ class ImportService {
         return importSvg(bytes, document, position);
       case AssetFileType.pdf:
         return importPdf(bytes, document, position, true);
-      default:
-        return Future.value();
+      case AssetFileType.page:
+        return importPage(bytes, document, position);
     }
   }
 
   FutureOr<NoteData?> importBfly(Uint8List bytes,
-      [NoteData? document, Offset? position]) {
+      [NoteData? document, Offset? position]) async {
     try {
       document ??= DocumentDefaults.createDocument();
       final data = NoteData.fromData(bytes);
@@ -91,10 +96,10 @@ class ImportService {
         case NoteFileType.document:
           return _importDocument(data, document, position);
         case NoteFileType.template:
-          _importTemplate(data);
+          await _importTemplate(data);
           break;
         case NoteFileType.pack:
-          _importPack(data);
+          await _importPack(data);
           break;
         default:
           showDialog(
@@ -115,13 +120,37 @@ class ImportService {
 
   NoteData? _importDocument(NoteData data, NoteData document,
       [Offset? position]) {
+    if (position == null) {
+      return data;
+    }
+    return _importPage(data.getPage(), document, position) ??
+        data.createDocument(
+          createdAt: DateTime.now(),
+        );
+  }
+
+  NoteData? importPage(Uint8List bytes, NoteData document, [Offset? position]) {
+    try {
+      final page = DocumentPage.fromJson(json.decode(utf8.decode(bytes)));
+      return _importPage(page, document, position);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
+    }
+    return null;
+  }
+
+  NoteData? _importPage(DocumentPage? page, NoteData document,
+      [Offset? position]) {
     final firstPos = position ?? Offset.zero;
-    final docPage = data.getPage();
-    if (docPage == null) return null;
-    final areas = docPage.areas
+    if (page == null) return null;
+    final areas = page.areas
         .map((e) => e.copyWith(position: e.position + firstPos.toPoint()))
         .toList();
-    final content = docPage.content
+    final content = page.content
         .map((e) =>
             Renderer.fromInstance(e)
                 .transform(position: firstPos, relative: true)
@@ -129,12 +158,7 @@ class ImportService {
             e)
         .toList();
     return _submit(document,
-            elements: content,
-            areas: areas,
-            choosePosition: position == null) ??
-        data.createDocument(
-          createdAt: DateTime.now(),
-        );
+        elements: content, areas: areas, choosePosition: position == null);
   }
 
   Future<bool> _importTemplate(NoteData template) async {
@@ -147,7 +171,7 @@ class ImportService {
     );
     if (result != true) return false;
     if (context.mounted) {
-      context.read<TemplateFileSystem>().createTemplate(template);
+      getTemplateFileSystem().createTemplate(template);
     }
     return true;
   }
@@ -172,7 +196,7 @@ class ImportService {
       final firstPos = position ?? Offset.zero;
       final codec = await ui.instantiateImageCodec(bytes);
       final frame = await codec.getNextFrame();
-      final image = frame.image.clone();
+      final image = frame.image;
 
       final newBytes = await image.toByteData(format: ui.ImageByteFormat.png);
       final state = _getState();
@@ -181,11 +205,13 @@ class ImportService {
       final newData = newBytes.buffer.asUint8List();
       final assetPath = document.addImage(newData, 'png');
       dataPath = Uri.file(assetPath, windows: false).toString();
+      final height = image.height.toDouble(), width = image.width.toDouble();
+      image.dispose();
       return _submit(document,
           elements: [
             ImageElement(
-                height: image.height.toDouble(),
-                width: image.width.toDouble(),
+                height: height,
+                width: width,
                 layer: state?.currentLayer ?? '',
                 source: dataPath,
                 position: firstPos.toPoint())
@@ -317,11 +343,11 @@ class ImportService {
     if (state == null) return;
     final location = state.location;
     final fileType = location.fileType;
-    final viewport = context.read<CurrentIndexCubit>().state.cameraViewport;
+    final currentIndexCubit = state.currentIndexCubit;
+    final viewport = currentIndexCubit.state.cameraViewport;
     switch (fileType) {
       case AssetFileType.note:
-        getFileSystem().saveAbsolute(
-            location.path, Uint8List.fromList(state.saveData().save()));
+        saveData(context, Uint8List.fromList(state.saveData().save()));
         break;
       case AssetFileType.image:
         return showDialog<void>(

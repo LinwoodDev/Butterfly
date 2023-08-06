@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
+import 'package:animations/animations.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/cubits/transform.dart';
@@ -11,17 +14,24 @@ import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
+import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lw_sysinfo/lw_sysinfo.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../actions/paste.dart';
+import '../api/open.dart';
 import '../cubits/current_index.dart';
+import '../dialogs/camera.dart';
 import '../dialogs/name.dart';
 import '../helpers/num_helper.dart';
 import '../models/label.dart';
@@ -35,20 +45,23 @@ import '../views/toolbars/color.dart';
 import '../views/toolbars/label.dart';
 import '../views/toolbars/presentation/toolbar.dart';
 import '../widgets/context_menu.dart';
-import 'move.dart';
 
 part 'area.dart';
+part 'asset.dart';
 part 'eraser.dart';
+part 'full_screen.dart';
 part 'hand.dart';
 part 'import.dart';
 part 'label.dart';
 part 'laser.dart';
 part 'layer.dart';
+part 'move.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
 part 'presentation.dart';
 part 'redo.dart';
 part 'shape.dart';
+part 'spacer.dart';
 part 'stamp.dart';
 part 'undo.dart';
 
@@ -138,9 +151,10 @@ abstract class Handler<T> {
           [Area? currentArea]) =>
       [];
 
-  Future<bool> onRendererUpdated(
-          DocumentPage page, Renderer old, Renderer updated) async =>
+  bool onRendererUpdated(DocumentPage page, Renderer old, Renderer updated) =>
       false;
+
+  bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) => false;
 
   void onPointerDown(PointerDownEvent event, EventContext context) {}
 
@@ -180,6 +194,8 @@ abstract class Handler<T> {
 
   PainterStatus getStatus(DocumentBloc bloc) => PainterStatus.normal;
 
+  PhosphorIconData? getIcon(DocumentBloc bloc) => null;
+
   static Handler fromDocument(DocumentInfo info, int index) {
     final painter = info.painters[index];
     return Handler.fromPainter(painter);
@@ -188,6 +204,7 @@ abstract class Handler<T> {
   static Handler fromPainter(Painter painter) {
     return painter.map(
       hand: (value) => HandHandler(value),
+      move: (value) => MoveHandler(value),
       import: (value) => ImportHandler(value),
       undo: (value) => UndoHandler(value),
       redo: (value) => RedoHandler(value),
@@ -201,6 +218,9 @@ abstract class Handler<T> {
       shape: (value) => ShapeHandler(value),
       stamp: (value) => StampHandler(value),
       presentation: (value) => PresentationHandler(value),
+      spacer: (value) => SpacerHandler(value),
+      fullSceen: (value) => FullScreenHandler(value),
+      asset: (value) => AssetHandler(value),
     );
   }
 
@@ -208,7 +228,13 @@ abstract class Handler<T> {
 
   void dispose(DocumentBloc bloc) {}
 
-  Map<Type, Action<Intent>> getActions(BuildContext context) => {};
+  Map<Type, Action<Intent>> getActions(BuildContext context) => {
+        PasteTextIntent: CallbackAction<PasteTextIntent>(
+            onInvoke: (intent) =>
+                Actions.maybeInvoke(context, PasteIntent(context))),
+      };
+
+  MouseCursor? get cursor => null;
 }
 
 mixin HandlerWithCursor<T> on Handler<T> {
@@ -307,4 +333,114 @@ Set<int> _executeRayCast(_RayCastParams params) {
       .where((e) => e.value.hitCalc.hit(params.rect))
       .map((e) => e.key)
       .toSet();
+}
+
+abstract class PastingHandler<T> extends Handler<T> {
+  Offset? _firstPos;
+  Offset? _secondPos;
+  bool _aspectRatio = false, _center = false;
+  String _currentLayer = '';
+
+  PastingHandler(super.data);
+
+  @override
+  List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
+          NoteData document, DocumentPage page, DocumentInfo info,
+          [Area? currentArea]) =>
+      [
+        if (_firstPos != null && _secondPos != null)
+          ...getTransformed().map((e) => Renderer.fromInstance(e)).toList(),
+      ];
+
+  List<PadElement> transformElements(Rect rect, String layer);
+
+  List<PadElement> getTransformed() {
+    final first = _firstPos;
+    final second = _secondPos;
+    if (first == null || second == null) return [];
+    var top = min(first.dy, second.dy);
+    var left = min(first.dx, second.dx);
+    var bottom = max(first.dy, second.dy);
+    var right = max(first.dx, second.dx);
+    var width = right - left;
+    var height = bottom - top;
+    if (_aspectRatio) {
+      final largest = max(width, height);
+      width = largest;
+      height = largest;
+      right = left + width;
+      bottom = top + height;
+    }
+    if (constraintedHeight != 0) {
+      height = constraintedHeight;
+      bottom = top + height;
+    }
+    if (constraintedWidth != 0) {
+      width = constraintedWidth;
+      right = left + width;
+    }
+    if (constraintedAspectRatio != 0 &&
+        (constraintedHeight == 0 || constraintedWidth == 0)) {
+      if (constraintedHeight != 0) {
+        height = constraintedHeight;
+        width = constraintedAspectRatio * height;
+        right = left + width;
+      } else if (constraintedWidth != 0) {
+        width = constraintedWidth;
+        height = width / constraintedAspectRatio;
+        bottom = top + height;
+      } else {
+        final largest = max(width, height);
+        width = constraintedAspectRatio * largest;
+        height = largest / constraintedAspectRatio;
+        right = left + width;
+        bottom = top + height;
+      }
+    }
+    if (_center) {
+      top -= height;
+      left -= width;
+    }
+    final rect = Rect.fromLTRB(left, top, right, bottom);
+    if (rect.isEmpty) return [];
+    return transformElements(rect, _currentLayer);
+  }
+
+  void _updateElement(PointerEvent event, EventContext context,
+      [bool first = false]) {
+    final transform = context.getCameraTransform();
+    if (first) _firstPos = transform.localToGlobal(event.localPosition);
+    _secondPos = transform.localToGlobal(event.localPosition);
+    _aspectRatio = context.isCtrlPressed;
+    _center = context.isShiftPressed;
+    _currentLayer = context.getState()?.currentLayer ?? '';
+
+    context.refresh();
+  }
+
+  @override
+  void onPointerDown(PointerDownEvent event, EventContext context) =>
+      _updateElement(event, context, true);
+  @override
+  void onPointerMove(PointerMoveEvent event, EventContext context) =>
+      _updateElement(event, context);
+
+  @override
+  void onPointerUp(PointerUpEvent event, EventContext context) {
+    final bloc = context.getDocumentBloc();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final elements = getTransformed();
+    if (elements.isEmpty) return;
+    final current = List<PadElement>.from(elements);
+    bloc.add(ElementsCreated(current));
+    bloc.bake();
+    _firstPos = null;
+    _secondPos = null;
+    context.refresh();
+  }
+
+  double get constraintedAspectRatio => 0;
+  double get constraintedWidth => 0;
+  double get constraintedHeight => 0;
 }

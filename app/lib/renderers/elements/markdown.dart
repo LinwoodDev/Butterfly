@@ -30,14 +30,17 @@ class MarkdownRenderer extends Renderer<MarkdownElement> {
 
     return TextSpan(
       children: context == null
-          ? _parse().map((e) => _createSpan(e, styleSheet)).toList()
+          ? _parse()
+              .mapIndexed((i, e) => _createSpan(e, styleSheet, i != 0))
+              .toList()
           : null,
       text: context == null ? null : element.text,
       style: TextStyle(color: Color(element.foreground)),
     );
   }
 
-  TextSpan _createSpan(final md.Node node, text.TextStyleSheet? styleSheet) {
+  TextSpan _createSpan(final md.Node node, text.TextStyleSheet? styleSheet,
+      [bool root = false]) {
     if (node is md.Element) {
       final tag = node.tag;
       final paragraphStyle = styleSheet?.getParagraphProperty(tag);
@@ -50,6 +53,7 @@ class MarkdownRenderer extends Renderer<MarkdownElement> {
       }
       return TextSpan(
         style: style,
+        text: root ? '\n' : null,
         children:
             node.children?.map((e) => _createSpan(e, styleSheet)).toList(),
       );
@@ -93,4 +97,18 @@ class MarkdownRenderer extends Renderer<MarkdownElement> {
     _tp?.layout(maxWidth: rect.width);
     _tp?.paint(canvas, element.getOffset(rect.height).toOffset());
   }
+
+  @override
+  MarkdownRenderer _transform({
+    required Offset position,
+    required double rotation,
+    double scaleX = 1,
+    double scaleY = 1,
+  }) =>
+      MarkdownRenderer(
+          element.copyWith(
+            position: position.toPoint(),
+            rotation: rotation,
+          ),
+          context);
 }

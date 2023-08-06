@@ -70,6 +70,14 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
     _tabController.dispose();
   }
 
+  @override
+  void didUpdateWidget(covariant _ToolView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.state != widget.state) {
+      setState(() {});
+    }
+  }
+
   void _onTabChange() => setState(() {});
 
   @override

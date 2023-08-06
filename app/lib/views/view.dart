@@ -180,7 +180,9 @@ class _MainViewViewportState extends State<MainViewViewport>
 
         return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
             buildWhen: (previous, current) =>
-                previous.cameraViewport != current.cameraViewport,
+                previous.cameraViewport != current.cameraViewport ||
+                previous.foregrounds != current.foregrounds ||
+                previous.temporaryForegrounds != current.temporaryForegrounds,
             builder: (context, currentIndex) => Actions(
                 actions: getHandler().getActions(context),
                 child: DefaultTextEditingShortcuts(
@@ -325,36 +327,39 @@ class _MainViewViewportState extends State<MainViewViewport>
                                 .onPointerMove(event, getEventContext());
                           },
                           child: BlocBuilder<TransformCubit, CameraTransform>(
-                            builder: (context, transform) => Stack(children: [
-                              Container(color: Colors.white),
-                              CustomPaint(
-                                size: Size.infinite,
-                                foregroundPainter: ForegroundPainter(
-                                  [
-                                    ...cubit.foregrounds,
-                                  ],
-                                  state.data,
-                                  state.page,
-                                  state.info,
-                                  Theme.of(context).colorScheme,
-                                  transform,
-                                  cubit.state.selection,
-                                  currentIndex.cameraViewport.tool,
-                                ),
-                                painter: ViewPainter(
-                                  state.data,
-                                  state.page,
-                                  state.info,
-                                  cameraViewport: currentIndex.cameraViewport,
-                                  transform: transform,
-                                  invisibleLayers: state.invisibleLayers,
-                                  currentArea: state.currentArea,
-                                  colorScheme: Theme.of(context).colorScheme,
-                                ),
-                                isComplex: true,
-                                willChange: true,
-                              )
-                            ]),
+                            builder: (context, transform) => MouseRegion(
+                              cursor: currentIndex.currentCursor,
+                              child: Stack(children: [
+                                Container(color: Colors.white),
+                                CustomPaint(
+                                  size: Size.infinite,
+                                  foregroundPainter: ForegroundPainter(
+                                    [
+                                      ...cubit.foregrounds,
+                                    ],
+                                    state.data,
+                                    state.page,
+                                    state.info,
+                                    Theme.of(context).colorScheme,
+                                    transform,
+                                    cubit.state.selection,
+                                    currentIndex.cameraViewport.tool,
+                                  ),
+                                  painter: ViewPainter(
+                                    state.data,
+                                    state.page,
+                                    state.info,
+                                    cameraViewport: currentIndex.cameraViewport,
+                                    transform: transform,
+                                    invisibleLayers: state.invisibleLayers,
+                                    currentArea: state.currentArea,
+                                    colorScheme: Theme.of(context).colorScheme,
+                                  ),
+                                  isComplex: true,
+                                  willChange: true,
+                                )
+                              ]),
+                            ),
                           ),
                         ),
                       );

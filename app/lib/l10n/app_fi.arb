@@ -501,5 +501,19 @@
   "version": "Versio",
   "repository": "Versiovarasto",
   "pages": "Sivut",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Järjestä",
+  "bringToFront": "Tuo eteen",
+  "sendToBack": "Lähetä takaisin",
+  "bringForward": "Tuo eteenpäin",
+  "sendBackward": "Lähetä taaksepäin",
+  "invalidName": "Virheellinen nimi",
+  "rotation": "Kierto",
+  "onlyAvailableLargerScreen": "Saatavilla vain suuremmilla näytöillä",
+  "toolbarPosition": "Työkalupalkin sijainti",
+  "rotate": "Kierrä",
+  "spacer": "Välilyönti",
+  "navigationRail": "Navigointi rautatie",
+  "cut": "Leikkaa",
+  "paste": "Liitä"
 }

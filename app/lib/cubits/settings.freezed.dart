@@ -280,7 +280,7 @@ class __$$DavRemoteStorageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DavRemoteStorage extends DavRemoteStorage {
+class _$DavRemoteStorage extends DavRemoteStorage with DiagnosticableTreeMixin {
   const _$DavRemoteStorage(
       {required this.username,
       required this.url,
@@ -336,8 +336,25 @@ class _$DavRemoteStorage extends DavRemoteStorage {
   final DateTime? lastSynced;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'RemoteStorage.dav(username: $username, url: $url, path: $path, documentsPath: $documentsPath, templatesPath: $templatesPath, packsPath: $packsPath, cachedDocuments: $cachedDocuments, starred: $starred, icon: $icon, lastSynced: $lastSynced)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'RemoteStorage.dav'))
+      ..add(DiagnosticsProperty('username', username))
+      ..add(DiagnosticsProperty('url', url))
+      ..add(DiagnosticsProperty('path', path))
+      ..add(DiagnosticsProperty('documentsPath', documentsPath))
+      ..add(DiagnosticsProperty('templatesPath', templatesPath))
+      ..add(DiagnosticsProperty('packsPath', packsPath))
+      ..add(DiagnosticsProperty('cachedDocuments', cachedDocuments))
+      ..add(DiagnosticsProperty('starred', starred))
+      ..add(DiagnosticsProperty('icon', icon))
+      ..add(DiagnosticsProperty('lastSynced', lastSynced));
   }
 
   @override
@@ -690,7 +707,8 @@ class __$$_InputConfigurationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_InputConfiguration extends _InputConfiguration {
+class _$_InputConfiguration extends _InputConfiguration
+    with DiagnosticableTreeMixin {
   const _$_InputConfiguration(
       {this.leftMouse,
       this.middleMouse = -1,
@@ -724,8 +742,22 @@ class _$_InputConfiguration extends _InputConfiguration {
   final int? touch;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'InputConfiguration(leftMouse: $leftMouse, middleMouse: $middleMouse, rightMouse: $rightMouse, pen: $pen, firstPenButton: $firstPenButton, secondPenButton: $secondPenButton, touch: $touch)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'InputConfiguration'))
+      ..add(DiagnosticsProperty('leftMouse', leftMouse))
+      ..add(DiagnosticsProperty('middleMouse', middleMouse))
+      ..add(DiagnosticsProperty('rightMouse', rightMouse))
+      ..add(DiagnosticsProperty('pen', pen))
+      ..add(DiagnosticsProperty('firstPenButton', firstPenButton))
+      ..add(DiagnosticsProperty('secondPenButton', secondPenButton))
+      ..add(DiagnosticsProperty('touch', touch));
   }
 
   @override
@@ -822,13 +854,18 @@ mixin _$ButterflySettings {
   String get defaultRemote => throw _privateConstructorUsedError;
   bool get nativeTitleBar => throw _privateConstructorUsedError;
   bool get startInFullScreen => throw _privateConstructorUsedError;
+  bool get navigationRail => throw _privateConstructorUsedError;
+  bool get fullScreen => throw _privateConstructorUsedError;
   SyncMode get syncMode => throw _privateConstructorUsedError;
   InputConfiguration get inputConfiguration =>
       throw _privateConstructorUsedError;
   String get fallbackPack => throw _privateConstructorUsedError;
   List<String> get starred => throw _privateConstructorUsedError;
   String get defaultTemplate => throw _privateConstructorUsedError;
-  int get navigatorTab => throw _privateConstructorUsedError;
+  NavigatorPage get navigatorPage => throw _privateConstructorUsedError;
+  ToolbarPosition get toolbarPosition => throw _privateConstructorUsedError;
+  SortBy get sortBy => throw _privateConstructorUsedError;
+  SortOrder get sortOrder => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -861,12 +898,17 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       String defaultRemote,
       bool nativeTitleBar,
       bool startInFullScreen,
+      bool navigationRail,
+      bool fullScreen,
       SyncMode syncMode,
       InputConfiguration inputConfiguration,
       String fallbackPack,
       List<String> starred,
       String defaultTemplate,
-      int navigatorTab});
+      NavigatorPage navigatorPage,
+      ToolbarPosition toolbarPosition,
+      SortBy sortBy,
+      SortOrder sortOrder});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
 }
@@ -903,12 +945,17 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? defaultRemote = null,
     Object? nativeTitleBar = null,
     Object? startInFullScreen = null,
+    Object? navigationRail = null,
+    Object? fullScreen = null,
     Object? syncMode = null,
     Object? inputConfiguration = null,
     Object? fallbackPack = null,
     Object? starred = null,
     Object? defaultTemplate = null,
-    Object? navigatorTab = null,
+    Object? navigatorPage = null,
+    Object? toolbarPosition = null,
+    Object? sortBy = null,
+    Object? sortOrder = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -987,6 +1034,14 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.startInFullScreen
           : startInFullScreen // ignore: cast_nullable_to_non_nullable
               as bool,
+      navigationRail: null == navigationRail
+          ? _value.navigationRail
+          : navigationRail // ignore: cast_nullable_to_non_nullable
+              as bool,
+      fullScreen: null == fullScreen
+          ? _value.fullScreen
+          : fullScreen // ignore: cast_nullable_to_non_nullable
+              as bool,
       syncMode: null == syncMode
           ? _value.syncMode
           : syncMode // ignore: cast_nullable_to_non_nullable
@@ -1007,10 +1062,22 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.defaultTemplate
           : defaultTemplate // ignore: cast_nullable_to_non_nullable
               as String,
-      navigatorTab: null == navigatorTab
-          ? _value.navigatorTab
-          : navigatorTab // ignore: cast_nullable_to_non_nullable
-              as int,
+      navigatorPage: null == navigatorPage
+          ? _value.navigatorPage
+          : navigatorPage // ignore: cast_nullable_to_non_nullable
+              as NavigatorPage,
+      toolbarPosition: null == toolbarPosition
+          ? _value.toolbarPosition
+          : toolbarPosition // ignore: cast_nullable_to_non_nullable
+              as ToolbarPosition,
+      sortBy: null == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as SortBy,
+      sortOrder: null == sortOrder
+          ? _value.sortOrder
+          : sortOrder // ignore: cast_nullable_to_non_nullable
+              as SortOrder,
     ) as $Val);
   }
 
@@ -1052,12 +1119,17 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       String defaultRemote,
       bool nativeTitleBar,
       bool startInFullScreen,
+      bool navigationRail,
+      bool fullScreen,
       SyncMode syncMode,
       InputConfiguration inputConfiguration,
       String fallbackPack,
       List<String> starred,
       String defaultTemplate,
-      int navigatorTab});
+      NavigatorPage navigatorPage,
+      ToolbarPosition toolbarPosition,
+      SortBy sortBy,
+      SortOrder sortOrder});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -1093,12 +1165,17 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? defaultRemote = null,
     Object? nativeTitleBar = null,
     Object? startInFullScreen = null,
+    Object? navigationRail = null,
+    Object? fullScreen = null,
     Object? syncMode = null,
     Object? inputConfiguration = null,
     Object? fallbackPack = null,
     Object? starred = null,
     Object? defaultTemplate = null,
-    Object? navigatorTab = null,
+    Object? navigatorPage = null,
+    Object? toolbarPosition = null,
+    Object? sortBy = null,
+    Object? sortOrder = null,
   }) {
     return _then(_$_ButterflySettings(
       theme: null == theme
@@ -1177,6 +1254,14 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.startInFullScreen
           : startInFullScreen // ignore: cast_nullable_to_non_nullable
               as bool,
+      navigationRail: null == navigationRail
+          ? _value.navigationRail
+          : navigationRail // ignore: cast_nullable_to_non_nullable
+              as bool,
+      fullScreen: null == fullScreen
+          ? _value.fullScreen
+          : fullScreen // ignore: cast_nullable_to_non_nullable
+              as bool,
       syncMode: null == syncMode
           ? _value.syncMode
           : syncMode // ignore: cast_nullable_to_non_nullable
@@ -1197,17 +1282,30 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.defaultTemplate
           : defaultTemplate // ignore: cast_nullable_to_non_nullable
               as String,
-      navigatorTab: null == navigatorTab
-          ? _value.navigatorTab
-          : navigatorTab // ignore: cast_nullable_to_non_nullable
-              as int,
+      navigatorPage: null == navigatorPage
+          ? _value.navigatorPage
+          : navigatorPage // ignore: cast_nullable_to_non_nullable
+              as NavigatorPage,
+      toolbarPosition: null == toolbarPosition
+          ? _value.toolbarPosition
+          : toolbarPosition // ignore: cast_nullable_to_non_nullable
+              as ToolbarPosition,
+      sortBy: null == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as SortBy,
+      sortOrder: null == sortOrder
+          ? _value.sortOrder
+          : sortOrder // ignore: cast_nullable_to_non_nullable
+              as SortOrder,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_ButterflySettings extends _ButterflySettings {
+class _$_ButterflySettings extends _ButterflySettings
+    with DiagnosticableTreeMixin {
   const _$_ButterflySettings(
       {this.theme = ThemeMode.system,
       this.localeTag = '',
@@ -1221,19 +1319,24 @@ class _$_ButterflySettings extends _ButterflySettings {
       this.design = '',
       this.bannerVisibility = BannerVisibility.always,
       final List<AssetLocation> history = const [],
-      this.navigatorEnabled = true,
+      this.navigatorEnabled = false,
       this.zoomEnabled = true,
       this.lastVersion,
       final List<RemoteStorage> remotes = const [],
       this.defaultRemote = '',
       this.nativeTitleBar = false,
       this.startInFullScreen = false,
+      this.navigationRail = true,
+      required this.fullScreen,
       this.syncMode = SyncMode.noMobile,
       this.inputConfiguration = const InputConfiguration(),
       this.fallbackPack = '',
       final List<String> starred = const [],
       this.defaultTemplate = '',
-      this.navigatorTab = 0})
+      this.navigatorPage = NavigatorPage.waypoints,
+      this.toolbarPosition = ToolbarPosition.top,
+      this.sortBy = SortBy.name,
+      this.sortOrder = SortOrder.ascending})
       : _history = history,
         _remotes = remotes,
         _starred = starred,
@@ -1309,6 +1412,11 @@ class _$_ButterflySettings extends _ButterflySettings {
   final bool startInFullScreen;
   @override
   @JsonKey()
+  final bool navigationRail;
+  @override
+  final bool fullScreen;
+  @override
+  @JsonKey()
   final SyncMode syncMode;
   @override
   @JsonKey()
@@ -1330,11 +1438,57 @@ class _$_ButterflySettings extends _ButterflySettings {
   final String defaultTemplate;
   @override
   @JsonKey()
-  final int navigatorTab;
+  final NavigatorPage navigatorPage;
+  @override
+  @JsonKey()
+  final ToolbarPosition toolbarPosition;
+  @override
+  @JsonKey()
+  final SortBy sortBy;
+  @override
+  @JsonKey()
+  final SortOrder sortOrder;
 
   @override
-  String toString() {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorTab: $navigatorTab)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ButterflySettings'))
+      ..add(DiagnosticsProperty('theme', theme))
+      ..add(DiagnosticsProperty('localeTag', localeTag))
+      ..add(DiagnosticsProperty('documentPath', documentPath))
+      ..add(DiagnosticsProperty('touchSensitivity', touchSensitivity))
+      ..add(DiagnosticsProperty('mouseSensitivity', mouseSensitivity))
+      ..add(DiagnosticsProperty('penSensitivity', penSensitivity))
+      ..add(DiagnosticsProperty('selectSensitivity', selectSensitivity))
+      ..add(DiagnosticsProperty('penOnlyInput', penOnlyInput))
+      ..add(DiagnosticsProperty('inputGestures', inputGestures))
+      ..add(DiagnosticsProperty('design', design))
+      ..add(DiagnosticsProperty('bannerVisibility', bannerVisibility))
+      ..add(DiagnosticsProperty('history', history))
+      ..add(DiagnosticsProperty('navigatorEnabled', navigatorEnabled))
+      ..add(DiagnosticsProperty('zoomEnabled', zoomEnabled))
+      ..add(DiagnosticsProperty('lastVersion', lastVersion))
+      ..add(DiagnosticsProperty('remotes', remotes))
+      ..add(DiagnosticsProperty('defaultRemote', defaultRemote))
+      ..add(DiagnosticsProperty('nativeTitleBar', nativeTitleBar))
+      ..add(DiagnosticsProperty('startInFullScreen', startInFullScreen))
+      ..add(DiagnosticsProperty('navigationRail', navigationRail))
+      ..add(DiagnosticsProperty('fullScreen', fullScreen))
+      ..add(DiagnosticsProperty('syncMode', syncMode))
+      ..add(DiagnosticsProperty('inputConfiguration', inputConfiguration))
+      ..add(DiagnosticsProperty('fallbackPack', fallbackPack))
+      ..add(DiagnosticsProperty('starred', starred))
+      ..add(DiagnosticsProperty('defaultTemplate', defaultTemplate))
+      ..add(DiagnosticsProperty('navigatorPage', navigatorPage))
+      ..add(DiagnosticsProperty('toolbarPosition', toolbarPosition))
+      ..add(DiagnosticsProperty('sortBy', sortBy))
+      ..add(DiagnosticsProperty('sortOrder', sortOrder));
   }
 
   @override
@@ -1376,6 +1530,10 @@ class _$_ButterflySettings extends _ButterflySettings {
                 other.nativeTitleBar == nativeTitleBar) &&
             (identical(other.startInFullScreen, startInFullScreen) ||
                 other.startInFullScreen == startInFullScreen) &&
+            (identical(other.navigationRail, navigationRail) ||
+                other.navigationRail == navigationRail) &&
+            (identical(other.fullScreen, fullScreen) ||
+                other.fullScreen == fullScreen) &&
             (identical(other.syncMode, syncMode) ||
                 other.syncMode == syncMode) &&
             (identical(other.inputConfiguration, inputConfiguration) ||
@@ -1385,8 +1543,13 @@ class _$_ButterflySettings extends _ButterflySettings {
             const DeepCollectionEquality().equals(other._starred, _starred) &&
             (identical(other.defaultTemplate, defaultTemplate) ||
                 other.defaultTemplate == defaultTemplate) &&
-            (identical(other.navigatorTab, navigatorTab) ||
-                other.navigatorTab == navigatorTab));
+            (identical(other.navigatorPage, navigatorPage) ||
+                other.navigatorPage == navigatorPage) &&
+            (identical(other.toolbarPosition, toolbarPosition) ||
+                other.toolbarPosition == toolbarPosition) &&
+            (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
+            (identical(other.sortOrder, sortOrder) ||
+                other.sortOrder == sortOrder));
   }
 
   @override
@@ -1411,12 +1574,17 @@ class _$_ButterflySettings extends _ButterflySettings {
         defaultRemote,
         nativeTitleBar,
         startInFullScreen,
+        navigationRail,
+        fullScreen,
         syncMode,
         inputConfiguration,
         fallbackPack,
         const DeepCollectionEquality().hash(_starred),
         defaultTemplate,
-        navigatorTab
+        navigatorPage,
+        toolbarPosition,
+        sortBy,
+        sortOrder
       ]);
 
   @JsonKey(ignore: true)
@@ -1448,12 +1616,17 @@ abstract class _ButterflySettings extends ButterflySettings {
       final String defaultRemote,
       final bool nativeTitleBar,
       final bool startInFullScreen,
+      final bool navigationRail,
+      required final bool fullScreen,
       final SyncMode syncMode,
       final InputConfiguration inputConfiguration,
       final String fallbackPack,
       final List<String> starred,
       final String defaultTemplate,
-      final int navigatorTab}) = _$_ButterflySettings;
+      final NavigatorPage navigatorPage,
+      final ToolbarPosition toolbarPosition,
+      final SortBy sortBy,
+      final SortOrder sortOrder}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
   @override
@@ -1495,6 +1668,10 @@ abstract class _ButterflySettings extends ButterflySettings {
   @override
   bool get startInFullScreen;
   @override
+  bool get navigationRail;
+  @override
+  bool get fullScreen;
+  @override
   SyncMode get syncMode;
   @override
   InputConfiguration get inputConfiguration;
@@ -1505,7 +1682,13 @@ abstract class _ButterflySettings extends ButterflySettings {
   @override
   String get defaultTemplate;
   @override
-  int get navigatorTab;
+  NavigatorPage get navigatorPage;
+  @override
+  ToolbarPosition get toolbarPosition;
+  @override
+  SortBy get sortBy;
+  @override
+  SortOrder get sortOrder;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>

@@ -501,5 +501,19 @@
   "version": "Version",
   "repository": "Dépôt",
   "pages": "Pages",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Arranger",
+  "bringToFront": "Amener au premier plan",
+  "sendToBack": "Envoyer à l'arrière",
+  "bringForward": "Avancer",
+  "sendBackward": "Envoyer vers l'arrière",
+  "invalidName": "Nom invalide",
+  "rotation": "Rotation",
+  "onlyAvailableLargerScreen": "Disponible uniquement sur les écrans plus grands",
+  "toolbarPosition": "Position de la barre d'outils",
+  "rotate": "Faire pivoter",
+  "spacer": "Espaceur",
+  "navigationRail": "Rail de navigation",
+  "cut": "Couper",
+  "paste": "Coller"
 }

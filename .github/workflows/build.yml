@@ -165,6 +165,9 @@ jobs:
         run: |
           flutter doctor -v
           flutter build linux -v --release --dart-define=flavor=production
+      - name: 🏭 Make binary executable
+        run: |
+          chmod +x build/linux/x64/release/bundle/butterfly
       - name: Build .deb executable
         run: |
           cp -fr build/linux/x64/release/bundle linux/debian/usr/bin
@@ -192,6 +195,7 @@ jobs:
           mv ./*.AppImage linwood-butterfly-linux.AppImage
       - name: Copy portable start script
         run: |
+          chmod +x scripts/start.sh
           cp scripts/start.sh build/linux/x64/release/bundle
       - name: Archive
         uses: actions/upload-artifact@v3
@@ -345,8 +349,8 @@ jobs:
         architecture:
           - amd64
     steps:
-      - uses: actions/checkout@v2
-      - uses: docker/setup-qemu-action@v1
+      - uses: actions/checkout@v3
+      - uses: docker/setup-qemu-action@v2
         with:
           image: tonistiigi/binfmt@sha256:df15403e06a03c2f461c1f7938b171fda34a5849eb63a70e2a2109ed5a778bde
       - uses: diddlesnaps/snapcraft-multiarch-action@v1
@@ -538,7 +542,7 @@ jobs:
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2.1"
+          ruby-version: "3.2.2"
           bundler-cache: true
           working-directory: app/android
       - name: 🚀 Deploy to Play Store

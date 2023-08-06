@@ -63,10 +63,10 @@ FormFieldValidator<String> Function(String?) defaultNameValidator(
       };
 }
 
-const fileNameRegex = r'^[a-zA-Z0-9_\-\.]+$';
+const fileNameRegex = r'^[a-zA-Z0-9_\-\.\s]+$';
 // fileNameRegex with slashes but only if they are not at the beginning and minimum one letter is before them
-const fileNameRegexWithSlashes = r'^[a-z0-9]+(?:\/[a-z0-9]+)*(?:\.[a-z0-9]+)?$';
-
+const fileNameRegexWithSlashes =
+    r'^[a-zA-Z0-9_\-\.\s]+(?:/[a-zA-Z0-9_\-\.\s]+)*(?:.[a-zA-Z0-9_\-\.\s]+)?$';
 FormFieldValidator<String> Function(String?) defaultFileNameValidator(
     BuildContext context,
     [List<String> existingNames = const [],

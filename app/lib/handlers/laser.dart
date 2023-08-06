@@ -176,4 +176,7 @@ class LaserHandler extends Handler<LaserPainter> {
           }));
         },
       );
+
+  @override
+  MouseCursor get cursor => SystemMouseCursors.precise;
 }

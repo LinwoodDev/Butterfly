@@ -501,5 +501,19 @@
   "version": "Version",
   "repository": "Repository",
   "pages": "Pages",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Arrange",
+  "bringToFront": "Bring to front",
+  "sendToBack": "Send to back",
+  "bringForward": "Bring forward",
+  "sendBackward": "Send backward",
+  "invalidName": "Invalid name",
+  "rotation": "Rotation",
+  "onlyAvailableLargerScreen": "Only available on larger screens",
+  "toolbarPosition": "Toolbar position",
+  "rotate": "Rotate",
+  "spacer": "Spacer",
+  "navigationRail": "Navigation rail",
+  "cut": "Cut",
+  "paste": "Paste"
 }

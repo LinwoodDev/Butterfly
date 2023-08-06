@@ -241,7 +241,7 @@
   "recentFiles": "最近的文件",
   "start": "开始",
   "noRecentFiles": "没有最近的文件",
-  "countPages": "{count,plural, =0{No pages} =1{1 page} other{{count} pages}}",
+  "countPages": "{count,plural, =0{没有页面} =1{1页面} other{{count} pages}}",
   "@countPages": {
     "placeholders": {
       "count": {
@@ -501,5 +501,19 @@
   "version": "版本",
   "repository": "存储库",
   "pages": "页 次",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "安排",
+  "bringToFront": "置于前端",
+  "sendToBack": "发送到背面",
+  "bringForward": "前进中",
+  "sendBackward": "向后发送",
+  "invalidName": "无效的名称",
+  "rotation": "旋转",
+  "onlyAvailableLargerScreen": "仅在大屏幕上可用",
+  "toolbarPosition": "工具栏位置",
+  "rotate": "旋转",
+  "spacer": "空格",
+  "navigationRail": "导航铁道",
+  "cut": "剪辑",
+  "paste": "粘贴"
 }

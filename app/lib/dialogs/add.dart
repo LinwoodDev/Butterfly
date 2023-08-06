@@ -1,12 +1,8 @@
-import 'dart:io';
-
+import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/color_helper.dart';
-import 'package:butterfly/services/import.dart';
 import 'package:butterfly/visualizer/painter.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,7 +11,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/open.dart';
 import '../bloc/document_bloc.dart';
-import 'camera.dart';
 
 class AddDialog extends StatelessWidget {
   const AddDialog({super.key});
@@ -29,14 +24,6 @@ class AddDialog extends StatelessWidget {
       final background = state.page.background.defaultColor;
       final defaultPainter = updatePainterDefaultColor(painter, background);
       bloc.add(PainterCreated(defaultPainter));
-      Navigator.of(context).pop();
-    }
-
-    void importAsset(AssetFileType type, Uint8List bytes) {
-      final bloc = context.read<DocumentBloc>();
-      final state = bloc.state;
-      if (state is! DocumentLoaded) return;
-      context.read<ImportService>().import(type, bytes, state.data);
       Navigator.of(context).pop();
     }
 
@@ -71,7 +58,7 @@ class AddDialog extends StatelessWidget {
         ),
       ],
       content: SizedBox(
-        width: 800,
+        width: 900,
         child: Material(
           color: Colors.transparent,
           child: Column(
@@ -84,100 +71,37 @@ class AddDialog extends StatelessWidget {
               const SizedBox(height: 16),
               Wrap(
                 alignment: WrapAlignment.start,
-                children: [
-                  BoxTile(
-                    title: Text(
-                      AppLocalizations.of(context).image,
-                      textAlign: TextAlign.center,
-                    ),
-                    icon: const PhosphorIcon(PhosphorIconsLight.image),
-                    onTap: () async {
-                      var files = await FilePicker.platform.pickFiles(
-                          type: FileType.image,
-                          allowMultiple: false,
-                          withData: true);
-                      if (files?.files.isEmpty ?? true) return;
-                      var e = files!.files.first;
-                      var content = e.bytes ?? Uint8List(0);
-                      if (!kIsWeb) {
-                        content = await File(e.path ?? '').readAsBytes();
-                      }
-                      importAsset(AssetFileType.image, content);
-                    },
-                  ),
-                  if (kIsWeb ||
-                      Platform.isWindows ||
-                      Platform.isAndroid ||
-                      Platform.isIOS)
-                    BoxTile(
-                      title: Text(
-                        AppLocalizations.of(context).camera,
-                        textAlign: TextAlign.center,
+                children: ImportType.values
+                    .where((e) => e.isAvailable())
+                    .map(
+                      (e) => BoxTile(
+                        size: 128,
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              e.getLocalizedName(context),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(width: 8),
+                            IconButton(
+                              onPressed: () =>
+                                  addPainter(Painter.asset(importType: e)),
+                              icon: const PhosphorIcon(
+                                  PhosphorIconsLight.pushPin),
+                            ),
+                          ],
+                        ),
+                        icon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                        onTap: () async {
+                          await showImportAssetWizard(e, context);
+                          if (context.mounted) {
+                            Navigator.of(context).pop();
+                          }
+                        },
                       ),
-                      icon: const PhosphorIcon(PhosphorIconsLight.camera),
-                      onTap: () async {
-                        var content = await showDialog<Uint8List>(
-                          context: context,
-                          builder: (context) => const CameraDialog(),
-                        );
-                        if (content == null) return;
-                        importAsset(AssetFileType.image, content);
-                      },
-                    ),
-                  BoxTile(
-                    title: Text(
-                      AppLocalizations.of(context).svg,
-                      textAlign: TextAlign.center,
-                    ),
-                    icon: const PhosphorIcon(PhosphorIconsLight.sun),
-                    onTap: () async {
-                      final files = await FilePicker.platform.pickFiles(
-                          type: FileType.custom,
-                          allowedExtensions: ['svg'],
-                          allowMultiple: false,
-                          withData: true);
-                      if (files?.files.isEmpty ?? true) return;
-                      final e = files!.files.first;
-                      var content = e.bytes ?? Uint8List(0);
-                      if (!kIsWeb) {
-                        content = await File(e.path ?? '').readAsBytes();
-                      }
-                      importAsset(AssetFileType.svg, content);
-                    },
-                  ),
-                  BoxTile(
-                    title: Text(
-                      AppLocalizations.of(context).pdf,
-                      textAlign: TextAlign.center,
-                    ),
-                    icon: const PhosphorIcon(PhosphorIconsLight.filePdf),
-                    onTap: () async {
-                      final files = await FilePicker.platform.pickFiles(
-                          type: FileType.custom,
-                          allowedExtensions: ['pdf'],
-                          allowMultiple: false,
-                          withData: true);
-                      if (files?.files.isEmpty ?? true) return;
-                      final e = files!.files.first;
-                      var content = e.bytes ?? Uint8List(0);
-                      if (!kIsWeb) {
-                        content = await File(e.path ?? '').readAsBytes();
-                      }
-                      importAsset(AssetFileType.pdf, content);
-                    },
-                  ),
-                  BoxTile(
-                      title: Text(
-                        AppLocalizations.of(context).document,
-                        textAlign: TextAlign.center,
-                      ),
-                      icon: const PhosphorIcon(PhosphorIconsLight.fileText),
-                      onTap: () async {
-                        final data = await openBfly();
-                        if (data == null) return;
-                        importAsset(AssetFileType.note, data);
-                      }),
-                ],
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 32),
               Text(
@@ -189,6 +113,7 @@ class AddDialog extends StatelessWidget {
                 alignment: WrapAlignment.start,
                 children: [
                   Painter.hand,
+                  Painter.move,
                   Painter.pen,
                   Painter.stamp,
                   Painter.laser,
@@ -198,6 +123,8 @@ class AddDialog extends StatelessWidget {
                   Painter.layer,
                   Painter.area,
                   Painter.presentation,
+                  () => Painter.spacer(axis: Axis2D.vertical),
+                  () => Painter.spacer(axis: Axis2D.horizontal),
                 ].map(buildPainter).toList(),
               ),
               const SizedBox(height: 32),
@@ -236,6 +163,7 @@ class AddDialog extends StatelessWidget {
                 children: [
                   Painter.undo,
                   Painter.redo,
+                  Painter.fullSceen,
                 ].map(buildPainter).toList(),
               ),
             ],

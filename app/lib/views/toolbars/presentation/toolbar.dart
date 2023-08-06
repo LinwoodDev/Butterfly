@@ -177,13 +177,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 final bloc = context.read<DocumentBloc>();
                                 final name = await showDialog<String>(
                                   context: context,
-                                  builder: (context) => NameDialog(
-                                    validator: defaultFileNameValidator(
-                                        context,
-                                        state.page.animations
-                                            .map((e) => e.name)
-                                            .toList()),
-                                  ),
+                                  builder: (context) => NameDialog(),
                                 );
                                 if (name == null) return;
                                 bloc.add(

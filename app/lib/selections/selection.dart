@@ -56,9 +56,11 @@ part 'area.dart';
 part 'tool.dart';
 
 abstract class Selection<T> {
-  final List<T> selected;
+  List<T> _selected;
 
-  Selection(this.selected);
+  List<T> get selected => List.unmodifiable(_selected);
+
+  Selection(this._selected);
 
   factory Selection.from(T selected) {
     if (selected is Renderer<PadElement>) {
@@ -84,8 +86,7 @@ abstract class Selection<T> {
 
   @mustCallSuper
   void update(BuildContext context, List<T> selected) {
-    this.selected.clear();
-    this.selected.addAll(selected);
+    selected = selected;
   }
 
   bool get showDeleteButton => false;
@@ -99,7 +100,7 @@ abstract class Selection<T> {
 
   List<String> get help => <String>[];
 
-  Selection? remove(T selected) {
+  Selection? remove(dynamic selected) {
     final selections = List.from(this.selected);
     var success = selections.remove(selected);
     if (!success) return this;

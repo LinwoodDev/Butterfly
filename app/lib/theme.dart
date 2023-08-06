@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'main.dart';
 
-const kClassicThemePrimary = isNightly ? Color(0xFF00469E) : Color(0xFFf2b138);
+const kClassicFirstColor = Color(0xFFf2b138);
+const kClassicSecondColor = Color(0xFF00469E);
+const kClassicThemePrimary =
+    isNightly ? kClassicSecondColor : kClassicFirstColor;
+const kClassicThemeSecondary =
+    isNightly ? kClassicFirstColor : kClassicSecondColor;
 const kClassicTheme = FlexSchemeColor(
-    primary: kClassicThemePrimary, secondary: kClassicThemePrimary);
+    primary: kClassicThemePrimary, secondary: kClassicThemeSecondary);
 const kClassicThemeData = FlexSchemeData(
     name: '', description: '', light: kClassicTheme, dark: kClassicTheme);
 
@@ -20,6 +25,7 @@ ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
       useMaterial3: true,
       appBarElevation: 2,
       fontFamily: 'Comfortaa',
+      visualDensity: VisualDensity.compact,
     );
   } else {
     theme = FlexThemeData.light(
@@ -28,6 +34,7 @@ ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
       useMaterial3: true,
       appBarElevation: 0.5,
       fontFamily: 'Comfortaa',
+      visualDensity: VisualDensity.compact,
     );
   }
   return theme.copyWith(
@@ -40,15 +47,6 @@ ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
 InputDecorationTheme defaultDropdownInputDecorationTheme() {
   return const InputDecorationTheme(
     filled: true,
-    isDense: true,
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-      borderSide: BorderSide.none,
-    ),
-    contentPadding: EdgeInsets.symmetric(
-      horizontal: 16,
-      vertical: 12,
-    ),
   );
 }
 

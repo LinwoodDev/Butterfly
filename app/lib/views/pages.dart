@@ -34,97 +34,135 @@ class PagesView extends StatelessWidget {
             builder: (context, snapshot) {
               if (!snapshot.hasData) return const SizedBox.shrink();
               final pages = snapshot.data!.getPages();
-              return Stack(
+              final index = snapshot.data?.getPageIndex(state.pageName);
+              void addPage([int? index]) {
+                final name = snapshot.data?.addPage(current, index);
+                if (name == null) return;
+                context.read<DocumentBloc>().add(PageChanged(name));
+              }
+
+              return Column(
                 children: [
-                  Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      TextFormField(
-                        controller: locationController,
-                        decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context).location,
-                          suffixIcon: IconButton(
-                            icon:
-                                const PhosphorIcon(PhosphorIconsLight.arrowUp),
-                            onPressed: () {
-                              final paths = locationController.text.split('/');
-                              if (paths.length <= 1) {
-                                locationController.text = '';
-                                return;
-                              }
-                              paths.removeLast();
-                              locationController.text = paths.join('/');
-                            },
-                          ),
-                          border: const OutlineInputBorder(),
-                        ),
+                  const SizedBox(height: 8),
+                  TextFormField(
+                    controller: locationController,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).location,
+                      suffixIcon: IconButton(
+                        icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
+                        onPressed: () {
+                          final paths = locationController.text.split('/');
+                          if (paths.length <= 1) {
+                            locationController.text = '';
+                            return;
+                          }
+                          paths.removeLast();
+                          locationController.text = paths.join('/');
+                        },
                       ),
-                      const SizedBox(height: 8),
-                      Expanded(
-                        child: ValueListenableBuilder<TextEditingValue>(
-                          valueListenable: locationController,
-                          builder: (context, value, child) {
-                            final query =
-                                value.text.isEmpty ? '' : '${value.text}/';
-                            final queried = pages
-                                .where((element) => element.startsWith(query))
-                                .map((e) => (
-                                      path: e,
-                                      name: e.substring(query.length),
-                                      isFile: true
-                                    ))
-                                .toList();
-                            final files = queried.where(
-                                (element) => !element.name.contains('/'));
-                            final folders = queried
-                                .where((element) => element.name.contains('/'))
-                                .map((e) => e.name.split('/').first)
-                                .map((e) {
-                              var path = value.text;
-                              if (path.isNotEmpty) path += '/';
-                              path += e;
-                              return (path: path, name: e, isFile: false);
-                            }).toSet();
-                            final all = [...folders, ...files];
-                            return ListView.builder(
-                                itemCount: all.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  final entity = all[index];
-                                  return _PageEntityListTile(
-                                    entity: entity,
-                                    selected: entity.path == currentName,
-                                    locationController: locationController,
-                                    data: snapshot.data!,
-                                  );
-                                });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FloatingActionButton.extended(
-                          label: Text(AppLocalizations.of(context).create),
-                          icon: const PhosphorIcon(PhosphorIconsLight.plus),
-                          onPressed: () async {
-                            final name = await showDialog<String>(
-                                context: context,
-                                builder: (context) => NameDialog(
-                                    validator: defaultFileNameValidator(
-                                        context, pages)));
-                            if (name == null) return;
-                            snapshot.data?.setPage(
-                              DocumentPage(
-                                background: current.background,
-                              ),
-                              name,
-                            );
-                          }),
+                      border: const OutlineInputBorder(),
                     ),
-                  )
+                  ),
+                  const SizedBox(height: 8),
+                  Expanded(
+                    child: ValueListenableBuilder<TextEditingValue>(
+                      valueListenable: locationController,
+                      builder: (context, value, child) {
+                        final query =
+                            value.text.isEmpty ? '' : '${value.text}/';
+                        final queried = pages
+                            .where((element) => element.startsWith(query))
+                            .map((e) => (
+                                  path: e,
+                                  name: e.substring(query.length),
+                                  isFile: true
+                                ))
+                            .toList();
+                        final files = queried
+                            .where((element) => !element.name.contains('/'));
+                        final folders = queried
+                            .where((element) => element.name.contains('/'))
+                            .map((e) => e.name.split('/').first)
+                            .map((e) {
+                          var path = value.text;
+                          if (path.isNotEmpty) path += '/';
+                          path += e;
+                          return (path: path, name: e, isFile: false);
+                        }).toSet();
+                        final all = [...folders, ...files];
+                        return Material(
+                          color: Colors.transparent,
+                          child: ReorderableListView.builder(
+                              itemCount: all.length,
+                              onReorder: (oldIndex, newIndex) {
+                                final current = all[oldIndex];
+                                final name = current.path;
+                                final isFile = current.isFile;
+                                if (!isFile) return;
+                                final next = all[newIndex];
+                                final nextIndex =
+                                    snapshot.data?.getPageIndex(next.name);
+                                if (!next.isFile || nextIndex == null) return;
+                                snapshot.data?.reoderPage(name, nextIndex);
+                                state.save();
+                              },
+                              itemBuilder: (BuildContext context, int index) {
+                                final entity = all[index];
+                                return _PageEntityListTile(
+                                  entity: entity,
+                                  selected: entity.path == currentName,
+                                  locationController: locationController,
+                                  data: snapshot.data!,
+                                  key: ValueKey(entity.path),
+                                );
+                              }),
+                        );
+                      },
+                    ),
+                  ),
+                  BottomAppBar(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            const PhosphorIcon(PhosphorIconsLight.plus),
+                            const SizedBox(width: 8),
+                            Text(AppLocalizations.of(context).create),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: const PhosphorIcon(
+                                  PhosphorIconsLight.arrowUp),
+                              tooltip:
+                                  AppLocalizations.of(context).insertBefore,
+                              onPressed: () => addPage(index),
+                            ),
+                            IconButton(
+                              icon: const PhosphorIcon(
+                                  PhosphorIconsLight.arrowDown),
+                              tooltip: AppLocalizations.of(context).insertAfter,
+                              onPressed: () => addPage((index ?? -1) + 1),
+                            ),
+                            IconButton(
+                              icon: const PhosphorIcon(
+                                  PhosphorIconsLight.arrowLineUp),
+                              tooltip: AppLocalizations.of(context).add,
+                              onPressed: () => addPage(0),
+                            ),
+                            IconButton(
+                              icon: const PhosphorIcon(
+                                  PhosphorIconsLight.arrowLineDown),
+                              tooltip: AppLocalizations.of(context).add,
+                              onPressed: () => addPage(),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               );
             });
@@ -139,6 +177,7 @@ class _PageEntityListTile extends StatelessWidget {
     required this.selected,
     required this.locationController,
     required this.data,
+    super.key,
   });
 
   final _PageEntity entity;
@@ -161,23 +200,36 @@ class _PageEntityListTile extends StatelessWidget {
           locationController.text = entity.path;
         }
       },
-      trailing: entity.isFile
+      trailing: entity.isFile && !selected
           ? MenuAnchor(
               builder: defaultMenuButton(),
               menuChildren: [
                 MenuItemButton(
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.textT),
+                  onPressed: () async {
+                    final result = await showDialog<String>(
+                        context: context,
+                        builder: (context) => NameDialog(
+                              value: entity.name,
+                              validator: defaultFileNameValidator(
+                                  context, data.getPages()),
+                            ));
+                    if (result == null) return;
+                    data.renamePage(entity.path, result);
+                  },
+                  child: Text(AppLocalizations.of(context).rename),
+                ),
+                MenuItemButton(
                   leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
-                  onPressed: selected
-                      ? null
-                      : () async {
-                          final result = await showDialog<bool>(
-                              context: context,
-                              builder: (context) => const DeleteDialog());
-                          if (result != true) {
-                            return;
-                          }
-                          data.removePage(entity.path);
-                        },
+                  onPressed: () async {
+                    final result = await showDialog<bool>(
+                        context: context,
+                        builder: (context) => const DeleteDialog());
+                    if (result != true) {
+                      return;
+                    }
+                    data.removePage(entity.path);
+                  },
                   child: Text(AppLocalizations.of(context).delete),
                 )
               ],

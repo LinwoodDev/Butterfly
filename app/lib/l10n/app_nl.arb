@@ -501,5 +501,19 @@
   "version": "Versie",
   "repository": "Bewaarplaats",
   "pages": "Pagina's",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Ordenen",
+  "bringToFront": "Naar voren brengen",
+  "sendToBack": "Stuur naar achterkant",
+  "bringForward": "Breng naar voren",
+  "sendBackward": "Stuur achteruit",
+  "invalidName": "Ongeldige naam",
+  "rotation": "Rotatie",
+  "onlyAvailableLargerScreen": "Alleen beschikbaar op grotere schermen",
+  "toolbarPosition": "Werkbalk positie",
+  "rotate": "Draaien",
+  "spacer": "Afstandshouder",
+  "navigationRail": "Navigatie spoor",
+  "cut": "Knippen",
+  "paste": "Plakken"
 }

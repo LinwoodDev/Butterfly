@@ -44,7 +44,7 @@ class WindowTitleBar extends StatelessWidget implements PreferredSizeWidget {
         builder: (context, settings) {
           final isDesktop = isWindow && !kIsWeb;
           if (onlyShowOnDesktop && !isDesktop) return const SizedBox.shrink();
-          final appBar = AppBar(
+          return AppBar(
             title: title,
             backgroundColor: backgroundColor,
             automaticallyImplyLeading: !inView,
@@ -52,6 +52,7 @@ class WindowTitleBar extends StatelessWidget implements PreferredSizeWidget {
             bottom: bottom,
             leadingWidth: leadingWidth,
             toolbarHeight: height,
+            flexibleSpace: const WindowFreeSpace(),
             actions: [
               ...actions,
               if (isDesktop && !inView)
@@ -60,22 +61,37 @@ class WindowTitleBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
             ],
           );
-          if (isDesktop && !settings.nativeTitleBar) {
-            return GestureDetector(
-              child: DragToMoveArea(
-                child: appBar,
-              ),
-              onSecondaryTap: () => windowManager.popUpWindowMenu(),
-              onLongPress: () => windowManager.popUpWindowMenu(),
-            );
-          }
-          return appBar;
         });
   }
 
   @override
   Size get preferredSize =>
       Size.fromHeight(height + (bottom?.preferredSize.height ?? 0));
+}
+
+class WindowFreeSpace extends StatelessWidget {
+  const WindowFreeSpace({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) =>
+            previous.nativeTitleBar != current.nativeTitleBar,
+        builder: (context, settings) {
+          if (!isWindow || kIsWeb || settings.nativeTitleBar) {
+            return const SizedBox.shrink();
+          }
+          return GestureDetector(
+            child: DragToMoveArea(
+              child: Container(
+                color: Colors.transparent,
+              ),
+            ),
+            onSecondaryTap: () => windowManager.popUpWindowMenu(),
+            onLongPress: () => windowManager.popUpWindowMenu(),
+          );
+        });
+  }
 }
 
 class WindowButtons extends StatefulWidget {
@@ -88,7 +104,7 @@ class WindowButtons extends StatefulWidget {
 }
 
 class _WindowButtonsState extends State<WindowButtons> with WindowListener {
-  bool maximized = false, alwaysOnTop = false, fullScreen = false;
+  bool maximized = false, alwaysOnTop = false;
 
   @override
   void initState() {
@@ -108,12 +124,10 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
   Future<void> updateStates() async {
     final nextMaximized = await windowManager.isMaximized();
     final nextAlwaysOnTop = await windowManager.isAlwaysOnTop();
-    final nextFullScreen = await windowManager.isFullScreen();
     if (mounted) {
       setState(() {
         maximized = nextMaximized;
         alwaysOnTop = nextAlwaysOnTop;
-        fullScreen = nextFullScreen;
       });
     }
   }
@@ -125,23 +139,25 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
   void onWindowMaximize() => setState(() => maximized = true);
 
   @override
-  void onWindowEnterFullScreen() => setState(() => fullScreen = true);
+  void onWindowEnterFullScreen() =>
+      context.read<SettingsCubit>().setFullScreen(true, false);
 
   @override
-  void onWindowLeaveFullScreen() => setState(() => fullScreen = false);
+  void onWindowLeaveFullScreen() =>
+      context.read<SettingsCubit>().setFullScreen(false, false);
 
-  @override
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
-            previous.nativeTitleBar != current.nativeTitleBar,
+            previous.nativeTitleBar != current.nativeTitleBar ||
+            previous.fullScreen != current.fullScreen,
         builder: (context, settings) {
           if (!kIsWeb && isWindow && !settings.nativeTitleBar) {
             return LayoutBuilder(
               builder: (context, constraints) => Card(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxHeight: 42),
                     child: Row(
@@ -151,7 +167,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                         Builder(builder: (context) {
                           return Row(
                             children: [
-                              if (!fullScreen) ...[
+                              if (!settings.fullScreen) ...[
                                 IconButton(
                                   icon: const PhosphorIcon(
                                       PhosphorIconsLight.minus),
@@ -205,19 +221,19 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                                       },
                                     ),
                                     MenuItemButton(
-                                      leadingIcon: PhosphorIcon(fullScreen
-                                          ? PhosphorIconsLight.arrowsIn
-                                          : PhosphorIconsLight.arrowsOut),
-                                      child: Text(fullScreen
+                                      leadingIcon: PhosphorIcon(
+                                          settings.fullScreen
+                                              ? PhosphorIconsLight.arrowsIn
+                                              : PhosphorIconsLight.arrowsOut),
+                                      child: Text(settings.fullScreen
                                           ? AppLocalizations.of(context)
                                               .exitFullScreen
                                           : AppLocalizations.of(context)
                                               .enterFullScreen),
                                       onPressed: () async {
-                                        setState(
-                                            () => fullScreen = !fullScreen);
-                                        await windowManager
-                                            .setFullScreen(fullScreen);
+                                        context
+                                            .read<SettingsCubit>()
+                                            .toggleFullScreen();
                                       },
                                     ),
                                   ],

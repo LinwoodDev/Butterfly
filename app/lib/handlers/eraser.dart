@@ -78,4 +78,7 @@ class EraserHandler extends Handler<EraserPainter> {
     context.addDocumentEvent(ElementsChanged(Map.fromEntries(_elements.entries
         .map((e) => MapEntry(content.indexOf(e.key), e.value)))));
   }
+
+  @override
+  MouseCursor get cursor => SystemMouseCursors.precise;
 }

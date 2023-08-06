@@ -32,19 +32,17 @@ class SelectPackAssetDialog extends StatelessWidget {
         return packs
             .expand((pack) => pack
                 .getComponents()
-                .map((e) => PackAssetLocation(pack: pack.name!, name: e)))
+                .map((e) => PackAssetLocation(pack.name!, e)))
             .toList();
       case PackAssetType.style:
         return packs
-            .expand((pack) => pack
-                .getStyles()
-                .map((e) => PackAssetLocation(pack: pack.name!, name: e)))
+            .expand((pack) =>
+                pack.getStyles().map((e) => PackAssetLocation(pack.name!, e)))
             .toList();
       case PackAssetType.palette:
         return packs
-            .expand((pack) => pack
-                .getPalettes()
-                .map((e) => PackAssetLocation(pack: pack.name!, name: e)))
+            .expand((pack) =>
+                pack.getPalettes().map((e) => PackAssetLocation(pack.name!, e)))
             .toList();
     }
   }

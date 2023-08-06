@@ -168,8 +168,10 @@ class _PacksDialogState extends State<PacksDialog>
                                                     AppLocalizations.of(context)
                                                         .export),
                                                 onPressed: () async {
-                                                  Navigator.of(context).pop();
-                                                  _exportPack(pack!);
+                                                  await _exportPack(pack!);
+                                                  if (context.mounted) {
+                                                    Navigator.of(context).pop();
+                                                  }
                                                 },
                                               ),
                                               MenuItemButton(
@@ -279,8 +281,10 @@ class _PacksDialogState extends State<PacksDialog>
                                               AppLocalizations.of(context)
                                                   .export),
                                           onPressed: () async {
-                                            Navigator.of(context).pop();
-                                            _exportPack(pack);
+                                            await _exportPack(pack);
+                                            if (context.mounted) {
+                                              Navigator.of(context).pop();
+                                            }
                                           },
                                         ),
                                         MenuItemButton(

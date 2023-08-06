@@ -501,5 +501,19 @@
   "version": "Version",
   "repository": "Lagre",
   "pages": "Sider",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Arrangér",
+  "bringToFront": "Bring til forsiden",
+  "sendToBack": "Send til tilbage",
+  "bringForward": "Bring fremad",
+  "sendBackward": "Send tilbage",
+  "invalidName": "Ugyldigt navn",
+  "rotation": "Rotation",
+  "onlyAvailableLargerScreen": "Kun tilgængelig på større skærme",
+  "toolbarPosition": "Værktøjslinjens position",
+  "rotate": "Rotér",
+  "spacer": "Mellemrum",
+  "navigationRail": "Navigation jernbane",
+  "cut": "Klip",
+  "paste": "Indsæt"
 }

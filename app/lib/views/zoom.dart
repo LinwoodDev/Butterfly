@@ -7,8 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ZoomView extends StatefulWidget {
   final bool isMobile;
+  final bool floating;
 
-  const ZoomView({super.key, this.isMobile = false});
+  const ZoomView({super.key, this.isMobile = false, this.floating = true});
 
   @override
   State<ZoomView> createState() => _ZoomViewState();
@@ -57,13 +58,12 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 25,
-      right: 25,
-      width: widget.isMobile ? 100 : 400,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minWidth: 400),
       child: BlocBuilder<SettingsCubit, ButterflySettings>(
         buildWhen: (previous, current) =>
-            previous.zoomEnabled != current.zoomEnabled,
+            previous.zoomEnabled != current.zoomEnabled ||
+            previous.fullScreen != current.fullScreen,
         builder: (context, settings) =>
             BlocBuilder<TransformCubit, CameraTransform>(
           buildWhen: (previous, current) => previous.size != current.size,
@@ -83,73 +83,80 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
               );
               context.read<TransformCubit>().size(value, center);
               currentIndexCubit.bake(state.data, state.page, state.info);
-              if (!_focusNode.hasFocus &&
-                  widget.isMobile &&
-                  !_controller.isAnimating &&
-                  _controller.value == 1) {
-                _controller.reverse(from: 1);
+              if (((!_focusNode.hasFocus && widget.isMobile) ||
+                  !settings.zoomEnabled ||
+                  settings.fullScreen)) {
+                _controller.reverse();
               }
             }
 
-            if (widget.isMobile && !_focusNode.hasFocus) {
-              _controller.reverse(from: 1);
+            final body = StatefulBuilder(
+              builder: (context, setState) {
+                final text = (scale * 100).toStringAsFixed(0);
+                if (text != _zoomController.text) {
+                  _zoomController.text = text;
+                }
+                return LayoutBuilder(
+                  builder: (context, constraints) {
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 75,
+                            child: TextFormField(
+                              textAlign: TextAlign.center,
+                              controller: _zoomController,
+                              keyboardType: TextInputType.number,
+                              focusNode: _focusNode,
+                              onChanged: (value) {
+                                setState(() => scale =
+                                    (double.tryParse(value) ?? (scale * 100)) /
+                                        100);
+                              },
+                              onEditingComplete: () => zoom(scale),
+                              onTapOutside: (event) {
+                                zoom(scale);
+                                _focusNode.unfocus();
+                              },
+                              onFieldSubmitted: (value) => zoom(scale),
+                            ),
+                          ),
+                          if (!widget.isMobile) ...[
+                            if (constraints.maxWidth > 200)
+                              Flexible(
+                                child: Slider(
+                                  value: scale.clamp(kMinZoom, 10),
+                                  min: kMinZoom,
+                                  max: 10,
+                                  onChanged: (value) =>
+                                      setState(() => scale = value),
+                                  onChangeEnd: zoom,
+                                ),
+                              ),
+                          ],
+                        ]);
+                  },
+                );
+              },
+            );
+
+            if (((!_focusNode.hasFocus && widget.isMobile) ||
+                !settings.zoomEnabled ||
+                settings.fullScreen)) {
+              _controller.reverse();
             } else {
               if (_controller.status != AnimationStatus.completed) {
                 _controller.forward(from: 0);
               }
             }
+            if (!widget.floating) return body;
             return AnimatedBuilder(
               animation: _animation,
               builder: (context, child) => Opacity(
                 opacity: _animation.value,
                 child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: StatefulBuilder(
-                      builder: (context, setState) {
-                        final text = (scale * 100).toStringAsFixed(0);
-                        if (text != _zoomController.text) {
-                          _zoomController.text = text;
-                        }
-                        return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 75,
-                                child: TextFormField(
-                                  textAlign: TextAlign.center,
-                                  controller: _zoomController,
-                                  keyboardType: TextInputType.number,
-                                  focusNode: _focusNode,
-                                  onChanged: (value) {
-                                    setState(() => scale =
-                                        (double.tryParse(value) ??
-                                                (scale * 100)) /
-                                            100);
-                                  },
-                                  onEditingComplete: () => zoom(scale),
-                                  onTapOutside: (event) {
-                                    zoom(scale);
-                                    _focusNode.unfocus();
-                                  },
-                                  onFieldSubmitted: (value) => zoom(scale),
-                                ),
-                              ),
-                              if (!widget.isMobile)
-                                Expanded(
-                                  child: Slider(
-                                    value: scale.clamp(kMinZoom, 10),
-                                    min: kMinZoom,
-                                    max: 10,
-                                    onChanged: (value) =>
-                                        setState(() => scale = value),
-                                    onChangeEnd: zoom,
-                                  ),
-                                ),
-                            ]);
-                      },
-                    ),
-                  ),
+                  child:
+                      Padding(padding: const EdgeInsets.all(8.0), child: body),
                 ),
               ),
             );

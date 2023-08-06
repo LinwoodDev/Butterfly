@@ -50,7 +50,24 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
                   .whereType<T>()
                   .toList());
         },
-      )
+      ),
+      ExactSlider(
+        value: elements.first.rotation,
+        defaultValue: 0,
+        min: 0,
+        max: 360,
+        header: Text(AppLocalizations.of(context).rotation),
+        onChangeEnd: (value) {
+          updateElements(
+              context,
+              selected
+                  .map((e) =>
+                      e.transform(rotation: value, relative: false)?.element ??
+                      e.element)
+                  .whereType<T>()
+                  .toList());
+        },
+      ),
     ];
   }
 
@@ -95,7 +112,10 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
   }
 
   Rect? get rect =>
-      _expandRects(selected.map((e) => e.rect).whereType<Rect>().toList());
+      _expandRects(selected.map((e) => e.rect).whereNotNull().toList());
+
+  Rect? get expandedRect =>
+      _expandRects(selected.map((e) => e.expandedRect).whereNotNull().toList());
 
   Rect? _expandRects(List<Rect> rects) {
     var rect = rects.firstOrNull;
@@ -124,6 +144,22 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
       return ElementSelection([...selected, element]);
     }
     return Selection.from(element);
+  }
+
+  @override
+  Selection? remove(dynamic selected) {
+    final selections = List.from(this.selected);
+    selections.removeWhere((element) =>
+        element == selected ||
+        (element is Renderer && element.element == selected));
+    final success = selections.length != this.selected.length;
+    if (!success) return this;
+    if (selections.isEmpty) return null;
+    var selection = Selection.from(selections.first);
+    for (int i = 1; i < selections.length; i++) {
+      selection = selection.insert(selections[i]);
+    }
+    return selection;
   }
 
   @override

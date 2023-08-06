@@ -58,10 +58,12 @@ class ButterflyParameter with _$ButterflyParameter {
 @freezed
 class PackAssetLocation with _$PackAssetLocation {
   const PackAssetLocation._();
-  const factory PackAssetLocation({
+  const factory PackAssetLocation([
     @Default('') String pack,
     @Default('') String name,
-  }) = _PackAssetLocation;
+  ]) = _PackAssetLocation;
+
+  static const PackAssetLocation empty = PackAssetLocation('', '');
 
   factory PackAssetLocation.fromJson(Map<String, dynamic> json) =>
       _$PackAssetLocationFromJson(json);
@@ -74,4 +76,14 @@ class PackAssetLocation with _$PackAssetLocation {
 
   ButterflyComponent? resolveComponent(NoteData document) =>
       document.getPack(pack)?.getComponent(name);
+
+  PackAssetLocation fixStyle(NoteData document) {
+    if (resolveStyle(document) != null) return this;
+    for (final pack in document.getPacks()) {
+      final styles = document.getPack(pack)?.getStyles();
+      if (styles?.isEmpty ?? true) continue;
+      return PackAssetLocation(pack, styles!.first);
+    }
+    return PackAssetLocation.empty;
+  }
 }

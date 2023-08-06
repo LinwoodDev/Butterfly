@@ -46,7 +46,7 @@ Apreciez încrederea dvs. în furnizarea de informații personale, astfel că ne
 
 **Link-uri către alte site-uri**
 
-Acest serviciu poate conține link-uri către alte site-uri. Dacă faceți clic pe un link terț, veți fi direcționat către acel site. Reţineţi că aceste site-uri externe nu sunt exploatate de mine. Therefore, I strongly advise you to review the Privacy Policy of these websites. Nu am control și nu îmi asum nicio responsabilitate pentru conținutul, politicile de confidențialitate sau practicile niciunui site sau serviciu terț.
+Acest serviciu poate conține link-uri către alte site-uri. Dacă faceți clic pe un link terț, veți fi direcționat către acel site. Reţineţi că aceste site-uri externe nu sunt exploatate de mine. Prin urmare, vă sfătuiesc insistent să revizuiţi Politica de confidenţialitate a acestor site-uri. Nu am control și nu îmi asum nicio responsabilitate pentru conținutul, politicile de confidențialitate sau practicile niciunui site sau serviciu terț.
 
 **Modificări ale acestei Politici de confidenţialitate**
 

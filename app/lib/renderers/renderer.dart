@@ -26,6 +26,7 @@ import '../services/asset.dart';
 
 part 'backgrounds/box.dart';
 part 'backgrounds/empty.dart';
+part 'backgrounds/image.dart';
 part 'elements/image.dart';
 part 'elements/markdown.dart';
 part 'elements/text.dart';
@@ -54,6 +55,9 @@ abstract class Renderer<T> {
 
   Renderer(this.element);
 
+  double get rotation =>
+      element is PadElement ? (element as PadElement).rotation : 0.0;
+
   @mustCallSuper
   FutureOr<void> setup(NoteData document, AssetService assetService,
           DocumentPage page) async =>
@@ -72,10 +76,31 @@ abstract class Renderer<T> {
   }
 
   Rect? get rect => null;
+
+  Rect? get expandedRect {
+    final current = rect;
+    if (current == null) return null;
+    final rotation = this.rotation * (pi / 180);
+    if (rotation == 0) return current;
+    final center = current.center;
+    final topLeft = current.topLeft.rotate(center, rotation);
+    final topRight = current.topRight.rotate(center, rotation);
+    final bottomLeft = current.bottomLeft.rotate(center, rotation);
+    final bottomRight = current.bottomRight.rotate(center, rotation);
+    final all = [topLeft, topRight, bottomLeft, bottomRight];
+    final xs = all.map((p) => p.dx);
+    final ys = all.map((p) => p.dy);
+    final left = xs.reduce(min);
+    final right = xs.reduce(max);
+    final top = ys.reduce(min);
+    final bottom = ys.reduce(max);
+    return Rect.fromLTRB(left, top, right, bottom);
+  }
+
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]);
-  HitCalculator getHitCalculator() => DefaultHitCalculator(rect);
+  HitCalculator getHitCalculator() => DefaultHitCalculator(expandedRect);
   void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {}
   factory Renderer.fromInstance(T element) {
     // Elements
@@ -95,6 +120,8 @@ abstract class Renderer<T> {
       return element.map(
         empty: (value) => EmptyBackgroundRenderer(value),
         box: (value) => BoxBackgroundRenderer(value),
+        image: (value) => ImageBackgroundRenderer(value),
+        svg: (value) => EmptyBackgroundRenderer(value),
       ) as Renderer<T>;
     }
 
@@ -105,10 +132,35 @@ abstract class Renderer<T> {
     throw Exception('Invalid instance type');
   }
 
-  Renderer<T>? transform(
-          {Offset position = Offset.zero,
-          double scaleX = 1,
-          double scaleY = 1,
-          bool relative = true}) =>
+  Renderer<T>? transform({
+    Offset? position,
+    double scaleX = 1,
+    double scaleY = 1,
+    double? rotation,
+    bool relative = true,
+  }) {
+    final rect = this.rect ?? Rect.zero;
+    rotation ??= relative ? 0 : this.rotation;
+    final nextRotation = relative ? rotation + this.rotation : rotation;
+    position ??= relative ? Offset.zero : rect.topLeft;
+    final nextPosition = relative ? position + rect.topLeft : position;
+
+    final scale = Offset(scaleX, scaleY);
+    //     .rotate(const Offset(1, 1), useRotation / 180 * pi);
+
+    return _transform(
+      position: nextPosition,
+      rotation: nextRotation,
+      scaleX: scale.dx,
+      scaleY: scale.dy,
+    );
+  }
+
+  Renderer<T>? _transform({
+    required Offset position,
+    required double rotation,
+    double scaleX = 1,
+    double scaleY = 1,
+  }) =>
       null;
 }

@@ -501,5 +501,19 @@
   "version": "Version",
   "repository": "Utveckling",
   "pages": "Sidor",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Ordna",
+  "bringToFront": "Ta fram",
+  "sendToBack": "Skicka till baksidan",
+  "bringForward": "Ta fram",
+  "sendBackward": "Skicka bakåt",
+  "invalidName": "Ogiltigt namn",
+  "rotation": "Rotation",
+  "onlyAvailableLargerScreen": "Finns endast på större skärmar",
+  "toolbarPosition": "Verktygsfältets position",
+  "rotate": "Rotera",
+  "spacer": "Mellanslag",
+  "navigationRail": "Navigeringsräls",
+  "cut": "Klipp",
+  "paste": "Klistra in"
 }

@@ -24,8 +24,11 @@ mixin _$CurrentIndex {
   Handler<dynamic>? get temporaryHandler => throw _privateConstructorUsedError;
   List<Renderer> get foregrounds => throw _privateConstructorUsedError;
   Selection<dynamic>? get selection => throw _privateConstructorUsedError;
+  bool get pinned => throw _privateConstructorUsedError;
   List<Renderer>? get temporaryForegrounds =>
       throw _privateConstructorUsedError;
+  MouseCursor get cursor => throw _privateConstructorUsedError;
+  MouseCursor? get temporaryCursor => throw _privateConstructorUsedError;
   List<int> get pointers => throw _privateConstructorUsedError;
   int? get buttons => throw _privateConstructorUsedError;
   AssetLocation get location => throw _privateConstructorUsedError;
@@ -55,7 +58,10 @@ abstract class $CurrentIndexCopyWith<$Res> {
       Handler<dynamic>? temporaryHandler,
       List<Renderer> foregrounds,
       Selection<dynamic>? selection,
+      bool pinned,
       List<Renderer>? temporaryForegrounds,
+      MouseCursor cursor,
+      MouseCursor? temporaryCursor,
       List<int> pointers,
       int? buttons,
       AssetLocation location,
@@ -88,7 +94,10 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? temporaryHandler = freezed,
     Object? foregrounds = null,
     Object? selection = freezed,
+    Object? pinned = null,
     Object? temporaryForegrounds = freezed,
+    Object? cursor = null,
+    Object? temporaryCursor = freezed,
     Object? pointers = null,
     Object? buttons = freezed,
     Object? location = null,
@@ -130,10 +139,22 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.selection
           : selection // ignore: cast_nullable_to_non_nullable
               as Selection<dynamic>?,
+      pinned: null == pinned
+          ? _value.pinned
+          : pinned // ignore: cast_nullable_to_non_nullable
+              as bool,
       temporaryForegrounds: freezed == temporaryForegrounds
           ? _value.temporaryForegrounds
           : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>?,
+      cursor: null == cursor
+          ? _value.cursor
+          : cursor // ignore: cast_nullable_to_non_nullable
+              as MouseCursor,
+      temporaryCursor: freezed == temporaryCursor
+          ? _value.temporaryCursor
+          : temporaryCursor // ignore: cast_nullable_to_non_nullable
+              as MouseCursor?,
       pointers: null == pointers
           ? _value.pointers
           : pointers // ignore: cast_nullable_to_non_nullable
@@ -191,7 +212,10 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
       Handler<dynamic>? temporaryHandler,
       List<Renderer> foregrounds,
       Selection<dynamic>? selection,
+      bool pinned,
       List<Renderer>? temporaryForegrounds,
+      MouseCursor cursor,
+      MouseCursor? temporaryCursor,
       List<int> pointers,
       int? buttons,
       AssetLocation location,
@@ -223,7 +247,10 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
     Object? temporaryHandler = freezed,
     Object? foregrounds = null,
     Object? selection = freezed,
+    Object? pinned = null,
     Object? temporaryForegrounds = freezed,
+    Object? cursor = null,
+    Object? temporaryCursor = freezed,
     Object? pointers = null,
     Object? buttons = freezed,
     Object? location = null,
@@ -265,10 +292,22 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
           ? _value.selection
           : selection // ignore: cast_nullable_to_non_nullable
               as Selection<dynamic>?,
+      pinned: null == pinned
+          ? _value.pinned
+          : pinned // ignore: cast_nullable_to_non_nullable
+              as bool,
       temporaryForegrounds: freezed == temporaryForegrounds
           ? _value._temporaryForegrounds
           : temporaryForegrounds // ignore: cast_nullable_to_non_nullable
               as List<Renderer>?,
+      cursor: null == cursor
+          ? _value.cursor
+          : cursor // ignore: cast_nullable_to_non_nullable
+              as MouseCursor,
+      temporaryCursor: freezed == temporaryCursor
+          ? _value.temporaryCursor
+          : temporaryCursor // ignore: cast_nullable_to_non_nullable
+              as MouseCursor?,
       pointers: null == pointers
           ? _value._pointers
           : pointers // ignore: cast_nullable_to_non_nullable
@@ -309,7 +348,10 @@ class _$_CurrentIndex extends _CurrentIndex {
       {this.temporaryHandler,
       final List<Renderer> foregrounds = const [],
       this.selection,
+      this.pinned = false,
       final List<Renderer>? temporaryForegrounds,
+      this.cursor = MouseCursor.defer,
+      this.temporaryCursor,
       final List<int> pointers = const [],
       this.buttons,
       this.location = const AssetLocation(path: ''),
@@ -345,6 +387,9 @@ class _$_CurrentIndex extends _CurrentIndex {
 
   @override
   final Selection<dynamic>? selection;
+  @override
+  @JsonKey()
+  final bool pinned;
   final List<Renderer>? _temporaryForegrounds;
   @override
   List<Renderer>? get temporaryForegrounds {
@@ -356,6 +401,11 @@ class _$_CurrentIndex extends _CurrentIndex {
     return EqualUnmodifiableListView(value);
   }
 
+  @override
+  @JsonKey()
+  final MouseCursor cursor;
+  @override
+  final MouseCursor? temporaryCursor;
   final List<int> _pointers;
   @override
   @JsonKey()
@@ -382,7 +432,7 @@ class _$_CurrentIndex extends _CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, temporaryForegrounds: $temporaryForegrounds, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar)';
   }
 
   @JsonKey(ignore: true)
@@ -402,7 +452,10 @@ abstract class _CurrentIndex extends CurrentIndex {
       {final Handler<dynamic>? temporaryHandler,
       final List<Renderer> foregrounds,
       final Selection<dynamic>? selection,
+      final bool pinned,
       final List<Renderer>? temporaryForegrounds,
+      final MouseCursor cursor,
+      final MouseCursor? temporaryCursor,
       final List<int> pointers,
       final int? buttons,
       final AssetLocation location,
@@ -429,7 +482,13 @@ abstract class _CurrentIndex extends CurrentIndex {
   @override
   Selection<dynamic>? get selection;
   @override
+  bool get pinned;
+  @override
   List<Renderer>? get temporaryForegrounds;
+  @override
+  MouseCursor get cursor;
+  @override
+  MouseCursor? get temporaryCursor;
   @override
   List<int> get pointers;
   @override

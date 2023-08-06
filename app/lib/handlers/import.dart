@@ -21,24 +21,22 @@ class ImportHandler extends Handler<ImportPainter> {
 
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
-    _offset += event.localDelta;
+    _offset = event.localPosition;
     context.refresh();
   }
 
   @override
-  Future<void> onPointerHover(
-      PointerHoverEvent event, EventContext context) async {
-    _offset += event.localDelta;
-    final state = context.getState();
-    if (state == null) return;
-    await _load(state.data, state.assetService, state.page);
-    context.refresh();
-  }
+  Future<void> onPointerHover(PointerHoverEvent event, EventContext context) =>
+      _updatePosition(event.localPosition, context);
 
   @override
-  Future<void> onPointerDown(
-      PointerDownEvent event, EventContext context) async {
-    _offset += event.localDelta;
+  Future<void> onPointerDown(PointerDownEvent event, EventContext context) =>
+      _updatePosition(event.localPosition, context);
+
+  Future<void> _updatePosition(
+      Offset localPosition, EventContext context) async {
+    final transform = context.getCameraTransform();
+    _offset = transform.localToGlobal(localPosition);
     final state = context.getState();
     if (state == null) return;
     await _load(state.data, state.assetService, state.page);
@@ -77,8 +75,10 @@ class ImportHandler extends Handler<ImportPainter> {
           NoteData document, DocumentPage page, DocumentInfo info,
           [Area? currentArea]) =>
       _renderers
-          ?.map((e) => e.transform(position: _offset, relative: true))
-          .whereNotNull()
+          ?.map((e) => e.transform(position: _offset, relative: true) ?? e)
           .toList() ??
       [];
+
+  @override
+  MouseCursor get cursor => SystemMouseCursors.grabbing;
 }

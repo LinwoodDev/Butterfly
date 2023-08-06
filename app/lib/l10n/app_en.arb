@@ -507,5 +507,17 @@
   "sendToBack": "Send to back",
   "bringForward": "Bring forward",
   "sendBackward": "Send backward",
-  "invalidName": "Invalid name"
+  "invalidName": "Invalid name",
+  "rotation": "Rotation",
+  "onlyAvailableLargerScreen": "Only available on larger screens",
+  "toolbarPosition": "Toolbar position",
+  "rotate": "Rotate",
+  "spacer": "Spacer",
+  "navigationRail": "Navigation rail",
+  "cut": "Cut",
+  "insertBefore": "Insert before",
+  "insertAfter": "Insert after",
+  "paste": "Paste",
+  "ascending": "Ascending",
+  "descending": "Descending"
 }

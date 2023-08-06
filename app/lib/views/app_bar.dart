@@ -8,7 +8,6 @@ import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,13 +21,13 @@ import '../actions/new.dart';
 import '../actions/packs.dart';
 import '../actions/pdf_export.dart';
 import '../actions/save.dart';
-import '../api/full_screen.dart';
 import '../bloc/document_bloc.dart';
 import '../cubits/settings.dart';
 import '../dialogs/search.dart';
 import '../embed/action.dart';
 import '../main.dart';
 import '../widgets/window.dart';
+import 'navigator.dart';
 
 class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
   final GlobalKey viewportKey;
@@ -46,9 +45,13 @@ class PadAppBar extends StatelessWidget implements PreferredSizeWidget {
         leadingWidth: 60,
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: _MainPopupMenu(
-            viewportKey: viewportKey,
-          ),
+          child: LayoutBuilder(builder: (context, constraints) {
+            final isLarge = MediaQuery.of(context).size.width < kLargeWidth;
+            return _MainPopupMenu(
+              viewportKey: viewportKey,
+              isLarge: isLarge,
+            );
+          }),
         ),
         title: LayoutBuilder(builder: (context, constraints) {
           final isMobile = MediaQuery.of(context).size.width < kMobileWidth;
@@ -106,7 +109,7 @@ class _AppBarTitle extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             ConstrainedBox(
               constraints: BoxConstraints(
-                  maxWidth: min(350.0, constraints.maxWidth - 16)),
+                  maxWidth: min(250.0, constraints.maxWidth - 16)),
               child: Row(
                 children: [
                   Flexible(
@@ -168,18 +171,12 @@ class _AppBarTitle extends StatelessWidget {
                       SizedBox(
                         width: 42,
                         child: Builder(builder: (context) {
-                          Widget icon;
-                          switch (currentIndex.saved) {
-                            case SaveState.saved:
-                              icon = const Icon(PhosphorIconsFill.floppyDisk);
-                              break;
-                            case SaveState.unsaved:
-                              icon = const Icon(PhosphorIconsLight.floppyDisk);
-                              break;
-                            case SaveState.saving:
-                              icon = const CircularProgressIndicator();
-                              break;
-                          }
+                          Widget icon =
+                              PhosphorIcon(switch (currentIndex.saved) {
+                            SaveState.saved => PhosphorIconsFill.floppyDisk,
+                            SaveState.unsaved => PhosphorIconsLight.floppyDisk,
+                            SaveState.saving => PhosphorIconsDuotone.floppyDisk,
+                          });
                           return IconButton(
                             icon: icon,
                             tooltip: AppLocalizations.of(context).save,
@@ -202,7 +199,8 @@ class _AppBarTitle extends StatelessWidget {
                       ),
                     if (state.location.absolute)
                       IconButton(
-                          icon: PhosphorIcon(state.location.fileType.getIcon()),
+                          icon: PhosphorIcon(state.location.fileType
+                              .icon(PhosphorIconsStyle.light)),
                           tooltip: AppLocalizations.of(context).export,
                           onPressed: () =>
                               context.read<ImportService>().export()),
@@ -247,9 +245,23 @@ class _AppBarTitle extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             if (!isMobile)
-              const Flexible(
-                  child: EditToolbar(
-                isMobile: false,
+              Flexible(
+                  child: BlocBuilder<SettingsCubit, ButterflySettings>(
+                buildWhen: (previous, current) =>
+                    previous.toolbarPosition != current.toolbarPosition,
+                builder: (context, settings) => Stack(
+                  children: [
+                    const WindowFreeSpace(),
+                    settings.toolbarPosition == ToolbarPosition.top
+                        ? const Align(
+                            alignment: Alignment.centerRight,
+                            child: EditToolbar(
+                              isMobile: false,
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                  ],
+                ),
               )),
           ]),
         );
@@ -260,8 +272,9 @@ class _AppBarTitle extends StatelessWidget {
 
 class _MainPopupMenu extends StatelessWidget {
   final GlobalKey viewportKey;
+  final bool isLarge;
 
-  const _MainPopupMenu({required this.viewportKey});
+  const _MainPopupMenu({required this.viewportKey, required this.isLarge});
 
   @override
   Widget build(BuildContext context) {
@@ -283,24 +296,24 @@ class _MainPopupMenu extends StatelessWidget {
                 }
               },
             ),
-            MenuItemButton(
-              leadingIcon: const PhosphorIcon(PhosphorIconsLight.compass),
-              child: Text(AppLocalizations.of(context).navigator),
-              onPressed: () {
-                if (MediaQuery.of(context).size.width >= kLargeWidth) {
-                  final settingsCubit = context.read<SettingsCubit>();
-                  settingsCubit.changeNavigatorEnabled(
-                      !settingsCubit.state.navigatorEnabled);
-                } else {
-                  Scaffold.of(context).openDrawer();
-                }
-              },
-            ),
+            if (MediaQuery.of(context).size.width < kLargeWidth ||
+                !context.read<SettingsCubit>().state.navigationRail)
+              ...NavigatorPage.values.map(
+                (e) => MenuItemButton(
+                  leadingIcon: PhosphorIcon(e.icon(PhosphorIconsStyle.light)),
+                  child: Text(e.getLocalizedName(context)),
+                  onPressed: () {
+                    final settingsCubit = context.read<SettingsCubit>();
+                    settingsCubit.setNavigatorPage(e);
+                    Scaffold.of(context).openDrawer();
+                  },
+                ),
+              ),
             const Divider(),
             SubmenuButton(
               menuChildren: [
                 MenuItemButton(
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.sun),
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
                   shortcut: const SingleActivator(LogicalKeyboardKey.keyE,
                       alt: true, control: true),
                   onPressed: () async {
@@ -392,15 +405,20 @@ class _MainPopupMenu extends StatelessWidget {
               child: Text(AppLocalizations.of(context).settings),
             ),
           ],
-          if (state.embedding == null && (kIsWeb || !isWindow)) ...[
-            MenuItemButton(
-              leadingIcon: const PhosphorIcon(PhosphorIconsLight.arrowsOut),
-              shortcut: const SingleActivator(LogicalKeyboardKey.f11),
-              onPressed: () async {
-                setFullScreen(!(await isFullScreen()));
-              },
-              child: Text(AppLocalizations.of(context).fullScreen),
-            ),
+          if (state.embedding == null) ...[
+            BlocBuilder<SettingsCubit, ButterflySettings>(
+                buildWhen: (previous, current) =>
+                    previous.fullScreen != current.fullScreen,
+                builder: (context, settings) => MenuItemButton(
+                      leadingIcon: settings.fullScreen
+                          ? const PhosphorIcon(PhosphorIconsLight.arrowsIn)
+                          : const PhosphorIcon(PhosphorIconsLight.arrowsOut),
+                      shortcut: const SingleActivator(LogicalKeyboardKey.f11),
+                      onPressed: () async {
+                        context.read<SettingsCubit>().toggleFullScreen();
+                      },
+                      child: Text(AppLocalizations.of(context).fullScreen),
+                    )),
           ],
           if (state.embedding != null) ...[
             MenuItemButton(

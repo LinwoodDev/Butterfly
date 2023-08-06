@@ -47,15 +47,14 @@ class FilesView extends StatefulWidget {
   State<FilesView> createState() => _FilesViewState();
 }
 
-enum _SortBy { name, created, modified }
-
 class _FilesViewState extends State<FilesView> {
   final TextEditingController _locationController = TextEditingController();
   late DocumentFileSystem _fileSystem;
 
   bool _gridView = false;
+  SortBy _sortBy = SortBy.name;
+  SortOrder _sortOrder = SortOrder.ascending;
   RemoteStorage? _remote;
-  _SortBy _sortBy = _SortBy.name;
   String _search = '';
   late final SettingsCubit _settingsCubit;
   late Future<AppDocumentEntity?> _filesFuture;
@@ -64,6 +63,8 @@ class _FilesViewState extends State<FilesView> {
   void initState() {
     super.initState();
     _settingsCubit = context.read<SettingsCubit>();
+    _sortBy = _settingsCubit.state.sortBy;
+    _sortOrder = _settingsCubit.state.sortOrder;
     _remote = widget.remote ?? _settingsCubit.getRemote();
     _setFilesFuture();
   }
@@ -77,13 +78,13 @@ class _FilesViewState extends State<FilesView> {
     }
   }
 
-  String getLocalizedNameOfSortBy(_SortBy sortBy) {
+  String getLocalizedNameOfSortBy(SortBy sortBy) {
     switch (sortBy) {
-      case _SortBy.name:
+      case SortBy.name:
         return AppLocalizations.of(context).name;
-      case _SortBy.created:
+      case SortBy.created:
         return AppLocalizations.of(context).created;
-      case _SortBy.modified:
+      case SortBy.modified:
         return AppLocalizations.of(context).modified;
     }
   }
@@ -109,16 +110,14 @@ class _FilesViewState extends State<FilesView> {
     final parent = _locationController.text.substring(0, index < 0 ? 0 : index);
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       LayoutBuilder(builder: (context, constraints) {
-        final isMobile = constraints.maxWidth <= kMobileWidth;
+        final isMobile = constraints.maxWidth <= kLargeWidth;
         final text = Text(
           AppLocalizations.of(context).files,
           style: Theme.of(context).textTheme.headlineMedium,
           textAlign: TextAlign.start,
         );
-        final actions = Wrap(
-          runSpacing: 16,
+        final actions = OverflowBar(
           spacing: 16,
-          alignment: isMobile ? WrapAlignment.spaceBetween : WrapAlignment.end,
           children: [
             if (!widget.collapsed)
               Row(
@@ -135,16 +134,13 @@ class _FilesViewState extends State<FilesView> {
               ),
             Row(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (!isMobile) ...[
-                  Text(AppLocalizations.of(context).source),
-                  const SizedBox(width: 8),
-                ],
                 BlocBuilder<SettingsCubit, ButterflySettings>(
                     builder: (context, state) {
                   return DropdownMenu<String?>(
-                    leadingIcon:
-                        const PhosphorIcon(PhosphorIconsLight.cloudArrowDown),
+                    label: Text(AppLocalizations.of(context).source),
+                    width: 225,
                     dropdownMenuEntries: [
                       DropdownMenuEntry(
                         value: null,
@@ -171,27 +167,34 @@ class _FilesViewState extends State<FilesView> {
                 ),
               ],
             ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (!isMobile) ...[
-                  Text(AppLocalizations.of(context).sortBy),
-                  const SizedBox(width: 8),
-                ],
-                DropdownMenu<_SortBy>(
-                  leadingIcon:
-                      const PhosphorIcon(PhosphorIconsLight.sortAscending),
-                  dropdownMenuEntries: _SortBy.values
-                      .map((e) => DropdownMenuEntry(
-                            value: e,
-                            label: getLocalizedNameOfSortBy(e),
-                          ))
-                      .toList(),
-                  initialSelection: _sortBy,
-                  onSelected: (value) =>
-                      setState(() => _sortBy = value ?? _sortBy),
-                ),
-              ],
+            DropdownMenu<SortBy>(
+              leadingIcon: IconButton(
+                icon: PhosphorIcon(_sortOrder == SortOrder.ascending
+                    ? PhosphorIconsLight.sortAscending
+                    : PhosphorIconsLight.sortDescending),
+                tooltip: _sortOrder == SortOrder.ascending
+                    ? AppLocalizations.of(context).ascending
+                    : AppLocalizations.of(context).descending,
+                onPressed: () => setState(() {
+                  _sortOrder = _sortOrder == SortOrder.ascending
+                      ? SortOrder.descending
+                      : SortOrder.ascending;
+                  _settingsCubit.changeSortOrder(_sortOrder);
+                }),
+              ),
+              label: Text(AppLocalizations.of(context).sortBy),
+              width: 225,
+              dropdownMenuEntries: SortBy.values
+                  .map((e) => DropdownMenuEntry(
+                        value: e,
+                        label: getLocalizedNameOfSortBy(e),
+                      ))
+                  .toList(),
+              initialSelection: _sortBy,
+              onSelected: (value) => setState(() {
+                _sortBy = value ?? _sortBy;
+                _settingsCubit.changeSortBy(_sortBy);
+              }),
             ),
           ],
         );
@@ -218,14 +221,10 @@ class _FilesViewState extends State<FilesView> {
       }),
       const SizedBox(height: 16),
       LayoutBuilder(builder: (context, constraints) {
-        final searchBar = TextFormField(
-          decoration: InputDecoration(
-            hintText: AppLocalizations.of(context).search,
-            prefixIcon: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
-            filled: true,
-          ),
-          initialValue: _search,
+        final searchBar = SearchBar(
           onChanged: (value) => setState(() => _search = value),
+          hintText: AppLocalizations.of(context).search,
+          leading: const PhosphorIcon(PhosphorIconsLight.magnifyingGlass),
         );
         final locationBar = Row(
           mainAxisSize: MainAxisSize.min,
@@ -312,11 +311,10 @@ class _FilesViewState extends State<FilesView> {
                     final result = await openBfly();
                     if (result == null) return;
                     final model = await importService.importBfly(result);
+                    if (model == null) return;
                     const route = '/native?name=document.bfly&type=note';
-                    if (widget.collapsed) {
-                      router.go(route, extra: model);
-                    } else {
-                      router.push(route, extra: model);
+                    router.go(route, extra: model.save());
+                    if (!widget.collapsed) {
                       _reloadFileSystem();
                     }
                   },
@@ -463,7 +461,7 @@ class _FilesViewState extends State<FilesView> {
   }
 
   Future<void> _onFileTap(AppDocumentEntity entity) async {
-    if (entity is AppDocumentDirectory) {
+    if (entity is! AppDocumentFile) {
       setState(() {
         _locationController.text = entity.pathWithoutLeadingSlash;
         _setFilesFuture();
@@ -471,45 +469,27 @@ class _FilesViewState extends State<FilesView> {
       return;
     }
     final location = entity.location;
+    final data = entity.data;
     if (location.remote != '') {
-      if (widget.collapsed) {
-        GoRouter.of(context).pushReplacementNamed('remote', pathParameters: {
-          'remote': location.remote,
-          'path': location.pathWithoutLeadingSlash,
-        }, queryParameters: {
-          'type': location.fileType?.name,
-        });
-      } else {
-        await GoRouter.of(context).pushNamed('remote', pathParameters: {
-          'remote': location.remote,
-          'path': location.pathWithoutLeadingSlash,
-        }, queryParameters: {
-          'type': location.fileType?.name,
-        });
-        _reloadFileSystem();
-      }
+      GoRouter.of(context).pushReplacementNamed('remote',
+          pathParameters: {
+            'remote': location.remote,
+            'path': location.pathWithoutLeadingSlash,
+          },
+          queryParameters: {
+            'type': location.fileType?.name,
+          },
+          extra: data);
       return;
     }
-    if (widget.collapsed) {
-      GoRouter.of(context).pushReplacementNamed('local',
-          pathParameters: {
-            'path': location.pathWithoutLeadingSlash,
-          },
-          queryParameters: {
-            'type': location.fileType?.name,
-          },
-          extra: entity);
-    } else {
-      await GoRouter.of(context).pushNamed('local',
-          pathParameters: {
-            'path': location.pathWithoutLeadingSlash,
-          },
-          queryParameters: {
-            'type': location.fileType?.name,
-          },
-          extra: entity);
-      _reloadFileSystem();
-    }
+    GoRouter.of(context).pushReplacementNamed('local',
+        pathParameters: {
+          'path': location.pathWithoutLeadingSlash,
+        },
+        queryParameters: {
+          'type': location.fileType?.name,
+        },
+        extra: data);
   }
 
   int _sortAssets(AppDocumentEntity a, AppDocumentEntity b) {
@@ -549,9 +529,10 @@ class _FilesViewState extends State<FilesView> {
         return -1;
       }
       switch (_sortBy) {
-        case _SortBy.name:
-          return aFile.fileName.compareTo(bFile.fileName);
-        case _SortBy.created:
+        case SortBy.name:
+          final compared = aFile.fileName.compareTo(bFile.fileName);
+          return _sortOrder == SortOrder.ascending ? compared : -compared;
+        case SortBy.created:
           final aCreatedAt = aInfo.createdAt;
           final bCreatedAt = bInfo.createdAt;
           if (aCreatedAt == null) {
@@ -560,8 +541,9 @@ class _FilesViewState extends State<FilesView> {
           if (bCreatedAt == null) {
             return -1;
           }
-          return bCreatedAt.compareTo(aCreatedAt);
-        case _SortBy.modified:
+          final compared = bCreatedAt.compareTo(aCreatedAt);
+          return _sortOrder == SortOrder.ascending ? compared : -compared;
+        case SortBy.modified:
           final aModifiedAt = aInfo.updatedAt;
           final bModifiedAt = bInfo.updatedAt;
           if (aModifiedAt == null) {
@@ -570,7 +552,8 @@ class _FilesViewState extends State<FilesView> {
           if (bModifiedAt == null) {
             return -1;
           }
-          return bModifiedAt.compareTo(aModifiedAt);
+          final compared = bModifiedAt.compareTo(aModifiedAt);
+          return _sortOrder == SortOrder.ascending ? compared : -compared;
       }
     } catch (e) {
       return 0;

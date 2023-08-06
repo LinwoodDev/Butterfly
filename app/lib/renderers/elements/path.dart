@@ -4,9 +4,13 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
   @override
   Rect rect = Rect.zero;
 
-  PathRenderer(super.element, [this.rect = Rect.zero]);
+  PathRenderer(super.element,
+      [this.rect = Rect.zero, this.expandedRect = Rect.zero]);
 
   double? get zoom => null;
+
+  @override
+  Rect expandedRect = Rect.zero;
 
   Paint buildPaint([DocumentPage? page, bool foreground = false]);
 
@@ -18,14 +22,27 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     final property = current.property;
     var topLeftCorner = points.first.toOffset();
     var bottomRightCorner = points.first.toOffset();
-    for (var element in points) {
+    for (final element in points) {
+      topLeftCorner = Offset(
+          min(topLeftCorner.dx, element.x), min(topLeftCorner.dy, element.y));
+      bottomRightCorner = Offset(max(bottomRightCorner.dx, element.x),
+          max(bottomRightCorner.dy, element.y));
+    }
+    rect = Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
+        bottomRightCorner.dx, bottomRightCorner.dy);
+    final center = Rect.fromPoints(topLeftCorner, bottomRightCorner).center;
+    final rotatedPoints =
+        points.map((e) => e.rotate(center, rotation / 180 * pi)).toList();
+    topLeftCorner = rotatedPoints.first.toOffset();
+    bottomRightCorner = rotatedPoints.first.toOffset();
+    for (final element in rotatedPoints) {
       final width = property.strokeWidth + element.pressure * property.thinning;
       topLeftCorner = Offset(min(topLeftCorner.dx, element.x - width),
           min(topLeftCorner.dy, element.y - width));
       bottomRightCorner = Offset(max(bottomRightCorner.dx, element.x + width),
           max(bottomRightCorner.dy, element.y + width));
     }
-    rect = Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
+    expandedRect = Rect.fromLTRB(topLeftCorner.dx, topLeftCorner.dy,
         bottomRightCorner.dx, bottomRightCorner.dy);
     super.setup(document, assetService, page);
   }
@@ -96,47 +113,38 @@ abstract class PathRenderer<T extends PadElement> extends Renderer<T> {
     }
   }
 
-  List<PathPoint> movePoints(Offset position, double scaleX, double scaleY,
-      [bool relative = false]) {
+  List<PathPoint> movePoints(
+    Offset position,
+    double scaleX,
+    double scaleY,
+  ) {
     var current = element as PathElement;
-    final topLeft = rect.topLeft;
-    if (relative) {
-      return current.points.map((e) {
-        final next = e.toOffset();
-        final x = (next.dx - topLeft.dx) * scaleX + topLeft.dx + position.dx;
-        final y = (next.dy - topLeft.dy) * scaleY + topLeft.dy + position.dy;
-        return e.copyWith(x: x, y: y);
-      }).toList();
-    }
-    var diff = position - topLeft;
-    var points = current.points.map((element) {
-      final next = element.toOffset() + diff;
-      final x = (next.dx - topLeft.dx) * scaleX + topLeft.dx;
-      final y = (next.dy - topLeft.dy) * scaleY + topLeft.dy;
+    final topLeft = expandedRect.topLeft;
+    final points = current.points.map((element) {
+      final old = element.toOffset() - topLeft;
+      final x = old.dx * scaleX + position.dx;
+      final y = old.dy * scaleY + position.dy;
       return element.copyWith(x: x, y: y);
     }).toList();
     return points;
   }
 
-  Rect moveRect(Offset position, double scaleX, double scaleY,
-      [bool relative = false]) {
+  Rect moveRect(Offset position, double scaleX, double scaleY) {
     final size = Size(rect.width * scaleX, rect.height * scaleY);
-    if (relative) {
-      return (rect.topLeft + position) & size;
-    }
     return position & size;
   }
 
   @override
-  PathHitCalculator getHitCalculator() =>
-      PathHitCalculator(rect, (element as PathElement).points);
+  PathHitCalculator getHitCalculator() => PathHitCalculator(
+      rect, (element as PathElement).points, rotation * pi / 180);
 }
 
 class PathHitCalculator extends HitCalculator {
   final Rect elementRect;
   final List<PathPoint> points;
+  final double rotation;
 
-  PathHitCalculator(this.elementRect, this.points);
+  PathHitCalculator(this.elementRect, this.points, this.rotation);
 
   List<PathPoint> _interpolate(PathPoint a, PathPoint b) {
     final result = <PathPoint>[];
@@ -149,7 +157,11 @@ class PathHitCalculator extends HitCalculator {
 
     for (int i = 1; i <= distance; i++) {
       result.add(PathPoint(a.x + (distanceX / distance * i).floor(),
-          a.y + (distanceY / distance * i).floor()));
+              a.y + (distanceY / distance * i).floor())
+          .rotate(
+        elementRect.center,
+        rotation,
+      ));
     }
 
     result.add(b);
@@ -161,6 +173,9 @@ class PathHitCalculator extends HitCalculator {
 
     for (int i = 0; i < points.length - 1; i++) {
       result.addAll(_interpolate(points[i], points[i + 1]));
+    }
+    if (points.length == 1) {
+      result.add(points.first);
     }
 
     return result;

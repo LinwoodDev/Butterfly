@@ -56,7 +56,7 @@ class PenBehaviorSettings extends StatelessWidget {
                                 Text(AppLocalizations.of(context).penOnlyInput),
                             onChanged: (value) => context
                                 .read<SettingsCubit>()
-                                .changepenOnlyInput(value ?? false),
+                                .changePenOnlyInput(value ?? false),
                           ),
                         ],
                       ),

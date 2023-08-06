@@ -9,16 +9,15 @@ class PenHandler extends Handler<PenPainter> {
 
   @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-      NoteData document, DocumentPage page, DocumentInfo info,
-      [Area? currentArea]) {
-    return elements.values
-        .map((e) {
-          if (e.points.length > 1) return PenRenderer(e);
-          return null;
-        })
-        .whereType<Renderer>()
-        .toList();
-  }
+          NoteData document, DocumentPage page, DocumentInfo info,
+          [Area? currentArea]) =>
+      elements.values
+          .map((e) {
+            if (e.points.length > 1) return PenRenderer(e);
+            return null;
+          })
+          .whereType<Renderer>()
+          .toList();
 
   @override
   void resetInput(DocumentBloc bloc) {
@@ -84,9 +83,6 @@ class PenHandler extends Handler<PenPainter> {
   }
 
   @override
-  void onTapDown(TapDownDetails details, EventContext context) {}
-
-  @override
   void onPointerDown(PointerDownEvent event, EventContext context) {
     final currentIndex = context.getCurrentIndex();
     if (currentIndex.moveEnabled && event.kind != PointerDeviceKind.stylus) {
@@ -107,10 +103,12 @@ class PenHandler extends Handler<PenPainter> {
           : 0.5;
 
   @override
-  void onPointerMove(PointerMoveEvent event, EventContext context) {
-    addPoint(context.buildContext, event.pointer, event.localPosition,
-        _getPressure(event), event.kind);
-  }
+  void onPointerMove(PointerMoveEvent event, EventContext context) => addPoint(
+      context.buildContext,
+      event.pointer,
+      event.localPosition,
+      _getPressure(event),
+      event.kind);
 
   @override
   PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
@@ -126,4 +124,7 @@ class PenHandler extends Handler<PenPainter> {
           }));
         },
       );
+
+  @override
+  MouseCursor get cursor => SystemMouseCursors.precise;
 }

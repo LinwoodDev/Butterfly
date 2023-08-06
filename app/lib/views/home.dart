@@ -107,6 +107,10 @@ class _HomePageState extends State<HomePage> {
                       (settings.bannerVisibility ==
                               BannerVisibility.onlyOnUpdates &&
                           hasNewerVersion);
+              final quickStart = _QuickstartHomeView(
+                remote: _remote,
+                onReload: () => setState(() {}),
+              );
               return Scaffold(
                 appBar: WindowTitleBar(
                   title: const Text(shortApplicationName),
@@ -150,20 +154,14 @@ class _HomePageState extends State<HomePage> {
                                     const SizedBox(width: 32),
                                     SizedBox(
                                       width: 500,
-                                      child: _QuickstartHomeView(
-                                        remote: _remote,
-                                        onReload: () => setState(() {}),
-                                      ),
+                                      child: quickStart,
                                     ),
                                   ],
                                 );
                               } else {
                                 return Column(
                                   children: [
-                                    _QuickstartHomeView(
-                                      remote: _remote,
-                                      onReload: () => setState(() {}),
-                                    ),
+                                    quickStart,
                                     const SizedBox(height: 32),
                                     FilesView(
                                       selectedAsset: widget.selectedAsset,
@@ -363,20 +361,16 @@ class _QuickstartHomeView extends StatefulWidget {
 
 class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
   late final TemplateFileSystem _templateFileSystem;
-  late Future<List<NoteData>> _templatesFuture;
+  Future<List<NoteData>>? _templatesFuture;
 
   @override
   void initState() {
     super.initState();
     _templateFileSystem =
         TemplateFileSystem.fromPlatform(remote: widget.remote);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    _templatesFuture = _fetchTemplates();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _templatesFuture = _fetchTemplates();
+    });
   }
 
   @override
@@ -415,7 +409,8 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 }
-                if (snapshot.connectionState == ConnectionState.waiting) {
+                if (snapshot.connectionState == ConnectionState.waiting ||
+                    snapshot.connectionState == ConnectionState.none) {
                   return const Align(
                     alignment: Alignment.center,
                     child: CircularProgressIndicator(),
@@ -467,12 +462,12 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                               clipBehavior: Clip.hardEdge,
                               child: InkWell(
                                 onTap: () async {
-                                  await GoRouter.of(context).pushNamed('new',
+                                  GoRouter.of(context).pushReplacementNamed(
+                                      'new',
                                       queryParameters: {
                                         'path': metadata.directory
                                       },
-                                      extra: e.createDocument());
-                                  widget.onReload();
+                                      extra: e.createDocument().save());
                                 },
                                 child: Stack(
                                   children: [

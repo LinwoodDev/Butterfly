@@ -1,1 +1,2 @@
-./butterfly.exe --path ./Data
+#!/bin/sh
+./butterfly --path ./Data

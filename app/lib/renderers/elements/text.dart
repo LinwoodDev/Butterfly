@@ -86,16 +86,18 @@ class TextRenderer extends Renderer<TextElement> {
   }
 
   @override
-  TextRenderer transform(
-      {Offset position = Offset.zero,
-      double scaleX = 1,
-      double scaleY = 1,
-      bool relative = false}) {
-    // final size = Size(rect.width * scaleX, rect.height * scaleY);
-    final next =
-        relative ? element.position + position.toPoint() : position.toPoint();
-    return TextRenderer(element.copyWith(position: next), context);
-  }
+  TextRenderer _transform({
+    required Offset position,
+    required double rotation,
+    double scaleX = 1,
+    double scaleY = 1,
+  }) =>
+      TextRenderer(
+          element.copyWith(
+            position: position.toPoint(),
+            rotation: rotation,
+          ),
+          context);
 
   @override
   void dispose() {

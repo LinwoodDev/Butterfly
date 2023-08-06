@@ -7,7 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ErrorPage extends StatelessWidget {
   final String message;
-  const ErrorPage({super.key, this.message = ''});
+  final StackTrace? stackTrace;
+  const ErrorPage({super.key, this.message = '', this.stackTrace});
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,27 @@ class ErrorPage extends StatelessWidget {
                             onPressed: () {
                               Clipboard.setData(
                                 ClipboardData(text: message),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              stackTrace.toString(),
+                            ),
+                          ),
+                          IconButton(
+                            icon: const PhosphorIcon(PhosphorIconsLight.copy),
+                            onPressed: () {
+                              Clipboard.setData(
+                                ClipboardData(text: stackTrace.toString()),
                               );
                             },
                           ),

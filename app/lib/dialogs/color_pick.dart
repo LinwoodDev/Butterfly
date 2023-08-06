@@ -46,7 +46,7 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
         final pack = packName == null ? null : state.data.getPack(packName);
         final palette = pack?.getPalettes().firstOrNull;
         if (palette != null) {
-          _selected = PackAssetLocation(pack: packName!, name: palette);
+          _selected = PackAssetLocation(packName!, palette);
         }
       }
     }

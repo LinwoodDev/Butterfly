@@ -27,5 +27,5 @@ sidebar_position: 2
 * `Ctrl` + `B`: 背景ダイアログを開く
 * `Ctrl` + `Shift` + `A`: 領域ダイアログを開く
 * `Ctrl` + `L`: レイヤーダイアログを開く
-* `Ctrl` + `S`: Save
+* `Ctrl` + `S`: 保存
 * `Alt` + `S`: パスを変更

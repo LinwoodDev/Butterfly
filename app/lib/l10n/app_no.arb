@@ -501,5 +501,19 @@
   "version": "Versjon",
   "repository": "Kodelager",
   "pages": "Sider",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Ordne",
+  "bringToFront": "Plasser lengst frem",
+  "sendToBack": "Send til tilbake",
+  "bringForward": "Send fremover",
+  "sendBackward": "Send bakover",
+  "invalidName": "Ugyldig navn",
+  "rotation": "Rotasjon",
+  "onlyAvailableLargerScreen": "Bare tilgjengelig på større skjermer",
+  "toolbarPosition": "Plassering av verktøylinje",
+  "rotate": "Roter",
+  "spacer": "Mellomrom",
+  "navigationRail": "Navigasjon bane",
+  "cut": "Klipp",
+  "paste": "Lim"
 }

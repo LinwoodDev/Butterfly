@@ -27,14 +27,8 @@ Future<void> saveData(BuildContext context, List<int> data) async {
     fileName += '.bfly';
   }
   var file = File(fileName);
-  Future<void> write() async {
-    await file.writeAsBytes(data);
-  }
-
-  if (!file.existsSync()) {
-    write();
-  } else if (context.mounted) {
-    await showDialog<void>(
+  if (file.existsSync() && context.mounted) {
+    final result = await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
               title: Text(AppLocalizations.of(context).areYouSure),
@@ -42,15 +36,17 @@ Future<void> saveData(BuildContext context, List<int> data) async {
               actions: [
                 TextButton(
                     child: Text(AppLocalizations.of(context).no),
-                    onPressed: () => Navigator.of(context).pop()),
+                    onPressed: () => Navigator.of(context).pop(false)),
                 ElevatedButton(
                     child: Text(AppLocalizations.of(context).yes),
                     onPressed: () async {
-                      final navigator = Navigator.of(context);
-                      await write();
-                      navigator.pop();
+                      Navigator.of(context).pop(true);
                     })
               ],
             ));
+    if (result != true) {
+      return;
+    }
   }
+  await file.writeAsBytes(data);
 }

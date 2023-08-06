@@ -11,13 +11,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
-import '../api/full_screen.dart';
 import '../cubits/settings.dart';
 import '../cubits/transform.dart';
 import '../embed/embedding.dart';
 import '../models/defaults.dart';
 import '../models/viewport.dart';
 import '../renderers/renderer.dart';
+import '../selections/selection.dart';
 import '../services/asset.dart';
 import '../services/network.dart';
 
@@ -31,7 +31,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     SettingsCubit settingsCubit,
     NoteData initial,
     AssetLocation location,
-    Renderer<Background> background,
     List<Renderer<PadElement>> renderer, [
     AssetService? assetService,
     DocumentPage? page,
@@ -49,9 +48,13 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     _init();
   }
 
-  DocumentBloc.error(String message) : super(DocumentLoadFailure(message));
+  DocumentBloc.error(SettingsCubit settingsCubit, String message,
+      [StackTrace? stackTrace])
+      : super(DocumentLoadFailure(settingsCubit, message, stackTrace));
 
-  DocumentBloc.placeholder() : super(const DocumentLoadFailure(''));
+  DocumentBloc.placeholder(
+    SettingsCubit settingsCubit,
+  ) : super(DocumentLoadFailure(settingsCubit, ''));
 
   void _init() {
     (state as DocumentLoaded).networkService.setup(this);
@@ -76,7 +79,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ToolStateChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      await current.currentIndexCubit.updateTool(
+      current.currentIndexCubit.updateTool(
           current.data,
           current.page,
           current.assetService,
@@ -100,6 +103,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       final renderers =
           event.elements.map((e) => Renderer.fromInstance(e)).toList();
+      if (renderers.isEmpty) return;
+      if (current.currentIndexCubit
+          .getHandler()
+          .onRenderersCreated(current.page, renderers)) {
+        refresh();
+      }
       return _saveState(
           emit,
           current.copyWith(
@@ -131,6 +140,65 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             current.copyWith(
               page: current.page
                   .copyWith(content: renderers.map((e) => e.element).toList()),
+            ),
+            null);
+      }
+    }, transformer: sequential());
+    on<ElementsChanged>((event, emit) async {
+      final current = state;
+      if (current is DocumentLoadSuccess) {
+        if (!(current.embedding?.editable ?? true)) return;
+        final renderers = <Renderer<PadElement>>[];
+        var selection = current.currentIndexCubit.state.selection;
+        Renderer<PadElement>? oldRenderer, newRenderer;
+        for (var renderer in current.renderers) {
+          final updated = event.elements[renderer.element];
+          if (updated != null) {
+            for (var element in updated) {
+              newRenderer = Renderer.fromInstance(element);
+              await newRenderer.setup(
+                  current.data, current.assetService, current.page);
+              oldRenderer = renderer;
+              oldRenderer.dispose();
+              renderers.add(newRenderer);
+              var newSelection = selection?.remove(oldRenderer);
+              if (newSelection != selection && selection != null) {
+                if (newSelection == null) {
+                  newSelection = Selection.from(newRenderer);
+                } else {
+                  newSelection.insert(newRenderer);
+                }
+                selection = newSelection;
+              }
+            }
+          } else {
+            renderers.add(renderer);
+          }
+        }
+        current.currentIndexCubit.unbake(unbakedElements: renderers);
+        if (oldRenderer == null || newRenderer == null) return;
+        if (current.currentIndexCubit
+            .getHandler()
+            .onRendererUpdated(current.page, oldRenderer, newRenderer)) {
+          refresh();
+        }
+        final page = current.page;
+        if (selection != null) {
+          current.currentIndexCubit.changeSelection(selection);
+        }
+        await _saveState(
+            emit,
+            current.copyWith(
+              page: page.copyWith(
+                content: List<PadElement>.from(page.content).expand((e) {
+                  final updated = event.elements[e];
+                  if (updated != null) {
+                    return updated;
+                  } else {
+                    return [e];
+                  }
+                }).toList(),
+              ),
             ),
             null);
       }
@@ -217,6 +285,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           return true;
         }).toList(),
       );
+      current.currentIndexCubit.removeSelection(event.elements);
       final newPage = page.copyWith(content: newContent);
       // Remove unused assets
       final unusedAssets = <String>{};
@@ -228,6 +297,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       });
       for (var asset in unusedAssets) {
         current.data.removeAsset(asset);
+        current.assetService.removeImage(asset);
       }
 
       await _saveState(emit, current.copyWith(page: newPage), null);
@@ -268,12 +338,29 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
         final oldPainters = current.info.painters;
-        final painters = List<Painter>.from(oldPainters);
-        for (final entry in event.painters.entries) {
-          painters[entry.key] = entry.value;
-        }
-        await _saveState(emit,
-            current.copyWith(info: current.info.copyWith(painters: painters)));
+        var selection = current.currentIndexCubit.state.selection;
+        await _saveState(
+            emit,
+            current.copyWith(
+                info: current.info.copyWith(
+                    painters:
+                        List<Painter>.from(current.info.painters).map((e) {
+              final updated = event.painters[e];
+              if (updated != null) {
+                var newSelection = selection?.remove(e);
+                if (newSelection != selection && selection != null) {
+                  if (newSelection == null) {
+                    newSelection = Selection.from(updated);
+                  } else {
+                    newSelection.insert(updated);
+                  }
+                  selection = newSelection;
+                }
+                return updated;
+              } else {
+                return e;
+              }
+            }).toList())));
         final updatedCurrent = event.painters.entries.firstWhereOrNull(
             (element) =>
                 oldPainters[element.key] ==
@@ -288,6 +375,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         if (updatedTempCurrent != null) {
           current.currentIndexCubit
               .updateTemporaryPainter(this, updatedTempCurrent.value);
+        }
+        if (selection != null) {
+          current.currentIndexCubit.changeSelection(selection);
         }
       }
     });
@@ -716,7 +806,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (current is! DocumentPresentationState) return;
       current.handler.dispose(this);
       emit(current.oldState);
-      setFullScreen(current.fullScreen);
+      current.settingsCubit.setFullScreen(current.fullScreen);
     });
     on<PresentationTick>((event, emit) {
       final current = state;
@@ -778,14 +868,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
   Future<void> bake(
       {Size? viewportSize, double? pixelRatio, bool reset = false}) async {
     final current = state;
-    if (current is! DocumentLoadSuccess) return;
+    if (current is! DocumentLoaded) return;
     return current.bake(
         viewportSize: viewportSize, pixelRatio: pixelRatio, reset: reset);
   }
 
   Future<void> load() async {
     final current = state;
-    if (current is! DocumentLoadSuccess) return;
+    if (current is! DocumentLoaded) return;
     final currentIndexCubit = current.currentIndexCubit;
     final document = current.data;
     final page = current.page;

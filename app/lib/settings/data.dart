@@ -84,7 +84,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                       value: context.read<SettingsCubit>()),
                                   BlocProvider(
                                     lazy: false,
-                                    create: (ctx) => DocumentBloc.placeholder(),
+                                    create: (ctx) => DocumentBloc.placeholder(
+                                        context.read<SettingsCubit>()),
                                   ),
                                 ],
                                 child: const PacksDialog(globalOnly: true),

@@ -15,30 +15,23 @@ class HandSelectionRenderer extends Renderer<Rect> {
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
     final paint = Paint()
-      ..color = scheme.primary
+      ..color = scheme.primaryContainer
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4 / transform.size
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..isAntiAlias = true
-      ..filterQuality = FilterQuality.high
-      ..colorFilter =
-          ColorFilter.mode(Colors.grey.withOpacity(0.5), BlendMode.srcATop);
+      ..isAntiAlias = true;
     canvas.drawRect(element, paint);
     if (transformMode == null) return;
-    final color = transformMode == HandTransformMode.scaleProp
-        ? scheme.secondary
-        : scheme.error;
+    final color =
+        transformMode == HandTransformMode.scaleProp ? Colors.red : Colors.blue;
     final transformPaint = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2 / transform.size
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
-      ..isAntiAlias = true
-      ..filterQuality = FilterQuality.high
-      ..colorFilter =
-          ColorFilter.mode(Colors.grey.withOpacity(0.5), BlendMode.srcATop);
+      ..isAntiAlias = true;
     final realSize = visibleSize / transform.size;
     if (element.width < 2 * realSize || element.height < 2 * realSize) return;
     final showCenter =
@@ -47,22 +40,26 @@ class HandSelectionRenderer extends Renderer<Rect> {
         .where((element) => !element.isCenter() || showCenter)
         .forEach((corner) {
       final position = corner.getFromRect(element);
-      canvas.drawRect(
-        Rect.fromCenter(
-          center: position,
-          width: realSize,
-          height: realSize,
-        ),
-        transformPaint,
-      );
-      if (corner == transformCorner) {
+      if (corner == HandTransformCorner.center) {
+        canvas.drawCircle(
+          position,
+          realSize,
+          transformPaint
+            ..style = corner == transformCorner
+                ? PaintingStyle.fill
+                : PaintingStyle.stroke,
+        );
+      } else {
         canvas.drawRect(
           Rect.fromCenter(
             center: position,
-            width: realSize / 2,
-            height: realSize / 2,
+            width: realSize,
+            height: realSize,
           ),
-          paint,
+          transformPaint
+            ..style = corner == transformCorner
+                ? PaintingStyle.fill
+                : PaintingStyle.stroke,
         );
       }
     });
@@ -72,6 +69,9 @@ class HandSelectionRenderer extends Renderer<Rect> {
 enum HandTransformMode { scale, scaleProp }
 
 enum HandTransformCorner {
+  // For rotating
+  center,
+
   topLeft,
   topCenter,
   topRight,
@@ -113,27 +113,24 @@ extension HandTransformCornerExtension on HandTransformCorner {
         return rect.bottomCenter;
       case HandTransformCorner.bottomRight:
         return rect.bottomRight;
+      case HandTransformCorner.center:
+        return rect.center;
     }
   }
 }
 
 class HandHandler extends Handler<HandPainter> {
-  HandTransformMode? _transformMode;
+  HandTransformMode _transformMode = HandTransformMode.scale;
   HandTransformCorner? _transformCorner;
-  List<Renderer<PadElement>> _movingElements = [];
   List<Renderer<PadElement>> _selected = [];
-  Offset? _currentMovePosition;
-  Offset? _currentTransformOffset;
+  List<Renderer<PadElement>> _transformed = [];
+  Offset? _transformStartOffset;
   Offset _contextMenuOffset = Offset.zero;
   Rect? _freeSelection;
-  double _rotation = 0;
+  Offset? _currentMousePosition;
+  double _scale = 1.0;
 
   HandHandler(super.data);
-
-  void setScaleMode(DocumentBloc bloc) {
-    _transformMode = HandTransformMode.scale;
-    bloc.refresh();
-  }
 
   void toggleScaleMode(DocumentBloc bloc) {
     _transformMode = _transformMode == HandTransformMode.scaleProp
@@ -142,29 +139,64 @@ class HandHandler extends Handler<HandPainter> {
     bloc.refresh();
   }
 
-  @override
-  void resetInput(DocumentBloc bloc) {
-    _resetTransform();
-    submitMove(bloc);
-    _movingElements.clear();
-    _selected.clear();
-    _currentMovePosition = null;
-    _freeSelection = null;
+  void transform(DocumentBloc bloc, List<Renderer<PadElement>> next,
+      HandTransformCorner? corner,
+      [bool duplicate = false]) {
+    _submitTransform(bloc);
+    _transformed = next;
+    _selected = [];
+    _transformCorner = corner;
+    _transformStartOffset = _currentMousePosition;
+    if (!duplicate) {
+      final state = bloc.state;
+      if (state is! DocumentLoadSuccess) return;
+      final content = state.page.content;
+      bloc.add(ElementsRemoved(
+          next.map((e) => content.indexOf(e.element)).toList()));
+    }
     bloc.refresh();
   }
 
   @override
-  Future<bool> onRendererUpdated(
-      DocumentPage page, Renderer old, Renderer updated) async {
-    if (_movingElements.contains(old.element) &&
-        updated is Renderer<PadElement>) {
-      _movingElements.remove(old.element);
-      _movingElements.add(updated);
-    } else if (old is Renderer<PadElement> &&
+  void resetInput(DocumentBloc bloc) {
+    _resetTransform();
+    _submitTransform(bloc);
+    _selected.clear();
+    _freeSelection = null;
+    _currentMousePosition = null;
+    _transformStartOffset = null;
+    _transformed = [];
+    bloc.refresh();
+  }
+
+  @override
+  bool onRenderersCreated(DocumentPage page, List<Renderer> renderers) {
+    var changed = false;
+    _selected = _selected
+        .map((e) {
+          final renderer = renderers
+              .firstWhereOrNull((element) => element.element == e.element);
+          if (renderer is! Renderer<PadElement>) return e;
+          changed = true;
+          return renderer;
+        })
+        .whereNotNull()
+        .toList();
+    return changed;
+  }
+
+  @override
+  bool onRendererUpdated(DocumentPage page, Renderer old, Renderer updated) {
+    if (old is Renderer<PadElement> &&
         _selected.contains(old) &&
         updated is Renderer<PadElement>) {
       _selected.remove(old);
       _selected.add(updated);
+    } else if (old is Renderer<PadElement> &&
+        _transformed.contains(old) &&
+        updated is Renderer<PadElement>) {
+      _transformed.remove(old);
+      _transformed.add(updated);
     } else {
       return false;
     }
@@ -174,7 +206,7 @@ class HandHandler extends Handler<HandPainter> {
   Rect? getSelectionRect() {
     Rect? rect;
     for (final element in _selected) {
-      final current = element.rect;
+      final current = element.expandedRect;
       if (current != null) {
         rect = rect?.expandToInclude(current) ?? current;
       }
@@ -182,22 +214,104 @@ class HandHandler extends Handler<HandPainter> {
     return rect;
   }
 
+  Rect? _getTransformedRect() {
+    Rect? rect;
+    for (final element in _transformed) {
+      final current = element.expandedRect;
+      if (current != null) {
+        rect = rect?.expandToInclude(current) ?? current;
+      }
+    }
+    return rect;
+  }
+
+  List<Renderer<PadElement>>? _getTransformed() {
+    final transformRect = _getTransformedRect();
+    final corner = _transformCorner;
+    final offset = _currentMousePosition;
+    final previous = _transformStartOffset ?? offset;
+    if (offset == null || transformRect == null || previous == null) {
+      return null;
+    }
+    final delta = offset - previous;
+    var scaleX = 1.0;
+    var scaleY = 1.0;
+    var position = Offset.zero;
+    var rotation = 0.0;
+    switch (corner) {
+      case HandTransformCorner.topLeft:
+        position = delta;
+        scaleX += -delta.dx / transformRect.size.width;
+        scaleY += -delta.dy / transformRect.size.height;
+        break;
+      case HandTransformCorner.topCenter:
+        scaleY += -delta.dy / transformRect.size.height;
+        position = Offset(0, delta.dy);
+        break;
+      case HandTransformCorner.topRight:
+        position = Offset(0, delta.dy);
+        scaleX += delta.dx / transformRect.size.width;
+        scaleY += -delta.dy / transformRect.size.height;
+        break;
+      case HandTransformCorner.centerLeft:
+        position = Offset(delta.dx, 0);
+        scaleX += -delta.dx / transformRect.size.width;
+        break;
+      case HandTransformCorner.centerRight:
+        scaleX += delta.dx / transformRect.size.width;
+        break;
+      case HandTransformCorner.bottomLeft:
+        position = Offset(delta.dx, 0);
+        scaleX += -delta.dx / transformRect.size.width;
+        scaleY += delta.dy / transformRect.size.height;
+        break;
+      case HandTransformCorner.bottomCenter:
+        scaleY += delta.dy / transformRect.size.height;
+        break;
+      case HandTransformCorner.bottomRight:
+        scaleX += delta.dx / transformRect.size.width;
+        scaleY += delta.dy / transformRect.size.height;
+        break;
+      case HandTransformCorner.center:
+        rotation = offset.getRotation(transformRect.center) / pi * 180;
+        break;
+      default:
+        position = delta;
+    }
+    if (_transformMode == HandTransformMode.scaleProp) {
+      final scale = max(scaleX, scaleY);
+      scaleX = scale;
+      scaleY = scale;
+    }
+    final pivot = transformRect.center;
+
+    return _transformed.map((e) {
+      var oldPos = e.expandedRect?.topLeft ?? Offset.zero;
+      var diff = oldPos - transformRect.topLeft;
+      // Scale and calculate relative position based on transformRect
+      var newPos =
+          -Offset(diff.dx * scaleX, diff.dy * scaleY) + position + diff;
+      // Rotate around center
+      if (rotation != 0) {
+        final center = e.expandedRect?.center ?? Offset.zero;
+        newPos += center.rotate(pivot, rotation / 180 * pi) - center;
+      }
+      return e.transform(
+              position: newPos,
+              scaleX: scaleX,
+              scaleY: scaleY,
+              rotation: rotation,
+              relative: true) ??
+          e;
+    }).toList();
+  }
+
   @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
       NoteData document, DocumentPage page, DocumentInfo info,
       [Area? currentArea]) {
     final foregrounds = <Renderer>[];
-    if (_movingElements.isNotEmpty && _currentMovePosition != null) {
-      final renderers = _movingElements.map((e) {
-        final position = currentIndexCubit.getGridPosition(
-            (e.rect?.center ?? Offset.zero) + _currentMovePosition!,
-            page,
-            info);
-
-        return e.transform(position: position, relative: false) ?? e;
-      }).toList();
-      foregrounds.addAll(renderers);
-    }
+    foregrounds.addAll(_getTransformed() ?? []);
     final selectionRect = getSelectionRect();
     final scheme = currentIndexCubit.getTheme(false).colorScheme;
     if (selectionRect != null) {
@@ -210,48 +324,29 @@ class HandHandler extends Handler<HandPainter> {
     return foregrounds;
   }
 
-  void move(DocumentBloc bloc, List<Renderer<PadElement>> next,
-      [bool duplicate = false]) {
+  Future<bool> _submitTransform(DocumentBloc bloc) async {
+    if (_transformed.isEmpty) return false;
     final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return;
-    final content = state.page.content;
-    submitMove(bloc);
-    _movingElements = next;
-    _selected = [];
-    _currentMovePosition = null;
-    if (!duplicate) {
-      bloc.add(ElementsRemoved(
-          next.map((e) => content.indexOf(e.element)).toList()));
-      bloc.refresh();
+    if (state is! DocumentLoadSuccess) return false;
+    final current = _getTransformed();
+    _selected = current ?? _transformed;
+    _transformCorner = null;
+    _transformed = [];
+    _transformMode = HandTransformMode.scale;
+    if (current != null) {
+      await Future.sync(() =>
+          bloc.add(ElementsCreated(current.map((e) => e.element).toList())));
     }
-  }
-
-  void submitMove(DocumentBloc bloc) {
-    if (_movingElements.isEmpty) return;
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return;
-    final page = state.page;
-    final cubit = state.currentIndexCubit;
-    final current = _movingElements
-        .map((e) {
-          var position = cubit.getGridPosition(
-              (e.rect?.center ?? Offset.zero) +
-                  (_currentMovePosition ?? Offset.zero),
-              page,
-              state.info);
-          return e.transform(position: position, relative: false) ?? e;
-        })
-        .map((e) => e.element)
-        .toList();
-    _currentMovePosition = null;
-    _movingElements = [];
-    bloc.add(ElementsCreated(current));
     bloc.refresh();
+    return true;
   }
 
   @override
   void onTapUp(TapUpDetails details, EventContext context) async {
     _onSelectionAdd(context, details.localPosition, false);
+    if (_transformed.isNotEmpty) {
+      _submitTransform(context.getDocumentBloc());
+    }
   }
 
   @override
@@ -266,27 +361,26 @@ class HandHandler extends Handler<HandPainter> {
     return HandTransformCorner.values.firstWhereOrNull((element) {
       final corner = element.getFromRect(selectionRect);
       return Rect.fromCenter(
-              center: corner, width: cornerSize, height: cornerSize)
+              center: corner,
+              width: cornerSize / _scale,
+              height: cornerSize / _scale)
           .contains(position);
     });
   }
 
   Future<void> _onSelectionAdd(EventContext context, Offset localPosition,
       [bool forceAdd = false]) async {
-    if (_movingElements.isNotEmpty) {
+    if (_transformed.isNotEmpty) {
       return;
     }
     final transform = context.getCameraTransform();
     final globalPos = transform.localToGlobal(localPosition);
-    if (_transformMode != null) {
-      final selectionRect = getSelectionRect();
-      if (selectionRect?.contains(globalPos) ?? false) {
-        toggleScaleMode(context.getDocumentBloc());
-        return;
-      }
-      _resetTransform();
+    final selectionRect = getSelectionRect();
+    if (selectionRect?.contains(globalPos) ?? false) {
+      toggleScaleMode(context.getDocumentBloc());
       return;
     }
+    _resetTransform();
     final settings = context.getSettings();
     final radius = settings.selectSensitivity / transform.size;
     final hits = await rayCast(globalPos, context.getDocumentBloc(),
@@ -316,8 +410,8 @@ class HandHandler extends Handler<HandPainter> {
 
   void _resetTransform() {
     _transformCorner = null;
-    _transformMode = null;
-    _currentTransformOffset = null;
+    _transformMode = HandTransformMode.scale;
+    _transformStartOffset = null;
   }
 
   @override
@@ -337,14 +431,14 @@ class HandHandler extends Handler<HandPainter> {
 
   Future<void> _onSelectionContext(
       EventContext context, Offset localPosition) async {
-    if (_movingElements.isNotEmpty) {
+    if (_transformed.isNotEmpty) {
       return;
     }
     final position = context.getCameraTransform().localToGlobal(localPosition);
     final hits = await rayCast(
         position, context.getDocumentBloc(), context.getCameraTransform(), 0.0);
     final hit = hits.firstOrNull;
-    final rect = hit?.rect;
+    final rect = hit?.expandedRect;
     if ((rect != null && !(getSelectionRect()?.contains(position) ?? false)) &&
         !context.isCtrlPressed) {
       _selected.clear();
@@ -352,9 +446,6 @@ class HandHandler extends Handler<HandPainter> {
     }
     context.refresh();
     final buildContext = context.buildContext;
-    if (_selected.isEmpty && buildContext.mounted) {
-      return;
-    }
     if (buildContext.mounted) {
       final result = await showContextMenu<bool>(
         context: buildContext,
@@ -378,27 +469,28 @@ class HandHandler extends Handler<HandPainter> {
     context.refresh();
   }
 
-  bool _ruler = false;
+  double? _rulerRotation;
+  Offset? _rulerPosition;
 
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final viewport = context.getCameraViewport();
-    _rotation = 0;
     if (viewport.tool.hitRuler(details.localFocalPoint, viewport.toSize())) {
-      _ruler = true;
+      _rulerRotation = 0;
+      _rulerPosition = details.localFocalPoint;
       return true;
     }
-    final globalPos =
-        context.getCameraTransform().localToGlobal(details.localFocalPoint);
-    if (_movingElements.isNotEmpty) {
-      _currentMovePosition = globalPos -
-          (_movingElements.first.rect?.center ?? Offset.zero) *
-              context.getCameraTransform().size;
+    final cameraTransform = context.getCameraTransform();
+    final globalPos = cameraTransform.localToGlobal(details.localFocalPoint);
+    _currentMousePosition = globalPos;
+    _scale = cameraTransform.size;
+    _transformCorner = _getCornerHit(globalPos);
+    if (_transformCorner != null ||
+        (getSelectionRect()?.contains(globalPos) ?? false)) {
+      transform(context.getDocumentBloc(), _selected, _transformCorner);
+      return true;
     }
-    if (_transformMode != null) {
-      _transformCorner = _getCornerHit(globalPos);
-      context.refresh();
-    }
+    context.refresh();
     return false;
   }
 
@@ -407,55 +499,56 @@ class HandHandler extends Handler<HandPainter> {
       event.kind == PointerDeviceKind.mouse &&
       event.buttons != kSecondaryMouseButton;
 
+  void _handleRuler(ScaleUpdateDetails details, EventContext context) {
+    final state = context.getState();
+    if (state == null) return;
+    final viewport = context.getCameraViewport();
+    var toolState = viewport.tool.element;
+    final currentRotation = details.rotation * 180 / pi * details.scale;
+    final delta = currentRotation - _rulerRotation!;
+    var angle = toolState.rulerAngle + delta;
+    while (angle < 0) {
+      angle += 360;
+    }
+    angle %= 360;
+    final currentPos = details.localFocalPoint;
+    toolState = toolState.copyWith(
+      rulerPosition: toolState.rulerPosition +
+          Point(
+            currentPos.dx - _rulerPosition!.dx,
+            currentPos.dy - _rulerPosition!.dy,
+          ),
+      rulerAngle: angle,
+    );
+    _rulerRotation = currentRotation;
+    _rulerPosition = currentPos;
+    context
+        .getCurrentIndexCubit()
+        .updateTool(state.data, state.page, state.assetService, toolState);
+  }
+
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
+    if (details.pointerCount > 1) return;
     final currentIndex = context.getCurrentIndex();
     final globalPos =
         context.getCameraTransform().localToGlobal(details.localFocalPoint);
-    if (_ruler) {
-      final state = context.getState();
-      if (state == null) return;
-      var toolState = context.getCameraViewport().tool.element;
-      final currentRotation = details.rotation * 180 / pi * details.scale;
-      final delta = currentRotation - _rotation;
-      var angle = toolState.rulerAngle + delta;
-      while (angle < 0) {
-        angle += 360;
-      }
-      angle %= 360;
-      toolState = toolState.copyWith(
-        rulerPosition: toolState.rulerPosition +
-            Point(
-              details.focalPointDelta.dx,
-              details.focalPointDelta.dy,
-            ),
-        rulerAngle: angle,
-      );
-      _rotation = currentRotation;
-      context
-          .getCurrentIndexCubit()
-          .updateTool(state.data, state.page, state.assetService, toolState);
+    if (_rulerRotation != null && _rulerPosition != null) {
+      _handleRuler(details, context);
       return;
     }
-    if (_transformMode != null) {
-      _currentTransformOffset = globalPos;
+    _currentMousePosition = globalPos;
+    if (_transformed.isNotEmpty) {
+      context.refresh();
       return;
     }
-    if (currentIndex.buttons != kSecondaryMouseButton &&
-        details.pointerCount == 1) {
+    if (currentIndex.buttons != kSecondaryMouseButton && _transformed.isEmpty) {
       if (details.scale == 1.0) {
         final topLeft = _freeSelection?.topLeft ?? globalPos;
         _freeSelection =
             Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy);
         context.refresh();
       }
-      return;
-    }
-    if (_movingElements.isNotEmpty) {
-      var current = _currentMovePosition ?? Offset.zero;
-      current += details.focalPointDelta / context.getCameraTransform().size;
-      _currentMovePosition = current;
-      context.refresh();
       return;
     }
     context
@@ -466,11 +559,11 @@ class HandHandler extends Handler<HandPainter> {
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
     final freeSelection = _freeSelection?.normalized();
-    if (_ruler) {
-      _ruler = false;
+    if (_rulerRotation != null) {
+      _rulerRotation = null;
       return;
     }
-    if (_handleTransform(context.getDocumentBloc())) return;
+    if (await _submitTransform(context.getDocumentBloc())) return;
     if (freeSelection != null && !freeSelection.isEmpty) {
       _freeSelection = null;
       if (!context.isCtrlPressed) {
@@ -483,102 +576,109 @@ class HandHandler extends Handler<HandPainter> {
     }
   }
 
-  bool _handleTransform(DocumentBloc bloc) {
-    final state = bloc.state;
-    if (state is! DocumentLoadSuccess) return false;
-    final content = state.page.content;
-    final selectionRect = getSelectionRect();
-    final corner = _transformCorner;
-    final offset = _currentTransformOffset;
-    if (corner == null || offset == null || selectionRect == null) return false;
-    final previous = corner.getFromRect(selectionRect);
-    var delta = offset - previous;
-    var scaleX = 1.0;
-    var scaleY = 1.0;
-    var position = Offset.zero;
-    switch (corner) {
-      case HandTransformCorner.topLeft:
-        position = delta;
-        scaleX += -delta.dx / selectionRect.size.width;
-        scaleY += -delta.dy / selectionRect.size.height;
-        break;
-      case HandTransformCorner.topCenter:
-        position = Offset(0, delta.dy);
-        scaleY += -delta.dy / selectionRect.size.height;
-        break;
-      case HandTransformCorner.topRight:
-        position = Offset(0, delta.dy);
-        scaleX += delta.dx / selectionRect.size.width;
-        scaleY += -delta.dy / selectionRect.size.height;
-        break;
-      case HandTransformCorner.centerLeft:
-        position = Offset(delta.dx, 0);
-        scaleX += -delta.dx / selectionRect.size.width;
-        break;
-      case HandTransformCorner.centerRight:
-        scaleX += delta.dx / selectionRect.size.width;
-        break;
-      case HandTransformCorner.bottomLeft:
-        position = Offset(delta.dx, 0);
-        scaleX += -delta.dx / selectionRect.size.width;
-        scaleY += delta.dy / selectionRect.size.height;
-        break;
-      case HandTransformCorner.bottomCenter:
-        scaleY += delta.dy / selectionRect.size.height;
-        break;
-      case HandTransformCorner.bottomRight:
-        scaleX += delta.dx / selectionRect.size.width;
-        scaleY += delta.dy / selectionRect.size.height;
-        break;
-    }
-    scaleX = scaleX.clamp(0.1, 10.0);
-    scaleY = scaleY.clamp(0.1, 10.0);
-    if (_transformMode == HandTransformMode.scaleProp) {
-      final scale = max(scaleX, scaleY);
-      scaleX = scale;
-      scaleY = scale;
-    }
-    final updated = Map<Renderer<PadElement>, Renderer<PadElement>>.fromEntries(
-      _selected.map(
-        (e) {
-          var offset = e.rect?.topLeft ?? Offset.zero;
-          offset -= selectionRect.topLeft;
-          offset = offset.scale(scaleX - 1, scaleY - 1);
-          offset += position;
-          return MapEntry<Renderer<PadElement>, Renderer<PadElement>>(
-              e,
-              e.transform(
-                      position: offset,
-                      scaleX: scaleX,
-                      scaleY: scaleY,
-                      relative: true) ??
-                  e);
-        },
-      ),
-    );
-    _selected = updated.values.toList();
-    _transformCorner = null;
-    _currentTransformOffset = null;
-    bloc.add(ElementsChanged(Map.fromEntries(updated.entries.map((entry) =>
-        MapEntry(content.indexOf(entry.key.element), [entry.value.element])))));
-    bloc.refresh();
-    return true;
-  }
-
   @override
   void onPointerHover(PointerHoverEvent event, EventContext context) {
-    if (_movingElements.isNotEmpty) {
-      _currentMovePosition =
-          context.getCameraTransform().localToGlobal(event.localPosition) -
-              (_movingElements.first.rect?.center ?? Offset.zero);
-      context.refresh();
-    }
+    final transform = context.getCameraTransform();
+    final globalPos = transform.localToGlobal(event.localPosition);
+    _currentMousePosition = globalPos;
+    _scale = transform.size;
+    _transformCorner = _getCornerHit(globalPos);
+    context.refresh();
   }
 
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
-    if (_movingElements.isNotEmpty) {
-      submitMove(context.getDocumentBloc());
+    Focus.of(context.buildContext).requestFocus();
+  }
+
+  @override
+  MouseCursor? get cursor {
+    if (_currentMousePosition == null) return null;
+    final corner = _getCornerHit(_currentMousePosition!);
+    return switch (corner) {
+          HandTransformCorner.bottomCenter ||
+          HandTransformCorner.topCenter =>
+            SystemMouseCursors.resizeUpDown,
+          HandTransformCorner.centerLeft ||
+          HandTransformCorner.centerRight =>
+            SystemMouseCursors.resizeLeftRight,
+          HandTransformCorner.topLeft ||
+          HandTransformCorner.bottomRight =>
+            SystemMouseCursors.resizeUpLeftDownRight,
+          HandTransformCorner.topRight ||
+          HandTransformCorner.bottomLeft =>
+            SystemMouseCursors.resizeUpRightDownLeft,
+          HandTransformCorner.center => SystemMouseCursors.grab,
+          _ => null,
+        } ??
+        (getSelectionRect()?.contains(_currentMousePosition!) ?? false
+            ? SystemMouseCursors.move
+            : null);
+  }
+
+  void copySelection(BuildContext context, [bool cut = false]) {
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final content = state.page.content;
+    if (cut) {
+      bloc.add(ElementsRemoved(
+          _selected.map((r) => content.indexOf(r.element)).toList()));
     }
+    final point = getSelectionRect()?.topLeft;
+    if (point == null) return;
+    final clipboard = (
+      type: AssetFileType.page.name,
+      data: Uint8List.fromList(
+        utf8.encode(
+          json.encode(DocumentPage(
+                  content: _selected
+                      .map((e) => (e.transform(
+                                position: -point,
+                                relative: true,
+                              ) ??
+                              e)
+                          .element)
+                      .toList())
+              .toJson()),
+        ),
+      ),
+    );
+    context.read<ClipboardManager>().setContent(clipboard);
+    _selected.clear();
+    bloc.refresh();
+  }
+
+  @override
+  Map<Type, Action<Intent>> getActions(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
+    return {
+      SelectAllTextIntent:
+          CallbackAction<SelectAllTextIntent>(onInvoke: (intent) {
+        final state = bloc.state;
+        if (state is! DocumentLoadSuccess) return null;
+        _selected.clear();
+        _selected.addAll(state.renderers);
+        bloc.refresh();
+        return null;
+      }),
+      DeleteCharacterIntent:
+          CallbackAction<DeleteCharacterIntent>(onInvoke: (intent) {
+        final state = bloc.state;
+        if (state is! DocumentLoadSuccess) return null;
+        final content = state.page.content;
+        bloc.add(ElementsRemoved(
+            _selected.map((r) => content.indexOf(r.element)).toList()));
+        _selected.clear();
+        bloc.refresh();
+        return null;
+      }),
+      CopySelectionTextIntent:
+          CallbackAction<CopySelectionTextIntent>(onInvoke: (intent) {
+        copySelection(context, intent.collapseSelection);
+        return null;
+      }),
+      ...super.getActions(context),
+    };
   }
 }

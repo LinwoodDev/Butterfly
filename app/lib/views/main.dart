@@ -1,16 +1,3 @@
-import 'package:butterfly/actions/areas.dart';
-import 'package:butterfly/actions/background.dart';
-import 'package:butterfly/actions/change_path.dart';
-import 'package:butterfly/actions/color_palette.dart';
-import 'package:butterfly/actions/export.dart';
-import 'package:butterfly/actions/image_export.dart';
-import 'package:butterfly/actions/new.dart';
-import 'package:butterfly/actions/pdf_export.dart';
-import 'package:butterfly/actions/redo.dart';
-import 'package:butterfly/actions/save.dart';
-import 'package:butterfly/actions/settings.dart';
-import 'package:butterfly/actions/svg_export.dart';
-import 'package:butterfly/actions/undo.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
@@ -33,12 +20,25 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../actions/areas.dart';
+import '../actions/background.dart';
 import '../actions/change_painter.dart';
+import '../actions/change_path.dart';
+import '../actions/color_palette.dart';
 import '../actions/exit.dart';
+import '../actions/export.dart';
+import '../actions/image_export.dart';
+import '../actions/new.dart';
 import '../actions/next.dart';
 import '../actions/packs.dart';
+import '../actions/paste.dart';
+import '../actions/pdf_export.dart';
 import '../actions/previous.dart';
-import '../actions/primary.dart';
+import '../actions/redo.dart';
+import '../actions/save.dart';
+import '../actions/settings.dart';
+import '../actions/svg_export.dart';
+import '../actions/undo.dart';
 import '../main.dart';
 import '../models/viewport.dart';
 import '../services/asset.dart';
@@ -86,13 +86,13 @@ class _ProjectPageState extends State<ProjectPage> {
     ExitIntent: ExitAction(),
     NextIntent: NextAction(),
     PreviousIntent: PreviousAction(),
-    PrimaryIntent: PrimaryAction(),
+    PasteIntent: PasteAction(),
   };
 
   @override
   void initState() {
     super.initState();
-    load();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _load());
   }
 
   @override
@@ -100,12 +100,12 @@ class _ProjectPageState extends State<ProjectPage> {
     if (oldWidget.location != widget.location) {
       _bloc?.close();
       _bloc = null;
-      load();
+      _load();
     }
     super.didUpdateWidget(oldWidget);
   }
 
-  Future<void> load() async {
+  Future<void> _load() async {
     final settingsCubit = context.read<SettingsCubit>();
     final embedding = widget.embedding;
     if (embedding != null) {
@@ -126,7 +126,6 @@ class _ProjectPageState extends State<ProjectPage> {
           settingsCubit,
           document,
           widget.location ?? const AssetLocation(path: ''),
-          BoxBackgroundRenderer(const BoxBackground()),
           [],
         );
         _bloc?.load();
@@ -135,48 +134,64 @@ class _ProjectPageState extends State<ProjectPage> {
       return;
     }
     try {
+      final globalImportService = ImportService(context);
       var location = widget.location;
       _remote = location != null
           ? settingsCubit.state.getRemote(location.remote)
           : settingsCubit.state.getDefaultRemote();
       final fileSystem = DocumentFileSystem.fromPlatform(remote: _remote);
       final prefs = await SharedPreferences.getInstance();
+      final fileType =
+          AssetFileTypeHelper.fromFileExtension(location?.fileExtension)?.name;
       NoteData? document;
-      if (widget.location != null) {
-        if (!widget.location!.absolute) {
-          final asset = await fileSystem.getAsset(widget.location!.path);
-          if (!mounted) return;
-          if (asset?.fileType == AssetFileType.note) {
-            document = await checkFileChanges(context, asset);
-          }
-        }
+      if (widget.data != null) {
+        document ??= await globalImportService.load(
+            type: widget.type.isEmpty ? (fileType ?? widget.type) : widget.type,
+            data: widget.data);
       }
-      if (!mounted) return;
-      final name =
-          (widget.location?.absolute ?? false) ? widget.location!.fileName : '';
-      var documentOpened = document != null;
-      if (!documentOpened) {
-        location = null;
-      }
-      if (widget.data is NoteData) {
-        document = (widget.data as NoteData);
-      }
+      final name = (location?.absolute ?? false) ? location!.fileName : '';
+      NoteData? defaultDocument;
       if (document == null && prefs.containsKey('default_template')) {
         var template = await TemplateFileSystem.fromPlatform(remote: _remote)
             .getTemplate(prefs.getString('default_template')!);
         if (template != null && mounted) {
-          document = template.createDocument(
+          defaultDocument = template.createDocument(
             name: name,
             createdAt: DateTime.now(),
           );
         }
       }
+      defaultDocument ??= DocumentDefaults.createDocument(
+        name: name,
+      );
+      if (location != null && location.path.isNotEmpty && document == null) {
+        if (!location.absolute) {
+          final asset = await fileSystem.getAsset(location.path);
+          if (!mounted) return;
+          if (asset?.fileType == AssetFileType.note) {
+            document = await checkFileChanges(context, asset);
+          }
+        } else {
+          final data = await fileSystem.loadAbsolute(location.path);
+          if (data != null) {
+            document = await globalImportService.load(
+                document: defaultDocument,
+                type: widget.type.isEmpty
+                    ? (fileType ?? widget.type)
+                    : widget.type,
+                data: data);
+          }
+        }
+      }
+      if (!mounted) return;
+      var documentOpened = document != null;
+      if (!documentOpened && !(location?.absolute ?? false)) {
+        location = null;
+      }
       if (!mounted) {
         return;
       }
-      document ??= DocumentDefaults.createDocument(
-        name: name,
-      );
+      document ??= defaultDocument;
       final pageName = document.getPages().firstOrNull ?? 'default';
       final page = document.getPage(pageName) ?? DocumentDefaults.createPage();
       final renderers =
@@ -191,13 +206,12 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
-            CameraViewport.unbaked(ToolRenderer()), null);
+            CameraViewport.unbaked(ToolRenderer(), background), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
-            location!, background, renderers, assetService, page, pageName);
+            location!, renderers, assetService, page, pageName);
         _importService = ImportService(context, _bloc);
-        _bloc?.load();
       });
-    } catch (e) {
+    } catch (e, stackTrace) {
       if (kDebugMode) {
         print(e);
       }
@@ -205,16 +219,12 @@ class _ProjectPageState extends State<ProjectPage> {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
             CameraViewport.unbaked(ToolRenderer()), null);
-        _bloc = DocumentBloc.error(e.toString());
+        _bloc = DocumentBloc.error(settingsCubit, e.toString(), stackTrace);
       });
     }
-    WidgetsBinding.instance.addPostFrameCallback(_onAfterBuild);
-  }
-
-  void _onAfterBuild(Duration _) {
-    if (widget.type.isNotEmpty && widget.type != 'note') {
-      _importService?.load(type: widget.type, data: widget.data);
-    }
+    WidgetsBinding.instance.scheduleFrameCallback((_) async {
+      _bloc?.load();
+    });
   }
 
   @override
@@ -239,7 +249,8 @@ class _ProjectPageState extends State<ProjectPage> {
             previous.runtimeType != current.runtimeType,
         builder: (context, state) {
           if (state is DocumentLoadFailure) {
-            return ErrorPage(message: state.message);
+            return ErrorPage(
+                message: state.message, stackTrace: state.stackTrace);
           }
           return MultiRepositoryProvider(
             providers: [
@@ -259,167 +270,221 @@ class _ProjectPageState extends State<ProjectPage> {
                   FocusManager.instance.primaryFocus?.unfocus();
                 }
               },
-              child: Builder(builder: (context) {
-                return Actions(
-                  actions: _actions,
-                  child: Shortcuts(
-                    shortcuts: {
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyZ): UndoIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyY): RedoIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                              LogicalKeyboardKey.keyN):
-                          NewIntent(context, fromTemplate: false),
-                      LogicalKeySet(
+              child: BlocBuilder<SettingsCubit, ButterflySettings>(
+                  buildWhen: (previous, current) =>
+                      previous.fullScreen != current.fullScreen,
+                  builder: (context, settings) {
+                    return Actions(
+                      actions: _actions,
+                      child: Shortcuts(
+                        shortcuts: {
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                              LogicalKeyboardKey.keyZ): UndoIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                              LogicalKeyboardKey.keyY): RedoIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.keyN):
+                              NewIntent(context, fromTemplate: false),
+                          LogicalKeySet(
+                                  LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.shift,
+                                  LogicalKeyboardKey.keyN):
+                              NewIntent(context, fromTemplate: true),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.keyP):
+                              ColorPaletteIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.keyB):
+                              BackgroundIntent(context),
+                          LogicalKeySet(
                               LogicalKeyboardKey.control,
                               LogicalKeyboardKey.shift,
-                              LogicalKeyboardKey.keyN):
-                          NewIntent(context, fromTemplate: true),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyP): ColorPaletteIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.keyB): BackgroundIntent(context),
-                      LogicalKeySet(
-                          LogicalKeyboardKey.control,
-                          LogicalKeyboardKey.shift,
-                          LogicalKeyboardKey.keyA): AreasIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.escape):
-                          ExitIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.arrowRight):
-                          NextIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.arrowLeft):
-                          PreviousIntent(context),
-                      LogicalKeySet(LogicalKeyboardKey.space):
-                          PrimaryIntent(context),
-                      if (widget.embedding == null) ...{
-                        LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.keyE): ExportIntent(context),
-                        LogicalKeySet(
+                              LogicalKeyboardKey.keyA): AreasIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.escape):
+                              ExitIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.arrowRight):
+                              NextIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.arrowLeft):
+                              PreviousIntent(context),
+                          if (widget.embedding == null) ...{
+                            LogicalKeySet(LogicalKeyboardKey.control,
+                                LogicalKeyboardKey.keyE): ExportIntent(context),
+                            LogicalKeySet(
+                                    LogicalKeyboardKey.control,
+                                    LogicalKeyboardKey.shift,
+                                    LogicalKeyboardKey.keyE):
+                                ImageExportIntent(context),
+                            LogicalKeySet(
+                                    LogicalKeyboardKey.control,
+                                    LogicalKeyboardKey.alt,
+                                    LogicalKeyboardKey.shift,
+                                    LogicalKeyboardKey.keyE):
+                                PdfExportIntent(context),
+                            LogicalKeySet(
+                                    LogicalKeyboardKey.control,
+                                    LogicalKeyboardKey.alt,
+                                    LogicalKeyboardKey.keyE):
+                                SvgExportIntent(context),
+                            LogicalKeySet(
+                                    LogicalKeyboardKey.control,
+                                    LogicalKeyboardKey.alt,
+                                    LogicalKeyboardKey.keyS):
+                                SettingsIntent(context),
+                            LogicalKeySet(LogicalKeyboardKey.alt,
+                                    LogicalKeyboardKey.keyS):
+                                ChangePathIntent(context),
+                            LogicalKeySet(LogicalKeyboardKey.control,
+                                LogicalKeyboardKey.keyS): SaveIntent(context),
+                            LogicalKeySet(
                                 LogicalKeyboardKey.control,
-                                LogicalKeyboardKey.shift,
-                                LogicalKeyboardKey.keyE):
-                            ImageExportIntent(context),
-                        LogicalKeySet(
-                            LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.shift,
-                            LogicalKeyboardKey.keyE): PdfExportIntent(context),
-                        LogicalKeySet(
-                            LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.keyE): SvgExportIntent(context),
-                        LogicalKeySet(
-                            LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.keyS): SettingsIntent(context),
-                        LogicalKeySet(LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.keyS): ChangePathIntent(context),
-                        LogicalKeySet(LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.keyS): SaveIntent(context),
-                        LogicalKeySet(
-                            LogicalKeyboardKey.control,
-                            LogicalKeyboardKey.alt,
-                            LogicalKeyboardKey.keyP): PacksIntent(context),
-                        ...[
-                          LogicalKeyboardKey.digit1,
-                          LogicalKeyboardKey.digit2,
-                          LogicalKeyboardKey.digit3,
-                          LogicalKeyboardKey.digit4,
-                          LogicalKeyboardKey.digit5,
-                          LogicalKeyboardKey.digit6,
-                          LogicalKeyboardKey.digit7,
-                          LogicalKeyboardKey.digit8,
-                          LogicalKeyboardKey.digit9,
-                          LogicalKeyboardKey.digit0
-                        ].asMap().map((k, v) => MapEntry(
-                            LogicalKeySet(LogicalKeyboardKey.control, v),
-                            ChangePainterIntent(context, k))),
-                      },
-                    },
-                    child: SafeArea(
-                      child: ClipRect(
-                        child: Focus(
-                            autofocus: true,
-                            skipTraversal: true,
-                            onFocusChange: (_) => false,
-                            child: Scaffold(
-                              appBar: state is DocumentPresentationState
-                                  ? null
-                                  : PadAppBar(
-                                      viewportKey: _viewportKey,
-                                    ),
-                              drawer: state is DocumentLoadSuccess
-                                  ? const DocumentNavigator(asDrawer: true)
-                                  : null,
-                              body: Actions(
-                                  actions: _actions,
-                                  child: LayoutBuilder(
-                                      builder: (context, constraints) {
-                                    final isMobile =
-                                        constraints.maxWidth < kMobileWidth;
-                                    final isLarge =
-                                        constraints.maxWidth > kLargeWidth;
-                                    return Row(
-                                      children: [
-                                        if (isLarge) const DocumentNavigator(),
-                                        Expanded(
-                                          child: Stack(
-                                            children: [
-                                              Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .stretch,
-                                                  children: [
-                                                    Expanded(
-                                                        key: _viewportKey,
-                                                        child: Stack(
-                                                          children: [
-                                                            const MainViewViewport(),
-                                                            const Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  ToolbarView(),
-                                                                ]),
-                                                            ZoomView(
-                                                                isMobile:
-                                                                    isMobile),
-                                                            if (!isMobile)
-                                                              const PropertyView()
-                                                          ],
-                                                        )),
-                                                    if (isMobile)
-                                                      Align(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: EditToolbar(
-                                                                  isMobile:
-                                                                      isMobile))),
-                                                  ]),
-                                              if (isMobile)
-                                                const PropertyView(),
-                                            ],
-                                          ),
+                                LogicalKeyboardKey.alt,
+                                LogicalKeyboardKey.keyP): PacksIntent(context),
+                            ...[
+                              LogicalKeyboardKey.digit1,
+                              LogicalKeyboardKey.digit2,
+                              LogicalKeyboardKey.digit3,
+                              LogicalKeyboardKey.digit4,
+                              LogicalKeyboardKey.digit5,
+                              LogicalKeyboardKey.digit6,
+                              LogicalKeyboardKey.digit7,
+                              LogicalKeyboardKey.digit8,
+                              LogicalKeyboardKey.digit9,
+                              LogicalKeyboardKey.digit0
+                            ].asMap().map((k, v) => MapEntry(
+                                LogicalKeySet(LogicalKeyboardKey.control, v),
+                                ChangePainterIntent(context, k))),
+                          },
+                        },
+                        child: SafeArea(
+                          child: ClipRect(
+                            child: Focus(
+                              autofocus: true,
+                              skipTraversal: true,
+                              onFocusChange: (_) => false,
+                              child: Scaffold(
+                                  appBar: state is DocumentPresentationState ||
+                                          settings.fullScreen
+                                      ? null
+                                      : PadAppBar(
+                                          viewportKey: _viewportKey,
                                         ),
-                                      ],
-                                    );
-                                  })),
-                            )),
+                                  drawer: state is DocumentLoadSuccess
+                                      ? const DocumentNavigator(asDrawer: true)
+                                      : null,
+                                  body: Actions(
+                                    actions: _actions,
+                                    child: const _MainBody(),
+                                  )),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              }),
+                    );
+                  }),
             ),
           );
         },
       ),
     );
+  }
+}
+
+class _MainBody extends StatelessWidget {
+  const _MainBody();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DocumentBloc, DocumentState>(
+        buildWhen: (previous, current) =>
+            (previous is DocumentLoadSuccess &&
+                current is! DocumentLoadSuccess) ||
+            (previous is! DocumentLoadSuccess &&
+                current is DocumentLoadSuccess),
+        builder: (context, state) =>
+            BlocBuilder<SettingsCubit, ButterflySettings>(
+                buildWhen: (previous, current) =>
+                    previous.toolbarPosition != current.toolbarPosition ||
+                    previous.fullScreen != current.fullScreen ||
+                    previous.navigationRail != current.navigationRail,
+                builder: (context, settings) {
+                  final pos = settings.toolbarPosition;
+                  return LayoutBuilder(builder: (context, constraints) {
+                    final isMobile = constraints.maxWidth < kMobileWidth;
+                    final isLarge = constraints.maxWidth > kLargeWidth;
+                    final toolbar = EditToolbar(
+                      isMobile: false,
+                      centered: true,
+                      direction: pos == ToolbarPosition.bottom ||
+                              pos == ToolbarPosition.top ||
+                              isMobile
+                          ? Axis.horizontal
+                          : Axis.vertical,
+                    );
+                    return Stack(
+                      children: [
+                        const MainViewViewport(),
+                        BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+                            builder: (context, state) {
+                          return Listener(
+                            behavior: state.pinned || state.selection == null
+                                ? HitTestBehavior.translucent
+                                : HitTestBehavior.opaque,
+                            onPointerUp: (details) {
+                              if (state.pinned) return;
+                              context
+                                  .read<CurrentIndexCubit>()
+                                  .resetSelection();
+                            },
+                          );
+                        }),
+                        Row(
+                          children: [
+                            if (isLarge &&
+                                settings.navigationRail &&
+                                !settings.fullScreen &&
+                                state is DocumentLoadSuccess)
+                              const NavigatorView(),
+                            if (pos == ToolbarPosition.left && !isMobile)
+                              toolbar,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  if (settings.fullScreen &&
+                                      pos == ToolbarPosition.top &&
+                                      !isMobile)
+                                    toolbar,
+                                  if (pos == ToolbarPosition.top || isMobile)
+                                    const ToolbarView(),
+                                  const Expanded(
+                                    child: Align(
+                                      alignment: Alignment.topRight,
+                                      child: PropertyView(),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: SizedBox(
+                                        width: isMobile ? 100 : 400,
+                                        child: ZoomView(isMobile: isMobile),
+                                      ),
+                                    ),
+                                  ),
+                                  if (pos != ToolbarPosition.top && !isMobile)
+                                    const ToolbarView(),
+                                  if (isMobile || pos == ToolbarPosition.bottom)
+                                    toolbar,
+                                ],
+                              ),
+                            ),
+                            if (pos == ToolbarPosition.right) toolbar,
+                          ],
+                        ),
+                      ],
+                    );
+                  });
+                }));
   }
 }

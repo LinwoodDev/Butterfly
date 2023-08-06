@@ -501,5 +501,19 @@
   "version": "Version",
   "repository": "Repository",
   "pages": "Seiten",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Anordnen",
+  "bringToFront": "Nach vorne bringen",
+  "sendToBack": "An zurück senden",
+  "bringForward": "Vorwärts bringen",
+  "sendBackward": "Rückwärts senden",
+  "invalidName": "Ungültiger Name",
+  "rotation": "Drehung",
+  "onlyAvailableLargerScreen": "Nur auf größeren Bildschirmen verfügbar",
+  "toolbarPosition": "Position der Werkzeugleiste",
+  "rotate": "Drehen",
+  "spacer": "Abstand",
+  "navigationRail": "Navigationsschiene",
+  "cut": "Schneide",
+  "paste": "Einfügen"
 }

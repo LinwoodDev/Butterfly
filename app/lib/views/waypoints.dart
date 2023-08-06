@@ -15,15 +15,14 @@ class WaypointsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<DocumentBloc>().state;
-    if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
     const origin = Waypoint.origin;
     return BlocBuilder<TransformCubit, CameraTransform>(
         builder: (context, transform) {
-      return StreamBuilder<NoteData>(
-          stream: state.data.onChange,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) return const SizedBox.shrink();
+      return BlocBuilder<DocumentBloc, DocumentState>(
+          buildWhen: (previous, current) =>
+              previous.page?.waypoints != current.page?.waypoints,
+          builder: (context, state) {
+            if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
             var waypoints = state.page.waypoints;
             return Stack(
               children: [

@@ -8,17 +8,33 @@ part of 'painter.dart';
 
 _$HandPainter _$$HandPainterFromJson(Map json) => _$HandPainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$HandPainterToJson(_$HandPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'type': instance.$type,
+    };
+
+_$MovePainter _$$MovePainterFromJson(Map json) => _$MovePainter(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$MovePainterToJson(_$MovePainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'type': instance.$type,
     };
 
 _$ImportPainter _$$ImportPainterFromJson(Map json) => _$ImportPainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       elements: (json['elements'] as List<dynamic>)
           .map((e) => PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
@@ -31,6 +47,7 @@ _$ImportPainter _$$ImportPainterFromJson(Map json) => _$ImportPainter(
 Map<String, dynamic> _$$ImportPainterToJson(_$ImportPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'elements': instance.elements.map((e) => e.toJson()).toList(),
       'areas': instance.areas.map((e) => e.toJson()).toList(),
       'type': instance.$type,
@@ -38,28 +55,33 @@ Map<String, dynamic> _$$ImportPainterToJson(_$ImportPainter instance) =>
 
 _$UndoPainter _$$UndoPainterFromJson(Map json) => _$UndoPainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$UndoPainterToJson(_$UndoPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'type': instance.$type,
     };
 
 _$RedoPainter _$$RedoPainterFromJson(Map json) => _$RedoPainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$RedoPainterToJson(_$RedoPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'type': instance.$type,
     };
 
 _$LabelPainter _$$LabelPainterFromJson(Map json) => _$LabelPainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       mode: $enumDecodeNullable(_$LabelModeEnumMap, json['mode']) ??
           LabelMode.text,
       zoomDependent: json['zoomDependent'] as bool? ?? true,
@@ -74,6 +96,7 @@ _$LabelPainter _$$LabelPainterFromJson(Map json) => _$LabelPainter(
 Map<String, dynamic> _$$LabelPainterToJson(_$LabelPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'mode': _$LabelModeEnumMap[instance.mode]!,
       'zoomDependent': instance.zoomDependent,
       'foreground': instance.foreground,
@@ -88,6 +111,7 @@ const _$LabelModeEnumMap = {
 
 _$PenPainter _$$PenPainterFromJson(Map json) => _$PenPainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       zoomDependent: json['zoomDependent'] as bool? ?? true,
       property: json['property'] == null
           ? const PenProperty()
@@ -99,6 +123,7 @@ _$PenPainter _$$PenPainterFromJson(Map json) => _$PenPainter(
 Map<String, dynamic> _$$PenPainterToJson(_$PenPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'zoomDependent': instance.zoomDependent,
       'property': instance.property.toJson(),
       'type': instance.$type,
@@ -106,6 +131,7 @@ Map<String, dynamic> _$$PenPainterToJson(_$PenPainter instance) =>
 
 _$EraserPainter _$$EraserPainterFromJson(Map json) => _$EraserPainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       $type: json['type'] as String?,
     );
@@ -113,6 +139,7 @@ _$EraserPainter _$$EraserPainterFromJson(Map json) => _$EraserPainter(
 Map<String, dynamic> _$$EraserPainterToJson(_$EraserPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'strokeWidth': instance.strokeWidth,
       'type': instance.$type,
     };
@@ -120,6 +147,7 @@ Map<String, dynamic> _$$EraserPainterToJson(_$EraserPainter instance) =>
 _$PathEraserPainter _$$PathEraserPainterFromJson(Map json) =>
     _$PathEraserPainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       $type: json['type'] as String?,
     );
@@ -127,12 +155,14 @@ _$PathEraserPainter _$$PathEraserPainterFromJson(Map json) =>
 Map<String, dynamic> _$$PathEraserPainterToJson(_$PathEraserPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'strokeWidth': instance.strokeWidth,
       'type': instance.$type,
     };
 
 _$LayerPainter _$$LayerPainterFromJson(Map json) => _$LayerPainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       $type: json['type'] as String?,
     );
@@ -140,12 +170,14 @@ _$LayerPainter _$$LayerPainterFromJson(Map json) => _$LayerPainter(
 Map<String, dynamic> _$$LayerPainterToJson(_$LayerPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'strokeWidth': instance.strokeWidth,
       'type': instance.$type,
     };
 
 _$AreaPainter _$$AreaPainterFromJson(Map json) => _$AreaPainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       constrainedWidth: (json['constrainedWidth'] as num?)?.toDouble() ?? 0,
       constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
       constrainedAspectRatio:
@@ -157,6 +189,7 @@ _$AreaPainter _$$AreaPainterFromJson(Map json) => _$AreaPainter(
 Map<String, dynamic> _$$AreaPainterToJson(_$AreaPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'constrainedWidth': instance.constrainedWidth,
       'constrainedHeight': instance.constrainedHeight,
       'constrainedAspectRatio': instance.constrainedAspectRatio,
@@ -166,6 +199,7 @@ Map<String, dynamic> _$$AreaPainterToJson(_$AreaPainter instance) =>
 
 _$LaserPainter _$$LaserPainterFromJson(Map json) => _$LaserPainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       duration: (json['duration'] as num?)?.toDouble() ?? 5,
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       thinning: (json['thinning'] as num?)?.toDouble() ?? 0.4,
@@ -176,6 +210,7 @@ _$LaserPainter _$$LaserPainterFromJson(Map json) => _$LaserPainter(
 Map<String, dynamic> _$$LaserPainterToJson(_$LaserPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'duration': instance.duration,
       'strokeWidth': instance.strokeWidth,
       'thinning': instance.thinning,
@@ -185,6 +220,7 @@ Map<String, dynamic> _$$LaserPainterToJson(_$LaserPainter instance) =>
 
 _$ShapePainter _$$ShapePainterFromJson(Map json) => _$ShapePainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       zoomDependent: json['zoomDependent'] as bool? ?? true,
       constrainedWidth: (json['constrainedWidth'] as num?)?.toDouble() ?? 0,
       constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
@@ -200,6 +236,7 @@ _$ShapePainter _$$ShapePainterFromJson(Map json) => _$ShapePainter(
 Map<String, dynamic> _$$ShapePainterToJson(_$ShapePainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'zoomDependent': instance.zoomDependent,
       'constrainedWidth': instance.constrainedWidth,
       'constrainedHeight': instance.constrainedHeight,
@@ -210,6 +247,7 @@ Map<String, dynamic> _$$ShapePainterToJson(_$ShapePainter instance) =>
 
 _$StampPainter _$$StampPainterFromJson(Map json) => _$StampPainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       component: json['component'] == null
           ? const PackAssetLocation()
           : PackAssetLocation.fromJson(
@@ -220,6 +258,7 @@ _$StampPainter _$$StampPainterFromJson(Map json) => _$StampPainter(
 Map<String, dynamic> _$$StampPainterToJson(_$StampPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'component': instance.component.toJson(),
       'type': instance.$type,
     };
@@ -227,6 +266,7 @@ Map<String, dynamic> _$$StampPainterToJson(_$StampPainter instance) =>
 _$PresentationPainter _$$PresentationPainterFromJson(Map json) =>
     _$PresentationPainter(
       name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
       $type: json['type'] as String?,
     );
 
@@ -234,5 +274,66 @@ Map<String, dynamic> _$$PresentationPainterToJson(
         _$PresentationPainter instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'displayIcon': instance.displayIcon,
       'type': instance.$type,
     };
+
+_$SpacerPainter _$$SpacerPainterFromJson(Map json) => _$SpacerPainter(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      axis: $enumDecodeNullable(_$Axis2DEnumMap, json['axis']) ??
+          Axis2D.horizontal,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$SpacerPainterToJson(_$SpacerPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'axis': _$Axis2DEnumMap[instance.axis]!,
+      'type': instance.$type,
+    };
+
+const _$Axis2DEnumMap = {
+  Axis2D.horizontal: 'horizontal',
+  Axis2D.vertical: 'vertical',
+};
+
+_$FullScreenPainter _$$FullScreenPainterFromJson(Map json) =>
+    _$FullScreenPainter(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$FullScreenPainterToJson(_$FullScreenPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'type': instance.$type,
+    };
+
+_$AssetPainter _$$AssetPainterFromJson(Map json) => _$AssetPainter(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      importType:
+          $enumDecodeNullable(_$ImportTypeEnumMap, json['importType']) ??
+              ImportType.document,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$AssetPainterToJson(_$AssetPainter instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'importType': _$ImportTypeEnumMap[instance.importType]!,
+      'type': instance.$type,
+    };
+
+const _$ImportTypeEnumMap = {
+  ImportType.image: 'image',
+  ImportType.camera: 'camera',
+  ImportType.svg: 'svg',
+  ImportType.pdf: 'pdf',
+  ImportType.document: 'document',
+};

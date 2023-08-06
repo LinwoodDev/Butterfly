@@ -501,5 +501,19 @@
   "version": "Έκδοση",
   "repository": "Αποθετήριο",
   "pages": "Σελίδες",
-  "navigator": "Navigator"
+  "navigator": "Navigator",
+  "arrange": "Τακτοποίηση",
+  "bringToFront": "Φέρτε μπροστά",
+  "sendToBack": "Αποστολή πίσω",
+  "bringForward": "Φέρτε μπροστά",
+  "sendBackward": "Αποστολή πίσω",
+  "invalidName": "Μη έγκυρο όνομα",
+  "rotation": "Περιστροφή",
+  "onlyAvailableLargerScreen": "Διαθέσιμο μόνο σε μεγαλύτερες οθόνες",
+  "toolbarPosition": "Θέση γραμμής εργαλείων",
+  "rotate": "Περιστροφή",
+  "spacer": "Διάστημα",
+  "navigationRail": "Σιδηρόδρομος πλοήγησης",
+  "cut": "Αποκοπή",
+  "paste": "Επικόλληση"
 }
