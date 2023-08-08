@@ -58,6 +58,8 @@ class CurrentIndex with _$CurrentIndex {
       settingsCubit.state.inputGestures && pointers.length > 1;
 
   MouseCursor get currentCursor => temporaryCursor ?? cursor;
+
+  ToolState get toolState => cameraViewport.tool.element;
 }
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
@@ -605,8 +607,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         state.copyWith(temporaryHandler: MoveHandler(), temporaryCursor: null));
   }
 
-  void updateTool(NoteData document, DocumentPage page,
-      AssetService assetService, ToolState toolState) {
+  void updateTool(ToolState toolState) {
     final renderer = ToolRenderer(toolState);
     var newSelection =
         state.selection?.remove(state.cameraViewport.tool.element);
@@ -621,4 +622,29 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void togglePin() => emit(state.copyWith(pinned: !state.pinned));
+
+  void move(Offset delta, [bool force = false]) {
+    final toolState = state.toolState;
+    if (toolState.lockHorizontal && !force) {
+      delta = Offset(0, delta.dy);
+    }
+    if (toolState.lockVertical && !force) {
+      delta = Offset(delta.dx, 0);
+    }
+    if (delta.dx == 0 && delta.dy == 0) {
+      return;
+    }
+    state.transformCubit.move(delta);
+  }
+
+  void zoom(double delta, [Offset cursor = Offset.zero, bool force = false]) {
+    final toolState = state.toolState;
+    if (toolState.lockZoom && !force) {
+      delta = 1;
+    }
+    if (delta == 1) {
+      return;
+    }
+    state.transformCubit.zoom(delta, cursor);
+  }
 }

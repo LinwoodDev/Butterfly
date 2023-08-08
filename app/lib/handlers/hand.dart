@@ -516,9 +516,7 @@ class HandHandler extends Handler<HandPainter> {
     );
     _rulerRotation = currentRotation;
     _rulerPosition = currentPos;
-    context
-        .getCurrentIndexCubit()
-        .updateTool(state.data, state.page, state.assetService, toolState);
+    context.getCurrentIndexCubit().updateTool(toolState);
   }
 
   @override
@@ -546,7 +544,7 @@ class HandHandler extends Handler<HandPainter> {
       return;
     }
     context
-        .getTransformCubit()
+        .getCurrentIndexCubit()
         .move(details.focalPointDelta / context.getCameraTransform().size);
   }
 

@@ -20,6 +20,9 @@ ToolState _$ToolStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ToolState {
+  bool get lockZoom => throw _privateConstructorUsedError;
+  bool get lockHorizontal => throw _privateConstructorUsedError;
+  bool get lockVertical => throw _privateConstructorUsedError;
   bool get rulerEnabled => throw _privateConstructorUsedError;
   bool get gridEnabled => throw _privateConstructorUsedError;
   @DoublePointJsonConverter()
@@ -38,7 +41,10 @@ abstract class $ToolStateCopyWith<$Res> {
       _$ToolStateCopyWithImpl<$Res, ToolState>;
   @useResult
   $Res call(
-      {bool rulerEnabled,
+      {bool lockZoom,
+      bool lockHorizontal,
+      bool lockVertical,
+      bool rulerEnabled,
       bool gridEnabled,
       @DoublePointJsonConverter() Point<double> rulerPosition,
       double rulerAngle});
@@ -57,12 +63,27 @@ class _$ToolStateCopyWithImpl<$Res, $Val extends ToolState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? lockZoom = null,
+    Object? lockHorizontal = null,
+    Object? lockVertical = null,
     Object? rulerEnabled = null,
     Object? gridEnabled = null,
     Object? rulerPosition = null,
     Object? rulerAngle = null,
   }) {
     return _then(_value.copyWith(
+      lockZoom: null == lockZoom
+          ? _value.lockZoom
+          : lockZoom // ignore: cast_nullable_to_non_nullable
+              as bool,
+      lockHorizontal: null == lockHorizontal
+          ? _value.lockHorizontal
+          : lockHorizontal // ignore: cast_nullable_to_non_nullable
+              as bool,
+      lockVertical: null == lockVertical
+          ? _value.lockVertical
+          : lockVertical // ignore: cast_nullable_to_non_nullable
+              as bool,
       rulerEnabled: null == rulerEnabled
           ? _value.rulerEnabled
           : rulerEnabled // ignore: cast_nullable_to_non_nullable
@@ -91,7 +112,10 @@ abstract class _$$_ToolStateCopyWith<$Res> implements $ToolStateCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {bool rulerEnabled,
+      {bool lockZoom,
+      bool lockHorizontal,
+      bool lockVertical,
+      bool rulerEnabled,
       bool gridEnabled,
       @DoublePointJsonConverter() Point<double> rulerPosition,
       double rulerAngle});
@@ -108,12 +132,27 @@ class __$$_ToolStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? lockZoom = null,
+    Object? lockHorizontal = null,
+    Object? lockVertical = null,
     Object? rulerEnabled = null,
     Object? gridEnabled = null,
     Object? rulerPosition = null,
     Object? rulerAngle = null,
   }) {
     return _then(_$_ToolState(
+      lockZoom: null == lockZoom
+          ? _value.lockZoom
+          : lockZoom // ignore: cast_nullable_to_non_nullable
+              as bool,
+      lockHorizontal: null == lockHorizontal
+          ? _value.lockHorizontal
+          : lockHorizontal // ignore: cast_nullable_to_non_nullable
+              as bool,
+      lockVertical: null == lockVertical
+          ? _value.lockVertical
+          : lockVertical // ignore: cast_nullable_to_non_nullable
+              as bool,
       rulerEnabled: null == rulerEnabled
           ? _value.rulerEnabled
           : rulerEnabled // ignore: cast_nullable_to_non_nullable
@@ -138,7 +177,10 @@ class __$$_ToolStateCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ToolState implements _ToolState {
   const _$_ToolState(
-      {this.rulerEnabled = false,
+      {this.lockZoom = false,
+      this.lockHorizontal = false,
+      this.lockVertical = false,
+      this.rulerEnabled = false,
       this.gridEnabled = false,
       @DoublePointJsonConverter() this.rulerPosition = const Point(0.0, 0.0),
       this.rulerAngle = 0});
@@ -146,6 +188,15 @@ class _$_ToolState implements _ToolState {
   factory _$_ToolState.fromJson(Map<String, dynamic> json) =>
       _$$_ToolStateFromJson(json);
 
+  @override
+  @JsonKey()
+  final bool lockZoom;
+  @override
+  @JsonKey()
+  final bool lockHorizontal;
+  @override
+  @JsonKey()
+  final bool lockVertical;
   @override
   @JsonKey()
   final bool rulerEnabled;
@@ -162,7 +213,7 @@ class _$_ToolState implements _ToolState {
 
   @override
   String toString() {
-    return 'ToolState(rulerEnabled: $rulerEnabled, gridEnabled: $gridEnabled, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
+    return 'ToolState(lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, rulerEnabled: $rulerEnabled, gridEnabled: $gridEnabled, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
   }
 
   @override
@@ -170,6 +221,12 @@ class _$_ToolState implements _ToolState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ToolState &&
+            (identical(other.lockZoom, lockZoom) ||
+                other.lockZoom == lockZoom) &&
+            (identical(other.lockHorizontal, lockHorizontal) ||
+                other.lockHorizontal == lockHorizontal) &&
+            (identical(other.lockVertical, lockVertical) ||
+                other.lockVertical == lockVertical) &&
             (identical(other.rulerEnabled, rulerEnabled) ||
                 other.rulerEnabled == rulerEnabled) &&
             (identical(other.gridEnabled, gridEnabled) ||
@@ -182,8 +239,8 @@ class _$_ToolState implements _ToolState {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, rulerEnabled, gridEnabled, rulerPosition, rulerAngle);
+  int get hashCode => Object.hash(runtimeType, lockZoom, lockHorizontal,
+      lockVertical, rulerEnabled, gridEnabled, rulerPosition, rulerAngle);
 
   @JsonKey(ignore: true)
   @override
@@ -201,7 +258,10 @@ class _$_ToolState implements _ToolState {
 
 abstract class _ToolState implements ToolState {
   const factory _ToolState(
-      {final bool rulerEnabled,
+      {final bool lockZoom,
+      final bool lockHorizontal,
+      final bool lockVertical,
+      final bool rulerEnabled,
       final bool gridEnabled,
       @DoublePointJsonConverter() final Point<double> rulerPosition,
       final double rulerAngle}) = _$_ToolState;
@@ -209,6 +269,12 @@ abstract class _ToolState implements ToolState {
   factory _ToolState.fromJson(Map<String, dynamic> json) =
       _$_ToolState.fromJson;
 
+  @override
+  bool get lockZoom;
+  @override
+  bool get lockHorizontal;
+  @override
+  bool get lockVertical;
   @override
   bool get rulerEnabled;
   @override

@@ -7,8 +7,9 @@ class GeneralMoveHandler<T> extends Handler<T> {
 
   @override
   void onScaleUpdate(ScaleUpdateDetails details, EventContext context) {
-    final transformCubit = context.getTransformCubit();
-    transformCubit.move(details.focalPointDelta / transformCubit.state.size);
+    context
+        .getCurrentIndexCubit()
+        .move(details.focalPointDelta / context.getCameraTransform().size);
     _moved = true;
   }
 

@@ -14,6 +14,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../cubits/settings.dart';
 import '../handlers/handler.dart';
+import '../models/tool.dart';
 
 class EditToolbar extends StatefulWidget {
   final bool isMobile;
@@ -339,55 +340,52 @@ class _EditToolbarState extends State<EditToolbar> {
                   context.read<SettingsCubit>().setFullScreen(false);
                 },
               ),
-            BlocBuilder<DocumentBloc, DocumentState>(
-              buildWhen: (previous, current) =>
-                  previous.pageName != current.pageName ||
-                  previous.data != current.data,
-              builder: (context, state) {
-                final pageName = state.pageName;
-                return StreamBuilder<NoteData>(
-                    stream: state.data?.onChange,
-                    builder: (context, snapshot) {
-                      final pages = snapshot.data?.getPages();
-                      return MenuAnchor(
-                        menuChildren: [
-                          ...pages
-                                  ?.map((e) => MenuItemButton(
-                                        child: Text(
-                                          e,
-                                          style: pageName == e
-                                              ? TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                )
-                                              : null,
-                                        ),
-                                        onPressed: () => context
-                                            .read<DocumentBloc>()
-                                            .add(PageChanged(e)),
-                                      ))
-                                  .toList() ??
-                              [],
-                          const Divider(),
-                          MenuItemButton(
-                              child: Text(AppLocalizations.of(context).add),
-                              onPressed: () {
-                                final state =
-                                    context.read<DocumentBloc>().state;
-                                final name = state.data?.addPage(state.page);
-                                if (name != null) {
-                                  context
-                                      .read<DocumentBloc>()
-                                      .add(PageChanged(name));
-                                }
-                              }),
-                        ],
-                        style: const MenuStyle(
-                          alignment: Alignment.bottomRight,
-                        ),
-                        builder: defaultMenuButton(PhosphorIconsLight.book),
-                      );
-                    });
+            BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+              builder: (context, currentIndex) {
+                final toolState = currentIndex.toolState;
+                Widget buildButton(bool selected, ToolState Function() update,
+                        PhosphorIconData icon, String title) =>
+                    CheckboxMenuButton(
+                      value: selected,
+                      trailingIcon: PhosphorIcon(icon),
+                      onChanged: (value) => context
+                          .read<CurrentIndexCubit>()
+                          .updateTool(update()),
+                      child: Text(title),
+                    );
+
+                return MenuAnchor(
+                  menuChildren: [
+                    buildButton(
+                      toolState.lockZoom,
+                      () => toolState.copyWith(
+                        lockZoom: !toolState.lockZoom,
+                      ),
+                      PhosphorIconsLight.magnifyingGlassPlus,
+                      AppLocalizations.of(context).zoom,
+                    ),
+                    buildButton(
+                      toolState.lockHorizontal,
+                      () => toolState.copyWith(
+                        lockHorizontal: !toolState.lockHorizontal,
+                      ),
+                      PhosphorIconsLight.arrowsHorizontal,
+                      AppLocalizations.of(context).horizontal,
+                    ),
+                    buildButton(
+                      toolState.lockVertical,
+                      () => toolState.copyWith(
+                        lockVertical: !toolState.lockVertical,
+                      ),
+                      PhosphorIconsLight.arrowsVertical,
+                      AppLocalizations.of(context).vertical,
+                    ),
+                  ],
+                  style: const MenuStyle(
+                    alignment: Alignment.bottomRight,
+                  ),
+                  builder: defaultMenuButton(PhosphorIconsLight.lockKey),
+                );
               },
             ),
           ],

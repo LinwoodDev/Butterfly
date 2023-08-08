@@ -9,6 +9,9 @@ part 'tool.freezed.dart';
 @freezed
 class ToolState with _$ToolState {
   const factory ToolState({
+    @Default(false) bool lockZoom,
+    @Default(false) bool lockHorizontal,
+    @Default(false) bool lockVertical,
     @Default(false) bool rulerEnabled,
     @Default(false) bool gridEnabled,
     @DoublePointJsonConverter()

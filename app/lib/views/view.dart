@@ -208,16 +208,13 @@ class _MainViewViewportState extends State<MainViewViewport>
                           final handler = getHandler();
                           handler.onScaleUpdate(details, getEventContext());
                           if (_isScalingDisabled) return;
-                          final currentIndex =
-                              context.read<CurrentIndexCubit>();
-                          final transformCubit = context.read<TransformCubit>();
+                          final cubit = context.read<CurrentIndexCubit>();
                           if (details.scale == 1) {
                             return;
                           }
                           if (openView) openView = details.scale == 1;
                           final settings = context.read<SettingsCubit>().state;
-                          if (currentIndex.fetchHandler<HandHandler>() ==
-                                  null &&
+                          if (cubit.fetchHandler<HandHandler>() == null &&
                               !settings.inputGestures) return;
                           var current = details.scale;
                           current = current - size;
@@ -226,8 +223,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                               .read<SettingsCubit>()
                               .state
                               .touchSensitivity;
-                          transformCubit.zoom(
-                              (1 - current) / -sensitivity + 1, point);
+                          cubit.zoom((1 - current) / -sensitivity + 1, point);
                           size = details.scale;
                         },
                         onLongPressEnd: (details) {
@@ -272,7 +268,9 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   .mouseSensitivity;
                               scale /= -sensitivity * 100;
                               scale += 1;
-                              var cubit = context.read<TransformCubit>();
+                              final cubit = context.read<CurrentIndexCubit>();
+                              final transform =
+                                  context.read<TransformCubit>().state;
                               if (_mouseState == _MouseState.scale) {
                                 // Calculate the new scale using dx and dy
                                 scale = -(dx + dy / 2) / sensitivity / 100 + 1;
@@ -282,7 +280,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                   ..move((_mouseState == _MouseState.inverse
                                           ? Offset(-dy, -dx)
                                           : Offset(-dx, -dy)) /
-                                      cubit.state.size)
+                                      transform.size)
                                   ..zoom(scale, pointerSignal.localPosition);
                               }
                               delayBake();
@@ -313,10 +311,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                             if (cubit.state.moveEnabled &&
                                 event.kind != PointerDeviceKind.stylus) {
                               if (event.pointer == cubit.state.pointers.first) {
-                                final transformCubit =
-                                    context.read<TransformCubit>();
-                                transformCubit.move(
-                                    event.delta / transformCubit.state.size);
+                                final transform =
+                                    context.read<TransformCubit>().state;
+                                final cubit = context.read<CurrentIndexCubit>();
+                                cubit.move(event.delta / transform.size);
                                 delayBake();
                               }
                               getHandler().onPointerGestureMove(
