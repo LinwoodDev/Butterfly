@@ -66,7 +66,9 @@ class _FilesViewState extends State<FilesView> {
     _sortBy = _settingsCubit.state.sortBy;
     _sortOrder = _settingsCubit.state.sortOrder;
     _remote = widget.remote ?? _settingsCubit.getRemote();
-    _setFilesFuture();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _setFilesFuture();
+    });
   }
 
   @override

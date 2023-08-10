@@ -21,6 +21,7 @@ ButterflyComponent _$ButterflyComponentFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ButterflyComponent {
   String get name => throw _privateConstructorUsedError;
+  String? get thumbnail => throw _privateConstructorUsedError;
   List<PadElement> get elements => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +36,7 @@ abstract class $ButterflyComponentCopyWith<$Res> {
           ButterflyComponent value, $Res Function(ButterflyComponent) then) =
       _$ButterflyComponentCopyWithImpl<$Res, ButterflyComponent>;
   @useResult
-  $Res call({String name, List<PadElement> elements});
+  $Res call({String name, String? thumbnail, List<PadElement> elements});
 }
 
 /// @nodoc
@@ -52,6 +53,7 @@ class _$ButterflyComponentCopyWithImpl<$Res, $Val extends ButterflyComponent>
   @override
   $Res call({
     Object? name = null,
+    Object? thumbnail = freezed,
     Object? elements = null,
   }) {
     return _then(_value.copyWith(
@@ -59,6 +61,10 @@ class _$ButterflyComponentCopyWithImpl<$Res, $Val extends ButterflyComponent>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      thumbnail: freezed == thumbnail
+          ? _value.thumbnail
+          : thumbnail // ignore: cast_nullable_to_non_nullable
+              as String?,
       elements: null == elements
           ? _value.elements
           : elements // ignore: cast_nullable_to_non_nullable
@@ -75,7 +81,7 @@ abstract class _$$_ButterflyComponentCopyWith<$Res>
       __$$_ButterflyComponentCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, List<PadElement> elements});
+  $Res call({String name, String? thumbnail, List<PadElement> elements});
 }
 
 /// @nodoc
@@ -90,6 +96,7 @@ class __$$_ButterflyComponentCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? thumbnail = freezed,
     Object? elements = null,
   }) {
     return _then(_$_ButterflyComponent(
@@ -97,6 +104,10 @@ class __$$_ButterflyComponentCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      thumbnail: freezed == thumbnail
+          ? _value.thumbnail
+          : thumbnail // ignore: cast_nullable_to_non_nullable
+              as String?,
       elements: null == elements
           ? _value._elements
           : elements // ignore: cast_nullable_to_non_nullable
@@ -110,6 +121,7 @@ class __$$_ButterflyComponentCopyWithImpl<$Res>
 class _$_ButterflyComponent implements _ButterflyComponent {
   const _$_ButterflyComponent(
       {required this.name,
+      this.thumbnail,
       final List<PadElement> elements = const <PadElement>[]})
       : _elements = elements;
 
@@ -118,6 +130,8 @@ class _$_ButterflyComponent implements _ButterflyComponent {
 
   @override
   final String name;
+  @override
+  final String? thumbnail;
   final List<PadElement> _elements;
   @override
   @JsonKey()
@@ -129,7 +143,7 @@ class _$_ButterflyComponent implements _ButterflyComponent {
 
   @override
   String toString() {
-    return 'ButterflyComponent(name: $name, elements: $elements)';
+    return 'ButterflyComponent(name: $name, thumbnail: $thumbnail, elements: $elements)';
   }
 
   @JsonKey(ignore: true)
@@ -150,6 +164,7 @@ class _$_ButterflyComponent implements _ButterflyComponent {
 abstract class _ButterflyComponent implements ButterflyComponent {
   const factory _ButterflyComponent(
       {required final String name,
+      final String? thumbnail,
       final List<PadElement> elements}) = _$_ButterflyComponent;
 
   factory _ButterflyComponent.fromJson(Map<String, dynamic> json) =
@@ -157,6 +172,8 @@ abstract class _ButterflyComponent implements ButterflyComponent {
 
   @override
   String get name;
+  @override
+  String? get thumbnail;
   @override
   List<PadElement> get elements;
   @override

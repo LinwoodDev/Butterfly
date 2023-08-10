@@ -1,9 +1,8 @@
 part of 'handler.dart';
 
 class EraserHandler extends Handler<EraserPainter> {
-  Map<PenElement, List<PenElement>> _elements = {};
   bool _currentlyErasing = false;
-  Offset? _currentPos;
+  Offset? _currentPos, _lastErased;
   EraserHandler(super.data);
 
   @override
@@ -23,9 +22,9 @@ class EraserHandler extends Handler<EraserPainter> {
 
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
+    _changeElement(event.localPosition, context);
     _currentPos = event.localPosition;
     context.refresh();
-    _changeElement(event.localPosition, context);
   }
 
   @override
@@ -37,43 +36,44 @@ class EraserHandler extends Handler<EraserPainter> {
   Future<void> _changeElement(Offset position, EventContext context) async {
     final globalPos = context.getCameraTransform().localToGlobal(position);
     final size = data.strokeWidth;
-    if (!_currentlyErasing) {
+    final shouldErase =
+        _lastErased == null || (globalPos - _lastErased!).distance > size;
+    if (!_currentlyErasing && shouldErase) {
+      _lastErased = globalPos;
       _currentlyErasing = true;
       // Raycast
       final ray = await rayCast(globalPos, context.getDocumentBloc(),
           context.getCameraTransform(), size);
-      final newElements = ray
-          .map((e) => e.element)
-          .whereType<PenElement>()
-          .where((element) => !_elements.containsKey(element));
-      _elements
-          .addAll(Map.fromEntries(newElements.map((e) => MapEntry(e, [e]))));
+      final elements = ray.map((e) => e.element).whereType<PenElement>();
+      final modified = <PadElement, List<PadElement>>{};
+      for (final element in elements) {
+        List<List<PathPoint>> paths = [[]];
+        for (final point in element.points) {
+          if ((point.toOffset() - globalPos).distance > size) {
+            // If so, add to last path
+            paths.last.add(point);
+            continue;
+          } else if (paths.last.isNotEmpty) {
+            paths.add([]);
+          }
+        }
+        if (paths.length == 1) continue;
+        modified[element] = paths
+            .where((element) => element.isNotEmpty)
+            .map((e) => element.copyWith(points: e))
+            .toList();
+      }
+      if (modified.isNotEmpty) {
+        context.getDocumentBloc().add(ElementsChanged(modified));
+        await context.getDocumentBloc().stream.first;
+      }
       _currentlyErasing = false;
     }
-    _elements = _elements.map((key, value) {
-      return MapEntry<PenElement, List<PenElement>>(
-          key,
-          value.expand((element) {
-            List<List<PathPoint>> paths = [[]];
-            for (final point in element.points) {
-              if ((point.toOffset() - globalPos).distance > size) {
-                // If so, add to last path
-                paths.last.add(point);
-              } else if (paths.last.isNotEmpty) {
-                paths.add([]);
-              }
-            }
-            return paths
-                .where((element) => element.isNotEmpty)
-                .map((e) => element.copyWith(points: e));
-          }).toList());
-    });
   }
 
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     _changeElement(event.localPosition, context);
-    context.addDocumentEvent(ElementsChanged(_elements));
   }
 
   @override
