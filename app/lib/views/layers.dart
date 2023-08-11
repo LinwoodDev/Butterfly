@@ -8,6 +8,7 @@ import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../dialogs/delete.dart';
+import '../widgets/editable_list_tile.dart';
 
 class LayersView extends StatelessWidget {
   const LayersView({super.key});
@@ -51,6 +52,18 @@ class LayersView extends StatelessWidget {
                                 .add(const LayerVisibilityChanged(''));
                           },
                         ),
+                        trailing: IconButton(
+                          icon: const PhosphorIcon(PhosphorIconsLight.pencil),
+                          tooltip: AppLocalizations.of(context).rename,
+                          onPressed: () async {
+                            final bloc = context.read<DocumentBloc>();
+                            final result = await showDialog<String>(
+                                builder: (context) => NameDialog(),
+                                context: context);
+                            if (result == null) return;
+                            bloc.add(LayerRenamed(state.currentLayer, result));
+                          },
+                        ),
                         title: Text(AppLocalizations.of(context).defaultLayer)),
                     const Divider(),
                     ListView.builder(
@@ -59,8 +72,8 @@ class LayersView extends StatelessWidget {
                         itemCount: layers.length,
                         itemBuilder: (BuildContext context, int index) {
                           final layer = layers[index];
-                          return ListTile(
-                            title: Text(layer),
+                          return EditableListTile(
+                            initialValue: layer,
                             selected: layer == currentLayer,
                             onTap: () => context
                                 .read<DocumentBloc>()
@@ -75,27 +88,27 @@ class LayersView extends StatelessWidget {
                                     .add(LayerVisibilityChanged(layers[index]));
                               },
                             ),
-                            trailing: MenuAnchor(
-                              builder: defaultMenuButton(),
-                              menuChildren: [
-                                MenuItemButton(
-                                  leadingIcon: const PhosphorIcon(
-                                      PhosphorIconsLight.trash),
-                                  onPressed: currentLayer == layer
-                                      ? null
-                                      : () async {
-                                          final result = await showDialog<bool>(
-                                              context: context,
-                                              builder: (context) =>
-                                                  const DeleteDialog());
-                                          if (result != true) return;
-                                          snapshot.data?.removePage(layer);
-                                        },
-                                  child:
-                                      Text(AppLocalizations.of(context).delete),
-                                )
-                              ],
-                            ),
+                            onSaved: (value) => context
+                                .read<DocumentBloc>()
+                                .add(LayerRenamed(layer, value)),
+                            actions: [
+                              MenuItemButton(
+                                leadingIcon: const PhosphorIcon(
+                                    PhosphorIconsLight.trash),
+                                onPressed: currentLayer == layer
+                                    ? null
+                                    : () async {
+                                        final result = await showDialog<bool>(
+                                            context: context,
+                                            builder: (context) =>
+                                                const DeleteDialog());
+                                        if (result != true) return;
+                                        snapshot.data?.removePage(layer);
+                                      },
+                                child:
+                                    Text(AppLocalizations.of(context).delete),
+                              )
+                            ],
                           );
                         }),
                   ]),

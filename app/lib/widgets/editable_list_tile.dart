@@ -119,6 +119,7 @@ class _EditableListTileState extends State<EditableListTile> {
               ? null
               : IconButton(
                   icon: const PhosphorIcon(PhosphorIconsLight.pencil),
+                  tooltip: AppLocalizations.of(context).rename,
                   onPressed: edit,
                 ),
     );

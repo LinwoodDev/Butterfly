@@ -125,14 +125,6 @@ class BehaviorsSettingsPage extends StatelessWidget {
         }
 
         return [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: Text(
-              AppLocalizations.of(context).syncMode,
-              style: Theme.of(context).textTheme.headlineSmall,
-              textAlign: TextAlign.center,
-            ),
-          ),
           ...SyncMode.values.map((syncMode) {
             return ListTile(
               title: Text(syncMode.getLocalizedName(context)),

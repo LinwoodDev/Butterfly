@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../dialogs/delete.dart';
-import '../widgets/editable_text.dart';
+import '../widgets/editable_list_tile.dart';
 
 typedef _PageEntity = ({
   String path,

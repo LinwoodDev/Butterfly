@@ -9,7 +9,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/file_system/file_system.dart';
 import '../bloc/document_bloc.dart';
-import '../widgets/editable_text.dart';
+import '../widgets/editable_list_tile.dart';
 import 'delete.dart';
 
 class TemplateDialog extends StatefulWidget {

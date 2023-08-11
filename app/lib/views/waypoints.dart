@@ -8,7 +8,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../cubits/transform.dart';
 import '../dialogs/delete.dart';
-import '../widgets/editable_text.dart';
+import '../widgets/editable_list_tile.dart';
 
 class WaypointsView extends StatelessWidget {
   const WaypointsView({super.key});
