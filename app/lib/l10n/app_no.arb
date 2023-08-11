@@ -519,5 +519,6 @@
   "insertAfter": "Innsett etter",
   "paste": "Lim",
   "ascending": "Stigende",
-  "descending": "Synkende"
+  "descending": "Synkende",
+  "imageScale": "Image scale"
 }
