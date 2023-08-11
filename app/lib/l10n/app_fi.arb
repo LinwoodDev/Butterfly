@@ -519,5 +519,6 @@
   "insertAfter": "Lisää jälkeen",
   "paste": "Liitä",
   "ascending": "Nouseva",
-  "descending": "Laskeva"
+  "descending": "Laskeva",
+  "imageScale": "Image scale"
 }
