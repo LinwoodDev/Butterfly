@@ -519,5 +519,6 @@
   "insertAfter": "Inserare după",
   "paste": "Lipește",
   "ascending": "Crescător",
-  "descending": "Descrescător"
+  "descending": "Descrescător",
+  "imageScale": "Image scale"
 }
