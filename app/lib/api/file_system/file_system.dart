@@ -10,6 +10,8 @@ import 'file_system_io.dart';
 import 'file_system_html_stub.dart'
     if (dart.library.js) 'file_system_html.dart';
 
+const butterflySubDirectory = '/Linwood/Butterfly';
+
 abstract class GeneralFileSystem {
   static String? dataPath;
 

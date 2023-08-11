@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:archive/archive.dart';
+import 'package:butterfly/api/file_system/file_system_io.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/window.dart';
@@ -44,15 +43,28 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        if (!kIsWeb && !Platform.isAndroid)
+                        if (!kIsWeb)
                           ListTile(
                             title: Text(
                                 AppLocalizations.of(context).documentDirectory),
                             leading:
                                 const PhosphorIcon(PhosphorIconsLight.folder),
-                            subtitle: Text(state.documentPath.isNotEmpty
-                                ? state.documentPath
-                                : AppLocalizations.of(context).defaultPath),
+                            subtitle: state.documentPath.isNotEmpty
+                                ? FutureBuilder<String>(
+                                    future: getButterflyDirectory(true),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Text(snapshot.data!);
+                                      }
+                                      return const SizedBox(
+                                        height: 16,
+                                        width: 16,
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    },
+                                  )
+                                : Text(
+                                    AppLocalizations.of(context).defaultPath),
                             onTap: () async {
                               final settingsCubit =
                                   context.read<SettingsCubit>();

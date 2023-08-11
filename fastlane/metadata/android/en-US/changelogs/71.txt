@@ -1,5 +1,6 @@
 * Add pen painter icon customization ([#467](https://github.com/LinwoodDev/Butterfly/issues/467))
 * Add locking for transformation ([#455](https://github.com/LinwoodDev/Butterfly/issues/455))
+* Add data directory setting for android ([#482](https://github.com/LinwoodDev/Butterfly/issues/482))
 * Fix portable linux build
   * Fix script.sh
   * Set executable permission on script.sh and butterfly binary
