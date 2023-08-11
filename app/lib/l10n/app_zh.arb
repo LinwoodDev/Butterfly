@@ -519,5 +519,6 @@
   "insertAfter": "在此处插入",
   "paste": "粘贴",
   "ascending": "升序",
-  "descending": "降序"
+  "descending": "降序",
+  "imageScale": "Image scale"
 }
