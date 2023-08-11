@@ -519,5 +519,6 @@
   "insertAfter": "Вставить после",
   "paste": "Вставить",
   "ascending": "По возрастанию",
-  "descending": "По убыванию"
+  "descending": "По убыванию",
+  "imageScale": "Image scale"
 }
