@@ -39,6 +39,7 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           value: state.imageScale * 100,
                           min: 0,
                           max: 100,
+                          defaultValue: 50,
                           fractionDigits: 0,
                           onChangeEnd: (value) => context
                               .read<SettingsCubit>()

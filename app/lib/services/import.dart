@@ -214,7 +214,7 @@ class ImportService {
       image.dispose();
       final settingsScale = getSettingsCubit().state.imageScale;
       ElementConstraints? constraints;
-      if (position == null && currentIndexCubit != null) {
+      if (position == null && currentIndexCubit != null && settingsScale > 0) {
         final scale = min((screen.width * settingsScale) / width,
                 (screen.height * settingsScale) / height) /
             currentIndexCubit!.state.cameraViewport.scale;
@@ -266,7 +266,9 @@ class ImportService {
         }
         final settingsScale = getSettingsCubit().state.imageScale;
         ElementConstraints? constraints;
-        if (position == null && currentIndexCubit != null) {
+        if (position == null &&
+            currentIndexCubit != null &&
+            settingsScale > 0) {
           final scale = min((screen.width * settingsScale) / width,
                   (screen.height * settingsScale) / height) /
               currentIndexCubit!.state.cameraViewport.scale;
