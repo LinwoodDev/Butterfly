@@ -519,5 +519,6 @@
   "insertAfter": "Wstaw po",
   "paste": "Wklej",
   "ascending": "Rosnąco",
-  "descending": "Malejąco"
+  "descending": "Malejąco",
+  "imageScale": "Image scale"
 }
