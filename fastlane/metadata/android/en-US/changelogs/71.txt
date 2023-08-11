@@ -2,6 +2,9 @@
 * Add locking for transformation ([#455](https://github.com/LinwoodDev/Butterfly/issues/455))
 * Add data directory setting for android ([#482](https://github.com/LinwoodDev/Butterfly/issues/482))
 * Add image scale setting ([#454](https://github.com/LinwoodDev/Butterfly/issues/454))
+* Add double click to rename ([#452](https://github.com/LinwoodDev/Butterfly/issues/452))
+* Add ability to rename waypoint
 * Fix portable linux build
   * Fix script.sh
   * Set executable permission on script.sh and butterfly binary
+* Fix deleting pages

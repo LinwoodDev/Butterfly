@@ -1,13 +1,12 @@
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../dialogs/delete.dart';
+import '../widgets/editable_text.dart';
 
 typedef _PageEntity = ({
   String path,
@@ -187,8 +186,9 @@ class _PageEntityListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(entity.name),
+    final editable = entity.isFile && !selected;
+    return EditableListTile(
+      initialValue: entity.name,
       selected: selected,
       leading: Icon(entity.isFile
           ? PhosphorIconsLight.file
@@ -200,40 +200,23 @@ class _PageEntityListTile extends StatelessWidget {
           locationController.text = entity.path;
         }
       },
-      trailing: entity.isFile && !selected
-          ? MenuAnchor(
-              builder: defaultMenuButton(),
-              menuChildren: [
-                MenuItemButton(
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.textT),
-                  onPressed: () async {
-                    final result = await showDialog<String>(
-                        context: context,
-                        builder: (context) => NameDialog(
-                              value: entity.name,
-                              validator: defaultFileNameValidator(
-                                  context, data.getPages()),
-                            ));
-                    if (result == null) return;
-                    data.renamePage(entity.path, result);
-                  },
-                  child: Text(AppLocalizations.of(context).rename),
-                ),
-                MenuItemButton(
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
-                  onPressed: () async {
-                    final result = await showDialog<bool>(
-                        context: context,
-                        builder: (context) => const DeleteDialog());
-                    if (result != true) {
-                      return;
-                    }
-                    data.removePage(entity.path);
-                  },
-                  child: Text(AppLocalizations.of(context).delete),
-                )
-              ],
-            )
+      onSaved: editable ? (value) => data.renamePage(entity.path, value) : null,
+      actions: editable
+          ? [
+              MenuItemButton(
+                leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
+                onPressed: () async {
+                  final result = await showDialog<bool>(
+                      context: context,
+                      builder: (context) => const DeleteDialog());
+                  if (result != true) {
+                    return;
+                  }
+                  data.removePage(entity.path);
+                },
+                child: Text(AppLocalizations.of(context).delete),
+              )
+            ]
           : null,
     );
   }

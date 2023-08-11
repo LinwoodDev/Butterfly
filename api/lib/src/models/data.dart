@@ -258,9 +258,9 @@ class NoteData {
   int? getPageIndex(String page) =>
       _getPagesOrder().firstWhereOrNull((element) => element.$2 == page)?.$1;
 
-  void removePage(String page) => removeAssets(getPages()
-      .where((e) => e.endsWith('$page.json'))
-      .map((e) => '$kPagesArchiveDirectory/$e.json')
+  void removePage(String page) => removeAssets(_getPagesOrder()
+      .where((e) => e.$2 == page)
+      .map((e) => '$kPagesArchiveDirectory/${e.$3}.json')
       .toList());
 
   void renamePage(String oldName, String newName) {

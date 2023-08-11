@@ -1,5 +1,4 @@
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/widgets/remote_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/file_system/file_system.dart';
 import '../bloc/document_bloc.dart';
+import '../widgets/editable_text.dart';
 import 'delete.dart';
 
 class TemplateDialog extends StatefulWidget {
@@ -241,56 +241,39 @@ class _TemplateItem extends StatelessWidget {
     if (metadata == null) {
       return const SizedBox();
     }
-    return ListTile(
-      title: Text(metadata.name),
+    return EditableListTile(
+      initialValue: metadata.name,
       subtitle: Text(metadata.description),
-      trailing: MenuAnchor(
-        builder: defaultMenuButton(),
-        menuChildren: [
-          CheckboxMenuButton(
-            value: isDefault,
-            child: Text(AppLocalizations.of(context).defaultTemplate),
-            onChanged: (value) async {
-              final name = metadata.name;
-              settingsCubit.changeDefaultTemplate(name);
-              Navigator.of(context).pop();
+      onSaved: (value) {
+        fileSystem.renameTemplate(metadata.name, value);
+        onChanged();
+      },
+      actions: [
+        CheckboxMenuButton(
+          value: isDefault,
+          child: Text(AppLocalizations.of(context).defaultTemplate),
+          onChanged: (value) async {
+            final name = metadata.name;
+            settingsCubit.changeDefaultTemplate(name);
+            Navigator.of(context).pop();
+            onChanged();
+          },
+        ),
+        MenuItemButton(
+          leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
+          child: Text(AppLocalizations.of(context).delete),
+          onPressed: () async {
+            Navigator.of(context).pop();
+            final result = await showDialog<bool>(
+                context: context, builder: (ctx) => const DeleteDialog());
+            if (result != true) return;
+            if (context.mounted) {
+              await fileSystem.deleteTemplate(metadata.name);
               onChanged();
-            },
-          ),
-          MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.textT),
-            child: Text(AppLocalizations.of(context).rename),
-            onPressed: () async {
-              Navigator.of(context).pop();
-              final name = await showDialog<String>(
-                context: context,
-                builder: (context) => NameDialog(
-                  value: metadata.name,
-                ),
-              );
-              if (name == null || name.isEmpty) {
-                return;
-              }
-              await fileSystem.renameTemplate(metadata.name, name);
-              onChanged();
-            },
-          ),
-          MenuItemButton(
-            leadingIcon: const PhosphorIcon(PhosphorIconsLight.trash),
-            child: Text(AppLocalizations.of(context).delete),
-            onPressed: () async {
-              Navigator.of(context).pop();
-              final result = await showDialog<bool>(
-                  context: context, builder: (ctx) => const DeleteDialog());
-              if (result != true) return;
-              if (context.mounted) {
-                await fileSystem.deleteTemplate(metadata.name);
-                onChanged();
-              }
-            },
-          ),
-        ],
-      ),
+            }
+          },
+        ),
+      ],
       onTap: () => Navigator.of(context).pop(template),
     );
   }

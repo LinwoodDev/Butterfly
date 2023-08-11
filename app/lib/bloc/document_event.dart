@@ -153,6 +153,16 @@ class WaypointCreated extends DocumentEvent {
   List<Object?> get props => [waypoint];
 }
 
+class WaypointRenamed extends DocumentEvent {
+  final int index;
+  final String name;
+
+  const WaypointRenamed(this.index, this.name);
+
+  @override
+  List<Object?> get props => [name, index];
+}
+
 class WaypointRemoved extends DocumentEvent {
   final int index;
 

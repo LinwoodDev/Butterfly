@@ -174,10 +174,16 @@ class _FileEntityGridItem extends StatelessWidget {
                                     alignment: Alignment.centerLeft,
                                     child: Tooltip(
                                       message: entity.fileName,
-                                      child: Text(
-                                        entity.fileName,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
+                                      child: GestureDetector(
+                                        child: Text(
+                                          entity.fileName,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        onDoubleTap: () {
+                                          onEdit(true);
+                                          nameController.text = entity.fileName;
+                                        },
                                       ),
                                     ),
                                   ),
