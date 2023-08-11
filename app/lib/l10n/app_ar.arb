@@ -519,5 +519,6 @@
   "insertAfter": "إدراج بعد",
   "paste": "لصق",
   "ascending": "تصاعدي",
-  "descending": "تنازلي"
+  "descending": "تنازلي",
+  "imageScale": "Image scale"
 }
