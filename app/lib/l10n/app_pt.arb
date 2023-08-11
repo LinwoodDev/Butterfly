@@ -519,5 +519,6 @@
   "insertAfter": "Inserir depois",
   "paste": "Colar",
   "ascending": "Ascendente",
-  "descending": "Descendente"
+  "descending": "Descendente",
+  "imageScale": "Image scale"
 }
