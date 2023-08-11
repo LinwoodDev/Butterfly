@@ -209,7 +209,7 @@ class _ProjectPageState extends State<ProjectPage> {
             CameraViewport.unbaked(ToolRenderer(), background), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
             location!, renderers, assetService, page, pageName);
-        _importService = ImportService(context, _bloc);
+        _importService = ImportService(context, _bloc, _currentIndexCubit);
       });
     } catch (e, stackTrace) {
       if (kDebugMode) {

@@ -19,6 +19,8 @@ import 'package:printing/printing.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../api/save_data.dart';
+import '../cubits/current_index.dart';
+import '../cubits/settings.dart';
 import '../dialogs/error.dart';
 import '../dialogs/image_export.dart';
 import '../dialogs/pages.dart';
@@ -27,9 +29,10 @@ import '../dialogs/svg_export.dart';
 
 class ImportService {
   final DocumentBloc? bloc;
+  final CurrentIndexCubit? currentIndexCubit;
   final BuildContext context;
 
-  ImportService(this.context, [this.bloc]);
+  ImportService(this.context, [this.bloc, this.currentIndexCubit]);
 
   DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
       ? (bloc?.state as DocumentLoadSuccess)
@@ -38,6 +41,7 @@ class ImportService {
   TemplateFileSystem getTemplateFileSystem() =>
       context.read<TemplateFileSystem>();
   PackFileSystem getPackFileSystem() => context.read<PackFileSystem>();
+  SettingsCubit getSettingsCubit() => context.read<SettingsCubit>();
 
   Future<NoteData?> load(
       {String type = '', Object? data, NoteData? document}) async {
@@ -193,6 +197,7 @@ class ImportService {
   Future<NoteData?> importImage(Uint8List bytes, NoteData document,
       [Offset? position]) async {
     try {
+      final screen = MediaQuery.of(context).size;
       final firstPos = position ?? Offset.zero;
       final codec = await ui.instantiateImageCodec(bytes);
       final frame = await codec.getNextFrame();
@@ -207,6 +212,14 @@ class ImportService {
       dataPath = Uri.file(assetPath, windows: false).toString();
       final height = image.height.toDouble(), width = image.width.toDouble();
       image.dispose();
+      final settingsScale = getSettingsCubit().state.imageScale;
+      ElementConstraints? constraints;
+      if (position == null && currentIndexCubit != null) {
+        final scale = min((screen.width * settingsScale) / width,
+                (screen.height * settingsScale) / height) /
+            currentIndexCubit!.state.cameraViewport.scale;
+        constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
+      }
       return _submit(document,
           elements: [
             ImageElement(
@@ -214,6 +227,7 @@ class ImportService {
                 width: width,
                 layer: state?.currentLayer ?? '',
                 source: dataPath,
+                constraints: constraints,
                 position: firstPos.toPoint())
           ],
           choosePosition: position == null);
@@ -230,6 +244,7 @@ class ImportService {
   Future<NoteData?> importSvg(Uint8List bytes, NoteData document,
       [Offset? position]) async {
     try {
+      final screen = MediaQuery.of(context).size;
       final firstPos = position ?? Offset.zero;
       final contentString = String.fromCharCodes(bytes);
       try {
@@ -249,12 +264,21 @@ class ImportService {
             mimeType: 'image/svg+xml',
           ).toString();
         }
+        final settingsScale = getSettingsCubit().state.imageScale;
+        ElementConstraints? constraints;
+        if (position == null && currentIndexCubit != null) {
+          final scale = min((screen.width * settingsScale) / width,
+                  (screen.height * settingsScale) / height) /
+              currentIndexCubit!.state.cameraViewport.scale;
+          constraints = ElementConstraints.scaled(scaleX: scale, scaleY: scale);
+        }
         return _submit(document,
             elements: [
               SvgElement(
                 width: width,
                 height: height,
                 source: dataPath,
+                constraints: constraints,
                 position: firstPos.toPoint(),
               ),
             ],
