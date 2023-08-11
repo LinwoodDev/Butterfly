@@ -519,5 +519,6 @@
   "insertAfter": "Infoga efter",
   "paste": "Klistra in",
   "ascending": "Stigande",
-  "descending": "Fallande"
+  "descending": "Fallande",
+  "imageScale": "Image scale"
 }
