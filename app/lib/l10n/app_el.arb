@@ -519,5 +519,6 @@
   "insertAfter": "Εισαγωγή μετά",
   "paste": "Επικόλληση",
   "ascending": "Αύξουσα",
-  "descending": "Φθίνουσα"
+  "descending": "Φθίνουσα",
+  "imageScale": "Image scale"
 }
