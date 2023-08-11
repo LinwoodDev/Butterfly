@@ -519,5 +519,6 @@
   "insertAfter": "Voeg toe na",
   "paste": "Plakken",
   "ascending": "Oplopend",
-  "descending": "Aflopend"
+  "descending": "Aflopend",
+  "imageScale": "Image scale"
 }
