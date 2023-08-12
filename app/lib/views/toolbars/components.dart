@@ -36,8 +36,12 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
   @override
   void initState() {
     super.initState();
-
     currentPack = widget.component.pack;
+    final state = context.read<DocumentBloc>().state;
+    if (state is! DocumentLoaded) return;
+    final pack = state.data.getPack(widget.component.pack);
+    if (pack != null) return;
+    currentPack = state.data.getPacks().firstOrNull ?? '';
   }
 
   @override

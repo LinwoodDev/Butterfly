@@ -90,11 +90,11 @@ class _PacksDialogState extends State<PacksDialog>
                             if (state is! DocumentLoadSuccess) {
                               return Container();
                             }
-                            return StreamBuilder<List<String>>(
+                            return StreamBuilder<Iterable<String>>(
                                 stream: state.data.onChange
                                     .map((event) => event.getPacks()),
                                 builder: (context, snapshot) {
-                                  final packs = snapshot.data ?? [];
+                                  final packs = snapshot.data?.toList() ?? [];
                                   return ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: packs.length,
