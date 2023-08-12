@@ -56,6 +56,7 @@ class NavigatorView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: NavigationRail(
+                      minWidth: 110,
                       destinations: NavigatorPage.values
                           .map(
                             (e) => NavigationRailDestination(

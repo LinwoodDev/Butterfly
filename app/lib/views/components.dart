@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -35,60 +36,68 @@ class _ComponentsViewState extends State<ComponentsView> {
       buildWhen: (previous, current) => previous.data != current.data,
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
-        return StreamBuilder<NoteData>(
-            stream: state.data.onChange,
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) return const SizedBox.shrink();
-              final data = snapshot.data!;
-              final pack =
-                  currentPack == null ? null : data.getPack(currentPack!);
-              return Column(
-                children: [
-                  const SizedBox(height: 8),
-                  DropdownMenu(
-                    dropdownMenuEntries: data
-                        .getPacks()
-                        .map((e) => DropdownMenuEntry(
-                              value: e,
-                              label: e,
-                            ))
-                        .toList(),
-                    onSelected: (value) => setState(() => currentPack = value),
-                    initialSelection: currentPack,
-                    label: Text(AppLocalizations.of(context).pack),
-                  ),
-                  const SizedBox(height: 8),
-                  Expanded(
-                    child: Material(
-                      color: Colors.transparent,
-                      child: Wrap(
-                        children: pack
-                                ?.getComponents()
-                                .map((e) {
-                                  final component = pack.getComponent(e);
-                                  if (component == null) return null;
-                                  return (e, component);
-                                })
-                                .whereNotNull()
-                                .map((e) {
-                                  return _ComponentCard(
-                                    component: e.$2,
-                                    pack: pack,
-                                    location: PackAssetLocation(
-                                      currentPack!,
-                                      e.$1,
-                                    ),
-                                    key: ValueKey(e.$1),
-                                  );
-                                })
-                                .toList() ??
-                            [],
+        return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+            buildWhen: (previous, current) =>
+                previous.temporaryHandler != current.temporaryHandler,
+            builder: (context, currentIndex) => StreamBuilder<NoteData>(
+                stream: state.data.onChange,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) return const SizedBox.shrink();
+                  final data = snapshot.data!;
+                  final pack =
+                      currentPack == null ? null : data.getPack(currentPack!);
+                  final handler = currentIndex.temporaryHandler;
+                  return Column(
+                    children: [
+                      const SizedBox(height: 8),
+                      DropdownMenu(
+                        dropdownMenuEntries: data
+                            .getPacks()
+                            .map((e) => DropdownMenuEntry(
+                                  value: e,
+                                  label: e,
+                                ))
+                            .toList(),
+                        onSelected: (value) =>
+                            setState(() => currentPack = value),
+                        initialSelection: currentPack,
+                        label: Text(AppLocalizations.of(context).pack),
                       ),
-                    ),
-                  ),
-                ],
-              );
-            });
+                      const SizedBox(height: 8),
+                      Expanded(
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Wrap(
+                            children: pack
+                                    ?.getComponents()
+                                    .map((e) {
+                                      final component = pack.getComponent(e);
+                                      if (component == null) return null;
+                                      return (e, component);
+                                    })
+                                    .whereNotNull()
+                                    .map((e) {
+                                      final location = PackAssetLocation(
+                                        currentPack!,
+                                        e.$1,
+                                      );
+                                      return _ComponentCard(
+                                        component: e.$2,
+                                        pack: pack,
+                                        selected: handler is StampHandler &&
+                                            handler.data.component == location,
+                                        location: location,
+                                        key: ValueKey(e.$1),
+                                      );
+                                    })
+                                    .toList() ??
+                                [],
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }));
       },
     );
   }
@@ -98,11 +107,13 @@ class _ComponentCard extends StatelessWidget {
   final ButterflyComponent component;
   final NoteData? pack;
   final PackAssetLocation location;
+  final bool selected;
 
   const _ComponentCard({
     required this.component,
     required this.pack,
     required this.location,
+    required this.selected,
     super.key,
   });
 
@@ -117,6 +128,15 @@ class _ComponentCard extends StatelessWidget {
             height: 150,
             width: 150,
             padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: selected
+                    ? Theme.of(context).colorScheme.primary
+                    : Colors.transparent,
+                width: 4,
+              ),
+            ),
             child: Column(
               children: [
                 Expanded(
