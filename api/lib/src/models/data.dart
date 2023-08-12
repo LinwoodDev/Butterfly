@@ -314,7 +314,8 @@ class NoteData {
 
   // Pack specific
 
-  Iterable<String> getComponents() => getAssets(kComponentsArchiveDirectory, true);
+  Iterable<String> getComponents() =>
+      getAssets(kComponentsArchiveDirectory, true);
 
   ButterflyComponent? getComponent(String componentName) {
     final data = getAsset('$kComponentsArchiveDirectory/$componentName.json');

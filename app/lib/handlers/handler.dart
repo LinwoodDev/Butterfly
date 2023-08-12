@@ -402,7 +402,6 @@ abstract class PastingHandler<T> extends Handler<T> {
       left -= width;
     }
     final rect = Rect.fromLTRB(left, top, right, bottom);
-    if (rect.isEmpty) return [];
     return transformElements(rect, _currentLayer);
   }
 
