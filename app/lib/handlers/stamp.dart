@@ -93,5 +93,16 @@ class StampHandler extends Handler<StampPainter> {
   }
 
   @override
+  PreferredSizeWidget getToolbar(DocumentBloc bloc) => ComponentsToolbarView(
+        component: data.component,
+        onChanged: (value) {
+          bloc.add(PaintersChanged({
+            data: data.copyWith(
+              component: value,
+            ),
+          }));
+        },
+      );
+  @override
   MouseCursor get cursor => SystemMouseCursors.click;
 }

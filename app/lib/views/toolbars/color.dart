@@ -28,7 +28,7 @@ class ColorToolbarView extends StatefulWidget implements PreferredSizeWidget {
 
 class _ColorToolbarViewState extends State<ColorToolbarView> {
   final ScrollController _scrollController = ScrollController();
-  PackAssetLocation? currentPalette;
+  PackAssetLocation? colorPalette;
   @override
   void initState() {
     super.initState();
@@ -42,7 +42,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
         if (palettes?.isEmpty ?? true) return;
         final palette = pack?.getPalette(palettes!.first);
         if (palette != null) {
-          currentPalette = PackAssetLocation(packName, palette.name);
+          colorPalette = PackAssetLocation(packName, palette.name);
         }
       } catch (_) {}
     }
@@ -63,9 +63,9 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
           int color = Color(widget.color).withAlpha(255).value;
 
           try {
-            if (currentPalette != null) {
-              pack = document.getPack(currentPalette!.pack);
-              palette = pack?.getPalette(currentPalette!.name);
+            if (colorPalette != null) {
+              pack = document.getPack(colorPalette!.pack);
+              palette = pack?.getPalette(colorPalette!.name);
             }
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,7 +73,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
               children: [
                 if (!(palette?.colors.contains(color) ?? false)) ...[
                   _ColorButton(
-                    current: widget.color,
+                    value: widget.color,
                     color: widget.color,
                     bloc: bloc,
                     chooseOnPress: true,
@@ -92,24 +92,24 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                         scrollDirection: Axis.horizontal,
                         children: [
                           ...List.generate(palette.colors.length, (index) {
-                            final current = palette!.colors[index];
+                            final value = palette!.colors[index];
                             return _ColorButton(
                               bloc: bloc,
                               color: color,
-                              current: current,
+                              value: value,
                               onChanged: (value) {
                                 widget.onChanged(value);
                               },
                               onDeleted: () {
                                 var palette =
-                                    pack?.getPalette(currentPalette!.name);
+                                    pack?.getPalette(colorPalette!.name);
                                 palette = palette?.copyWith(
                                   colors: List<int>.from(palette.colors)
                                     ..removeAt(index),
                                 );
                                 pack?.setPalette(palette!);
                                 bloc.add(DocumentPackUpdated(
-                                    currentPalette!.pack, pack!));
+                                    colorPalette!.pack, pack!));
                               },
                             );
                           }),
@@ -129,7 +129,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                                   widget.onChanged(response.color);
                                   if (response.pin) {
                                     var palette =
-                                        pack?.getPalette(currentPalette!.name);
+                                        pack?.getPalette(colorPalette!.name);
                                     palette = palette?.copyWith(
                                       colors: [
                                         ...palette.colors,
@@ -138,7 +138,7 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                                     );
                                     pack?.setPalette(palette!);
                                     bloc.add(DocumentPackUpdated(
-                                        currentPalette!.pack, pack!));
+                                        colorPalette!.pack, pack!));
                                   }
                                 }
                               },
@@ -161,13 +161,13 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                                   value: bloc,
                                   child: SelectPackAssetDialog(
                                     type: PackAssetType.palette,
-                                    selected: currentPalette,
+                                    selected: colorPalette,
                                   ),
                                 ));
 
                         if (result == null) return;
                         setState(() {
-                          currentPalette = result;
+                          colorPalette = result;
                         });
                       },
                       icon: const PhosphorIcon(PhosphorIconsLight.package)),
@@ -182,14 +182,14 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
 }
 
 class _ColorButton extends StatelessWidget {
-  final int current, color;
+  final int value, color;
   final DocumentBloc bloc;
   final ValueChanged<int> onChanged;
   final VoidCallback? onDeleted;
   final bool chooseOnPress;
 
   const _ColorButton({
-    required this.current,
+    required this.value,
     required this.color,
     required this.bloc,
     required this.onChanged,
@@ -203,7 +203,7 @@ class _ColorButton extends StatelessWidget {
       final newColor = await showDialog<ColorPickerResponse>(
         context: context,
         builder: (context) => ColorPicker(
-          value: Color(current),
+          value: Color(value),
           deleteOption: onDeleted != null,
         ),
       );
@@ -218,17 +218,17 @@ class _ColorButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () => chooseOnPress ? choose() : onChanged(current),
+        onTap: () => chooseOnPress ? choose() : onChanged(value),
         onLongPress: choose,
         borderRadius: BorderRadius.circular(12),
         child: AspectRatio(
           aspectRatio: 1,
           child: Container(
             decoration: BoxDecoration(
-              color: Color(current),
+              color: Color(value),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: color == current
+                color: color == value
                     ? Theme.of(context).colorScheme.primary
                     : Colors.transparent,
                 width: 4,
