@@ -194,7 +194,7 @@ class AreaContextMenu extends StatelessWidget {
                   state.info,
                   width: area.width,
                   height: area.height,
-                  renderBackground: false,
+                  renderBackground: true,
                   x: area.position.x,
                   y: area.position.y,
                   quality: kThumbnailWidth / area.width,
