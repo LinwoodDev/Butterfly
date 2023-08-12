@@ -1,41 +1,60 @@
 part of 'handler.dart';
 
-class StampHandler extends Handler<StampPainter> {
+class StampHandler extends PastingHandler<StampPainter> {
   ButterflyComponent? _component;
   Offset _position = Offset.zero;
-  Offset _center = Offset.zero;
-  List<Renderer<PadElement>> _elements = [];
+  Rect rect = Rect.zero;
+  List<Renderer<PadElement>>? _elements;
   StampHandler(super.data);
 
   @override
-  @override
   List<Renderer> createForegrounds(CurrentIndexCubit currentIndexCubit,
-      NoteData document, DocumentPage page, DocumentInfo info,
-      [Area? currentArea]) {
-    final currentPos = currentIndexCubit.state.cameraViewport.toOffset();
-    return _elements
-        .map((e) =>
-            e.transform(
-                position: -currentPos - _center + _position, relative: true) ??
-            e)
-        .toList();
+          NoteData document, DocumentPage page, DocumentInfo info,
+          [Area? currentArea]) =>
+      [
+        ...super.createForegrounds(
+            currentIndexCubit, document, page, info, currentArea),
+        if (!currentlyPasting)
+          ...transformElements(Rect.fromPoints(_position, _position), '')
+              .map(Renderer.fromInstance),
+      ];
+
+  void _update(PointerEvent event, EventContext context) {
+    final state = context.getState();
+    if (state != null) {
+      _loadComponent(state.data, state.assetService, state.page);
+    }
+    _position = context.getCameraTransform().localToGlobal(event.localPosition);
+    context.refresh();
+  }
+
+  @override
+  void onPointerHover(PointerHoverEvent event, EventContext context) =>
+      _update(event, context);
+
+  @override
+  void onPointerDown(PointerDownEvent event, EventContext context) {
+    _update(event, context);
+    super.onPointerDown(event, context);
   }
 
   ButterflyComponent? getComponent(NoteData document) =>
       document.getPack(data.component.pack)?.getComponent(data.component.name);
 
   Future<void> _loadComponent(
-      NoteData document, AssetService assetService, DocumentPage page) async {
+      NoteData document, AssetService assetService, DocumentPage page,
+      [bool force = false]) async {
     _position = Offset.zero;
     _component = getComponent(document);
-    if (_component == null) return;
-    _elements = await Future.wait(_component!.elements.map((e) async {
-      final element = Renderer.fromInstance(e);
-      element.setup(document, assetService, page);
-      return element;
-    })).then((value) => value.toList());
+    if ((!force && _elements != null) || _component == null) return;
+    _elements = await Future.wait(
+        _component?.elements.map(Renderer.fromInstance).map((e) async {
+              await e.setup(document, assetService, page);
+              return e;
+            }) ??
+            []);
     Rect? rect;
-    for (final e in _elements) {
+    for (final e in _elements!) {
       final r = e.rect;
       if (r == null) continue;
       if (rect == null) {
@@ -45,51 +64,8 @@ class StampHandler extends Handler<StampPainter> {
       }
     }
     if (rect != null) {
-      _center = rect.center;
+      this.rect = rect;
     }
-  }
-
-  void _moveComponent(EventContext context, Offset offset) {
-    final transform = context.getCameraTransform();
-    final state = context.getState();
-    if (state == null) return;
-    final global = transform.localToGlobal(offset);
-    final grid = context
-        .getCurrentIndexCubit()
-        .getGridPosition(global, state.page, state.info);
-    final local = transform.globalToLocal(grid);
-    _loadComponent(state.data, state.assetService, state.page);
-    _position = local;
-    context.refresh();
-  }
-
-  @override
-  void onPointerHover(PointerHoverEvent event, EventContext context) =>
-      _moveComponent(context, event.localPosition);
-
-  @override
-  void onPointerMove(PointerMoveEvent event, EventContext context) =>
-      _moveComponent(context, event.localPosition);
-
-  void _stamp(EventContext context) {
-    final state = context.getState();
-    if (state == null) return;
-    final bloc = context.getDocumentBloc();
-    final currentPos = context.getCurrentIndex().cameraViewport.toOffset();
-    final elements = _elements
-        .map((e) =>
-            e.transform(
-                position: -currentPos - _center + _position, relative: true) ??
-            e)
-        .toList();
-    bloc.add(ElementsCreated.renderers(elements));
-    bloc.refresh();
-    bloc.bake();
-  }
-
-  @override
-  void onPointerUp(PointerUpEvent event, EventContext context) {
-    _stamp(context);
   }
 
   @override
@@ -105,4 +81,25 @@ class StampHandler extends Handler<StampPainter> {
       );
   @override
   MouseCursor get cursor => SystemMouseCursors.click;
+
+  @override
+  List<PadElement> transformElements(Rect rect, String layer) {
+    var scaleX = 1.0, scaleY = 1.0;
+    if (!rect.isEmpty && !this.rect.isEmpty) {
+      scaleX = rect.width / this.rect.width;
+      scaleY = rect.height / this.rect.height;
+    }
+    return _elements
+            ?.map((e) =>
+                e
+                    .transform(
+                        position: rect.topLeft,
+                        scaleX: scaleX,
+                        scaleY: scaleY,
+                        relative: true)
+                    ?.element ??
+                e.element)
+            .toList() ??
+        [];
+  }
 }

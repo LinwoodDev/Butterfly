@@ -443,4 +443,6 @@ abstract class PastingHandler<T> extends Handler<T> {
   double get constraintedAspectRatio => 0;
   double get constraintedWidth => 0;
   double get constraintedHeight => 0;
+
+  bool get currentlyPasting => _firstPos != null && _secondPos != null;
 }

@@ -75,6 +75,7 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
                   component != null) ...[
                 _ComponentsButton(
                   component: widget.component,
+                  valueLocation: widget.component,
                   value: component,
                   bloc: bloc,
                   pack: pack,
@@ -91,16 +92,18 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
                     children: [
                       ...List.generate(components.length, (index) {
                         final current = components[index];
+                        final location = PackAssetLocation(
+                          currentPack,
+                          current.$1,
+                        );
                         return _ComponentsButton(
                           bloc: bloc,
                           component: widget.component,
                           value: current.$2,
+                          valueLocation: location,
                           pack: pack,
                           onChanged: () {
-                            widget.onChanged(PackAssetLocation(
-                              currentPack,
-                              current.$1,
-                            ));
+                            widget.onChanged(location);
                           },
                         );
                       }),
@@ -129,7 +132,7 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
 
 class _ComponentsButton extends StatelessWidget {
   final ButterflyComponent value;
-  final PackAssetLocation? component;
+  final PackAssetLocation? component, valueLocation;
   final NoteData? pack;
   final DocumentBloc bloc;
   final VoidCallback onChanged;
@@ -137,6 +140,7 @@ class _ComponentsButton extends StatelessWidget {
   const _ComponentsButton({
     required this.component,
     required this.value,
+    required this.valueLocation,
     required this.bloc,
     required this.onChanged,
     required this.pack,
@@ -148,25 +152,39 @@ class _ComponentsButton extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
           onTap: onChanged,
-          borderRadius: BorderRadius.circular(12),
-          child: FutureBuilder<Uint8List?>(
-            future: value.thumbnail == null || pack == null
-                ? null
-                : getDataFromSource(pack!, value.thumbnail!),
-            builder: (context, snapshot) {
-              const fallbackWidget = AspectRatio(
-                aspectRatio: 1,
-                child: PhosphorIcon(PhosphorIconsLight.selection),
-              );
-              if (!snapshot.hasData) return fallbackWidget;
-              return Image.memory(
-                snapshot.data!,
-                width: 48,
-                height: 48,
-                fit: BoxFit.contain,
-                errorBuilder: (context, error, stackTrace) => fallbackWidget,
-              );
-            },
+          child: Tooltip(
+            message: value.name,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: component == valueLocation
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.transparent,
+                  width: 4,
+                ),
+              ),
+              child: FutureBuilder<Uint8List?>(
+                future: value.thumbnail == null || pack == null
+                    ? null
+                    : getDataFromSource(pack!, value.thumbnail!),
+                builder: (context, snapshot) {
+                  const fallbackWidget = AspectRatio(
+                    aspectRatio: 1,
+                    child: PhosphorIcon(PhosphorIconsLight.selection),
+                  );
+                  if (!snapshot.hasData) return fallbackWidget;
+                  return Image.memory(
+                    snapshot.data!,
+                    width: 48,
+                    height: 48,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) =>
+                        fallbackWidget,
+                  );
+                },
+              ),
+            ),
           )),
     );
   }
