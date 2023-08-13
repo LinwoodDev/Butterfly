@@ -148,8 +148,9 @@ class _MainViewViewportState extends State<MainViewViewport>
         }
         final cubit = context.read<CurrentIndexCubit>();
         if (nextPointerIndex == null) {
-          cubit.resetTemporaryHandler(bloc);
-        } else if (nextPointerIndex <= 0) {
+          return;
+        }
+        if (nextPointerIndex <= 0) {
           cubit.changeTemporaryHandlerMove();
         } else {
           await cubit.changeTemporaryHandlerIndex(bloc, nextPointerIndex);
@@ -301,6 +302,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                             getHandler().onPointerUp(event, getEventContext());
                             cubit.removePointer(event.pointer);
                             cubit.removeButtons();
+                            Future.sync(() => cubit.resetTemporaryHandler(
+                                context.read<DocumentBloc>()));
                           },
                           behavior: HitTestBehavior.translucent,
                           onPointerHover: (event) {

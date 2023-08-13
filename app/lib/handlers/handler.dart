@@ -42,6 +42,7 @@ import '../renderers/renderer.dart';
 import '../services/asset.dart';
 import '../services/import.dart';
 import '../views/toolbars/color.dart';
+import '../views/toolbars/components.dart';
 import '../views/toolbars/label.dart';
 import '../views/toolbars/presentation/toolbar.dart';
 import '../widgets/context_menu.dart';
@@ -401,7 +402,6 @@ abstract class PastingHandler<T> extends Handler<T> {
       left -= width;
     }
     final rect = Rect.fromLTRB(left, top, right, bottom);
-    if (rect.isEmpty) return [];
     return transformElements(rect, _currentLayer);
   }
 
@@ -442,4 +442,6 @@ abstract class PastingHandler<T> extends Handler<T> {
   double get constraintedAspectRatio => 0;
   double get constraintedWidth => 0;
   double get constraintedHeight => 0;
+
+  bool get currentlyPasting => _firstPos != null && _secondPos != null;
 }

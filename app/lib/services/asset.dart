@@ -16,13 +16,12 @@ class AssetService {
     if (_images.containsKey(path)) {
       return _images[path]!.clone();
     }
-    var listData = await getDataFromSource(document, path);
-    if (listData == null) {
-      listData = _cached[path];
-      if (listData == null) return null;
-      document.setAsset(Uri.parse(path).path, listData);
+    var data = await getDataFromSource(document, path);
+    if (data == null) {
+      data = _cached[path];
+      if (data == null) return null;
+      document.setAsset(Uri.parse(path).path, data);
     }
-    final data = Uint8List.fromList(listData);
     _cached[path] = data;
     final codec = await ui.instantiateImageCodec(data);
     final frameInfo = await codec.getNextFrame();

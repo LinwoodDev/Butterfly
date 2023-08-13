@@ -17,6 +17,8 @@ class ShapeHandler extends PastingHandler<ShapePainter> {
 
   @override
   List<PadElement> transformElements(Rect rect, String layer) {
+    if (rect.isEmpty) return [];
+
     return [
       ShapeElement(
         firstPosition: rect.topLeft.toPoint(),
