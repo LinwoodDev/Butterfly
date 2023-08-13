@@ -5,6 +5,11 @@
 * Add double click to rename ([#452](https://github.com/LinwoodDev/Butterfly/issues/452))
 * Add ability to rename waypoint
 * Add ability to rename layers from navigator
+* Add thumbnail for components ([#474](https://github.com/LinwoodDev/Butterfly/issues/474))
+* Add toolbar for stamp painter ([#474](https://github.com/LinwoodDev/Butterfly/issues/474))
+* Add components navigator page ([#474](https://github.com/LinwoodDev/Butterfly/issues/474))
+* Add scaling functionality for stamp painter ([#474](https://github.com/LinwoodDev/Butterfly/issues/474))
+* Add ctrl+a shortcut on all painters to open the hand painter and select all ([#450](https://github.com/LinwoodDev/Butterfly/issues/450))
 * Fix portable linux build
   * Fix script.sh
   * Set executable permission on script.sh and butterfly binary

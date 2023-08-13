@@ -36,6 +36,7 @@ import '../actions/pdf_export.dart';
 import '../actions/previous.dart';
 import '../actions/redo.dart';
 import '../actions/save.dart';
+import '../actions/select.dart';
 import '../actions/settings.dart';
 import '../actions/svg_export.dart';
 import '../actions/undo.dart';
@@ -87,6 +88,7 @@ class _ProjectPageState extends State<ProjectPage> {
     NextIntent: NextAction(),
     PreviousIntent: PreviousAction(),
     PasteIntent: PasteAction(),
+    SelectAllIntent: SelectAllAction(),
   };
 
   @override
@@ -306,6 +308,9 @@ class _ProjectPageState extends State<ProjectPage> {
                               NextIntent(context),
                           LogicalKeySet(LogicalKeyboardKey.arrowLeft):
                               PreviousIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.keyA):
+                              SelectAllIntent(context),
                           if (widget.embedding == null) ...{
                             LogicalKeySet(LogicalKeyboardKey.control,
                                 LogicalKeyboardKey.keyE): ExportIntent(context),

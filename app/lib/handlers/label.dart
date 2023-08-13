@@ -464,6 +464,7 @@ class LabelHandler extends Handler<LabelPainter>
   Map<Type, Action<Intent>> getActions(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
     return {
+      ...super.getActions(context),
       DeleteCharacterIntent: CallbackAction<DeleteCharacterIntent>(
         onInvoke: (intent) {
           final element = _context?.element;

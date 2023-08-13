@@ -29,6 +29,7 @@ import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../actions/paste.dart';
+import '../actions/select.dart';
 import '../api/open.dart';
 import '../cubits/current_index.dart';
 import '../dialogs/camera.dart';
@@ -228,10 +229,14 @@ abstract class Handler<T> {
 
   void dispose(DocumentBloc bloc) {}
 
+  @mustCallSuper
   Map<Type, Action<Intent>> getActions(BuildContext context) => {
         PasteTextIntent: CallbackAction<PasteTextIntent>(
             onInvoke: (intent) =>
                 Actions.maybeInvoke(context, PasteIntent(context))),
+        SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
+            onInvoke: (intent) =>
+                Actions.maybeInvoke(context, SelectAllIntent(context))),
       };
 
   MouseCursor? get cursor => null;

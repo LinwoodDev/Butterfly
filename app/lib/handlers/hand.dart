@@ -549,6 +549,9 @@ class HandHandler extends Handler<HandPainter> {
   }
 
   @override
+  void dispose(DocumentBloc bloc) => _submitTransform(bloc);
+
+  @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
     final freeSelection = _freeSelection?.normalized();
     if (_rulerRotation != null) {
@@ -639,19 +642,21 @@ class HandHandler extends Handler<HandPainter> {
     bloc.refresh();
   }
 
+  void selectAll(DocumentBloc bloc) {
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    _selected.clear();
+    _selected.addAll(state.renderers);
+    bloc.refresh();
+  }
+
   @override
   Map<Type, Action<Intent>> getActions(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
     return {
-      SelectAllTextIntent:
-          CallbackAction<SelectAllTextIntent>(onInvoke: (intent) {
-        final state = bloc.state;
-        if (state is! DocumentLoadSuccess) return null;
-        _selected.clear();
-        _selected.addAll(state.renderers);
-        bloc.refresh();
-        return null;
-      }),
+      ...super.getActions(context),
+      SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
+          onInvoke: (intent) => selectAll(bloc)),
       DeleteCharacterIntent:
           CallbackAction<DeleteCharacterIntent>(onInvoke: (intent) {
         context
@@ -666,7 +671,6 @@ class HandHandler extends Handler<HandPainter> {
         copySelection(context, intent.collapseSelection);
         return null;
       }),
-      ...super.getActions(context),
     };
   }
 }

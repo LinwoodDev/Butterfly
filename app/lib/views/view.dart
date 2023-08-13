@@ -183,6 +183,8 @@ class _MainViewViewportState extends State<MainViewViewport>
             buildWhen: (previous, current) =>
                 previous.cameraViewport != current.cameraViewport ||
                 previous.foregrounds != current.foregrounds ||
+                previous.handler != current.handler ||
+                previous.temporaryHandler != current.temporaryHandler ||
                 previous.temporaryForegrounds != current.temporaryForegrounds,
             builder: (context, currentIndex) => Actions(
                 actions: getHandler().getActions(context),
