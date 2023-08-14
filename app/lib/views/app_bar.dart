@@ -323,7 +323,7 @@ class _MainPopupMenu extends StatelessWidget {
                     Actions.maybeInvoke<ExportIntent>(
                         context, ExportIntent(context));
                   },
-                  child: Text(AppLocalizations.of(context).data),
+                  child: Text(AppLocalizations.of(context).document),
                 ),
                 MenuItemButton(
                   leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
