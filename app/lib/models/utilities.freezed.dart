@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'tool.dart';
+part of 'utilities.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ToolState _$ToolStateFromJson(Map<String, dynamic> json) {
-  return _ToolState.fromJson(json);
+UtilitiesState _$UtilitiesStateFromJson(Map<String, dynamic> json) {
+  return _UtilitiesState.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ToolState {
+mixin _$UtilitiesState {
   bool get lockZoom => throw _privateConstructorUsedError;
   bool get lockHorizontal => throw _privateConstructorUsedError;
   bool get lockVertical => throw _privateConstructorUsedError;
@@ -31,14 +31,15 @@ mixin _$ToolState {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ToolStateCopyWith<ToolState> get copyWith =>
+  $UtilitiesStateCopyWith<UtilitiesState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ToolStateCopyWith<$Res> {
-  factory $ToolStateCopyWith(ToolState value, $Res Function(ToolState) then) =
-      _$ToolStateCopyWithImpl<$Res, ToolState>;
+abstract class $UtilitiesStateCopyWith<$Res> {
+  factory $UtilitiesStateCopyWith(
+          UtilitiesState value, $Res Function(UtilitiesState) then) =
+      _$UtilitiesStateCopyWithImpl<$Res, UtilitiesState>;
   @useResult
   $Res call(
       {bool lockZoom,
@@ -51,9 +52,9 @@ abstract class $ToolStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ToolStateCopyWithImpl<$Res, $Val extends ToolState>
-    implements $ToolStateCopyWith<$Res> {
-  _$ToolStateCopyWithImpl(this._value, this._then);
+class _$UtilitiesStateCopyWithImpl<$Res, $Val extends UtilitiesState>
+    implements $UtilitiesStateCopyWith<$Res> {
+  _$UtilitiesStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -105,10 +106,11 @@ class _$ToolStateCopyWithImpl<$Res, $Val extends ToolState>
 }
 
 /// @nodoc
-abstract class _$$_ToolStateCopyWith<$Res> implements $ToolStateCopyWith<$Res> {
-  factory _$$_ToolStateCopyWith(
-          _$_ToolState value, $Res Function(_$_ToolState) then) =
-      __$$_ToolStateCopyWithImpl<$Res>;
+abstract class _$$_UtilitiesStateCopyWith<$Res>
+    implements $UtilitiesStateCopyWith<$Res> {
+  factory _$$_UtilitiesStateCopyWith(
+          _$_UtilitiesState value, $Res Function(_$_UtilitiesState) then) =
+      __$$_UtilitiesStateCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -122,11 +124,11 @@ abstract class _$$_ToolStateCopyWith<$Res> implements $ToolStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ToolStateCopyWithImpl<$Res>
-    extends _$ToolStateCopyWithImpl<$Res, _$_ToolState>
-    implements _$$_ToolStateCopyWith<$Res> {
-  __$$_ToolStateCopyWithImpl(
-      _$_ToolState _value, $Res Function(_$_ToolState) _then)
+class __$$_UtilitiesStateCopyWithImpl<$Res>
+    extends _$UtilitiesStateCopyWithImpl<$Res, _$_UtilitiesState>
+    implements _$$_UtilitiesStateCopyWith<$Res> {
+  __$$_UtilitiesStateCopyWithImpl(
+      _$_UtilitiesState _value, $Res Function(_$_UtilitiesState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -140,7 +142,7 @@ class __$$_ToolStateCopyWithImpl<$Res>
     Object? rulerPosition = null,
     Object? rulerAngle = null,
   }) {
-    return _then(_$_ToolState(
+    return _then(_$_UtilitiesState(
       lockZoom: null == lockZoom
           ? _value.lockZoom
           : lockZoom // ignore: cast_nullable_to_non_nullable
@@ -175,8 +177,8 @@ class __$$_ToolStateCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ToolState implements _ToolState {
-  const _$_ToolState(
+class _$_UtilitiesState implements _UtilitiesState {
+  const _$_UtilitiesState(
       {this.lockZoom = false,
       this.lockHorizontal = false,
       this.lockVertical = false,
@@ -185,8 +187,8 @@ class _$_ToolState implements _ToolState {
       @DoublePointJsonConverter() this.rulerPosition = const Point(0.0, 0.0),
       this.rulerAngle = 0});
 
-  factory _$_ToolState.fromJson(Map<String, dynamic> json) =>
-      _$$_ToolStateFromJson(json);
+  factory _$_UtilitiesState.fromJson(Map<String, dynamic> json) =>
+      _$$_UtilitiesStateFromJson(json);
 
   @override
   @JsonKey()
@@ -213,14 +215,14 @@ class _$_ToolState implements _ToolState {
 
   @override
   String toString() {
-    return 'ToolState(lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, rulerEnabled: $rulerEnabled, gridEnabled: $gridEnabled, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
+    return 'UtilitiesState(lockZoom: $lockZoom, lockHorizontal: $lockHorizontal, lockVertical: $lockVertical, rulerEnabled: $rulerEnabled, gridEnabled: $gridEnabled, rulerPosition: $rulerPosition, rulerAngle: $rulerAngle)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ToolState &&
+            other is _$_UtilitiesState &&
             (identical(other.lockZoom, lockZoom) ||
                 other.lockZoom == lockZoom) &&
             (identical(other.lockHorizontal, lockHorizontal) ||
@@ -245,29 +247,29 @@ class _$_ToolState implements _ToolState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ToolStateCopyWith<_$_ToolState> get copyWith =>
-      __$$_ToolStateCopyWithImpl<_$_ToolState>(this, _$identity);
+  _$$_UtilitiesStateCopyWith<_$_UtilitiesState> get copyWith =>
+      __$$_UtilitiesStateCopyWithImpl<_$_UtilitiesState>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ToolStateToJson(
+    return _$$_UtilitiesStateToJson(
       this,
     );
   }
 }
 
-abstract class _ToolState implements ToolState {
-  const factory _ToolState(
+abstract class _UtilitiesState implements UtilitiesState {
+  const factory _UtilitiesState(
       {final bool lockZoom,
       final bool lockHorizontal,
       final bool lockVertical,
       final bool rulerEnabled,
       final bool gridEnabled,
       @DoublePointJsonConverter() final Point<double> rulerPosition,
-      final double rulerAngle}) = _$_ToolState;
+      final double rulerAngle}) = _$_UtilitiesState;
 
-  factory _ToolState.fromJson(Map<String, dynamic> json) =
-      _$_ToolState.fromJson;
+  factory _UtilitiesState.fromJson(Map<String, dynamic> json) =
+      _$_UtilitiesState.fromJson;
 
   @override
   bool get lockZoom;
@@ -286,6 +288,6 @@ abstract class _ToolState implements ToolState {
   double get rulerAngle;
   @override
   @JsonKey(ignore: true)
-  _$$_ToolStateCopyWith<_$_ToolState> get copyWith =>
+  _$$_UtilitiesStateCopyWith<_$_UtilitiesState> get copyWith =>
       throw _privateConstructorUsedError;
 }

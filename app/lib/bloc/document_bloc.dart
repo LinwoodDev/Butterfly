@@ -15,7 +15,7 @@ import '../cubits/settings.dart';
 import '../cubits/transform.dart';
 import '../embed/embedding.dart';
 import '../models/defaults.dart';
-import '../models/tool.dart';
+import '../models/utilities.dart';
 import '../models/viewport.dart';
 import '../renderers/renderer.dart';
 import '../selections/selection.dart';
@@ -73,17 +73,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         null,
       );
     });
-    on<ToolChanged>((event, emit) async {
+    on<UtilitiesChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      current.currentIndexCubit
-          .updateTool(event.state ?? current.cameraViewport.tool.element);
-      if (event.option != null) {
+      current.currentIndexCubit.updateUtilities(
+          event.state ?? current.cameraViewport.utilities.element);
+      if (event.view != null) {
         return _saveState(
           emit,
           current.copyWith(
             info: current.info.copyWith(
-              tool: event.option!,
+              view: event.view!,
             ),
           ),
         );
@@ -877,7 +877,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     currentIndexCubit.setSaveState(saved: SaveState.saved);
     final background = Renderer.fromInstance(page.background);
     await background.setup(document, assetService, page);
-    final tool = ToolRenderer(const ToolState());
+    final tool = UtilitiesRenderer(const UtilitiesState());
     await tool.setup(document, assetService, page);
     currentIndexCubit.unbake(background: background, tool: tool);
     currentIndexCubit.loadElements(document, assetService, page);

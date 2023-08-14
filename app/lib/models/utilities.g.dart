@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tool.dart';
+part of 'utilities.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ToolState _$$_ToolStateFromJson(Map json) => _$_ToolState(
+_$_UtilitiesState _$$_UtilitiesStateFromJson(Map json) => _$_UtilitiesState(
       lockZoom: json['lockZoom'] as bool? ?? false,
       lockHorizontal: json['lockHorizontal'] as bool? ?? false,
       lockVertical: json['lockVertical'] as bool? ?? false,
@@ -19,7 +19,7 @@ _$_ToolState _$$_ToolStateFromJson(Map json) => _$_ToolState(
       rulerAngle: (json['rulerAngle'] as num?)?.toDouble() ?? 0,
     );
 
-Map<String, dynamic> _$$_ToolStateToJson(_$_ToolState instance) =>
+Map<String, dynamic> _$$_UtilitiesStateToJson(_$_UtilitiesState instance) =>
     <String, dynamic>{
       'lockZoom': instance.lockZoom,
       'lockHorizontal': instance.lockHorizontal,

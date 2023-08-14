@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'tool.g.dart';
-part 'tool.freezed.dart';
+part 'utilities.g.dart';
+part 'utilities.freezed.dart';
 
 @freezed
-class ToolState with _$ToolState {
-  const factory ToolState({
+class UtilitiesState with _$UtilitiesState {
+  const factory UtilitiesState({
     @Default(false) bool lockZoom,
     @Default(false) bool lockHorizontal,
     @Default(false) bool lockVertical,
@@ -18,8 +18,8 @@ class ToolState with _$ToolState {
     @Default(Point(0.0, 0.0))
     Point<double> rulerPosition,
     @Default(0) double rulerAngle,
-  }) = _ToolState;
+  }) = _UtilitiesState;
 
-  factory ToolState.fromJson(Map<String, dynamic> json) =>
-      _$ToolStateFromJson(json);
+  factory UtilitiesState.fromJson(Map<String, dynamic> json) =>
+      _$UtilitiesStateFromJson(json);
 }

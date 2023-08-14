@@ -55,7 +55,7 @@ class PenHandler extends Handler<PenPainter> {
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
     localPosition =
-        viewport.tool.getPointerPosition(localPosition, currentIndexCubit);
+        viewport.utilities.getPointerPosition(localPosition, currentIndexCubit);
     if (lastPosition[pointer] == localPosition) return;
     lastPosition[pointer] = localPosition;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {

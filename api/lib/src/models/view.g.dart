@@ -1,18 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tool.dart';
+part of 'view.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ToolOption _$$_ToolOptionFromJson(Map json) => _$_ToolOption(
+_$_ViewOption _$$_ViewOptionFromJson(Map json) => _$_ViewOption(
       gridColor: json['gridColor'] as int? ?? 0,
       gridXSize: (json['gridXSize'] as num?)?.toDouble() ?? 20,
       gridYSize: (json['gridYSize'] as num?)?.toDouble() ?? 20,
     );
 
-Map<String, dynamic> _$$_ToolOptionToJson(_$_ToolOption instance) =>
+Map<String, dynamic> _$$_ViewOptionToJson(_$_ViewOption instance) =>
     <String, dynamic>{
       'gridColor': instance.gridColor,
       'gridXSize': instance.gridXSize,

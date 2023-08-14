@@ -1,6 +1,6 @@
 part of 'selection.dart';
 
-class ToolSelection extends Selection<ToolState> {
+class ToolSelection extends Selection<UtilitiesState> {
   ToolSelection(super.selected);
 
   @override
@@ -18,26 +18,26 @@ class ToolSelection extends Selection<ToolState> {
       ...super.buildProperties(context),
       _ToolView(
         state: selected.first,
-        option: state.info.tool,
+        option: state.info.view,
         onStateChanged: (state) => updateState(context, state),
         onToolChanged: (option) =>
-            context.read<DocumentBloc>().add(ToolChanged.option(option)),
+            context.read<DocumentBloc>().add(UtilitiesChanged(view: option)),
       )
     ];
   }
 
-  void updateState(BuildContext context, ToolState selected) {
+  void updateState(BuildContext context, UtilitiesState selected) {
     update(context, [selected]);
 
-    context.read<DocumentBloc>().add(ToolChanged.state(selected));
+    context.read<DocumentBloc>().add(UtilitiesChanged.state(selected));
   }
 }
 
 class _ToolView extends StatefulWidget {
-  final ToolState state;
-  final ToolOption option;
-  final ValueChanged<ToolState> onStateChanged;
-  final ValueChanged<ToolOption> onToolChanged;
+  final UtilitiesState state;
+  final ViewOption option;
+  final ValueChanged<UtilitiesState> onStateChanged;
+  final ValueChanged<ViewOption> onToolChanged;
 
   const _ToolView(
       {required this.state,

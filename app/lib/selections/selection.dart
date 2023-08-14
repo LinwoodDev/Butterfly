@@ -26,7 +26,7 @@ import '../actions/packs.dart';
 import '../api/open.dart';
 import '../cubits/transform.dart';
 import '../dialogs/layer.dart';
-import '../models/tool.dart';
+import '../models/utilities.dart';
 import '../renderers/renderer.dart';
 import '../widgets/color_field.dart';
 
@@ -73,7 +73,7 @@ abstract class Selection<T> {
     if (selected is Area) {
       return AreaSelection([selected]) as Selection<T>;
     }
-    if (selected is ToolState) {
+    if (selected is UtilitiesState) {
       return ToolSelection([selected]) as Selection<T>;
     }
     throw UnsupportedError('Unsupported selection type: $T');

@@ -1,7 +1,7 @@
 part of 'renderer.dart';
 
-class ToolRenderer extends Renderer<ToolState> {
-  ToolRenderer([super.element = const ToolState()]);
+class UtilitiesRenderer extends Renderer<UtilitiesState> {
+  UtilitiesRenderer([super.element = const UtilitiesState()]);
 
   Rect getRulerRect(Size size) {
     const rulerSize = 100.0;
@@ -29,7 +29,7 @@ class ToolRenderer extends Renderer<ToolState> {
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    final option = info.tool;
+    final option = info.view;
     if (element.gridEnabled) {
       if (option.gridXSize > 0) {
         double x = 0;
@@ -178,7 +178,7 @@ class ToolRenderer extends Renderer<ToolState> {
     if (!element.gridEnabled) return position;
     final transform = cubit.state.transformCubit.state;
     final localPosition = transform.globalToLocal(position);
-    final option = info.tool;
+    final option = info.view;
     final x = (localPosition.dx ~/ option.gridXSize) * option.gridXSize;
     final y = (localPosition.dy ~/ option.gridYSize) * option.gridYSize;
     return transform.localToGlobal(Offset(x, y));

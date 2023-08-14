@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'tool.dart';
+part of 'view.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,35 +14,35 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ToolOption _$ToolOptionFromJson(Map<String, dynamic> json) {
-  return _ToolOption.fromJson(json);
+ViewOption _$ViewOptionFromJson(Map<String, dynamic> json) {
+  return _ViewOption.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ToolOption {
+mixin _$ViewOption {
   int get gridColor => throw _privateConstructorUsedError;
   double get gridXSize => throw _privateConstructorUsedError;
   double get gridYSize => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ToolOptionCopyWith<ToolOption> get copyWith =>
+  $ViewOptionCopyWith<ViewOption> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ToolOptionCopyWith<$Res> {
-  factory $ToolOptionCopyWith(
-          ToolOption value, $Res Function(ToolOption) then) =
-      _$ToolOptionCopyWithImpl<$Res, ToolOption>;
+abstract class $ViewOptionCopyWith<$Res> {
+  factory $ViewOptionCopyWith(
+          ViewOption value, $Res Function(ViewOption) then) =
+      _$ViewOptionCopyWithImpl<$Res, ViewOption>;
   @useResult
   $Res call({int gridColor, double gridXSize, double gridYSize});
 }
 
 /// @nodoc
-class _$ToolOptionCopyWithImpl<$Res, $Val extends ToolOption>
-    implements $ToolOptionCopyWith<$Res> {
-  _$ToolOptionCopyWithImpl(this._value, this._then);
+class _$ViewOptionCopyWithImpl<$Res, $Val extends ViewOption>
+    implements $ViewOptionCopyWith<$Res> {
+  _$ViewOptionCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -74,22 +74,22 @@ class _$ToolOptionCopyWithImpl<$Res, $Val extends ToolOption>
 }
 
 /// @nodoc
-abstract class _$$_ToolOptionCopyWith<$Res>
-    implements $ToolOptionCopyWith<$Res> {
-  factory _$$_ToolOptionCopyWith(
-          _$_ToolOption value, $Res Function(_$_ToolOption) then) =
-      __$$_ToolOptionCopyWithImpl<$Res>;
+abstract class _$$_ViewOptionCopyWith<$Res>
+    implements $ViewOptionCopyWith<$Res> {
+  factory _$$_ViewOptionCopyWith(
+          _$_ViewOption value, $Res Function(_$_ViewOption) then) =
+      __$$_ViewOptionCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int gridColor, double gridXSize, double gridYSize});
 }
 
 /// @nodoc
-class __$$_ToolOptionCopyWithImpl<$Res>
-    extends _$ToolOptionCopyWithImpl<$Res, _$_ToolOption>
-    implements _$$_ToolOptionCopyWith<$Res> {
-  __$$_ToolOptionCopyWithImpl(
-      _$_ToolOption _value, $Res Function(_$_ToolOption) _then)
+class __$$_ViewOptionCopyWithImpl<$Res>
+    extends _$ViewOptionCopyWithImpl<$Res, _$_ViewOption>
+    implements _$$_ViewOptionCopyWith<$Res> {
+  __$$_ViewOptionCopyWithImpl(
+      _$_ViewOption _value, $Res Function(_$_ViewOption) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_ToolOptionCopyWithImpl<$Res>
     Object? gridXSize = null,
     Object? gridYSize = null,
   }) {
-    return _then(_$_ToolOption(
+    return _then(_$_ViewOption(
       gridColor: null == gridColor
           ? _value.gridColor
           : gridColor // ignore: cast_nullable_to_non_nullable
@@ -118,12 +118,12 @@ class __$$_ToolOptionCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ToolOption implements _ToolOption {
-  const _$_ToolOption(
+class _$_ViewOption implements _ViewOption {
+  const _$_ViewOption(
       {this.gridColor = 0, this.gridXSize = 20, this.gridYSize = 20});
 
-  factory _$_ToolOption.fromJson(Map<String, dynamic> json) =>
-      _$$_ToolOptionFromJson(json);
+  factory _$_ViewOption.fromJson(Map<String, dynamic> json) =>
+      _$$_ViewOptionFromJson(json);
 
   @override
   @JsonKey()
@@ -137,14 +137,14 @@ class _$_ToolOption implements _ToolOption {
 
   @override
   String toString() {
-    return 'ToolOption(gridColor: $gridColor, gridXSize: $gridXSize, gridYSize: $gridYSize)';
+    return 'ViewOption(gridColor: $gridColor, gridXSize: $gridXSize, gridYSize: $gridYSize)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ToolOption &&
+            other is _$_ViewOption &&
             (identical(other.gridColor, gridColor) ||
                 other.gridColor == gridColor) &&
             (identical(other.gridXSize, gridXSize) ||
@@ -160,25 +160,25 @@ class _$_ToolOption implements _ToolOption {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ToolOptionCopyWith<_$_ToolOption> get copyWith =>
-      __$$_ToolOptionCopyWithImpl<_$_ToolOption>(this, _$identity);
+  _$$_ViewOptionCopyWith<_$_ViewOption> get copyWith =>
+      __$$_ViewOptionCopyWithImpl<_$_ViewOption>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ToolOptionToJson(
+    return _$$_ViewOptionToJson(
       this,
     );
   }
 }
 
-abstract class _ToolOption implements ToolOption {
-  const factory _ToolOption(
+abstract class _ViewOption implements ViewOption {
+  const factory _ViewOption(
       {final int gridColor,
       final double gridXSize,
-      final double gridYSize}) = _$_ToolOption;
+      final double gridYSize}) = _$_ViewOption;
 
-  factory _ToolOption.fromJson(Map<String, dynamic> json) =
-      _$_ToolOption.fromJson;
+  factory _ViewOption.fromJson(Map<String, dynamic> json) =
+      _$_ViewOption.fromJson;
 
   @override
   int get gridColor;
@@ -188,6 +188,6 @@ abstract class _ToolOption implements ToolOption {
   double get gridYSize;
   @override
   @JsonKey(ignore: true)
-  _$$_ToolOptionCopyWith<_$_ToolOption> get copyWith =>
+  _$$_ViewOptionCopyWith<_$_ViewOption> get copyWith =>
       throw _privateConstructorUsedError;
 }

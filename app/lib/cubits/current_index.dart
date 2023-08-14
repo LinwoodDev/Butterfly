@@ -18,7 +18,7 @@ import 'package:xml/xml.dart';
 
 import '../embed/embedding.dart';
 import '../handlers/handler.dart';
-import '../models/tool.dart';
+import '../models/utilities.dart';
 import '../models/viewport.dart';
 import '../selections/selection.dart';
 import '../services/asset.dart';
@@ -59,7 +59,7 @@ class CurrentIndex with _$CurrentIndex {
 
   MouseCursor get currentCursor => temporaryCursor ?? cursor;
 
-  ToolState get toolState => cameraViewport.tool.element;
+  UtilitiesState get utilitiesState => cameraViewport.utilities.element;
 }
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
@@ -86,7 +86,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   Offset getGridPosition(
       Offset position, DocumentPage page, DocumentInfo info) {
-    return state.cameraViewport.tool
+    return state.cameraViewport.utilities
         .getGridPosition(position, page, info, this);
   }
 
@@ -249,7 +249,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       temporaryHandler: null,
       temporaryForegrounds: null,
       temporaryCursor: null,
-      cameraViewport: CameraViewport.unbaked(ToolRenderer()),
+      cameraViewport: CameraViewport.unbaked(UtilitiesRenderer()),
     ));
   }
 
@@ -459,12 +459,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void unbake(
       {Renderer<Background>? background,
-      ToolRenderer? tool,
+      UtilitiesRenderer? tool,
       List<Renderer<PadElement>>? unbakedElements}) {
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.unbake(
             unbakedElements: unbakedElements,
-            tool: tool,
+            utilities: tool,
             background: background)));
   }
 
@@ -607,28 +607,28 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         state.copyWith(temporaryHandler: MoveHandler(), temporaryCursor: null));
   }
 
-  void updateTool(ToolState toolState) {
-    final renderer = ToolRenderer(toolState);
+  void updateUtilities(UtilitiesState utilitesState) {
+    final renderer = UtilitiesRenderer(utilitesState);
     var newSelection =
-        state.selection?.remove(state.cameraViewport.tool.element);
+        state.selection?.remove(state.cameraViewport.utilities.element);
     if (newSelection == null && state.selection != null) {
-      newSelection = Selection.from(toolState);
+      newSelection = Selection.from(utilitesState);
     } else if (newSelection != state.selection) {
       newSelection = newSelection?.insert(renderer);
     }
     emit(state.copyWith(
-        cameraViewport: state.cameraViewport.withTool(renderer),
+        cameraViewport: state.cameraViewport.withUtilities(renderer),
         selection: newSelection));
   }
 
   void togglePin() => emit(state.copyWith(pinned: !state.pinned));
 
   void move(Offset delta, [bool force = false]) {
-    final toolState = state.toolState;
-    if (toolState.lockHorizontal && !force) {
+    final utilitiesState = state.utilitiesState;
+    if (utilitiesState.lockHorizontal && !force) {
       delta = Offset(0, delta.dy);
     }
-    if (toolState.lockVertical && !force) {
+    if (utilitiesState.lockVertical && !force) {
       delta = Offset(delta.dx, 0);
     }
     if (delta.dx == 0 && delta.dy == 0) {
@@ -638,8 +638,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void zoom(double delta, [Offset cursor = Offset.zero, bool force = false]) {
-    final toolState = state.toolState;
-    if (toolState.lockZoom && !force) {
+    final utilitiesState = state.utilitiesState;
+    if (utilitiesState.lockZoom && !force) {
       delta = 1;
     }
     if (delta == 1) {

@@ -122,7 +122,7 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
-            CameraViewport.unbaked(ToolRenderer()), embedding);
+            CameraViewport.unbaked(UtilitiesRenderer()), embedding);
         _bloc = DocumentBloc(
           _currentIndexCubit!,
           settingsCubit,
@@ -208,7 +208,7 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
-            CameraViewport.unbaked(ToolRenderer(), background), null);
+            CameraViewport.unbaked(UtilitiesRenderer(), background), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
             location!, renderers, assetService, page, pageName);
         _importService = ImportService(context, _bloc, _currentIndexCubit);
@@ -220,7 +220,7 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
-            CameraViewport.unbaked(ToolRenderer()), null);
+            CameraViewport.unbaked(UtilitiesRenderer()), null);
         _bloc = DocumentBloc.error(settingsCubit, e.toString(), stackTrace);
       });
     }

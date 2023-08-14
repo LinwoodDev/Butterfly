@@ -18,5 +18,5 @@ export 'src/models/painter.dart';
 export 'src/models/palette.dart';
 export 'src/models/point.dart';
 export 'src/models/property.dart';
-export 'src/models/tool.dart';
+export 'src/models/view.dart';
 export 'src/models/waypoint.dart';

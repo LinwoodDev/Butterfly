@@ -14,7 +14,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../cubits/settings.dart';
 import '../handlers/handler.dart';
-import '../models/tool.dart';
+import '../models/utilities.dart';
 
 class EditToolbar extends StatefulWidget {
   final bool isMobile;
@@ -327,7 +327,7 @@ class _EditToolbarState extends State<EditToolbar> {
               tooltip: AppLocalizations.of(context).tools,
               onPressed: () {
                 final cubit = context.read<CurrentIndexCubit>();
-                final state = cubit.state.cameraViewport.tool.element;
+                final state = cubit.state.cameraViewport.utilities.element;
                 cubit.changeSelection(state);
               },
             ),
@@ -342,40 +342,43 @@ class _EditToolbarState extends State<EditToolbar> {
               ),
             BlocBuilder<CurrentIndexCubit, CurrentIndex>(
               builder: (context, currentIndex) {
-                final toolState = currentIndex.toolState;
-                Widget buildButton(bool selected, ToolState Function() update,
-                        PhosphorIconData icon, String title) =>
+                final utilitiesState = currentIndex.utilitiesState;
+                Widget buildButton(
+                        bool selected,
+                        UtilitiesState Function() update,
+                        PhosphorIconData icon,
+                        String title) =>
                     CheckboxMenuButton(
                       value: selected,
                       trailingIcon: PhosphorIcon(icon),
                       onChanged: (value) => context
                           .read<CurrentIndexCubit>()
-                          .updateTool(update()),
+                          .updateUtilities(update()),
                       child: Text(title),
                     );
 
                 return MenuAnchor(
                   menuChildren: [
                     buildButton(
-                      toolState.lockZoom,
-                      () => toolState.copyWith(
-                        lockZoom: !toolState.lockZoom,
+                      utilitiesState.lockZoom,
+                      () => utilitiesState.copyWith(
+                        lockZoom: !utilitiesState.lockZoom,
                       ),
                       PhosphorIconsLight.magnifyingGlassPlus,
                       AppLocalizations.of(context).zoom,
                     ),
                     buildButton(
-                      toolState.lockHorizontal,
-                      () => toolState.copyWith(
-                        lockHorizontal: !toolState.lockHorizontal,
+                      utilitiesState.lockHorizontal,
+                      () => utilitiesState.copyWith(
+                        lockHorizontal: !utilitiesState.lockHorizontal,
                       ),
                       PhosphorIconsLight.arrowsHorizontal,
                       AppLocalizations.of(context).horizontal,
                     ),
                     buildButton(
-                      toolState.lockVertical,
-                      () => toolState.copyWith(
-                        lockVertical: !toolState.lockVertical,
+                      utilitiesState.lockVertical,
+                      () => utilitiesState.copyWith(
+                        lockVertical: !utilitiesState.lockVertical,
                       ),
                       PhosphorIconsLight.arrowsVertical,
                       AppLocalizations.of(context).vertical,

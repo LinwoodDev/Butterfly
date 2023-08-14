@@ -16,16 +16,16 @@ class PageChanged extends DocumentEvent {
   List<Object?> get props => [pageName];
 }
 
-class ToolChanged extends DocumentEvent {
-  final ToolOption? option;
-  final ToolState? state;
+class UtilitiesChanged extends DocumentEvent {
+  final ViewOption? view;
+  final UtilitiesState? state;
 
-  ToolChanged({this.option, this.state});
-  ToolChanged.option(this.option) : state = null;
-  ToolChanged.state(this.state) : option = null;
+  UtilitiesChanged({this.view, this.state});
+  UtilitiesChanged.view(this.view) : state = null;
+  UtilitiesChanged.state(this.state) : view = null;
 
   @override
-  List<Object?> get props => [option, state];
+  List<Object?> get props => [view, state];
 }
 
 class ElementsCreated extends DocumentEvent {

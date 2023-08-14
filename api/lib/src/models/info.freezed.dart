@@ -22,7 +22,7 @@ DocumentInfo _$DocumentInfoFromJson(Map<String, dynamic> json) {
 mixin _$DocumentInfo {
   List<Painter> get painters => throw _privateConstructorUsedError;
   List<ExportPreset> get exportPresets => throw _privateConstructorUsedError;
-  ToolOption get tool => throw _privateConstructorUsedError;
+  ViewOption get view => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,9 +39,9 @@ abstract class $DocumentInfoCopyWith<$Res> {
   $Res call(
       {List<Painter> painters,
       List<ExportPreset> exportPresets,
-      ToolOption tool});
+      ViewOption view});
 
-  $ToolOptionCopyWith<$Res> get tool;
+  $ViewOptionCopyWith<$Res> get view;
 }
 
 /// @nodoc
@@ -59,7 +59,7 @@ class _$DocumentInfoCopyWithImpl<$Res, $Val extends DocumentInfo>
   $Res call({
     Object? painters = null,
     Object? exportPresets = null,
-    Object? tool = null,
+    Object? view = null,
   }) {
     return _then(_value.copyWith(
       painters: null == painters
@@ -70,18 +70,18 @@ class _$DocumentInfoCopyWithImpl<$Res, $Val extends DocumentInfo>
           ? _value.exportPresets
           : exportPresets // ignore: cast_nullable_to_non_nullable
               as List<ExportPreset>,
-      tool: null == tool
-          ? _value.tool
-          : tool // ignore: cast_nullable_to_non_nullable
-              as ToolOption,
+      view: null == view
+          ? _value.view
+          : view // ignore: cast_nullable_to_non_nullable
+              as ViewOption,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ToolOptionCopyWith<$Res> get tool {
-    return $ToolOptionCopyWith<$Res>(_value.tool, (value) {
-      return _then(_value.copyWith(tool: value) as $Val);
+  $ViewOptionCopyWith<$Res> get view {
+    return $ViewOptionCopyWith<$Res>(_value.view, (value) {
+      return _then(_value.copyWith(view: value) as $Val);
     });
   }
 }
@@ -97,10 +97,10 @@ abstract class _$$_DocumentInfoCopyWith<$Res>
   $Res call(
       {List<Painter> painters,
       List<ExportPreset> exportPresets,
-      ToolOption tool});
+      ViewOption view});
 
   @override
-  $ToolOptionCopyWith<$Res> get tool;
+  $ViewOptionCopyWith<$Res> get view;
 }
 
 /// @nodoc
@@ -116,7 +116,7 @@ class __$$_DocumentInfoCopyWithImpl<$Res>
   $Res call({
     Object? painters = null,
     Object? exportPresets = null,
-    Object? tool = null,
+    Object? view = null,
   }) {
     return _then(_$_DocumentInfo(
       painters: null == painters
@@ -127,10 +127,10 @@ class __$$_DocumentInfoCopyWithImpl<$Res>
           ? _value._exportPresets
           : exportPresets // ignore: cast_nullable_to_non_nullable
               as List<ExportPreset>,
-      tool: null == tool
-          ? _value.tool
-          : tool // ignore: cast_nullable_to_non_nullable
-              as ToolOption,
+      view: null == view
+          ? _value.view
+          : view // ignore: cast_nullable_to_non_nullable
+              as ViewOption,
     ));
   }
 }
@@ -141,7 +141,7 @@ class _$_DocumentInfo implements _DocumentInfo {
   const _$_DocumentInfo(
       {final List<Painter> painters = const [],
       final List<ExportPreset> exportPresets = const [],
-      this.tool = const ToolOption()})
+      this.view = const ViewOption()})
       : _painters = painters,
         _exportPresets = exportPresets;
 
@@ -168,11 +168,11 @@ class _$_DocumentInfo implements _DocumentInfo {
 
   @override
   @JsonKey()
-  final ToolOption tool;
+  final ViewOption view;
 
   @override
   String toString() {
-    return 'DocumentInfo(painters: $painters, exportPresets: $exportPresets, tool: $tool)';
+    return 'DocumentInfo(painters: $painters, exportPresets: $exportPresets, view: $view)';
   }
 
   @override
@@ -183,7 +183,7 @@ class _$_DocumentInfo implements _DocumentInfo {
             const DeepCollectionEquality().equals(other._painters, _painters) &&
             const DeepCollectionEquality()
                 .equals(other._exportPresets, _exportPresets) &&
-            (identical(other.tool, tool) || other.tool == tool));
+            (identical(other.view, view) || other.view == view));
   }
 
   @JsonKey(ignore: true)
@@ -192,7 +192,7 @@ class _$_DocumentInfo implements _DocumentInfo {
       runtimeType,
       const DeepCollectionEquality().hash(_painters),
       const DeepCollectionEquality().hash(_exportPresets),
-      tool);
+      view);
 
   @JsonKey(ignore: true)
   @override
@@ -212,7 +212,7 @@ abstract class _DocumentInfo implements DocumentInfo {
   const factory _DocumentInfo(
       {final List<Painter> painters,
       final List<ExportPreset> exportPresets,
-      final ToolOption tool}) = _$_DocumentInfo;
+      final ViewOption view}) = _$_DocumentInfo;
 
   factory _DocumentInfo.fromJson(Map<String, dynamic> json) =
       _$_DocumentInfo.fromJson;
@@ -222,7 +222,7 @@ abstract class _DocumentInfo implements DocumentInfo {
   @override
   List<ExportPreset> get exportPresets;
   @override
-  ToolOption get tool;
+  ViewOption get view;
   @override
   @JsonKey(ignore: true)
   _$$_DocumentInfoCopyWith<_$_DocumentInfo> get copyWith =>
