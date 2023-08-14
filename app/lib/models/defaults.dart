@@ -132,7 +132,7 @@ class DocumentDefaults {
   static Future<NoteData> createTemplate(
       {String name = '',
       Uint8List? thumbnail,
-      Background background = const Background.box()}) async {
+      Background background = const Background.pattern()}) async {
     final data = NoteData(Archive());
     final metadata = createMetadata(
       type: NoteFileType.template,

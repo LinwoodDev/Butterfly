@@ -19,9 +19,9 @@ class EraserCursor extends Renderer<PainterCursorData<EraserPainter>> {
         radius,
         Paint()
           ..style = PaintingStyle.stroke
-          ..color =
-              page.background.mapOrNull(box: (box) => Color(box.boxColor)) ??
-                  Colors.white
+          ..color = page.background
+                  .mapOrNull(pattern: (box) => Color(box.boxColor)) ??
+              Colors.white
           ..strokeCap = StrokeCap.round
           ..invertColors = true
           ..strokeWidth = radius / transform.size
@@ -31,9 +31,9 @@ class EraserCursor extends Renderer<PainterCursorData<EraserPainter>> {
         radius,
         Paint()
           ..style = PaintingStyle.fill
-          ..color =
-              page.background.mapOrNull(box: (box) => Color(box.boxColor)) ??
-                  Colors.white
+          ..color = page.background
+                  .mapOrNull(pattern: (box) => Color(box.boxColor)) ??
+              Colors.white
           ..strokeCap = StrokeCap.round
           ..invertColors = false
           ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear);

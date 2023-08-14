@@ -18,8 +18,8 @@ Background _$BackgroundFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'empty':
       return EmptyBackground.fromJson(json);
-    case 'box':
-      return BoxBackground.fromJson(json);
+    case 'pattern':
+      return PatternBackground.fromJson(json);
     case 'image':
       return ImageBackground.fromJson(json);
     case 'svg':
@@ -48,7 +48,7 @@ mixin _$Background {
             int boxColor,
             double boxXStroke,
             double boxYStroke)
-        box,
+        pattern,
     required TResult Function(String source, double width, double height,
             double scaleX, double scaleY)
         image,
@@ -72,7 +72,7 @@ mixin _$Background {
             int boxColor,
             double boxXStroke,
             double boxYStroke)?
-        box,
+        pattern,
     TResult? Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -96,7 +96,7 @@ mixin _$Background {
             int boxColor,
             double boxXStroke,
             double boxYStroke)?
-        box,
+        pattern,
     TResult Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -109,7 +109,7 @@ mixin _$Background {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(EmptyBackground value) empty,
-    required TResult Function(BoxBackground value) box,
+    required TResult Function(PatternBackground value) pattern,
     required TResult Function(ImageBackground value) image,
     required TResult Function(SvgBackground value) svg,
   }) =>
@@ -117,7 +117,7 @@ mixin _$Background {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EmptyBackground value)? empty,
-    TResult? Function(BoxBackground value)? box,
+    TResult? Function(PatternBackground value)? pattern,
     TResult? Function(ImageBackground value)? image,
     TResult? Function(SvgBackground value)? svg,
   }) =>
@@ -125,7 +125,7 @@ mixin _$Background {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EmptyBackground value)? empty,
-    TResult Function(BoxBackground value)? box,
+    TResult Function(PatternBackground value)? pattern,
     TResult Function(ImageBackground value)? image,
     TResult Function(SvgBackground value)? svg,
     required TResult orElse(),
@@ -210,7 +210,7 @@ class _$EmptyBackground implements EmptyBackground {
             int boxColor,
             double boxXStroke,
             double boxYStroke)
-        box,
+        pattern,
     required TResult Function(String source, double width, double height,
             double scaleX, double scaleY)
         image,
@@ -237,7 +237,7 @@ class _$EmptyBackground implements EmptyBackground {
             int boxColor,
             double boxXStroke,
             double boxYStroke)?
-        box,
+        pattern,
     TResult? Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -264,7 +264,7 @@ class _$EmptyBackground implements EmptyBackground {
             int boxColor,
             double boxXStroke,
             double boxYStroke)?
-        box,
+        pattern,
     TResult Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -283,7 +283,7 @@ class _$EmptyBackground implements EmptyBackground {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(EmptyBackground value) empty,
-    required TResult Function(BoxBackground value) box,
+    required TResult Function(PatternBackground value) pattern,
     required TResult Function(ImageBackground value) image,
     required TResult Function(SvgBackground value) svg,
   }) {
@@ -294,7 +294,7 @@ class _$EmptyBackground implements EmptyBackground {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EmptyBackground value)? empty,
-    TResult? Function(BoxBackground value)? box,
+    TResult? Function(PatternBackground value)? pattern,
     TResult? Function(ImageBackground value)? image,
     TResult? Function(SvgBackground value)? svg,
   }) {
@@ -305,7 +305,7 @@ class _$EmptyBackground implements EmptyBackground {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EmptyBackground value)? empty,
-    TResult Function(BoxBackground value)? box,
+    TResult Function(PatternBackground value)? pattern,
     TResult Function(ImageBackground value)? image,
     TResult Function(SvgBackground value)? svg,
     required TResult orElse(),
@@ -332,10 +332,10 @@ abstract class EmptyBackground implements Background {
 }
 
 /// @nodoc
-abstract class _$$BoxBackgroundCopyWith<$Res> {
-  factory _$$BoxBackgroundCopyWith(
-          _$BoxBackground value, $Res Function(_$BoxBackground) then) =
-      __$$BoxBackgroundCopyWithImpl<$Res>;
+abstract class _$$PatternBackgroundCopyWith<$Res> {
+  factory _$$PatternBackgroundCopyWith(
+          _$PatternBackground value, $Res Function(_$PatternBackground) then) =
+      __$$PatternBackgroundCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {double boxWidth,
@@ -352,11 +352,11 @@ abstract class _$$BoxBackgroundCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$BoxBackgroundCopyWithImpl<$Res>
-    extends _$BackgroundCopyWithImpl<$Res, _$BoxBackground>
-    implements _$$BoxBackgroundCopyWith<$Res> {
-  __$$BoxBackgroundCopyWithImpl(
-      _$BoxBackground _value, $Res Function(_$BoxBackground) _then)
+class __$$PatternBackgroundCopyWithImpl<$Res>
+    extends _$BackgroundCopyWithImpl<$Res, _$PatternBackground>
+    implements _$$PatternBackgroundCopyWith<$Res> {
+  __$$PatternBackgroundCopyWithImpl(
+      _$PatternBackground _value, $Res Function(_$PatternBackground) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -374,7 +374,7 @@ class __$$BoxBackgroundCopyWithImpl<$Res>
     Object? boxXStroke = null,
     Object? boxYStroke = null,
   }) {
-    return _then(_$BoxBackground(
+    return _then(_$PatternBackground(
       boxWidth: null == boxWidth
           ? _value.boxWidth
           : boxWidth // ignore: cast_nullable_to_non_nullable
@@ -425,8 +425,8 @@ class __$$BoxBackgroundCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$BoxBackground implements BoxBackground {
-  const _$BoxBackground(
+class _$PatternBackground implements PatternBackground {
+  const _$PatternBackground(
       {this.boxWidth = 0,
       this.boxHeight = 0,
       this.boxXCount = 1,
@@ -439,10 +439,10 @@ class _$BoxBackground implements BoxBackground {
       this.boxXStroke = 0.5,
       this.boxYStroke = 0.5,
       final String? $type})
-      : $type = $type ?? 'box';
+      : $type = $type ?? 'pattern';
 
-  factory _$BoxBackground.fromJson(Map<String, dynamic> json) =>
-      _$$BoxBackgroundFromJson(json);
+  factory _$PatternBackground.fromJson(Map<String, dynamic> json) =>
+      _$$PatternBackgroundFromJson(json);
 
   @override
   @JsonKey()
@@ -483,14 +483,14 @@ class _$BoxBackground implements BoxBackground {
 
   @override
   String toString() {
-    return 'Background.box(boxWidth: $boxWidth, boxHeight: $boxHeight, boxXCount: $boxXCount, boxYCount: $boxYCount, boxXSpace: $boxXSpace, boxYSpace: $boxYSpace, boxXColor: $boxXColor, boxYColor: $boxYColor, boxColor: $boxColor, boxXStroke: $boxXStroke, boxYStroke: $boxYStroke)';
+    return 'Background.pattern(boxWidth: $boxWidth, boxHeight: $boxHeight, boxXCount: $boxXCount, boxYCount: $boxYCount, boxXSpace: $boxXSpace, boxYSpace: $boxYSpace, boxXColor: $boxXColor, boxYColor: $boxYColor, boxColor: $boxColor, boxXStroke: $boxXStroke, boxYStroke: $boxYStroke)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BoxBackground &&
+            other is _$PatternBackground &&
             (identical(other.boxWidth, boxWidth) ||
                 other.boxWidth == boxWidth) &&
             (identical(other.boxHeight, boxHeight) ||
@@ -534,8 +534,8 @@ class _$BoxBackground implements BoxBackground {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BoxBackgroundCopyWith<_$BoxBackground> get copyWith =>
-      __$$BoxBackgroundCopyWithImpl<_$BoxBackground>(this, _$identity);
+  _$$PatternBackgroundCopyWith<_$PatternBackground> get copyWith =>
+      __$$PatternBackgroundCopyWithImpl<_$PatternBackground>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -553,7 +553,7 @@ class _$BoxBackground implements BoxBackground {
             int boxColor,
             double boxXStroke,
             double boxYStroke)
-        box,
+        pattern,
     required TResult Function(String source, double width, double height,
             double scaleX, double scaleY)
         image,
@@ -561,8 +561,8 @@ class _$BoxBackground implements BoxBackground {
             double scaleX, double scaleY)
         svg,
   }) {
-    return box(boxWidth, boxHeight, boxXCount, boxYCount, boxXSpace, boxYSpace,
-        boxXColor, boxYColor, boxColor, boxXStroke, boxYStroke);
+    return pattern(boxWidth, boxHeight, boxXCount, boxYCount, boxXSpace,
+        boxYSpace, boxXColor, boxYColor, boxColor, boxXStroke, boxYStroke);
   }
 
   @override
@@ -581,7 +581,7 @@ class _$BoxBackground implements BoxBackground {
             int boxColor,
             double boxXStroke,
             double boxYStroke)?
-        box,
+        pattern,
     TResult? Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -589,7 +589,7 @@ class _$BoxBackground implements BoxBackground {
             double scaleY)?
         svg,
   }) {
-    return box?.call(boxWidth, boxHeight, boxXCount, boxYCount, boxXSpace,
+    return pattern?.call(boxWidth, boxHeight, boxXCount, boxYCount, boxXSpace,
         boxYSpace, boxXColor, boxYColor, boxColor, boxXStroke, boxYStroke);
   }
 
@@ -609,7 +609,7 @@ class _$BoxBackground implements BoxBackground {
             int boxColor,
             double boxXStroke,
             double boxYStroke)?
-        box,
+        pattern,
     TResult Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -618,8 +618,8 @@ class _$BoxBackground implements BoxBackground {
         svg,
     required TResult orElse(),
   }) {
-    if (box != null) {
-      return box(boxWidth, boxHeight, boxXCount, boxYCount, boxXSpace,
+    if (pattern != null) {
+      return pattern(boxWidth, boxHeight, boxXCount, boxYCount, boxXSpace,
           boxYSpace, boxXColor, boxYColor, boxColor, boxXStroke, boxYStroke);
     }
     return orElse();
@@ -629,49 +629,49 @@ class _$BoxBackground implements BoxBackground {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(EmptyBackground value) empty,
-    required TResult Function(BoxBackground value) box,
+    required TResult Function(PatternBackground value) pattern,
     required TResult Function(ImageBackground value) image,
     required TResult Function(SvgBackground value) svg,
   }) {
-    return box(this);
+    return pattern(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EmptyBackground value)? empty,
-    TResult? Function(BoxBackground value)? box,
+    TResult? Function(PatternBackground value)? pattern,
     TResult? Function(ImageBackground value)? image,
     TResult? Function(SvgBackground value)? svg,
   }) {
-    return box?.call(this);
+    return pattern?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EmptyBackground value)? empty,
-    TResult Function(BoxBackground value)? box,
+    TResult Function(PatternBackground value)? pattern,
     TResult Function(ImageBackground value)? image,
     TResult Function(SvgBackground value)? svg,
     required TResult orElse(),
   }) {
-    if (box != null) {
-      return box(this);
+    if (pattern != null) {
+      return pattern(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BoxBackgroundToJson(
+    return _$$PatternBackgroundToJson(
       this,
     );
   }
 }
 
-abstract class BoxBackground implements Background {
-  const factory BoxBackground(
+abstract class PatternBackground implements Background {
+  const factory PatternBackground(
       {final double boxWidth,
       final double boxHeight,
       final int boxXCount,
@@ -682,10 +682,10 @@ abstract class BoxBackground implements Background {
       final int boxYColor,
       final int boxColor,
       final double boxXStroke,
-      final double boxYStroke}) = _$BoxBackground;
+      final double boxYStroke}) = _$PatternBackground;
 
-  factory BoxBackground.fromJson(Map<String, dynamic> json) =
-      _$BoxBackground.fromJson;
+  factory PatternBackground.fromJson(Map<String, dynamic> json) =
+      _$PatternBackground.fromJson;
 
   double get boxWidth;
   double get boxHeight;
@@ -699,7 +699,7 @@ abstract class BoxBackground implements Background {
   double get boxXStroke;
   double get boxYStroke;
   @JsonKey(ignore: true)
-  _$$BoxBackgroundCopyWith<_$BoxBackground> get copyWith =>
+  _$$PatternBackgroundCopyWith<_$PatternBackground> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -834,7 +834,7 @@ class _$ImageBackground implements ImageBackground {
             int boxColor,
             double boxXStroke,
             double boxYStroke)
-        box,
+        pattern,
     required TResult Function(String source, double width, double height,
             double scaleX, double scaleY)
         image,
@@ -861,7 +861,7 @@ class _$ImageBackground implements ImageBackground {
             int boxColor,
             double boxXStroke,
             double boxYStroke)?
-        box,
+        pattern,
     TResult? Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -888,7 +888,7 @@ class _$ImageBackground implements ImageBackground {
             int boxColor,
             double boxXStroke,
             double boxYStroke)?
-        box,
+        pattern,
     TResult Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -907,7 +907,7 @@ class _$ImageBackground implements ImageBackground {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(EmptyBackground value) empty,
-    required TResult Function(BoxBackground value) box,
+    required TResult Function(PatternBackground value) pattern,
     required TResult Function(ImageBackground value) image,
     required TResult Function(SvgBackground value) svg,
   }) {
@@ -918,7 +918,7 @@ class _$ImageBackground implements ImageBackground {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EmptyBackground value)? empty,
-    TResult? Function(BoxBackground value)? box,
+    TResult? Function(PatternBackground value)? pattern,
     TResult? Function(ImageBackground value)? image,
     TResult? Function(SvgBackground value)? svg,
   }) {
@@ -929,7 +929,7 @@ class _$ImageBackground implements ImageBackground {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EmptyBackground value)? empty,
-    TResult Function(BoxBackground value)? box,
+    TResult Function(PatternBackground value)? pattern,
     TResult Function(ImageBackground value)? image,
     TResult Function(SvgBackground value)? svg,
     required TResult orElse(),
@@ -1100,7 +1100,7 @@ class _$SvgBackground implements SvgBackground {
             int boxColor,
             double boxXStroke,
             double boxYStroke)
-        box,
+        pattern,
     required TResult Function(String source, double width, double height,
             double scaleX, double scaleY)
         image,
@@ -1127,7 +1127,7 @@ class _$SvgBackground implements SvgBackground {
             int boxColor,
             double boxXStroke,
             double boxYStroke)?
-        box,
+        pattern,
     TResult? Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -1154,7 +1154,7 @@ class _$SvgBackground implements SvgBackground {
             int boxColor,
             double boxXStroke,
             double boxYStroke)?
-        box,
+        pattern,
     TResult Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -1173,7 +1173,7 @@ class _$SvgBackground implements SvgBackground {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(EmptyBackground value) empty,
-    required TResult Function(BoxBackground value) box,
+    required TResult Function(PatternBackground value) pattern,
     required TResult Function(ImageBackground value) image,
     required TResult Function(SvgBackground value) svg,
   }) {
@@ -1184,7 +1184,7 @@ class _$SvgBackground implements SvgBackground {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(EmptyBackground value)? empty,
-    TResult? Function(BoxBackground value)? box,
+    TResult? Function(PatternBackground value)? pattern,
     TResult? Function(ImageBackground value)? image,
     TResult? Function(SvgBackground value)? svg,
   }) {
@@ -1195,7 +1195,7 @@ class _$SvgBackground implements SvgBackground {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(EmptyBackground value)? empty,
-    TResult Function(BoxBackground value)? box,
+    TResult Function(PatternBackground value)? pattern,
     TResult Function(ImageBackground value)? image,
     TResult Function(SvgBackground value)? svg,
     required TResult orElse(),

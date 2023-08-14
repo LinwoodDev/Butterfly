@@ -120,7 +120,7 @@ abstract class Renderer<T> {
     if (element is Background) {
       return element.map(
         empty: (value) => EmptyBackgroundRenderer(value),
-        box: (value) => BoxBackgroundRenderer(value),
+        pattern: (value) => PatternBackgroundRenderer(value),
         image: (value) => ImageBackgroundRenderer(value),
         svg: (value) => EmptyBackgroundRenderer(value),
       ) as Renderer<T>;

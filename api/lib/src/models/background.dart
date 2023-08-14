@@ -30,41 +30,41 @@ extension BackgroundTemplateExtension on BackgroundTemplate {
   Background create() {
     switch (this) {
       case BackgroundTemplate.plain:
-        return const Background.box(
+        return const Background.pattern(
           boxColor: kColorLight,
         );
       case BackgroundTemplate.ruled:
-        return const Background.box(
+        return const Background.pattern(
           boxColor: kColorLight,
           boxHeight: 20,
         );
       case BackgroundTemplate.quad:
-        return const Background.box(
+        return const Background.pattern(
           boxColor: kColorLight,
           boxHeight: 20,
           boxWidth: 20,
         );
       case BackgroundTemplate.music:
-        return const BoxBackground(
+        return const Background.pattern(
             boxColor: kColorLight,
             boxHeight: 20,
             boxYColor: kColorBlack,
             boxYSpace: 30,
             boxYCount: 5);
       case BackgroundTemplate.plainDark:
-        return const Background.box(
+        return const Background.pattern(
           boxColor: kColorDark,
         );
       case BackgroundTemplate.ruledDark:
-        return const Background.box(boxColor: kColorDark, boxHeight: 20);
+        return const Background.pattern(boxColor: kColorDark, boxHeight: 20);
       case BackgroundTemplate.quadDark:
-        return const Background.box(
+        return const Background.pattern(
           boxColor: kColorDark,
           boxWidth: 20,
           boxHeight: 20,
         );
       case BackgroundTemplate.musicDark:
-        return const Background.box(
+        return const Background.pattern(
             boxColor: kColorDark,
             boxYColor: kColorWhite,
             boxHeight: 20,
@@ -77,7 +77,7 @@ extension BackgroundTemplateExtension on BackgroundTemplate {
 @freezed
 class Background with _$Background {
   const factory Background.empty() = EmptyBackground;
-  const factory Background.box(
+  const factory Background.pattern(
       {@Default(0) double boxWidth,
       @Default(0) double boxHeight,
       @Default(1) int boxXCount,
@@ -88,7 +88,7 @@ class Background with _$Background {
       @Default(kColorRed) int boxYColor,
       @Default(kColorWhite) int boxColor,
       @Default(0.5) double boxXStroke,
-      @Default(0.5) double boxYStroke}) = BoxBackground;
+      @Default(0.5) double boxYStroke}) = PatternBackground;
 
   const factory Background.image({
     required String source,

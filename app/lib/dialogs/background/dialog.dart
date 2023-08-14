@@ -84,7 +84,7 @@ class BackgroundDialog extends StatelessWidget {
                                 setState(() => background = value)),
                         background.map(
                           empty: (e) => const SizedBox.shrink(),
-                          box: (e) => _BoxBackgroundPropertiesView(
+                          pattern: (e) => _PatternBackgroundPropertiesView(
                               value: e,
                               onChanged: (value) =>
                                   setState(() => background = value)),

@@ -13,7 +13,7 @@ bool isDarkColor(Color color) {
 
 extension BackgroundColor on Background {
   int get defaultColor =>
-      maybeMap(box: (box) => box.boxColor, orElse: () => kColorWhite);
+      maybeMap(pattern: (box) => box.boxColor, orElse: () => kColorWhite);
 }
 
 Painter updatePainterDefaultColor(Painter painter, int color) {

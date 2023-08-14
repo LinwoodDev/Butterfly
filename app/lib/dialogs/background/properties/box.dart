@@ -1,25 +1,25 @@
 part of '../dialog.dart';
 
-class _BoxBackgroundPropertiesView extends StatefulWidget {
-  final BoxBackground value;
-  final ValueChanged<BoxBackground> onChanged;
+class _PatternBackgroundPropertiesView extends StatefulWidget {
+  final PatternBackground value;
+  final ValueChanged<PatternBackground> onChanged;
 
-  const _BoxBackgroundPropertiesView({
+  const _PatternBackgroundPropertiesView({
     required this.value,
     required this.onChanged,
   });
 
   @override
-  State<_BoxBackgroundPropertiesView> createState() =>
-      _BoxBackgroundPropertiesViewState();
+  State<_PatternBackgroundPropertiesView> createState() =>
+      _PatternBackgroundPropertiesViewState();
 }
 
-class _BoxBackgroundPropertiesViewState
-    extends State<_BoxBackgroundPropertiesView> {
+class _PatternBackgroundPropertiesViewState
+    extends State<_PatternBackgroundPropertiesView> {
   int? currentExpansionOpened = 0;
 
   @override
-  void didUpdateWidget(covariant _BoxBackgroundPropertiesView oldWidget) {
+  void didUpdateWidget(covariant _PatternBackgroundPropertiesView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.value != oldWidget.value) {
       setState(() {});

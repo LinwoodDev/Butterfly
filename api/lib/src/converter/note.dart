@@ -47,4 +47,16 @@ void _migrate(NoteData noteData, FileMetadata metadata) {
           })));
     }
   }
+  if (version < 10) {
+    for (final page in noteData.getAssets(kPagesArchiveDirectory)) {
+      final data = noteData.getAsset('$kPagesArchiveDirectory/$page');
+      if (data == null) continue;
+      final pageData = json.decode(utf8.decode(data)) as Map<String, dynamic>;
+      if (pageData['background']?['type'] == 'box') {
+        pageData['background']['type'] = 'pattern';
+        noteData.setAsset('$kPagesArchiveDirectory/$page',
+            utf8.encode(json.encode(pageData)));
+      }
+    }
+  }
 }

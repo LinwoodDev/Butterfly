@@ -15,7 +15,8 @@ Map<String, dynamic> _$$EmptyBackgroundToJson(_$EmptyBackground instance) =>
       'type': instance.$type,
     };
 
-_$BoxBackground _$$BoxBackgroundFromJson(Map json) => _$BoxBackground(
+_$PatternBackground _$$PatternBackgroundFromJson(Map json) =>
+    _$PatternBackground(
       boxWidth: (json['boxWidth'] as num?)?.toDouble() ?? 0,
       boxHeight: (json['boxHeight'] as num?)?.toDouble() ?? 0,
       boxXCount: json['boxXCount'] as int? ?? 1,
@@ -30,7 +31,7 @@ _$BoxBackground _$$BoxBackgroundFromJson(Map json) => _$BoxBackground(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$BoxBackgroundToJson(_$BoxBackground instance) =>
+Map<String, dynamic> _$$PatternBackgroundToJson(_$PatternBackground instance) =>
     <String, dynamic>{
       'boxWidth': instance.boxWidth,
       'boxHeight': instance.boxHeight,

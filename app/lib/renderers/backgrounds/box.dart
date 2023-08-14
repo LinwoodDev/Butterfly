@@ -1,7 +1,7 @@
 part of '../renderer.dart';
 
-class BoxBackgroundRenderer extends Renderer<BoxBackground> {
-  BoxBackgroundRenderer(super.element);
+class PatternBackgroundRenderer extends Renderer<PatternBackground> {
+  PatternBackgroundRenderer(super.element);
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
