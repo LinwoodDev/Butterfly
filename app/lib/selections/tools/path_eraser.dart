@@ -1,16 +1,16 @@
 part of '../selection.dart';
 
-class PathEraserPainterSelection extends PainterSelection<PathEraserPainter> {
+class PathEraserPainterSelection extends ToolSelection<PathEraserTool> {
   PathEraserPainterSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final painter = selected.first;
+    final tool = selected.first;
     return [
       ...super.buildProperties(context),
       ExactSlider(
           header: Text(AppLocalizations.of(context).strokeWidth),
-          value: painter.strokeWidth,
+          value: tool.strokeWidth,
           min: 0,
           max: 70,
           defaultValue: 5,
@@ -21,7 +21,7 @@ class PathEraserPainterSelection extends PainterSelection<PathEraserPainter> {
 
   @override
   Selection insert(dynamic element) {
-    if (element is PathEraserPainter) {
+    if (element is PathEraserTool) {
       return PathEraserPainterSelection([...selected, element]);
     }
     return super.insert(element);

@@ -32,6 +32,6 @@ class GeneralMoveHandler<T> extends Handler<T> {
       _moved ? SystemMouseCursors.grabbing : SystemMouseCursors.grab;
 }
 
-class MoveHandler extends GeneralMoveHandler<MovePainter?> {
+class MoveHandler extends GeneralMoveHandler<MoveTool?> {
   MoveHandler([super.data]);
 }

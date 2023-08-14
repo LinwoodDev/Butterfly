@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class EraserHandler extends Handler<EraserPainter> {
+class EraserHandler extends Handler<EraserTool> {
   bool _currentlyErasing = false;
   Offset? _currentPos, _lastErased;
   EraserHandler(super.data);
@@ -17,7 +17,7 @@ class EraserHandler extends Handler<EraserPainter> {
           [Area? currentArea]) =>
       [
         if (_currentPos != null)
-          EraserCursor(PainterCursorData(data, _currentPos!))
+          EraserCursor(ToolCursorData(data, _currentPos!))
       ];
 
   @override

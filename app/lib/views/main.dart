@@ -22,7 +22,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../actions/areas.dart';
 import '../actions/background.dart';
-import '../actions/change_painter.dart';
+import '../actions/change_tool.dart';
 import '../actions/change_path.dart';
 import '../actions/color_palette.dart';
 import '../actions/exit.dart';
@@ -82,7 +82,7 @@ class _ProjectPageState extends State<ProjectPage> {
     BackgroundIntent: BackgroundAction(),
     ChangePathIntent: ChangePathAction(),
     SaveIntent: SaveAction(),
-    ChangePainterIntent: ChangePainterAction(),
+    ChangeToolIntent: ChangeToolAction(),
     PacksIntent: PacksAction(),
     ExitIntent: ExitAction(),
     NextIntent: NextAction(),
@@ -357,7 +357,7 @@ class _ProjectPageState extends State<ProjectPage> {
                               LogicalKeyboardKey.digit0
                             ].asMap().map((k, v) => MapEntry(
                                 LogicalKeySet(LogicalKeyboardKey.control, v),
-                                ChangePainterIntent(context, k))),
+                                ChangeToolIntent(context, k))),
                           },
                         },
                         child: SafeArea(

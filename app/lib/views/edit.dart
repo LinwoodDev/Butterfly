@@ -77,11 +77,11 @@ class _EditToolbarState extends State<EditToolbar> {
                   buildWhen: (previous, current) =>
                       previous is! DocumentLoadSuccess ||
                       current is! DocumentLoadSuccess ||
-                      previous.painter != current.painter ||
-                      previous.info.painters != current.info.painters,
+                      previous.tool != current.tool ||
+                      previous.info.tools != current.info.tools,
                   builder: (context, state) {
                     if (state is! DocumentLoadSuccess) return Container();
-                    var painters = state.info.painters;
+                    final tools = state.info.tools;
 
                     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                       buildWhen: (previous, current) =>
@@ -96,7 +96,7 @@ class _EditToolbarState extends State<EditToolbar> {
                             state,
                             currentIndex,
                             settings,
-                            painters,
+                            tools,
                             shortcuts,
                           ),
                         );
@@ -133,7 +133,7 @@ class _EditToolbarState extends State<EditToolbar> {
     DocumentLoadSuccess state,
     CurrentIndex currentIndex,
     ButterflySettings settings,
-    List<Painter> painters,
+    List<Tool> tools,
     Set<int> shortcuts,
   ) {
     final temp = currentIndex.temporaryHandler;
@@ -142,7 +142,7 @@ class _EditToolbarState extends State<EditToolbar> {
     PhosphorIconData iconFilled = PhosphorIconsFill.cube;
     var tooltip = tempData?.name.trim();
     if (tooltip?.isEmpty ?? false) {
-      if (tempData is Painter) {
+      if (tempData is Tool) {
         tooltip = tempData.getLocalizedName(context);
         icon = tempData.icon(PhosphorIconsStyle.light);
         iconFilled = tempData.icon(PhosphorIconsStyle.fill);
@@ -187,9 +187,9 @@ class _EditToolbarState extends State<EditToolbar> {
               buildDefaultDragHandles: false,
               scrollDirection: widget.direction,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: painters.length + 1,
+              itemCount: tools.length + 1,
               itemBuilder: (context, i) {
-                if (painters.length <= i) {
+                if (tools.length <= i) {
                   final add = Padding(
                     padding: widget.direction == Axis.horizontal
                         ? const EdgeInsets.all(8)
@@ -243,7 +243,7 @@ class _EditToolbarState extends State<EditToolbar> {
                     );
                   }
                 }
-                var e = painters[i];
+                var e = tools[i];
                 final selected = i == currentIndex.index;
                 final highlighted = currentIndex.selection?.selected
                         .any((element) => element.hashCode == e.hashCode) ??
@@ -255,10 +255,10 @@ class _EditToolbarState extends State<EditToolbar> {
 
                 final bloc = context.read<DocumentBloc>();
 
-                final handler = Handler.fromPainter(e);
+                final handler = Handler.fromTool(e);
 
                 final color = handler.getStatus(context.read<DocumentBloc>()) ==
-                        PainterStatus.disabled
+                        ToolStatus.disabled
                     ? Theme.of(context).disabledColor
                     : null;
                 var icon = handler.getIcon(bloc) ??
@@ -284,7 +284,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                 .insertSelection(e, true);
                           } else if (!selected || temp != null) {
                             context.read<CurrentIndexCubit>().resetSelection();
-                            context.read<CurrentIndexCubit>().changePainter(
+                            context.read<CurrentIndexCubit>().changeTool(
                                   context.read<DocumentBloc>(),
                                   i,
                                   handler,
@@ -307,19 +307,19 @@ class _EditToolbarState extends State<EditToolbar> {
                 if (lastReorderable != index) return;
                 context
                     .read<CurrentIndexCubit>()
-                    .insertSelection(painters[index], true);
+                    .insertSelection(tools[index], true);
               },
               onReorder: (oldIndex, newIndex) {
                 if (oldIndex == newIndex) {
                   return;
                 }
                 final bloc = context.read<DocumentBloc>();
-                final delete = newIndex > painters.length;
+                final delete = newIndex > tools.length;
                 if (delete) {
-                  bloc.add(PaintersRemoved([painters[oldIndex]]));
+                  bloc.add(ToolsRemoved([tools[oldIndex]]));
                   return;
                 }
-                bloc.add(PainterReordered(oldIndex, newIndex));
+                bloc.add(ToolReordered(oldIndex, newIndex));
               },
             ),
             IconButton(
@@ -331,8 +331,7 @@ class _EditToolbarState extends State<EditToolbar> {
                 cubit.changeSelection(state);
               },
             ),
-            if (settings.fullScreen &&
-                painters.every((e) => e is! FullScreenPainter))
+            if (settings.fullScreen && tools.every((e) => e is! FullScreenTool))
               IconButton(
                 icon: const PhosphorIcon(PhosphorIconsLight.arrowsIn),
                 tooltip: AppLocalizations.of(context).exitFullScreen,

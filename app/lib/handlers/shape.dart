@@ -1,13 +1,13 @@
 part of 'handler.dart';
 
-class ShapeHandler extends PastingHandler<ShapePainter> {
+class ShapeHandler extends PastingHandler<ShapeTool> {
   ShapeHandler(super.data);
 
   @override
   PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
         color: data.property.color,
         onChanged: (value) {
-          bloc.add(PaintersChanged({
+          bloc.add(ToolsChanged({
             data: data.copyWith(
                 property: data.property.copyWith(
                     color: convertOldColor(value, data.property.color))),

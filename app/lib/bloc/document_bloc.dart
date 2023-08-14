@@ -302,7 +302,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         );
       }
     });
-    on<PainterCreated>((event, emit) async {
+    on<ToolCreated>((event, emit) async {
       final current = state;
       if (current is DocumentLoadSuccess) {
         if (!(current.embedding?.editable ?? true)) return;
@@ -310,15 +310,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 emit,
                 current.copyWith(
                     info: current.info.copyWith(
-                        painters: List.from(current.info.painters)
-                          ..add(event.painter))))
+                        tools: List.from(current.info.tools)..add(event.tool))))
             .then((value) {
           current.currentIndexCubit
-              .changePainter(this, current.info.painters.length, null, true);
+              .changeTool(this, current.info.tools.length, null, true);
         });
       }
     });
-    on<PaintersChanged>((event, emit) async {
+    on<ToolsChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
@@ -327,9 +326,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             emit,
             current.copyWith(
                 info: current.info.copyWith(
-                    painters:
-                        List<Painter>.from(current.info.painters).map((e) {
-              final updated = event.updatedPainters[e];
+                    tools: List<Tool>.from(current.info.tools).map((e) {
+              final updated = event.updatedTools[e];
               if (updated != null) {
                 var newSelection = selection?.remove(e);
                 if (newSelection != selection && selection != null) {
@@ -346,22 +344,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               }
             }).toList())));
         final updatedCurrent =
-            event.updatedPainters[current.currentIndexCubit.state.handler.data];
+            event.updatedTools[current.currentIndexCubit.state.handler.data];
         if (updatedCurrent != null) {
-          current.currentIndexCubit.updatePainter(this, updatedCurrent);
+          current.currentIndexCubit.updateTool(this, updatedCurrent);
         }
-        final updatedTempCurrent = event.updatedPainters[
+        final updatedTempCurrent = event.updatedTools[
             current.currentIndexCubit.state.temporaryHandler?.data];
         if (updatedTempCurrent != null) {
           current.currentIndexCubit
-              .updateTemporaryPainter(this, updatedTempCurrent);
+              .updateTemporaryTool(this, updatedTempCurrent);
         }
         if (selection != null) {
           current.currentIndexCubit.changeSelection(selection);
         }
       }
     });
-    on<PaintersRemoved>((event, emit) async {
+    on<ToolsRemoved>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
@@ -370,26 +368,26 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 emit,
                 current.copyWith(
                     info: current.info.copyWith(
-                        painters: List.from(current.info.painters)
+                        tools: List.from(current.info.tools)
                           ..removeWhere(
-                              (element) => event.painters.contains(element)))))
+                              (element) => event.tools.contains(element)))))
             .then((value) {
           cubit.updateIndex(this);
         });
       }
     });
-    on<PainterReordered>((event, emit) async {
+    on<ToolReordered>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
-        var painters = List<Painter>.from(current.info.painters);
+        var tools = List<Tool>.from(current.info.tools);
         var oldIndex = event.oldIndex;
         var newIndex = event.newIndex;
         if (oldIndex < newIndex) {
           newIndex -= 1;
         }
-        final item = painters.removeAt(oldIndex);
-        painters.insert(newIndex, item);
+        final item = tools.removeAt(oldIndex);
+        tools.insert(newIndex, item);
         final cubit = current.currentIndexCubit;
         var nextCurrentIndex = cubit.state.index;
         if (nextCurrentIndex != null) {
@@ -407,7 +405,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         return _saveState(
             emit,
             current.copyWith(
-              info: current.info.copyWith(painters: painters),
+              info: current.info.copyWith(tools: tools),
             ));
       }
     });

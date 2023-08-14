@@ -1,6 +1,6 @@
 part of '../selection.dart';
 
-class PenPainterSelection extends PainterSelection<PenPainter> {
+class PenPainterSelection extends ToolSelection<PenTool> {
   final _propertySelection = PenPropertySelection();
   PenPainterSelection(super.selected);
 
@@ -27,7 +27,7 @@ class PenPainterSelection extends PainterSelection<PenPainter> {
 
   @override
   Selection insert(dynamic element) {
-    if (element is PenPainter) {
+    if (element is PenTool) {
       return PenPainterSelection([...selected, element]);
     }
     return super.insert(element);

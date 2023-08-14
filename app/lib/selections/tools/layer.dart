@@ -1,6 +1,6 @@
 part of '../selection.dart';
 
-class LayerPainterSelection extends PainterSelection<LayerPainter> {
+class LayerPainterSelection extends ToolSelection<LayerTool> {
   LayerPainterSelection(super.selected);
 
   @override
@@ -181,7 +181,7 @@ class LayerPainterSelection extends PainterSelection<LayerPainter> {
 
   @override
   Selection insert(dynamic element) {
-    if (element is LayerPainter) {
+    if (element is LayerTool) {
       return LayerPainterSelection([...selected, element]);
     }
     return super.insert(element);

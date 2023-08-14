@@ -1,9 +1,9 @@
 part of '../selection.dart';
 
-class PainterSelection<T extends Painter> extends Selection<T> {
-  PainterSelection(super.selected);
+class ToolSelection<T extends Tool> extends Selection<T> {
+  ToolSelection(super.selected);
 
-  factory PainterSelection.from(T selected) {
+  factory ToolSelection.from(T selected) {
     return selected.maybeMap(
       hand: (value) => HandSelection([value]),
       label: (value) => LabelPainterSelection([value]),
@@ -15,8 +15,8 @@ class PainterSelection<T extends Painter> extends Selection<T> {
       laser: (value) => LaserPainterSelection([value]),
       shape: (value) => ShapePainterSelection([value]),
       stamp: (value) => StampPainterSelection([value]),
-      orElse: () => PainterSelection<T>([selected]),
-    ) as PainterSelection<T>;
+      orElse: () => ToolSelection<T>([selected]),
+    ) as ToolSelection<T>;
   }
 
   @override
@@ -38,7 +38,7 @@ class PainterSelection<T extends Painter> extends Selection<T> {
   @override
   void update(BuildContext context, List<T> selected) {
     final updatedElements = Map<T, T>.fromIterables(this.selected, selected);
-    context.read<DocumentBloc>().add(PaintersChanged(updatedElements));
+    context.read<DocumentBloc>().add(ToolsChanged(updatedElements));
     super.update(context, selected);
   }
 
@@ -47,13 +47,13 @@ class PainterSelection<T extends Painter> extends Selection<T> {
 
   @override
   void onDelete(BuildContext context) {
-    context.read<DocumentBloc>().add(PaintersRemoved(selected));
+    context.read<DocumentBloc>().add(ToolsRemoved(selected));
   }
 
   @override
   Selection insert(element) {
-    if (element is Painter) {
-      return PainterSelection([...selected, element]);
+    if (element is Tool) {
+      return ToolSelection([...selected, element]);
     }
     return super.insert(element);
   }

@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class PenHandler extends Handler<PenPainter> {
+class PenHandler extends Handler<PenTool> {
   final Map<int, PenElement> elements = {};
 
   final Map<int, Offset> lastPosition = {};
@@ -114,7 +114,7 @@ class PenHandler extends Handler<PenPainter> {
   PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
         color: data.property.color,
         onChanged: (value) {
-          bloc.add(PaintersChanged({
+          bloc.add(ToolsChanged({
             data: data.copyWith(
                 property: data.property.copyWith(
                     color: convertOldColor(value, data.property.color))),

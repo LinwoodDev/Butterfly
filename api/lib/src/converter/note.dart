@@ -62,6 +62,7 @@ void _migrate(NoteData noteData, FileMetadata metadata) {
     if (info != null) {
       final infoData = json.decode(utf8.decode(info)) as Map<String, dynamic>;
       infoData['view'] = infoData['tool'];
+      infoData['tools'] = infoData['painters'];
       noteData.setAsset(kInfoArchiveFile, utf8.encode(json.encode(infoData)));
     }
   }

@@ -37,17 +37,17 @@ part 'elements/pen.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
 
-part 'painters/painter.dart';
-part 'painters/hand.dart';
-part 'painters/area.dart';
-part 'painters/eraser.dart';
-part 'painters/label.dart';
-part 'painters/laser.dart';
-part 'painters/layer.dart';
-part 'painters/path_eraser.dart';
-part 'painters/pen.dart';
-part 'painters/shape.dart';
-part 'painters/stamp.dart';
+part 'tools/tool.dart';
+part 'tools/hand.dart';
+part 'tools/area.dart';
+part 'tools/eraser.dart';
+part 'tools/label.dart';
+part 'tools/laser.dart';
+part 'tools/layer.dart';
+part 'tools/path_eraser.dart';
+part 'tools/pen.dart';
+part 'tools/shape.dart';
+part 'tools/stamp.dart';
 
 part 'properties/property.dart';
 part 'properties/path.dart';
@@ -67,14 +67,14 @@ abstract class Selection<T> {
     if (selected is Renderer<PadElement>) {
       return ElementSelection<PadElement>.from(selected) as Selection<T>;
     }
-    if (selected is Painter) {
-      return PainterSelection<Painter>.from(selected) as Selection<T>;
+    if (selected is Tool) {
+      return ToolSelection<Tool>.from(selected) as Selection<T>;
     }
     if (selected is Area) {
       return AreaSelection([selected]) as Selection<T>;
     }
     if (selected is UtilitiesState) {
-      return ToolSelection([selected]) as Selection<T>;
+      return UtilitiesSelection([selected]) as Selection<T>;
     }
     throw UnsupportedError('Unsupported selection type: $T');
   }

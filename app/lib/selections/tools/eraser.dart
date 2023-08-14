@@ -1,6 +1,6 @@
 part of '../selection.dart';
 
-class EraserPainterSelection extends PainterSelection<EraserPainter> {
+class EraserPainterSelection extends ToolSelection<EraserTool> {
   EraserPainterSelection(super.selected);
 
   @override
@@ -21,7 +21,7 @@ class EraserPainterSelection extends PainterSelection<EraserPainter> {
 
   @override
   Selection insert(dynamic element) {
-    if (element is EraserPainter) {
+    if (element is EraserTool) {
       return EraserPainterSelection([...selected, element]);
     }
     return super.insert(element);

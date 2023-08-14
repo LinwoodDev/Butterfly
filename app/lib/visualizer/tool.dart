@@ -11,7 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-extension PainterVisualizer on Painter {
+extension ToolVisualizer on Tool {
   String getLocalizedName(BuildContext context) {
     final loc = AppLocalizations.of(context);
     return map(
@@ -32,7 +32,7 @@ extension PainterVisualizer on Painter {
       stamp: (_) => loc.stamp,
       presentation: (_) => loc.presentation,
       fullSceen: (_) => loc.fullScreen,
-      asset: (painter) => painter.importType.getLocalizedName(context),
+      asset: (tool) => tool.importType.getLocalizedName(context),
     );
   }
 
@@ -43,20 +43,20 @@ extension PainterVisualizer on Painter {
         undo: (_) => PhosphorIcons.arrowCounterClockwise,
         redo: (_) => PhosphorIcons.arrowClockwise,
         label: (_) => PhosphorIcons.textT,
-        pen: (painter) => DisplayIcons.from(painter),
+        pen: (tool) => DisplayIcons.from(tool),
         eraser: (_) => PhosphorIcons.eraser,
         pathEraser: (_) => PhosphorIcons.path,
         layer: (_) => PhosphorIcons.squaresFour,
         area: (_) => PhosphorIcons.monitor,
         laser: (_) => PhosphorIcons.cursor,
-        shape: (painter) => painter.property.shape.icon,
-        spacer: (painter) => painter.axis == Axis2D.horizontal
+        shape: (tool) => tool.property.shape.icon,
+        spacer: (tool) => tool.axis == Axis2D.horizontal
             ? PhosphorIcons.splitHorizontal
             : PhosphorIcons.splitVertical,
         stamp: (_) => PhosphorIcons.stamp,
         presentation: (_) => PhosphorIcons.presentation,
         fullSceen: (_) => PhosphorIcons.arrowsOut,
-        asset: (painter) => painter.importType.icon,
+        asset: (tool) => tool.importType.icon,
       );
 
   List<String> get help {
@@ -76,7 +76,7 @@ extension PainterVisualizer on Painter {
       presentation: (_) => 'presentation',
     );
     if (page == null) return [];
-    return ['painters', page];
+    return ['tools', page];
   }
 
   bool isAction() {

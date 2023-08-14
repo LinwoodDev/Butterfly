@@ -1,6 +1,6 @@
 part of '../selection.dart';
 
-class HandSelection extends PainterSelection<HandPainter> {
+class HandSelection extends ToolSelection<HandTool> {
   HandSelection(super.selected);
 
   @override

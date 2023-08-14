@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class AreaHandler extends Handler<AreaPainter> {
+class AreaHandler extends Handler<AreaTool> {
   Offset? start, end;
 
   AreaHandler(super.data);

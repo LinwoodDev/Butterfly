@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class LabelHandler extends Handler<LabelPainter>
+class LabelHandler extends Handler<LabelTool>
     with HandlerWithCursor, TextInputClient {
   LabelContext? _context;
   DocumentBloc? _bloc;
@@ -20,7 +20,7 @@ class LabelHandler extends Handler<LabelPainter>
       case LabelMode.text:
         final forced = _context?.mapOrNull(text: (e) => e.forcedProperty);
         return TextContext(
-          painter: data,
+          tool: data,
           isCreating: true,
           element: (element as TextElement?) ??
               (position == null
@@ -42,7 +42,7 @@ class LabelHandler extends Handler<LabelPainter>
         );
       case LabelMode.markdown:
         return MarkdownContext(
-          painter: data,
+          tool: data,
           isCreating: true,
           element: (element as MarkdownElement?) ??
               (position == null
@@ -246,8 +246,8 @@ class LabelHandler extends Handler<LabelPainter>
         }));
       }
     }
-    if (context.painter != value.painter) {
-      bloc.add(PaintersChanged({data: value.painter}));
+    if (context.tool != value.tool) {
+      bloc.add(ToolsChanged({data: value.tool}));
     }
     bloc.refresh();
     _refreshToolbar(bloc);

@@ -70,7 +70,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
             embedding: embedding));
 
   void init(DocumentBloc bloc) {
-    changePainter(bloc, state.index ?? 0, null, true, false);
+    changeTool(bloc, state.index ?? 0, null, true, false);
   }
 
   ThemeData getTheme(bool dark, [ColorScheme? overridden]) =>
@@ -90,17 +90,17 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         .getGridPosition(position, page, info, this);
   }
 
-  Handler? changePainter(DocumentBloc bloc, int index,
+  Handler? changeTool(DocumentBloc bloc, int index,
       [Handler? handler, bool justAdded = false, bool runSelected = true]) {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     final document = blocState.data;
     final info = blocState.info;
-    if (index < 0 || index >= info.painters.length) {
+    if (index < 0 || index >= info.tools.length) {
       return null;
     }
-    final painter = info.painters[index];
-    handler ??= Handler.fromPainter(painter);
+    final tool = info.tools[index];
+    handler ??= Handler.fromTool(tool);
     if (!runSelected || handler.onSelected(bloc, this, justAdded)) {
       state.handler.dispose(bloc);
       state.temporaryHandler?.dispose(bloc);
@@ -121,11 +121,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return handler;
   }
 
-  Future<void> updatePainter(DocumentBloc bloc, Painter painter) async {
+  Future<void> updateTool(DocumentBloc bloc, Tool tool) async {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     state.handler.dispose(bloc);
-    final handler = Handler.fromPainter(painter);
+    final handler = Handler.fromTool(tool);
     state.handler.dispose(bloc);
     _disposeForegrounds(false);
     final newForegrounds = handler.createForegrounds(this, docState.data,
@@ -142,12 +142,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ));
   }
 
-  Future<void> updateTemporaryPainter(
-      DocumentBloc bloc, Painter painter) async {
+  Future<void> updateTemporaryTool(DocumentBloc bloc, Tool tool) async {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     state.temporaryHandler?.dispose(bloc);
-    final handler = Handler.fromPainter(painter);
+    final handler = Handler.fromTool(tool);
     _disposeTemporaryForegrounds();
     final temporaryForegrounds = handler.createForegrounds(this, docState.data,
         docState.page, docState.info, docState.currentArea);
@@ -217,20 +216,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Painter? getPainter(DocumentInfo info) {
+  Tool? getTool(DocumentInfo info) {
     var index = state.index;
     if (index == null) {
       return null;
     }
-    if (info.painters.isEmpty || index < 0 || index >= info.painters.length) {
+    if (info.tools.isEmpty || index < 0 || index >= info.tools.length) {
       return null;
     }
-    return info.painters[index];
+    return info.tools[index];
   }
 
-  T? fetchPainter<T extends Painter>(DocumentInfo info) {
-    final painter = getPainter(info);
-    if (painter is T) return painter;
+  T? fetchTool<T extends Tool>(DocumentInfo info) {
+    final tool = getTool(info);
+    if (tool is T) return tool;
     return null;
   }
 
@@ -269,16 +268,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       DocumentBloc bloc, int index) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
-    if (index < 0 || index >= blocState.info.painters.length) {
+    if (index < 0 || index >= blocState.info.tools.length) {
       return null;
     }
-    final painter = blocState.info.painters[index];
-    return changeTemporaryHandler(bloc, painter);
+    final tool = blocState.info.tools[index];
+    return changeTemporaryHandler(bloc, tool);
   }
 
-  Future<Handler?> changeTemporaryHandler(
-      DocumentBloc bloc, Painter painter) async {
-    final handler = Handler.fromPainter(painter);
+  Future<Handler?> changeTemporaryHandler(DocumentBloc bloc, Tool tool) async {
+    final handler = Handler.fromTool(tool);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     final document = blocState.data;
@@ -532,9 +530,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     final info = docState.info;
-    final index = info.painters.indexOf(state.handler.data);
+    final index = info.tools.indexOf(state.handler.data);
     if (index < 0) {
-      changePainter(bloc, state.index ?? 0, null, true, false);
+      changeTool(bloc, state.index ?? 0, null, true, false);
     }
     if (index == state.index) {
       return;

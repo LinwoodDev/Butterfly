@@ -117,7 +117,7 @@ class _MainViewViewportState extends State<MainViewViewport>
         });
       }
 
-      Future<void> changeTemporaryPainter(
+      Future<void> changeTemporaryTool(
           PointerDeviceKind kind, int buttons) async {
         int? nextPointerIndex;
         final bloc = context.read<DocumentBloc>();
@@ -294,7 +294,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                             cubit.setButtons(event.buttons);
                             final handler = getHandler();
                             if (handler.canChange(event, getEventContext())) {
-                              await changeTemporaryPainter(
+                              await changeTemporaryTool(
                                   event.kind, event.buttons);
                             }
                             getHandler()

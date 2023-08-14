@@ -1,6 +1,6 @@
 part of '../selection.dart';
 
-class StampPainterSelection extends PainterSelection<StampPainter> {
+class StampPainterSelection extends ToolSelection<StampTool> {
   StampPainterSelection(super.selected);
 
   @override
@@ -72,7 +72,7 @@ class StampPainterSelection extends PainterSelection<StampPainter> {
 
   @override
   Selection insert(dynamic element) {
-    if (element is StampPainter) {
+    if (element is StampTool) {
       return StampPainterSelection([...selected, element]);
     }
     return super.insert(element);

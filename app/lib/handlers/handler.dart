@@ -136,7 +136,7 @@ class EventContext {
   DocumentPage? getPage() => getState()?.page;
 }
 
-enum PainterStatus { normal, disabled }
+enum ToolStatus { normal, disabled }
 
 abstract class Handler<T> {
   final T data;
@@ -193,17 +193,17 @@ abstract class Handler<T> {
 
   void resetInput(DocumentBloc bloc) {}
 
-  PainterStatus getStatus(DocumentBloc bloc) => PainterStatus.normal;
+  ToolStatus getStatus(DocumentBloc bloc) => ToolStatus.normal;
 
   PhosphorIconData? getIcon(DocumentBloc bloc) => null;
 
   static Handler fromDocument(DocumentInfo info, int index) {
-    final painter = info.painters[index];
-    return Handler.fromPainter(painter);
+    final tool = info.tools[index];
+    return Handler.fromTool(tool);
   }
 
-  static Handler fromPainter(Painter painter) {
-    return painter.map(
+  static Handler fromTool(Tool tool) {
+    return tool.map(
       hand: (value) => HandHandler(value),
       move: (value) => MoveHandler(value),
       import: (value) => ImportHandler(value),

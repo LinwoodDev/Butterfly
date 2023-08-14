@@ -1,6 +1,6 @@
 part of '../selection.dart';
 
-class LabelPainterSelection extends PainterSelection<LabelPainter> {
+class LabelPainterSelection extends ToolSelection<LabelTool> {
   LabelPainterSelection(super.selected);
 
   @override
@@ -102,7 +102,7 @@ class LabelPainterSelection extends PainterSelection<LabelPainter> {
 
   @override
   Selection insert(dynamic element) {
-    if (element is LabelPainter) {
+    if (element is LabelTool) {
       return LabelPainterSelection([...selected, element]);
     }
     return super.insert(element);

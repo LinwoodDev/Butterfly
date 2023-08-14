@@ -421,7 +421,7 @@ class ImportService {
     final state = _getState();
     if (choosePosition && state is DocumentLoadSuccess) {
       state.currentIndexCubit.changeTemporaryHandler(
-          bloc!, ImportPainter(elements: elements, areas: areas));
+          bloc!, ImportTool(elements: elements, areas: areas));
     } else {
       bloc
         ?..add(ElementsCreated(elements))

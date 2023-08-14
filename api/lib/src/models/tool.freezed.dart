@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'painter.dart';
+part of 'tool.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,53 +14,53 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Painter _$PainterFromJson(Map<String, dynamic> json) {
+Tool _$ToolFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'hand':
-      return HandPainter.fromJson(json);
+      return HandTool.fromJson(json);
     case 'move':
-      return MovePainter.fromJson(json);
+      return MoveTool.fromJson(json);
     case 'import':
-      return ImportPainter.fromJson(json);
+      return ImportTool.fromJson(json);
     case 'undo':
-      return UndoPainter.fromJson(json);
+      return UndoTool.fromJson(json);
     case 'redo':
-      return RedoPainter.fromJson(json);
+      return RedoTool.fromJson(json);
     case 'label':
-      return LabelPainter.fromJson(json);
+      return LabelTool.fromJson(json);
     case 'pen':
-      return PenPainter.fromJson(json);
+      return PenTool.fromJson(json);
     case 'eraser':
-      return EraserPainter.fromJson(json);
+      return EraserTool.fromJson(json);
     case 'pathEraser':
-      return PathEraserPainter.fromJson(json);
+      return PathEraserTool.fromJson(json);
     case 'layer':
-      return LayerPainter.fromJson(json);
+      return LayerTool.fromJson(json);
     case 'area':
-      return AreaPainter.fromJson(json);
+      return AreaTool.fromJson(json);
     case 'laser':
-      return LaserPainter.fromJson(json);
+      return LaserTool.fromJson(json);
     case 'shape':
-      return ShapePainter.fromJson(json);
+      return ShapeTool.fromJson(json);
     case 'stamp':
-      return StampPainter.fromJson(json);
+      return StampTool.fromJson(json);
     case 'presentation':
-      return PresentationPainter.fromJson(json);
+      return PresentationTool.fromJson(json);
     case 'spacer':
-      return SpacerPainter.fromJson(json);
+      return SpacerTool.fromJson(json);
     case 'fullSceen':
-      return FullScreenPainter.fromJson(json);
+      return FullScreenTool.fromJson(json);
     case 'asset':
-      return AssetPainter.fromJson(json);
+      return AssetTool.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
-          json, 'type', 'Painter', 'Invalid union type "${json['type']}"!');
+          json, 'type', 'Tool', 'Invalid union type "${json['type']}"!');
   }
 }
 
 /// @nodoc
-mixin _$Painter {
+mixin _$Tool {
   String get name => throw _privateConstructorUsedError;
   String get displayIcon => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -224,88 +224,88 @@ mixin _$Painter {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $PainterCopyWith<Painter> get copyWith => throw _privateConstructorUsedError;
+  $ToolCopyWith<Tool> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PainterCopyWith<$Res> {
-  factory $PainterCopyWith(Painter value, $Res Function(Painter) then) =
-      _$PainterCopyWithImpl<$Res, Painter>;
+abstract class $ToolCopyWith<$Res> {
+  factory $ToolCopyWith(Tool value, $Res Function(Tool) then) =
+      _$ToolCopyWithImpl<$Res, Tool>;
   @useResult
   $Res call({String name, String displayIcon});
 }
 
 /// @nodoc
-class _$PainterCopyWithImpl<$Res, $Val extends Painter>
-    implements $PainterCopyWith<$Res> {
-  _$PainterCopyWithImpl(this._value, this._then);
+class _$ToolCopyWithImpl<$Res, $Val extends Tool>
+    implements $ToolCopyWith<$Res> {
+  _$ToolCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -332,21 +332,20 @@ class _$PainterCopyWithImpl<$Res, $Val extends Painter>
 }
 
 /// @nodoc
-abstract class _$$HandPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory _$$HandPainterCopyWith(
-          _$HandPainter value, $Res Function(_$HandPainter) then) =
-      __$$HandPainterCopyWithImpl<$Res>;
+abstract class _$$HandToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$HandToolCopyWith(
+          _$HandTool value, $Res Function(_$HandTool) then) =
+      __$$HandToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon});
 }
 
 /// @nodoc
-class __$$HandPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$HandPainter>
-    implements _$$HandPainterCopyWith<$Res> {
-  __$$HandPainterCopyWithImpl(
-      _$HandPainter _value, $Res Function(_$HandPainter) _then)
+class __$$HandToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$HandTool>
+    implements _$$HandToolCopyWith<$Res> {
+  __$$HandToolCopyWithImpl(_$HandTool _value, $Res Function(_$HandTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -355,7 +354,7 @@ class __$$HandPainterCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
   }) {
-    return _then(_$HandPainter(
+    return _then(_$HandTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -370,13 +369,13 @@ class __$$HandPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$HandPainter extends HandPainter {
-  _$HandPainter({this.name = '', this.displayIcon = '', final String? $type})
+class _$HandTool extends HandTool {
+  _$HandTool({this.name = '', this.displayIcon = '', final String? $type})
       : $type = $type ?? 'hand',
         super._();
 
-  factory _$HandPainter.fromJson(Map<String, dynamic> json) =>
-      _$$HandPainterFromJson(json);
+  factory _$HandTool.fromJson(Map<String, dynamic> json) =>
+      _$$HandToolFromJson(json);
 
   @override
   @JsonKey()
@@ -390,14 +389,14 @@ class _$HandPainter extends HandPainter {
 
   @override
   String toString() {
-    return 'Painter.hand(name: $name, displayIcon: $displayIcon)';
+    return 'Tool.hand(name: $name, displayIcon: $displayIcon)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$HandPainterCopyWith<_$HandPainter> get copyWith =>
-      __$$HandPainterCopyWithImpl<_$HandPainter>(this, _$identity);
+  _$$HandToolCopyWith<_$HandTool> get copyWith =>
+      __$$HandToolCopyWithImpl<_$HandTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -573,24 +572,24 @@ class _$HandPainter extends HandPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return hand(this);
   }
@@ -598,24 +597,24 @@ class _$HandPainter extends HandPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return hand?.call(this);
   }
@@ -623,24 +622,24 @@ class _$HandPainter extends HandPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -651,19 +650,17 @@ class _$HandPainter extends HandPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$HandPainterToJson(
+    return _$$HandToolToJson(
       this,
     );
   }
 }
 
-abstract class HandPainter extends Painter {
-  factory HandPainter({final String name, final String displayIcon}) =
-      _$HandPainter;
-  HandPainter._() : super._();
+abstract class HandTool extends Tool {
+  factory HandTool({final String name, final String displayIcon}) = _$HandTool;
+  HandTool._() : super._();
 
-  factory HandPainter.fromJson(Map<String, dynamic> json) =
-      _$HandPainter.fromJson;
+  factory HandTool.fromJson(Map<String, dynamic> json) = _$HandTool.fromJson;
 
   @override
   String get name;
@@ -671,26 +668,25 @@ abstract class HandPainter extends Painter {
   String get displayIcon;
   @override
   @JsonKey(ignore: true)
-  _$$HandPainterCopyWith<_$HandPainter> get copyWith =>
+  _$$HandToolCopyWith<_$HandTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MovePainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory _$$MovePainterCopyWith(
-          _$MovePainter value, $Res Function(_$MovePainter) then) =
-      __$$MovePainterCopyWithImpl<$Res>;
+abstract class _$$MoveToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$MoveToolCopyWith(
+          _$MoveTool value, $Res Function(_$MoveTool) then) =
+      __$$MoveToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon});
 }
 
 /// @nodoc
-class __$$MovePainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$MovePainter>
-    implements _$$MovePainterCopyWith<$Res> {
-  __$$MovePainterCopyWithImpl(
-      _$MovePainter _value, $Res Function(_$MovePainter) _then)
+class __$$MoveToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$MoveTool>
+    implements _$$MoveToolCopyWith<$Res> {
+  __$$MoveToolCopyWithImpl(_$MoveTool _value, $Res Function(_$MoveTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -699,7 +695,7 @@ class __$$MovePainterCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
   }) {
-    return _then(_$MovePainter(
+    return _then(_$MoveTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -714,13 +710,13 @@ class __$$MovePainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$MovePainter extends MovePainter {
-  _$MovePainter({this.name = '', this.displayIcon = '', final String? $type})
+class _$MoveTool extends MoveTool {
+  _$MoveTool({this.name = '', this.displayIcon = '', final String? $type})
       : $type = $type ?? 'move',
         super._();
 
-  factory _$MovePainter.fromJson(Map<String, dynamic> json) =>
-      _$$MovePainterFromJson(json);
+  factory _$MoveTool.fromJson(Map<String, dynamic> json) =>
+      _$$MoveToolFromJson(json);
 
   @override
   @JsonKey()
@@ -734,14 +730,14 @@ class _$MovePainter extends MovePainter {
 
   @override
   String toString() {
-    return 'Painter.move(name: $name, displayIcon: $displayIcon)';
+    return 'Tool.move(name: $name, displayIcon: $displayIcon)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MovePainterCopyWith<_$MovePainter> get copyWith =>
-      __$$MovePainterCopyWithImpl<_$MovePainter>(this, _$identity);
+  _$$MoveToolCopyWith<_$MoveTool> get copyWith =>
+      __$$MoveToolCopyWithImpl<_$MoveTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -917,24 +913,24 @@ class _$MovePainter extends MovePainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return move(this);
   }
@@ -942,24 +938,24 @@ class _$MovePainter extends MovePainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return move?.call(this);
   }
@@ -967,24 +963,24 @@ class _$MovePainter extends MovePainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (move != null) {
@@ -995,19 +991,17 @@ class _$MovePainter extends MovePainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MovePainterToJson(
+    return _$$MoveToolToJson(
       this,
     );
   }
 }
 
-abstract class MovePainter extends Painter {
-  factory MovePainter({final String name, final String displayIcon}) =
-      _$MovePainter;
-  MovePainter._() : super._();
+abstract class MoveTool extends Tool {
+  factory MoveTool({final String name, final String displayIcon}) = _$MoveTool;
+  MoveTool._() : super._();
 
-  factory MovePainter.fromJson(Map<String, dynamic> json) =
-      _$MovePainter.fromJson;
+  factory MoveTool.fromJson(Map<String, dynamic> json) = _$MoveTool.fromJson;
 
   @override
   String get name;
@@ -1015,16 +1009,15 @@ abstract class MovePainter extends Painter {
   String get displayIcon;
   @override
   @JsonKey(ignore: true)
-  _$$MovePainterCopyWith<_$MovePainter> get copyWith =>
+  _$$MoveToolCopyWith<_$MoveTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ImportPainterCopyWith<$Res>
-    implements $PainterCopyWith<$Res> {
-  factory _$$ImportPainterCopyWith(
-          _$ImportPainter value, $Res Function(_$ImportPainter) then) =
-      __$$ImportPainterCopyWithImpl<$Res>;
+abstract class _$$ImportToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$ImportToolCopyWith(
+          _$ImportTool value, $Res Function(_$ImportTool) then) =
+      __$$ImportToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1035,11 +1028,11 @@ abstract class _$$ImportPainterCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ImportPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$ImportPainter>
-    implements _$$ImportPainterCopyWith<$Res> {
-  __$$ImportPainterCopyWithImpl(
-      _$ImportPainter _value, $Res Function(_$ImportPainter) _then)
+class __$$ImportToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$ImportTool>
+    implements _$$ImportToolCopyWith<$Res> {
+  __$$ImportToolCopyWithImpl(
+      _$ImportTool _value, $Res Function(_$ImportTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1050,7 +1043,7 @@ class __$$ImportPainterCopyWithImpl<$Res>
     Object? elements = null,
     Object? areas = null,
   }) {
-    return _then(_$ImportPainter(
+    return _then(_$ImportTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1073,8 +1066,8 @@ class __$$ImportPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ImportPainter extends ImportPainter {
-  _$ImportPainter(
+class _$ImportTool extends ImportTool {
+  _$ImportTool(
       {this.name = '',
       this.displayIcon = '',
       required final List<PadElement> elements,
@@ -1085,8 +1078,8 @@ class _$ImportPainter extends ImportPainter {
         $type = $type ?? 'import',
         super._();
 
-  factory _$ImportPainter.fromJson(Map<String, dynamic> json) =>
-      _$$ImportPainterFromJson(json);
+  factory _$ImportTool.fromJson(Map<String, dynamic> json) =>
+      _$$ImportToolFromJson(json);
 
   @override
   @JsonKey()
@@ -1115,14 +1108,14 @@ class _$ImportPainter extends ImportPainter {
 
   @override
   String toString() {
-    return 'Painter.import(name: $name, displayIcon: $displayIcon, elements: $elements, areas: $areas)';
+    return 'Tool.import(name: $name, displayIcon: $displayIcon, elements: $elements, areas: $areas)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ImportPainterCopyWith<_$ImportPainter> get copyWith =>
-      __$$ImportPainterCopyWithImpl<_$ImportPainter>(this, _$identity);
+  _$$ImportToolCopyWith<_$ImportTool> get copyWith =>
+      __$$ImportToolCopyWithImpl<_$ImportTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1298,24 +1291,24 @@ class _$ImportPainter extends ImportPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return import(this);
   }
@@ -1323,24 +1316,24 @@ class _$ImportPainter extends ImportPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return import?.call(this);
   }
@@ -1348,24 +1341,24 @@ class _$ImportPainter extends ImportPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (import != null) {
@@ -1376,22 +1369,22 @@ class _$ImportPainter extends ImportPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ImportPainterToJson(
+    return _$$ImportToolToJson(
       this,
     );
   }
 }
 
-abstract class ImportPainter extends Painter {
-  factory ImportPainter(
+abstract class ImportTool extends Tool {
+  factory ImportTool(
       {final String name,
       final String displayIcon,
       required final List<PadElement> elements,
-      required final List<Area> areas}) = _$ImportPainter;
-  ImportPainter._() : super._();
+      required final List<Area> areas}) = _$ImportTool;
+  ImportTool._() : super._();
 
-  factory ImportPainter.fromJson(Map<String, dynamic> json) =
-      _$ImportPainter.fromJson;
+  factory ImportTool.fromJson(Map<String, dynamic> json) =
+      _$ImportTool.fromJson;
 
   @override
   String get name;
@@ -1401,26 +1394,25 @@ abstract class ImportPainter extends Painter {
   List<Area> get areas;
   @override
   @JsonKey(ignore: true)
-  _$$ImportPainterCopyWith<_$ImportPainter> get copyWith =>
+  _$$ImportToolCopyWith<_$ImportTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UndoPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory _$$UndoPainterCopyWith(
-          _$UndoPainter value, $Res Function(_$UndoPainter) then) =
-      __$$UndoPainterCopyWithImpl<$Res>;
+abstract class _$$UndoToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$UndoToolCopyWith(
+          _$UndoTool value, $Res Function(_$UndoTool) then) =
+      __$$UndoToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon});
 }
 
 /// @nodoc
-class __$$UndoPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$UndoPainter>
-    implements _$$UndoPainterCopyWith<$Res> {
-  __$$UndoPainterCopyWithImpl(
-      _$UndoPainter _value, $Res Function(_$UndoPainter) _then)
+class __$$UndoToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$UndoTool>
+    implements _$$UndoToolCopyWith<$Res> {
+  __$$UndoToolCopyWithImpl(_$UndoTool _value, $Res Function(_$UndoTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1429,7 +1421,7 @@ class __$$UndoPainterCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
   }) {
-    return _then(_$UndoPainter(
+    return _then(_$UndoTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1444,13 +1436,13 @@ class __$$UndoPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$UndoPainter extends UndoPainter {
-  _$UndoPainter({this.name = '', this.displayIcon = '', final String? $type})
+class _$UndoTool extends UndoTool {
+  _$UndoTool({this.name = '', this.displayIcon = '', final String? $type})
       : $type = $type ?? 'undo',
         super._();
 
-  factory _$UndoPainter.fromJson(Map<String, dynamic> json) =>
-      _$$UndoPainterFromJson(json);
+  factory _$UndoTool.fromJson(Map<String, dynamic> json) =>
+      _$$UndoToolFromJson(json);
 
   @override
   @JsonKey()
@@ -1464,14 +1456,14 @@ class _$UndoPainter extends UndoPainter {
 
   @override
   String toString() {
-    return 'Painter.undo(name: $name, displayIcon: $displayIcon)';
+    return 'Tool.undo(name: $name, displayIcon: $displayIcon)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UndoPainterCopyWith<_$UndoPainter> get copyWith =>
-      __$$UndoPainterCopyWithImpl<_$UndoPainter>(this, _$identity);
+  _$$UndoToolCopyWith<_$UndoTool> get copyWith =>
+      __$$UndoToolCopyWithImpl<_$UndoTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1647,24 +1639,24 @@ class _$UndoPainter extends UndoPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return undo(this);
   }
@@ -1672,24 +1664,24 @@ class _$UndoPainter extends UndoPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return undo?.call(this);
   }
@@ -1697,24 +1689,24 @@ class _$UndoPainter extends UndoPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -1725,19 +1717,17 @@ class _$UndoPainter extends UndoPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UndoPainterToJson(
+    return _$$UndoToolToJson(
       this,
     );
   }
 }
 
-abstract class UndoPainter extends Painter {
-  factory UndoPainter({final String name, final String displayIcon}) =
-      _$UndoPainter;
-  UndoPainter._() : super._();
+abstract class UndoTool extends Tool {
+  factory UndoTool({final String name, final String displayIcon}) = _$UndoTool;
+  UndoTool._() : super._();
 
-  factory UndoPainter.fromJson(Map<String, dynamic> json) =
-      _$UndoPainter.fromJson;
+  factory UndoTool.fromJson(Map<String, dynamic> json) = _$UndoTool.fromJson;
 
   @override
   String get name;
@@ -1745,26 +1735,25 @@ abstract class UndoPainter extends Painter {
   String get displayIcon;
   @override
   @JsonKey(ignore: true)
-  _$$UndoPainterCopyWith<_$UndoPainter> get copyWith =>
+  _$$UndoToolCopyWith<_$UndoTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RedoPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory _$$RedoPainterCopyWith(
-          _$RedoPainter value, $Res Function(_$RedoPainter) then) =
-      __$$RedoPainterCopyWithImpl<$Res>;
+abstract class _$$RedoToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$RedoToolCopyWith(
+          _$RedoTool value, $Res Function(_$RedoTool) then) =
+      __$$RedoToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon});
 }
 
 /// @nodoc
-class __$$RedoPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$RedoPainter>
-    implements _$$RedoPainterCopyWith<$Res> {
-  __$$RedoPainterCopyWithImpl(
-      _$RedoPainter _value, $Res Function(_$RedoPainter) _then)
+class __$$RedoToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$RedoTool>
+    implements _$$RedoToolCopyWith<$Res> {
+  __$$RedoToolCopyWithImpl(_$RedoTool _value, $Res Function(_$RedoTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1773,7 +1762,7 @@ class __$$RedoPainterCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
   }) {
-    return _then(_$RedoPainter(
+    return _then(_$RedoTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1788,13 +1777,13 @@ class __$$RedoPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$RedoPainter extends RedoPainter {
-  _$RedoPainter({this.name = '', this.displayIcon = '', final String? $type})
+class _$RedoTool extends RedoTool {
+  _$RedoTool({this.name = '', this.displayIcon = '', final String? $type})
       : $type = $type ?? 'redo',
         super._();
 
-  factory _$RedoPainter.fromJson(Map<String, dynamic> json) =>
-      _$$RedoPainterFromJson(json);
+  factory _$RedoTool.fromJson(Map<String, dynamic> json) =>
+      _$$RedoToolFromJson(json);
 
   @override
   @JsonKey()
@@ -1808,14 +1797,14 @@ class _$RedoPainter extends RedoPainter {
 
   @override
   String toString() {
-    return 'Painter.redo(name: $name, displayIcon: $displayIcon)';
+    return 'Tool.redo(name: $name, displayIcon: $displayIcon)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RedoPainterCopyWith<_$RedoPainter> get copyWith =>
-      __$$RedoPainterCopyWithImpl<_$RedoPainter>(this, _$identity);
+  _$$RedoToolCopyWith<_$RedoTool> get copyWith =>
+      __$$RedoToolCopyWithImpl<_$RedoTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1991,24 +1980,24 @@ class _$RedoPainter extends RedoPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return redo(this);
   }
@@ -2016,24 +2005,24 @@ class _$RedoPainter extends RedoPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return redo?.call(this);
   }
@@ -2041,24 +2030,24 @@ class _$RedoPainter extends RedoPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -2069,19 +2058,17 @@ class _$RedoPainter extends RedoPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$RedoPainterToJson(
+    return _$$RedoToolToJson(
       this,
     );
   }
 }
 
-abstract class RedoPainter extends Painter {
-  factory RedoPainter({final String name, final String displayIcon}) =
-      _$RedoPainter;
-  RedoPainter._() : super._();
+abstract class RedoTool extends Tool {
+  factory RedoTool({final String name, final String displayIcon}) = _$RedoTool;
+  RedoTool._() : super._();
 
-  factory RedoPainter.fromJson(Map<String, dynamic> json) =
-      _$RedoPainter.fromJson;
+  factory RedoTool.fromJson(Map<String, dynamic> json) = _$RedoTool.fromJson;
 
   @override
   String get name;
@@ -2089,15 +2076,15 @@ abstract class RedoPainter extends Painter {
   String get displayIcon;
   @override
   @JsonKey(ignore: true)
-  _$$RedoPainterCopyWith<_$RedoPainter> get copyWith =>
+  _$$RedoToolCopyWith<_$RedoTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LabelPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory _$$LabelPainterCopyWith(
-          _$LabelPainter value, $Res Function(_$LabelPainter) then) =
-      __$$LabelPainterCopyWithImpl<$Res>;
+abstract class _$$LabelToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$LabelToolCopyWith(
+          _$LabelTool value, $Res Function(_$LabelTool) then) =
+      __$$LabelToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2112,11 +2099,11 @@ abstract class _$$LabelPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$LabelPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$LabelPainter>
-    implements _$$LabelPainterCopyWith<$Res> {
-  __$$LabelPainterCopyWithImpl(
-      _$LabelPainter _value, $Res Function(_$LabelPainter) _then)
+class __$$LabelToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$LabelTool>
+    implements _$$LabelToolCopyWith<$Res> {
+  __$$LabelToolCopyWithImpl(
+      _$LabelTool _value, $Res Function(_$LabelTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2129,7 +2116,7 @@ class __$$LabelPainterCopyWithImpl<$Res>
     Object? foreground = null,
     Object? styleSheet = null,
   }) {
-    return _then(_$LabelPainter(
+    return _then(_$LabelTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2168,8 +2155,8 @@ class __$$LabelPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LabelPainter extends LabelPainter {
-  _$LabelPainter(
+class _$LabelTool extends LabelTool {
+  _$LabelTool(
       {this.name = '',
       this.displayIcon = '',
       this.mode = LabelMode.text,
@@ -2180,8 +2167,8 @@ class _$LabelPainter extends LabelPainter {
       : $type = $type ?? 'label',
         super._();
 
-  factory _$LabelPainter.fromJson(Map<String, dynamic> json) =>
-      _$$LabelPainterFromJson(json);
+  factory _$LabelTool.fromJson(Map<String, dynamic> json) =>
+      _$$LabelToolFromJson(json);
 
   @override
   @JsonKey()
@@ -2207,14 +2194,14 @@ class _$LabelPainter extends LabelPainter {
 
   @override
   String toString() {
-    return 'Painter.label(name: $name, displayIcon: $displayIcon, mode: $mode, zoomDependent: $zoomDependent, foreground: $foreground, styleSheet: $styleSheet)';
+    return 'Tool.label(name: $name, displayIcon: $displayIcon, mode: $mode, zoomDependent: $zoomDependent, foreground: $foreground, styleSheet: $styleSheet)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LabelPainterCopyWith<_$LabelPainter> get copyWith =>
-      __$$LabelPainterCopyWithImpl<_$LabelPainter>(this, _$identity);
+  _$$LabelToolCopyWith<_$LabelTool> get copyWith =>
+      __$$LabelToolCopyWithImpl<_$LabelTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2393,24 +2380,24 @@ class _$LabelPainter extends LabelPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return label(this);
   }
@@ -2418,24 +2405,24 @@ class _$LabelPainter extends LabelPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return label?.call(this);
   }
@@ -2443,24 +2430,24 @@ class _$LabelPainter extends LabelPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -2471,24 +2458,23 @@ class _$LabelPainter extends LabelPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LabelPainterToJson(
+    return _$$LabelToolToJson(
       this,
     );
   }
 }
 
-abstract class LabelPainter extends Painter {
-  factory LabelPainter(
+abstract class LabelTool extends Tool {
+  factory LabelTool(
       {final String name,
       final String displayIcon,
       final LabelMode mode,
       final bool zoomDependent,
       final int foreground,
-      final PackAssetLocation styleSheet}) = _$LabelPainter;
-  LabelPainter._() : super._();
+      final PackAssetLocation styleSheet}) = _$LabelTool;
+  LabelTool._() : super._();
 
-  factory LabelPainter.fromJson(Map<String, dynamic> json) =
-      _$LabelPainter.fromJson;
+  factory LabelTool.fromJson(Map<String, dynamic> json) = _$LabelTool.fromJson;
 
   @override
   String get name;
@@ -2500,15 +2486,14 @@ abstract class LabelPainter extends Painter {
   PackAssetLocation get styleSheet;
   @override
   @JsonKey(ignore: true)
-  _$$LabelPainterCopyWith<_$LabelPainter> get copyWith =>
+  _$$LabelToolCopyWith<_$LabelTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PenPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory _$$PenPainterCopyWith(
-          _$PenPainter value, $Res Function(_$PenPainter) then) =
-      __$$PenPainterCopyWithImpl<$Res>;
+abstract class _$$PenToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$PenToolCopyWith(_$PenTool value, $Res Function(_$PenTool) then) =
+      __$$PenToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2519,11 +2504,9 @@ abstract class _$$PenPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$PenPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$PenPainter>
-    implements _$$PenPainterCopyWith<$Res> {
-  __$$PenPainterCopyWithImpl(
-      _$PenPainter _value, $Res Function(_$PenPainter) _then)
+class __$$PenToolCopyWithImpl<$Res> extends _$ToolCopyWithImpl<$Res, _$PenTool>
+    implements _$$PenToolCopyWith<$Res> {
+  __$$PenToolCopyWithImpl(_$PenTool _value, $Res Function(_$PenTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2534,7 +2517,7 @@ class __$$PenPainterCopyWithImpl<$Res>
     Object? zoomDependent = null,
     Object? property = freezed,
   }) {
-    return _then(_$PenPainter(
+    return _then(_$PenTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2557,8 +2540,8 @@ class __$$PenPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PenPainter extends PenPainter {
-  _$PenPainter(
+class _$PenTool extends PenTool {
+  _$PenTool(
       {this.name = '',
       this.displayIcon = '',
       this.zoomDependent = true,
@@ -2567,8 +2550,8 @@ class _$PenPainter extends PenPainter {
       : $type = $type ?? 'pen',
         super._();
 
-  factory _$PenPainter.fromJson(Map<String, dynamic> json) =>
-      _$$PenPainterFromJson(json);
+  factory _$PenTool.fromJson(Map<String, dynamic> json) =>
+      _$$PenToolFromJson(json);
 
   @override
   @JsonKey()
@@ -2588,14 +2571,14 @@ class _$PenPainter extends PenPainter {
 
   @override
   String toString() {
-    return 'Painter.pen(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, property: $property)';
+    return 'Tool.pen(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, property: $property)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PenPainterCopyWith<_$PenPainter> get copyWith =>
-      __$$PenPainterCopyWithImpl<_$PenPainter>(this, _$identity);
+  _$$PenToolCopyWith<_$PenTool> get copyWith =>
+      __$$PenToolCopyWithImpl<_$PenTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2771,24 +2754,24 @@ class _$PenPainter extends PenPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return pen(this);
   }
@@ -2796,24 +2779,24 @@ class _$PenPainter extends PenPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return pen?.call(this);
   }
@@ -2821,24 +2804,24 @@ class _$PenPainter extends PenPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -2849,22 +2832,21 @@ class _$PenPainter extends PenPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PenPainterToJson(
+    return _$$PenToolToJson(
       this,
     );
   }
 }
 
-abstract class PenPainter extends Painter {
-  factory PenPainter(
+abstract class PenTool extends Tool {
+  factory PenTool(
       {final String name,
       final String displayIcon,
       final bool zoomDependent,
-      final PenProperty property}) = _$PenPainter;
-  PenPainter._() : super._();
+      final PenProperty property}) = _$PenTool;
+  PenTool._() : super._();
 
-  factory PenPainter.fromJson(Map<String, dynamic> json) =
-      _$PenPainter.fromJson;
+  factory PenTool.fromJson(Map<String, dynamic> json) = _$PenTool.fromJson;
 
   @override
   String get name;
@@ -2874,27 +2856,26 @@ abstract class PenPainter extends Painter {
   PenProperty get property;
   @override
   @JsonKey(ignore: true)
-  _$$PenPainterCopyWith<_$PenPainter> get copyWith =>
+  _$$PenToolCopyWith<_$PenTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$EraserPainterCopyWith<$Res>
-    implements $PainterCopyWith<$Res> {
-  factory _$$EraserPainterCopyWith(
-          _$EraserPainter value, $Res Function(_$EraserPainter) then) =
-      __$$EraserPainterCopyWithImpl<$Res>;
+abstract class _$$EraserToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$EraserToolCopyWith(
+          _$EraserTool value, $Res Function(_$EraserTool) then) =
+      __$$EraserToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon, double strokeWidth});
 }
 
 /// @nodoc
-class __$$EraserPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$EraserPainter>
-    implements _$$EraserPainterCopyWith<$Res> {
-  __$$EraserPainterCopyWithImpl(
-      _$EraserPainter _value, $Res Function(_$EraserPainter) _then)
+class __$$EraserToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$EraserTool>
+    implements _$$EraserToolCopyWith<$Res> {
+  __$$EraserToolCopyWithImpl(
+      _$EraserTool _value, $Res Function(_$EraserTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2904,7 +2885,7 @@ class __$$EraserPainterCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? strokeWidth = null,
   }) {
-    return _then(_$EraserPainter(
+    return _then(_$EraserTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2923,8 +2904,8 @@ class __$$EraserPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EraserPainter extends EraserPainter {
-  _$EraserPainter(
+class _$EraserTool extends EraserTool {
+  _$EraserTool(
       {this.name = '',
       this.displayIcon = '',
       this.strokeWidth = 5,
@@ -2932,8 +2913,8 @@ class _$EraserPainter extends EraserPainter {
       : $type = $type ?? 'eraser',
         super._();
 
-  factory _$EraserPainter.fromJson(Map<String, dynamic> json) =>
-      _$$EraserPainterFromJson(json);
+  factory _$EraserTool.fromJson(Map<String, dynamic> json) =>
+      _$$EraserToolFromJson(json);
 
   @override
   @JsonKey()
@@ -2950,14 +2931,14 @@ class _$EraserPainter extends EraserPainter {
 
   @override
   String toString() {
-    return 'Painter.eraser(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth)';
+    return 'Tool.eraser(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EraserPainterCopyWith<_$EraserPainter> get copyWith =>
-      __$$EraserPainterCopyWithImpl<_$EraserPainter>(this, _$identity);
+  _$$EraserToolCopyWith<_$EraserTool> get copyWith =>
+      __$$EraserToolCopyWithImpl<_$EraserTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3133,24 +3114,24 @@ class _$EraserPainter extends EraserPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return eraser(this);
   }
@@ -3158,24 +3139,24 @@ class _$EraserPainter extends EraserPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return eraser?.call(this);
   }
@@ -3183,24 +3164,24 @@ class _$EraserPainter extends EraserPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (eraser != null) {
@@ -3211,21 +3192,21 @@ class _$EraserPainter extends EraserPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EraserPainterToJson(
+    return _$$EraserToolToJson(
       this,
     );
   }
 }
 
-abstract class EraserPainter extends Painter {
-  factory EraserPainter(
+abstract class EraserTool extends Tool {
+  factory EraserTool(
       {final String name,
       final String displayIcon,
-      final double strokeWidth}) = _$EraserPainter;
-  EraserPainter._() : super._();
+      final double strokeWidth}) = _$EraserTool;
+  EraserTool._() : super._();
 
-  factory EraserPainter.fromJson(Map<String, dynamic> json) =
-      _$EraserPainter.fromJson;
+  factory EraserTool.fromJson(Map<String, dynamic> json) =
+      _$EraserTool.fromJson;
 
   @override
   String get name;
@@ -3234,27 +3215,26 @@ abstract class EraserPainter extends Painter {
   double get strokeWidth;
   @override
   @JsonKey(ignore: true)
-  _$$EraserPainterCopyWith<_$EraserPainter> get copyWith =>
+  _$$EraserToolCopyWith<_$EraserTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PathEraserPainterCopyWith<$Res>
-    implements $PainterCopyWith<$Res> {
-  factory _$$PathEraserPainterCopyWith(
-          _$PathEraserPainter value, $Res Function(_$PathEraserPainter) then) =
-      __$$PathEraserPainterCopyWithImpl<$Res>;
+abstract class _$$PathEraserToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$PathEraserToolCopyWith(
+          _$PathEraserTool value, $Res Function(_$PathEraserTool) then) =
+      __$$PathEraserToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon, double strokeWidth});
 }
 
 /// @nodoc
-class __$$PathEraserPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$PathEraserPainter>
-    implements _$$PathEraserPainterCopyWith<$Res> {
-  __$$PathEraserPainterCopyWithImpl(
-      _$PathEraserPainter _value, $Res Function(_$PathEraserPainter) _then)
+class __$$PathEraserToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$PathEraserTool>
+    implements _$$PathEraserToolCopyWith<$Res> {
+  __$$PathEraserToolCopyWithImpl(
+      _$PathEraserTool _value, $Res Function(_$PathEraserTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3264,7 +3244,7 @@ class __$$PathEraserPainterCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? strokeWidth = null,
   }) {
-    return _then(_$PathEraserPainter(
+    return _then(_$PathEraserTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -3283,8 +3263,8 @@ class __$$PathEraserPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PathEraserPainter extends PathEraserPainter {
-  _$PathEraserPainter(
+class _$PathEraserTool extends PathEraserTool {
+  _$PathEraserTool(
       {this.name = '',
       this.displayIcon = '',
       this.strokeWidth = 5,
@@ -3292,8 +3272,8 @@ class _$PathEraserPainter extends PathEraserPainter {
       : $type = $type ?? 'pathEraser',
         super._();
 
-  factory _$PathEraserPainter.fromJson(Map<String, dynamic> json) =>
-      _$$PathEraserPainterFromJson(json);
+  factory _$PathEraserTool.fromJson(Map<String, dynamic> json) =>
+      _$$PathEraserToolFromJson(json);
 
   @override
   @JsonKey()
@@ -3310,14 +3290,14 @@ class _$PathEraserPainter extends PathEraserPainter {
 
   @override
   String toString() {
-    return 'Painter.pathEraser(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth)';
+    return 'Tool.pathEraser(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PathEraserPainterCopyWith<_$PathEraserPainter> get copyWith =>
-      __$$PathEraserPainterCopyWithImpl<_$PathEraserPainter>(this, _$identity);
+  _$$PathEraserToolCopyWith<_$PathEraserTool> get copyWith =>
+      __$$PathEraserToolCopyWithImpl<_$PathEraserTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3493,24 +3473,24 @@ class _$PathEraserPainter extends PathEraserPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return pathEraser(this);
   }
@@ -3518,24 +3498,24 @@ class _$PathEraserPainter extends PathEraserPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return pathEraser?.call(this);
   }
@@ -3543,24 +3523,24 @@ class _$PathEraserPainter extends PathEraserPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (pathEraser != null) {
@@ -3571,21 +3551,21 @@ class _$PathEraserPainter extends PathEraserPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PathEraserPainterToJson(
+    return _$$PathEraserToolToJson(
       this,
     );
   }
 }
 
-abstract class PathEraserPainter extends Painter {
-  factory PathEraserPainter(
+abstract class PathEraserTool extends Tool {
+  factory PathEraserTool(
       {final String name,
       final String displayIcon,
-      final double strokeWidth}) = _$PathEraserPainter;
-  PathEraserPainter._() : super._();
+      final double strokeWidth}) = _$PathEraserTool;
+  PathEraserTool._() : super._();
 
-  factory PathEraserPainter.fromJson(Map<String, dynamic> json) =
-      _$PathEraserPainter.fromJson;
+  factory PathEraserTool.fromJson(Map<String, dynamic> json) =
+      _$PathEraserTool.fromJson;
 
   @override
   String get name;
@@ -3594,26 +3574,26 @@ abstract class PathEraserPainter extends Painter {
   double get strokeWidth;
   @override
   @JsonKey(ignore: true)
-  _$$PathEraserPainterCopyWith<_$PathEraserPainter> get copyWith =>
+  _$$PathEraserToolCopyWith<_$PathEraserTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LayerPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory _$$LayerPainterCopyWith(
-          _$LayerPainter value, $Res Function(_$LayerPainter) then) =
-      __$$LayerPainterCopyWithImpl<$Res>;
+abstract class _$$LayerToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$LayerToolCopyWith(
+          _$LayerTool value, $Res Function(_$LayerTool) then) =
+      __$$LayerToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon, double strokeWidth});
 }
 
 /// @nodoc
-class __$$LayerPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$LayerPainter>
-    implements _$$LayerPainterCopyWith<$Res> {
-  __$$LayerPainterCopyWithImpl(
-      _$LayerPainter _value, $Res Function(_$LayerPainter) _then)
+class __$$LayerToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$LayerTool>
+    implements _$$LayerToolCopyWith<$Res> {
+  __$$LayerToolCopyWithImpl(
+      _$LayerTool _value, $Res Function(_$LayerTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3623,7 +3603,7 @@ class __$$LayerPainterCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? strokeWidth = null,
   }) {
-    return _then(_$LayerPainter(
+    return _then(_$LayerTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -3642,8 +3622,8 @@ class __$$LayerPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LayerPainter extends LayerPainter {
-  _$LayerPainter(
+class _$LayerTool extends LayerTool {
+  _$LayerTool(
       {this.name = '',
       this.displayIcon = '',
       this.strokeWidth = 5,
@@ -3651,8 +3631,8 @@ class _$LayerPainter extends LayerPainter {
       : $type = $type ?? 'layer',
         super._();
 
-  factory _$LayerPainter.fromJson(Map<String, dynamic> json) =>
-      _$$LayerPainterFromJson(json);
+  factory _$LayerTool.fromJson(Map<String, dynamic> json) =>
+      _$$LayerToolFromJson(json);
 
   @override
   @JsonKey()
@@ -3669,14 +3649,14 @@ class _$LayerPainter extends LayerPainter {
 
   @override
   String toString() {
-    return 'Painter.layer(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth)';
+    return 'Tool.layer(name: $name, displayIcon: $displayIcon, strokeWidth: $strokeWidth)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LayerPainterCopyWith<_$LayerPainter> get copyWith =>
-      __$$LayerPainterCopyWithImpl<_$LayerPainter>(this, _$identity);
+  _$$LayerToolCopyWith<_$LayerTool> get copyWith =>
+      __$$LayerToolCopyWithImpl<_$LayerTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3852,24 +3832,24 @@ class _$LayerPainter extends LayerPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return layer(this);
   }
@@ -3877,24 +3857,24 @@ class _$LayerPainter extends LayerPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return layer?.call(this);
   }
@@ -3902,24 +3882,24 @@ class _$LayerPainter extends LayerPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (layer != null) {
@@ -3930,21 +3910,20 @@ class _$LayerPainter extends LayerPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LayerPainterToJson(
+    return _$$LayerToolToJson(
       this,
     );
   }
 }
 
-abstract class LayerPainter extends Painter {
-  factory LayerPainter(
+abstract class LayerTool extends Tool {
+  factory LayerTool(
       {final String name,
       final String displayIcon,
-      final double strokeWidth}) = _$LayerPainter;
-  LayerPainter._() : super._();
+      final double strokeWidth}) = _$LayerTool;
+  LayerTool._() : super._();
 
-  factory LayerPainter.fromJson(Map<String, dynamic> json) =
-      _$LayerPainter.fromJson;
+  factory LayerTool.fromJson(Map<String, dynamic> json) = _$LayerTool.fromJson;
 
   @override
   String get name;
@@ -3953,15 +3932,15 @@ abstract class LayerPainter extends Painter {
   double get strokeWidth;
   @override
   @JsonKey(ignore: true)
-  _$$LayerPainterCopyWith<_$LayerPainter> get copyWith =>
+  _$$LayerToolCopyWith<_$LayerTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AreaPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory _$$AreaPainterCopyWith(
-          _$AreaPainter value, $Res Function(_$AreaPainter) then) =
-      __$$AreaPainterCopyWithImpl<$Res>;
+abstract class _$$AreaToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$AreaToolCopyWith(
+          _$AreaTool value, $Res Function(_$AreaTool) then) =
+      __$$AreaToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -3974,11 +3953,10 @@ abstract class _$$AreaPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$AreaPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$AreaPainter>
-    implements _$$AreaPainterCopyWith<$Res> {
-  __$$AreaPainterCopyWithImpl(
-      _$AreaPainter _value, $Res Function(_$AreaPainter) _then)
+class __$$AreaToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$AreaTool>
+    implements _$$AreaToolCopyWith<$Res> {
+  __$$AreaToolCopyWithImpl(_$AreaTool _value, $Res Function(_$AreaTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3991,7 +3969,7 @@ class __$$AreaPainterCopyWithImpl<$Res>
     Object? constrainedAspectRatio = null,
     Object? askForName = null,
   }) {
-    return _then(_$AreaPainter(
+    return _then(_$AreaTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -4022,8 +4000,8 @@ class __$$AreaPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AreaPainter extends AreaPainter {
-  _$AreaPainter(
+class _$AreaTool extends AreaTool {
+  _$AreaTool(
       {this.name = '',
       this.displayIcon = '',
       this.constrainedWidth = 0,
@@ -4034,8 +4012,8 @@ class _$AreaPainter extends AreaPainter {
       : $type = $type ?? 'area',
         super._();
 
-  factory _$AreaPainter.fromJson(Map<String, dynamic> json) =>
-      _$$AreaPainterFromJson(json);
+  factory _$AreaTool.fromJson(Map<String, dynamic> json) =>
+      _$$AreaToolFromJson(json);
 
   @override
   @JsonKey()
@@ -4061,14 +4039,14 @@ class _$AreaPainter extends AreaPainter {
 
   @override
   String toString() {
-    return 'Painter.area(name: $name, displayIcon: $displayIcon, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, askForName: $askForName)';
+    return 'Tool.area(name: $name, displayIcon: $displayIcon, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, askForName: $askForName)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AreaPainterCopyWith<_$AreaPainter> get copyWith =>
-      __$$AreaPainterCopyWithImpl<_$AreaPainter>(this, _$identity);
+  _$$AreaToolCopyWith<_$AreaTool> get copyWith =>
+      __$$AreaToolCopyWithImpl<_$AreaTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4247,24 +4225,24 @@ class _$AreaPainter extends AreaPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return area(this);
   }
@@ -4272,24 +4250,24 @@ class _$AreaPainter extends AreaPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return area?.call(this);
   }
@@ -4297,24 +4275,24 @@ class _$AreaPainter extends AreaPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (area != null) {
@@ -4325,24 +4303,23 @@ class _$AreaPainter extends AreaPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AreaPainterToJson(
+    return _$$AreaToolToJson(
       this,
     );
   }
 }
 
-abstract class AreaPainter extends Painter {
-  factory AreaPainter(
+abstract class AreaTool extends Tool {
+  factory AreaTool(
       {final String name,
       final String displayIcon,
       final double constrainedWidth,
       final double constrainedHeight,
       final double constrainedAspectRatio,
-      final bool askForName}) = _$AreaPainter;
-  AreaPainter._() : super._();
+      final bool askForName}) = _$AreaTool;
+  AreaTool._() : super._();
 
-  factory AreaPainter.fromJson(Map<String, dynamic> json) =
-      _$AreaPainter.fromJson;
+  factory AreaTool.fromJson(Map<String, dynamic> json) = _$AreaTool.fromJson;
 
   @override
   String get name;
@@ -4354,15 +4331,15 @@ abstract class AreaPainter extends Painter {
   bool get askForName;
   @override
   @JsonKey(ignore: true)
-  _$$AreaPainterCopyWith<_$AreaPainter> get copyWith =>
+  _$$AreaToolCopyWith<_$AreaTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LaserPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory _$$LaserPainterCopyWith(
-          _$LaserPainter value, $Res Function(_$LaserPainter) then) =
-      __$$LaserPainterCopyWithImpl<$Res>;
+abstract class _$$LaserToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$LaserToolCopyWith(
+          _$LaserTool value, $Res Function(_$LaserTool) then) =
+      __$$LaserToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -4375,11 +4352,11 @@ abstract class _$$LaserPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$LaserPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$LaserPainter>
-    implements _$$LaserPainterCopyWith<$Res> {
-  __$$LaserPainterCopyWithImpl(
-      _$LaserPainter _value, $Res Function(_$LaserPainter) _then)
+class __$$LaserToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$LaserTool>
+    implements _$$LaserToolCopyWith<$Res> {
+  __$$LaserToolCopyWithImpl(
+      _$LaserTool _value, $Res Function(_$LaserTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4392,7 +4369,7 @@ class __$$LaserPainterCopyWithImpl<$Res>
     Object? thinning = null,
     Object? color = null,
   }) {
-    return _then(_$LaserPainter(
+    return _then(_$LaserTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -4423,8 +4400,8 @@ class __$$LaserPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$LaserPainter extends LaserPainter {
-  _$LaserPainter(
+class _$LaserTool extends LaserTool {
+  _$LaserTool(
       {this.name = '',
       this.displayIcon = '',
       this.duration = 5,
@@ -4435,8 +4412,8 @@ class _$LaserPainter extends LaserPainter {
       : $type = $type ?? 'laser',
         super._();
 
-  factory _$LaserPainter.fromJson(Map<String, dynamic> json) =>
-      _$$LaserPainterFromJson(json);
+  factory _$LaserTool.fromJson(Map<String, dynamic> json) =>
+      _$$LaserToolFromJson(json);
 
   @override
   @JsonKey()
@@ -4462,14 +4439,14 @@ class _$LaserPainter extends LaserPainter {
 
   @override
   String toString() {
-    return 'Painter.laser(name: $name, displayIcon: $displayIcon, duration: $duration, strokeWidth: $strokeWidth, thinning: $thinning, color: $color)';
+    return 'Tool.laser(name: $name, displayIcon: $displayIcon, duration: $duration, strokeWidth: $strokeWidth, thinning: $thinning, color: $color)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LaserPainterCopyWith<_$LaserPainter> get copyWith =>
-      __$$LaserPainterCopyWithImpl<_$LaserPainter>(this, _$identity);
+  _$$LaserToolCopyWith<_$LaserTool> get copyWith =>
+      __$$LaserToolCopyWithImpl<_$LaserTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -4646,24 +4623,24 @@ class _$LaserPainter extends LaserPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return laser(this);
   }
@@ -4671,24 +4648,24 @@ class _$LaserPainter extends LaserPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return laser?.call(this);
   }
@@ -4696,24 +4673,24 @@ class _$LaserPainter extends LaserPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (laser != null) {
@@ -4724,24 +4701,23 @@ class _$LaserPainter extends LaserPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LaserPainterToJson(
+    return _$$LaserToolToJson(
       this,
     );
   }
 }
 
-abstract class LaserPainter extends Painter {
-  factory LaserPainter(
+abstract class LaserTool extends Tool {
+  factory LaserTool(
       {final String name,
       final String displayIcon,
       final double duration,
       final double strokeWidth,
       final double thinning,
-      final int color}) = _$LaserPainter;
-  LaserPainter._() : super._();
+      final int color}) = _$LaserTool;
+  LaserTool._() : super._();
 
-  factory LaserPainter.fromJson(Map<String, dynamic> json) =
-      _$LaserPainter.fromJson;
+  factory LaserTool.fromJson(Map<String, dynamic> json) = _$LaserTool.fromJson;
 
   @override
   String get name;
@@ -4753,15 +4729,15 @@ abstract class LaserPainter extends Painter {
   int get color;
   @override
   @JsonKey(ignore: true)
-  _$$LaserPainterCopyWith<_$LaserPainter> get copyWith =>
+  _$$LaserToolCopyWith<_$LaserTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ShapePainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory _$$ShapePainterCopyWith(
-          _$ShapePainter value, $Res Function(_$ShapePainter) then) =
-      __$$ShapePainterCopyWithImpl<$Res>;
+abstract class _$$ShapeToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$ShapeToolCopyWith(
+          _$ShapeTool value, $Res Function(_$ShapeTool) then) =
+      __$$ShapeToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -4775,11 +4751,11 @@ abstract class _$$ShapePainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ShapePainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$ShapePainter>
-    implements _$$ShapePainterCopyWith<$Res> {
-  __$$ShapePainterCopyWithImpl(
-      _$ShapePainter _value, $Res Function(_$ShapePainter) _then)
+class __$$ShapeToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$ShapeTool>
+    implements _$$ShapeToolCopyWith<$Res> {
+  __$$ShapeToolCopyWithImpl(
+      _$ShapeTool _value, $Res Function(_$ShapeTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4793,7 +4769,7 @@ class __$$ShapePainterCopyWithImpl<$Res>
     Object? constrainedAspectRatio = null,
     Object? property = freezed,
   }) {
-    return _then(_$ShapePainter(
+    return _then(_$ShapeTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -4828,8 +4804,8 @@ class __$$ShapePainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ShapePainter extends ShapePainter {
-  _$ShapePainter(
+class _$ShapeTool extends ShapeTool {
+  _$ShapeTool(
       {this.name = '',
       this.displayIcon = '',
       this.zoomDependent = true,
@@ -4841,8 +4817,8 @@ class _$ShapePainter extends ShapePainter {
       : $type = $type ?? 'shape',
         super._();
 
-  factory _$ShapePainter.fromJson(Map<String, dynamic> json) =>
-      _$$ShapePainterFromJson(json);
+  factory _$ShapeTool.fromJson(Map<String, dynamic> json) =>
+      _$$ShapeToolFromJson(json);
 
   @override
   @JsonKey()
@@ -4871,14 +4847,14 @@ class _$ShapePainter extends ShapePainter {
 
   @override
   String toString() {
-    return 'Painter.shape(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, property: $property)';
+    return 'Tool.shape(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, property: $property)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ShapePainterCopyWith<_$ShapePainter> get copyWith =>
-      __$$ShapePainterCopyWithImpl<_$ShapePainter>(this, _$identity);
+  _$$ShapeToolCopyWith<_$ShapeTool> get copyWith =>
+      __$$ShapeToolCopyWithImpl<_$ShapeTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5057,24 +5033,24 @@ class _$ShapePainter extends ShapePainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return shape(this);
   }
@@ -5082,24 +5058,24 @@ class _$ShapePainter extends ShapePainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return shape?.call(this);
   }
@@ -5107,24 +5083,24 @@ class _$ShapePainter extends ShapePainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -5135,25 +5111,24 @@ class _$ShapePainter extends ShapePainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ShapePainterToJson(
+    return _$$ShapeToolToJson(
       this,
     );
   }
 }
 
-abstract class ShapePainter extends Painter {
-  factory ShapePainter(
+abstract class ShapeTool extends Tool {
+  factory ShapeTool(
       {final String name,
       final String displayIcon,
       final bool zoomDependent,
       final double constrainedWidth,
       final double constrainedHeight,
       final double constrainedAspectRatio,
-      final ShapeProperty property}) = _$ShapePainter;
-  ShapePainter._() : super._();
+      final ShapeProperty property}) = _$ShapeTool;
+  ShapeTool._() : super._();
 
-  factory ShapePainter.fromJson(Map<String, dynamic> json) =
-      _$ShapePainter.fromJson;
+  factory ShapeTool.fromJson(Map<String, dynamic> json) = _$ShapeTool.fromJson;
 
   @override
   String get name;
@@ -5166,15 +5141,15 @@ abstract class ShapePainter extends Painter {
   ShapeProperty get property;
   @override
   @JsonKey(ignore: true)
-  _$$ShapePainterCopyWith<_$ShapePainter> get copyWith =>
+  _$$ShapeToolCopyWith<_$ShapeTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$StampPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory _$$StampPainterCopyWith(
-          _$StampPainter value, $Res Function(_$StampPainter) then) =
-      __$$StampPainterCopyWithImpl<$Res>;
+abstract class _$$StampToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$StampToolCopyWith(
+          _$StampTool value, $Res Function(_$StampTool) then) =
+      __$$StampToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon, PackAssetLocation component});
@@ -5183,11 +5158,11 @@ abstract class _$$StampPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$StampPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$StampPainter>
-    implements _$$StampPainterCopyWith<$Res> {
-  __$$StampPainterCopyWithImpl(
-      _$StampPainter _value, $Res Function(_$StampPainter) _then)
+class __$$StampToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$StampTool>
+    implements _$$StampToolCopyWith<$Res> {
+  __$$StampToolCopyWithImpl(
+      _$StampTool _value, $Res Function(_$StampTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5197,7 +5172,7 @@ class __$$StampPainterCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? component = null,
   }) {
-    return _then(_$StampPainter(
+    return _then(_$StampTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -5224,8 +5199,8 @@ class __$$StampPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$StampPainter extends StampPainter {
-  _$StampPainter(
+class _$StampTool extends StampTool {
+  _$StampTool(
       {this.name = '',
       this.displayIcon = '',
       this.component = const PackAssetLocation(),
@@ -5233,8 +5208,8 @@ class _$StampPainter extends StampPainter {
       : $type = $type ?? 'stamp',
         super._();
 
-  factory _$StampPainter.fromJson(Map<String, dynamic> json) =>
-      _$$StampPainterFromJson(json);
+  factory _$StampTool.fromJson(Map<String, dynamic> json) =>
+      _$$StampToolFromJson(json);
 
   @override
   @JsonKey()
@@ -5251,14 +5226,14 @@ class _$StampPainter extends StampPainter {
 
   @override
   String toString() {
-    return 'Painter.stamp(name: $name, displayIcon: $displayIcon, component: $component)';
+    return 'Tool.stamp(name: $name, displayIcon: $displayIcon, component: $component)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$StampPainterCopyWith<_$StampPainter> get copyWith =>
-      __$$StampPainterCopyWithImpl<_$StampPainter>(this, _$identity);
+  _$$StampToolCopyWith<_$StampTool> get copyWith =>
+      __$$StampToolCopyWithImpl<_$StampTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5434,24 +5409,24 @@ class _$StampPainter extends StampPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return stamp(this);
   }
@@ -5459,24 +5434,24 @@ class _$StampPainter extends StampPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return stamp?.call(this);
   }
@@ -5484,24 +5459,24 @@ class _$StampPainter extends StampPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (stamp != null) {
@@ -5512,21 +5487,20 @@ class _$StampPainter extends StampPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$StampPainterToJson(
+    return _$$StampToolToJson(
       this,
     );
   }
 }
 
-abstract class StampPainter extends Painter {
-  factory StampPainter(
+abstract class StampTool extends Tool {
+  factory StampTool(
       {final String name,
       final String displayIcon,
-      final PackAssetLocation component}) = _$StampPainter;
-  StampPainter._() : super._();
+      final PackAssetLocation component}) = _$StampTool;
+  StampTool._() : super._();
 
-  factory StampPainter.fromJson(Map<String, dynamic> json) =
-      _$StampPainter.fromJson;
+  factory StampTool.fromJson(Map<String, dynamic> json) = _$StampTool.fromJson;
 
   @override
   String get name;
@@ -5535,27 +5509,27 @@ abstract class StampPainter extends Painter {
   PackAssetLocation get component;
   @override
   @JsonKey(ignore: true)
-  _$$StampPainterCopyWith<_$StampPainter> get copyWith =>
+  _$$StampToolCopyWith<_$StampTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PresentationPainterCopyWith<$Res>
-    implements $PainterCopyWith<$Res> {
-  factory _$$PresentationPainterCopyWith(_$PresentationPainter value,
-          $Res Function(_$PresentationPainter) then) =
-      __$$PresentationPainterCopyWithImpl<$Res>;
+abstract class _$$PresentationToolCopyWith<$Res>
+    implements $ToolCopyWith<$Res> {
+  factory _$$PresentationToolCopyWith(
+          _$PresentationTool value, $Res Function(_$PresentationTool) then) =
+      __$$PresentationToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon});
 }
 
 /// @nodoc
-class __$$PresentationPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$PresentationPainter>
-    implements _$$PresentationPainterCopyWith<$Res> {
-  __$$PresentationPainterCopyWithImpl(
-      _$PresentationPainter _value, $Res Function(_$PresentationPainter) _then)
+class __$$PresentationToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$PresentationTool>
+    implements _$$PresentationToolCopyWith<$Res> {
+  __$$PresentationToolCopyWithImpl(
+      _$PresentationTool _value, $Res Function(_$PresentationTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5564,7 +5538,7 @@ class __$$PresentationPainterCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
   }) {
-    return _then(_$PresentationPainter(
+    return _then(_$PresentationTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -5579,14 +5553,14 @@ class __$$PresentationPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PresentationPainter extends PresentationPainter {
-  _$PresentationPainter(
+class _$PresentationTool extends PresentationTool {
+  _$PresentationTool(
       {this.name = '', this.displayIcon = '', final String? $type})
       : $type = $type ?? 'presentation',
         super._();
 
-  factory _$PresentationPainter.fromJson(Map<String, dynamic> json) =>
-      _$$PresentationPainterFromJson(json);
+  factory _$PresentationTool.fromJson(Map<String, dynamic> json) =>
+      _$$PresentationToolFromJson(json);
 
   @override
   @JsonKey()
@@ -5600,15 +5574,14 @@ class _$PresentationPainter extends PresentationPainter {
 
   @override
   String toString() {
-    return 'Painter.presentation(name: $name, displayIcon: $displayIcon)';
+    return 'Tool.presentation(name: $name, displayIcon: $displayIcon)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PresentationPainterCopyWith<_$PresentationPainter> get copyWith =>
-      __$$PresentationPainterCopyWithImpl<_$PresentationPainter>(
-          this, _$identity);
+  _$$PresentationToolCopyWith<_$PresentationTool> get copyWith =>
+      __$$PresentationToolCopyWithImpl<_$PresentationTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -5784,24 +5757,24 @@ class _$PresentationPainter extends PresentationPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return presentation(this);
   }
@@ -5809,24 +5782,24 @@ class _$PresentationPainter extends PresentationPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return presentation?.call(this);
   }
@@ -5834,24 +5807,24 @@ class _$PresentationPainter extends PresentationPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (presentation != null) {
@@ -5862,19 +5835,19 @@ class _$PresentationPainter extends PresentationPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PresentationPainterToJson(
+    return _$$PresentationToolToJson(
       this,
     );
   }
 }
 
-abstract class PresentationPainter extends Painter {
-  factory PresentationPainter({final String name, final String displayIcon}) =
-      _$PresentationPainter;
-  PresentationPainter._() : super._();
+abstract class PresentationTool extends Tool {
+  factory PresentationTool({final String name, final String displayIcon}) =
+      _$PresentationTool;
+  PresentationTool._() : super._();
 
-  factory PresentationPainter.fromJson(Map<String, dynamic> json) =
-      _$PresentationPainter.fromJson;
+  factory PresentationTool.fromJson(Map<String, dynamic> json) =
+      _$PresentationTool.fromJson;
 
   @override
   String get name;
@@ -5882,27 +5855,26 @@ abstract class PresentationPainter extends Painter {
   String get displayIcon;
   @override
   @JsonKey(ignore: true)
-  _$$PresentationPainterCopyWith<_$PresentationPainter> get copyWith =>
+  _$$PresentationToolCopyWith<_$PresentationTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SpacerPainterCopyWith<$Res>
-    implements $PainterCopyWith<$Res> {
-  factory _$$SpacerPainterCopyWith(
-          _$SpacerPainter value, $Res Function(_$SpacerPainter) then) =
-      __$$SpacerPainterCopyWithImpl<$Res>;
+abstract class _$$SpacerToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$SpacerToolCopyWith(
+          _$SpacerTool value, $Res Function(_$SpacerTool) then) =
+      __$$SpacerToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon, Axis2D axis});
 }
 
 /// @nodoc
-class __$$SpacerPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$SpacerPainter>
-    implements _$$SpacerPainterCopyWith<$Res> {
-  __$$SpacerPainterCopyWithImpl(
-      _$SpacerPainter _value, $Res Function(_$SpacerPainter) _then)
+class __$$SpacerToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$SpacerTool>
+    implements _$$SpacerToolCopyWith<$Res> {
+  __$$SpacerToolCopyWithImpl(
+      _$SpacerTool _value, $Res Function(_$SpacerTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5912,7 +5884,7 @@ class __$$SpacerPainterCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? axis = null,
   }) {
-    return _then(_$SpacerPainter(
+    return _then(_$SpacerTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -5931,8 +5903,8 @@ class __$$SpacerPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SpacerPainter extends SpacerPainter {
-  _$SpacerPainter(
+class _$SpacerTool extends SpacerTool {
+  _$SpacerTool(
       {this.name = '',
       this.displayIcon = '',
       this.axis = Axis2D.horizontal,
@@ -5940,8 +5912,8 @@ class _$SpacerPainter extends SpacerPainter {
       : $type = $type ?? 'spacer',
         super._();
 
-  factory _$SpacerPainter.fromJson(Map<String, dynamic> json) =>
-      _$$SpacerPainterFromJson(json);
+  factory _$SpacerTool.fromJson(Map<String, dynamic> json) =>
+      _$$SpacerToolFromJson(json);
 
   @override
   @JsonKey()
@@ -5958,14 +5930,14 @@ class _$SpacerPainter extends SpacerPainter {
 
   @override
   String toString() {
-    return 'Painter.spacer(name: $name, displayIcon: $displayIcon, axis: $axis)';
+    return 'Tool.spacer(name: $name, displayIcon: $displayIcon, axis: $axis)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SpacerPainterCopyWith<_$SpacerPainter> get copyWith =>
-      __$$SpacerPainterCopyWithImpl<_$SpacerPainter>(this, _$identity);
+  _$$SpacerToolCopyWith<_$SpacerTool> get copyWith =>
+      __$$SpacerToolCopyWithImpl<_$SpacerTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6141,24 +6113,24 @@ class _$SpacerPainter extends SpacerPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return spacer(this);
   }
@@ -6166,24 +6138,24 @@ class _$SpacerPainter extends SpacerPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return spacer?.call(this);
   }
@@ -6191,24 +6163,24 @@ class _$SpacerPainter extends SpacerPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (spacer != null) {
@@ -6219,21 +6191,21 @@ class _$SpacerPainter extends SpacerPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SpacerPainterToJson(
+    return _$$SpacerToolToJson(
       this,
     );
   }
 }
 
-abstract class SpacerPainter extends Painter {
-  factory SpacerPainter(
+abstract class SpacerTool extends Tool {
+  factory SpacerTool(
       {final String name,
       final String displayIcon,
-      final Axis2D axis}) = _$SpacerPainter;
-  SpacerPainter._() : super._();
+      final Axis2D axis}) = _$SpacerTool;
+  SpacerTool._() : super._();
 
-  factory SpacerPainter.fromJson(Map<String, dynamic> json) =
-      _$SpacerPainter.fromJson;
+  factory SpacerTool.fromJson(Map<String, dynamic> json) =
+      _$SpacerTool.fromJson;
 
   @override
   String get name;
@@ -6242,27 +6214,26 @@ abstract class SpacerPainter extends Painter {
   Axis2D get axis;
   @override
   @JsonKey(ignore: true)
-  _$$SpacerPainterCopyWith<_$SpacerPainter> get copyWith =>
+  _$$SpacerToolCopyWith<_$SpacerTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$FullScreenPainterCopyWith<$Res>
-    implements $PainterCopyWith<$Res> {
-  factory _$$FullScreenPainterCopyWith(
-          _$FullScreenPainter value, $Res Function(_$FullScreenPainter) then) =
-      __$$FullScreenPainterCopyWithImpl<$Res>;
+abstract class _$$FullScreenToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$FullScreenToolCopyWith(
+          _$FullScreenTool value, $Res Function(_$FullScreenTool) then) =
+      __$$FullScreenToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon});
 }
 
 /// @nodoc
-class __$$FullScreenPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$FullScreenPainter>
-    implements _$$FullScreenPainterCopyWith<$Res> {
-  __$$FullScreenPainterCopyWithImpl(
-      _$FullScreenPainter _value, $Res Function(_$FullScreenPainter) _then)
+class __$$FullScreenToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$FullScreenTool>
+    implements _$$FullScreenToolCopyWith<$Res> {
+  __$$FullScreenToolCopyWithImpl(
+      _$FullScreenTool _value, $Res Function(_$FullScreenTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6271,7 +6242,7 @@ class __$$FullScreenPainterCopyWithImpl<$Res>
     Object? name = null,
     Object? displayIcon = null,
   }) {
-    return _then(_$FullScreenPainter(
+    return _then(_$FullScreenTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -6286,14 +6257,13 @@ class __$$FullScreenPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FullScreenPainter extends FullScreenPainter {
-  _$FullScreenPainter(
-      {this.name = '', this.displayIcon = '', final String? $type})
+class _$FullScreenTool extends FullScreenTool {
+  _$FullScreenTool({this.name = '', this.displayIcon = '', final String? $type})
       : $type = $type ?? 'fullSceen',
         super._();
 
-  factory _$FullScreenPainter.fromJson(Map<String, dynamic> json) =>
-      _$$FullScreenPainterFromJson(json);
+  factory _$FullScreenTool.fromJson(Map<String, dynamic> json) =>
+      _$$FullScreenToolFromJson(json);
 
   @override
   @JsonKey()
@@ -6307,14 +6277,14 @@ class _$FullScreenPainter extends FullScreenPainter {
 
   @override
   String toString() {
-    return 'Painter.fullSceen(name: $name, displayIcon: $displayIcon)';
+    return 'Tool.fullSceen(name: $name, displayIcon: $displayIcon)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$FullScreenPainterCopyWith<_$FullScreenPainter> get copyWith =>
-      __$$FullScreenPainterCopyWithImpl<_$FullScreenPainter>(this, _$identity);
+  _$$FullScreenToolCopyWith<_$FullScreenTool> get copyWith =>
+      __$$FullScreenToolCopyWithImpl<_$FullScreenTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6490,24 +6460,24 @@ class _$FullScreenPainter extends FullScreenPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return fullSceen(this);
   }
@@ -6515,24 +6485,24 @@ class _$FullScreenPainter extends FullScreenPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return fullSceen?.call(this);
   }
@@ -6540,24 +6510,24 @@ class _$FullScreenPainter extends FullScreenPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (fullSceen != null) {
@@ -6568,19 +6538,19 @@ class _$FullScreenPainter extends FullScreenPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FullScreenPainterToJson(
+    return _$$FullScreenToolToJson(
       this,
     );
   }
 }
 
-abstract class FullScreenPainter extends Painter {
-  factory FullScreenPainter({final String name, final String displayIcon}) =
-      _$FullScreenPainter;
-  FullScreenPainter._() : super._();
+abstract class FullScreenTool extends Tool {
+  factory FullScreenTool({final String name, final String displayIcon}) =
+      _$FullScreenTool;
+  FullScreenTool._() : super._();
 
-  factory FullScreenPainter.fromJson(Map<String, dynamic> json) =
-      _$FullScreenPainter.fromJson;
+  factory FullScreenTool.fromJson(Map<String, dynamic> json) =
+      _$FullScreenTool.fromJson;
 
   @override
   String get name;
@@ -6588,26 +6558,26 @@ abstract class FullScreenPainter extends Painter {
   String get displayIcon;
   @override
   @JsonKey(ignore: true)
-  _$$FullScreenPainterCopyWith<_$FullScreenPainter> get copyWith =>
+  _$$FullScreenToolCopyWith<_$FullScreenTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AssetPainterCopyWith<$Res> implements $PainterCopyWith<$Res> {
-  factory _$$AssetPainterCopyWith(
-          _$AssetPainter value, $Res Function(_$AssetPainter) then) =
-      __$$AssetPainterCopyWithImpl<$Res>;
+abstract class _$$AssetToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$AssetToolCopyWith(
+          _$AssetTool value, $Res Function(_$AssetTool) then) =
+      __$$AssetToolCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String displayIcon, ImportType importType});
 }
 
 /// @nodoc
-class __$$AssetPainterCopyWithImpl<$Res>
-    extends _$PainterCopyWithImpl<$Res, _$AssetPainter>
-    implements _$$AssetPainterCopyWith<$Res> {
-  __$$AssetPainterCopyWithImpl(
-      _$AssetPainter _value, $Res Function(_$AssetPainter) _then)
+class __$$AssetToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$AssetTool>
+    implements _$$AssetToolCopyWith<$Res> {
+  __$$AssetToolCopyWithImpl(
+      _$AssetTool _value, $Res Function(_$AssetTool) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6617,7 +6587,7 @@ class __$$AssetPainterCopyWithImpl<$Res>
     Object? displayIcon = null,
     Object? importType = null,
   }) {
-    return _then(_$AssetPainter(
+    return _then(_$AssetTool(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -6636,8 +6606,8 @@ class __$$AssetPainterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AssetPainter extends AssetPainter {
-  _$AssetPainter(
+class _$AssetTool extends AssetTool {
+  _$AssetTool(
       {this.name = '',
       this.displayIcon = '',
       this.importType = ImportType.document,
@@ -6645,8 +6615,8 @@ class _$AssetPainter extends AssetPainter {
       : $type = $type ?? 'asset',
         super._();
 
-  factory _$AssetPainter.fromJson(Map<String, dynamic> json) =>
-      _$$AssetPainterFromJson(json);
+  factory _$AssetTool.fromJson(Map<String, dynamic> json) =>
+      _$$AssetToolFromJson(json);
 
   @override
   @JsonKey()
@@ -6663,14 +6633,14 @@ class _$AssetPainter extends AssetPainter {
 
   @override
   String toString() {
-    return 'Painter.asset(name: $name, displayIcon: $displayIcon, importType: $importType)';
+    return 'Tool.asset(name: $name, displayIcon: $displayIcon, importType: $importType)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AssetPainterCopyWith<_$AssetPainter> get copyWith =>
-      __$$AssetPainterCopyWithImpl<_$AssetPainter>(this, _$identity);
+  _$$AssetToolCopyWith<_$AssetTool> get copyWith =>
+      __$$AssetToolCopyWithImpl<_$AssetTool>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6846,24 +6816,24 @@ class _$AssetPainter extends AssetPainter {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HandPainter value) hand,
-    required TResult Function(MovePainter value) move,
-    required TResult Function(ImportPainter value) import,
-    required TResult Function(UndoPainter value) undo,
-    required TResult Function(RedoPainter value) redo,
-    required TResult Function(LabelPainter value) label,
-    required TResult Function(PenPainter value) pen,
-    required TResult Function(EraserPainter value) eraser,
-    required TResult Function(PathEraserPainter value) pathEraser,
-    required TResult Function(LayerPainter value) layer,
-    required TResult Function(AreaPainter value) area,
-    required TResult Function(LaserPainter value) laser,
-    required TResult Function(ShapePainter value) shape,
-    required TResult Function(StampPainter value) stamp,
-    required TResult Function(PresentationPainter value) presentation,
-    required TResult Function(SpacerPainter value) spacer,
-    required TResult Function(FullScreenPainter value) fullSceen,
-    required TResult Function(AssetPainter value) asset,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(MoveTool value) move,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
   }) {
     return asset(this);
   }
@@ -6871,24 +6841,24 @@ class _$AssetPainter extends AssetPainter {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandPainter value)? hand,
-    TResult? Function(MovePainter value)? move,
-    TResult? Function(ImportPainter value)? import,
-    TResult? Function(UndoPainter value)? undo,
-    TResult? Function(RedoPainter value)? redo,
-    TResult? Function(LabelPainter value)? label,
-    TResult? Function(PenPainter value)? pen,
-    TResult? Function(EraserPainter value)? eraser,
-    TResult? Function(PathEraserPainter value)? pathEraser,
-    TResult? Function(LayerPainter value)? layer,
-    TResult? Function(AreaPainter value)? area,
-    TResult? Function(LaserPainter value)? laser,
-    TResult? Function(ShapePainter value)? shape,
-    TResult? Function(StampPainter value)? stamp,
-    TResult? Function(PresentationPainter value)? presentation,
-    TResult? Function(SpacerPainter value)? spacer,
-    TResult? Function(FullScreenPainter value)? fullSceen,
-    TResult? Function(AssetPainter value)? asset,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(MoveTool value)? move,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
   }) {
     return asset?.call(this);
   }
@@ -6896,24 +6866,24 @@ class _$AssetPainter extends AssetPainter {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandPainter value)? hand,
-    TResult Function(MovePainter value)? move,
-    TResult Function(ImportPainter value)? import,
-    TResult Function(UndoPainter value)? undo,
-    TResult Function(RedoPainter value)? redo,
-    TResult Function(LabelPainter value)? label,
-    TResult Function(PenPainter value)? pen,
-    TResult Function(EraserPainter value)? eraser,
-    TResult Function(PathEraserPainter value)? pathEraser,
-    TResult Function(LayerPainter value)? layer,
-    TResult Function(AreaPainter value)? area,
-    TResult Function(LaserPainter value)? laser,
-    TResult Function(ShapePainter value)? shape,
-    TResult Function(StampPainter value)? stamp,
-    TResult Function(PresentationPainter value)? presentation,
-    TResult Function(SpacerPainter value)? spacer,
-    TResult Function(FullScreenPainter value)? fullSceen,
-    TResult Function(AssetPainter value)? asset,
+    TResult Function(HandTool value)? hand,
+    TResult Function(MoveTool value)? move,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
     required TResult orElse(),
   }) {
     if (asset != null) {
@@ -6924,21 +6894,20 @@ class _$AssetPainter extends AssetPainter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AssetPainterToJson(
+    return _$$AssetToolToJson(
       this,
     );
   }
 }
 
-abstract class AssetPainter extends Painter {
-  factory AssetPainter(
+abstract class AssetTool extends Tool {
+  factory AssetTool(
       {final String name,
       final String displayIcon,
-      final ImportType importType}) = _$AssetPainter;
-  AssetPainter._() : super._();
+      final ImportType importType}) = _$AssetTool;
+  AssetTool._() : super._();
 
-  factory AssetPainter.fromJson(Map<String, dynamic> json) =
-      _$AssetPainter.fromJson;
+  factory AssetTool.fromJson(Map<String, dynamic> json) = _$AssetTool.fromJson;
 
   @override
   String get name;
@@ -6947,6 +6916,6 @@ abstract class AssetPainter extends Painter {
   ImportType get importType;
   @override
   @JsonKey(ignore: true)
-  _$$AssetPainterCopyWith<_$AssetPainter> get copyWith =>
+  _$$AssetToolCopyWith<_$AssetTool> get copyWith =>
       throw _privateConstructorUsedError;
 }

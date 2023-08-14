@@ -1,6 +1,6 @@
 part of '../selection.dart';
 
-class LaserPainterSelection extends PainterSelection<LaserPainter> {
+class LaserPainterSelection extends ToolSelection<LaserTool> {
   LaserPainterSelection(super.selected);
 
   @override
@@ -54,7 +54,7 @@ class LaserPainterSelection extends PainterSelection<LaserPainter> {
 
   @override
   Selection insert(dynamic element) {
-    if (element is LaserPainter) {
+    if (element is LaserTool) {
       return LaserPainterSelection([...selected, element]);
     }
     return super.insert(element);

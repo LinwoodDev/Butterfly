@@ -13,18 +13,18 @@ enum DisplayIcons {
 
   const DisplayIcons(this.icon);
 
-  static IconGetter from(Object painter) {
+  static IconGetter from(Object tool) {
     try {
-      final displayIcon = painter is Painter ? painter.displayIcon : null;
+      final displayIcon = tool is Tool ? tool.displayIcon : null;
       return DisplayIcons.values.byName(displayIcon ?? '').icon;
     } catch (_) {
-      return recommended(painter).firstOrNull?.icon ?? PhosphorIcons.question;
+      return recommended(tool).firstOrNull?.icon ?? PhosphorIcons.question;
     }
   }
 
-  static List<DisplayIcons> recommended(Object painter) {
-    if (painter is! Painter) return const [];
-    return painter.maybeMap(
+  static List<DisplayIcons> recommended(Object tool) {
+    if (tool is! Tool) return const [];
+    return tool.maybeMap(
         pen: (_) => [
               DisplayIcons.pen,
               DisplayIcons.pencil,

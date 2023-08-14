@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class FullScreenHandler extends Handler<FullScreenPainter> {
+class FullScreenHandler extends Handler<FullScreenTool> {
   FullScreenHandler(super.data);
 
   @override

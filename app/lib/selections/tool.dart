@@ -1,7 +1,7 @@
 part of 'selection.dart';
 
-class ToolSelection extends Selection<UtilitiesState> {
-  ToolSelection(super.selected);
+class UtilitiesSelection extends Selection<UtilitiesState> {
+  UtilitiesSelection(super.selected);
 
   @override
   IconGetter get icon => PhosphorIcons.wrench;

@@ -1,16 +1,16 @@
 part of '../selection.dart';
 
-class AreaPainterSelection extends PainterSelection<AreaPainter> {
+class AreaPainterSelection extends ToolSelection<AreaTool> {
   AreaPainterSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final painter = selected.first;
+    final tool = selected.first;
     return [
       ...super.buildProperties(context),
       ExactSlider(
           header: Text(AppLocalizations.of(context).width),
-          value: painter.constrainedWidth,
+          value: tool.constrainedWidth,
           min: 0,
           max: 500,
           defaultValue: 0,
@@ -21,7 +21,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
                   .toList())),
       ExactSlider(
           header: Text(AppLocalizations.of(context).height),
-          value: painter.constrainedHeight,
+          value: tool.constrainedHeight,
           min: 0,
           max: 500,
           defaultValue: 0,
@@ -56,7 +56,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
               )
             ],
           ),
-          value: painter.constrainedAspectRatio,
+          value: tool.constrainedAspectRatio,
           min: 0,
           max: 10,
           defaultValue: 0,
@@ -67,7 +67,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
                   .toList())),
       CheckboxListTile(
         title: Text(AppLocalizations.of(context).askForName),
-        value: painter.askForName,
+        value: tool.askForName,
         onChanged: (value) => update(
             context,
             selected
@@ -79,7 +79,7 @@ class AreaPainterSelection extends PainterSelection<AreaPainter> {
 
   @override
   Selection insert(dynamic element) {
-    if (element is AreaPainter) {
+    if (element is AreaTool) {
       return AreaPainterSelection([...selected, element]);
     }
     return super.insert(element);

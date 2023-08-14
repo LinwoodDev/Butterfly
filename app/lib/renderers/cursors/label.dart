@@ -9,10 +9,10 @@ import '../../models/label.dart';
 import '../renderer.dart';
 
 @immutable
-class LabelCursorData extends PainterCursorData<LabelPainter> {
+class LabelCursorData extends ToolCursorData<LabelTool> {
   final LabelContext? context;
 
-  const LabelCursorData(super.painter, super.position, this.context);
+  const LabelCursorData(super.tool, super.position, this.context);
 }
 
 class LabelCursor extends Renderer<LabelCursorData> {
@@ -28,7 +28,7 @@ class LabelCursor extends Renderer<LabelCursorData> {
     final iconSize =
         (property ?? const text.DefinedParagraphProperty()).span.getSize() *
             (element.context?.labelElement?.scale ??
-                (element.painter.zoomDependent ? 1 / transform.size : 1));
+                (element.tool.zoomDependent ? 1 / transform.size : 1));
     final iconColor = Color(property?.span.color ??
         colorScheme?.primary.value ??
         Colors.black.value);

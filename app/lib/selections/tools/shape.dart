@@ -1,19 +1,19 @@
 part of '../selection.dart';
 
-class ShapePainterSelection extends PainterSelection<ShapePainter> {
+class ShapePainterSelection extends ToolSelection<ShapeTool> {
   ShapePainterSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final painter = selected.first;
-    final property = painter.property;
+    final tool = selected.first;
+    final property = tool.property;
     void updateProperty(ShapeProperty property) => update(
         context, selected.map((e) => e.copyWith(property: property)).toList());
     return [
       ...super.buildProperties(context),
       ExactSlider(
           header: Text(AppLocalizations.of(context).width),
-          value: painter.constrainedWidth,
+          value: tool.constrainedWidth,
           min: 0,
           max: 500,
           defaultValue: 0,
@@ -24,7 +24,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
                   .toList())),
       ExactSlider(
           header: Text(AppLocalizations.of(context).height),
-          value: painter.constrainedHeight,
+          value: tool.constrainedHeight,
           min: 0,
           max: 500,
           defaultValue: 0,
@@ -58,7 +58,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
               )
             ],
           ),
-          value: painter.constrainedAspectRatio,
+          value: tool.constrainedAspectRatio,
           min: 0,
           max: 10,
           defaultValue: 0,
@@ -69,7 +69,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
                   .toList())),
       ExactSlider(
           header: Text(AppLocalizations.of(context).strokeWidth),
-          value: painter.property.strokeWidth,
+          value: tool.property.strokeWidth,
           min: 0,
           max: 70,
           defaultValue: 5,
@@ -81,7 +81,7 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
                   .toList())),
       const SizedBox(height: 50),
       ColorField(
-        value: Color(painter.property.color),
+        value: Color(tool.property.color),
         onChanged: (color) => update(
             context,
             selected
@@ -111,20 +111,20 @@ class ShapePainterSelection extends PainterSelection<ShapePainter> {
               updateProperty(property.copyWith(shape: shape))),
       const SizedBox(height: 15),
       CheckboxListTile(
-          value: painter.zoomDependent,
+          value: tool.zoomDependent,
           title: Text(AppLocalizations.of(context).zoomDependent),
           onChanged: (value) => update(
               context,
               selected
                   .map((e) =>
-                      e.copyWith(zoomDependent: value ?? painter.zoomDependent))
+                      e.copyWith(zoomDependent: value ?? tool.zoomDependent))
                   .toList())),
     ];
   }
 
   @override
   Selection insert(dynamic element) {
-    if (element is ShapePainter) {
+    if (element is ShapeTool) {
       return ShapePainterSelection([...selected, element]);
     }
     return super.insert(element);

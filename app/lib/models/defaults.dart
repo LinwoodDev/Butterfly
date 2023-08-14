@@ -26,15 +26,10 @@ class DocumentDefaults {
     return bytes!.buffer.asUint8List();
   }
 
-  static List<Painter> createPainters([int? background]) => [
-        HandPainter(),
-        PenPainter(),
-        PathEraserPainter(),
-        UndoPainter(),
-        RedoPainter()
-      ]
+  static List<Tool> createTools([int? background]) =>
+      [HandTool(), PenTool(), PathEraserTool(), UndoTool(), RedoTool()]
           .map((e) =>
-              background == null ? e : updatePainterDefaultColor(e, background))
+              background == null ? e : updateToolDefaultColor(e, background))
           .toList();
 
   static Future<List<NoteData>> getDefaults(BuildContext context) async {
@@ -117,7 +112,7 @@ class DocumentDefaults {
   }
 
   static DocumentInfo createInfo([int? background]) {
-    return DocumentInfo(painters: createPainters(background));
+    return DocumentInfo(tools: createTools(background));
   }
 
   static NoteData createPack() {

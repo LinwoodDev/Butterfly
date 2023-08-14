@@ -16,14 +16,14 @@ extension BackgroundColor on Background {
       maybeMap(pattern: (box) => box.boxColor, orElse: () => kColorWhite);
 }
 
-Painter updatePainterDefaultColor(Painter painter, int color) {
+Tool updateToolDefaultColor(Tool tool, int color) {
   final defaultColor = isDarkColor(Color(color)) ? kColorWhite : kColorBlack;
-  return painter.maybeMap(
+  return tool.maybeMap(
     pen: (pen) =>
         pen.copyWith(property: pen.property.copyWith(color: defaultColor)),
     shape: (shape) =>
         shape.copyWith(property: shape.property.copyWith(color: defaultColor)),
     label: (label) => label.copyWith(foreground: defaultColor),
-    orElse: () => painter,
+    orElse: () => tool,
   );
 }

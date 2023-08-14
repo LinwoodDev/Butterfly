@@ -7,9 +7,8 @@ part of 'info.dart';
 // **************************************************************************
 
 _$_DocumentInfo _$$_DocumentInfoFromJson(Map json) => _$_DocumentInfo(
-      painters: (json['painters'] as List<dynamic>?)
-              ?.map(
-                  (e) => Painter.fromJson(Map<String, dynamic>.from(e as Map)))
+      tools: (json['tools'] as List<dynamic>?)
+              ?.map((e) => Tool.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
       exportPresets: (json['exportPresets'] as List<dynamic>?)
@@ -24,7 +23,7 @@ _$_DocumentInfo _$$_DocumentInfoFromJson(Map json) => _$_DocumentInfo(
 
 Map<String, dynamic> _$$_DocumentInfoToJson(_$_DocumentInfo instance) =>
     <String, dynamic>{
-      'painters': instance.painters.map((e) => e.toJson()).toList(),
+      'tools': instance.tools.map((e) => e.toJson()).toList(),
       'exportPresets': instance.exportPresets.map((e) => e.toJson()).toList(),
       'view': instance.view.toJson(),
     };

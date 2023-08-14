@@ -119,7 +119,7 @@ class UtilitiesRenderer extends Renderer<UtilitiesState> {
           rulerForegroundPaint,
         );
         /*if (realX >= 0 && realX < size.width) {
-          final textPainter = TextPainter(
+          final textPainter = TextTool(
             textDirection: TextDirection.ltr,
             textAlign: TextAlign.center,
             text: TextSpan(

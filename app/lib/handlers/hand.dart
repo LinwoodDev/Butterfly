@@ -119,7 +119,7 @@ extension HandTransformCornerExtension on HandTransformCorner {
   }
 }
 
-class HandHandler extends Handler<HandPainter> {
+class HandHandler extends Handler<HandTool> {
   HandTransformMode _transformMode = HandTransformMode.scale;
   HandTransformCorner? _transformCorner;
   List<Renderer<PadElement>> _selected = [];

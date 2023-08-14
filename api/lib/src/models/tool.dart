@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'painter.g.dart';
-part 'painter.freezed.dart';
+part 'tool.g.dart';
+part 'tool.freezed.dart';
 
 const double _kSquareRatio = 1.0;
 const double _kAPortraitRatio = 1 / sqrt2;
@@ -36,89 +36,89 @@ enum Axis2D { horizontal, vertical }
 enum ImportType { image, camera, svg, pdf, document }
 
 @Freezed(equal: false)
-class Painter with _$Painter {
-  Painter._();
+class Tool with _$Tool {
+  Tool._();
 
-  factory Painter.hand({
+  factory Tool.hand({
     @Default('') String name,
     @Default('') String displayIcon,
-  }) = HandPainter;
+  }) = HandTool;
 
-  factory Painter.move({
+  factory Tool.move({
     @Default('') String name,
     @Default('') String displayIcon,
-  }) = MovePainter;
+  }) = MoveTool;
 
-  factory Painter.import({
+  factory Tool.import({
     @Default('') String name,
     @Default('') String displayIcon,
     required List<PadElement> elements,
     required List<Area> areas,
-  }) = ImportPainter;
+  }) = ImportTool;
 
-  factory Painter.undo({
+  factory Tool.undo({
     @Default('') String name,
     @Default('') String displayIcon,
-  }) = UndoPainter;
+  }) = UndoTool;
 
-  factory Painter.redo({
+  factory Tool.redo({
     @Default('') String name,
     @Default('') String displayIcon,
-  }) = RedoPainter;
+  }) = RedoTool;
 
-  factory Painter.label({
+  factory Tool.label({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(LabelMode.text) LabelMode mode,
     @Default(true) bool zoomDependent,
     @Default(kColorBlack) int foreground,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
-  }) = LabelPainter;
+  }) = LabelTool;
 
-  factory Painter.pen({
+  factory Tool.pen({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(true) bool zoomDependent,
     @Default(PenProperty()) PenProperty property,
-  }) = PenPainter;
+  }) = PenTool;
 
-  factory Painter.eraser({
+  factory Tool.eraser({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(5) double strokeWidth,
-  }) = EraserPainter;
+  }) = EraserTool;
 
-  factory Painter.pathEraser({
+  factory Tool.pathEraser({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(5) double strokeWidth,
-  }) = PathEraserPainter;
+  }) = PathEraserTool;
 
-  factory Painter.layer({
+  factory Tool.layer({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(5) double strokeWidth,
-  }) = LayerPainter;
+  }) = LayerTool;
 
-  factory Painter.area({
+  factory Tool.area({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(0) double constrainedWidth,
     @Default(0) double constrainedHeight,
     @Default(0) double constrainedAspectRatio,
     @Default(false) bool askForName,
-  }) = AreaPainter;
+  }) = AreaTool;
 
-  factory Painter.laser({
+  factory Tool.laser({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(5) double duration,
     @Default(5) double strokeWidth,
     @Default(0.4) double thinning,
     @Default(kColorRed) int color,
-  }) = LaserPainter;
+  }) = LaserTool;
 
-  factory Painter.shape({
+  factory Tool.shape({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(true) bool zoomDependent,
@@ -126,36 +126,35 @@ class Painter with _$Painter {
     @Default(0) double constrainedHeight,
     @Default(0) double constrainedAspectRatio,
     @Default(ShapeProperty(shape: RectangleShape())) ShapeProperty property,
-  }) = ShapePainter;
+  }) = ShapeTool;
 
-  factory Painter.stamp({
+  factory Tool.stamp({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(PackAssetLocation()) PackAssetLocation component,
-  }) = StampPainter;
+  }) = StampTool;
 
-  factory Painter.presentation({
+  factory Tool.presentation({
     @Default('') String name,
     @Default('') String displayIcon,
-  }) = PresentationPainter;
+  }) = PresentationTool;
 
-  factory Painter.spacer({
+  factory Tool.spacer({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(Axis2D.horizontal) Axis2D axis,
-  }) = SpacerPainter;
+  }) = SpacerTool;
 
-  factory Painter.fullSceen({
+  factory Tool.fullSceen({
     @Default('') String name,
     @Default('') String displayIcon,
-  }) = FullScreenPainter;
+  }) = FullScreenTool;
 
-  factory Painter.asset({
+  factory Tool.asset({
     @Default('') String name,
     @Default('') String displayIcon,
     @Default(ImportType.document) ImportType importType,
-  }) = AssetPainter;
+  }) = AssetTool;
 
-  factory Painter.fromJson(Map<String, dynamic> json) =>
-      _$PainterFromJson(json);
+  factory Tool.fromJson(Map<String, dynamic> json) => _$ToolFromJson(json);
 }
