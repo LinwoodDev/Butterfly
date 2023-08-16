@@ -16,3 +16,4 @@
   * Set executable permission on script.sh and butterfly binary
 * Fix deleting pages
 * Fix duplicated name on sync mode bottom sheet
+* Upgrade to flutter 3.13

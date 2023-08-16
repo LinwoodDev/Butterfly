@@ -297,6 +297,10 @@ class LabelHandler extends Handler<LabelPainter>
         useRootNavigator: true,
         builder: (context) => AdaptiveTextSelectionToolbar.editable(
             clipboardStatus: ClipboardStatus.pasteable,
+            onLiveTextInput: () {
+              _connection?.show();
+              Navigator.of(context).pop();
+            },
             onCopy: () {
               _copyText(false);
               Navigator.of(context).pop();
