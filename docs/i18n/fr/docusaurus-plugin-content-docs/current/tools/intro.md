@@ -1,12 +1,14 @@
 ---
 sidebar_label: "Introduction"
-sidebar_position: 0
+sidebar_position: 1
 ---
 
-# Outils
+# Peintres
 
-Les outils peuvent changer la caméra ou sélectionner des objets.
+Les peintres peuvent modifier le papier.
 
-Utilisez la barre latérale pour en savoir plus sur les outils.
+Utilisez la barre latérale pour en savoir plus sur les peintres.
 
-Si vous cliquez sur un outil sélectionné, vous pouvez le configurer.
+Créez un nouveau peintre en cliquant sur l'icône +. Modifiez l'ordre du peintre en faisant glisser et changez le peintre en cliquant. Si vous cliquez sur un peintre sélectionné, vous pouvez le configurer.
+
+Le nom du peintre sera affiché comme infobulle au survol du peintre.

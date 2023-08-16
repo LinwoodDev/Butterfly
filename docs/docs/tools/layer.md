@@ -1,6 +1,6 @@
 ---
 title: "Layer tool"
-title: "Layer"
+sidebar_label: "Layer"
 ---
 
 With this tool you can change the layer of multiple objects. Read more about layers [here](../layers.md).

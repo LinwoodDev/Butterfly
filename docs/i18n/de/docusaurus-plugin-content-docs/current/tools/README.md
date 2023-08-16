@@ -1,18 +1,20 @@
 ---
+title: "Maler"
 slug: /tools
-title: "Werkzeuge"
 sidebar_label: "Einführung"
-sidebar_position: 0
+sidebar_position: 1
 ---
 
 
-Werkzeuge können die Kamera ändern oder Objekte auswählen.
+Maler können das Papier bearbeiten.
 
-Über die Sidebar erfahren Sie mehr über die Werkzeuge.
+Mit der Sidebar erfahren Sie mehr über die Maler.
 
-Wenn Sie auf ein ausgewähltes Werkzeug klicken, können Sie es konfigurieren.
+Erstellen Sie einen neuen Maler, indem Sie auf das Plus-Symbol klicken. Ändern Sie die Reihenfolge des Malers durch Ziehen und Ändern des Malers durch Anklicken. Wenn Sie auf einen ausgewählten Maler klicken, können Sie ihn konfigurieren.
 
-## Verfügbare Werkzeuge
+Der Name des Malers wird als Tooltipp beim Schweben auf dem Maler angezeigt.
+
+## Verfügbare Maler
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';
