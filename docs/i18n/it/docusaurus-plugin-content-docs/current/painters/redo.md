@@ -4,7 +4,7 @@ sidebar_label: "Ripristina"
 sidebar_position: 0
 ---
 
-:::note ⚡ Action Painter
+:::note ⚡ Action Tool
 
 Questo è un pittore speciale. Non è possibile selezionarlo e verrà eseguita l'azione se si fa clic su di esso.
 

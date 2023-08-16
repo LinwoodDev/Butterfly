@@ -3,7 +3,7 @@ title: "Lag"
 sidebar_position: 2
 ---
 
-Lag er en mulighed for at gruppere elementer sammen. Klik på elementet for at se og ændre laget. Brug [lagmaleren](painters/layer.md) til at ændre lag af flere elementer.
+Lag er en mulighed for at gruppere elementer sammen. Klik på elementet for at se og ændre laget. Brug [lagmaleren](tools/layer.md) til at ændre lag af flere elementer.
 
 ## Dialogen for lag
 

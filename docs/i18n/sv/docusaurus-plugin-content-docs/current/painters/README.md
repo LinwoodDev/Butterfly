@@ -1,6 +1,6 @@
 ---
 title: "Målare"
-slug: /painters
+slug: /tools
 sidebar_label: "Introduktion"
 sidebar_position: 1
 ---

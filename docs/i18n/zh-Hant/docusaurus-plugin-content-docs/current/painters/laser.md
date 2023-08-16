@@ -1,11 +1,11 @@
 ---
-title: "Laser painter"
+title: "Laser tool"
 sidebar_label: "雷射"
 sidebar_position: 3
 ---
 
 
-With this painter you can draw on this paper temporarily. After a while, the drawing fades away. Add a new drawing to the paper to make it cancel.
+With this tool you can draw on this paper temporarily. After a while, the drawing fades away. Add a new drawing to the paper to make it cancel.
 
 ## Configuration
 

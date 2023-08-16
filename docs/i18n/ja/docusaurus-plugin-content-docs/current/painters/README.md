@@ -1,6 +1,6 @@
 ---
-title: "Painters"
-slug: /painters
+title: "Tools"
+slug: /tools
 sidebar_label: "はじめに"
 sidebar_position: 1
 ---

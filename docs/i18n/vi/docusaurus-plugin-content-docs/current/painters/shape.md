@@ -1,11 +1,11 @@
 ---
-title: "Shape painter"
+title: "Shape tool"
 sidebar_label: "Shape"
 sidebar_position: 3
 ---
 
 
-Use this painter to draw shapes on the paper. You can draw rectangles, circles, and other shapes.
+Use this tool to draw shapes on the paper. You can draw rectangles, circles, and other shapes.
 
 ## Configuration
 

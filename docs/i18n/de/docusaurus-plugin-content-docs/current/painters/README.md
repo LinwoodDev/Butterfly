@@ -1,6 +1,6 @@
 ---
 title: "Maler"
-slug: /painters
+slug: /tools
 sidebar_label: "Einführung"
 sidebar_position: 1
 ---

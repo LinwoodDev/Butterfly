@@ -7,11 +7,11 @@ sidebar_position: 2
 
 ![área](area.png)
 
-As áreas são uma forma de restringir a dimensão da tela. Você pode criar áreas usando o [pintor de área](painters/area.md). Se você clicar em segundo plano você pode abrir a lista de áreas usando o menu de contexto.
+As áreas são uma forma de restringir a dimensão da tela. Você pode criar áreas usando o [pintor de área](tools/area.md). Se você clicar em segundo plano você pode abrir a lista de áreas usando o menu de contexto.
 
 ## Criar e excluir áreas
 
-Use o [pintor de área](painters/area.md) para criar uma área. Áreas não podem se sobrepor. Depois de criar uma área você precisa nomeá-la.
+Use o [pintor de área](tools/area.md) para criar uma área. Áreas não podem se sobrepor. Depois de criar uma área você precisa nomeá-la.
 
 Clique na área se você quiser modificá-la. Você também pode usar o diálogo de área.
 

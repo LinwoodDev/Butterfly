@@ -10,4 +10,4 @@ Dit is een speciale schilder. U kunt het niet selecteren en het zal de actie uit
 
 :::
 
-Wanneer u op deze schilder klikt, kunt u uw laatste actie herstellen. Zie de [undo painter](undo) voor het ongedaan maken van je laatste actie.
+Wanneer u op deze schilder klikt, kunt u uw laatste actie herstellen. Zie de [undo tool](undo) voor het ongedaan maken van je laatste actie.

@@ -1,6 +1,6 @@
 ---
 title: "Pași"
-slug: /painters
+slug: /tools
 sidebar_label: "Introducere"
 sidebar_position: 1
 ---

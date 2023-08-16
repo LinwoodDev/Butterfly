@@ -1,9 +1,9 @@
 ---
 sidebar_label: "分區"
-title: "Area painter"
+title: "Area tool"
 ---
 
-The area painter allows you to create, edit and remove areas.
+The area tool allows you to create, edit and remove areas.
 
 ## Actions
 

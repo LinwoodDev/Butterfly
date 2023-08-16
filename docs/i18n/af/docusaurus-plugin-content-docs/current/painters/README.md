@@ -1,20 +1,20 @@
 ---
-title: "Painters"
-slug: /painters
+title: "Tools"
+slug: /tools
 sidebar_label: "Introduction"
 sidebar_position: 1
 ---
 
 
-Painters can edit the paper.
+Tools can edit the paper.
 
-Use the sidebar to learn more about the painters.
+Use the sidebar to learn more about the tools.
 
-Create a new painter by clicking on the plus icon. Change the painter order by dragging and change the painter by clicking. If you click on a selected painter you can configure it.
+Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking. If you click on a selected tool you can configure it.
 
-The name of the painter will be displayed as tooltip on hover on the painter.
+The name of the tool will be displayed as tooltip on hover on the tool.
 
-## Available painters
+## Available tools
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

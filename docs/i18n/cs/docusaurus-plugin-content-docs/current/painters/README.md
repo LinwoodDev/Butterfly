@@ -1,6 +1,6 @@
 ---
 title: "Malířské tmely"
-slug: /painters
+slug: /tools
 sidebar_label: "Úvod"
 sidebar_position: 1
 ---

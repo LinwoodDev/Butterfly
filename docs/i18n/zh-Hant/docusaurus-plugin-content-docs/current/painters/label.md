@@ -1,11 +1,11 @@
 ---
-title: "Label painter"
+title: "Label tool"
 sidebar_label: "標記"
 sidebar_position: 6
 ---
 
 
-With this painter you can add text to the paper.
+With this tool you can add text to the paper.
 
 ## Configuration
 

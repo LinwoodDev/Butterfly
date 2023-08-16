@@ -7,11 +7,11 @@ sidebar_position: 2
 
 ![Område](area.png)
 
-Områden är ett sätt att begränsa storleken på duken. Du kan skapa områden genom att använda [-områdets målare](painters/area.md). Om du klickar på bakgrunden kan du öppna dialogrutan för områdeslistan med hjälp av den sammanhangsberoende menyn.
+Områden är ett sätt att begränsa storleken på duken. Du kan skapa områden genom att använda [-områdets målare](tools/area.md). Om du klickar på bakgrunden kan du öppna dialogrutan för områdeslistan med hjälp av den sammanhangsberoende menyn.
 
 ## Skapa och ta bort områden
 
-Använd [-områdets målare](painters/area.md) för att skapa ett område. Områden kan inte överlappa. Efter att du skapat ett område måste du namnge det.
+Använd [-områdets målare](tools/area.md) för att skapa ett område. Områden kan inte överlappa. Efter att du skapat ett område måste du namnge det.
 
 Klicka på området om du vill ändra det. Du kan också använda dialogrutan området.
 

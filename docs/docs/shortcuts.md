@@ -28,13 +28,13 @@ Some of them are written below the buttons.
 * `Ctrl` + `Shift` + `A`: Open areas dialog
 * `Ctrl` + `S`: Save
 * `Alt` + `S`: Change path
-* `Ctrl` + (`1` - `0`): Switch to painter
+* `Ctrl` + (`1` - `0`): Switch to tool
 
 ## Stylus
 
 * `Primary button`: Change to hand tool
-* `Secondary button`: Change to second painter
+* `Secondary button`: Change to second tool
 
 ## Configure {#configure}
 
-Customize the controls by giving every control a painter index. The painter index starts at 1 and are ordered from left to right. An empty painter index will disable the painter switch on this control. Insert `0` to enable moving with this control.
+Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Insert `0` to enable moving with this control.

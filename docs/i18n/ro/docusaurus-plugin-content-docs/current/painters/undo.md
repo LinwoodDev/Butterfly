@@ -10,4 +10,4 @@ Acesta este un pictor special. Nu o puteți selecta și va rula acțiunea dacă 
 
 :::
 
-Când faceți clic pe acest pictor puteți anula ultima acțiune. Vezi [redo painter](redo) pentru că reface ultima ta acțiune.
+Când faceți clic pe acest pictor puteți anula ultima acțiune. Vezi [redo tool](redo) pentru că reface ultima ta acțiune.

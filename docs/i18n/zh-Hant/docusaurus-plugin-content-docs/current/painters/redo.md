@@ -1,13 +1,13 @@
 ---
-title: "Redo painter"
+title: "Redo tool"
 sidebar_label: "還原"
 sidebar_position: 0
 ---
 
-:::note ⚡ Action painter
+:::note ⚡ Action tool
 
-This is a special painter. You can't select it and it will run the action if you click on it.
+This is a special tool. You can't select it and it will run the action if you click on it.
 
 :::
 
-When clicking on this painter you can redo your last action. See the [undo painter](undo) for undoing your last action.
+When clicking on this tool you can redo your last action. See the [undo tool](undo) for undoing your last action.

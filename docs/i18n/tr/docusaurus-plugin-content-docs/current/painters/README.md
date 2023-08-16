@@ -1,6 +1,6 @@
 ---
 title: "Araçlar"
-slug: /painters
+slug: /tools
 sidebar_label: "Giriş"
 sidebar_position: 1
 ---

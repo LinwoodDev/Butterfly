@@ -1,11 +1,11 @@
 ---
-title: "Path eraser painter"
+title: "Path eraser tool"
 sidebar_label: "Path eraser"
 sidebar_position: 5
 ---
 
 
-With this painter you can delete the whole path on the paper.
+With this tool you can delete the whole path on the paper.
 
 ## Configuration
 

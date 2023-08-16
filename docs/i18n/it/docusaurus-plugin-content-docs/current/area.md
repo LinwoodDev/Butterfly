@@ -7,11 +7,11 @@ sidebar_position: 2
 
 ![Area](area.png)
 
-Le aree sono un modo per limitare le dimensioni della tela. È possibile creare aree utilizzando il pittore [area](painters/area.md). Se si fa clic sullo sfondo è possibile aprire la finestra di dialogo elenco area utilizzando il menu di scelta rapida.
+Le aree sono un modo per limitare le dimensioni della tela. È possibile creare aree utilizzando il pittore [area](tools/area.md). Se si fa clic sullo sfondo è possibile aprire la finestra di dialogo elenco area utilizzando il menu di scelta rapida.
 
 ## Creazione ed eliminazione di aree
 
-Usa il pittore di area [](painters/area.md) per creare un'area. Le aree non possono sovrapporsi. Dopo aver creato un'area è necessario nominarla.
+Usa il pittore di area [](tools/area.md) per creare un'area. Le aree non possono sovrapporsi. Dopo aver creato un'area è necessario nominarla.
 
 Fare clic sull'area se si desidera modificarla. È anche possibile utilizzare la finestra di dialogo area.
 

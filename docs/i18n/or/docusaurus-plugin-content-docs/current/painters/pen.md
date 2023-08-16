@@ -1,11 +1,11 @@
 ---
-title: "Pen painter"
+title: "Pen tool"
 sidebar_label: "କଲମ"
 sidebar_position: 2
 ---
 
 
-With this painter you can draw on this paper.
+With this tool you can draw on this paper.
 
 ## Configuration
 

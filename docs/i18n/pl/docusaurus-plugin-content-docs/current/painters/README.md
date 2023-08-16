@@ -1,12 +1,12 @@
 ---
 title: "Pasty do malowania"
-slug: /painters
+slug: /tools
 sidebar_label: "Wprowadzanie"
 sidebar_position: 1
 ---
 
 
-Paintery mogą edytować arkusze.
+Tooly mogą edytować arkusze.
 
 Użyj paska bocznego, aby dowiedzieć się więcej o malarstwach.
 

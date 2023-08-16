@@ -1,6 +1,6 @@
 ---
 title: "المؤمنون"
-slug: /painters
+slug: /tools
 sidebar_label: "مقدمة"
 sidebar_position: 1
 ---

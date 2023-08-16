@@ -1,6 +1,6 @@
 ---
 title: "Malere"
-slug: /painters
+slug: /tools
 sidebar_label: "Indledning"
 sidebar_position: 1
 ---

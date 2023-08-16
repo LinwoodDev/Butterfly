@@ -1,6 +1,6 @@
 ---
 title: "Schilders"
-slug: /painters
+slug: /tools
 sidebar_label: "Introductie"
 sidebar_position: 1
 ---

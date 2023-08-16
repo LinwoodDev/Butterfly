@@ -1,6 +1,6 @@
 ---
 title: "Ζωγράφοι"
-slug: /painters
+slug: /tools
 sidebar_label: "Εισαγωγή"
 sidebar_position: 1
 ---

@@ -1,5 +1,5 @@
 ---
-title: "Eraser painter"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Please use the [path eraser](path_eraser) if it is possible.
 
 :::
 
-With this painter you can erase the elements on the paper.
+With this tool you can erase the elements on the paper.
 
 ## Configuration
 

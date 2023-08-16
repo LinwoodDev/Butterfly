@@ -3,7 +3,7 @@ title: "Camadas"
 sidebar_position: 2
 ---
 
-Camadas são uma opção para agrupar elementos em conjunto. Clique no elemento para ver e alterar a camada. Use o [pintor de camada](painters/layer.md) para alterar as camadas de vários elementos.
+Camadas são uma opção para agrupar elementos em conjunto. Clique no elemento para ver e alterar a camada. Use o [pintor de camada](tools/layer.md) para alterar as camadas de vários elementos.
 
 ## Diálogo de camadas
 

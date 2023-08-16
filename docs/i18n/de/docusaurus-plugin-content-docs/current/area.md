@@ -7,11 +7,11 @@ sidebar_position: 2
 
 ![Fläche](area.png)
 
-Flächen sind eine Möglichkeit, die Größe der Leinwand zu beschränken. Sie können Flächen mit dem [-Flächenmaler](painters/area.md) erstellen. Wenn Sie auf den Hintergrund klicken, können Sie den Bereichslisten-Dialog über das Kontextmenü öffnen.
+Flächen sind eine Möglichkeit, die Größe der Leinwand zu beschränken. Sie können Flächen mit dem [-Flächenmaler](tools/area.md) erstellen. Wenn Sie auf den Hintergrund klicken, können Sie den Bereichslisten-Dialog über das Kontextmenü öffnen.
 
 ## Bereiche erstellen und löschen
 
-Benutzen Sie den [-Flächen-Maler](painters/area.md) um eine Fläche zu erstellen. Flächen können sich nicht überschneiden. Nachdem Sie einen Bereich erstellt haben, müssen Sie ihn benennen.
+Benutzen Sie den [-Flächen-Maler](tools/area.md) um eine Fläche zu erstellen. Flächen können sich nicht überschneiden. Nachdem Sie einen Bereich erstellt haben, müssen Sie ihn benennen.
 
 Klicken Sie auf den Bereich, wenn Sie ihn ändern möchten. Sie können auch den Bereichsdialog benutzen.
 
