@@ -14,7 +14,7 @@ import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
-import 'package:butterfly/visualizer/painter.dart';
+import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
@@ -57,11 +57,11 @@ part 'import.dart';
 part 'label.dart';
 part 'laser.dart';
 part 'layer.dart';
-part 'move.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
 part 'presentation.dart';
 part 'redo.dart';
+part 'select.dart';
 part 'shape.dart';
 part 'spacer.dart';
 part 'stamp.dart';
@@ -205,7 +205,7 @@ abstract class Handler<T> {
   static Handler fromTool(Tool tool) {
     return tool.map(
       hand: (value) => HandHandler(value),
-      move: (value) => MoveHandler(value),
+      select: (value) => SelectHandler(value),
       import: (value) => ImportHandler(value),
       undo: (value) => UndoHandler(value),
       redo: (value) => RedoHandler(value),

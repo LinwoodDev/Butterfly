@@ -108,7 +108,7 @@ mixin GeneralPresentationHandler {
   }
 }
 
-class PresentationHandler extends GeneralMoveHandler<PresentationTool>
+class PresentationHandler extends GeneralHandHandler<PresentationTool>
     with GeneralPresentationHandler {
   int _currentFrame = 0;
   String? _currentAnimation;

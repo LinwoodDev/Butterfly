@@ -7,7 +7,7 @@ import 'package:butterfly/helpers/element_helper.dart';
 import 'package:butterfly/helpers/num_helper.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/helpers/point_helper.dart';
-import 'package:butterfly/visualizer/painter.dart';
+import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/visualizer/preset.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';

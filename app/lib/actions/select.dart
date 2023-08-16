@@ -18,10 +18,10 @@ class SelectAllAction extends Action<SelectAllIntent> {
   @override
   Future<void> invoke(SelectAllIntent intent) async {
     final cubit = intent.context.read<CurrentIndexCubit>();
-    if (cubit.getHandler() is HandHandler) return;
+    if (cubit.getHandler() is SelectHandler) return;
     final bloc = intent.context.read<DocumentBloc>();
     final handler = await cubit.changeTemporaryHandler(bloc, HandTool());
-    if (handler is! HandHandler) return;
+    if (handler is! SelectHandler) return;
     handler.selectAll(bloc);
   }
 }

@@ -6,6 +6,19 @@ part of 'tool.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$SelectTool _$$SelectToolFromJson(Map json) => _$SelectTool(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$SelectToolToJson(_$SelectTool instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'type': instance.$type,
+    };
+
 _$HandTool _$$HandToolFromJson(Map json) => _$HandTool(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
@@ -13,19 +26,6 @@ _$HandTool _$$HandToolFromJson(Map json) => _$HandTool(
     );
 
 Map<String, dynamic> _$$HandToolToJson(_$HandTool instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'displayIcon': instance.displayIcon,
-      'type': instance.$type,
-    };
-
-_$MoveTool _$$MoveToolFromJson(Map json) => _$MoveTool(
-      name: json['name'] as String? ?? '',
-      displayIcon: json['displayIcon'] as String? ?? '',
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$MoveToolToJson(_$MoveTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,

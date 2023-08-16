@@ -39,15 +39,15 @@ enum ImportType { image, camera, svg, pdf, document }
 class Tool with _$Tool {
   Tool._();
 
+  factory Tool.select({
+    @Default('') String name,
+    @Default('') String displayIcon,
+  }) = SelectTool;
+
   factory Tool.hand({
     @Default('') String name,
     @Default('') String displayIcon,
   }) = HandTool;
-
-  factory Tool.move({
-    @Default('') String name,
-    @Default('') String displayIcon,
-  }) = MoveTool;
 
   factory Tool.import({
     @Default('') String name,

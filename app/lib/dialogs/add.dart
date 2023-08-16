@@ -1,6 +1,6 @@
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/color_helper.dart';
-import 'package:butterfly/visualizer/painter.dart';
+import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -113,7 +113,7 @@ class AddDialog extends StatelessWidget {
                 alignment: WrapAlignment.start,
                 children: [
                   Tool.hand,
-                  Tool.move,
+                  Tool.select,
                   Tool.pen,
                   Tool.stamp,
                   Tool.laser,

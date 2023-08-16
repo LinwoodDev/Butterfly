@@ -53,7 +53,7 @@ class ElementsDialog extends StatelessWidget {
                 Navigator.of(context).pop(true);
                 context
                     .read<CurrentIndexCubit>()
-                    .fetchHandler<HandHandler>()
+                    .fetchHandler<SelectHandler>()
                     ?.copySelection(context, true);
               },
               leadingIcon: const PhosphorIcon(PhosphorIconsLight.scissors),
@@ -64,7 +64,7 @@ class ElementsDialog extends StatelessWidget {
                 Navigator.of(context).pop(true);
                 context
                     .read<CurrentIndexCubit>()
-                    .fetchHandler<HandHandler>()
+                    .fetchHandler<SelectHandler>()
                     ?.copySelection(context, false);
               },
               leadingIcon: const PhosphorIcon(PhosphorIconsLight.copy),
@@ -76,7 +76,7 @@ class ElementsDialog extends StatelessWidget {
                 Navigator.of(context).pop(true);
                 context
                     .read<CurrentIndexCubit>()
-                    .fetchHandler<HandHandler>()
+                    .fetchHandler<SelectHandler>()
                     ?.transform(
                         context.read<DocumentBloc>(),
                         renderers

@@ -16,10 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 Tool _$ToolFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
+    case 'select':
+      return SelectTool.fromJson(json);
     case 'hand':
       return HandTool.fromJson(json);
-    case 'move':
-      return MoveTool.fromJson(json);
     case 'import':
       return ImportTool.fromJson(json);
     case 'undo':
@@ -65,8 +65,8 @@ mixin _$Tool {
   String get displayIcon => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -121,8 +121,8 @@ mixin _$Tool {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -172,8 +172,8 @@ mixin _$Tool {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -224,8 +224,8 @@ mixin _$Tool {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -246,8 +246,8 @@ mixin _$Tool {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -268,8 +268,8 @@ mixin _$Tool {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -329,6 +329,350 @@ class _$ToolCopyWithImpl<$Res, $Val extends Tool>
               as String,
     ) as $Val);
   }
+}
+
+/// @nodoc
+abstract class _$$SelectToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$SelectToolCopyWith(
+          _$SelectTool value, $Res Function(_$SelectTool) then) =
+      __$$SelectToolCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String displayIcon});
+}
+
+/// @nodoc
+class __$$SelectToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$SelectTool>
+    implements _$$SelectToolCopyWith<$Res> {
+  __$$SelectToolCopyWithImpl(
+      _$SelectTool _value, $Res Function(_$SelectTool) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? displayIcon = null,
+  }) {
+    return _then(_$SelectTool(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      displayIcon: null == displayIcon
+          ? _value.displayIcon
+          : displayIcon // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SelectTool extends SelectTool {
+  _$SelectTool({this.name = '', this.displayIcon = '', final String? $type})
+      : $type = $type ?? 'select',
+        super._();
+
+  factory _$SelectTool.fromJson(Map<String, dynamic> json) =>
+      _$$SelectToolFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String displayIcon;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Tool.select(name: $name, displayIcon: $displayIcon)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectToolCopyWith<_$SelectTool> get copyWith =>
+      __$$SelectToolCopyWithImpl<_$SelectTool>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon) hand,
+    required TResult Function(String name, String displayIcon,
+            List<PadElement> elements, List<Area> areas)
+        import,
+    required TResult Function(String name, String displayIcon) undo,
+    required TResult Function(String name, String displayIcon) redo,
+    required TResult Function(String name, String displayIcon, LabelMode mode,
+            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+        label,
+    required TResult Function(String name, String displayIcon,
+            bool zoomDependent, PenProperty property)
+        pen,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        eraser,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        pathEraser,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        layer,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
+        area,
+    required TResult Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)
+        laser,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
+        shape,
+    required TResult Function(
+            String name, String displayIcon, PackAssetLocation component)
+        stamp,
+    required TResult Function(String name, String displayIcon) presentation,
+    required TResult Function(String name, String displayIcon, Axis2D axis)
+        spacer,
+    required TResult Function(String name, String displayIcon) fullSceen,
+    required TResult Function(
+            String name, String displayIcon, ImportType importType)
+        asset,
+  }) {
+    return select(name, displayIcon);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon)? hand,
+    TResult? Function(String name, String displayIcon,
+            List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult? Function(String name, String displayIcon)? undo,
+    TResult? Function(String name, String displayIcon)? redo,
+    TResult? Function(String name, String displayIcon, LabelMode mode,
+            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult? Function(String name, String displayIcon, bool zoomDependent,
+            PenProperty property)?
+        pen,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        eraser,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        pathEraser,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        layer,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult? Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)?
+        laser,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult? Function(
+            String name, String displayIcon, PackAssetLocation component)?
+        stamp,
+    TResult? Function(String name, String displayIcon)? presentation,
+    TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
+    TResult? Function(String name, String displayIcon)? fullSceen,
+    TResult? Function(String name, String displayIcon, ImportType importType)?
+        asset,
+  }) {
+    return select?.call(name, displayIcon);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon)? hand,
+    TResult Function(String name, String displayIcon, List<PadElement> elements,
+            List<Area> areas)?
+        import,
+    TResult Function(String name, String displayIcon)? undo,
+    TResult Function(String name, String displayIcon)? redo,
+    TResult Function(String name, String displayIcon, LabelMode mode,
+            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult Function(String name, String displayIcon, bool zoomDependent,
+            PenProperty property)?
+        pen,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        eraser,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        pathEraser,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        layer,
+    TResult Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)?
+        laser,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult Function(
+            String name, String displayIcon, PackAssetLocation component)?
+        stamp,
+    TResult Function(String name, String displayIcon)? presentation,
+    TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
+    TResult Function(String name, String displayIcon)? fullSceen,
+    TResult Function(String name, String displayIcon, ImportType importType)?
+        asset,
+    required TResult orElse(),
+  }) {
+    if (select != null) {
+      return select(name, displayIcon);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
+  }) {
+    return select(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
+  }) {
+    return select?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
+    TResult Function(HandTool value)? hand,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
+    required TResult orElse(),
+  }) {
+    if (select != null) {
+      return select(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SelectToolToJson(
+      this,
+    );
+  }
+}
+
+abstract class SelectTool extends Tool {
+  factory SelectTool({final String name, final String displayIcon}) =
+      _$SelectTool;
+  SelectTool._() : super._();
+
+  factory SelectTool.fromJson(Map<String, dynamic> json) =
+      _$SelectTool.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get displayIcon;
+  @override
+  @JsonKey(ignore: true)
+  _$$SelectToolCopyWith<_$SelectTool> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -401,8 +745,8 @@ class _$HandTool extends HandTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -460,8 +804,8 @@ class _$HandTool extends HandTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -514,8 +858,8 @@ class _$HandTool extends HandTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -572,8 +916,8 @@ class _$HandTool extends HandTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -597,8 +941,8 @@ class _$HandTool extends HandTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -622,8 +966,8 @@ class _$HandTool extends HandTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -669,347 +1013,6 @@ abstract class HandTool extends Tool {
   @override
   @JsonKey(ignore: true)
   _$$HandToolCopyWith<_$HandTool> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$MoveToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
-  factory _$$MoveToolCopyWith(
-          _$MoveTool value, $Res Function(_$MoveTool) then) =
-      __$$MoveToolCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String name, String displayIcon});
-}
-
-/// @nodoc
-class __$$MoveToolCopyWithImpl<$Res>
-    extends _$ToolCopyWithImpl<$Res, _$MoveTool>
-    implements _$$MoveToolCopyWith<$Res> {
-  __$$MoveToolCopyWithImpl(_$MoveTool _value, $Res Function(_$MoveTool) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-    Object? displayIcon = null,
-  }) {
-    return _then(_$MoveTool(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      displayIcon: null == displayIcon
-          ? _value.displayIcon
-          : displayIcon // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$MoveTool extends MoveTool {
-  _$MoveTool({this.name = '', this.displayIcon = '', final String? $type})
-      : $type = $type ?? 'move',
-        super._();
-
-  factory _$MoveTool.fromJson(Map<String, dynamic> json) =>
-      _$$MoveToolFromJson(json);
-
-  @override
-  @JsonKey()
-  final String name;
-  @override
-  @JsonKey()
-  final String displayIcon;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'Tool.move(name: $name, displayIcon: $displayIcon)';
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$MoveToolCopyWith<_$MoveTool> get copyWith =>
-      __$$MoveToolCopyWithImpl<_$MoveTool>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
-    required TResult Function(String name, String displayIcon,
-            List<PadElement> elements, List<Area> areas)
-        import,
-    required TResult Function(String name, String displayIcon) undo,
-    required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
-        label,
-    required TResult Function(String name, String displayIcon,
-            bool zoomDependent, PenProperty property)
-        pen,
-    required TResult Function(
-            String name, String displayIcon, double strokeWidth)
-        eraser,
-    required TResult Function(
-            String name, String displayIcon, double strokeWidth)
-        pathEraser,
-    required TResult Function(
-            String name, String displayIcon, double strokeWidth)
-        layer,
-    required TResult Function(
-            String name,
-            String displayIcon,
-            double constrainedWidth,
-            double constrainedHeight,
-            double constrainedAspectRatio,
-            bool askForName)
-        area,
-    required TResult Function(String name, String displayIcon, double duration,
-            double strokeWidth, double thinning, int color)
-        laser,
-    required TResult Function(
-            String name,
-            String displayIcon,
-            bool zoomDependent,
-            double constrainedWidth,
-            double constrainedHeight,
-            double constrainedAspectRatio,
-            ShapeProperty property)
-        shape,
-    required TResult Function(
-            String name, String displayIcon, PackAssetLocation component)
-        stamp,
-    required TResult Function(String name, String displayIcon) presentation,
-    required TResult Function(String name, String displayIcon, Axis2D axis)
-        spacer,
-    required TResult Function(String name, String displayIcon) fullSceen,
-    required TResult Function(
-            String name, String displayIcon, ImportType importType)
-        asset,
-  }) {
-    return move(name, displayIcon);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
-    TResult? Function(String name, String displayIcon,
-            List<PadElement> elements, List<Area> areas)?
-        import,
-    TResult? Function(String name, String displayIcon)? undo,
-    TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
-        label,
-    TResult? Function(String name, String displayIcon, bool zoomDependent,
-            PenProperty property)?
-        pen,
-    TResult? Function(String name, String displayIcon, double strokeWidth)?
-        eraser,
-    TResult? Function(String name, String displayIcon, double strokeWidth)?
-        pathEraser,
-    TResult? Function(String name, String displayIcon, double strokeWidth)?
-        layer,
-    TResult? Function(
-            String name,
-            String displayIcon,
-            double constrainedWidth,
-            double constrainedHeight,
-            double constrainedAspectRatio,
-            bool askForName)?
-        area,
-    TResult? Function(String name, String displayIcon, double duration,
-            double strokeWidth, double thinning, int color)?
-        laser,
-    TResult? Function(
-            String name,
-            String displayIcon,
-            bool zoomDependent,
-            double constrainedWidth,
-            double constrainedHeight,
-            double constrainedAspectRatio,
-            ShapeProperty property)?
-        shape,
-    TResult? Function(
-            String name, String displayIcon, PackAssetLocation component)?
-        stamp,
-    TResult? Function(String name, String displayIcon)? presentation,
-    TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
-    TResult? Function(String name, String displayIcon)? fullSceen,
-    TResult? Function(String name, String displayIcon, ImportType importType)?
-        asset,
-  }) {
-    return move?.call(name, displayIcon);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
-    TResult Function(String name, String displayIcon, List<PadElement> elements,
-            List<Area> areas)?
-        import,
-    TResult Function(String name, String displayIcon)? undo,
-    TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
-        label,
-    TResult Function(String name, String displayIcon, bool zoomDependent,
-            PenProperty property)?
-        pen,
-    TResult Function(String name, String displayIcon, double strokeWidth)?
-        eraser,
-    TResult Function(String name, String displayIcon, double strokeWidth)?
-        pathEraser,
-    TResult Function(String name, String displayIcon, double strokeWidth)?
-        layer,
-    TResult Function(
-            String name,
-            String displayIcon,
-            double constrainedWidth,
-            double constrainedHeight,
-            double constrainedAspectRatio,
-            bool askForName)?
-        area,
-    TResult Function(String name, String displayIcon, double duration,
-            double strokeWidth, double thinning, int color)?
-        laser,
-    TResult Function(
-            String name,
-            String displayIcon,
-            bool zoomDependent,
-            double constrainedWidth,
-            double constrainedHeight,
-            double constrainedAspectRatio,
-            ShapeProperty property)?
-        shape,
-    TResult Function(
-            String name, String displayIcon, PackAssetLocation component)?
-        stamp,
-    TResult Function(String name, String displayIcon)? presentation,
-    TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
-    TResult Function(String name, String displayIcon)? fullSceen,
-    TResult Function(String name, String displayIcon, ImportType importType)?
-        asset,
-    required TResult orElse(),
-  }) {
-    if (move != null) {
-      return move(name, displayIcon);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
-    required TResult Function(ImportTool value) import,
-    required TResult Function(UndoTool value) undo,
-    required TResult Function(RedoTool value) redo,
-    required TResult Function(LabelTool value) label,
-    required TResult Function(PenTool value) pen,
-    required TResult Function(EraserTool value) eraser,
-    required TResult Function(PathEraserTool value) pathEraser,
-    required TResult Function(LayerTool value) layer,
-    required TResult Function(AreaTool value) area,
-    required TResult Function(LaserTool value) laser,
-    required TResult Function(ShapeTool value) shape,
-    required TResult Function(StampTool value) stamp,
-    required TResult Function(PresentationTool value) presentation,
-    required TResult Function(SpacerTool value) spacer,
-    required TResult Function(FullScreenTool value) fullSceen,
-    required TResult Function(AssetTool value) asset,
-  }) {
-    return move(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
-    TResult? Function(ImportTool value)? import,
-    TResult? Function(UndoTool value)? undo,
-    TResult? Function(RedoTool value)? redo,
-    TResult? Function(LabelTool value)? label,
-    TResult? Function(PenTool value)? pen,
-    TResult? Function(EraserTool value)? eraser,
-    TResult? Function(PathEraserTool value)? pathEraser,
-    TResult? Function(LayerTool value)? layer,
-    TResult? Function(AreaTool value)? area,
-    TResult? Function(LaserTool value)? laser,
-    TResult? Function(ShapeTool value)? shape,
-    TResult? Function(StampTool value)? stamp,
-    TResult? Function(PresentationTool value)? presentation,
-    TResult? Function(SpacerTool value)? spacer,
-    TResult? Function(FullScreenTool value)? fullSceen,
-    TResult? Function(AssetTool value)? asset,
-  }) {
-    return move?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
-    TResult Function(ImportTool value)? import,
-    TResult Function(UndoTool value)? undo,
-    TResult Function(RedoTool value)? redo,
-    TResult Function(LabelTool value)? label,
-    TResult Function(PenTool value)? pen,
-    TResult Function(EraserTool value)? eraser,
-    TResult Function(PathEraserTool value)? pathEraser,
-    TResult Function(LayerTool value)? layer,
-    TResult Function(AreaTool value)? area,
-    TResult Function(LaserTool value)? laser,
-    TResult Function(ShapeTool value)? shape,
-    TResult Function(StampTool value)? stamp,
-    TResult Function(PresentationTool value)? presentation,
-    TResult Function(SpacerTool value)? spacer,
-    TResult Function(FullScreenTool value)? fullSceen,
-    TResult Function(AssetTool value)? asset,
-    required TResult orElse(),
-  }) {
-    if (move != null) {
-      return move(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$MoveToolToJson(
-      this,
-    );
-  }
-}
-
-abstract class MoveTool extends Tool {
-  factory MoveTool({final String name, final String displayIcon}) = _$MoveTool;
-  MoveTool._() : super._();
-
-  factory MoveTool.fromJson(Map<String, dynamic> json) = _$MoveTool.fromJson;
-
-  @override
-  String get name;
-  @override
-  String get displayIcon;
-  @override
-  @JsonKey(ignore: true)
-  _$$MoveToolCopyWith<_$MoveTool> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1120,8 +1123,8 @@ class _$ImportTool extends ImportTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -1179,8 +1182,8 @@ class _$ImportTool extends ImportTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -1233,8 +1236,8 @@ class _$ImportTool extends ImportTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -1291,8 +1294,8 @@ class _$ImportTool extends ImportTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -1316,8 +1319,8 @@ class _$ImportTool extends ImportTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -1341,8 +1344,8 @@ class _$ImportTool extends ImportTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -1468,8 +1471,8 @@ class _$UndoTool extends UndoTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -1527,8 +1530,8 @@ class _$UndoTool extends UndoTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -1581,8 +1584,8 @@ class _$UndoTool extends UndoTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -1639,8 +1642,8 @@ class _$UndoTool extends UndoTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -1664,8 +1667,8 @@ class _$UndoTool extends UndoTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -1689,8 +1692,8 @@ class _$UndoTool extends UndoTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -1809,8 +1812,8 @@ class _$RedoTool extends RedoTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -1868,8 +1871,8 @@ class _$RedoTool extends RedoTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -1922,8 +1925,8 @@ class _$RedoTool extends RedoTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -1980,8 +1983,8 @@ class _$RedoTool extends RedoTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -2005,8 +2008,8 @@ class _$RedoTool extends RedoTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -2030,8 +2033,8 @@ class _$RedoTool extends RedoTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -2206,8 +2209,8 @@ class _$LabelTool extends LabelTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -2266,8 +2269,8 @@ class _$LabelTool extends LabelTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -2321,8 +2324,8 @@ class _$LabelTool extends LabelTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -2380,8 +2383,8 @@ class _$LabelTool extends LabelTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -2405,8 +2408,8 @@ class _$LabelTool extends LabelTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -2430,8 +2433,8 @@ class _$LabelTool extends LabelTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -2583,8 +2586,8 @@ class _$PenTool extends PenTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -2642,8 +2645,8 @@ class _$PenTool extends PenTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -2696,8 +2699,8 @@ class _$PenTool extends PenTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -2754,8 +2757,8 @@ class _$PenTool extends PenTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -2779,8 +2782,8 @@ class _$PenTool extends PenTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -2804,8 +2807,8 @@ class _$PenTool extends PenTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -2943,8 +2946,8 @@ class _$EraserTool extends EraserTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -3002,8 +3005,8 @@ class _$EraserTool extends EraserTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -3056,8 +3059,8 @@ class _$EraserTool extends EraserTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -3114,8 +3117,8 @@ class _$EraserTool extends EraserTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -3139,8 +3142,8 @@ class _$EraserTool extends EraserTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -3164,8 +3167,8 @@ class _$EraserTool extends EraserTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -3302,8 +3305,8 @@ class _$PathEraserTool extends PathEraserTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -3361,8 +3364,8 @@ class _$PathEraserTool extends PathEraserTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -3415,8 +3418,8 @@ class _$PathEraserTool extends PathEraserTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -3473,8 +3476,8 @@ class _$PathEraserTool extends PathEraserTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -3498,8 +3501,8 @@ class _$PathEraserTool extends PathEraserTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -3523,8 +3526,8 @@ class _$PathEraserTool extends PathEraserTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -3661,8 +3664,8 @@ class _$LayerTool extends LayerTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -3720,8 +3723,8 @@ class _$LayerTool extends LayerTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -3774,8 +3777,8 @@ class _$LayerTool extends LayerTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -3832,8 +3835,8 @@ class _$LayerTool extends LayerTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -3857,8 +3860,8 @@ class _$LayerTool extends LayerTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -3882,8 +3885,8 @@ class _$LayerTool extends LayerTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -4051,8 +4054,8 @@ class _$AreaTool extends AreaTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -4111,8 +4114,8 @@ class _$AreaTool extends AreaTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -4166,8 +4169,8 @@ class _$AreaTool extends AreaTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -4225,8 +4228,8 @@ class _$AreaTool extends AreaTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -4250,8 +4253,8 @@ class _$AreaTool extends AreaTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -4275,8 +4278,8 @@ class _$AreaTool extends AreaTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -4451,8 +4454,8 @@ class _$LaserTool extends LaserTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -4510,8 +4513,8 @@ class _$LaserTool extends LaserTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -4565,8 +4568,8 @@ class _$LaserTool extends LaserTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -4623,8 +4626,8 @@ class _$LaserTool extends LaserTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -4648,8 +4651,8 @@ class _$LaserTool extends LaserTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -4673,8 +4676,8 @@ class _$LaserTool extends LaserTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -4859,8 +4862,8 @@ class _$ShapeTool extends ShapeTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -4919,8 +4922,8 @@ class _$ShapeTool extends ShapeTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -4974,8 +4977,8 @@ class _$ShapeTool extends ShapeTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -5033,8 +5036,8 @@ class _$ShapeTool extends ShapeTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -5058,8 +5061,8 @@ class _$ShapeTool extends ShapeTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -5083,8 +5086,8 @@ class _$ShapeTool extends ShapeTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -5238,8 +5241,8 @@ class _$StampTool extends StampTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -5297,8 +5300,8 @@ class _$StampTool extends StampTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -5351,8 +5354,8 @@ class _$StampTool extends StampTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -5409,8 +5412,8 @@ class _$StampTool extends StampTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -5434,8 +5437,8 @@ class _$StampTool extends StampTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -5459,8 +5462,8 @@ class _$StampTool extends StampTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -5586,8 +5589,8 @@ class _$PresentationTool extends PresentationTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -5645,8 +5648,8 @@ class _$PresentationTool extends PresentationTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -5699,8 +5702,8 @@ class _$PresentationTool extends PresentationTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -5757,8 +5760,8 @@ class _$PresentationTool extends PresentationTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -5782,8 +5785,8 @@ class _$PresentationTool extends PresentationTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -5807,8 +5810,8 @@ class _$PresentationTool extends PresentationTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -5942,8 +5945,8 @@ class _$SpacerTool extends SpacerTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -6001,8 +6004,8 @@ class _$SpacerTool extends SpacerTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -6055,8 +6058,8 @@ class _$SpacerTool extends SpacerTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -6113,8 +6116,8 @@ class _$SpacerTool extends SpacerTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -6138,8 +6141,8 @@ class _$SpacerTool extends SpacerTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -6163,8 +6166,8 @@ class _$SpacerTool extends SpacerTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -6289,8 +6292,8 @@ class _$FullScreenTool extends FullScreenTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -6348,8 +6351,8 @@ class _$FullScreenTool extends FullScreenTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -6402,8 +6405,8 @@ class _$FullScreenTool extends FullScreenTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -6460,8 +6463,8 @@ class _$FullScreenTool extends FullScreenTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -6485,8 +6488,8 @@ class _$FullScreenTool extends FullScreenTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -6510,8 +6513,8 @@ class _$FullScreenTool extends FullScreenTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,
@@ -6645,8 +6648,8 @@ class _$AssetTool extends AssetTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
     required TResult Function(String name, String displayIcon) hand,
-    required TResult Function(String name, String displayIcon) move,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
         import,
@@ -6704,8 +6707,8 @@ class _$AssetTool extends AssetTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
     TResult? Function(String name, String displayIcon)? hand,
-    TResult? Function(String name, String displayIcon)? move,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
         import,
@@ -6758,8 +6761,8 @@ class _$AssetTool extends AssetTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
     TResult Function(String name, String displayIcon)? hand,
-    TResult Function(String name, String displayIcon)? move,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
         import,
@@ -6816,8 +6819,8 @@ class _$AssetTool extends AssetTool {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
     required TResult Function(HandTool value) hand,
-    required TResult Function(MoveTool value) move,
     required TResult Function(ImportTool value) import,
     required TResult Function(UndoTool value) undo,
     required TResult Function(RedoTool value) redo,
@@ -6841,8 +6844,8 @@ class _$AssetTool extends AssetTool {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
     TResult? Function(HandTool value)? hand,
-    TResult? Function(MoveTool value)? move,
     TResult? Function(ImportTool value)? import,
     TResult? Function(UndoTool value)? undo,
     TResult? Function(RedoTool value)? redo,
@@ -6866,8 +6869,8 @@ class _$AssetTool extends AssetTool {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
     TResult Function(HandTool value)? hand,
-    TResult Function(MoveTool value)? move,
     TResult Function(ImportTool value)? import,
     TResult Function(UndoTool value)? undo,
     TResult Function(RedoTool value)? redo,

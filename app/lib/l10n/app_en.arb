@@ -520,5 +520,6 @@
   "paste": "Paste",
   "ascending": "Ascending",
   "descending": "Descending",
-  "imageScale": "Image scale"
+  "imageScale": "Image scale",
+  "select": "Select"
 }

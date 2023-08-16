@@ -16,7 +16,7 @@ extension ToolVisualizer on Tool {
     final loc = AppLocalizations.of(context);
     return map(
       hand: (_) => loc.hand,
-      move: (_) => loc.move,
+      select: (_) => loc.select,
       import: (_) => loc.import,
       undo: (_) => loc.undo,
       redo: (_) => loc.redo,
@@ -38,7 +38,7 @@ extension ToolVisualizer on Tool {
 
   IconGetter get icon => map(
         hand: (_) => PhosphorIcons.hand,
-        move: (_) => PhosphorIcons.arrowsOutCardinal,
+        select: (_) => PhosphorIcons.selection,
         import: (_) => PhosphorIcons.arrowSquareIn,
         undo: (_) => PhosphorIcons.arrowCounterClockwise,
         redo: (_) => PhosphorIcons.arrowClockwise,

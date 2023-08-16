@@ -66,7 +66,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   CurrentIndexCubit(SettingsCubit settingsCubit, TransformCubit transformCubit,
       CameraViewport viewport, Embedding? embedding)
       : super(CurrentIndex(
-            null, MoveHandler(), viewport, settingsCubit, transformCubit,
+            null, HandHandler(), viewport, settingsCubit, transformCubit,
             embedding: embedding));
 
   void init(DocumentBloc bloc) {
@@ -242,7 +242,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     _disposeForegrounds();
     emit(state.copyWith(
       index: null,
-      handler: MoveHandler(),
+      handler: HandHandler(),
       cursor: MouseCursor.defer,
       foregrounds: [],
       temporaryHandler: null,
@@ -602,7 +602,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void changeTemporaryHandlerMove() {
     emit(
-        state.copyWith(temporaryHandler: MoveHandler(), temporaryCursor: null));
+        state.copyWith(temporaryHandler: HandHandler(), temporaryCursor: null));
   }
 
   void updateUtilities(UtilitiesState utilitesState) {

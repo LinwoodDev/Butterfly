@@ -62,7 +62,14 @@ void _migrate(NoteData noteData, FileMetadata metadata) {
     if (info != null) {
       final infoData = json.decode(utf8.decode(info)) as Map<String, dynamic>;
       infoData['view'] = infoData['tool'];
-      infoData['tools'] = infoData['painters'];
+      infoData['tools'] = (infoData['painters'] as List).map((e) {
+        if (e['type'] == 'hand') {
+          e['type'] = 'select';
+        } else if (e['type'] == 'move') {
+          e['type'] = 'hand';
+        }
+        return e;
+      }).toList();
       noteData.setAsset(kInfoArchiveFile, utf8.encode(json.encode(infoData)));
     }
   }
