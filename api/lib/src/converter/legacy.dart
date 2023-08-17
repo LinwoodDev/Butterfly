@@ -2,13 +2,10 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
-import 'package:butterfly_api/src/models/text.dart';
 
 import '../models/archive.dart';
 import '../models/data.dart';
 import '../models/meta.dart';
-import '../models/pack.dart';
-import '../models/palette.dart';
 
 Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
   data = {
@@ -17,27 +14,24 @@ Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
   };
   final archive = Archive();
   final reader = NoteData(archive);
-  final meta = FileMetadata.fromJson(data);
-  reader.setMetadata(meta);
-  switch (meta.type) {
+  reader.setAsset(kMetaArchiveFile, utf8.encode(jsonEncode(data)));
+  NoteFileType type = NoteFileType.document;
+  try {
+    type = NoteFileType.values.byName(data['type'] as String);
+  } catch (_) {}
+  switch (type) {
     case NoteFileType.pack:
-      final palettes = (data['palettes'] ?? [])
-          .map((e) => ColorPalette.fromJson(e))
-          .toList();
-      for (final palette in palettes) {
-        reader.setPalette(palette);
+      for (final palette in data['palettes'] ?? []) {
+        reader.setAsset('$kPalettesArchiveDirectory/${palette.name}.json',
+            utf8.encode((palette)));
       }
-      final styles = (data['styles'] ?? [])
-          .map((e) => TextStyleSheet.fromJson(e))
-          .toList();
-      for (final style in styles) {
-        reader.setStyle(style);
+      for (final style in data['styles'] ?? []) {
+        reader.setAsset('$kStylesArchiveDirectory/${style.name}.json',
+            utf8.encode((style)));
       }
-      final components = (data['components'] ?? [])
-          .map((e) => ButterflyComponent.fromJson(e))
-          .toList();
-      for (final component in components) {
-        reader.setComponent(component);
+      for (final component in data['components'] ?? []) {
+        reader.setAsset('$kComponentsArchiveDirectory/${component.name}.json',
+            utf8.encode((component)));
       }
       break;
     case NoteFileType.template:
@@ -45,7 +39,7 @@ Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
       reader.setAsset(
           '$kPagesArchiveDirectory/default.json',
           utf8.encode(jsonEncode(
-              meta.type == NoteFileType.document ? data : data['document'])));
+              type == NoteFileType.document ? data : data['document'])));
       final packs = (data['packs'] ?? [])
           .map((e) => NoteData.fromData(Uint8List.fromList(
               utf8.encode(jsonEncode({'type': 'pack', ...e})))))
@@ -88,9 +82,8 @@ Map<String, dynamic> _legacyDocumentJsonMigrator(
       data['palettes'] = List.from(
           Map<String, dynamic>.from(data['palettes'] ?? [])
               .entries
-              .map<ColorPalette>((e) => ColorPalette(
-                  colors: List<int>.from(e.value).toList(), name: e.key))
-              .map((e) => e.toJson())
+              .map((e) =>
+                  {'colors': List<int>.from(e.value).toList(), 'name': e.key})
               .toList());
     }
     if (fileVersion < 5) {
