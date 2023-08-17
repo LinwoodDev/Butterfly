@@ -119,8 +119,7 @@ abstract class Renderer<T> {
     // Backgrounds
     if (element is Background) {
       return element.map(
-        empty: (value) => EmptyBackgroundRenderer(value),
-        pattern: (value) => PatternBackgroundRenderer(value),
+        motif: (value) => MotifBackgroundRenderer(value),
         image: (value) => ImageBackgroundRenderer(value),
         svg: (value) => EmptyBackgroundRenderer(value),
       ) as Renderer<T>;

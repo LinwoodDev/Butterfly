@@ -36,19 +36,19 @@ class DocumentDefaults {
     return Future.wait([
       (
         AppLocalizations.of(context).light,
-        BackgroundTemplate.plain.create(),
+        PatternTemplate.plain.create(),
       ),
       (
         AppLocalizations.of(context).dark,
-        BackgroundTemplate.plainDark.create(),
+        PatternTemplate.plainDark.create(),
       ),
     ].map((e) async {
-      final bg = e.$2;
+      final bg = Background.motif(motif: e.$2);
       final color = bg.defaultColor;
       return createTemplate(
         name: e.$1,
         thumbnail: await _createPlainThumnail(Color(color)),
-        background: bg,
+        backgrounds: [bg],
       );
     }).toList());
   }
@@ -127,7 +127,7 @@ class DocumentDefaults {
   static Future<NoteData> createTemplate(
       {String name = '',
       Uint8List? thumbnail,
-      Background background = const Background.pattern()}) async {
+      List<Background> backgrounds = const []}) async {
     final data = NoteData(Archive());
     final metadata = createMetadata(
       type: NoteFileType.template,
@@ -135,9 +135,9 @@ class DocumentDefaults {
     );
     data.setMetadata(metadata);
     final page = DocumentPage(
-      background: background,
+      backgrounds: backgrounds,
     );
-    data.setInfo(createInfo(background.defaultColor));
+    data.setInfo(createInfo(backgrounds.firstOrNull?.defaultColor));
     data.setPage(page);
     data.setPack(await getCorePack());
     if (thumbnail != null) data.setThumbnail(thumbnail);

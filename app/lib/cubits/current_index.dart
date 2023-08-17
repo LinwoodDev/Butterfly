@@ -447,7 +447,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
     if (renderBackground) {
-      state.cameraViewport.background?.buildSvg(xml, page, rect);
+      state.cameraViewport.backgrounds.map((e) => e.buildSvg(xml, page, rect));
     }
     for (var e in renderers) {
       e.buildSvg(xml, page, rect);
@@ -456,14 +456,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void unbake(
-      {Renderer<Background>? background,
+      {List<Renderer<Background>>? backgrounds,
       UtilitiesRenderer? tool,
       List<Renderer<PadElement>>? unbakedElements}) {
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.unbake(
             unbakedElements: unbakedElements,
             utilities: tool,
-            background: background)));
+            backgrounds: backgrounds)));
   }
 
   Future<void> loadElements(

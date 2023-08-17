@@ -14,28 +14,18 @@ class EraserCursor extends Renderer<ToolCursorData<EraserTool>> {
       [ColorScheme? colorScheme, bool foreground = false]) {
     final radius = element.tool.strokeWidth / 2;
     final position = transform.localToGlobal(element.position);
+    final background = page.backgrounds.firstOrNull;
     canvas.drawCircle(
         position,
         radius,
         Paint()
           ..style = PaintingStyle.stroke
-          ..color = page.background
-                  .mapOrNull(pattern: (box) => Color(box.boxColor)) ??
+          ..color = background?.mapOrNull(
+                  motif: (box) => Color(box.motif.boxColor)) ??
               Colors.white
           ..strokeCap = StrokeCap.round
           ..invertColors = true
           ..strokeWidth = radius / transform.size
-          ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear);
-    canvas.drawCircle(
-        position,
-        radius,
-        Paint()
-          ..style = PaintingStyle.fill
-          ..color = page.background
-                  .mapOrNull(pattern: (box) => Color(box.boxColor)) ??
-              Colors.white
-          ..strokeCap = StrokeCap.round
-          ..invertColors = false
           ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear);
   }
 }

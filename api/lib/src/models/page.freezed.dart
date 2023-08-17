@@ -22,7 +22,7 @@ DocumentPage _$DocumentPageFromJson(Map<String, dynamic> json) {
 mixin _$DocumentPage {
   List<AnimationTrack> get animations => throw _privateConstructorUsedError;
   List<PadElement> get content => throw _privateConstructorUsedError;
-  Background get background => throw _privateConstructorUsedError;
+  List<Background> get backgrounds => throw _privateConstructorUsedError;
   List<Waypoint> get waypoints => throw _privateConstructorUsedError;
   List<Area> get areas => throw _privateConstructorUsedError;
 
@@ -41,11 +41,9 @@ abstract class $DocumentPageCopyWith<$Res> {
   $Res call(
       {List<AnimationTrack> animations,
       List<PadElement> content,
-      Background background,
+      List<Background> backgrounds,
       List<Waypoint> waypoints,
       List<Area> areas});
-
-  $BackgroundCopyWith<$Res> get background;
 }
 
 /// @nodoc
@@ -63,7 +61,7 @@ class _$DocumentPageCopyWithImpl<$Res, $Val extends DocumentPage>
   $Res call({
     Object? animations = null,
     Object? content = null,
-    Object? background = null,
+    Object? backgrounds = null,
     Object? waypoints = null,
     Object? areas = null,
   }) {
@@ -76,10 +74,10 @@ class _$DocumentPageCopyWithImpl<$Res, $Val extends DocumentPage>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as List<PadElement>,
-      background: null == background
-          ? _value.background
-          : background // ignore: cast_nullable_to_non_nullable
-              as Background,
+      backgrounds: null == backgrounds
+          ? _value.backgrounds
+          : backgrounds // ignore: cast_nullable_to_non_nullable
+              as List<Background>,
       waypoints: null == waypoints
           ? _value.waypoints
           : waypoints // ignore: cast_nullable_to_non_nullable
@@ -89,14 +87,6 @@ class _$DocumentPageCopyWithImpl<$Res, $Val extends DocumentPage>
           : areas // ignore: cast_nullable_to_non_nullable
               as List<Area>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BackgroundCopyWith<$Res> get background {
-    return $BackgroundCopyWith<$Res>(_value.background, (value) {
-      return _then(_value.copyWith(background: value) as $Val);
-    });
   }
 }
 
@@ -111,12 +101,9 @@ abstract class _$$_DocumentPageCopyWith<$Res>
   $Res call(
       {List<AnimationTrack> animations,
       List<PadElement> content,
-      Background background,
+      List<Background> backgrounds,
       List<Waypoint> waypoints,
       List<Area> areas});
-
-  @override
-  $BackgroundCopyWith<$Res> get background;
 }
 
 /// @nodoc
@@ -132,7 +119,7 @@ class __$$_DocumentPageCopyWithImpl<$Res>
   $Res call({
     Object? animations = null,
     Object? content = null,
-    Object? background = null,
+    Object? backgrounds = null,
     Object? waypoints = null,
     Object? areas = null,
   }) {
@@ -145,10 +132,10 @@ class __$$_DocumentPageCopyWithImpl<$Res>
           ? _value._content
           : content // ignore: cast_nullable_to_non_nullable
               as List<PadElement>,
-      background: null == background
-          ? _value.background
-          : background // ignore: cast_nullable_to_non_nullable
-              as Background,
+      backgrounds: null == backgrounds
+          ? _value._backgrounds
+          : backgrounds // ignore: cast_nullable_to_non_nullable
+              as List<Background>,
       waypoints: null == waypoints
           ? _value._waypoints
           : waypoints // ignore: cast_nullable_to_non_nullable
@@ -167,11 +154,12 @@ class _$_DocumentPage extends _DocumentPage {
   const _$_DocumentPage(
       {final List<AnimationTrack> animations = const [],
       final List<PadElement> content = const [],
-      this.background = const Background.empty(),
+      final List<Background> backgrounds = const [],
       final List<Waypoint> waypoints = const [],
       final List<Area> areas = const []})
       : _animations = animations,
         _content = content,
+        _backgrounds = backgrounds,
         _waypoints = waypoints,
         _areas = areas,
         super._();
@@ -197,9 +185,15 @@ class _$_DocumentPage extends _DocumentPage {
     return EqualUnmodifiableListView(_content);
   }
 
+  final List<Background> _backgrounds;
   @override
   @JsonKey()
-  final Background background;
+  List<Background> get backgrounds {
+    if (_backgrounds is EqualUnmodifiableListView) return _backgrounds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_backgrounds);
+  }
+
   final List<Waypoint> _waypoints;
   @override
   @JsonKey()
@@ -220,7 +214,7 @@ class _$_DocumentPage extends _DocumentPage {
 
   @override
   String toString() {
-    return 'DocumentPage(animations: $animations, content: $content, background: $background, waypoints: $waypoints, areas: $areas)';
+    return 'DocumentPage(animations: $animations, content: $content, backgrounds: $backgrounds, waypoints: $waypoints, areas: $areas)';
   }
 
   @override
@@ -231,8 +225,8 @@ class _$_DocumentPage extends _DocumentPage {
             const DeepCollectionEquality()
                 .equals(other._animations, _animations) &&
             const DeepCollectionEquality().equals(other._content, _content) &&
-            (identical(other.background, background) ||
-                other.background == background) &&
+            const DeepCollectionEquality()
+                .equals(other._backgrounds, _backgrounds) &&
             const DeepCollectionEquality()
                 .equals(other._waypoints, _waypoints) &&
             const DeepCollectionEquality().equals(other._areas, _areas));
@@ -244,7 +238,7 @@ class _$_DocumentPage extends _DocumentPage {
       runtimeType,
       const DeepCollectionEquality().hash(_animations),
       const DeepCollectionEquality().hash(_content),
-      background,
+      const DeepCollectionEquality().hash(_backgrounds),
       const DeepCollectionEquality().hash(_waypoints),
       const DeepCollectionEquality().hash(_areas));
 
@@ -266,7 +260,7 @@ abstract class _DocumentPage extends DocumentPage {
   const factory _DocumentPage(
       {final List<AnimationTrack> animations,
       final List<PadElement> content,
-      final Background background,
+      final List<Background> backgrounds,
       final List<Waypoint> waypoints,
       final List<Area> areas}) = _$_DocumentPage;
   const _DocumentPage._() : super._();
@@ -279,7 +273,7 @@ abstract class _DocumentPage extends DocumentPage {
   @override
   List<PadElement> get content;
   @override
-  Background get background;
+  List<Background> get backgrounds;
   @override
   List<Waypoint> get waypoints;
   @override

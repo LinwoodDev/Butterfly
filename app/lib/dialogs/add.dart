@@ -21,7 +21,8 @@ class AddDialog extends StatelessWidget {
       final bloc = context.read<DocumentBloc>();
       final state = bloc.state;
       if (state is! DocumentLoaded) return;
-      final background = state.page.background.defaultColor;
+      final background =
+          state.page.backgrounds.firstOrNull?.defaultColor ?? kColorBlack;
       final defaultTool = updateToolDefaultColor(tool, background);
       bloc.add(ToolCreated(defaultTool));
       Navigator.of(context).pop();

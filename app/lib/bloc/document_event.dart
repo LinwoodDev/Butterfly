@@ -135,13 +135,13 @@ class ToolReordered extends DocumentEvent {
   List<Object?> get props => [oldIndex, newIndex];
 }
 
-class DocumentBackgroundChanged extends DocumentEvent {
-  final dynamic background;
+class DocumentBackgroundsChanged extends DocumentEvent {
+  final List<Background> backgrounds;
 
-  const DocumentBackgroundChanged(this.background);
+  const DocumentBackgroundsChanged(this.backgrounds);
 
   @override
-  List<Object?> get props => [background];
+  List<Object?> get props => [backgrounds];
 }
 
 class WaypointCreated extends DocumentEvent {

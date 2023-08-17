@@ -52,11 +52,21 @@ void _migrate(NoteData noteData, FileMetadata metadata) {
       final data = noteData.getAsset('$kPagesArchiveDirectory/$page');
       if (data == null) continue;
       final pageData = json.decode(utf8.decode(data)) as Map<String, dynamic>;
-      if (pageData['background']?['type'] == 'box') {
-        pageData['background']['type'] = 'pattern';
+      final backgroundType = pageData['background']?['type'];
+      if (backgroundType == 'box') {
+        pageData['background'] = {
+          'type': 'motif',
+          'motif': {
+            ...pageData['background'],
+            'type': 'pattern',
+          },
+        };
         noteData.setAsset('$kPagesArchiveDirectory/$page',
             utf8.encode(json.encode(pageData)));
       }
+      pageData['backgrounds'] = [
+        if (backgroundType != 'empty') pageData['background'],
+      ];
     }
     final info = noteData.getAsset(kInfoArchiveFile);
     if (info != null) {

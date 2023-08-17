@@ -201,14 +201,15 @@ class _ProjectPageState extends State<ProjectPage> {
       final assetService = AssetService(document);
       await Future.wait(renderers
           .map((e) async => await e.setup(document!, assetService, page)));
-      final background = Renderer.fromInstance(page.background);
-      await background.setup(document, assetService, page);
+      final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
+      await Future.wait(
+          backgrounds.map((e) async => e.setup(document!, assetService, page)));
       location ??= AssetLocation(
           path: widget.location?.path ?? '', remote: _remote?.identifier ?? '');
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
-            CameraViewport.unbaked(UtilitiesRenderer(), background), null);
+            CameraViewport.unbaked(UtilitiesRenderer(), backgrounds), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
             location!, renderers, assetService, page, pageName);
         _importService = ImportService(context, _bloc, _currentIndexCubit);

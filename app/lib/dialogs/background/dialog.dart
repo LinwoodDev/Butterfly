@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/helpers/background.dart';
+import 'package:butterfly/helpers/motif.dart';
 import 'package:butterfly/widgets/color_field.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
@@ -17,7 +17,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../selections/selection.dart';
 
 part 'general.dart';
-part 'properties/box.dart';
+part 'properties/motif.dart';
 part 'properties/image.dart';
 part 'properties/svg.dart';
 
@@ -28,7 +28,7 @@ class BackgroundDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DocumentBloc, DocumentState>(builder: (context, state) {
       if (state is! DocumentLoadSuccess) return Container();
-      var background = state.page.background;
+      var background = state.page.backgrounds.firstOrNull;
 
       return AlertDialog(
         content: SizedBox(
@@ -82,21 +82,21 @@ class BackgroundDialog extends StatelessWidget {
                             value: background,
                             onChanged: (value) =>
                                 setState(() => background = value)),
-                        background.map(
-                          empty: (e) => const SizedBox.shrink(),
-                          pattern: (e) => _PatternBackgroundPropertiesView(
-                              value: e,
-                              onChanged: (value) =>
-                                  setState(() => background = value)),
-                          image: (e) => _ImageBackgroundPropertiesView(
-                              value: e,
-                              onChanged: (value) =>
-                                  setState(() => background = value)),
-                          svg: (e) => _SvgBackgroundPropertiesView(
-                              value: e,
-                              onChanged: (value) =>
-                                  setState(() => background = value)),
-                        ),
+                        if (background != null)
+                          background!.map(
+                            motif: (e) => _MotifBackgroundPropertiesView(
+                                value: e,
+                                onChanged: (value) =>
+                                    setState(() => background = value)),
+                            image: (e) => _ImageBackgroundPropertiesView(
+                                value: e,
+                                onChanged: (value) =>
+                                    setState(() => background = value)),
+                            svg: (e) => _SvgBackgroundPropertiesView(
+                                value: e,
+                                onChanged: (value) =>
+                                    setState(() => background = value)),
+                          ),
                       ],
                     );
                   }),
@@ -113,9 +113,8 @@ class BackgroundDialog extends StatelessWidget {
           ElevatedButton(
             child: Text(AppLocalizations.of(context).ok),
             onPressed: () {
-              context
-                  .read<DocumentBloc>()
-                  .add(DocumentBackgroundChanged(background));
+              context.read<DocumentBloc>().add(DocumentBackgroundsChanged(
+                  [if (background != null) background!]));
               Navigator.of(context).pop();
             },
           ),

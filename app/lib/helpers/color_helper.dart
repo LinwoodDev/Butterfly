@@ -12,8 +12,8 @@ bool isDarkColor(Color color) {
 }
 
 extension BackgroundColor on Background {
-  int get defaultColor =>
-      maybeMap(pattern: (box) => box.boxColor, orElse: () => kColorWhite);
+  int get defaultColor => maybeMap(
+      motif: (motif) => motif.motif.boxColor, orElse: () => kColorWhite);
 }
 
 Tool updateToolDefaultColor(Tool tool, int color) {

@@ -17,7 +17,7 @@ class DocumentPage with _$DocumentPage {
   const factory DocumentPage({
     @Default([]) List<AnimationTrack> animations,
     @Default([]) List<PadElement> content,
-    @Default(Background.empty()) Background background,
+    @Default([]) List<Background> backgrounds,
     @Default([]) List<Waypoint> waypoints,
     @Default([]) List<Area> areas,
   }) = _DocumentPage;

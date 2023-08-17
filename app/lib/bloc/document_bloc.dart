@@ -409,21 +409,21 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
             ));
       }
     });
-    on<DocumentBackgroundChanged>((event, emit) async {
+    on<DocumentBackgroundsChanged>((event, emit) async {
       if (state is DocumentLoadSuccess) {
         final current = state as DocumentLoadSuccess;
         if (!(current.embedding?.editable ?? true)) return;
-        final Renderer<Background> background =
-            Renderer.fromInstance(event.background);
-        await background.setup(
-            current.data, current.assetService, current.page);
+        final List<Renderer<Background>> backgrounds =
+            event.backgrounds.map(Renderer.fromInstance).toList();
+        await Future.wait(backgrounds.map((e) async =>
+            e.setup(current.data, current.assetService, current.page)));
         await _saveState(
             emit,
             current.copyWith(
                 page: current.page.copyWith(
-              background: event.background,
+              backgrounds: event.backgrounds,
             )));
-        current.currentIndexCubit.unbake(background: background);
+        current.currentIndexCubit.unbake(backgrounds: backgrounds);
       }
     });
     on<WaypointCreated>((event, emit) async {
@@ -873,11 +873,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final page = current.page;
     final assetService = current.assetService;
     currentIndexCubit.setSaveState(saved: SaveState.saved);
-    final background = Renderer.fromInstance(page.background);
-    await background.setup(document, assetService, page);
+    final background = page.backgrounds.map(Renderer.fromInstance).toList();
+    await Future.wait(
+        background.map((e) async => e.setup(document, assetService, page)));
     final tool = UtilitiesRenderer(const UtilitiesState());
     await tool.setup(document, assetService, page);
-    currentIndexCubit.unbake(background: background, tool: tool);
+    currentIndexCubit.unbake(backgrounds: background, tool: tool);
     currentIndexCubit.loadElements(document, assetService, page);
     currentIndexCubit.init(this);
   }

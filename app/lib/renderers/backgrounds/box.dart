@@ -1,22 +1,24 @@
 part of '../renderer.dart';
 
-class PatternBackgroundRenderer extends Renderer<PatternBackground> {
-  PatternBackgroundRenderer(super.element);
+class MotifBackgroundRenderer extends Renderer<MotifBackground> {
+  MotifBackgroundRenderer(super.element);
+
+  Motif get motif => element.motif;
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    canvas.drawColor(Color(element.boxColor), BlendMode.srcOver);
-    if (element.boxWidth > 0 && element.boxXCount > 0) {
-      var relativeWidth = element.boxWidth * transform.size;
-      var relativeSpace = element.boxXSpace * transform.size;
+    canvas.drawColor(Color(motif.boxColor), BlendMode.srcOver);
+    if (motif.boxWidth > 0 && motif.boxXCount > 0) {
+      var relativeWidth = motif.boxWidth * transform.size;
+      var relativeSpace = motif.boxXSpace * transform.size;
       int xCount = (transform.position.dx /
-                  (element.boxWidth * element.boxXCount + element.boxXSpace))
+                  (motif.boxWidth * motif.boxXCount + motif.boxXSpace))
               .floor() +
           1;
       double x =
-          -xCount * (element.boxWidth * element.boxXCount + element.boxXSpace) +
+          -xCount * (motif.boxWidth * motif.boxXCount + motif.boxXSpace) +
               transform.position.dx;
       x *= transform.size;
 
@@ -26,26 +28,26 @@ class PatternBackgroundRenderer extends Renderer<PatternBackground> {
             Offset(x, 0),
             Offset(x, size.height),
             Paint()
-              ..strokeWidth = element.boxXStroke * transform.size
-              ..color = Color(element.boxXColor));
+              ..strokeWidth = motif.boxXStroke * transform.size
+              ..color = Color(motif.boxXColor));
         count++;
-        if (count >= element.boxXCount) {
+        if (count >= motif.boxXCount) {
           count = 0;
           x += relativeSpace;
         }
         x += relativeWidth;
       }
     }
-    if (element.boxHeight > 0 && element.boxYCount > 0) {
-      var relativeHeight = element.boxHeight * transform.size;
-      var relativeSpace = element.boxYSpace * transform.size;
+    if (motif.boxHeight > 0 && motif.boxYCount > 0) {
+      var relativeHeight = motif.boxHeight * transform.size;
+      var relativeSpace = motif.boxYSpace * transform.size;
       int yCount = (transform.position.dy /
-                  (element.boxHeight * element.boxYCount + element.boxYSpace))
+                  (motif.boxHeight * motif.boxYCount + motif.boxYSpace))
               .floor() +
           1;
-      double y = -yCount *
-              (element.boxHeight * element.boxYCount + element.boxYSpace) +
-          transform.position.dy;
+      double y =
+          -yCount * (motif.boxHeight * motif.boxYCount + motif.boxYSpace) +
+              transform.position.dy;
       y *= transform.size;
 
       int count = 0;
@@ -54,10 +56,10 @@ class PatternBackgroundRenderer extends Renderer<PatternBackground> {
             Offset(0, y),
             Offset(size.width, y),
             Paint()
-              ..strokeWidth = element.boxYStroke * transform.size
-              ..color = Color(element.boxYColor));
+              ..strokeWidth = motif.boxYStroke * transform.size
+              ..color = Color(motif.boxYColor));
         count++;
-        if (count >= element.boxYCount) {
+        if (count >= motif.boxYCount) {
           count = 0;
           y += relativeSpace;
         }
@@ -76,15 +78,15 @@ class PatternBackgroundRenderer extends Renderer<PatternBackground> {
       'y': '${viewportRect.top}px',
       'width': '${viewportRect.width}px',
       'height': '${viewportRect.height}px',
-      'fill': element.boxColor.toHexColor(),
+      'fill': motif.boxColor.toHexColor(),
     });
-    if (element.boxWidth > 0 && element.boxXCount > 0) {
+    if (motif.boxWidth > 0 && motif.boxXCount > 0) {
       int xCount = (viewportRect.left /
-                  (element.boxWidth * element.boxXCount + element.boxXSpace))
+                  (motif.boxWidth * motif.boxXCount + motif.boxXSpace))
               .floor() +
           1;
       double x =
-          -xCount * (element.boxWidth * element.boxXCount + element.boxXSpace) +
+          -xCount * (motif.boxWidth * motif.boxXCount + motif.boxXSpace) +
               viewportRect.left;
 
       int count = 0;
@@ -94,25 +96,25 @@ class PatternBackgroundRenderer extends Renderer<PatternBackground> {
           'y1': '${viewportRect.top}px',
           'x2': '${x + viewportRect.left}px',
           'y2': '${viewportRect.top + viewportRect.height}px',
-          'stroke': element.boxXColor.toHexColor(),
-          'stroke-width': '${element.boxXStroke}'
+          'stroke': motif.boxXColor.toHexColor(),
+          'stroke-width': '${motif.boxXStroke}'
         });
         count++;
-        if (count >= element.boxXCount) {
+        if (count >= motif.boxXCount) {
           count = 0;
-          x += element.boxXSpace;
+          x += motif.boxXSpace;
         }
-        x += element.boxWidth;
+        x += motif.boxWidth;
       }
     }
-    if (element.boxHeight > 0 && element.boxYCount > 0) {
+    if (motif.boxHeight > 0 && motif.boxYCount > 0) {
       int yCount = (viewportRect.top /
-                  (element.boxHeight * element.boxYCount + element.boxYSpace))
+                  (motif.boxHeight * motif.boxYCount + motif.boxYSpace))
               .floor() +
           1;
-      double y = -yCount *
-              (element.boxHeight * element.boxYCount + element.boxYSpace) +
-          viewportRect.top;
+      double y =
+          -yCount * (motif.boxHeight * motif.boxYCount + motif.boxYSpace) +
+              viewportRect.top;
 
       int count = 0;
       while (y < viewportRect.height) {
@@ -121,15 +123,15 @@ class PatternBackgroundRenderer extends Renderer<PatternBackground> {
           'y1': '${y + viewportRect.top}px',
           'x2': '${viewportRect.left + viewportRect.width}px',
           'y2': '${y + viewportRect.top}px',
-          'stroke': element.boxYColor.toHexColor(),
-          'stroke-width': '${element.boxYStroke}'
+          'stroke': motif.boxYColor.toHexColor(),
+          'stroke-width': '${motif.boxYStroke}'
         });
         count++;
-        if (count >= element.boxYCount) {
+        if (count >= motif.boxYCount) {
           count = 0;
-          y += element.boxYSpace;
+          y += motif.boxYSpace;
         }
-        y += element.boxHeight;
+        y += motif.boxHeight;
       }
     }
   }
