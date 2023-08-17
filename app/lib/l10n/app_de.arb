@@ -515,5 +515,10 @@
   "spacer": "Abstand",
   "navigationRail": "Navigationsschiene",
   "cut": "Schneide",
-  "paste": "Einfügen"
+  "insertBefore": "Vorher einfügen",
+  "insertAfter": "Einfügen nach",
+  "paste": "Einfügen",
+  "ascending": "Aufsteigend",
+  "descending": "Absteigend",
+  "imageScale": "Bildskala"
 }

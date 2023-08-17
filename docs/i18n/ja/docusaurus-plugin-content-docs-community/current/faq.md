@@ -13,12 +13,6 @@ sidebar_label: "FAQ"
 
 タイトルバーにあるインストールボタンをクリックして、Web版をインストールすることができます。 その後、このアプリをオフラインで使用できます。
 
-### ウェブに画像を挿入できません
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-現在デコードされている画像は canvaskit では動作しません。 このオプションが必要な場合は、 [この課題](https://github.com/flutter/flutter/issues/102683) に投票してください!
-
 ### バタフライがBraveにロードされません
 
 「指紋認証をブロックする」シールドを攻撃的に設定したユーザーは、単に「標準」または「指紋認証をブロック」に変更する必要があります。 アドレスバーのシールドアイコンをクリックして設定を変更します。 ブラウザを最新バージョンに更新してみてください。
@@ -29,7 +23,9 @@ sidebar_label: "FAQ"
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-これはフラッターとサムスンZ折り目3の既知の問題です。 この問題を修正するには、 [](https://github.com/flutter/flutter/issues/111068) に投票してください！
+2.0 英数字で修正。
+
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## デスクトップ
 

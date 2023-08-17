@@ -13,12 +13,6 @@ Zde jsou některé často kladené otázky.
 
 Webovou verzi můžete nainstalovat kliknutím na tlačítko instalace v záhlaví. Poté můžete použít tuto aplikaci offline.
 
-### Nelze vložit obrázky do webu
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-V současné době dekódování obrázků nefunguje s canvaskit. Prosím, hlasujte pro [tento problém](https://github.com/flutter/flutter/issues/102683) , pokud chcete tuto možnost!
-
 ### Butterfly se nenačte na Hrobe
 
 Hrobní uživatelé, kteří nastavili pole 'Blokovat otisk prstu' na Agresivní, musí jej změnit na 'Standard' nebo jednoduše 'Blokovat otisk prstu'. Klikněte na ikonu štítu v adresním řádku pro změnu nastavení. Zkuste aktualizovat váš prohlížeč na nejnovější verzi.
@@ -29,7 +23,9 @@ Hrobní uživatelé, kteří nastavili pole 'Blokovat otisk prstu' na Agresivní
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-To je známý problém s futter a Samsung Z Fold 3. Prosím, hlasujte pro [tento problém](https://github.com/flutter/flutter/issues/111068) , abyste to opravili!
+Pevná ve fázi 2.0.
+
+~~~Toto je známý problém s futterem a Samsung Z Fold 3.~~ ~~~Prosím hlasujte [tento problém](https://github.com/flutter/flutter/issues/111068) pro opravení!~~
 
 ## Stolní počítače
 

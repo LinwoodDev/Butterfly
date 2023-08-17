@@ -515,5 +515,10 @@
   "spacer": "Spatier",
   "navigationRail": "Cale de navigare",
   "cut": "Taie",
-  "paste": "Lipește"
+  "insertBefore": "Inserare înainte",
+  "insertAfter": "Inserare după",
+  "paste": "Lipește",
+  "ascending": "Crescător",
+  "descending": "Descrescător",
+  "imageScale": "Scala imaginii"
 }

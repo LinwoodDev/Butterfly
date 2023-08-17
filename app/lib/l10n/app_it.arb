@@ -515,5 +515,10 @@
   "spacer": "Spaziatore",
   "navigationRail": "Ferrovia di navigazione",
   "cut": "Taglia",
-  "paste": "Incolla"
+  "insertBefore": "Inserisci prima",
+  "insertAfter": "Inserisci dopo",
+  "paste": "Incolla",
+  "ascending": "Crescente",
+  "descending": "Decrescente",
+  "imageScale": "Scala immagine"
 }
