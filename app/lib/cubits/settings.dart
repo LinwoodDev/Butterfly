@@ -235,6 +235,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(ToolbarPosition.top) ToolbarPosition toolbarPosition,
     @Default(SortBy.name) SortBy sortBy,
     @Default(SortOrder.ascending) SortOrder sortOrder,
+    @Default(0.5) double imageScale,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -302,6 +303,7 @@ class ButterflySettings with _$ButterflySettings {
       sortOrder: prefs.containsKey('sort_order')
           ? SortOrder.values.byName(prefs.getString('sort_order')!)
           : SortOrder.ascending,
+      imageScale: prefs.getDouble('image_scale') ?? 0.5,
     );
   }
 
@@ -352,6 +354,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setBool('navigation_rail', navigationRail);
     await prefs.setString('sort_by', sortBy.name);
     await prefs.setString('sort_order', sortOrder.name);
+    await prefs.setDouble('image_scale', imageScale);
   }
 
   RemoteStorage? getRemote(String? identifier) {
@@ -740,4 +743,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
     emit(state.copyWith(sortOrder: value));
     return save();
   }
+
+  Future<void> changeImageScale(double value) {
+    emit(state.copyWith(imageScale: value));
+    return save();
+  }
+
+  Future<void> resetImageScale() => changeImageScale(0.5);
 }

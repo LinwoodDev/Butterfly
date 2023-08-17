@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class LabelHandler extends Handler<LabelPainter>
+class LabelHandler extends Handler<LabelTool>
     with HandlerWithCursor, TextInputClient {
   LabelContext? _context;
   DocumentBloc? _bloc;
@@ -20,7 +20,7 @@ class LabelHandler extends Handler<LabelPainter>
       case LabelMode.text:
         final forced = _context?.mapOrNull(text: (e) => e.forcedProperty);
         return TextContext(
-          painter: data,
+          tool: data,
           isCreating: true,
           element: (element as TextElement?) ??
               (position == null
@@ -42,7 +42,7 @@ class LabelHandler extends Handler<LabelPainter>
         );
       case LabelMode.markdown:
         return MarkdownContext(
-          painter: data,
+          tool: data,
           isCreating: true,
           element: (element as MarkdownElement?) ??
               (position == null
@@ -239,7 +239,7 @@ class LabelHandler extends Handler<LabelPainter>
     final state = bloc.state;
     if (state is! DocumentLoaded) return;
     final content = state.page.content;
-    final painters = state.info.painters;
+    final tools = state.info.tools;
     final context = _context;
     _context = value;
     if (context == null) return;
@@ -251,8 +251,8 @@ class LabelHandler extends Handler<LabelPainter>
         }));
       }
     }
-    if (context.painter != value.painter) {
-      bloc.add(PaintersChanged({painters.indexOf(data): value.painter}));
+    if (context.tool != value.tool) {
+      bloc.add(ToolsChanged({tools.indexOf(data): value.tool}));
     }
     bloc.refresh();
     _refreshToolbar(bloc);
@@ -305,6 +305,10 @@ class LabelHandler extends Handler<LabelPainter>
         useRootNavigator: true,
         builder: (context) => AdaptiveTextSelectionToolbar.editable(
             clipboardStatus: ClipboardStatus.pasteable,
+            onLiveTextInput: () {
+              _connection?.show();
+              Navigator.of(context).pop();
+            },
             onCopy: () {
               _copyText(false);
               Navigator.of(context).pop();
@@ -472,6 +476,7 @@ class LabelHandler extends Handler<LabelPainter>
   Map<Type, Action<Intent>> getActions(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
     return {
+      ...super.getActions(context),
       DeleteCharacterIntent: CallbackAction<DeleteCharacterIntent>(
         onInvoke: (intent) {
           final element = _context?.element;

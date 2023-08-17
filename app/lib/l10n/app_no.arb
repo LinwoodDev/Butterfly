@@ -515,5 +515,10 @@
   "spacer": "Mellomrom",
   "navigationRail": "Navigasjon bane",
   "cut": "Klipp",
-  "paste": "Lim"
+  "insertBefore": "Innsett før",
+  "insertAfter": "Innsett etter",
+  "paste": "Lim",
+  "ascending": "Stigende",
+  "descending": "Synkende",
+  "imageScale": "Bilde skalering"
 }

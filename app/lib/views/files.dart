@@ -57,7 +57,7 @@ class _FilesViewState extends State<FilesView> {
   RemoteStorage? _remote;
   String _search = '';
   late final SettingsCubit _settingsCubit;
-  late Future<AppDocumentEntity?> _filesFuture;
+  Future<AppDocumentEntity?>? _filesFuture;
 
   @override
   void initState() {

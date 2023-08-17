@@ -4,9 +4,9 @@ import 'dart:typed_data';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:http/http.dart' as http;
 
-Future<List<int>?> getDataFromSource(NoteData document, String source) async {
+Future<Uint8List?> getDataFromSource(NoteData document, String source) async {
   if (source.isEmpty) {
-    return [];
+    return null;
   }
   final uri = Uri.parse(source);
   if (uri.scheme.isEmpty) {
@@ -29,7 +29,7 @@ Future<List<int>?> getDataFromSource(NoteData document, String source) async {
 }
 
 extension ImageElementDataExtension on ImageElement {
-  Future<List<int>?> getData(NoteData document) =>
+  Future<Uint8List?> getData(NoteData document) =>
       getDataFromSource(document, source);
 }
 

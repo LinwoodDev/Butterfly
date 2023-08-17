@@ -98,7 +98,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
         value.selection.baseOffset.clamp(0, value.text?.length ?? 0));
     final linePrefix =
         value.text?.substring(min(lineIndex + 1, value.text!.length)) ?? '';
-    final mode = value.painter.mode;
+    final mode = value.tool.mode;
     if (!paragraphSelections.contains(paragraphSelection)) {
       paragraphSelection = '';
     }
@@ -196,14 +196,14 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                             if (result == null) return;
                             if (value.element == null) {
                               widget.onChanged(value.copyWith(
-                                painter: value.painter.copyWith(
+                                tool: value.tool.copyWith(
                                   styleSheet: result,
                                 ),
                               ));
                               return;
                             }
                             var newValue = value.copyWith(
-                              painter: value.painter.copyWith(
+                              tool: value.tool.copyWith(
                                 styleSheet: result,
                               ),
                             );
@@ -221,12 +221,12 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         IconButton(
                           icon: const PhosphorIcon(
                               PhosphorIconsLight.magnifyingGlass),
-                          isSelected: value.painter.zoomDependent,
+                          isSelected: value.tool.zoomDependent,
                           tooltip: AppLocalizations.of(context).zoomDependent,
                           onPressed: () => widget.onChanged(value.copyWith(
-                              painter: value.painter.copyWith(
+                              tool: value.tool.copyWith(
                                   zoomDependent:
-                                      !widget.value.painter.zoomDependent))),
+                                      !widget.value.tool.zoomDependent))),
                         ),
                         const SizedBox(width: 8),
                         MenuAnchor(
@@ -240,8 +240,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                     ),
                                     onPressed: () => widget.onChanged(
                                         value.copyWith(
-                                            painter: value.painter
-                                                .copyWith(mode: e)))),
+                                            tool:
+                                                value.tool.copyWith(mode: e)))),
                               )
                               .toList(),
                           builder: (context, controller, child) => IconButton(
@@ -514,7 +514,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                               updateSpan((value) => value.copyWith(
                                   color: Color(result)
                                       .withAlpha(
-                                          Color(widget.value.painter.foreground)
+                                          Color(widget.value.tool.foreground)
                                               .alpha)
                                       .value));
                             },

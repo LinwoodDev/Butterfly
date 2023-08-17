@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class ShapeHandler extends PastingHandler<ShapePainter> {
+class ShapeHandler extends PastingHandler<ShapeTool> {
   ShapeHandler(super.data);
 
   @override
@@ -9,8 +9,8 @@ class ShapeHandler extends PastingHandler<ShapePainter> {
         onChanged: (value) {
           final state = bloc.state;
           if (state is! DocumentLoadSuccess) return;
-          final index = state.info.painters.indexOf(data);
-          bloc.add(PaintersChanged({
+          final index = state.info.tools.indexOf(data);
+          bloc.add(ToolsChanged({
             index: data.copyWith(
                 property: data.property.copyWith(
                     color: convertOldColor(value, data.property.color))),
@@ -20,6 +20,8 @@ class ShapeHandler extends PastingHandler<ShapePainter> {
 
   @override
   List<PadElement> transformElements(Rect rect, String layer) {
+    if (rect.isEmpty) return [];
+
     return [
       ShapeElement(
         firstPosition: rect.topLeft.toPoint(),

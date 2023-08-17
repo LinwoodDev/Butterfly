@@ -13,12 +13,6 @@ Eis algumas perguntas que são feitas com frequência.
 
 Você pode instalar a versão web clicando no botão de instalação na barra do título. Depois disso, você poderá usar este app offline.
 
-### Não é possível inserir imagens na web
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-Atualmente, a decodificação de imagens não funciona com o canvaskit. Por favor, vote [nesta issue](https://github.com/flutter/flutter/issues/102683) se você quiser esta opção!
-
 ### Borboleta não carrega no Brave
 
 Usuários corajosos que definiram a opção 'Bloquear impressão digital' para Agressivo, precisam alterá-la para 'Padrão' ou apenas para 'Bloquear impressão digital'. Clique no ícone do escudo na barra de endereços para alterar a configuração. Tente atualizar seu navegador para a versão mais recente.
@@ -29,7 +23,9 @@ Usuários corajosos que definiram a opção 'Bloquear impressão digital' para A
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Esta é uma questão conhecida com agitação e com o Samsung Z Fold 3. Por favor, vote [nesta issue](https://github.com/flutter/flutter/issues/111068) para resolver isso!
+Corrigida em alfabeto 2.0.
+
+~~This is a known problem with Fllutter and the Samsung Z Fold 3.~~ ~~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## Computadores
 

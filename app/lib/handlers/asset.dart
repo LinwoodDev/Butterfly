@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class AssetHandler extends Handler<AssetPainter> {
+class AssetHandler extends Handler<AssetTool> {
   AssetHandler(super.data);
 
   @override

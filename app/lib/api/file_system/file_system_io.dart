@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'file_system.dart';
 
-Future<String> getButterflyDirectory() async {
+Future<String> getButterflyDirectory([bool root = false]) async {
   final argPath = GeneralFileSystem.dataPath;
   if (argPath != null) {
     return argPath;
@@ -26,9 +26,11 @@ Future<String> getButterflyDirectory() async {
   if (path != null) {
     return path;
   }
-  if (Platform.isAndroid) path = (await getExternalStorageDirectory())?.path;
+  if (Platform.isAndroid) {
+    path ??= (await getExternalStorageDirectory())?.path;
+  }
   path ??= (await getApplicationDocumentsDirectory()).path;
-  path += '/Linwood/Butterfly';
+  if (!root) path += butterflySubDirectory;
   return path;
 }
 
@@ -153,9 +155,6 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (oldPath == newPath) {
       return false;
     }
-    if (Platform.isAndroid) {
-      return false;
-    }
     var oldDirectory = Directory(oldPath);
     if (await oldDirectory.exists()) {
       var files = await oldDirectory.list().toList();
@@ -205,7 +204,8 @@ class IOTemplateFileSystem extends TemplateFileSystem {
 
   @override
   Future<void> deleteTemplate(String name) async {
-    await File(await getAbsolutePath('${escapeName(name)}.bfly')).delete();
+    await File(await getAbsolutePath('${escapeName(name)}.bfly'))
+        .delete(recursive: true);
   }
 
   @override

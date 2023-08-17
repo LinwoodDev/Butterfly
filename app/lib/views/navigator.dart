@@ -1,5 +1,6 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/views/components.dart';
 import 'package:butterfly/views/files.dart';
 import 'package:butterfly/views/waypoints.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -18,13 +19,15 @@ enum NavigatorPage {
   waypoints,
   layers,
   pages,
-  files;
+  files,
+  components;
 
   String getLocalizedName(BuildContext context) => switch (this) {
         NavigatorPage.waypoints => AppLocalizations.of(context).waypoints,
         NavigatorPage.layers => AppLocalizations.of(context).layers,
         NavigatorPage.pages => AppLocalizations.of(context).pages,
         NavigatorPage.files => AppLocalizations.of(context).files,
+        NavigatorPage.components => AppLocalizations.of(context).components,
       };
 
   IconGetter get icon => switch (this) {
@@ -32,6 +35,7 @@ enum NavigatorPage {
         NavigatorPage.layers => PhosphorIcons.stack,
         NavigatorPage.pages => PhosphorIcons.book,
         NavigatorPage.files => PhosphorIcons.file,
+        NavigatorPage.components => PhosphorIcons.cube,
       };
 }
 
@@ -52,6 +56,7 @@ class NavigatorView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: NavigationRail(
+                      minWidth: 110,
                       destinations: NavigatorPage.values
                           .map(
                             (e) => NavigationRailDestination(
@@ -156,6 +161,7 @@ class _DocumentNavigatorState extends State<DocumentNavigator>
                     collapsed: true,
                   ),
                 ),
+              NavigatorPage.components => const ComponentsView(),
             };
             final content = Padding(
               padding: const EdgeInsets.all(12),

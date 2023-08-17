@@ -515,5 +515,10 @@
   "spacer": "Välilyönti",
   "navigationRail": "Navigointi rautatie",
   "cut": "Leikkaa",
-  "paste": "Liitä"
+  "insertBefore": "Lisää ennen",
+  "insertAfter": "Lisää jälkeen",
+  "paste": "Liitä",
+  "ascending": "Nouseva",
+  "descending": "Laskeva",
+  "imageScale": "Kuvan mittakaava"
 }

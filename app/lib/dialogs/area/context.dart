@@ -188,9 +188,28 @@ class AreaContextMenu extends StatelessWidget {
                 if (result == null) return;
                 final pack = document.getPack(result.pack);
                 if (pack == null) return;
+                final screenshot = await state.currentIndexCubit.render(
+                  state.data,
+                  state.page,
+                  state.info,
+                  width: area.width,
+                  height: area.height,
+                  renderBackground: true,
+                  x: area.position.x,
+                  y: area.position.y,
+                  quality: kThumbnailWidth / area.width,
+                );
+                String? thumbnailUri;
+                if (screenshot != null) {
+                  final thumbnailPath =
+                      pack.addImage(screenshot.buffer.asUint8List(), 'png');
+                  thumbnailUri =
+                      Uri.file(thumbnailPath, windows: false).toString();
+                }
                 pack.setComponent(ButterflyComponent(
                   name: result.name,
                   elements: elements,
+                  thumbnail: thumbnailUri,
                 ));
                 bloc.add(PackUpdated(result.pack, pack));
               },

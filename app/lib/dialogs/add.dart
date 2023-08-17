@@ -1,6 +1,6 @@
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/color_helper.dart';
-import 'package:butterfly/visualizer/painter.dart';
+import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -17,25 +17,26 @@ class AddDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void addPainter(Painter painter) {
+    void addTool(Tool tool) {
       final bloc = context.read<DocumentBloc>();
       final state = bloc.state;
       if (state is! DocumentLoaded) return;
-      final background = state.page.background.defaultColor;
-      final defaultPainter = updatePainterDefaultColor(painter, background);
-      bloc.add(PainterCreated(defaultPainter));
+      final background =
+          state.page.backgrounds.firstOrNull?.defaultColor ?? kColorBlack;
+      final defaultTool = updateToolDefaultColor(tool, background);
+      bloc.add(ToolCreated(defaultTool));
       Navigator.of(context).pop();
     }
 
-    Widget buildPainter(Painter Function() e) {
-      final painter = e();
+    Widget buildTool(Tool Function() e) {
+      final tool = e();
       return BoxTile(
         title: Text(
-          painter.getLocalizedName(context),
+          tool.getLocalizedName(context),
           textAlign: TextAlign.center,
         ),
-        icon: PhosphorIcon(painter.icon(PhosphorIconsStyle.light)),
-        onTap: () => addPainter(painter),
+        icon: PhosphorIcon(tool.icon(PhosphorIconsStyle.light)),
+        onTap: () => addTool(tool),
       );
     }
 
@@ -45,7 +46,7 @@ class AddDialog extends StatelessWidget {
         children: [
           Text(AppLocalizations.of(context).add),
           IconButton(
-            onPressed: () => openHelp(['painters']),
+            onPressed: () => openHelp(['tools']),
             icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
           ),
         ],
@@ -86,7 +87,7 @@ class AddDialog extends StatelessWidget {
                             const SizedBox(width: 8),
                             IconButton(
                               onPressed: () =>
-                                  addPainter(Painter.asset(importType: e)),
+                                  addTool(Tool.asset(importType: e)),
                               icon: const PhosphorIcon(
                                   PhosphorIconsLight.pushPin),
                             ),
@@ -112,20 +113,20 @@ class AddDialog extends StatelessWidget {
               Wrap(
                 alignment: WrapAlignment.start,
                 children: [
-                  Painter.hand,
-                  Painter.move,
-                  Painter.pen,
-                  Painter.stamp,
-                  Painter.laser,
-                  Painter.pathEraser,
-                  Painter.label,
-                  Painter.eraser,
-                  Painter.layer,
-                  Painter.area,
-                  Painter.presentation,
-                  () => Painter.spacer(axis: Axis2D.vertical),
-                  () => Painter.spacer(axis: Axis2D.horizontal),
-                ].map(buildPainter).toList(),
+                  Tool.hand,
+                  Tool.select,
+                  Tool.pen,
+                  Tool.stamp,
+                  Tool.laser,
+                  Tool.pathEraser,
+                  Tool.label,
+                  Tool.eraser,
+                  Tool.layer,
+                  Tool.area,
+                  Tool.presentation,
+                  () => Tool.spacer(axis: Axis2D.vertical),
+                  () => Tool.spacer(axis: Axis2D.horizontal),
+                ].map(buildTool).toList(),
               ),
               const SizedBox(height: 32),
               Text(
@@ -147,8 +148,8 @@ class AddDialog extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     icon: Icon(shape.icon(PhosphorIconsStyle.light)),
-                    onTap: () => addPainter(
-                        ShapePainter(property: ShapeProperty(shape: shape))),
+                    onTap: () => addTool(
+                        ShapeTool(property: ShapeProperty(shape: shape))),
                   );
                 }).toList(),
               ),
@@ -161,10 +162,10 @@ class AddDialog extends StatelessWidget {
               Wrap(
                 alignment: WrapAlignment.start,
                 children: [
-                  Painter.undo,
-                  Painter.redo,
-                  Painter.fullSceen,
-                ].map(buildPainter).toList(),
+                  Tool.undo,
+                  Tool.redo,
+                  Tool.fullSceen,
+                ].map(buildTool).toList(),
               ),
             ],
           ),

@@ -8,7 +8,7 @@ class MarkdownRenderer extends Renderer<MarkdownElement> {
 
   MarkdownRenderer(super.element, [this.context]);
 
-  void _createPainter(NoteData document, DocumentPage page) {
+  void _createTool(NoteData document, DocumentPage page) {
     _tp ??= context?.textPainter ?? TextPainter();
     _tp?.text = _buildParagraph(document);
     _tp?.textDirection = TextDirection.ltr;
@@ -64,7 +64,7 @@ class MarkdownRenderer extends Renderer<MarkdownElement> {
   @override
   FutureOr<void> setup(
       NoteData document, AssetService assetService, DocumentPage page) async {
-    _createPainter(document, page);
+    _createTool(document, page);
     _updateRect();
     await super.setup(document, assetService, page);
     _updateRect();

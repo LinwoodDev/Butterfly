@@ -27,6 +27,27 @@ class BehaviorsSettingsPage extends StatelessWidget {
             builder: (context, state) {
           return ListView(
             children: [
+              Card(
+                margin: const EdgeInsets.all(8),
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ExactSlider(
+                          header: Text(AppLocalizations.of(context).imageScale),
+                          value: state.imageScale * 100,
+                          min: 0,
+                          max: 100,
+                          defaultValue: 50,
+                          fractionDigits: 0,
+                          onChangeEnd: (value) => context
+                              .read<SettingsCubit>()
+                              .changeImageScale(value / 100),
+                        )
+                      ]),
+                ),
+              ),
               if (!kIsWeb)
                 Card(
                     margin: const EdgeInsets.all(8),
@@ -104,14 +125,6 @@ class BehaviorsSettingsPage extends StatelessWidget {
         }
 
         return [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: Text(
-              AppLocalizations.of(context).syncMode,
-              style: Theme.of(context).textTheme.headlineSmall,
-              textAlign: TextAlign.center,
-            ),
-          ),
           ...SyncMode.values.map((syncMode) {
             return ListTile(
               title: Text(syncMode.getLocalizedName(context)),

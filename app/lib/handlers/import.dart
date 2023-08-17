@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class ImportHandler extends Handler<ImportPainter> {
+class ImportHandler extends Handler<ImportTool> {
   List<Renderer<PadElement>>? _renderers;
   Offset _offset = Offset.zero;
 

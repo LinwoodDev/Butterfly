@@ -513,7 +513,12 @@
   "toolbarPosition": "工具列位置",
   "rotate": "Rotate",
   "spacer": "間隔",
-  "navigationRail": "Navigation rail",
+  "navigationRail": "導覽杆",
   "cut": "剪下",
-  "paste": "貼上"
+  "insertBefore": "Insert before",
+  "insertAfter": "Insert after",
+  "paste": "貼上",
+  "ascending": "Ascending",
+  "descending": "Descending",
+  "imageScale": "Image scale"
 }

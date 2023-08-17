@@ -91,18 +91,17 @@ class NoteData {
     return getName();
   }
 
-  List<String> getAssets(String path, [bool removeExtension = false]) {
-    return archive.files
-        .where((file) => file.name.startsWith(path))
-        .map((file) => file.name.substring(path.length))
-        .map((name) {
-      if (name.startsWith('/')) name = name.substring(1);
-      if (!removeExtension) return name;
-      final startExtension = name.lastIndexOf('.');
-      if (startExtension == -1) return name;
-      return name.substring(0, startExtension);
-    }).toList();
-  }
+  Iterable<String> getAssets(String path, [bool removeExtension = false]) =>
+      archive.files
+          .where((file) => file.name.startsWith(path))
+          .map((file) => file.name.substring(path.length))
+          .map((name) {
+        if (name.startsWith('/')) name = name.substring(1);
+        if (!removeExtension) return name;
+        final startExtension = name.lastIndexOf('.');
+        if (startExtension == -1) return name;
+        return name.substring(0, startExtension);
+      });
 
   Uint8List? getThumbnail() => getAsset(kThumbnailArchiveFile);
 
@@ -262,9 +261,9 @@ class NoteData {
   int? getPageIndex(String page) =>
       _getPagesOrder().firstWhereOrNull((element) => element.$2 == page)?.$1;
 
-  void removePage(String page) => removeAssets(getPages()
-      .where((e) => e.endsWith('$page.json'))
-      .map((e) => '$kPagesArchiveDirectory/$e.json')
+  void removePage(String page) => removeAssets(_getPagesOrder()
+      .where((e) => e.$2 == page)
+      .map((e) => '$kPagesArchiveDirectory/${e.$3}.json')
       .toList());
 
   void renamePage(String oldName, String newName) {
@@ -315,11 +314,12 @@ class NoteData {
   void removePack(String name) =>
       removeAsset('$kPacksArchiveDirectory/$name.bfly');
 
-  List<String> getPacks() => getAssets(kPacksArchiveDirectory, true);
+  Iterable<String> getPacks() => getAssets(kPacksArchiveDirectory, true);
 
   // Pack specific
 
-  List<String> getComponents() => getAssets(kComponentsArchiveDirectory, true);
+  Iterable<String> getComponents() =>
+      getAssets(kComponentsArchiveDirectory, true);
 
   ButterflyComponent? getComponent(String componentName) {
     final data = getAsset('$kComponentsArchiveDirectory/$componentName.json');
@@ -340,7 +340,7 @@ class NoteData {
   void removeComponent(String name) =>
       removeAsset('$kComponentsArchiveDirectory/$name.json');
 
-  List<String> getStyles() => getAssets(kStylesArchiveDirectory, true);
+  Iterable<String> getStyles() => getAssets(kStylesArchiveDirectory, true);
 
   TextStyleSheet? getStyle(String styleName) {
     final data = getAsset('$kStylesArchiveDirectory/$styleName.json');
@@ -361,7 +361,7 @@ class NoteData {
   void removeStyle(String name) =>
       removeAsset('$kStylesArchiveDirectory/$name.json');
 
-  List<String> getPalettes() => getAssets(kPalettesArchiveDirectory, true);
+  Iterable<String> getPalettes() => getAssets(kPalettesArchiveDirectory, true);
 
   ColorPalette? getPalette(String paletteName) {
     final data = getAsset('$kPalettesArchiveDirectory/$paletteName.json');
@@ -397,7 +397,7 @@ class NoteData {
     setPage(
         page == null
             ? DocumentPage()
-            : DocumentPage(background: page.background),
+            : DocumentPage(backgrounds: page.backgrounds),
         name,
         index);
     return name;

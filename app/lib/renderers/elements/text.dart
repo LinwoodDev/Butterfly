@@ -8,7 +8,7 @@ class TextRenderer extends Renderer<TextElement> {
 
   TextRenderer(super.element, [this.context]);
 
-  void _createPainter(NoteData document, DocumentPage page) {
+  void _createTool(NoteData document, DocumentPage page) {
     final paragraph = element.area.paragraph;
     final style =
         _getStyle(document).resolveParagraphProperty(paragraph.property) ??
@@ -50,7 +50,7 @@ class TextRenderer extends Renderer<TextElement> {
   @override
   FutureOr<void> setup(
       NoteData document, AssetService assetService, DocumentPage page) async {
-    _createPainter(document, page);
+    _createTool(document, page);
     _updateRect();
     await super.setup(document, assetService, page);
     _updateRect();

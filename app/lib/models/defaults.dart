@@ -26,34 +26,29 @@ class DocumentDefaults {
     return bytes!.buffer.asUint8List();
   }
 
-  static List<Painter> createPainters([int? background]) => [
-        HandPainter(),
-        PenPainter(),
-        PathEraserPainter(),
-        UndoPainter(),
-        RedoPainter()
-      ]
+  static List<Tool> createTools([int? background]) =>
+      [HandTool(), PenTool(), PathEraserTool(), UndoTool(), RedoTool()]
           .map((e) =>
-              background == null ? e : updatePainterDefaultColor(e, background))
+              background == null ? e : updateToolDefaultColor(e, background))
           .toList();
 
   static Future<List<NoteData>> getDefaults(BuildContext context) async {
     return Future.wait([
       (
         AppLocalizations.of(context).light,
-        BackgroundTemplate.plain.create(),
+        PatternTemplate.plain.create(),
       ),
       (
         AppLocalizations.of(context).dark,
-        BackgroundTemplate.plainDark.create(),
+        PatternTemplate.plainDark.create(),
       ),
     ].map((e) async {
-      final bg = e.$2;
+      final bg = Background.motif(motif: e.$2);
       final color = bg.defaultColor;
       return createTemplate(
         name: e.$1,
         thumbnail: await _createPlainThumnail(Color(color)),
-        background: bg,
+        backgrounds: [bg],
       );
     }).toList());
   }
@@ -117,7 +112,7 @@ class DocumentDefaults {
   }
 
   static DocumentInfo createInfo([int? background]) {
-    return DocumentInfo(painters: createPainters(background));
+    return DocumentInfo(tools: createTools(background));
   }
 
   static NoteData createPack() {
@@ -132,7 +127,7 @@ class DocumentDefaults {
   static Future<NoteData> createTemplate(
       {String name = '',
       Uint8List? thumbnail,
-      Background background = const Background.box()}) async {
+      List<Background> backgrounds = const []}) async {
     final data = NoteData(Archive());
     final metadata = createMetadata(
       type: NoteFileType.template,
@@ -140,9 +135,9 @@ class DocumentDefaults {
     );
     data.setMetadata(metadata);
     final page = DocumentPage(
-      background: background,
+      backgrounds: backgrounds,
     );
-    data.setInfo(createInfo(background.defaultColor));
+    data.setInfo(createInfo(backgrounds.firstOrNull?.defaultColor));
     data.setPage(page);
     data.setPack(await getCorePack());
     if (thumbnail != null) data.setThumbnail(thumbnail);

@@ -18,10 +18,10 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'pageChanged':
       return PageChanged.fromJson(json);
-    case 'toolOptionChanged':
-      return ToolOptionChanged.fromJson(json);
-    case 'toolStateChanged':
-      return ToolStateChanged.fromJson(json);
+    case 'viewChanged':
+      return ViewChanged.fromJson(json);
+    case 'utilitiesChanged':
+      return UtilitiesChanged.fromJson(json);
     case 'elementsCreated':
       return ElementsCreated.fromJson(json);
     case 'elementsChanged':
@@ -36,18 +36,20 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
       return DocumentPathChanged.fromJson(json);
     case 'documentSaved':
       return DocumentSaved.fromJson(json);
-    case 'painterCreated':
-      return PainterCreated.fromJson(json);
-    case 'paintersChanged':
-      return PaintersChanged.fromJson(json);
-    case 'paintersRemoved':
-      return PaintersRemoved.fromJson(json);
-    case 'painterReordered':
-      return PainterReordered.fromJson(json);
-    case 'documentBackgroundChanged':
-      return DocumentBackgroundChanged.fromJson(json);
+    case 'toolCreated':
+      return ToolCreated.fromJson(json);
+    case 'toolsChanged':
+      return ToolsChanged.fromJson(json);
+    case 'toolsRemoved':
+      return ToolsRemoved.fromJson(json);
+    case 'toolReordered':
+      return ToolReordered.fromJson(json);
+    case 'documentBackgroundsChanged':
+      return DocumentBackgroundsChanged.fromJson(json);
     case 'waypointCreated':
       return WaypointCreated.fromJson(json);
+    case 'waypointRenamed':
+      return WaypointRenamed.fromJson(json);
     case 'waypointRemoved':
       return WaypointRemoved.fromJson(json);
     case 'layerRenamed':
@@ -108,8 +110,8 @@ mixin _$DocumentEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -120,12 +122,14 @@ mixin _$DocumentEvent {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -162,8 +166,8 @@ mixin _$DocumentEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -173,12 +177,13 @@ mixin _$DocumentEvent {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -210,8 +215,8 @@ mixin _$DocumentEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -221,12 +226,13 @@ mixin _$DocumentEvent {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -259,8 +265,8 @@ mixin _$DocumentEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -269,13 +275,14 @@ mixin _$DocumentEvent {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -308,8 +315,8 @@ mixin _$DocumentEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -318,13 +325,14 @@ mixin _$DocumentEvent {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -354,8 +362,8 @@ mixin _$DocumentEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -364,13 +372,14 @@ mixin _$DocumentEvent {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -494,8 +503,8 @@ class _$PageChanged extends PageChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -506,12 +515,14 @@ class _$PageChanged extends PageChanged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -551,8 +562,8 @@ class _$PageChanged extends PageChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -562,12 +573,13 @@ class _$PageChanged extends PageChanged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -602,8 +614,8 @@ class _$PageChanged extends PageChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -613,12 +625,13 @@ class _$PageChanged extends PageChanged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -657,8 +670,8 @@ class _$PageChanged extends PageChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -667,13 +680,14 @@ class _$PageChanged extends PageChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -709,8 +723,8 @@ class _$PageChanged extends PageChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -719,13 +733,14 @@ class _$PageChanged extends PageChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -758,8 +773,8 @@ class _$PageChanged extends PageChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -768,13 +783,14 @@ class _$PageChanged extends PageChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -829,95 +845,91 @@ abstract class PageChanged extends DocumentEvent {
 }
 
 /// @nodoc
-abstract class _$$ToolOptionChangedCopyWith<$Res> {
-  factory _$$ToolOptionChangedCopyWith(
-          _$ToolOptionChanged value, $Res Function(_$ToolOptionChanged) then) =
-      __$$ToolOptionChangedCopyWithImpl<$Res>;
+abstract class _$$ViewChangedCopyWith<$Res> {
+  factory _$$ViewChangedCopyWith(
+          _$ViewChanged value, $Res Function(_$ViewChanged) then) =
+      __$$ViewChangedCopyWithImpl<$Res>;
   @useResult
-  $Res call({ToolOption? option});
+  $Res call({ViewOption view});
 
-  $ToolOptionCopyWith<$Res>? get option;
+  $ViewOptionCopyWith<$Res> get view;
 }
 
 /// @nodoc
-class __$$ToolOptionChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ToolOptionChanged>
-    implements _$$ToolOptionChangedCopyWith<$Res> {
-  __$$ToolOptionChangedCopyWithImpl(
-      _$ToolOptionChanged _value, $Res Function(_$ToolOptionChanged) _then)
+class __$$ViewChangedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ViewChanged>
+    implements _$$ViewChangedCopyWith<$Res> {
+  __$$ViewChangedCopyWithImpl(
+      _$ViewChanged _value, $Res Function(_$ViewChanged) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? option = freezed,
+    Object? view = null,
   }) {
-    return _then(_$ToolOptionChanged(
-      freezed == option
-          ? _value.option
-          : option // ignore: cast_nullable_to_non_nullable
-              as ToolOption?,
+    return _then(_$ViewChanged(
+      null == view
+          ? _value.view
+          : view // ignore: cast_nullable_to_non_nullable
+              as ViewOption,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ToolOptionCopyWith<$Res>? get option {
-    if (_value.option == null) {
-      return null;
-    }
-
-    return $ToolOptionCopyWith<$Res>(_value.option!, (value) {
-      return _then(_value.copyWith(option: value));
+  $ViewOptionCopyWith<$Res> get view {
+    return $ViewOptionCopyWith<$Res>(_value.view, (value) {
+      return _then(_value.copyWith(view: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ToolOptionChanged extends ToolOptionChanged {
-  const _$ToolOptionChanged([this.option, final String? $type])
-      : $type = $type ?? 'toolOptionChanged',
+class _$ViewChanged extends ViewChanged {
+  const _$ViewChanged(this.view, {final String? $type})
+      : $type = $type ?? 'viewChanged',
         super._();
 
-  factory _$ToolOptionChanged.fromJson(Map<String, dynamic> json) =>
-      _$$ToolOptionChangedFromJson(json);
+  factory _$ViewChanged.fromJson(Map<String, dynamic> json) =>
+      _$$ViewChangedFromJson(json);
 
   @override
-  final ToolOption? option;
+  final ViewOption view;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.toolOptionChanged(option: $option)';
+    return 'DocumentEvent.viewChanged(view: $view)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ToolOptionChanged &&
-            (identical(other.option, option) || other.option == option));
+            other is _$ViewChanged &&
+            (identical(other.view, view) || other.view == view));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, option);
+  int get hashCode => Object.hash(runtimeType, view);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ToolOptionChangedCopyWith<_$ToolOptionChanged> get copyWith =>
-      __$$ToolOptionChangedCopyWithImpl<_$ToolOptionChanged>(this, _$identity);
+  _$$ViewChangedCopyWith<_$ViewChanged> get copyWith =>
+      __$$ViewChangedCopyWithImpl<_$ViewChanged>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -928,12 +940,14 @@ class _$ToolOptionChanged extends ToolOptionChanged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -966,15 +980,15 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return toolOptionChanged(option);
+    return viewChanged(view);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -984,12 +998,13 @@ class _$ToolOptionChanged extends ToolOptionChanged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -1017,15 +1032,15 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return toolOptionChanged?.call(option);
+    return viewChanged?.call(view);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -1035,12 +1050,13 @@ class _$ToolOptionChanged extends ToolOptionChanged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -1069,8 +1085,8 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
   }) {
-    if (toolOptionChanged != null) {
-      return toolOptionChanged(option);
+    if (viewChanged != null) {
+      return viewChanged(view);
     }
     return orElse();
   }
@@ -1079,8 +1095,8 @@ class _$ToolOptionChanged extends ToolOptionChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -1089,13 +1105,14 @@ class _$ToolOptionChanged extends ToolOptionChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -1124,15 +1141,15 @@ class _$ToolOptionChanged extends ToolOptionChanged {
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
   }) {
-    return toolOptionChanged(this);
+    return viewChanged(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -1141,13 +1158,14 @@ class _$ToolOptionChanged extends ToolOptionChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -1173,15 +1191,15 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
   }) {
-    return toolOptionChanged?.call(this);
+    return viewChanged?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -1190,13 +1208,14 @@ class _$ToolOptionChanged extends ToolOptionChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -1223,74 +1242,69 @@ class _$ToolOptionChanged extends ToolOptionChanged {
     TResult Function(PresentationTick value)? presentationTick,
     required TResult orElse(),
   }) {
-    if (toolOptionChanged != null) {
-      return toolOptionChanged(this);
+    if (viewChanged != null) {
+      return viewChanged(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ToolOptionChangedToJson(
+    return _$$ViewChangedToJson(
       this,
     );
   }
 }
 
-abstract class ToolOptionChanged extends DocumentEvent {
-  const factory ToolOptionChanged([final ToolOption? option]) =
-      _$ToolOptionChanged;
-  const ToolOptionChanged._() : super._();
+abstract class ViewChanged extends DocumentEvent {
+  const factory ViewChanged(final ViewOption view) = _$ViewChanged;
+  const ViewChanged._() : super._();
 
-  factory ToolOptionChanged.fromJson(Map<String, dynamic> json) =
-      _$ToolOptionChanged.fromJson;
+  factory ViewChanged.fromJson(Map<String, dynamic> json) =
+      _$ViewChanged.fromJson;
 
-  ToolOption? get option;
+  ViewOption get view;
   @JsonKey(ignore: true)
-  _$$ToolOptionChangedCopyWith<_$ToolOptionChanged> get copyWith =>
+  _$$ViewChangedCopyWith<_$ViewChanged> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ToolStateChangedCopyWith<$Res> {
-  factory _$$ToolStateChangedCopyWith(
-          _$ToolStateChanged value, $Res Function(_$ToolStateChanged) then) =
-      __$$ToolStateChangedCopyWithImpl<$Res>;
+abstract class _$$UtilitiesChangedCopyWith<$Res> {
+  factory _$$UtilitiesChangedCopyWith(
+          _$UtilitiesChanged value, $Res Function(_$UtilitiesChanged) then) =
+      __$$UtilitiesChangedCopyWithImpl<$Res>;
   @useResult
-  $Res call({ToolState? state});
+  $Res call({UtilitiesState state});
 
-  $ToolStateCopyWith<$Res>? get state;
+  $UtilitiesStateCopyWith<$Res> get state;
 }
 
 /// @nodoc
-class __$$ToolStateChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$ToolStateChanged>
-    implements _$$ToolStateChangedCopyWith<$Res> {
-  __$$ToolStateChangedCopyWithImpl(
-      _$ToolStateChanged _value, $Res Function(_$ToolStateChanged) _then)
+class __$$UtilitiesChangedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$UtilitiesChanged>
+    implements _$$UtilitiesChangedCopyWith<$Res> {
+  __$$UtilitiesChangedCopyWithImpl(
+      _$UtilitiesChanged _value, $Res Function(_$UtilitiesChanged) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? state = freezed,
+    Object? state = null,
   }) {
-    return _then(_$ToolStateChanged(
-      freezed == state
+    return _then(_$UtilitiesChanged(
+      null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
-              as ToolState?,
+              as UtilitiesState,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ToolStateCopyWith<$Res>? get state {
-    if (_value.state == null) {
-      return null;
-    }
-
-    return $ToolStateCopyWith<$Res>(_value.state!, (value) {
+  $UtilitiesStateCopyWith<$Res> get state {
+    return $UtilitiesStateCopyWith<$Res>(_value.state, (value) {
       return _then(_value.copyWith(state: value));
     });
   }
@@ -1298,30 +1312,30 @@ class __$$ToolStateChangedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ToolStateChanged extends ToolStateChanged {
-  const _$ToolStateChanged([this.state, final String? $type])
-      : $type = $type ?? 'toolStateChanged',
+class _$UtilitiesChanged extends UtilitiesChanged {
+  const _$UtilitiesChanged(this.state, {final String? $type})
+      : $type = $type ?? 'utilitiesChanged',
         super._();
 
-  factory _$ToolStateChanged.fromJson(Map<String, dynamic> json) =>
-      _$$ToolStateChangedFromJson(json);
+  factory _$UtilitiesChanged.fromJson(Map<String, dynamic> json) =>
+      _$$UtilitiesChangedFromJson(json);
 
   @override
-  final ToolState? state;
+  final UtilitiesState state;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.toolStateChanged(state: $state)';
+    return 'DocumentEvent.utilitiesChanged(state: $state)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ToolStateChanged &&
+            other is _$UtilitiesChanged &&
             (identical(other.state, state) || other.state == state));
   }
 
@@ -1332,15 +1346,15 @@ class _$ToolStateChanged extends ToolStateChanged {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ToolStateChangedCopyWith<_$ToolStateChanged> get copyWith =>
-      __$$ToolStateChangedCopyWithImpl<_$ToolStateChanged>(this, _$identity);
+  _$$UtilitiesChangedCopyWith<_$UtilitiesChanged> get copyWith =>
+      __$$UtilitiesChangedCopyWithImpl<_$UtilitiesChanged>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -1351,12 +1365,14 @@ class _$ToolStateChanged extends ToolStateChanged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -1389,15 +1405,15 @@ class _$ToolStateChanged extends ToolStateChanged {
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return toolStateChanged(state);
+    return utilitiesChanged(state);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -1407,12 +1423,13 @@ class _$ToolStateChanged extends ToolStateChanged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -1440,15 +1457,15 @@ class _$ToolStateChanged extends ToolStateChanged {
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return toolStateChanged?.call(state);
+    return utilitiesChanged?.call(state);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -1458,12 +1475,13 @@ class _$ToolStateChanged extends ToolStateChanged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -1492,8 +1510,8 @@ class _$ToolStateChanged extends ToolStateChanged {
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
   }) {
-    if (toolStateChanged != null) {
-      return toolStateChanged(state);
+    if (utilitiesChanged != null) {
+      return utilitiesChanged(state);
     }
     return orElse();
   }
@@ -1502,8 +1520,8 @@ class _$ToolStateChanged extends ToolStateChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -1512,13 +1530,14 @@ class _$ToolStateChanged extends ToolStateChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -1547,15 +1566,15 @@ class _$ToolStateChanged extends ToolStateChanged {
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
   }) {
-    return toolStateChanged(this);
+    return utilitiesChanged(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -1564,13 +1583,14 @@ class _$ToolStateChanged extends ToolStateChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -1596,15 +1616,15 @@ class _$ToolStateChanged extends ToolStateChanged {
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
   }) {
-    return toolStateChanged?.call(this);
+    return utilitiesChanged?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -1613,13 +1633,14 @@ class _$ToolStateChanged extends ToolStateChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -1646,30 +1667,31 @@ class _$ToolStateChanged extends ToolStateChanged {
     TResult Function(PresentationTick value)? presentationTick,
     required TResult orElse(),
   }) {
-    if (toolStateChanged != null) {
-      return toolStateChanged(this);
+    if (utilitiesChanged != null) {
+      return utilitiesChanged(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ToolStateChangedToJson(
+    return _$$UtilitiesChangedToJson(
       this,
     );
   }
 }
 
-abstract class ToolStateChanged extends DocumentEvent {
-  const factory ToolStateChanged([final ToolState? state]) = _$ToolStateChanged;
-  const ToolStateChanged._() : super._();
+abstract class UtilitiesChanged extends DocumentEvent {
+  const factory UtilitiesChanged(final UtilitiesState state) =
+      _$UtilitiesChanged;
+  const UtilitiesChanged._() : super._();
 
-  factory ToolStateChanged.fromJson(Map<String, dynamic> json) =
-      _$ToolStateChanged.fromJson;
+  factory UtilitiesChanged.fromJson(Map<String, dynamic> json) =
+      _$UtilitiesChanged.fromJson;
 
-  ToolState? get state;
+  UtilitiesState get state;
   @JsonKey(ignore: true)
-  _$$ToolStateChangedCopyWith<_$ToolStateChanged> get copyWith =>
+  _$$UtilitiesChangedCopyWith<_$UtilitiesChanged> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1755,8 +1777,8 @@ class _$ElementsCreated extends ElementsCreated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -1767,12 +1789,14 @@ class _$ElementsCreated extends ElementsCreated {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -1812,8 +1836,8 @@ class _$ElementsCreated extends ElementsCreated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -1823,12 +1847,13 @@ class _$ElementsCreated extends ElementsCreated {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -1863,8 +1888,8 @@ class _$ElementsCreated extends ElementsCreated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -1874,12 +1899,13 @@ class _$ElementsCreated extends ElementsCreated {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -1918,8 +1944,8 @@ class _$ElementsCreated extends ElementsCreated {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -1928,13 +1954,14 @@ class _$ElementsCreated extends ElementsCreated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -1970,8 +1997,8 @@ class _$ElementsCreated extends ElementsCreated {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -1980,13 +2007,14 @@ class _$ElementsCreated extends ElementsCreated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -2019,8 +2047,8 @@ class _$ElementsCreated extends ElementsCreated {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -2029,13 +2057,14 @@ class _$ElementsCreated extends ElementsCreated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -2172,8 +2201,8 @@ class _$ElementsChanged extends ElementsChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -2184,12 +2213,14 @@ class _$ElementsChanged extends ElementsChanged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -2229,8 +2260,8 @@ class _$ElementsChanged extends ElementsChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -2240,12 +2271,13 @@ class _$ElementsChanged extends ElementsChanged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -2280,8 +2312,8 @@ class _$ElementsChanged extends ElementsChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -2291,12 +2323,13 @@ class _$ElementsChanged extends ElementsChanged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -2335,8 +2368,8 @@ class _$ElementsChanged extends ElementsChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -2345,13 +2378,14 @@ class _$ElementsChanged extends ElementsChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -2387,8 +2421,8 @@ class _$ElementsChanged extends ElementsChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -2397,13 +2431,14 @@ class _$ElementsChanged extends ElementsChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -2436,8 +2471,8 @@ class _$ElementsChanged extends ElementsChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -2446,13 +2481,14 @@ class _$ElementsChanged extends ElementsChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -2588,8 +2624,8 @@ class _$ElementsRemoved extends ElementsRemoved {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -2600,12 +2636,14 @@ class _$ElementsRemoved extends ElementsRemoved {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -2645,8 +2683,8 @@ class _$ElementsRemoved extends ElementsRemoved {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -2656,12 +2694,13 @@ class _$ElementsRemoved extends ElementsRemoved {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -2696,8 +2735,8 @@ class _$ElementsRemoved extends ElementsRemoved {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -2707,12 +2746,13 @@ class _$ElementsRemoved extends ElementsRemoved {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -2751,8 +2791,8 @@ class _$ElementsRemoved extends ElementsRemoved {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -2761,13 +2801,14 @@ class _$ElementsRemoved extends ElementsRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -2803,8 +2844,8 @@ class _$ElementsRemoved extends ElementsRemoved {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -2813,13 +2854,14 @@ class _$ElementsRemoved extends ElementsRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -2852,8 +2894,8 @@ class _$ElementsRemoved extends ElementsRemoved {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -2862,13 +2904,14 @@ class _$ElementsRemoved extends ElementsRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -3013,8 +3056,8 @@ class _$ElementsArranged extends ElementsArranged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -3025,12 +3068,14 @@ class _$ElementsArranged extends ElementsArranged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -3070,8 +3115,8 @@ class _$ElementsArranged extends ElementsArranged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -3081,12 +3126,13 @@ class _$ElementsArranged extends ElementsArranged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -3121,8 +3167,8 @@ class _$ElementsArranged extends ElementsArranged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -3132,12 +3178,13 @@ class _$ElementsArranged extends ElementsArranged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -3176,8 +3223,8 @@ class _$ElementsArranged extends ElementsArranged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -3186,13 +3233,14 @@ class _$ElementsArranged extends ElementsArranged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -3228,8 +3276,8 @@ class _$ElementsArranged extends ElementsArranged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -3238,13 +3286,14 @@ class _$ElementsArranged extends ElementsArranged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -3277,8 +3326,8 @@ class _$ElementsArranged extends ElementsArranged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -3287,13 +3336,14 @@ class _$ElementsArranged extends ElementsArranged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -3437,8 +3487,8 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -3449,12 +3499,14 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -3494,8 +3546,8 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -3505,12 +3557,13 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -3545,8 +3598,8 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -3556,12 +3609,13 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -3600,8 +3654,8 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -3610,13 +3664,14 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -3652,8 +3707,8 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -3662,13 +3717,14 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -3701,8 +3757,8 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -3711,13 +3767,14 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -3849,8 +3906,8 @@ class _$DocumentPathChanged extends DocumentPathChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -3861,12 +3918,14 @@ class _$DocumentPathChanged extends DocumentPathChanged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -3906,8 +3965,8 @@ class _$DocumentPathChanged extends DocumentPathChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -3917,12 +3976,13 @@ class _$DocumentPathChanged extends DocumentPathChanged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -3957,8 +4017,8 @@ class _$DocumentPathChanged extends DocumentPathChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -3968,12 +4028,13 @@ class _$DocumentPathChanged extends DocumentPathChanged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -4012,8 +4073,8 @@ class _$DocumentPathChanged extends DocumentPathChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -4022,13 +4083,14 @@ class _$DocumentPathChanged extends DocumentPathChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -4064,8 +4126,8 @@ class _$DocumentPathChanged extends DocumentPathChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -4074,13 +4136,14 @@ class _$DocumentPathChanged extends DocumentPathChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -4113,8 +4176,8 @@ class _$DocumentPathChanged extends DocumentPathChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -4123,13 +4186,14 @@ class _$DocumentPathChanged extends DocumentPathChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -4272,8 +4336,8 @@ class _$DocumentSaved extends DocumentSaved {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -4284,12 +4348,14 @@ class _$DocumentSaved extends DocumentSaved {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -4329,8 +4395,8 @@ class _$DocumentSaved extends DocumentSaved {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -4340,12 +4406,13 @@ class _$DocumentSaved extends DocumentSaved {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -4380,8 +4447,8 @@ class _$DocumentSaved extends DocumentSaved {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -4391,12 +4458,13 @@ class _$DocumentSaved extends DocumentSaved {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -4435,8 +4503,8 @@ class _$DocumentSaved extends DocumentSaved {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -4445,13 +4513,14 @@ class _$DocumentSaved extends DocumentSaved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -4487,8 +4556,8 @@ class _$DocumentSaved extends DocumentSaved {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -4497,13 +4566,14 @@ class _$DocumentSaved extends DocumentSaved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -4536,8 +4606,8 @@ class _$DocumentSaved extends DocumentSaved {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -4546,13 +4616,14 @@ class _$DocumentSaved extends DocumentSaved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -4608,91 +4679,91 @@ abstract class DocumentSaved extends DocumentEvent {
 }
 
 /// @nodoc
-abstract class _$$PainterCreatedCopyWith<$Res> {
-  factory _$$PainterCreatedCopyWith(
-          _$PainterCreated value, $Res Function(_$PainterCreated) then) =
-      __$$PainterCreatedCopyWithImpl<$Res>;
+abstract class _$$ToolCreatedCopyWith<$Res> {
+  factory _$$ToolCreatedCopyWith(
+          _$ToolCreated value, $Res Function(_$ToolCreated) then) =
+      __$$ToolCreatedCopyWithImpl<$Res>;
   @useResult
-  $Res call({Painter painter});
+  $Res call({Tool tool});
 
-  $PainterCopyWith<$Res> get painter;
+  $ToolCopyWith<$Res> get tool;
 }
 
 /// @nodoc
-class __$$PainterCreatedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PainterCreated>
-    implements _$$PainterCreatedCopyWith<$Res> {
-  __$$PainterCreatedCopyWithImpl(
-      _$PainterCreated _value, $Res Function(_$PainterCreated) _then)
+class __$$ToolCreatedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ToolCreated>
+    implements _$$ToolCreatedCopyWith<$Res> {
+  __$$ToolCreatedCopyWithImpl(
+      _$ToolCreated _value, $Res Function(_$ToolCreated) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? painter = null,
+    Object? tool = null,
   }) {
-    return _then(_$PainterCreated(
-      null == painter
-          ? _value.painter
-          : painter // ignore: cast_nullable_to_non_nullable
-              as Painter,
+    return _then(_$ToolCreated(
+      null == tool
+          ? _value.tool
+          : tool // ignore: cast_nullable_to_non_nullable
+              as Tool,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PainterCopyWith<$Res> get painter {
-    return $PainterCopyWith<$Res>(_value.painter, (value) {
-      return _then(_value.copyWith(painter: value));
+  $ToolCopyWith<$Res> get tool {
+    return $ToolCopyWith<$Res>(_value.tool, (value) {
+      return _then(_value.copyWith(tool: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PainterCreated extends PainterCreated {
-  const _$PainterCreated(this.painter, {final String? $type})
-      : $type = $type ?? 'painterCreated',
+class _$ToolCreated extends ToolCreated {
+  const _$ToolCreated(this.tool, {final String? $type})
+      : $type = $type ?? 'toolCreated',
         super._();
 
-  factory _$PainterCreated.fromJson(Map<String, dynamic> json) =>
-      _$$PainterCreatedFromJson(json);
+  factory _$ToolCreated.fromJson(Map<String, dynamic> json) =>
+      _$$ToolCreatedFromJson(json);
 
   @override
-  final Painter painter;
+  final Tool tool;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.painterCreated(painter: $painter)';
+    return 'DocumentEvent.toolCreated(tool: $tool)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PainterCreated &&
-            (identical(other.painter, painter) || other.painter == painter));
+            other is _$ToolCreated &&
+            (identical(other.tool, tool) || other.tool == tool));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, painter);
+  int get hashCode => Object.hash(runtimeType, tool);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PainterCreatedCopyWith<_$PainterCreated> get copyWith =>
-      __$$PainterCreatedCopyWithImpl<_$PainterCreated>(this, _$identity);
+  _$$ToolCreatedCopyWith<_$ToolCreated> get copyWith =>
+      __$$ToolCreatedCopyWithImpl<_$ToolCreated>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -4703,12 +4774,14 @@ class _$PainterCreated extends PainterCreated {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -4741,15 +4814,15 @@ class _$PainterCreated extends PainterCreated {
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return painterCreated(painter);
+    return toolCreated(tool);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -4759,12 +4832,13 @@ class _$PainterCreated extends PainterCreated {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -4792,15 +4866,15 @@ class _$PainterCreated extends PainterCreated {
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return painterCreated?.call(painter);
+    return toolCreated?.call(tool);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -4810,12 +4884,13 @@ class _$PainterCreated extends PainterCreated {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -4844,8 +4919,8 @@ class _$PainterCreated extends PainterCreated {
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
   }) {
-    if (painterCreated != null) {
-      return painterCreated(painter);
+    if (toolCreated != null) {
+      return toolCreated(tool);
     }
     return orElse();
   }
@@ -4854,8 +4929,8 @@ class _$PainterCreated extends PainterCreated {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -4864,13 +4939,14 @@ class _$PainterCreated extends PainterCreated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -4899,15 +4975,15 @@ class _$PainterCreated extends PainterCreated {
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
   }) {
-    return painterCreated(this);
+    return toolCreated(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -4916,13 +4992,14 @@ class _$PainterCreated extends PainterCreated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -4948,15 +5025,15 @@ class _$PainterCreated extends PainterCreated {
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
   }) {
-    return painterCreated?.call(this);
+    return toolCreated?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -4965,13 +5042,14 @@ class _$PainterCreated extends PainterCreated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -4998,82 +5076,81 @@ class _$PainterCreated extends PainterCreated {
     TResult Function(PresentationTick value)? presentationTick,
     required TResult orElse(),
   }) {
-    if (painterCreated != null) {
-      return painterCreated(this);
+    if (toolCreated != null) {
+      return toolCreated(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PainterCreatedToJson(
+    return _$$ToolCreatedToJson(
       this,
     );
   }
 }
 
-abstract class PainterCreated extends DocumentEvent {
-  const factory PainterCreated(final Painter painter) = _$PainterCreated;
-  const PainterCreated._() : super._();
+abstract class ToolCreated extends DocumentEvent {
+  const factory ToolCreated(final Tool tool) = _$ToolCreated;
+  const ToolCreated._() : super._();
 
-  factory PainterCreated.fromJson(Map<String, dynamic> json) =
-      _$PainterCreated.fromJson;
+  factory ToolCreated.fromJson(Map<String, dynamic> json) =
+      _$ToolCreated.fromJson;
 
-  Painter get painter;
+  Tool get tool;
   @JsonKey(ignore: true)
-  _$$PainterCreatedCopyWith<_$PainterCreated> get copyWith =>
+  _$$ToolCreatedCopyWith<_$ToolCreated> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PaintersChangedCopyWith<$Res> {
-  factory _$$PaintersChangedCopyWith(
-          _$PaintersChanged value, $Res Function(_$PaintersChanged) then) =
-      __$$PaintersChangedCopyWithImpl<$Res>;
+abstract class _$$ToolsChangedCopyWith<$Res> {
+  factory _$$ToolsChangedCopyWith(
+          _$ToolsChanged value, $Res Function(_$ToolsChanged) then) =
+      __$$ToolsChangedCopyWithImpl<$Res>;
   @useResult
-  $Res call({Map<int, Painter> painters});
+  $Res call({Map<int, Tool> tools});
 }
 
 /// @nodoc
-class __$$PaintersChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PaintersChanged>
-    implements _$$PaintersChangedCopyWith<$Res> {
-  __$$PaintersChangedCopyWithImpl(
-      _$PaintersChanged _value, $Res Function(_$PaintersChanged) _then)
+class __$$ToolsChangedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ToolsChanged>
+    implements _$$ToolsChangedCopyWith<$Res> {
+  __$$ToolsChangedCopyWithImpl(
+      _$ToolsChanged _value, $Res Function(_$ToolsChanged) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? painters = null,
+    Object? tools = null,
   }) {
-    return _then(_$PaintersChanged(
-      null == painters
-          ? _value._painters
-          : painters // ignore: cast_nullable_to_non_nullable
-              as Map<int, Painter>,
+    return _then(_$ToolsChanged(
+      null == tools
+          ? _value._tools
+          : tools // ignore: cast_nullable_to_non_nullable
+              as Map<int, Tool>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PaintersChanged extends PaintersChanged {
-  const _$PaintersChanged(final Map<int, Painter> painters,
-      {final String? $type})
-      : _painters = painters,
-        $type = $type ?? 'paintersChanged',
+class _$ToolsChanged extends ToolsChanged {
+  const _$ToolsChanged(final Map<int, Tool> tools, {final String? $type})
+      : _tools = tools,
+        $type = $type ?? 'toolsChanged',
         super._();
 
-  factory _$PaintersChanged.fromJson(Map<String, dynamic> json) =>
-      _$$PaintersChangedFromJson(json);
+  factory _$ToolsChanged.fromJson(Map<String, dynamic> json) =>
+      _$$ToolsChangedFromJson(json);
 
-  final Map<int, Painter> _painters;
+  final Map<int, Tool> _tools;
   @override
-  Map<int, Painter> get painters {
-    if (_painters is EqualUnmodifiableMapView) return _painters;
+  Map<int, Tool> get tools {
+    if (_tools is EqualUnmodifiableMapView) return _tools;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_painters);
+    return EqualUnmodifiableMapView(_tools);
   }
 
   @JsonKey(name: 'type')
@@ -5081,34 +5158,34 @@ class _$PaintersChanged extends PaintersChanged {
 
   @override
   String toString() {
-    return 'DocumentEvent.paintersChanged(painters: $painters)';
+    return 'DocumentEvent.toolsChanged(tools: $tools)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PaintersChanged &&
-            const DeepCollectionEquality().equals(other._painters, _painters));
+            other is _$ToolsChanged &&
+            const DeepCollectionEquality().equals(other._tools, _tools));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_painters));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_tools));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PaintersChangedCopyWith<_$PaintersChanged> get copyWith =>
-      __$$PaintersChangedCopyWithImpl<_$PaintersChanged>(this, _$identity);
+  _$$ToolsChangedCopyWith<_$ToolsChanged> get copyWith =>
+      __$$ToolsChangedCopyWithImpl<_$ToolsChanged>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -5119,12 +5196,14 @@ class _$PaintersChanged extends PaintersChanged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -5157,15 +5236,15 @@ class _$PaintersChanged extends PaintersChanged {
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return paintersChanged(painters);
+    return toolsChanged(tools);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -5175,12 +5254,13 @@ class _$PaintersChanged extends PaintersChanged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -5208,15 +5288,15 @@ class _$PaintersChanged extends PaintersChanged {
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return paintersChanged?.call(painters);
+    return toolsChanged?.call(tools);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -5226,12 +5306,13 @@ class _$PaintersChanged extends PaintersChanged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -5260,8 +5341,8 @@ class _$PaintersChanged extends PaintersChanged {
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
   }) {
-    if (paintersChanged != null) {
-      return paintersChanged(painters);
+    if (toolsChanged != null) {
+      return toolsChanged(tools);
     }
     return orElse();
   }
@@ -5270,8 +5351,8 @@ class _$PaintersChanged extends PaintersChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -5280,13 +5361,14 @@ class _$PaintersChanged extends PaintersChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -5315,15 +5397,15 @@ class _$PaintersChanged extends PaintersChanged {
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
   }) {
-    return paintersChanged(this);
+    return toolsChanged(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -5332,13 +5414,14 @@ class _$PaintersChanged extends PaintersChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -5364,15 +5447,15 @@ class _$PaintersChanged extends PaintersChanged {
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
   }) {
-    return paintersChanged?.call(this);
+    return toolsChanged?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -5381,13 +5464,14 @@ class _$PaintersChanged extends PaintersChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -5414,60 +5498,59 @@ class _$PaintersChanged extends PaintersChanged {
     TResult Function(PresentationTick value)? presentationTick,
     required TResult orElse(),
   }) {
-    if (paintersChanged != null) {
-      return paintersChanged(this);
+    if (toolsChanged != null) {
+      return toolsChanged(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PaintersChangedToJson(
+    return _$$ToolsChangedToJson(
       this,
     );
   }
 }
 
-abstract class PaintersChanged extends DocumentEvent {
-  const factory PaintersChanged(final Map<int, Painter> painters) =
-      _$PaintersChanged;
-  const PaintersChanged._() : super._();
+abstract class ToolsChanged extends DocumentEvent {
+  const factory ToolsChanged(final Map<int, Tool> tools) = _$ToolsChanged;
+  const ToolsChanged._() : super._();
 
-  factory PaintersChanged.fromJson(Map<String, dynamic> json) =
-      _$PaintersChanged.fromJson;
+  factory ToolsChanged.fromJson(Map<String, dynamic> json) =
+      _$ToolsChanged.fromJson;
 
-  Map<int, Painter> get painters;
+  Map<int, Tool> get tools;
   @JsonKey(ignore: true)
-  _$$PaintersChangedCopyWith<_$PaintersChanged> get copyWith =>
+  _$$ToolsChangedCopyWith<_$ToolsChanged> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PaintersRemovedCopyWith<$Res> {
-  factory _$$PaintersRemovedCopyWith(
-          _$PaintersRemoved value, $Res Function(_$PaintersRemoved) then) =
-      __$$PaintersRemovedCopyWithImpl<$Res>;
+abstract class _$$ToolsRemovedCopyWith<$Res> {
+  factory _$$ToolsRemovedCopyWith(
+          _$ToolsRemoved value, $Res Function(_$ToolsRemoved) then) =
+      __$$ToolsRemovedCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<int> painters});
+  $Res call({List<int> tools});
 }
 
 /// @nodoc
-class __$$PaintersRemovedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PaintersRemoved>
-    implements _$$PaintersRemovedCopyWith<$Res> {
-  __$$PaintersRemovedCopyWithImpl(
-      _$PaintersRemoved _value, $Res Function(_$PaintersRemoved) _then)
+class __$$ToolsRemovedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ToolsRemoved>
+    implements _$$ToolsRemovedCopyWith<$Res> {
+  __$$ToolsRemovedCopyWithImpl(
+      _$ToolsRemoved _value, $Res Function(_$ToolsRemoved) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? painters = null,
+    Object? tools = null,
   }) {
-    return _then(_$PaintersRemoved(
-      null == painters
-          ? _value._painters
-          : painters // ignore: cast_nullable_to_non_nullable
+    return _then(_$ToolsRemoved(
+      null == tools
+          ? _value._tools
+          : tools // ignore: cast_nullable_to_non_nullable
               as List<int>,
     ));
   }
@@ -5475,21 +5558,21 @@ class __$$PaintersRemovedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PaintersRemoved extends PaintersRemoved {
-  const _$PaintersRemoved(final List<int> painters, {final String? $type})
-      : _painters = painters,
-        $type = $type ?? 'paintersRemoved',
+class _$ToolsRemoved extends ToolsRemoved {
+  const _$ToolsRemoved(final List<int> tools, {final String? $type})
+      : _tools = tools,
+        $type = $type ?? 'toolsRemoved',
         super._();
 
-  factory _$PaintersRemoved.fromJson(Map<String, dynamic> json) =>
-      _$$PaintersRemovedFromJson(json);
+  factory _$ToolsRemoved.fromJson(Map<String, dynamic> json) =>
+      _$$ToolsRemovedFromJson(json);
 
-  final List<int> _painters;
+  final List<int> _tools;
   @override
-  List<int> get painters {
-    if (_painters is EqualUnmodifiableListView) return _painters;
+  List<int> get tools {
+    if (_tools is EqualUnmodifiableListView) return _tools;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_painters);
+    return EqualUnmodifiableListView(_tools);
   }
 
   @JsonKey(name: 'type')
@@ -5497,34 +5580,34 @@ class _$PaintersRemoved extends PaintersRemoved {
 
   @override
   String toString() {
-    return 'DocumentEvent.paintersRemoved(painters: $painters)';
+    return 'DocumentEvent.toolsRemoved(tools: $tools)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PaintersRemoved &&
-            const DeepCollectionEquality().equals(other._painters, _painters));
+            other is _$ToolsRemoved &&
+            const DeepCollectionEquality().equals(other._tools, _tools));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_painters));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_tools));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PaintersRemovedCopyWith<_$PaintersRemoved> get copyWith =>
-      __$$PaintersRemovedCopyWithImpl<_$PaintersRemoved>(this, _$identity);
+  _$$ToolsRemovedCopyWith<_$ToolsRemoved> get copyWith =>
+      __$$ToolsRemovedCopyWithImpl<_$ToolsRemoved>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -5535,12 +5618,14 @@ class _$PaintersRemoved extends PaintersRemoved {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -5573,15 +5658,15 @@ class _$PaintersRemoved extends PaintersRemoved {
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return paintersRemoved(painters);
+    return toolsRemoved(tools);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -5591,12 +5676,13 @@ class _$PaintersRemoved extends PaintersRemoved {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -5624,15 +5710,15 @@ class _$PaintersRemoved extends PaintersRemoved {
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return paintersRemoved?.call(painters);
+    return toolsRemoved?.call(tools);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -5642,12 +5728,13 @@ class _$PaintersRemoved extends PaintersRemoved {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -5676,8 +5763,8 @@ class _$PaintersRemoved extends PaintersRemoved {
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
   }) {
-    if (paintersRemoved != null) {
-      return paintersRemoved(painters);
+    if (toolsRemoved != null) {
+      return toolsRemoved(tools);
     }
     return orElse();
   }
@@ -5686,8 +5773,8 @@ class _$PaintersRemoved extends PaintersRemoved {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -5696,13 +5783,14 @@ class _$PaintersRemoved extends PaintersRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -5731,15 +5819,15 @@ class _$PaintersRemoved extends PaintersRemoved {
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
   }) {
-    return paintersRemoved(this);
+    return toolsRemoved(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -5748,13 +5836,14 @@ class _$PaintersRemoved extends PaintersRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -5780,15 +5869,15 @@ class _$PaintersRemoved extends PaintersRemoved {
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
   }) {
-    return paintersRemoved?.call(this);
+    return toolsRemoved?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -5797,13 +5886,14 @@ class _$PaintersRemoved extends PaintersRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -5830,48 +5920,48 @@ class _$PaintersRemoved extends PaintersRemoved {
     TResult Function(PresentationTick value)? presentationTick,
     required TResult orElse(),
   }) {
-    if (paintersRemoved != null) {
-      return paintersRemoved(this);
+    if (toolsRemoved != null) {
+      return toolsRemoved(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PaintersRemovedToJson(
+    return _$$ToolsRemovedToJson(
       this,
     );
   }
 }
 
-abstract class PaintersRemoved extends DocumentEvent {
-  const factory PaintersRemoved(final List<int> painters) = _$PaintersRemoved;
-  const PaintersRemoved._() : super._();
+abstract class ToolsRemoved extends DocumentEvent {
+  const factory ToolsRemoved(final List<int> tools) = _$ToolsRemoved;
+  const ToolsRemoved._() : super._();
 
-  factory PaintersRemoved.fromJson(Map<String, dynamic> json) =
-      _$PaintersRemoved.fromJson;
+  factory ToolsRemoved.fromJson(Map<String, dynamic> json) =
+      _$ToolsRemoved.fromJson;
 
-  List<int> get painters;
+  List<int> get tools;
   @JsonKey(ignore: true)
-  _$$PaintersRemovedCopyWith<_$PaintersRemoved> get copyWith =>
+  _$$ToolsRemovedCopyWith<_$ToolsRemoved> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$PainterReorderedCopyWith<$Res> {
-  factory _$$PainterReorderedCopyWith(
-          _$PainterReordered value, $Res Function(_$PainterReordered) then) =
-      __$$PainterReorderedCopyWithImpl<$Res>;
+abstract class _$$ToolReorderedCopyWith<$Res> {
+  factory _$$ToolReorderedCopyWith(
+          _$ToolReordered value, $Res Function(_$ToolReordered) then) =
+      __$$ToolReorderedCopyWithImpl<$Res>;
   @useResult
   $Res call({int oldIndex, int newIndex});
 }
 
 /// @nodoc
-class __$$PainterReorderedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$PainterReordered>
-    implements _$$PainterReorderedCopyWith<$Res> {
-  __$$PainterReorderedCopyWithImpl(
-      _$PainterReordered _value, $Res Function(_$PainterReordered) _then)
+class __$$ToolReorderedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ToolReordered>
+    implements _$$ToolReorderedCopyWith<$Res> {
+  __$$ToolReorderedCopyWithImpl(
+      _$ToolReordered _value, $Res Function(_$ToolReordered) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5880,7 +5970,7 @@ class __$$PainterReorderedCopyWithImpl<$Res>
     Object? oldIndex = null,
     Object? newIndex = null,
   }) {
-    return _then(_$PainterReordered(
+    return _then(_$ToolReordered(
       null == oldIndex
           ? _value.oldIndex
           : oldIndex // ignore: cast_nullable_to_non_nullable
@@ -5895,13 +5985,13 @@ class __$$PainterReorderedCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PainterReordered extends PainterReordered {
-  const _$PainterReordered(this.oldIndex, this.newIndex, {final String? $type})
-      : $type = $type ?? 'painterReordered',
+class _$ToolReordered extends ToolReordered {
+  const _$ToolReordered(this.oldIndex, this.newIndex, {final String? $type})
+      : $type = $type ?? 'toolReordered',
         super._();
 
-  factory _$PainterReordered.fromJson(Map<String, dynamic> json) =>
-      _$$PainterReorderedFromJson(json);
+  factory _$ToolReordered.fromJson(Map<String, dynamic> json) =>
+      _$$ToolReorderedFromJson(json);
 
   @override
   final int oldIndex;
@@ -5913,14 +6003,14 @@ class _$PainterReordered extends PainterReordered {
 
   @override
   String toString() {
-    return 'DocumentEvent.painterReordered(oldIndex: $oldIndex, newIndex: $newIndex)';
+    return 'DocumentEvent.toolReordered(oldIndex: $oldIndex, newIndex: $newIndex)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PainterReordered &&
+            other is _$ToolReordered &&
             (identical(other.oldIndex, oldIndex) ||
                 other.oldIndex == oldIndex) &&
             (identical(other.newIndex, newIndex) ||
@@ -5934,15 +6024,15 @@ class _$PainterReordered extends PainterReordered {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PainterReorderedCopyWith<_$PainterReordered> get copyWith =>
-      __$$PainterReorderedCopyWithImpl<_$PainterReordered>(this, _$identity);
+  _$$ToolReorderedCopyWith<_$ToolReordered> get copyWith =>
+      __$$ToolReorderedCopyWithImpl<_$ToolReordered>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -5953,12 +6043,14 @@ class _$PainterReordered extends PainterReordered {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -5991,15 +6083,15 @@ class _$PainterReordered extends PainterReordered {
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return painterReordered(oldIndex, newIndex);
+    return toolReordered(oldIndex, newIndex);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -6009,12 +6101,13 @@ class _$PainterReordered extends PainterReordered {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -6042,15 +6135,15 @@ class _$PainterReordered extends PainterReordered {
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return painterReordered?.call(oldIndex, newIndex);
+    return toolReordered?.call(oldIndex, newIndex);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -6060,12 +6153,13 @@ class _$PainterReordered extends PainterReordered {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -6094,8 +6188,8 @@ class _$PainterReordered extends PainterReordered {
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
   }) {
-    if (painterReordered != null) {
-      return painterReordered(oldIndex, newIndex);
+    if (toolReordered != null) {
+      return toolReordered(oldIndex, newIndex);
     }
     return orElse();
   }
@@ -6104,8 +6198,8 @@ class _$PainterReordered extends PainterReordered {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -6114,13 +6208,14 @@ class _$PainterReordered extends PainterReordered {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -6149,15 +6244,15 @@ class _$PainterReordered extends PainterReordered {
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
   }) {
-    return painterReordered(this);
+    return toolReordered(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -6166,13 +6261,14 @@ class _$PainterReordered extends PainterReordered {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -6198,15 +6294,15 @@ class _$PainterReordered extends PainterReordered {
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
   }) {
-    return painterReordered?.call(this);
+    return toolReordered?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -6215,13 +6311,14 @@ class _$PainterReordered extends PainterReordered {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -6248,124 +6345,123 @@ class _$PainterReordered extends PainterReordered {
     TResult Function(PresentationTick value)? presentationTick,
     required TResult orElse(),
   }) {
-    if (painterReordered != null) {
-      return painterReordered(this);
+    if (toolReordered != null) {
+      return toolReordered(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PainterReorderedToJson(
+    return _$$ToolReorderedToJson(
       this,
     );
   }
 }
 
-abstract class PainterReordered extends DocumentEvent {
-  const factory PainterReordered(final int oldIndex, final int newIndex) =
-      _$PainterReordered;
-  const PainterReordered._() : super._();
+abstract class ToolReordered extends DocumentEvent {
+  const factory ToolReordered(final int oldIndex, final int newIndex) =
+      _$ToolReordered;
+  const ToolReordered._() : super._();
 
-  factory PainterReordered.fromJson(Map<String, dynamic> json) =
-      _$PainterReordered.fromJson;
+  factory ToolReordered.fromJson(Map<String, dynamic> json) =
+      _$ToolReordered.fromJson;
 
   int get oldIndex;
   int get newIndex;
   @JsonKey(ignore: true)
-  _$$PainterReorderedCopyWith<_$PainterReordered> get copyWith =>
+  _$$ToolReorderedCopyWith<_$ToolReordered> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DocumentBackgroundChangedCopyWith<$Res> {
-  factory _$$DocumentBackgroundChangedCopyWith(
-          _$DocumentBackgroundChanged value,
-          $Res Function(_$DocumentBackgroundChanged) then) =
-      __$$DocumentBackgroundChangedCopyWithImpl<$Res>;
+abstract class _$$DocumentBackgroundsChangedCopyWith<$Res> {
+  factory _$$DocumentBackgroundsChangedCopyWith(
+          _$DocumentBackgroundsChanged value,
+          $Res Function(_$DocumentBackgroundsChanged) then) =
+      __$$DocumentBackgroundsChangedCopyWithImpl<$Res>;
   @useResult
-  $Res call({Background background});
-
-  $BackgroundCopyWith<$Res> get background;
+  $Res call({List<Background> backgrounds});
 }
 
 /// @nodoc
-class __$$DocumentBackgroundChangedCopyWithImpl<$Res>
-    extends _$DocumentEventCopyWithImpl<$Res, _$DocumentBackgroundChanged>
-    implements _$$DocumentBackgroundChangedCopyWith<$Res> {
-  __$$DocumentBackgroundChangedCopyWithImpl(_$DocumentBackgroundChanged _value,
-      $Res Function(_$DocumentBackgroundChanged) _then)
+class __$$DocumentBackgroundsChangedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$DocumentBackgroundsChanged>
+    implements _$$DocumentBackgroundsChangedCopyWith<$Res> {
+  __$$DocumentBackgroundsChangedCopyWithImpl(
+      _$DocumentBackgroundsChanged _value,
+      $Res Function(_$DocumentBackgroundsChanged) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? background = null,
+    Object? backgrounds = null,
   }) {
-    return _then(_$DocumentBackgroundChanged(
-      null == background
-          ? _value.background
-          : background // ignore: cast_nullable_to_non_nullable
-              as Background,
+    return _then(_$DocumentBackgroundsChanged(
+      null == backgrounds
+          ? _value._backgrounds
+          : backgrounds // ignore: cast_nullable_to_non_nullable
+              as List<Background>,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BackgroundCopyWith<$Res> get background {
-    return $BackgroundCopyWith<$Res>(_value.background, (value) {
-      return _then(_value.copyWith(background: value));
-    });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
-  const _$DocumentBackgroundChanged(this.background, {final String? $type})
-      : $type = $type ?? 'documentBackgroundChanged',
+class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
+  const _$DocumentBackgroundsChanged(final List<Background> backgrounds,
+      {final String? $type})
+      : _backgrounds = backgrounds,
+        $type = $type ?? 'documentBackgroundsChanged',
         super._();
 
-  factory _$DocumentBackgroundChanged.fromJson(Map<String, dynamic> json) =>
-      _$$DocumentBackgroundChangedFromJson(json);
+  factory _$DocumentBackgroundsChanged.fromJson(Map<String, dynamic> json) =>
+      _$$DocumentBackgroundsChangedFromJson(json);
 
+  final List<Background> _backgrounds;
   @override
-  final Background background;
+  List<Background> get backgrounds {
+    if (_backgrounds is EqualUnmodifiableListView) return _backgrounds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_backgrounds);
+  }
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'DocumentEvent.documentBackgroundChanged(background: $background)';
+    return 'DocumentEvent.documentBackgroundsChanged(backgrounds: $backgrounds)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DocumentBackgroundChanged &&
-            (identical(other.background, background) ||
-                other.background == background));
+            other is _$DocumentBackgroundsChanged &&
+            const DeepCollectionEquality()
+                .equals(other._backgrounds, _backgrounds));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, background);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_backgrounds));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DocumentBackgroundChangedCopyWith<_$DocumentBackgroundChanged>
-      get copyWith => __$$DocumentBackgroundChangedCopyWithImpl<
-          _$DocumentBackgroundChanged>(this, _$identity);
+  _$$DocumentBackgroundsChangedCopyWith<_$DocumentBackgroundsChanged>
+      get copyWith => __$$DocumentBackgroundsChangedCopyWithImpl<
+          _$DocumentBackgroundsChanged>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -6376,12 +6472,14 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -6414,15 +6512,15 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     required TResult Function() presentationModeExited,
     required TResult Function(int tick) presentationTick,
   }) {
-    return documentBackgroundChanged(background);
+    return documentBackgroundsChanged(backgrounds);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -6432,12 +6530,13 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -6465,15 +6564,15 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     TResult? Function()? presentationModeExited,
     TResult? Function(int tick)? presentationTick,
   }) {
-    return documentBackgroundChanged?.call(background);
+    return documentBackgroundsChanged?.call(backgrounds);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -6483,12 +6582,13 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -6517,8 +6617,8 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     TResult Function(int tick)? presentationTick,
     required TResult orElse(),
   }) {
-    if (documentBackgroundChanged != null) {
-      return documentBackgroundChanged(background);
+    if (documentBackgroundsChanged != null) {
+      return documentBackgroundsChanged(backgrounds);
     }
     return orElse();
   }
@@ -6527,8 +6627,8 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -6537,13 +6637,14 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -6572,15 +6673,15 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
         presentationModeExited,
     required TResult Function(PresentationTick value) presentationTick,
   }) {
-    return documentBackgroundChanged(this);
+    return documentBackgroundsChanged(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -6589,13 +6690,14 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -6621,15 +6723,15 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     TResult? Function(PresentationModeExited value)? presentationModeExited,
     TResult? Function(PresentationTick value)? presentationTick,
   }) {
-    return documentBackgroundChanged?.call(this);
+    return documentBackgroundsChanged?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -6638,13 +6740,14 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -6671,31 +6774,31 @@ class _$DocumentBackgroundChanged extends DocumentBackgroundChanged {
     TResult Function(PresentationTick value)? presentationTick,
     required TResult orElse(),
   }) {
-    if (documentBackgroundChanged != null) {
-      return documentBackgroundChanged(this);
+    if (documentBackgroundsChanged != null) {
+      return documentBackgroundsChanged(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DocumentBackgroundChangedToJson(
+    return _$$DocumentBackgroundsChangedToJson(
       this,
     );
   }
 }
 
-abstract class DocumentBackgroundChanged extends DocumentEvent {
-  const factory DocumentBackgroundChanged(final Background background) =
-      _$DocumentBackgroundChanged;
-  const DocumentBackgroundChanged._() : super._();
+abstract class DocumentBackgroundsChanged extends DocumentEvent {
+  const factory DocumentBackgroundsChanged(final List<Background> backgrounds) =
+      _$DocumentBackgroundsChanged;
+  const DocumentBackgroundsChanged._() : super._();
 
-  factory DocumentBackgroundChanged.fromJson(Map<String, dynamic> json) =
-      _$DocumentBackgroundChanged.fromJson;
+  factory DocumentBackgroundsChanged.fromJson(Map<String, dynamic> json) =
+      _$DocumentBackgroundsChanged.fromJson;
 
-  Background get background;
+  List<Background> get backgrounds;
   @JsonKey(ignore: true)
-  _$$DocumentBackgroundChangedCopyWith<_$DocumentBackgroundChanged>
+  _$$DocumentBackgroundsChangedCopyWith<_$DocumentBackgroundsChanged>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -6784,8 +6887,8 @@ class _$WaypointCreated extends WaypointCreated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -6796,12 +6899,14 @@ class _$WaypointCreated extends WaypointCreated {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -6841,8 +6946,8 @@ class _$WaypointCreated extends WaypointCreated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -6852,12 +6957,13 @@ class _$WaypointCreated extends WaypointCreated {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -6892,8 +6998,8 @@ class _$WaypointCreated extends WaypointCreated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -6903,12 +7009,13 @@ class _$WaypointCreated extends WaypointCreated {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -6947,8 +7054,8 @@ class _$WaypointCreated extends WaypointCreated {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -6957,13 +7064,14 @@ class _$WaypointCreated extends WaypointCreated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -6999,8 +7107,8 @@ class _$WaypointCreated extends WaypointCreated {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -7009,13 +7117,14 @@ class _$WaypointCreated extends WaypointCreated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -7048,8 +7157,8 @@ class _$WaypointCreated extends WaypointCreated {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -7058,13 +7167,14 @@ class _$WaypointCreated extends WaypointCreated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -7115,6 +7225,431 @@ abstract class WaypointCreated extends DocumentEvent {
   Waypoint get waypoint;
   @JsonKey(ignore: true)
   _$$WaypointCreatedCopyWith<_$WaypointCreated> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$WaypointRenamedCopyWith<$Res> {
+  factory _$$WaypointRenamedCopyWith(
+          _$WaypointRenamed value, $Res Function(_$WaypointRenamed) then) =
+      __$$WaypointRenamedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index, String name});
+}
+
+/// @nodoc
+class __$$WaypointRenamedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$WaypointRenamed>
+    implements _$$WaypointRenamedCopyWith<$Res> {
+  __$$WaypointRenamedCopyWithImpl(
+      _$WaypointRenamed _value, $Res Function(_$WaypointRenamed) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+    Object? name = null,
+  }) {
+    return _then(_$WaypointRenamed(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$WaypointRenamed extends WaypointRenamed {
+  const _$WaypointRenamed(this.index, this.name, {final String? $type})
+      : $type = $type ?? 'waypointRenamed',
+        super._();
+
+  factory _$WaypointRenamed.fromJson(Map<String, dynamic> json) =>
+      _$$WaypointRenamedFromJson(json);
+
+  @override
+  final int index;
+  @override
+  final String name;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.waypointRenamed(index: $index, name: $name)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$WaypointRenamed &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, index, name);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$WaypointRenamedCopyWith<_$WaypointRenamed> get copyWith =>
+      __$$WaypointRenamedCopyWithImpl<_$WaypointRenamed>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String pageName) pageChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
+    required TResult Function(List<PadElement> elements) elementsCreated,
+    required TResult Function(Map<int, List<PadElement>> elements)
+        elementsChanged,
+    required TResult Function(List<int> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<int> elements)
+        elementsArranged,
+    required TResult Function(String? name, String? description)
+        documentDescriptionChanged,
+    required TResult Function(String path) documentPathChanged,
+    required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
+    required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
+    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String oldName, String newName) layerRenamed,
+    required TResult Function(String name) layerRemoved,
+    required TResult Function(String name) layerElementsRemoved,
+    required TResult Function(String name) layerVisibilityChanged,
+    required TResult Function(String name) currentLayerChanged,
+    required TResult Function(String layer, List<int> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
+    required TResult Function(List<Area> areas) areasCreated,
+    required TResult Function(List<String> areas) areasRemoved,
+    required TResult Function(String name, Area area) areaChanged,
+    required TResult Function(String name) currentAreaChanged,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetUpdated,
+    required TResult Function(String name) exportPresetRemoved,
+    required TResult Function(NoteData pack) packAdded,
+    required TResult Function(String name, NoteData pack) packUpdated,
+    required TResult Function(String name) packRemoved,
+    required TResult Function(AnimationTrack animation) animationAdded,
+    required TResult Function(String name, AnimationTrack animation)
+        animationUpdated,
+    required TResult Function(String name) animationRemoved,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
+    required TResult Function() presentationModeExited,
+    required TResult Function(int tick) presentationTick,
+  }) {
+    return waypointRenamed(index, name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String pageName)? pageChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
+    TResult? Function(List<PadElement> elements)? elementsCreated,
+    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<int> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<int> elements)?
+        elementsArranged,
+    TResult? Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult? Function(String path)? documentPathChanged,
+    TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
+    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String oldName, String newName)? layerRenamed,
+    TResult? Function(String name)? layerRemoved,
+    TResult? Function(String name)? layerElementsRemoved,
+    TResult? Function(String name)? layerVisibilityChanged,
+    TResult? Function(String name)? currentLayerChanged,
+    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult? Function(List<Area> areas)? areasCreated,
+    TResult? Function(List<String> areas)? areasRemoved,
+    TResult? Function(String name, Area area)? areaChanged,
+    TResult? Function(String name)? currentAreaChanged,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult? Function(String name)? exportPresetRemoved,
+    TResult? Function(NoteData pack)? packAdded,
+    TResult? Function(String name, NoteData pack)? packUpdated,
+    TResult? Function(String name)? packRemoved,
+    TResult? Function(AnimationTrack animation)? animationAdded,
+    TResult? Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult? Function(String name)? animationRemoved,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult? Function()? presentationModeExited,
+    TResult? Function(int tick)? presentationTick,
+  }) {
+    return waypointRenamed?.call(index, name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String pageName)? pageChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
+    TResult Function(List<PadElement> elements)? elementsCreated,
+    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<int> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<int> elements)?
+        elementsArranged,
+    TResult Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult Function(String path)? documentPathChanged,
+    TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
+    TResult Function(int index)? waypointRemoved,
+    TResult Function(String oldName, String newName)? layerRenamed,
+    TResult Function(String name)? layerRemoved,
+    TResult Function(String name)? layerElementsRemoved,
+    TResult Function(String name)? layerVisibilityChanged,
+    TResult Function(String name)? currentLayerChanged,
+    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult Function(List<Area> areas)? areasCreated,
+    TResult Function(List<String> areas)? areasRemoved,
+    TResult Function(String name, Area area)? areaChanged,
+    TResult Function(String name)? currentAreaChanged,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult Function(String name)? exportPresetRemoved,
+    TResult Function(NoteData pack)? packAdded,
+    TResult Function(String name, NoteData pack)? packUpdated,
+    TResult Function(String name)? packRemoved,
+    TResult Function(AnimationTrack animation)? animationAdded,
+    TResult Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult Function(String name)? animationRemoved,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult Function()? presentationModeExited,
+    TResult Function(int tick)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (waypointRenamed != null) {
+      return waypointRenamed(index, name);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
+    required TResult Function(ElementsCreated value) elementsCreated,
+    required TResult Function(ElementsChanged value) elementsChanged,
+    required TResult Function(ElementsRemoved value) elementsRemoved,
+    required TResult Function(ElementsArranged value) elementsArranged,
+    required TResult Function(DocumentDescriptionChanged value)
+        documentDescriptionChanged,
+    required TResult Function(DocumentPathChanged value) documentPathChanged,
+    required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
+    required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(LayerRenamed value) layerRenamed,
+    required TResult Function(LayerRemoved value) layerRemoved,
+    required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
+    required TResult Function(LayerVisibilityChanged value)
+        layerVisibilityChanged,
+    required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
+    required TResult Function(TemplateCreated value) templateCreated,
+    required TResult Function(AreasCreated value) areasCreated,
+    required TResult Function(AreasRemoved value) areasRemoved,
+    required TResult Function(AreaChanged value) areaChanged,
+    required TResult Function(CurrentAreaChanged value) currentAreaChanged,
+    required TResult Function(ExportPresetCreated value) exportPresetCreated,
+    required TResult Function(ExportPresetUpdated value) exportPresetUpdated,
+    required TResult Function(ExportPresetRemoved value) exportPresetRemoved,
+    required TResult Function(PackAdded value) packAdded,
+    required TResult Function(PackUpdated value) packUpdated,
+    required TResult Function(PackRemoved value) packRemoved,
+    required TResult Function(AnimationAdded value) animationAdded,
+    required TResult Function(AnimationUpdated value) animationUpdated,
+    required TResult Function(AnimationRemoved value) animationRemoved,
+    required TResult Function(PresentationModeEntered value)
+        presentationModeEntered,
+    required TResult Function(PresentationModeExited value)
+        presentationModeExited,
+    required TResult Function(PresentationTick value) presentationTick,
+  }) {
+    return waypointRenamed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult? Function(ElementsCreated value)? elementsCreated,
+    TResult? Function(ElementsChanged value)? elementsChanged,
+    TResult? Function(ElementsRemoved value)? elementsRemoved,
+    TResult? Function(ElementsArranged value)? elementsArranged,
+    TResult? Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult? Function(DocumentPathChanged value)? documentPathChanged,
+    TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(LayerRenamed value)? layerRenamed,
+    TResult? Function(LayerRemoved value)? layerRemoved,
+    TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult? Function(TemplateCreated value)? templateCreated,
+    TResult? Function(AreasCreated value)? areasCreated,
+    TResult? Function(AreasRemoved value)? areasRemoved,
+    TResult? Function(AreaChanged value)? areaChanged,
+    TResult? Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult? Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult? Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult? Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult? Function(PackAdded value)? packAdded,
+    TResult? Function(PackUpdated value)? packUpdated,
+    TResult? Function(PackRemoved value)? packRemoved,
+    TResult? Function(AnimationAdded value)? animationAdded,
+    TResult? Function(AnimationUpdated value)? animationUpdated,
+    TResult? Function(AnimationRemoved value)? animationRemoved,
+    TResult? Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult? Function(PresentationModeExited value)? presentationModeExited,
+    TResult? Function(PresentationTick value)? presentationTick,
+  }) {
+    return waypointRenamed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageChanged value)? pageChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult Function(ElementsCreated value)? elementsCreated,
+    TResult Function(ElementsChanged value)? elementsChanged,
+    TResult Function(ElementsRemoved value)? elementsRemoved,
+    TResult Function(ElementsArranged value)? elementsArranged,
+    TResult Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult Function(DocumentPathChanged value)? documentPathChanged,
+    TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(LayerRenamed value)? layerRenamed,
+    TResult Function(LayerRemoved value)? layerRemoved,
+    TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult Function(TemplateCreated value)? templateCreated,
+    TResult Function(AreasCreated value)? areasCreated,
+    TResult Function(AreasRemoved value)? areasRemoved,
+    TResult Function(AreaChanged value)? areaChanged,
+    TResult Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult Function(PackAdded value)? packAdded,
+    TResult Function(PackUpdated value)? packUpdated,
+    TResult Function(PackRemoved value)? packRemoved,
+    TResult Function(AnimationAdded value)? animationAdded,
+    TResult Function(AnimationUpdated value)? animationUpdated,
+    TResult Function(AnimationRemoved value)? animationRemoved,
+    TResult Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult Function(PresentationModeExited value)? presentationModeExited,
+    TResult Function(PresentationTick value)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (waypointRenamed != null) {
+      return waypointRenamed(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$WaypointRenamedToJson(
+      this,
+    );
+  }
+}
+
+abstract class WaypointRenamed extends DocumentEvent {
+  const factory WaypointRenamed(final int index, final String name) =
+      _$WaypointRenamed;
+  const WaypointRenamed._() : super._();
+
+  factory WaypointRenamed.fromJson(Map<String, dynamic> json) =
+      _$WaypointRenamed.fromJson;
+
+  int get index;
+  String get name;
+  @JsonKey(ignore: true)
+  _$$WaypointRenamedCopyWith<_$WaypointRenamed> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -7192,8 +7727,8 @@ class _$WaypointRemoved extends WaypointRemoved {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -7204,12 +7739,14 @@ class _$WaypointRemoved extends WaypointRemoved {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -7249,8 +7786,8 @@ class _$WaypointRemoved extends WaypointRemoved {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -7260,12 +7797,13 @@ class _$WaypointRemoved extends WaypointRemoved {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -7300,8 +7838,8 @@ class _$WaypointRemoved extends WaypointRemoved {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -7311,12 +7849,13 @@ class _$WaypointRemoved extends WaypointRemoved {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -7355,8 +7894,8 @@ class _$WaypointRemoved extends WaypointRemoved {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -7365,13 +7904,14 @@ class _$WaypointRemoved extends WaypointRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -7407,8 +7947,8 @@ class _$WaypointRemoved extends WaypointRemoved {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -7417,13 +7957,14 @@ class _$WaypointRemoved extends WaypointRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -7456,8 +7997,8 @@ class _$WaypointRemoved extends WaypointRemoved {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -7466,13 +8007,14 @@ class _$WaypointRemoved extends WaypointRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -7608,8 +8150,8 @@ class _$LayerRenamed extends LayerRenamed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -7620,12 +8162,14 @@ class _$LayerRenamed extends LayerRenamed {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -7665,8 +8209,8 @@ class _$LayerRenamed extends LayerRenamed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -7676,12 +8220,13 @@ class _$LayerRenamed extends LayerRenamed {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -7716,8 +8261,8 @@ class _$LayerRenamed extends LayerRenamed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -7727,12 +8272,13 @@ class _$LayerRenamed extends LayerRenamed {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -7771,8 +8317,8 @@ class _$LayerRenamed extends LayerRenamed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -7781,13 +8327,14 @@ class _$LayerRenamed extends LayerRenamed {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -7823,8 +8370,8 @@ class _$LayerRenamed extends LayerRenamed {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -7833,13 +8380,14 @@ class _$LayerRenamed extends LayerRenamed {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -7872,8 +8420,8 @@ class _$LayerRenamed extends LayerRenamed {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -7882,13 +8430,14 @@ class _$LayerRenamed extends LayerRenamed {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -8018,8 +8567,8 @@ class _$LayerRemoved extends LayerRemoved {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -8030,12 +8579,14 @@ class _$LayerRemoved extends LayerRemoved {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -8075,8 +8626,8 @@ class _$LayerRemoved extends LayerRemoved {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -8086,12 +8637,13 @@ class _$LayerRemoved extends LayerRemoved {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -8126,8 +8678,8 @@ class _$LayerRemoved extends LayerRemoved {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -8137,12 +8689,13 @@ class _$LayerRemoved extends LayerRemoved {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -8181,8 +8734,8 @@ class _$LayerRemoved extends LayerRemoved {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -8191,13 +8744,14 @@ class _$LayerRemoved extends LayerRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -8233,8 +8787,8 @@ class _$LayerRemoved extends LayerRemoved {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -8243,13 +8797,14 @@ class _$LayerRemoved extends LayerRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -8282,8 +8837,8 @@ class _$LayerRemoved extends LayerRemoved {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -8292,13 +8847,14 @@ class _$LayerRemoved extends LayerRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -8427,8 +8983,8 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -8439,12 +8995,14 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -8484,8 +9042,8 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -8495,12 +9053,13 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -8535,8 +9094,8 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -8546,12 +9105,13 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -8590,8 +9150,8 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -8600,13 +9160,14 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -8642,8 +9203,8 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -8652,13 +9213,14 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -8691,8 +9253,8 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -8701,13 +9263,14 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -8837,8 +9400,8 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -8849,12 +9412,14 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -8894,8 +9459,8 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -8905,12 +9470,13 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -8945,8 +9511,8 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -8956,12 +9522,13 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -9000,8 +9567,8 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -9010,13 +9577,14 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -9052,8 +9620,8 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -9062,13 +9630,14 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -9101,8 +9670,8 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -9111,13 +9680,14 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -9247,8 +9817,8 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -9259,12 +9829,14 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -9304,8 +9876,8 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -9315,12 +9887,13 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -9355,8 +9928,8 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -9366,12 +9939,13 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -9410,8 +9984,8 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -9420,13 +9994,14 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -9462,8 +10037,8 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -9472,13 +10047,14 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -9511,8 +10087,8 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -9521,13 +10097,14 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -9672,8 +10249,8 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -9684,12 +10261,14 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -9729,8 +10308,8 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -9740,12 +10319,13 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -9780,8 +10360,8 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -9791,12 +10371,13 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -9835,8 +10416,8 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -9845,13 +10426,14 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -9887,8 +10469,8 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -9897,13 +10479,14 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -9936,8 +10519,8 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -9946,13 +10529,14 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -10103,8 +10687,8 @@ class _$TemplateCreated extends TemplateCreated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -10115,12 +10699,14 @@ class _$TemplateCreated extends TemplateCreated {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -10160,8 +10746,8 @@ class _$TemplateCreated extends TemplateCreated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -10171,12 +10757,13 @@ class _$TemplateCreated extends TemplateCreated {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -10211,8 +10798,8 @@ class _$TemplateCreated extends TemplateCreated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -10222,12 +10809,13 @@ class _$TemplateCreated extends TemplateCreated {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -10266,8 +10854,8 @@ class _$TemplateCreated extends TemplateCreated {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -10276,13 +10864,14 @@ class _$TemplateCreated extends TemplateCreated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -10318,8 +10907,8 @@ class _$TemplateCreated extends TemplateCreated {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -10328,13 +10917,14 @@ class _$TemplateCreated extends TemplateCreated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -10367,8 +10957,8 @@ class _$TemplateCreated extends TemplateCreated {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -10377,13 +10967,14 @@ class _$TemplateCreated extends TemplateCreated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -10521,8 +11112,8 @@ class _$AreasCreated extends AreasCreated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -10533,12 +11124,14 @@ class _$AreasCreated extends AreasCreated {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -10578,8 +11171,8 @@ class _$AreasCreated extends AreasCreated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -10589,12 +11182,13 @@ class _$AreasCreated extends AreasCreated {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -10629,8 +11223,8 @@ class _$AreasCreated extends AreasCreated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -10640,12 +11234,13 @@ class _$AreasCreated extends AreasCreated {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -10684,8 +11279,8 @@ class _$AreasCreated extends AreasCreated {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -10694,13 +11289,14 @@ class _$AreasCreated extends AreasCreated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -10736,8 +11332,8 @@ class _$AreasCreated extends AreasCreated {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -10746,13 +11342,14 @@ class _$AreasCreated extends AreasCreated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -10785,8 +11382,8 @@ class _$AreasCreated extends AreasCreated {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -10795,13 +11392,14 @@ class _$AreasCreated extends AreasCreated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -10936,8 +11534,8 @@ class _$AreasRemoved extends AreasRemoved {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -10948,12 +11546,14 @@ class _$AreasRemoved extends AreasRemoved {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -10993,8 +11593,8 @@ class _$AreasRemoved extends AreasRemoved {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -11004,12 +11604,13 @@ class _$AreasRemoved extends AreasRemoved {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -11044,8 +11645,8 @@ class _$AreasRemoved extends AreasRemoved {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -11055,12 +11656,13 @@ class _$AreasRemoved extends AreasRemoved {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -11099,8 +11701,8 @@ class _$AreasRemoved extends AreasRemoved {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -11109,13 +11711,14 @@ class _$AreasRemoved extends AreasRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -11151,8 +11754,8 @@ class _$AreasRemoved extends AreasRemoved {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -11161,13 +11764,14 @@ class _$AreasRemoved extends AreasRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -11200,8 +11804,8 @@ class _$AreasRemoved extends AreasRemoved {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -11210,13 +11814,14 @@ class _$AreasRemoved extends AreasRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -11362,8 +11967,8 @@ class _$AreaChanged extends AreaChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -11374,12 +11979,14 @@ class _$AreaChanged extends AreaChanged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -11419,8 +12026,8 @@ class _$AreaChanged extends AreaChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -11430,12 +12037,13 @@ class _$AreaChanged extends AreaChanged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -11470,8 +12078,8 @@ class _$AreaChanged extends AreaChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -11481,12 +12089,13 @@ class _$AreaChanged extends AreaChanged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -11525,8 +12134,8 @@ class _$AreaChanged extends AreaChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -11535,13 +12144,14 @@ class _$AreaChanged extends AreaChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -11577,8 +12187,8 @@ class _$AreaChanged extends AreaChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -11587,13 +12197,14 @@ class _$AreaChanged extends AreaChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -11626,8 +12237,8 @@ class _$AreaChanged extends AreaChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -11636,13 +12247,14 @@ class _$AreaChanged extends AreaChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -11772,8 +12384,8 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -11784,12 +12396,14 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -11829,8 +12443,8 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -11840,12 +12454,13 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -11880,8 +12495,8 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -11891,12 +12506,13 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -11935,8 +12551,8 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -11945,13 +12561,14 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -11987,8 +12604,8 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -11997,13 +12614,14 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -12036,8 +12654,8 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -12046,13 +12664,14 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -12198,8 +12817,8 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -12210,12 +12829,14 @@ class _$ExportPresetCreated extends ExportPresetCreated {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -12255,8 +12876,8 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -12266,12 +12887,13 @@ class _$ExportPresetCreated extends ExportPresetCreated {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -12306,8 +12928,8 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -12317,12 +12939,13 @@ class _$ExportPresetCreated extends ExportPresetCreated {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -12361,8 +12984,8 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -12371,13 +12994,14 @@ class _$ExportPresetCreated extends ExportPresetCreated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -12413,8 +13037,8 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -12423,13 +13047,14 @@ class _$ExportPresetCreated extends ExportPresetCreated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -12462,8 +13087,8 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -12472,13 +13097,14 @@ class _$ExportPresetCreated extends ExportPresetCreated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -12625,8 +13251,8 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -12637,12 +13263,14 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -12682,8 +13310,8 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -12693,12 +13321,13 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -12733,8 +13362,8 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -12744,12 +13373,13 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -12788,8 +13418,8 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -12798,13 +13428,14 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -12840,8 +13471,8 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -12850,13 +13481,14 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -12889,8 +13521,8 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -12899,13 +13531,14 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -13036,8 +13669,8 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -13048,12 +13681,14 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -13093,8 +13728,8 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -13104,12 +13739,13 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -13144,8 +13780,8 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -13155,12 +13791,13 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -13199,8 +13836,8 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -13209,13 +13846,14 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -13251,8 +13889,8 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -13261,13 +13899,14 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -13300,8 +13939,8 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -13310,13 +13949,14 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -13444,8 +14084,8 @@ class _$PackAdded extends PackAdded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -13456,12 +14096,14 @@ class _$PackAdded extends PackAdded {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -13501,8 +14143,8 @@ class _$PackAdded extends PackAdded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -13512,12 +14154,13 @@ class _$PackAdded extends PackAdded {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -13552,8 +14195,8 @@ class _$PackAdded extends PackAdded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -13563,12 +14206,13 @@ class _$PackAdded extends PackAdded {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -13607,8 +14251,8 @@ class _$PackAdded extends PackAdded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -13617,13 +14261,14 @@ class _$PackAdded extends PackAdded {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -13659,8 +14304,8 @@ class _$PackAdded extends PackAdded {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -13669,13 +14314,14 @@ class _$PackAdded extends PackAdded {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -13708,8 +14354,8 @@ class _$PackAdded extends PackAdded {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -13718,13 +14364,14 @@ class _$PackAdded extends PackAdded {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -13859,8 +14506,8 @@ class _$PackUpdated extends PackUpdated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -13871,12 +14518,14 @@ class _$PackUpdated extends PackUpdated {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -13916,8 +14565,8 @@ class _$PackUpdated extends PackUpdated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -13927,12 +14576,13 @@ class _$PackUpdated extends PackUpdated {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -13967,8 +14617,8 @@ class _$PackUpdated extends PackUpdated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -13978,12 +14628,13 @@ class _$PackUpdated extends PackUpdated {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -14022,8 +14673,8 @@ class _$PackUpdated extends PackUpdated {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -14032,13 +14683,14 @@ class _$PackUpdated extends PackUpdated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -14074,8 +14726,8 @@ class _$PackUpdated extends PackUpdated {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -14084,13 +14736,14 @@ class _$PackUpdated extends PackUpdated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -14123,8 +14776,8 @@ class _$PackUpdated extends PackUpdated {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -14133,13 +14786,14 @@ class _$PackUpdated extends PackUpdated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -14269,8 +14923,8 @@ class _$PackRemoved extends PackRemoved {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -14281,12 +14935,14 @@ class _$PackRemoved extends PackRemoved {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -14326,8 +14982,8 @@ class _$PackRemoved extends PackRemoved {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -14337,12 +14993,13 @@ class _$PackRemoved extends PackRemoved {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -14377,8 +15034,8 @@ class _$PackRemoved extends PackRemoved {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -14388,12 +15045,13 @@ class _$PackRemoved extends PackRemoved {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -14432,8 +15090,8 @@ class _$PackRemoved extends PackRemoved {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -14442,13 +15100,14 @@ class _$PackRemoved extends PackRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -14484,8 +15143,8 @@ class _$PackRemoved extends PackRemoved {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -14494,13 +15153,14 @@ class _$PackRemoved extends PackRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -14533,8 +15193,8 @@ class _$PackRemoved extends PackRemoved {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -14543,13 +15203,14 @@ class _$PackRemoved extends PackRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -14688,8 +15349,8 @@ class _$AnimationAdded extends AnimationAdded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -14700,12 +15361,14 @@ class _$AnimationAdded extends AnimationAdded {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -14745,8 +15408,8 @@ class _$AnimationAdded extends AnimationAdded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -14756,12 +15419,13 @@ class _$AnimationAdded extends AnimationAdded {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -14796,8 +15460,8 @@ class _$AnimationAdded extends AnimationAdded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -14807,12 +15471,13 @@ class _$AnimationAdded extends AnimationAdded {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -14851,8 +15516,8 @@ class _$AnimationAdded extends AnimationAdded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -14861,13 +15526,14 @@ class _$AnimationAdded extends AnimationAdded {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -14903,8 +15569,8 @@ class _$AnimationAdded extends AnimationAdded {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -14913,13 +15579,14 @@ class _$AnimationAdded extends AnimationAdded {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -14952,8 +15619,8 @@ class _$AnimationAdded extends AnimationAdded {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -14962,13 +15629,14 @@ class _$AnimationAdded extends AnimationAdded {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -15116,8 +15784,8 @@ class _$AnimationUpdated extends AnimationUpdated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -15128,12 +15796,14 @@ class _$AnimationUpdated extends AnimationUpdated {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -15173,8 +15843,8 @@ class _$AnimationUpdated extends AnimationUpdated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -15184,12 +15854,13 @@ class _$AnimationUpdated extends AnimationUpdated {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -15224,8 +15895,8 @@ class _$AnimationUpdated extends AnimationUpdated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -15235,12 +15906,13 @@ class _$AnimationUpdated extends AnimationUpdated {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -15279,8 +15951,8 @@ class _$AnimationUpdated extends AnimationUpdated {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -15289,13 +15961,14 @@ class _$AnimationUpdated extends AnimationUpdated {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -15331,8 +16004,8 @@ class _$AnimationUpdated extends AnimationUpdated {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -15341,13 +16014,14 @@ class _$AnimationUpdated extends AnimationUpdated {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -15380,8 +16054,8 @@ class _$AnimationUpdated extends AnimationUpdated {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -15390,13 +16064,14 @@ class _$AnimationUpdated extends AnimationUpdated {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -15526,8 +16201,8 @@ class _$AnimationRemoved extends AnimationRemoved {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -15538,12 +16213,14 @@ class _$AnimationRemoved extends AnimationRemoved {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -15583,8 +16260,8 @@ class _$AnimationRemoved extends AnimationRemoved {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -15594,12 +16271,13 @@ class _$AnimationRemoved extends AnimationRemoved {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -15634,8 +16312,8 @@ class _$AnimationRemoved extends AnimationRemoved {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -15645,12 +16323,13 @@ class _$AnimationRemoved extends AnimationRemoved {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -15689,8 +16368,8 @@ class _$AnimationRemoved extends AnimationRemoved {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -15699,13 +16378,14 @@ class _$AnimationRemoved extends AnimationRemoved {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -15741,8 +16421,8 @@ class _$AnimationRemoved extends AnimationRemoved {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -15751,13 +16431,14 @@ class _$AnimationRemoved extends AnimationRemoved {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -15790,8 +16471,8 @@ class _$AnimationRemoved extends AnimationRemoved {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -15800,13 +16481,14 @@ class _$AnimationRemoved extends AnimationRemoved {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -15955,8 +16637,8 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -15967,12 +16649,14 @@ class _$PresentationModeEntered extends PresentationModeEntered {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -16012,8 +16696,8 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -16023,12 +16707,13 @@ class _$PresentationModeEntered extends PresentationModeEntered {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -16063,8 +16748,8 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -16074,12 +16759,13 @@ class _$PresentationModeEntered extends PresentationModeEntered {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -16118,8 +16804,8 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -16128,13 +16814,14 @@ class _$PresentationModeEntered extends PresentationModeEntered {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -16170,8 +16857,8 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -16180,13 +16867,14 @@ class _$PresentationModeEntered extends PresentationModeEntered {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -16219,8 +16907,8 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -16229,13 +16917,14 @@ class _$PresentationModeEntered extends PresentationModeEntered {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -16340,8 +17029,8 @@ class _$PresentationModeExited extends PresentationModeExited {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -16352,12 +17041,14 @@ class _$PresentationModeExited extends PresentationModeExited {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -16397,8 +17088,8 @@ class _$PresentationModeExited extends PresentationModeExited {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -16408,12 +17099,13 @@ class _$PresentationModeExited extends PresentationModeExited {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -16448,8 +17140,8 @@ class _$PresentationModeExited extends PresentationModeExited {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -16459,12 +17151,13 @@ class _$PresentationModeExited extends PresentationModeExited {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -16503,8 +17196,8 @@ class _$PresentationModeExited extends PresentationModeExited {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -16513,13 +17206,14 @@ class _$PresentationModeExited extends PresentationModeExited {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -16555,8 +17249,8 @@ class _$PresentationModeExited extends PresentationModeExited {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -16565,13 +17259,14 @@ class _$PresentationModeExited extends PresentationModeExited {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -16604,8 +17299,8 @@ class _$PresentationModeExited extends PresentationModeExited {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -16614,13 +17309,14 @@ class _$PresentationModeExited extends PresentationModeExited {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,
@@ -16743,8 +17439,8 @@ class _$PresentationTick extends PresentationTick {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String pageName) pageChanged,
-    required TResult Function(ToolOption? option) toolOptionChanged,
-    required TResult Function(ToolState? state) toolStateChanged,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
     required TResult Function(Map<int, List<PadElement>> elements)
         elementsChanged,
@@ -16755,12 +17451,14 @@ class _$PresentationTick extends PresentationTick {
         documentDescriptionChanged,
     required TResult Function(String path) documentPathChanged,
     required TResult Function(AssetLocation? location) documentSaved,
-    required TResult Function(Painter painter) painterCreated,
-    required TResult Function(Map<int, Painter> painters) paintersChanged,
-    required TResult Function(List<int> painters) paintersRemoved,
-    required TResult Function(int oldIndex, int newIndex) painterReordered,
-    required TResult Function(Background background) documentBackgroundChanged,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
     required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
     required TResult Function(int index) waypointRemoved,
     required TResult Function(String oldName, String newName) layerRenamed,
     required TResult Function(String name) layerRemoved,
@@ -16800,8 +17498,8 @@ class _$PresentationTick extends PresentationTick {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String pageName)? pageChanged,
-    TResult? Function(ToolOption? option)? toolOptionChanged,
-    TResult? Function(ToolState? state)? toolStateChanged,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
     TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult? Function(List<int> elements)? elementsRemoved,
@@ -16811,12 +17509,13 @@ class _$PresentationTick extends PresentationTick {
         documentDescriptionChanged,
     TResult? Function(String path)? documentPathChanged,
     TResult? Function(AssetLocation? location)? documentSaved,
-    TResult? Function(Painter painter)? painterCreated,
-    TResult? Function(Map<int, Painter> painters)? paintersChanged,
-    TResult? Function(List<int> painters)? paintersRemoved,
-    TResult? Function(int oldIndex, int newIndex)? painterReordered,
-    TResult? Function(Background background)? documentBackgroundChanged,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
     TResult? Function(int index)? waypointRemoved,
     TResult? Function(String oldName, String newName)? layerRenamed,
     TResult? Function(String name)? layerRemoved,
@@ -16851,8 +17550,8 @@ class _$PresentationTick extends PresentationTick {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String pageName)? pageChanged,
-    TResult Function(ToolOption? option)? toolOptionChanged,
-    TResult Function(ToolState? state)? toolStateChanged,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
     TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
     TResult Function(List<int> elements)? elementsRemoved,
@@ -16862,12 +17561,13 @@ class _$PresentationTick extends PresentationTick {
         documentDescriptionChanged,
     TResult Function(String path)? documentPathChanged,
     TResult Function(AssetLocation? location)? documentSaved,
-    TResult Function(Painter painter)? painterCreated,
-    TResult Function(Map<int, Painter> painters)? paintersChanged,
-    TResult Function(List<int> painters)? paintersRemoved,
-    TResult Function(int oldIndex, int newIndex)? painterReordered,
-    TResult Function(Background background)? documentBackgroundChanged,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
     TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
     TResult Function(int index)? waypointRemoved,
     TResult Function(String oldName, String newName)? layerRenamed,
     TResult Function(String name)? layerRemoved,
@@ -16906,8 +17606,8 @@ class _$PresentationTick extends PresentationTick {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PageChanged value) pageChanged,
-    required TResult Function(ToolOptionChanged value) toolOptionChanged,
-    required TResult Function(ToolStateChanged value) toolStateChanged,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
     required TResult Function(ElementsChanged value) elementsChanged,
     required TResult Function(ElementsRemoved value) elementsRemoved,
@@ -16916,13 +17616,14 @@ class _$PresentationTick extends PresentationTick {
         documentDescriptionChanged,
     required TResult Function(DocumentPathChanged value) documentPathChanged,
     required TResult Function(DocumentSaved value) documentSaved,
-    required TResult Function(PainterCreated value) painterCreated,
-    required TResult Function(PaintersChanged value) paintersChanged,
-    required TResult Function(PaintersRemoved value) paintersRemoved,
-    required TResult Function(PainterReordered value) painterReordered,
-    required TResult Function(DocumentBackgroundChanged value)
-        documentBackgroundChanged,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
     required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
     required TResult Function(WaypointRemoved value) waypointRemoved,
     required TResult Function(LayerRenamed value) layerRenamed,
     required TResult Function(LayerRemoved value) layerRemoved,
@@ -16958,8 +17659,8 @@ class _$PresentationTick extends PresentationTick {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PageChanged value)? pageChanged,
-    TResult? Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult? Function(ToolStateChanged value)? toolStateChanged,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
     TResult? Function(ElementsChanged value)? elementsChanged,
     TResult? Function(ElementsRemoved value)? elementsRemoved,
@@ -16968,13 +17669,14 @@ class _$PresentationTick extends PresentationTick {
         documentDescriptionChanged,
     TResult? Function(DocumentPathChanged value)? documentPathChanged,
     TResult? Function(DocumentSaved value)? documentSaved,
-    TResult? Function(PainterCreated value)? painterCreated,
-    TResult? Function(PaintersChanged value)? paintersChanged,
-    TResult? Function(PaintersRemoved value)? paintersRemoved,
-    TResult? Function(PainterReordered value)? painterReordered,
-    TResult? Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
     TResult? Function(WaypointRemoved value)? waypointRemoved,
     TResult? Function(LayerRenamed value)? layerRenamed,
     TResult? Function(LayerRemoved value)? layerRemoved,
@@ -17007,8 +17709,8 @@ class _$PresentationTick extends PresentationTick {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PageChanged value)? pageChanged,
-    TResult Function(ToolOptionChanged value)? toolOptionChanged,
-    TResult Function(ToolStateChanged value)? toolStateChanged,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
     TResult Function(ElementsChanged value)? elementsChanged,
     TResult Function(ElementsRemoved value)? elementsRemoved,
@@ -17017,13 +17719,14 @@ class _$PresentationTick extends PresentationTick {
         documentDescriptionChanged,
     TResult Function(DocumentPathChanged value)? documentPathChanged,
     TResult Function(DocumentSaved value)? documentSaved,
-    TResult Function(PainterCreated value)? painterCreated,
-    TResult Function(PaintersChanged value)? paintersChanged,
-    TResult Function(PaintersRemoved value)? paintersRemoved,
-    TResult Function(PainterReordered value)? painterReordered,
-    TResult Function(DocumentBackgroundChanged value)?
-        documentBackgroundChanged,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
     TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
     TResult Function(WaypointRemoved value)? waypointRemoved,
     TResult Function(LayerRenamed value)? layerRenamed,
     TResult Function(LayerRemoved value)? layerRemoved,

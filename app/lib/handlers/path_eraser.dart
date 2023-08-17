@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class PathEraserHandler extends Handler<PathEraserPainter> {
+class PathEraserHandler extends Handler<PathEraserTool> {
   bool _removeRunning = false;
   PathEraserHandler(super.data);
 

@@ -47,4 +47,40 @@ void _migrate(NoteData noteData, FileMetadata metadata) {
           })));
     }
   }
+  if (version < 10) {
+    for (final page in noteData.getAssets(kPagesArchiveDirectory)) {
+      final data = noteData.getAsset('$kPagesArchiveDirectory/$page');
+      if (data == null) continue;
+      final pageData = json.decode(utf8.decode(data)) as Map<String, dynamic>;
+      final backgroundType = pageData['background']?['type'];
+      if (backgroundType == 'box') {
+        pageData['background'] = {
+          'type': 'motif',
+          'motif': {
+            ...pageData['background'],
+            'type': 'pattern',
+          },
+        };
+        noteData.setAsset('$kPagesArchiveDirectory/$page',
+            utf8.encode(json.encode(pageData)));
+      }
+      pageData['backgrounds'] = [
+        if (backgroundType != 'empty') pageData['background'],
+      ];
+    }
+    final info = noteData.getAsset(kInfoArchiveFile);
+    if (info != null) {
+      final infoData = json.decode(utf8.decode(info)) as Map<String, dynamic>;
+      infoData['view'] = infoData['tool'];
+      infoData['tools'] = (infoData['painters'] as List).map((e) {
+        if (e['type'] == 'hand') {
+          e['type'] = 'select';
+        } else if (e['type'] == 'move') {
+          e['type'] = 'hand';
+        }
+        return e;
+      }).toList();
+      noteData.setAsset(kInfoArchiveFile, utf8.encode(json.encode(infoData)));
+    }
+  }
 }

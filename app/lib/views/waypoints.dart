@@ -4,11 +4,11 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../cubits/transform.dart';
 import '../dialogs/delete.dart';
+import '../widgets/editable_list_tile.dart';
 
 class WaypointsView extends StatelessWidget {
   const WaypointsView({super.key});
@@ -42,39 +42,37 @@ class WaypointsView extends StatelessWidget {
                       itemCount: waypoints.length,
                       itemBuilder: (BuildContext context, int index) {
                         final waypoint = waypoints[index];
-                        return ListTile(
-                          title: Text(waypoint.name),
+                        return EditableListTile(
+                          initialValue: waypoint.name,
                           onTap: () {
                             context
                                 .read<TransformCubit>()
                                 .moveToWaypoint(waypoint);
                             context.read<DocumentBloc>().bake();
                           },
+                          onSaved: (value) => context
+                              .read<DocumentBloc>()
+                              .add(WaypointRenamed(index, value)),
                           selected: -transform.position.toPoint() ==
                               waypoint.position,
-                          trailing: MenuAnchor(
-                            builder: defaultMenuButton(),
-                            menuChildren: [
-                              MenuItemButton(
-                                leadingIcon: const PhosphorIcon(
-                                    PhosphorIconsLight.trash),
-                                onPressed: () async {
-                                  final result = await showDialog<bool>(
-                                      context: context,
-                                      builder: (context) =>
-                                          const DeleteDialog());
-                                  if (result != true) return;
-                                  if (context.mounted) {
-                                    context
-                                        .read<DocumentBloc>()
-                                        .add(WaypointRemoved(index));
-                                  }
-                                },
-                                child:
-                                    Text(AppLocalizations.of(context).delete),
-                              )
-                            ],
-                          ),
+                          actions: [
+                            MenuItemButton(
+                              leadingIcon:
+                                  const PhosphorIcon(PhosphorIconsLight.trash),
+                              onPressed: () async {
+                                final result = await showDialog<bool>(
+                                    context: context,
+                                    builder: (context) => const DeleteDialog());
+                                if (result != true) return;
+                                if (context.mounted) {
+                                  context
+                                      .read<DocumentBloc>()
+                                      .add(WaypointRemoved(index));
+                                }
+                              },
+                              child: Text(AppLocalizations.of(context).delete),
+                            )
+                          ],
                         );
                       }),
                 ]),

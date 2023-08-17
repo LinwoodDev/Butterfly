@@ -14,7 +14,7 @@ import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
-import 'package:butterfly/visualizer/painter.dart';
+import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
@@ -29,6 +29,7 @@ import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../actions/paste.dart';
+import '../actions/select.dart';
 import '../api/open.dart';
 import '../cubits/current_index.dart';
 import '../dialogs/camera.dart';
@@ -42,6 +43,7 @@ import '../renderers/renderer.dart';
 import '../services/asset.dart';
 import '../services/import.dart';
 import '../views/toolbars/color.dart';
+import '../views/toolbars/components.dart';
 import '../views/toolbars/label.dart';
 import '../views/toolbars/presentation/toolbar.dart';
 import '../widgets/context_menu.dart';
@@ -55,11 +57,11 @@ part 'import.dart';
 part 'label.dart';
 part 'laser.dart';
 part 'layer.dart';
-part 'move.dart';
 part 'path_eraser.dart';
 part 'pen.dart';
 part 'presentation.dart';
 part 'redo.dart';
+part 'select.dart';
 part 'shape.dart';
 part 'spacer.dart';
 part 'stamp.dart';
@@ -135,7 +137,7 @@ class EventContext {
   DocumentInfo? getInfo() => getState()?.info;
 }
 
-enum PainterStatus { normal, disabled }
+enum ToolStatus { normal, disabled }
 
 abstract class Handler<T> {
   final T data;
@@ -192,19 +194,19 @@ abstract class Handler<T> {
 
   void resetInput(DocumentBloc bloc) {}
 
-  PainterStatus getStatus(DocumentBloc bloc) => PainterStatus.normal;
+  ToolStatus getStatus(DocumentBloc bloc) => ToolStatus.normal;
 
   PhosphorIconData? getIcon(DocumentBloc bloc) => null;
 
   static Handler fromDocument(DocumentInfo info, int index) {
-    final painter = info.painters[index];
-    return Handler.fromPainter(painter);
+    final tool = info.tools[index];
+    return Handler.fromTool(tool);
   }
 
-  static Handler fromPainter(Painter painter) {
-    return painter.map(
+  static Handler fromTool(Tool tool) {
+    return tool.map(
       hand: (value) => HandHandler(value),
-      move: (value) => MoveHandler(value),
+      select: (value) => SelectHandler(value),
       import: (value) => ImportHandler(value),
       undo: (value) => UndoHandler(value),
       redo: (value) => RedoHandler(value),
@@ -228,10 +230,14 @@ abstract class Handler<T> {
 
   void dispose(DocumentBloc bloc) {}
 
+  @mustCallSuper
   Map<Type, Action<Intent>> getActions(BuildContext context) => {
         PasteTextIntent: CallbackAction<PasteTextIntent>(
             onInvoke: (intent) =>
                 Actions.maybeInvoke(context, PasteIntent(context))),
+        SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
+            onInvoke: (intent) =>
+                Actions.maybeInvoke(context, SelectAllIntent(context))),
       };
 
   MouseCursor? get cursor => null;
@@ -402,7 +408,6 @@ abstract class PastingHandler<T> extends Handler<T> {
       left -= width;
     }
     final rect = Rect.fromLTRB(left, top, right, bottom);
-    if (rect.isEmpty) return [];
     return transformElements(rect, _currentLayer);
   }
 
@@ -443,4 +448,6 @@ abstract class PastingHandler<T> extends Handler<T> {
   double get constraintedAspectRatio => 0;
   double get constraintedWidth => 0;
   double get constraintedHeight => 0;
+
+  bool get currentlyPasting => _firstPos != null && _secondPos != null;
 }

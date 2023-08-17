@@ -7,11 +7,11 @@ sidebar_position: 2
 
 ![Zone de stockage](area.png)
 
-Les zones sont un moyen de limiter la taille de la toile. Vous pouvez créer des zones en utilisant le peintre d'aire [](painters/area.md). Si vous cliquez sur l'arrière-plan, vous pouvez ouvrir la boîte de dialogue de la liste des zones en utilisant le menu contextuel.
+Les zones sont un moyen de limiter la taille de la toile. Vous pouvez créer des zones en utilisant le peintre d'aire [](tools/area.md). Si vous cliquez sur l'arrière-plan, vous pouvez ouvrir la boîte de dialogue de la liste des zones en utilisant le menu contextuel.
 
 ## Création et suppression des zones
 
-Utilisez le peintre d'aire [](painters/area.md) pour créer une zone. Les zones ne peuvent pas se chevaucher. Une fois que vous avez créé une zone, vous devez la nommer.
+Utilisez le peintre d'aire [](tools/area.md) pour créer une zone. Les zones ne peuvent pas se chevaucher. Une fois que vous avez créé une zone, vous devez la nommer.
 
 Cliquez sur la zone si vous souhaitez la modifier. Vous pouvez également utiliser la boîte de dialogue de la zone.
 

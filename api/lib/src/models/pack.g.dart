@@ -9,6 +9,7 @@ part of 'pack.dart';
 _$_ButterflyComponent _$$_ButterflyComponentFromJson(Map json) =>
     _$_ButterflyComponent(
       name: json['name'] as String,
+      thumbnail: json['thumbnail'] as String?,
       elements: (json['elements'] as List<dynamic>?)
               ?.map((e) =>
                   PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -20,6 +21,7 @@ Map<String, dynamic> _$$_ButterflyComponentToJson(
         _$_ButterflyComponent instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'thumbnail': instance.thumbnail,
       'elements': instance.elements.map((e) => e.toJson()).toList(),
     };
 

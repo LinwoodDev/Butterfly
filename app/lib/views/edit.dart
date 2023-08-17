@@ -2,7 +2,7 @@ import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/add.dart';
 import 'package:butterfly/services/import.dart';
-import 'package:butterfly/visualizer/painter.dart';
+import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/widgets/option_button.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
@@ -76,11 +76,11 @@ class _EditToolbarState extends State<EditToolbar> {
                   buildWhen: (previous, current) =>
                       previous is! DocumentLoadSuccess ||
                       current is! DocumentLoadSuccess ||
-                      previous.painter != current.painter ||
-                      previous.info.painters != current.info.painters,
+                      previous.tool != current.tool ||
+                      previous.info.tools != current.info.tools,
                   builder: (context, state) {
                     if (state is! DocumentLoadSuccess) return Container();
-                    var painters = state.info.painters;
+                    final tools = state.info.tools;
 
                     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                       buildWhen: (previous, current) =>
@@ -95,7 +95,7 @@ class _EditToolbarState extends State<EditToolbar> {
                             state,
                             currentIndex,
                             settings,
-                            painters,
+                            tools,
                             shortcuts,
                           ),
                         );
@@ -132,7 +132,7 @@ class _EditToolbarState extends State<EditToolbar> {
     DocumentLoadSuccess state,
     CurrentIndex currentIndex,
     ButterflySettings settings,
-    List<Painter> painters,
+    List<Tool> tools,
     Set<int> shortcuts,
   ) {
     final temp = currentIndex.temporaryHandler;
@@ -141,7 +141,7 @@ class _EditToolbarState extends State<EditToolbar> {
     PhosphorIconData iconFilled = PhosphorIconsFill.cube;
     var tooltip = tempData?.name.trim();
     if (tooltip?.isEmpty ?? false) {
-      if (tempData is Painter) {
+      if (tempData is Tool) {
         tooltip = tempData.getLocalizedName(context);
         icon = tempData.icon(PhosphorIconsStyle.light);
         iconFilled = tempData.icon(PhosphorIconsStyle.fill);
@@ -186,9 +186,9 @@ class _EditToolbarState extends State<EditToolbar> {
               buildDefaultDragHandles: false,
               scrollDirection: widget.direction,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: painters.length + 1,
+              itemCount: tools.length + 1,
               itemBuilder: (context, i) {
-                if (painters.length <= i) {
+                if (tools.length <= i) {
                   final add = Padding(
                     padding: widget.direction == Axis.horizontal
                         ? const EdgeInsets.all(8)
@@ -242,7 +242,7 @@ class _EditToolbarState extends State<EditToolbar> {
                     );
                   }
                 }
-                var e = painters[i];
+                var e = tools[i];
                 final selected = i == currentIndex.index;
                 final highlighted = currentIndex.selection?.selected
                         .any((element) => element.hashCode == e.hashCode) ??
@@ -254,10 +254,10 @@ class _EditToolbarState extends State<EditToolbar> {
 
                 final bloc = context.read<DocumentBloc>();
 
-                final handler = Handler.fromPainter(e);
+                final handler = Handler.fromTool(e);
 
                 final color = handler.getStatus(context.read<DocumentBloc>()) ==
-                        PainterStatus.disabled
+                        ToolStatus.disabled
                     ? Theme.of(context).disabledColor
                     : null;
                 var icon = handler.getIcon(bloc) ??
@@ -283,7 +283,7 @@ class _EditToolbarState extends State<EditToolbar> {
                                 .insertSelection(e, true);
                           } else if (!selected || temp != null) {
                             context.read<CurrentIndexCubit>().resetSelection();
-                            context.read<CurrentIndexCubit>().changePainter(
+                            context.read<CurrentIndexCubit>().changeTool(
                                   context.read<DocumentBloc>(),
                                   i,
                                   handler,
@@ -306,19 +306,19 @@ class _EditToolbarState extends State<EditToolbar> {
                 if (lastReorderable != index) return;
                 context
                     .read<CurrentIndexCubit>()
-                    .insertSelection(painters[index], true);
+                    .insertSelection(tools[index], true);
               },
               onReorder: (oldIndex, newIndex) {
                 if (oldIndex == newIndex) {
                   return;
                 }
                 final bloc = context.read<DocumentBloc>();
-                final delete = newIndex > painters.length;
+                final delete = newIndex > tools.length;
                 if (delete) {
-                  bloc.add(PaintersRemoved([oldIndex]));
+                  bloc.add(ToolsRemoved([oldIndex]));
                   return;
                 }
-                bloc.add(PainterReordered(oldIndex, newIndex));
+                bloc.add(ToolReordered(oldIndex, newIndex));
               },
             ),
             IconButton(
@@ -326,12 +326,11 @@ class _EditToolbarState extends State<EditToolbar> {
               tooltip: AppLocalizations.of(context).tools,
               onPressed: () {
                 final cubit = context.read<CurrentIndexCubit>();
-                final state = cubit.state.cameraViewport.tool.element;
+                final state = cubit.state.cameraViewport.utilities.element;
                 cubit.changeSelection(state);
               },
             ),
-            if (settings.fullScreen &&
-                painters.every((e) => e is! FullScreenPainter))
+            if (settings.fullScreen && tools.every((e) => e is! FullScreenTool))
               IconButton(
                 icon: const PhosphorIcon(PhosphorIconsLight.arrowsIn),
                 tooltip: AppLocalizations.of(context).exitFullScreen,
@@ -339,55 +338,55 @@ class _EditToolbarState extends State<EditToolbar> {
                   context.read<SettingsCubit>().setFullScreen(false);
                 },
               ),
-            BlocBuilder<DocumentBloc, DocumentState>(
-              buildWhen: (previous, current) =>
-                  previous.pageName != current.pageName ||
-                  previous.data != current.data,
-              builder: (context, state) {
-                final pageName = state.pageName;
-                return StreamBuilder<NoteData>(
-                    stream: state.data?.onChange,
-                    builder: (context, snapshot) {
-                      final pages = snapshot.data?.getPages();
-                      return MenuAnchor(
-                        menuChildren: [
-                          ...pages
-                                  ?.map((e) => MenuItemButton(
-                                        child: Text(
-                                          e,
-                                          style: pageName == e
-                                              ? TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                )
-                                              : null,
-                                        ),
-                                        onPressed: () => context
-                                            .read<DocumentBloc>()
-                                            .add(PageChanged(e)),
-                                      ))
-                                  .toList() ??
-                              [],
-                          const Divider(),
-                          MenuItemButton(
-                              child: Text(AppLocalizations.of(context).add),
-                              onPressed: () {
-                                final state =
-                                    context.read<DocumentBloc>().state;
-                                final name = state.data?.addPage(state.page);
-                                if (name != null) {
-                                  context
-                                      .read<DocumentBloc>()
-                                      .add(PageChanged(name));
-                                }
-                              }),
-                        ],
-                        style: const MenuStyle(
-                          alignment: Alignment.bottomRight,
-                        ),
-                        builder: defaultMenuButton(PhosphorIconsLight.book),
-                      );
-                    });
+            BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+              builder: (context, currentIndex) {
+                final utilitiesState = currentIndex.utilitiesState;
+                Widget buildButton(
+                        bool selected,
+                        UtilitiesState Function() update,
+                        PhosphorIconData icon,
+                        String title) =>
+                    CheckboxMenuButton(
+                      value: selected,
+                      trailingIcon: PhosphorIcon(icon),
+                      onChanged: (value) => context
+                          .read<CurrentIndexCubit>()
+                          .updateUtilities(update()),
+                      child: Text(title),
+                    );
+
+                return MenuAnchor(
+                  menuChildren: [
+                    buildButton(
+                      utilitiesState.lockZoom,
+                      () => utilitiesState.copyWith(
+                        lockZoom: !utilitiesState.lockZoom,
+                      ),
+                      PhosphorIconsLight.magnifyingGlassPlus,
+                      AppLocalizations.of(context).zoom,
+                    ),
+                    buildButton(
+                      utilitiesState.lockHorizontal,
+                      () => utilitiesState.copyWith(
+                        lockHorizontal: !utilitiesState.lockHorizontal,
+                      ),
+                      PhosphorIconsLight.arrowsHorizontal,
+                      AppLocalizations.of(context).horizontal,
+                    ),
+                    buildButton(
+                      utilitiesState.lockVertical,
+                      () => utilitiesState.copyWith(
+                        lockVertical: !utilitiesState.lockVertical,
+                      ),
+                      PhosphorIconsLight.arrowsVertical,
+                      AppLocalizations.of(context).vertical,
+                    ),
+                  ],
+                  style: const MenuStyle(
+                    alignment: Alignment.bottomRight,
+                  ),
+                  builder: defaultMenuButton(PhosphorIconsLight.lockKey),
+                );
               },
             ),
           ],

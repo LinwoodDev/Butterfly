@@ -108,8 +108,15 @@ class _FileEntityListTile extends StatelessWidget {
                                     },
                                   ),
                                 )
-                              : Text(entity.fileName,
-                                  maxLines: 1, overflow: TextOverflow.ellipsis),
+                              : GestureDetector(
+                                  child: Text(entity.fileName,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis),
+                                  onDoubleTap: () {
+                                    onEdit(true);
+                                    nameController.text = entity.fileName;
+                                  },
+                                ),
                         ),
                       ],
                     );

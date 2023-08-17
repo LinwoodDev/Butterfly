@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class RedoHandler extends Handler<RedoPainter> {
+class RedoHandler extends Handler<RedoTool> {
   RedoHandler(super.data);
 
   @override
@@ -13,7 +13,7 @@ class RedoHandler extends Handler<RedoPainter> {
   }
 
   @override
-  PainterStatus getStatus(DocumentBloc bloc) {
-    return bloc.canRedo ? PainterStatus.normal : PainterStatus.disabled;
+  ToolStatus getStatus(DocumentBloc bloc) {
+    return bloc.canRedo ? ToolStatus.normal : ToolStatus.disabled;
   }
 }

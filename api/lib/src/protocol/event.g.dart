@@ -17,31 +17,25 @@ Map<String, dynamic> _$$PageChangedToJson(_$PageChanged instance) =>
       'type': instance.$type,
     };
 
-_$ToolOptionChanged _$$ToolOptionChangedFromJson(Map json) =>
-    _$ToolOptionChanged(
-      json['option'] == null
-          ? null
-          : ToolOption.fromJson(
-              Map<String, dynamic>.from(json['option'] as Map)),
-      json['type'] as String?,
+_$ViewChanged _$$ViewChangedFromJson(Map json) => _$ViewChanged(
+      ViewOption.fromJson(Map<String, dynamic>.from(json['view'] as Map)),
+      $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$ToolOptionChangedToJson(_$ToolOptionChanged instance) =>
+Map<String, dynamic> _$$ViewChangedToJson(_$ViewChanged instance) =>
     <String, dynamic>{
-      'option': instance.option?.toJson(),
+      'view': instance.view.toJson(),
       'type': instance.$type,
     };
 
-_$ToolStateChanged _$$ToolStateChangedFromJson(Map json) => _$ToolStateChanged(
-      json['state'] == null
-          ? null
-          : ToolState.fromJson(Map<String, dynamic>.from(json['state'] as Map)),
-      json['type'] as String?,
+_$UtilitiesChanged _$$UtilitiesChangedFromJson(Map json) => _$UtilitiesChanged(
+      UtilitiesState.fromJson(Map<String, dynamic>.from(json['state'] as Map)),
+      $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$ToolStateChangedToJson(_$ToolStateChanged instance) =>
+Map<String, dynamic> _$$UtilitiesChangedToJson(_$UtilitiesChanged instance) =>
     <String, dynamic>{
-      'state': instance.state?.toJson(),
+      'state': instance.state.toJson(),
       'type': instance.$type,
     };
 
@@ -150,66 +144,67 @@ Map<String, dynamic> _$$DocumentSavedToJson(_$DocumentSaved instance) =>
       'type': instance.$type,
     };
 
-_$PainterCreated _$$PainterCreatedFromJson(Map json) => _$PainterCreated(
-      Painter.fromJson(Map<String, dynamic>.from(json['painter'] as Map)),
+_$ToolCreated _$$ToolCreatedFromJson(Map json) => _$ToolCreated(
+      Tool.fromJson(Map<String, dynamic>.from(json['tool'] as Map)),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$PainterCreatedToJson(_$PainterCreated instance) =>
+Map<String, dynamic> _$$ToolCreatedToJson(_$ToolCreated instance) =>
     <String, dynamic>{
-      'painter': instance.painter.toJson(),
+      'tool': instance.tool.toJson(),
       'type': instance.$type,
     };
 
-_$PaintersChanged _$$PaintersChangedFromJson(Map json) => _$PaintersChanged(
-      (json['painters'] as Map).map(
+_$ToolsChanged _$$ToolsChangedFromJson(Map json) => _$ToolsChanged(
+      (json['tools'] as Map).map(
         (k, e) => MapEntry(int.parse(k as String),
-            Painter.fromJson(Map<String, dynamic>.from(e as Map))),
+            Tool.fromJson(Map<String, dynamic>.from(e as Map))),
       ),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$PaintersChangedToJson(_$PaintersChanged instance) =>
+Map<String, dynamic> _$$ToolsChangedToJson(_$ToolsChanged instance) =>
     <String, dynamic>{
-      'painters':
-          instance.painters.map((k, e) => MapEntry(k.toString(), e.toJson())),
+      'tools': instance.tools.map((k, e) => MapEntry(k.toString(), e.toJson())),
       'type': instance.$type,
     };
 
-_$PaintersRemoved _$$PaintersRemovedFromJson(Map json) => _$PaintersRemoved(
-      (json['painters'] as List<dynamic>).map((e) => e as int).toList(),
+_$ToolsRemoved _$$ToolsRemovedFromJson(Map json) => _$ToolsRemoved(
+      (json['tools'] as List<dynamic>).map((e) => e as int).toList(),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$PaintersRemovedToJson(_$PaintersRemoved instance) =>
+Map<String, dynamic> _$$ToolsRemovedToJson(_$ToolsRemoved instance) =>
     <String, dynamic>{
-      'painters': instance.painters,
+      'tools': instance.tools,
       'type': instance.$type,
     };
 
-_$PainterReordered _$$PainterReorderedFromJson(Map json) => _$PainterReordered(
+_$ToolReordered _$$ToolReorderedFromJson(Map json) => _$ToolReordered(
       json['oldIndex'] as int,
       json['newIndex'] as int,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$PainterReorderedToJson(_$PainterReordered instance) =>
+Map<String, dynamic> _$$ToolReorderedToJson(_$ToolReordered instance) =>
     <String, dynamic>{
       'oldIndex': instance.oldIndex,
       'newIndex': instance.newIndex,
       'type': instance.$type,
     };
 
-_$DocumentBackgroundChanged _$$DocumentBackgroundChangedFromJson(Map json) =>
-    _$DocumentBackgroundChanged(
-      Background.fromJson(Map<String, dynamic>.from(json['background'] as Map)),
+_$DocumentBackgroundsChanged _$$DocumentBackgroundsChangedFromJson(Map json) =>
+    _$DocumentBackgroundsChanged(
+      (json['backgrounds'] as List<dynamic>)
+          .map((e) => Background.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList(),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$DocumentBackgroundChangedToJson(
-        _$DocumentBackgroundChanged instance) =>
+Map<String, dynamic> _$$DocumentBackgroundsChangedToJson(
+        _$DocumentBackgroundsChanged instance) =>
     <String, dynamic>{
-      'background': instance.background.toJson(),
+      'backgrounds': instance.backgrounds.map((e) => e.toJson()).toList(),
       'type': instance.$type,
     };
 
@@ -221,6 +216,19 @@ _$WaypointCreated _$$WaypointCreatedFromJson(Map json) => _$WaypointCreated(
 Map<String, dynamic> _$$WaypointCreatedToJson(_$WaypointCreated instance) =>
     <String, dynamic>{
       'waypoint': instance.waypoint.toJson(),
+      'type': instance.$type,
+    };
+
+_$WaypointRenamed _$$WaypointRenamedFromJson(Map json) => _$WaypointRenamed(
+      json['index'] as int,
+      json['name'] as String,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$WaypointRenamedToJson(_$WaypointRenamed instance) =>
+    <String, dynamic>{
+      'index': instance.index,
+      'name': instance.name,
       'type': instance.$type,
     };
 

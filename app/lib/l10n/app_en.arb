@@ -519,5 +519,7 @@
   "insertAfter": "Insert after",
   "paste": "Paste",
   "ascending": "Ascending",
-  "descending": "Descending"
+  "descending": "Descending",
+  "imageScale": "Image scale",
+  "select": "Select"
 }

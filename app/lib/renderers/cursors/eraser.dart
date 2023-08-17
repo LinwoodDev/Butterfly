@@ -5,37 +5,27 @@ import 'package:flutter/material.dart';
 import '../../models/cursor.dart';
 import '../renderer.dart';
 
-class EraserCursor extends Renderer<PainterCursorData<EraserPainter>> {
+class EraserCursor extends Renderer<ToolCursorData<EraserTool>> {
   EraserCursor(super.element);
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    final radius = element.painter.strokeWidth / 2;
+    final radius = element.tool.strokeWidth / 2;
     final position = transform.localToGlobal(element.position);
+    final background = page.backgrounds.firstOrNull;
     canvas.drawCircle(
         position,
         radius,
         Paint()
           ..style = PaintingStyle.stroke
-          ..color =
-              page.background.mapOrNull(box: (box) => Color(box.boxColor)) ??
-                  Colors.white
+          ..color = background?.mapOrNull(
+                  motif: (box) => Color(box.motif.boxColor)) ??
+              Colors.white
           ..strokeCap = StrokeCap.round
           ..invertColors = true
           ..strokeWidth = radius / transform.size
-          ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear);
-    canvas.drawCircle(
-        position,
-        radius,
-        Paint()
-          ..style = PaintingStyle.fill
-          ..color =
-              page.background.mapOrNull(box: (box) => Color(box.boxColor)) ??
-                  Colors.white
-          ..strokeCap = StrokeCap.round
-          ..invertColors = false
           ..blendMode = foreground ? BlendMode.srcOver : BlendMode.clear);
   }
 }

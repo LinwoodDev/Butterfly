@@ -7,11 +7,11 @@ sidebar_position: 2
 
 ![Alan](area.png)
 
-Alanlar, tuvalin boyutunu kısıtlamanın bir yoludur. [Alan aracı](painters/area.md)nı kullanarak alanlar oluşturabilirsiniz. Arkaplana tıklarsanız, bağlam menüsünü kullanarak alan listesi iletişim kutusunu açabilirsiniz.
+Alanlar, tuvalin boyutunu kısıtlamanın bir yoludur. [Alan aracı](tools/area.md)nı kullanarak alanlar oluşturabilirsiniz. Arkaplana tıklarsanız, bağlam menüsünü kullanarak alan listesi iletişim kutusunu açabilirsiniz.
 
 ## Alan oluşturmak ve silmek
 
-Bir alan oluşturmak için [alan aracı](painters/area.md)nı kullanın. Alanlar üst üste gelemez. Bir alan oluşturduktan sonra onu adlandırmanız gerekir.
+Bir alan oluşturmak için [alan aracı](tools/area.md)nı kullanın. Alanlar üst üste gelemez. Bir alan oluşturduktan sonra onu adlandırmanız gerekir.
 
 Eğer onu değiştirmek istiyorsanız alana tıklamanız yeterlidir. Ayrıca alan iletişim kutusunu da kullanabilirsiniz.
 

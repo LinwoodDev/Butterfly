@@ -17,7 +17,7 @@ class ForegroundPainter extends CustomPainter {
   final List<Renderer> renderers;
   final CameraTransform transform;
   final Selection? selection;
-  final Renderer<ToolState>? tool;
+  final Renderer<UtilitiesState>? tool;
 
   ForegroundPainter(
       this.renderers, this.document, this.page, this.info, this.colorScheme,
@@ -128,8 +128,9 @@ class ViewPainter extends CustomPainter {
       canvas.clipRect(areaRect.inflate(5));
     }
     if (renderBackground) {
-      cameraViewport.background
-          ?.build(canvas, size, document, page, info, transform, colorScheme);
+      for (final e in cameraViewport.backgrounds) {
+        e.build(canvas, size, document, page, info, transform, colorScheme);
+      }
     }
     canvas.saveLayer(Rect.fromLTWH(0, 0, size.width, size.height), Paint());
     if (cameraViewport.bakedElements.isNotEmpty && renderBaked) {

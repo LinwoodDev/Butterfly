@@ -22,7 +22,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../actions/areas.dart';
 import '../actions/background.dart';
-import '../actions/change_painter.dart';
+import '../actions/change_tool.dart';
 import '../actions/change_path.dart';
 import '../actions/color_palette.dart';
 import '../actions/exit.dart';
@@ -36,6 +36,7 @@ import '../actions/pdf_export.dart';
 import '../actions/previous.dart';
 import '../actions/redo.dart';
 import '../actions/save.dart';
+import '../actions/select.dart';
 import '../actions/settings.dart';
 import '../actions/svg_export.dart';
 import '../actions/undo.dart';
@@ -81,12 +82,13 @@ class _ProjectPageState extends State<ProjectPage> {
     BackgroundIntent: BackgroundAction(),
     ChangePathIntent: ChangePathAction(),
     SaveIntent: SaveAction(),
-    ChangePainterIntent: ChangePainterAction(),
+    ChangeToolIntent: ChangeToolAction(),
     PacksIntent: PacksAction(),
     ExitIntent: ExitAction(),
     NextIntent: NextAction(),
     PreviousIntent: PreviousAction(),
     PasteIntent: PasteAction(),
+    SelectAllIntent: SelectAllAction(),
   };
 
   @override
@@ -120,7 +122,7 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
-            CameraViewport.unbaked(ToolRenderer()), embedding);
+            CameraViewport.unbaked(UtilitiesRenderer()), embedding);
         _bloc = DocumentBloc(
           _currentIndexCubit!,
           settingsCubit,
@@ -199,17 +201,18 @@ class _ProjectPageState extends State<ProjectPage> {
       final assetService = AssetService(document);
       await Future.wait(renderers
           .map((e) async => await e.setup(document!, assetService, page)));
-      final background = Renderer.fromInstance(page.background);
-      await background.setup(document, assetService, page);
+      final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
+      await Future.wait(
+          backgrounds.map((e) async => e.setup(document!, assetService, page)));
       location ??= AssetLocation(
           path: widget.location?.path ?? '', remote: _remote?.identifier ?? '');
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
-            CameraViewport.unbaked(ToolRenderer(), background), null);
+            CameraViewport.unbaked(UtilitiesRenderer(), backgrounds), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
             location!, renderers, assetService, page, pageName);
-        _importService = ImportService(context, _bloc);
+        _importService = ImportService(context, _bloc, _currentIndexCubit);
       });
     } catch (e, stackTrace) {
       if (kDebugMode) {
@@ -218,7 +221,7 @@ class _ProjectPageState extends State<ProjectPage> {
       setState(() {
         _transformCubit = TransformCubit();
         _currentIndexCubit = CurrentIndexCubit(settingsCubit, _transformCubit!,
-            CameraViewport.unbaked(ToolRenderer()), null);
+            CameraViewport.unbaked(UtilitiesRenderer()), null);
         _bloc = DocumentBloc.error(settingsCubit, e.toString(), stackTrace);
       });
     }
@@ -306,6 +309,9 @@ class _ProjectPageState extends State<ProjectPage> {
                               NextIntent(context),
                           LogicalKeySet(LogicalKeyboardKey.arrowLeft):
                               PreviousIntent(context),
+                          LogicalKeySet(LogicalKeyboardKey.control,
+                                  LogicalKeyboardKey.keyA):
+                              SelectAllIntent(context),
                           if (widget.embedding == null) ...{
                             LogicalKeySet(LogicalKeyboardKey.control,
                                 LogicalKeyboardKey.keyE): ExportIntent(context),
@@ -352,7 +358,7 @@ class _ProjectPageState extends State<ProjectPage> {
                               LogicalKeyboardKey.digit0
                             ].asMap().map((k, v) => MapEntry(
                                 LogicalKeySet(LogicalKeyboardKey.control, v),
-                                ChangePainterIntent(context, k))),
+                                ChangeToolIntent(context, k))),
                           },
                         },
                         child: SafeArea(

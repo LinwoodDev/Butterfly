@@ -220,7 +220,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
       ? null
       : settingsCubit.state.getRemote(location.remote);
 
-  Painter? get painter => currentIndexCubit.state.handler.data;
+  Tool? get tool => currentIndexCubit.state.handler.data;
 }
 
 class DocumentPresentationState extends DocumentLoaded {

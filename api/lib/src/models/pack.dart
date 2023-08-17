@@ -12,6 +12,7 @@ part 'pack.freezed.dart';
 class ButterflyComponent with _$ButterflyComponent {
   const factory ButterflyComponent({
     required String name,
+    String? thumbnail,
     @Default(<PadElement>[]) List<PadElement> elements,
   }) = _ButterflyComponent;
 

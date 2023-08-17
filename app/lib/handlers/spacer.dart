@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class SpacerHandler extends Handler<SpacerPainter> {
+class SpacerHandler extends Handler<SpacerTool> {
   Offset? _startPosition;
   double _spacing = 0.0;
 

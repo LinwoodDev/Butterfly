@@ -1,0 +1,33 @@
+name: Enhancement
+description: Suggest an enhancement to an existing feature
+title: "[Enhancement]: "
+labels: ["enhancement", "triage"]
+assignees:
+  - CodeDoctorDE
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this request for enhancements!
+  - type: input
+    id: feature
+    attributes:
+      label: Which feature is your request related to?
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe your request for enhancements!
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/LinwoodDev/butterfly/blob/develop/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

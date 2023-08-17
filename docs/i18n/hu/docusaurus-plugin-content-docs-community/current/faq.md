@@ -13,12 +13,6 @@ Here are some frequently asked questions.
 
 You can install the web version by clicking on the install button in the title bar. After that you can use this app offline.
 
-### Cannot insert images in web
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-Currently decoding images does not work with canvaskit. Please upvote [this issue](https://github.com/flutter/flutter/issues/102683) if you want this option!
-
 ### Butterfly does not load on Brave
 
 Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive, need to change it to 'Standard' or just plain 'Block Fingerprinting'. Click on the shield icon in the address bar to change the setting. Try updating your browser to the latest version.
@@ -29,7 +23,9 @@ Brave Users who have set the 'Block Fingerprinting' Shield setting to Aggressive
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-This is a known issue with flutter and the Samsung Z Fold 3. Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!
+Fixed in the 2.0 alphas.
+
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## Desktop
 

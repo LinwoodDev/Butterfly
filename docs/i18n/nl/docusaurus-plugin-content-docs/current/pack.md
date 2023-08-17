@@ -3,7 +3,7 @@ title: "Pakket"
 sidebar_position: 2
 ---
 
-Een pakket is een verzameling van onderdelen die gebruikt kunnen worden in de postzegelpainter. U kunt uw eigen pakket maken of een bestaande importeren. Klik hiervoor op de linker bovenhoek en klik op "Pakketten".
+Een pakket is een verzameling van onderdelen die gebruikt kunnen worden in de postzegeltool. U kunt uw eigen pakket maken of een bestaande importeren. Klik hiervoor op de linker bovenhoek en klik op "Pakketten".
 
 ## Eigenschappen
 

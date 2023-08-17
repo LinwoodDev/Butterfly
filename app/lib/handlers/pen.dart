@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class PenHandler extends Handler<PenPainter> {
+class PenHandler extends Handler<PenTool> {
   final Map<int, PenElement> elements = {};
 
   final Map<int, Offset> lastPosition = {};
@@ -55,7 +55,7 @@ class PenHandler extends Handler<PenPainter> {
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
     localPosition =
-        viewport.tool.getPointerPosition(localPosition, currentIndexCubit);
+        viewport.utilities.getPointerPosition(localPosition, currentIndexCubit);
     if (lastPosition[pointer] == localPosition) return;
     lastPosition[pointer] = localPosition;
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
@@ -116,8 +116,8 @@ class PenHandler extends Handler<PenPainter> {
         onChanged: (value) {
           final state = bloc.state;
           if (state is! DocumentLoadSuccess) return;
-          final index = state.info.painters.indexOf(data);
-          bloc.add(PaintersChanged({
+          final index = state.info.tools.indexOf(data);
+          bloc.add(ToolsChanged({
             index: data.copyWith(
                 property: data.property.copyWith(
                     color: convertOldColor(value, data.property.color)))

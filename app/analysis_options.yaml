@@ -32,6 +32,7 @@ linter:
     prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
     depend_on_referenced_packages: false # Conflicts with flutter_gen
     library_private_types_in_public_api: false # Conflicts with flutter state conventions
+    use_build_context_synchronously: false
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

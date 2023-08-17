@@ -1,9 +1,8 @@
 part of 'handler.dart';
 
-class EraserHandler extends Handler<EraserPainter> {
-  Map<PenElement, List<PenElement>> _elements = {};
+class EraserHandler extends Handler<EraserTool> {
   bool _currentlyErasing = false;
-  Offset? _currentPos;
+  Offset? _currentPos, _lastErased;
   EraserHandler(super.data);
 
   @override
@@ -18,14 +17,14 @@ class EraserHandler extends Handler<EraserPainter> {
           [Area? currentArea]) =>
       [
         if (_currentPos != null)
-          EraserCursor(PainterCursorData(data, _currentPos!))
+          EraserCursor(ToolCursorData(data, _currentPos!))
       ];
 
   @override
   void onPointerMove(PointerMoveEvent event, EventContext context) {
+    _changeElement(event.localPosition, context);
     _currentPos = event.localPosition;
     context.refresh();
-    _changeElement(event.localPosition, context);
   }
 
   @override
@@ -37,37 +36,42 @@ class EraserHandler extends Handler<EraserPainter> {
   Future<void> _changeElement(Offset position, EventContext context) async {
     final globalPos = context.getCameraTransform().localToGlobal(position);
     final size = data.strokeWidth;
-    if (!_currentlyErasing) {
+    final shouldErase =
+        _lastErased == null || (globalPos - _lastErased!).distance > size;
+    final page = context.getPage();
+    if (page == null) return;
+    if (!_currentlyErasing && shouldErase) {
+      _lastErased = globalPos;
       _currentlyErasing = true;
       // Raycast
       final ray = await rayCast(globalPos, context.getDocumentBloc(),
           context.getCameraTransform(), size);
-      final newElements = ray
-          .map((e) => e.element)
-          .whereType<PenElement>()
-          .where((element) => !_elements.containsKey(element));
-      _elements
-          .addAll(Map.fromEntries(newElements.map((e) => MapEntry(e, [e]))));
+      final elements = ray.map((e) => e.element).whereType<PenElement>();
+      final modified = <int, List<PadElement>>{};
+      for (final element in elements) {
+        List<List<PathPoint>> paths = [[]];
+        for (final point in element.points) {
+          if ((point.toOffset() - globalPos).distance > size) {
+            // If so, add to last path
+            paths.last.add(point);
+            continue;
+          } else if (paths.last.isNotEmpty) {
+            paths.add([]);
+          }
+        }
+        if (paths.length == 1) continue;
+        final index = page.content.indexOf(element);
+        modified[index] = paths
+            .where((element) => element.isNotEmpty)
+            .map((e) => element.copyWith(points: e))
+            .toList();
+      }
+      if (modified.isNotEmpty) {
+        context.getDocumentBloc().add(ElementsChanged(modified));
+        await context.getDocumentBloc().stream.first;
+      }
       _currentlyErasing = false;
     }
-    _elements = _elements.map((key, value) {
-      return MapEntry<PenElement, List<PenElement>>(
-          key,
-          value.expand((element) {
-            List<List<PathPoint>> paths = [[]];
-            for (final point in element.points) {
-              if ((point.toOffset() - globalPos).distance > size) {
-                // If so, add to last path
-                paths.last.add(point);
-              } else if (paths.last.isNotEmpty) {
-                paths.add([]);
-              }
-            }
-            return paths
-                .where((element) => element.isNotEmpty)
-                .map((e) => element.copyWith(points: e));
-          }).toList());
-    });
   }
 
   @override
@@ -75,8 +79,6 @@ class EraserHandler extends Handler<EraserPainter> {
     _changeElement(event.localPosition, context);
     final content = context.getPage()?.content;
     if (content == null) return;
-    context.addDocumentEvent(ElementsChanged(Map.fromEntries(_elements.entries
-        .map((e) => MapEntry(content.indexOf(e.key), e.value)))));
   }
 
   @override

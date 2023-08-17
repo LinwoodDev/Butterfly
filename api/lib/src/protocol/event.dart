@@ -18,11 +18,10 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String pageName,
   ) = PageChanged;
 
-  const factory DocumentEvent.toolOptionChanged([ToolOption? option]) =
-      ToolOptionChanged;
+  const factory DocumentEvent.viewChanged(ViewOption view) = ViewChanged;
 
-  const factory DocumentEvent.toolStateChanged([ToolState? state]) =
-      ToolStateChanged;
+  const factory DocumentEvent.utilitiesChanged(UtilitiesState state) =
+      UtilitiesChanged;
 
   const factory DocumentEvent.elementsCreated(
     List<PadElement> elements,
@@ -52,30 +51,35 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const factory DocumentEvent.documentSaved([AssetLocation? location]) =
       DocumentSaved;
 
-  const factory DocumentEvent.painterCreated(
-    Painter painter,
-  ) = PainterCreated;
+  const factory DocumentEvent.toolCreated(
+    Tool tool,
+  ) = ToolCreated;
 
-  const factory DocumentEvent.paintersChanged(
-    Map<int, Painter> painters,
-  ) = PaintersChanged;
+  const factory DocumentEvent.toolsChanged(
+    Map<int, Tool> tools,
+  ) = ToolsChanged;
 
-  const factory DocumentEvent.paintersRemoved(
-    List<int> painters,
-  ) = PaintersRemoved;
+  const factory DocumentEvent.toolsRemoved(
+    List<int> tools,
+  ) = ToolsRemoved;
 
-  const factory DocumentEvent.painterReordered(
+  const factory DocumentEvent.toolReordered(
     int oldIndex,
     int newIndex,
-  ) = PainterReordered;
+  ) = ToolReordered;
 
-  const factory DocumentEvent.documentBackgroundChanged(
-    Background background,
-  ) = DocumentBackgroundChanged;
+  const factory DocumentEvent.documentBackgroundsChanged(
+    List<Background> backgrounds,
+  ) = DocumentBackgroundsChanged;
 
   const factory DocumentEvent.waypointCreated(
     Waypoint waypoint,
   ) = WaypointCreated;
+
+  const factory DocumentEvent.waypointRenamed(
+    int index,
+    String name,
+  ) = WaypointRenamed;
 
   const factory DocumentEvent.waypointRemoved(
     int index,
@@ -184,7 +188,7 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
         documentPathChanged: (_) => false,
         currentAreaChanged: (_) => false,
         layerVisibilityChanged: (_) => false,
-        toolStateChanged: (_) => false,
+        utilitiesChanged: (_) => false,
         presentationModeEntered: (_) => false,
         presentationModeExited: (_) => false,
         presentationTick: (_) => false,

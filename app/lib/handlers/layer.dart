@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class LayerHandler extends Handler<LayerPainter> {
+class LayerHandler extends Handler<LayerTool> {
   LayerHandler(super.data);
 
   @override

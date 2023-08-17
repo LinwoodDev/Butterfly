@@ -515,5 +515,10 @@
   "spacer": "Odstęp",
   "navigationRail": "Kolej nawigacyjna",
   "cut": "Wytnij",
-  "paste": "Wklej"
+  "insertBefore": "Wstaw przed",
+  "insertAfter": "Wstaw po",
+  "paste": "Wklej",
+  "ascending": "Rosnąco",
+  "descending": "Malejąco",
+  "imageScale": "Skala obrazu"
 }
