@@ -515,5 +515,10 @@
   "spacer": "Mellanslag",
   "navigationRail": "Navigeringsräls",
   "cut": "Klipp",
-  "paste": "Klistra in"
+  "insertBefore": "Infoga före",
+  "insertAfter": "Infoga efter",
+  "paste": "Klistra in",
+  "ascending": "Stigande",
+  "descending": "Fallande",
+  "imageScale": "Skala bild"
 }

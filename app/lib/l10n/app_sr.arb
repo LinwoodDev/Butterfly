@@ -515,5 +515,10 @@
   "spacer": "Spacer",
   "navigationRail": "Navigation rail",
   "cut": "Cut",
-  "paste": "Paste"
+  "insertBefore": "Insert before",
+  "insertAfter": "Insert after",
+  "paste": "Paste",
+  "ascending": "Ascending",
+  "descending": "Descending",
+  "imageScale": "Image scale"
 }

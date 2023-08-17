@@ -515,5 +515,10 @@
   "spacer": "Mezera",
   "navigationRail": "Navigační kolejnice",
   "cut": "Vyjmout",
-  "paste": "Vložit"
+  "insertBefore": "Vložit před",
+  "insertAfter": "Vložit po",
+  "paste": "Vložit",
+  "ascending": "Vzestupně",
+  "descending": "sestupně",
+  "imageScale": "Měřítko obrázku"
 }

@@ -245,6 +245,7 @@ class _TemplateItem extends StatelessWidget {
       initialValue: metadata.name,
       subtitle: Text(metadata.description),
       onSaved: (value) {
+        if (value == metadata.name) return;
         fileSystem.renameTemplate(metadata.name, value);
         onChanged();
       },

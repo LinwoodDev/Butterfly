@@ -1,22 +1,22 @@
-name: Feature request
-description: Suggest a new feature
-title: "[Feature request]: "
-labels: ["feature-request", "triage"]
+name: Enhancement
+description: Suggest an enhancement to an existing feature
+title: "[Enhancement]: "
+labels: ["enhancement", "triage"]
 assignees:
   - CodeDoctorDE
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this feature request!
-  - type: textarea
-    id: related-to-problem
+        Thanks for taking the time to fill out this request for enhancements!
+  - type: input
+    id: feature
     attributes:
-      label: Is your feature request related to a problem? Please describe
+      label: Which feature is your request related to?
   - type: textarea
     id: description
     attributes:
-      label: Describe your feature request!
+      label: Describe your request for enhancements!
     validations:
       required: true
   - type: textarea

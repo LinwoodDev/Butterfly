@@ -13,12 +13,6 @@ Her er noen ofte stilte spørsmål.
 
 Du kan installere webversjonen ved å klikke på knappen Installer i tittellinjen. Etter det kan du bruke denne appen frakoblet.
 
-### Kan ikke opprette bilder på web
-
-> [#167](https://github.com/LinwoodDev/Butterfly/issues/167)
-
-For øyeblikket fungerer ikke dekodingsbilder med hjøring. Vennligst stem på [dette problemet](https://github.com/flutter/flutter/issues/102683) hvis du vil ha dette alternativet!
-
 ### Sommerfugl lastes ikke på trær
 
 Modige brukere som har angitt innstillingen 'Block Fingerprint' til Aggressiva, må endres til 'Standard' eller bare 'Blokkering av fingeravtrykk'. Klikk på skjerm-ikonet i adresselinjen for å endre innstillingen. Prøv å oppdatere nettleseren til den nyeste versjonen.
@@ -29,7 +23,9 @@ Modige brukere som har angitt innstillingen 'Block Fingerprint' til Aggressiva, 
 
 > [#289](https://github.com/LinwoodDev/Butterfly/issues/289)
 
-Dette er et kjent problem med flutter og Samsung Z Fold 3. Oppstem [dette problemet](https://github.com/flutter/flutter/issues/111068) for å få dette utbedret!
+Fikset i 2.0 alfaene.
+
+~~This is a known issue with flutter and the Samsung Z Fold 3.~~ ~~Please upvote [this issue](https://github.com/flutter/flutter/issues/111068) to get this fixed!~~
 
 ## Skrivebord
 

@@ -515,5 +515,10 @@
   "spacer": "Διάστημα",
   "navigationRail": "Σιδηρόδρομος πλοήγησης",
   "cut": "Αποκοπή",
-  "paste": "Επικόλληση"
+  "insertBefore": "Εισαγωγή πριν",
+  "insertAfter": "Εισαγωγή μετά",
+  "paste": "Επικόλληση",
+  "ascending": "Αύξουσα",
+  "descending": "Φθίνουσα",
+  "imageScale": "Κλίμακα εικόνας"
 }

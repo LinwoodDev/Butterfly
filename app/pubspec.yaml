@@ -48,7 +48,7 @@ dependencies:
   camera: ^0.10.5+3
   camera_windows: ^0.2.1+7
   window_manager: ^0.3.5
-  flex_color_scheme: ^7.2.0
+  flex_color_scheme: ^7.3.0
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
   path: ^1.8.3
@@ -95,9 +95,7 @@ dev_dependencies:
   json_serializable: ^6.7.1
   espresso: ^0.3.0+5
 dependency_overrides:
-  archive: 3.3.7
   collection: 1.18.0
-  intl: 0.18.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

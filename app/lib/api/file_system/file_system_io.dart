@@ -204,7 +204,8 @@ class IOTemplateFileSystem extends TemplateFileSystem {
 
   @override
   Future<void> deleteTemplate(String name) async {
-    await File(await getAbsolutePath('${escapeName(name)}.bfly')).delete();
+    await File(await getAbsolutePath('${escapeName(name)}.bfly'))
+        .delete(recursive: true);
   }
 
   @override

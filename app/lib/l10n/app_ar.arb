@@ -515,5 +515,10 @@
   "spacer": "المساحة",
   "navigationRail": "سكك حديدية للتنقل",
   "cut": "قطع",
-  "paste": "لصق"
+  "insertBefore": "إدراج قبل",
+  "insertAfter": "إدراج بعد",
+  "paste": "لصق",
+  "ascending": "تصاعدي",
+  "descending": "تنازلي",
+  "imageScale": "حجم الصورة"
 }

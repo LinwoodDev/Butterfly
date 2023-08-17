@@ -515,5 +515,10 @@
   "spacer": "Afstandshouder",
   "navigationRail": "Navigatie spoor",
   "cut": "Knippen",
-  "paste": "Plakken"
+  "insertBefore": "Voordat invoegen",
+  "insertAfter": "Voeg toe na",
+  "paste": "Plakken",
+  "ascending": "Oplopend",
+  "descending": "Aflopend",
+  "imageScale": "Afbeelding schaal"
 }

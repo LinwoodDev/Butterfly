@@ -515,5 +515,10 @@
   "spacer": "Mellemrum",
   "navigationRail": "Navigation jernbane",
   "cut": "Klip",
-  "paste": "Indsæt"
+  "insertBefore": "Indsæt før",
+  "insertAfter": "Indsæt efter",
+  "paste": "Indsæt",
+  "ascending": "Stigende",
+  "descending": "Faldende",
+  "imageScale": "Billed skala"
 }
