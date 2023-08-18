@@ -2,6 +2,30 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.7 (2023-08-18)
+
+* Add pen painter icon customisation ([#467](https://github.com/LinwoodDev/Butterfly/issues/467))
+* Add locking for transformation ([#455](https://github.com/LinwoodDev/Butterfly/issues/455))
+* Add data directory setting for android ([#482](https://github.com/LinwoodDev/Butterfly/issues/482))
+* Add image scale setting ([#454](https://github.com/LinwoodDev/Butterfly/issues/454))
+* Add double click to rename ([#452](https://github.com/LinwoodDev/Butterfly/issues/452))
+* Add ability to rename waypoint
+* Add ability to rename layers from navigator
+* Add thumbnail for components ([#474](https://github.com/LinwoodDev/Butterfly/issues/474))
+* Add toolbar for stamp painter ([#474](https://github.com/LinwoodDev/Butterfly/issues/474))
+* Add components navigator page ([#474](https://github.com/LinwoodDev/Butterfly/issues/474))
+* Add scaling functionality for stamp painter ([#474](https://github.com/LinwoodDev/Butterfly/issues/474))
+* Add ctrl+a shortcut on all painters to open the hand painter and select all ([#450](https://github.com/LinwoodDev/Butterfly/issues/450))
+* Rename Export > Data to Export > Document
+* Fix portable linux build
+  * Fix script.sh
+  * Set executable permission on script.sh and butterfly binary
+* Fix deleting pages
+* Fix duplicated name on sync mode bottom sheet
+* Upgrade to flutter 3.13
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.7
+
 ## 2.0.0-beta.6 (2023-08-04)
 
 * Add sort order ([#469](https://github.com/LinwoodDev/Butterfly/issues/469))
