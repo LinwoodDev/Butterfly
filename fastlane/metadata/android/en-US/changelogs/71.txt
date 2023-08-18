@@ -17,3 +17,5 @@
 * Fix deleting pages
 * Fix duplicated name on sync mode bottom sheet
 * Upgrade to flutter 3.13
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.7
