@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Motif _$MotifFromJson(Map<String, dynamic> json) {
-  return PatternMotif.fromJson(json);
+SurfaceTexture _$SurfaceTextureFromJson(Map<String, dynamic> json) {
+  return PatternTexture.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Motif {
+mixin _$SurfaceTexture {
   double get boxWidth => throw _privateConstructorUsedError;
   double get boxHeight => throw _privateConstructorUsedError;
   int get boxXCount => throw _privateConstructorUsedError;
@@ -85,29 +85,31 @@ mixin _$Motif {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(PatternMotif value) pattern,
+    required TResult Function(PatternTexture value) pattern,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PatternMotif value)? pattern,
+    TResult? Function(PatternTexture value)? pattern,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(PatternMotif value)? pattern,
+    TResult Function(PatternTexture value)? pattern,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $MotifCopyWith<Motif> get copyWith => throw _privateConstructorUsedError;
+  $SurfaceTextureCopyWith<SurfaceTexture> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $MotifCopyWith<$Res> {
-  factory $MotifCopyWith(Motif value, $Res Function(Motif) then) =
-      _$MotifCopyWithImpl<$Res, Motif>;
+abstract class $SurfaceTextureCopyWith<$Res> {
+  factory $SurfaceTextureCopyWith(
+          SurfaceTexture value, $Res Function(SurfaceTexture) then) =
+      _$SurfaceTextureCopyWithImpl<$Res, SurfaceTexture>;
   @useResult
   $Res call(
       {double boxWidth,
@@ -124,9 +126,9 @@ abstract class $MotifCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$MotifCopyWithImpl<$Res, $Val extends Motif>
-    implements $MotifCopyWith<$Res> {
-  _$MotifCopyWithImpl(this._value, this._then);
+class _$SurfaceTextureCopyWithImpl<$Res, $Val extends SurfaceTexture>
+    implements $SurfaceTextureCopyWith<$Res> {
+  _$SurfaceTextureCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -198,10 +200,11 @@ class _$MotifCopyWithImpl<$Res, $Val extends Motif>
 }
 
 /// @nodoc
-abstract class _$$PatternMotifCopyWith<$Res> implements $MotifCopyWith<$Res> {
-  factory _$$PatternMotifCopyWith(
-          _$PatternMotif value, $Res Function(_$PatternMotif) then) =
-      __$$PatternMotifCopyWithImpl<$Res>;
+abstract class _$$PatternTextureCopyWith<$Res>
+    implements $SurfaceTextureCopyWith<$Res> {
+  factory _$$PatternTextureCopyWith(
+          _$PatternTexture value, $Res Function(_$PatternTexture) then) =
+      __$$PatternTextureCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -219,11 +222,11 @@ abstract class _$$PatternMotifCopyWith<$Res> implements $MotifCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$PatternMotifCopyWithImpl<$Res>
-    extends _$MotifCopyWithImpl<$Res, _$PatternMotif>
-    implements _$$PatternMotifCopyWith<$Res> {
-  __$$PatternMotifCopyWithImpl(
-      _$PatternMotif _value, $Res Function(_$PatternMotif) _then)
+class __$$PatternTextureCopyWithImpl<$Res>
+    extends _$SurfaceTextureCopyWithImpl<$Res, _$PatternTexture>
+    implements _$$PatternTextureCopyWith<$Res> {
+  __$$PatternTextureCopyWithImpl(
+      _$PatternTexture _value, $Res Function(_$PatternTexture) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -241,7 +244,7 @@ class __$$PatternMotifCopyWithImpl<$Res>
     Object? boxXStroke = null,
     Object? boxYStroke = null,
   }) {
-    return _then(_$PatternMotif(
+    return _then(_$PatternTexture(
       boxWidth: null == boxWidth
           ? _value.boxWidth
           : boxWidth // ignore: cast_nullable_to_non_nullable
@@ -292,8 +295,8 @@ class __$$PatternMotifCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PatternMotif implements PatternMotif {
-  const _$PatternMotif(
+class _$PatternTexture implements PatternTexture {
+  const _$PatternTexture(
       {this.boxWidth = 0,
       this.boxHeight = 0,
       this.boxXCount = 1,
@@ -306,8 +309,8 @@ class _$PatternMotif implements PatternMotif {
       this.boxXStroke = 0.5,
       this.boxYStroke = 0.5});
 
-  factory _$PatternMotif.fromJson(Map<String, dynamic> json) =>
-      _$$PatternMotifFromJson(json);
+  factory _$PatternTexture.fromJson(Map<String, dynamic> json) =>
+      _$$PatternTextureFromJson(json);
 
   @override
   @JsonKey()
@@ -345,14 +348,14 @@ class _$PatternMotif implements PatternMotif {
 
   @override
   String toString() {
-    return 'Motif.pattern(boxWidth: $boxWidth, boxHeight: $boxHeight, boxXCount: $boxXCount, boxYCount: $boxYCount, boxXSpace: $boxXSpace, boxYSpace: $boxYSpace, boxXColor: $boxXColor, boxYColor: $boxYColor, boxColor: $boxColor, boxXStroke: $boxXStroke, boxYStroke: $boxYStroke)';
+    return 'SurfaceTexture.pattern(boxWidth: $boxWidth, boxHeight: $boxHeight, boxXCount: $boxXCount, boxYCount: $boxYCount, boxXSpace: $boxXSpace, boxYSpace: $boxYSpace, boxXColor: $boxXColor, boxYColor: $boxYColor, boxColor: $boxColor, boxXStroke: $boxXStroke, boxYStroke: $boxYStroke)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PatternMotif &&
+            other is _$PatternTexture &&
             (identical(other.boxWidth, boxWidth) ||
                 other.boxWidth == boxWidth) &&
             (identical(other.boxHeight, boxHeight) ||
@@ -396,8 +399,8 @@ class _$PatternMotif implements PatternMotif {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PatternMotifCopyWith<_$PatternMotif> get copyWith =>
-      __$$PatternMotifCopyWithImpl<_$PatternMotif>(this, _$identity);
+  _$$PatternTextureCopyWith<_$PatternTexture> get copyWith =>
+      __$$PatternTextureCopyWithImpl<_$PatternTexture>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -469,7 +472,7 @@ class _$PatternMotif implements PatternMotif {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(PatternMotif value) pattern,
+    required TResult Function(PatternTexture value) pattern,
   }) {
     return pattern(this);
   }
@@ -477,7 +480,7 @@ class _$PatternMotif implements PatternMotif {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PatternMotif value)? pattern,
+    TResult? Function(PatternTexture value)? pattern,
   }) {
     return pattern?.call(this);
   }
@@ -485,7 +488,7 @@ class _$PatternMotif implements PatternMotif {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(PatternMotif value)? pattern,
+    TResult Function(PatternTexture value)? pattern,
     required TResult orElse(),
   }) {
     if (pattern != null) {
@@ -496,14 +499,14 @@ class _$PatternMotif implements PatternMotif {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PatternMotifToJson(
+    return _$$PatternTextureToJson(
       this,
     );
   }
 }
 
-abstract class PatternMotif implements Motif {
-  const factory PatternMotif(
+abstract class PatternTexture implements SurfaceTexture {
+  const factory PatternTexture(
       {final double boxWidth,
       final double boxHeight,
       final int boxXCount,
@@ -514,10 +517,10 @@ abstract class PatternMotif implements Motif {
       final int boxYColor,
       final int boxColor,
       final double boxXStroke,
-      final double boxYStroke}) = _$PatternMotif;
+      final double boxYStroke}) = _$PatternTexture;
 
-  factory PatternMotif.fromJson(Map<String, dynamic> json) =
-      _$PatternMotif.fromJson;
+  factory PatternTexture.fromJson(Map<String, dynamic> json) =
+      _$PatternTexture.fromJson;
 
   @override
   double get boxWidth;
@@ -543,7 +546,7 @@ abstract class PatternMotif implements Motif {
   double get boxYStroke;
   @override
   @JsonKey(ignore: true)
-  _$$PatternMotifCopyWith<_$PatternMotif> get copyWith =>
+  _$$PatternTextureCopyWith<_$PatternTexture> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

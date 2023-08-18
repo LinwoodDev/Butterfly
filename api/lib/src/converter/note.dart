@@ -55,8 +55,8 @@ void _migrate(NoteData noteData, FileMetadata metadata) {
       final backgroundType = pageData['background']?['type'];
       if (backgroundType == 'box') {
         pageData['background'] = {
-          'type': 'motif',
-          'motif': {
+          'type': 'texture',
+          'texture': {
             ...pageData['background'],
             'type': 'pattern',
           },

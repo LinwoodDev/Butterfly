@@ -1,7 +1,7 @@
 part of '../selection.dart';
 
-class StampPainterSelection extends ToolSelection<StampTool> {
-  StampPainterSelection(super.selected);
+class StampToolSelection extends ToolSelection<StampTool> {
+  StampToolSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
@@ -73,7 +73,7 @@ class StampPainterSelection extends ToolSelection<StampTool> {
   @override
   Selection insert(dynamic element) {
     if (element is StampTool) {
-      return StampPainterSelection([...selected, element]);
+      return StampToolSelection([...selected, element]);
     }
     return super.insert(element);
   }

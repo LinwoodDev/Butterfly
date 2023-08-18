@@ -1,25 +1,25 @@
 part of '../dialog.dart';
 
-class _MotifBackgroundPropertiesView extends StatefulWidget {
-  final MotifBackground value;
-  final ValueChanged<MotifBackground> onChanged;
+class _TextureBackgroundPropertiesView extends StatefulWidget {
+  final TextureBackground value;
+  final ValueChanged<TextureBackground> onChanged;
 
-  const _MotifBackgroundPropertiesView({
+  const _TextureBackgroundPropertiesView({
     required this.value,
     required this.onChanged,
   });
 
   @override
-  State<_MotifBackgroundPropertiesView> createState() =>
-      _MotifBackgroundPropertiesViewState();
+  State<_TextureBackgroundPropertiesView> createState() =>
+      _TextureBackgroundPropertiesViewState();
 }
 
-class _MotifBackgroundPropertiesViewState
-    extends State<_MotifBackgroundPropertiesView> {
+class _TextureBackgroundPropertiesViewState
+    extends State<_TextureBackgroundPropertiesView> {
   int? currentExpansionOpened = 0;
 
   @override
-  void didUpdateWidget(covariant _MotifBackgroundPropertiesView oldWidget) {
+  void didUpdateWidget(covariant _TextureBackgroundPropertiesView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.value != oldWidget.value) {
       setState(() {});
@@ -32,9 +32,9 @@ class _MotifBackgroundPropertiesViewState
       children: [
         ColorField(
           title: Text(AppLocalizations.of(context).color),
-          value: Color(widget.value.motif.boxColor),
+          value: Color(widget.value.texture.boxColor),
           onChanged: (value) => widget
-              .onChanged(widget.value.copyWith.motif(boxColor: value.value)),
+              .onChanged(widget.value.copyWith.texture(boxColor: value.value)),
         ),
         const SizedBox(height: 16),
         ExpansionPanelList(
@@ -55,39 +55,39 @@ class _MotifBackgroundPropertiesViewState
                     padding: const EdgeInsets.all(8.0),
                     child: Column(children: [
                       ColorField(
-                        value: Color(widget.value.motif.boxXColor),
+                        value: Color(widget.value.texture.boxXColor),
                         title: Text(AppLocalizations.of(context).color),
                         onChanged: (value) => widget.onChanged(widget
                             .value.copyWith
-                            .motif(boxXColor: value.value)),
+                            .texture(boxXColor: value.value)),
                       ),
                       const SizedBox(height: 16),
                       ExactSlider(
                           onChanged: (value) => widget.onChanged(
-                              widget.value.copyWith.motif(boxWidth: value)),
+                              widget.value.copyWith.texture(boxWidth: value)),
                           header: Text(AppLocalizations.of(context).width,
                               style: Theme.of(context).textTheme.titleLarge),
-                          value: widget.value.motif.boxWidth,
+                          value: widget.value.texture.boxWidth,
                           min: 0,
                           max: 100),
                       const SizedBox(height: 16),
                       ExactSlider(
                           onChanged: (value) => widget.onChanged(widget
                               .value.copyWith
-                              .motif(boxXCount: value.round())),
+                              .texture(boxXCount: value.round())),
                           header: Text(AppLocalizations.of(context).count,
                               style: Theme.of(context).textTheme.titleLarge),
-                          value: widget.value.motif.boxXCount.toDouble(),
+                          value: widget.value.texture.boxXCount.toDouble(),
                           fractionDigits: 0,
                           min: 0,
                           max: 100),
                       const SizedBox(height: 16),
                       ExactSlider(
                           onChanged: (value) => widget.onChanged(
-                              widget.value.copyWith.motif(boxXSpace: value)),
+                              widget.value.copyWith.texture(boxXSpace: value)),
                           header: Text(AppLocalizations.of(context).space,
                               style: Theme.of(context).textTheme.titleLarge),
-                          value: widget.value.motif.boxXSpace,
+                          value: widget.value.texture.boxXSpace,
                           min: 0,
                           max: 100),
                     ]),
@@ -104,38 +104,38 @@ class _MotifBackgroundPropertiesViewState
                     child: Column(children: [
                       ColorField(
                         title: Text(AppLocalizations.of(context).color),
-                        value: Color(widget.value.motif.boxYColor),
+                        value: Color(widget.value.texture.boxYColor),
                         onChanged: (value) => widget.onChanged(widget
                             .value.copyWith
-                            .motif(boxYColor: value.value)),
+                            .texture(boxYColor: value.value)),
                       ),
                       const SizedBox(height: 16),
                       ExactSlider(
                           onChanged: (value) => widget.onChanged(
-                              widget.value.copyWith.motif(boxHeight: value)),
+                              widget.value.copyWith.texture(boxHeight: value)),
                           header: Text(AppLocalizations.of(context).width,
                               style: Theme.of(context).textTheme.titleLarge),
-                          value: widget.value.motif.boxHeight,
+                          value: widget.value.texture.boxHeight,
                           min: 0,
                           max: 100),
                       const SizedBox(height: 16),
                       ExactSlider(
                           onChanged: (value) => widget.onChanged(widget
                               .value.copyWith
-                              .motif(boxYCount: value.round())),
+                              .texture(boxYCount: value.round())),
                           header: Text(AppLocalizations.of(context).count,
                               style: Theme.of(context).textTheme.titleLarge),
-                          value: widget.value.motif.boxYCount.toDouble(),
+                          value: widget.value.texture.boxYCount.toDouble(),
                           fractionDigits: 0,
                           min: 0,
                           max: 100),
                       const SizedBox(height: 16),
                       ExactSlider(
                           onChanged: (value) => widget.onChanged(
-                              widget.value.copyWith.motif(boxYSpace: value)),
+                              widget.value.copyWith.texture(boxYSpace: value)),
                           header: Text(AppLocalizations.of(context).space,
                               style: Theme.of(context).textTheme.titleLarge),
-                          value: widget.value.motif.boxYSpace,
+                          value: widget.value.texture.boxYSpace,
                           min: 0,
                           max: 100),
                     ]),

@@ -1,7 +1,7 @@
 part of '../selection.dart';
 
-class PathEraserPainterSelection extends ToolSelection<PathEraserTool> {
-  PathEraserPainterSelection(super.selected);
+class PathEraserToolSelection extends ToolSelection<PathEraserTool> {
+  PathEraserToolSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
@@ -22,7 +22,7 @@ class PathEraserPainterSelection extends ToolSelection<PathEraserTool> {
   @override
   Selection insert(dynamic element) {
     if (element is PathEraserTool) {
-      return PathEraserPainterSelection([...selected, element]);
+      return PathEraserToolSelection([...selected, element]);
     }
     return super.insert(element);
   }

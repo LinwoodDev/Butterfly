@@ -1,7 +1,7 @@
 part of '../selection.dart';
 
-class ShapePainterSelection extends ToolSelection<ShapeTool> {
-  ShapePainterSelection(super.selected);
+class ShapeToolSelection extends ToolSelection<ShapeTool> {
+  ShapeToolSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
@@ -125,7 +125,7 @@ class ShapePainterSelection extends ToolSelection<ShapeTool> {
   @override
   Selection insert(dynamic element) {
     if (element is ShapeTool) {
-      return ShapePainterSelection([...selected, element]);
+      return ShapeToolSelection([...selected, element]);
     }
     return super.insert(element);
   }

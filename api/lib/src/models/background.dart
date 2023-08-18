@@ -7,9 +7,9 @@ part 'background.freezed.dart';
 
 @Freezed(equal: false)
 sealed class Background with _$Background {
-  factory Background.motif({
-    required Motif motif,
-  }) = MotifBackground;
+  factory Background.texture({
+    required SurfaceTexture texture,
+  }) = TextureBackground;
 
   factory Background.image({
     required String source,

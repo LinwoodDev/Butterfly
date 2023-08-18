@@ -1,7 +1,7 @@
 part of '../selection.dart';
 
-class LaserPainterSelection extends ToolSelection<LaserTool> {
-  LaserPainterSelection(super.selected);
+class LaserToolSelection extends ToolSelection<LaserTool> {
+  LaserToolSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
@@ -55,7 +55,7 @@ class LaserPainterSelection extends ToolSelection<LaserTool> {
   @override
   Selection insert(dynamic element) {
     if (element is LaserTool) {
-      return LaserPainterSelection([...selected, element]);
+      return LaserToolSelection([...selected, element]);
     }
     return super.insert(element);
   }

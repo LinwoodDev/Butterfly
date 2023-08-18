@@ -1,24 +1,24 @@
 part of '../renderer.dart';
 
-class MotifBackgroundRenderer extends Renderer<MotifBackground> {
-  MotifBackgroundRenderer(super.element);
+class TextureBackgroundRenderer extends Renderer<TextureBackground> {
+  TextureBackgroundRenderer(super.element);
 
-  Motif get motif => element.motif;
+  SurfaceTexture get texture => element.texture;
 
   @override
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    canvas.drawColor(Color(motif.boxColor), BlendMode.srcOver);
-    if (motif.boxWidth > 0 && motif.boxXCount > 0) {
-      var relativeWidth = motif.boxWidth * transform.size;
-      var relativeSpace = motif.boxXSpace * transform.size;
+    canvas.drawColor(Color(texture.boxColor), BlendMode.srcOver);
+    if (texture.boxWidth > 0 && texture.boxXCount > 0) {
+      var relativeWidth = texture.boxWidth * transform.size;
+      var relativeSpace = texture.boxXSpace * transform.size;
       int xCount = (transform.position.dx /
-                  (motif.boxWidth * motif.boxXCount + motif.boxXSpace))
+                  (texture.boxWidth * texture.boxXCount + texture.boxXSpace))
               .floor() +
           1;
       double x =
-          -xCount * (motif.boxWidth * motif.boxXCount + motif.boxXSpace) +
+          -xCount * (texture.boxWidth * texture.boxXCount + texture.boxXSpace) +
               transform.position.dx;
       x *= transform.size;
 
@@ -28,26 +28,26 @@ class MotifBackgroundRenderer extends Renderer<MotifBackground> {
             Offset(x, 0),
             Offset(x, size.height),
             Paint()
-              ..strokeWidth = motif.boxXStroke * transform.size
-              ..color = Color(motif.boxXColor));
+              ..strokeWidth = texture.boxXStroke * transform.size
+              ..color = Color(texture.boxXColor));
         count++;
-        if (count >= motif.boxXCount) {
+        if (count >= texture.boxXCount) {
           count = 0;
           x += relativeSpace;
         }
         x += relativeWidth;
       }
     }
-    if (motif.boxHeight > 0 && motif.boxYCount > 0) {
-      var relativeHeight = motif.boxHeight * transform.size;
-      var relativeSpace = motif.boxYSpace * transform.size;
+    if (texture.boxHeight > 0 && texture.boxYCount > 0) {
+      var relativeHeight = texture.boxHeight * transform.size;
+      var relativeSpace = texture.boxYSpace * transform.size;
       int yCount = (transform.position.dy /
-                  (motif.boxHeight * motif.boxYCount + motif.boxYSpace))
+                  (texture.boxHeight * texture.boxYCount + texture.boxYSpace))
               .floor() +
           1;
-      double y =
-          -yCount * (motif.boxHeight * motif.boxYCount + motif.boxYSpace) +
-              transform.position.dy;
+      double y = -yCount *
+              (texture.boxHeight * texture.boxYCount + texture.boxYSpace) +
+          transform.position.dy;
       y *= transform.size;
 
       int count = 0;
@@ -56,10 +56,10 @@ class MotifBackgroundRenderer extends Renderer<MotifBackground> {
             Offset(0, y),
             Offset(size.width, y),
             Paint()
-              ..strokeWidth = motif.boxYStroke * transform.size
-              ..color = Color(motif.boxYColor));
+              ..strokeWidth = texture.boxYStroke * transform.size
+              ..color = Color(texture.boxYColor));
         count++;
-        if (count >= motif.boxYCount) {
+        if (count >= texture.boxYCount) {
           count = 0;
           y += relativeSpace;
         }
@@ -78,15 +78,15 @@ class MotifBackgroundRenderer extends Renderer<MotifBackground> {
       'y': '${viewportRect.top}px',
       'width': '${viewportRect.width}px',
       'height': '${viewportRect.height}px',
-      'fill': motif.boxColor.toHexColor(),
+      'fill': texture.boxColor.toHexColor(),
     });
-    if (motif.boxWidth > 0 && motif.boxXCount > 0) {
+    if (texture.boxWidth > 0 && texture.boxXCount > 0) {
       int xCount = (viewportRect.left /
-                  (motif.boxWidth * motif.boxXCount + motif.boxXSpace))
+                  (texture.boxWidth * texture.boxXCount + texture.boxXSpace))
               .floor() +
           1;
       double x =
-          -xCount * (motif.boxWidth * motif.boxXCount + motif.boxXSpace) +
+          -xCount * (texture.boxWidth * texture.boxXCount + texture.boxXSpace) +
               viewportRect.left;
 
       int count = 0;
@@ -96,25 +96,25 @@ class MotifBackgroundRenderer extends Renderer<MotifBackground> {
           'y1': '${viewportRect.top}px',
           'x2': '${x + viewportRect.left}px',
           'y2': '${viewportRect.top + viewportRect.height}px',
-          'stroke': motif.boxXColor.toHexColor(),
-          'stroke-width': '${motif.boxXStroke}'
+          'stroke': texture.boxXColor.toHexColor(),
+          'stroke-width': '${texture.boxXStroke}'
         });
         count++;
-        if (count >= motif.boxXCount) {
+        if (count >= texture.boxXCount) {
           count = 0;
-          x += motif.boxXSpace;
+          x += texture.boxXSpace;
         }
-        x += motif.boxWidth;
+        x += texture.boxWidth;
       }
     }
-    if (motif.boxHeight > 0 && motif.boxYCount > 0) {
+    if (texture.boxHeight > 0 && texture.boxYCount > 0) {
       int yCount = (viewportRect.top /
-                  (motif.boxHeight * motif.boxYCount + motif.boxYSpace))
+                  (texture.boxHeight * texture.boxYCount + texture.boxYSpace))
               .floor() +
           1;
-      double y =
-          -yCount * (motif.boxHeight * motif.boxYCount + motif.boxYSpace) +
-              viewportRect.top;
+      double y = -yCount *
+              (texture.boxHeight * texture.boxYCount + texture.boxYSpace) +
+          viewportRect.top;
 
       int count = 0;
       while (y < viewportRect.height) {
@@ -123,15 +123,15 @@ class MotifBackgroundRenderer extends Renderer<MotifBackground> {
           'y1': '${y + viewportRect.top}px',
           'x2': '${viewportRect.left + viewportRect.width}px',
           'y2': '${y + viewportRect.top}px',
-          'stroke': motif.boxYColor.toHexColor(),
-          'stroke-width': '${motif.boxYStroke}'
+          'stroke': texture.boxYColor.toHexColor(),
+          'stroke-width': '${texture.boxYStroke}'
         });
         count++;
-        if (count >= motif.boxYCount) {
+        if (count >= texture.boxYCount) {
           count = 0;
-          y += motif.boxYSpace;
+          y += texture.boxYSpace;
         }
-        y += motif.boxHeight;
+        y += texture.boxHeight;
       }
     }
   }

@@ -18,7 +18,6 @@ import 'package:xml/xml.dart';
 
 import '../embed/embedding.dart';
 import '../handlers/handler.dart';
-import '../models/utilities.dart';
 import '../models/viewport.dart';
 import '../selections/selection.dart';
 import '../services/asset.dart';

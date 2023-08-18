@@ -6,7 +6,7 @@ part of 'element.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatternMotif _$$PatternMotifFromJson(Map json) => _$PatternMotif(
+_$PatternTexture _$$PatternTextureFromJson(Map json) => _$PatternTexture(
       boxWidth: (json['boxWidth'] as num?)?.toDouble() ?? 0,
       boxHeight: (json['boxHeight'] as num?)?.toDouble() ?? 0,
       boxXCount: json['boxXCount'] as int? ?? 1,
@@ -20,7 +20,7 @@ _$PatternMotif _$$PatternMotifFromJson(Map json) => _$PatternMotif(
       boxYStroke: (json['boxYStroke'] as num?)?.toDouble() ?? 0.5,
     );
 
-Map<String, dynamic> _$$PatternMotifToJson(_$PatternMotif instance) =>
+Map<String, dynamic> _$$PatternTextureToJson(_$PatternTexture instance) =>
     <String, dynamic>{
       'boxWidth': instance.boxWidth,
       'boxHeight': instance.boxHeight,

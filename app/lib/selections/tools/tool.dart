@@ -3,21 +3,19 @@ part of '../selection.dart';
 class ToolSelection<T extends Tool> extends Selection<T> {
   ToolSelection(super.selected);
 
-  factory ToolSelection.from(T selected) {
-    return selected.maybeMap(
+  factory ToolSelection.from(T selected) => selected.maybeMap(
       hand: (value) => HandSelection([value]),
-      label: (value) => LabelPainterSelection([value]),
-      pen: (value) => PenPainterSelection([value]),
-      eraser: (value) => EraserPainterSelection([value]),
-      pathEraser: (value) => PathEraserPainterSelection([value]),
-      layer: (value) => LayerPainterSelection([value]),
-      area: (value) => AreaPainterSelection([value]),
-      laser: (value) => LaserPainterSelection([value]),
-      shape: (value) => ShapePainterSelection([value]),
-      stamp: (value) => StampPainterSelection([value]),
+      label: (value) => LabelToolSelection([value]),
+      pen: (value) => PenToolSelection([value]),
+      eraser: (value) => EraserToolSelection([value]),
+      pathEraser: (value) => PathEraserToolSelection([value]),
+      layer: (value) => LayerToolSelection([value]),
+      area: (value) => AreaToolSelection([value]),
+      laser: (value) => LaserToolSelection([value]),
+      shape: (value) => ShapeToolSelection([value]),
+      stamp: (value) => StampToolSelection([value]),
       orElse: () => ToolSelection<T>([selected]),
     ) as ToolSelection<T>;
-  }
 
   @override
   List<Widget> buildProperties(BuildContext context) {

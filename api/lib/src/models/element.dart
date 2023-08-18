@@ -35,44 +35,44 @@ extension PatternTemplateExtension on PatternTemplate {
         PatternTemplate.musicDark
       ].contains(this);
 
-  PatternMotif create() {
+  PatternTexture create() {
     switch (this) {
       case PatternTemplate.plain:
-        return const PatternMotif(
+        return const PatternTexture(
           boxColor: kColorLight,
         );
       case PatternTemplate.ruled:
-        return const PatternMotif(
+        return const PatternTexture(
           boxColor: kColorLight,
           boxHeight: 20,
         );
       case PatternTemplate.quad:
-        return const PatternMotif(
+        return const PatternTexture(
           boxColor: kColorLight,
           boxHeight: 20,
           boxWidth: 20,
         );
       case PatternTemplate.music:
-        return const PatternMotif(
+        return const PatternTexture(
             boxColor: kColorLight,
             boxHeight: 20,
             boxYColor: kColorBlack,
             boxYSpace: 30,
             boxYCount: 5);
       case PatternTemplate.plainDark:
-        return const PatternMotif(
+        return const PatternTexture(
           boxColor: kColorDark,
         );
       case PatternTemplate.ruledDark:
-        return const PatternMotif(boxColor: kColorDark, boxHeight: 20);
+        return const PatternTexture(boxColor: kColorDark, boxHeight: 20);
       case PatternTemplate.quadDark:
-        return const PatternMotif(
+        return const PatternTexture(
           boxColor: kColorDark,
           boxWidth: 20,
           boxHeight: 20,
         );
       case PatternTemplate.musicDark:
-        return const PatternMotif(
+        return const PatternTexture(
             boxColor: kColorDark,
             boxYColor: kColorWhite,
             boxHeight: 20,
@@ -83,8 +83,8 @@ extension PatternTemplateExtension on PatternTemplate {
 }
 
 @freezed
-sealed class Motif with _$Motif {
-  const factory Motif.pattern(
+sealed class SurfaceTexture with _$SurfaceTexture {
+  const factory SurfaceTexture.pattern(
       {@Default(0) double boxWidth,
       @Default(0) double boxHeight,
       @Default(1) int boxXCount,
@@ -95,9 +95,10 @@ sealed class Motif with _$Motif {
       @Default(kColorRed) int boxYColor,
       @Default(kColorWhite) int boxColor,
       @Default(0.5) double boxXStroke,
-      @Default(0.5) double boxYStroke}) = PatternMotif;
+      @Default(0.5) double boxYStroke}) = PatternTexture;
 
-  factory Motif.fromJson(Map<String, dynamic> json) => _$MotifFromJson(json);
+  factory SurfaceTexture.fromJson(Map<String, dynamic> json) =>
+      _$SurfaceTextureFromJson(json);
 }
 
 @freezed

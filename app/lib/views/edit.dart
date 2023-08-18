@@ -14,7 +14,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../cubits/settings.dart';
 import '../handlers/handler.dart';
-import '../models/utilities.dart';
 
 class EditToolbar extends StatefulWidget {
   final bool isMobile;

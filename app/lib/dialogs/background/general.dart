@@ -33,10 +33,10 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                       width: 64,
                     ),
                     onTap: () {
-                      onChanged(Background.motif(motif: created));
+                      onChanged(Background.texture(texture: created));
                     },
-                    selected: (value is MotifBackground &&
-                        ((value as MotifBackground).motif == created)),
+                    selected: (value is TextureBackground &&
+                        ((value as TextureBackground).texture == created)),
                     size: 120,
                   );
                 }).toList()),

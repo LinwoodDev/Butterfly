@@ -43,7 +43,7 @@ class DocumentDefaults {
         PatternTemplate.plainDark.create(),
       ),
     ].map((e) async {
-      final bg = Background.motif(motif: e.$2);
+      final bg = Background.texture(texture: e.$2);
       final color = bg.defaultColor;
       return createTemplate(
         name: e.$1,

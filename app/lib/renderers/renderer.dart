@@ -22,7 +22,6 @@ import '../cubits/current_index.dart';
 import '../cubits/transform.dart';
 import '../helpers/xml_helper.dart';
 import '../models/label.dart';
-import '../models/utilities.dart';
 import '../services/asset.dart';
 
 part 'backgrounds/box.dart';
@@ -119,7 +118,7 @@ abstract class Renderer<T> {
     // Backgrounds
     if (element is Background) {
       return element.map(
-        motif: (value) => MotifBackgroundRenderer(value),
+        texture: (value) => TextureBackgroundRenderer(value),
         image: (value) => ImageBackgroundRenderer(value),
         svg: (value) => EmptyBackgroundRenderer(value),
       ) as Renderer<T>;
