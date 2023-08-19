@@ -106,7 +106,7 @@ class AddDialog extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               Text(
-                AppLocalizations.of(context).painters,
+                AppLocalizations.of(context).tools,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const SizedBox(height: 16),

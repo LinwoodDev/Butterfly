@@ -8,7 +8,7 @@ class UtilitiesSelection extends Selection<UtilitiesState> {
 
   @override
   String getLocalizedName(BuildContext context) =>
-      AppLocalizations.of(context).tools;
+      AppLocalizations.of(context).document;
 
   @override
   List<Widget> buildProperties(BuildContext context) {

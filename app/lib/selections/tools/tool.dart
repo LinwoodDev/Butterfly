@@ -62,7 +62,7 @@ class ToolSelection<T extends Tool> extends Selection<T> {
     if (selected.every((e) => e.runtimeType == type)) {
       return selected.first.getLocalizedName(context);
     }
-    return AppLocalizations.of(context).painter;
+    return AppLocalizations.of(context).tool;
   }
 
   @override

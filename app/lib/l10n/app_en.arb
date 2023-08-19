@@ -521,5 +521,6 @@
   "ascending": "Ascending",
   "descending": "Descending",
   "imageScale": "Image scale",
-  "select": "Select"
+  "select": "Select",
+  "tool": "Tool"
 }
