@@ -53,7 +53,7 @@ part 'properties/path.dart';
 part 'properties/pen.dart';
 
 part 'area.dart';
-part 'tool.dart';
+part 'utilities.dart';
 
 abstract class Selection<T> {
   List<T> _selected;

@@ -16,7 +16,7 @@ class UtilitiesSelection extends Selection<UtilitiesState> {
     if (state is! DocumentLoadSuccess) return [];
     return [
       ...super.buildProperties(context),
-      _ToolView(
+      _UtilitiesView(
         state: selected.first,
         option: state.info.view,
         onStateChanged: (state) => updateState(context, state),
@@ -33,23 +33,24 @@ class UtilitiesSelection extends Selection<UtilitiesState> {
   }
 }
 
-class _ToolView extends StatefulWidget {
+class _UtilitiesView extends StatefulWidget {
   final UtilitiesState state;
   final ViewOption option;
   final ValueChanged<UtilitiesState> onStateChanged;
   final ValueChanged<ViewOption> onToolChanged;
 
-  const _ToolView(
+  const _UtilitiesView(
       {required this.state,
       required this.option,
       required this.onStateChanged,
       required this.onToolChanged});
 
   @override
-  State<_ToolView> createState() => _ToolViewState();
+  State<_UtilitiesView> createState() => _UtilitiesViewState();
 }
 
-class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
+class _UtilitiesViewState extends State<_UtilitiesView>
+    with TickerProviderStateMixin {
   late final TabController _tabController;
   final TextEditingController _nameController = TextEditingController(),
       _descriptionController = TextEditingController();
@@ -71,7 +72,7 @@ class _ToolViewState extends State<_ToolView> with TickerProviderStateMixin {
   }
 
   @override
-  void didUpdateWidget(covariant _ToolView oldWidget) {
+  void didUpdateWidget(covariant _UtilitiesView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.state != widget.state) {
       setState(() {});
