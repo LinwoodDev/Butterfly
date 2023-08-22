@@ -3,7 +3,7 @@ title: "Warstwa"
 sidebar_position: 2
 ---
 
-Warstwy są opcją do grupowania elementów razem. Kliknij element, aby zobaczyć i zmienić warstwę. Użyj [farby warstw](painters/layer.md) , aby zmienić warstwy wielu elementów.
+Warstwy są opcją do grupowania elementów razem. Kliknij element, aby zobaczyć i zmienić warstwę. Użyj [farby warstw](tools/layer.md) , aby zmienić warstwy wielu elementów.
 
 ## Okno dialogowe warstw
 

@@ -7,11 +7,11 @@ sidebar_position: 2
 
 ![Alue](area.png)
 
-Alueet ovat keino rajoittaa kankaan kokoa. Voit luoda alueita käyttämällä [alueen maalari](painters/area.md). Jos napsautat taustaa, voit avata alueen luettelon valintaikkunan käyttämällä konteksti-valikosta.
+Alueet ovat keino rajoittaa kankaan kokoa. Voit luoda alueita käyttämällä [alueen maalari](tools/area.md). Jos napsautat taustaa, voit avata alueen luettelon valintaikkunan käyttämällä konteksti-valikosta.
 
 ## Alueiden luominen ja poistaminen
 
-Käytä [alueen maalari](painters/area.md) luodaksesi alueen. Alueet eivät voi olla päällekkäisiä. Kun olet luonut alueen, sinun täytyy nimetä se.
+Käytä [alueen maalari](tools/area.md) luodaksesi alueen. Alueet eivät voi olla päällekkäisiä. Kun olet luonut alueen, sinun täytyy nimetä se.
 
 Klikkaa aluetta, jos haluat muokata sitä. Voit myös käyttää alueen valintaikkunaa.
 

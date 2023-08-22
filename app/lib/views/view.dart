@@ -117,7 +117,7 @@ class _MainViewViewportState extends State<MainViewViewport>
         });
       }
 
-      Future<void> changeTemporaryPainter(
+      Future<void> changeTemporaryTool(
           PointerDeviceKind kind, int buttons) async {
         int? nextPointerIndex;
         final bloc = context.read<DocumentBloc>();
@@ -217,7 +217,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                           }
                           if (openView) openView = details.scale == 1;
                           final settings = context.read<SettingsCubit>().state;
-                          if (cubit.fetchHandler<HandHandler>() == null &&
+                          if (cubit.fetchHandler<SelectHandler>() == null &&
                               !settings.inputGestures) return;
                           var current = details.scale;
                           current = current - size;
@@ -294,7 +294,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                             cubit.setButtons(event.buttons);
                             final handler = getHandler();
                             if (handler.canChange(event, getEventContext())) {
-                              await changeTemporaryPainter(
+                              await changeTemporaryTool(
                                   event.kind, event.buttons);
                             }
                             getHandler()
@@ -346,7 +346,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     Theme.of(context).colorScheme,
                                     transform,
                                     cubit.state.selection,
-                                    currentIndex.cameraViewport.tool,
+                                    currentIndex.cameraViewport.utilities,
                                   ),
                                   painter: ViewPainter(
                                     state.data,

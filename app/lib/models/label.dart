@@ -13,7 +13,7 @@ part 'label.freezed.dart';
 class LabelContext with _$LabelContext {
   const LabelContext._();
   const factory LabelContext.text(
-      {required LabelPainter painter,
+      {required LabelTool tool,
       required TextPainter textPainter,
       TextElement? element,
       @Default(false) bool isCreating,
@@ -24,7 +24,7 @@ class LabelContext with _$LabelContext {
       bool? forceParagraph}) = TextContext;
 
   const factory LabelContext.markdown({
-    required LabelPainter painter,
+    required LabelTool tool,
     required TextPainter textPainter,
     MarkdownElement? element,
     @Default(false) bool isCreating,
@@ -37,7 +37,7 @@ class LabelContext with _$LabelContext {
   LabelElement? get labelElement => element as LabelElement?;
 
   PackAssetLocation get styleSheet =>
-      labelElement?.styleSheet ?? painter.styleSheet;
+      labelElement?.styleSheet ?? tool.styleSheet;
 
   int get length =>
       map(

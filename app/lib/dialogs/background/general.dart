@@ -1,7 +1,7 @@
 part of 'dialog.dart';
 
 class _GeneralBackgroundPropertiesView extends StatelessWidget {
-  final Background value;
+  final Background? value;
   final ValueChanged<Background> onChanged;
 
   const _GeneralBackgroundPropertiesView({
@@ -14,8 +14,8 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
     return ListView(
       children: [
         ...[
-          BackgroundTemplate.values.where((element) => !element.dark),
-          BackgroundTemplate.values.where((element) => element.dark),
+          PatternTemplate.values.where((element) => !element.dark),
+          PatternTemplate.values.where((element) => element.dark),
         ].map(
           (e) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
@@ -33,9 +33,10 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                       width: 64,
                     ),
                     onTap: () {
-                      onChanged(created);
+                      onChanged(Background.texture(texture: created));
                     },
-                    selected: created == value,
+                    selected: (value is TextureBackground &&
+                        ((value as TextureBackground).texture == created)),
                     size: 120,
                   );
                 }).toList()),

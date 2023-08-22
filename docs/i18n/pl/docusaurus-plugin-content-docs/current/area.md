@@ -7,11 +7,11 @@ sidebar_position: 2
 
 ![Obszar](area.png)
 
-Obszary są sposobem na ograniczenie rozmiaru płótna. Możesz tworzyć obszary używając [farby obszarowej](painters/area.md). Jeśli klikniesz w tło możesz otworzyć okno dialogowe listy obszarów za pomocą menu kontekstowego.
+Obszary są sposobem na ograniczenie rozmiaru płótna. Możesz tworzyć obszary używając [farby obszarowej](tools/area.md). Jeśli klikniesz w tło możesz otworzyć okno dialogowe listy obszarów za pomocą menu kontekstowego.
 
 ## Tworzenie i usuwanie obszarów
 
-Użyj [farby obszarowej](painters/area.md) , aby utworzyć obszar. Obszary nie mogą się pokrywać. Po utworzeniu obszaru musisz go nazwać.
+Użyj [farby obszarowej](tools/area.md) , aby utworzyć obszar. Obszary nie mogą się pokrywać. Po utworzeniu obszaru musisz go nazwać.
 
 Kliknij na obszar, jeśli chcesz go modyfikować. Możesz również użyć okna dialogowego.
 

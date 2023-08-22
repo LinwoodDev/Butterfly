@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 @immutable
 class CameraViewport extends Equatable {
   final ui.Image? image;
-  final Renderer<Background>? background;
-  final ToolRenderer tool;
+  final List<Renderer<Background>> backgrounds;
+  final UtilitiesRenderer utilities;
   final List<Renderer<PadElement>> bakedElements,
       unbakedElements,
       visibleElements;
@@ -18,8 +18,8 @@ class CameraViewport extends Equatable {
   final double scale;
   final double x, y;
 
-  const CameraViewport.unbaked(this.tool,
-      [this.background,
+  const CameraViewport.unbaked(this.utilities,
+      [this.backgrounds = const [],
       this.unbakedElements = const [],
       List<Renderer<PadElement>>? visibleElements])
       : image = null,
@@ -32,8 +32,8 @@ class CameraViewport extends Equatable {
         y = 0,
         visibleElements = visibleElements ?? unbakedElements;
 
-  const CameraViewport.baked(this.tool,
-      {this.background,
+  const CameraViewport.baked(this.utilities,
+      {this.backgrounds = const [],
       required this.image,
       required this.width,
       required this.height,
@@ -60,8 +60,8 @@ class CameraViewport extends Equatable {
   }
 
   CameraViewport withUnbaked(List<Renderer<PadElement>> unbakedElements) =>
-      CameraViewport.baked(tool,
-          background: background,
+      CameraViewport.baked(utilities,
+          backgrounds: backgrounds,
           image: image,
           width: width,
           height: height,
@@ -75,14 +75,14 @@ class CameraViewport extends Equatable {
           y: y);
 
   CameraViewport unbake({
-    Renderer<Background>? background,
-    ToolRenderer? tool,
+    List<Renderer<Background>>? backgrounds,
+    UtilitiesRenderer? utilities,
     List<Renderer<PadElement>>? unbakedElements,
     List<Renderer<PadElement>>? visibleElements,
   }) =>
       CameraViewport.unbaked(
-          tool ?? this.tool,
-          background ?? this.background,
+          utilities ?? this.utilities,
+          backgrounds ?? this.backgrounds,
           unbakedElements ??
               (List<Renderer<PadElement>>.from(this.unbakedElements)
                 ..addAll(bakedElements)),
@@ -103,8 +103,8 @@ class CameraViewport extends Equatable {
     double x = 0,
     double y = 0,
   }) =>
-      CameraViewport.baked(tool,
-          background: background,
+      CameraViewport.baked(utilities,
+          backgrounds: backgrounds,
           image: image,
           width: width,
           height: height,
@@ -116,9 +116,9 @@ class CameraViewport extends Equatable {
           y: y,
           visibleElements: visibleElements);
 
-  CameraViewport withBackground(Renderer<Background> background) =>
-      CameraViewport.baked(tool,
-          background: background,
+  CameraViewport withBackgrounds(List<Renderer<Background>> backgrounds) =>
+      CameraViewport.baked(utilities,
+          backgrounds: backgrounds,
           pixelRatio: pixelRatio,
           image: image,
           width: width,
@@ -130,23 +130,24 @@ class CameraViewport extends Equatable {
           y: y,
           visibleElements: visibleElements);
 
-  CameraViewport withTool(ToolRenderer tool) => CameraViewport.baked(tool,
-      background: background,
-      pixelRatio: pixelRatio,
-      image: image,
-      width: width,
-      height: height,
-      scale: scale,
-      bakedElements: bakedElements,
-      unbakedElements: unbakedElements,
-      x: x,
-      y: y,
-      visibleElements: visibleElements);
+  CameraViewport withUtilities(UtilitiesRenderer utilities) =>
+      CameraViewport.baked(utilities,
+          backgrounds: backgrounds,
+          pixelRatio: pixelRatio,
+          image: image,
+          width: width,
+          height: height,
+          scale: scale,
+          bakedElements: bakedElements,
+          unbakedElements: unbakedElements,
+          x: x,
+          y: y,
+          visibleElements: visibleElements);
 
   @override
   List<Object?> get props => [
         image,
-        background,
+        backgrounds,
         bakedElements,
         unbakedElements,
         width,
@@ -156,6 +157,6 @@ class CameraViewport extends Equatable {
         y,
         pixelRatio,
         visibleElements,
-        tool,
+        utilities,
       ];
 }

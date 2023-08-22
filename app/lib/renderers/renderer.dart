@@ -22,7 +22,6 @@ import '../cubits/current_index.dart';
 import '../cubits/transform.dart';
 import '../helpers/xml_helper.dart';
 import '../models/label.dart';
-import '../models/tool.dart';
 import '../services/asset.dart';
 
 part 'backgrounds/box.dart';
@@ -35,7 +34,7 @@ part 'elements/path.dart';
 part 'elements/pen.dart';
 part 'elements/shape.dart';
 part 'elements/svg.dart';
-part 'tool.dart';
+part 'utilities.dart';
 
 class DefaultHitCalculator extends HitCalculator {
   final Rect? rect;
@@ -119,15 +118,14 @@ abstract class Renderer<T> {
     // Backgrounds
     if (element is Background) {
       return element.map(
-        empty: (value) => EmptyBackgroundRenderer(value),
-        box: (value) => BoxBackgroundRenderer(value),
+        texture: (value) => TextureBackgroundRenderer(value),
         image: (value) => ImageBackgroundRenderer(value),
         svg: (value) => EmptyBackgroundRenderer(value),
       ) as Renderer<T>;
     }
 
-    if (element is ToolState) {
-      return ToolRenderer(element) as Renderer<T>;
+    if (element is UtilitiesState) {
+      return UtilitiesRenderer(element) as Renderer<T>;
     }
 
     throw Exception('Invalid instance type');

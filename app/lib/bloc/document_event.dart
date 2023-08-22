@@ -16,16 +16,16 @@ class PageChanged extends DocumentEvent {
   List<Object?> get props => [pageName];
 }
 
-class ToolChanged extends DocumentEvent {
-  final ToolOption? option;
-  final ToolState? state;
+class UtilitiesChanged extends DocumentEvent {
+  final ViewOption? view;
+  final UtilitiesState? state;
 
-  ToolChanged({this.option, this.state});
-  ToolChanged.option(this.option) : state = null;
-  ToolChanged.state(this.state) : option = null;
+  UtilitiesChanged({this.view, this.state});
+  UtilitiesChanged.view(this.view) : state = null;
+  UtilitiesChanged.state(this.state) : view = null;
 
   @override
-  List<Object?> get props => [option, state];
+  List<Object?> get props => [view, state];
 }
 
 class ElementsCreated extends DocumentEvent {
@@ -99,49 +99,49 @@ class DocumentSaved extends DocumentEvent {
   List<Object?> get props => [location];
 }
 
-class PainterCreated extends DocumentEvent {
-  final Painter painter;
+class ToolCreated extends DocumentEvent {
+  final Tool tool;
 
-  const PainterCreated(this.painter);
-
-  @override
-  List<Object?> get props => [painter];
-}
-
-class PaintersChanged extends DocumentEvent {
-  final Map<Painter, Painter> updatedPainters;
-
-  const PaintersChanged(this.updatedPainters);
+  const ToolCreated(this.tool);
 
   @override
-  List<Object?> get props => [updatedPainters];
+  List<Object?> get props => [tool];
 }
 
-class PaintersRemoved extends DocumentEvent {
-  final List<Painter> painters;
+class ToolsChanged extends DocumentEvent {
+  final Map<Tool, Tool> updatedTools;
 
-  const PaintersRemoved(this.painters);
+  const ToolsChanged(this.updatedTools);
 
   @override
-  List<Object?> get props => [painters];
+  List<Object?> get props => [updatedTools];
 }
 
-class PainterReordered extends DocumentEvent {
+class ToolsRemoved extends DocumentEvent {
+  final List<Tool> tools;
+
+  const ToolsRemoved(this.tools);
+
+  @override
+  List<Object?> get props => [tools];
+}
+
+class ToolReordered extends DocumentEvent {
   final int oldIndex, newIndex;
 
-  const PainterReordered(this.oldIndex, this.newIndex);
+  const ToolReordered(this.oldIndex, this.newIndex);
 
   @override
   List<Object?> get props => [oldIndex, newIndex];
 }
 
-class DocumentBackgroundChanged extends DocumentEvent {
-  final dynamic background;
+class DocumentBackgroundsChanged extends DocumentEvent {
+  final List<Background> backgrounds;
 
-  const DocumentBackgroundChanged(this.background);
+  const DocumentBackgroundsChanged(this.backgrounds);
 
   @override
-  List<Object?> get props => [background];
+  List<Object?> get props => [backgrounds];
 }
 
 class WaypointCreated extends DocumentEvent {

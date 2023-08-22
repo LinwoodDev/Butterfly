@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LabelContext {
-  LabelPainter get painter => throw _privateConstructorUsedError;
+  LabelTool get tool => throw _privateConstructorUsedError;
   TextPainter get textPainter => throw _privateConstructorUsedError;
   PadElement? get element => throw _privateConstructorUsedError;
   bool get isCreating => throw _privateConstructorUsedError;
@@ -25,7 +25,7 @@ mixin _$LabelContext {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
             bool isCreating,
@@ -36,7 +36,7 @@ mixin _$LabelContext {
             bool? forceParagraph)
         text,
     required TResult Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             MarkdownElement? element,
             bool isCreating,
@@ -48,7 +48,7 @@ mixin _$LabelContext {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
             bool isCreating,
@@ -59,7 +59,7 @@ mixin _$LabelContext {
             bool? forceParagraph)?
         text,
     TResult? Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             MarkdownElement? element,
             bool isCreating,
@@ -71,7 +71,7 @@ mixin _$LabelContext {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
             bool isCreating,
@@ -82,7 +82,7 @@ mixin _$LabelContext {
             bool? forceParagraph)?
         text,
     TResult Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             MarkdownElement? element,
             bool isCreating,
@@ -124,7 +124,7 @@ abstract class $LabelContextCopyWith<$Res> {
       _$LabelContextCopyWithImpl<$Res, LabelContext>;
   @useResult
   $Res call(
-      {LabelPainter painter,
+      {LabelTool tool,
       TextPainter textPainter,
       bool isCreating,
       double zoom,
@@ -144,17 +144,17 @@ class _$LabelContextCopyWithImpl<$Res, $Val extends LabelContext>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? painter = null,
+    Object? tool = null,
     Object? textPainter = null,
     Object? isCreating = null,
     Object? zoom = null,
     Object? selection = null,
   }) {
     return _then(_value.copyWith(
-      painter: null == painter
-          ? _value.painter
-          : painter // ignore: cast_nullable_to_non_nullable
-              as LabelPainter,
+      tool: null == tool
+          ? _value.tool
+          : tool // ignore: cast_nullable_to_non_nullable
+              as LabelTool,
       textPainter: null == textPainter
           ? _value.textPainter
           : textPainter // ignore: cast_nullable_to_non_nullable
@@ -184,7 +184,7 @@ abstract class _$$TextContextCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {LabelPainter painter,
+      {LabelTool tool,
       TextPainter textPainter,
       TextElement? element,
       bool isCreating,
@@ -209,7 +209,7 @@ class __$$TextContextCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? painter = null,
+    Object? tool = null,
     Object? textPainter = null,
     Object? element = freezed,
     Object? isCreating = null,
@@ -220,10 +220,10 @@ class __$$TextContextCopyWithImpl<$Res>
     Object? forceParagraph = freezed,
   }) {
     return _then(_$TextContext(
-      painter: null == painter
-          ? _value.painter
-          : painter // ignore: cast_nullable_to_non_nullable
-              as LabelPainter,
+      tool: null == tool
+          ? _value.tool
+          : tool // ignore: cast_nullable_to_non_nullable
+              as LabelTool,
       textPainter: null == textPainter
           ? _value.textPainter
           : textPainter // ignore: cast_nullable_to_non_nullable
@@ -288,7 +288,7 @@ class __$$TextContextCopyWithImpl<$Res>
 
 class _$TextContext extends TextContext {
   const _$TextContext(
-      {required this.painter,
+      {required this.tool,
       required this.textPainter,
       this.element,
       this.isCreating = false,
@@ -300,7 +300,7 @@ class _$TextContext extends TextContext {
       : super._();
 
   @override
-  final LabelPainter painter;
+  final LabelTool tool;
   @override
   final TextPainter textPainter;
   @override
@@ -323,7 +323,7 @@ class _$TextContext extends TextContext {
 
   @override
   String toString() {
-    return 'LabelContext.text(painter: $painter, textPainter: $textPainter, element: $element, isCreating: $isCreating, zoom: $zoom, selection: $selection, forcedProperty: $forcedProperty, forcedSpanProperty: $forcedSpanProperty, forceParagraph: $forceParagraph)';
+    return 'LabelContext.text(tool: $tool, textPainter: $textPainter, element: $element, isCreating: $isCreating, zoom: $zoom, selection: $selection, forcedProperty: $forcedProperty, forcedSpanProperty: $forcedSpanProperty, forceParagraph: $forceParagraph)';
   }
 
   @override
@@ -331,7 +331,7 @@ class _$TextContext extends TextContext {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TextContext &&
-            (identical(other.painter, painter) || other.painter == painter) &&
+            (identical(other.tool, tool) || other.tool == tool) &&
             (identical(other.textPainter, textPainter) ||
                 other.textPainter == textPainter) &&
             (identical(other.element, element) || other.element == element) &&
@@ -351,7 +351,7 @@ class _$TextContext extends TextContext {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      painter,
+      tool,
       textPainter,
       element,
       isCreating,
@@ -371,7 +371,7 @@ class _$TextContext extends TextContext {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
             bool isCreating,
@@ -382,7 +382,7 @@ class _$TextContext extends TextContext {
             bool? forceParagraph)
         text,
     required TResult Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             MarkdownElement? element,
             bool isCreating,
@@ -390,7 +390,7 @@ class _$TextContext extends TextContext {
             TextSelection selection)
         markdown,
   }) {
-    return text(painter, textPainter, element, isCreating, zoom, selection,
+    return text(tool, textPainter, element, isCreating, zoom, selection,
         forcedProperty, forcedSpanProperty, forceParagraph);
   }
 
@@ -398,7 +398,7 @@ class _$TextContext extends TextContext {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
             bool isCreating,
@@ -409,7 +409,7 @@ class _$TextContext extends TextContext {
             bool? forceParagraph)?
         text,
     TResult? Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             MarkdownElement? element,
             bool isCreating,
@@ -417,15 +417,15 @@ class _$TextContext extends TextContext {
             TextSelection selection)?
         markdown,
   }) {
-    return text?.call(painter, textPainter, element, isCreating, zoom,
-        selection, forcedProperty, forcedSpanProperty, forceParagraph);
+    return text?.call(tool, textPainter, element, isCreating, zoom, selection,
+        forcedProperty, forcedSpanProperty, forceParagraph);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
             bool isCreating,
@@ -436,7 +436,7 @@ class _$TextContext extends TextContext {
             bool? forceParagraph)?
         text,
     TResult Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             MarkdownElement? element,
             bool isCreating,
@@ -446,7 +446,7 @@ class _$TextContext extends TextContext {
     required TResult orElse(),
   }) {
     if (text != null) {
-      return text(painter, textPainter, element, isCreating, zoom, selection,
+      return text(tool, textPainter, element, isCreating, zoom, selection,
           forcedProperty, forcedSpanProperty, forceParagraph);
     }
     return orElse();
@@ -486,7 +486,7 @@ class _$TextContext extends TextContext {
 
 abstract class TextContext extends LabelContext {
   const factory TextContext(
-      {required final LabelPainter painter,
+      {required final LabelTool tool,
       required final TextPainter textPainter,
       final TextElement? element,
       final bool isCreating,
@@ -498,7 +498,7 @@ abstract class TextContext extends LabelContext {
   const TextContext._() : super._();
 
   @override
-  LabelPainter get painter;
+  LabelTool get tool;
   @override
   TextPainter get textPainter;
   @override
@@ -527,7 +527,7 @@ abstract class _$$MarkdownContextCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {LabelPainter painter,
+      {LabelTool tool,
       TextPainter textPainter,
       MarkdownElement? element,
       bool isCreating,
@@ -546,7 +546,7 @@ class __$$MarkdownContextCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? painter = null,
+    Object? tool = null,
     Object? textPainter = null,
     Object? element = freezed,
     Object? isCreating = null,
@@ -554,10 +554,10 @@ class __$$MarkdownContextCopyWithImpl<$Res>
     Object? selection = null,
   }) {
     return _then(_$MarkdownContext(
-      painter: null == painter
-          ? _value.painter
-          : painter // ignore: cast_nullable_to_non_nullable
-              as LabelPainter,
+      tool: null == tool
+          ? _value.tool
+          : tool // ignore: cast_nullable_to_non_nullable
+              as LabelTool,
       textPainter: null == textPainter
           ? _value.textPainter
           : textPainter // ignore: cast_nullable_to_non_nullable
@@ -586,7 +586,7 @@ class __$$MarkdownContextCopyWithImpl<$Res>
 
 class _$MarkdownContext extends MarkdownContext {
   const _$MarkdownContext(
-      {required this.painter,
+      {required this.tool,
       required this.textPainter,
       this.element,
       this.isCreating = false,
@@ -595,7 +595,7 @@ class _$MarkdownContext extends MarkdownContext {
       : super._();
 
   @override
-  final LabelPainter painter;
+  final LabelTool tool;
   @override
   final TextPainter textPainter;
   @override
@@ -612,7 +612,7 @@ class _$MarkdownContext extends MarkdownContext {
 
   @override
   String toString() {
-    return 'LabelContext.markdown(painter: $painter, textPainter: $textPainter, element: $element, isCreating: $isCreating, zoom: $zoom, selection: $selection)';
+    return 'LabelContext.markdown(tool: $tool, textPainter: $textPainter, element: $element, isCreating: $isCreating, zoom: $zoom, selection: $selection)';
   }
 
   @override
@@ -620,7 +620,7 @@ class _$MarkdownContext extends MarkdownContext {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MarkdownContext &&
-            (identical(other.painter, painter) || other.painter == painter) &&
+            (identical(other.tool, tool) || other.tool == tool) &&
             (identical(other.textPainter, textPainter) ||
                 other.textPainter == textPainter) &&
             (identical(other.element, element) || other.element == element) &&
@@ -633,7 +633,7 @@ class _$MarkdownContext extends MarkdownContext {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, painter, textPainter, element, isCreating, zoom, selection);
+      runtimeType, tool, textPainter, element, isCreating, zoom, selection);
 
   @JsonKey(ignore: true)
   @override
@@ -645,7 +645,7 @@ class _$MarkdownContext extends MarkdownContext {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
             bool isCreating,
@@ -656,7 +656,7 @@ class _$MarkdownContext extends MarkdownContext {
             bool? forceParagraph)
         text,
     required TResult Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             MarkdownElement? element,
             bool isCreating,
@@ -664,14 +664,14 @@ class _$MarkdownContext extends MarkdownContext {
             TextSelection selection)
         markdown,
   }) {
-    return markdown(painter, textPainter, element, isCreating, zoom, selection);
+    return markdown(tool, textPainter, element, isCreating, zoom, selection);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
             bool isCreating,
@@ -682,7 +682,7 @@ class _$MarkdownContext extends MarkdownContext {
             bool? forceParagraph)?
         text,
     TResult? Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             MarkdownElement? element,
             bool isCreating,
@@ -691,14 +691,14 @@ class _$MarkdownContext extends MarkdownContext {
         markdown,
   }) {
     return markdown?.call(
-        painter, textPainter, element, isCreating, zoom, selection);
+        tool, textPainter, element, isCreating, zoom, selection);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             TextElement? element,
             bool isCreating,
@@ -709,7 +709,7 @@ class _$MarkdownContext extends MarkdownContext {
             bool? forceParagraph)?
         text,
     TResult Function(
-            LabelPainter painter,
+            LabelTool tool,
             TextPainter textPainter,
             MarkdownElement? element,
             bool isCreating,
@@ -719,8 +719,7 @@ class _$MarkdownContext extends MarkdownContext {
     required TResult orElse(),
   }) {
     if (markdown != null) {
-      return markdown(
-          painter, textPainter, element, isCreating, zoom, selection);
+      return markdown(tool, textPainter, element, isCreating, zoom, selection);
     }
     return orElse();
   }
@@ -759,7 +758,7 @@ class _$MarkdownContext extends MarkdownContext {
 
 abstract class MarkdownContext extends LabelContext {
   const factory MarkdownContext(
-      {required final LabelPainter painter,
+      {required final LabelTool tool,
       required final TextPainter textPainter,
       final MarkdownElement? element,
       final bool isCreating,
@@ -768,7 +767,7 @@ abstract class MarkdownContext extends LabelContext {
   const MarkdownContext._() : super._();
 
   @override
-  LabelPainter get painter;
+  LabelTool get tool;
   @override
   TextPainter get textPainter;
   @override

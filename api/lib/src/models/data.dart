@@ -389,7 +389,7 @@ class NoteData {
     setPage(
         page == null
             ? DocumentPage()
-            : DocumentPage(background: page.background),
+            : DocumentPage(backgrounds: page.backgrounds),
         name,
         index);
     return name;

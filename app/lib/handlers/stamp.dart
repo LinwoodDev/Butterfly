@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class StampHandler extends PastingHandler<StampPainter> {
+class StampHandler extends PastingHandler<StampTool> {
   ButterflyComponent? _component;
   Offset _position = Offset.zero;
   Rect rect = Rect.zero;
@@ -72,7 +72,7 @@ class StampHandler extends PastingHandler<StampPainter> {
   PreferredSizeWidget getToolbar(DocumentBloc bloc) => ComponentsToolbarView(
         component: data.component,
         onChanged: (value) {
-          bloc.add(PaintersChanged({
+          bloc.add(ToolsChanged({
             data: data.copyWith(
               component: value,
             ),

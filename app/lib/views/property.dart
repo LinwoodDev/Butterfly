@@ -109,12 +109,12 @@ class _PropertyViewState extends State<PropertyView>
                                 .map((e) => IconButton(
                                     icon: PhosphorIcon(
                                         e.icon(PhosphorIconsStyle.light)),
-                                    onPressed: selected is! Painter
+                                    onPressed: selected is! Tool
                                         ? null
                                         : () {
                                             context
                                                 .read<DocumentBloc>()
-                                                .add(PaintersChanged({
+                                                .add(ToolsChanged({
                                                   selected: selected.copyWith(
                                                       displayIcon: e.name),
                                                 }));

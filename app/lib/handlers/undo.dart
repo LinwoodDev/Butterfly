@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class UndoHandler extends Handler<UndoPainter> {
+class UndoHandler extends Handler<UndoTool> {
   UndoHandler(super.data);
 
   @override
@@ -13,7 +13,7 @@ class UndoHandler extends Handler<UndoPainter> {
   }
 
   @override
-  PainterStatus getStatus(DocumentBloc bloc) {
-    return bloc.canUndo ? PainterStatus.normal : PainterStatus.disabled;
+  ToolStatus getStatus(DocumentBloc bloc) {
+    return bloc.canUndo ? ToolStatus.normal : ToolStatus.disabled;
   }
 }

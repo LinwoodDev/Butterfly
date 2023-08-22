@@ -1350,7 +1350,7 @@ class _$_ButterflySettings extends _ButterflySettings
       this.toolbarPosition = ToolbarPosition.top,
       this.sortBy = SortBy.name,
       this.sortOrder = SortOrder.ascending,
-      this.imageScale = 0.3})
+      this.imageScale = 0.5})
       : _history = history,
         _remotes = remotes,
         _starred = starred,

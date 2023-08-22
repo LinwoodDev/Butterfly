@@ -123,7 +123,7 @@ class _ComponentCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () => context.read<CurrentIndexCubit>().changeTemporaryHandler(
-            context.read<DocumentBloc>(), StampPainter(component: location)),
+            context.read<DocumentBloc>(), StampTool(component: location)),
         child: Container(
             height: 150,
             width: 150,

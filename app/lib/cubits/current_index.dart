@@ -18,7 +18,6 @@ import 'package:xml/xml.dart';
 
 import '../embed/embedding.dart';
 import '../handlers/handler.dart';
-import '../models/tool.dart';
 import '../models/viewport.dart';
 import '../selections/selection.dart';
 import '../services/asset.dart';
@@ -59,18 +58,18 @@ class CurrentIndex with _$CurrentIndex {
 
   MouseCursor get currentCursor => temporaryCursor ?? cursor;
 
-  ToolState get toolState => cameraViewport.tool.element;
+  UtilitiesState get utilitiesState => cameraViewport.utilities.element;
 }
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
   CurrentIndexCubit(SettingsCubit settingsCubit, TransformCubit transformCubit,
       CameraViewport viewport, Embedding? embedding)
       : super(CurrentIndex(
-            null, MoveHandler(), viewport, settingsCubit, transformCubit,
+            null, HandHandler(), viewport, settingsCubit, transformCubit,
             embedding: embedding));
 
   void init(DocumentBloc bloc) {
-    changePainter(bloc, state.index ?? 0, null, true, false);
+    changeTool(bloc, state.index ?? 0, null, true, false);
   }
 
   ThemeData getTheme(bool dark, [ColorScheme? overridden]) =>
@@ -86,21 +85,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   Offset getGridPosition(
       Offset position, DocumentPage page, DocumentInfo info) {
-    return state.cameraViewport.tool
+    return state.cameraViewport.utilities
         .getGridPosition(position, page, info, this);
   }
 
-  Handler? changePainter(DocumentBloc bloc, int index,
+  Handler? changeTool(DocumentBloc bloc, int index,
       [Handler? handler, bool justAdded = false, bool runSelected = true]) {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     final document = blocState.data;
     final info = blocState.info;
-    if (index < 0 || index >= info.painters.length) {
+    if (index < 0 || index >= info.tools.length) {
       return null;
     }
-    final painter = info.painters[index];
-    handler ??= Handler.fromPainter(painter);
+    final tool = info.tools[index];
+    handler ??= Handler.fromTool(tool);
     if (!runSelected || handler.onSelected(bloc, this, justAdded)) {
       state.handler.dispose(bloc);
       state.temporaryHandler?.dispose(bloc);
@@ -121,11 +120,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return handler;
   }
 
-  Future<void> updatePainter(DocumentBloc bloc, Painter painter) async {
+  Future<void> updateTool(DocumentBloc bloc, Tool tool) async {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     state.handler.dispose(bloc);
-    final handler = Handler.fromPainter(painter);
+    final handler = Handler.fromTool(tool);
     state.handler.dispose(bloc);
     _disposeForegrounds(false);
     final newForegrounds = handler.createForegrounds(this, docState.data,
@@ -142,12 +141,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     ));
   }
 
-  Future<void> updateTemporaryPainter(
-      DocumentBloc bloc, Painter painter) async {
+  Future<void> updateTemporaryTool(DocumentBloc bloc, Tool tool) async {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     state.temporaryHandler?.dispose(bloc);
-    final handler = Handler.fromPainter(painter);
+    final handler = Handler.fromTool(tool);
     _disposeTemporaryForegrounds();
     final temporaryForegrounds = handler.createForegrounds(this, docState.data,
         docState.page, docState.info, docState.currentArea);
@@ -217,20 +215,20 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
   }
 
-  Painter? getPainter(DocumentInfo info) {
+  Tool? getTool(DocumentInfo info) {
     var index = state.index;
     if (index == null) {
       return null;
     }
-    if (info.painters.isEmpty || index < 0 || index >= info.painters.length) {
+    if (info.tools.isEmpty || index < 0 || index >= info.tools.length) {
       return null;
     }
-    return info.painters[index];
+    return info.tools[index];
   }
 
-  T? fetchPainter<T extends Painter>(DocumentInfo info) {
-    final painter = getPainter(info);
-    if (painter is T) return painter;
+  T? fetchTool<T extends Tool>(DocumentInfo info) {
+    final tool = getTool(info);
+    if (tool is T) return tool;
     return null;
   }
 
@@ -243,13 +241,13 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     _disposeForegrounds();
     emit(state.copyWith(
       index: null,
-      handler: MoveHandler(),
+      handler: HandHandler(),
       cursor: MouseCursor.defer,
       foregrounds: [],
       temporaryHandler: null,
       temporaryForegrounds: null,
       temporaryCursor: null,
-      cameraViewport: CameraViewport.unbaked(ToolRenderer()),
+      cameraViewport: CameraViewport.unbaked(UtilitiesRenderer()),
     ));
   }
 
@@ -269,16 +267,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       DocumentBloc bloc, int index) async {
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
-    if (index < 0 || index >= blocState.info.painters.length) {
+    if (index < 0 || index >= blocState.info.tools.length) {
       return null;
     }
-    final painter = blocState.info.painters[index];
-    return changeTemporaryHandler(bloc, painter);
+    final tool = blocState.info.tools[index];
+    return changeTemporaryHandler(bloc, tool);
   }
 
-  Future<Handler?> changeTemporaryHandler(
-      DocumentBloc bloc, Painter painter) async {
-    final handler = Handler.fromPainter(painter);
+  Future<Handler?> changeTemporaryHandler(DocumentBloc bloc, Tool tool) async {
+    final handler = Handler.fromTool(tool);
     final blocState = bloc.state;
     if (blocState is! DocumentLoadSuccess) return null;
     final document = blocState.data;
@@ -449,7 +446,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
     if (renderBackground) {
-      state.cameraViewport.background?.buildSvg(xml, page, rect);
+      state.cameraViewport.backgrounds.map((e) => e.buildSvg(xml, page, rect));
     }
     for (var e in renderers) {
       e.buildSvg(xml, page, rect);
@@ -458,14 +455,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void unbake(
-      {Renderer<Background>? background,
-      ToolRenderer? tool,
+      {List<Renderer<Background>>? backgrounds,
+      UtilitiesRenderer? tool,
       List<Renderer<PadElement>>? unbakedElements}) {
     emit(state.copyWith(
         cameraViewport: state.cameraViewport.unbake(
             unbakedElements: unbakedElements,
-            tool: tool,
-            background: background)));
+            utilities: tool,
+            backgrounds: backgrounds)));
   }
 
   Future<void> loadElements(
@@ -532,9 +529,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     final docState = bloc.state;
     if (docState is! DocumentLoadSuccess) return;
     final info = docState.info;
-    final index = info.painters.indexOf(state.handler.data);
+    final index = info.tools.indexOf(state.handler.data);
     if (index < 0) {
-      changePainter(bloc, state.index ?? 0, null, true, false);
+      changeTool(bloc, state.index ?? 0, null, true, false);
     }
     if (index == state.index) {
       return;
@@ -604,31 +601,31 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void changeTemporaryHandlerMove() {
     emit(
-        state.copyWith(temporaryHandler: MoveHandler(), temporaryCursor: null));
+        state.copyWith(temporaryHandler: HandHandler(), temporaryCursor: null));
   }
 
-  void updateTool(ToolState toolState) {
-    final renderer = ToolRenderer(toolState);
+  void updateUtilities(UtilitiesState utilitesState) {
+    final renderer = UtilitiesRenderer(utilitesState);
     var newSelection =
-        state.selection?.remove(state.cameraViewport.tool.element);
+        state.selection?.remove(state.cameraViewport.utilities.element);
     if (newSelection == null && state.selection != null) {
-      newSelection = Selection.from(toolState);
+      newSelection = Selection.from(utilitesState);
     } else if (newSelection != state.selection) {
       newSelection = newSelection?.insert(renderer);
     }
     emit(state.copyWith(
-        cameraViewport: state.cameraViewport.withTool(renderer),
+        cameraViewport: state.cameraViewport.withUtilities(renderer),
         selection: newSelection));
   }
 
   void togglePin() => emit(state.copyWith(pinned: !state.pinned));
 
   void move(Offset delta, [bool force = false]) {
-    final toolState = state.toolState;
-    if (toolState.lockHorizontal && !force) {
+    final utilitiesState = state.utilitiesState;
+    if (utilitiesState.lockHorizontal && !force) {
       delta = Offset(0, delta.dy);
     }
-    if (toolState.lockVertical && !force) {
+    if (utilitiesState.lockVertical && !force) {
       delta = Offset(delta.dx, 0);
     }
     if (delta.dx == 0 && delta.dy == 0) {
@@ -638,8 +635,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   }
 
   void zoom(double delta, [Offset cursor = Offset.zero, bool force = false]) {
-    final toolState = state.toolState;
-    if (toolState.lockZoom && !force) {
+    final utilitiesState = state.utilitiesState;
+    if (utilitiesState.lockZoom && !force) {
       delta = 1;
     }
     if (delta == 1) {

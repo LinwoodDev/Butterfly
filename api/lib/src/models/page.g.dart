@@ -17,10 +17,11 @@ _$_DocumentPage _$$_DocumentPageFromJson(Map json) => _$_DocumentPage(
                   PadElement.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
           const [],
-      background: json['background'] == null
-          ? const Background.empty()
-          : Background.fromJson(
-              Map<String, dynamic>.from(json['background'] as Map)),
+      backgrounds: (json['backgrounds'] as List<dynamic>?)
+              ?.map((e) =>
+                  Background.fromJson(Map<String, dynamic>.from(e as Map)))
+              .toList() ??
+          const [],
       waypoints: (json['waypoints'] as List<dynamic>?)
               ?.map(
                   (e) => Waypoint.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -36,7 +37,7 @@ Map<String, dynamic> _$$_DocumentPageToJson(_$_DocumentPage instance) =>
     <String, dynamic>{
       'animations': instance.animations.map((e) => e.toJson()).toList(),
       'content': instance.content.map((e) => e.toJson()).toList(),
-      'background': instance.background.toJson(),
+      'backgrounds': instance.backgrounds.map((e) => e.toJson()).toList(),
       'waypoints': instance.waypoints.map((e) => e.toJson()).toList(),
       'areas': instance.areas.map((e) => e.toJson()).toList(),
     };

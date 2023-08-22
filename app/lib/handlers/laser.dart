@@ -1,6 +1,6 @@
 part of 'handler.dart';
 
-class LaserHandler extends Handler<LaserPainter> {
+class LaserHandler extends Handler<LaserTool> {
   final Map<int, PenElement> elements = {};
   final List<PenElement> submittedElements = [];
   DateTime? _lastChanged;
@@ -35,12 +35,12 @@ class LaserHandler extends Handler<LaserPainter> {
         : DateTime.now().difference(_lastChanged!);
     final duration = _getDuration();
     var color = Color(data.color);
-    final painterOpacity = color.opacity;
+    final toolOpacity = color.opacity;
     submittedElements.forEachIndexed((index, element) {
       var color = Color(element.property.color);
       final opacity =
           (1 - (difference.inMilliseconds / duration.inMilliseconds)) *
-              painterOpacity;
+              toolOpacity;
       color = color.withOpacity(opacity.clamp(0, 1));
       submittedElements[index] = element.copyWith(
         property: element.property.copyWith(color: color.value),
@@ -49,7 +49,7 @@ class LaserHandler extends Handler<LaserPainter> {
     // Fade out opacity
     final opacity =
         (1 - (difference.inMilliseconds / duration.inMilliseconds)) *
-            painterOpacity;
+            toolOpacity;
     color = color.withOpacity(opacity.clamp(0, 1));
     final colorValue = color.value;
     elements.forEach((key, element) {
@@ -113,7 +113,7 @@ class LaserHandler extends Handler<LaserPainter> {
     final settings = context.read<SettingsCubit>().state;
     final penOnlyInput = settings.penOnlyInput;
     localPosition =
-        viewport.tool.getPointerPosition(localPosition, currentIndexCubit);
+        viewport.utilities.getPointerPosition(localPosition, currentIndexCubit);
     if (penOnlyInput && kind != PointerDeviceKind.stylus) {
       return;
     }
@@ -168,7 +168,7 @@ class LaserHandler extends Handler<LaserPainter> {
   PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
         color: data.color,
         onChanged: (value) {
-          bloc.add(PaintersChanged({
+          bloc.add(ToolsChanged({
             data: data.copyWith(color: convertOldColor(value, data.color)),
           }));
         },
