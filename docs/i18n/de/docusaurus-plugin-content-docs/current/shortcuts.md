@@ -27,13 +27,13 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `Umschalt` + `A`: Öffne Bereiche Dialog
 * `Strg` + `S`: Speichern
 * `Alt` + `S`: Pfad ändern
-* `Ctrl` + (`1` - `0`): Switch to tool
+* `Strg` + (`1` - `0`): Wechseln Sie zum Werkzeug
 
 ## Stylus
 
 * `Primärer Button`: Zum Handwerkzeug wechseln
-* `Secondary button`: Change to second tool
+* `Sekundäre Schaltfläche`: Zum zweiten Werkzeug wechseln
 
 ## Konfigurieren {#configure}
 
-Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Fügen Sie `0` ein, um das Verschieben mit diesem Steuerelement zu aktivieren.
+Passen Sie die Steuerelemente an, indem Sie jeder Steuerung einen Werkzeugindex geben. Der Werkzeugindex beginnt bei 1 und wird von links nach rechts sortiert. Ein leerer Werkzeugindex wird den Werkzeugschalter auf diesem Steuerelement deaktivieren. Fügen Sie `0` ein, um das Verschieben mit diesem Steuerelement zu aktivieren.
