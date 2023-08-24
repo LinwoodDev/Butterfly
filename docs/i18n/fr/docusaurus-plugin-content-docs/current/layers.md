@@ -3,7 +3,7 @@ title: "Couches"
 sidebar_position: 2
 ---
 
-Les calques sont une option pour regrouper les éléments ensemble. Cliquez sur l'élément pour voir et changer le calque. Utilisez le [calque peintre](tools/layer.md) pour changer les calques de plusieurs éléments.
+Les calques sont une option pour regrouper les éléments ensemble. Cliquez sur l'élément pour voir et changer le calque. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
 
 ## La boîte de dialogue des couches
 
