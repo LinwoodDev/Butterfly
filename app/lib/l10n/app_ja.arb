@@ -520,5 +520,7 @@
   "paste": "貼り付け",
   "ascending": "昇順",
   "descending": "降順",
-  "imageScale": "画像の大きさ"
+  "imageScale": "画像の大きさ",
+  "select": "Select",
+  "tool": "Tool"
 }
