@@ -27,13 +27,13 @@ sidebar_position: 2
 * `Ctrl` + `Shift` + `A`: Διάλογος ανοικτών περιοχών
 * `Ctrl` + `S`: Αποθήκευση
 * `Alt` + `S`: Αλλαγή διαδρομής
-* `Ctrl` + (`1` - `0`): Αλλαγή σε ζωγράφο
+* `Ctrl` + (`1` - `0`): Switch to tool
 
 ## Stylus
 
 * `Πρωτεύον κουμπί`: Αλλαγή σε εργαλείο χειρός
-* `Δευτερεύον κουμπί`: Αλλαγή σε δεύτερο ζωγράφο
+* `Secondary button`: Change to second tool
 
 ## Ρύθμιση {#configure}
 
-Προσαρμόστε τα χειριστήρια δίνοντας σε κάθε έλεγχο ένα δείκτη ζωγράφου. Ο δείκτης ζωγράφου ξεκινά από 1 και διατάσσεται από αριστερά προς τα δεξιά. Ένας άδειος δείκτης ζωγράφος θα απενεργοποιήσει το διακόπτη αυτού του ελέγχου. Εισαγάγετε `0` για να ενεργοποιήσετε τη μετακίνηση με αυτό το έλεγχο.
+Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Εισαγάγετε `0` για να ενεργοποιήσετε τη μετακίνηση με αυτό το έλεγχο.
