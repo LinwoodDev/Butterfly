@@ -27,13 +27,13 @@ On olemassa muutamia pikakuvakkeita, joita voit käyttää editorissa. Osa niist
 * `Ctrl` + `Vaihto` + `A`: Avaa alueet -valintaikkuna
 * `Ctrl` + `S`: Tallenna
 * `Alt` + `S`: Muuta polkua
-* `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + (`1` - `0`): Vaihda työkaluun
 
 ## Stylus
 
 * `Ensisijainen painike`: Vaihda käsityökaluksi
-* `Secondary button`: Change to second tool
+* `Toissijainen painike`: Vaihda toiseen työkaluun
 
 ## Määritä {#configure}
 
-Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Lisää `0` ottaaksesi liikutuksen käyttöön tällä ohjaimella.
+Muokkaa ohjaimia antamalla jokaiselle ohjaimelle työkalun indeksin. Työkaluindeksi alkaa klo 1 ja tilataan vasemmalta oikealle. Tyhjä työkalun indeksi poistaa työkalun kytkimen käytöstä tällä ohjaimella. Lisää `0` ottaaksesi liikutuksen käyttöön tällä ohjaimella.
