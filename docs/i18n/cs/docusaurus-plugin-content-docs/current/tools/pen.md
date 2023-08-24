@@ -1,11 +1,11 @@
 ---
-title: "Pitevní malba"
+title: "Nástroj Pen"
 sidebar_label: "Pec"
 sidebar_position: 2
 ---
 
 
-S tímto malířem můžete nakreslit tento dokument.
+Pomocí tohoto nástroje můžete nakreslit tento dokument.
 
 ## Konfigurace
 
