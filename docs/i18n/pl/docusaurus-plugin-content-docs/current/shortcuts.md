@@ -27,13 +27,13 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 * `Ctrl` + `Shift` + `A`: Otwarte okno dialogowe
 * `Ctrl` + `S`: Zapisz
 * `Alt` + `S`: Zmień ścieżkę
-* `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + (`1` - `0`): Przełącz na narzędzie
 
 ## Stylus
 
 * `Główny przycisk`: Zmień na narzędzie ręczne
-* `Secondary button`: Change to second tool
+* `Drugi przycisk`: Zmień na drugie narzędzie
 
 ## Skonfiguruj {#configure}
 
-Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Wstaw `0` , aby włączyć poruszanie się z tą kontrolą.
+Dostosuj ustawienia poprzez nadanie każdej kontroli indeksu narzędzi. Indeks narzędzia zaczyna się od 1 i jest uporządkowany od lewej do prawej. Pusty indeks narzędzia wyłączy przełącznik narzędzia na tym urządzeniu. Wstaw `0` , aby włączyć poruszanie się z tą kontrolą.
