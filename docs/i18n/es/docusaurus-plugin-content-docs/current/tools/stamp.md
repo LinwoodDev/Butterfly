@@ -4,7 +4,7 @@ sidebar_label: "Sello"
 sidebar_position: 3
 ---
 
-El pintor de sellos le permite añadir componentes a su lienzo. Usa un paquete existente, crea el tuyo propio o importa un paquete para usarlo. Lea más [aquí](../pack).
+La herramienta de sello le permite añadir componentes a su lienzo. Usa un paquete existente, crea el tuyo propio o importa un paquete para usarlo. Lea más [aquí](../pack).
 
 ## Configuración
 
