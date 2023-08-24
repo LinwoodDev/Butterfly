@@ -27,13 +27,13 @@ sidebar_position: 2
 * `Ctrl` + `Shift` + `A`: 打开区域对话框
 * `Ctrl` + `S`: 保存
 * `Alt` + `S`: 更改路径
-* `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + (`1` - `0`): 切换到工具
 
 ## Stylus
 
 * `主按钮`: 更改为手工具
-* `Secondary button`: Change to second tool
+* `次要按钮`: 更改为第二个工具
 
 ## 配置 {#configure}
 
-Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. 插入 `0` 以启用带此控制器的移动。
+通过给每个控制工具索引自定义控件。 工具索引从1开始，从左到右排序。 空工具索引将禁用此控制器上的工具开关。 插入 `0` 以启用带此控制器的移动。
