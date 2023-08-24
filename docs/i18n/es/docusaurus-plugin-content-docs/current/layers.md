@@ -3,7 +3,7 @@ title: "Capas"
 sidebar_position: 2
 ---
 
-Las capas son una opción para agrupar elementos juntos. Haga clic en el elemento para ver y cambiar la capa. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
+Las capas son una opción para agrupar elementos juntos. Haga clic en el elemento para ver y cambiar la capa. Utilice la herramienta [capa](tools/layer.md) para cambiar las capas de múltiples elementos.
 
 ## El diálogo de capas
 
