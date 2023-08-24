@@ -3,7 +3,7 @@ title: "图层"
 sidebar_position: 2
 ---
 
-图层是组元素的一个选项。 点击元素来查看和更改图层。 使用 [图层绘制器](tools/layer.md) 来更改多元素的图层。
+图层是组元素的一个选项。 点击元素来查看和更改图层。 Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
 
 ## 图层对话框
 
