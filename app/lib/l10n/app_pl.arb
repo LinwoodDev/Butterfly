@@ -520,5 +520,7 @@
   "paste": "Wklej",
   "ascending": "Rosnąco",
   "descending": "Malejąco",
-  "imageScale": "Skala obrazu"
+  "imageScale": "Skala obrazu",
+  "select": "Select",
+  "tool": "Tool"
 }
