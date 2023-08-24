@@ -27,13 +27,13 @@ Hay algunos atajos que puedes usar en el editor. Algunos de ellos se escriben de
 * `Ctrl` + `Shift` + `A`: Diálogo de áreas abiertas
 * `Ctrl` + `S`: Guardar
 * `Alt` + `S`: Cambiar ruta
-* `Ctrl` + (`1` - `0`): Cambiar a pintor
+* `Ctrl` + (`1` - `0`): Switch to tool
 
 ## Stylus
 
 * `Botón primario`: Cambiar a herramienta de mano
-* `Botón secundario`: Cambiar a segundo pintor
+* `Secondary button`: Change to second tool
 
 ## Configurar {#configure}
 
-Personalice los controles dando a cada control un índice de pintor. El índice del pintor comienza en 1 y se ordenan de izquierda a derecha. Un índice de pintor vacío desactivará el interruptor de pintor en este control. Inserta `0` para activar el movimiento con este control.
+Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Inserta `0` para activar el movimiento con este control.
