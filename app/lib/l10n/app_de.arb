@@ -520,5 +520,7 @@
   "paste": "Einfügen",
   "ascending": "Aufsteigend",
   "descending": "Absteigend",
-  "imageScale": "Bildskala"
+  "imageScale": "Bildskala",
+  "select": "Select",
+  "tool": "Tool"
 }
