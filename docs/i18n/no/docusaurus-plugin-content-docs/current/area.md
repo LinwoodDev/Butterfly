@@ -7,7 +7,7 @@ sidebar_position: 2
 
 ![Område](area.png)
 
-Områder er en måte å begrense størrelsen på lerretet. You can create areas by using the [area tool](tools/area.md). Hvis du klikker på bakgrunnen, kan du åpne områdeliste dialogen ved hjelp av kontekstmenyen.
+Områder er en måte å begrense størrelsen på lerretet. Du kan opprette områder ved å bruke [area tool](tools/area.md). Hvis du klikker på bakgrunnen, kan du åpne områdeliste dialogen ved hjelp av kontekstmenyen.
 
 ## Opprette og slette områder
 
@@ -17,7 +17,7 @@ Klikk på området hvis du vil endre det. Du kan også bruke dialogen for områd
 
 Du har noen alternativer i denne menyen:
 
-* `Angi område`: Angi området. Du kan ikke male utenfor området. Exit the area by clicking on the background with the area tool.
+* `Angi område`: Angi området. Du kan ikke male utenfor området. Avslutt området ved å klikke på bakgrunnen med områdeverktøyet.
 * `Name`: Endre navnet på gjeldende område
 * `Eksport`: Eksporter denne delen av lerret som et bilde
 * `Slett`: Slett dette området
