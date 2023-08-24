@@ -27,13 +27,13 @@ sidebar_position: 2
 * `Ctrl` + `Shift` + `A`: Открыть диалог областей
 * `Ctrl` + `S`: Сохранить
 * `Alt` + `S`: Изменить путь
-* `Ctrl` + (`1` - `0`): Переключиться на живопись
+* `Ctrl` + (`1` - `0`): Switch to tool
 
 ## Stylus
 
 * `Основная кнопка`: Изменить руку на инструмент
-* `Дополнительная кнопка`: Изменить на второй художник
+* `Secondary button`: Change to second tool
 
 ## Настроить {#configure}
 
-Настройте элементы управления, предоставляя каждому управлению индексом художника. Индекс художника начинается с 1 и упорядочен слева направо. Пустой индекс живописца отключит этот элемент управления. Вставьте `0` чтобы включить перемещение с этим контролем.
+Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Вставьте `0` чтобы включить перемещение с этим контролем.
