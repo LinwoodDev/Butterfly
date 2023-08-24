@@ -3,7 +3,7 @@ title: "Kerrokset"
 sidebar_position: 2
 ---
 
-Kerrokset ovat mahdollisuus ryhmitellä elementtejä yhdessä. Klikkaa elementtiä nähdäksesi ja muuttaaksesi kerrosta. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
+Kerrokset ovat mahdollisuus ryhmitellä elementtejä yhdessä. Klikkaa elementtiä nähdäksesi ja muuttaaksesi kerrosta. Käytä [kerroksen työkalua](tools/layer.md) vaihtaaksesi useiden elementtien kerroksia.
 
 ## Tasojen valintaikkuna
 
