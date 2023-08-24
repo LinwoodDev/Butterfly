@@ -1,11 +1,11 @@
 ---
-title: "Label-Maler"
+title: "Label-Werkzeug"
 sidebar_label: "Label"
 sidebar_position: 6
 ---
 
 
-Mit diesem Maler können Sie dem Papier Text hinzufügen.
+Mit diesem Tool können Sie dem Papier Text hinzufügen.
 
 ## Konfiguration
 
