@@ -1,13 +1,13 @@
 ---
-title: "Opnieuw schilder"
+title: "Opnieuw gebruiken"
 sidebar_label: "Opnieuw"
 sidebar_position: 0
 ---
 
-::noteer ⚡ Action schilder
+::note ⚡ Actie tool
 
-Dit is een speciale schilder. U kunt het niet selecteren en het zal de actie uitvoeren als u erop klikt.
+Dit is een speciaal instrument. U kunt het niet selecteren en het zal de actie uitvoeren als u erop klikt.
 
 :::
 
-Wanneer u op deze schilder klikt, kunt u uw laatste actie herstellen. Zie de [undo tool](undo) voor het ongedaan maken van je laatste actie.
+Wanneer u op deze tool klikt, kunt u uw laatste actie herstellen. Zie de [undo tool](undo) voor het ongedaan maken van je laatste actie.
