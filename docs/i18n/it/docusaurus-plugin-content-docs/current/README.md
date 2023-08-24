@@ -25,4 +25,4 @@ Con il pulsante in alto a sinistra puoi tornare alla lista dei documenti. Il nom
 Qui sotto, puoi trovare la barra degli strumenti. A sinistra, puoi passare dalla modalità di visualizzazione a quella di modifica. A destra ad esso, ci sono le opzioni di zoom. Nell'angolo in alto a destra ci sono le opzioni dello strumento.
 
 - Le opzioni della barra di visualizzazione sono sfondo, esportazione e salvataggio.
-- Le opzioni della barra degli strumenti di modifica sono i pittori. Puoi trovare [qui](background) più.
+- The edit toolbar options are the tools. Puoi trovare [qui](background) più.
