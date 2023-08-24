@@ -1,5 +1,6 @@
 ---
-title: Taso
+title: "Kerroksen työkalu"
+sidebar_label: "Taso"
 ---
 
 Tämän työkalun avulla voit vaihtaa kerroksen useita esineitä. Lue lisää kerroksista [täältä](../layers.md). Kun napsautat objektia, objektin kerros vaihdetaan tasolle, joka on asetettu asetetussa asetuksessa. Jos kerroksen kenttä jätetään tyhjäksi, kerros asetetaan oletuskerrokseen.
