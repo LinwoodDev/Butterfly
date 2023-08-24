@@ -27,13 +27,13 @@ Der er et par genveje, som du kan bruge i editoren. Nogle af dem er skrevet unde
 * `Ctrl` + `Shift` + `A`: Åbne områder dialog
 * `Ctrl` + `S`: Gem
 * `Alt` + `S`: Skift sti
-* `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + (`1` - `0`): Skift til værktøj
 
 ## Stylus
 
 * `Primær knap`: Skift til håndværktøj
-* `Secondary button`: Change to second tool
+* `Sekundær knap`: Skift til andet værktøj
 
 ## Konfigurer {#configure}
 
-Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Indsæt `0` for at aktivere bevægelse med denne kontrol.
+Tilpas kontrolelementerne ved at give hver kontrol et værktøjs indeks. Værktøjsindekset starter ved 1 og bestilles fra venstre mod højre. Et tomt værktøjs indeks vil deaktivere værktøjsknappen på denne kontrol. Indsæt `0` for at aktivere bevægelse med denne kontrol.
