@@ -1,11 +1,11 @@
 ---
-title: "Lasermaalari"
+title: "Laserin työkalu"
 sidebar_label: "Laser"
 sidebar_position: 3
 ---
 
 
-Tämän maalarin avulla voit piirtää tämän paperin väliaikaisesti. Hetken kuluttua piirros katoaa pois. Lisää uusi piirustus paperille, jotta se voidaan peruuttaa.
+Tämän työkalun avulla voit piirtää tämän paperin väliaikaisesti. Hetken kuluttua piirros katoaa pois. Lisää uusi piirustus paperille, jotta se voidaan peruuttaa.
 
 ## Asetukset
 
