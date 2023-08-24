@@ -1,9 +1,9 @@
 ---
 sidebar_label: "Área"
-title: "Pintor de área"
+title: "Área de herramienta"
 ---
 
-El pintor de área le permite crear, editar y eliminar áreas.
+La herramienta de área le permite crear, editar y eliminar áreas.
 
 ## Acciones
 
