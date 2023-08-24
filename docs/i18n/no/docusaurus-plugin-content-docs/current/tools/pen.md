@@ -1,11 +1,11 @@
 ---
-title: "Pennesmerker"
+title: "Penne- verktøy"
 sidebar_label: "Penn"
 sidebar_position: 2
 ---
 
 
-Med denne maleren kan du tegne på denne papiren.
+Med dette verktøyet kan du tegne på denne papiren.
 
 ## Konfigurasjon
 
