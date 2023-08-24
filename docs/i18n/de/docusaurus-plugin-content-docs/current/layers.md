@@ -3,7 +3,7 @@ title: "Ebenen"
 sidebar_position: 2
 ---
 
-Ebenen sind eine Option, um Elemente zu gruppieren. Klicken Sie auf das Element, um die Ebene zu sehen und zu ändern. Verwenden Sie den [Layer-Maler](tools/layer.md) um die Ebenen von mehreren Elementen zu ändern.
+Ebenen sind eine Option, um Elemente zu gruppieren. Klicken Sie auf das Element, um die Ebene zu sehen und zu ändern. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
 
 ## Der Ebenendialog
 
