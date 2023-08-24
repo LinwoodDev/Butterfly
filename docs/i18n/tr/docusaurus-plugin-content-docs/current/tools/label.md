@@ -1,11 +1,11 @@
 ---
-title: "Etiket aracı"
+title: "Label tool"
 sidebar_label: "Etiket"
 sidebar_position: 6
 ---
 
 
-Bu araç ile kağıda metin ekleyebilirsiniz.
+With this tool you can add text to the paper.
 
 ## Yapılandırma
 
