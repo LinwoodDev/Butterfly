@@ -4,7 +4,7 @@ sidebar_label: "Stempel"
 sidebar_position: 3
 ---
 
-Der Stempel-Maler erlaubt das Hinzufügen von Komponenten zu Ihrer Leine. Benutze ein bestehendes Paket, erstelle dein eigenes oder importiere ein Paket, um es zu verwenden. Lies mehr [hier](../pack).
+Mit dem Stempelwerkzeug können Sie Komponenten Ihrer Leinwand hinzufügen. Benutze ein bestehendes Paket, erstelle dein eigenes oder importiere ein Paket, um es zu verwenden. Lies mehr [hier](../pack).
 
 ## Konfiguration
 
