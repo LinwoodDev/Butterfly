@@ -1,11 +1,11 @@
 ---
-title: "Sti viskelæder maler"
+title: "Værktøjet Sti viskelæder"
 sidebar_label: "Sti viskelæder"
 sidebar_position: 5
 ---
 
 
-Med denne maler kan du slette hele stien på papiret.
+Med dette værktøj kan du slette hele stien på papiret.
 
 ## Konfiguration
 
