@@ -1,11 +1,11 @@
 ---
-title: "笔画板"
+title: "笔刀具"
 sidebar_label: "彭文"
 sidebar_position: 2
 ---
 
 
-使用此绘图器，您可以绘制这张纸。
+使用此工具，您可以在此纸上绘制。
 
 ## 配置
 
