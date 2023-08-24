@@ -1,11 +1,11 @@
 ---
-title: "Malířský malíř při mazání cesty"
+title: "Nástroj pro vymazání trasy"
 sidebar_label: "Vymazání trasy"
 sidebar_position: 5
 ---
 
 
-S tímto malířem můžete odstranit celou cestu z dokumentu.
+Pomocí tohoto nástroje můžete odstranit celou cestu z dokumentu.
 
 ## Konfigurace
 
