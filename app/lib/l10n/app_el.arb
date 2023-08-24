@@ -520,5 +520,7 @@
   "paste": "Επικόλληση",
   "ascending": "Αύξουσα",
   "descending": "Φθίνουσα",
-  "imageScale": "Κλίμακα εικόνας"
+  "imageScale": "Κλίμακα εικόνας",
+  "select": "Select",
+  "tool": "Tool"
 }
