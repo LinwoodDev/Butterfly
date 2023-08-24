@@ -1,13 +1,13 @@
 ---
-title: "Desfazer pintor"
+title: "Desfazer ferramenta"
 sidebar_label: "Desfazer"
 sidebar_position: 0
 ---
 
-:::note ⚡ Pintor de ação
+:::note ⚡ Ferramenta de ação
 
-Este é um pintor especial. Você não pode selecioná-lo e ele executará a ação se você clicar nela.
+Trata-se de uma ferramenta especial. Você não pode selecioná-lo e ele executará a ação se você clicar nela.
 
 :::
 
-Ao clicar neste pintor você pode desfazer sua última ação. Veja o [pintor de refazer](redo) para refazer sua última ação.
+Ao clicar nesta ferramenta você pode desfazer sua última ação. Veja a ferramenta [redo](redo) para refazer sua última ação.
