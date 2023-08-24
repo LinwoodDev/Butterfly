@@ -1,13 +1,13 @@
 ---
-title: "Rifai pittore"
+title: "Ripeti lo strumento"
 sidebar_label: "Ripristina"
 sidebar_position: 0
 ---
 
-:::note ⚡ Action Tool
+:::note ⚡ Strumento di azione
 
-Questo è un pittore speciale. Non è possibile selezionarlo e verrà eseguita l'azione se si fa clic su di esso.
+Questo è uno strumento speciale. Non è possibile selezionarlo e verrà eseguita l'azione se si fa clic su di esso.
 
 :::
 
-Quando si fa clic su questo pittore è possibile ripetere l'ultima azione. Vedi il [annulla il pittore](undo) per annullare la tua ultima azione.
+Quando si fa clic su questo strumento è possibile ripetere l'ultima azione. Guarda lo strumento [di annullamento](undo) per annullare l'ultima azione.
