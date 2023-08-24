@@ -520,5 +520,7 @@
   "paste": "Вставить",
   "ascending": "По возрастанию",
   "descending": "По убыванию",
-  "imageScale": "Масштаб изображения"
+  "imageScale": "Масштаб изображения",
+  "select": "Select",
+  "tool": "Tool"
 }
