@@ -27,13 +27,13 @@ sidebar_position: 2
 * `Ctrl` + `Shift` + `A`: 打开区域对话框
 * `Ctrl` + `S`: 保存
 * `Alt` + `S`: 更改路径
-* `Ctrl` + (`1` - `0`): 切换到画家
+* `Ctrl` + (`1` - `0`): Switch to tool
 
 ## Stylus
 
 * `主按钮`: 更改为手工具
-* `次要按钮`: 更改为第二个绘画
+* `Secondary button`: Change to second tool
 
 ## 配置 {#configure}
 
-通过给每个控制器配对器索引自定义控件。 油漆指数从1开始，并从左到右排序。 一个空的绘画索引将禁用此控制器上的绘制器开关。 插入 `0` 以启用带此控制器的移动。
+Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. 插入 `0` 以启用带此控制器的移动。
