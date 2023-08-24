@@ -1,18 +1,18 @@
 ---
-title: "Araçlar"
+title: "Aletler"
 slug: /tools
 sidebar_label: "Giriş"
 sidebar_position: 1
 ---
 
 
-Araçlar kağıdı düzenleyebilir.
+Tools can edit the paper.
 
 Araçlar hakkında daha fazla bilgi edinmek için kenar çubuğunu kullanın.
 
-Artı simgesine tıklayarak yeni bir araç oluşturun. Sürükleyerek araçların sırasını, tıklayarak ise araçları değiştirin. Seçili bir araca tıklarsanız, onu yapılandırabilirsiniz.
+Create a new tool by clicking on the plus icon. Change the tool order by dragging and change the tool by clicking. Seçili bir araca tıklarsanız, onu yapılandırabilirsiniz.
 
-Aracın adı, aracın üzerine gelindiğinde araç ipucu olarak görüntülenecektir.
+The name of the tool will be displayed as tooltip on hover on the tool.
 
 ## Kullanılabilir araçlar
 
