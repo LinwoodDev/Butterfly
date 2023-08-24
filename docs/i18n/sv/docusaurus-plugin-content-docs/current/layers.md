@@ -3,7 +3,7 @@ title: "Lager"
 sidebar_position: 2
 ---
 
-Lager är ett alternativ för att gruppera element tillsammans. Klicka på elementet för att se och ändra lagret. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
+Lager är ett alternativ för att gruppera element tillsammans. Klicka på elementet för att se och ändra lagret. Använd [lager-verktyget](tools/layer.md) för att ändra lager av flera element.
 
 ## Dialogen med lager
 
