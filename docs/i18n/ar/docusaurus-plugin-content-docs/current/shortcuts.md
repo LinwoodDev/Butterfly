@@ -27,7 +27,7 @@ sidebar_position: 2
 * `Ctrl` + `Shift` + `A`: حوار المناطق المفتوحة
 * `Ctrl` + `S`: حفظ
 * `Alt` + `S`: تغيير المسار
-* `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + (`1` - `0`: التبديل إلى أداة
 
 ## Stylus
 
@@ -36,4 +36,4 @@ sidebar_position: 2
 
 ## تكوين {#configure}
 
-Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. أدخل `0` لتمكين التحرك مع هذا التحكم.
+تخصيص الضوابط عن طريق إعطاء كل تحكم فهرس للأدوات. يبدأ فهرس الأداة في 1 ويتم طلبه من اليسار إلى اليمين. فهرس أداة فارغ سيعطل تشغيل الأداة على هذا التحكم. أدخل `0` لتمكين التحرك مع هذا التحكم.
