@@ -25,4 +25,4 @@ Mit der linken oberen Maustaste können Sie zur Dokumentenliste zurückkehren. D
 Darunter finden Sie die Symbolleiste. Links können Sie zwischen Ansichts- und Bearbeitungsmodus wechseln. Rechts daneben finden Sie die Zoom-Optionen. In der oberen rechten Ecke finden Sie die Tool-Optionen.
 
 - Die Optionen in der Werkzeugleiste sind Hintergrund, Export und Speicher.
-- Die Optionen der Bearbeitungsleiste sind die Maler. Du findest [hier](background) mehr.
+- The edit toolbar options are the tools. Du findest [hier](background) mehr.
