@@ -520,5 +520,7 @@
   "paste": "Plakken",
   "ascending": "Oplopend",
   "descending": "Aflopend",
-  "imageScale": "Afbeelding schaal"
+  "imageScale": "Afbeelding schaal",
+  "select": "Select",
+  "tool": "Tool"
 }
