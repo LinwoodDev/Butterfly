@@ -1,11 +1,11 @@
 ---
-title: "Peintre de forme"
+title: "Outil de forme"
 sidebar_label: "Forme"
 sidebar_position: 3
 ---
 
 
-Utilisez ce peintre pour dessiner des formes sur le papier. Tu peux dessiner des rectangles, des cercles et d'autres formes.
+Utilisez cet outil pour dessiner des formes sur le papier. Tu peux dessiner des rectangles, des cercles et d'autres formes.
 
 ## Configuration
 
