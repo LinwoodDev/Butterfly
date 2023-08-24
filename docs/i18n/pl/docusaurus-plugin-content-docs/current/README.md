@@ -25,4 +25,4 @@ Z lewym górnym przyciskiem możesz wrócić do listy dokumentów. Nazwa dokumen
 Poniżej możesz znaleźć pasek narzędzi. Po lewej stronie, możesz przełączać się pomiędzy trybem widoku i edycji. Prawo do tego, tam znajdziesz opcje powiększenia. W prawym górnym rogu są opcje narzędzi.
 
 - Opcje podglądu paska narzędzi to tło, eksport i zapisz.
-- Opcje edycji paska narzędzi to malarze. [tutaj](background) możesz znaleźć więcej.
+- The edit toolbar options are the tools. [tutaj](background) możesz znaleźć więcej.
