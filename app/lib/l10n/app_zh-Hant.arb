@@ -520,5 +520,7 @@
   "paste": "貼上",
   "ascending": "Ascending",
   "descending": "Descending",
-  "imageScale": "Image scale"
+  "imageScale": "圖片縮放",
+  "select": "Select",
+  "tool": "Tool"
 }
