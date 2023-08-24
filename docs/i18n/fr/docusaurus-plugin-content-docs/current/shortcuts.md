@@ -27,13 +27,13 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 * `Ctrl` + `Maj` + `A`: Ouvrir la boîte de dialogue des zones
 * `Ctrl` + `S`: Enregistrer
 * `Alt` + `S`: Changer le chemin
-* `Ctrl` + (`1` - `0`) : Basculer vers le peintre
+* `Ctrl` + (`1` - `0`): Switch to tool
 
 ## Stylus
 
 * `Bouton primaire`: Passer à l'outil main
-* `Bouton secondaire`: Passer au second peintre
+* `Secondary button`: Change to second tool
 
 ## Configurer {#configure}
 
-Personnalisez les contrôles en donnant un index peintre à chaque contrôle. L'index du peintre commence à 1 et est ordonné de gauche à droite. Un index de peintre vide désactivera l'interrupteur de peintre sur ce contrôle. Insérez `0` pour activer le déplacement avec ce contrôle.
+Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Insérez `0` pour activer le déplacement avec ce contrôle.
