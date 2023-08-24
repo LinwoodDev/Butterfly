@@ -27,13 +27,13 @@ Det er noen snarveier du kan benytte i editoren. Noen av dem er skrevet under kn
 * `Ctrl` + `Shift` + `A`: Åpne områder dialog
 * `Ctrl` + `S`: Lagre
 * `Alt` + `S`: Endre bane
-* `Ctrl` + (`1` - `0`): Bytt til maling
+* `Ctrl` + (`1` - `0`): Switch to tool
 
 ## Stylus
 
 * `Primærknapp`: Bytt til håndverktøy
-* `Sekundær knapp`: Endre til annen maling
+* `Secondary button`: Change to second tool
 
 ## Konfigurer {#configure}
 
-Tilpass styringen ved å gi hver enkelt kontroll en malerindeks. Malerindeksen starter på 1 og sorteres fra venstre til høyre. En tom malerindeks vil deaktivere malerbryteren på denne kontrollen. Sett inn `0` for å aktivere flytting med denne kontrollen.
+Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Sett inn `0` for å aktivere flytting med denne kontrollen.
