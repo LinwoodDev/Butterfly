@@ -4,7 +4,7 @@ sidebar_label: "Zegel"
 sidebar_position: 3
 ---
 
-Met de stempelschilder kun je onderdelen aan je doekjes toevoegen. Gebruik een bestaand pakket, maak een eigen pakket of importeer een pakket om het te gebruiken. Lees meer [hier](../pack).
+Met het stempel kun je onderdelen aan je canvas toevoegen. Gebruik een bestaand pakket, maak een eigen pakket of importeer een pakket om het te gebruiken. Lees meer [hier](../pack).
 
 ## Configuratie
 
