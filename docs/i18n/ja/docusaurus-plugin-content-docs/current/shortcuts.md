@@ -27,13 +27,13 @@ sidebar_position: 2
 * `Ctrl` + `Shift` + `A`: 領域ダイアログを開く
 * `Ctrl` + `S`: 保存
 * `Alt` + `S`: パスを変更
-* `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + (`1` - `0`): ツールに切り替える
 
 ## Stylus
 
 * `プライマリーボタン`: ハンドツールに変更
-* `Secondary button`: Change to second tool
+* `セカンダリボタン`: 2つ目のツールに変更
 
 ## 設定 {#configure}
 
-Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. `0 0` を挿入すると、このコントロールでの移動が有効になります。
+すべてのコントロールにツールインデックスを与えることで、コントロールをカスタマイズします。 ツールインデックスは1から始まり、左から右に順序付けされます。 空のツールインデックスはこのコントロールのツールスイッチを無効にします。 `0 0` を挿入すると、このコントロールでの移動が有効になります。
