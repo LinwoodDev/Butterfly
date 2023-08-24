@@ -1,13 +1,13 @@
 ---
-title: "Reface pictorul"
+title: "Reface unealta"
 sidebar_label: "Reface"
 sidebar_position: 0
 ---
 
-::note ⚡ Pictor de acțiune
+::note ⚡ Instrument de acțiune
 
-Acesta este un pictor special. Nu o puteți selecta și va rula acțiunea dacă faceți clic pe ea.
+Aceasta este o unealtă specială. Nu o puteți selecta și va rula acțiunea dacă faceți clic pe ea.
 
 :::
 
-Când faceți clic pe acest pictor puteți face ultima acțiune. Vezi [tabloul anulat](undo) pentru că anulează ultima ta acțiune.
+Când faceți clic pe acest instrument, puteți face din nou ultima acțiune. Vezi [unealta de anulare](undo) pentru anularea ultimei tale acțiuni.
