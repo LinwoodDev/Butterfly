@@ -25,4 +25,4 @@ Med knappen øverst til venstre, kan du gå tilbake til dokumentlisten. Dokument
 Under finner du verktøylinjen nedenfor. Venstre, du kan bytte mellom visning og redigeringsmodus. For å oppnå dette, finner du zoom-alternativene. Hjørnet øverst til høyre finnes det verktøyalternativer.
 
 - Alternativene for visnings verktøylinje er bakgrunn, eksport og lagring.
-- The edit toolbar options are the tools. Du kan finne [her](background) mer.
+- Alternativet for å redigere verktøylinje er verktøyene. Du kan finne [her](background) mer.
