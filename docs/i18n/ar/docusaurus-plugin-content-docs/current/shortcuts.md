@@ -27,13 +27,13 @@ sidebar_position: 2
 * `Ctrl` + `Shift` + `A`: حوار المناطق المفتوحة
 * `Ctrl` + `S`: حفظ
 * `Alt` + `S`: تغيير المسار
-* `Ctrl` + (`1` - `0`: التبديل إلى الرسام
+* `Ctrl` + (`1` - `0`): Switch to tool
 
 ## Stylus
 
 * `الزر الأساسي`: تغيير إلى أداة يدوية
-* `الزر الثانوي`: التغيير إلى الرسام الثاني
+* `Secondary button`: Change to second tool
 
 ## تكوين {#configure}
 
-تخصيص الضوابط عن طريق إعطاء كل تحكم فهرس الرسم. يبدأ فهرس الرسام في 1 ويتم طلبه من اليسار إلى اليمين. سيؤدي فهرس الرسام الفارغ إلى تعطيل مفتاح الرسام على هذا التحكم. أدخل `0` لتمكين التحرك مع هذا التحكم.
+Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. أدخل `0` لتمكين التحرك مع هذا التحكم.
