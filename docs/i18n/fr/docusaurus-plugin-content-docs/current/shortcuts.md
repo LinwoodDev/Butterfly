@@ -27,13 +27,13 @@ Il y a quelques raccourcis que vous pouvez utiliser dans l'éditeur. Certaines d
 * `Ctrl` + `Maj` + `A`: Ouvrir la boîte de dialogue des zones
 * `Ctrl` + `S`: Enregistrer
 * `Alt` + `S`: Changer le chemin
-* `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + (`1` - `0`) : Passer à l'outil
 
 ## Stylus
 
 * `Bouton primaire`: Passer à l'outil main
-* `Secondary button`: Change to second tool
+* `Bouton secondaire`: Passer au second outil
 
 ## Configurer {#configure}
 
-Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Insérez `0` pour activer le déplacement avec ce contrôle.
+Personnalisez les contrôles en donnant à chaque contrôle un index d'outil. L'index de l'outil commence à 1 et est ordonné de gauche à droite. Un index d'outil vide désactivera le basculement de l'outil sur ce contrôle. Insérez `0` pour activer le déplacement avec ce contrôle.
