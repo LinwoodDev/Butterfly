@@ -36,4 +36,4 @@ sidebar_position: 2
 
 ## Настроїти {#configure}
 
-Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Вставте `0` для увімкнення руху з цим керуванням.
+Налаштуйте елементи керування, надавши кожному індексу інструменту керування. Індекс інструменту починається з 1 і вони впорядковані зліва направо. Порожній індекс інструмента вимкне перемикач інструменту за цим контролем. Вставте `0` для увімкнення руху з цим керуванням.
