@@ -1,20 +1,20 @@
 ---
-title: "Pittori"
+title: "Strumenti"
 slug: /tools
 sidebar_label: "Introduzione"
 sidebar_position: 1
 ---
 
 
-I pittori possono modificare la carta.
+Gli strumenti possono modificare la carta.
 
-Usa la barra laterale per saperne di più sui pittori.
+Usa la barra laterale per saperne di più sugli strumenti.
 
-Crea un nuovo pittore facendo clic sull'icona plus. Cambia l'ordine del pittore trascinando e cambiando il pittore facendo clic. Se si fa clic su un pittore selezionato è possibile configurarlo.
+Crea un nuovo strumento facendo clic sull'icona plus. Cambia l'ordine dello strumento trascinando e cambiando lo strumento facendo clic. Se si fa clic su uno strumento selezionato è possibile configurarlo.
 
-Il nome del pittore verrà visualizzato come suggerimento al passaggio sul pittore.
+Il nome dello strumento verrà visualizzato come suggerimento al passaggio sullo strumento.
 
-## Pittori disponibili
+## Strumenti disponibili
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';
