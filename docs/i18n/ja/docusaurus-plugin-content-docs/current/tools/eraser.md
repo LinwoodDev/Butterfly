@@ -1,5 +1,5 @@
 ---
-title: "消しゴムの絵画"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ sidebar_position: 4
 
 :::
 
-この画家で紙の要素を消すことができます。
+このツールを使用すると、紙の要素を消去できます。
 
 ## 設定
 
