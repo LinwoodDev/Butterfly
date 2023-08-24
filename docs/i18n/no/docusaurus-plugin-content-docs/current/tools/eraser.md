@@ -1,5 +1,5 @@
 ---
-title: "Viskelær maling"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Vennligst bruk [stigeraseren](path_eraser) hvis det er mulig.
 
 :::
 
-Med denne maleren kan du slette elementene på papiret.
+Med dette verktøyet kan du slette elementene i papiret.
 
 ## Konfigurasjon
 
