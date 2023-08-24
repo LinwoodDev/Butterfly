@@ -25,4 +25,4 @@ Pomocí levého horního tlačítka se můžete vrátit do seznamu dokumentů. N
 Pod ním můžete najít panel nástrojů. Zleva, můžete přepínat mezi režimem zobrazení a úprav. Zde naleznete možnosti přiblížení. V pravém horním rohu jsou možnosti nástroje.
 
 - Možnosti lišty zobrazení jsou na pozadí, export a uložení.
-- Možnosti editačního panelu nástrojů jsou malíři. [zde](background) najdete více.
+- The edit toolbar options are the tools. [zde](background) najdete více.
