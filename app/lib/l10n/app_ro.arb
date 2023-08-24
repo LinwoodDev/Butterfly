@@ -520,5 +520,7 @@
   "paste": "Lipește",
   "ascending": "Crescător",
   "descending": "Descrescător",
-  "imageScale": "Scala imaginii"
+  "imageScale": "Scala imaginii",
+  "select": "Select",
+  "tool": "Tool"
 }
