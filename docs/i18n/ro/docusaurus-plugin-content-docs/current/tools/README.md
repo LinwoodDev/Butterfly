@@ -1,20 +1,20 @@
 ---
-title: "Pași"
+title: "Unelte"
 slug: /tools
 sidebar_label: "Introducere"
 sidebar_position: 1
 ---
 
 
-Pași pot edita hârtia.
+Instrumentele pot edita hârtia.
 
-Utilizați bara laterală pentru a afla mai multe despre pictori.
+Folosește bara laterală pentru a afla mai multe despre unelte.
 
-Creează un pictor nou dând click pe pictograma plus. Schimbă ordinea pictorului, trăgând şi schimbând pictorul printr-un clic. Dacă faceți clic pe un pictor selectat, îl puteți configura.
+Creează o nouă unealtă dând click pe pictograma plus. Schimbă ordinul sculei prin glisarea și schimbarea uneltei prin click. Dacă faceți clic pe o unealtă selectată, o puteți configura.
 
-Numele pictorului va fi afișat ca un pont de unealtă pe șoseta pictorului.
+Numele sculei va fi afișat ca tip de instrument în plutire pe unealtă.
 
-## Pictori disponibili
+## Instrumente disponibile
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';
