@@ -520,5 +520,7 @@
   "paste": "Liitä",
   "ascending": "Nouseva",
   "descending": "Laskeva",
-  "imageScale": "Kuvan mittakaava"
+  "imageScale": "Kuvan mittakaava",
+  "select": "Select",
+  "tool": "Tool"
 }
