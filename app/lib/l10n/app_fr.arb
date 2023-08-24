@@ -520,5 +520,7 @@
   "paste": "Coller",
   "ascending": "Ascendant",
   "descending": "Descendant",
-  "imageScale": "Echelle de l'image"
+  "imageScale": "Echelle de l'image",
+  "select": "Select",
+  "tool": "Tool"
 }
