@@ -1,11 +1,11 @@
 ---
-title: "Pintor de etiquetas"
+title: "Herramienta de etiqueta"
 sidebar_label: "Etiqueta"
 sidebar_position: 6
 ---
 
 
-Con este pintor puede añadir texto al papel.
+Con esta herramienta puedes añadir texto al papel.
 
 ## Configuración
 
