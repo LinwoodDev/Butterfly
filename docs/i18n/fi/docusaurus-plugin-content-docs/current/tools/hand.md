@@ -1,7 +1,7 @@
 ---
-title: "Käsi"
+title: "Käsin työkalu"
 sidebar_label: "Käsi"
 ---
 
 
-Tällä työkalulla voit valita elementtejä ja käyttää taustan kontekstivalikkoa päästäksesi [lisää valikkoon](../insert).
+Tämän työkalun avulla voit siirtyä sivulle.
