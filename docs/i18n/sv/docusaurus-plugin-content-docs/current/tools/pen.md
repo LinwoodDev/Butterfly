@@ -1,11 +1,11 @@
 ---
-title: "Penna målare"
+title: "Penna verktyg"
 sidebar_label: "Penna"
 sidebar_position: 2
 ---
 
 
-Med denna målare kan du rita på detta papper.
+Med detta verktyg kan du rita på detta papper.
 
 ## Konfiguration
 
