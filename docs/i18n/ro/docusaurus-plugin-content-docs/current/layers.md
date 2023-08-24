@@ -3,7 +3,7 @@ title: "Straturi"
 sidebar_position: 2
 ---
 
-Straturile sunt o opţiune de grupare a elementelor împreună. Faceţi clic pe element pentru a vedea şi schimba nivelul. Utilizaţi pictorul [strat](tools/layer.md) pentru a schimba straturile de elemente multiple.
+Straturile sunt o opţiune de grupare a elementelor împreună. Faceţi clic pe element pentru a vedea şi schimba nivelul. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
 
 ## Dialog straturi
 
