@@ -520,5 +520,7 @@
   "paste": "Indsæt",
   "ascending": "Stigende",
   "descending": "Faldende",
-  "imageScale": "Billed skala"
+  "imageScale": "Billed skala",
+  "select": "Select",
+  "tool": "Tool"
 }
