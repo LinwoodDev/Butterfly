@@ -1,5 +1,6 @@
 ---
-title: Laag
+title: "Laag gereedschap"
+sidebar_label: "Laag"
 ---
 
 Met dit gereedschap kunt u de laag van meerdere objecten wijzigen. Lees meer over lagen [hier](../layers.md). Wanneer u op een object klikt, wordt de laag van het object gewijzigd naar de laag ingesteld in de configuratie. Als je het laagveld leeg laat, wordt de laag op de standaardlaag gezet.
