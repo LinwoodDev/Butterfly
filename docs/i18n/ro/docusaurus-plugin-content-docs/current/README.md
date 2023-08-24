@@ -25,4 +25,4 @@ Cu butonul stânga sus puteţi merge înapoi la lista de documente. Numele docum
 Mai jos poți găsi bara de unelte. Stânga, puteţi comuta între modul de vizualizare şi editare. Chiar acum, aici găsești opțiunile de mărire. În colțul din dreapta sus există opțiunile de instrumente.
 
 - Opțiunile de vizualizare din bara de instrumente sunt fundal, exportă și salvează.
-- Opțiunile barei de editare sunt pictorii. Poți găsi [aici](background) mai mult.
+- The edit toolbar options are the tools. Poți găsi [aici](background) mai mult.
