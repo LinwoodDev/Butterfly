@@ -1,13 +1,13 @@
 ---
-title: "Annuler le peintre"
+title: "Annuler l'outil"
 sidebar_label: "Annuler"
 sidebar_position: 0
 ---
 
-:::note ⚡ Peintre d'action
+:::note ⚡ Outil d'action
 
-C'est un peintre spécial. Vous ne pouvez pas le sélectionner et il exécutera l'action si vous cliquez dessus.
+C'est un outil spécial. Vous ne pouvez pas le sélectionner et il exécutera l'action si vous cliquez dessus.
 
 :::
 
-En cliquant sur ce peintre, vous pouvez annuler votre dernière action. Voir le [peintre redo](redo) pour refaire votre dernière action.
+En cliquant sur cet outil, vous pouvez annuler votre dernière action. Voir l'outil [redo](redo) pour refaire votre dernière action.
