@@ -1,11 +1,11 @@
 ---
-title: "Pintor de borrador de ruta"
+title: "Herramienta de borrador de ruta"
 sidebar_label: "Borrador de ruta"
 sidebar_position: 5
 ---
 
 
-Con este pintor puede eliminar toda la ruta en el papel.
+Con esta herramienta se puede eliminar toda la ruta en el papel.
 
 ## Configuración
 
