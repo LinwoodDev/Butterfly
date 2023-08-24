@@ -520,5 +520,7 @@
   "paste": "Incolla",
   "ascending": "Crescente",
   "descending": "Decrescente",
-  "imageScale": "Scala immagine"
+  "imageScale": "Scala immagine",
+  "select": "Select",
+  "tool": "Tool"
 }
