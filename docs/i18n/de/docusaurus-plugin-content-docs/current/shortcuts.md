@@ -27,13 +27,13 @@ Es gibt ein paar Verknüpfungen, die Sie im Editor verwenden können. Einige dav
 * `Strg` + `Umschalt` + `A`: Öffne Bereiche Dialog
 * `Strg` + `S`: Speichern
 * `Alt` + `S`: Pfad ändern
-* `Strg` + (`1` - `0`): Zum Maler wechseln
+* `Ctrl` + (`1` - `0`): Switch to tool
 
 ## Stylus
 
 * `Primärer Button`: Zum Handwerkzeug wechseln
-* `Sekundärer Knopf`: Zum zweiten Maler wechseln
+* `Secondary button`: Change to second tool
 
 ## Konfigurieren {#configure}
 
-Passen Sie die Steuerelemente an, indem Sie jeder Kontrolle einen Maler Index geben. Der Maler beginnt bei 1 und wird von links nach rechts sortiert. Ein leerer Maler Index deaktiviert den Maler Schalter auf diesem Steuerelement. Fügen Sie `0` ein, um das Verschieben mit diesem Steuerelement zu aktivieren.
+Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Fügen Sie `0` ein, um das Verschieben mit diesem Steuerelement zu aktivieren.
