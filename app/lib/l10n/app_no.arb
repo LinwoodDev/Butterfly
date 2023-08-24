@@ -520,5 +520,7 @@
   "paste": "Lim",
   "ascending": "Stigende",
   "descending": "Synkende",
-  "imageScale": "Bilde skalering"
+  "imageScale": "Bilde skalering",
+  "select": "Select",
+  "tool": "Tool"
 }
