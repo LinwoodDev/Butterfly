@@ -27,13 +27,13 @@ Ci sono alcune scorciatoie che puoi usare nell'editor. Alcuni di loro sono scrit
 * `Ctrl` + `Maiusc` + `A`: Apri aree finestra
 * `Ctrl` + `S`: Salva
 * `Alt` + `S`: Cambia percorso
-* `Ctrl` + (`1` - `0`): Passa al pittore
+* `Ctrl` + (`1` - `0`): Switch to tool
 
 ## Stylus
 
 * `Primary button`: Change to hand tool
-* `Pulsante secondario`: Cambia al secondo pittore
+* `Secondary button`: Change to second tool
 
 ## Configura {#configure}
 
-Personalizza i controlli dando ad ogni controllo un indice pittore. L'indice del pittore inizia da 1 e viene ordinato da sinistra a destra. Un indice di pittore vuoto disabiliterà l'interruttore del pittore su questo controllo. Inserisci `0` per abilitare lo spostamento con questo controllo.
+Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Inserisci `0` per abilitare lo spostamento con questo controllo.
