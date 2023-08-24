@@ -27,13 +27,13 @@ Düzenleyicide kullanabileceğiniz birkaç kısayol vardır. Bazıları düğmel
 * `Ctrl` + `Shift` + `A`: Alanlar iletişim kutusunu aç
 * `Ctrl` + `S`: Kaydet
 * `Alt` + `S`: Yolu değiştir
-* `Ctrl` + (`1` - `0`): Araca geçii yap
+* `Ctrl` + (`1` - `0`): Switch to tool
 
 ## Kalem
 
 * `Primary button`: El aracına geç
-* `Secondary button`: İkinci araca geç
+* `Secondary button`: Change to second tool
 
 ## Yapılandır {#configure}
 
-Her denetime bir boyama dizini vererek denetimleri özelleştirin. Boyama dizini 1'den başlar ve soldan sağa doğru sıralanır. Boş bir boyama indeksi, bu kontroldeki boyacı anahtarını devre dışı bırakacaktır. Bu denetimle taşımayı etkinleştirmek için `0` girin.
+Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Bu denetimle taşımayı etkinleştirmek için `0` girin.
