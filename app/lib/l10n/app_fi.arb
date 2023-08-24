@@ -521,6 +521,6 @@
   "ascending": "Nouseva",
   "descending": "Laskeva",
   "imageScale": "Kuvan mittakaava",
-  "select": "Select",
-  "tool": "Tool"
+  "select": "Valitse",
+  "tool": "Työkalu"
 }
