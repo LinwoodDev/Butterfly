@@ -1,11 +1,11 @@
 ---
-title: "Pen, maler"
+title: "Værktøjet til pen"
 sidebar_label: "Pen"
 sidebar_position: 2
 ---
 
 
-Med denne maler kan du trække på dette papir.
+Med dette værktøj kan du trække på dette papir.
 
 ## Konfiguration
 
