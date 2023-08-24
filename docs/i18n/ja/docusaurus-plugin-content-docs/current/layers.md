@@ -3,7 +3,7 @@ title: "レイヤー"
 sidebar_position: 2
 ---
 
-レイヤーは、要素をまとめてグループ化するオプションです。 要素をクリックしてレイヤーを表示および変更します。 複数の要素のレイヤーを変更するには、 [レイヤー画家](tools/layer.md) を使用します。
+レイヤーは、要素をまとめてグループ化するオプションです。 要素をクリックしてレイヤーを表示および変更します。 Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
 
 ## レイヤーダイアログ
 
