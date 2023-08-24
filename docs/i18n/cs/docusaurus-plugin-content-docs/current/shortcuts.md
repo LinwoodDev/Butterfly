@@ -27,13 +27,13 @@ Existuje několik zkratek, které můžete použít v editoru. Některé z nich 
 * `Ctrl` + `Shift` + `A`: dialogové okno
 * `Ctrl` + `S`: Uložit
 * `Alt` + `S`: Změna cesty
-* `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + (`1` - `0`): Přepnout na nástroj
 
 ## Stylus
 
 * `Primární tlačítko`: Přepnout na ruční nástroj
-* `Secondary button`: Change to second tool
+* `Sekundární tlačítko`: Změnit na druhý nástroj
 
 ## Konfigurace {#configure}
 
-Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Vložte `0` pro povolení pohybu s tímto ovládáním.
+Přizpůsobte si ovládací prvky zadáním každého ovládání indexu nástrojů. Index nástroje začíná v 1 a je seřazen zleva doprava. Prázdný index nástroje zakáže přepínač nástrojů na tomto ovládání. Vložte `0` pro povolení pohybu s tímto ovládáním.
