@@ -3,7 +3,7 @@ title: "Vrstvy"
 sidebar_position: 2
 ---
 
-Vrstvy jsou možností seskupit prvky dohromady. Klikněte na element pro zobrazení a změnu vrstvy. Použijte [barvu vrstvy](tools/layer.md) ke změně vrstev více prvků.
+Vrstvy jsou možností seskupit prvky dohromady. Klikněte na element pro zobrazení a změnu vrstvy. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
 
 ## Dialog vrstev
 
