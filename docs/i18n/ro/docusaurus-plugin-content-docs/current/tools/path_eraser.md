@@ -1,11 +1,11 @@
 ---
-title: "Pictor șirul traiectoriei"
+title: "Unealta pentru ștergerea traiectoriei"
 sidebar_label: "Ștergere cale"
 sidebar_position: 5
 ---
 
 
-Cu acest pictor puteţi şterge întregul drum de pe hârtie.
+Cu acest instrument puteţi şterge întregul drum de pe hârtie.
 
 ## Configurare
 
