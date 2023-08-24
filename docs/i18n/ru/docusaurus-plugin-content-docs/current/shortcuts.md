@@ -27,13 +27,13 @@ sidebar_position: 2
 * `Ctrl` + `Shift` + `A`: Открыть диалог областей
 * `Ctrl` + `S`: Сохранить
 * `Alt` + `S`: Изменить путь
-* `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + (`1` - `0`): Переключение на инструмент
 
 ## Stylus
 
 * `Основная кнопка`: Изменить руку на инструмент
-* `Secondary button`: Change to second tool
+* `Дополнительная кнопка`: Изменить на второй инструмент
 
 ## Настроить {#configure}
 
-Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Вставьте `0` чтобы включить перемещение с этим контролем.
+Настраивайте элементы управления, предоставляя каждому управляющему индексу инструментов. Индекс инструмента начинается с 1 и упорядочен слева направо. Пустой индекс инструментов отключит переключатель инструментов на этом контроле. Вставьте `0` чтобы включить перемещение с этим контролем.
