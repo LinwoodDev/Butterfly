@@ -1,13 +1,13 @@
 ---
-title: "Deshacer pintor"
+title: "Deshacer herramienta"
 sidebar_label: "Deshacer"
 sidebar_position: 0
 ---
 
-:::note ⚡ Pintor de acciones
+:::note ⚡ Herramienta de acción
 
-Se trata de un pintor especial. No puedes seleccionarlo y se ejecutará la acción si haces clic en él.
+Esta es una herramienta especial. No puedes seleccionarlo y se ejecutará la acción si haces clic en él.
 
 :::
 
-Cuando haga clic en este pintor puede deshacer su última acción. Mira el pintor de rehacer [](redo) para rehacer tu última acción.
+Al hacer clic en esta herramienta puedes deshacer tu última acción. Vea la herramienta [rehacer](redo) para rehacer su última acción.
