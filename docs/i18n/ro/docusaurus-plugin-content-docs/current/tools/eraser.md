@@ -1,5 +1,5 @@
 ---
-title: "Pictor Eraser"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Te rugăm să folosești [ștergerea traiectoriei](path_eraser) dacă este posib
 
 :::
 
-Cu acest pictor poţi şterge elementele de pe hârtie.
+Cu acest instrument puteţi şterge elementele de pe hârtie.
 
 ## Configurare
 
