@@ -1,11 +1,11 @@
 ---
-title: "Pintor de Pen"
+title: "Herramienta Pen"
 sidebar_label: "Pen"
 sidebar_position: 2
 ---
 
 
-Con este pintor puedes dibujar sobre este papel.
+Con esta herramienta puedes dibujar sobre este papel.
 
 ## Configuración
 
