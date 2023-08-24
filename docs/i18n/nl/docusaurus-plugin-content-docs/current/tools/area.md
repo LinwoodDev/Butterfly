@@ -1,9 +1,9 @@
 ---
 sidebar_label: "Oppervlak"
-title: "Vlak schilder"
+title: "Gebied tool"
 ---
 
-Met de omgevingsschilder kun je gebieden maken, bewerken en verwijderen.
+Het gereedschap voor het gebied stelt u in staat om gebieden aan te maken, te bewerken en te verwijderen.
 
 ## acties
 
