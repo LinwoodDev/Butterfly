@@ -520,5 +520,7 @@
   "paste": "لصق",
   "ascending": "تصاعدي",
   "descending": "تنازلي",
-  "imageScale": "حجم الصورة"
+  "imageScale": "حجم الصورة",
+  "select": "Select",
+  "tool": "Tool"
 }
