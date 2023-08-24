@@ -25,4 +25,4 @@ sidebar_position: 1
 在下面，您可以找到工具栏。 左边，您可以在视图和编辑模式之间切换。 您可以在右边找到缩放选项。 在右上角有工具选项。
 
 - 视图工具栏选项是背景、导出和保存。
-- The edit toolbar options are the tools. 您可以在这里找到 [更多的](background)
+- 编辑工具栏选项是工具。 您可以在这里找到 [更多的](background)
