@@ -27,13 +27,13 @@ Det finns några genvägar som du kan använda i editorn. Några av dem är skri
 * `Ctrl` + `Shift` + `A`: dialogrutan Öppna områden
 * `Ctrl` + `S`: Spara
 * `Alt` + `S`: Ändra sökväg
-* `Ctrl` + (`1` - `0`): Switch to tool
+* `Ctrl` + (`1` - `0`): Växla till verktyget
 
 ## Stylus
 
 * `Primär knapp`: Ändra till handverktyg
-* `Secondary button`: Change to second tool
+* `Sekundär knapp`: Ändra till andra verktyget
 
 ## Konfigurera {#configure}
 
-Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. Infoga `0` för att aktivera flyttning med denna kontroll.
+Anpassa kontrollerna genom att ge varje kontroll ett verktygsindex. Verktygsindexet börjar vid 1 och beställs från vänster till höger. Ett tomt verktygsindex kommer att inaktivera verktygsbrytaren på denna kontroll. Infoga `0` för att aktivera flyttning med denna kontroll.
