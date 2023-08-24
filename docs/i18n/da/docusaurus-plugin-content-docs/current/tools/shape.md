@@ -1,11 +1,11 @@
 ---
-title: "Form maler"
+title: "Form værktøj"
 sidebar_label: "Form"
 sidebar_position: 3
 ---
 
 
-Brug denne maler til at tegne figurer på papiret. Du kan tegne rektangler, cirkler og andre former.
+Brug dette værktøj til at tegne figurer på papiret. Du kan tegne rektangler, cirkler og andre former.
 
 ## Konfiguration
 
