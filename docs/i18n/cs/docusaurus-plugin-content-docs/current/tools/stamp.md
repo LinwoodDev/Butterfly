@@ -4,7 +4,7 @@ sidebar_label: "Razítko"
 sidebar_position: 3
 ---
 
-Paměť razítka vám umožňuje přidávat komponenty do plátna. Použijte existující balíček, vytvořte si vlastní nebo importujte balíček, který ho použije. Více informací [naleznete zde](../pack).
+Nástroj pro razítka umožňuje přidávat komponenty do plátna. Použijte existující balíček, vytvořte si vlastní nebo importujte balíček, který ho použije. Více informací [naleznete zde](../pack).
 
 ## Konfigurace
 
