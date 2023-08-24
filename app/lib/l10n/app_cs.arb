@@ -520,5 +520,7 @@
   "paste": "Vložit",
   "ascending": "Vzestupně",
   "descending": "sestupně",
-  "imageScale": "Měřítko obrázku"
+  "imageScale": "Měřítko obrázku",
+  "select": "Select",
+  "tool": "Tool"
 }
