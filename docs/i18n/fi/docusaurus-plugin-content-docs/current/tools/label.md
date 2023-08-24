@@ -1,11 +1,11 @@
 ---
-title: "Merkitse maalari"
+title: "Tunnisteiden työkalu"
 sidebar_label: "Tunniste"
 sidebar_position: 6
 ---
 
 
-Tämän maalarin avulla voit lisätä tekstiä paperiin.
+Tämän työkalun avulla voit lisätä tekstiä paperiin.
 
 ## Asetukset
 
