@@ -520,5 +520,7 @@
   "paste": "Klistra in",
   "ascending": "Stigande",
   "descending": "Fallande",
-  "imageScale": "Skala bild"
+  "imageScale": "Skala bild",
+  "select": "Select",
+  "tool": "Tool"
 }
