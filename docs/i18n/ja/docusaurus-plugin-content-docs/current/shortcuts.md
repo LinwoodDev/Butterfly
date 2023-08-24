@@ -27,13 +27,13 @@ sidebar_position: 2
 * `Ctrl` + `Shift` + `A`: 領域ダイアログを開く
 * `Ctrl` + `S`: 保存
 * `Alt` + `S`: パスを変更
-* `Ctrl` + (`1` - `0`): 画家に切り替える
+* `Ctrl` + (`1` - `0`): Switch to tool
 
 ## Stylus
 
 * `プライマリーボタン`: ハンドツールに変更
-* `セカンダリボタン`: 第2の画家に変更
+* `Secondary button`: Change to second tool
 
 ## 設定 {#configure}
 
-画家の指標をすべてのコントロールに与えることでコントロールをカスタマイズします。 画家指数は1から始まり、左から右に順番に指示されます。 空の画家インデックスは、このコントロールの画家スイッチを無効にします。 `0 0` を挿入すると、このコントロールでの移動が有効になります。
+Customize the controls by giving every control a tool index. The tool index starts at 1 and are ordered from left to right. An empty tool index will disable the tool switch on this control. `0 0` を挿入すると、このコントロールでの移動が有効になります。
