@@ -1,5 +1,6 @@
 ---
-title: Vrstva
+title: "Nástroj pro vrstvu"
+sidebar_label: "Vrstva"
 ---
 
 Pomocí tohoto nástroje můžete změnit vrstvu více objektů. Přečtěte si více o vrstvách [zde](../layers.md). Po kliknutí na objekt se vrstva objektu změní na vrstvu nastavenou v konfiguraci. Ponecháním pole vrstvy prázdného bude vrstva nastavena na výchozí vrstvu.
