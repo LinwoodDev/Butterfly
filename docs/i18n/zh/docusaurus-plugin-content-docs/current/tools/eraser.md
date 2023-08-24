@@ -1,5 +1,5 @@
 ---
-title: "擦除画面"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ sidebar_position: 4
 
 :::
 
-通过这个绘制器，你可以擦除纸上的元素。
+通过这个工具，你可以擦除纸上的元素。
 
 ## 配置
 
