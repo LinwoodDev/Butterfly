@@ -25,4 +25,4 @@ Med den øverste venstre knap kan du gå tilbage til dokumentlisten. Dokumentnav
 Nedenfor kan du finde værktøjslinjen. Venstre, kan du skifte mellem visning og redigeringstilstand. Lige til det, der finder du zoom muligheder. I øverste højre hjørne er der værktøjets muligheder.
 
 - Valgmuligheder for visning værktøjslinjen er baggrund, eksport og gemme.
-- The edit toolbar options are the tools. Du kan finde [her](background) mere.
+- Indstillinger for redigeringsværktøjslinjen er værktøjerne. Du kan finde [her](background) mere.
