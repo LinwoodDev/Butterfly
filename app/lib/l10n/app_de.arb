@@ -522,5 +522,6 @@
   "descending": "Absteigend",
   "imageScale": "Bildskala",
   "select": "Auswählen",
-  "tool": "Werkzeug"
+  "tool": "Werkzeug",
+  "texture": "Texture"
 }
