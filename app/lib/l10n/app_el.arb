@@ -522,5 +522,6 @@
   "descending": "Φθίνουσα",
   "imageScale": "Κλίμακα εικόνας",
   "select": "Επιλογή",
-  "tool": "Εργαλείο"
+  "tool": "Εργαλείο",
+  "texture": "Texture"
 }
