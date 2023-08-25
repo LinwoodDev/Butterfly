@@ -6,3 +6,7 @@
   * Rename hand painter to select tool
   * Rename move painter to hand tool
   * Rename tool to utilities
+* Add texture element ([#?])
+* Add search to add dialog
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8
