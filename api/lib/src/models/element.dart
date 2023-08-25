@@ -247,6 +247,18 @@ class PadElement with _$PadElement {
     @Default(ShapeProperty(shape: RectangleShape())) ShapeProperty property,
   }) = ShapeElement;
 
+  factory PadElement.texture({
+    @Default(0) double rotation,
+    @Default('') String layer,
+    @Default(SurfaceTexture.pattern()) SurfaceTexture texture,
+    @DoublePointJsonConverter()
+    @Default(Point(0.0, 0.0))
+    Point<double> firstPosition,
+    @DoublePointJsonConverter()
+    @Default(Point(0.0, 0.0))
+    Point<double> secondPosition,
+  }) = TextureElement;
+
   factory PadElement.fromJson(Map<String, dynamic> json) =>
       _$PadElementFromJson(json);
 }

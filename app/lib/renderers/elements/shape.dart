@@ -11,14 +11,6 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       NoteData document, AssetService assetService, DocumentPage page) async {
     _updateRect();
     await super.setup(document, assetService, page);
-    _updateRect();
-  }
-
-  @override
-  FutureOr<bool> onAreaUpdate(DocumentPage page, Area? area) async {
-    await super.onAreaUpdate(page, area);
-    _updateRect();
-    return true;
   }
 
   void _updateRect() {

@@ -42,7 +42,7 @@ dependencies:
   package_info_plus: ^4.1.0
   idb_shim: ^2.3.1
   go_router: ^10.1.0
-  xml: ^6.4.0
+  xml: ^6.4.2
   collection: ^1.18.0
   bloc_concurrency: ^0.2.2
   camera: ^0.10.5+3

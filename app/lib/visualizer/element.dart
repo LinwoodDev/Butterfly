@@ -15,6 +15,7 @@ extension ElementVisualizer on PadElement {
       shape: (_) => loc.shape,
       svg: (_) => loc.svg,
       markdown: (_) => loc.markdown,
+      texture: (_) => loc.texture,
     );
   }
 
@@ -26,6 +27,7 @@ extension ElementVisualizer on PadElement {
       shape: (element) => element.property.shape.icon,
       svg: (_) => PhosphorIcons.fileSvg,
       markdown: (_) => PhosphorIcons.textbox,
+      texture: (_) => PhosphorIcons.waveSquare,
     );
   }
 }

@@ -1,0 +1,8 @@
+* Bump file version to 10
+  * Move box background properties to own Texture.pattern class
+  * Rename box background to pattern background
+  * Change page.background to page.backgrounds and allow a list of backgrounds
+  * Rename painters to tools
+  * Rename hand painter to select tool
+  * Rename move painter to hand tool
+  * Rename tool to utilities

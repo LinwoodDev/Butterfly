@@ -1391,6 +1391,8 @@ PadElement _$PadElementFromJson(Map<String, dynamic> json) {
       return SvgElement.fromJson(json);
     case 'shape':
       return ShapeElement.fromJson(json);
+    case 'texture':
+      return TextureElement.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -1453,6 +1455,13 @@ mixin _$PadElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1506,6 +1515,13 @@ mixin _$PadElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1559,6 +1575,13 @@ mixin _$PadElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1570,6 +1593,7 @@ mixin _$PadElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1580,6 +1604,7 @@ mixin _$PadElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1590,6 +1615,7 @@ mixin _$PadElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1798,6 +1824,13 @@ class _$PenElement implements PenElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) {
     return pen(rotation, layer, zoom, points, property);
   }
@@ -1854,6 +1887,13 @@ class _$PenElement implements PenElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) {
     return pen?.call(rotation, layer, zoom, points, property);
   }
@@ -1910,6 +1950,13 @@ class _$PenElement implements PenElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -1927,6 +1974,7 @@ class _$PenElement implements PenElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) {
     return pen(this);
   }
@@ -1940,6 +1988,7 @@ class _$PenElement implements PenElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) {
     return pen?.call(this);
   }
@@ -1953,6 +2002,7 @@ class _$PenElement implements PenElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -2206,6 +2256,13 @@ class _$TextElement with LabelElement implements TextElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) {
     return text(rotation, layer, position, scale, styleSheet, area, constraint,
         foreground);
@@ -2263,6 +2320,13 @@ class _$TextElement with LabelElement implements TextElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) {
     return text?.call(rotation, layer, position, scale, styleSheet, area,
         constraint, foreground);
@@ -2320,6 +2384,13 @@ class _$TextElement with LabelElement implements TextElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) {
     if (text != null) {
@@ -2338,6 +2409,7 @@ class _$TextElement with LabelElement implements TextElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) {
     return text(this);
   }
@@ -2351,6 +2423,7 @@ class _$TextElement with LabelElement implements TextElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) {
     return text?.call(this);
   }
@@ -2364,6 +2437,7 @@ class _$TextElement with LabelElement implements TextElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) {
     if (text != null) {
@@ -2634,6 +2708,13 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) {
     return markdown(rotation, layer, position, scale, styleSheet, areaProperty,
         this.text, constraint, foreground);
@@ -2691,6 +2772,13 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) {
     return markdown?.call(rotation, layer, position, scale, styleSheet,
         areaProperty, this.text, constraint, foreground);
@@ -2748,6 +2836,13 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) {
     if (markdown != null) {
@@ -2766,6 +2861,7 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) {
     return markdown(this);
   }
@@ -2779,6 +2875,7 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) {
     return markdown?.call(this);
   }
@@ -2792,6 +2889,7 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) {
     if (markdown != null) {
@@ -3028,6 +3126,13 @@ class _$ImageElement implements ImageElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) {
     return image(rotation, layer, position, constraints, source, width, height);
   }
@@ -3084,6 +3189,13 @@ class _$ImageElement implements ImageElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) {
     return image?.call(
         rotation, layer, position, constraints, source, width, height);
@@ -3141,6 +3253,13 @@ class _$ImageElement implements ImageElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) {
     if (image != null) {
@@ -3159,6 +3278,7 @@ class _$ImageElement implements ImageElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) {
     return image(this);
   }
@@ -3172,6 +3292,7 @@ class _$ImageElement implements ImageElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) {
     return image?.call(this);
   }
@@ -3185,6 +3306,7 @@ class _$ImageElement implements ImageElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) {
     if (image != null) {
@@ -3417,6 +3539,13 @@ class _$SvgElement implements SvgElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) {
     return svg(rotation, layer, position, constraints, source, width, height);
   }
@@ -3473,6 +3602,13 @@ class _$SvgElement implements SvgElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) {
     return svg?.call(
         rotation, layer, position, constraints, source, width, height);
@@ -3530,6 +3666,13 @@ class _$SvgElement implements SvgElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) {
     if (svg != null) {
@@ -3547,6 +3690,7 @@ class _$SvgElement implements SvgElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) {
     return svg(this);
   }
@@ -3560,6 +3704,7 @@ class _$SvgElement implements SvgElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) {
     return svg?.call(this);
   }
@@ -3573,6 +3718,7 @@ class _$SvgElement implements SvgElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) {
     if (svg != null) {
@@ -3775,6 +3921,13 @@ class _$ShapeElement implements ShapeElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) {
     return shape(rotation, layer, firstPosition, secondPosition, property);
   }
@@ -3831,6 +3984,13 @@ class _$ShapeElement implements ShapeElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) {
     return shape?.call(
         rotation, layer, firstPosition, secondPosition, property);
@@ -3888,6 +4048,13 @@ class _$ShapeElement implements ShapeElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -3905,6 +4072,7 @@ class _$ShapeElement implements ShapeElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) {
     return shape(this);
   }
@@ -3918,6 +4086,7 @@ class _$ShapeElement implements ShapeElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) {
     return shape?.call(this);
   }
@@ -3931,6 +4100,7 @@ class _$ShapeElement implements ShapeElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -3970,5 +4140,397 @@ abstract class ShapeElement implements PadElement {
   @override
   @JsonKey(ignore: true)
   _$$ShapeElementCopyWith<_$ShapeElement> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TextureElementCopyWith<$Res>
+    implements $PadElementCopyWith<$Res> {
+  factory _$$TextureElementCopyWith(
+          _$TextureElement value, $Res Function(_$TextureElement) then) =
+      __$$TextureElementCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {double rotation,
+      String layer,
+      SurfaceTexture texture,
+      @DoublePointJsonConverter() Point<double> firstPosition,
+      @DoublePointJsonConverter() Point<double> secondPosition});
+
+  $SurfaceTextureCopyWith<$Res> get texture;
+}
+
+/// @nodoc
+class __$$TextureElementCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$TextureElement>
+    implements _$$TextureElementCopyWith<$Res> {
+  __$$TextureElementCopyWithImpl(
+      _$TextureElement _value, $Res Function(_$TextureElement) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? rotation = null,
+    Object? layer = null,
+    Object? texture = null,
+    Object? firstPosition = null,
+    Object? secondPosition = null,
+  }) {
+    return _then(_$TextureElement(
+      rotation: null == rotation
+          ? _value.rotation
+          : rotation // ignore: cast_nullable_to_non_nullable
+              as double,
+      layer: null == layer
+          ? _value.layer
+          : layer // ignore: cast_nullable_to_non_nullable
+              as String,
+      texture: null == texture
+          ? _value.texture
+          : texture // ignore: cast_nullable_to_non_nullable
+              as SurfaceTexture,
+      firstPosition: null == firstPosition
+          ? _value.firstPosition
+          : firstPosition // ignore: cast_nullable_to_non_nullable
+              as Point<double>,
+      secondPosition: null == secondPosition
+          ? _value.secondPosition
+          : secondPosition // ignore: cast_nullable_to_non_nullable
+              as Point<double>,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SurfaceTextureCopyWith<$Res> get texture {
+    return $SurfaceTextureCopyWith<$Res>(_value.texture, (value) {
+      return _then(_value.copyWith(texture: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$TextureElement implements TextureElement {
+  _$TextureElement(
+      {this.rotation = 0,
+      this.layer = '',
+      this.texture = const SurfaceTexture.pattern(),
+      @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
+      @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0),
+      final String? $type})
+      : $type = $type ?? 'texture';
+
+  factory _$TextureElement.fromJson(Map<String, dynamic> json) =>
+      _$$TextureElementFromJson(json);
+
+  @override
+  @JsonKey()
+  final double rotation;
+  @override
+  @JsonKey()
+  final String layer;
+  @override
+  @JsonKey()
+  final SurfaceTexture texture;
+  @override
+  @JsonKey()
+  @DoublePointJsonConverter()
+  final Point<double> firstPosition;
+  @override
+  @JsonKey()
+  @DoublePointJsonConverter()
+  final Point<double> secondPosition;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'PadElement.texture(rotation: $rotation, layer: $layer, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TextureElementCopyWith<_$TextureElement> get copyWith =>
+      __$$TextureElementCopyWithImpl<_$TextureElement>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(double rotation, String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)
+        pen,
+    required TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            TextArea area,
+            ElementConstraint constraint,
+            int foreground)
+        text,
+    required TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)
+        markdown,
+    required TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)
+        image,
+    required TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)
+        svg,
+    required TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            ShapeProperty property)
+        shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
+  }) {
+    return texture(
+        rotation, layer, this.texture, firstPosition, secondPosition);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(double rotation, String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)?
+        pen,
+    TResult? Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            TextArea area,
+            ElementConstraint constraint,
+            int foreground)?
+        text,
+    TResult? Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
+    TResult? Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)?
+        image,
+    TResult? Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)?
+        svg,
+    TResult? Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            ShapeProperty property)?
+        shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
+  }) {
+    return texture?.call(
+        rotation, layer, this.texture, firstPosition, secondPosition);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double rotation, String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)?
+        pen,
+    TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            TextArea area,
+            ElementConstraint constraint,
+            int foreground)?
+        text,
+    TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
+    TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)?
+        image,
+    TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)?
+        svg,
+    TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            ShapeProperty property)?
+        shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
+    required TResult orElse(),
+  }) {
+    if (texture != null) {
+      return texture(
+          rotation, layer, this.texture, firstPosition, secondPosition);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PenElement value) pen,
+    required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
+    required TResult Function(ImageElement value) image,
+    required TResult Function(SvgElement value) svg,
+    required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
+  }) {
+    return texture(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PenElement value)? pen,
+    TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
+    TResult? Function(ImageElement value)? image,
+    TResult? Function(SvgElement value)? svg,
+    TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
+  }) {
+    return texture?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PenElement value)? pen,
+    TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
+    TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
+    TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
+    required TResult orElse(),
+  }) {
+    if (texture != null) {
+      return texture(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TextureElementToJson(
+      this,
+    );
+  }
+}
+
+abstract class TextureElement implements PadElement {
+  factory TextureElement(
+          {final double rotation,
+          final String layer,
+          final SurfaceTexture texture,
+          @DoublePointJsonConverter() final Point<double> firstPosition,
+          @DoublePointJsonConverter() final Point<double> secondPosition}) =
+      _$TextureElement;
+
+  factory TextureElement.fromJson(Map<String, dynamic> json) =
+      _$TextureElement.fromJson;
+
+  @override
+  double get rotation;
+  @override
+  String get layer;
+  SurfaceTexture get texture;
+  @DoublePointJsonConverter()
+  Point<double> get firstPosition;
+  @DoublePointJsonConverter()
+  Point<double> get secondPosition;
+  @override
+  @JsonKey(ignore: true)
+  _$$TextureElementCopyWith<_$TextureElement> get copyWith =>
       throw _privateConstructorUsedError;
 }

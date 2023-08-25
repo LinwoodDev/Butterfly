@@ -23,13 +23,15 @@ import '../cubits/transform.dart';
 import '../helpers/xml_helper.dart';
 import '../models/label.dart';
 import '../services/asset.dart';
+import 'textures/texture.dart';
 
-part 'backgrounds/box.dart';
+part 'backgrounds/texture.dart';
 part 'backgrounds/empty.dart';
 part 'backgrounds/image.dart';
 part 'elements/image.dart';
 part 'elements/markdown.dart';
 part 'elements/text.dart';
+part 'elements/texture.dart';
 part 'elements/path.dart';
 part 'elements/pen.dart';
 part 'elements/shape.dart';
@@ -112,6 +114,7 @@ abstract class Renderer<T> {
         svg: (value) => SvgRenderer(value),
         shape: (value) => ShapeRenderer(value),
         markdown: (value) => MarkdownRenderer(value),
+        texture: (value) => TextureRenderer(value),
       ) as Renderer<T>;
     }
 

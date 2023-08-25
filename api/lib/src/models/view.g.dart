@@ -7,7 +7,7 @@ part of 'view.dart';
 // **************************************************************************
 
 _$_ViewOption _$$_ViewOptionFromJson(Map json) => _$_ViewOption(
-      gridColor: json['gridColor'] as int? ?? 0,
+      gridColor: json['gridColor'] as int? ?? kColorBlack,
       gridXSize: (json['gridXSize'] as num?)?.toDouble() ?? 20,
       gridYSize: (json['gridYSize'] as num?)?.toDouble() ?? 20,
     );

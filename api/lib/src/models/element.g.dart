@@ -281,3 +281,33 @@ Map<String, dynamic> _$$ShapeElementToJson(_$ShapeElement instance) =>
       'property': instance.property.toJson(),
       'type': instance.$type,
     };
+
+_$TextureElement _$$TextureElementFromJson(Map json) => _$TextureElement(
+      rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+      layer: json['layer'] as String? ?? '',
+      texture: json['texture'] == null
+          ? const SurfaceTexture.pattern()
+          : SurfaceTexture.fromJson(
+              Map<String, dynamic>.from(json['texture'] as Map)),
+      firstPosition: json['firstPosition'] == null
+          ? const Point(0.0, 0.0)
+          : const DoublePointJsonConverter()
+              .fromJson(json['firstPosition'] as Map),
+      secondPosition: json['secondPosition'] == null
+          ? const Point(0.0, 0.0)
+          : const DoublePointJsonConverter()
+              .fromJson(json['secondPosition'] as Map),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$TextureElementToJson(_$TextureElement instance) =>
+    <String, dynamic>{
+      'rotation': instance.rotation,
+      'layer': instance.layer,
+      'texture': instance.texture.toJson(),
+      'firstPosition':
+          const DoublePointJsonConverter().toJson(instance.firstPosition),
+      'secondPosition':
+          const DoublePointJsonConverter().toJson(instance.secondPosition),
+      'type': instance.$type,
+    };
