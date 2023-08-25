@@ -522,5 +522,6 @@
   "descending": "Faldende",
   "imageScale": "Billed skala",
   "select": "Vælg",
-  "tool": "Værktøj"
+  "tool": "Værktøj",
+  "texture": "Texture"
 }
