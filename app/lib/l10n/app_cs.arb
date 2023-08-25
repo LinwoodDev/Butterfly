@@ -522,5 +522,6 @@
   "descending": "sestupně",
   "imageScale": "Měřítko obrázku",
   "select": "Vybrat",
-  "tool": "Nástroj"
+  "tool": "Nástroj",
+  "texture": "Texture"
 }
