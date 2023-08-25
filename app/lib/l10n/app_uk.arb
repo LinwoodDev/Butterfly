@@ -522,5 +522,6 @@
   "descending": "За спаданням",
   "imageScale": "Масштаб зображення",
   "select": "Вибрати",
-  "tool": "Інструмент"
+  "tool": "Інструмент",
+  "texture": "Texture"
 }
