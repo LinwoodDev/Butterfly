@@ -522,5 +522,6 @@
   "descending": "Laskeva",
   "imageScale": "Kuvan mittakaava",
   "select": "Valitse",
-  "tool": "Työkalu"
+  "tool": "Työkalu",
+  "texture": "Texture"
 }
