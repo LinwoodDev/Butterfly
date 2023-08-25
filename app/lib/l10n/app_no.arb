@@ -522,5 +522,6 @@
   "descending": "Synkende",
   "imageScale": "Bilde skalering",
   "select": "Velg",
-  "tool": "Verktøy"
+  "tool": "Verktøy",
+  "texture": "Texture"
 }
