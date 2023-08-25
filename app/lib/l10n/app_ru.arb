@@ -522,5 +522,6 @@
   "descending": "По убыванию",
   "imageScale": "Масштаб изображения",
   "select": "Выбрать",
-  "tool": "Инструмент"
+  "tool": "Инструмент",
+  "texture": "Texture"
 }
