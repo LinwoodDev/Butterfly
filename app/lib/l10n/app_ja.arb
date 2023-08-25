@@ -522,5 +522,6 @@
   "descending": "降順",
   "imageScale": "画像の大きさ",
   "select": "選択",
-  "tool": "ツール"
+  "tool": "ツール",
+  "texture": "Texture"
 }
