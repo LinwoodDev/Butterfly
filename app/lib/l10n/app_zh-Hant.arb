@@ -522,5 +522,6 @@
   "descending": "Descending",
   "imageScale": "圖片縮放",
   "select": "Select",
-  "tool": "Tool"
+  "tool": "Tool",
+  "texture": "Texture"
 }
