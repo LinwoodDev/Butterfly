@@ -522,5 +522,6 @@
   "descending": "Aflopend",
   "imageScale": "Afbeelding schaal",
   "select": "Selecteren",
-  "tool": "Gereedschap"
+  "tool": "Gereedschap",
+  "texture": "Texture"
 }
