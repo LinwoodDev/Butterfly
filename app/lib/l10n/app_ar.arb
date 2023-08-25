@@ -522,5 +522,6 @@
   "descending": "تنازلي",
   "imageScale": "حجم الصورة",
   "select": "حدد",
-  "tool": "أداة"
+  "tool": "أداة",
+  "texture": "Texture"
 }
