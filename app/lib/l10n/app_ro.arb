@@ -522,5 +522,6 @@
   "descending": "Descrescător",
   "imageScale": "Scala imaginii",
   "select": "Selectare",
-  "tool": "Unelte"
+  "tool": "Unelte",
+  "texture": "Texture"
 }
