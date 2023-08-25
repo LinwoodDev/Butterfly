@@ -522,5 +522,6 @@
   "descending": "Fallande",
   "imageScale": "Skala bild",
   "select": "Välj",
-  "tool": "Verktyg"
+  "tool": "Verktyg",
+  "texture": "Texture"
 }
