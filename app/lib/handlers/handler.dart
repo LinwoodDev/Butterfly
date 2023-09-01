@@ -129,6 +129,9 @@ class EventContext {
 
   ImportService getImportService() => buildContext.read<ImportService>();
 
+  ClipboardManager getClipboardManager() =>
+      buildContext.read<ClipboardManager>();
+
   CameraViewport getCameraViewport() => getCurrentIndex().cameraViewport;
 
   NoteData? getData() => getState()?.data;

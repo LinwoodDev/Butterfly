@@ -429,8 +429,11 @@ class SelectHandler extends Handler<SelectTool> {
       return;
     }
     final position = context.getCameraTransform().localToGlobal(localPosition);
-    final hits = await rayCast(
-        position, context.getDocumentBloc(), context.getCameraTransform(), 0.0);
+    final bloc = context.getDocumentBloc();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final hits =
+        await rayCast(position, bloc, context.getCameraTransform(), 0.0);
     final hit = hits.firstOrNull;
     final rect = hit?.expandedRect;
     if ((rect != null && !(getSelectionRect()?.contains(position) ?? false)) &&
@@ -444,17 +447,13 @@ class SelectHandler extends Handler<SelectTool> {
       final result = await showContextMenu<bool>(
         context: buildContext,
         position: localPosition,
-        builder: (ctx) => MultiBlocProvider(
-          providers: context.getProviders(),
-          child: RepositoryProvider.value(
-            value: context.getImportService(),
-            child: Actions(
-              actions: context.getActions(),
-              child:
-                  ElementsDialog(position: localPosition, renderers: _selected),
-            ),
-          ),
-        ),
+        builder: buildElementsContextMenu(
+            bloc,
+            state,
+            context.getImportService(),
+            context.getClipboardManager(),
+            localPosition,
+            _selected),
       );
       if (result ?? false) {
         _selected.clear();
