@@ -523,5 +523,8 @@
   "imageScale": "Skala bild",
   "select": "Välj",
   "tool": "Verktyg",
-  "texture": "Textur"
+  "texture": "Textur",
+  "platformTheme": "Platform theme",
+  "desktop": "Skrivbord",
+  "mobile": "Mobil"
 }
