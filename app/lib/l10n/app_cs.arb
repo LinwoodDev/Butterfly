@@ -523,5 +523,8 @@
   "imageScale": "Měřítko obrázku",
   "select": "Vybrat",
   "tool": "Nástroj",
-  "texture": "Textilie"
+  "texture": "Textilie",
+  "platformTheme": "Platform theme",
+  "desktop": "Stolní počítače",
+  "mobile": "Mobil"
 }
