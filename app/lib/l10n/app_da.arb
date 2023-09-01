@@ -523,5 +523,8 @@
   "imageScale": "Billed skala",
   "select": "Vælg",
   "tool": "Værktøj",
-  "texture": "Tekstur"
+  "texture": "Tekstur",
+  "platformTheme": "Platform theme",
+  "desktop": "Skrivebord",
+  "mobile": "Mobil"
 }
