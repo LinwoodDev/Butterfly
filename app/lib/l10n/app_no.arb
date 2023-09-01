@@ -523,5 +523,8 @@
   "imageScale": "Bilde skalering",
   "select": "Velg",
   "tool": "Verktøy",
-  "texture": "Tekstur"
+  "texture": "Tekstur",
+  "platformTheme": "Platform theme",
+  "desktop": "Skrivebord",
+  "mobile": "Mobil"
 }
