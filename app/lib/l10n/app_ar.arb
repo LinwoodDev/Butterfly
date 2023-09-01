@@ -523,5 +523,8 @@
   "imageScale": "حجم الصورة",
   "select": "حدد",
   "tool": "أداة",
-  "texture": "نسيج"
+  "texture": "نسيج",
+  "platformTheme": "Platform theme",
+  "desktop": "سطح المكتب",
+  "mobile": "الجوال"
 }
