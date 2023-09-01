@@ -29,10 +29,16 @@ class PersonalizationSettingsPage extends StatelessWidget {
     }
   }
 
-  String _getLocaleName(BuildContext context, String locale) {
-    return LocaleNames.of(context)?.nameOf(locale) ??
-        AppLocalizations.of(context).defaultLocale;
-  }
+  String _getPlatformThemeName(BuildContext context, PlatformTheme theme) =>
+      switch (theme) {
+        PlatformTheme.system => AppLocalizations.of(context).systemTheme,
+        PlatformTheme.desktop => AppLocalizations.of(context).desktop,
+        PlatformTheme.mobile => AppLocalizations.of(context).mobile,
+      };
+
+  String _getLocaleName(BuildContext context, String locale) =>
+      LocaleNames.of(context)?.nameOf(locale) ??
+      AppLocalizations.of(context).defaultLocale;
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +86,15 @@ class PersonalizationSettingsPage extends StatelessWidget {
                           subtitle:
                               Text(_getLocaleName(context, state.localeTag)),
                           onTap: () => _openLocaleModal(context),
+                        ),
+                        ListTile(
+                          leading:
+                              const PhosphorIcon(PhosphorIconsLight.cursor),
+                          title:
+                              Text(AppLocalizations.of(context).platformTheme),
+                          subtitle: Text(_getPlatformThemeName(
+                              context, state.platformTheme)),
+                          onTap: () => _openPlatformThemeModal(context),
                         ),
                       ]),
                 ),
@@ -267,6 +282,27 @@ class PersonalizationSettingsPage extends StatelessWidget {
                 .toList(),
             const SizedBox(height: 32),
           ];
+        });
+  }
+
+  void _openPlatformThemeModal(BuildContext context) {
+    final cubit = context.read<SettingsCubit>();
+    var currentTheme = cubit.state.platformTheme;
+    showLeapBottomSheet(
+        context: context,
+        title: AppLocalizations.of(context).locale,
+        childrenBuilder: (context) {
+          void changeTheme(PlatformTheme locale) {
+            cubit.changePlatformTheme(locale);
+            Navigator.of(context).pop();
+          }
+
+          return PlatformTheme.values
+              .map((e) => ListTile(
+                  title: Text(_getPlatformThemeName(context, e)),
+                  selected: currentTheme == e,
+                  onTap: () => changeTheme(e)))
+              .toList();
         });
   }
 

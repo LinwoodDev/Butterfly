@@ -27,6 +27,22 @@ const secureStorage = FlutterSecureStorage(
 );
 const kRecentHistorySize = 5;
 
+enum PlatformTheme {
+  system,
+  mobile,
+  desktop;
+
+  bool isMobile(BuildContext context) {
+    final platform = Theme.of(context).platform;
+    return switch (this) {
+      PlatformTheme.mobile => true,
+      PlatformTheme.desktop => false,
+      PlatformTheme.system =>
+        platform == TargetPlatform.iOS || platform == TargetPlatform.android,
+    };
+  }
+}
+
 @freezed
 class RemoteStorage with _$RemoteStorage {
   const factory RemoteStorage.dav({
@@ -236,6 +252,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(SortBy.name) SortBy sortBy,
     @Default(SortOrder.ascending) SortOrder sortOrder,
     @Default(0.5) double imageScale,
+    @Default(PlatformTheme.system) PlatformTheme platformTheme,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -304,6 +321,9 @@ class ButterflySettings with _$ButterflySettings {
           ? SortOrder.values.byName(prefs.getString('sort_order')!)
           : SortOrder.ascending,
       imageScale: prefs.getDouble('image_scale') ?? 0.5,
+      platformTheme: prefs.containsKey('platform_theme')
+          ? PlatformTheme.values.byName(prefs.getString('platform_theme')!)
+          : PlatformTheme.system,
     );
   }
 
@@ -750,4 +770,12 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> resetImageScale() => changeImageScale(0.5);
+
+  Future<void> changePlatformTheme(PlatformTheme locale) {
+    emit(state.copyWith(platformTheme: locale));
+    return save();
+  }
+
+  Future<void> resetPlatformTheme() =>
+      changePlatformTheme(PlatformTheme.system);
 }

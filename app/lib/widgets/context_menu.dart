@@ -2,8 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:animations/animations.dart';
-import 'package:butterfly/main.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 typedef ContextMenuBuilder = List<ContextMenuEntry> Function(
     BuildContext context);
@@ -86,7 +87,8 @@ class _ContextMenuState extends State<ContextMenu>
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < kMobileWidth;
+    final isMobile =
+        context.read<SettingsCubit>().state.platformTheme.isMobile(context);
     final items = widget.builder(context);
     return CustomSingleChildLayout(
       delegate: DesktopTextSelectionToolbarLayoutDelegate(

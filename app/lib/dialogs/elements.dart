@@ -1,10 +1,8 @@
-import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/visualizer/event.dart';
 import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -20,6 +18,7 @@ ContextMenuBuilder buildElementsContextMenu(
     ClipboardManager clipboardManager,
     Offset position,
     List<Renderer<PadElement>> renderers) {
+  final cubit = state.currentIndexCubit;
   return (context) => [
         if (renderers.isEmpty) ...[
           ContextMenuItem(
@@ -43,10 +42,7 @@ ContextMenuBuilder buildElementsContextMenu(
           ContextMenuItem(
             onPressed: () {
               Navigator.of(context).pop(true);
-              context
-                  .read<CurrentIndexCubit>()
-                  .fetchHandler<SelectHandler>()
-                  ?.copySelection(context, true);
+              cubit.fetchHandler<SelectHandler>()?.copySelection(context, true);
             },
             icon: const PhosphorIcon(PhosphorIconsLight.scissors),
             label: AppLocalizations.of(context).cut,
@@ -54,8 +50,7 @@ ContextMenuBuilder buildElementsContextMenu(
           ContextMenuItem(
             onPressed: () {
               Navigator.of(context).pop(true);
-              context
-                  .read<CurrentIndexCubit>()
+              cubit
                   .fetchHandler<SelectHandler>()
                   ?.copySelection(context, false);
             },
@@ -66,23 +61,20 @@ ContextMenuBuilder buildElementsContextMenu(
             icon: const PhosphorIcon(PhosphorIconsLight.copy),
             onPressed: () {
               Navigator.of(context).pop(true);
-              context
-                  .read<CurrentIndexCubit>()
-                  .fetchHandler<SelectHandler>()
-                  ?.transform(
-                      context.read<DocumentBloc>(),
-                      renderers
-                          .map((e) => Renderer.fromInstance(e.element))
-                          .toList(),
-                      null,
-                      true);
+              cubit.fetchHandler<SelectHandler>()?.transform(
+                  bloc,
+                  renderers
+                      .map((e) => Renderer.fromInstance(e.element))
+                      .toList(),
+                  null,
+                  true);
             },
             label: AppLocalizations.of(context).duplicate,
           ),
           ContextMenuItem(
             onPressed: () {
               Navigator.of(context).pop(true);
-              context.read<DocumentBloc>().add(
+              bloc.add(
                   ElementsRemoved(renderers.map((r) => r.element).toList()));
             },
             icon: const PhosphorIcon(PhosphorIconsLight.trash),
@@ -96,7 +88,7 @@ ContextMenuBuilder buildElementsContextMenu(
                       child: Text(e.getLocalizedName(context)),
                       onPressed: () {
                         Navigator.of(context).pop(true);
-                        context.read<DocumentBloc>().add(ElementsArranged(
+                        bloc.add(ElementsArranged(
                             renderers.map((r) => r.element).toList(), e));
                       },
                     ))
@@ -107,7 +99,6 @@ ContextMenuBuilder buildElementsContextMenu(
             onPressed: () {
               Navigator.of(context).pop(true);
               if (renderers.isEmpty) return;
-              final cubit = context.read<CurrentIndexCubit>();
               cubit.changeSelection(renderers.first);
               renderers.sublist(1).forEach((r) => cubit.insertSelection(r));
             },

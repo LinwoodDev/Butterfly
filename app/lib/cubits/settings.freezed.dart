@@ -867,6 +867,7 @@ mixin _$ButterflySettings {
   SortBy get sortBy => throw _privateConstructorUsedError;
   SortOrder get sortOrder => throw _privateConstructorUsedError;
   double get imageScale => throw _privateConstructorUsedError;
+  PlatformTheme get platformTheme => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ButterflySettingsCopyWith<ButterflySettings> get copyWith =>
@@ -910,7 +911,8 @@ abstract class $ButterflySettingsCopyWith<$Res> {
       ToolbarPosition toolbarPosition,
       SortBy sortBy,
       SortOrder sortOrder,
-      double imageScale});
+      double imageScale,
+      PlatformTheme platformTheme});
 
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
 }
@@ -959,6 +961,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
     Object? sortBy = null,
     Object? sortOrder = null,
     Object? imageScale = null,
+    Object? platformTheme = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -1085,6 +1088,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.imageScale
           : imageScale // ignore: cast_nullable_to_non_nullable
               as double,
+      platformTheme: null == platformTheme
+          ? _value.platformTheme
+          : platformTheme // ignore: cast_nullable_to_non_nullable
+              as PlatformTheme,
     ) as $Val);
   }
 
@@ -1137,7 +1144,8 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
       ToolbarPosition toolbarPosition,
       SortBy sortBy,
       SortOrder sortOrder,
-      double imageScale});
+      double imageScale,
+      PlatformTheme platformTheme});
 
   @override
   $InputConfigurationCopyWith<$Res> get inputConfiguration;
@@ -1185,6 +1193,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? sortBy = null,
     Object? sortOrder = null,
     Object? imageScale = null,
+    Object? platformTheme = null,
   }) {
     return _then(_$_ButterflySettings(
       theme: null == theme
@@ -1311,6 +1320,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.imageScale
           : imageScale // ignore: cast_nullable_to_non_nullable
               as double,
+      platformTheme: null == platformTheme
+          ? _value.platformTheme
+          : platformTheme // ignore: cast_nullable_to_non_nullable
+              as PlatformTheme,
     ));
   }
 }
@@ -1350,7 +1363,8 @@ class _$_ButterflySettings extends _ButterflySettings
       this.toolbarPosition = ToolbarPosition.top,
       this.sortBy = SortBy.name,
       this.sortOrder = SortOrder.ascending,
-      this.imageScale = 0.5})
+      this.imageScale = 0.5,
+      this.platformTheme = PlatformTheme.system})
       : _history = history,
         _remotes = remotes,
         _starred = starred,
@@ -1465,10 +1479,13 @@ class _$_ButterflySettings extends _ButterflySettings
   @override
   @JsonKey()
   final double imageScale;
+  @override
+  @JsonKey()
+  final PlatformTheme platformTheme;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale)';
+    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, platformTheme: $platformTheme)';
   }
 
   @override
@@ -1506,7 +1523,8 @@ class _$_ButterflySettings extends _ButterflySettings
       ..add(DiagnosticsProperty('toolbarPosition', toolbarPosition))
       ..add(DiagnosticsProperty('sortBy', sortBy))
       ..add(DiagnosticsProperty('sortOrder', sortOrder))
-      ..add(DiagnosticsProperty('imageScale', imageScale));
+      ..add(DiagnosticsProperty('imageScale', imageScale))
+      ..add(DiagnosticsProperty('platformTheme', platformTheme));
   }
 
   @override
@@ -1569,7 +1587,9 @@ class _$_ButterflySettings extends _ButterflySettings
             (identical(other.sortOrder, sortOrder) ||
                 other.sortOrder == sortOrder) &&
             (identical(other.imageScale, imageScale) ||
-                other.imageScale == imageScale));
+                other.imageScale == imageScale) &&
+            (identical(other.platformTheme, platformTheme) ||
+                other.platformTheme == platformTheme));
   }
 
   @override
@@ -1605,7 +1625,8 @@ class _$_ButterflySettings extends _ButterflySettings
         toolbarPosition,
         sortBy,
         sortOrder,
-        imageScale
+        imageScale,
+        platformTheme
       ]);
 
   @JsonKey(ignore: true)
@@ -1648,7 +1669,8 @@ abstract class _ButterflySettings extends ButterflySettings {
       final ToolbarPosition toolbarPosition,
       final SortBy sortBy,
       final SortOrder sortOrder,
-      final double imageScale}) = _$_ButterflySettings;
+      final double imageScale,
+      final PlatformTheme platformTheme}) = _$_ButterflySettings;
   const _ButterflySettings._() : super._();
 
   @override
@@ -1713,6 +1735,8 @@ abstract class _ButterflySettings extends ButterflySettings {
   SortOrder get sortOrder;
   @override
   double get imageScale;
+  @override
+  PlatformTheme get platformTheme;
   @override
   @JsonKey(ignore: true)
   _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>
