@@ -524,7 +524,7 @@
   "select": "Välj",
   "tool": "Verktyg",
   "texture": "Textur",
-  "platformTheme": "Platform theme",
+  "platformTheme": "Plattformens tema",
   "desktop": "Skrivbord",
   "mobile": "Mobil"
 }
