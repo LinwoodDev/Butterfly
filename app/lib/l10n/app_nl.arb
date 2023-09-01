@@ -523,5 +523,8 @@
   "imageScale": "Afbeelding schaal",
   "select": "Selecteren",
   "tool": "Gereedschap",
-  "texture": "Textuur"
+  "texture": "Textuur",
+  "platformTheme": "Platform theme",
+  "desktop": "Startscherm",
+  "mobile": "Mobiel"
 }
