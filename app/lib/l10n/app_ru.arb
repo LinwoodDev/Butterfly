@@ -524,7 +524,7 @@
   "select": "Выбрать",
   "tool": "Инструмент",
   "texture": "Текстура",
-  "platformTheme": "Platform theme",
+  "platformTheme": "Тема платформы",
   "desktop": "Рабочий стол",
   "mobile": "Мобильный"
 }
