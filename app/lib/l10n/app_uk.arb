@@ -523,5 +523,8 @@
   "imageScale": "Масштаб зображення",
   "select": "Вибрати",
   "tool": "Інструмент",
-  "texture": "Текстура"
+  "texture": "Текстура",
+  "platformTheme": "Platform theme",
+  "desktop": "Стільниця",
+  "mobile": "Мобільний"
 }
