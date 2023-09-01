@@ -524,7 +524,7 @@
   "select": "选择",
   "tool": "工具",
   "texture": "纹理",
-  "platformTheme": "Platform theme",
+  "platformTheme": "平台主题",
   "desktop": "桌面",
   "mobile": "移动设备"
 }
