@@ -523,5 +523,8 @@
   "imageScale": "图像缩放",
   "select": "选择",
   "tool": "工具",
-  "texture": "纹理"
+  "texture": "纹理",
+  "platformTheme": "Platform theme",
+  "desktop": "桌面",
+  "mobile": "移动设备"
 }
