@@ -523,5 +523,8 @@
   "imageScale": "Kuvan mittakaava",
   "select": "Valitse",
   "tool": "Työkalu",
-  "texture": "Tekstuuri"
+  "texture": "Tekstuuri",
+  "platformTheme": "Platform theme",
+  "desktop": "Työpöytä",
+  "mobile": "Mobiili"
 }
