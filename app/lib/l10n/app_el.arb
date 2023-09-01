@@ -523,5 +523,8 @@
   "imageScale": "Κλίμακα εικόνας",
   "select": "Επιλογή",
   "tool": "Εργαλείο",
-  "texture": "Υφή"
+  "texture": "Υφή",
+  "platformTheme": "Platform theme",
+  "desktop": "Επιφάνεια Εργασίας",
+  "mobile": "Κινητό"
 }
