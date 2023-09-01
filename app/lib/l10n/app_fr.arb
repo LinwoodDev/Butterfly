@@ -524,7 +524,7 @@
   "select": "Sélectionner",
   "tool": "Outil",
   "texture": "Texture",
-  "platformTheme": "Platform theme",
+  "platformTheme": "Thème de la plateforme",
   "desktop": "Bureau",
   "mobile": "Téléphone mobile"
 }
