@@ -524,7 +524,7 @@
   "select": "選択",
   "tool": "ツール",
   "texture": "テクスチャ",
-  "platformTheme": "Platform theme",
+  "platformTheme": "プラットフォームのテーマ",
   "desktop": "デスクトップ",
   "mobile": "モバイル"
 }
