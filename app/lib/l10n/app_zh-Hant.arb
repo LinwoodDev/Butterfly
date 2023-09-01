@@ -523,5 +523,8 @@
   "imageScale": "圖片縮放",
   "select": "Select",
   "tool": "Tool",
-  "texture": "Texture"
+  "texture": "Texture",
+  "platformTheme": "Platform theme",
+  "desktop": "Desktop",
+  "mobile": "Mobile"
 }
