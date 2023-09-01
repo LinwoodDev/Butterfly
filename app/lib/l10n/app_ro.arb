@@ -523,5 +523,8 @@
   "imageScale": "Scala imaginii",
   "select": "Selectare",
   "tool": "Unelte",
-  "texture": "Textură"
+  "texture": "Textură",
+  "platformTheme": "Platform theme",
+  "desktop": "Birou",
+  "mobile": "Mobil"
 }
