@@ -523,5 +523,8 @@
   "imageScale": "Echelle de l'image",
   "select": "Sélectionner",
   "tool": "Outil",
-  "texture": "Texture"
+  "texture": "Texture",
+  "platformTheme": "Platform theme",
+  "desktop": "Bureau",
+  "mobile": "Téléphone mobile"
 }
