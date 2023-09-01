@@ -523,5 +523,8 @@
   "imageScale": "Skala obrazu",
   "select": "Wybierz",
   "tool": "Narzędzie",
-  "texture": "Tekstura"
+  "texture": "Tekstura",
+  "platformTheme": "Platform theme",
+  "desktop": "Pulpit",
+  "mobile": "Komórka"
 }
