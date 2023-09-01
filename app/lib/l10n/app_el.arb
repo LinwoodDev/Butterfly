@@ -524,7 +524,7 @@
   "select": "Επιλογή",
   "tool": "Εργαλείο",
   "texture": "Υφή",
-  "platformTheme": "Platform theme",
+  "platformTheme": "Θέμα πλατφόρμας",
   "desktop": "Επιφάνεια Εργασίας",
   "mobile": "Κινητό"
 }
