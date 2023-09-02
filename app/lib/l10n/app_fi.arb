@@ -526,5 +526,6 @@
   "texture": "Tekstuuri",
   "platformTheme": "Alustan teema",
   "desktop": "Työpöytä",
-  "mobile": "Mobiili"
+  "mobile": "Mobiili",
+  "pdfQuality": "PDF quality"
 }
