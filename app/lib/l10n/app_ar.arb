@@ -526,5 +526,6 @@
   "texture": "نسيج",
   "platformTheme": "موضوع المنصة",
   "desktop": "سطح المكتب",
-  "mobile": "الجوال"
+  "mobile": "الجوال",
+  "pdfQuality": "PDF quality"
 }
