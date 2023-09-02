@@ -527,5 +527,7 @@
   "platformTheme": "Motiv platformy",
   "desktop": "Stolní počítače",
   "mobile": "Mobil",
-  "pdfQuality": "Kvalita PDF"
+  "pdfQuality": "Kvalita PDF",
+  "surface": "Surface",
+  "pattern": "Pattern"
 }
