@@ -526,5 +526,6 @@
   "texture": "Textură",
   "platformTheme": "Tema platformei",
   "desktop": "Birou",
-  "mobile": "Mobil"
+  "mobile": "Mobil",
+  "pdfQuality": "PDF quality"
 }
