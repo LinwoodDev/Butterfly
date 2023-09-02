@@ -527,5 +527,7 @@
   "platformTheme": "平台主题",
   "desktop": "桌面",
   "mobile": "移动设备",
-  "pdfQuality": "PDF 质量"
+  "pdfQuality": "PDF 质量",
+  "surface": "Surface",
+  "pattern": "Pattern"
 }
