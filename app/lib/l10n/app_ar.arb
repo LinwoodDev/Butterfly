@@ -527,5 +527,7 @@
   "platformTheme": "موضوع المنصة",
   "desktop": "سطح المكتب",
   "mobile": "الجوال",
-  "pdfQuality": "جودة PDF"
+  "pdfQuality": "جودة PDF",
+  "surface": "Surface",
+  "pattern": "Pattern"
 }
