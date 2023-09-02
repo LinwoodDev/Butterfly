@@ -526,5 +526,6 @@
   "texture": "Textilie",
   "platformTheme": "Motiv platformy",
   "desktop": "Stolní počítače",
-  "mobile": "Mobil"
+  "mobile": "Mobil",
+  "pdfQuality": "PDF quality"
 }
