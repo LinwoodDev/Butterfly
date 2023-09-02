@@ -526,5 +526,6 @@
   "texture": "纹理",
   "platformTheme": "平台主题",
   "desktop": "桌面",
-  "mobile": "移动设备"
+  "mobile": "移动设备",
+  "pdfQuality": "PDF quality"
 }
