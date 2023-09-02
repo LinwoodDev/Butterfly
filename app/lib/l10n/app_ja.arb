@@ -526,5 +526,6 @@
   "texture": "テクスチャ",
   "platformTheme": "プラットフォームのテーマ",
   "desktop": "デスクトップ",
-  "mobile": "モバイル"
+  "mobile": "モバイル",
+  "pdfQuality": "PDF quality"
 }
