@@ -527,5 +527,7 @@
   "platformTheme": "Platform thema",
   "desktop": "Startscherm",
   "mobile": "Mobiel",
-  "pdfQuality": "PDF kwaliteit"
+  "pdfQuality": "PDF kwaliteit",
+  "surface": "Surface",
+  "pattern": "Pattern"
 }
