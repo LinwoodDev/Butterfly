@@ -527,5 +527,7 @@
   "platformTheme": "Motyw platformy",
   "desktop": "Pulpit",
   "mobile": "Komórka",
-  "pdfQuality": "Jakość PDF"
+  "pdfQuality": "Jakość PDF",
+  "surface": "Surface",
+  "pattern": "Pattern"
 }
