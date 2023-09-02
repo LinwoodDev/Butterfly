@@ -528,6 +528,6 @@
   "desktop": "Desktop",
   "mobile": "Mobil",
   "pdfQuality": "PDF-Qualität",
-  "surface": "Surface",
-  "pattern": "Pattern"
+  "surface": "Oberfläche",
+  "pattern": "Muster"
 }
