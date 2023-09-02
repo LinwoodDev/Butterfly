@@ -526,5 +526,6 @@
   "texture": "Текстура",
   "platformTheme": "Тема платформы",
   "desktop": "Рабочий стол",
-  "mobile": "Мобильный"
+  "mobile": "Мобильный",
+  "pdfQuality": "PDF quality"
 }
