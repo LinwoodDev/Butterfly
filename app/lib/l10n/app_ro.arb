@@ -527,5 +527,7 @@
   "platformTheme": "Tema platformei",
   "desktop": "Birou",
   "mobile": "Mobil",
-  "pdfQuality": "Calitate PDF"
+  "pdfQuality": "Calitate PDF",
+  "surface": "Surface",
+  "pattern": "Pattern"
 }
