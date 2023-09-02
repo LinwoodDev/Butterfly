@@ -526,5 +526,6 @@
   "texture": "Υφή",
   "platformTheme": "Θέμα πλατφόρμας",
   "desktop": "Επιφάνεια Εργασίας",
-  "mobile": "Κινητό"
+  "mobile": "Κινητό",
+  "pdfQuality": "PDF quality"
 }
