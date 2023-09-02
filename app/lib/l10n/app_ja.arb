@@ -527,5 +527,7 @@
   "platformTheme": "プラットフォームのテーマ",
   "desktop": "デスクトップ",
   "mobile": "モバイル",
-  "pdfQuality": "PDFの品質"
+  "pdfQuality": "PDFの品質",
+  "surface": "Surface",
+  "pattern": "Pattern"
 }
