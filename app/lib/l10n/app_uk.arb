@@ -527,5 +527,7 @@
   "platformTheme": "Тема платформи",
   "desktop": "Стільниця",
   "mobile": "Мобільний",
-  "pdfQuality": "Якість PDF"
+  "pdfQuality": "Якість PDF",
+  "surface": "Surface",
+  "pattern": "Pattern"
 }
