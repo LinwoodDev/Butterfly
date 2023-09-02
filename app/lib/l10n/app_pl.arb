@@ -526,5 +526,6 @@
   "texture": "Tekstura",
   "platformTheme": "Motyw platformy",
   "desktop": "Pulpit",
-  "mobile": "Komórka"
+  "mobile": "Komórka",
+  "pdfQuality": "PDF quality"
 }
