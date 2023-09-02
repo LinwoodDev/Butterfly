@@ -527,5 +527,7 @@
   "platformTheme": "Тема платформы",
   "desktop": "Рабочий стол",
   "mobile": "Мобильный",
-  "pdfQuality": "Качество PDF"
+  "pdfQuality": "Качество PDF",
+  "surface": "Surface",
+  "pattern": "Pattern"
 }
