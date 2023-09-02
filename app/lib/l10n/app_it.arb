@@ -526,5 +526,6 @@
   "texture": "Texture",
   "platformTheme": "Tema piattaforma",
   "desktop": "Desktop",
-  "mobile": "Cellulare"
+  "mobile": "Cellulare",
+  "pdfQuality": "PDF quality"
 }
