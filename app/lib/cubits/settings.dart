@@ -252,6 +252,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(SortBy.name) SortBy sortBy,
     @Default(SortOrder.ascending) SortOrder sortOrder,
     @Default(0.5) double imageScale,
+    @Default(2) double pdfQuality,
     @Default(PlatformTheme.system) PlatformTheme platformTheme,
   }) = _ButterflySettings;
 
@@ -321,6 +322,7 @@ class ButterflySettings with _$ButterflySettings {
           ? SortOrder.values.byName(prefs.getString('sort_order')!)
           : SortOrder.ascending,
       imageScale: prefs.getDouble('image_scale') ?? 0.5,
+      pdfQuality: prefs.getDouble('pdf_quality') ?? 2,
       platformTheme: prefs.containsKey('platform_theme')
           ? PlatformTheme.values.byName(prefs.getString('platform_theme')!)
           : PlatformTheme.system,
@@ -770,6 +772,13 @@ class SettingsCubit extends Cubit<ButterflySettings> {
   }
 
   Future<void> resetImageScale() => changeImageScale(0.5);
+
+  Future<void> changePdfQuality(double value) {
+    emit(state.copyWith(pdfQuality: value));
+    return save();
+  }
+
+  Future<void> resetPdfQuality() => changePdfQuality(2);
 
   Future<void> changePlatformTheme(PlatformTheme locale) {
     emit(state.copyWith(platformTheme: locale));

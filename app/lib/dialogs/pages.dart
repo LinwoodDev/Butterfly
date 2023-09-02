@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
+import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -24,11 +26,14 @@ class PagesDialog extends StatefulWidget {
 class _PagesDialogState extends State<PagesDialog> {
   List<int> selected = const [];
   double quality = 2.0;
+  double defaultQuality = 2.0;
 
   @override
   void initState() {
     super.initState();
     selected = List.generate(widget.pages.length, (i) => i);
+    defaultQuality = context.read<SettingsCubit>().state.pdfQuality;
+    quality = defaultQuality;
   }
 
   @override
@@ -92,7 +97,7 @@ class _PagesDialogState extends State<PagesDialog> {
           )),
           ExactSlider(
             onChanged: (value) => setState(() => quality = value),
-            defaultValue: 2,
+            defaultValue: defaultQuality,
             value: quality,
             max: 10,
             min: 0.5,
