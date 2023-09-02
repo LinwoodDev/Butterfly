@@ -527,5 +527,7 @@
   "platformTheme": "Plattform-Theme",
   "desktop": "Desktop",
   "mobile": "Mobil",
-  "pdfQuality": "PDF-Qualität"
+  "pdfQuality": "PDF-Qualität",
+  "surface": "Surface",
+  "pattern": "Pattern"
 }
