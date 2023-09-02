@@ -12,7 +12,7 @@ part 'asset.g.dart';
 enum AssetFileType { note, page, image, pdf, svg }
 
 @freezed
-class AssetLocation with _$AssetLocation {
+sealed class AssetLocation with _$AssetLocation {
   const factory AssetLocation({
     @Default('') String remote,
     required String path,

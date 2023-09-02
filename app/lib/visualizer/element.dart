@@ -27,7 +27,7 @@ extension ElementVisualizer on PadElement {
       shape: (element) => element.property.shape.icon,
       svg: (_) => PhosphorIcons.fileSvg,
       markdown: (_) => PhosphorIcons.textbox,
-      texture: (_) => PhosphorIcons.waveSquare,
+      texture: (_) => PhosphorIcons.gridFour,
     );
   }
 }
@@ -90,4 +90,17 @@ extension LabelModeVisualizer on LabelMode {
         return PhosphorIcons.textT;
     }
   }
+}
+
+extension SurfaceTextureVisualizer on SurfaceTexture {
+  String getLocalizedName(BuildContext context) {
+    final loc = AppLocalizations.of(context);
+    return switch (this) {
+      PatternTexture() => loc.pattern,
+    };
+  }
+
+  IconGetter get icon => switch (this) {
+        PatternTexture() => PhosphorIcons.gridFour,
+      };
 }

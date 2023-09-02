@@ -1,5 +1,6 @@
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/color_helper.dart';
+import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -65,7 +66,7 @@ class AddDialog extends StatelessWidget {
         ),
       ],
       content: SizedBox(
-        width: 900,
+        width: 1000,
         child: Material(
           color: Colors.transparent,
           child: ValueListenableBuilder(
@@ -105,6 +106,13 @@ class AddDialog extends StatelessWidget {
                   PathShape.rectangle,
                   PathShape.line,
                 ]
+                    .map((e) => e())
+                    .where((e) => e
+                        .getLocalizedName(context)
+                        .toLowerCase()
+                        .contains(search.toLowerCase()))
+                    .toList();
+                final textures = [SurfaceTexture.pattern]
                     .map((e) => e())
                     .where((e) => e
                         .getLocalizedName(context)
@@ -179,25 +187,33 @@ class AddDialog extends StatelessWidget {
                       ),
                       const SizedBox(height: 32),
                     ],
-                    if (shapes.isNotEmpty) ...[
+                    if (shapes.isNotEmpty || textures.isNotEmpty) ...[
                       Text(
-                        AppLocalizations.of(context).shape,
+                        AppLocalizations.of(context).surface,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(height: 16),
                       Wrap(
                         alignment: WrapAlignment.start,
-                        children: shapes.map((e) {
-                          return BoxTile(
-                            title: Text(
-                              e.getLocalizedName(context),
-                              textAlign: TextAlign.center,
-                            ),
-                            icon: Icon(e.icon(PhosphorIconsStyle.light)),
-                            onTap: () => addTool(
-                                ShapeTool(property: ShapeProperty(shape: e))),
-                          );
-                        }).toList(),
+                        children: [
+                          ...shapes.map((e) => BoxTile(
+                                title: Text(
+                                  e.getLocalizedName(context),
+                                  textAlign: TextAlign.center,
+                                ),
+                                icon: Icon(e.icon(PhosphorIconsStyle.light)),
+                                onTap: () => addTool(ShapeTool(
+                                    property: ShapeProperty(shape: e))),
+                              )),
+                          ...textures.map((e) => BoxTile(
+                                title: Text(
+                                  e.getLocalizedName(context),
+                                  textAlign: TextAlign.center,
+                                ),
+                                icon: Icon(e.icon(PhosphorIconsStyle.light)),
+                                onTap: () => addTool(TextureTool(texture: e)),
+                              )),
+                        ],
                       ),
                       const SizedBox(height: 32),
                     ],

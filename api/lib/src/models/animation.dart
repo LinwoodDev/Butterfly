@@ -19,7 +19,7 @@ class _InterpolationResult {
 }
 
 @freezed
-class AnimationTrack with _$AnimationTrack {
+sealed class AnimationTrack with _$AnimationTrack {
   const AnimationTrack._();
   const factory AnimationTrack({
     @Default('') String name,

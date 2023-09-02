@@ -11,7 +11,7 @@ part 'page.g.dart';
 part 'page.freezed.dart';
 
 @freezed
-class DocumentPage with _$DocumentPage {
+sealed class DocumentPage with _$DocumentPage {
   const DocumentPage._();
 
   const factory DocumentPage({

@@ -332,3 +332,30 @@ const _$ImportTypeEnumMap = {
   ImportType.pdf: 'pdf',
   ImportType.document: 'document',
 };
+
+_$TextureTool _$$TextureToolFromJson(Map json) => _$TextureTool(
+      name: json['name'] as String? ?? '',
+      displayIcon: json['displayIcon'] as String? ?? '',
+      zoomDependent: json['zoomDependent'] as bool? ?? true,
+      constrainedWidth: (json['constrainedWidth'] as num?)?.toDouble() ?? 0,
+      constrainedHeight: (json['constrainedHeight'] as num?)?.toDouble() ?? 0,
+      constrainedAspectRatio:
+          (json['constrainedAspectRatio'] as num?)?.toDouble() ?? 0,
+      texture: json['texture'] == null
+          ? const SurfaceTexture.pattern()
+          : SurfaceTexture.fromJson(
+              Map<String, dynamic>.from(json['texture'] as Map)),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$TextureToolToJson(_$TextureTool instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'displayIcon': instance.displayIcon,
+      'zoomDependent': instance.zoomDependent,
+      'constrainedWidth': instance.constrainedWidth,
+      'constrainedHeight': instance.constrainedHeight,
+      'constrainedAspectRatio': instance.constrainedAspectRatio,
+      'texture': instance.texture.toJson(),
+      'type': instance.$type,
+    };

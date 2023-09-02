@@ -6,7 +6,7 @@ part 'point.g.dart';
 part 'point.freezed.dart';
 
 @freezed
-class PathPoint with _$PathPoint {
+sealed class PathPoint with _$PathPoint {
   const PathPoint._();
   const factory PathPoint(double x, double y, [@Default(1) double pressure]) =
       _PathPoint;

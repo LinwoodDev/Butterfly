@@ -7,7 +7,7 @@ part 'area.g.dart';
 part 'area.freezed.dart';
 
 @freezed
-class Area with _$Area {
+sealed class Area with _$Area {
   const Area._();
   const factory Area({
     @Default('') String name,

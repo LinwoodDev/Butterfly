@@ -9,7 +9,7 @@ part 'info.freezed.dart';
 part 'info.g.dart';
 
 @freezed
-class DocumentInfo with _$DocumentInfo {
+sealed class DocumentInfo with _$DocumentInfo {
   const factory DocumentInfo({
     @Default([]) List<Tool> tools,
     @Default([]) List<ExportPreset> exportPresets,

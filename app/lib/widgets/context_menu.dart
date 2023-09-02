@@ -103,7 +103,7 @@ class _ContextMenuState extends State<ContextMenu>
         child: ConstrainedBox(
           constraints: BoxConstraints(
             maxWidth: widget.maxWidth,
-            maxHeight: min(widget.maxHeight, isMobile ? 50 : double.infinity),
+            maxHeight: min(widget.maxHeight, isMobile ? 60 : double.infinity),
           ),
           child: Material(
             borderRadius: BorderRadius.circular(12),
@@ -111,10 +111,14 @@ class _ContextMenuState extends State<ContextMenu>
               scrollDirection: isMobile ? Axis.horizontal : Axis.vertical,
               shrinkWrap: true,
               children: items.map((item) {
-                Widget buildItemWidget(VoidCallback? onPressed) => IconButton(
-                      icon: item.icon,
-                      tooltip: item.label,
-                      onPressed: onPressed,
+                Widget buildItemWidget(VoidCallback? onPressed) => AspectRatio(
+                      aspectRatio: 1,
+                      child: IconButton(
+                        icon: item.icon,
+                        tooltip: item.label,
+                        onPressed: onPressed,
+                        iconSize: 28,
+                      ),
                     );
                 return switch (item) {
                   ContextMenuItem() => isMobile
@@ -154,7 +158,7 @@ Future<T?> showContextMenu<T>(
     Offset position = Offset.zero,
     required ContextMenuBuilder builder,
     double maxHeight = 400,
-    double maxWidth = 300}) async {
+    double maxWidth = 400}) async {
   final RenderBox box = context.findRenderObject() as RenderBox;
   final Offset globalPos = box.localToGlobal(position);
   AdaptiveTextSelectionToolbar;

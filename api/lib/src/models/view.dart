@@ -6,7 +6,7 @@ part 'view.freezed.dart';
 part 'view.g.dart';
 
 @freezed
-class ViewOption with _$ViewOption {
+sealed class ViewOption with _$ViewOption {
   const factory ViewOption({
     @Default(kColorBlack) int gridColor,
     @Default(20) double gridXSize,

@@ -290,7 +290,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
     var currentTheme = cubit.state.platformTheme;
     showLeapBottomSheet(
         context: context,
-        title: AppLocalizations.of(context).locale,
+        title: AppLocalizations.of(context).platformTheme,
         childrenBuilder: (context) {
           void changeTheme(PlatformTheme locale) {
             cubit.changePlatformTheme(locale);

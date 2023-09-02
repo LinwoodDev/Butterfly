@@ -19,7 +19,7 @@ const kFontWeightBold = 6;
 enum TextDecorationStyle { solid, double, dotted, dashed, wavy }
 
 @freezed
-class SpanProperty with _$SpanProperty {
+sealed class SpanProperty with _$SpanProperty {
   const factory SpanProperty.defined({
     double? size,
     int? color,
@@ -59,7 +59,7 @@ class SpanProperty with _$SpanProperty {
 }
 
 @freezed
-class ParagraphProperty with _$ParagraphProperty {
+sealed class ParagraphProperty with _$ParagraphProperty {
   const factory ParagraphProperty.defined({
     @Default(DefinedSpanProperty()) DefinedSpanProperty span,
     @Default(HorizontalAlignment.left) HorizontalAlignment alignment,
@@ -72,7 +72,7 @@ class ParagraphProperty with _$ParagraphProperty {
 }
 
 @freezed
-class AreaProperty with _$AreaProperty {
+sealed class AreaProperty with _$AreaProperty {
   const factory AreaProperty({
     @Default(VerticalAlignment.top) VerticalAlignment alignment,
   }) = _AreaProperty;
@@ -82,7 +82,7 @@ class AreaProperty with _$AreaProperty {
 }
 
 @freezed
-class TextSpan with _$TextSpan {
+sealed class TextSpan with _$TextSpan {
   const TextSpan._();
   const factory TextSpan.text({
     @Default('') String text,
@@ -110,12 +110,12 @@ class TextSpan with _$TextSpan {
 }
 
 @freezed
-class IndexedModel<T> with _$IndexedModel<T> {
+sealed class IndexedModel<T> with _$IndexedModel<T> {
   const factory IndexedModel(int index, T model) = _IndexedModel<T>;
 }
 
 @freezed
-class TextParagraph with _$TextParagraph {
+sealed class TextParagraph with _$TextParagraph {
   const TextParagraph._();
   const factory TextParagraph.text({
     @Default(ParagraphProperty.undefined()) ParagraphProperty property,
@@ -286,7 +286,7 @@ class TextParagraph with _$TextParagraph {
 }
 
 @freezed
-class TextArea with _$TextArea {
+sealed class TextArea with _$TextArea {
   const TextArea._();
   const factory TextArea({
     @Default(AreaProperty()) AreaProperty areaProperty,
@@ -300,7 +300,7 @@ class TextArea with _$TextArea {
 }
 
 @freezed
-class TextStyleSheet with _$TextStyleSheet {
+sealed class TextStyleSheet with _$TextStyleSheet {
   const TextStyleSheet._();
 
   const factory TextStyleSheet({

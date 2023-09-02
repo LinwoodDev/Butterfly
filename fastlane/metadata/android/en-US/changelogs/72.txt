@@ -10,5 +10,6 @@
 * Add search to add dialog
 * Add mobile context menu ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
 * Add setting to set default pdf quality
+* Add texture element ([#406](https://github.com/LinwoodDev
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8

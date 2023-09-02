@@ -36,7 +36,7 @@ enum Axis2D { horizontal, vertical }
 enum ImportType { image, camera, svg, pdf, document }
 
 @Freezed(equal: false)
-class Tool with _$Tool {
+sealed class Tool with _$Tool {
   Tool._();
 
   factory Tool.select({
@@ -155,6 +155,16 @@ class Tool with _$Tool {
     @Default('') String displayIcon,
     @Default(ImportType.document) ImportType importType,
   }) = AssetTool;
+
+  factory Tool.texture({
+    @Default('') String name,
+    @Default('') String displayIcon,
+    @Default(true) bool zoomDependent,
+    @Default(0) double constrainedWidth,
+    @Default(0) double constrainedHeight,
+    @Default(0) double constrainedAspectRatio,
+    @Default(SurfaceTexture.pattern()) SurfaceTexture texture,
+  }) = TextureTool;
 
   factory Tool.fromJson(Map<String, dynamic> json) => _$ToolFromJson(json);
 }

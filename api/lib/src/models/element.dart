@@ -119,7 +119,7 @@ abstract class SourcedElement {
 
 @freezed
 @immutable
-class ElementConstraints with _$ElementConstraints {
+sealed class ElementConstraints with _$ElementConstraints {
   const factory ElementConstraints.scaled(
       {@Default(1) double scaleX,
       @Default(1) double scaleY}) = ScaledElementConstraints;
@@ -168,7 +168,7 @@ mixin LabelElement {
 }
 
 @Freezed(equal: false)
-class PadElement with _$PadElement {
+sealed class PadElement with _$PadElement {
   @Implements<PathElement>()
   factory PadElement.pen({
     @Default(0) double rotation,

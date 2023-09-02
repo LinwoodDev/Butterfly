@@ -7,7 +7,7 @@ part 'utilities.g.dart';
 part 'utilities.freezed.dart';
 
 @freezed
-class UtilitiesState with _$UtilitiesState {
+sealed class UtilitiesState with _$UtilitiesState {
   const factory UtilitiesState({
     @Default(false) bool lockZoom,
     @Default(false) bool lockHorizontal,

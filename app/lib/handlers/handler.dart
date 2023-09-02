@@ -65,6 +65,7 @@ part 'select.dart';
 part 'shape.dart';
 part 'spacer.dart';
 part 'stamp.dart';
+part 'texture.dart';
 part 'undo.dart';
 
 @immutable
@@ -224,6 +225,7 @@ abstract class Handler<T> {
       presentation: (value) => PresentationHandler(value),
       spacer: (value) => SpacerHandler(value),
       fullSceen: (value) => FullScreenHandler(value),
+      texture: (value) => TextureHandler(value),
       asset: (value) => AssetHandler(value),
     );
   }
