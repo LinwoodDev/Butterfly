@@ -527,5 +527,7 @@
   "platformTheme": "Alustan teema",
   "desktop": "Työpöytä",
   "mobile": "Mobiili",
-  "pdfQuality": "PDF laatu"
+  "pdfQuality": "PDF laatu",
+  "surface": "Surface",
+  "pattern": "Pattern"
 }
