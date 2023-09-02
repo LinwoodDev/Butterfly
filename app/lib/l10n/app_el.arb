@@ -527,5 +527,7 @@
   "platformTheme": "Θέμα πλατφόρμας",
   "desktop": "Επιφάνεια Εργασίας",
   "mobile": "Κινητό",
-  "pdfQuality": "Ποιότητα PDF"
+  "pdfQuality": "Ποιότητα PDF",
+  "surface": "Surface",
+  "pattern": "Pattern"
 }
