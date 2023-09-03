@@ -14,6 +14,7 @@ class ToolSelection<T extends Tool> extends Selection<T> {
         laser: (value) => LaserToolSelection([value]),
         shape: (value) => ShapeToolSelection([value]),
         stamp: (value) => StampToolSelection([value]),
+        texture: (value) => TextureToolSelection([value]),
         orElse: () => ToolSelection<T>([selected]),
       ) as ToolSelection<T>;
 

@@ -1,15 +1,19 @@
 part of 'texture.dart';
 
 void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
-    double scale, Offset offset, Size size) {
-  canvas.drawColor(Color(texture.boxColor), BlendMode.srcOver);
+    double scale, Offset offset, Size size,
+    [Offset translation = Offset.zero]) {
+  canvas.drawRect(
+      Rect.fromLTWH(translation.dx, translation.dy, size.width, size.height),
+      Paint()
+        ..color = Color(texture.boxColor)
+        ..style = PaintingStyle.fill);
   if (texture.boxWidth > 0 && texture.boxXCount > 0) {
     var relativeWidth = texture.boxWidth * scale;
     var relativeSpace = texture.boxXSpace * scale;
     int xCount =
         (offset.dx / (texture.boxWidth * texture.boxXCount + texture.boxXSpace))
-                .floor() +
-            1;
+            .floor();
     double x =
         -xCount * (texture.boxWidth * texture.boxXCount + texture.boxXSpace) +
             offset.dx;
@@ -18,8 +22,8 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
     int count = 0;
     while (x < size.width) {
       canvas.drawLine(
-          Offset(x, 0),
-          Offset(x, size.height),
+          Offset(x + translation.dx, 0 + translation.dy),
+          Offset(x + translation.dx, size.height + translation.dy),
           Paint()
             ..strokeWidth = texture.boxXStroke * scale
             ..color = Color(texture.boxXColor));
@@ -35,9 +39,8 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
     var relativeHeight = texture.boxHeight * scale;
     var relativeSpace = texture.boxYSpace * scale;
     int yCount = (offset.dy /
-                (texture.boxHeight * texture.boxYCount + texture.boxYSpace))
-            .floor() +
-        1;
+            (texture.boxHeight * texture.boxYCount + texture.boxYSpace))
+        .floor();
     double y =
         -yCount * (texture.boxHeight * texture.boxYCount + texture.boxYSpace) +
             offset.dy;
@@ -46,8 +49,8 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
     int count = 0;
     while (y < size.height) {
       canvas.drawLine(
-          Offset(0, y),
-          Offset(size.width, y),
+          Offset(0 + translation.dx, y + translation.dy),
+          Offset(size.width + translation.dx, y + translation.dy),
           Paint()
             ..strokeWidth = texture.boxYStroke * scale
             ..color = Color(texture.boxYColor));

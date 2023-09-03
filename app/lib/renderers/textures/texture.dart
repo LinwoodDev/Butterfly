@@ -8,10 +8,11 @@ import 'package:xml/xml.dart';
 part 'pattern.dart';
 
 void drawSurfaceTextureOnCanvas(SurfaceTexture texture, Canvas canvas,
-        double scale, Offset offset, Size size) =>
+        double scale, Offset offset, Size size,
+        [Offset translation = Offset.zero]) =>
     texture.map(
-      pattern: (e) =>
-          drawPatternTextureOnCanvas(e, canvas, scale, offset, size),
+      pattern: (e) => drawPatternTextureOnCanvas(
+          e, canvas, scale, offset, size, translation),
     );
 
 void drawSurfaceTextureOnSvg(

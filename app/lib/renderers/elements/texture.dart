@@ -7,10 +7,9 @@ class TextureRenderer extends Renderer<TextureElement> {
   TextureRenderer(super.element, [this.rect = Rect.zero]);
 
   @override
-  FutureOr<void> setup(
-      NoteData document, AssetService assetService, DocumentPage page) async {
+  void setup(NoteData document, AssetService assetService, DocumentPage page) {
     _updateRect();
-    await super.setup(document, assetService, page);
+    super.setup(document, assetService, page);
   }
 
   void _updateRect() {
@@ -24,7 +23,7 @@ class TextureRenderer extends Renderer<TextureElement> {
       [ColorScheme? colorScheme, bool foreground = false]) {
     _updateRect();
     drawSurfaceTextureOnCanvas(
-        element.texture, canvas, 1, Offset.zero, rect.size);
+        element.texture, canvas, 1, Offset.zero, rect.size, rect.topLeft);
   }
 
   @override
