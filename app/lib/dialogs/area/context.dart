@@ -3,6 +3,7 @@ import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly/dialogs/svg_export.dart';
 import 'package:butterfly/helpers/point_helper.dart';
+import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
@@ -153,45 +154,9 @@ ContextMenuBuilder buildAreaContextMenu(
                 .map((e) => e?.element)
                 .whereNotNull()
                 .toList();
-            final document = state.data;
             Navigator.of(context).pop();
-            final result = await showDialog<PackAssetLocation>(
-              context: context,
-              builder: (context) => MultiBlocProvider(
-                providers: [
-                  BlocProvider.value(value: settingsCubit),
-                  BlocProvider.value(value: bloc),
-                ],
-                child: const AssetDialog(),
-              ),
-            );
-            if (result == null) return;
-            final pack = document.getPack(result.pack);
-            if (pack == null) return;
-            final screenshot = await state.currentIndexCubit.render(
-              state.data,
-              state.page,
-              state.info,
-              width: area.width,
-              height: area.height,
-              renderBackground: true,
-              x: area.position.x,
-              y: area.position.y,
-              quality: kThumbnailWidth / area.width,
-            );
-            String? thumbnailUri;
-            if (screenshot != null) {
-              final thumbnailPath =
-                  pack.addImage(screenshot.buffer.asUint8List(), 'png');
-              thumbnailUri = Uri.file(thumbnailPath, windows: false).toString();
-            }
-            pack.setComponent(ButterflyComponent(
-              name: result.name,
-              elements: elements,
-              thumbnail: thumbnailUri,
-            ));
-            bloc.add(DocumentPackUpdated(result.pack, pack));
+            addToPack(context, bloc, settingsCubit, elements, area.rect);
           },
-        )
+        ),
       ];
 }

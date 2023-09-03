@@ -436,7 +436,8 @@ class SelectHandler extends Handler<SelectTool> {
         await rayCast(position, bloc, context.getCameraTransform(), 0.0);
     final hit = hits.firstOrNull;
     final rect = hit?.expandedRect;
-    if ((rect != null && !(getSelectionRect()?.contains(position) ?? false)) &&
+    final selectionRect = getSelectionRect();
+    if ((rect != null && !(selectionRect?.contains(position) ?? false)) &&
         !context.isCtrlPressed) {
       _selected.clear();
       if (hit != null) _selected.add(hit);
@@ -448,12 +449,15 @@ class SelectHandler extends Handler<SelectTool> {
         context: buildContext,
         position: localPosition,
         builder: buildElementsContextMenu(
-            bloc,
-            state,
-            context.getImportService(),
-            context.getClipboardManager(),
-            localPosition,
-            _selected),
+          bloc,
+          state,
+          context.getSettingsCubit(),
+          context.getImportService(),
+          context.getClipboardManager(),
+          localPosition,
+          _selected,
+          selectionRect!,
+        ),
       );
       if (result ?? false) {
         _selected.clear();

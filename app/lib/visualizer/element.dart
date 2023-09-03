@@ -27,7 +27,7 @@ extension ElementVisualizer on PadElement {
       shape: (element) => element.property.shape.icon,
       svg: (_) => PhosphorIcons.fileSvg,
       markdown: (_) => PhosphorIcons.textbox,
-      texture: (_) => PhosphorIcons.gridFour,
+      texture: (element) => element.texture.icon,
     );
   }
 }

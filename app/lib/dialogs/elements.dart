@@ -1,3 +1,5 @@
+import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/packs/asset.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/visualizer/event.dart';
 import 'package:butterfly/widgets/context_menu.dart';
@@ -14,10 +16,12 @@ import '../services/import.dart';
 ContextMenuBuilder buildElementsContextMenu(
     DocumentBloc bloc,
     DocumentLoadSuccess state,
+    SettingsCubit settingsCubit,
     ImportService importService,
     ClipboardManager clipboardManager,
     Offset position,
-    List<Renderer<PadElement>> renderers) {
+    List<Renderer<PadElement>> renderers,
+    Rect rect) {
   final cubit = state.currentIndexCubit;
   return (context) => [
         if (renderers.isEmpty) ...[
@@ -104,6 +108,20 @@ ContextMenuBuilder buildElementsContextMenu(
             },
             icon: const PhosphorIcon(PhosphorIconsLight.faders),
             label: AppLocalizations.of(context).properties,
+          ),
+          ContextMenuItem(
+            icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
+            label: AppLocalizations.of(context).addToPack,
+            onPressed: () async {
+              Navigator.of(context).pop();
+              addToPack(
+                context,
+                bloc,
+                settingsCubit,
+                renderers.map((e) => e.element).toList(),
+                rect,
+              );
+            },
           ),
         ],
       ];
