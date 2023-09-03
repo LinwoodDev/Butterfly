@@ -55,7 +55,7 @@ class _ConstraintsViewState extends State<ConstraintsView> {
     );
     return ExpansionPanelList(
       expansionCallback: (panelIndex, isExpanded) => setState(() {
-        opened = !isExpanded;
+        opened = isExpanded;
       }),
       children: [
         ExpansionPanel(

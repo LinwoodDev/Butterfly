@@ -78,7 +78,6 @@ extension ToolVisualizer on Tool {
       layer: (_) => 'layer',
       presentation: (_) => 'presentation',
       fullSceen: (_) => 'full_screen',
-      
     );
     if (page == null) return [];
     return ['tools', page];

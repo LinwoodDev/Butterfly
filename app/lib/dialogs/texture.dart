@@ -43,7 +43,7 @@ class _TextureViewState extends State<TextureView> {
         ExpansionPanelList(
             expansionCallback: (int item, bool status) {
               setState(() {
-                currentExpansionOpened = !status ? item : null;
+                currentExpansionOpened = status ? item : null;
               });
             },
             children: [
