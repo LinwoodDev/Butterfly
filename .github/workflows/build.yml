@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: 🔧 Setup java
         uses: actions/setup-java@v3
         with:
@@ -61,7 +61,7 @@ jobs:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Get flutter version
         shell: bash
         run: |
@@ -116,7 +116,7 @@ jobs:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Get dependencies
         run: |
           sudo apt-get update
@@ -229,7 +229,7 @@ jobs:
         working-directory: app
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Get dependencies
         run: |
           sudo apt-get update
@@ -316,7 +316,7 @@ jobs:
   #      working-directory: app
   #  steps:
   #    - name: ⬆️ Checkout
-  #      uses: actions/checkout@v3
+  #      uses: actions/checkout@v4
   #    - name: Get flutter version
   #      run: |
   #        FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
@@ -349,7 +349,7 @@ jobs:
         architecture:
           - amd64
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v2
         with:
           image: tonistiigi/binfmt@sha256:df15403e06a03c2f461c1f7938b171fda34a5849eb63a70e2a2109ed5a778bde
@@ -375,7 +375,7 @@ jobs:
       #- build-macos
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         env:
           CI_PAT: ${{ secrets.CI_PAT }}
         with:
@@ -505,7 +505,7 @@ jobs:
       PLAY_STORE_CREDENTIALS: ${{ secrets.PLAY_STORE_CREDENTIALS }}
     steps:
       - name: ⬆️ Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.CI_PAT }}
       - name: Setup git
@@ -561,7 +561,7 @@ jobs:
     needs: [deploy]
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.CI_PAT }}
       - if: ${{ github.ref == 'refs/tags/stable' }}
