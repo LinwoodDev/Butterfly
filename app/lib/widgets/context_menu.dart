@@ -102,7 +102,7 @@ class _ContextMenuState extends State<ContextMenu>
         transformHitTests: false,
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            maxWidth: widget.maxWidth,
+            maxWidth: max(widget.maxWidth, isMobile ? double.infinity : 60),
             maxHeight: min(widget.maxHeight, isMobile ? 60 : double.infinity),
           ),
           child: Material(
@@ -117,7 +117,7 @@ class _ContextMenuState extends State<ContextMenu>
                         icon: item.icon,
                         tooltip: item.label,
                         onPressed: onPressed,
-                        iconSize: 28,
+                        iconSize: 30,
                       ),
                     );
                 return switch (item) {
@@ -141,6 +141,9 @@ class _ContextMenuState extends State<ContextMenu>
                       : SubmenuButton(
                           menuChildren: item.children,
                           leadingIcon: item.icon,
+                          menuStyle: const MenuStyle(
+                            alignment: Alignment.bottomLeft,
+                          ),
                           child: Text(item.label),
                         ),
                 };
@@ -158,7 +161,7 @@ Future<T?> showContextMenu<T>(
     Offset position = Offset.zero,
     required ContextMenuBuilder builder,
     double maxHeight = 400,
-    double maxWidth = 400}) async {
+    double maxWidth = 300}) async {
   final RenderBox box = context.findRenderObject() as RenderBox;
   final Offset globalPos = box.localToGlobal(position);
   AdaptiveTextSelectionToolbar;

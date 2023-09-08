@@ -21,7 +21,7 @@ extension AssetFileTypeHelper on AssetFileType {
   String getMime() {
     switch (this) {
       case AssetFileType.note:
-        return 'application/json';
+        return 'application/zip';
       case AssetFileType.image:
         return 'image/*';
       case AssetFileType.pdf:

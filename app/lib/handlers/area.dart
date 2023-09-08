@@ -160,12 +160,13 @@ class AreaHandler extends Handler<AreaTool> {
   Future<void> _openAreaContextMenu(
       BuildContext context, Offset localPosition, Area area) async {
     final bloc = context.read<DocumentBloc>();
+    final settingsCubit = context.read<SettingsCubit>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     return showContextMenu(
       context: context,
       position: localPosition,
-      builder: buildAreaContextMenu(bloc, state, area),
+      builder: buildAreaContextMenu(bloc, state, area, settingsCubit),
     );
   }
 }

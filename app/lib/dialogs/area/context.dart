@@ -16,8 +16,8 @@ import '../image_export.dart';
 import '../packs/asset.dart';
 import '../pdf_export.dart';
 
-ContextMenuBuilder buildAreaContextMenu(
-    DocumentBloc bloc, DocumentLoadSuccess state, Area area) {
+ContextMenuBuilder buildAreaContextMenu(DocumentBloc bloc,
+    DocumentLoadSuccess state, Area area, SettingsCubit settingsCubit) {
   return (context) => [
         ContextMenuItem(
           icon: const PhosphorIcon(PhosphorIconsLight.textT),
@@ -134,9 +134,6 @@ ContextMenuBuilder buildAreaContextMenu(
           icon: const PhosphorIcon(PhosphorIconsLight.trash),
           label: AppLocalizations.of(context).delete,
           onPressed: () {
-            final bloc = context.read<DocumentBloc>();
-            final state = bloc.state;
-            if (state is! DocumentLoadSuccess) return;
             Navigator.of(context).pop();
             bloc.add(AreasRemoved([area.name]));
           },
@@ -145,8 +142,6 @@ ContextMenuBuilder buildAreaContextMenu(
           icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
           label: AppLocalizations.of(context).addToPack,
           onPressed: () async {
-            final settingsCubit = context.read<SettingsCubit>();
-            final bloc = context.read<DocumentBloc>();
             final elements = state.renderers
                 .where((e) => e.area == area)
                 .map((e) => e.transform(

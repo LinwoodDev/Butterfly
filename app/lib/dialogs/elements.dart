@@ -21,10 +21,10 @@ ContextMenuBuilder buildElementsContextMenu(
     ClipboardManager clipboardManager,
     Offset position,
     List<Renderer<PadElement>> renderers,
-    Rect rect) {
+    Rect? rect) {
   final cubit = state.currentIndexCubit;
   return (context) => [
-        if (renderers.isEmpty) ...[
+        if (rect == null) ...[
           ContextMenuItem(
             onPressed: () {
               Navigator.of(context).pop(true);

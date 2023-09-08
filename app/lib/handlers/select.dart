@@ -456,7 +456,7 @@ class SelectHandler extends Handler<SelectTool> {
           context.getClipboardManager(),
           localPosition,
           _selected,
-          selectionRect!,
+          selectionRect,
         ),
       );
       if (result ?? false) {
