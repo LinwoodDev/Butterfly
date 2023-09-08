@@ -45,33 +45,33 @@ class _PropertyViewState extends State<PropertyView>
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      final isMobile =
-          constraints.maxWidth < minSize || constraints.maxHeight < 500;
-      Selection? lastSelection;
-      return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-          buildWhen: (previous, current) =>
-              previous.selection?.selected != current.selection?.selected ||
-              previous.pinned != current.pinned,
-          builder: (context, state) {
-            var selection = state.selection;
-            if (selection == null) {
-              _controller.forward();
-            } else if (selection.runtimeType.toString() !=
-                lastSelection.runtimeType.toString()) {
-              _controller.reset();
-              _controller.reverse(from: 1);
-            } else {
-              lastSelection = selection;
-              _controller.reverse();
-            }
-            selection ??= lastSelection;
-            if (selection != null) {
-              lastSelection = selection;
-            }
-            if (selection == null) {
-              return Container();
-            }
+    Selection? lastSelection;
+    return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
+        buildWhen: (previous, current) =>
+            previous.selection?.selected != current.selection?.selected ||
+            previous.pinned != current.pinned,
+        builder: (context, state) {
+          var selection = state.selection;
+          if (selection == null) {
+            _controller.forward();
+          } else if (selection.runtimeType.toString() !=
+              lastSelection.runtimeType.toString()) {
+            _controller.reset();
+            _controller.reverse(from: 1);
+          } else {
+            lastSelection = selection;
+            _controller.reverse();
+          }
+          selection ??= lastSelection;
+          if (selection != null) {
+            lastSelection = selection;
+          }
+          if (selection == null) {
+            return Container();
+          }
+          return LayoutBuilder(builder: (context, constraints) {
+            final isMobile =
+                constraints.maxWidth < minSize || constraints.maxHeight < 500;
             return StatefulBuilder(builder: (context, setState) {
               return Container(
                 padding: const EdgeInsets.all(8),
@@ -207,7 +207,7 @@ class _PropertyViewState extends State<PropertyView>
               );
             });
           });
-    });
+        });
   }
 
   void _closeView() {
