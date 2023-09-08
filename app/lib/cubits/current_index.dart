@@ -51,6 +51,7 @@ class CurrentIndex with _$CurrentIndex {
     @Default(SaveState.unsaved) SaveState saved,
     PreferredSizeWidget? toolbar,
     PreferredSizeWidget? temporaryToolbar,
+    @Default(ViewOption()) ViewOption viewOption,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -604,18 +605,25 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         state.copyWith(temporaryHandler: HandHandler(), temporaryCursor: null));
   }
 
-  void updateUtilities(UtilitiesState utilitesState) {
-    final renderer = UtilitiesRenderer(utilitesState);
-    var newSelection =
-        state.selection?.remove(state.cameraViewport.utilities.element);
-    if (newSelection == null && state.selection != null) {
-      newSelection = Selection.from(utilitesState);
-    } else if (newSelection != state.selection) {
-      newSelection = newSelection?.insert(renderer);
+  void updateUtilities({UtilitiesState? utilities, ViewOption? view}) {
+    var state = this.state;
+    if (utilities != null) {
+      final renderer = UtilitiesRenderer(utilities);
+      var newSelection =
+          state.selection?.remove(state.cameraViewport.utilities.element);
+      if (newSelection == null && state.selection != null) {
+        newSelection = Selection.from(state);
+      } else if (newSelection != state.selection) {
+        newSelection = newSelection?.insert(renderer);
+      }
+      state = state.copyWith(
+          cameraViewport: state.cameraViewport.withUtilities(renderer),
+          selection: newSelection);
     }
-    emit(state.copyWith(
-        cameraViewport: state.cameraViewport.withUtilities(renderer),
-        selection: newSelection));
+    if (view != null) {
+      state = state.copyWith(viewOption: view);
+    }
+    emit(state);
   }
 
   void togglePin() => emit(state.copyWith(pinned: !state.pinned));

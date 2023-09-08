@@ -13,5 +13,6 @@
 * Add texture element ([#406](https://github.com/LinwoodDev/issues/406))
 * Add add to pack for selection
 * Fix expansion panel list in texture property, shapes and constraints view
+* Remove view options from undo
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8

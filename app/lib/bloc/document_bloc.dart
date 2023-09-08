@@ -72,22 +72,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         null,
       );
     });
-    on<UtilitiesChanged>((event, emit) async {
-      final current = state;
-      if (current is! DocumentLoadSuccess) return;
-      current.currentIndexCubit.updateUtilities(
-          event.state ?? current.cameraViewport.utilities.element);
-      if (event.view != null) {
-        return _saveState(
-          emit,
-          current.copyWith(
-            info: current.info.copyWith(
-              view: event.view!,
-            ),
-          ),
-        );
-      }
-    });
     on<ElementsCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;

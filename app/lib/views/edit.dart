@@ -350,7 +350,7 @@ class _EditToolbarState extends State<EditToolbar> {
                       trailingIcon: PhosphorIcon(icon),
                       onChanged: (value) => context
                           .read<CurrentIndexCubit>()
-                          .updateUtilities(update()),
+                          .updateUtilities(utilities: update()),
                       child: Text(title),
                     );
 

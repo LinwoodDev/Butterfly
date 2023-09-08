@@ -16,18 +16,6 @@ class PageChanged extends DocumentEvent {
   List<Object?> get props => [pageName];
 }
 
-class UtilitiesChanged extends DocumentEvent {
-  final ViewOption? view;
-  final UtilitiesState? state;
-
-  UtilitiesChanged({this.view, this.state});
-  UtilitiesChanged.view(this.view) : state = null;
-  UtilitiesChanged.state(this.state) : view = null;
-
-  @override
-  List<Object?> get props => [view, state];
-}
-
 class ElementsCreated extends DocumentEvent {
   final List<PadElement>? elements;
   final List<Renderer<PadElement>>? renderers;

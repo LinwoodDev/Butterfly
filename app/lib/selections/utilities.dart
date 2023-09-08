@@ -12,24 +12,17 @@ class UtilitiesSelection extends Selection<UtilitiesState> {
 
   @override
   List<Widget> buildProperties(BuildContext context) {
-    final state = context.read<DocumentBloc>().state;
-    if (state is! DocumentLoadSuccess) return [];
+    final cubit = context.read<CurrentIndexCubit>();
+    final currentIndex = cubit.state;
     return [
       ...super.buildProperties(context),
       _UtilitiesView(
         state: selected.first,
-        option: state.info.view,
-        onStateChanged: (state) => updateState(context, state),
-        onToolChanged: (option) =>
-            context.read<DocumentBloc>().add(UtilitiesChanged(view: option)),
+        option: currentIndex.viewOption,
+        onStateChanged: (state) => cubit.updateUtilities(utilities: state),
+        onToolChanged: (option) => cubit.updateUtilities(view: option),
       )
     ];
-  }
-
-  void updateState(BuildContext context, UtilitiesState selected) {
-    update(context, [selected]);
-
-    context.read<DocumentBloc>().add(UtilitiesChanged.state(selected));
   }
 }
 

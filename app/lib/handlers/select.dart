@@ -520,7 +520,7 @@ class SelectHandler extends Handler<SelectTool> {
     );
     _rulerRotation = currentRotation;
     _rulerPosition = currentPos;
-    context.getCurrentIndexCubit().updateUtilities(utilitiesState);
+    context.getCurrentIndexCubit().updateUtilities(utilities: utilitiesState);
   }
 
   @override
