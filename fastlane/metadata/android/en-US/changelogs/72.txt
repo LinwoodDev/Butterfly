@@ -12,7 +12,7 @@
 * Add setting to set default pdf quality
 * Add texture element ([#406](https://github.com/LinwoodDev/issues/406))
 * Add add to pack for selection
-* Prevent window of closing when there are unsaved changes
+* Prevent window of closing when there are unsaved changes ([#403](https://github.com/LinwoodDev/Butterfly/issues/403))
 * Fix expansion panel list in texture property, shapes and constraints view
 * Fix bfly mimetype
 * Fix property view playing open animation when opening navigator
