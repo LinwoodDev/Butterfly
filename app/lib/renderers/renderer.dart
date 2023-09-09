@@ -70,7 +70,8 @@ abstract class Renderer<T> {
   void _updateArea(DocumentPage page) => area = rect == null
       ? null
       : page.areas.firstWhereOrNull((area) => area.rect.overlaps(rect!));
-  FutureOr<bool> onAreaUpdate(DocumentPage page, Area? area) async {
+  FutureOr<bool> onAreaUpdate(
+      NoteData document, DocumentPage page, Area? area) async {
     if (area?.rect.overlaps(rect!) ?? false) {
       this.area = area;
     }

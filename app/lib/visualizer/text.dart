@@ -1,5 +1,6 @@
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
+import 'package:material_leap/material_leap.dart';
 
 extension HorizontalTextAlignmentFlutterConverter on text.HorizontalAlignment {
   TextAlign toFlutter() {
@@ -31,6 +32,8 @@ extension TextDecorationStyleFlutterConverter on text.TextDecorationStyle {
         return TextDecorationStyle.wavy;
     }
   }
+
+  String toCss() => name;
 }
 
 extension DefinedSpanPropertyFlutterConverter on text.DefinedSpanProperty {
@@ -54,4 +57,40 @@ extension DefinedSpanPropertyFlutterConverter on text.DefinedSpanProperty {
       backgroundColor: Color(getBackgroundColor(parent)),
     );
   }
+
+  String toCss([text.DefinedParagraphProperty? parent]) => """
+      font-weight: ${getFontWeight(parent)};
+      font-style: ${getItalic(parent) ? 'italic' : 'normal'};
+      font-size: ${getSize(parent)}px;
+      color: #${getColor(parent).toRadixString(16).padLeft(8, '0')};
+      letter-spacing: ${getLetterSpacing(parent)}px;
+      text-decoration-color: #${getDecorationColor(parent).toRadixString(16).padLeft(8, '0')};
+      text-decoration-style: ${getDecorationStyle(parent).toCss()};
+      text-decoration-thickness: ${getDecorationThickness(parent)}px;
+      text-decoration-line: ${getUnderline(parent) ? 'underline' : 'none'} ${getLineThrough(parent) ? 'line-through' : 'none'} ${getOverline(parent) ? 'overline' : 'none'};
+      background-color: #${getBackgroundColor(parent).toHexColor()};
+""";
+}
+
+extension DefinedParagraphPropertyVisualizer on text.DefinedParagraphProperty {
+  String toCss() => """
+${span.toCss(this)}
+text-align: ${alignment.toFlutter().toString().split('.').last};
+""";
+}
+
+const kStyleParagraphPrefix = 'paragraph-';
+const kStyleSpanPrefix = 'span-';
+
+extension StyleSheetVisualizer on text.TextStyleSheet {
+  String toCss({
+    String paragraphPrefix = kStyleParagraphPrefix,
+    String spanPrefix = kStyleSpanPrefix,
+  }) =>
+      [
+        ...paragraphProperties.entries
+            .map((e) => '$paragraphPrefix${e.key}{\n${e.value.toCss()}}'),
+        ...spanProperties.entries
+            .map((e) => '$spanPrefix${e.key}{\n${e.value.toCss()}}')
+      ].join('\n');
 }

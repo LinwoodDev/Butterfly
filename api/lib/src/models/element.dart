@@ -147,6 +147,7 @@ mixin LabelElement {
   double get scale;
   PackAssetLocation get styleSheet;
   ElementConstraint get constraint;
+  int get foreground;
 
   AreaProperty get areaProperty {
     final element = this as PadElement;
