@@ -75,10 +75,47 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
     _tp?.paint(canvas, element.getOffset(rect.height).toOffset());
   }
 
+  String _convertTextToHtml(String inputText) {
+    // Escape HTML tags
+    inputText = inputText.replaceAll('&', '&amp;');
+    inputText = inputText.replaceAll('<', '&lt;');
+    inputText = inputText.replaceAll('>', '&gt;');
+    inputText = inputText.replaceAll('"', '&quot;');
+    inputText = inputText.replaceAll("'", '&#x27;');
+    // Replace newline characters with <br> tags
+    inputText = inputText.replaceAll('\n', '<br>');
+
+    return inputText;
+  }
+
   @override
-  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
-    if (!rect.overlaps(rect)) return;
-    // TODO: implement buildSvg
+  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
+      Rect viewportRect) {
+    final svg = xml.getElement('svg');
+    if (!rect.overlaps(rect) || svg == null) return;
+    final paragraph = getParagraph(document);
+
+    _tp?.layout(maxWidth: rect.width);
+    final styles = element.styleSheet.resolveStyle(document);
+    final textElement = svg.createElement('text', attributes: {
+      'x': '${rect.left}px',
+      'y': '${rect.top}px',
+      'width': '${rect.width}px',
+      'height': '${rect.height}px',
+    });
+    final paragraphStyle = styles.resolveParagraphProperty(paragraph.property);
+    textElement.setAttribute(
+      'text-anchor',
+      paragraphStyle?.alignment.name,
+    );
+    // Add spans as html elements
+    for (final span in paragraph.textSpans) {
+      final style = styles.resolveSpanProperty(span.property);
+      final spanElement = textElement.createElement('tspan')
+        ..setAttribute('style', style?.toCss())
+        ..innerText = _convertTextToHtml(span.text);
+      textElement.children.add(spanElement);
+    }
   }
 
   @override

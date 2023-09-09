@@ -104,7 +104,8 @@ abstract class Renderer<T> {
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]);
   HitCalculator getHitCalculator() => DefaultHitCalculator(expandedRect);
-  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {}
+  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
+      Rect viewportRect) {}
   factory Renderer.fromInstance(T element) {
     // Elements
     if (element is PadElement) {

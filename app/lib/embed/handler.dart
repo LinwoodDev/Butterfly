@@ -88,6 +88,7 @@ class EmbedHandler {
           'renderSVG',
           state.currentIndexCubit
               .renderSVG(
+                state.data,
                 state.page,
                 width: width,
                 height: height,

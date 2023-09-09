@@ -27,7 +27,8 @@ class TextureRenderer extends Renderer<TextureElement> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) =>
+  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
+          Rect viewportRect) =>
       drawSurfaceTextureOnSvg(element.texture, xml, Offset.zero, rect.size);
 
   @override

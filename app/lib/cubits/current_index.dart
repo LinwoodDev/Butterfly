@@ -429,7 +429,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 
-  XmlDocument renderSVG(DocumentPage page,
+  XmlDocument renderSVG(NoteData document, DocumentPage page,
       {required int width,
       required int height,
       double x = 0,
@@ -447,10 +447,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
     if (renderBackground) {
-      state.cameraViewport.backgrounds.map((e) => e.buildSvg(xml, page, rect));
+      state.cameraViewport.backgrounds
+          .map((e) => e.buildSvg(xml, document, page, rect));
     }
     for (var e in renderers) {
-      e.buildSvg(xml, page, rect);
+      e.buildSvg(xml, document, page, rect);
     }
     return xml;
   }

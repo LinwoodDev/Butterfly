@@ -98,6 +98,7 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
       height < 0 ? y + height : y,
     );
     final data = state.currentIndexCubit.renderSVG(
+      state.data,
       state.page,
       width: width,
       height: height,

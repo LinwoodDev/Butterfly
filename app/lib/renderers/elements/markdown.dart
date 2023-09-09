@@ -9,6 +9,7 @@ const kParagraphTags = {
   'h5',
   'h6',
   'blockquote',
+  'br'
 };
 
 class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
@@ -33,20 +34,23 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
     if (node is! md.Element) {
       return [
         text.TextSpan.text(
-            text: node.textContent + (node is md.Text ? '\n' : ''),
+            text: node.textContent,
             property: span ?? const text.SpanProperty.undefined())
       ];
     }
     final tag = node.tag;
+    paragraph = paragraph || kParagraphTags.contains(tag);
     final style = styleSheet?.getSpanProperty(tag) ??
         styleSheet?.getParagraphProperty(tag)?.span;
-    return node.children
-            ?.expand(
-              (e) => _convertToSpan(e, styleSheet,
-                  paragraph || kParagraphTags.contains(tag), style),
-            )
-            .toList() ??
-        [];
+    return [
+      ...(node.children
+              ?.expand(
+                (e) => _convertToSpan(e, styleSheet, paragraph, style),
+              )
+              .toList() ??
+          []),
+      if (paragraph) const text.TextSpan.text(text: '\n'),
+    ];
   }
 
   text.TextParagraph _convertToParagraph(
@@ -61,7 +65,7 @@ class MarkdownRenderer extends GenericTextRenderer<MarkdownElement> {
             ]
           : node
               .expandIndexed(
-                (i, e) => _convertToSpan(e, styleSheet, true),
+                (i, e) => _convertToSpan(e, styleSheet),
               )
               .toList(growable: false),
       property: style ?? const text.ParagraphProperty.undefined(),

@@ -32,7 +32,8 @@ class SvgRenderer extends Renderer<SvgElement> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
+  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
+      Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     xml.getElement('svg')?.createElement('image', attributes: {
       'x': '${rect.left}px',

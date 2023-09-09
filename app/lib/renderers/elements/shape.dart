@@ -81,7 +81,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     ..strokeJoin = StrokeJoin.round;
 
   @override
-  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
+  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
+      Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     final shape = element.property.shape;
     final strokeWidth = element.property.strokeWidth;

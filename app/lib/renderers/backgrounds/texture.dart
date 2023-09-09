@@ -18,7 +18,8 @@ class TextureBackgroundRenderer extends Renderer<TextureBackground> {
       );
 
   @override
-  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) =>
+  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
+          Rect viewportRect) =>
       drawSurfaceTextureOnSvg(
         texture,
         xml,
