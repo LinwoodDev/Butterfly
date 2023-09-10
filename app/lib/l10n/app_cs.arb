@@ -529,5 +529,8 @@
   "mobile": "Mobil",
   "pdfQuality": "Kvalita PDF",
   "surface": "Povrch",
-  "pattern": "Vzor"
+  "pattern": "Vzor",
+  "sureClose": "Opravdu chcete dokument zavřít?",
+  "thereAreUnsavedChanges": "Existují neuložené změny",
+  "page": "Page"
 }
