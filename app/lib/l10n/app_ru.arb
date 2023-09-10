@@ -529,5 +529,8 @@
   "mobile": "Мобильный",
   "pdfQuality": "Качество PDF",
   "surface": "Поверхность",
-  "pattern": "Шаблон"
+  "pattern": "Шаблон",
+  "sureClose": "Вы уверены, что хотите закрыть документ?",
+  "thereAreUnsavedChanges": "Имеются несохраненные изменения",
+  "page": "Page"
 }
