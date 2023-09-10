@@ -529,5 +529,8 @@
   "mobile": "Mobil",
   "pdfQuality": "PDF-Qualität",
   "surface": "Oberfläche",
-  "pattern": "Muster"
+  "pattern": "Muster",
+  "sureClose": "Sind Sie sicher, dass Sie das Dokument schließen möchten?",
+  "thereAreUnsavedChanges": "Es gibt ungespeicherte Änderungen",
+  "page": "Page"
 }
