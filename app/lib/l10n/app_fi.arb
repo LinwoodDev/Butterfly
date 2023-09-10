@@ -529,5 +529,8 @@
   "mobile": "Mobiili",
   "pdfQuality": "PDF laatu",
   "surface": "Pinta",
-  "pattern": "Kuvio"
+  "pattern": "Kuvio",
+  "sureClose": "Oletko varma, että haluat sulkea asiakirjan?",
+  "thereAreUnsavedChanges": "Muutoksia ei ole tallennettu",
+  "page": "Page"
 }
