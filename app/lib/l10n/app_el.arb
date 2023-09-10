@@ -529,5 +529,8 @@
   "mobile": "Κινητό",
   "pdfQuality": "Ποιότητα PDF",
   "surface": "Επιφάνεια",
-  "pattern": "Μοτίβο"
+  "pattern": "Μοτίβο",
+  "sureClose": "Είστε βέβαιοι ότι θέλετε να κλείσετε το έγγραφο?",
+  "thereAreUnsavedChanges": "Υπάρχουν αλλαγές που δεν έχουν αποθηκευτεί",
+  "page": "Page"
 }
