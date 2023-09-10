@@ -406,7 +406,7 @@ class _FilesViewState extends State<FilesView> {
             }
             final assets = entity.assets.where((e) {
               if (_search.isNotEmpty) {
-                return e.fileName.contains(_search);
+                return e.fileName.toLowerCase().contains(_search.toLowerCase());
               }
               return true;
             }).toList()

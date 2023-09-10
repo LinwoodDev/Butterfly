@@ -13,8 +13,10 @@
 * Add texture element ([#406](https://github.com/LinwoodDev/issues/406))
 * Add add to pack for selection
 * Add svg export for text elements ([#488](https://github.com/LinwoodDev/Butterfly/issues/488))
+* Add thumbnail to templates dialog
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
 * Prevent window of closing when there are unsaved changes ([#403](https://github.com/LinwoodDev/Butterfly/issues/403))
+* Change file search to not case sensitive
 * Fix expansion panel list in texture property, shapes and constraints view
 * Fix bfly mimetype
 * Fix property view playing open animation when opening navigator

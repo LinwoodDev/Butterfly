@@ -78,6 +78,8 @@ class _FileEntityListTile extends StatelessWidget {
                               ? Image.memory(
                                   thumbnail!,
                                   fit: BoxFit.cover,
+                                  cacheHeight: 32,
+                                  cacheWidth: 32,
                                   errorBuilder: (context, error, stackTrace) =>
                                       leading,
                                 )

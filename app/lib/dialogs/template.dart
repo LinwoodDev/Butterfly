@@ -241,9 +241,27 @@ class _TemplateItem extends StatelessWidget {
     if (metadata == null) {
       return const SizedBox();
     }
+    final thumbnail = template.getThumbnail();
+    const leading = PhosphorIcon(
+      PhosphorIconsLight.file,
+      size: 48,
+    );
     return EditableListTile(
       initialValue: metadata.name,
       subtitle: Text(metadata.description),
+      leading: SizedBox(
+        height: 64,
+        width: 64,
+        child: thumbnail != null
+            ? Image.memory(
+                thumbnail!,
+                fit: BoxFit.contain,
+                cacheWidth: 64,
+                cacheHeight: 64,
+                errorBuilder: (context, error, stackTrace) => leading,
+              )
+            : leading,
+      ),
       onSaved: (value) {
         if (value == metadata.name) return;
         fileSystem.renameTemplate(metadata.name, value);
