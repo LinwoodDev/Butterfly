@@ -529,5 +529,8 @@
   "mobile": "Mobil",
   "pdfQuality": "PDF kvalitet",
   "surface": "Overflate",
-  "pattern": "Mønster"
+  "pattern": "Mønster",
+  "sureClose": "Er du sikker på at du vil lukke dokumentet?",
+  "thereAreUnsavedChanges": "Det er ulagrede endringer",
+  "page": "Page"
 }
