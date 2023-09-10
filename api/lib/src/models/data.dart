@@ -25,7 +25,13 @@ class NoteData {
     _controller.add(this);
   }
 
-  factory NoteData.fromData(Uint8List data) => noteDataMigrator(data);
+  factory NoteData.fromData(Uint8List data, {bool disableMigrations = false}) {
+    if (disableMigrations) {
+      final archive = ZipDecoder().decodeBytes(data);
+      return NoteData(archive);
+    }
+    return noteDataMigrator(data);
+  }
 
   NoteFileType? get type => getMetadata()?.type;
 

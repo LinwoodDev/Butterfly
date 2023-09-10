@@ -396,11 +396,12 @@ class _FilesViewState extends State<FilesView> {
             if (snapshot.hasError) {
               return Text(snapshot.error.toString());
             }
-            if (snapshot.connectionState == ConnectionState.waiting) {
+            if (snapshot.connectionState == ConnectionState.waiting ||
+                !snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
             }
             final entity = snapshot.data;
-            if (!snapshot.hasData || entity is! AppDocumentDirectory) {
+            if (entity is! AppDocumentDirectory) {
               return Container();
             }
             final assets = entity.assets.where((e) {
@@ -506,10 +507,10 @@ class _FilesViewState extends State<FilesView> {
       final bFile = b as AppDocumentFile;
       FileMetadata? aInfo, bInfo;
       try {
-        aInfo = aFile.load().getMetadata();
+        aInfo = aFile.metadata;
       } catch (_) {}
       try {
-        bInfo = bFile.load().getMetadata();
+        bInfo = bFile.metadata;
       } catch (_) {}
       if (aInfo == null) {
         if (bInfo == null) {

@@ -79,7 +79,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
     }
     final cached = await getCachedContent(path);
     if (cached != null && !forceRemote) {
-      return AppDocumentFile(
+      return getAppDocumentFile(
           AssetLocation(remote: remote.identifier, path: path), cached);
     }
 
@@ -132,11 +132,11 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
         }
         path = Uri.decodeComponent(path);
         if (currentResourceType.getElement('d:collection') != null) {
-          return AppDocumentEntity.file(
+          return AppDocumentEntity.directory(
               AssetLocation(remote: remote.identifier, path: path), const []);
         } else {
-          return AppDocumentEntity.fileFromMap(
-              AssetLocation(remote: remote.identifier, path: path), const {});
+          return getAppDocumentFile(
+              AssetLocation(remote: remote.identifier, path: path), const []);
         }
       }).toList());
       return AppDocumentEntity.directory(
@@ -147,7 +147,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
       throw Exception('Failed to get asset: ${response.statusCode}');
     }
     var fileContent = await response.stream.toBytes();
-    return AppDocumentFile(
+    return getAppDocumentFile(
         AssetLocation(remote: remote.identifier, path: path), fileContent);
   }
 
@@ -188,7 +188,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
       {bool forceSync = false}) async {
     if (!forceSync && remote.hasDocumentCached(path)) {
       cacheContent(path, data);
-      return AppDocumentFile(
+      return getAppDocumentFile(
           AssetLocation(remote: remote.identifier, path: path), data);
     }
     // Create directory if not exists
@@ -202,7 +202,7 @@ class DavRemoteDocumentFileSystem extends DocumentRemoteSystem {
       throw Exception(
           'Failed to update document: ${response.statusCode} ${response.reasonPhrase}');
     }
-    return AppDocumentFile(
+    return getAppDocumentFile(
         AssetLocation(remote: remote.identifier, path: path), data);
   }
 

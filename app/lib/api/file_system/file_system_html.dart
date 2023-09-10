@@ -154,7 +154,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     if (map['type'] == 'file') {
       final data = await getData(path);
       if (data == null) return null;
-      final file = AppDocumentFile(AssetLocation.local(path), data);
+      final file = getAppDocumentFile(AssetLocation.local(path), data);
       await txn.completed;
       return file;
     } else if (map['type'] == 'directory') {
@@ -174,7 +174,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
           if (data['type'] == 'file') {
             final data = await getData(key);
             if (data == null) return null;
-            return AppDocumentFile(AssetLocation.local(key), data);
+            return getAppDocumentFile(AssetLocation.local(key), data);
           } else if (data['type'] == 'directory') {
             return AppDocumentDirectory(AssetLocation.local(key), const []);
           }
@@ -231,7 +231,7 @@ class WebDocumentFileSystem extends DocumentFileSystem {
     final dataStore = txn.objectStore('documents-data');
     await dataStore.put(data, path);
     await txn.completed;
-    return AppDocumentFile(AssetLocation.local(path), data);
+    return getAppDocumentFile(AssetLocation.local(path), data);
   }
 
   @override

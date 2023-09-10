@@ -35,10 +35,9 @@ class _FileEntityItemState extends State<_FileEntityItem> {
       if (widget.entity is AppDocumentFile) {
         final file = widget.entity as AppDocumentFile;
         icon = file.fileType.icon(PhosphorIconsStyle.light);
-        final data = file.load();
-        thumbnail = data.getThumbnail();
+        thumbnail = file.thumbnail;
         if (thumbnail?.isEmpty ?? false) thumbnail = null;
-        metadata = data.getMetadata();
+        metadata = file.metadata;
         final locale = Localizations.localeOf(context).languageCode;
         final dateFormatter = DateFormat.yMd(locale);
         final timeFormatter = DateFormat.Hm(locale);
