@@ -529,5 +529,8 @@
   "mobile": "Móvil",
   "pdfQuality": "Calidad PDF",
   "surface": "Superficie",
-  "pattern": "Patrón"
+  "pattern": "Patrón",
+  "sureClose": "¿Está seguro que desea cerrar el documento?",
+  "thereAreUnsavedChanges": "Hay cambios sin guardar",
+  "page": "Page"
 }
