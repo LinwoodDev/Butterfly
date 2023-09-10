@@ -529,5 +529,8 @@
   "mobile": "Celular",
   "pdfQuality": "Qualidade PDF",
   "surface": "Superfície",
-  "pattern": "Padrão"
+  "pattern": "Padrão",
+  "sureClose": "Tem certeza de que deseja fechar o documento?",
+  "thereAreUnsavedChanges": "Há alterações não salvas",
+  "page": "Page"
 }
