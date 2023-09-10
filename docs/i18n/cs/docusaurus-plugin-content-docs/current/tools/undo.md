@@ -1,13 +1,13 @@
 ---
-title: "Zpět malování"
+title: "Vrátit nástroj"
 sidebar_label: "Zpět"
 sidebar_position: 0
 ---
 
-:::note ⚡ Aktivní malíř
+:::note ⚡ Nástroj akce
 
-Toto je zvláštní malíř. Nemůžete ji vybrat a po kliknutí na ni spustí akci.
+Toto je speciální nástroj. Nemůžete ji vybrat a po kliknutí na ni spustí akci.
 
 :::
 
-Při kliknutí na tuto malbu můžete vrátit zpět svou poslední akci. Podívejte se na [redo malování](redo) pro opětovné provedení poslední akce.
+Po kliknutí na tento nástroj můžete vrátit zpět poslední akci. Podívejte se na [nástroj](redo) pro opětovné provedení poslední akce.

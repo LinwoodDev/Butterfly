@@ -1,11 +1,11 @@
 ---
-title: "Taśma etykietowa"
+title: "Narzędzie etykiety"
 sidebar_label: "Etykieta"
 sidebar_position: 6
 ---
 
 
-Dzięki tej farbie możesz dodać tekst do arkusza.
+Za pomocą tego narzędzia możesz dodać tekst do arkusza.
 
 ## Konfiguracja
 

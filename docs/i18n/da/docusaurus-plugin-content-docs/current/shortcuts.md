@@ -27,13 +27,13 @@ Der er et par genveje, som du kan bruge i editoren. Nogle af dem er skrevet unde
 * `Ctrl` + `Shift` + `A`: Åbne områder dialog
 * `Ctrl` + `S`: Gem
 * `Alt` + `S`: Skift sti
-* `Ctrl` + (`1` - `0`): Skift til maler
+* `Ctrl` + (`1` - `0`): Skift til værktøj
 
 ## Stylus
 
 * `Primær knap`: Skift til håndværktøj
-* `Sekundær knap`: Skift til anden maler
+* `Sekundær knap`: Skift til andet værktøj
 
 ## Konfigurer {#configure}
 
-Tilpas kontrollerne ved at give hver kontrol et malerindeks. Malerindekset starter ved 1 og bestilles fra venstre mod højre. Et tomt malerindeks vil deaktivere malerkontakten på denne kontrol. Indsæt `0` for at aktivere bevægelse med denne kontrol.
+Tilpas kontrolelementerne ved at give hver kontrol et værktøjs indeks. Værktøjsindekset starter ved 1 og bestilles fra venstre mod højre. Et tomt værktøjs indeks vil deaktivere værktøjsknappen på denne kontrol. Indsæt `0` for at aktivere bevægelse med denne kontrol.

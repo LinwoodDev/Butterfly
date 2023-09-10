@@ -1,11 +1,11 @@
 ---
-title: "Lasermaler"
+title: "Laser- værktøj"
 sidebar_label: "Laser"
 sidebar_position: 3
 ---
 
 
-Med denne maler kan du trække på dette papir midlertidigt. Efter et stykke tid forsvinder tegningen. Tilføj en ny tegning til papiret for at få den til at annullere.
+Med dette værktøj kan du trække på dette papir midlertidigt. Efter et stykke tid forsvinder tegningen. Tilføj en ny tegning til papiret for at få den til at annullere.
 
 ## Konfiguration
 

@@ -1,11 +1,11 @@
 ---
-title: "Stift Maler"
+title: "Stift Werkzeug"
 sidebar_label: "Stift"
 sidebar_position: 2
 ---
 
 
-Mit diesem Maler können Sie dieses Papier zeichnen.
+Mit diesem Werkzeug können Sie auf dieses Papier zeichnen.
 
 ## Konfiguration
 

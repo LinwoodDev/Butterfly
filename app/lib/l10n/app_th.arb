@@ -520,5 +520,14 @@
   "paste": "Paste",
   "ascending": "Ascending",
   "descending": "Descending",
-  "imageScale": "Image scale"
+  "imageScale": "Image scale",
+  "select": "Select",
+  "tool": "Tool",
+  "texture": "Texture",
+  "platformTheme": "Platform theme",
+  "desktop": "Desktop",
+  "mobile": "Mobile",
+  "pdfQuality": "PDF quality",
+  "surface": "Surface",
+  "pattern": "Pattern"
 }

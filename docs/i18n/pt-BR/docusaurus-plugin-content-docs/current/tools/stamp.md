@@ -4,7 +4,7 @@ sidebar_label: "Selo"
 sidebar_position: 3
 ---
 
-O pintor de selos permite que você adicione componentes à sua tela. Use um pacote existente, crie seu próprio ou importe um pacote para usá-lo. Leia mais [aqui](../pack).
+A ferramenta de selos permite que você adicione componentes à sua tela. Use um pacote existente, crie seu próprio ou importe um pacote para usá-lo. Leia mais [aqui](../pack).
 
 ## Configuração
 

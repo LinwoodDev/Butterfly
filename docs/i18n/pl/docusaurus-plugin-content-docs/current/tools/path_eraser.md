@@ -1,11 +1,11 @@
 ---
-title: "Farba ze skórką ścieżki"
+title: "Narzędzie do wymazywania ścieżki"
 sidebar_label: "Saser ścieżki"
 sidebar_position: 5
 ---
 
 
-Dzięki tej farbie możesz usunąć całą ścieżkę na papierze.
+Za pomocą tego narzędzia możesz usunąć całą ścieżkę na papierze.
 
 ## Konfiguracja
 

@@ -1,9 +1,9 @@
 ---
 sidebar_label: "Område"
-title: "Område målare"
+title: "Verktyg för område"
 ---
 
-Med områdets målare kan du skapa, redigera och ta bort områden.
+Fältverktyget låter dig skapa, redigera och ta bort områden.
 
 ## Åtgärder
 

@@ -1,5 +1,5 @@
 ---
-title: "Peintre gomme"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Veuillez utiliser la gomme de chemin [](path_eraser) si c'est possible.
 
 :::
 
-Avec ce peintre vous pouvez effacer les éléments sur le papier.
+Grâce à cet outil, vous pouvez effacer les éléments du papier.
 
 ## Configuration
 

@@ -1,9 +1,9 @@
 ---
 sidebar_label: "Suprafață"
-title: "Pictor suprafață"
+title: "Unealta suprafață"
 ---
 
-Pictorul de arii iti permite sa creezi, sa editezi sau sa stergeti zone.
+Instrumentul zonei vă permite să creaţi, să editaţi şi să eliminaţi zonele.
 
 ## Acțiuni
 

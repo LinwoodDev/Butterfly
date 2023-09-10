@@ -4,7 +4,7 @@ sidebar_label: "Leima"
 sidebar_position: 3
 ---
 
-Leima maalari avulla voit lisätä komponentteja kankaalle. Käytä olemassa olevaa pakkausta, luo oma tai tuo paketti käyttääksesi sitä. Lue lisää [täältä](../pack).
+Leima työkalun avulla voit lisätä komponentteja kankaalle. Käytä olemassa olevaa pakkausta, luo oma tai tuo paketti käyttääksesi sitä. Lue lisää [täältä](../pack).
 
 ## Asetukset
 

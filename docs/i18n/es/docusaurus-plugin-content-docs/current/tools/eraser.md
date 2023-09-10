@@ -1,5 +1,5 @@
 ---
-title: "Pintor de borrador"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Utilice el borrador de ruta [](path_eraser) si es posible.
 
 :::
 
-Con este pintor puedes borrar los elementos del papel.
+Con esta herramienta se pueden borrar los elementos del papel.
 
 ## Configuración
 

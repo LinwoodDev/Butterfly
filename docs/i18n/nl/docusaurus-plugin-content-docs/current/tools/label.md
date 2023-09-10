@@ -1,11 +1,11 @@
 ---
-title: "Label schilder"
+title: "Label tool"
 sidebar_label: "Omschrijving"
 sidebar_position: 6
 ---
 
 
-Met deze schilder kun je tekst aan het papier toevoegen.
+Met deze tool kun je tekst toevoegen aan het papier.
 
 ## Configuratie
 

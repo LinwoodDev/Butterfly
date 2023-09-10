@@ -1,11 +1,11 @@
 ---
-title: "Yol silici aracı"
+title: "Path eraser tool"
 sidebar_label: "Yol silici"
 sidebar_position: 5
 ---
 
 
-Bu araç ile kağıt üzerindeki tüm yolu silebilirsiniz.
+With this tool you can delete the whole path on the paper.
 
 ## Yapılandırma
 

@@ -4,7 +4,7 @@ sidebar_label: "Stempel"
 sidebar_position: 3
 ---
 
-Stempelmåleren lar deg legge til komponenter på lerretet ditt. Bruk en eksisterende pakke, lag en egen eller importer en pakke for å bruke den. Les mer [her](../pack).
+Stempelverktøyet lar deg legge til komponenter på lerretet ditt. Bruk en eksisterende pakke, lag en egen eller importer en pakke for å bruke den. Les mer [her](../pack).
 
 ## Konfigurasjon
 

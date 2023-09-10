@@ -1,13 +1,13 @@
 ---
-title: "Opakovat malířství"
+title: "Opakovat nástroj"
 sidebar_label: "Znovu"
 sidebar_position: 0
 ---
 
-:::note ⚡ Aktivní malíř
+:::note ⚡ Nástroj akce
 
-Toto je zvláštní malíř. Nemůžete ji vybrat a po kliknutí na ni spustí akci.
+Toto je speciální nástroj. Nemůžete ji vybrat a po kliknutí na ni spustí akci.
 
 :::
 
-Po kliknutí na tuto malbu můžete znovu provést poslední akci. Podívejte se zpět na [malování](undo) pro zrušení poslední akce.
+Po kliknutí na tento nástroj můžete znovu provést poslední akci. Podívejte se na [vrácený nástroj](undo) pro vrácení poslední akce.

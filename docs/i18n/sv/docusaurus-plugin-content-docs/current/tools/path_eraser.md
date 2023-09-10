@@ -1,11 +1,11 @@
 ---
-title: "Sökväg suddgummi målare"
+title: "Verktyg för suddgummin"
 sidebar_label: "Radering av sökväg"
 sidebar_position: 5
 ---
 
 
-Med denna målare kan du ta bort hela sökvägen på papperet.
+Med detta verktyg kan du ta bort hela sökvägen på papperet.
 
 ## Konfiguration
 

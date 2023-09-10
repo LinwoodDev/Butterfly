@@ -4,7 +4,7 @@ sidebar_label: "Damga"
 sidebar_position: 3
 ---
 
-Damga, tuvalinize bileşenler eklemenizi sağlar. Mevcut bir paketi kullanın, kendi paketinizi oluşturun veya kullanmak için bir paketi içe aktarın. Read more [here](../pack).
+The stamp tool allows you to add components to your canvas. Mevcut bir paketi kullanın, kendi paketinizi oluşturun veya kullanmak için bir paketi içe aktarın. Read more [here](../pack).
 
 ## Yapılandırma
 

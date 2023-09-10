@@ -1,7 +1,7 @@
 ---
-title: "Mână"
+title: "Unealta de mână"
 sidebar_label: "Mână"
 ---
 
 
-Cu acest instrument puteți selecta elemente și accesa meniul contextual de fundal pentru a accesa [meniul de inserare](../insert).
+Cu acest instrument puteţi muta pe pagină.

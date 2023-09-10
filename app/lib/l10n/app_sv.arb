@@ -520,5 +520,14 @@
   "paste": "Klistra in",
   "ascending": "Stigande",
   "descending": "Fallande",
-  "imageScale": "Skala bild"
+  "imageScale": "Skala bild",
+  "select": "Välj",
+  "tool": "Verktyg",
+  "texture": "Textur",
+  "platformTheme": "Plattformens tema",
+  "desktop": "Skrivbord",
+  "mobile": "Mobil",
+  "pdfQuality": "PDF kvalitet",
+  "surface": "Yta",
+  "pattern": "Mönster"
 }

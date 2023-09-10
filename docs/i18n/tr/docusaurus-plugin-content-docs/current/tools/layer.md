@@ -1,5 +1,6 @@
 ---
-title: Katman
+title: "Layer tool"
+sidebar_label: "Katman"
 ---
 
 Bu araçla birden çok ögenin katmanını değiştirebilirsiniz. Katmanlar hakkında daha fazla bilgiye [buradan](../layers.md) ulaşabilirsiniz. Bir ögeye tıkladığınızda, ögenin katmanı konfigürasyondaki katman kümesine dönüştürülür. Katman alanını boş bırakmak, katmanı varsayılan katmana ayarlar.

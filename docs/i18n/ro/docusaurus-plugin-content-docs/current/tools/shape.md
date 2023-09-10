@@ -1,11 +1,11 @@
 ---
-title: "Pictor de formule"
+title: "Unealta de forma"
 sidebar_label: "Formă"
 sidebar_position: 3
 ---
 
 
-Utilizaţi acest pictor pentru a desena forme pe hârtie. Poți desena dreptunghiuri, cercuri și alte forme.
+Utilizați această unealtă pentru a desena forme pe hârtie. Poți desena dreptunghiuri, cercuri și alte forme.
 
 ## Configurare
 

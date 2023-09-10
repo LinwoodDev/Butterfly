@@ -1,11 +1,11 @@
 ---
-title: "Bane erasermalere"
+title: "Bane eraserverktøy"
 sidebar_label: "Bane eraser"
 sidebar_position: 5
 ---
 
 
-Med denne maleren kan du slette hele banen på papiret.
+Med dette verktøyet kan du slette hele banen i papiren.
 
 ## Konfigurasjon
 

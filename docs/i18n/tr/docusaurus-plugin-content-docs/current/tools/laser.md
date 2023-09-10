@@ -1,11 +1,11 @@
 ---
-title: "Lazer aracı"
+title: "Laser tool"
 sidebar_label: "Lazer"
 sidebar_position: 3
 ---
 
 
-Bu araç ile bu kağıda geçici olarak çizim yapabilirsiniz. Bir süre sonra çizim kaybolur. İptal etmek için kağıda yeni bir çizim ekleyin.
+With this tool you can draw on this paper temporarily. Bir süre sonra çizim kaybolur. İptal etmek için kağıda yeni bir çizim ekleyin.
 
 ## Yapılandırma
 

@@ -1,11 +1,11 @@
 ---
-title: "Pintor de forma"
+title: "Ferramenta de forma"
 sidebar_label: "Forma"
 sidebar_position: 3
 ---
 
 
-Use este pintor para desenhar formas no papel. Você pode desenhar retângulos, círculos e outras formas.
+Use esta ferramenta para desenhar formas no papel. Você pode desenhar retângulos, círculos e outras formas.
 
 ## Configuração
 

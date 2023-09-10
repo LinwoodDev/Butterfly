@@ -1,11 +1,11 @@
 ---
-title: "Pittore a forma"
+title: "Strumento di forma"
 sidebar_label: "Forma"
 sidebar_position: 3
 ---
 
 
-Usa questo pittore per disegnare forme sulla carta. È possibile disegnare rettangoli, cerchi e altre forme.
+Utilizzare questo strumento per disegnare forme sulla carta. È possibile disegnare rettangoli, cerchi e altre forme.
 
 ## Configurazione
 

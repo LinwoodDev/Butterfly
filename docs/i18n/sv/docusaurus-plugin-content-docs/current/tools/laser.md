@@ -1,11 +1,11 @@
 ---
-title: "Laser målare"
+title: "Laser verktyg"
 sidebar_label: "Laser"
 sidebar_position: 3
 ---
 
 
-Med denna målare kan du rita på detta papper tillfälligt. Efter ett tag bleknar teckningen bort. Lägg till en ny ritning till papperet för att göra det avbryta.
+Med detta verktyg kan du rita på detta papper tillfälligt. Efter ett tag bleknar teckningen bort. Lägg till en ny ritning till papperet för att göra det avbryta.
 
 ## Konfiguration
 

@@ -3,7 +3,7 @@ title: "Katmanlar"
 sidebar_position: 2
 ---
 
-Katmanlar, ögeleri birlikte gruplamak için bir seçenektir. Katmanı görmek ve değiştirmek için ögeye tıklayın. Birden çok ögenin katmanlarını değiştirmek için [katman aracı](tools/layer.md)nı kullanın.
+Katmanlar, ögeleri birlikte gruplamak için bir seçenektir. Katmanı görmek ve değiştirmek için ögeye tıklayın. Use the [layer tool](tools/layer.md) to change the layers of multiple elements.
 
 ## Katmanlar iletişim kutusu
 

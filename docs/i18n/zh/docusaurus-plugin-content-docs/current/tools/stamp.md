@@ -4,7 +4,7 @@ sidebar_label: "印章"
 sidebar_position: 3
 ---
 
-印花画画家允许您将组件添加到画布中。 使用现有的包，创建您自己或导入一个包来使用它。 Read more [here](../pack).
+印花工具允许您将组件添加到画布中。 使用现有的包，创建您自己或导入一个包来使用它。 Read more [here](../pack).
 
 ## 配置
 

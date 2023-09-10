@@ -1,11 +1,11 @@
 ---
-title: "Percorso pittore gomma"
+title: "Strumento gomma tracciati"
 sidebar_label: "Cancella tratto"
 sidebar_position: 5
 ---
 
 
-Con questo pittore è possibile eliminare l'intero percorso sulla carta.
+Con questo strumento è possibile eliminare l'intero percorso sulla carta.
 
 ## Configurazione
 

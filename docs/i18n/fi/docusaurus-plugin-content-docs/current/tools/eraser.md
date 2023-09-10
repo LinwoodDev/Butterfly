@@ -1,5 +1,5 @@
 ---
-title: "Pyyhkimen maalari"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Käytä [polun tyhjennystä](path_eraser) , jos se on mahdollista.
 
 :::
 
-Tämän maalarin avulla voit poistaa paperilla olevat elementit.
+Tämän työkalun avulla voit poistaa elementit paperilla.
 
 ## Asetukset
 

@@ -1,11 +1,11 @@
 ---
-title: "Kynän maalari"
+title: "Kynän työkalu"
 sidebar_label: "Kynä"
 sidebar_position: 2
 ---
 
 
-Tämän maalarin avulla voit piirtää tämän paperin.
+Tämän työkalun avulla voit piirtää tämän paperin.
 
 ## Asetukset
 

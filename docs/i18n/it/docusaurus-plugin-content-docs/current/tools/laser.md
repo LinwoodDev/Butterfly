@@ -1,11 +1,11 @@
 ---
-title: "Pittore laser"
+title: "Strumento laser"
 sidebar_label: "Laser"
 sidebar_position: 3
 ---
 
 
-Con questo pittore è possibile disegnare su questo foglio temporaneamente. Dopo un po ', il disegno svanisce. Aggiungi un nuovo disegno alla carta per renderla annullata.
+Con questo strumento è possibile disegnare su questo documento temporaneamente. Dopo un po ', il disegno svanisce. Aggiungi un nuovo disegno alla carta per renderla annullata.
 
 ## Configurazione
 

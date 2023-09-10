@@ -1,11 +1,11 @@
 ---
-title: "Pad gum schilder"
+title: "Pad gum tool"
 sidebar_label: "Pad gum"
 sidebar_position: 5
 ---
 
 
-Met deze schilder kun je het hele pad op het papier verwijderen.
+Met deze tool kun je het hele pad op het papier verwijderen.
 
 ## Configuratie
 

@@ -3,7 +3,7 @@ title: "Paketti"
 sidebar_position: 2
 ---
 
-Pakkaus on kokoelma komponentteja, joita voidaan käyttää postimerkkimaalarissa. Voit luoda oman pakettisi tai tuoda olemassa olevan paketin. Tätä varten klikkaa vasemmassa yläkulmassa ja klikkaa "Pakkaukset".
+Pakkaus on kokoelma komponentteja, joita voidaan käyttää leima työkalu. Voit luoda oman pakettisi tai tuoda olemassa olevan paketin. Tätä varten klikkaa vasemmassa yläkulmassa ja klikkaa "Pakkaukset".
 
 ## Ominaisuudet
 

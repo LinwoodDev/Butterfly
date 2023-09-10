@@ -4,7 +4,7 @@ sidebar_label: "Médaille"
 sidebar_position: 3
 ---
 
-Le timbre peintre vous permet d'ajouter des composants à votre toile. Utilisez un pack existant, créez le vôtre ou importez un pack pour l'utiliser. En savoir plus [ici](../pack).
+L'outil tampon vous permet d'ajouter des composants à votre toile. Utilisez un pack existant, créez le vôtre ou importez un pack pour l'utiliser. En savoir plus [ici](../pack).
 
 ## Configuration
 

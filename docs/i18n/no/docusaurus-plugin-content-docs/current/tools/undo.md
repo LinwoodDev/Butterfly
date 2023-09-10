@@ -1,13 +1,13 @@
 ---
-title: "Angre maling"
+title: "Angre verktøy"
 sidebar_label: "Angre"
 sidebar_position: 0
 ---
 
-::note ⚡ Handlingsmalere
+::note ⚡ Verktøy for handlingen
 
-Dette er en spesiell maler. Du kan ikke velge den, og det vil kjøre handlingen hvis du klikker på den.
+Dette er et spesielt verktøy. Du kan ikke velge den, og det vil kjøre handlingen hvis du klikker på den.
 
 :::
 
-Når du klikker på denne maleren, kan du angre den siste handlingen. Se [redo maleren](redo) for å gjøre din siste handling på nytt.
+Når du klikker på dette verktøyet kan du angre den siste handlingen. Se [redo-verktøyet](redo) for å gjenta din siste handling.

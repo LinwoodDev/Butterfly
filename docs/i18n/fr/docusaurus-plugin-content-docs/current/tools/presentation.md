@@ -4,4 +4,4 @@ sidebar_label: "Présentation"
 sidebar_position: 5
 ---
 
-Le peintre de présentation vous permet de créer vos propres animations dans vos notes.
+L'outil de présentation vous permet de créer vos propres animations à l'intérieur de vos notes.

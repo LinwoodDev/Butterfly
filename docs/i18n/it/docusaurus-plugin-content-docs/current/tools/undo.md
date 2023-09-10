@@ -1,13 +1,13 @@
 ---
-title: "Annulla pittore"
+title: "Annulla strumento"
 sidebar_label: "Annulla"
 sidebar_position: 0
 ---
 
-:::note ⚡ Action Tool
+:::note ⚡ Strumento di azione
 
-Questo è un pittore speciale. Non è possibile selezionarlo e verrà eseguita l'azione se si fa clic su di esso.
+Questo è uno strumento speciale. Non è possibile selezionarlo e verrà eseguita l'azione se si fa clic su di esso.
 
 :::
 
-Quando fai clic su questo pittore puoi annullare la tua ultima azione. Vedi il [redo tool](redo) per rifare la tua ultima azione.
+Quando si fa clic su questo strumento è possibile annullare l'ultima azione. Vedere lo strumento di rifare [](redo) per rifare la tua ultima azione.

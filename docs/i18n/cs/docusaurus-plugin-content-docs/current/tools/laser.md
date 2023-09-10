@@ -1,11 +1,11 @@
 ---
-title: "Laserové malíře"
+title: "Laserové nástroje"
 sidebar_label: "Laser"
 sidebar_position: 3
 ---
 
 
-S tímto malířem můžete dočasně čerpat z tohoto dokumentu. Po nějaké době se rýsuje pryč. Přidejte nový výkres do dokumentu, aby byl zrušen.
+S tímto nástrojem můžete nakreslit na tento dokument dočasně. Po nějaké době se rýsuje pryč. Přidejte nový výkres do dokumentu, aby byl zrušen.
 
 ## Konfigurace
 

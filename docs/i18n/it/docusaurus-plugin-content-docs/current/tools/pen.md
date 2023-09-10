@@ -1,11 +1,11 @@
 ---
-title: "Pittore a penna"
+title: "Strumento penna"
 sidebar_label: "Penna"
 sidebar_position: 2
 ---
 
 
-Con questo pittore puoi disegnare su questa carta.
+Con questo strumento è possibile disegnare su questo foglio.
 
 ## Configurazione
 

@@ -1,5 +1,5 @@
 ---
-title: "Farba gumowo-gumowa"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Jeśli jest to możliwe, użyj [gumki ścieżki](path_eraser).
 
 :::
 
-Za pomocą tej farby możesz wymazać elementy na papierze.
+Za pomocą tego narzędzia możesz usunąć elementy na papierze.
 
 ## Konfiguracja
 

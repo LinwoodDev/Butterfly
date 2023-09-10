@@ -1,13 +1,13 @@
 ---
-title: "Kumoa maalari"
+title: "Kumoa työkalu"
 sidebar_label: "Kumoa"
 sidebar_position: 0
 ---
 
-::note ⚡ Toimintomaalari
+::note ⚡ Toimintotyökalu
 
-Tämä on erityinen maalari. Et voi valita sitä, ja se suorittaa toiminnon, jos klikkaat sitä.
+Tämä on erityinen työkalu. Et voi valita sitä, ja se suorittaa toiminnon, jos klikkaat sitä.
 
 :::
 
-Kun napsautat tätä maalaria, voit perua viimeisen toiminnon. Katso [redo maalari](redo) tehdäksesi viimeisen toiminnon.
+Kun napsautat tätä työkalua, voit perua viimeisen toiminnon. Katso [redo työkalu](redo) tehdäksesi viimeisen toiminnon.

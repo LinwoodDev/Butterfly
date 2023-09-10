@@ -1,13 +1,13 @@
 ---
-title: "Toista maalari"
+title: "Toista työkalu"
 sidebar_label: "Toista"
 sidebar_position: 0
 ---
 
-::note ⚡ Toimintomaalari
+::note ⚡ Toimintotyökalu
 
-Tämä on erityinen maalari. Et voi valita sitä, ja se suorittaa toiminnon, jos klikkaat sitä.
+Tämä on erityinen työkalu. Et voi valita sitä, ja se suorittaa toiminnon, jos klikkaat sitä.
 
 :::
 
-Kun napsautat tätä maalaria, voit tehdä viimeisen toiminnon uudelleen. Katso [kumota maalari](undo) lopettaaksesi viimeisen toiminnon.
+Kun napsautat tätä työkalua, voit tehdä viimeisen toiminnon uudelleen. Katso [peruuta työkalu](undo) viimeisen toiminnon kumoamiseksi.

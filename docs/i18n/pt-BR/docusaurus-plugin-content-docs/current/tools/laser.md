@@ -1,11 +1,11 @@
 ---
-title: "Pintor laser"
+title: "Ferramenta laser"
 sidebar_label: "Laser"
 sidebar_position: 3
 ---
 
 
-Com este pintor pode-se desenhar temporariamente neste papel. Depois de um tempo, o sorteio desaparece. Adicione um novo desenho ao papel para que ele cancele.
+Com esta ferramenta você pode extrair esse papel temporariamente. Depois de um tempo, o sorteio desaparece. Adicione um novo desenho ao papel para que ele cancele.
 
 ## Configuração
 

@@ -520,5 +520,14 @@
   "paste": "粘贴",
   "ascending": "升序",
   "descending": "降序",
-  "imageScale": "图像缩放"
+  "imageScale": "图像缩放",
+  "select": "选择",
+  "tool": "工具",
+  "texture": "纹理",
+  "platformTheme": "平台主题",
+  "desktop": "桌面",
+  "mobile": "移动设备",
+  "pdfQuality": "PDF 质量",
+  "surface": "表面",
+  "pattern": "图案"
 }

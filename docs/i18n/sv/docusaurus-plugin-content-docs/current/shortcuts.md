@@ -27,13 +27,13 @@ Det finns några genvägar som du kan använda i editorn. Några av dem är skri
 * `Ctrl` + `Shift` + `A`: dialogrutan Öppna områden
 * `Ctrl` + `S`: Spara
 * `Alt` + `S`: Ändra sökväg
-* `Ctrl` + (`1` - `0`): Växla till målare
+* `Ctrl` + (`1` - `0`): Växla till verktyget
 
 ## Stylus
 
 * `Primär knapp`: Ändra till handverktyg
-* `Sekundär knapp`: Ändra till andra målare
+* `Sekundär knapp`: Ändra till andra verktyget
 
 ## Konfigurera {#configure}
 
-Anpassa kontrollerna genom att ge varje kontroll en målare index. Målarindexet börjar vid 1 och beställs från vänster till höger. En tom målare index kommer att inaktivera målare slå på den här kontrollen. Infoga `0` för att aktivera flyttning med denna kontroll.
+Anpassa kontrollerna genom att ge varje kontroll ett verktygsindex. Verktygsindexet börjar vid 1 och beställs från vänster till höger. Ett tomt verktygsindex kommer att inaktivera verktygsbrytaren på denna kontroll. Infoga `0` för att aktivera flyttning med denna kontroll.

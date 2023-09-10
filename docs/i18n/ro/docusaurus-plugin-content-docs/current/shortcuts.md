@@ -27,13 +27,13 @@ Există câteva comenzi rapide pe care le poți folosi în editor. Unele dintre 
 * `Ctrl` + `Shift` + `A`: Dialog zone deschise
 * `Ctrl` + `S`: Salvare
 * `Alt` + `S`: Schimbare cale
-* `Ctrl` + (`1` - `0`): Comutator la pictor
+* `Ctrl` + (`1` - `0`): Comutați la unealtă
 
 ## Stylus
 
 * `Butonul principal`: Schimbă cu unealta manuală
-* `Butonul Secundar`: Schimbă la al doilea pictor
+* `Butonul secundar`: Schimbă la al doilea instrument
 
 ## Configurare {#configure}
 
-Personalizați controalele dând fiecărui control un indice de pictori. Indexul pictorului începe la 1 și este ordonat de la stânga la dreapta. Un index gol al pictorului va dezactiva comutatorul de pictor pe acest control. Introduceți `0` pentru a activa mutarea cu acest control.
+Personalizați controalele dând fiecărui control un indice de unelte. Indicele sculei începe la 1 și sunt ordonate de la stânga la dreapta. Un index gol de instrumente va dezactiva comutatorul de unelte pe acest control. Introduceți `0` pentru a activa mutarea cu acest control.

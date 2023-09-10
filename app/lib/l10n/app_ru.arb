@@ -520,5 +520,14 @@
   "paste": "Вставить",
   "ascending": "По возрастанию",
   "descending": "По убыванию",
-  "imageScale": "Масштаб изображения"
+  "imageScale": "Масштаб изображения",
+  "select": "Выбрать",
+  "tool": "Инструмент",
+  "texture": "Текстура",
+  "platformTheme": "Тема платформы",
+  "desktop": "Рабочий стол",
+  "mobile": "Мобильный",
+  "pdfQuality": "Качество PDF",
+  "surface": "Поверхность",
+  "pattern": "Шаблон"
 }

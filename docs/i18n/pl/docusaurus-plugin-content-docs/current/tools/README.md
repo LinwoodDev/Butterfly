@@ -1,20 +1,20 @@
 ---
-title: "Pasty do malowania"
+title: "Narzędzia"
 slug: /tools
 sidebar_label: "Wprowadzanie"
 sidebar_position: 1
 ---
 
 
-Tooly mogą edytować arkusze.
+Narzędzia mogą edytować arkusze.
 
-Użyj paska bocznego, aby dowiedzieć się więcej o malarstwach.
+Użyj paska bocznego, aby dowiedzieć się więcej o narzędziach.
 
-Utwórz nowy malarz klikając ikonę plus. Zmień kolejność farby poprzez przeciąganie i zmianę farby kliknięciem. Jeśli klikniesz wybraną farbę, możesz ją skonfigurować.
+Utwórz nowe narzędzie klikając ikonę plus. Zmień kolejność narzędzia poprzez przeciąganie i zmianę narzędzia kliknięciem. Jeśli klikniesz na wybrane narzędzie możesz go skonfigurować.
 
-Nazwa farby będzie wyświetlana jako podpowiedź po najechaniu na malarze.
+Nazwa narzędzia będzie wyświetlana jako podpowiedź po najechaniu na narzędziu.
 
-## Dostępne malarstwa
+## Dostępne narzędzia
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

@@ -1,11 +1,11 @@
 ---
-title: "Etikett maling"
+title: "Etikett verktøy"
 sidebar_label: "Etikett"
 sidebar_position: 6
 ---
 
 
-Med denne maleren kan du legge til tekst i papiret.
+Med dette verktøyet kan du legge til tekst i papiret.
 
 ## Konfigurasjon
 

@@ -1,9 +1,9 @@
 ---
 sidebar_label: "Area"
-title: "Pittore di area"
+title: "Strumento area"
 ---
 
-L'area pittore consente di creare, modificare e rimuovere aree.
+Lo strumento area consente di creare, modificare e rimuovere aree.
 
 ## Azioni
 

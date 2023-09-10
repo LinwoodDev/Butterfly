@@ -1,11 +1,11 @@
 ---
-title: "Pintor Pen"
+title: "Ferramenta de caneta"
 sidebar_label: "Caneta"
 sidebar_position: 2
 ---
 
 
-Com este pintor pode-se desenhar neste papel.
+Com esta ferramenta pode-se usar esse papel.
 
 ## Configuração
 

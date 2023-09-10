@@ -1,5 +1,6 @@
 ---
-title: Lag
+title: "Lag værktøj"
+sidebar_label: "Lag"
 ---
 
 Med dette værktøj kan du ændre lag af flere objekter. Læs mere om lag [her](../layers.md). Når du klikker på et objekt, vil laget af objektet blive ændret til det lag, der er sat i konfigurationen. At efterlade lagfeltet tomt vil sætte laget til standardlaget.

@@ -3,7 +3,7 @@ title: "Lagen"
 sidebar_position: 2
 ---
 
-Lagen zijn een optie om elementen samen te groeperen. Klik op het element om de laag te bekijken en te wijzigen. Gebruik de [laag schilder](tools/layer.md) om de lagen van meerdere elementen te veranderen.
+Lagen zijn een optie om elementen samen te groeperen. Klik op het element om de laag te bekijken en te wijzigen. Gebruik het gereedschap [](tools/layer.md) om de lagen van meerdere elementen te veranderen.
 
 ## De lagen dialoog
 

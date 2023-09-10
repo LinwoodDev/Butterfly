@@ -1,11 +1,11 @@
 ---
-title: "Tvarový malíř"
+title: "Nástroj pro tvar"
 sidebar_label: "Tvar"
 sidebar_position: 3
 ---
 
 
-Použijte tento malíř, abyste nakreslili tvary na papír. Můžeš nakreslit obdélníky, kruhy a další tvary.
+Použijte tento nástroj k nakreslení tvarů na papír. Můžeš nakreslit obdélníky, kruhy a další tvary.
 
 ## Konfigurace
 

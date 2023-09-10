@@ -1,11 +1,11 @@
 ---
-title: "Farba pióra"
+title: "Narzędzie do pióra"
 sidebar_label: "Długopis"
 sidebar_position: 2
 ---
 
 
-Dzięki tej farbie możesz narysować ten papier.
+Za pomocą tego narzędzia możesz narysować ten papier.
 
 ## Konfiguracja
 

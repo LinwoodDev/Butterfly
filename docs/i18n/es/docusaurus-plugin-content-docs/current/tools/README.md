@@ -1,20 +1,20 @@
 ---
-title: "Pintores"
+title: "Herramientas"
 slug: /tools
 sidebar_label: "Introducción"
 sidebar_position: 1
 ---
 
 
-Los pintores pueden editar el papel.
+Las herramientas pueden editar el papel.
 
-Utilice la barra lateral para aprender más sobre los pintores.
+Utilice la barra lateral para aprender más acerca de las herramientas.
 
-Crea un nuevo pintor haciendo clic en el ícono más . Cambia el orden del pintor arrastrando y cambiando el pintor haciendo clic. Si hace clic en un pintor seleccionado puede configurarlo.
+Crea una nueva herramienta haciendo clic en el ícono de plus. Cambie el orden de la herramienta arrastrando y cambiando la herramienta haciendo clic. Si hace clic en una herramienta seleccionada puede configurarla.
 
-El nombre del pintor se mostrará como descripción al pasar el cursor sobre el pintor.
+El nombre de la herramienta se mostrará como descripción al pasar el ratón sobre la herramienta.
 
-## Pintores disponibles
+## Herramientas disponibles
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

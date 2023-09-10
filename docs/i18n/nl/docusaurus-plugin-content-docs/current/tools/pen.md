@@ -1,11 +1,11 @@
 ---
-title: "Pen schilder"
+title: "Pen gereedschap"
 sidebar_label: "pennen"
 sidebar_position: 2
 ---
 
 
-Met deze schilder kun je op dit papier tekenen.
+Met dit gereedschap kun je op dit papier tekenen.
 
 ## Configuratie
 

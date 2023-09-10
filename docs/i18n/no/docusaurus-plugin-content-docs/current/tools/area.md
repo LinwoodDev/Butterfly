@@ -1,9 +1,9 @@
 ---
 sidebar_label: "Område"
-title: "Område maling"
+title: "Område verktøy"
 ---
 
-Områdesmåleren lar deg opprette, redigere og fjerne områder.
+Områdesystemet lar deg opprette, redigere og fjerne områder.
 
 ## Handlinger
 

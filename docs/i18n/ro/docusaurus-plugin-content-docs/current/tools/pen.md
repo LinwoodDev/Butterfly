@@ -1,11 +1,11 @@
 ---
-title: "Pictor de stilou"
+title: "Unealta pentru stilou"
 sidebar_label: "Stiloul"
 sidebar_position: 2
 ---
 
 
-Cu acest pictor puteţi desena pe această hârtie.
+Cu această unealtă poți desena pe această hârtie.
 
 ## Configurare
 

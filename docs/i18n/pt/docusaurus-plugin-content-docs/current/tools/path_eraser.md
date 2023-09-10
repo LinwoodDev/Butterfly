@@ -1,11 +1,11 @@
 ---
-title: "Pintor borracha de caminho"
+title: "Ferramenta de borracha"
 sidebar_label: "Erro de caminho"
 sidebar_position: 5
 ---
 
 
-Com este pintor pode-se eliminar o caminho inteiro do papel.
+Com essa ferramenta você pode excluir o caminho inteiro no papel.
 
 ## Configuração
 

@@ -520,5 +520,14 @@
   "paste": "Vložit",
   "ascending": "Vzestupně",
   "descending": "sestupně",
-  "imageScale": "Měřítko obrázku"
+  "imageScale": "Měřítko obrázku",
+  "select": "Vybrat",
+  "tool": "Nástroj",
+  "texture": "Textilie",
+  "platformTheme": "Motiv platformy",
+  "desktop": "Stolní počítače",
+  "mobile": "Mobil",
+  "pdfQuality": "Kvalita PDF",
+  "surface": "Povrch",
+  "pattern": "Vzor"
 }

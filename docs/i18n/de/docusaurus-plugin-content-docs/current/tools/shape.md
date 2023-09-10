@@ -1,11 +1,11 @@
 ---
-title: "Form-Maler"
+title: "Formwerkzeug"
 sidebar_label: "Form"
 sidebar_position: 3
 ---
 
 
-Benutze diesen Maler um Formen auf dem Papier zu zeichnen. Sie können Rechtecke, Kreise und andere Formen zeichnen.
+Benutzen Sie dieses Werkzeug, um Formen auf dem Papier zu zeichnen. Sie können Rechtecke, Kreise und andere Formen zeichnen.
 
 ## Konfiguration
 
