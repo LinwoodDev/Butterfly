@@ -529,5 +529,8 @@
   "mobile": "Мобільний",
   "pdfQuality": "Якість PDF",
   "surface": "Поверхня",
-  "pattern": "Графічний ключ"
+  "pattern": "Графічний ключ",
+  "sureClose": "Ви впевнені, що хочете закрити документ?",
+  "thereAreUnsavedChanges": "Є незбережені зміни",
+  "page": "Page"
 }
