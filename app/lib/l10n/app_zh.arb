@@ -529,5 +529,8 @@
   "mobile": "移动设备",
   "pdfQuality": "PDF 质量",
   "surface": "表面",
-  "pattern": "图案"
+  "pattern": "图案",
+  "sureClose": "您确定要关闭文档吗？",
+  "thereAreUnsavedChanges": "有未保存的更改",
+  "page": "Page"
 }
