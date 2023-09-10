@@ -447,10 +447,14 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
     if (renderBackground) {
-      state.cameraViewport.backgrounds
-          .map((e) => e.buildSvg(xml, document, page, rect));
+      for (final e in state.cameraViewport.backgrounds) {
+        e.buildSvg(xml, document, page, rect);
+      }
     }
-    for (var e in renderers) {
+    for (var e in [
+      ...state.cameraViewport.visibleElements,
+      ...state.cameraViewport.unbakedElements
+    ]) {
       e.buildSvg(xml, document, page, rect);
     }
     return xml;

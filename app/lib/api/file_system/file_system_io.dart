@@ -71,7 +71,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
       final files = await directory.list().toList();
       final assets = <AppDocumentEntity>[];
       final nextReadMetadata =
-          readMetadata == null ? false : (readMetadata ? null : false);
+          readMetadata == null || !readMetadata ? false : null;
       await Future.wait(files.map((e) async {
         try {
           var currentPath =

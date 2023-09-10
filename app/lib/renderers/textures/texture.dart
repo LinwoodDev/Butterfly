@@ -16,11 +16,9 @@ void drawSurfaceTextureOnCanvas(SurfaceTexture texture, Canvas canvas,
     );
 
 void drawSurfaceTextureOnSvg(
-  SurfaceTexture texture,
-  XmlDocument xml,
-  Offset offset,
-  Size size,
-) =>
+        SurfaceTexture texture, XmlDocument xml, Offset offset, Size size,
+        [Offset translation = Offset.zero]) =>
     texture.map(
-      pattern: (e) => drawPatternTextureOnSvg(e, xml, offset, size),
+      pattern: (e) =>
+          drawPatternTextureOnSvg(e, xml, offset, size, translation),
     );

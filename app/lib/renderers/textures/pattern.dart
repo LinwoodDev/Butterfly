@@ -65,13 +65,14 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
 }
 
 void drawPatternTextureOnSvg(
-    PatternTexture texture, XmlDocument xml, Offset offset, Size size) {
+    PatternTexture texture, XmlDocument xml, Offset offset, Size size,
+    [Offset translation = Offset.zero]) {
   var g =
       xml.getOrCreateElement('svg').createElement('g', id: 'box-background');
 
   g.createElement('rect', attributes: {
-    'x': '${offset.dx}px',
-    'y': '${offset.dy}px',
+    'x': '${offset.dx + translation.dx}px',
+    'y': '${offset.dy + translation.dy}px',
     'width': '${size.width}px',
     'height': '${size.height}px',
     'fill': texture.boxColor.toHexColor(),
@@ -88,10 +89,10 @@ void drawPatternTextureOnSvg(
     int count = 0;
     while (x < size.width) {
       g.createElement('line', attributes: {
-        'x1': '${x + offset.dx}px',
-        'y1': '${offset.dy}px',
-        'x2': '${x + offset.dx}px',
-        'y2': '${offset.dy + size.height}px',
+        'x1': '${x + offset.dx + translation.dx}px',
+        'y1': '${offset.dy + translation.dy}px',
+        'x2': '${x + offset.dx + translation.dx}px',
+        'y2': '${offset.dy + size.height + translation.dy}px',
         'stroke': texture.boxXColor.toHexColor(),
         'stroke-width': '${texture.boxXStroke}'
       });
@@ -115,10 +116,10 @@ void drawPatternTextureOnSvg(
     int count = 0;
     while (y < size.height) {
       g.createElement('line', attributes: {
-        'x1': '${offset.dx}px',
-        'y1': '${y + offset.dy}px',
-        'x2': '${offset.dx + size.width}px',
-        'y2': '${y + offset.dy}px',
+        'x1': '${offset.dx + translation.dx}px',
+        'y1': '${y + offset.dy + translation.dy}px',
+        'x2': '${offset.dx + size.width + translation.dx}px',
+        'y2': '${y + offset.dy + translation.dy}px',
         'stroke': texture.boxYColor.toHexColor(),
         'stroke-width': '${texture.boxYStroke}'
       });
