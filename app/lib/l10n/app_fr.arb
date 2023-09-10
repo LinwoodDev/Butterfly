@@ -529,5 +529,8 @@
   "mobile": "Téléphone mobile",
   "pdfQuality": "Qualité PDF",
   "surface": "Surface",
-  "pattern": "Schéma"
+  "pattern": "Schéma",
+  "sureClose": "Êtes-vous sûr de vouloir fermer le document ?",
+  "thereAreUnsavedChanges": "Il y a des modifications non enregistrées",
+  "page": "Page"
 }
