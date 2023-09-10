@@ -529,5 +529,8 @@
   "mobile": "الجوال",
   "pdfQuality": "جودة PDF",
   "surface": "السطح",
-  "pattern": "النمط"
+  "pattern": "النمط",
+  "sureClose": "هل أنت متأكد من أنك تريد إغلاق الوثيقة؟",
+  "thereAreUnsavedChanges": "هناك تغييرات غير محفوظة",
+  "page": "Page"
 }
