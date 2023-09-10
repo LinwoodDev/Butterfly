@@ -612,19 +612,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
   void updateUtilities({UtilitiesState? utilities, ViewOption? view}) {
     var state = this.state;
+    final renderer = UtilitiesRenderer(
+        utilities ?? state.utilitiesState, view ?? state.viewOption);
     if (utilities != null) {
-      final renderer = UtilitiesRenderer(utilities);
       var newSelection =
           state.selection?.remove(state.cameraViewport.utilities.element);
       if (newSelection == null && state.selection != null) {
-        newSelection = Selection.from(state);
+        newSelection = Selection.from(utilities);
       } else if (newSelection != state.selection) {
         newSelection = newSelection?.insert(renderer);
       }
-      state = state.copyWith(
-          cameraViewport: state.cameraViewport.withUtilities(renderer),
-          selection: newSelection);
+      state = state.copyWith(selection: newSelection);
     }
+    state = state.copyWith(
+      cameraViewport: state.cameraViewport.withUtilities(renderer),
+    );
     if (view != null) {
       state = state.copyWith(viewOption: view);
     }

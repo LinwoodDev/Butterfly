@@ -6,6 +6,7 @@
   * Rename hand painter to select tool
   * Rename move painter to hand tool
   * Rename tool to utilities
+* Redesign document properties
 * Add texture element ([#406](https://github.com/LinwoodDev/Butterfly/issues/406))
 * Add search to add dialog
 * Add mobile context menu ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
@@ -21,6 +22,7 @@
 * Fix bfly mimetype
 * Fix property view playing open animation when opening navigator
 * Fix colors in svg export
+* Fix grid not updating when changing values
 * Remove view options from undo
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8

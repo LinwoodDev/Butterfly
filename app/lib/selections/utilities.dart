@@ -47,6 +47,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
   late final TabController _tabController;
   final TextEditingController _nameController = TextEditingController(),
       _descriptionController = TextEditingController();
+  int _expandedIndex = -1;
 
   @override
   void initState() {
@@ -91,9 +92,9 @@ class _UtilitiesViewState extends State<_UtilitiesView>
         controller: _tabController,
         isScrollable: true,
         tabs: <List<dynamic>>[
-          [PhosphorIconsLight.gear, AppLocalizations.of(context).project],
-          [PhosphorIconsLight.gridFour, AppLocalizations.of(context).grid],
-          [PhosphorIconsLight.ruler, AppLocalizations.of(context).ruler],
+          [PhosphorIconsLight.file, AppLocalizations.of(context).project],
+          [PhosphorIconsLight.book, AppLocalizations.of(context).page],
+          [PhosphorIconsLight.eye, AppLocalizations.of(context).view],
           [PhosphorIconsLight.camera, AppLocalizations.of(context).camera],
         ]
             .map((e) => Tab(
@@ -107,11 +108,11 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                     ])))
             .toList(),
       ),
+      const SizedBox(height: 8),
       Builder(
           builder: (context) => [
                 Column(
                   children: [
-                    const SizedBox(height: 16),
                     TextFormField(
                       controller: _nameController,
                       decoration: InputDecoration(
@@ -136,19 +137,6 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         bloc.add(DocumentDescriptorChanged(description: value));
                         state.save();
                       },
-                    ),
-                    const SizedBox(height: 8),
-                    const Divider(),
-                    const SizedBox(height: 8),
-                    MenuItemButton(
-                      leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
-                      shortcut: const SingleActivator(LogicalKeyboardKey.keyB,
-                          control: true),
-                      onPressed: () {
-                        Actions.maybeInvoke<BackgroundIntent>(
-                            context, BackgroundIntent(context));
-                      },
-                      child: Text(AppLocalizations.of(context).background),
                     ),
                     const SizedBox(height: 8),
                     MenuItemButton(
@@ -195,102 +183,140 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                   ],
                 ),
                 Column(children: [
-                  CheckboxListTile(
-                    value: widget.state.gridEnabled,
-                    onChanged: (value) => widget.onStateChanged(
-                      widget.state.copyWith(gridEnabled: value ?? false),
-                    ),
-                    title: Text(AppLocalizations.of(context).showGrid),
-                  ),
-                  const SizedBox(height: 8),
-                  OffsetPropertyView(
-                    value: Offset(
-                        widget.option.gridXSize, widget.option.gridYSize),
-                    title: Text(AppLocalizations.of(context).size),
-                    onChanged: (value) => widget.onToolChanged(
-                      widget.option
-                          .copyWith(gridXSize: value.dx, gridYSize: value.dy),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  ColorField(
-                    title: Text(AppLocalizations.of(context).color),
-                    value: Color(widget.option.gridColor),
-                    onChanged: (value) => widget.onToolChanged(
-                      widget.option.copyWith(gridColor: value.value),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  ExactSlider(
-                    header: Text(AppLocalizations.of(context).alpha),
-                    value: Color(widget.option.gridColor).alpha.toDouble(),
-                    defaultValue: 255,
-                    min: 0,
-                    max: 255,
-                    fractionDigits: 0,
-                    onChangeEnd: (value) => widget.onToolChanged(
-                      widget.option.copyWith(
-                        gridColor: Color(widget.option.gridColor)
-                            .withAlpha(value.toInt())
-                            .value,
-                      ),
-                    ),
-                  ),
-                ]),
-                Column(children: [
-                  CheckboxListTile(
-                    value: widget.state.rulerEnabled,
-                    onChanged: (value) => widget.onStateChanged(
-                        widget.state.copyWith(rulerEnabled: value ?? false)),
-                    title: Text(AppLocalizations.of(context).ruler),
-                  ),
-                  const SizedBox(height: 8),
-                  OffsetPropertyView(
-                    title: Text(AppLocalizations.of(context).position),
-                    onChanged: (value) => widget.onStateChanged(
-                        widget.state.copyWith(rulerPosition: value.toPoint())),
-                    value: widget.state.rulerPosition.toOffset(),
-                  ),
-                  const SizedBox(height: 8),
-                  ExactSlider(
-                    header: Text(AppLocalizations.of(context).angle),
-                    value: widget.state.rulerAngle,
-                    defaultValue: 0,
-                    min: 0,
-                    max: 360,
-                    onChangeEnd: (value) => widget.onStateChanged(
-                        widget.state.copyWith(rulerAngle: value)),
-                  ),
-                ]),
-                Column(children: [
-                  const SizedBox(height: 16),
-                  OffsetPropertyView(
-                    title: Text(AppLocalizations.of(context).position),
-                    value: context.read<TransformCubit>().state.position,
-                    round: 2,
-                    onChanged: (value) =>
-                        context.read<TransformCubit>().setPosition(value),
-                  ),
-                  const SizedBox(height: 8),
-                  ExactSlider(
-                    header: Text(AppLocalizations.of(context).zoom),
-                    value: context.read<TransformCubit>().state.size,
-                    defaultValue: 1,
-                    min: 0.1,
-                    max: 10,
-                    onChangeEnd: (value) {
-                      final size = context
-                          .read<CurrentIndexCubit>()
-                          .state
-                          .cameraViewport
-                          .toSize();
-                      context
-                          .read<TransformCubit>()
-                          .size(value, Offset(size.width / 2, size.height / 2));
-                      context.read<DocumentBloc>().bake();
+                  MenuItemButton(
+                    leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
+                    shortcut: const SingleActivator(LogicalKeyboardKey.keyB,
+                        control: true),
+                    onPressed: () {
+                      Actions.maybeInvoke<BackgroundIntent>(
+                          context, BackgroundIntent(context));
                     },
+                    child: Text(AppLocalizations.of(context).background),
                   ),
                 ]),
+                Column(children: [
+                  ExpansionPanelList(
+                      expansionCallback: (index, isExpanded) {
+                        setState(() {
+                          _expandedIndex = isExpanded ? index : -1;
+                        });
+                      },
+                      children: [
+                        ExpansionPanel(
+                          canTapOnHeader: true,
+                          isExpanded: _expandedIndex == 0,
+                          headerBuilder: (context, isExpanded) => ListTile(
+                            leading: Checkbox(
+                              value: widget.state.gridEnabled,
+                              onChanged: (value) => widget.onStateChanged(
+                                widget.state
+                                    .copyWith(gridEnabled: value ?? false),
+                              ),
+                            ),
+                            title: Text(AppLocalizations.of(context).grid),
+                          ),
+                          body: Column(children: [
+                            OffsetPropertyView(
+                              value: Offset(widget.option.gridXSize,
+                                  widget.option.gridYSize),
+                              title: Text(AppLocalizations.of(context).size),
+                              onChanged: (value) => widget.onToolChanged(
+                                widget.option.copyWith(
+                                    gridXSize: value.dx, gridYSize: value.dy),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            ColorField(
+                              title: Text(AppLocalizations.of(context).color),
+                              value: Color(widget.option.gridColor),
+                              onChanged: (value) => widget.onToolChanged(
+                                widget.option.copyWith(gridColor: value.value),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            ExactSlider(
+                              header: Text(AppLocalizations.of(context).alpha),
+                              value: Color(widget.option.gridColor)
+                                  .alpha
+                                  .toDouble(),
+                              defaultValue: 255,
+                              min: 0,
+                              max: 255,
+                              fractionDigits: 0,
+                              onChangeEnd: (value) => widget.onToolChanged(
+                                widget.option.copyWith(
+                                  gridColor: Color(widget.option.gridColor)
+                                      .withAlpha(value.toInt())
+                                      .value,
+                                ),
+                              ),
+                            ),
+                          ]),
+                        ),
+                        ExpansionPanel(
+                          canTapOnHeader: true,
+                          isExpanded: _expandedIndex == 1,
+                          headerBuilder: (context, isExpanded) => ListTile(
+                            leading: Checkbox(
+                              value: widget.state.rulerEnabled,
+                              onChanged: (value) => widget.onStateChanged(widget
+                                  .state
+                                  .copyWith(rulerEnabled: value ?? false)),
+                            ),
+                            title: Text(AppLocalizations.of(context).ruler),
+                          ),
+                          body: Column(children: [
+                            OffsetPropertyView(
+                              title:
+                                  Text(AppLocalizations.of(context).position),
+                              onChanged: (value) => widget.onStateChanged(widget
+                                  .state
+                                  .copyWith(rulerPosition: value.toPoint())),
+                              value: widget.state.rulerPosition.toOffset(),
+                            ),
+                            const SizedBox(height: 8),
+                            ExactSlider(
+                              header: Text(AppLocalizations.of(context).angle),
+                              value: widget.state.rulerAngle,
+                              defaultValue: 0,
+                              min: 0,
+                              max: 360,
+                              onChangeEnd: (value) => widget.onStateChanged(
+                                  widget.state.copyWith(rulerAngle: value)),
+                            ),
+                          ]),
+                        ),
+                      ]),
+                ]),
+                Column(
+                  children: [
+                    OffsetPropertyView(
+                      title: Text(AppLocalizations.of(context).position),
+                      value: context.read<TransformCubit>().state.position,
+                      round: 2,
+                      onChanged: (value) =>
+                          context.read<TransformCubit>().setPosition(value),
+                    ),
+                    const SizedBox(height: 8),
+                    ExactSlider(
+                      header: Text(AppLocalizations.of(context).zoom),
+                      value: context.read<TransformCubit>().state.size,
+                      defaultValue: 1,
+                      min: 0.1,
+                      max: 10,
+                      onChangeEnd: (value) {
+                        final size = context
+                            .read<CurrentIndexCubit>()
+                            .state
+                            .cameraViewport
+                            .toSize();
+                        context.read<TransformCubit>().size(
+                            value, Offset(size.width / 2, size.height / 2));
+                        context.read<DocumentBloc>().bake();
+                      },
+                    ),
+                  ],
+                ),
               ][_tabController.index]),
     ]);
   }

@@ -254,7 +254,7 @@ class _TemplateItem extends StatelessWidget {
         width: 64,
         child: thumbnail != null
             ? Image.memory(
-                thumbnail!,
+                thumbnail,
                 fit: BoxFit.contain,
                 cacheWidth: 64,
                 cacheHeight: 64,
