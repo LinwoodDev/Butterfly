@@ -529,5 +529,8 @@
   "mobile": "Komórka",
   "pdfQuality": "Jakość PDF",
   "surface": "Powierzchnia",
-  "pattern": "Wzorzec"
+  "pattern": "Wzorzec",
+  "sureClose": "Czy na pewno chcesz zamknąć dokument?",
+  "thereAreUnsavedChanges": "Istnieją niezapisane zmiany",
+  "page": "Page"
 }
