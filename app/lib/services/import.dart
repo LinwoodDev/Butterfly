@@ -154,12 +154,25 @@ class ImportService {
     final areas = page.areas
         .map((e) => e.copyWith(position: e.position + firstPos.toPoint()))
         .toList();
+    String loadAsset(Uri source, String fileExtension) {
+      final data = source.data?.contentAsBytes();
+      if (data == null) return source.toString();
+      return document.addImage(data, fileExtension);
+    }
+
     final content = page.content
         .map((e) =>
             Renderer.fromInstance(e)
                 .transform(position: firstPos, relative: true)
                 ?.element ??
             e)
+        .map((e) => e.maybeMap(
+              image: (e) =>
+                  e.copyWith(source: loadAsset(Uri.parse(e.source), 'png')),
+              svg: (e) =>
+                  e.copyWith(source: loadAsset(Uri.parse(e.source), 'svg')),
+              orElse: () => e,
+            ))
         .toList();
     return _submit(document,
         elements: content, areas: areas, choosePosition: position == null);

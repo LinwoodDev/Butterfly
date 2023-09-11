@@ -615,7 +615,7 @@ class SelectHandler extends Handler<SelectTool> {
             : null);
   }
 
-  void copySelection(BuildContext context, [bool cut = false]) {
+  Future<void> copySelection(BuildContext context, [bool cut = false]) async {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
@@ -628,7 +628,7 @@ class SelectHandler extends Handler<SelectTool> {
       type: AssetFileType.page.name,
       data: Uint8List.fromList(
         utf8.encode(
-          json.encode(DocumentPage(
+          json.encode(await DocumentPage(
                   content: _selected
                       .map((e) => (e.transform(
                                 position: -point,
@@ -637,7 +637,7 @@ class SelectHandler extends Handler<SelectTool> {
                               e)
                           .element)
                       .toList())
-              .toJson()),
+              .toDataJson(state.data)),
         ),
       ),
     );

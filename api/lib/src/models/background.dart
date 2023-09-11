@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'element.dart';
+import 'texture.dart';
 
 part 'background.g.dart';
 part 'background.freezed.dart';
