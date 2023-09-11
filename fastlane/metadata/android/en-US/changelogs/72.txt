@@ -25,6 +25,7 @@
 * Fix colors in svg export
 * Fix grid not updating when changing values
 * Fix pack dialog version text field
+* Fix changing styles of label in selection
 * Remove view options from undo
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8

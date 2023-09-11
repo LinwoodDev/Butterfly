@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -97,7 +99,7 @@ sealed class TextSpan with _$TextSpan {
   TextSpan subSpan([int start = 0, int? length]) {
     length ??= this.length;
     length = length.clamp(0, this.length);
-    start = start.clamp(0, length);
+    start = max(start, 0);
     length = length.clamp(0, this.length - start);
     final end = start + length;
     return copyWith(
@@ -162,9 +164,8 @@ sealed class TextParagraph with _$TextParagraph {
           break;
         }
         firstIndex ??= currentLength;
-        spans.add(cut
-            ? span.subSpan(start - currentLength, end - currentLength)
-            : span);
+        spans
+            .add(cut ? span.subSpan(start - currentLength, end - start) : span);
       }
       currentLength += span.length;
     }
@@ -265,7 +266,7 @@ sealed class TextParagraph with _$TextParagraph {
 
   TextParagraph updateSpans(TextSpan Function(TextSpan) update,
       [int start = 0, int length = 0]) {
-    final spans = getSpans(start, length - 1, true);
+    final spans = getSpans(start, length, true);
     if (spans.isEmpty) {
       return this;
     }
