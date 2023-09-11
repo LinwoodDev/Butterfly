@@ -28,11 +28,28 @@ public class MainActivity extends FlutterActivity {
         String action = intent.getAction();
         String type = intent.getType();
 
-        if (Intent.ACTION_SEND.equals(action) && type != null) {
+        if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action)) && type != null) {
             intentType = type;
-            String text = intent.getStringExtra(Intent.EXTRA_TEXT);
-            if (text != null) {
-                intentData = text.getBytes(StandardCharsets.UTF_8);
+            Uri uri = intent.getData();
+            if (uri != null) {
+                try {
+                    // Open an InputStream to read data from the URI
+                    InputStream inputStream = getContentResolver().openInputStream(uri);
+
+                    // Read data from the InputStream into a byte array
+                    intentData = new byte[inputStream.available()];
+                    inputStream.read(intentData);
+
+                    // Now, you have the data as a byte array in 'byteArray'
+                    // You can use it as needed, e.g., display an image or process the data.
+
+                    // Don't forget to close the input stream
+                    inputStream.close();
+                } catch (IOException e) {
+                    intentData = null;
+                    intentType = null;
+                }
+
             }
         }
     }
@@ -46,6 +63,8 @@ public class MainActivity extends FlutterActivity {
                                 result.success(intentType);
                             } else if (call.method.equals("getIntentData")) {
                                 result.success(intentData);
+                                intentType = null;
+                                intentData = null;
                             } else {
                                 result.notImplemented();
                             }

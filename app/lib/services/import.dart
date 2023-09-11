@@ -66,11 +66,21 @@ class ImportService {
       return data;
     }
     if (type.isEmpty) type = 'note';
-    final fileType = type.isNotEmpty
-        ? AssetFileType.values.byName(type)
-        : location?.fileType;
-    if (bytes == null || fileType == null) return null;
-    return import(fileType, bytes, document);
+    AssetFileType? fileType;
+    try {
+      fileType = type.isNotEmpty
+          ? AssetFileType.values.byName(type)
+          : location?.fileType;
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
+      return null;
+    }
+    if (bytes == null) return null;
+    return import(fileType ?? AssetFileType.note, bytes, document);
   }
 
   Future<NoteData?> import(

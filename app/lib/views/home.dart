@@ -359,7 +359,8 @@ class _QuickstartHomeView extends StatefulWidget {
   State<_QuickstartHomeView> createState() => _QuickstartHomeViewState();
 }
 
-class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
+class _QuickstartHomeViewState extends State<_QuickstartHomeView>
+    with WidgetsBindingObserver {
   late final TemplateFileSystem _templateFileSystem;
   Future<List<NoteData>>? _templatesFuture;
 
@@ -371,6 +372,13 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _templatesFuture = _fetchTemplates();
     });
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override

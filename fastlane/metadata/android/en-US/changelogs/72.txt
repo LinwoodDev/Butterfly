@@ -26,6 +26,7 @@
 * Fix grid not updating when changing values
 * Fix pack dialog version text field
 * Fix changing styles of label in selection
+* Fix open with for bfly documents on android
 * Remove view options from undo
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8

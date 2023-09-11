@@ -1,4 +1,6 @@
 import 'package:butterfly/api/close.dart';
+import 'package:butterfly/widgets/window.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
@@ -13,12 +15,14 @@ class IOCloseSubscription extends CloseSubscription with WindowListener {
   final BuildContext context;
 
   IOCloseSubscription(this.context, this._onClose) {
+    if (kIsWeb || !isWindow) return;
     windowManager.setPreventClose(true);
     windowManager.addListener(this);
   }
 
   @override
   void dispose() {
+    if (kIsWeb || !isWindow) return;
     windowManager.setPreventClose(false);
     WindowManager.instance.removeListener(this);
   }
