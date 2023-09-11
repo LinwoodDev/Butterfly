@@ -54,7 +54,7 @@ class GeneralPackView extends StatelessWidget {
             icon: const PhosphorIcon(PhosphorIconsLight.info),
             filled: true,
           ),
-          initialValue: metadata.author,
+          initialValue: metadata.version,
           onChanged: (value) =>
               changeMetadata(metadata.copyWith(version: value)),
         ),
