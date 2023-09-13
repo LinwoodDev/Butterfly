@@ -79,7 +79,7 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
       return importWithDialog(
         AssetFileType.markdown,
         type: FileType.custom,
-        allowedExtensions: ['md'],
+        allowedExtensions: ['md', 'markdown'],
       );
   }
 }

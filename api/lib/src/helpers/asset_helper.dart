@@ -14,7 +14,7 @@ extension AssetFileTypeHelper on AssetFileType {
       case AssetFileType.svg:
         return ['svg'];
       case AssetFileType.markdown:
-        return ['md'];
+        return ['md', 'markdown'];
       case AssetFileType.page:
         return [];
     }
