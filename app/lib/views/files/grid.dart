@@ -226,7 +226,6 @@ class _FileEntityGridItem extends StatelessWidget {
                               return MenuItemButton(
                                 onPressed: () {
                                   settingsCubit.toggleStarred(entity.location);
-                                  onReload();
                                 },
                                 leadingIcon: starred
                                     ? const PhosphorIcon(PhosphorIconsFill.star)

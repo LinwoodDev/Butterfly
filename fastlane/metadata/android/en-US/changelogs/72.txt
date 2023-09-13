@@ -21,6 +21,7 @@
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
 * Improve clipboard system to include image and svg source as data uri
 * Improve export system
+* Improve version info in setting if not connected to the internet
 * Prevent window of closing when there are unsaved changes ([#403](https://github.com/LinwoodDev/Butterfly/issues/403))
 * Change file search to not case sensitive
 * Fix expansion panel list in texture property, shapes and constraints view
@@ -33,5 +34,6 @@
 * Fix open with for bfly documents on android
 * Fix insert first and last tooltip in pages navigator view
 * Remove view options from undo
+* Remove reload after starring
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8

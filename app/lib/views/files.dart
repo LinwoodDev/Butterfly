@@ -390,66 +390,71 @@ class _FilesViewState extends State<FilesView> {
         }
       }),
       const SizedBox(height: 16),
-      FutureBuilder<AppDocumentEntity?>(
-          future: _filesFuture,
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text(snapshot.error.toString());
-            }
-            if (snapshot.connectionState == ConnectionState.waiting ||
-                !snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            final entity = snapshot.data;
-            if (entity is! AppDocumentDirectory) {
-              return Container();
-            }
-            final assets = entity.assets.where((e) {
-              if (_search.isNotEmpty) {
-                return e.fileName.toLowerCase().contains(_search.toLowerCase());
+      BlocBuilder<SettingsCubit, ButterflySettings>(
+        buildWhen: (previous, current) => previous.starred != current.starred,
+        builder: (context, settings) => FutureBuilder<AppDocumentEntity?>(
+            future: _filesFuture,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
               }
-              return true;
-            }).toList()
-              ..sort(_sortAssets);
-            if (_gridView) {
-              return Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: assets.map(
-                  (e) {
-                    final selected =
-                        widget.selectedAsset?.isSame(e.location) ?? false;
-                    return _FileEntityItem(
-                      entity: e,
-                      selected: selected,
-                      collapsed: widget.collapsed,
-                      onTap: () => _onFileTap(e),
-                      onReload: _reloadFileSystem,
-                      gridView: true,
-                    );
-                  },
-                ).toList(),
-              );
-            }
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: assets.length,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                final entity = assets[index];
-                final selected =
-                    widget.selectedAsset?.isSame(entity.location) ?? false;
-                return _FileEntityItem(
-                  entity: entity,
-                  selected: selected,
-                  collapsed: widget.collapsed,
-                  onTap: () => _onFileTap(entity),
-                  onReload: _reloadFileSystem,
-                  gridView: false,
+              if (snapshot.connectionState == ConnectionState.waiting ||
+                  !snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              final entity = snapshot.data;
+              if (entity is! AppDocumentDirectory) {
+                return Container();
+              }
+              final assets = entity.assets.where((e) {
+                if (_search.isNotEmpty) {
+                  return e.fileName
+                      .toLowerCase()
+                      .contains(_search.toLowerCase());
+                }
+                return true;
+              }).toList()
+                ..sort(_sortAssets);
+              if (_gridView) {
+                return Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: assets.map(
+                    (e) {
+                      final selected =
+                          widget.selectedAsset?.isSame(e.location) ?? false;
+                      return _FileEntityItem(
+                        entity: e,
+                        selected: selected,
+                        collapsed: widget.collapsed,
+                        onTap: () => _onFileTap(e),
+                        onReload: _reloadFileSystem,
+                        gridView: true,
+                      );
+                    },
+                  ).toList(),
                 );
-              },
-            );
-          }),
+              }
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: assets.length,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final entity = assets[index];
+                  final selected =
+                      widget.selectedAsset?.isSame(entity.location) ?? false;
+                  return _FileEntityItem(
+                    entity: entity,
+                    selected: selected,
+                    collapsed: widget.collapsed,
+                    onTap: () => _onFileTap(entity),
+                    onReload: _reloadFileSystem,
+                    gridView: false,
+                  );
+                },
+              );
+            }),
+      ),
     ]);
   }
 
