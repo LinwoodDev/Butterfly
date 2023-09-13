@@ -22,20 +22,34 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
         .import(type, bytes, state.data, position: position);
   }
 
+  Future<void> importWithDialog(
+    AssetFileType assetType, {
+    FileType type = FileType.any,
+    List<String>? allowedExtensions,
+  }) async {
+    final files = await FilePicker.platform.pickFiles(
+      type: type,
+      allowedExtensions: allowedExtensions,
+      allowMultiple: false,
+      withData: true,
+    );
+    if (files?.files.isEmpty ?? true) return;
+    final e = files!.files.first;
+    var content = e.bytes ?? Uint8List(0);
+    if (!kIsWeb) {
+      content = await File(e.path ?? '').readAsBytes();
+    }
+    importAsset(assetType, content);
+  }
+
   if (!type.isAvailable()) return;
 
   switch (type) {
     case ImportType.image:
-      final files = await FilePicker.platform.pickFiles(
-          type: FileType.image, allowMultiple: false, withData: true);
-      if (files?.files.isEmpty ?? true) return;
-      final e = files!.files.first;
-      var content = e.bytes ?? Uint8List(0);
-      if (!kIsWeb) {
-        content = await File(e.path ?? '').readAsBytes();
-      }
-      importAsset(AssetFileType.image, content);
-      break;
+      return importWithDialog(
+        AssetFileType.image,
+        type: FileType.image,
+      );
     case ImportType.camera:
       final content = await showDialog<Uint8List>(
         context: context,
@@ -45,37 +59,27 @@ Future<void> showImportAssetWizard(ImportType type, BuildContext context,
       importAsset(AssetFileType.image, content);
       break;
     case ImportType.svg:
-      final files = await FilePicker.platform.pickFiles(
-          type: FileType.custom,
-          allowedExtensions: ['svg'],
-          allowMultiple: false,
-          withData: true);
-      if (files?.files.isEmpty ?? true) return;
-      final e = files!.files.first;
-      var content = e.bytes ?? Uint8List(0);
-      if (!kIsWeb) {
-        content = await File(e.path ?? '').readAsBytes();
-      }
-      importAsset(AssetFileType.svg, content);
-      break;
+      return importWithDialog(
+        AssetFileType.svg,
+        type: FileType.custom,
+        allowedExtensions: ['svg'],
+      );
     case ImportType.pdf:
-      final files = await FilePicker.platform.pickFiles(
-          type: FileType.custom,
-          allowedExtensions: ['pdf'],
-          allowMultiple: false,
-          withData: true);
-      if (files?.files.isEmpty ?? true) return;
-      final e = files!.files.first;
-      var content = e.bytes ?? Uint8List(0);
-      if (!kIsWeb) {
-        content = await File(e.path ?? '').readAsBytes();
-      }
-      importAsset(AssetFileType.pdf, content);
-      break;
+      return importWithDialog(
+        AssetFileType.pdf,
+        type: FileType.custom,
+        allowedExtensions: ['pdf'],
+      );
     case ImportType.document:
       final data = await openBfly();
       if (data == null) return;
       importAsset(AssetFileType.note, data);
       break;
+    case ImportType.markdown:
+      return importWithDialog(
+        AssetFileType.markdown,
+        type: FileType.custom,
+        allowedExtensions: ['md'],
+      );
   }
 }

@@ -11,10 +11,11 @@
 * Add search to add dialog
 * Add mobile context menu ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
 * Add setting to set default pdf quality
-* Add texture element ([#406](https://github.com/LinwoodDev/issues/406))
+* Add texture element ([#406](https://github.com/LinwoodDev/Butterfly/issues/406))
 * Add add to pack for selection
 * Add svg export for text elements ([#488](https://github.com/LinwoodDev/Butterfly/issues/488))
 * Add thumbnail to templates dialog
+* Add markdown importing
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
 * Improve clipboard system to include image and svg source as data uri
 * Prevent window of closing when there are unsaved changes ([#403](https://github.com/LinwoodDev/Butterfly/issues/403))

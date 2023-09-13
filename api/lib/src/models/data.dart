@@ -363,6 +363,15 @@ class NoteData {
   void removeStyle(String name) =>
       removeAsset('$kStylesArchiveDirectory/$name.json');
 
+  PackAssetLocation findStyle() {
+    for (final pack in getPacks()) {
+      final styles = getPack(pack)?.getStyles();
+      if (styles?.isEmpty ?? true) continue;
+      return PackAssetLocation(pack, styles!.first);
+    }
+    return PackAssetLocation.empty;
+  }
+
   Iterable<String> getPalettes() => getAssets(kPalettesArchiveDirectory, true);
 
   ColorPalette? getPalette(String paletteName) {

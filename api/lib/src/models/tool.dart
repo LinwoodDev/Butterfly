@@ -33,7 +33,7 @@ enum LabelMode { markdown, text }
 
 enum Axis2D { horizontal, vertical }
 
-enum ImportType { image, camera, svg, pdf, document }
+enum ImportType { image, camera, svg, pdf, document, markdown }
 
 @Freezed(equal: false)
 sealed class Tool with _$Tool {
