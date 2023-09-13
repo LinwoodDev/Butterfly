@@ -9,6 +9,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/services/export.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/navigator.dart';
@@ -71,6 +72,7 @@ class _ProjectPageState extends State<ProjectPage> {
   CurrentIndexCubit? _currentIndexCubit;
   RemoteStorage? _remote;
   ImportService? _importService;
+  ExportService? _exportService;
   late final CloseSubscription _closeSubscription;
   final GlobalKey _viewportKey = GlobalKey();
   final _actions = <Type, Action<Intent>>{
@@ -218,7 +220,8 @@ class _ProjectPageState extends State<ProjectPage> {
             CameraViewport.unbaked(UtilitiesRenderer(), backgrounds), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
             location!, renderers, assetService, page, pageName);
-        _importService = ImportService(context, _bloc, _currentIndexCubit);
+        _importService = ImportService(context, _bloc);
+        _exportService = ExportService(context, _bloc);
       });
     } catch (e, stackTrace) {
       if (kDebugMode) {
@@ -270,7 +273,8 @@ class _ProjectPageState extends State<ProjectPage> {
                   value: TemplateFileSystem.fromPlatform(remote: _remote)),
               RepositoryProvider<PackFileSystem>.value(
                   value: PackFileSystem.fromPlatform(remote: _remote)),
-              RepositoryProvider.value(value: _importService!)
+              RepositoryProvider.value(value: _importService!),
+              RepositoryProvider.value(value: _exportService!)
             ],
             child: GestureDetector(
               onTap: () {

@@ -30,14 +30,14 @@ import '../dialogs/svg_export.dart';
 
 class ImportService {
   final DocumentBloc? bloc;
-  final CurrentIndexCubit? currentIndexCubit;
   final BuildContext context;
 
-  ImportService(this.context, [this.bloc, this.currentIndexCubit]);
+  ImportService(this.context, [this.bloc]);
 
   DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
       ? (bloc?.state as DocumentLoadSuccess)
       : null;
+  CurrentIndexCubit? get currentIndexCubit => _getState()?.currentIndexCubit;
   DocumentFileSystem getFileSystem() => context.read<DocumentFileSystem>();
   TemplateFileSystem getTemplateFileSystem() =>
       context.read<TemplateFileSystem>();

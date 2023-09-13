@@ -15,6 +15,7 @@ import 'package:butterfly/helpers/point_helper.dart';
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/cursor.dart';
 import 'package:butterfly/renderers/foregrounds/area.dart';
+import 'package:butterfly/services/export.dart';
 import 'package:butterfly/visualizer/tool.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
@@ -130,6 +131,7 @@ class EventContext {
       buildContext.findAncestorWidgetOfExactType<Actions>()?.actions ?? {};
 
   ImportService getImportService() => buildContext.read<ImportService>();
+  ExportService getExportService() => buildContext.read<ExportService>();
 
   ClipboardManager getClipboardManager() =>
       buildContext.read<ClipboardManager>();

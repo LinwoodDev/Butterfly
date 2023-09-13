@@ -16,8 +16,11 @@
 * Add svg export for text elements ([#488](https://github.com/LinwoodDev/Butterfly/issues/488))
 * Add thumbnail to templates dialog
 * Add markdown importing
+* Add export functionality to markdown elements
+* Move export button from selection view to context menu
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
 * Improve clipboard system to include image and svg source as data uri
+* Improve export system
 * Prevent window of closing when there are unsaved changes ([#403](https://github.com/LinwoodDev/Butterfly/issues/403))
 * Change file search to not case sensitive
 * Fix expansion panel list in texture property, shapes and constraints view

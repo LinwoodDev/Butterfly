@@ -453,6 +453,7 @@ class SelectHandler extends Handler<SelectTool> {
           state,
           context.getSettingsCubit(),
           context.getImportService(),
+          context.getExportService(),
           context.getClipboardManager(),
           localPosition,
           _selected,

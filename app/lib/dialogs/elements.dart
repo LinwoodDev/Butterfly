@@ -1,6 +1,7 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/packs/asset.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly/services/export.dart';
 import 'package:butterfly/visualizer/event.dart';
 import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -18,6 +19,7 @@ ContextMenuBuilder buildElementsContextMenu(
     DocumentLoadSuccess state,
     SettingsCubit settingsCubit,
     ImportService importService,
+    ExportService exportService,
     ClipboardManager clipboardManager,
     Offset position,
     List<Renderer<PadElement>> renderers,
@@ -99,6 +101,16 @@ ContextMenuBuilder buildElementsContextMenu(
                 .toList(),
             label: AppLocalizations.of(context).arrange,
           ),
+          if (renderers.length == 1 &&
+              exportService.isExportable(renderers.first.element))
+            ContextMenuItem(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+                exportService.export(renderers.first.element);
+              },
+              icon: const PhosphorIcon(PhosphorIconsLight.export),
+              label: AppLocalizations.of(context).export,
+            ),
           ContextMenuItem(
             onPressed: () {
               Navigator.of(context).pop(true);
