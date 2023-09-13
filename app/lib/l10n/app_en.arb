@@ -517,6 +517,8 @@
   "cut": "Cut",
   "insertBefore": "Insert before",
   "insertAfter": "Insert after",
+  "insertFirst": "Insert first",
+  "insertLast": "Insert last",
   "paste": "Paste",
   "ascending": "Ascending",
   "descending": "Descending",
