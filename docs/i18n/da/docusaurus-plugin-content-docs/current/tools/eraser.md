@@ -1,5 +1,5 @@
 ---
-title: "Viskelæder maler"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Brug venligst [stiviskelæder](path_eraser) , hvis det er muligt.
 
 :::
 
-Med denne maler kan du slette elementerne på papiret.
+Med dette værktøj kan du slette elementerne på papiret.
 
 ## Konfiguration
 

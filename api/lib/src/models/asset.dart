@@ -5,14 +5,15 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../helpers/asset_helper.dart';
 import 'data.dart';
+import 'meta.dart';
 
 part 'asset.freezed.dart';
 part 'asset.g.dart';
 
-enum AssetFileType { note, page, image, pdf, svg }
+enum AssetFileType { note, page, image, markdown, pdf, svg }
 
 @freezed
-class AssetLocation with _$AssetLocation {
+sealed class AssetLocation with _$AssetLocation {
   const factory AssetLocation({
     @Default('') String remote,
     required String path,
@@ -52,15 +53,24 @@ class AssetLocation with _$AssetLocation {
 class AppDocumentEntity with _$AppDocumentEntity {
   const AppDocumentEntity._();
 
-  const factory AppDocumentEntity.file(AssetLocation location, List<int> data,
-      {@Default(false) bool cached}) = AppDocumentFile;
+  const factory AppDocumentEntity.file(
+    AssetLocation location,
+    List<int> data, {
+    @Default(false) bool cached,
+    FileMetadata? metadata,
+    Uint8List? thumbnail,
+  }) = AppDocumentFile;
 
   factory AppDocumentEntity.fileFromMap(
-          AssetLocation location, Map<String, dynamic> map,
-          {bool cached = false}) =>
+    AssetLocation location,
+    Map<String, dynamic> map, {
+    bool cached = false,
+    FileMetadata? metadata,
+    Uint8List? thumbnail,
+  }) =>
       AppDocumentFile(
           location, Uint8List.fromList(utf8.encode(json.encode(map))),
-          cached: cached);
+          metadata: metadata, thumbnail: thumbnail, cached: cached);
 
   const factory AppDocumentEntity.directory(
           AssetLocation location, List<AppDocumentEntity> assets) =
@@ -88,5 +98,7 @@ extension EntityFileTypeExtension on AppDocumentEntity {
 }
 
 extension AppDocumentLoadExtension on AppDocumentFile {
-  NoteData load() => NoteData.fromData(Uint8List.fromList(data));
+  NoteData load({bool disableMigrations = false}) =>
+      NoteData.fromData(Uint8List.fromList(data),
+          disableMigrations: disableMigrations);
 }

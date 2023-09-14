@@ -520,5 +520,14 @@
   "paste": "Επικόλληση",
   "ascending": "Αύξουσα",
   "descending": "Φθίνουσα",
-  "imageScale": "Κλίμακα εικόνας"
+  "imageScale": "Κλίμακα εικόνας",
+  "select": "Επιλογή",
+  "tool": "Εργαλείο",
+  "texture": "Υφή",
+  "platformTheme": "Θέμα πλατφόρμας",
+  "desktop": "Επιφάνεια Εργασίας",
+  "mobile": "Κινητό",
+  "pdfQuality": "Ποιότητα PDF",
+  "surface": "Επιφάνεια",
+  "pattern": "Μοτίβο"
 }

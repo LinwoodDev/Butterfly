@@ -1,13 +1,13 @@
 ---
-title: "Fortryd maler"
+title: "Fortryd værktøj"
 sidebar_label: "Fortryd"
 sidebar_position: 0
 ---
 
-:::note ⚡ Action maler
+:::note ⚡ Handlingsværktøj
 
-Dette er en særlig maler. Du kan ikke vælge det, og det vil køre handlingen, hvis du klikker på det.
+Dette er et særligt værktøj. Du kan ikke vælge det, og det vil køre handlingen, hvis du klikker på det.
 
 :::
 
-Når du klikker på denne maler, kan du fortryde din sidste handling. Se [redo maleren](redo) for at gengøre din sidste handling.
+Når du klikker på dette værktøj, kan du fortryde din sidste handling. Se [redo værktøjet](redo) for at gengøre din seneste handling.

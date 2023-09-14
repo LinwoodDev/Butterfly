@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/dialogs/constraints.dart';
-import 'package:butterfly/helpers/element_helper.dart';
+import 'package:butterfly/dialogs/texture.dart';
 import 'package:butterfly/helpers/num_helper.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/helpers/point_helper.dart';
@@ -12,8 +10,6 @@ import 'package:butterfly/visualizer/preset.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +19,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../actions/background.dart';
 import '../actions/packs.dart';
-import '../api/open.dart';
 import '../cubits/transform.dart';
 import '../dialogs/layer.dart';
 import '../renderers/renderer.dart';
@@ -47,13 +42,14 @@ part 'tools/path_eraser.dart';
 part 'tools/pen.dart';
 part 'tools/shape.dart';
 part 'tools/stamp.dart';
+part 'tools/texture.dart';
 
 part 'properties/property.dart';
 part 'properties/path.dart';
 part 'properties/pen.dart';
 
 part 'area.dart';
-part 'tool.dart';
+part 'utilities.dart';
 
 abstract class Selection<T> {
   List<T> _selected;

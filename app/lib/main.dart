@@ -76,9 +76,20 @@ Future<void> main([List<String> args = const []]) async {
       }
     }
   }
+  Object? initialExtra;
   if (!kIsWeb && Platform.isAndroid) {
-    if (await getIntentType() != null) {
-      initialLocation = '/native';
+    final intentType = await getIntentType();
+    if (intentType != null) {
+      initialLocation = Uri(
+        pathSegments: [
+          '',
+          'native',
+        ],
+        queryParameters: {
+          'type': 'note',
+        },
+      ).toString();
+      initialExtra = await getIntentData();
     }
   }
 
@@ -112,6 +123,7 @@ Future<void> main([List<String> args = const []]) async {
         child: ButterflyApp(
           prefs: prefs,
           initialLocation: initialLocation,
+          initialExtra: initialExtra,
           isFullScreen: isFullscreen,
         )),
   );
@@ -129,15 +141,18 @@ class ButterflyApp extends StatelessWidget {
   final String importedLocation;
   final SharedPreferences prefs;
   final bool isFullScreen;
+  final Object? initialExtra;
 
   ButterflyApp(
       {super.key,
       required this.prefs,
       required this.isFullScreen,
       this.initialLocation = '/',
+      this.initialExtra,
       this.importedLocation = ''})
       : _router = GoRouter(
           initialLocation: initialLocation,
+          initialExtra: initialExtra,
           errorBuilder: (context, state) =>
               ErrorPage(message: state.error.toString()),
           routes: [

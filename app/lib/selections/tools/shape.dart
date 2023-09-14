@@ -1,7 +1,7 @@
 part of '../selection.dart';
 
-class ShapePainterSelection extends ToolSelection<ShapeTool> {
-  ShapePainterSelection(super.selected);
+class ShapeToolSelection extends ToolSelection<ShapeTool> {
+  ShapeToolSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
@@ -125,7 +125,7 @@ class ShapePainterSelection extends ToolSelection<ShapeTool> {
   @override
   Selection insert(dynamic element) {
     if (element is ShapeTool) {
-      return ShapePainterSelection([...selected, element]);
+      return ShapeToolSelection([...selected, element]);
     }
     return super.insert(element);
   }
@@ -144,24 +144,24 @@ class ShapeView extends StatefulWidget {
 }
 
 class _ShapeViewState extends State<ShapeView> {
-  late PathShape currentShape;
-  bool oShapeed = false;
+  late PathShape _currentShape;
+  bool _expanded = false;
 
   @override
   void initState() {
     super.initState();
-    currentShape = widget.shape;
+    _currentShape = widget.shape;
   }
 
   void _onShapeChanged(PathShape shape) {
     setState(() {
-      currentShape = shape;
+      _currentShape = shape;
     });
     widget.onChanged(shape);
   }
 
   Widget _buildShapeView() {
-    final current = currentShape;
+    final current = _currentShape;
     if (current is CircleShape) {
       return _CircleShapeView(shape: current, onChanged: _onShapeChanged);
     }
@@ -178,16 +178,17 @@ class _ShapeViewState extends State<ShapeView> {
     return ExpansionPanelList(
       expansionCallback: (index, isExpanded) {
         setState(() {
-          oShapeed = !isExpanded;
+          _expanded = isExpanded;
         });
       },
       children: [
         ExpansionPanel(
-          isExpanded: oShapeed,
+          isExpanded: _expanded,
+          canTapOnHeader: true,
           headerBuilder: (context, expanded) => ListTile(
             title: Text(AppLocalizations.of(context).shape),
             trailing: DropdownButton<String>(
-              value: currentShape.runtimeType.toString(),
+              value: _currentShape.runtimeType.toString(),
               items: [PathShape.circle, PathShape.rectangle, PathShape.line]
                   .map((e) {
                 var shape = e();

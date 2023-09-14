@@ -1,5 +1,5 @@
 ---
-title: "Pintor borracha"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Use a eraser [caminho](path_eraser) se for possível.
 
 :::
 
-Com este pintor é possível apagar os elementos no papel.
+Com esta ferramenta você poderá apagar os elementos no papel.
 
 ## Configuração
 

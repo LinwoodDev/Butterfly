@@ -1,11 +1,11 @@
 ---
-title: "Pintor de forma"
+title: "Herramienta de forma"
 sidebar_label: "Forma"
 sidebar_position: 3
 ---
 
 
-Usa este pintor para dibujar formas sobre el papel. Puedes dibujar rectángulos, círculos y otras formas.
+Utilice esta herramienta para dibujar formas sobre el papel. Puedes dibujar rectángulos, círculos y otras formas.
 
 ## Configuración
 

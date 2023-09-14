@@ -1,9 +1,9 @@
 ---
 sidebar_label: "Obszar"
-title: "Farba obszarowa"
+title: "Narzędzie obszarowe"
 ---
 
-Twarz obszarowy pozwala na tworzenie, edycję i usuwanie obszarów.
+Narzędzie obszaru pozwala na tworzenie, edycję i usuwanie obszarów.
 
 ## Akcje
 

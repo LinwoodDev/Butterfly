@@ -3,7 +3,7 @@ title: "Pakke"
 sidebar_position: 2
 ---
 
-En pakke er en samling af komponenter, der kan bruges i stempel maler. Du kan oprette din egen pakke eller importere en eksisterende. For dette klik i øverste venstre hjørne og klik på "Pakker".
+En pakke er en samling af komponenter, der kan bruges i stempel værktøj. Du kan oprette din egen pakke eller importere en eksisterende. For dette klik i øverste venstre hjørne og klik på "Pakker".
 
 ## Egenskaber
 

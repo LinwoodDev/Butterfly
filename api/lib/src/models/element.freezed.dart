@@ -14,539 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Motif _$MotifFromJson(Map<String, dynamic> json) {
-  return PatternMotif.fromJson(json);
-}
-
-/// @nodoc
-mixin _$Motif {
-  double get boxWidth => throw _privateConstructorUsedError;
-  double get boxHeight => throw _privateConstructorUsedError;
-  int get boxXCount => throw _privateConstructorUsedError;
-  int get boxYCount => throw _privateConstructorUsedError;
-  double get boxXSpace => throw _privateConstructorUsedError;
-  double get boxYSpace => throw _privateConstructorUsedError;
-  int get boxXColor => throw _privateConstructorUsedError;
-  int get boxYColor => throw _privateConstructorUsedError;
-  int get boxColor => throw _privateConstructorUsedError;
-  double get boxXStroke => throw _privateConstructorUsedError;
-  double get boxYStroke => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            double boxWidth,
-            double boxHeight,
-            int boxXCount,
-            int boxYCount,
-            double boxXSpace,
-            double boxYSpace,
-            int boxXColor,
-            int boxYColor,
-            int boxColor,
-            double boxXStroke,
-            double boxYStroke)
-        pattern,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            double boxWidth,
-            double boxHeight,
-            int boxXCount,
-            int boxYCount,
-            double boxXSpace,
-            double boxYSpace,
-            int boxXColor,
-            int boxYColor,
-            int boxColor,
-            double boxXStroke,
-            double boxYStroke)?
-        pattern,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            double boxWidth,
-            double boxHeight,
-            int boxXCount,
-            int boxYCount,
-            double boxXSpace,
-            double boxYSpace,
-            int boxXColor,
-            int boxYColor,
-            int boxColor,
-            double boxXStroke,
-            double boxYStroke)?
-        pattern,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PatternMotif value) pattern,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PatternMotif value)? pattern,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PatternMotif value)? pattern,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $MotifCopyWith<Motif> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $MotifCopyWith<$Res> {
-  factory $MotifCopyWith(Motif value, $Res Function(Motif) then) =
-      _$MotifCopyWithImpl<$Res, Motif>;
-  @useResult
-  $Res call(
-      {double boxWidth,
-      double boxHeight,
-      int boxXCount,
-      int boxYCount,
-      double boxXSpace,
-      double boxYSpace,
-      int boxXColor,
-      int boxYColor,
-      int boxColor,
-      double boxXStroke,
-      double boxYStroke});
-}
-
-/// @nodoc
-class _$MotifCopyWithImpl<$Res, $Val extends Motif>
-    implements $MotifCopyWith<$Res> {
-  _$MotifCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? boxWidth = null,
-    Object? boxHeight = null,
-    Object? boxXCount = null,
-    Object? boxYCount = null,
-    Object? boxXSpace = null,
-    Object? boxYSpace = null,
-    Object? boxXColor = null,
-    Object? boxYColor = null,
-    Object? boxColor = null,
-    Object? boxXStroke = null,
-    Object? boxYStroke = null,
-  }) {
-    return _then(_value.copyWith(
-      boxWidth: null == boxWidth
-          ? _value.boxWidth
-          : boxWidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      boxHeight: null == boxHeight
-          ? _value.boxHeight
-          : boxHeight // ignore: cast_nullable_to_non_nullable
-              as double,
-      boxXCount: null == boxXCount
-          ? _value.boxXCount
-          : boxXCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      boxYCount: null == boxYCount
-          ? _value.boxYCount
-          : boxYCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      boxXSpace: null == boxXSpace
-          ? _value.boxXSpace
-          : boxXSpace // ignore: cast_nullable_to_non_nullable
-              as double,
-      boxYSpace: null == boxYSpace
-          ? _value.boxYSpace
-          : boxYSpace // ignore: cast_nullable_to_non_nullable
-              as double,
-      boxXColor: null == boxXColor
-          ? _value.boxXColor
-          : boxXColor // ignore: cast_nullable_to_non_nullable
-              as int,
-      boxYColor: null == boxYColor
-          ? _value.boxYColor
-          : boxYColor // ignore: cast_nullable_to_non_nullable
-              as int,
-      boxColor: null == boxColor
-          ? _value.boxColor
-          : boxColor // ignore: cast_nullable_to_non_nullable
-              as int,
-      boxXStroke: null == boxXStroke
-          ? _value.boxXStroke
-          : boxXStroke // ignore: cast_nullable_to_non_nullable
-              as double,
-      boxYStroke: null == boxYStroke
-          ? _value.boxYStroke
-          : boxYStroke // ignore: cast_nullable_to_non_nullable
-              as double,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$PatternMotifCopyWith<$Res> implements $MotifCopyWith<$Res> {
-  factory _$$PatternMotifCopyWith(
-          _$PatternMotif value, $Res Function(_$PatternMotif) then) =
-      __$$PatternMotifCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {double boxWidth,
-      double boxHeight,
-      int boxXCount,
-      int boxYCount,
-      double boxXSpace,
-      double boxYSpace,
-      int boxXColor,
-      int boxYColor,
-      int boxColor,
-      double boxXStroke,
-      double boxYStroke});
-}
-
-/// @nodoc
-class __$$PatternMotifCopyWithImpl<$Res>
-    extends _$MotifCopyWithImpl<$Res, _$PatternMotif>
-    implements _$$PatternMotifCopyWith<$Res> {
-  __$$PatternMotifCopyWithImpl(
-      _$PatternMotif _value, $Res Function(_$PatternMotif) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? boxWidth = null,
-    Object? boxHeight = null,
-    Object? boxXCount = null,
-    Object? boxYCount = null,
-    Object? boxXSpace = null,
-    Object? boxYSpace = null,
-    Object? boxXColor = null,
-    Object? boxYColor = null,
-    Object? boxColor = null,
-    Object? boxXStroke = null,
-    Object? boxYStroke = null,
-  }) {
-    return _then(_$PatternMotif(
-      boxWidth: null == boxWidth
-          ? _value.boxWidth
-          : boxWidth // ignore: cast_nullable_to_non_nullable
-              as double,
-      boxHeight: null == boxHeight
-          ? _value.boxHeight
-          : boxHeight // ignore: cast_nullable_to_non_nullable
-              as double,
-      boxXCount: null == boxXCount
-          ? _value.boxXCount
-          : boxXCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      boxYCount: null == boxYCount
-          ? _value.boxYCount
-          : boxYCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      boxXSpace: null == boxXSpace
-          ? _value.boxXSpace
-          : boxXSpace // ignore: cast_nullable_to_non_nullable
-              as double,
-      boxYSpace: null == boxYSpace
-          ? _value.boxYSpace
-          : boxYSpace // ignore: cast_nullable_to_non_nullable
-              as double,
-      boxXColor: null == boxXColor
-          ? _value.boxXColor
-          : boxXColor // ignore: cast_nullable_to_non_nullable
-              as int,
-      boxYColor: null == boxYColor
-          ? _value.boxYColor
-          : boxYColor // ignore: cast_nullable_to_non_nullable
-              as int,
-      boxColor: null == boxColor
-          ? _value.boxColor
-          : boxColor // ignore: cast_nullable_to_non_nullable
-              as int,
-      boxXStroke: null == boxXStroke
-          ? _value.boxXStroke
-          : boxXStroke // ignore: cast_nullable_to_non_nullable
-              as double,
-      boxYStroke: null == boxYStroke
-          ? _value.boxYStroke
-          : boxYStroke // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$PatternMotif implements PatternMotif {
-  const _$PatternMotif(
-      {this.boxWidth = 0,
-      this.boxHeight = 0,
-      this.boxXCount = 1,
-      this.boxYCount = 1,
-      this.boxXSpace = 0,
-      this.boxYSpace = 0,
-      this.boxXColor = kColorBlue,
-      this.boxYColor = kColorRed,
-      this.boxColor = kColorWhite,
-      this.boxXStroke = 0.5,
-      this.boxYStroke = 0.5});
-
-  factory _$PatternMotif.fromJson(Map<String, dynamic> json) =>
-      _$$PatternMotifFromJson(json);
-
-  @override
-  @JsonKey()
-  final double boxWidth;
-  @override
-  @JsonKey()
-  final double boxHeight;
-  @override
-  @JsonKey()
-  final int boxXCount;
-  @override
-  @JsonKey()
-  final int boxYCount;
-  @override
-  @JsonKey()
-  final double boxXSpace;
-  @override
-  @JsonKey()
-  final double boxYSpace;
-  @override
-  @JsonKey()
-  final int boxXColor;
-  @override
-  @JsonKey()
-  final int boxYColor;
-  @override
-  @JsonKey()
-  final int boxColor;
-  @override
-  @JsonKey()
-  final double boxXStroke;
-  @override
-  @JsonKey()
-  final double boxYStroke;
-
-  @override
-  String toString() {
-    return 'Motif.pattern(boxWidth: $boxWidth, boxHeight: $boxHeight, boxXCount: $boxXCount, boxYCount: $boxYCount, boxXSpace: $boxXSpace, boxYSpace: $boxYSpace, boxXColor: $boxXColor, boxYColor: $boxYColor, boxColor: $boxColor, boxXStroke: $boxXStroke, boxYStroke: $boxYStroke)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PatternMotif &&
-            (identical(other.boxWidth, boxWidth) ||
-                other.boxWidth == boxWidth) &&
-            (identical(other.boxHeight, boxHeight) ||
-                other.boxHeight == boxHeight) &&
-            (identical(other.boxXCount, boxXCount) ||
-                other.boxXCount == boxXCount) &&
-            (identical(other.boxYCount, boxYCount) ||
-                other.boxYCount == boxYCount) &&
-            (identical(other.boxXSpace, boxXSpace) ||
-                other.boxXSpace == boxXSpace) &&
-            (identical(other.boxYSpace, boxYSpace) ||
-                other.boxYSpace == boxYSpace) &&
-            (identical(other.boxXColor, boxXColor) ||
-                other.boxXColor == boxXColor) &&
-            (identical(other.boxYColor, boxYColor) ||
-                other.boxYColor == boxYColor) &&
-            (identical(other.boxColor, boxColor) ||
-                other.boxColor == boxColor) &&
-            (identical(other.boxXStroke, boxXStroke) ||
-                other.boxXStroke == boxXStroke) &&
-            (identical(other.boxYStroke, boxYStroke) ||
-                other.boxYStroke == boxYStroke));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      boxWidth,
-      boxHeight,
-      boxXCount,
-      boxYCount,
-      boxXSpace,
-      boxYSpace,
-      boxXColor,
-      boxYColor,
-      boxColor,
-      boxXStroke,
-      boxYStroke);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PatternMotifCopyWith<_$PatternMotif> get copyWith =>
-      __$$PatternMotifCopyWithImpl<_$PatternMotif>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            double boxWidth,
-            double boxHeight,
-            int boxXCount,
-            int boxYCount,
-            double boxXSpace,
-            double boxYSpace,
-            int boxXColor,
-            int boxYColor,
-            int boxColor,
-            double boxXStroke,
-            double boxYStroke)
-        pattern,
-  }) {
-    return pattern(boxWidth, boxHeight, boxXCount, boxYCount, boxXSpace,
-        boxYSpace, boxXColor, boxYColor, boxColor, boxXStroke, boxYStroke);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            double boxWidth,
-            double boxHeight,
-            int boxXCount,
-            int boxYCount,
-            double boxXSpace,
-            double boxYSpace,
-            int boxXColor,
-            int boxYColor,
-            int boxColor,
-            double boxXStroke,
-            double boxYStroke)?
-        pattern,
-  }) {
-    return pattern?.call(boxWidth, boxHeight, boxXCount, boxYCount, boxXSpace,
-        boxYSpace, boxXColor, boxYColor, boxColor, boxXStroke, boxYStroke);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            double boxWidth,
-            double boxHeight,
-            int boxXCount,
-            int boxYCount,
-            double boxXSpace,
-            double boxYSpace,
-            int boxXColor,
-            int boxYColor,
-            int boxColor,
-            double boxXStroke,
-            double boxYStroke)?
-        pattern,
-    required TResult orElse(),
-  }) {
-    if (pattern != null) {
-      return pattern(boxWidth, boxHeight, boxXCount, boxYCount, boxXSpace,
-          boxYSpace, boxXColor, boxYColor, boxColor, boxXStroke, boxYStroke);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PatternMotif value) pattern,
-  }) {
-    return pattern(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PatternMotif value)? pattern,
-  }) {
-    return pattern?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PatternMotif value)? pattern,
-    required TResult orElse(),
-  }) {
-    if (pattern != null) {
-      return pattern(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PatternMotifToJson(
-      this,
-    );
-  }
-}
-
-abstract class PatternMotif implements Motif {
-  const factory PatternMotif(
-      {final double boxWidth,
-      final double boxHeight,
-      final int boxXCount,
-      final int boxYCount,
-      final double boxXSpace,
-      final double boxYSpace,
-      final int boxXColor,
-      final int boxYColor,
-      final int boxColor,
-      final double boxXStroke,
-      final double boxYStroke}) = _$PatternMotif;
-
-  factory PatternMotif.fromJson(Map<String, dynamic> json) =
-      _$PatternMotif.fromJson;
-
-  @override
-  double get boxWidth;
-  @override
-  double get boxHeight;
-  @override
-  int get boxXCount;
-  @override
-  int get boxYCount;
-  @override
-  double get boxXSpace;
-  @override
-  double get boxYSpace;
-  @override
-  int get boxXColor;
-  @override
-  int get boxYColor;
-  @override
-  int get boxColor;
-  @override
-  double get boxXStroke;
-  @override
-  double get boxYStroke;
-  @override
-  @JsonKey(ignore: true)
-  _$$PatternMotifCopyWith<_$PatternMotif> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 ElementConstraint _$ElementConstraintFromJson(Map<String, dynamic> json) {
   return _ElementConstraint.fromJson(json);
 }
@@ -1388,6 +855,8 @@ PadElement _$PadElementFromJson(Map<String, dynamic> json) {
       return SvgElement.fromJson(json);
     case 'shape':
       return ShapeElement.fromJson(json);
+    case 'texture':
+      return TextureElement.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -1450,6 +919,13 @@ mixin _$PadElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1503,6 +979,13 @@ mixin _$PadElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1556,6 +1039,13 @@ mixin _$PadElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1567,6 +1057,7 @@ mixin _$PadElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1577,6 +1068,7 @@ mixin _$PadElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1587,6 +1079,7 @@ mixin _$PadElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1795,6 +1288,13 @@ class _$PenElement implements PenElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) {
     return pen(rotation, layer, zoom, points, property);
   }
@@ -1851,6 +1351,13 @@ class _$PenElement implements PenElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) {
     return pen?.call(rotation, layer, zoom, points, property);
   }
@@ -1907,6 +1414,13 @@ class _$PenElement implements PenElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -1924,6 +1438,7 @@ class _$PenElement implements PenElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) {
     return pen(this);
   }
@@ -1937,6 +1452,7 @@ class _$PenElement implements PenElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) {
     return pen?.call(this);
   }
@@ -1950,6 +1466,7 @@ class _$PenElement implements PenElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -2203,6 +1720,13 @@ class _$TextElement with LabelElement implements TextElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) {
     return text(rotation, layer, position, scale, styleSheet, area, constraint,
         foreground);
@@ -2260,6 +1784,13 @@ class _$TextElement with LabelElement implements TextElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) {
     return text?.call(rotation, layer, position, scale, styleSheet, area,
         constraint, foreground);
@@ -2317,6 +1848,13 @@ class _$TextElement with LabelElement implements TextElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) {
     if (text != null) {
@@ -2335,6 +1873,7 @@ class _$TextElement with LabelElement implements TextElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) {
     return text(this);
   }
@@ -2348,6 +1887,7 @@ class _$TextElement with LabelElement implements TextElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) {
     return text?.call(this);
   }
@@ -2361,6 +1901,7 @@ class _$TextElement with LabelElement implements TextElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) {
     if (text != null) {
@@ -2631,6 +2172,13 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) {
     return markdown(rotation, layer, position, scale, styleSheet, areaProperty,
         this.text, constraint, foreground);
@@ -2688,6 +2236,13 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) {
     return markdown?.call(rotation, layer, position, scale, styleSheet,
         areaProperty, this.text, constraint, foreground);
@@ -2745,6 +2300,13 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) {
     if (markdown != null) {
@@ -2763,6 +2325,7 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) {
     return markdown(this);
   }
@@ -2776,6 +2339,7 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) {
     return markdown?.call(this);
   }
@@ -2789,6 +2353,7 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) {
     if (markdown != null) {
@@ -3025,6 +2590,13 @@ class _$ImageElement implements ImageElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) {
     return image(rotation, layer, position, constraints, source, width, height);
   }
@@ -3081,6 +2653,13 @@ class _$ImageElement implements ImageElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) {
     return image?.call(
         rotation, layer, position, constraints, source, width, height);
@@ -3138,6 +2717,13 @@ class _$ImageElement implements ImageElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) {
     if (image != null) {
@@ -3156,6 +2742,7 @@ class _$ImageElement implements ImageElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) {
     return image(this);
   }
@@ -3169,6 +2756,7 @@ class _$ImageElement implements ImageElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) {
     return image?.call(this);
   }
@@ -3182,6 +2770,7 @@ class _$ImageElement implements ImageElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) {
     if (image != null) {
@@ -3414,6 +3003,13 @@ class _$SvgElement implements SvgElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) {
     return svg(rotation, layer, position, constraints, source, width, height);
   }
@@ -3470,6 +3066,13 @@ class _$SvgElement implements SvgElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) {
     return svg?.call(
         rotation, layer, position, constraints, source, width, height);
@@ -3527,6 +3130,13 @@ class _$SvgElement implements SvgElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) {
     if (svg != null) {
@@ -3544,6 +3154,7 @@ class _$SvgElement implements SvgElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) {
     return svg(this);
   }
@@ -3557,6 +3168,7 @@ class _$SvgElement implements SvgElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) {
     return svg?.call(this);
   }
@@ -3570,6 +3182,7 @@ class _$SvgElement implements SvgElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) {
     if (svg != null) {
@@ -3772,6 +3385,13 @@ class _$ShapeElement implements ShapeElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)
         shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
   }) {
     return shape(rotation, layer, firstPosition, secondPosition, property);
   }
@@ -3828,6 +3448,13 @@ class _$ShapeElement implements ShapeElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
   }) {
     return shape?.call(
         rotation, layer, firstPosition, secondPosition, property);
@@ -3885,6 +3512,13 @@ class _$ShapeElement implements ShapeElement {
             @DoublePointJsonConverter() Point<double> secondPosition,
             ShapeProperty property)?
         shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -3902,6 +3536,7 @@ class _$ShapeElement implements ShapeElement {
     required TResult Function(ImageElement value) image,
     required TResult Function(SvgElement value) svg,
     required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
   }) {
     return shape(this);
   }
@@ -3915,6 +3550,7 @@ class _$ShapeElement implements ShapeElement {
     TResult? Function(ImageElement value)? image,
     TResult? Function(SvgElement value)? svg,
     TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
   }) {
     return shape?.call(this);
   }
@@ -3928,6 +3564,7 @@ class _$ShapeElement implements ShapeElement {
     TResult Function(ImageElement value)? image,
     TResult Function(SvgElement value)? svg,
     TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -3967,5 +3604,397 @@ abstract class ShapeElement implements PadElement {
   @override
   @JsonKey(ignore: true)
   _$$ShapeElementCopyWith<_$ShapeElement> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TextureElementCopyWith<$Res>
+    implements $PadElementCopyWith<$Res> {
+  factory _$$TextureElementCopyWith(
+          _$TextureElement value, $Res Function(_$TextureElement) then) =
+      __$$TextureElementCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {double rotation,
+      String layer,
+      SurfaceTexture texture,
+      @DoublePointJsonConverter() Point<double> firstPosition,
+      @DoublePointJsonConverter() Point<double> secondPosition});
+
+  $SurfaceTextureCopyWith<$Res> get texture;
+}
+
+/// @nodoc
+class __$$TextureElementCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$TextureElement>
+    implements _$$TextureElementCopyWith<$Res> {
+  __$$TextureElementCopyWithImpl(
+      _$TextureElement _value, $Res Function(_$TextureElement) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? rotation = null,
+    Object? layer = null,
+    Object? texture = null,
+    Object? firstPosition = null,
+    Object? secondPosition = null,
+  }) {
+    return _then(_$TextureElement(
+      rotation: null == rotation
+          ? _value.rotation
+          : rotation // ignore: cast_nullable_to_non_nullable
+              as double,
+      layer: null == layer
+          ? _value.layer
+          : layer // ignore: cast_nullable_to_non_nullable
+              as String,
+      texture: null == texture
+          ? _value.texture
+          : texture // ignore: cast_nullable_to_non_nullable
+              as SurfaceTexture,
+      firstPosition: null == firstPosition
+          ? _value.firstPosition
+          : firstPosition // ignore: cast_nullable_to_non_nullable
+              as Point<double>,
+      secondPosition: null == secondPosition
+          ? _value.secondPosition
+          : secondPosition // ignore: cast_nullable_to_non_nullable
+              as Point<double>,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SurfaceTextureCopyWith<$Res> get texture {
+    return $SurfaceTextureCopyWith<$Res>(_value.texture, (value) {
+      return _then(_value.copyWith(texture: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$TextureElement implements TextureElement {
+  _$TextureElement(
+      {this.rotation = 0,
+      this.layer = '',
+      this.texture = const SurfaceTexture.pattern(),
+      @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
+      @DoublePointJsonConverter() this.secondPosition = const Point(0.0, 0.0),
+      final String? $type})
+      : $type = $type ?? 'texture';
+
+  factory _$TextureElement.fromJson(Map<String, dynamic> json) =>
+      _$$TextureElementFromJson(json);
+
+  @override
+  @JsonKey()
+  final double rotation;
+  @override
+  @JsonKey()
+  final String layer;
+  @override
+  @JsonKey()
+  final SurfaceTexture texture;
+  @override
+  @JsonKey()
+  @DoublePointJsonConverter()
+  final Point<double> firstPosition;
+  @override
+  @JsonKey()
+  @DoublePointJsonConverter()
+  final Point<double> secondPosition;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'PadElement.texture(rotation: $rotation, layer: $layer, texture: $texture, firstPosition: $firstPosition, secondPosition: $secondPosition)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TextureElementCopyWith<_$TextureElement> get copyWith =>
+      __$$TextureElementCopyWithImpl<_$TextureElement>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(double rotation, String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)
+        pen,
+    required TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            TextArea area,
+            ElementConstraint constraint,
+            int foreground)
+        text,
+    required TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)
+        markdown,
+    required TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)
+        image,
+    required TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)
+        svg,
+    required TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            ShapeProperty property)
+        shape,
+    required TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)
+        texture,
+  }) {
+    return texture(
+        rotation, layer, this.texture, firstPosition, secondPosition);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(double rotation, String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)?
+        pen,
+    TResult? Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            TextArea area,
+            ElementConstraint constraint,
+            int foreground)?
+        text,
+    TResult? Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
+    TResult? Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)?
+        image,
+    TResult? Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)?
+        svg,
+    TResult? Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            ShapeProperty property)?
+        shape,
+    TResult? Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
+  }) {
+    return texture?.call(
+        rotation, layer, this.texture, firstPosition, secondPosition);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double rotation, String layer, double? zoom,
+            List<PathPoint> points, PenProperty property)?
+        pen,
+    TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            TextArea area,
+            ElementConstraint constraint,
+            int foreground)?
+        text,
+    TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            double scale,
+            PackAssetLocation styleSheet,
+            AreaProperty areaProperty,
+            String text,
+            ElementConstraint constraint,
+            int foreground)?
+        markdown,
+    TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)?
+        image,
+    TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> position,
+            ElementConstraints? constraints,
+            String source,
+            double width,
+            double height)?
+        svg,
+    TResult Function(
+            double rotation,
+            String layer,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition,
+            ShapeProperty property)?
+        shape,
+    TResult Function(
+            double rotation,
+            String layer,
+            SurfaceTexture texture,
+            @DoublePointJsonConverter() Point<double> firstPosition,
+            @DoublePointJsonConverter() Point<double> secondPosition)?
+        texture,
+    required TResult orElse(),
+  }) {
+    if (texture != null) {
+      return texture(
+          rotation, layer, this.texture, firstPosition, secondPosition);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PenElement value) pen,
+    required TResult Function(TextElement value) text,
+    required TResult Function(MarkdownElement value) markdown,
+    required TResult Function(ImageElement value) image,
+    required TResult Function(SvgElement value) svg,
+    required TResult Function(ShapeElement value) shape,
+    required TResult Function(TextureElement value) texture,
+  }) {
+    return texture(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PenElement value)? pen,
+    TResult? Function(TextElement value)? text,
+    TResult? Function(MarkdownElement value)? markdown,
+    TResult? Function(ImageElement value)? image,
+    TResult? Function(SvgElement value)? svg,
+    TResult? Function(ShapeElement value)? shape,
+    TResult? Function(TextureElement value)? texture,
+  }) {
+    return texture?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PenElement value)? pen,
+    TResult Function(TextElement value)? text,
+    TResult Function(MarkdownElement value)? markdown,
+    TResult Function(ImageElement value)? image,
+    TResult Function(SvgElement value)? svg,
+    TResult Function(ShapeElement value)? shape,
+    TResult Function(TextureElement value)? texture,
+    required TResult orElse(),
+  }) {
+    if (texture != null) {
+      return texture(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TextureElementToJson(
+      this,
+    );
+  }
+}
+
+abstract class TextureElement implements PadElement {
+  factory TextureElement(
+          {final double rotation,
+          final String layer,
+          final SurfaceTexture texture,
+          @DoublePointJsonConverter() final Point<double> firstPosition,
+          @DoublePointJsonConverter() final Point<double> secondPosition}) =
+      _$TextureElement;
+
+  factory TextureElement.fromJson(Map<String, dynamic> json) =
+      _$TextureElement.fromJson;
+
+  @override
+  double get rotation;
+  @override
+  String get layer;
+  SurfaceTexture get texture;
+  @DoublePointJsonConverter()
+  Point<double> get firstPosition;
+  @DoublePointJsonConverter()
+  Point<double> get secondPosition;
+  @override
+  @JsonKey(ignore: true)
+  _$$TextureElementCopyWith<_$TextureElement> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,7 +1,7 @@
 part of '../selection.dart';
 
-class AreaPainterSelection extends ToolSelection<AreaTool> {
-  AreaPainterSelection(super.selected);
+class AreaToolSelection extends ToolSelection<AreaTool> {
+  AreaToolSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
@@ -80,7 +80,7 @@ class AreaPainterSelection extends ToolSelection<AreaTool> {
   @override
   Selection insert(dynamic element) {
     if (element is AreaTool) {
-      return AreaPainterSelection([...selected, element]);
+      return AreaToolSelection([...selected, element]);
     }
     return super.insert(element);
   }

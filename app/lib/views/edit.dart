@@ -199,20 +199,19 @@ class _EditToolbarState extends State<EditToolbar> {
                         tooltip: AppLocalizations.of(context).add,
                         heroTag: null,
                         onPressed: () {
+                          final bloc = context.read<DocumentBloc>();
+                          final cubit = context.read<CurrentIndexCubit>();
+                          final importService = context.read<ImportService>();
                           showDialog(
                             context: context,
                             builder: (ctx) => MultiBlocProvider(
                               providers: [
-                                BlocProvider.value(
-                                  value: context.read<DocumentBloc>(),
-                                ),
-                                BlocProvider.value(
-                                  value: context.read<CurrentIndexCubit>(),
-                                ),
+                                BlocProvider.value(value: bloc),
+                                BlocProvider.value(value: cubit),
                               ],
                               child: RepositoryProvider.value(
-                                value: context.read<ImportService>(),
-                                child: const AddDialog(),
+                                value: importService,
+                                child: AddDialog(),
                               ),
                             ),
                           );
@@ -351,7 +350,7 @@ class _EditToolbarState extends State<EditToolbar> {
                       trailingIcon: PhosphorIcon(icon),
                       onChanged: (value) => context
                           .read<CurrentIndexCubit>()
-                          .updateUtilities(update()),
+                          .updateUtilities(utilities: update()),
                       child: Text(title),
                     );
 

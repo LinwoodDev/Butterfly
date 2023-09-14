@@ -27,13 +27,13 @@ Jest kilka skrótów, których możesz użyć w edytorze. Niektóre z nich są n
 * `Ctrl` + `Shift` + `A`: Otwarte okno dialogowe
 * `Ctrl` + `S`: Zapisz
 * `Alt` + `S`: Zmień ścieżkę
-* `Ctrl` + (`1` - `0`): Przełącz na malarz
+* `Ctrl` + (`1` - `0`): Przełącz na narzędzie
 
 ## Stylus
 
 * `Główny przycisk`: Zmień na narzędzie ręczne
-* `Drugi przycisk`: Zmień na drugi malarz
+* `Drugi przycisk`: Zmień na drugie narzędzie
 
 ## Skonfiguruj {#configure}
 
-Dostosuj kontrole, nadając każdej kontroli indeks farby. Indeks farb zaczyna się od 1 i jest uporządkowany od lewej do prawej. Pusty indeks farby wyłączy przełącznik farby na tym urządzeniu. Wstaw `0` , aby włączyć poruszanie się z tą kontrolą.
+Dostosuj ustawienia poprzez nadanie każdej kontroli indeksu narzędzi. Indeks narzędzia zaczyna się od 1 i jest uporządkowany od lewej do prawej. Pusty indeks narzędzia wyłączy przełącznik narzędzia na tym urządzeniu. Wstaw `0` , aby włączyć poruszanie się z tą kontrolą.

@@ -27,13 +27,13 @@ Er zijn een paar snelkoppelingen die je in de editor kunt gebruiken. Sommige erv
 * `Ctrl` + `Shift` + `A`: Open gebieden dialoog
 * `Ctrl` + `S`: Opslaan
 * `ALT` + `S`: pad wijzigen
-* `Ctrl` + (`1` - `0`): Schakel over naar schilder
+* `Ctrl` + (`1` - `0`): Schakel over naar gereedschap
 
 ## Stylus
 
 * `Primaire knop`: Wijzig naar handgereedschap
-* `Secundaire knop`: Wijzigen naar tweede schilder
+* `Secundaire knop`: Verander naar tweede gereedschap
 
 ## Configureren {#configure}
 
-Pas de controles aan door elke controle een schilderindex te geven. De schilderindex begint bij 1 en wordt van links naar rechts besteld. Een lege schilderindex zal de schilderschakelaar op dit besturingsapparaat uitschakelen. `0` invoegen om bewegen mogelijk te maken met dit besturingsapparaat.
+Pas de besturingselementen aan door elke bediening een toolindex te geven. De tool index begint om 1 en wordt van links naar rechts besteld. Een lege tool index zal de tool switch in dit besturingselement uitschakelen. `0` invoegen om bewegen mogelijk te maken met dit besturingsapparaat.

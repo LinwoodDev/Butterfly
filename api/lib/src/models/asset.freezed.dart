@@ -196,8 +196,8 @@ mixin _$AppDocumentEntity {
   AssetLocation get location => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            AssetLocation location, List<int> data, bool cached)
+    required TResult Function(AssetLocation location, List<int> data,
+            bool cached, FileMetadata? metadata, Uint8List? thumbnail)
         file,
     required TResult Function(
             AssetLocation location, List<AppDocumentEntity> assets)
@@ -206,7 +206,8 @@ mixin _$AppDocumentEntity {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AssetLocation location, List<int> data, bool cached)?
+    TResult? Function(AssetLocation location, List<int> data, bool cached,
+            FileMetadata? metadata, Uint8List? thumbnail)?
         file,
     TResult? Function(AssetLocation location, List<AppDocumentEntity> assets)?
         directory,
@@ -214,7 +215,9 @@ mixin _$AppDocumentEntity {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AssetLocation location, List<int> data, bool cached)? file,
+    TResult Function(AssetLocation location, List<int> data, bool cached,
+            FileMetadata? metadata, Uint8List? thumbnail)?
+        file,
     TResult Function(AssetLocation location, List<AppDocumentEntity> assets)?
         directory,
     required TResult orElse(),
@@ -296,10 +299,16 @@ abstract class _$$AppDocumentFileCopyWith<$Res>
       __$$AppDocumentFileCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AssetLocation location, List<int> data, bool cached});
+  $Res call(
+      {AssetLocation location,
+      List<int> data,
+      bool cached,
+      FileMetadata? metadata,
+      Uint8List? thumbnail});
 
   @override
   $AssetLocationCopyWith<$Res> get location;
+  $FileMetadataCopyWith<$Res>? get metadata;
 }
 
 /// @nodoc
@@ -316,6 +325,8 @@ class __$$AppDocumentFileCopyWithImpl<$Res>
     Object? location = null,
     Object? data = null,
     Object? cached = null,
+    Object? metadata = freezed,
+    Object? thumbnail = freezed,
   }) {
     return _then(_$AppDocumentFile(
       null == location
@@ -330,7 +341,27 @@ class __$$AppDocumentFileCopyWithImpl<$Res>
           ? _value.cached
           : cached // ignore: cast_nullable_to_non_nullable
               as bool,
+      metadata: freezed == metadata
+          ? _value.metadata
+          : metadata // ignore: cast_nullable_to_non_nullable
+              as FileMetadata?,
+      thumbnail: freezed == thumbnail
+          ? _value.thumbnail
+          : thumbnail // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $FileMetadataCopyWith<$Res>? get metadata {
+    if (_value.metadata == null) {
+      return null;
+    }
+
+    return $FileMetadataCopyWith<$Res>(_value.metadata!, (value) {
+      return _then(_value.copyWith(metadata: value));
+    });
   }
 }
 
@@ -338,7 +369,7 @@ class __$$AppDocumentFileCopyWithImpl<$Res>
 
 class _$AppDocumentFile extends AppDocumentFile {
   const _$AppDocumentFile(this.location, final List<int> data,
-      {this.cached = false})
+      {this.cached = false, this.metadata, this.thumbnail})
       : _data = data,
         super._();
 
@@ -355,10 +386,14 @@ class _$AppDocumentFile extends AppDocumentFile {
   @override
   @JsonKey()
   final bool cached;
+  @override
+  final FileMetadata? metadata;
+  @override
+  final Uint8List? thumbnail;
 
   @override
   String toString() {
-    return 'AppDocumentEntity.file(location: $location, data: $data, cached: $cached)';
+    return 'AppDocumentEntity.file(location: $location, data: $data, cached: $cached, metadata: $metadata, thumbnail: $thumbnail)';
   }
 
   @override
@@ -369,12 +404,20 @@ class _$AppDocumentFile extends AppDocumentFile {
             (identical(other.location, location) ||
                 other.location == location) &&
             const DeepCollectionEquality().equals(other._data, _data) &&
-            (identical(other.cached, cached) || other.cached == cached));
+            (identical(other.cached, cached) || other.cached == cached) &&
+            (identical(other.metadata, metadata) ||
+                other.metadata == metadata) &&
+            const DeepCollectionEquality().equals(other.thumbnail, thumbnail));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, location,
-      const DeepCollectionEquality().hash(_data), cached);
+  int get hashCode => Object.hash(
+      runtimeType,
+      location,
+      const DeepCollectionEquality().hash(_data),
+      cached,
+      metadata,
+      const DeepCollectionEquality().hash(thumbnail));
 
   @JsonKey(ignore: true)
   @override
@@ -385,37 +428,40 @@ class _$AppDocumentFile extends AppDocumentFile {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            AssetLocation location, List<int> data, bool cached)
+    required TResult Function(AssetLocation location, List<int> data,
+            bool cached, FileMetadata? metadata, Uint8List? thumbnail)
         file,
     required TResult Function(
             AssetLocation location, List<AppDocumentEntity> assets)
         directory,
   }) {
-    return file(location, data, cached);
+    return file(location, data, cached, metadata, thumbnail);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AssetLocation location, List<int> data, bool cached)?
+    TResult? Function(AssetLocation location, List<int> data, bool cached,
+            FileMetadata? metadata, Uint8List? thumbnail)?
         file,
     TResult? Function(AssetLocation location, List<AppDocumentEntity> assets)?
         directory,
   }) {
-    return file?.call(location, data, cached);
+    return file?.call(location, data, cached, metadata, thumbnail);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AssetLocation location, List<int> data, bool cached)? file,
+    TResult Function(AssetLocation location, List<int> data, bool cached,
+            FileMetadata? metadata, Uint8List? thumbnail)?
+        file,
     TResult Function(AssetLocation location, List<AppDocumentEntity> assets)?
         directory,
     required TResult orElse(),
   }) {
     if (file != null) {
-      return file(location, data, cached);
+      return file(location, data, cached, metadata, thumbnail);
     }
     return orElse();
   }
@@ -455,13 +501,17 @@ class _$AppDocumentFile extends AppDocumentFile {
 abstract class AppDocumentFile extends AppDocumentEntity {
   const factory AppDocumentFile(
       final AssetLocation location, final List<int> data,
-      {final bool cached}) = _$AppDocumentFile;
+      {final bool cached,
+      final FileMetadata? metadata,
+      final Uint8List? thumbnail}) = _$AppDocumentFile;
   const AppDocumentFile._() : super._();
 
   @override
   AssetLocation get location;
   List<int> get data;
   bool get cached;
+  FileMetadata? get metadata;
+  Uint8List? get thumbnail;
   @override
   @JsonKey(ignore: true)
   _$$AppDocumentFileCopyWith<_$AppDocumentFile> get copyWith =>
@@ -556,8 +606,8 @@ class _$AppDocumentDirectory extends AppDocumentDirectory {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            AssetLocation location, List<int> data, bool cached)
+    required TResult Function(AssetLocation location, List<int> data,
+            bool cached, FileMetadata? metadata, Uint8List? thumbnail)
         file,
     required TResult Function(
             AssetLocation location, List<AppDocumentEntity> assets)
@@ -569,7 +619,8 @@ class _$AppDocumentDirectory extends AppDocumentDirectory {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AssetLocation location, List<int> data, bool cached)?
+    TResult? Function(AssetLocation location, List<int> data, bool cached,
+            FileMetadata? metadata, Uint8List? thumbnail)?
         file,
     TResult? Function(AssetLocation location, List<AppDocumentEntity> assets)?
         directory,
@@ -580,7 +631,9 @@ class _$AppDocumentDirectory extends AppDocumentDirectory {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AssetLocation location, List<int> data, bool cached)? file,
+    TResult Function(AssetLocation location, List<int> data, bool cached,
+            FileMetadata? metadata, Uint8List? thumbnail)?
+        file,
     TResult Function(AssetLocation location, List<AppDocumentEntity> assets)?
         directory,
     required TResult orElse(),

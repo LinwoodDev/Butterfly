@@ -57,7 +57,8 @@ abstract class DocumentLoaded extends DocumentState {
 
   void _updatePage() => data.setPage(page, pageName);
   void _updateMetadata() => data.setMetadata(metadata);
-  void _updateInfo() => data.setInfo(info);
+  void _updateInfo() =>
+      data.setInfo(info.copyWith(view: currentIndexCubit.state.viewOption));
 
   DocumentLoaded(this.data,
       {DocumentPage? page,

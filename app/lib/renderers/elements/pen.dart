@@ -7,7 +7,8 @@ class PenRenderer extends PathRenderer<PenElement> {
   double? get zoom => element.zoom;
 
   @override
-  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
+  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
+      Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     final points = element.points;
     final property = element.property;

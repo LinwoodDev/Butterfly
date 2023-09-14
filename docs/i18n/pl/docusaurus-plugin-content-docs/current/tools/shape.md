@@ -1,11 +1,11 @@
 ---
-title: "Farba kształtująca"
+title: "Narzędzie kształtu"
 sidebar_label: "Kształt"
 sidebar_position: 3
 ---
 
 
-Użyj tej farby, aby narysować kształty na papierze. Możesz narysować prostokąty, koła i inne kształty.
+Użyj tego narzędzia, aby narysować kształty na papierze. Możesz narysować prostokąty, koła i inne kształty.
 
 ## Konfiguracja
 

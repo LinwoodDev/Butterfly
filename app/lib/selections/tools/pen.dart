@@ -1,8 +1,8 @@
 part of '../selection.dart';
 
-class PenPainterSelection extends ToolSelection<PenTool> {
+class PenToolSelection extends ToolSelection<PenTool> {
   final _propertySelection = PenPropertySelection();
-  PenPainterSelection(super.selected);
+  PenToolSelection(super.selected);
 
   @override
   List<Widget> buildProperties(BuildContext context) {
@@ -28,7 +28,7 @@ class PenPainterSelection extends ToolSelection<PenTool> {
   @override
   Selection insert(dynamic element) {
     if (element is PenTool) {
-      return PenPainterSelection([...selected, element]);
+      return PenToolSelection([...selected, element]);
     }
     return super.insert(element);
   }

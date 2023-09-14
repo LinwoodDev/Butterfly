@@ -520,5 +520,14 @@
   "paste": "Lim",
   "ascending": "Stigende",
   "descending": "Synkende",
-  "imageScale": "Bilde skalering"
+  "imageScale": "Bilde skalering",
+  "select": "Velg",
+  "tool": "Verktøy",
+  "texture": "Tekstur",
+  "platformTheme": "Plattform-tema",
+  "desktop": "Skrivebord",
+  "mobile": "Mobil",
+  "pdfQuality": "PDF kvalitet",
+  "surface": "Overflate",
+  "pattern": "Mønster"
 }

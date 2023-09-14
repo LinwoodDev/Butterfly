@@ -10,7 +10,9 @@ Future<void> setup() async {
 
 Future<void> setupLicenses() async {
   LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString('fonts/LICENSE.txt');
-    yield LicenseEntryWithLineBreaks(['Roboto'], license);
+    yield LicenseEntryWithLineBreaks(['Comfortaa'],
+        await rootBundle.loadString('fonts/Comfortaa-LICENSE.txt'));
+    yield LicenseEntryWithLineBreaks(
+        ['Roboto'], await rootBundle.loadString('fonts/Roboto-LICENSE.txt'));
   });
 }

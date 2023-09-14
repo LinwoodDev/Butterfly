@@ -6,35 +6,6 @@ part of 'element.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatternMotif _$$PatternMotifFromJson(Map json) => _$PatternMotif(
-      boxWidth: (json['boxWidth'] as num?)?.toDouble() ?? 0,
-      boxHeight: (json['boxHeight'] as num?)?.toDouble() ?? 0,
-      boxXCount: json['boxXCount'] as int? ?? 1,
-      boxYCount: json['boxYCount'] as int? ?? 1,
-      boxXSpace: (json['boxXSpace'] as num?)?.toDouble() ?? 0,
-      boxYSpace: (json['boxYSpace'] as num?)?.toDouble() ?? 0,
-      boxXColor: json['boxXColor'] as int? ?? kColorBlue,
-      boxYColor: json['boxYColor'] as int? ?? kColorRed,
-      boxColor: json['boxColor'] as int? ?? kColorWhite,
-      boxXStroke: (json['boxXStroke'] as num?)?.toDouble() ?? 0.5,
-      boxYStroke: (json['boxYStroke'] as num?)?.toDouble() ?? 0.5,
-    );
-
-Map<String, dynamic> _$$PatternMotifToJson(_$PatternMotif instance) =>
-    <String, dynamic>{
-      'boxWidth': instance.boxWidth,
-      'boxHeight': instance.boxHeight,
-      'boxXCount': instance.boxXCount,
-      'boxYCount': instance.boxYCount,
-      'boxXSpace': instance.boxXSpace,
-      'boxYSpace': instance.boxYSpace,
-      'boxXColor': instance.boxXColor,
-      'boxYColor': instance.boxYColor,
-      'boxColor': instance.boxColor,
-      'boxXStroke': instance.boxXStroke,
-      'boxYStroke': instance.boxYStroke,
-    };
-
 _$_ElementConstraint _$$_ElementConstraintFromJson(Map json) =>
     _$_ElementConstraint(
       size: (json['size'] as num?)?.toDouble() ?? 0,
@@ -279,5 +250,35 @@ Map<String, dynamic> _$$ShapeElementToJson(_$ShapeElement instance) =>
       'secondPosition':
           const DoublePointJsonConverter().toJson(instance.secondPosition),
       'property': instance.property.toJson(),
+      'type': instance.$type,
+    };
+
+_$TextureElement _$$TextureElementFromJson(Map json) => _$TextureElement(
+      rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
+      layer: json['layer'] as String? ?? '',
+      texture: json['texture'] == null
+          ? const SurfaceTexture.pattern()
+          : SurfaceTexture.fromJson(
+              Map<String, dynamic>.from(json['texture'] as Map)),
+      firstPosition: json['firstPosition'] == null
+          ? const Point(0.0, 0.0)
+          : const DoublePointJsonConverter()
+              .fromJson(json['firstPosition'] as Map),
+      secondPosition: json['secondPosition'] == null
+          ? const Point(0.0, 0.0)
+          : const DoublePointJsonConverter()
+              .fromJson(json['secondPosition'] as Map),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$TextureElementToJson(_$TextureElement instance) =>
+    <String, dynamic>{
+      'rotation': instance.rotation,
+      'layer': instance.layer,
+      'texture': instance.texture.toJson(),
+      'firstPosition':
+          const DoublePointJsonConverter().toJson(instance.firstPosition),
+      'secondPosition':
+          const DoublePointJsonConverter().toJson(instance.secondPosition),
       'type': instance.$type,
     };

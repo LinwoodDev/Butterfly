@@ -1,5 +1,5 @@
 ---
-title: "Silgi aracı"
+title: "Eraser tool"
 sidebar_label: "Silgi"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Eğer mümkünse, lütfen [yol silici](path_eraser)yi kullanın.
 
 :::
 
-Bu araç ile kağıt üzerindeki ögeleri silebilirsiniz.
+With this tool you can erase the elements on the paper.
 
 ## Yapılandırma
 

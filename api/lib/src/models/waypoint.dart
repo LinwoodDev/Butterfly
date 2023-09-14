@@ -7,7 +7,7 @@ part 'waypoint.g.dart';
 part 'waypoint.freezed.dart';
 
 @freezed
-class Waypoint with _$Waypoint {
+sealed class Waypoint with _$Waypoint {
   static const Waypoint origin = Waypoint('', Point(0, 0), 1);
 
   const factory Waypoint(

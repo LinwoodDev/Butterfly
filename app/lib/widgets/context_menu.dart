@@ -1,9 +1,47 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:animations/animations.dart';
+import 'package:butterfly/cubits/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-typedef ContextMenuBuilder = Widget Function(BuildContext context);
+typedef ContextMenuBuilder = List<ContextMenuEntry> Function(
+    BuildContext context);
+
+sealed class ContextMenuEntry {
+  final String label;
+  final Widget icon;
+  final MenuSerializableShortcut? shortcut;
+
+  ContextMenuEntry({
+    required this.label,
+    required this.icon,
+    this.shortcut,
+  });
+}
+
+class ContextMenuItem extends ContextMenuEntry {
+  final VoidCallback? onPressed;
+
+  ContextMenuItem({
+    required super.label,
+    required super.icon,
+    this.onPressed,
+    super.shortcut,
+  });
+}
+
+class ContextMenuGroup extends ContextMenuEntry {
+  final List<Widget> children;
+
+  ContextMenuGroup({
+    required super.label,
+    required super.icon,
+    required this.children,
+    super.shortcut,
+  });
+}
 
 class ContextMenu extends StatefulWidget {
   final Offset position;
@@ -49,6 +87,9 @@ class _ContextMenuState extends State<ContextMenu>
 
   @override
   Widget build(BuildContext context) {
+    final isMobile =
+        context.read<SettingsCubit>().state.platformTheme.isMobile(context);
+    final items = widget.builder(context);
     return CustomSingleChildLayout(
       delegate: DesktopTextSelectionToolbarLayoutDelegate(
         anchor: widget.position,
@@ -61,12 +102,53 @@ class _ContextMenuState extends State<ContextMenu>
         transformHitTests: false,
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            maxWidth: widget.maxWidth,
-            maxHeight: widget.maxHeight,
+            maxWidth: max(widget.maxWidth, isMobile ? double.infinity : 60),
+            maxHeight: min(widget.maxHeight, isMobile ? 60 : double.infinity),
           ),
           child: Material(
             borderRadius: BorderRadius.circular(12),
-            child: widget.builder(context),
+            child: ListView(
+              scrollDirection: isMobile ? Axis.horizontal : Axis.vertical,
+              shrinkWrap: true,
+              children: items.map((item) {
+                Widget buildItemWidget(VoidCallback? onPressed) => AspectRatio(
+                      aspectRatio: 1,
+                      child: IconButton(
+                        icon: item.icon,
+                        tooltip: item.label,
+                        onPressed: onPressed,
+                        iconSize: 30,
+                      ),
+                    );
+                return switch (item) {
+                  ContextMenuItem() => isMobile
+                      ? buildItemWidget(item.onPressed)
+                      : MenuItemButton(
+                          leadingIcon: item.icon,
+                          onPressed: item.onPressed,
+                          child: Text(item.label),
+                        ),
+                  ContextMenuGroup() => isMobile
+                      ? MenuAnchor(
+                          menuChildren: item.children,
+                          builder: (context, controller, child) =>
+                              buildItemWidget(
+                            () => controller.isOpen
+                                ? controller.close()
+                                : controller.open(),
+                          ),
+                        )
+                      : SubmenuButton(
+                          menuChildren: item.children,
+                          leadingIcon: item.icon,
+                          menuStyle: const MenuStyle(
+                            alignment: Alignment.bottomLeft,
+                          ),
+                          child: Text(item.label),
+                        ),
+                };
+              }).toList(),
+            ),
           ),
         ),
       ),

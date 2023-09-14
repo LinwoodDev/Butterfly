@@ -1,13 +1,13 @@
 ---
-title: "Gör om målare"
+title: "Gör om verktyget"
 sidebar_label: "Gör om"
 sidebar_position: 0
 ---
 
-::::note ⚡ Handlingsmålare
+::::note ⚡ Åtgärdsverktyg
 
-Detta är en speciell målare. Du kan inte välja det och det kommer att köra åtgärden om du klickar på det.
+Detta är ett speciellt verktyg. Du kan inte välja det och det kommer att köra åtgärden om du klickar på det.
 
 :::
 
-När du klickar på denna målare kan du göra om din sista åtgärd. Se [ångra målaren](undo) för att ångra din senaste åtgärd.
+När du klickar på detta verktyg kan du göra om din sista åtgärd. Se [ångra verktyget](undo) för att ångra din senaste åtgärd.

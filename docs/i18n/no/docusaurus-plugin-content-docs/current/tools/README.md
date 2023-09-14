@@ -1,20 +1,20 @@
 ---
-title: "Malere"
+title: "Verktøy"
 slug: /tools
 sidebar_label: "Introduksjon"
 sidebar_position: 1
 ---
 
 
-Malere kan redigere papiret.
+Verktøy kan redigere papiret.
 
-Bruk sidepanelet til å lære mer om malerne.
+Bruk sidepanelet til å lære mer om verktøyene.
 
-Lag en ny maling ved å klikke på plussikonet. Bytt malerrekkefølgen ved å dra og endre maleren ved å klikke. Klikk på en valgt maler, kan du konfigurere den.
+Opprett et nytt verktøy ved å klikke på plussikonet. Endre rekkefølgen ved å dra og endre verktøyet ved å klikke. Hvis du klikker på et valgt verktøy, kan du konfigurere dette.
 
-Navnet på maleren vises som verktøytips på svev på maleren.
+Navnet på verktøyet vises som verktøytips på vinsjen i verktøyet.
 
-## Tilgjengelige malere
+## Tilgjengelige verktøy
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

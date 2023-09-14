@@ -38,3 +38,35 @@ extension SvgElementDataExtension on SvgElement {
       getDataFromSource(document, source)
           .then((value) => value == null ? null : utf8.decode(value));
 }
+
+extension PadElementDataExtension on PadElement {
+  Future<Map<String, dynamic>> toDataJson(NoteData document) async {
+    Future<String> getUriData(String source, String mimeType) async =>
+        UriData.fromBytes(
+          await getDataFromSource(document, source) ?? [],
+          mimeType: mimeType,
+        ).toString();
+
+    return {
+      ...toJson(),
+      ...await maybeMap(
+        image: (value) async => {
+          'source': await getUriData(value.source, 'image/png'),
+        },
+        svg: (value) async => {
+          'source': await getUriData(value.source, 'image/svg+xml'),
+        },
+        orElse: () => {},
+      ),
+    };
+  }
+}
+
+extension DocumentPageDataExtension on DocumentPage {
+  Future<Map<String, dynamic>> toDataJson(NoteData document) async => {
+        ...toJson(),
+        'content': await Future.wait(
+          content.map((e) => e.toDataJson(document)),
+        ),
+      };
+}

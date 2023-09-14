@@ -4,7 +4,7 @@ sidebar_label: "Stämpel"
 sidebar_position: 3
 ---
 
-Stämpelmålaren låter dig lägga till komponenter till din duk. Använd ett befintligt paket, skapa din egen eller importera ett paket för att använda det. Läs mer [här](../pack).
+Stämplingsverktyget låter dig lägga till komponenter till din duk. Använd ett befintligt paket, skapa din egen eller importera ett paket för att använda det. Läs mer [här](../pack).
 
 ## Konfiguration
 

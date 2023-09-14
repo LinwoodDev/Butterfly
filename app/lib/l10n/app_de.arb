@@ -520,5 +520,14 @@
   "paste": "Einfügen",
   "ascending": "Aufsteigend",
   "descending": "Absteigend",
-  "imageScale": "Bildskala"
+  "imageScale": "Bildskala",
+  "select": "Auswählen",
+  "tool": "Werkzeug",
+  "texture": "Textur",
+  "platformTheme": "Plattform-Theme",
+  "desktop": "Desktop",
+  "mobile": "Mobil",
+  "pdfQuality": "PDF-Qualität",
+  "surface": "Oberfläche",
+  "pattern": "Muster"
 }

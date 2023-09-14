@@ -1,11 +1,11 @@
 ---
-title: "Vorm schilder"
+title: "Vorm gereedschap"
 sidebar_label: "Vorm"
 sidebar_position: 3
 ---
 
 
-Gebruik deze schilder om vormen op het papier te tekenen. Je kunt rechthoeken, cirkels en andere vormen tekenen.
+Gebruik dit gereedschap om vormen op het papier te tekenen. Je kunt rechthoeken, cirkels en andere vormen tekenen.
 
 ## Configuratie
 

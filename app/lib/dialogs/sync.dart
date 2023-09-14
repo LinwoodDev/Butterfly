@@ -50,9 +50,9 @@ class _SyncDialogState extends State<SyncDialog> {
                       expansionCallback: (panelIndex, isExpanded) {
                         setState(() {
                           if (isExpanded) {
-                            _openedPanels.remove(panelIndex);
-                          } else {
                             _openedPanels.add(panelIndex);
+                          } else {
+                            _openedPanels.remove(panelIndex);
                           }
                         });
                       },

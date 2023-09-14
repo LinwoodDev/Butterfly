@@ -1,11 +1,11 @@
 ---
-title: "Kalem aracı"
+title: "Pen tool"
 sidebar_label: "Kalem"
 sidebar_position: 2
 ---
 
 
-Bu araç ile bu kağıda çizim yapabilirsiniz.
+With this tool you can draw on this paper.
 
 ## Yapılandırma
 

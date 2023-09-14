@@ -13,6 +13,8 @@ extension AssetFileTypeHelper on AssetFileType {
         return ['pdf'];
       case AssetFileType.svg:
         return ['svg'];
+      case AssetFileType.markdown:
+        return ['md', 'markdown'];
       case AssetFileType.page:
         return [];
     }
@@ -21,9 +23,11 @@ extension AssetFileTypeHelper on AssetFileType {
   String getMime() {
     switch (this) {
       case AssetFileType.note:
-        return 'application/json';
+        return 'application/zip';
       case AssetFileType.image:
         return 'image/*';
+      case AssetFileType.markdown:
+        return 'text/markdown';
       case AssetFileType.pdf:
         return 'application/pdf';
       case AssetFileType.svg:
@@ -35,10 +39,7 @@ extension AssetFileTypeHelper on AssetFileType {
 
   bool isMimeType(String mimeType) {
     final mime = getMime();
-    if (mime == 'image/*') {
-      return mimeType.startsWith('image/');
-    }
-    return mimeType == mime;
+    return RegExp(mime).hasMatch(mime);
   }
 
   static AssetFileType? fromFileExtension(String? ext) {

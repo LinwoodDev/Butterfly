@@ -1,11 +1,11 @@
 ---
-title: "Etikett målare"
+title: "Verktyg för etiketter"
 sidebar_label: "Etikett"
 sidebar_position: 6
 ---
 
 
-Med denna målare kan du lägga till text till papperet.
+Med detta verktyg kan du lägga till text till papperet.
 
 ## Konfiguration
 

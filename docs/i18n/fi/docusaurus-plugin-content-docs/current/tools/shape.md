@@ -1,11 +1,11 @@
 ---
-title: "Muoto maalari"
+title: "Muoto työkalu"
 sidebar_label: "Muoto"
 sidebar_position: 3
 ---
 
 
-Käytä tätä maalaria piirtääksesi muotoja paperille. Voit piirtää suorakulmioita, piirejä ja muita muotoja.
+Käytä tätä työkalua piirtääksesi muotoja paperille. Voit piirtää suorakulmioita, piirejä ja muita muotoja.
 
 ## Asetukset
 

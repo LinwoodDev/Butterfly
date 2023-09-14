@@ -3,7 +3,7 @@ title: "Lag"
 sidebar_position: 2
 ---
 
-Lag er et alternativ for å gruppere sammen. Klikk på elementet for å se og endre laget. Bruk [lag-maleren](tools/layer.md) for å endre lag av flere elementer.
+Lag er et alternativ for å gruppere sammen. Klikk på elementet for å se og endre laget. Bruk [layer-verktøyet](tools/layer.md) for å endre lag av flere elementer.
 
 ## Lagets dialog
 

@@ -1,5 +1,5 @@
 ---
-title: "Suddgummi målare"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Använd sökvägen [](path_eraser) om det är möjligt.
 
 :::
 
-Med denna målare kan du radera elementen på pappret.
+Med detta verktyg kan du radera elementen på pappret.
 
 ## Konfiguration
 

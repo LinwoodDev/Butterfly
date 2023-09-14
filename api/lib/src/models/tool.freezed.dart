@@ -52,6 +52,8 @@ Tool _$ToolFromJson(Map<String, dynamic> json) {
       return FullScreenTool.fromJson(json);
     case 'asset':
       return AssetTool.fromJson(json);
+    case 'texture':
+      return TextureTool.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -117,6 +119,15 @@ mixin _$Tool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -168,6 +179,15 @@ mixin _$Tool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -219,6 +239,15 @@ mixin _$Tool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -242,6 +271,7 @@ mixin _$Tool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -264,6 +294,7 @@ mixin _$Tool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -286,6 +317,7 @@ mixin _$Tool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -454,6 +486,15 @@ class _$SelectTool extends SelectTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return select(name, displayIcon);
   }
@@ -508,6 +549,15 @@ class _$SelectTool extends SelectTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return select?.call(name, displayIcon);
   }
@@ -562,6 +612,15 @@ class _$SelectTool extends SelectTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (select != null) {
@@ -591,6 +650,7 @@ class _$SelectTool extends SelectTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return select(this);
   }
@@ -616,6 +676,7 @@ class _$SelectTool extends SelectTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return select?.call(this);
   }
@@ -641,6 +702,7 @@ class _$SelectTool extends SelectTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (select != null) {
@@ -797,6 +859,15 @@ class _$HandTool extends HandTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return hand(name, displayIcon);
   }
@@ -851,6 +922,15 @@ class _$HandTool extends HandTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return hand?.call(name, displayIcon);
   }
@@ -905,6 +985,15 @@ class _$HandTool extends HandTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -934,6 +1023,7 @@ class _$HandTool extends HandTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return hand(this);
   }
@@ -959,6 +1049,7 @@ class _$HandTool extends HandTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return hand?.call(this);
   }
@@ -984,6 +1075,7 @@ class _$HandTool extends HandTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (hand != null) {
@@ -1175,6 +1267,15 @@ class _$ImportTool extends ImportTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return import(name, displayIcon, elements, areas);
   }
@@ -1229,6 +1330,15 @@ class _$ImportTool extends ImportTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return import?.call(name, displayIcon, elements, areas);
   }
@@ -1283,6 +1393,15 @@ class _$ImportTool extends ImportTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (import != null) {
@@ -1312,6 +1431,7 @@ class _$ImportTool extends ImportTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return import(this);
   }
@@ -1337,6 +1457,7 @@ class _$ImportTool extends ImportTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return import?.call(this);
   }
@@ -1362,6 +1483,7 @@ class _$ImportTool extends ImportTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (import != null) {
@@ -1523,6 +1645,15 @@ class _$UndoTool extends UndoTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return undo(name, displayIcon);
   }
@@ -1577,6 +1708,15 @@ class _$UndoTool extends UndoTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return undo?.call(name, displayIcon);
   }
@@ -1631,6 +1771,15 @@ class _$UndoTool extends UndoTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -1660,6 +1809,7 @@ class _$UndoTool extends UndoTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return undo(this);
   }
@@ -1685,6 +1835,7 @@ class _$UndoTool extends UndoTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return undo?.call(this);
   }
@@ -1710,6 +1861,7 @@ class _$UndoTool extends UndoTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (undo != null) {
@@ -1864,6 +2016,15 @@ class _$RedoTool extends RedoTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return redo(name, displayIcon);
   }
@@ -1918,6 +2079,15 @@ class _$RedoTool extends RedoTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return redo?.call(name, displayIcon);
   }
@@ -1972,6 +2142,15 @@ class _$RedoTool extends RedoTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -2001,6 +2180,7 @@ class _$RedoTool extends RedoTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return redo(this);
   }
@@ -2026,6 +2206,7 @@ class _$RedoTool extends RedoTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return redo?.call(this);
   }
@@ -2051,6 +2232,7 @@ class _$RedoTool extends RedoTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (redo != null) {
@@ -2261,6 +2443,15 @@ class _$LabelTool extends LabelTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return label(
         name, displayIcon, mode, zoomDependent, foreground, styleSheet);
@@ -2316,6 +2507,15 @@ class _$LabelTool extends LabelTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return label?.call(
         name, displayIcon, mode, zoomDependent, foreground, styleSheet);
@@ -2371,6 +2571,15 @@ class _$LabelTool extends LabelTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -2401,6 +2610,7 @@ class _$LabelTool extends LabelTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return label(this);
   }
@@ -2426,6 +2636,7 @@ class _$LabelTool extends LabelTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return label?.call(this);
   }
@@ -2451,6 +2662,7 @@ class _$LabelTool extends LabelTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (label != null) {
@@ -2638,6 +2850,15 @@ class _$PenTool extends PenTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return pen(name, displayIcon, zoomDependent, property);
   }
@@ -2692,6 +2913,15 @@ class _$PenTool extends PenTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return pen?.call(name, displayIcon, zoomDependent, property);
   }
@@ -2746,6 +2976,15 @@ class _$PenTool extends PenTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -2775,6 +3014,7 @@ class _$PenTool extends PenTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return pen(this);
   }
@@ -2800,6 +3040,7 @@ class _$PenTool extends PenTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return pen?.call(this);
   }
@@ -2825,6 +3066,7 @@ class _$PenTool extends PenTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (pen != null) {
@@ -2998,6 +3240,15 @@ class _$EraserTool extends EraserTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return eraser(name, displayIcon, strokeWidth);
   }
@@ -3052,6 +3303,15 @@ class _$EraserTool extends EraserTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return eraser?.call(name, displayIcon, strokeWidth);
   }
@@ -3106,6 +3366,15 @@ class _$EraserTool extends EraserTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (eraser != null) {
@@ -3135,6 +3404,7 @@ class _$EraserTool extends EraserTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return eraser(this);
   }
@@ -3160,6 +3430,7 @@ class _$EraserTool extends EraserTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return eraser?.call(this);
   }
@@ -3185,6 +3456,7 @@ class _$EraserTool extends EraserTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (eraser != null) {
@@ -3357,6 +3629,15 @@ class _$PathEraserTool extends PathEraserTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return pathEraser(name, displayIcon, strokeWidth);
   }
@@ -3411,6 +3692,15 @@ class _$PathEraserTool extends PathEraserTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return pathEraser?.call(name, displayIcon, strokeWidth);
   }
@@ -3465,6 +3755,15 @@ class _$PathEraserTool extends PathEraserTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (pathEraser != null) {
@@ -3494,6 +3793,7 @@ class _$PathEraserTool extends PathEraserTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return pathEraser(this);
   }
@@ -3519,6 +3819,7 @@ class _$PathEraserTool extends PathEraserTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return pathEraser?.call(this);
   }
@@ -3544,6 +3845,7 @@ class _$PathEraserTool extends PathEraserTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (pathEraser != null) {
@@ -3716,6 +4018,15 @@ class _$LayerTool extends LayerTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return layer(name, displayIcon, strokeWidth);
   }
@@ -3770,6 +4081,15 @@ class _$LayerTool extends LayerTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return layer?.call(name, displayIcon, strokeWidth);
   }
@@ -3824,6 +4144,15 @@ class _$LayerTool extends LayerTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (layer != null) {
@@ -3853,6 +4182,7 @@ class _$LayerTool extends LayerTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return layer(this);
   }
@@ -3878,6 +4208,7 @@ class _$LayerTool extends LayerTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return layer?.call(this);
   }
@@ -3903,6 +4234,7 @@ class _$LayerTool extends LayerTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (layer != null) {
@@ -4106,6 +4438,15 @@ class _$AreaTool extends AreaTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return area(name, displayIcon, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, askForName);
@@ -4161,6 +4502,15 @@ class _$AreaTool extends AreaTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return area?.call(name, displayIcon, constrainedWidth, constrainedHeight,
         constrainedAspectRatio, askForName);
@@ -4216,6 +4566,15 @@ class _$AreaTool extends AreaTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (area != null) {
@@ -4246,6 +4605,7 @@ class _$AreaTool extends AreaTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return area(this);
   }
@@ -4271,6 +4631,7 @@ class _$AreaTool extends AreaTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return area?.call(this);
   }
@@ -4296,6 +4657,7 @@ class _$AreaTool extends AreaTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (area != null) {
@@ -4506,6 +4868,15 @@ class _$LaserTool extends LaserTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return laser(name, displayIcon, duration, strokeWidth, thinning, color);
   }
@@ -4560,6 +4931,15 @@ class _$LaserTool extends LaserTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return laser?.call(
         name, displayIcon, duration, strokeWidth, thinning, color);
@@ -4615,6 +4995,15 @@ class _$LaserTool extends LaserTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (laser != null) {
@@ -4644,6 +5033,7 @@ class _$LaserTool extends LaserTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return laser(this);
   }
@@ -4669,6 +5059,7 @@ class _$LaserTool extends LaserTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return laser?.call(this);
   }
@@ -4694,6 +5085,7 @@ class _$LaserTool extends LaserTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (laser != null) {
@@ -4914,6 +5306,15 @@ class _$ShapeTool extends ShapeTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return shape(name, displayIcon, zoomDependent, constrainedWidth,
         constrainedHeight, constrainedAspectRatio, property);
@@ -4969,6 +5370,15 @@ class _$ShapeTool extends ShapeTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return shape?.call(name, displayIcon, zoomDependent, constrainedWidth,
         constrainedHeight, constrainedAspectRatio, property);
@@ -5024,6 +5434,15 @@ class _$ShapeTool extends ShapeTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -5054,6 +5473,7 @@ class _$ShapeTool extends ShapeTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return shape(this);
   }
@@ -5079,6 +5499,7 @@ class _$ShapeTool extends ShapeTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return shape?.call(this);
   }
@@ -5104,6 +5525,7 @@ class _$ShapeTool extends ShapeTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (shape != null) {
@@ -5293,6 +5715,15 @@ class _$StampTool extends StampTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return stamp(name, displayIcon, component);
   }
@@ -5347,6 +5778,15 @@ class _$StampTool extends StampTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return stamp?.call(name, displayIcon, component);
   }
@@ -5401,6 +5841,15 @@ class _$StampTool extends StampTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (stamp != null) {
@@ -5430,6 +5879,7 @@ class _$StampTool extends StampTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return stamp(this);
   }
@@ -5455,6 +5905,7 @@ class _$StampTool extends StampTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return stamp?.call(this);
   }
@@ -5480,6 +5931,7 @@ class _$StampTool extends StampTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (stamp != null) {
@@ -5641,6 +6093,15 @@ class _$PresentationTool extends PresentationTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return presentation(name, displayIcon);
   }
@@ -5695,6 +6156,15 @@ class _$PresentationTool extends PresentationTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return presentation?.call(name, displayIcon);
   }
@@ -5749,6 +6219,15 @@ class _$PresentationTool extends PresentationTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (presentation != null) {
@@ -5778,6 +6257,7 @@ class _$PresentationTool extends PresentationTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return presentation(this);
   }
@@ -5803,6 +6283,7 @@ class _$PresentationTool extends PresentationTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return presentation?.call(this);
   }
@@ -5828,6 +6309,7 @@ class _$PresentationTool extends PresentationTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (presentation != null) {
@@ -5997,6 +6479,15 @@ class _$SpacerTool extends SpacerTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return spacer(name, displayIcon, axis);
   }
@@ -6051,6 +6542,15 @@ class _$SpacerTool extends SpacerTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return spacer?.call(name, displayIcon, axis);
   }
@@ -6105,6 +6605,15 @@ class _$SpacerTool extends SpacerTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (spacer != null) {
@@ -6134,6 +6643,7 @@ class _$SpacerTool extends SpacerTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return spacer(this);
   }
@@ -6159,6 +6669,7 @@ class _$SpacerTool extends SpacerTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return spacer?.call(this);
   }
@@ -6184,6 +6695,7 @@ class _$SpacerTool extends SpacerTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (spacer != null) {
@@ -6344,6 +6856,15 @@ class _$FullScreenTool extends FullScreenTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return fullSceen(name, displayIcon);
   }
@@ -6398,6 +6919,15 @@ class _$FullScreenTool extends FullScreenTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return fullSceen?.call(name, displayIcon);
   }
@@ -6452,6 +6982,15 @@ class _$FullScreenTool extends FullScreenTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (fullSceen != null) {
@@ -6481,6 +7020,7 @@ class _$FullScreenTool extends FullScreenTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return fullSceen(this);
   }
@@ -6506,6 +7046,7 @@ class _$FullScreenTool extends FullScreenTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return fullSceen?.call(this);
   }
@@ -6531,6 +7072,7 @@ class _$FullScreenTool extends FullScreenTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (fullSceen != null) {
@@ -6700,6 +7242,15 @@ class _$AssetTool extends AssetTool {
     required TResult Function(
             String name, String displayIcon, ImportType importType)
         asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
   }) {
     return asset(name, displayIcon, importType);
   }
@@ -6754,6 +7305,15 @@ class _$AssetTool extends AssetTool {
     TResult? Function(String name, String displayIcon)? fullSceen,
     TResult? Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
   }) {
     return asset?.call(name, displayIcon, importType);
   }
@@ -6808,6 +7368,15 @@ class _$AssetTool extends AssetTool {
     TResult Function(String name, String displayIcon)? fullSceen,
     TResult Function(String name, String displayIcon, ImportType importType)?
         asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
     required TResult orElse(),
   }) {
     if (asset != null) {
@@ -6837,6 +7406,7 @@ class _$AssetTool extends AssetTool {
     required TResult Function(SpacerTool value) spacer,
     required TResult Function(FullScreenTool value) fullSceen,
     required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
   }) {
     return asset(this);
   }
@@ -6862,6 +7432,7 @@ class _$AssetTool extends AssetTool {
     TResult? Function(SpacerTool value)? spacer,
     TResult? Function(FullScreenTool value)? fullSceen,
     TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
   }) {
     return asset?.call(this);
   }
@@ -6887,6 +7458,7 @@ class _$AssetTool extends AssetTool {
     TResult Function(SpacerTool value)? spacer,
     TResult Function(FullScreenTool value)? fullSceen,
     TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
     required TResult orElse(),
   }) {
     if (asset != null) {
@@ -6920,5 +7492,458 @@ abstract class AssetTool extends Tool {
   @override
   @JsonKey(ignore: true)
   _$$AssetToolCopyWith<_$AssetTool> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TextureToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
+  factory _$$TextureToolCopyWith(
+          _$TextureTool value, $Res Function(_$TextureTool) then) =
+      __$$TextureToolCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String name,
+      String displayIcon,
+      bool zoomDependent,
+      double constrainedWidth,
+      double constrainedHeight,
+      double constrainedAspectRatio,
+      SurfaceTexture texture});
+
+  $SurfaceTextureCopyWith<$Res> get texture;
+}
+
+/// @nodoc
+class __$$TextureToolCopyWithImpl<$Res>
+    extends _$ToolCopyWithImpl<$Res, _$TextureTool>
+    implements _$$TextureToolCopyWith<$Res> {
+  __$$TextureToolCopyWithImpl(
+      _$TextureTool _value, $Res Function(_$TextureTool) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? displayIcon = null,
+    Object? zoomDependent = null,
+    Object? constrainedWidth = null,
+    Object? constrainedHeight = null,
+    Object? constrainedAspectRatio = null,
+    Object? texture = null,
+  }) {
+    return _then(_$TextureTool(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      displayIcon: null == displayIcon
+          ? _value.displayIcon
+          : displayIcon // ignore: cast_nullable_to_non_nullable
+              as String,
+      zoomDependent: null == zoomDependent
+          ? _value.zoomDependent
+          : zoomDependent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      constrainedWidth: null == constrainedWidth
+          ? _value.constrainedWidth
+          : constrainedWidth // ignore: cast_nullable_to_non_nullable
+              as double,
+      constrainedHeight: null == constrainedHeight
+          ? _value.constrainedHeight
+          : constrainedHeight // ignore: cast_nullable_to_non_nullable
+              as double,
+      constrainedAspectRatio: null == constrainedAspectRatio
+          ? _value.constrainedAspectRatio
+          : constrainedAspectRatio // ignore: cast_nullable_to_non_nullable
+              as double,
+      texture: null == texture
+          ? _value.texture
+          : texture // ignore: cast_nullable_to_non_nullable
+              as SurfaceTexture,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SurfaceTextureCopyWith<$Res> get texture {
+    return $SurfaceTextureCopyWith<$Res>(_value.texture, (value) {
+      return _then(_value.copyWith(texture: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$TextureTool extends TextureTool {
+  _$TextureTool(
+      {this.name = '',
+      this.displayIcon = '',
+      this.zoomDependent = true,
+      this.constrainedWidth = 0,
+      this.constrainedHeight = 0,
+      this.constrainedAspectRatio = 0,
+      this.texture = const SurfaceTexture.pattern(),
+      final String? $type})
+      : $type = $type ?? 'texture',
+        super._();
+
+  factory _$TextureTool.fromJson(Map<String, dynamic> json) =>
+      _$$TextureToolFromJson(json);
+
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String displayIcon;
+  @override
+  @JsonKey()
+  final bool zoomDependent;
+  @override
+  @JsonKey()
+  final double constrainedWidth;
+  @override
+  @JsonKey()
+  final double constrainedHeight;
+  @override
+  @JsonKey()
+  final double constrainedAspectRatio;
+  @override
+  @JsonKey()
+  final SurfaceTexture texture;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Tool.texture(name: $name, displayIcon: $displayIcon, zoomDependent: $zoomDependent, constrainedWidth: $constrainedWidth, constrainedHeight: $constrainedHeight, constrainedAspectRatio: $constrainedAspectRatio, texture: $texture)';
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TextureToolCopyWith<_$TextureTool> get copyWith =>
+      __$$TextureToolCopyWithImpl<_$TextureTool>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon) hand,
+    required TResult Function(String name, String displayIcon,
+            List<PadElement> elements, List<Area> areas)
+        import,
+    required TResult Function(String name, String displayIcon) undo,
+    required TResult Function(String name, String displayIcon) redo,
+    required TResult Function(String name, String displayIcon, LabelMode mode,
+            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+        label,
+    required TResult Function(String name, String displayIcon,
+            bool zoomDependent, PenProperty property)
+        pen,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        eraser,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        pathEraser,
+    required TResult Function(
+            String name, String displayIcon, double strokeWidth)
+        layer,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)
+        area,
+    required TResult Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)
+        laser,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)
+        shape,
+    required TResult Function(
+            String name, String displayIcon, PackAssetLocation component)
+        stamp,
+    required TResult Function(String name, String displayIcon) presentation,
+    required TResult Function(String name, String displayIcon, Axis2D axis)
+        spacer,
+    required TResult Function(String name, String displayIcon) fullSceen,
+    required TResult Function(
+            String name, String displayIcon, ImportType importType)
+        asset,
+    required TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)
+        texture,
+  }) {
+    return texture(name, displayIcon, zoomDependent, constrainedWidth,
+        constrainedHeight, constrainedAspectRatio, this.texture);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon)? hand,
+    TResult? Function(String name, String displayIcon,
+            List<PadElement> elements, List<Area> areas)?
+        import,
+    TResult? Function(String name, String displayIcon)? undo,
+    TResult? Function(String name, String displayIcon)? redo,
+    TResult? Function(String name, String displayIcon, LabelMode mode,
+            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult? Function(String name, String displayIcon, bool zoomDependent,
+            PenProperty property)?
+        pen,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        eraser,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        pathEraser,
+    TResult? Function(String name, String displayIcon, double strokeWidth)?
+        layer,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult? Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)?
+        laser,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult? Function(
+            String name, String displayIcon, PackAssetLocation component)?
+        stamp,
+    TResult? Function(String name, String displayIcon)? presentation,
+    TResult? Function(String name, String displayIcon, Axis2D axis)? spacer,
+    TResult? Function(String name, String displayIcon)? fullSceen,
+    TResult? Function(String name, String displayIcon, ImportType importType)?
+        asset,
+    TResult? Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
+  }) {
+    return texture?.call(name, displayIcon, zoomDependent, constrainedWidth,
+        constrainedHeight, constrainedAspectRatio, this.texture);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon)? hand,
+    TResult Function(String name, String displayIcon, List<PadElement> elements,
+            List<Area> areas)?
+        import,
+    TResult Function(String name, String displayIcon)? undo,
+    TResult Function(String name, String displayIcon)? redo,
+    TResult Function(String name, String displayIcon, LabelMode mode,
+            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+        label,
+    TResult Function(String name, String displayIcon, bool zoomDependent,
+            PenProperty property)?
+        pen,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        eraser,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        pathEraser,
+    TResult Function(String name, String displayIcon, double strokeWidth)?
+        layer,
+    TResult Function(
+            String name,
+            String displayIcon,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            bool askForName)?
+        area,
+    TResult Function(String name, String displayIcon, double duration,
+            double strokeWidth, double thinning, int color)?
+        laser,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            ShapeProperty property)?
+        shape,
+    TResult Function(
+            String name, String displayIcon, PackAssetLocation component)?
+        stamp,
+    TResult Function(String name, String displayIcon)? presentation,
+    TResult Function(String name, String displayIcon, Axis2D axis)? spacer,
+    TResult Function(String name, String displayIcon)? fullSceen,
+    TResult Function(String name, String displayIcon, ImportType importType)?
+        asset,
+    TResult Function(
+            String name,
+            String displayIcon,
+            bool zoomDependent,
+            double constrainedWidth,
+            double constrainedHeight,
+            double constrainedAspectRatio,
+            SurfaceTexture texture)?
+        texture,
+    required TResult orElse(),
+  }) {
+    if (texture != null) {
+      return texture(name, displayIcon, zoomDependent, constrainedWidth,
+          constrainedHeight, constrainedAspectRatio, this.texture);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SelectTool value) select,
+    required TResult Function(HandTool value) hand,
+    required TResult Function(ImportTool value) import,
+    required TResult Function(UndoTool value) undo,
+    required TResult Function(RedoTool value) redo,
+    required TResult Function(LabelTool value) label,
+    required TResult Function(PenTool value) pen,
+    required TResult Function(EraserTool value) eraser,
+    required TResult Function(PathEraserTool value) pathEraser,
+    required TResult Function(LayerTool value) layer,
+    required TResult Function(AreaTool value) area,
+    required TResult Function(LaserTool value) laser,
+    required TResult Function(ShapeTool value) shape,
+    required TResult Function(StampTool value) stamp,
+    required TResult Function(PresentationTool value) presentation,
+    required TResult Function(SpacerTool value) spacer,
+    required TResult Function(FullScreenTool value) fullSceen,
+    required TResult Function(AssetTool value) asset,
+    required TResult Function(TextureTool value) texture,
+  }) {
+    return texture(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SelectTool value)? select,
+    TResult? Function(HandTool value)? hand,
+    TResult? Function(ImportTool value)? import,
+    TResult? Function(UndoTool value)? undo,
+    TResult? Function(RedoTool value)? redo,
+    TResult? Function(LabelTool value)? label,
+    TResult? Function(PenTool value)? pen,
+    TResult? Function(EraserTool value)? eraser,
+    TResult? Function(PathEraserTool value)? pathEraser,
+    TResult? Function(LayerTool value)? layer,
+    TResult? Function(AreaTool value)? area,
+    TResult? Function(LaserTool value)? laser,
+    TResult? Function(ShapeTool value)? shape,
+    TResult? Function(StampTool value)? stamp,
+    TResult? Function(PresentationTool value)? presentation,
+    TResult? Function(SpacerTool value)? spacer,
+    TResult? Function(FullScreenTool value)? fullSceen,
+    TResult? Function(AssetTool value)? asset,
+    TResult? Function(TextureTool value)? texture,
+  }) {
+    return texture?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SelectTool value)? select,
+    TResult Function(HandTool value)? hand,
+    TResult Function(ImportTool value)? import,
+    TResult Function(UndoTool value)? undo,
+    TResult Function(RedoTool value)? redo,
+    TResult Function(LabelTool value)? label,
+    TResult Function(PenTool value)? pen,
+    TResult Function(EraserTool value)? eraser,
+    TResult Function(PathEraserTool value)? pathEraser,
+    TResult Function(LayerTool value)? layer,
+    TResult Function(AreaTool value)? area,
+    TResult Function(LaserTool value)? laser,
+    TResult Function(ShapeTool value)? shape,
+    TResult Function(StampTool value)? stamp,
+    TResult Function(PresentationTool value)? presentation,
+    TResult Function(SpacerTool value)? spacer,
+    TResult Function(FullScreenTool value)? fullSceen,
+    TResult Function(AssetTool value)? asset,
+    TResult Function(TextureTool value)? texture,
+    required TResult orElse(),
+  }) {
+    if (texture != null) {
+      return texture(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TextureToolToJson(
+      this,
+    );
+  }
+}
+
+abstract class TextureTool extends Tool {
+  factory TextureTool(
+      {final String name,
+      final String displayIcon,
+      final bool zoomDependent,
+      final double constrainedWidth,
+      final double constrainedHeight,
+      final double constrainedAspectRatio,
+      final SurfaceTexture texture}) = _$TextureTool;
+  TextureTool._() : super._();
+
+  factory TextureTool.fromJson(Map<String, dynamic> json) =
+      _$TextureTool.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get displayIcon;
+  bool get zoomDependent;
+  double get constrainedWidth;
+  double get constrainedHeight;
+  double get constrainedAspectRatio;
+  SurfaceTexture get texture;
+  @override
+  @JsonKey(ignore: true)
+  _$$TextureToolCopyWith<_$TextureTool> get copyWith =>
       throw _privateConstructorUsedError;
 }

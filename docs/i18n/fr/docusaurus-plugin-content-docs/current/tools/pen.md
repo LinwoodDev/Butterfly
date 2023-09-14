@@ -1,11 +1,11 @@
 ---
-title: "Peintre stylo"
+title: "Outil stylo"
 sidebar_label: "Stylo"
 sidebar_position: 2
 ---
 
 
-Avec ce peintre vous pouvez dessiner sur ce papier.
+Avec cet outil, vous pouvez dessiner sur ce papier.
 
 ## Configuration
 

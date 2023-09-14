@@ -1,5 +1,6 @@
 ---
-title: Stratul
+title: "Instrument de nivel"
+sidebar_label: "Stratul"
 ---
 
 Cu acest instrument puteţi schimba stratul de obiecte multiple. Citește mai multe despre straturile [aici](../layers.md). Când faceţi clic pe un obiect, stratul obiectului va fi schimbat în stratul setat în configurare. Lăsând câmpul de strat gol va seta stratul la nivelul implicit.

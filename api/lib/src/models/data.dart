@@ -25,7 +25,13 @@ class NoteData {
     _controller.add(this);
   }
 
-  factory NoteData.fromData(Uint8List data) => noteDataMigrator(data);
+  factory NoteData.fromData(Uint8List data, {bool disableMigrations = false}) {
+    if (disableMigrations) {
+      final archive = ZipDecoder().decodeBytes(data);
+      return NoteData(archive);
+    }
+    return noteDataMigrator(data);
+  }
 
   factory NoteData.fromJson(dynamic json) => NoteData.fromData(
         base64Decode(json as String),
@@ -360,6 +366,15 @@ class NoteData {
 
   void removeStyle(String name) =>
       removeAsset('$kStylesArchiveDirectory/$name.json');
+
+  PackAssetLocation findStyle() {
+    for (final pack in getPacks()) {
+      final styles = getPack(pack)?.getStyles();
+      if (styles?.isEmpty ?? true) continue;
+      return PackAssetLocation(pack, styles!.first);
+    }
+    return PackAssetLocation.empty;
+  }
 
   Iterable<String> getPalettes() => getAssets(kPalettesArchiveDirectory, true);
 

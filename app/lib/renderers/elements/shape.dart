@@ -11,14 +11,6 @@ class ShapeRenderer extends Renderer<ShapeElement> {
       NoteData document, AssetService assetService, DocumentPage page) async {
     _updateRect();
     await super.setup(document, assetService, page);
-    _updateRect();
-  }
-
-  @override
-  FutureOr<bool> onAreaUpdate(DocumentPage page, Area? area) async {
-    await super.onAreaUpdate(page, area);
-    _updateRect();
-    return true;
   }
 
   void _updateRect() {
@@ -89,7 +81,8 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     ..strokeJoin = StrokeJoin.round;
 
   @override
-  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
+  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
+      Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     final shape = element.property.shape;
     final strokeWidth = element.property.strokeWidth;

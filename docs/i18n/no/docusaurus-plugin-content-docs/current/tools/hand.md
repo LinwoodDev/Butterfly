@@ -1,7 +1,7 @@
 ---
-title: "Hånd"
+title: "Håndverktøy"
 sidebar_label: "Hånd"
 ---
 
 
-Med dette verktøyet kan du velge elementer og få tilgang til menyen [sett inn menyen](../insert).
+Med dette verktøyet kan du flytte på siden.

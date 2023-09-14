@@ -7,6 +7,7 @@ import 'dart:ui' as ui;
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/confirmation.dart';
+import 'package:butterfly/helpers/color_helper.dart';
 import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -29,14 +30,14 @@ import '../dialogs/svg_export.dart';
 
 class ImportService {
   final DocumentBloc? bloc;
-  final CurrentIndexCubit? currentIndexCubit;
   final BuildContext context;
 
-  ImportService(this.context, [this.bloc, this.currentIndexCubit]);
+  ImportService(this.context, [this.bloc]);
 
   DocumentLoadSuccess? _getState() => bloc?.state is DocumentLoadSuccess
       ? (bloc?.state as DocumentLoadSuccess)
       : null;
+  CurrentIndexCubit? get currentIndexCubit => _getState()?.currentIndexCubit;
   DocumentFileSystem getFileSystem() => context.read<DocumentFileSystem>();
   TemplateFileSystem getTemplateFileSystem() =>
       context.read<TemplateFileSystem>();
@@ -66,11 +67,21 @@ class ImportService {
       return data;
     }
     if (type.isEmpty) type = 'note';
-    final fileType = type.isNotEmpty
-        ? AssetFileType.values.byName(type)
-        : location?.fileType;
-    if (bytes == null || fileType == null) return null;
-    return import(fileType, bytes, document);
+    AssetFileType? fileType;
+    try {
+      fileType = type.isNotEmpty
+          ? AssetFileType.values.byName(type)
+          : location?.fileType;
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
+      return null;
+    }
+    if (bytes == null) return null;
+    return import(fileType ?? AssetFileType.note, bytes, document);
   }
 
   Future<NoteData?> import(
@@ -83,6 +94,8 @@ class ImportService {
         return importImage(bytes, document, position);
       case AssetFileType.svg:
         return importSvg(bytes, document, position);
+      case AssetFileType.markdown:
+        return importMarkdown(bytes, document, position);
       case AssetFileType.pdf:
         return importPdf(bytes, document, position, true);
       case AssetFileType.page:
@@ -154,12 +167,25 @@ class ImportService {
     final areas = page.areas
         .map((e) => e.copyWith(position: e.position + firstPos.toPoint()))
         .toList();
+    String loadAsset(Uri source, String fileExtension) {
+      final data = source.data?.contentAsBytes();
+      if (data == null) return source.toString();
+      return document.addImage(data, fileExtension);
+    }
+
     final content = page.content
         .map((e) =>
             Renderer.fromInstance(e)
                 .transform(position: firstPos, relative: true)
                 ?.element ??
             e)
+        .map((e) => e.maybeMap(
+              image: (e) =>
+                  e.copyWith(source: loadAsset(Uri.parse(e.source), 'png')),
+              svg: (e) =>
+                  e.copyWith(source: loadAsset(Uri.parse(e.source), 'svg')),
+              orElse: () => e,
+            ))
         .toList();
     return _submit(document,
         elements: content, areas: areas, choosePosition: position == null);
@@ -303,6 +329,37 @@ class ImportService {
     return null;
   }
 
+  Future<NoteData?> importMarkdown(Uint8List bytes, NoteData document,
+      [Offset? position]) async {
+    try {
+      final firstPos = position ?? Offset.zero;
+      final contentString = String.fromCharCodes(bytes);
+      final styleSheet = document.findStyle();
+      final state = _getState();
+      final background =
+          state?.page.backgrounds.firstOrNull?.defaultColor ?? kColorWhite;
+      final foreground =
+          isDarkColor(Color(background)) ? kColorWhite : kColorBlack;
+      return _submit(document,
+          elements: [
+            MarkdownElement(
+              position: firstPos.toPoint(),
+              text: contentString,
+              styleSheet: styleSheet,
+              foreground: foreground,
+            ),
+          ],
+          choosePosition: position == null);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            UnknownImportConfirmationDialog(message: e.toString()),
+      );
+    }
+    return null;
+  }
+
   Future<NoteData?> importPdf(Uint8List bytes, NoteData document,
       [Offset? position, bool createAreas = false]) async {
     try {
@@ -419,7 +476,9 @@ class ImportService {
     bool choosePosition = false,
   }) {
     final state = _getState();
-    if (choosePosition && state is DocumentLoadSuccess) {
+    DocumentPage page =
+        state?.page ?? document.getPage() ?? DocumentDefaults.createPage();
+    if (choosePosition && state != null) {
       state.currentIndexCubit.changeTemporaryHandler(
           bloc!, ImportTool(elements: elements, areas: areas));
     } else {
@@ -427,7 +486,6 @@ class ImportService {
         ?..add(ElementsCreated(elements))
         ..add(AreasCreated(areas));
     }
-    var page = document.getPage() ?? DocumentDefaults.createPage();
     page = page.copyWith(
       content: [...page.content, ...elements],
       areas: [...page.areas, ...areas],

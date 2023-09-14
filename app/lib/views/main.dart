@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/current_index.dart';
@@ -6,6 +9,7 @@ import 'package:butterfly/cubits/transform.dart';
 import 'package:butterfly/embed/embedding.dart';
 import 'package:butterfly/models/defaults.dart';
 import 'package:butterfly/renderers/renderer.dart';
+import 'package:butterfly/services/export.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/app_bar.dart';
 import 'package:butterfly/views/navigator.dart';
@@ -18,6 +22,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../actions/areas.dart';
@@ -67,6 +72,8 @@ class _ProjectPageState extends State<ProjectPage> {
   CurrentIndexCubit? _currentIndexCubit;
   RemoteStorage? _remote;
   ImportService? _importService;
+  ExportService? _exportService;
+  late final CloseSubscription _closeSubscription;
   final GlobalKey _viewportKey = GlobalKey();
   final _actions = <Type, Action<Intent>>{
     UndoIntent: UndoAction(),
@@ -95,6 +102,7 @@ class _ProjectPageState extends State<ProjectPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _load());
+    _closeSubscription = onPreventClose(context, _preventClose);
   }
 
   @override
@@ -212,7 +220,8 @@ class _ProjectPageState extends State<ProjectPage> {
             CameraViewport.unbaked(UtilitiesRenderer(), backgrounds), null);
         _bloc = DocumentBloc(_currentIndexCubit!, settingsCubit, document!,
             location!, renderers, assetService, page, pageName);
-        _importService = ImportService(context, _bloc, _currentIndexCubit);
+        _importService = ImportService(context, _bloc);
+        _exportService = ExportService(context, _bloc);
       });
     } catch (e, stackTrace) {
       if (kDebugMode) {
@@ -234,6 +243,7 @@ class _ProjectPageState extends State<ProjectPage> {
   void dispose() {
     super.dispose();
     widget.embedding?.handler.unregister();
+    _closeSubscription.dispose();
   }
 
   @override
@@ -263,7 +273,8 @@ class _ProjectPageState extends State<ProjectPage> {
                   value: TemplateFileSystem.fromPlatform(remote: _remote)),
               RepositoryProvider<PackFileSystem>.value(
                   value: PackFileSystem.fromPlatform(remote: _remote)),
-              RepositoryProvider.value(value: _importService!)
+              RepositoryProvider.value(value: _importService!),
+              RepositoryProvider.value(value: _exportService!)
             ],
             child: GestureDetector(
               onTap: () {
@@ -392,6 +403,13 @@ class _ProjectPageState extends State<ProjectPage> {
         },
       ),
     );
+  }
+
+  String? _preventClose() {
+    final currentIndex = _currentIndexCubit?.state;
+    return currentIndex?.saved == SaveState.saved
+        ? null
+        : AppLocalizations.of(context).thereAreUnsavedChanges;
   }
 }
 

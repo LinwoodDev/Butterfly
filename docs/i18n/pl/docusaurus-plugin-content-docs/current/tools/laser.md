@@ -1,11 +1,11 @@
 ---
-title: "Farba laserowa"
+title: "Narzędzie laserowe"
 sidebar_label: "Laser"
 sidebar_position: 3
 ---
 
 
-Dzięki tej farbie możesz tymczasowo narysować ten papier. Po pewnym czasie rysunek zanika. Dodaj nowy rysunek do arkusza, aby go anulować.
+Za pomocą tego narzędzia możesz tymczasowo narysować ten papier. Po pewnym czasie rysunek zanika. Dodaj nowy rysunek do arkusza, aby go anulować.
 
 ## Konfiguracja
 

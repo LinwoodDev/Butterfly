@@ -1,11 +1,11 @@
 ---
-title: "Malířský popisek"
+title: "Nástroj popisku"
 sidebar_label: "Popisek"
 sidebar_position: 6
 ---
 
 
-S tímto malířem můžete přidat text do dokumentu.
+Pomocí tohoto nástroje můžete přidat text do dokumentu.
 
 ## Konfigurace
 

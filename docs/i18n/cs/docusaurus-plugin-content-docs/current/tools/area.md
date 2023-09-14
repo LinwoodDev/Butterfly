@@ -1,9 +1,9 @@
 ---
 sidebar_label: "Oblast:"
-title: "Oblastní malba"
+title: "Nástroj pro oblast"
 ---
 
-Malířský areál umožňuje vytvářet, upravovat a odstranit oblasti.
+Nástroj pro oblast umožňuje vytvářet, upravovat a odstraňovat oblasti.
 
 ## Akce
 

@@ -1,15 +1,15 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'element.dart';
+import 'texture.dart';
 
 part 'background.g.dart';
 part 'background.freezed.dart';
 
 @Freezed(equal: false)
 sealed class Background with _$Background {
-  factory Background.motif({
-    required Motif motif,
-  }) = MotifBackground;
+  factory Background.texture({
+    required SurfaceTexture texture,
+  }) = TextureBackground;
 
   factory Background.image({
     required String source,

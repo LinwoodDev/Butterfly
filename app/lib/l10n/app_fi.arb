@@ -520,5 +520,14 @@
   "paste": "Liitä",
   "ascending": "Nouseva",
   "descending": "Laskeva",
-  "imageScale": "Kuvan mittakaava"
+  "imageScale": "Kuvan mittakaava",
+  "select": "Valitse",
+  "tool": "Työkalu",
+  "texture": "Tekstuuri",
+  "platformTheme": "Alustan teema",
+  "desktop": "Työpöytä",
+  "mobile": "Mobiili",
+  "pdfQuality": "PDF laatu",
+  "surface": "Pinta",
+  "pattern": "Kuvio"
 }

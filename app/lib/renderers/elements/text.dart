@@ -1,37 +1,34 @@
 part of '../renderer.dart';
 
-class TextRenderer extends Renderer<TextElement> {
+abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   @override
   Rect rect = Rect.zero;
   TextPainter? _tp;
-  TextContext? context;
+  LabelContext? get context;
 
-  TextRenderer(super.element, [this.context]);
+  GenericTextRenderer(super.element);
+
+  double get scale => element.scale;
+
+  text.TextParagraph getParagraph(NoteData document);
 
   void _createTool(NoteData document, DocumentPage page) {
-    final paragraph = element.area.paragraph;
-    final style =
-        _getStyle(document).resolveParagraphProperty(paragraph.property) ??
-            const text.DefinedParagraphProperty();
     _tp ??= context?.textPainter ?? TextPainter();
-    _tp?.text = _createParagraphSpan(document, paragraph);
     _tp?.textDirection = TextDirection.ltr;
-    _tp?.textScaleFactor = element.scale;
-    _tp?.textAlign = style.alignment.toFlutter();
-  }
-
-  TextSpan _createParagraphSpan(
-      NoteData document, text.TextParagraph paragraph) {
+    _tp?.textScaleFactor = scale;
+    final paragraph = getParagraph(document);
     final styleSheet = element.styleSheet.resolveStyle(document);
     final style = styleSheet.resolveParagraphProperty(paragraph.property) ??
         const text.DefinedParagraphProperty();
-    return paragraph.map(
+    _tp?.text = paragraph.map(
       text: (p) => TextSpan(
         children:
             p.textSpans.map((e) => _createSpan(document, e, style)).toList(),
         style: style.span.toFlutter(null, element.foreground),
       ),
     );
+    _tp?.textAlign = style.alignment.toFlutter();
+    _tp?.layout(maxWidth: element.getMaxWidth(area));
   }
 
   text.TextStyleSheet? _getStyle(NoteData document) =>
@@ -51,21 +48,20 @@ class TextRenderer extends Renderer<TextElement> {
   FutureOr<void> setup(
       NoteData document, AssetService assetService, DocumentPage page) async {
     _createTool(document, page);
-    _updateRect();
     await super.setup(document, assetService, page);
-    _updateRect();
+    _updateRect(document);
   }
 
   @override
-  FutureOr<bool> onAreaUpdate(DocumentPage page, Area? area) async {
-    if (context != null) {
-      await super.onAreaUpdate(page, area);
-    }
-    _updateRect();
+  FutureOr<bool> onAreaUpdate(
+      NoteData document, DocumentPage page, Area? area) async {
+    _updateRect(document);
+    await super.onAreaUpdate(document, page, area);
+    _updateRect(document);
     return true;
   }
 
-  void _updateRect() {
+  void _updateRect(NoteData document) {
     _tp?.layout(maxWidth: element.getMaxWidth(area));
     rect = Rect.fromLTWH(element.position.x, element.position.y,
         _tp?.width ?? 0, element.getHeight(_tp?.height ?? 0));
@@ -79,11 +75,62 @@ class TextRenderer extends Renderer<TextElement> {
     _tp?.paint(canvas, element.getOffset(rect.height).toOffset());
   }
 
-  @override
-  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
-    if (!rect.overlaps(rect)) return;
-    // TODO: implement buildSvg
+  String _convertTextToHtml(String inputText) {
+    // Escape HTML tags
+    inputText = inputText.replaceAll('&', '&amp;');
+    inputText = inputText.replaceAll('<', '&lt;');
+    inputText = inputText.replaceAll('>', '&gt;');
+    inputText = inputText.replaceAll('"', '&quot;');
+    inputText = inputText.replaceAll("'", '&#x27;');
+    // Replace newline characters with <br> tags
+    inputText = inputText.replaceAll('\n', '<br>');
+
+    return inputText;
   }
+
+  @override
+  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
+      Rect viewportRect) {
+    final svg = xml.getElement('svg');
+    if (!rect.overlaps(rect) || svg == null) return;
+    final paragraph = getParagraph(document);
+
+    _tp?.layout(maxWidth: rect.width);
+    final styles = element.styleSheet.resolveStyle(document);
+    final textElement = svg.createElement('text', attributes: {
+      'x': '${rect.left}px',
+      'y': '${rect.top}px',
+      'width': '${rect.width}px',
+      'height': '${rect.height}px',
+    });
+    final paragraphStyle = styles.resolveParagraphProperty(paragraph.property);
+    textElement.setAttribute(
+      'text-anchor',
+      paragraphStyle?.alignment.name,
+    );
+    // Add spans as html elements
+    for (final span in paragraph.textSpans) {
+      final style = styles.resolveSpanProperty(span.property);
+      final spanElement = textElement.createElement('tspan')
+        ..setAttribute('style', style?.toCss())
+        ..innerText = _convertTextToHtml(span.text);
+      textElement.children.add(spanElement);
+    }
+  }
+
+  @override
+  void dispose() {
+    if (context == null) _tp?.dispose();
+  }
+
+  InlineSpan? get span => _tp?.text;
+}
+
+class TextRenderer extends GenericTextRenderer<TextElement> {
+  @override
+  final TextContext? context;
+
+  TextRenderer(super.element, [this.context]);
 
   @override
   TextRenderer _transform({
@@ -104,5 +151,9 @@ class TextRenderer extends Renderer<TextElement> {
     if (context == null) _tp?.dispose();
   }
 
+  @override
   InlineSpan? get span => _tp?.text;
+
+  @override
+  text.TextParagraph getParagraph(NoteData document) => element.area.paragraph;
 }

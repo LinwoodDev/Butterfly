@@ -9,7 +9,7 @@ const kFileVersion = 10;
 const kBreakingChangesVersion = 7;
 
 @freezed
-class FileMetadata with _$FileMetadata {
+sealed class FileMetadata with _$FileMetadata {
   const factory FileMetadata({
     int? fileVersion,
     required NoteFileType type,

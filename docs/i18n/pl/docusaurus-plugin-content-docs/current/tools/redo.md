@@ -1,13 +1,13 @@
 ---
-title: "Powtórz malarz"
+title: "Ponowne wykonanie narzędzia"
 sidebar_label: "Ponów"
 sidebar_position: 0
 ---
 
-::note ⚡ Tablica akcji
+::note ⚡ Narzędzie akcji
 
-Jest to szczególny malarz. Nie możesz go wybrać i uruchomi akcję, jeśli klikniesz na nią.
+To specjalne narzędzie. Nie możesz go wybrać i uruchomi akcję, jeśli klikniesz na nią.
 
 :::
 
-Po kliknięciu tej farby można powtórzyć ostatnią czynność. Zobacz [cofnij farbę](undo) aby cofnąć ostatnią akcję.
+Po kliknięciu na to narzędzie możesz powtórzyć swoją ostatnią czynność. Zobacz narzędzie [cofnij](undo) aby cofnąć ostatnią akcję.

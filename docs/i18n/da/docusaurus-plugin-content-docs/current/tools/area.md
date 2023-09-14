@@ -1,9 +1,9 @@
 ---
 sidebar_label: "Område"
-title: "Område maler"
+title: "Areal værktøj"
 ---
 
-Området maler giver dig mulighed for at oprette, redigere og fjerne områder.
+Området værktøj giver dig mulighed for at oprette, redigere og fjerne områder.
 
 ## Handlinger
 

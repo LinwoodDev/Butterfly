@@ -517,9 +517,22 @@
   "cut": "Cut",
   "insertBefore": "Insert before",
   "insertAfter": "Insert after",
+  "insertFirst": "Insert first",
+  "insertLast": "Insert last",
   "paste": "Paste",
   "ascending": "Ascending",
   "descending": "Descending",
   "imageScale": "Image scale",
-  "select": "Select"
+  "select": "Select",
+  "tool": "Tool",
+  "texture": "Texture",
+  "platformTheme": "Platform theme",
+  "desktop": "Desktop",
+  "mobile": "Mobile",
+  "pdfQuality": "PDF quality",
+  "surface": "Surface",
+  "pattern": "Pattern",
+  "sureClose": "Are you sure you want to close the document?",
+  "thereAreUnsavedChanges": "There are unsaved changes",
+  "page": "Page"
 }

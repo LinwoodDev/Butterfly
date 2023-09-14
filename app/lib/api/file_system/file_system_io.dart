@@ -48,7 +48,8 @@ class IODocumentFileSystem extends DocumentFileSystem {
   }
 
   @override
-  Future<AppDocumentEntity?> getAsset(String path) async {
+  Future<AppDocumentEntity?> getAsset(String path,
+      [bool? readMetadata = true]) async {
     // Add leading slash
     if (!path.startsWith('/')) {
       path = '/$path';
@@ -61,21 +62,24 @@ class IODocumentFileSystem extends DocumentFileSystem {
     if (await file.exists()) {
       var data = await file.readAsBytes();
       try {
-        return AppDocumentFile(AssetLocation.local(path), data);
+        return getAppDocumentFile(AssetLocation.local(path), data,
+            readMetadata: readMetadata ?? true);
       } catch (e) {
         return null;
       }
     } else if (await directory.exists()) {
-      var files = await directory.list().toList();
-      var assets = <AppDocumentEntity>[];
-      for (var file in files) {
+      final files = await directory.list().toList();
+      final assets = <AppDocumentEntity>[];
+      final nextReadMetadata =
+          readMetadata == null || !readMetadata ? false : null;
+      await Future.wait(files.map((e) async {
         try {
           var currentPath =
-              '$path/${file.path.replaceAll('\\', '/').split('/').last}';
+              '$path/${e.path.replaceAll('\\', '/').split('/').last}';
           if (currentPath.startsWith('//')) {
             currentPath = currentPath.substring(1);
           }
-          var asset = await getAsset(currentPath);
+          var asset = await getAsset(currentPath, nextReadMetadata);
           if (asset != null) {
             assets.add(asset);
           }
@@ -84,7 +88,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
             print(e);
           }
         }
-      }
+      }));
       // Sort assets, AppDocumentDirectory should be first, AppDocumentFile should be sorted by name
       assets.sort((a, b) => a is AppDocumentDirectory
           ? -1
@@ -110,7 +114,7 @@ class IODocumentFileSystem extends DocumentFileSystem {
     }
     await file.writeAsBytes(data, flush: true);
 
-    return AppDocumentFile(AssetLocation.local(path), data);
+    return getAppDocumentFile(AssetLocation.local(path), data);
   }
 
   @override

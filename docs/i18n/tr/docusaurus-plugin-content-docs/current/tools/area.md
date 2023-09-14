@@ -1,9 +1,9 @@
 ---
 sidebar_label: "Alan"
-title: "Alan oluşturma aracı"
+title: "Area tool"
 ---
 
-Alan oluşturma aracı, alanlar oluşturmanıza, düzenlemenize ve kaldırmanıza olanak tanır.
+The area tool allows you to create, edit and remove areas.
 
 ## Eylemler
 

@@ -1,7 +1,7 @@
 ---
-title: "Mano"
+title: "Herramienta de mano"
 sidebar_label: "Mano"
 ---
 
 
-Con esta herramienta puede seleccionar elementos y acceder al menú contextual de fondo para acceder al [menú de inserción](../insert).
+Con esta herramienta puedes moverte en la página.

@@ -6,14 +6,16 @@ part of 'background.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$MotifBackground _$$MotifBackgroundFromJson(Map json) => _$MotifBackground(
-      motif: Motif.fromJson(Map<String, dynamic>.from(json['motif'] as Map)),
+_$TextureBackground _$$TextureBackgroundFromJson(Map json) =>
+    _$TextureBackground(
+      texture: SurfaceTexture.fromJson(
+          Map<String, dynamic>.from(json['texture'] as Map)),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$MotifBackgroundToJson(_$MotifBackground instance) =>
+Map<String, dynamic> _$$TextureBackgroundToJson(_$TextureBackground instance) =>
     <String, dynamic>{
-      'motif': instance.motif.toJson(),
+      'texture': instance.texture.toJson(),
       'type': instance.$type,
     };
 

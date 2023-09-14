@@ -78,6 +78,8 @@ class _FileEntityListTile extends StatelessWidget {
                               ? Image.memory(
                                   thumbnail!,
                                   fit: BoxFit.cover,
+                                  cacheHeight: 32,
+                                  cacheWidth: 32,
                                   errorBuilder: (context, error, stackTrace) =>
                                       leading,
                                 )
@@ -172,7 +174,6 @@ class _FileEntityListTile extends StatelessWidget {
                           return IconButton(
                             onPressed: () {
                               settingsCubit.toggleStarred(entity.location);
-                              onReload();
                             },
                             icon: starred
                                 ? const PhosphorIcon(PhosphorIconsFill.star)

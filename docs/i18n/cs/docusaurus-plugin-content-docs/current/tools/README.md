@@ -1,20 +1,20 @@
 ---
-title: "Malířské tmely"
+title: "Nástroje a nářadí"
 slug: /tools
 sidebar_label: "Úvod"
 sidebar_position: 1
 ---
 
 
-Tiskárny mohou dokument upravovat.
+Nástroje mohou dokument upravovat.
 
-Pomocí postranního panelu se dozvíte více o malířích.
+Pomocí postranního panelu se dozvíte více o nástrojích.
 
-Vytvořte novou malbu kliknutím na ikonu plus. Změňte pořadí malování přetažením a změňte malbu kliknutím. Pokud klepnete na vybraný malíř, můžete jej nakonfigurovat.
+Vytvořte nový nástroj kliknutím na ikonu plus. Změňte pořadí nástrojů přetažením a změnou nástroje kliknutím. Pokud klepnete na vybraný nástroj, můžete jej nakonfigurovat.
 
-Název malíře se zobrazí jako nápověda při najetí na malíři.
+Název nástroje se zobrazí jako nápověda na nástěnce.
 
-## Dostupné malby
+## Dostupné nástroje
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

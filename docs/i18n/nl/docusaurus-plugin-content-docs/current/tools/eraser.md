@@ -1,5 +1,5 @@
 ---
-title: "Wisser schilder"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Gebruik de [path gum](path_eraser) als dat mogelijk is.
 
 :::
 
-Met deze schilder kun je de elementen op het papier wissen.
+Met dit gereedschap kun je de elementen op het papier wissen.
 
 ## Configuratie
 

@@ -3,7 +3,7 @@ title: "Paket"
 sidebar_position: 2
 ---
 
-En förpackning är en samling komponenter som kan användas i stämpelmålaren. Du kan skapa ditt eget paket eller importera ett befintligt. För detta klicka på det övre vänstra hörnet och klicka på "Paket".
+En förpackning är en samling komponenter som kan användas i stämpelverktyget. Du kan skapa ditt eget paket eller importera ett befintligt. För detta klicka på det övre vänstra hörnet och klicka på "Paket".
 
 ## Egenskaper
 

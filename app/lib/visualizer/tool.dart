@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:butterfly/visualizer/element.dart';
 import 'package:butterfly/visualizer/icon.dart';
 import 'package:butterfly/visualizer/property.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -30,6 +31,7 @@ extension ToolVisualizer on Tool {
       shape: (_) => loc.shape,
       spacer: (_) => loc.spacer,
       stamp: (_) => loc.stamp,
+      texture: (_) => loc.texture,
       presentation: (_) => loc.presentation,
       fullSceen: (_) => loc.fullScreen,
       asset: (tool) => tool.importType.getLocalizedName(context),
@@ -54,6 +56,7 @@ extension ToolVisualizer on Tool {
             ? PhosphorIcons.splitHorizontal
             : PhosphorIcons.splitVertical,
         stamp: (_) => PhosphorIcons.stamp,
+        texture: (tool) => tool.texture.icon,
         presentation: (_) => PhosphorIcons.presentation,
         fullSceen: (_) => PhosphorIcons.arrowsOut,
         asset: (tool) => tool.importType.icon,
@@ -74,6 +77,7 @@ extension ToolVisualizer on Tool {
       hand: (_) => 'hand',
       layer: (_) => 'layer',
       presentation: (_) => 'presentation',
+      fullSceen: (_) => 'full_screen',
     );
     if (page == null) return [];
     return ['tools', page];
@@ -96,6 +100,7 @@ extension ImportTypeVisualizer on ImportType {
         ImportType.pdf => AppLocalizations.of(context).pdf,
         ImportType.svg => AppLocalizations.of(context).svg,
         ImportType.camera => AppLocalizations.of(context).camera,
+        ImportType.markdown => AppLocalizations.of(context).markdown,
       };
 
   IconGetter get icon => switch (this) {
@@ -104,6 +109,7 @@ extension ImportTypeVisualizer on ImportType {
         ImportType.pdf => PhosphorIcons.filePdf,
         ImportType.svg => PhosphorIcons.fileSvg,
         ImportType.camera => PhosphorIcons.camera,
+        ImportType.markdown => PhosphorIcons.textbox,
       };
 
   bool isAvailable() => switch (this) {

@@ -76,23 +76,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         null,
       );
     });
-    on<ViewChanged>((event, emit) async {
-      final current = state;
-      if (current is! DocumentLoadSuccess) return;
-      return _saveState(
-        emit,
-        current.copyWith(
-          info: current.info.copyWith(
-            view: event.view,
-          ),
-        ),
-      );
-    });
-    on<UtilitiesChanged>((event, emit) async {
-      final current = state;
-      if (current is! DocumentLoadSuccess) return;
-      current.currentIndexCubit.updateUtilities(event.state);
-    });
     on<ElementsCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
@@ -641,7 +624,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       _saveState(emit, current.copyWith(page: currentDocument));
       for (var element in current.renderers) {
         final needRepaint = await Future.wait(event.areas.map<Future<bool>>(
-            (area) async => await element.onAreaUpdate(currentDocument, area)));
+            (area) async => await element.onAreaUpdate(
+                current.data, currentDocument, area)));
         if (needRepaint.any((element) => element)) {
           _repaint(emit);
         }
@@ -656,7 +640,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final currentDocument = current.page.copyWith(areas: areas);
       for (var element in current.renderers) {
         if (areas.contains(element.area) &&
-            await element.onAreaUpdate(currentDocument, null)) {
+            await element.onAreaUpdate(current.data, currentDocument, null)) {
           _repaint(emit);
         }
       }
@@ -676,7 +660,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       emit(current.copyWith(page: currentDocument));
       for (var element in current.renderers) {
         if (element.area?.name == event.name) {
-          if (await element.onAreaUpdate(currentDocument, event.area)) {
+          if (await element.onAreaUpdate(
+              current.data, currentDocument, event.area)) {
             _repaint(emit);
           }
         }

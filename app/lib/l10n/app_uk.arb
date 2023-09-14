@@ -520,5 +520,14 @@
   "paste": "Вставити",
   "ascending": "За зростанням",
   "descending": "За спаданням",
-  "imageScale": "Масштаб зображення"
+  "imageScale": "Масштаб зображення",
+  "select": "Вибрати",
+  "tool": "Інструмент",
+  "texture": "Текстура",
+  "platformTheme": "Тема платформи",
+  "desktop": "Стільниця",
+  "mobile": "Мобільний",
+  "pdfQuality": "Якість PDF",
+  "surface": "Поверхня",
+  "pattern": "Графічний ключ"
 }

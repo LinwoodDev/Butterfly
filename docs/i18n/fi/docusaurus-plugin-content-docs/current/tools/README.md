@@ -1,20 +1,20 @@
 ---
-title: "Maalarit"
+title: "Työkalut"
 slug: /tools
 sidebar_label: "Johdanto"
 sidebar_position: 1
 ---
 
 
-Maalarit voivat muokata paperia.
+Työkalut voivat muokata paperia.
 
-Käytä sivupalkkia saadaksesi lisää tietoa maalareista.
+Käytä sivupalkkia saadaksesi lisää tietoa työkaluista.
 
-Luo uusi maalari klikkaamalla plus -kuvaketta. Muuta maalarin tilausta vetämällä ja muuttamalla maalari klikkaamalla. Jos klikkaat valittua maalaria, voit määrittää sen.
+Luo uusi työkalu klikkaamalla plus kuvaketta. Muuta työkalun tilausta vetämällä ja vaihtamalla työkalua klikkaamalla. Jos klikkaat valittua työkalua, voit määrittää sen.
 
-Taidemaalarin nimi näytetään työkaluvihjeenä, kun maalari on kiinnitettynä päällä.
+Työkalun nimi näytetään työkaluvihjeenä sen päällä olevan työkalun kohdalla.
 
-## Saatavilla olevat maalarit
+## Käytettävissä olevat työkalut
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

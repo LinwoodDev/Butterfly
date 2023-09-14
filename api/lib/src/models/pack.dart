@@ -9,7 +9,7 @@ part 'pack.g.dart';
 part 'pack.freezed.dart';
 
 @Freezed(equal: false)
-class ButterflyComponent with _$ButterflyComponent {
+sealed class ButterflyComponent with _$ButterflyComponent {
   const factory ButterflyComponent({
     required String name,
     String? thumbnail,
@@ -21,7 +21,7 @@ class ButterflyComponent with _$ButterflyComponent {
 }
 
 @Freezed(equal: false)
-class ButterflyParameter with _$ButterflyParameter {
+sealed class ButterflyParameter with _$ButterflyParameter {
   const factory ButterflyParameter.text({
     required int child,
     required String name,
@@ -57,7 +57,7 @@ class ButterflyParameter with _$ButterflyParameter {
 }
 
 @freezed
-class PackAssetLocation with _$PackAssetLocation {
+sealed class PackAssetLocation with _$PackAssetLocation {
   const PackAssetLocation._();
   const factory PackAssetLocation([
     @Default('') String pack,
@@ -80,11 +80,6 @@ class PackAssetLocation with _$PackAssetLocation {
 
   PackAssetLocation fixStyle(NoteData document) {
     if (resolveStyle(document) != null) return this;
-    for (final pack in document.getPacks()) {
-      final styles = document.getPack(pack)?.getStyles();
-      if (styles?.isEmpty ?? true) continue;
-      return PackAssetLocation(pack, styles!.first);
-    }
-    return PackAssetLocation.empty;
+    return document.findStyle();
   }
 }

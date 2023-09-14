@@ -1,11 +1,11 @@
 ---
-title: "Lasermalere"
+title: "Laser verktøy"
 sidebar_label: "Laser"
 sidebar_position: 3
 ---
 
 
-Med denne maleren kan du raskt tegne på dette papiret. Etter en stund unngår tegningen seg vekk. Legg til en ny tegning i papiret slik at den blir avbrutt.
+Med dette verktøyet kan du midlertidig tegne det papiret. Etter en stund unngår tegningen seg vekk. Legg til en ny tegning i papiret slik at den blir avbrutt.
 
 ## Konfigurasjon
 

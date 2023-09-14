@@ -1,20 +1,20 @@
 ---
-title: "Maler"
+title: "Werkzeuge"
 slug: /tools
 sidebar_label: "Einführung"
 sidebar_position: 1
 ---
 
 
-Maler können das Papier bearbeiten.
+Werkzeuge können das Papier bearbeiten.
 
-Mit der Sidebar erfahren Sie mehr über die Maler.
+Über die Sidebar erfahren Sie mehr über die Werkzeuge.
 
-Erstellen Sie einen neuen Maler, indem Sie auf das Plus-Symbol klicken. Ändern Sie die Reihenfolge des Malers durch Ziehen und Ändern des Malers durch Anklicken. Wenn Sie auf einen ausgewählten Maler klicken, können Sie ihn konfigurieren.
+Erstellen Sie ein neues Werkzeug, indem Sie auf das Plus-Symbol klicken. Ändern Sie die Werkzeugreihenfolge durch Ziehen und Ändern des Werkzeugs durch Klicken. Wenn Sie auf ein ausgewähltes Werkzeug klicken, können Sie es konfigurieren.
 
-Der Name des Malers wird als Tooltipp beim Schweben auf dem Maler angezeigt.
+Der Name des Werkzeugs wird als Tooltip beim Schweben des Werkzeugs angezeigt.
 
-## Verfügbare Maler
+## Verfügbare Werkzeuge
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

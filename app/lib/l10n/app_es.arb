@@ -520,5 +520,14 @@
   "paste": "Pegar",
   "ascending": "Ascendente",
   "descending": "Descendente",
-  "imageScale": "Escala de imagen"
+  "imageScale": "Escala de imagen",
+  "select": "Seleccionar",
+  "tool": "Herramienta",
+  "texture": "Textura",
+  "platformTheme": "Tema de la plataforma",
+  "desktop": "Escritorio",
+  "mobile": "Móvil",
+  "pdfQuality": "Calidad PDF",
+  "surface": "Superficie",
+  "pattern": "Patrón"
 }

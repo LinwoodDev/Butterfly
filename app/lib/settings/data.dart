@@ -1,5 +1,6 @@
 import 'package:archive/archive.dart';
 import 'package:butterfly/api/file_system/file_system_io.dart';
+import 'package:butterfly/api/save_data.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/widgets/window.dart';
@@ -11,7 +12,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../api/file_system/file_system.dart';
-import '../api/open.dart';
 import '../dialogs/packs/dialog.dart';
 
 class DataSettingsPage extends StatefulWidget {
@@ -118,7 +118,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             final encoder = ZipEncoder();
                             final bytes = encoder.encode(archive);
                             if (bytes != null) {
-                              openZip(bytes);
+                              exportZip(context, bytes);
                             }
                           },
                         ),

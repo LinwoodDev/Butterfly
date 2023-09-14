@@ -520,5 +520,14 @@
   "paste": "Lipește",
   "ascending": "Crescător",
   "descending": "Descrescător",
-  "imageScale": "Scala imaginii"
+  "imageScale": "Scala imaginii",
+  "select": "Selectare",
+  "tool": "Unelte",
+  "texture": "Textură",
+  "platformTheme": "Tema platformei",
+  "desktop": "Birou",
+  "mobile": "Mobil",
+  "pdfQuality": "Calitate PDF",
+  "surface": "Suprafață",
+  "pattern": "Model"
 }

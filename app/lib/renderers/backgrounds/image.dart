@@ -37,7 +37,10 @@ class ImageBackgroundRenderer extends Renderer<ImageBackground> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {}
+  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
+      Rect viewportRect) {
+    // TODO: implement buildSvg
+  }
 
   @override
   FutureOr<void> setup(

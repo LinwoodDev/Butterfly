@@ -1,5 +1,5 @@
 ---
-title: "Malířský malíř"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Pokud je to možné, použijte [vymazání cesty](path_eraser).
 
 :::
 
-S tímto malířem můžete vymazat prvky na papíře.
+Pomocí tohoto nástroje můžete vymazat prvky z dokumentu.
 
 ## Konfigurace
 

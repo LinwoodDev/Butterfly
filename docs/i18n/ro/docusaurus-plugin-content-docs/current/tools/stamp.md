@@ -4,7 +4,7 @@ sidebar_label: "Timbru"
 sidebar_position: 3
 ---
 
-Pictorul de timbru vă permite să adăugați componente la pânza dvs. Folosiți un pachet existent, creați-vă propriul pachet sau importați un pachet pentru a-l folosi. Citește mai multe [aici](../pack).
+Unealta de timbru vă permite să adăugați componente la pânza dvs. Folosiți un pachet existent, creați-vă propriul pachet sau importați un pachet pentru a-l folosi. Citește mai multe [aici](../pack).
 
 ## Configurare
 

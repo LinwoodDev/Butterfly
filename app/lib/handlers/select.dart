@@ -432,11 +432,15 @@ class SelectHandler extends Handler<SelectTool> {
       return;
     }
     final position = context.getCameraTransform().localToGlobal(localPosition);
-    final hits = await rayCast(
-        position, context.getDocumentBloc(), context.getCameraTransform(), 0.0);
+    final bloc = context.getDocumentBloc();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final hits =
+        await rayCast(position, bloc, context.getCameraTransform(), 0.0);
     final hit = hits.firstOrNull;
     final rect = hit?.expandedRect;
-    if ((rect != null && !(getSelectionRect()?.contains(position) ?? false)) &&
+    final selectionRect = getSelectionRect();
+    if ((rect != null && !(selectionRect?.contains(position) ?? false)) &&
         !context.isCtrlPressed) {
       _selected.clear();
       if (hit != null) _selected.add(hit);
@@ -447,16 +451,16 @@ class SelectHandler extends Handler<SelectTool> {
       final result = await showContextMenu<bool>(
         context: buildContext,
         position: localPosition,
-        builder: (ctx) => MultiBlocProvider(
-          providers: context.getProviders(),
-          child: RepositoryProvider.value(
-            value: context.getImportService(),
-            child: Actions(
-              actions: context.getActions(),
-              child:
-                  ElementsDialog(position: localPosition, renderers: _selected),
-            ),
-          ),
+        builder: buildElementsContextMenu(
+          bloc,
+          state,
+          context.getSettingsCubit(),
+          context.getImportService(),
+          context.getExportService(),
+          context.getClipboardManager(),
+          localPosition,
+          _selected,
+          selectionRect,
         ),
       );
       if (result ?? false) {
@@ -520,7 +524,7 @@ class SelectHandler extends Handler<SelectTool> {
     );
     _rulerRotation = currentRotation;
     _rulerPosition = currentPos;
-    context.getCurrentIndexCubit().updateUtilities(utilitiesState);
+    context.getCurrentIndexCubit().updateUtilities(utilities: utilitiesState);
   }
 
   @override
@@ -615,7 +619,7 @@ class SelectHandler extends Handler<SelectTool> {
             : null);
   }
 
-  void copySelection(BuildContext context, [bool cut = false]) {
+  Future<void> copySelection(BuildContext context, [bool cut = false]) async {
     final bloc = context.read<DocumentBloc>();
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
@@ -630,7 +634,7 @@ class SelectHandler extends Handler<SelectTool> {
       type: AssetFileType.page.name,
       data: Uint8List.fromList(
         utf8.encode(
-          json.encode(DocumentPage(
+          json.encode(await DocumentPage(
                   content: _selected
                       .map((e) => (e.transform(
                                 position: -point,
@@ -639,7 +643,7 @@ class SelectHandler extends Handler<SelectTool> {
                               e)
                           .element)
                       .toList())
-              .toJson()),
+              .toDataJson(state.data)),
         ),
       ),
     );

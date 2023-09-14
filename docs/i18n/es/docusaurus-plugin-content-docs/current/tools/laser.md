@@ -1,11 +1,11 @@
 ---
-title: "Pintor láser"
+title: "Herramienta láser"
 sidebar_label: "Láser"
 sidebar_position: 3
 ---
 
 
-Con este pintor puedes dibujar sobre este papel temporalmente. Después de un tiempo, el dibujo se desvanece. Añade un nuevo dibujo al papel para hacerlo cancelar.
+Con esta herramienta se puede dibujar temporalmente sobre este papel. Después de un tiempo, el dibujo se desvanece. Añade un nuevo dibujo al papel para hacerlo cancelar.
 
 ## Configuración
 

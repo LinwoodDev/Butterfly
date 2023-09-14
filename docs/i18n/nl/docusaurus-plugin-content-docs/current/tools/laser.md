@@ -1,11 +1,11 @@
 ---
-title: "Laser schilder"
+title: "Laser gereedschap"
 sidebar_label: "Laser"
 sidebar_position: 3
 ---
 
 
-Met deze schilder kan je tijdelijk op dit papier tekenen. Na een tijdje vervaagt de tekening. Voeg een nieuwe tekening toe aan het papier om het te annuleren.
+Met dit gereedschap kun je tijdelijk op dit papier tekenen. Na een tijdje vervaagt de tekening. Voeg een nieuwe tekening toe aan het papier om het te annuleren.
 
 ## Configuratie
 

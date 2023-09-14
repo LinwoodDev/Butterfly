@@ -1,11 +1,11 @@
 ---
-title: "Peintre d'étiquette"
+title: "Outil d'étiquette"
 sidebar_label: "Étiquette"
 sidebar_position: 6
 ---
 
 
-Avec ce peintre vous pouvez ajouter du texte au papier.
+Avec cet outil, vous pouvez ajouter du texte au papier.
 
 ## Configuration
 

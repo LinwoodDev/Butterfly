@@ -1,11 +1,11 @@
 ---
-title: "Pictor laser"
+title: "Instrument laser"
 sidebar_label: "Laser"
 sidebar_position: 3
 ---
 
 
-Cu acest pictor puteţi desena temporar pe acest hârtie. După o vreme, desenul dispare. Adaugă un desen nou pe hârtie pentru a-l anula.
+Cu acest instrument puteţi desena temporar pe acest hârtie. După o vreme, desenul dispare. Adaugă un desen nou pe hârtie pentru a-l anula.
 
 ## Configurare
 

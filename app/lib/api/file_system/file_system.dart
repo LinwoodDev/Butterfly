@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:archive/archive.dart';
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -55,6 +56,43 @@ abstract class GeneralFileSystem {
   FutureOr<String> getDirectory() {
     return '/';
   }
+}
+
+(FileMetadata?, Uint8List?) _getFileDisplay(List<int> data) {
+  FileMetadata? metadata;
+  Uint8List? thumbnail;
+  try {
+    final archive = ZipDecoder().decodeBytes(data);
+
+    try {
+      final file = archive.findFile(kMetaArchiveFile);
+      if (file != null) {
+        final content = file.content as String;
+        metadata = FileMetadata.fromJson(jsonDecode(content));
+      }
+    } catch (_) {}
+
+    try {
+      final file = archive.findFile(kThumbnailArchiveFile);
+      thumbnail = file?.content;
+    } catch (_) {}
+  } catch (_) {}
+
+  return (metadata, thumbnail);
+}
+
+Future<AppDocumentFile> getAppDocumentFile(
+    AssetLocation location, List<int> data,
+    {bool cached = false, bool readMetadata = true}) async {
+  final (metadata, thumbnail) =
+      readMetadata ? await compute(_getFileDisplay, data) : (null, null);
+  return AppDocumentFile(
+    location,
+    data,
+    metadata: metadata,
+    thumbnail: thumbnail,
+    cached: cached,
+  );
 }
 
 abstract class DocumentFileSystem extends GeneralFileSystem {

@@ -1,7 +1,11 @@
 part of 'renderer.dart';
 
 class UtilitiesRenderer extends Renderer<UtilitiesState> {
-  UtilitiesRenderer([super.element = const UtilitiesState()]);
+  final ViewOption option;
+
+  UtilitiesRenderer(
+      [super.element = const UtilitiesState(),
+      this.option = const ViewOption()]);
 
   Rect getRulerRect(Size size) {
     const rulerSize = 100.0;
@@ -29,7 +33,6 @@ class UtilitiesRenderer extends Renderer<UtilitiesState> {
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    final option = info.view;
     if (element.gridEnabled) {
       if (option.gridXSize > 0) {
         double x = 0;
@@ -119,7 +122,7 @@ class UtilitiesRenderer extends Renderer<UtilitiesState> {
           rulerForegroundPaint,
         );
         /*if (realX >= 0 && realX < size.width) {
-          final textPainter = TextTool(
+          final textPainter = TextPainter(
             textDirection: TextDirection.ltr,
             textAlign: TextAlign.center,
             text: TextSpan(

@@ -1,11 +1,11 @@
 ---
-title: "Pfadlöschermaler"
+title: "Pfadlöscherwerkzeug"
 sidebar_label: "Pfadlöscher"
 sidebar_position: 5
 ---
 
 
-Mit diesem Maler können Sie den gesamten Pfad auf dem Papier löschen.
+Mit diesem Tool können Sie den gesamten Pfad auf dem Papier löschen.
 
 ## Konfiguration
 

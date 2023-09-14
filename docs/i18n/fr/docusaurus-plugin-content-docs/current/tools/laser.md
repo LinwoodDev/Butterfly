@@ -1,11 +1,11 @@
 ---
-title: "Peintre laser"
+title: "Outil laser"
 sidebar_label: "Laser"
 sidebar_position: 3
 ---
 
 
-Avec ce peintre vous pouvez dessiner temporairement ce papier. Après un certain temps, le dessin s'estompe. Ajouter un nouveau dessin au papier pour l'annuler.
+Grâce à cet outil, vous pouvez dessiner temporairement ce document. Après un certain temps, le dessin s'estompe. Ajouter un nouveau dessin au papier pour l'annuler.
 
 ## Configuration
 

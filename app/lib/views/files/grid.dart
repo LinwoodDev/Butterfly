@@ -72,6 +72,7 @@ class _FileEntityGridItem extends StatelessWidget {
             children: [
               SizedBox(
                 height: 64,
+                width: 64,
                 child: thumbnail != null
                     ? Image.memory(
                         thumbnail!,
@@ -225,7 +226,6 @@ class _FileEntityGridItem extends StatelessWidget {
                               return MenuItemButton(
                                 onPressed: () {
                                   settingsCubit.toggleStarred(entity.location);
-                                  onReload();
                                 },
                                 leadingIcon: starred
                                     ? const PhosphorIcon(PhosphorIconsFill.star)

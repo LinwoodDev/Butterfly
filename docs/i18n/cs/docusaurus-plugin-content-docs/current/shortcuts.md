@@ -27,13 +27,13 @@ Existuje několik zkratek, které můžete použít v editoru. Některé z nich 
 * `Ctrl` + `Shift` + `A`: dialogové okno
 * `Ctrl` + `S`: Uložit
 * `Alt` + `S`: Změna cesty
-* `Ctrl` + (`1` - `0`) ): Přepnout na malování
+* `Ctrl` + (`1` - `0`): Přepnout na nástroj
 
 ## Stylus
 
 * `Primární tlačítko`: Přepnout na ruční nástroj
-* `Sekundární tlačítko`: Změnit na druhou malbu
+* `Sekundární tlačítko`: Změnit na druhý nástroj
 
 ## Konfigurace {#configure}
 
-Přizpůsobte si ovládací prvky tak, že každý ovládací prvek dá malířský index. Index malby začíná v 1 a je seřazen zleva doprava. Prázdný index malířů zakáže přepínač malířů na tomto ovládání. Vložte `0` pro povolení pohybu s tímto ovládáním.
+Přizpůsobte si ovládací prvky zadáním každého ovládání indexu nástrojů. Index nástroje začíná v 1 a je seřazen zleva doprava. Prázdný index nástroje zakáže přepínač nástrojů na tomto ovládání. Vložte `0` pro povolení pohybu s tímto ovládáním.

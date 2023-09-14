@@ -520,5 +520,14 @@
   "paste": "لصق",
   "ascending": "تصاعدي",
   "descending": "تنازلي",
-  "imageScale": "حجم الصورة"
+  "imageScale": "حجم الصورة",
+  "select": "حدد",
+  "tool": "أداة",
+  "texture": "نسيج",
+  "platformTheme": "موضوع المنصة",
+  "desktop": "سطح المكتب",
+  "mobile": "الجوال",
+  "pdfQuality": "جودة PDF",
+  "surface": "السطح",
+  "pattern": "النمط"
 }

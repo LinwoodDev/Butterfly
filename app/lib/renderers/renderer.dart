@@ -23,13 +23,15 @@ import '../cubits/transform.dart';
 import '../helpers/xml_helper.dart';
 import '../models/label.dart';
 import '../services/asset.dart';
+import 'textures/texture.dart';
 
-part 'backgrounds/box.dart';
+part 'backgrounds/texture.dart';
 part 'backgrounds/empty.dart';
 part 'backgrounds/image.dart';
 part 'elements/image.dart';
 part 'elements/markdown.dart';
 part 'elements/text.dart';
+part 'elements/texture.dart';
 part 'elements/path.dart';
 part 'elements/pen.dart';
 part 'elements/shape.dart';
@@ -68,7 +70,8 @@ abstract class Renderer<T> {
   void _updateArea(DocumentPage page) => area = rect == null
       ? null
       : page.areas.firstWhereOrNull((area) => area.rect.overlaps(rect!));
-  FutureOr<bool> onAreaUpdate(DocumentPage page, Area? area) async {
+  FutureOr<bool> onAreaUpdate(
+      NoteData document, DocumentPage page, Area? area) async {
     if (area?.rect.overlaps(rect!) ?? false) {
       this.area = area;
     }
@@ -101,7 +104,8 @@ abstract class Renderer<T> {
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]);
   HitCalculator getHitCalculator() => DefaultHitCalculator(expandedRect);
-  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {}
+  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
+      Rect viewportRect) {}
   factory Renderer.fromInstance(T element) {
     // Elements
     if (element is PadElement) {
@@ -112,13 +116,14 @@ abstract class Renderer<T> {
         svg: (value) => SvgRenderer(value),
         shape: (value) => ShapeRenderer(value),
         markdown: (value) => MarkdownRenderer(value),
+        texture: (value) => TextureRenderer(value),
       ) as Renderer<T>;
     }
 
     // Backgrounds
     if (element is Background) {
       return element.map(
-        motif: (value) => MotifBackgroundRenderer(value),
+        texture: (value) => TextureBackgroundRenderer(value),
         image: (value) => ImageBackgroundRenderer(value),
         svg: (value) => EmptyBackgroundRenderer(value),
       ) as Renderer<T>;

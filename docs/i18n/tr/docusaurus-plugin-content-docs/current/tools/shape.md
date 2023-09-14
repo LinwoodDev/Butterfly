@@ -1,11 +1,11 @@
 ---
-title: "Şekil aracı"
+title: "Shape tool"
 sidebar_label: "Şekil"
 sidebar_position: 3
 ---
 
 
-Kağıda şekiller çizmek için bu aracı kullanın. Dikdörtgenler, daireler ya da başka şekiller çizebilirsiniz.
+Use this tool to draw shapes on the paper. Dikdörtgenler, daireler ya da başka şekiller çizebilirsiniz.
 
 ## Yapılandırma
 

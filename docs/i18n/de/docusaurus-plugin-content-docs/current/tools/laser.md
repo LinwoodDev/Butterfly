@@ -1,11 +1,11 @@
 ---
-title: "Laser Maler"
+title: "Laserwerkzeug"
 sidebar_label: "Laser"
 sidebar_position: 3
 ---
 
 
-Mit diesem Maler können Sie vorübergehend auf dieses Papier zeichnen. Nach einer Weile verschwindet die Zeichnung. Fügen Sie dem Papier eine neue Zeichnung hinzu, um es abzubrechen.
+Mit diesem Tool können Sie auf dieses Papier vorübergehend zeichnen. Nach einer Weile verschwindet die Zeichnung. Fügen Sie dem Papier eine neue Zeichnung hinzu, um es abzubrechen.
 
 ## Konfiguration
 

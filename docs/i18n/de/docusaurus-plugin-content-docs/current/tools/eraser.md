@@ -1,5 +1,5 @@
 ---
-title: "Radierzeichner"
+title: "Eraser tool"
 sidebar_label: "Eraser"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Bitte verwenden Sie den [Pfadlöscher](path_eraser) wenn dies möglich ist.
 
 :::
 
-Mit diesem Maler können Sie die Elemente auf dem Papier löschen.
+Mit diesem Werkzeug können Sie die Elemente auf dem Papier löschen.
 
 ## Konfiguration
 

@@ -520,5 +520,14 @@
   "paste": "Plakken",
   "ascending": "Oplopend",
   "descending": "Aflopend",
-  "imageScale": "Afbeelding schaal"
+  "imageScale": "Afbeelding schaal",
+  "select": "Selecteren",
+  "tool": "Gereedschap",
+  "texture": "Textuur",
+  "platformTheme": "Platform thema",
+  "desktop": "Startscherm",
+  "mobile": "Mobiel",
+  "pdfQuality": "PDF kwaliteit",
+  "surface": "Oppervlak",
+  "pattern": "Patroon"
 }

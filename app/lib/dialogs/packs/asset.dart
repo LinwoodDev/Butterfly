@@ -1,3 +1,4 @@
+import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -106,4 +107,51 @@ class AssetDialog extends StatelessWidget {
       );
     });
   }
+}
+
+Future<void> addToPack(
+  BuildContext context,
+  DocumentBloc bloc,
+  SettingsCubit settingsCubit,
+  List<PadElement> elements,
+  Rect rect,
+) async {
+  final state = bloc.state;
+  if (state is! DocumentLoadSuccess) return;
+  final document = state.data;
+  final result = await showDialog<PackAssetLocation>(
+    context: context,
+    builder: (context) => MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: settingsCubit),
+        BlocProvider.value(value: bloc),
+      ],
+      child: const AssetDialog(),
+    ),
+  );
+  if (result == null) return;
+  final pack = document.getPack(result.pack);
+  if (pack == null) return;
+  final screenshot = await state.currentIndexCubit.render(
+    state.data,
+    state.page,
+    state.info,
+    width: rect.width,
+    height: rect.height,
+    renderBackground: true,
+    x: rect.left,
+    y: rect.top,
+    quality: kThumbnailWidth / rect.width,
+  );
+  String? thumbnailUri;
+  if (screenshot != null) {
+    final thumbnailPath = pack.addImage(screenshot.buffer.asUint8List(), 'png');
+    thumbnailUri = Uri.file(thumbnailPath, windows: false).toString();
+  }
+  pack.setComponent(ButterflyComponent(
+    name: result.name,
+    elements: elements,
+    thumbnail: thumbnailUri,
+  ));
+  bloc.add(DocumentPackUpdated(result.pack, pack));
 }

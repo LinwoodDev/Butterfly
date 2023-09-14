@@ -1,5 +1,5 @@
 ---
-title: "Disegnatore di gomma"
+title: "Eraser tool"
 sidebar_label: "Gomma"
 sidebar_position: 4
 ---
@@ -11,7 +11,7 @@ Si prega di utilizzare la gomma [percorso](path_eraser) se è possibile.
 
 :::
 
-Con questo pittore è possibile cancellare gli elementi sulla carta.
+Con questo strumento è possibile cancellare gli elementi sulla carta.
 
 ## Configurazione
 

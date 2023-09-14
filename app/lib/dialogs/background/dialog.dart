@@ -3,8 +3,8 @@ import 'dart:ui' as ui;
 
 import 'package:butterfly/api/open.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
-import 'package:butterfly/helpers/motif.dart';
-import 'package:butterfly/widgets/color_field.dart';
+import 'package:butterfly/dialogs/texture.dart';
+import 'package:butterfly/visualizer/preset.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -17,7 +17,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../selections/selection.dart';
 
 part 'general.dart';
-part 'properties/motif.dart';
+part 'properties/texture.dart';
 part 'properties/image.dart';
 part 'properties/svg.dart';
 
@@ -82,9 +82,9 @@ class BackgroundDialog extends StatelessWidget {
                             value: background,
                             onChanged: (value) =>
                                 setState(() => background = value)),
-                        if (background != null)
+                        if (background != null) ...[
                           background!.map(
-                            motif: (e) => _MotifBackgroundPropertiesView(
+                            texture: (e) => _TextureBackgroundPropertiesView(
                                 value: e,
                                 onChanged: (value) =>
                                     setState(() => background = value)),
@@ -97,6 +97,8 @@ class BackgroundDialog extends StatelessWidget {
                                 onChanged: (value) =>
                                     setState(() => background = value)),
                           ),
+                        ] else
+                          const SizedBox(),
                       ],
                     );
                   }),

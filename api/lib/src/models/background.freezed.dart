@@ -16,8 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 Background _$BackgroundFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
-    case 'motif':
-      return MotifBackground.fromJson(json);
+    case 'texture':
+      return TextureBackground.fromJson(json);
     case 'image':
       return ImageBackground.fromJson(json);
     case 'svg':
@@ -33,7 +33,7 @@ Background _$BackgroundFromJson(Map<String, dynamic> json) {
 mixin _$Background {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Motif motif) motif,
+    required TResult Function(SurfaceTexture texture) texture,
     required TResult Function(String source, double width, double height,
             double scaleX, double scaleY)
         image,
@@ -44,7 +44,7 @@ mixin _$Background {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Motif motif)? motif,
+    TResult? Function(SurfaceTexture texture)? texture,
     TResult? Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -55,7 +55,7 @@ mixin _$Background {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Motif motif)? motif,
+    TResult Function(SurfaceTexture texture)? texture,
     TResult Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -67,21 +67,21 @@ mixin _$Background {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MotifBackground value) motif,
+    required TResult Function(TextureBackground value) texture,
     required TResult Function(ImageBackground value) image,
     required TResult Function(SvgBackground value) svg,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MotifBackground value)? motif,
+    TResult? Function(TextureBackground value)? texture,
     TResult? Function(ImageBackground value)? image,
     TResult? Function(SvgBackground value)? svg,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MotifBackground value)? motif,
+    TResult Function(TextureBackground value)? texture,
     TResult Function(ImageBackground value)? image,
     TResult Function(SvgBackground value)? svg,
     required TResult orElse(),
@@ -109,76 +109,76 @@ class _$BackgroundCopyWithImpl<$Res, $Val extends Background>
 }
 
 /// @nodoc
-abstract class _$$MotifBackgroundCopyWith<$Res> {
-  factory _$$MotifBackgroundCopyWith(
-          _$MotifBackground value, $Res Function(_$MotifBackground) then) =
-      __$$MotifBackgroundCopyWithImpl<$Res>;
+abstract class _$$TextureBackgroundCopyWith<$Res> {
+  factory _$$TextureBackgroundCopyWith(
+          _$TextureBackground value, $Res Function(_$TextureBackground) then) =
+      __$$TextureBackgroundCopyWithImpl<$Res>;
   @useResult
-  $Res call({Motif motif});
+  $Res call({SurfaceTexture texture});
 
-  $MotifCopyWith<$Res> get motif;
+  $SurfaceTextureCopyWith<$Res> get texture;
 }
 
 /// @nodoc
-class __$$MotifBackgroundCopyWithImpl<$Res>
-    extends _$BackgroundCopyWithImpl<$Res, _$MotifBackground>
-    implements _$$MotifBackgroundCopyWith<$Res> {
-  __$$MotifBackgroundCopyWithImpl(
-      _$MotifBackground _value, $Res Function(_$MotifBackground) _then)
+class __$$TextureBackgroundCopyWithImpl<$Res>
+    extends _$BackgroundCopyWithImpl<$Res, _$TextureBackground>
+    implements _$$TextureBackgroundCopyWith<$Res> {
+  __$$TextureBackgroundCopyWithImpl(
+      _$TextureBackground _value, $Res Function(_$TextureBackground) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? motif = null,
+    Object? texture = null,
   }) {
-    return _then(_$MotifBackground(
-      motif: null == motif
-          ? _value.motif
-          : motif // ignore: cast_nullable_to_non_nullable
-              as Motif,
+    return _then(_$TextureBackground(
+      texture: null == texture
+          ? _value.texture
+          : texture // ignore: cast_nullable_to_non_nullable
+              as SurfaceTexture,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $MotifCopyWith<$Res> get motif {
-    return $MotifCopyWith<$Res>(_value.motif, (value) {
-      return _then(_value.copyWith(motif: value));
+  $SurfaceTextureCopyWith<$Res> get texture {
+    return $SurfaceTextureCopyWith<$Res>(_value.texture, (value) {
+      return _then(_value.copyWith(texture: value));
     });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$MotifBackground implements MotifBackground {
-  _$MotifBackground({required this.motif, final String? $type})
-      : $type = $type ?? 'motif';
+class _$TextureBackground implements TextureBackground {
+  _$TextureBackground({required this.texture, final String? $type})
+      : $type = $type ?? 'texture';
 
-  factory _$MotifBackground.fromJson(Map<String, dynamic> json) =>
-      _$$MotifBackgroundFromJson(json);
+  factory _$TextureBackground.fromJson(Map<String, dynamic> json) =>
+      _$$TextureBackgroundFromJson(json);
 
   @override
-  final Motif motif;
+  final SurfaceTexture texture;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Background.motif(motif: $motif)';
+    return 'Background.texture(texture: $texture)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MotifBackgroundCopyWith<_$MotifBackground> get copyWith =>
-      __$$MotifBackgroundCopyWithImpl<_$MotifBackground>(this, _$identity);
+  _$$TextureBackgroundCopyWith<_$TextureBackground> get copyWith =>
+      __$$TextureBackgroundCopyWithImpl<_$TextureBackground>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Motif motif) motif,
+    required TResult Function(SurfaceTexture texture) texture,
     required TResult Function(String source, double width, double height,
             double scaleX, double scaleY)
         image,
@@ -186,13 +186,13 @@ class _$MotifBackground implements MotifBackground {
             double scaleX, double scaleY)
         svg,
   }) {
-    return motif(this.motif);
+    return texture(this.texture);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Motif motif)? motif,
+    TResult? Function(SurfaceTexture texture)? texture,
     TResult? Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -200,13 +200,13 @@ class _$MotifBackground implements MotifBackground {
             double scaleY)?
         svg,
   }) {
-    return motif?.call(this.motif);
+    return texture?.call(this.texture);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Motif motif)? motif,
+    TResult Function(SurfaceTexture texture)? texture,
     TResult Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -215,8 +215,8 @@ class _$MotifBackground implements MotifBackground {
         svg,
     required TResult orElse(),
   }) {
-    if (motif != null) {
-      return motif(this.motif);
+    if (texture != null) {
+      return texture(this.texture);
     }
     return orElse();
   }
@@ -224,54 +224,55 @@ class _$MotifBackground implements MotifBackground {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MotifBackground value) motif,
+    required TResult Function(TextureBackground value) texture,
     required TResult Function(ImageBackground value) image,
     required TResult Function(SvgBackground value) svg,
   }) {
-    return motif(this);
+    return texture(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MotifBackground value)? motif,
+    TResult? Function(TextureBackground value)? texture,
     TResult? Function(ImageBackground value)? image,
     TResult? Function(SvgBackground value)? svg,
   }) {
-    return motif?.call(this);
+    return texture?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MotifBackground value)? motif,
+    TResult Function(TextureBackground value)? texture,
     TResult Function(ImageBackground value)? image,
     TResult Function(SvgBackground value)? svg,
     required TResult orElse(),
   }) {
-    if (motif != null) {
-      return motif(this);
+    if (texture != null) {
+      return texture(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MotifBackgroundToJson(
+    return _$$TextureBackgroundToJson(
       this,
     );
   }
 }
 
-abstract class MotifBackground implements Background {
-  factory MotifBackground({required final Motif motif}) = _$MotifBackground;
+abstract class TextureBackground implements Background {
+  factory TextureBackground({required final SurfaceTexture texture}) =
+      _$TextureBackground;
 
-  factory MotifBackground.fromJson(Map<String, dynamic> json) =
-      _$MotifBackground.fromJson;
+  factory TextureBackground.fromJson(Map<String, dynamic> json) =
+      _$TextureBackground.fromJson;
 
-  Motif get motif;
+  SurfaceTexture get texture;
   @JsonKey(ignore: true)
-  _$$MotifBackgroundCopyWith<_$MotifBackground> get copyWith =>
+  _$$TextureBackgroundCopyWith<_$TextureBackground> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -376,7 +377,7 @@ class _$ImageBackground implements ImageBackground {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Motif motif) motif,
+    required TResult Function(SurfaceTexture texture) texture,
     required TResult Function(String source, double width, double height,
             double scaleX, double scaleY)
         image,
@@ -390,7 +391,7 @@ class _$ImageBackground implements ImageBackground {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Motif motif)? motif,
+    TResult? Function(SurfaceTexture texture)? texture,
     TResult? Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -404,7 +405,7 @@ class _$ImageBackground implements ImageBackground {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Motif motif)? motif,
+    TResult Function(SurfaceTexture texture)? texture,
     TResult Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -422,7 +423,7 @@ class _$ImageBackground implements ImageBackground {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MotifBackground value) motif,
+    required TResult Function(TextureBackground value) texture,
     required TResult Function(ImageBackground value) image,
     required TResult Function(SvgBackground value) svg,
   }) {
@@ -432,7 +433,7 @@ class _$ImageBackground implements ImageBackground {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MotifBackground value)? motif,
+    TResult? Function(TextureBackground value)? texture,
     TResult? Function(ImageBackground value)? image,
     TResult? Function(SvgBackground value)? svg,
   }) {
@@ -442,7 +443,7 @@ class _$ImageBackground implements ImageBackground {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MotifBackground value)? motif,
+    TResult Function(TextureBackground value)? texture,
     TResult Function(ImageBackground value)? image,
     TResult Function(SvgBackground value)? svg,
     required TResult orElse(),
@@ -583,7 +584,7 @@ class _$SvgBackground implements SvgBackground {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Motif motif) motif,
+    required TResult Function(SurfaceTexture texture) texture,
     required TResult Function(String source, double width, double height,
             double scaleX, double scaleY)
         image,
@@ -597,7 +598,7 @@ class _$SvgBackground implements SvgBackground {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Motif motif)? motif,
+    TResult? Function(SurfaceTexture texture)? texture,
     TResult? Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -611,7 +612,7 @@ class _$SvgBackground implements SvgBackground {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Motif motif)? motif,
+    TResult Function(SurfaceTexture texture)? texture,
     TResult Function(String source, double width, double height, double scaleX,
             double scaleY)?
         image,
@@ -629,7 +630,7 @@ class _$SvgBackground implements SvgBackground {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MotifBackground value) motif,
+    required TResult Function(TextureBackground value) texture,
     required TResult Function(ImageBackground value) image,
     required TResult Function(SvgBackground value) svg,
   }) {
@@ -639,7 +640,7 @@ class _$SvgBackground implements SvgBackground {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MotifBackground value)? motif,
+    TResult? Function(TextureBackground value)? texture,
     TResult? Function(ImageBackground value)? image,
     TResult? Function(SvgBackground value)? svg,
   }) {
@@ -649,7 +650,7 @@ class _$SvgBackground implements SvgBackground {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MotifBackground value)? motif,
+    TResult Function(TextureBackground value)? texture,
     TResult Function(ImageBackground value)? image,
     TResult Function(SvgBackground value)? svg,
     required TResult orElse(),

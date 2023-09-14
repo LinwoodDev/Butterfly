@@ -1,11 +1,11 @@
 ---
-title: "Etichetă pictor"
+title: "Unelte de etichetare"
 sidebar_label: "Etichetă"
 sidebar_position: 6
 ---
 
 
-Cu acest pictor puteţi adăuga text pe hârtie.
+Cu acest instrument puteţi adăuga text pe hârtie.
 
 ## Configurare
 

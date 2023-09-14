@@ -520,5 +520,14 @@
   "paste": "Wklej",
   "ascending": "Rosnąco",
   "descending": "Malejąco",
-  "imageScale": "Skala obrazu"
+  "imageScale": "Skala obrazu",
+  "select": "Wybierz",
+  "tool": "Narzędzie",
+  "texture": "Tekstura",
+  "platformTheme": "Motyw platformy",
+  "desktop": "Pulpit",
+  "mobile": "Komórka",
+  "pdfQuality": "Jakość PDF",
+  "surface": "Powierzchnia",
+  "pattern": "Wzorzec"
 }

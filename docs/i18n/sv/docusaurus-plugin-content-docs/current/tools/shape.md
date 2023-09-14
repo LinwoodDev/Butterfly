@@ -1,11 +1,11 @@
 ---
-title: "Forma målare"
+title: "Forma verktyg"
 sidebar_label: "Form"
 sidebar_position: 3
 ---
 
 
-Använd denna målare för att rita former på pappret. Du kan rita rektanglar, cirklar och andra former.
+Använd detta verktyg för att rita former på pappret. Du kan rita rektanglar, cirklar och andra former.
 
 ## Konfiguration
 

@@ -1,11 +1,11 @@
 ---
-title: "Polun pyyhkimisen maalari"
+title: "Polun tyhjennystyökalu"
 sidebar_label: "Polun poistaminen"
 sidebar_position: 5
 ---
 
 
-Tämän maalarin avulla voit poistaa koko polun paperilla.
+Tämän työkalun avulla voit poistaa koko polun paperilla.
 
 ## Asetukset
 

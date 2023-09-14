@@ -17,7 +17,7 @@ enum HorizontalAlignment { left, center, right, justify }
 enum VerticalAlignment { top, center, bottom }
 
 @freezed
-class Property with _$Property {
+sealed class Property with _$Property {
   @Implements<PathProperty>()
   const factory Property.pen({
     @Default(5) double strokeWidth,
@@ -39,7 +39,7 @@ class Property with _$Property {
 }
 
 @freezed
-class PathShape with _$PathShape {
+sealed class PathShape with _$PathShape {
   const PathShape._();
   const factory PathShape.circle({@Default(kColorTransparent) int fillColor}) =
       CircleShape;

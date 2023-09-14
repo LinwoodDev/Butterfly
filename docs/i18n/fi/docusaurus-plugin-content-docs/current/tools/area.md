@@ -1,9 +1,9 @@
 ---
 sidebar_label: "Alue"
-title: "Alueen maalari"
+title: "Alueen työkalu"
 ---
 
-Alueen maalari mahdollistaa alueiden luomisen, muokkaamisen ja poistamisen.
+Alueen työkalun avulla voit luoda, muokata ja poistaa alueita.
 
 ## Toiminnot
 

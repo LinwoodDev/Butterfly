@@ -44,7 +44,17 @@ class BehaviorsSettingsPage extends StatelessWidget {
                           onChangeEnd: (value) => context
                               .read<SettingsCubit>()
                               .changeImageScale(value / 100),
-                        )
+                        ),
+                        ExactSlider(
+                          header: Text(AppLocalizations.of(context).pdfQuality),
+                          value: state.pdfQuality,
+                          min: 0.5,
+                          max: 10,
+                          defaultValue: 2,
+                          onChangeEnd: (value) => context
+                              .read<SettingsCubit>()
+                              .changePdfQuality(value),
+                        ),
                       ]),
                 ),
               ),

@@ -21,7 +21,7 @@ class EraserCursor extends Renderer<ToolCursorData<EraserTool>> {
         Paint()
           ..style = PaintingStyle.stroke
           ..color = background?.mapOrNull(
-                  motif: (box) => Color(box.motif.boxColor)) ??
+                  texture: (box) => Color(box.texture.boxColor)) ??
               Colors.white
           ..strokeCap = StrokeCap.round
           ..invertColors = true

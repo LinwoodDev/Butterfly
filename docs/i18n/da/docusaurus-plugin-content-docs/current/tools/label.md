@@ -1,11 +1,11 @@
 ---
-title: "Etiket maler"
+title: "Etiket værktøj"
 sidebar_label: "Etiket"
 sidebar_position: 6
 ---
 
 
-Med denne maler kan du tilføje tekst til papiret.
+Med dette værktøj kan du tilføje tekst til papiret.
 
 ## Konfiguration
 

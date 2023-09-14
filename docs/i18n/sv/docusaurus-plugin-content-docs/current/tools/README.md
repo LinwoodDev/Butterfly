@@ -1,20 +1,20 @@
 ---
-title: "Målare"
+title: "Verktyg"
 slug: /tools
 sidebar_label: "Introduktion"
 sidebar_position: 1
 ---
 
 
-Målare kan redigera artikeln.
+Verktyg kan redigera papperet.
 
-Använd sidofältet för att lära dig mer om målarna.
+Använd sidofältet för att lära dig mer om verktygen.
 
-Skapa en ny målare genom att klicka på plusknappen. Ändra målarordningen genom att dra och ändra målaren genom att klicka. Om du klickar på en vald målare kan du konfigurera den.
+Skapa ett nytt verktyg genom att klicka på plusknappen. Ändra verktygsordningen genom att dra och ändra verktyget genom att klicka. Om du klickar på ett valt verktyg kan du konfigurera det.
 
-Namnet på målaren kommer att visas som verktygstips på muspekaren på målaren.
+Namnet på verktyget kommer att visas som verktygstips på hovra på verktyget.
 
-## Tillgängliga målare
+## Tillgängliga verktyg
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

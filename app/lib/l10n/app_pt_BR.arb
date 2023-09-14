@@ -520,5 +520,14 @@
   "paste": "Colar",
   "ascending": "Ascendente",
   "descending": "Descendente",
-  "imageScale": "Escala de imagem"
+  "imageScale": "Escala de imagem",
+  "select": "Selecionar",
+  "tool": "Ferramenta",
+  "texture": "Textura",
+  "platformTheme": "Tema da plataforma",
+  "desktop": "Computadores",
+  "mobile": "Celular",
+  "pdfQuality": "Qualidade PDF",
+  "surface": "Superfície",
+  "pattern": "Padrão"
 }

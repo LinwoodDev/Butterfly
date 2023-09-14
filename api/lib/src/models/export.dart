@@ -6,7 +6,7 @@ part 'export.freezed.dart';
 part 'export.g.dart';
 
 @freezed
-class ExportPreset with _$ExportPreset {
+sealed class ExportPreset with _$ExportPreset {
   const factory ExportPreset({
     @Default('') String name,
     @Default([]) List<AreaPreset> areas,
@@ -17,7 +17,7 @@ class ExportPreset with _$ExportPreset {
 }
 
 @freezed
-class AreaPreset with _$AreaPreset {
+sealed class AreaPreset with _$AreaPreset {
   const factory AreaPreset({
     @Default('default') String page,
     @Default('') String name,

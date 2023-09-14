@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -19,7 +21,7 @@ const kFontWeightBold = 6;
 enum TextDecorationStyle { solid, double, dotted, dashed, wavy }
 
 @freezed
-class SpanProperty with _$SpanProperty {
+sealed class SpanProperty with _$SpanProperty {
   const factory SpanProperty.defined({
     double? size,
     int? color,
@@ -59,7 +61,7 @@ class SpanProperty with _$SpanProperty {
 }
 
 @freezed
-class ParagraphProperty with _$ParagraphProperty {
+sealed class ParagraphProperty with _$ParagraphProperty {
   const factory ParagraphProperty.defined({
     @Default(DefinedSpanProperty()) DefinedSpanProperty span,
     @Default(HorizontalAlignment.left) HorizontalAlignment alignment,
@@ -72,7 +74,7 @@ class ParagraphProperty with _$ParagraphProperty {
 }
 
 @freezed
-class AreaProperty with _$AreaProperty {
+sealed class AreaProperty with _$AreaProperty {
   const factory AreaProperty({
     @Default(VerticalAlignment.top) VerticalAlignment alignment,
   }) = _AreaProperty;
@@ -82,7 +84,7 @@ class AreaProperty with _$AreaProperty {
 }
 
 @freezed
-class TextSpan with _$TextSpan {
+sealed class TextSpan with _$TextSpan {
   const TextSpan._();
   const factory TextSpan.text({
     @Default('') String text,
@@ -97,7 +99,7 @@ class TextSpan with _$TextSpan {
   TextSpan subSpan([int start = 0, int? length]) {
     length ??= this.length;
     length = length.clamp(0, this.length);
-    start = start.clamp(0, length);
+    start = max(start, 0);
     length = length.clamp(0, this.length - start);
     final end = start + length;
     return copyWith(
@@ -110,12 +112,12 @@ class TextSpan with _$TextSpan {
 }
 
 @freezed
-class IndexedModel<T> with _$IndexedModel<T> {
+sealed class IndexedModel<T> with _$IndexedModel<T> {
   const factory IndexedModel(int index, T model) = _IndexedModel<T>;
 }
 
 @freezed
-class TextParagraph with _$TextParagraph {
+sealed class TextParagraph with _$TextParagraph {
   const TextParagraph._();
   const factory TextParagraph.text({
     @Default(ParagraphProperty.undefined()) ParagraphProperty property,
@@ -162,9 +164,8 @@ class TextParagraph with _$TextParagraph {
           break;
         }
         firstIndex ??= currentLength;
-        spans.add(cut
-            ? span.subSpan(start - currentLength, end - currentLength)
-            : span);
+        spans
+            .add(cut ? span.subSpan(start - currentLength, end - start) : span);
       }
       currentLength += span.length;
     }
@@ -265,7 +266,7 @@ class TextParagraph with _$TextParagraph {
 
   TextParagraph updateSpans(TextSpan Function(TextSpan) update,
       [int start = 0, int length = 0]) {
-    final spans = getSpans(start, length - 1, true);
+    final spans = getSpans(start, length, true);
     if (spans.isEmpty) {
       return this;
     }
@@ -286,7 +287,7 @@ class TextParagraph with _$TextParagraph {
 }
 
 @freezed
-class TextArea with _$TextArea {
+sealed class TextArea with _$TextArea {
   const TextArea._();
   const factory TextArea({
     @Default(AreaProperty()) AreaProperty areaProperty,
@@ -300,7 +301,7 @@ class TextArea with _$TextArea {
 }
 
 @freezed
-class TextStyleSheet with _$TextStyleSheet {
+sealed class TextStyleSheet with _$TextStyleSheet {
   const TextStyleSheet._();
 
   const factory TextStyleSheet({

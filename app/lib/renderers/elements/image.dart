@@ -28,7 +28,8 @@ class ImageRenderer extends Renderer<ImageElement> {
   }
 
   @override
-  void buildSvg(XmlDocument xml, DocumentPage page, Rect viewportRect) {
+  void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
+      Rect viewportRect) {
     if (!rect.overlaps(rect)) return;
     // Create data url
     final data = element.source;

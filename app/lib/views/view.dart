@@ -61,8 +61,8 @@ class _MainViewViewportState extends State<MainViewViewport>
         final intentType = await getIntentType();
         final intentData = await getIntentData();
         if (intentType != null && intentData != null) {
-          final assetType = AssetFileTypeHelper.fromMime(intentType);
-          if (assetType == null) return;
+          final assetType =
+              AssetFileTypeHelper.fromMime(intentType) ?? AssetFileType.note;
           if (mounted) {
             context
                 .read<ImportService>()

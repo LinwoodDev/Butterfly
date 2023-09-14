@@ -8,7 +8,7 @@ class FileSystemFileRichText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final metadata = file.load().getMetadata();
+    final metadata = file.metadata;
     if (metadata == null) {
       return Container();
     }

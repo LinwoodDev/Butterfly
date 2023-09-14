@@ -51,6 +51,7 @@ class CurrentIndex with _$CurrentIndex {
     @Default(SaveState.unsaved) SaveState saved,
     PreferredSizeWidget? toolbar,
     PreferredSizeWidget? temporaryToolbar,
+    @Default(ViewOption()) ViewOption viewOption,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -428,7 +429,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     return await image.toByteData(format: ui.ImageByteFormat.png);
   }
 
-  XmlDocument renderSVG(DocumentPage page,
+  XmlDocument renderSVG(NoteData document, DocumentPage page,
       {required int width,
       required int height,
       double x = 0,
@@ -446,10 +447,15 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
 
     final rect = Rect.fromLTWH(x, y, width.toDouble(), height.toDouble());
     if (renderBackground) {
-      state.cameraViewport.backgrounds.map((e) => e.buildSvg(xml, page, rect));
+      for (final e in state.cameraViewport.backgrounds) {
+        e.buildSvg(xml, document, page, rect);
+      }
     }
-    for (var e in renderers) {
-      e.buildSvg(xml, page, rect);
+    for (var e in [
+      ...state.cameraViewport.visibleElements,
+      ...state.cameraViewport.unbakedElements
+    ]) {
+      e.buildSvg(xml, document, page, rect);
     }
     return xml;
   }
@@ -604,18 +610,27 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         state.copyWith(temporaryHandler: HandHandler(), temporaryCursor: null));
   }
 
-  void updateUtilities(UtilitiesState utilitesState) {
-    final renderer = UtilitiesRenderer(utilitesState);
-    var newSelection =
-        state.selection?.remove(state.cameraViewport.utilities.element);
-    if (newSelection == null && state.selection != null) {
-      newSelection = Selection.from(utilitesState);
-    } else if (newSelection != state.selection) {
-      newSelection = newSelection?.insert(renderer);
+  void updateUtilities({UtilitiesState? utilities, ViewOption? view}) {
+    var state = this.state;
+    final renderer = UtilitiesRenderer(
+        utilities ?? state.utilitiesState, view ?? state.viewOption);
+    if (utilities != null) {
+      var newSelection =
+          state.selection?.remove(state.cameraViewport.utilities.element);
+      if (newSelection == null && state.selection != null) {
+        newSelection = Selection.from(utilities);
+      } else if (newSelection != state.selection) {
+        newSelection = newSelection?.insert(renderer);
+      }
+      state = state.copyWith(selection: newSelection);
     }
-    emit(state.copyWith(
-        cameraViewport: state.cameraViewport.withUtilities(renderer),
-        selection: newSelection));
+    state = state.copyWith(
+      cameraViewport: state.cameraViewport.withUtilities(renderer),
+    );
+    if (view != null) {
+      state = state.copyWith(viewOption: view);
+    }
+    emit(state);
   }
 
   void togglePin() => emit(state.copyWith(pinned: !state.pinned));
