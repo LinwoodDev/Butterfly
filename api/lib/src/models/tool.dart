@@ -79,6 +79,7 @@ sealed class Tool with _$Tool {
     @Default(true) bool zoomDependent,
     @Default(kColorBlack) int foreground,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    @Default(1.0) double scale,
   }) = LabelTool;
 
   factory Tool.pen({

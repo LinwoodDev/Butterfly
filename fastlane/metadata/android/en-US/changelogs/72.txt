@@ -19,6 +19,7 @@
 * Add markdown importing
 * Add export functionality to markdown elements
 * Add animation to search dialog
+* Add scale property to label tool
 * Move export button from selection view to context menu
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
 * Improve clipboard system to include image and svg source as data uri

@@ -11,7 +11,7 @@ class LabelHandler extends Handler<LabelTool>
 
   LabelContext _createContext(NoteData document,
       {Point<double>? position, double zoom = 1, LabelElement? element}) {
-    final scale = data.zoomDependent ? 1 / zoom : 1.0;
+    final scale = (data.zoomDependent ? 1 / zoom : 1.0) * data.scale;
     final mode = element != null
         ? (element is TextElement ? LabelMode.text : LabelMode.markdown)
         : data.mode;
