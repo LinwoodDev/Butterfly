@@ -619,8 +619,9 @@ class SelectHandler extends Handler<SelectTool> {
             : null);
   }
 
-  Future<void> copySelection(BuildContext context, [bool cut = false]) async {
-    final bloc = context.read<DocumentBloc>();
+  Future<void> copySelection(
+      DocumentBloc bloc, ClipboardManager clipboardManager,
+      [bool cut = false]) async {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     if (cut) {
@@ -647,7 +648,7 @@ class SelectHandler extends Handler<SelectTool> {
         ),
       ),
     );
-    context.read<ClipboardManager>().setContent(clipboard);
+    clipboardManager.setContent(clipboard);
     _selected.clear();
     bloc.refresh();
   }
@@ -663,6 +664,7 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   Map<Type, Action<Intent>> getActions(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
+    final clipboardManager = context.read<ClipboardManager>();
 
     return {
       ...super.getActions(context),
@@ -681,7 +683,7 @@ class SelectHandler extends Handler<SelectTool> {
       }),
       CopySelectionTextIntent:
           CallbackAction<CopySelectionTextIntent>(onInvoke: (intent) {
-        copySelection(context, intent.collapseSelection);
+        copySelection(bloc, clipboardManager, intent.collapseSelection);
         return null;
       }),
     };

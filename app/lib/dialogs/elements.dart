@@ -48,7 +48,9 @@ ContextMenuBuilder buildElementsContextMenu(
           ContextMenuItem(
             onPressed: () {
               Navigator.of(context).pop(true);
-              cubit.fetchHandler<SelectHandler>()?.copySelection(context, true);
+              cubit
+                  .fetchHandler<SelectHandler>()
+                  ?.copySelection(bloc, clipboardManager, true);
             },
             icon: const PhosphorIcon(PhosphorIconsLight.scissors),
             label: AppLocalizations.of(context).cut,
@@ -58,7 +60,7 @@ ContextMenuBuilder buildElementsContextMenu(
               Navigator.of(context).pop(true);
               cubit
                   .fetchHandler<SelectHandler>()
-                  ?.copySelection(context, false);
+                  ?.copySelection(bloc, clipboardManager, false);
             },
             icon: const PhosphorIcon(PhosphorIconsLight.copy),
             label: AppLocalizations.of(context).copy,
