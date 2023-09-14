@@ -845,12 +845,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     final page = current.page;
     final assetService = current.assetService;
     currentIndexCubit.setSaveState(saved: SaveState.saved);
-    final background = page.backgrounds.map(Renderer.fromInstance).toList();
-    await Future.wait(
-        background.map((e) async => e.setup(document, assetService, page)));
     final tool = UtilitiesRenderer(const UtilitiesState());
     await tool.setup(document, assetService, page);
-    currentIndexCubit.unbake(backgrounds: background, tool: tool);
+    currentIndexCubit.unbake(tool: tool);
     currentIndexCubit.loadElements(document, assetService, page);
     currentIndexCubit.init(this);
   }
