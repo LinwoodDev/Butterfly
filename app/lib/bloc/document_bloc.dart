@@ -98,62 +98,61 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     }, transformer: sequential());
     on<ElementsChanged>((event, emit) async {
       final current = state;
-      if (current is DocumentLoadSuccess) {
-        if (!(current.embedding?.editable ?? true)) return;
-        final renderers = <Renderer<PadElement>>[];
-        var selection = current.currentIndexCubit.state.selection;
-        Renderer<PadElement>? oldRenderer, newRenderer;
-        for (var renderer in current.renderers) {
-          final updated = event.elements[renderer.element];
-          if (updated != null) {
-            for (var element in updated) {
-              newRenderer = Renderer.fromInstance(element);
-              await newRenderer.setup(
-                  current.data, current.assetService, current.page);
-              oldRenderer = renderer;
-              oldRenderer.dispose();
-              renderers.add(newRenderer);
-              var newSelection = selection?.remove(oldRenderer);
-              if (newSelection != selection && selection != null) {
-                if (newSelection == null) {
-                  newSelection = Selection.from(newRenderer);
-                } else {
-                  newSelection.insert(newRenderer);
-                }
-                selection = newSelection;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final renderers = <Renderer<PadElement>>[];
+      var selection = current.currentIndexCubit.state.selection;
+      Renderer<PadElement>? oldRenderer, newRenderer;
+      for (var renderer in current.renderers) {
+        final updated = event.elements[renderer.element];
+        if (updated != null) {
+          for (var element in updated) {
+            newRenderer = Renderer.fromInstance(element);
+            await newRenderer.setup(
+                current.data, current.assetService, current.page);
+            oldRenderer = renderer;
+            oldRenderer.dispose();
+            renderers.add(newRenderer);
+            var newSelection = selection?.remove(oldRenderer);
+            if (newSelection != selection && selection != null) {
+              if (newSelection == null) {
+                newSelection = Selection.from(newRenderer);
+              } else {
+                newSelection.insert(newRenderer);
               }
+              selection = newSelection;
             }
-          } else {
-            renderers.add(renderer);
           }
+        } else {
+          renderers.add(renderer);
         }
-        current.currentIndexCubit.unbake(unbakedElements: renderers);
-        if (oldRenderer == null || newRenderer == null) return;
-        if (current.currentIndexCubit
-            .getHandler()
-            .onRendererUpdated(current.page, oldRenderer, newRenderer)) {
-          refresh();
-        }
-        final page = current.page;
-        if (selection != null) {
-          current.currentIndexCubit.changeSelection(selection);
-        }
-        await _saveState(
-            emit,
-            current.copyWith(
-              page: page.copyWith(
-                content: List<PadElement>.from(page.content).expand((e) {
-                  final updated = event.elements[e];
-                  if (updated != null) {
-                    return updated;
-                  } else {
-                    return [e];
-                  }
-                }).toList(),
-              ),
-            ),
-            null);
       }
+      current.currentIndexCubit.unbake(unbakedElements: renderers);
+      if (oldRenderer == null || newRenderer == null) return;
+      if (current.currentIndexCubit
+          .getHandler()
+          .onRendererUpdated(current.page, oldRenderer, newRenderer)) {
+        refresh();
+      }
+      final page = current.page;
+      if (selection != null) {
+        current.currentIndexCubit.changeSelection(selection);
+      }
+      await _saveState(
+          emit,
+          current.copyWith(
+            page: page.copyWith(
+              content: List<PadElement>.from(page.content).expand((e) {
+                final updated = event.elements[e];
+                if (updated != null) {
+                  return updated;
+                } else {
+                  return [e];
+                }
+              }).toList(),
+            ),
+          ),
+          null);
     }, transformer: sequential());
     on<ElementsArranged>((event, emit) async {
       final current = state;
@@ -255,309 +254,294 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       await _saveState(emit, current.copyWith(page: newPage), null);
     }, transformer: sequential());
     on<DocumentDescriptionChanged>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        return _saveState(
-          emit,
-          current.copyWith(
-            metadata: current.metadata.copyWith(
-              name: event.name ?? current.metadata.name,
-              description: event.description ?? current.metadata.description,
-            ),
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      return _saveState(
+        emit,
+        current.copyWith(
+          metadata: current.metadata.copyWith(
+            name: event.name ?? current.metadata.name,
+            description: event.description ?? current.metadata.description,
           ),
-        );
-      }
+        ),
+      );
     });
     on<ToolCreated>((event, emit) async {
       final current = state;
-      if (current is DocumentLoadSuccess) {
-        if (!(current.embedding?.editable ?? true)) return;
-        return _saveState(
-                emit,
-                current.copyWith(
-                    info: current.info.copyWith(
-                        tools: List.from(current.info.tools)..add(event.tool))))
-            .then((value) {
-          current.currentIndexCubit
-              .changeTool(this, current.info.tools.length, null, true);
-        });
-      }
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      return _saveState(
+              emit,
+              current.copyWith(
+                  info: current.info.copyWith(
+                      tools: List.from(current.info.tools)..add(event.tool))))
+          .then((value) {
+        current.currentIndexCubit
+            .changeTool(this, current.info.tools.length, null, true);
+      });
     });
     on<ToolsChanged>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        final oldTools = current.info.tools;
-        var selection = current.currentIndexCubit.state.selection;
-        await _saveState(
-            emit,
-            current.copyWith(
-                info: current.info.copyWith(
-                    tools: List<Tool>.from(current.info.tools).map((e) {
-              final updated = event.tools[e];
-              if (updated != null) {
-                var newSelection = selection?.remove(e);
-                if (newSelection != selection && selection != null) {
-                  if (newSelection == null) {
-                    newSelection = Selection.from(updated);
-                  } else {
-                    newSelection.insert(updated);
-                  }
-                  selection = newSelection;
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final oldTools = current.info.tools;
+      var selection = current.currentIndexCubit.state.selection;
+      await _saveState(
+          emit,
+          current.copyWith(
+              info: current.info.copyWith(
+                  tools: List<Tool>.from(current.info.tools).mapIndexed((i, e) {
+            final updated = event.tools[i];
+            if (updated != null) {
+              var newSelection = selection?.remove(e);
+              if (newSelection != selection && selection != null) {
+                if (newSelection == null) {
+                  newSelection = Selection.from(updated);
+                } else {
+                  newSelection.insert(updated);
                 }
-                return updated;
-              } else {
-                return e;
+                selection = newSelection;
               }
-            }).toList())));
-        final updatedCurrent = event.tools.entries.firstWhereOrNull((element) =>
-            oldTools[element.key] ==
-            current.currentIndexCubit.state.handler.data);
-        if (updatedCurrent != null) {
-          current.currentIndexCubit.updateTool(this, updatedCurrent.value);
-        }
-        final updatedTempCurrent = event.tools.entries.firstWhereOrNull(
-            (element) =>
-                oldTools[element.key] ==
-                current.currentIndexCubit.state.temporaryHandler?.data);
-        if (updatedTempCurrent != null) {
-          current.currentIndexCubit
-              .updateTemporaryTool(this, updatedTempCurrent.value);
-        }
-        if (selection != null) {
-          current.currentIndexCubit.changeSelection(selection);
-        }
+              return updated;
+            } else {
+              return e;
+            }
+          }).toList())));
+      final updatedCurrent = event.tools.entries.firstWhereOrNull((element) =>
+          oldTools[element.key] ==
+          current.currentIndexCubit.state.handler.data);
+      if (updatedCurrent != null) {
+        current.currentIndexCubit.updateTool(this, updatedCurrent.value);
+      }
+      final updatedTempCurrent = event.tools.entries.firstWhereOrNull(
+          (element) =>
+              oldTools[element.key] ==
+              current.currentIndexCubit.state.temporaryHandler?.data);
+      if (updatedTempCurrent != null) {
+        current.currentIndexCubit
+            .updateTemporaryTool(this, updatedTempCurrent.value);
+      }
+      if (selection != null) {
+        current.currentIndexCubit.changeSelection(selection);
       }
     });
     on<ToolsRemoved>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        final cubit = current.currentIndexCubit;
-        return _saveState(
-                emit,
-                current.copyWith(
-                    info: current.info.copyWith(
-                        tools: current.info.tools
-                            .whereIndexed(
-                                (index, _) => !event.tools.contains(index))
-                            .toList())))
-            .then((value) {
-          cubit.updateIndex(this);
-        });
-      }
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final cubit = current.currentIndexCubit;
+      return _saveState(
+              emit,
+              current.copyWith(
+                  info: current.info.copyWith(
+                      tools: current.info.tools
+                          .whereIndexed(
+                              (index, _) => !event.tools.contains(index))
+                          .toList())))
+          .then((value) {
+        cubit.updateIndex(this);
+      });
     });
     on<ToolReordered>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        var tools = List<Tool>.from(current.info.tools);
-        var oldIndex = event.oldIndex;
-        var newIndex = event.newIndex;
-        if (oldIndex < newIndex) {
-          newIndex -= 1;
-        }
-        final item = tools.removeAt(oldIndex);
-        tools.insert(newIndex, item);
-        final cubit = current.currentIndexCubit;
-        var nextCurrentIndex = cubit.state.index;
-        if (nextCurrentIndex != null) {
-          if (nextCurrentIndex == oldIndex) {
-            nextCurrentIndex = newIndex;
-          } else if (nextCurrentIndex > oldIndex &&
-              nextCurrentIndex <= newIndex) {
-            nextCurrentIndex -= 1;
-          } else if (nextCurrentIndex < oldIndex &&
-              nextCurrentIndex >= newIndex) {
-            nextCurrentIndex += 1;
-          }
-          cubit.changeIndex(nextCurrentIndex);
-        }
-        return _saveState(
-            emit,
-            current.copyWith(
-              info: current.info.copyWith(tools: tools),
-            ));
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      var tools = List<Tool>.from(current.info.tools);
+      var oldIndex = event.oldIndex;
+      var newIndex = event.newIndex;
+      if (oldIndex < newIndex) {
+        newIndex -= 1;
       }
+      final item = tools.removeAt(oldIndex);
+      tools.insert(newIndex, item);
+      final cubit = current.currentIndexCubit;
+      var nextCurrentIndex = cubit.state.index;
+      if (nextCurrentIndex != null) {
+        if (nextCurrentIndex == oldIndex) {
+          nextCurrentIndex = newIndex;
+        } else if (nextCurrentIndex > oldIndex &&
+            nextCurrentIndex <= newIndex) {
+          nextCurrentIndex -= 1;
+        } else if (nextCurrentIndex < oldIndex &&
+            nextCurrentIndex >= newIndex) {
+          nextCurrentIndex += 1;
+        }
+        cubit.changeIndex(nextCurrentIndex);
+      }
+      return _saveState(
+          emit,
+          current.copyWith(
+            info: current.info.copyWith(tools: tools),
+          ));
     });
     on<DocumentBackgroundsChanged>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        final List<Renderer<Background>> backgrounds =
-            event.backgrounds.map(Renderer.fromInstance).toList();
-        await Future.wait(backgrounds.map((e) async =>
-            e.setup(current.data, current.assetService, current.page)));
-        await _saveState(
-            emit,
-            current.copyWith(
-                page: current.page.copyWith(
-              backgrounds: event.backgrounds,
-            )));
-        current.currentIndexCubit.unbake(backgrounds: backgrounds);
-      }
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final List<Renderer<Background>> backgrounds =
+          event.backgrounds.map(Renderer.fromInstance).toList();
+      await Future.wait(backgrounds.map((e) async =>
+          e.setup(current.data, current.assetService, current.page)));
+      await _saveState(
+          emit,
+          current.copyWith(
+              page: current.page.copyWith(
+            backgrounds: event.backgrounds,
+          )));
+      current.currentIndexCubit.unbake(backgrounds: backgrounds);
     });
     on<WaypointCreated>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        return _saveState(
-            emit,
-            current.copyWith(
-                page: current.page.copyWith(
-                    waypoints: List<Waypoint>.from(current.page.waypoints)
-                      ..add(event.waypoint))));
-      }
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      return _saveState(
+          emit,
+          current.copyWith(
+              page: current.page.copyWith(
+                  waypoints: List<Waypoint>.from(current.page.waypoints)
+                    ..add(event.waypoint))));
     });
     on<WaypointRenamed>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        return _saveState(
-            emit,
-            current.copyWith(
-                page: current.page.copyWith(
-                    waypoints: List<Waypoint>.from(current.page.waypoints)
-                      ..[event.index] = current.page.waypoints[event.index]
-                          .copyWith(name: event.name))));
-      }
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      return _saveState(
+          emit,
+          current.copyWith(
+              page: current.page.copyWith(
+                  waypoints: List<Waypoint>.from(current.page.waypoints)
+                    ..[event.index] = current.page.waypoints[event.index]
+                        .copyWith(name: event.name))));
     });
     on<WaypointRemoved>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        return _saveState(
-            emit,
-            current.copyWith(
-                page: current.page.copyWith(
-                    waypoints: List<Waypoint>.from(current.page.waypoints)
-                      ..removeAt(event.index))));
-      }
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      return _saveState(
+          emit,
+          current.copyWith(
+              page: current.page.copyWith(
+                  waypoints: List<Waypoint>.from(current.page.waypoints)
+                    ..removeAt(event.index))));
     });
 
     on<LayerRenamed>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        final content = List<PadElement>.from(current.page.content)
-            .map((e) =>
-                e.layer == event.oldName ? e.copyWith(layer: event.newName) : e)
-            .toList();
-        final renderer = content.map((e) => Renderer.fromInstance(e)).toList();
-        await Future.wait(renderer.map((e) async =>
-            await e.setup(current.data, current.assetService, current.page)));
-        await _saveState(
-            emit,
-            current.copyWith(
-                page: current.page.copyWith(content: content),
-                currentLayer: current.currentLayer == event.oldName
-                    ? event.newName
-                    : current.currentLayer),
-            null);
-        current.currentIndexCubit.unbake(unbakedElements: renderer);
-      }
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final content = List<PadElement>.from(current.page.content)
+          .map((e) =>
+              e.layer == event.oldName ? e.copyWith(layer: event.newName) : e)
+          .toList();
+      final renderer = content.map((e) => Renderer.fromInstance(e)).toList();
+      await Future.wait(renderer.map((e) async =>
+          await e.setup(current.data, current.assetService, current.page)));
+      await _saveState(
+          emit,
+          current.copyWith(
+              page: current.page.copyWith(content: content),
+              currentLayer: current.currentLayer == event.oldName
+                  ? event.newName
+                  : current.currentLayer),
+          null);
+      current.currentIndexCubit.unbake(unbakedElements: renderer);
     });
 
     on<LayerRemoved>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        final renderers = await Future.wait(
-            List<Renderer<PadElement>>.from(current.renderers).map((e) async {
-          if (e.element.layer == event.name) {
-            var renderer = Renderer.fromInstance(e.element.copyWith(layer: ''));
-            await renderer.setup(
-                current.data, current.assetService, current.page);
-            return renderer;
-          }
-          return e;
-        }));
-        final content = <PadElement>[];
-        for (var element in current.page.content) {
-          if (element.layer == event.name) {
-            content.add(element.copyWith(layer: ''));
-          } else {
-            content.add(element);
-          }
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final renderers = await Future.wait(
+          List<Renderer<PadElement>>.from(current.renderers).map((e) async {
+        if (e.element.layer == event.name) {
+          var renderer = Renderer.fromInstance(e.element.copyWith(layer: ''));
+          await renderer.setup(
+              current.data, current.assetService, current.page);
+          return renderer;
         }
-        await _saveState(
-            emit,
-            current.copyWith(page: current.page.copyWith(content: content)),
-            null);
-        current.currentIndexCubit.unbake(unbakedElements: renderers);
+        return e;
+      }));
+      final content = <PadElement>[];
+      for (var element in current.page.content) {
+        if (element.layer == event.name) {
+          content.add(element.copyWith(layer: ''));
+        } else {
+          content.add(element);
+        }
       }
+      await _saveState(
+          emit,
+          current.copyWith(page: current.page.copyWith(content: content)),
+          null);
+      current.currentIndexCubit.unbake(unbakedElements: renderers);
     });
 
     on<LayerElementsRemoved>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        final renderers = current.renderers
-            .where((e) => e.element.layer != event.name)
-            .toList();
-        await _saveState(
-            emit,
-            current.copyWith(
-              page: current.page.copyWith(
-                content: List<PadElement>.from(current.page.content)
-                    .where((e) => e.layer != event.name)
-                    .toList(),
-              ),
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      final renderers = current.renderers
+          .where((e) => e.element.layer != event.name)
+          .toList();
+      await _saveState(
+          emit,
+          current.copyWith(
+            page: current.page.copyWith(
+              content: List<PadElement>.from(current.page.content)
+                  .where((e) => e.layer != event.name)
+                  .toList(),
             ),
-            null);
-        current.currentIndexCubit.unbake(unbakedElements: renderers);
-      }
+          ),
+          null);
+      current.currentIndexCubit.unbake(unbakedElements: renderers);
     });
 
     on<LayerVisibilityChanged>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        var invisibleLayers = List<String>.from(current.invisibleLayers);
-        var isVisible = current.isLayerVisible(event.name);
-        if (isVisible) {
-          invisibleLayers.add(event.name);
-        } else {
-          invisibleLayers.remove(event.name);
-        }
-        return _saveState(
-            emit, current.copyWith(invisibleLayers: invisibleLayers), null);
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      var invisibleLayers = List<String>.from(current.invisibleLayers);
+      var isVisible = current.isLayerVisible(event.name);
+      if (isVisible) {
+        invisibleLayers.add(event.name);
+      } else {
+        invisibleLayers.remove(event.name);
       }
+      return _saveState(
+          emit, current.copyWith(invisibleLayers: invisibleLayers), null);
     });
 
     on<CurrentLayerChanged>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        return _saveState(
-            emit,
-            current.copyWith(
-              currentLayer: event.name,
-            ));
-      }
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      return _saveState(
+          emit,
+          current.copyWith(
+            currentLayer: event.name,
+          ));
     });
 
     on<ElementsLayerChanged>((event, emit) async {
-      if (state is DocumentLoadSuccess) {
-        final current = state as DocumentLoadSuccess;
-        if (!(current.embedding?.editable ?? true)) return;
-        var content = List<PadElement>.from(current.page.content);
-        for (var element in event.elements) {
-          content[element] = content[element].copyWith(layer: event.layer);
-        }
-        final renderer = content.map((e) => Renderer.fromInstance(e)).toList();
-        await Future.wait(renderer.map((e) async =>
-            await e.setup(current.data, current.assetService, current.page)));
-        await _saveState(
-            emit,
-            current.copyWith(
-              page: current.page.copyWith(
-                content: content,
-              ),
-            ),
-            null);
-        current.currentIndexCubit.unbake(unbakedElements: renderer);
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      if (!(current.embedding?.editable ?? true)) return;
+      var content = List<PadElement>.from(current.page.content);
+      for (var element in event.elements) {
+        content[element] = content[element].copyWith(layer: event.layer);
       }
+      final renderer = content.map((e) => Renderer.fromInstance(e)).toList();
+      await Future.wait(renderer.map((e) async =>
+          await e.setup(current.data, current.assetService, current.page)));
+      await _saveState(
+          emit,
+          current.copyWith(
+            page: current.page.copyWith(
+              content: content,
+            ),
+          ),
+          null);
+      current.currentIndexCubit.unbake(unbakedElements: renderer);
     });
     on<TemplateCreated>((event, emit) async {
       final current = state;
