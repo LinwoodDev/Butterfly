@@ -1,24 +1,40 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 
-enum NetworkType { none, server, client }
+enum NetworkSide { server, client }
+
+enum NetworkType { webSocket, webRtc }
 
 class NetworkService {
   DocumentBloc? bloc;
+  NetworkSide? networkSide;
+  NetworkType? networkType;
 
   NetworkService();
 
-  NetworkType get networkType {
-    return NetworkType.none;
+  void createRtcServer() {
+    close();
+    networkSide = NetworkSide.server;
+    networkType = NetworkType.webRtc;
   }
 
-  void createRtcServer() {}
+  void createSocketServer() {
+    close();
+    networkSide = NetworkSide.server;
+    networkType = NetworkType.webSocket;
+  }
 
-  void createSocketServer() {}
+  void createSocketClient() {
+    close();
+    networkSide = NetworkSide.client;
+    networkType = NetworkType.webSocket;
+  }
 
-  void createSocketClient() {}
-
-  void createRtcClient() {}
+  void createRtcClient() {
+    close();
+    networkSide = NetworkSide.client;
+    networkType = NetworkType.webRtc;
+  }
 
   void close() {}
 

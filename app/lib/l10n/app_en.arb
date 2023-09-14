@@ -540,5 +540,9 @@
   "webRtc": "Web RTC",
   "webSocket": "Web Socket",
   "iceServer": "ICE Server",
-  "port": "Port"
+  "port": "Port",
+  "type": "Type",
+  "side": "Side",
+  "client": "Client",
+  "server": "Server"
 }

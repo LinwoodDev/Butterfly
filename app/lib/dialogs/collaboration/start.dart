@@ -1,4 +1,5 @@
 import 'package:butterfly/cubits/settings.dart';
+import 'package:butterfly/dialogs/collaboration/view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,7 +76,11 @@ class StartCollaborationDialog extends StatelessWidget {
           child: Text(AppLocalizations.of(context).close),
         ),
         ElevatedButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (context) => const ViewCollaborationDialog());
+          },
           child: Text(AppLocalizations.of(context).start),
         ),
       ],
