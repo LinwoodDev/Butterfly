@@ -24,8 +24,10 @@
 * Improve clipboard system to include image and svg source as data uri
 * Improve export system
 * Improve version info in setting if not connected to the internet
+* Improve spacing in background dialog
 * Prevent window of closing when there are unsaved changes ([#403](https://github.com/LinwoodDev/Butterfly/issues/403))
 * Change file search to not case sensitive
+* Change expansion panels in background dialog to tabs
 * Fix expansion panel list in texture property, shapes and constraints view
 * Fix bfly mimetype
 * Fix property view playing open animation when opening navigator

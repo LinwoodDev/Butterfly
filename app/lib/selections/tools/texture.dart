@@ -8,11 +8,15 @@ class TextureToolSelection extends ToolSelection<TextureTool> {
     final tool = selected.first;
     return [
       ...super.buildProperties(context),
-      TextureView(
-        value: tool.texture,
-        onChanged: (texture) => update(
-          context,
-          selected.map((e) => e.copyWith(texture: texture)).toList(),
+      const SizedBox(height: 8),
+      SizedBox(
+        height: 500,
+        child: TextureView(
+          value: tool.texture,
+          onChanged: (texture) => update(
+            context,
+            selected.map((e) => e.copyWith(texture: texture)).toList(),
+          ),
         ),
       ),
     ];
