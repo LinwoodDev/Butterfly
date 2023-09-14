@@ -247,14 +247,14 @@ class _AppBarTitle extends StatelessWidget {
                         tooltip:
                             AppLocalizations.of(context).changeDocumentPath,
                       ),
-                      /*IconButton(
+                      IconButton(
                         icon:
                             const PhosphorIcon(PhosphorIconsLight.shareNetwork),
                         onPressed: () {
                           // TODO: Share
                         },
                         tooltip: AppLocalizations.of(context).share,
-                      ),*/
+                      ),
                     ],
                   ],
                 ],

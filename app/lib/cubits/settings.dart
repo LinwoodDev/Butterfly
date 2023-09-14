@@ -20,6 +20,8 @@ import '../views/navigator.dart';
 part 'settings.freezed.dart';
 part 'settings.g.dart';
 
+const kDefaultIceServers = ['stunserver.stunprotocol.org:3478'];
+
 const secureStorage = FlutterSecureStorage(
   aOptions: AndroidOptions(
     encryptedSharedPreferences: true,
@@ -254,6 +256,7 @@ class ButterflySettings with _$ButterflySettings {
     @Default(0.5) double imageScale,
     @Default(2) double pdfQuality,
     @Default(PlatformTheme.system) PlatformTheme platformTheme,
+    @Default(kDefaultIceServers) List<String> iceServers,
   }) = _ButterflySettings;
 
   factory ButterflySettings.fromPrefs(
@@ -326,6 +329,7 @@ class ButterflySettings with _$ButterflySettings {
       platformTheme: prefs.containsKey('platform_theme')
           ? PlatformTheme.values.byName(prefs.getString('platform_theme')!)
           : PlatformTheme.system,
+      iceServers: prefs.getStringList('ice_servers') ?? kDefaultIceServers,
     );
   }
 
@@ -377,6 +381,7 @@ class ButterflySettings with _$ButterflySettings {
     await prefs.setString('sort_by', sortBy.name);
     await prefs.setString('sort_order', sortOrder.name);
     await prefs.setDouble('image_scale', imageScale);
+    await prefs.setStringList('ice_servers', iceServers);
   }
 
   RemoteStorage? getRemote(String? identifier) {
@@ -787,4 +792,21 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   Future<void> resetPlatformTheme() =>
       changePlatformTheme(PlatformTheme.system);
+
+  Future<void> addIceServer(String server) {
+    emit(state.copyWith(iceServers: {...state.iceServers, server}.toList()));
+    return save();
+  }
+
+  Future<void> removeIceServer(String server) {
+    emit(state.copyWith(
+        iceServers:
+            state.iceServers.where((element) => element != server).toList()));
+    return save();
+  }
+
+  Future<void> resetIceServers() {
+    emit(state.copyWith(iceServers: kDefaultIceServers));
+    return save();
+  }
 }
