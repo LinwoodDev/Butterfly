@@ -210,12 +210,29 @@ class _AppBarTitle extends StatelessWidget {
                       tooltip: AppLocalizations.of(context).search,
                       onPressed: () {
                         final bloc = context.read<DocumentBloc>();
-                        showDialog(
+                        showGeneralDialog(
                           context: context,
-                          builder: (context) => BlocProvider.value(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  BlocProvider.value(
                             value: bloc,
                             child: const SearchDialog(),
                           ),
+                          barrierDismissible: true,
+                          barrierLabel: MaterialLocalizations.of(context)
+                              .modalBarrierDismissLabel,
+                          transitionDuration: const Duration(milliseconds: 200),
+                          transitionBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            // Animate the dialog from bottom to center
+                            return SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(0, -0.5),
+                                end: Offset.zero,
+                              ).animate(animation),
+                              child: child,
+                            );
+                          },
                         );
                       },
                     ),

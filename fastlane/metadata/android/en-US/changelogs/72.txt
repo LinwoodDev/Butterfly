@@ -6,6 +6,7 @@
   * Rename hand painter to select tool
   * Rename move painter to hand tool
   * Rename tool to utilities
+* Recode event system to include collaboration in the future
 * Redesign document properties
 * Add texture element ([#406](https://github.com/LinwoodDev/Butterfly/issues/406))
 * Add search to add dialog
@@ -17,6 +18,7 @@
 * Add thumbnail to templates dialog
 * Add markdown importing
 * Add export functionality to markdown elements
+* Add animation to search dialog
 * Move export button from selection view to context menu
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
 * Improve clipboard system to include image and svg source as data uri
