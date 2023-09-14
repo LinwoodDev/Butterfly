@@ -535,5 +535,10 @@
   "sureClose": "Are you sure you want to close the document?",
   "thereAreUnsavedChanges": "There are unsaved changes",
   "page": "Page",
-  "iceServers": "ICE Servers"
+  "iceServers": "ICE Servers",
+  "collaboration": "Collaboration",
+  "webRtc": "Web RTC",
+  "webSocket": "Web Socket",
+  "iceServer": "ICE Server",
+  "port": "Port"
 }

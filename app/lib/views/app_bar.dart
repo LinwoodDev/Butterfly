@@ -4,6 +4,7 @@ import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/cubits/current_index.dart';
+import 'package:butterfly/dialogs/collaboration/start.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
@@ -251,7 +252,10 @@ class _AppBarTitle extends StatelessWidget {
                         icon:
                             const PhosphorIcon(PhosphorIconsLight.shareNetwork),
                         onPressed: () {
-                          // TODO: Share
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => const StartCollaborationDialog(),
+                          );
                         },
                         tooltip: AppLocalizations.of(context).share,
                       ),
