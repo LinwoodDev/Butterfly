@@ -153,5 +153,5 @@ Future<void> addToPack(
     elements: elements,
     thumbnail: thumbnailUri,
   ));
-  bloc.add(DocumentPackUpdated(result.pack, pack));
+  bloc.add(PackUpdated(result.pack, pack));
 }

@@ -80,8 +80,11 @@ ContextMenuBuilder buildElementsContextMenu(
           ContextMenuItem(
             onPressed: () {
               Navigator.of(context).pop(true);
-              bloc.add(
-                  ElementsRemoved(renderers.map((r) => r.element).toList()));
+              final state = bloc.state;
+              if (state is! DocumentLoadSuccess) return;
+              final content = state.page.content;
+              bloc.add(ElementsRemoved(
+                  renderers.map((r) => content.indexOf(r.element)).toList()));
             },
             icon: const PhosphorIcon(PhosphorIconsLight.trash),
             label: AppLocalizations.of(context).delete,
@@ -94,8 +97,14 @@ ContextMenuBuilder buildElementsContextMenu(
                       child: Text(e.getLocalizedName(context)),
                       onPressed: () {
                         Navigator.of(context).pop(true);
+                        final state = bloc.state;
+                        if (state is! DocumentLoadSuccess) return;
+                        final content = state.page.content;
                         bloc.add(ElementsArranged(
-                            renderers.map((r) => r.element).toList(), e));
+                            e,
+                            renderers
+                                .map((r) => content.indexOf(r.element))
+                                .toList()));
                       },
                     ))
                 .toList(),

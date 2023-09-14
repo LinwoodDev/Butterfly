@@ -120,7 +120,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         filled: true,
                       ),
                       onChanged: (value) {
-                        bloc.add(DocumentDescriptorChanged(name: value));
+                        bloc.add(DocumentDescriptionChanged(name: value));
                         state.save();
                       },
                     ),
@@ -134,7 +134,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         border: const OutlineInputBorder(),
                       ),
                       onChanged: (value) {
-                        bloc.add(DocumentDescriptorChanged(description: value));
+                        bloc.add(
+                            DocumentDescriptionChanged(description: value));
                         state.save();
                       },
                     ),

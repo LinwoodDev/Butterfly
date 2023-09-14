@@ -7,6 +7,7 @@ import 'colors.dart';
 import 'element.dart';
 import 'pack.dart';
 import 'property.dart';
+import 'texture.dart';
 
 part 'tool.freezed.dart';
 part 'tool.g.dart';
