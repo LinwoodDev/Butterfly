@@ -125,7 +125,7 @@ class SelectHandler extends Handler<SelectTool> {
   List<Renderer<PadElement>> _selected = [];
   List<Renderer<PadElement>> _transformed = [];
   Offset? _transformStartOffset;
-  Offset _contextMenuOffset = Offset.zero;
+  Offset? _contextMenuOffset;
   Rect? _freeSelection;
   Offset? _currentMousePosition;
   double _scale = 1.0;
@@ -346,8 +346,16 @@ class SelectHandler extends Handler<SelectTool> {
     }
   }
 
+  bool _startLongPress = false;
+
+  @override
+  void onLongPressDown(LongPressDownDetails details, EventContext context) {
+    _startLongPress = details.kind != PointerDeviceKind.mouse;
+  }
+
   @override
   void onLongPressEnd(LongPressEndDetails details, EventContext context) {
+    if (!_startLongPress) return;
     _onSelectionAdd(context, details.localPosition, true);
   }
 
@@ -418,12 +426,14 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   void onDoubleTapDown(TapDownDetails details, EventContext context) {
-    _contextMenuOffset = details.localPosition;
+    _contextMenuOffset =
+        details.kind != PointerDeviceKind.mouse ? details.localPosition : null;
   }
 
   @override
   void onDoubleTap(EventContext context) {
-    _onSelectionContext(context, _contextMenuOffset);
+    if (_contextMenuOffset == null) return;
+    _onSelectionContext(context, _contextMenuOffset!);
   }
 
   Future<void> _onSelectionContext(

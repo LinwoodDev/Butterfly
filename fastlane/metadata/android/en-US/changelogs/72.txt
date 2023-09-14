@@ -35,6 +35,7 @@
 * Fix changing styles of label in selection
 * Fix open with for bfly documents on android
 * Fix insert first and last tooltip in pages navigator view
+* Disable gestures on mouse input
 * Remove view options from undo
 * Remove reload after starring
 

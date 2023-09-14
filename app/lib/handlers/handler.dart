@@ -195,6 +195,9 @@ abstract class Handler<T> {
 
   void onDoubleTap(EventContext context) {}
 
+  void onLongPressStart(
+      LongPressStartDetails details, EventContext eventContext) {}
+
   void onLongPressDown(LongPressDownDetails details, EventContext context) {}
 
   bool canChange(PointerDownEvent event, EventContext context) => true;

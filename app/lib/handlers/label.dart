@@ -292,10 +292,18 @@ class LabelHandler extends Handler<LabelTool>
   @override
   void onSecondaryTapUp(TapUpDetails details, EventContext context) =>
       _onContextMenu(details.localPosition, context);
+  bool _startLongPress = false;
 
   @override
-  void onLongPressEnd(LongPressEndDetails details, EventContext context) =>
-      _onContextMenu(details.localPosition, context);
+  void onLongPressDown(LongPressDownDetails details, EventContext context) {
+    _startLongPress = details.kind != PointerDeviceKind.mouse;
+  }
+
+  @override
+  void onLongPressEnd(LongPressEndDetails details, EventContext context) {
+    if (!_startLongPress) return;
+    _onContextMenu(details.localPosition, context);
+  }
 
   Future<void> _onContextMenu(
       Offset localPosition, EventContext context) async {
