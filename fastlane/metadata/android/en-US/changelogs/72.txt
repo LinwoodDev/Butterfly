@@ -42,6 +42,7 @@
 * Fix insert first and last tooltip in pages navigator view
 * Fix background not changed after page change
 * Fix missing localization for switch view
+* Fix transforming shape element
 * Disable gestures on mouse input
 * Remove view options from undo
 * Remove reload after clicking on star

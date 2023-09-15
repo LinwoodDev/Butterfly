@@ -188,9 +188,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 newIndex = content.indexOf(hits[hitIndex + 1]) + 1;
               }
               if (newIndex >= 0) {
-                final element = content[newIndex];
-                newRendererIndex =
-                    renderers.indexWhere((e) => e.element == element);
+                final element =
+                    newIndex < content.length ? content[newIndex] : null;
+                newRendererIndex = element == null
+                    ? renderers.length
+                    : renderers.indexWhere((e) => e.element == element);
               }
             }
           }
