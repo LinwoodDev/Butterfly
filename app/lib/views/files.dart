@@ -123,8 +123,9 @@ class _FilesViewState extends State<FilesView> {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text('Switch view'),
-                  IconButton(
+                  Text(AppLocalizations.of(context).switchView),
+                  const SizedBox(width: 8),
+                  IconButton.filledTonal(
                     onPressed: () => setState(() => _gridView = !_gridView),
                     icon: _gridView
                         ? const PhosphorIcon(PhosphorIconsLight.list)

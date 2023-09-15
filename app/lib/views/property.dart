@@ -185,7 +185,8 @@ class _PropertyViewState extends State<PropertyView>
                                         .read<CurrentIndexCubit>()
                                         .togglePin(),
                                   ),
-                                IconButton(
+                                const SizedBox(width: 8),
+                                IconButton.outlined(
                                   tooltip: AppLocalizations.of(context).close,
                                   icon:
                                       const PhosphorIcon(PhosphorIconsLight.x),

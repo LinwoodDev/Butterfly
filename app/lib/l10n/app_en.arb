@@ -534,5 +534,6 @@
   "pattern": "Pattern",
   "sureClose": "Are you sure you want to close the document?",
   "thereAreUnsavedChanges": "There are unsaved changes",
-  "page": "Page"
+  "page": "Page",
+  "switchView": "Switch View"
 }

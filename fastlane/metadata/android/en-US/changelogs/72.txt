@@ -26,6 +26,7 @@
 * Improve export system
 * Improve version info in setting if not connected to the internet
 * Improve spacing in background dialog
+* Improve icon buttons to match material 3
 * Prevent window of closing when there are unsaved changes ([#403](https://github.com/LinwoodDev/Butterfly/issues/403))
 * Change file search to not case sensitive
 * Change expansion panels in background dialog to tabs
@@ -39,6 +40,7 @@
 * Fix open with for bfly documents on android
 * Fix insert first and last tooltip in pages navigator view
 * Fix background not changed after page change
+* Fix missing localization for switch view
 * Disable gestures on mouse input
 * Remove view options from undo
 * Remove reload after starring
