@@ -854,4 +854,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     currentIndexCubit.loadElements(document, assetService, page);
     currentIndexCubit.init(this);
   }
+
+  void dispose() {
+    final current = state;
+    if (current is! DocumentLoaded) return;
+    current.networkService.close();
+  }
 }

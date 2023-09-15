@@ -4,7 +4,7 @@ import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
 import 'package:butterfly/cubits/current_index.dart';
-import 'package:butterfly/dialogs/collaboration/start.dart';
+import 'package:butterfly/dialogs/collaboration/view.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
 import 'package:butterfly/visualizer/asset.dart';
@@ -95,7 +95,8 @@ class _AppBarTitle extends StatelessWidget {
         }
         return previous.currentAreaName != current.currentAreaName ||
             previous.hasAutosave() != current.hasAutosave() ||
-            previous.metadata != current.metadata;
+            previous.metadata != current.metadata ||
+            previous.networkService.isActive != current.networkService.isActive;
       }, builder: (context, state) {
         final area = state is DocumentLoadSuccess ? state.currentArea : null;
         final areaName =
@@ -251,13 +252,11 @@ class _AppBarTitle extends StatelessWidget {
                       IconButton(
                         icon:
                             const PhosphorIcon(PhosphorIconsLight.shareNetwork),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (ctx) => const StartCollaborationDialog(),
-                          );
-                        },
+                        onPressed: () => showCollaborationDialog(context),
                         tooltip: AppLocalizations.of(context).share,
+                        isSelected: state.networkService.isActive,
+                        selectedIcon:
+                            const PhosphorIcon(PhosphorIconsFill.shareNetwork),
                       ),
                     ],
                   ],

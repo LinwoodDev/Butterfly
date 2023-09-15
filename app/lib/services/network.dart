@@ -12,6 +12,8 @@ class NetworkService {
 
   NetworkService();
 
+  bool get isActive => networkSide != null && networkType != null;
+
   void createRtcServer() {
     close();
     networkSide = NetworkSide.server;
@@ -36,7 +38,10 @@ class NetworkService {
     networkType = NetworkType.webRtc;
   }
 
-  void close() {}
+  void close() {
+    networkSide = null;
+    networkType = null;
+  }
 
   void onEvent(DocumentEvent event) {
     if (!event.shouldSync()) return;

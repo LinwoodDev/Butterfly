@@ -1,5 +1,8 @@
+import 'package:butterfly/bloc/document_bloc.dart';
+import 'package:butterfly/dialogs/collaboration/start.dart';
 import 'package:butterfly/services/network.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -17,7 +20,13 @@ class ViewCollaborationDialog extends StatelessWidget {
           Text(AppLocalizations.of(context).collaboration),
           IconButton.outlined(
             icon: const PhosphorIcon(PhosphorIconsLight.stop),
-            onPressed: () {},
+            onPressed: () {
+              final bloc = context.read<DocumentBloc>();
+              final state = bloc.state;
+              if (state is! DocumentLoaded) return;
+              state.networkService.close();
+              Navigator.of(context).pop();
+            },
           ),
         ],
       ),
@@ -88,4 +97,21 @@ class ViewCollaborationDialog extends StatelessWidget {
       ],
     );
   }
+}
+
+Future<void> showCollaborationDialog(BuildContext context) async {
+  final bloc = context.read<DocumentBloc>();
+  final state = bloc.state;
+  if (state is! DocumentLoaded) return;
+  final network = state.networkService;
+  final dialog = network.isActive
+      ? const ViewCollaborationDialog()
+      : const StartCollaborationDialog();
+  return showDialog(
+    context: context,
+    builder: (context) => BlocProvider.value(
+      value: bloc,
+      child: dialog,
+    ),
+  );
 }
