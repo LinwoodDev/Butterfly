@@ -172,7 +172,6 @@ class _MainViewViewportState extends State<MainViewViewport>
 
         var openView = false;
         final CurrentIndexCubit cubit = context.read<CurrentIndexCubit>();
-        var point = Offset.zero;
 
         Handler getHandler() {
           if (state is DocumentPresentationState) return state.handler;
@@ -217,12 +216,12 @@ class _MainViewViewportState extends State<MainViewViewport>
                               !settings.inputGestures) return;
                           var current = details.scale;
                           current = current - size;
-                          current += 1;
                           var sensitivity = context
                               .read<SettingsCubit>()
                               .state
                               .touchSensitivity;
-                          cubit.zoom((1 - current) / -sensitivity + 1, point);
+                          cubit.zoom(current / sensitivity + 1,
+                              details.localFocalPoint);
                           size = details.scale;
                         },
                         onLongPressEnd: (details) => getHandler()
@@ -237,7 +236,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                               .getHandler()
                               .onScaleStart(details, getEventContext());
                           size = 1;
-                          point = details.localFocalPoint;
                         },
                         onDoubleTapDown: (details) => getHandler()
                             .onDoubleTapDown(details, getEventContext()),

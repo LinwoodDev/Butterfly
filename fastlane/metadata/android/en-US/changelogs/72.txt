@@ -32,7 +32,7 @@
 * Prevent window of closing when there are unsaved changes ([#403](https://github.com/LinwoodDev/Butterfly/issues/403))
 * Change file search to not case sensitive
 * Change expansion panels in background dialog to tabs
-* Fix expansion panel list in texture property, shapes and constraints view
+* Fix expansion panel list in corner radius shape, texture property, shapes and constraints view
 * Fix bfly mimetype
 * Fix property view playing open animation when opening navigator
 * Fix colors in svg export
@@ -45,6 +45,7 @@
 * Fix missing localization for switch view
 * Fix transforming shape element
 * Fix duplication position issues
+* Fix template creation message text
 * Disable gestures on mouse input
 * Remove view options from undo
 * Remove reload after clicking on star
