@@ -21,6 +21,7 @@
 * Add export functionality to markdown elements
 * Add animation to search dialog
 * Add scale property to label tool
+* Add alpha slider to shape element
 * Move export button from selection view to context menu
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
 * Improve clipboard system to include image and svg source as data uri
@@ -43,6 +44,7 @@
 * Fix background not changed after page change
 * Fix missing localization for switch view
 * Fix transforming shape element
+* Fix duplication position issues
 * Disable gestures on mouse input
 * Remove view options from undo
 * Remove reload after clicking on star

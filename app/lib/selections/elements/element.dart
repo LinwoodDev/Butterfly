@@ -82,8 +82,8 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
       final element = selected[i];
       final oldElement = this.selected[i];
       if (element.element != oldElement.element) {
-        updatedElements[content.indexOf(element.element)] = [
-          oldElement.element
+        updatedElements[content.indexOf(oldElement.element)] = [
+          element.element
         ];
       }
     }

@@ -103,10 +103,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final renderers = <Renderer<PadElement>>[];
       var selection = current.currentIndexCubit.state.selection;
       Renderer<PadElement>? oldRenderer, newRenderer;
-      for (var renderer in current.renderers) {
-        final updated = event.elements[renderer.element];
+      final page = current.page;
+      for (final renderer in current.renderers) {
+        final index = page.content.indexOf(renderer.element);
+        final updated = event.elements[index];
         if (updated != null) {
-          for (var element in updated) {
+          for (final element in updated) {
             newRenderer = Renderer.fromInstance(element);
             await newRenderer.setup(
                 current.data, current.assetService, current.page);
@@ -134,22 +136,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           .onRendererUpdated(current.page, oldRenderer, newRenderer)) {
         refresh();
       }
-      final page = current.page;
       if (selection != null) {
         current.currentIndexCubit.changeSelection(selection);
+      }
+      final content = List.of(page.content);
+      for (final updated in event.elements.entries) {
+        content.removeAt(updated.key);
+        content.insertAll(updated.key, updated.value);
       }
       await _saveState(
           emit,
           current.copyWith(
             page: page.copyWith(
-              content: List<PadElement>.from(page.content).expand((e) {
-                final updated = event.elements[e];
-                if (updated != null) {
-                  return updated;
-                } else {
-                  return [e];
-                }
-              }).toList(),
+              content: content,
             ),
           ),
           null);
