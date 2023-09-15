@@ -8,6 +8,7 @@
   * Rename tool to utilities
 * Recode event system to include collaboration in the future
 * Redesign document properties
+* Redesign color operation bottom sheet
 * Add texture element ([#406](https://github.com/LinwoodDev/Butterfly/issues/406))
 * Add search to add dialog
 * Add mobile context menu ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
@@ -43,6 +44,6 @@
 * Fix missing localization for switch view
 * Disable gestures on mouse input
 * Remove view options from undo
-* Remove reload after starring
+* Remove reload after clicking on star
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8
