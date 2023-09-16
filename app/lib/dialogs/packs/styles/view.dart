@@ -1,5 +1,3 @@
-import 'package:butterfly/dialogs/delete.dart';
-import 'package:butterfly/dialogs/packs/styles/style.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
@@ -8,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../bloc/document_bloc.dart';
+import 'style.dart';
 
 class StylesPackView extends StatelessWidget {
   final NoteData value;

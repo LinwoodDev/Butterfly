@@ -94,13 +94,21 @@ class PagesView extends StatelessWidget {
                           child: ReorderableListView.builder(
                               itemCount: all.length,
                               onReorder: (oldIndex, newIndex) {
+                                if (oldIndex < 0 ||
+                                    newIndex < 0 ||
+                                    oldIndex >= all.length) return;
                                 final current = all[oldIndex];
                                 final name = current.path;
                                 final isFile = current.isFile;
                                 if (!isFile) return;
-                                final next = all[newIndex];
-                                final nextIndex =
+                                final next =
+                                    all[newIndex.clamp(0, all.length - 1)];
+                                var nextIndex =
                                     snapshot.data?.getPageIndex(next.name);
+                                if (newIndex >= all.length &&
+                                    nextIndex != null) {
+                                  nextIndex++;
+                                }
                                 if (!next.isFile || nextIndex == null) return;
                                 snapshot.data?.reoderPage(name, nextIndex);
                                 state.save();

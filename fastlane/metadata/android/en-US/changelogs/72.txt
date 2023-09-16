@@ -47,8 +47,11 @@
 * Fix transforming shape element
 * Fix duplication position issues
 * Fix template creation message text
+* Fix page ordering
+* Fix packs dialog closes after action
 * Disable gestures on mouse input
 * Remove view options from undo
 * Remove reload after clicking on star
+* Upgrade to agb 8
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8
