@@ -156,8 +156,10 @@ class _PacksDialogState extends State<PacksDialog>
                                                     AppLocalizations.of(context)
                                                         .local),
                                                 onPressed: () async {
-                                                  Navigator.of(context).pop();
-                                                  _addPack(pack!, true);
+                                                  await _addPack(pack!, true);
+                                                  if (mounted) {
+                                                    setState(() {});
+                                                  }
                                                 },
                                               ),
                                               MenuItemButton(
@@ -169,8 +171,8 @@ class _PacksDialogState extends State<PacksDialog>
                                                         .export),
                                                 onPressed: () async {
                                                   await _exportPack(pack!);
-                                                  if (context.mounted) {
-                                                    Navigator.of(context).pop();
+                                                  if (mounted) {
+                                                    setState(() {});
                                                   }
                                                 },
                                               ),
@@ -181,11 +183,13 @@ class _PacksDialogState extends State<PacksDialog>
                                                     AppLocalizations.of(context)
                                                         .delete),
                                                 onPressed: () {
-                                                  Navigator.of(context).pop();
                                                   context
                                                       .read<DocumentBloc>()
                                                       .add(PackRemoved(
                                                           metadata.name));
+                                                  if (mounted) {
+                                                    setState(() {});
+                                                  }
                                                 },
                                               ),
                                             ],
@@ -210,104 +214,112 @@ class _PacksDialogState extends State<PacksDialog>
                                 child: CircularProgressIndicator(),
                               );
                             }
-                            final globalPacks = snapshot.data!;
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: globalPacks.length,
-                              itemBuilder: (context, index) {
-                                final pack = globalPacks[index];
-                                final metadata = pack.getMetadata();
-                                if (metadata == null) return Container();
-                                return Dismissible(
-                                  key: ValueKey('globalpack:${metadata.name}'),
-                                  onDismissed: (direction) async {
-                                    await _fileSystem.deletePack(metadata.name);
-                                    if (mounted) Navigator.of(context).pop();
-                                  },
-                                  background: Container(
-                                    color: Colors.red,
-                                  ),
-                                  child: ListTile(
-                                    title: Text(metadata.name),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        if (metadata.author.isNotEmpty)
-                                          Text(AppLocalizations.of(context)
-                                              .byAuthor(metadata.author)),
-                                        if (metadata.description.isNotEmpty)
-                                          Text(metadata.description),
-                                      ],
-                                    ),
-                                    onTap: () async {
-                                      final bloc = context.read<DocumentBloc>();
-                                      final newPack =
-                                          await showDialog<NoteData>(
-                                              context: context,
-                                              builder: (context) =>
-                                                  BlocProvider.value(
-                                                    value: bloc,
-                                                    child:
-                                                        PackDialog(pack: pack),
-                                                  ));
-                                      if (newPack == null) return;
-                                      if (pack.name != newPack.name) {
-                                        await _fileSystem
-                                            .deletePack(metadata.name);
-                                      }
-                                      await _fileSystem.updatePack(newPack);
-                                      setState(() {});
+                            final globalPacks = List.of(snapshot.data!);
+                            return StatefulBuilder(
+                                builder: (context, setInnerState) {
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: globalPacks.length,
+                                itemBuilder: (context, index) {
+                                  final pack = globalPacks[index];
+                                  final metadata = pack.getMetadata();
+                                  if (metadata == null) return Container();
+                                  return Dismissible(
+                                    key:
+                                        ValueKey('globalpack:${metadata.name}'),
+                                    onDismissed: (direction) async {
+                                      setInnerState(
+                                          () => globalPacks.removeAt(index));
+                                      await _fileSystem
+                                          .deletePack(metadata.name);
+                                      if (mounted) setState(() {});
                                     },
-                                    trailing: MenuAnchor(
-                                      builder: defaultMenuButton(),
-                                      menuChildren: [
-                                        if (!widget.globalOnly)
+                                    background: Container(
+                                      color: Colors.red,
+                                    ),
+                                    child: ListTile(
+                                      title: Text(metadata.name),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          if (metadata.author.isNotEmpty)
+                                            Text(AppLocalizations.of(context)
+                                                .byAuthor(metadata.author)),
+                                          if (metadata.description.isNotEmpty)
+                                            Text(metadata.description),
+                                        ],
+                                      ),
+                                      onTap: () async {
+                                        final bloc =
+                                            context.read<DocumentBloc>();
+                                        final newPack = await showDialog<
+                                                NoteData>(
+                                            context: context,
+                                            builder: (context) =>
+                                                BlocProvider.value(
+                                                  value: bloc,
+                                                  child: PackDialog(pack: pack),
+                                                ));
+                                        if (newPack == null) return;
+                                        if (pack.name != newPack.name) {
+                                          await _fileSystem
+                                              .deletePack(metadata.name);
+                                        }
+                                        await _fileSystem.updatePack(newPack);
+                                        setState(() {});
+                                      },
+                                      trailing: MenuAnchor(
+                                        builder: defaultMenuButton(),
+                                        menuChildren: [
+                                          if (!widget.globalOnly)
+                                            MenuItemButton(
+                                              leadingIcon: const PhosphorIcon(
+                                                  PhosphorIconsLight.file),
+                                              child: Text(
+                                                  AppLocalizations.of(context)
+                                                      .document),
+                                              onPressed: () async {
+                                                await _addPack(pack, false);
+                                                if (mounted) {
+                                                  setState(() {});
+                                                }
+                                              },
+                                            ),
                                           MenuItemButton(
                                             leadingIcon: const PhosphorIcon(
-                                                PhosphorIconsLight.file),
+                                                PhosphorIconsLight.download),
                                             child: Text(
                                                 AppLocalizations.of(context)
-                                                    .document),
+                                                    .export),
                                             onPressed: () async {
-                                              Navigator.of(context).pop();
-                                              _addPack(pack, false);
+                                              await _exportPack(pack);
+                                              if (mounted) {
+                                                setState(() {});
+                                              }
                                             },
                                           ),
-                                        MenuItemButton(
-                                          leadingIcon: const PhosphorIcon(
-                                              PhosphorIconsLight.download),
-                                          child: Text(
-                                              AppLocalizations.of(context)
-                                                  .export),
-                                          onPressed: () async {
-                                            await _exportPack(pack);
-                                            if (context.mounted) {
-                                              Navigator.of(context).pop();
-                                            }
-                                          },
-                                        ),
-                                        MenuItemButton(
-                                          leadingIcon: const PhosphorIcon(
-                                              PhosphorIconsLight.trash),
-                                          child: Text(
-                                              AppLocalizations.of(context)
-                                                  .delete),
-                                          onPressed: () async {
-                                            await _fileSystem
-                                                .deletePack(metadata.name);
-                                            if (mounted) {
-                                              Navigator.of(context).pop();
-                                            }
-                                            setState(() {});
-                                          },
-                                        ),
-                                      ],
+                                          MenuItemButton(
+                                            leadingIcon: const PhosphorIcon(
+                                                PhosphorIconsLight.trash),
+                                            child: Text(
+                                                AppLocalizations.of(context)
+                                                    .delete),
+                                            onPressed: () async {
+                                              await _fileSystem
+                                                  .deletePack(metadata.name);
+                                              if (mounted) {
+                                                setState(() {});
+                                              }
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            );
+                                  );
+                                },
+                              );
+                            });
                           },
                         ),
                       ]),
@@ -339,7 +351,7 @@ class _PacksDialogState extends State<PacksDialog>
                                 if (metadata?.type != NoteFileType.pack) {
                                   return;
                                 }
-                                if (context.mounted) {
+                                if (mounted) {
                                   final success = await showDialog<bool>(
                                         context: context,
                                         builder: (context) => AlertDialog(
@@ -380,7 +392,10 @@ class _PacksDialogState extends State<PacksDialog>
                                       ) ??
                                       false;
                                   if (!success) return;
-                                  _addPack(pack);
+                                  await _addPack(pack);
+                                  if (context.mounted) {
+                                    setState(() {});
+                                  }
                                 }
                               },
                             ),
@@ -394,8 +409,11 @@ class _PacksDialogState extends State<PacksDialog>
                                   context: ctx,
                                   builder: (context) => const PackDialog(),
                                 );
-                                if (pack != null) {
-                                  _addPack(pack);
+                                if (pack == null) return;
+                                await _addPack(pack);
+
+                                if (context.mounted) {
+                                  setState(() {});
                                 }
                               },
                             ),
@@ -412,12 +430,12 @@ class _PacksDialogState extends State<PacksDialog>
                                     await DocumentDefaults.getCorePack();
                                 if (_isGlobal()) {
                                   await _fileSystem.deletePack(pack.name!);
-                                  setState(() {});
-                                } else if (context.mounted) {
+                                } else if (mounted) {
                                   final bloc = context.read<DocumentBloc>();
                                   bloc.add(PackRemoved(pack.name!));
                                 }
-                                _addPack(pack);
+                                await _addPack(pack);
+                                setState(() {});
                               },
                             ),
                           ],
