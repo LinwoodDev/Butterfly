@@ -105,7 +105,7 @@ class _PacksDialogState extends State<PacksDialog>
                                       if (metadata == null) return Container();
                                       return Dismissible(
                                         key: ValueKey(
-                                            'localpack:${metadata.name}'),
+                                            ('localpack', metadata.name)),
                                         onDismissed: (direction) {
                                           context
                                               .read<DocumentBloc>()
@@ -226,7 +226,7 @@ class _PacksDialogState extends State<PacksDialog>
                                   if (metadata == null) return Container();
                                   return Dismissible(
                                     key:
-                                        ValueKey('globalpack:${metadata.name}'),
+                                        ValueKey(('globalpack', metadata.name)),
                                     onDismissed: (direction) async {
                                       setInnerState(
                                           () => globalPacks.removeAt(index));
