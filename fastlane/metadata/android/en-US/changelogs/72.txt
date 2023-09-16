@@ -47,6 +47,7 @@
 * Fix transforming shape element
 * Fix duplication position issues
 * Fix template creation message text
+* Fix page ordering
 * Disable gestures on mouse input
 * Remove view options from undo
 * Remove reload after clicking on star

@@ -79,7 +79,7 @@ dependencies:
       ref: 205347161111273fd40d371c70ab6342bdcabf5c
       path: packages/lw_sysinfo
   flutter_localized_locales: ^2.0.4
-  dynamic_color: ^1.6.6
+  dynamic_color: ^1.6.7
   popover: ^0.2.8+2
   markdown: ^7.1.1
 dev_dependencies:

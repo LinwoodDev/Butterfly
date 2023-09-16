@@ -1,5 +1,4 @@
 import 'package:butterfly/dialogs/color_pick.dart';
-import 'package:butterfly/dialogs/delete.dart';
 import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
