@@ -22,6 +22,7 @@
 * Add animation to search dialog
 * Add scale property to label tool
 * Add alpha slider to shape element
+* Add delete buttons in pack dialog
 * Move export button from selection view to context menu
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
 * Improve clipboard system to include image and svg source as data uri

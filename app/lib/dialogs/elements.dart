@@ -146,7 +146,13 @@ ContextMenuBuilder buildElementsContextMenu(
                 context,
                 bloc,
                 settingsCubit,
-                renderers.map((e) => e.element).toList(),
+                renderers
+                    .map((e) =>
+                        e
+                            .transform(position: -rect.topLeft, relative: true)
+                            ?.element ??
+                        e.element)
+                    .toList(),
                 rect,
               );
             },
