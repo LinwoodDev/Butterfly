@@ -1,10 +1,16 @@
 import 'dart:math';
 
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'tool.g.dart';
+import 'area.dart';
+import 'colors.dart';
+import 'element.dart';
+import 'pack.dart';
+import 'property.dart';
+import 'texture.dart';
+
 part 'tool.freezed.dart';
+part 'tool.g.dart';
 
 const double _kSquareRatio = 1.0;
 const double _kAPortraitRatio = 1 / sqrt2;
@@ -33,7 +39,7 @@ enum LabelMode { markdown, text }
 
 enum Axis2D { horizontal, vertical }
 
-enum ImportType { image, camera, svg, pdf, document }
+enum ImportType { image, camera, svg, pdf, document, markdown }
 
 @Freezed(equal: false)
 sealed class Tool with _$Tool {
@@ -73,6 +79,7 @@ sealed class Tool with _$Tool {
     @Default(true) bool zoomDependent,
     @Default(kColorBlack) int foreground,
     @Default(PackAssetLocation()) PackAssetLocation styleSheet,
+    @Default(1.0) double scale,
   }) = LabelTool;
 
   factory Tool.pen({

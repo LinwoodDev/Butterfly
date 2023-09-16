@@ -33,6 +33,10 @@ class NoteData {
     return noteDataMigrator(data);
   }
 
+  factory NoteData.fromJson(dynamic json) => NoteData.fromData(
+        base64Decode(json as String),
+      );
+
   NoteFileType? get type => getMetadata()?.type;
 
   String? get name => getMetadata()?.name;
@@ -363,6 +367,15 @@ class NoteData {
   void removeStyle(String name) =>
       removeAsset('$kStylesArchiveDirectory/$name.json');
 
+  PackAssetLocation findStyle() {
+    for (final pack in getPacks()) {
+      final styles = getPack(pack)?.getStyles();
+      if (styles?.isEmpty ?? true) continue;
+      return PackAssetLocation(pack, styles!.first);
+    }
+    return PackAssetLocation.empty;
+  }
+
   Iterable<String> getPalettes() => getAssets(kPalettesArchiveDirectory, true);
 
   ColorPalette? getPalette(String paletteName) {
@@ -385,6 +398,10 @@ class NoteData {
       removeAsset('$kPalettesArchiveDirectory/$name.json');
 
   List<int> save() => ZipEncoder().encode(archive)!;
+
+  String toJson() {
+    return base64Encode(save());
+  }
 
   String addPage([DocumentPage? page, int? index]) {
     var name = 'Page ${getPages().length + 1}';

@@ -69,7 +69,7 @@ class AreasDialog extends StatelessWidget {
                                     ListTile(
                                         onTap: () {
                                           context.read<DocumentBloc>().add(
-                                              const CurrentAreaChanged.exit());
+                                              const CurrentAreaChanged(''));
                                           Navigator.of(context).pop();
                                         },
                                         title: Text(AppLocalizations.of(context)

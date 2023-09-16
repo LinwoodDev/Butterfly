@@ -168,8 +168,11 @@ class LaserHandler extends Handler<LaserTool> {
   PreferredSizeWidget getToolbar(DocumentBloc bloc) => ColorToolbarView(
         color: data.color,
         onChanged: (value) {
+          final state = bloc.state;
+          if (state is! DocumentLoadSuccess) return;
+          final index = state.info.tools.indexOf(data);
           bloc.add(ToolsChanged({
-            data: data.copyWith(color: convertOldColor(value, data.color)),
+            index: data.copyWith(color: convertOldColor(value, data.color)),
           }));
         },
       );

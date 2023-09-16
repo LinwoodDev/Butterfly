@@ -2,26 +2,20 @@ part of '../renderer.dart';
 
 class TextureRenderer extends Renderer<TextureElement> {
   @override
-  Rect rect;
+  Rect get rect => Rect.fromPoints(
+      element.firstPosition.toOffset(), element.secondPosition.toOffset());
 
-  TextureRenderer(super.element, [this.rect = Rect.zero]);
+  TextureRenderer(super.element);
 
   @override
   void setup(NoteData document, AssetService assetService, DocumentPage page) {
-    _updateRect();
     super.setup(document, assetService, page);
-  }
-
-  void _updateRect() {
-    rect = Rect.fromPoints(
-        element.firstPosition.toOffset(), element.secondPosition.toOffset());
   }
 
   @override
   FutureOr<void> build(Canvas canvas, Size size, NoteData document,
       DocumentPage page, DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    _updateRect();
     drawSurfaceTextureOnCanvas(
         element.texture, canvas, 1, Offset.zero, rect.size, rect.topLeft);
   }
@@ -39,7 +33,6 @@ class TextureRenderer extends Renderer<TextureElement> {
     double scaleX = 1,
     double scaleY = 1,
   }) {
-    final newRect = position & Size(rect.width * scaleX, rect.height * scaleY);
     final sizeX =
         (element.firstPosition.x - element.secondPosition.x).abs() * scaleX;
     final sizeY =
@@ -50,7 +43,6 @@ class TextureRenderer extends Renderer<TextureElement> {
         secondPosition: position.translate(sizeX, sizeY).toPoint(),
         rotation: rotation,
       ),
-      newRect,
     );
   }
 }

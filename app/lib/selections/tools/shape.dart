@@ -251,7 +251,8 @@ class _RectangleShapeView extends StatefulWidget {
 }
 
 class _RectangleShapeViewState extends State<_RectangleShapeView> {
-  bool cornerOShapeed = false;
+  bool _cornerExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -276,7 +277,7 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
       ExpansionPanelList(
         expansionCallback: (index, isExpanded) {
           setState(() {
-            cornerOShapeed = !isExpanded;
+            _cornerExpanded = isExpanded;
           });
         },
         children: [
@@ -284,7 +285,8 @@ class _RectangleShapeViewState extends State<_RectangleShapeView> {
             headerBuilder: (context, isExpanded) => ListTile(
               title: Text(AppLocalizations.of(context).cornerRadius),
             ),
-            isExpanded: cornerOShapeed,
+            canTapOnHeader: true,
+            isExpanded: _cornerExpanded,
             body: Column(children: [
               ExactSlider(
                 defaultValue: 0,

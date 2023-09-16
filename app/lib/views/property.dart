@@ -112,12 +112,18 @@ class _PropertyViewState extends State<PropertyView>
                                     onPressed: selected is! Tool
                                         ? null
                                         : () {
-                                            context
-                                                .read<DocumentBloc>()
-                                                .add(ToolsChanged({
-                                                  selected: selected.copyWith(
+                                            final bloc =
+                                                context.read<DocumentBloc>();
+                                            final state = bloc.state;
+                                            if (state is! DocumentLoadSuccess) {
+                                              return;
+                                            }
+                                            final painters = state.info.tools;
+                                            bloc.add(ToolsChanged({
+                                              painters.indexOf(selected):
+                                                  selected.copyWith(
                                                       displayIcon: e.name),
-                                                }));
+                                            }));
                                             controller.close();
                                           }))
                                 .toList();
@@ -179,7 +185,8 @@ class _PropertyViewState extends State<PropertyView>
                                         .read<CurrentIndexCubit>()
                                         .togglePin(),
                                   ),
-                                IconButton(
+                                const SizedBox(width: 8),
+                                IconButton.outlined(
                                   tooltip: AppLocalizations.of(context).close,
                                   icon:
                                       const PhosphorIcon(PhosphorIconsLight.x),

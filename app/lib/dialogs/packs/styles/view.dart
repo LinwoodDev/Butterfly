@@ -1,3 +1,4 @@
+import 'package:butterfly/dialogs/delete.dart';
 import 'package:butterfly/dialogs/packs/styles/style.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
@@ -59,6 +60,13 @@ class StylesPackView extends StatelessWidget {
                             value.setStyle(styleSheet!);
                             onChanged(value);
                           },
+                          trailing: IconButton(
+                            icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                            onPressed: () async {
+                              value.removeStyle(e);
+                              onChanged(value);
+                            },
+                          ),
                         ),
                       ),
                     )

@@ -161,98 +161,112 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxHeight: 42),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         if (widget.divider) const VerticalDivider(),
-                        Builder(builder: (context) {
-                          return Row(
-                            children: [
-                              if (!settings.fullScreen) ...[
-                                IconButton(
-                                  icon: const PhosphorIcon(
-                                      PhosphorIconsLight.minus),
-                                  tooltip:
-                                      AppLocalizations.of(context).minimize,
-                                  splashRadius: 20,
-                                  onPressed: () => windowManager.minimize(),
-                                ),
-                                MenuAnchor(
-                                  builder: (context, controller, child) =>
-                                      TextButton(
-                                    child: Tooltip(
-                                      message: maximized
-                                          ? AppLocalizations.of(context).restore
-                                          : AppLocalizations.of(context)
-                                              .maximize,
-                                      child: PhosphorIcon(
-                                        PhosphorIconsLight.square,
-                                        size: maximized ? 14 : 20,
-                                        color:
-                                            Theme.of(context).iconTheme.color,
-                                      ),
+                        Row(
+                          children: [
+                            if (!settings.fullScreen) ...[
+                              IconButton(
+                                icon: const PhosphorIcon(
+                                    PhosphorIconsLight.minus),
+                                tooltip: AppLocalizations.of(context).minimize,
+                                splashRadius: 20,
+                                onPressed: () => windowManager.minimize(),
+                              ),
+                              const SizedBox(width: 8),
+                              MenuAnchor(
+                                builder: (context, controller, child) =>
+                                    GestureDetector(
+                                  child: IconButton(
+                                    tooltip: maximized
+                                        ? AppLocalizations.of(context).restore
+                                        : AppLocalizations.of(context).maximize,
+                                    icon: PhosphorIcon(
+                                      PhosphorIconsLight.square,
+                                      size: maximized ? 14 : 20,
+                                      color: Theme.of(context).iconTheme.color,
                                     ),
                                     onPressed: () async =>
                                         await windowManager.isMaximized()
                                             ? windowManager.unmaximize()
                                             : windowManager.maximize(),
-                                    onLongPress: () async {
-                                      if (controller.isOpen) {
-                                        controller.close();
-                                      } else {
-                                        controller.open();
-                                      }
+                                  ),
+                                  onLongPress: () async {
+                                    if (controller.isOpen) {
+                                      controller.close();
+                                    } else {
+                                      controller.open();
+                                    }
+                                  },
+                                  onSecondaryTap: () async {
+                                    if (controller.isOpen) {
+                                      controller.close();
+                                    } else {
+                                      controller.open();
+                                    }
+                                  },
+                                ),
+                                menuChildren: [
+                                  MenuItemButton(
+                                    leadingIcon: PhosphorIcon(alwaysOnTop
+                                        ? PhosphorIconsFill.pushPin
+                                        : PhosphorIconsLight.pushPin),
+                                    child: Text(alwaysOnTop
+                                        ? AppLocalizations.of(context)
+                                            .exitAlwaysOnTop
+                                        : AppLocalizations.of(context)
+                                            .alwaysOnTop),
+                                    onPressed: () async {
+                                      await windowManager
+                                          .setAlwaysOnTop(!alwaysOnTop);
+                                      setState(
+                                          () => alwaysOnTop = !alwaysOnTop);
                                     },
                                   ),
-                                  menuChildren: [
-                                    MenuItemButton(
-                                      leadingIcon: PhosphorIcon(alwaysOnTop
-                                          ? PhosphorIconsFill.pushPin
-                                          : PhosphorIconsLight.pushPin),
-                                      child: Text(alwaysOnTop
-                                          ? AppLocalizations.of(context)
-                                              .exitAlwaysOnTop
-                                          : AppLocalizations.of(context)
-                                              .alwaysOnTop),
-                                      onPressed: () async {
-                                        await windowManager
-                                            .setAlwaysOnTop(!alwaysOnTop);
-                                        setState(
-                                            () => alwaysOnTop = !alwaysOnTop);
-                                      },
-                                    ),
-                                    MenuItemButton(
-                                      leadingIcon: PhosphorIcon(
-                                          settings.fullScreen
-                                              ? PhosphorIconsLight.arrowsIn
-                                              : PhosphorIconsLight.arrowsOut),
-                                      child: Text(settings.fullScreen
-                                          ? AppLocalizations.of(context)
-                                              .exitFullScreen
-                                          : AppLocalizations.of(context)
-                                              .enterFullScreen),
-                                      onPressed: () async {
-                                        context
-                                            .read<SettingsCubit>()
-                                            .toggleFullScreen();
-                                      },
-                                    ),
-                                  ],
+                                  MenuItemButton(
+                                    leadingIcon: PhosphorIcon(
+                                        settings.fullScreen
+                                            ? PhosphorIconsLight.arrowsIn
+                                            : PhosphorIconsLight.arrowsOut),
+                                    child: Text(settings.fullScreen
+                                        ? AppLocalizations.of(context)
+                                            .exitFullScreen
+                                        : AppLocalizations.of(context)
+                                            .enterFullScreen),
+                                    onPressed: () async {
+                                      context
+                                          .read<SettingsCubit>()
+                                          .toggleFullScreen();
+                                    },
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(width: 8),
+                              Theme(
+                                data: Theme.of(context).copyWith(
+                                  colorScheme:
+                                      Theme.of(context).colorScheme.copyWith(
+                                            secondaryContainer:
+                                                Colors.red.withOpacity(0.2),
+                                          ),
                                 ),
-                                IconButton(
+                                child: IconButton.filledTonal(
                                   icon:
                                       const PhosphorIcon(PhosphorIconsLight.x),
                                   tooltip: AppLocalizations.of(context).close,
                                   color: Colors.red,
                                   splashRadius: 20,
                                   onPressed: () => windowManager.close(),
-                                )
-                              ]
+                                ),
+                              )
                             ]
-                                .map((e) =>
-                                    AspectRatio(aspectRatio: 1, child: e))
-                                .toList(),
-                          );
-                        })
+                          ]
+                              .map((e) => e is SizedBox
+                                  ? e
+                                  : AspectRatio(aspectRatio: 1, child: e))
+                              .toList(),
+                        ),
                       ],
                     ),
                   ),

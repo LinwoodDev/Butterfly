@@ -11,7 +11,7 @@ class LabelHandler extends Handler<LabelTool>
 
   LabelContext _createContext(NoteData document,
       {Point<double>? position, double zoom = 1, LabelElement? element}) {
-    final scale = data.zoomDependent ? 1 / zoom : 1.0;
+    final scale = (data.zoomDependent ? 1 / zoom : 1.0) * data.scale;
     final mode = element != null
         ? (element is TextElement ? LabelMode.text : LabelMode.markdown)
         : data.mode;
@@ -156,9 +156,10 @@ class LabelHandler extends Handler<LabelTool>
             position: globalPos.toPoint(),
             zoom: context.getCameraTransform().size);
       } else {
-        context
-            .getDocumentBloc()
-            .add(ElementsRemoved([labelRenderer.element as PadElement]));
+        final page = context.getPage();
+        if (page == null) return;
+        final index = page.content.indexOf(labelRenderer.element as PadElement);
+        context.getDocumentBloc().add(ElementsRemoved([index]));
         _context = _createContext(document, element: labelRenderer.element);
       }
     }
@@ -235,6 +236,10 @@ class LabelHandler extends Handler<LabelTool>
   }
 
   void _change(DocumentBloc bloc, LabelContext value) {
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return;
+    final content = state.page.content;
+    final tools = state.info.tools;
     final context = _context;
     _context = value;
     if (context == null) return;
@@ -242,12 +247,12 @@ class LabelHandler extends Handler<LabelTool>
     if (context.element != null && value.element != null) {
       if (!value.isCreating) {
         bloc.add(ElementsChanged({
-          context.element!: [value.element!]
+          content.indexOf(context.element!): [value.element!],
         }));
       }
     }
     if (context.tool != value.tool) {
-      bloc.add(ToolsChanged({data: value.tool}));
+      bloc.add(ToolsChanged({tools.indexOf(data): value.tool}));
     }
     bloc.refresh();
     _refreshToolbar(bloc);
@@ -268,6 +273,9 @@ class LabelHandler extends Handler<LabelTool>
   }
 
   void _submit(DocumentBloc bloc) {
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return;
+    final content = state.page.content;
     final context = _context;
     if (context == null) return;
     final element = context.element;
@@ -276,7 +284,7 @@ class LabelHandler extends Handler<LabelTool>
       if (context.isCreating && !isEmpty) {
         bloc.add(ElementsCreated([element]));
       } else if (!context.isCreating && isEmpty) {
-        bloc.add(ElementsRemoved([element]));
+        bloc.add(ElementsRemoved([content.indexOf(element)]));
       }
     }
   }
@@ -284,10 +292,18 @@ class LabelHandler extends Handler<LabelTool>
   @override
   void onSecondaryTapUp(TapUpDetails details, EventContext context) =>
       _onContextMenu(details.localPosition, context);
+  bool _startLongPress = false;
 
   @override
-  void onLongPressEnd(LongPressEndDetails details, EventContext context) =>
-      _onContextMenu(details.localPosition, context);
+  void onLongPressDown(LongPressDownDetails details, EventContext context) {
+    _startLongPress = details.kind != PointerDeviceKind.mouse;
+  }
+
+  @override
+  void onLongPressEnd(LongPressEndDetails details, EventContext context) {
+    if (!_startLongPress) return;
+    _onContextMenu(details.localPosition, context);
+  }
 
   Future<void> _onContextMenu(
       Offset localPosition, EventContext context) async {
@@ -335,7 +351,7 @@ class LabelHandler extends Handler<LabelTool>
   TextEditingValue? get currentTextEditingValue => _context?.element == null
       ? null
       : TextEditingValue(
-          text: _context!.text!,
+          text: _context!.selection.textInside(_context!.text!),
           selection: _context!.selection,
           composing: TextRange(start: 0, end: _context!.text!.length),
         );

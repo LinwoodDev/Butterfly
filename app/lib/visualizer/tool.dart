@@ -100,6 +100,7 @@ extension ImportTypeVisualizer on ImportType {
         ImportType.pdf => AppLocalizations.of(context).pdf,
         ImportType.svg => AppLocalizations.of(context).svg,
         ImportType.camera => AppLocalizations.of(context).camera,
+        ImportType.markdown => AppLocalizations.of(context).markdown,
       };
 
   IconGetter get icon => switch (this) {
@@ -108,6 +109,7 @@ extension ImportTypeVisualizer on ImportType {
         ImportType.pdf => PhosphorIcons.filePdf,
         ImportType.svg => PhosphorIcons.fileSvg,
         ImportType.camera => PhosphorIcons.camera,
+        ImportType.markdown => PhosphorIcons.textbox,
       };
 
   bool isAvailable() => switch (this) {

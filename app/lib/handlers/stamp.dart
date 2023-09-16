@@ -72,8 +72,10 @@ class StampHandler extends PastingHandler<StampTool> {
   PreferredSizeWidget getToolbar(DocumentBloc bloc) => ComponentsToolbarView(
         component: data.component,
         onChanged: (value) {
+          final state = bloc.state;
+          if (state is! DocumentLoaded) return;
           bloc.add(ToolsChanged({
-            data: data.copyWith(
+            state.info.tools.indexOf(data): data.copyWith(
               component: value,
             ),
           }));

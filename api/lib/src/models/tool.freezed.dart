@@ -74,8 +74,14 @@ mixin _$Tool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -139,8 +145,14 @@ mixin _$Tool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -199,8 +211,14 @@ mixin _$Tool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -441,8 +459,14 @@ class _$SelectTool extends SelectTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -509,8 +533,14 @@ class _$SelectTool extends SelectTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -572,8 +602,14 @@ class _$SelectTool extends SelectTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -814,8 +850,14 @@ class _$HandTool extends HandTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -882,8 +924,14 @@ class _$HandTool extends HandTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -945,8 +993,14 @@ class _$HandTool extends HandTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -1222,8 +1276,14 @@ class _$ImportTool extends ImportTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -1290,8 +1350,14 @@ class _$ImportTool extends ImportTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -1353,8 +1419,14 @@ class _$ImportTool extends ImportTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -1600,8 +1672,14 @@ class _$UndoTool extends UndoTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -1668,8 +1746,14 @@ class _$UndoTool extends UndoTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -1731,8 +1815,14 @@ class _$UndoTool extends UndoTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -1971,8 +2061,14 @@ class _$RedoTool extends RedoTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -2039,8 +2135,14 @@ class _$RedoTool extends RedoTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -2102,8 +2204,14 @@ class _$RedoTool extends RedoTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -2278,7 +2386,8 @@ abstract class _$$LabelToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
       LabelMode mode,
       bool zoomDependent,
       int foreground,
-      PackAssetLocation styleSheet});
+      PackAssetLocation styleSheet,
+      double scale});
 
   $PackAssetLocationCopyWith<$Res> get styleSheet;
 }
@@ -2300,6 +2409,7 @@ class __$$LabelToolCopyWithImpl<$Res>
     Object? zoomDependent = null,
     Object? foreground = null,
     Object? styleSheet = null,
+    Object? scale = null,
   }) {
     return _then(_$LabelTool(
       name: null == name
@@ -2326,6 +2436,10 @@ class __$$LabelToolCopyWithImpl<$Res>
           ? _value.styleSheet
           : styleSheet // ignore: cast_nullable_to_non_nullable
               as PackAssetLocation,
+      scale: null == scale
+          ? _value.scale
+          : scale // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 
@@ -2348,6 +2462,7 @@ class _$LabelTool extends LabelTool {
       this.zoomDependent = true,
       this.foreground = kColorBlack,
       this.styleSheet = const PackAssetLocation(),
+      this.scale = 1.0,
       final String? $type})
       : $type = $type ?? 'label',
         super._();
@@ -2373,13 +2488,16 @@ class _$LabelTool extends LabelTool {
   @override
   @JsonKey()
   final PackAssetLocation styleSheet;
+  @override
+  @JsonKey()
+  final double scale;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Tool.label(name: $name, displayIcon: $displayIcon, mode: $mode, zoomDependent: $zoomDependent, foreground: $foreground, styleSheet: $styleSheet)';
+    return 'Tool.label(name: $name, displayIcon: $displayIcon, mode: $mode, zoomDependent: $zoomDependent, foreground: $foreground, styleSheet: $styleSheet, scale: $scale)';
   }
 
   @JsonKey(ignore: true)
@@ -2398,8 +2516,14 @@ class _$LabelTool extends LabelTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -2454,7 +2578,7 @@ class _$LabelTool extends LabelTool {
         texture,
   }) {
     return label(
-        name, displayIcon, mode, zoomDependent, foreground, styleSheet);
+        name, displayIcon, mode, zoomDependent, foreground, styleSheet, scale);
   }
 
   @override
@@ -2467,8 +2591,14 @@ class _$LabelTool extends LabelTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -2518,7 +2648,7 @@ class _$LabelTool extends LabelTool {
         texture,
   }) {
     return label?.call(
-        name, displayIcon, mode, zoomDependent, foreground, styleSheet);
+        name, displayIcon, mode, zoomDependent, foreground, styleSheet, scale);
   }
 
   @override
@@ -2531,8 +2661,14 @@ class _$LabelTool extends LabelTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -2583,8 +2719,8 @@ class _$LabelTool extends LabelTool {
     required TResult orElse(),
   }) {
     if (label != null) {
-      return label(
-          name, displayIcon, mode, zoomDependent, foreground, styleSheet);
+      return label(name, displayIcon, mode, zoomDependent, foreground,
+          styleSheet, scale);
     }
     return orElse();
   }
@@ -2686,7 +2822,8 @@ abstract class LabelTool extends Tool {
       final LabelMode mode,
       final bool zoomDependent,
       final int foreground,
-      final PackAssetLocation styleSheet}) = _$LabelTool;
+      final PackAssetLocation styleSheet,
+      final double scale}) = _$LabelTool;
   LabelTool._() : super._();
 
   factory LabelTool.fromJson(Map<String, dynamic> json) = _$LabelTool.fromJson;
@@ -2699,6 +2836,7 @@ abstract class LabelTool extends Tool {
   bool get zoomDependent;
   int get foreground;
   PackAssetLocation get styleSheet;
+  double get scale;
   @override
   @JsonKey(ignore: true)
   _$$LabelToolCopyWith<_$LabelTool> get copyWith =>
@@ -2805,8 +2943,14 @@ class _$PenTool extends PenTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -2873,8 +3017,14 @@ class _$PenTool extends PenTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -2936,8 +3086,14 @@ class _$PenTool extends PenTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -3195,8 +3351,14 @@ class _$EraserTool extends EraserTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -3263,8 +3425,14 @@ class _$EraserTool extends EraserTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -3326,8 +3494,14 @@ class _$EraserTool extends EraserTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -3584,8 +3758,14 @@ class _$PathEraserTool extends PathEraserTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -3652,8 +3832,14 @@ class _$PathEraserTool extends PathEraserTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -3715,8 +3901,14 @@ class _$PathEraserTool extends PathEraserTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -3973,8 +4165,14 @@ class _$LayerTool extends LayerTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -4041,8 +4239,14 @@ class _$LayerTool extends LayerTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -4104,8 +4308,14 @@ class _$LayerTool extends LayerTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -4393,8 +4603,14 @@ class _$AreaTool extends AreaTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -4462,8 +4678,14 @@ class _$AreaTool extends AreaTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -4526,8 +4748,14 @@ class _$AreaTool extends AreaTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -4823,8 +5051,14 @@ class _$LaserTool extends LaserTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -4891,8 +5125,14 @@ class _$LaserTool extends LaserTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -4955,8 +5195,14 @@ class _$LaserTool extends LaserTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -5261,8 +5507,14 @@ class _$ShapeTool extends ShapeTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -5330,8 +5582,14 @@ class _$ShapeTool extends ShapeTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -5394,8 +5652,14 @@ class _$ShapeTool extends ShapeTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -5670,8 +5934,14 @@ class _$StampTool extends StampTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -5738,8 +6008,14 @@ class _$StampTool extends StampTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -5801,8 +6077,14 @@ class _$StampTool extends StampTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -6048,8 +6330,14 @@ class _$PresentationTool extends PresentationTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -6116,8 +6404,14 @@ class _$PresentationTool extends PresentationTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -6179,8 +6473,14 @@ class _$PresentationTool extends PresentationTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -6434,8 +6734,14 @@ class _$SpacerTool extends SpacerTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -6502,8 +6808,14 @@ class _$SpacerTool extends SpacerTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -6565,8 +6877,14 @@ class _$SpacerTool extends SpacerTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -6811,8 +7129,14 @@ class _$FullScreenTool extends FullScreenTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -6879,8 +7203,14 @@ class _$FullScreenTool extends FullScreenTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -6942,8 +7272,14 @@ class _$FullScreenTool extends FullScreenTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -7197,8 +7533,14 @@ class _$AssetTool extends AssetTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -7265,8 +7607,14 @@ class _$AssetTool extends AssetTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -7328,8 +7676,14 @@ class _$AssetTool extends AssetTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -7638,8 +7992,14 @@ class _$TextureTool extends TextureTool {
         import,
     required TResult Function(String name, String displayIcon) undo,
     required TResult Function(String name, String displayIcon) redo,
-    required TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)
+    required TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)
         label,
     required TResult Function(String name, String displayIcon,
             bool zoomDependent, PenProperty property)
@@ -7707,8 +8067,14 @@ class _$TextureTool extends TextureTool {
         import,
     TResult? Function(String name, String displayIcon)? undo,
     TResult? Function(String name, String displayIcon)? redo,
-    TResult? Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult? Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult? Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?
@@ -7771,8 +8137,14 @@ class _$TextureTool extends TextureTool {
         import,
     TResult Function(String name, String displayIcon)? undo,
     TResult Function(String name, String displayIcon)? redo,
-    TResult Function(String name, String displayIcon, LabelMode mode,
-            bool zoomDependent, int foreground, PackAssetLocation styleSheet)?
+    TResult Function(
+            String name,
+            String displayIcon,
+            LabelMode mode,
+            bool zoomDependent,
+            int foreground,
+            PackAssetLocation styleSheet,
+            double scale)?
         label,
     TResult Function(String name, String displayIcon, bool zoomDependent,
             PenProperty property)?

@@ -11,11 +11,9 @@ class _TextureBackgroundPropertiesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: TextureView(
-        value: value.texture,
-        onChanged: (texture) => onChanged(value.copyWith(texture: texture)),
-      ),
+    return TextureView(
+      value: value.texture,
+      onChanged: (texture) => onChanged(value.copyWith(texture: texture)),
     );
   }
 }

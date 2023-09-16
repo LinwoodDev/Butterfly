@@ -80,11 +80,6 @@ sealed class PackAssetLocation with _$PackAssetLocation {
 
   PackAssetLocation fixStyle(NoteData document) {
     if (resolveStyle(document) != null) return this;
-    for (final pack in document.getPacks()) {
-      final styles = document.getPack(pack)?.getStyles();
-      if (styles?.isEmpty ?? true) continue;
-      return PackAssetLocation(pack, styles!.first);
-    }
-    return PackAssetLocation.empty;
+    return document.findStyle();
   }
 }

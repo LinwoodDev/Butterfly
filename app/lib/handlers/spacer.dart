@@ -76,8 +76,10 @@ class SpacerHandler extends Handler<SpacerTool> {
     }
     final renderers = await rayCastRect(
         rect, context.getDocumentBloc(), context.getCameraTransform());
+    final content = context.getPage()?.content;
+    if (content == null) return;
     final elements = Map.fromEntries(renderers
-        .map((e) => MapEntry(e.element, [
+        .map((e) => MapEntry(content.indexOf(e.element), [
               e
                       .transform(
                           position: (data.axis == Axis2D.horizontal

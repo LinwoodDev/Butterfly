@@ -51,11 +51,8 @@ ContextMenuBuilder buildAreaContextMenu(DocumentBloc bloc,
               : AppLocalizations.of(context).enterArea,
           onPressed: () {
             Navigator.of(context).pop();
-            if (area.name == state.currentAreaName) {
-              bloc.add(const CurrentAreaChanged.exit());
-            } else {
-              bloc.add(CurrentAreaChanged(area.name));
-            }
+            bloc.add(CurrentAreaChanged(
+                area.name == state.currentAreaName ? '' : area.name));
           },
         ),
         ContextMenuItem(

@@ -38,6 +38,8 @@ class EraserHandler extends Handler<EraserTool> {
     final size = data.strokeWidth;
     final shouldErase =
         _lastErased == null || (globalPos - _lastErased!).distance > size;
+    final page = context.getPage();
+    if (page == null) return;
     if (!_currentlyErasing && shouldErase) {
       _lastErased = globalPos;
       _currentlyErasing = true;
@@ -45,7 +47,7 @@ class EraserHandler extends Handler<EraserTool> {
       final ray = await rayCast(globalPos, context.getDocumentBloc(),
           context.getCameraTransform(), size);
       final elements = ray.map((e) => e.element).whereType<PenElement>();
-      final modified = <PadElement, List<PadElement>>{};
+      final modified = <int, List<PadElement>>{};
       for (final element in elements) {
         List<List<PathPoint>> paths = [[]];
         for (final point in element.points) {
@@ -58,7 +60,8 @@ class EraserHandler extends Handler<EraserTool> {
           }
         }
         if (paths.length == 1) continue;
-        modified[element] = paths
+        final index = page.content.indexOf(element);
+        modified[index] = paths
             .where((element) => element.isNotEmpty)
             .map((e) => element.copyWith(points: e))
             .toList();
@@ -74,6 +77,8 @@ class EraserHandler extends Handler<EraserTool> {
   @override
   void onPointerUp(PointerUpEvent event, EventContext context) {
     _changeElement(event.localPosition, context);
+    final content = context.getPage()?.content;
+    if (content == null) return;
   }
 
   @override

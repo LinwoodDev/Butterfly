@@ -132,29 +132,32 @@ class PagesView extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            IconButton(
+                            IconButton.filledTonal(
                               icon: const PhosphorIcon(
                                   PhosphorIconsLight.arrowUp),
                               tooltip:
                                   AppLocalizations.of(context).insertBefore,
                               onPressed: () => addPage(index),
                             ),
-                            IconButton(
+                            const SizedBox(width: 8),
+                            IconButton.filledTonal(
                               icon: const PhosphorIcon(
                                   PhosphorIconsLight.arrowDown),
                               tooltip: AppLocalizations.of(context).insertAfter,
                               onPressed: () => addPage((index ?? -1) + 1),
                             ),
-                            IconButton(
+                            const SizedBox(width: 8),
+                            IconButton.filledTonal(
                               icon: const PhosphorIcon(
                                   PhosphorIconsLight.arrowLineUp),
-                              tooltip: AppLocalizations.of(context).add,
+                              tooltip: AppLocalizations.of(context).insertFirst,
                               onPressed: () => addPage(0),
                             ),
-                            IconButton(
+                            const SizedBox(width: 8),
+                            IconButton.filledTonal(
                               icon: const PhosphorIcon(
                                   PhosphorIconsLight.arrowLineDown),
-                              tooltip: AppLocalizations.of(context).add,
+                              tooltip: AppLocalizations.of(context).insertLast,
                               onPressed: () => addPage(),
                             ),
                           ],

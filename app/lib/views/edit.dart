@@ -314,7 +314,7 @@ class _EditToolbarState extends State<EditToolbar> {
                 final bloc = context.read<DocumentBloc>();
                 final delete = newIndex > tools.length;
                 if (delete) {
-                  bloc.add(ToolsRemoved([tools[oldIndex]]));
+                  bloc.add(ToolsRemoved([oldIndex]));
                   return;
                 }
                 bloc.add(ToolReordered(oldIndex, newIndex));

@@ -1,6 +1,7 @@
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/dialogs/packs/asset.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly/services/export.dart';
 import 'package:butterfly/visualizer/event.dart';
 import 'package:butterfly/widgets/context_menu.dart';
 import 'package:butterfly_api/butterfly_api.dart';
@@ -18,6 +19,7 @@ ContextMenuBuilder buildElementsContextMenu(
     DocumentLoadSuccess state,
     SettingsCubit settingsCubit,
     ImportService importService,
+    ExportService exportService,
     ClipboardManager clipboardManager,
     Offset position,
     List<Renderer<PadElement>> renderers,
@@ -46,7 +48,9 @@ ContextMenuBuilder buildElementsContextMenu(
           ContextMenuItem(
             onPressed: () {
               Navigator.of(context).pop(true);
-              cubit.fetchHandler<SelectHandler>()?.copySelection(context, true);
+              cubit
+                  .fetchHandler<SelectHandler>()
+                  ?.copySelection(bloc, clipboardManager, true);
             },
             icon: const PhosphorIcon(PhosphorIconsLight.scissors),
             label: AppLocalizations.of(context).cut,
@@ -56,30 +60,38 @@ ContextMenuBuilder buildElementsContextMenu(
               Navigator.of(context).pop(true);
               cubit
                   .fetchHandler<SelectHandler>()
-                  ?.copySelection(context, false);
+                  ?.copySelection(bloc, clipboardManager, false);
             },
             icon: const PhosphorIcon(PhosphorIconsLight.copy),
             label: AppLocalizations.of(context).copy,
           ),
           ContextMenuItem(
             icon: const PhosphorIcon(PhosphorIconsLight.copy),
-            onPressed: () {
+            onPressed: () async {
               Navigator.of(context).pop(true);
-              cubit.fetchHandler<SelectHandler>()?.transform(
-                  bloc,
-                  renderers
-                      .map((e) => Renderer.fromInstance(e.element))
-                      .toList(),
-                  null,
-                  true);
+              final document = state.data;
+              final assetService = state.assetService;
+              final page = state.page;
+              final transforms = renderers
+                  .map((e) => Renderer.fromInstance(e.element))
+                  .toList();
+              for (final renderer in transforms) {
+                await renderer.setup(document, assetService, page);
+              }
+              cubit
+                  .fetchHandler<SelectHandler>()
+                  ?.transform(bloc, transforms, null, true);
             },
             label: AppLocalizations.of(context).duplicate,
           ),
           ContextMenuItem(
             onPressed: () {
               Navigator.of(context).pop(true);
-              bloc.add(
-                  ElementsRemoved(renderers.map((r) => r.element).toList()));
+              final state = bloc.state;
+              if (state is! DocumentLoadSuccess) return;
+              final content = state.page.content;
+              bloc.add(ElementsRemoved(
+                  renderers.map((r) => content.indexOf(r.element)).toList()));
             },
             icon: const PhosphorIcon(PhosphorIconsLight.trash),
             label: AppLocalizations.of(context).delete,
@@ -92,13 +104,29 @@ ContextMenuBuilder buildElementsContextMenu(
                       child: Text(e.getLocalizedName(context)),
                       onPressed: () {
                         Navigator.of(context).pop(true);
+                        final state = bloc.state;
+                        if (state is! DocumentLoadSuccess) return;
+                        final content = state.page.content;
                         bloc.add(ElementsArranged(
-                            renderers.map((r) => r.element).toList(), e));
+                            e,
+                            renderers
+                                .map((r) => content.indexOf(r.element))
+                                .toList()));
                       },
                     ))
                 .toList(),
             label: AppLocalizations.of(context).arrange,
           ),
+          if (renderers.length == 1 &&
+              exportService.isExportable(renderers.first.element))
+            ContextMenuItem(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+                exportService.export(renderers.first.element);
+              },
+              icon: const PhosphorIcon(PhosphorIconsLight.export),
+              label: AppLocalizations.of(context).export,
+            ),
           ContextMenuItem(
             onPressed: () {
               Navigator.of(context).pop(true);
@@ -118,7 +146,13 @@ ContextMenuBuilder buildElementsContextMenu(
                 context,
                 bloc,
                 settingsCubit,
-                renderers.map((e) => e.element).toList(),
+                renderers
+                    .map((e) =>
+                        e
+                            .transform(position: -rect.topLeft, relative: true)
+                            ?.element ??
+                        e.element)
+                    .toList(),
                 rect,
               );
             },

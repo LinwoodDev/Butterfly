@@ -108,8 +108,8 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                                     ..removeAt(index),
                                 );
                                 pack?.setPalette(palette!);
-                                bloc.add(DocumentPackUpdated(
-                                    colorPalette!.pack, pack!));
+                                bloc.add(
+                                    PackUpdated(colorPalette!.pack, pack!));
                               },
                             );
                           }),
@@ -137,8 +137,8 @@ class _ColorToolbarViewState extends State<ColorToolbarView> {
                                       ],
                                     );
                                     pack?.setPalette(palette!);
-                                    bloc.add(DocumentPackUpdated(
-                                        colorPalette!.pack, pack!));
+                                    bloc.add(
+                                        PackUpdated(colorPalette!.pack, pack!));
                                   }
                                 }
                               },

@@ -1,8 +1,6 @@
-import 'dart:io';
-
+import 'package:butterfly/api/save_data.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:collection/collection.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +8,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../api/open.dart';
 import '../bloc/document_bloc.dart';
 import 'name.dart';
 
@@ -142,32 +139,11 @@ class _PdfExportDialogState extends State<PdfExportDialog> {
                       ElevatedButton(
                         child: Text(AppLocalizations.of(context).export),
                         onPressed: () async {
-                          final localization = AppLocalizations.of(context);
                           Navigator.of(context).pop();
                           final document = await currentIndex
                               .renderPDF(state.data, state.info, areas: areas);
                           final data = await document.save();
-                          if (!kIsWeb &&
-                              (Platform.isWindows ||
-                                  Platform.isLinux ||
-                                  Platform.isMacOS)) {
-                            var path = await FilePicker.platform.saveFile(
-                              type: FileType.custom,
-                              allowedExtensions: ['pdf'],
-                              fileName: 'export.pdf',
-                              dialogTitle: localization.export,
-                            );
-                            if (path != null) {
-                              var file = File(path);
-                              if (!(await file.exists())) {
-                                file.create(recursive: true);
-                              }
-                              await file
-                                  .writeAsBytes(data.buffer.asUint8List());
-                            }
-                          } else {
-                            openPdf(data.buffer.asUint8List());
-                          }
+                          exportPdf(context, data);
                         },
                       ),
                     ],

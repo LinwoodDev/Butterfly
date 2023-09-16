@@ -36,8 +36,20 @@ class ToolSelection<T extends Tool> extends Selection<T> {
 
   @override
   void update(BuildContext context, List<T> selected) {
-    final updatedElements = Map<T, T>.fromIterables(this.selected, selected);
-    context.read<DocumentBloc>().add(ToolsChanged(updatedElements));
+    final updatedPainters = <int, Tool>{};
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final oldPainters = state.info.tools;
+    for (var i = 0; i < selected.length; i++) {
+      final painter = selected[i];
+      final oldPainter = this.selected[i];
+      final painterIndex = oldPainters.indexOf(oldPainter);
+      if (painter != oldPainter && painterIndex >= 0) {
+        updatedPainters[painterIndex] = painter;
+      }
+    }
+    bloc.add(ToolsChanged(updatedPainters));
     super.update(context, selected);
   }
 
@@ -46,7 +58,13 @@ class ToolSelection<T extends Tool> extends Selection<T> {
 
   @override
   void onDelete(BuildContext context) {
-    context.read<DocumentBloc>().add(ToolsRemoved(selected));
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final painters = state.info.tools;
+    context
+        .read<DocumentBloc>()
+        .add(ToolsRemoved(selected.map((p) => painters.indexOf(p)).toList()));
   }
 
   @override

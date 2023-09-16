@@ -67,7 +67,7 @@ abstract class GeneralFileSystem {
     try {
       final file = archive.findFile(kMetaArchiveFile);
       if (file != null) {
-        final content = file.content as String;
+        final content = utf8.decode(file.content);
         metadata = FileMetadata.fromJson(jsonDecode(content));
       }
     } catch (_) {}

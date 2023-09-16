@@ -1,5 +1,7 @@
+import 'package:butterfly/dialogs/delete.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ComponentsPackView extends StatelessWidget {
   final NoteData value;
@@ -29,6 +31,13 @@ class ComponentsPackView extends StatelessWidget {
                   },
                   child: ListTile(
                     title: Text(e),
+                    trailing: IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                      onPressed: () async {
+                        value.removeComponent(e);
+                        onChanged(value);
+                      },
+                    ),
                   ),
                 ),
               )

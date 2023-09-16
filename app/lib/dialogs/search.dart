@@ -18,9 +18,9 @@ class SearchDialog extends StatefulWidget {
   State<SearchDialog> createState() => _SearchDialogState();
 }
 
-Future<Iterable<SearchResult>> _searchIsolate(
-        DocumentPage page, String query) =>
-    Isolate.run(() => page.search(RegExp(query, caseSensitive: false)));
+Future<List<SearchResult>> _searchIsolate(DocumentPage page, String query) =>
+    Isolate.run(
+        () => page.search(RegExp(query, caseSensitive: false)).toList());
 
 class _SearchDialogState extends State<SearchDialog> {
   final TextEditingController _searchController = TextEditingController();
@@ -85,6 +85,10 @@ class _SearchDialogState extends State<SearchDialog> {
           SizedBox(
             width: min(constraints.maxWidth, 600),
             child: Material(
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(12),
+                bottomRight: Radius.circular(12),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(

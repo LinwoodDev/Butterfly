@@ -174,7 +174,6 @@ class _FileEntityListTile extends StatelessWidget {
                           return IconButton(
                             onPressed: () {
                               settingsCubit.toggleStarred(entity.location);
-                              onReload();
                             },
                             icon: starred
                                 ? const PhosphorIcon(PhosphorIconsFill.star)

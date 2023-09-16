@@ -4,6 +4,25 @@ import 'package:butterfly/api/save_data_stub.dart'
     as save_data;
 import 'package:flutter/material.dart';
 
-Future<void> saveData(BuildContext context, List<int> data) async {
-  save_data.saveData(context, data);
-}
+Future<void> exportFile(
+  BuildContext context,
+  List<int> bytes,
+  String fileExtension,
+  String mimeType,
+) async =>
+    save_data.exportFile(context, bytes, fileExtension, mimeType);
+
+Future<void> exportSvg(BuildContext context, String data) =>
+    exportFile(context, data.codeUnits, 'svg', 'image/svg');
+
+Future<void> exportImage(BuildContext context, List<int> bytes) =>
+    exportFile(context, bytes, 'png', 'image/png');
+
+Future<void> exportPdf(BuildContext context, List<int> bytes) =>
+    exportFile(context, bytes, 'pdf', 'application/pdf');
+
+Future<void> exportZip(BuildContext context, List<int> bytes) =>
+    exportFile(context, bytes, 'zip', 'application/zip');
+
+Future<void> saveData(BuildContext context, List<int> bytes) =>
+    exportFile(context, bytes, 'bfly', 'application/zip');

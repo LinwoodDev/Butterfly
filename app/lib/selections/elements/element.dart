@@ -73,9 +73,21 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
 
   @override
   void update(BuildContext context, List<Renderer<T>> selected) {
-    final updatedElements = Map<T, List<T>>.fromIterables(
-        elements, selected.map((e) => [e.element]));
-    context.read<DocumentBloc>().add(ElementsChanged(updatedElements));
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoaded) return;
+    final content = state.page.content;
+    final updatedElements = <int, List<PadElement>>{};
+    for (var i = 0; i < selected.length; i++) {
+      final element = selected[i];
+      final oldElement = this.selected[i];
+      if (element.element != oldElement.element) {
+        updatedElements[content.indexOf(oldElement.element)] = [
+          element.element
+        ];
+      }
+    }
+    bloc.add(ElementsChanged(updatedElements));
     super.update(context, selected);
   }
 
@@ -118,9 +130,12 @@ class ElementSelection<T extends PadElement> extends Selection<Renderer<T>> {
 
   @override
   void onDelete(BuildContext context) {
-    context
-        .read<DocumentBloc>()
-        .add(ElementsRemoved(selected.map((e) => e.element).toList()));
+    final bloc = context.read<DocumentBloc>();
+    final state = bloc.state;
+    if (state is! DocumentLoadSuccess) return;
+    final content = state.page.content;
+    final indexes = selected.map((e) => content.indexOf(e.element)).toList();
+    context.read<DocumentBloc>().add(ElementsRemoved(indexes));
   }
 
   @override

@@ -51,6 +51,7 @@ Name: "startmenu"; Description: "Create a Start Menu entry"
 Name: "bfly"; Description: "Add Butterfly file association"
 Name: "pdf"; Description: "Add PDF file association"
 Name: "img"; Description: "Add Image file association"
+Name: "md"; Description: "Add Markdown file association"
 
 
 [Files]
@@ -88,6 +89,12 @@ Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-IMG"; ValueType: string; ValueName: ""; ValueData: "Open in {#MyAppName}"; Tasks: img; Flags: uninsdeletekey
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-IMG\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\data\flutter_assets\images\file.ico,0"
 Root: HKA; Subkey: "Software\Classes\{#MyAppName}-IMG\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
+
+Root: HKA; Subkey: "Software\Classes\.md\OpenWithProgids"; ValueType: string; ValueName: "{#MyAppName}-MD"; ValueData: ""; Tasks: md; Flags: uninsdeletevalue
+Root: HKA; Subkey: "Software\Classes\{#MyAppName}-MD"; ValueType: string; ValueName: ""; ValueData: "{#MyAppName}-MD"; Tasks: md; Flags: uninsdeletekey
+Root: HKA; Subkey: "Software\Classes\{#MyAppName}-MD\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\data\flutter_assets\images\file.ico,0"
+Root: HKA; Subkey: "Software\Classes\{#MyAppName}-MD\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
+Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".md"; ValueData: ""
 
 [Icons]
 Name: "{group}\Visit Website"; Filename: "https://www.linwood.dev/"

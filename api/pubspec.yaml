@@ -10,6 +10,7 @@ dependencies:
   collection: ^1.18.0
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.1
+  replay_bloc: ^0.2.4
   rxdart: ^0.27.7
 dev_dependencies:
   json_serializable: ^6.7.1

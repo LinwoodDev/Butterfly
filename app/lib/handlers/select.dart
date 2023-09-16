@@ -125,7 +125,7 @@ class SelectHandler extends Handler<SelectTool> {
   List<Renderer<PadElement>> _selected = [];
   List<Renderer<PadElement>> _transformed = [];
   Offset? _transformStartOffset;
-  Offset _contextMenuOffset = Offset.zero;
+  Offset? _contextMenuOffset;
   Rect? _freeSelection;
   Offset? _currentMousePosition;
   double _scale = 1.0;
@@ -148,7 +148,10 @@ class SelectHandler extends Handler<SelectTool> {
     _transformCorner = corner;
     _transformStartOffset = _currentMousePosition;
     if (!duplicate) {
-      bloc.add(ElementsRemoved(next.map((e) => e.element).toList()));
+      final state = bloc.state;
+      if (state is! DocumentLoaded) return;
+      bloc.add(ElementsRemoved(
+          next.map((e) => state.page.content.indexOf(e.element)).toList()));
     }
     bloc.refresh();
   }
@@ -330,7 +333,7 @@ class SelectHandler extends Handler<SelectTool> {
     _transformed = [];
     _transformMode = HandTransformMode.scale;
     await Future.sync(() =>
-        bloc.add(ElementsCreated(current?.map((e) => e.element).toList())));
+        bloc.add(ElementsCreated(current!.map((e) => e.element).toList())));
     bloc.refresh();
     return true;
   }
@@ -343,8 +346,16 @@ class SelectHandler extends Handler<SelectTool> {
     }
   }
 
+  bool _startLongPress = false;
+
+  @override
+  void onLongPressDown(LongPressDownDetails details, EventContext context) {
+    _startLongPress = details.kind != PointerDeviceKind.mouse;
+  }
+
   @override
   void onLongPressEnd(LongPressEndDetails details, EventContext context) {
+    if (!_startLongPress) return;
     _onSelectionAdd(context, details.localPosition, true);
   }
 
@@ -415,12 +426,14 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   void onDoubleTapDown(TapDownDetails details, EventContext context) {
-    _contextMenuOffset = details.localPosition;
+    _contextMenuOffset =
+        details.kind != PointerDeviceKind.mouse ? details.localPosition : null;
   }
 
   @override
   void onDoubleTap(EventContext context) {
-    _onSelectionContext(context, _contextMenuOffset);
+    if (_contextMenuOffset == null) return;
+    _onSelectionContext(context, _contextMenuOffset!);
   }
 
   Future<void> _onSelectionContext(
@@ -453,6 +466,7 @@ class SelectHandler extends Handler<SelectTool> {
           state,
           context.getSettingsCubit(),
           context.getImportService(),
+          context.getExportService(),
           context.getClipboardManager(),
           localPosition,
           _selected,
@@ -615,12 +629,15 @@ class SelectHandler extends Handler<SelectTool> {
             : null);
   }
 
-  void copySelection(BuildContext context, [bool cut = false]) {
-    final bloc = context.read<DocumentBloc>();
+  Future<void> copySelection(
+      DocumentBloc bloc, ClipboardManager clipboardManager,
+      [bool cut = false]) async {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return;
     if (cut) {
-      bloc.add(ElementsRemoved(_selected.map((r) => r.element).toList()));
+      bloc.add(ElementsRemoved(_selected
+          .map((r) => state.page.content.indexOf(r.element))
+          .toList()));
     }
     final point = getSelectionRect()?.topLeft;
     if (point == null) return;
@@ -628,7 +645,7 @@ class SelectHandler extends Handler<SelectTool> {
       type: AssetFileType.page.name,
       data: Uint8List.fromList(
         utf8.encode(
-          json.encode(DocumentPage(
+          json.encode(await DocumentPage(
                   content: _selected
                       .map((e) => (e.transform(
                                 position: -point,
@@ -637,11 +654,11 @@ class SelectHandler extends Handler<SelectTool> {
                               e)
                           .element)
                       .toList())
-              .toJson()),
+              .toDataJson(state.data)),
         ),
       ),
     );
-    context.read<ClipboardManager>().setContent(clipboard);
+    clipboardManager.setContent(clipboard);
     _selected.clear();
     bloc.refresh();
   }
@@ -657,22 +674,26 @@ class SelectHandler extends Handler<SelectTool> {
   @override
   Map<Type, Action<Intent>> getActions(BuildContext context) {
     final bloc = context.read<DocumentBloc>();
+    final clipboardManager = context.read<ClipboardManager>();
+
     return {
       ...super.getActions(context),
       SelectAllTextIntent: CallbackAction<SelectAllTextIntent>(
           onInvoke: (intent) => selectAll(bloc)),
       DeleteCharacterIntent:
           CallbackAction<DeleteCharacterIntent>(onInvoke: (intent) {
-        context
-            .read<DocumentBloc>()
-            .add(ElementsRemoved(_selected.map((r) => r.element).toList()));
+        final state = bloc.state;
+        if (state is! DocumentLoadSuccess) return null;
+        context.read<DocumentBloc>().add(ElementsRemoved(_selected
+            .map((r) => state.page.content.indexOf(r.element))
+            .toList()));
         _selected.clear();
         bloc.refresh();
         return null;
       }),
       CopySelectionTextIntent:
           CallbackAction<CopySelectionTextIntent>(onInvoke: (intent) {
-        copySelection(context, intent.collapseSelection);
+        copySelection(bloc, clipboardManager, intent.collapseSelection);
         return null;
       }),
     };

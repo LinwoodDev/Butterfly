@@ -59,9 +59,10 @@ class CameraViewport extends Equatable {
         other.y == y;
   }
 
-  CameraViewport withUnbaked(List<Renderer<PadElement>> unbakedElements) =>
+  CameraViewport withUnbaked(List<Renderer<PadElement>> unbakedElements,
+          [List<Renderer<Background>>? backgrounds]) =>
       CameraViewport.baked(utilities,
-          backgrounds: backgrounds,
+          backgrounds: backgrounds ?? this.backgrounds,
           image: image,
           width: width,
           height: height,

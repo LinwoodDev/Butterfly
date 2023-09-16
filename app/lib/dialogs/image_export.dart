@@ -1,11 +1,8 @@
-import 'dart:io';
 import 'dart:ui' as ui;
 
-import 'package:butterfly/api/file_system/file_system.dart';
-import 'package:butterfly/api/open.dart';
+import 'package:butterfly/api/save_data.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly_api/butterfly_api.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -147,7 +144,6 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                           ElevatedButton(
                             child: Text(AppLocalizations.of(context).export),
                             onPressed: () async {
-                              final localization = AppLocalizations.of(context);
                               final state = context.read<DocumentBloc>().state;
                               Navigator.of(context).pop();
                               if (state is! DocumentLoadSuccess) {
@@ -157,30 +153,7 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
                               if (data == null) {
                                 return;
                               }
-                              final location = state.location;
-                              if (location.absolute) {
-                                DocumentFileSystem.fromPlatform().saveAbsolute(
-                                    location.path, data.buffer.asUint8List());
-                              } else if (!kIsWeb &&
-                                  (Platform.isWindows ||
-                                      Platform.isLinux ||
-                                      Platform.isMacOS)) {
-                                var path = await FilePicker.platform.saveFile(
-                                  type: FileType.image,
-                                  fileName: 'export.png',
-                                  dialogTitle: localization.export,
-                                );
-                                if (path != null) {
-                                  var file = File(path);
-                                  if (!(await file.exists())) {
-                                    file.create(recursive: true);
-                                  }
-                                  await file
-                                      .writeAsBytes(data.buffer.asUint8List());
-                                }
-                              } else {
-                                openImage(data.buffer.asUint8List());
-                              }
+                              exportImage(context, data.buffer.asUint8List());
                             },
                           ),
                         ],

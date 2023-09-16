@@ -4,12 +4,17 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 
-Future<void> saveData(BuildContext context, List<int> data) async {
+void exportFile(
+  BuildContext context,
+  List<int> bytes,
+  String fileExtension,
+  String mimeType,
+) {
   final a = document.createElement('a') as AnchorElement;
   // Create data URL for zip
-  final blob = Blob([data], 'application/zip');
+  final blob = Blob([bytes], mimeType);
   final url = Url.createObjectUrl(blob);
   a.href = url;
-  a.download = 'butterfly.bfly';
+  a.download = 'export.$fileExtension';
   a.click();
 }
