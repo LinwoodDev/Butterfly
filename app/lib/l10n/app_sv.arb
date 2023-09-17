@@ -178,7 +178,7 @@
   "templates": "Mallar",
   "untitled": "Namnlös",
   "createTemplate": "Skapa mall",
-  "createTemplateContent": "Vill du verkligen skapa en mall från de valda elementen? Den ursprungliga filen kommer att tas bort.",
+  "createTemplateContent": "Vill du verkligen skapa en mall från detta dokument? Det ursprungliga dokumentet kommer att raderas.",
   "replace": "Ersätt",
   "reallyReplace": "Vill du verkligen ersätta mallen? Den här åtgärden kan inte ångras!",
   "defaultTemplate": "Standard mall",
@@ -517,6 +517,8 @@
   "cut": "Klipp",
   "insertBefore": "Infoga före",
   "insertAfter": "Infoga efter",
+  "insertFirst": "Infoga först",
+  "insertLast": "Insert last",
   "paste": "Klistra in",
   "ascending": "Stigande",
   "descending": "Fallande",
@@ -532,5 +534,6 @@
   "pattern": "Mönster",
   "sureClose": "Är du säker på att du vill stänga dokumentet?",
   "thereAreUnsavedChanges": "Det finns osparade ändringar",
-  "page": "Sida"
+  "page": "Sida",
+  "switchView": "Växla vy"
 }
