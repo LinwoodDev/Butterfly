@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
+import 'package:butterfly_api/src/converter/core.dart';
 import 'package:butterfly_api/src/models/info.dart';
 import 'package:collection/collection.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../butterfly_text.dart';
@@ -15,13 +17,29 @@ import 'pack.dart';
 import 'page.dart';
 import 'palette.dart';
 
+part 'data.g.dart';
+part 'data.freezed.dart';
+
+@freezed
+class NoteDataState with _$NoteDataState {
+  const factory NoteDataState([
+    @Uint8ListJsonConverter()
+    @Default(<String, Uint8List>{})
+    Map<String, Uint8List> added,
+    @Default(<String>[]) List<String> removed,
+  ]) = _NoteDataState;
+
+  factory NoteDataState.fromJson(dynamic json) => _$NoteDataStateFromJson(json);
+}
+
 class NoteData {
-  Archive archive;
+  final Archive archive;
   final BehaviorSubject<NoteData> _controller = BehaviorSubject();
+  final NoteDataState state;
 
   Stream<NoteData> get onChange => _controller.stream;
 
-  NoteData(this.archive) {
+  NoteData(this.archive, [this.state = const NoteDataState()]) {
     _controller.add(this);
   }
 
@@ -37,6 +55,21 @@ class NoteData {
         base64Decode(json as String),
       );
 
+  Archive export() {
+    final archive = Archive();
+    for (final file in this.archive.files) {
+      if (state.removed.contains(file.name) ||
+          state.added.containsKey(file.name)) {
+        continue;
+      }
+      archive.addFile(ArchiveFile(file.name, file.size, file.content));
+    }
+    for (final entry in state.added.entries) {
+      archive.addFile(ArchiveFile(entry.key, entry.value.length, entry.value));
+    }
+    return archive;
+  }
+
   NoteFileType? get type => getMetadata()?.type;
 
   String? get name => getMetadata()?.name;
@@ -48,6 +81,12 @@ class NoteData {
   }
 
   Uint8List? getAsset(String path) {
+    if (state.removed.contains(path)) {
+      return null;
+    }
+    if (state.added.containsKey(path)) {
+      return state.added[path];
+    }
     final file = archive.findFile(path);
     if (file == null) {
       return null;
@@ -56,20 +95,15 @@ class NoteData {
   }
 
   void setAsset(String path, List<int> data) {
-    archive.addFile(ArchiveFile.noCompress(path, data.length, data));
+    state.added[path] = Uint8List.fromList(data);
     _controller.add(this);
   }
 
   void removeAsset(String path) => removeAssets([path]);
 
   void removeAssets(List<String> path) {
-    final newArchive = Archive();
-    for (final file in archive.files) {
-      if (!path.contains(file.name)) {
-        newArchive.addFile(ArchiveFile(file.name, file.size, file.content));
-      }
-    }
-    archive = newArchive;
+    state.removed.addAll(path);
+    state.added.removeWhere((key, value) => path.contains(key));
     _controller.add(this);
   }
 
@@ -97,16 +131,18 @@ class NoteData {
     return getName();
   }
 
-  Iterable<String> getAssets(String path, [bool removeExtension = false]) =>
-      archive.files
-          .where((file) => file.name.startsWith(path))
-          .map((file) => file.name.substring(path.length))
-          .map((name) {
-        if (name.startsWith('/')) name = name.substring(1);
-        if (!removeExtension) return name;
-        final startExtension = name.lastIndexOf('.');
-        if (startExtension == -1) return name;
-        return name.substring(0, startExtension);
+  Iterable<String> getAssets(String path, [bool removeExtension = false]) => [
+        ...archive.files.map((e) => e.name),
+        ...state.added.keys,
+      ]
+          .where((e) => e.startsWith(path) && !state.removed.contains(e))
+          .map((e) => e.substring(path.length))
+          .map((e) {
+        if (e.startsWith('/')) e = e.substring(1);
+        if (!removeExtension) return e;
+        final startExtension = e.lastIndexOf('.');
+        if (startExtension == -1) return e;
+        return e.substring(0, startExtension);
       });
 
   Uint8List? getThumbnail() => getAsset(kThumbnailArchiveFile);
