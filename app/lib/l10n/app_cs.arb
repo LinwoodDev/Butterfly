@@ -178,7 +178,7 @@
   "templates": "Šablony",
   "untitled": "Bez názvu",
   "createTemplate": "Vytvořit šablonu",
-  "createTemplateContent": "Opravdu chcete vytvořit šablonu z vybraných prvků? Původní soubor bude smazán.",
+  "createTemplateContent": "Opravdu chcete vytvořit šablonu z tohoto dokumentu? Původní dokument bude smazán.",
   "replace": "Nahradit",
   "reallyReplace": "Opravdu chcete nahradit šablonu? Tuto operaci nelze vrátit zpět!",
   "defaultTemplate": "Výchozí šablona",
@@ -517,6 +517,8 @@
   "cut": "Vyjmout",
   "insertBefore": "Vložit před",
   "insertAfter": "Vložit po",
+  "insertFirst": "Nejdříve vložte",
+  "insertLast": "Insert last",
   "paste": "Vložit",
   "ascending": "Vzestupně",
   "descending": "sestupně",
@@ -532,5 +534,6 @@
   "pattern": "Vzor",
   "sureClose": "Opravdu chcete dokument zavřít?",
   "thereAreUnsavedChanges": "Existují neuložené změny",
-  "page": "Stránka"
+  "page": "Stránka",
+  "switchView": "Přepnout zobrazení"
 }
