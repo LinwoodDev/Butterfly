@@ -178,7 +178,7 @@
   "templates": "قوالب",
   "untitled": "بدون عنوان",
   "createTemplate": "إنشاء قالب",
-  "createTemplateContent": "هل تريد حقاً إنشاء قالب من العناصر المحددة؟ سيتم حذف الملف الأصلي.",
+  "createTemplateContent": "هل تريد حقاً إنشاء قالب من هذه الوثيقة؟ سيتم حذف المستند الأصلي.",
   "replace": "استبدل",
   "reallyReplace": "هل تريد حقاً استبدال القالب؟ هذه العملية لا يمكن التراجع عنها!",
   "defaultTemplate": "القالب الافتراضي",
@@ -517,6 +517,8 @@
   "cut": "قطع",
   "insertBefore": "إدراج قبل",
   "insertAfter": "إدراج بعد",
+  "insertFirst": "إدراج أولاً",
+  "insertLast": "Insert last",
   "paste": "لصق",
   "ascending": "تصاعدي",
   "descending": "تنازلي",
@@ -532,5 +534,6 @@
   "pattern": "النمط",
   "sureClose": "هل أنت متأكد من أنك تريد إغلاق الوثيقة؟",
   "thereAreUnsavedChanges": "هناك تغييرات غير محفوظة",
-  "page": "الصفحة"
+  "page": "الصفحة",
+  "switchView": "تبديل طريقة العرض"
 }
