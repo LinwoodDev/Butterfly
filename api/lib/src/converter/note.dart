@@ -15,14 +15,14 @@ NoteData noteDataMigrator(Uint8List data) {
   } else {
     archive = ZipDecoder().decodeBytes(data);
   }
-  final noteData = NoteData(archive);
+  var noteData = NoteData(archive);
   var metadata = noteData.getMetadata();
   if (metadata != null &&
       (metadata.fileVersion ?? kFileVersion) < kFileVersion) {
-    _migrate(noteData, metadata);
+    noteData = _migrate(noteData, metadata);
     metadata = noteData.getMetadata();
     if (metadata != null) {
-      noteData.setMetadata(metadata.copyWith(
+      noteData = noteData.setMetadata(metadata.copyWith(
         fileVersion: kFileVersion,
         updatedAt: DateTime.now(),
       ));
@@ -31,14 +31,14 @@ NoteData noteDataMigrator(Uint8List data) {
   return noteData;
 }
 
-void _migrate(NoteData noteData, FileMetadata metadata) {
+NoteData _migrate(NoteData noteData, FileMetadata metadata) {
   final version = metadata.fileVersion ?? kFileVersion;
   if (version < 9) {
     final pagePath = '$kPagesArchiveDirectory/default.json';
     final page = noteData.getAsset(pagePath);
     if (page != null) {
       final pageData = json.decode(utf8.decode(page)) as Map<String, dynamic>;
-      noteData.setAsset(
+      noteData = noteData.setAsset(
           kInfoArchiveFile,
           utf8.encode(json.encode({
             'painters': (pageData['painters'] as List?)
@@ -61,7 +61,7 @@ void _migrate(NoteData noteData, FileMetadata metadata) {
             'type': 'pattern',
           },
         };
-        noteData.setAsset('$kPagesArchiveDirectory/$page',
+        noteData = noteData.setAsset('$kPagesArchiveDirectory/$page',
             utf8.encode(json.encode(pageData)));
       }
       pageData['backgrounds'] = [
@@ -80,7 +80,9 @@ void _migrate(NoteData noteData, FileMetadata metadata) {
         }
         return e;
       }).toList();
-      noteData.setAsset(kInfoArchiveFile, utf8.encode(json.encode(infoData)));
+      noteData = noteData.setAsset(
+          kInfoArchiveFile, utf8.encode(json.encode(infoData)));
     }
   }
+  return noteData;
 }

@@ -99,11 +99,11 @@ class DocumentDefaults {
     DocumentPage? page,
   }) {
     page ??= createPage();
-    final data = NoteData(Archive());
     final metadata = createMetadata(name: name);
-    data.setMetadata(metadata);
-    data.setPage(page);
-    data.setInfo(createInfo());
+    final data = NoteData(Archive())
+        .setMetadata(metadata)
+        .setPage(page)
+        .setInfo(createInfo());
     return data;
   }
 
@@ -116,11 +116,10 @@ class DocumentDefaults {
   }
 
   static NoteData createPack() {
-    final data = NoteData(Archive());
     final metadata = createMetadata(
       type: NoteFileType.pack,
     );
-    data.setMetadata(metadata);
+    final data = NoteData(Archive()).setMetadata(metadata);
     return data;
   }
 
@@ -128,19 +127,19 @@ class DocumentDefaults {
       {String name = '',
       Uint8List? thumbnail,
       List<Background> backgrounds = const []}) async {
-    final data = NoteData(Archive());
     final metadata = createMetadata(
       type: NoteFileType.template,
       name: name,
     );
-    data.setMetadata(metadata);
     final page = DocumentPage(
       backgrounds: backgrounds,
     );
-    data.setInfo(createInfo(backgrounds.firstOrNull?.defaultColor));
-    data.setPage(page);
-    data.setPack(await getCorePack());
-    if (thumbnail != null) data.setThumbnail(thumbnail);
+    var data = NoteData(Archive())
+        .setMetadata(metadata)
+        .setInfo(createInfo(backgrounds.firstOrNull?.defaultColor))
+        .setPage(page)
+        .setPack(await getCorePack());
+    if (thumbnail != null) data = data.setThumbnail(thumbnail);
     return data;
   }
 

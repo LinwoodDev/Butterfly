@@ -244,6 +244,7 @@ class _ProjectPageState extends State<ProjectPage> {
     super.dispose();
     widget.embedding?.handler.unregister();
     _closeSubscription.dispose();
+    _bloc?.dispose();
   }
 
   @override

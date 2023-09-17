@@ -88,8 +88,7 @@ class StylesPackView extends StatelessWidget {
                   ),
                 );
                 if (result != true) return;
-                value.setStyle(styleSheet);
-                onChanged(value);
+                onChanged(value.setStyle(styleSheet));
               },
               icon: const PhosphorIcon(PhosphorIconsLight.plus),
               label: Text(AppLocalizations.of(context).create),

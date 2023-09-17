@@ -130,7 +130,7 @@ Future<void> addToPack(
     ),
   );
   if (result == null) return;
-  final pack = document.getPack(result.pack);
+  var pack = document.getPack(result.pack);
   if (pack == null) return;
   final screenshot = await state.currentIndexCubit.render(
     state.data,
@@ -145,10 +145,10 @@ Future<void> addToPack(
   );
   String? thumbnailUri;
   if (screenshot != null) {
-    final thumbnailPath = pack.addImage(screenshot.buffer.asUint8List(), 'png');
-    thumbnailUri = Uri.file(thumbnailPath, windows: false).toString();
+    thumbnailUri =
+        Uri.dataFromBytes(screenshot.buffer.asUint8List()).toString();
   }
-  pack.setComponent(ButterflyComponent(
+  pack = pack.setComponent(ButterflyComponent(
     name: result.name,
     elements: elements,
     thumbnail: thumbnailUri,

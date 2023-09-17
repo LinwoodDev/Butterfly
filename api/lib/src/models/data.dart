@@ -356,7 +356,6 @@ class NoteData {
     return setAsset(kInfoArchiveFile, utf8.encode(content));
   }
 
-  @useResult
   (NoteData, String) addImage(Uint8List data, String fileExtension,
           [String name = '']) =>
       addAsset(kImagesArchiveDirectory, data, fileExtension, name);

@@ -51,8 +51,8 @@ class StampToolSelection extends ToolSelection<StampTool> {
                       key: ValueKey(component),
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
-                        currentPack.removeComponent(component);
-                        bloc.add(PackUpdated(packName, currentPack));
+                        bloc.add(PackUpdated(
+                            packName, currentPack.removeComponent(component)));
                       },
                       child: ListTile(
                         title: Text(component),

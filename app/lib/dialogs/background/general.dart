@@ -57,8 +57,7 @@ class _GeneralBackgroundPropertiesView extends StatelessWidget {
                 if (!kIsWeb) {
                   content = await File(e.path ?? '').readAsBytes();
                 }
-                final assetPath = state.data.addImage(content, 'png');
-                final dataPath = Uri.file(assetPath, windows: false).toString();
+                final dataPath = Uri.dataFromBytes(content).toString();
                 final codec = await ui.instantiateImageCodec(content);
                 final frame = await codec.getNextFrame();
                 final image = frame.image;
