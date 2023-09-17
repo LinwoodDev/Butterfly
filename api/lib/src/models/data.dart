@@ -286,7 +286,7 @@ class NoteData {
   }
 
   @useResult
-  NoteData reoderPage(String page, [int? newIndex]) {
+  NoteData reorderPage(String page, [int? newIndex]) {
     newIndex ??= getPages().length;
     final pageName = _getPageFileName(page);
     final index = getPageIndex(page);
@@ -485,7 +485,6 @@ class NoteData {
     return base64Encode(save());
   }
 
-  @useResult
   (NoteData, String) addPage([DocumentPage? page, int? index]) {
     var name = 'Page ${getPages().length + 1}';
     var i = 1;

@@ -47,18 +47,12 @@ class SelectPackAssetDialog extends StatelessWidget {
     }
   }
 
-  void _createAsset(NoteData pack, String name) {
-    switch (type) {
-      case PackAssetType.component:
-        pack.setComponent(ButterflyComponent(name: name));
-        break;
-      case PackAssetType.style:
-        pack.setStyle(text.TextStyleSheet(name: name));
-        break;
-      case PackAssetType.palette:
-        pack.setPalette(ColorPalette(name: name));
-    }
-  }
+  NoteData _createAsset(NoteData pack, String name) => switch (type) {
+        PackAssetType.component =>
+          pack.setComponent(ButterflyComponent(name: name)),
+        PackAssetType.style => pack.setStyle(text.TextStyleSheet(name: name)),
+        PackAssetType.palette => pack.setPalette(ColorPalette(name: name)),
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -84,8 +78,8 @@ class SelectPackAssetDialog extends StatelessWidget {
                 if (context.mounted) {
                   final pack = state.data.getPack(result.pack);
                   if (pack == null) return;
-                  _createAsset(pack, result.name);
-                  bloc.add(PackUpdated(pack.name!, pack));
+                  bloc.add(
+                      PackUpdated(pack.name!, _createAsset(pack, result.name)));
                   Navigator.of(context).pop(result);
                 }
               },

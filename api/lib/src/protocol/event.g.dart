@@ -6,6 +6,19 @@ part of 'event.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$PageAdded _$$PageAddedFromJson(Map json) => _$PageAdded(
+      DocumentPage.fromJson(Map<String, dynamic>.from(json['page'] as Map)),
+      json['index'] as int?,
+      json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$PageAddedToJson(_$PageAdded instance) =>
+    <String, dynamic>{
+      'page': instance.page.toJson(),
+      'index': instance.index,
+      'type': instance.$type,
+    };
+
 _$PageChanged _$$PageChangedFromJson(Map json) => _$PageChanged(
       json['pageName'] as String,
       $type: json['type'] as String?,
@@ -14,6 +27,55 @@ _$PageChanged _$$PageChangedFromJson(Map json) => _$PageChanged(
 Map<String, dynamic> _$$PageChangedToJson(_$PageChanged instance) =>
     <String, dynamic>{
       'pageName': instance.pageName,
+      'type': instance.$type,
+    };
+
+_$PageReordered _$$PageReorderedFromJson(Map json) => _$PageReordered(
+      json['page'] as String,
+      json['newIndex'] as int?,
+      json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$PageReorderedToJson(_$PageReordered instance) =>
+    <String, dynamic>{
+      'page': instance.page,
+      'newIndex': instance.newIndex,
+      'type': instance.$type,
+    };
+
+_$PageRenamed _$$PageRenamedFromJson(Map json) => _$PageRenamed(
+      json['oldName'] as String,
+      json['newName'] as String,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$PageRenamedToJson(_$PageRenamed instance) =>
+    <String, dynamic>{
+      'oldName': instance.oldName,
+      'newName': instance.newName,
+      'type': instance.$type,
+    };
+
+_$PageRemoved _$$PageRemovedFromJson(Map json) => _$PageRemoved(
+      json['page'] as String,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$PageRemovedToJson(_$PageRemoved instance) =>
+    <String, dynamic>{
+      'page': instance.page,
+      'type': instance.$type,
+    };
+
+_$ThumbnailCaptured _$$ThumbnailCapturedFromJson(Map json) =>
+    _$ThumbnailCaptured(
+      const Uint8ListJsonConverter().fromJson(json['data'] as String),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$ThumbnailCapturedToJson(_$ThumbnailCaptured instance) =>
+    <String, dynamic>{
+      'data': const Uint8ListJsonConverter().toJson(instance.data),
       'type': instance.$type,
     };
 

@@ -48,85 +48,79 @@ class _ComponentsToolbarViewState extends State<ComponentsToolbarView> {
   Widget build(BuildContext context) {
     final state = context.read<DocumentBloc>().state;
     if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
-    return StreamBuilder<NoteData>(
-        stream: state.data.onChange,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) return const SizedBox.shrink();
-          final bloc = context.read<DocumentBloc>();
-          final document = snapshot.data!;
+    final bloc = context.read<DocumentBloc>();
+    final document = state.data;
 
-          final component = widget.component.resolveComponent(document);
-          final pack = document.getPack(currentPack);
-          final components = pack
-                  ?.getComponents()
-                  .map((e) {
-                    final component = pack.getComponent(e);
-                    if (component == null) return null;
-                    return (e, component);
-                  })
-                  .whereNotNull()
-                  .toList() ??
-              [];
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              if (currentPack != widget.component.pack &&
-                  component != null) ...[
-                _ComponentsButton(
-                  component: widget.component,
-                  valueLocation: widget.component,
-                  value: component,
-                  bloc: bloc,
-                  pack: pack,
-                  onChanged: () {},
-                ),
-                const VerticalDivider(),
-              ],
-              Expanded(
-                  child: Scrollbar(
-                controller: _scrollController,
-                child: ListView(
-                    controller: _scrollController,
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      ...List.generate(components.length, (index) {
-                        final current = components[index];
-                        final location = PackAssetLocation(
-                          currentPack,
-                          current.$1,
-                        );
-                        return _ComponentsButton(
-                          bloc: bloc,
-                          component: widget.component,
-                          value: current.$2,
-                          valueLocation: location,
-                          pack: pack,
-                          onChanged: () {
-                            widget.onChanged(location);
-                          },
-                        );
-                      }),
-                    ]),
-              )),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: MenuAnchor(
-                  builder: defaultMenuButton(),
-                  menuChildren: document
-                      .getPacks()
-                      .map((e) => RadioMenuButton(
-                          value: e,
-                          groupValue: currentPack,
-                          onChanged: (value) =>
-                              setState(() => currentPack = value ?? e),
-                          child: Text(e)))
-                      .toList(),
-                ),
-              ),
-            ],
-          );
-        });
+    final component = widget.component.resolveComponent(document);
+    final pack = document.getPack(currentPack);
+    final components = pack
+            ?.getComponents()
+            .map((e) {
+              final component = pack.getComponent(e);
+              if (component == null) return null;
+              return (e, component);
+            })
+            .whereNotNull()
+            .toList() ??
+        [];
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (currentPack != widget.component.pack && component != null) ...[
+          _ComponentsButton(
+            component: widget.component,
+            valueLocation: widget.component,
+            value: component,
+            bloc: bloc,
+            pack: pack,
+            onChanged: () {},
+          ),
+          const VerticalDivider(),
+        ],
+        Expanded(
+            child: Scrollbar(
+          controller: _scrollController,
+          child: ListView(
+              controller: _scrollController,
+              scrollDirection: Axis.horizontal,
+              children: [
+                ...List.generate(components.length, (index) {
+                  final current = components[index];
+                  final location = PackAssetLocation(
+                    currentPack,
+                    current.$1,
+                  );
+                  return _ComponentsButton(
+                    bloc: bloc,
+                    component: widget.component,
+                    value: current.$2,
+                    valueLocation: location,
+                    pack: pack,
+                    onChanged: () {
+                      widget.onChanged(location);
+                    },
+                  );
+                }),
+              ]),
+        )),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: MenuAnchor(
+            builder: defaultMenuButton(),
+            menuChildren: document
+                .getPacks()
+                .map((e) => RadioMenuButton(
+                    value: e,
+                    groupValue: currentPack,
+                    onChanged: (value) =>
+                        setState(() => currentPack = value ?? e),
+                    child: Text(e)))
+                .toList(),
+          ),
+        ),
+      ],
+    );
   }
 }
 

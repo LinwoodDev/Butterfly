@@ -167,8 +167,9 @@ class _UtilitiesViewState extends State<_UtilitiesView>
                         );
                         if (thumbnail == null) return;
                         final bytes = thumbnail.buffer.asUint8List();
-                        state.data.setThumbnail(bytes);
-                        state.save();
+                        context
+                            .read<DocumentBloc>()
+                            .add(ThumbnailCaptured(bytes));
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

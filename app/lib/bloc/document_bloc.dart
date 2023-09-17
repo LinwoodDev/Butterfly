@@ -58,6 +58,16 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
   void _init() {
     (state as DocumentLoaded).networkService.setup(this);
+    on<PageAdded>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      var (newData, pageName) = current.data.addPage(event.page, event.index);
+      return _saveState(
+        emit,
+        current.copyWith(data: newData, pageName: pageName),
+        null,
+      );
+    });
     on<PageChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
@@ -74,6 +84,46 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           data: data,
           pageName: event.pageName,
         ),
+        null,
+      );
+    });
+    on<PageReordered>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      var newData = current.data.reorderPage(event.page, event.newIndex);
+      return _saveState(
+        emit,
+        current.copyWith(data: newData),
+        null,
+      );
+    });
+    on<PageRenamed>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      var newData = current.data.renamePage(event.oldName, event.newName);
+      return _saveState(
+        emit,
+        current.copyWith(data: newData),
+        null,
+      );
+    });
+    on<PageRemoved>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      var newData = current.data.removePage(event.page);
+      return _saveState(
+        emit,
+        current.copyWith(data: newData),
+        null,
+      );
+    });
+    on<ThumbnailCaptured>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      var newData = current.data.setThumbnail(event.data);
+      return _saveState(
+        emit,
+        current.copyWith(data: newData),
         null,
       );
     });
@@ -264,10 +314,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         }
       });
       final data = current.data.removeAssets(unusedAssets.toList());
-      for (var asset in unusedAssets) {
-        current.assetService.removeImage(asset);
-      }
-
       await _saveState(emit, current.copyWith(page: newPage, data: data), null);
     }, transformer: sequential());
     on<DocumentDescriptionChanged>((event, emit) async {
