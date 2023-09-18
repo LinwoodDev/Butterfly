@@ -139,7 +139,8 @@ jobs:
             patchelf \
             alien \
             libsecret-1-dev \
-            libjsoncpp-dev
+            libjsoncpp-dev \
+            rpm
       - name: Get flutter version
         run: |
           FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
@@ -173,11 +174,10 @@ jobs:
           cp -fr build/linux/x64/release/bundle linux/debian/usr/bin
           dpkg-deb --build --root-owner-group linux/debian
           cp linux/*.deb linwood-butterfly-linux.deb
-      #- name: Build .rpm executable
-      #  run: |
-      #    cd app
-      #    alien -r linwood-butterfly-linux.deb
-      #    mv linwood-butterfly*.rpm linwood-butterfly-linux.rpm
+      - name: Build .rpm executable
+        run: |
+          cd app
+          bash scripts/build-rpm.sh
       - name: Build .AppImage executable
         run: |
           wget -O appimage-builder-x86_64.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
@@ -209,12 +209,12 @@ jobs:
           name: linux-deb
           path: |
             app/linwood-butterfly-linux.deb
-      #- name: Archive .rpm
-      #  uses: actions/upload-artifact@v3
-      #  with:
-      #    name: linux-rpm
-      #    path: |
-      #      app/linwood-butterfly-linux.rpm
+      - name: Archive .rpm
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-rpm
+          path: |
+            app/build/linwood-butterfly-linux.rpm
       - name: Archive .AppImage
         uses: actions/upload-artifact@v3
         with:
@@ -425,9 +425,9 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: linux-deb
-      #- uses: actions/download-artifact@v3
-      #  with:
-      #    name: linux-rpm
+      - uses: actions/download-artifact@v3
+        with:
+          name: linux-rpm
       - uses: actions/download-artifact@v3
         with:
           name: linux-appimage
@@ -449,7 +449,6 @@ jobs:
           zip -r linwood-butterfly-windows.zip windows-build/*
           tar -C linux-build -czf linwood-butterfly-linux.tar.gz .
           tar -C linux-alternative-portable -czf linwood-butterfly-linux-alternative.tar.gz .
-      #    tar -C macos-build -czf linwood-butterfly-macos.tar.gz .
       - name: Configure git
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' }}
         run: |
@@ -471,10 +470,10 @@ jobs:
             linwood-butterfly-linux.tar.gz
             linwood-butterfly-linux-alternative.tar.gz
             linwood-butterfly-linux.deb
+            linwood-butterfly-linux.rpm
             linwood-butterfly-linux.AppImage
             linwood-butterfly-macos.zip
             linwood-butterfly-macos.dmg
-          #  linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: 🚀 Deploy nightly
@@ -491,9 +490,10 @@ jobs:
             linwood-butterfly-linux.tar.gz
             linwood-butterfly-linux-alternative.tar.gz
             linwood-butterfly-linux.deb
+            linwood-butterfly-linux.rpm
             linwood-butterfly-linux.AppImage
-          #  linwood-butterfly-macos.tar.gz
-          #  linwood-butterfly-linux.flatpak
+            linwood-butterfly-macos.zip
+            linwood-butterfly-macos.dmg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
@@ -508,9 +508,10 @@ jobs:
             linwood-butterfly-linux.tar.gz
             linwood-butterfly-linux-alternative.tar.gz
             linwood-butterfly-linux.deb
+            linwood-butterfly-linux.rpm
             linwood-butterfly-linux.AppImage
-          #  linwood-butterfly-macos.tar.gz
-          #  linwood-butterfly-linux.flatpak
+            linwood-butterfly-macos.zip
+            linwood-butterfly-macos.dmg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy-to-play-store:
