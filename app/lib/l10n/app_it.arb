@@ -178,7 +178,7 @@
   "templates": "Template",
   "untitled": "Senza titolo",
   "createTemplate": "Crea template",
-  "createTemplateContent": "Vuoi davvero creare un template dagli elementi selezionati? Il file originale verrà eliminato.",
+  "createTemplateContent": "Vuoi davvero creare un modello da questo documento? Il documento originale verrà eliminato.",
   "replace": "Sostituisci",
   "reallyReplace": "Vuoi davvero sostituire il template? Questa operazione non può essere annullata!",
   "defaultTemplate": "Template predefinito",
@@ -517,6 +517,8 @@
   "cut": "Taglia",
   "insertBefore": "Inserisci prima",
   "insertAfter": "Inserisci dopo",
+  "insertFirst": "Inserisci prima",
+  "insertLast": "Insert last",
   "paste": "Incolla",
   "ascending": "Crescente",
   "descending": "Decrescente",
@@ -529,5 +531,9 @@
   "mobile": "Cellulare",
   "pdfQuality": "Qualità PDF",
   "surface": "Superficie",
-  "pattern": "Sequenza"
+  "pattern": "Sequenza",
+  "sureClose": "Sei sicuro di voler chiudere il documento?",
+  "thereAreUnsavedChanges": "Ci sono modifiche non salvate",
+  "page": "Pagina",
+  "switchView": "Cambia Vista"
 }

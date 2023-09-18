@@ -2,27 +2,21 @@ part of '../renderer.dart';
 
 class ShapeRenderer extends Renderer<ShapeElement> {
   @override
-  Rect rect;
+  Rect get rect => Rect.fromPoints(
+      element.firstPosition.toOffset(), element.secondPosition.toOffset());
 
-  ShapeRenderer(super.element, [this.rect = Rect.zero]);
+  ShapeRenderer(super.element);
 
   @override
   FutureOr<void> setup(
       NoteData document, AssetService assetService, DocumentPage page) async {
-    _updateRect();
     await super.setup(document, assetService, page);
-  }
-
-  void _updateRect() {
-    rect = Rect.fromPoints(
-        element.firstPosition.toOffset(), element.secondPosition.toOffset());
   }
 
   @override
   FutureOr<void> build(Canvas canvas, Size size, NoteData document,
       DocumentPage page, DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]) {
-    _updateRect();
     final shape = element.property.shape;
     final strokeWidth = element.property.strokeWidth;
     final paint = _buildPaint();
@@ -160,7 +154,6 @@ class ShapeRenderer extends Renderer<ShapeElement> {
     double scaleX = 1,
     double scaleY = 1,
   }) {
-    final newRect = position & Size(rect.width * scaleX, rect.height * scaleY);
     final sizeX =
         (element.firstPosition.x - element.secondPosition.x).abs() * scaleX;
     final sizeY =
@@ -171,7 +164,6 @@ class ShapeRenderer extends Renderer<ShapeElement> {
         secondPosition: position.translate(sizeX, sizeY).toPoint(),
         rotation: rotation,
       ),
-      newRect,
     );
   }
 

@@ -178,7 +178,7 @@
   "templates": "Şablonlar",
   "untitled": "Başlıksız",
   "createTemplate": "Şablon oluştur",
-  "createTemplateContent": "Seçilen ögelerden gerçekten bir şablon oluşturmak istiyor musunuz? Orijinal dosya silinecek.",
+  "createTemplateContent": "Do you really want to create a template from this document? The original document will get deleted.",
   "replace": "Değiştir",
   "reallyReplace": "Bu şablonu gerçekten silmek istiyor musunuz? Bu işlem geri alınamaz!",
   "defaultTemplate": "Varsayılan şablon",
@@ -517,6 +517,8 @@
   "cut": "Cut",
   "insertBefore": "Insert before",
   "insertAfter": "Insert after",
+  "insertFirst": "Insert first",
+  "insertLast": "Insert last",
   "paste": "Paste",
   "ascending": "Ascending",
   "descending": "Descending",
@@ -529,5 +531,9 @@
   "mobile": "Mobile",
   "pdfQuality": "PDF quality",
   "surface": "Surface",
-  "pattern": "Pattern"
+  "pattern": "Pattern",
+  "sureClose": "Are you sure you want to close the document?",
+  "thereAreUnsavedChanges": "There are unsaved changes",
+  "page": "Page",
+  "switchView": "Switch View"
 }

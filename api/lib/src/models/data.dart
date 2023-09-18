@@ -1,11 +1,11 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
+import 'package:butterfly_api/src/converter/core.dart';
 import 'package:butterfly_api/src/models/info.dart';
 import 'package:collection/collection.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../butterfly_text.dart';
 import '../converter/note.dart';
@@ -15,15 +15,27 @@ import 'pack.dart';
 import 'page.dart';
 import 'palette.dart';
 
+part 'data.g.dart';
+part 'data.freezed.dart';
+
+@freezed
+class NoteDataState with _$NoteDataState {
+  const factory NoteDataState([
+    @Uint8ListJsonConverter()
+    @Default(<String, Uint8List>{})
+    Map<String, Uint8List> added,
+    @Default(<String>[]) List<String> removed,
+  ]) = _NoteDataState;
+
+  factory NoteDataState.fromJson(dynamic json) => _$NoteDataStateFromJson(json);
+}
+
+@immutable
 class NoteData {
-  Archive archive;
-  final BehaviorSubject<NoteData> _controller = BehaviorSubject();
+  final Archive archive;
+  final NoteDataState state;
 
-  Stream<NoteData> get onChange => _controller.stream;
-
-  NoteData(this.archive) {
-    _controller.add(this);
-  }
+  NoteData(this.archive, [this.state = const NoteDataState()]);
 
   factory NoteData.fromData(Uint8List data, {bool disableMigrations = false}) {
     if (disableMigrations) {
@@ -37,17 +49,38 @@ class NoteData {
         base64Decode(json as String),
       );
 
+  Archive export() {
+    final archive = Archive();
+    for (final file in this.archive.files) {
+      if (state.removed.contains(file.name) ||
+          state.added.containsKey(file.name)) {
+        continue;
+      }
+      archive.addFile(ArchiveFile(file.name, file.size, file.content));
+    }
+    for (final entry in state.added.entries) {
+      archive.addFile(ArchiveFile(entry.key, entry.value.length, entry.value));
+    }
+    return archive;
+  }
+
   NoteFileType? get type => getMetadata()?.type;
 
   String? get name => getMetadata()?.name;
 
-  set name(String? value) {
+  NoteData setName(String? value) {
     final meta = getMetadata();
-    if (meta == null || value == null) return;
-    setMetadata(meta.copyWith(name: value));
+    if (meta == null || value == null) return this;
+    return setMetadata(meta.copyWith(name: value));
   }
 
   Uint8List? getAsset(String path) {
+    if (state.removed.contains(path)) {
+      return null;
+    }
+    if (state.added.containsKey(path)) {
+      return state.added[path];
+    }
     final file = archive.findFile(path);
     if (file == null) {
       return null;
@@ -55,29 +88,41 @@ class NoteData {
     return file.content;
   }
 
-  void setAsset(String path, List<int> data) {
-    archive.addFile(ArchiveFile.noCompress(path, data.length, data));
-    _controller.add(this);
-  }
+  @useResult
+  NoteData _updateState(NoteDataState state) => NoteData(archive, state);
 
-  void removeAsset(String path) => removeAssets([path]);
+  @useResult
+  NoteData setAsset(String path, List<int> data) => _updateState(
+        state.copyWith(
+          added: {
+            ...state.added,
+            path: Uint8List.fromList(data),
+          },
+          removed: state.removed.where((element) => element != path).toList(),
+        ),
+      );
 
-  void removeAssets(List<String> path) {
-    final newArchive = Archive();
-    for (final file in archive.files) {
-      if (!path.contains(file.name)) {
-        newArchive.addFile(ArchiveFile(file.name, file.size, file.content));
-      }
-    }
-    archive = newArchive;
-    _controller.add(this);
-  }
+  @useResult
+  NoteData removeAsset(String path) => removeAssets([path]);
 
-  String addAsset(String path, List<int> data, String fileExtension,
+  @useResult
+  NoteData removeAssets(List<String> path) => _updateState(
+        state.copyWith(
+          removed: [
+            ...state.removed,
+            ...path,
+          ],
+          added: {
+            ...state.added,
+          }..removeWhere((key, value) => path.contains(key)),
+        ),
+      );
+
+  @useResult
+  (NoteData, String) addAsset(String path, List<int> data, String fileExtension,
       [String name = '']) {
     final newPath = '$path/${findUniqueName(path, fileExtension, name)}';
-    setAsset(newPath, data);
-    return newPath;
+    return (setAsset(newPath, data), newPath);
   }
 
   String _getFileName(String name, String fileExtension) =>
@@ -97,22 +142,29 @@ class NoteData {
     return getName();
   }
 
-  Iterable<String> getAssets(String path, [bool removeExtension = false]) =>
-      archive.files
-          .where((file) => file.name.startsWith(path))
-          .map((file) => file.name.substring(path.length))
-          .map((name) {
-        if (name.startsWith('/')) name = name.substring(1);
-        if (!removeExtension) return name;
-        final startExtension = name.lastIndexOf('.');
-        if (startExtension == -1) return name;
-        return name.substring(0, startExtension);
+  @useResult
+  Iterable<String> getAssets(String path, [bool removeExtension = false]) => {
+        ...archive.files.map((e) => e.name),
+        ...state.added.keys,
+      }
+          .where((e) => e.startsWith(path) && !state.removed.contains(e))
+          .map((e) => e.substring(path.length))
+          .map((e) {
+        if (e.startsWith('/')) e = e.substring(1);
+        if (!removeExtension) return e;
+        final startExtension = e.lastIndexOf('.');
+        if (startExtension == -1) return e;
+        return e.substring(0, startExtension);
       });
 
+  @useResult
   Uint8List? getThumbnail() => getAsset(kThumbnailArchiveFile);
 
-  void setThumbnail(Uint8List data) => setAsset(kThumbnailArchiveFile, data);
+  @useResult
+  NoteData setThumbnail(Uint8List data) =>
+      setAsset(kThumbnailArchiveFile, data);
 
+  @useResult
   FileMetadata? getMetadata() {
     final data = getAsset(kMetaArchiveFile);
     if (data == null) return null;
@@ -122,13 +174,13 @@ class NoteData {
     return FileMetadata.fromJson(json);
   }
 
-  void setMetadata(FileMetadata metadata) {
-    final content = jsonEncode(metadata.toJson());
-    setAsset(kMetaArchiveFile, utf8.encode(content));
-  }
+  @useResult
+  NoteData setMetadata(FileMetadata metadata) =>
+      setAsset(kMetaArchiveFile, utf8.encode(jsonEncode(metadata.toJson())));
 
   // Document specific
 
+  @useResult
   NoteData createTemplate({
     String? name,
     String? description,
@@ -136,11 +188,8 @@ class NoteData {
     Uint8List? thumbnail,
   }) {
     // Copy archive
-    final archive = Archive();
-    for (final file in this.archive.files) {
-      archive.addFile(ArchiveFile(file.name, file.size, file.content));
-    }
-    final template = NoteData(archive);
+    final archive = export();
+    var template = NoteData(archive);
     // Change metadata
     final metadata = getMetadata();
     final newMetadata = FileMetadata(
@@ -152,18 +201,15 @@ class NoteData {
       fileVersion: kFileVersion,
       directory: directory ?? metadata?.directory ?? '',
     );
-    template.setMetadata(newMetadata);
-    if (thumbnail != null) template.setThumbnail(thumbnail);
-    return NoteData(archive);
+    template = template.setMetadata(newMetadata);
+    if (thumbnail != null) template = template.setThumbnail(thumbnail);
+    return NoteData(template.export());
   }
 
+  @useResult
   NoteData createDocument({String name = '', DateTime? createdAt}) {
-    final archive = Archive();
-    for (var file in this.archive.files) {
-      archive
-          .addFile(ArchiveFile.noCompress(file.name, file.size, file.content));
-    }
-    final document = NoteData(archive);
+    final archive = export();
+    var document = NoteData(archive);
     final metadata = getMetadata();
     createdAt ??= DateTime.now().toUtc();
     final newMetadata = FileMetadata(
@@ -175,10 +221,11 @@ class NoteData {
       fileVersion: kFileVersion,
       directory: metadata?.directory ?? '',
     );
-    document.setMetadata(newMetadata);
+    document = document.setMetadata(newMetadata);
     return document;
   }
 
+  @useResult
   String? _getPageFileName(String name) {
     final pages = getPages(true);
     if (pages.contains(name)) {
@@ -193,6 +240,7 @@ class NoteData {
     return null;
   }
 
+  @useResult
   DocumentPage? getPage([String name = 'default']) {
     final data = getAsset(
         '$kPagesArchiveDirectory/${_getPageFileName(name) ?? name}.json');
@@ -204,35 +252,42 @@ class NoteData {
     return DocumentPage.fromJson(json);
   }
 
-  void setPage(DocumentPage page, [String name = 'default', int? index]) {
+  @useResult
+  NoteData setPage(DocumentPage page, [String name = 'default', int? index]) {
     final pages = getPages();
     final newIndex = index ?? pages.length;
     final content = jsonEncode(page.toJson());
+    var noteData = this;
     if (index != null) {
-      _realignPages(index);
+      noteData = _realignPages(index);
     }
-    setAsset(
+    return noteData.setAsset(
         '$kPagesArchiveDirectory/${_getPageFileName(name) ?? '$newIndex.$name'}.json',
         utf8.encode(content));
   }
 
-  void _realignPages(int index) {
+  @useResult
+  NoteData _realignPages(int index) {
     final pagesOrder = _getPagesOrder();
     final nextPages =
         pagesOrder.where((element) => element.$1 >= index).toList();
-    if (nextPages.isEmpty) return;
+    if (nextPages.isEmpty) return this;
     final nextPagesData = nextPages.map((e) => (e, getPage(e.$3))).toList();
-    removeAssets(
+    var noteData = this;
+    noteData = noteData.removeAssets(
         nextPages.map((e) => '$kPagesArchiveDirectory/${e.$3}.json').toList());
     var nextIndex = index + 1;
     for (final ((_, lastName, _), data) in nextPagesData) {
-      setAsset('$kPagesArchiveDirectory/$nextIndex.$lastName.json',
+      noteData = noteData.setAsset(
+          '$kPagesArchiveDirectory/$nextIndex.$lastName.json',
           utf8.encode(jsonEncode(data?.toJson())));
       nextIndex++;
     }
+    return noteData;
   }
 
-  void reoderPage(String page, [int? newIndex]) {
+  @useResult
+  NoteData reorderPage(String page, [int? newIndex]) {
     newIndex ??= getPages().length;
     final pageName = _getPageFileName(page);
     final index = getPageIndex(page);
@@ -241,13 +296,15 @@ class NoteData {
         index == null ||
         data == null ||
         index == newIndex) {
-      return;
+      return this;
     }
-    removeAsset('$kPagesArchiveDirectory/$pageName.json');
-    _realignPages(newIndex);
-    setPage(data, page, newIndex);
+    var noteData = removeAsset('$kPagesArchiveDirectory/$pageName.json');
+    noteData = noteData._realignPages(newIndex);
+    noteData = noteData.setPage(data, page, newIndex);
+    return noteData;
   }
 
+  @useResult
   List<(int, String, String)> _getPagesOrder() =>
       getAssets(kPagesArchiveDirectory, true).map((e) {
         if (e.contains('.')) {
@@ -261,24 +318,30 @@ class NoteData {
         return (-1, e, e);
       }).sorted((a, b) => a.$1.compareTo(b.$1));
 
+  @useResult
   List<String> getPages([bool realName = false]) =>
       _getPagesOrder().map((e) => realName ? e.$3 : e.$2).toList();
 
+  @useResult
   int? getPageIndex(String page) =>
       _getPagesOrder().firstWhereOrNull((element) => element.$2 == page)?.$1;
 
-  void removePage(String page) => removeAssets(_getPagesOrder()
+  @useResult
+  NoteData removePage(String page) => removeAssets(_getPagesOrder()
       .where((e) => e.$2 == page)
       .map((e) => '$kPagesArchiveDirectory/${e.$3}.json')
       .toList());
 
-  void renamePage(String oldName, String newName) {
+  @useResult
+  NoteData renamePage(String oldName, String newName) {
     final page = getPage(oldName);
-    if (page == null) return;
-    removePage(oldName);
-    setPage(page, newName);
+    final index = getPageIndex(oldName);
+    if (page == null) return this;
+    final noteData = removePage(oldName);
+    return noteData.setPage(page, newName, index);
   }
 
+  @useResult
   DocumentInfo? getInfo() {
     final data = getAsset(kInfoArchiveFile);
     if (data == null) {
@@ -289,17 +352,21 @@ class NoteData {
     return DocumentInfo.fromJson(json);
   }
 
-  void setInfo(DocumentInfo info) {
+  @useResult
+  NoteData setInfo(DocumentInfo info) {
     final content = jsonEncode(info.toJson());
-    setAsset(kInfoArchiveFile, utf8.encode(content));
+    return setAsset(kInfoArchiveFile, utf8.encode(content));
   }
 
-  String addImage(Uint8List data, String fileExtension, [String name = '']) =>
+  (NoteData, String) addImage(Uint8List data, String fileExtension,
+          [String name = '']) =>
       addAsset(kImagesArchiveDirectory, data, fileExtension, name);
 
+  @useResult
   Uint8List? getFont(String fontName) =>
       getAsset('$kFontsArchiveDirectory/$fontName');
 
+  @useResult
   NoteData? getPack(String packName) {
     final data = getAsset('$kPacksArchiveDirectory/$packName.bfly');
     if (data == null) {
@@ -308,25 +375,31 @@ class NoteData {
     return NoteData.fromData(data);
   }
 
-  void setPack(NoteData pack, [String? name]) {
+  @useResult
+  NoteData setPack(NoteData pack, [String? name]) {
     final data = ZipEncoder().encode(pack.archive);
     if (data != null) {
-      setAsset(
+      return setAsset(
           '$kPacksArchiveDirectory/${name ?? pack.getMetadata()?.name}.bfly',
           data);
     }
+    return this;
   }
 
-  void removePack(String name) =>
+  @useResult
+  NoteData removePack(String name) =>
       removeAsset('$kPacksArchiveDirectory/$name.bfly');
 
+  @useResult
   Iterable<String> getPacks() => getAssets(kPacksArchiveDirectory, true);
 
   // Pack specific
 
+  @useResult
   Iterable<String> getComponents() =>
       getAssets(kComponentsArchiveDirectory, true);
 
+  @useResult
   ButterflyComponent? getComponent(String componentName) {
     final data = getAsset('$kComponentsArchiveDirectory/$componentName.json');
     if (data == null) {
@@ -337,17 +410,19 @@ class NoteData {
     return ButterflyComponent.fromJson(json);
   }
 
-  void setComponent(ButterflyComponent component) {
-    final content = jsonEncode(component.toJson());
-    setAsset('$kComponentsArchiveDirectory/${component.name}.json',
-        utf8.encode(content));
-  }
+  @useResult
+  NoteData setComponent(ButterflyComponent component) => setAsset(
+      '$kComponentsArchiveDirectory/${component.name}.json',
+      utf8.encode(jsonEncode(component.toJson())));
 
-  void removeComponent(String name) =>
+  @useResult
+  NoteData removeComponent(String name) =>
       removeAsset('$kComponentsArchiveDirectory/$name.json');
 
+  @useResult
   Iterable<String> getStyles() => getAssets(kStylesArchiveDirectory, true);
 
+  @useResult
   TextStyleSheet? getStyle(String styleName) {
     final data = getAsset('$kStylesArchiveDirectory/$styleName.json');
     if (data == null) {
@@ -358,15 +433,18 @@ class NoteData {
     return TextStyleSheet.fromJson(json);
   }
 
-  void setStyle(TextStyleSheet style) {
+  @useResult
+  NoteData setStyle(TextStyleSheet style) {
     final content = jsonEncode(style.toJson());
-    setAsset(
+    return setAsset(
         '$kStylesArchiveDirectory/${style.name}.json', utf8.encode(content));
   }
 
-  void removeStyle(String name) =>
+  @useResult
+  NoteData removeStyle(String name) =>
       removeAsset('$kStylesArchiveDirectory/$name.json');
 
+  @useResult
   PackAssetLocation findStyle() {
     for (final pack in getPacks()) {
       final styles = getPack(pack)?.getStyles();
@@ -376,8 +454,10 @@ class NoteData {
     return PackAssetLocation.empty;
   }
 
+  @useResult
   Iterable<String> getPalettes() => getAssets(kPalettesArchiveDirectory, true);
 
+  @useResult
   ColorPalette? getPalette(String paletteName) {
     final data = getAsset('$kPalettesArchiveDirectory/$paletteName.json');
     if (data == null) {
@@ -388,33 +468,39 @@ class NoteData {
     return ColorPalette.fromJson(json);
   }
 
-  void setPalette(ColorPalette palette) {
+  @useResult
+  NoteData setPalette(ColorPalette palette) {
     final content = jsonEncode(palette.toJson());
-    setAsset('$kPalettesArchiveDirectory/${palette.name}.json',
+    return setAsset('$kPalettesArchiveDirectory/${palette.name}.json',
         utf8.encode(content));
   }
 
-  void removePalette(String name) =>
+  @useResult
+  NoteData removePalette(String name) =>
       removeAsset('$kPalettesArchiveDirectory/$name.json');
 
-  List<int> save() => ZipEncoder().encode(archive)!;
+  @useResult
+  List<int> save() => ZipEncoder().encode(export())!;
 
+  @useResult
   String toJson() {
     return base64Encode(save());
   }
 
-  String addPage([DocumentPage? page, int? index]) {
+  (NoteData, String) addPage([DocumentPage? page, int? index]) {
     var name = 'Page ${getPages().length + 1}';
     var i = 1;
     while (getPages().contains(name)) {
       name = 'Page ${i++}';
     }
-    setPage(
-        page == null
-            ? DocumentPage()
-            : DocumentPage(backgrounds: page.backgrounds),
-        name,
-        index);
-    return name;
+    return (
+      setPage(
+          page == null
+              ? DocumentPage()
+              : DocumentPage(backgrounds: page.backgrounds),
+          name,
+          index),
+      name
+    );
   }
 }

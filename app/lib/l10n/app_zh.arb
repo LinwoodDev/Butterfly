@@ -178,7 +178,7 @@
   "templates": "模板",
   "untitled": "无标题",
   "createTemplate": "创建模板",
-  "createTemplateContent": "您真的想要从所选元素创建模板吗？原始文件将被删除。",
+  "createTemplateContent": "您真的想要从此文档创建一个模板吗？原始文档将被删除。",
   "replace": "替换",
   "reallyReplace": "您真的想要替换模板吗？此操作不能撤消！",
   "defaultTemplate": "默认模板",
@@ -517,6 +517,8 @@
   "cut": "剪辑",
   "insertBefore": "插入前",
   "insertAfter": "在此处插入",
+  "insertFirst": "先插入",
+  "insertLast": "Insert last",
   "paste": "粘贴",
   "ascending": "升序",
   "descending": "降序",
@@ -529,5 +531,9 @@
   "mobile": "移动设备",
   "pdfQuality": "PDF 质量",
   "surface": "表面",
-  "pattern": "图案"
+  "pattern": "图案",
+  "sureClose": "您确定要关闭文档吗？",
+  "thereAreUnsavedChanges": "有未保存的更改",
+  "page": "页",
+  "switchView": "切换视图"
 }

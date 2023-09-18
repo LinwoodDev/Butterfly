@@ -1,4 +1,3 @@
-import 'package:butterfly/dialogs/packs/styles/style.dart';
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../bloc/document_bloc.dart';
+import 'style.dart';
 
 class StylesPackView extends StatelessWidget {
   final NoteData value;
@@ -35,8 +35,7 @@ class StylesPackView extends StatelessWidget {
                       (e) => Dismissible(
                         key: ValueKey(e),
                         onDismissed: (direction) {
-                          value.removeStyle(e);
-                          onChanged(value);
+                          onChanged(value.removeStyle(e));
                         },
                         child: ListTile(
                           title: Text(e),
@@ -56,9 +55,14 @@ class StylesPackView extends StatelessWidget {
                               ),
                             );
                             if (result != true) return;
-                            value.setStyle(styleSheet!);
-                            onChanged(value);
+                            onChanged(value.setStyle(styleSheet!));
                           },
+                          trailing: IconButton(
+                            icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                            onPressed: () async {
+                              onChanged(value.removeStyle(e));
+                            },
+                          ),
                         ),
                       ),
                     )
@@ -81,8 +85,7 @@ class StylesPackView extends StatelessWidget {
                   ),
                 );
                 if (result != true) return;
-                value.setStyle(styleSheet);
-                onChanged(value);
+                onChanged(value.setStyle(styleSheet));
               },
               icon: const PhosphorIcon(PhosphorIconsLight.plus),
               label: Text(AppLocalizations.of(context).create),

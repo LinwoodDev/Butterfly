@@ -178,7 +178,7 @@
   "templates": "Mallit",
   "untitled": "Nimetön",
   "createTemplate": "Luo malli",
-  "createTemplateContent": "Haluatko varmasti luoda mallin valituista elementeistä? Alkuperäinen tiedosto tullaan poistamaan.",
+  "createTemplateContent": "Haluatko varmasti luoda mallin tästä asiakirjasta? Alkuperäinen asiakirja poistetaan.",
   "replace": "Korvaa",
   "reallyReplace": "Haluatko varmasti korvata mallin? Tätä toimintoa ei voi kumota!",
   "defaultTemplate": "Oletus malli",
@@ -517,6 +517,8 @@
   "cut": "Leikkaa",
   "insertBefore": "Lisää ennen",
   "insertAfter": "Lisää jälkeen",
+  "insertFirst": "Lisää ensin",
+  "insertLast": "Insert last",
   "paste": "Liitä",
   "ascending": "Nouseva",
   "descending": "Laskeva",
@@ -529,5 +531,9 @@
   "mobile": "Mobiili",
   "pdfQuality": "PDF laatu",
   "surface": "Pinta",
-  "pattern": "Kuvio"
+  "pattern": "Kuvio",
+  "sureClose": "Oletko varma, että haluat sulkea asiakirjan?",
+  "thereAreUnsavedChanges": "Muutoksia ei ole tallennettu",
+  "page": "Sivu",
+  "switchView": "Vaihda Näkymää"
 }

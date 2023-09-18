@@ -23,7 +23,8 @@ class AssetService {
     return image.clone();
   }
 
-  void removeImage(String path) {
-    _images.remove(path)?.dispose();
+  void dispose() {
+    _images.forEach((key, value) => value.dispose());
+    _images.clear();
   }
 }

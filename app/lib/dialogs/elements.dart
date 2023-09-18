@@ -67,15 +67,20 @@ ContextMenuBuilder buildElementsContextMenu(
           ),
           ContextMenuItem(
             icon: const PhosphorIcon(PhosphorIconsLight.copy),
-            onPressed: () {
+            onPressed: () async {
               Navigator.of(context).pop(true);
-              cubit.fetchHandler<SelectHandler>()?.transform(
-                  bloc,
-                  renderers
-                      .map((e) => Renderer.fromInstance(e.element))
-                      .toList(),
-                  null,
-                  true);
+              final document = state.data;
+              final assetService = state.assetService;
+              final page = state.page;
+              final transforms = renderers
+                  .map((e) => Renderer.fromInstance(e.element))
+                  .toList();
+              for (final renderer in transforms) {
+                await renderer.setup(document, assetService, page);
+              }
+              cubit
+                  .fetchHandler<SelectHandler>()
+                  ?.transform(bloc, transforms, null, true);
             },
             label: AppLocalizations.of(context).duplicate,
           ),
@@ -141,7 +146,13 @@ ContextMenuBuilder buildElementsContextMenu(
                 context,
                 bloc,
                 settingsCubit,
-                renderers.map((e) => e.element).toList(),
+                renderers
+                    .map((e) =>
+                        e
+                            .transform(position: -rect.topLeft, relative: true)
+                            ?.element ??
+                        e.element)
+                    .toList(),
                 rect,
               );
             },

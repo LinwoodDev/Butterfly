@@ -172,7 +172,6 @@ class _MainViewViewportState extends State<MainViewViewport>
 
         var openView = false;
         final CurrentIndexCubit cubit = context.read<CurrentIndexCubit>();
-        var point = Offset.zero;
 
         Handler getHandler() {
           if (state is DocumentPresentationState) return state.handler;
@@ -197,16 +196,12 @@ class _MainViewViewportState extends State<MainViewViewport>
                       }
 
                       return GestureDetector(
-                        onTapUp: (details) {
-                          getHandler().onTapUp(details, getEventContext());
-                        },
-                        onTapDown: (details) {
-                          getHandler().onTapDown(details, getEventContext());
-                        },
-                        onSecondaryTapUp: (details) {
-                          getHandler()
-                              .onSecondaryTapUp(details, getEventContext());
-                        },
+                        onTapUp: (details) =>
+                            getHandler().onTapUp(details, getEventContext()),
+                        onTapDown: (details) =>
+                            getHandler().onTapDown(details, getEventContext()),
+                        onSecondaryTapUp: (details) => getHandler()
+                            .onSecondaryTapUp(details, getEventContext()),
                         onScaleUpdate: (details) {
                           final handler = getHandler();
                           handler.onScaleUpdate(details, getEventContext());
@@ -221,18 +216,16 @@ class _MainViewViewportState extends State<MainViewViewport>
                               !settings.inputGestures) return;
                           var current = details.scale;
                           current = current - size;
-                          current += 1;
                           var sensitivity = context
                               .read<SettingsCubit>()
                               .state
                               .touchSensitivity;
-                          cubit.zoom((1 - current) / -sensitivity + 1, point);
+                          cubit.zoom(current / sensitivity + 1,
+                              details.localFocalPoint);
                           size = details.scale;
                         },
-                        onLongPressEnd: (details) {
-                          getHandler()
-                              .onLongPressEnd(details, getEventContext());
-                        },
+                        onLongPressEnd: (details) => getHandler()
+                            .onLongPressEnd(details, getEventContext()),
                         onScaleEnd: (details) {
                           getHandler().onScaleEnd(details, getEventContext());
                           if (!_isScalingDisabled) delayBake();
@@ -243,19 +236,15 @@ class _MainViewViewportState extends State<MainViewViewport>
                               .getHandler()
                               .onScaleStart(details, getEventContext());
                           size = 1;
-                          point = details.localFocalPoint;
                         },
-                        onDoubleTapDown: (details) {
-                          getHandler()
-                              .onDoubleTapDown(details, getEventContext());
-                        },
-                        onDoubleTap: () {
-                          getHandler().onDoubleTap(getEventContext());
-                        },
-                        onLongPressDown: (details) {
-                          getHandler()
-                              .onLongPressDown(details, getEventContext());
-                        },
+                        onDoubleTapDown: (details) => getHandler()
+                            .onDoubleTapDown(details, getEventContext()),
+                        onDoubleTap: () =>
+                            getHandler().onDoubleTap(getEventContext()),
+                        onLongPressStart: (details) => getHandler()
+                            .onLongPressStart(details, getEventContext()),
+                        onLongPressDown: (details) => getHandler()
+                            .onLongPressDown(details, getEventContext()),
                         child: Listener(
                           onPointerSignal: (pointerSignal) {
                             if (state is! DocumentLoadSuccess) return;
@@ -308,10 +297,8 @@ class _MainViewViewportState extends State<MainViewViewport>
                                 context.read<DocumentBloc>()));
                           },
                           behavior: HitTestBehavior.translucent,
-                          onPointerHover: (event) {
-                            getHandler()
-                                .onPointerHover(event, getEventContext());
-                          },
+                          onPointerHover: (event) => getHandler()
+                              .onPointerHover(event, getEventContext()),
                           onPointerMove: (PointerMoveEvent event) async {
                             if (cubit.state.moveEnabled &&
                                 event.kind != PointerDeviceKind.stylus) {

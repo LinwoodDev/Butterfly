@@ -90,6 +90,7 @@ _$LabelTool _$$LabelToolFromJson(Map json) => _$LabelTool(
           ? const PackAssetLocation()
           : PackAssetLocation.fromJson(
               Map<String, dynamic>.from(json['styleSheet'] as Map)),
+      scale: (json['scale'] as num?)?.toDouble() ?? 1.0,
       $type: json['type'] as String?,
     );
 
@@ -101,6 +102,7 @@ Map<String, dynamic> _$$LabelToolToJson(_$LabelTool instance) =>
       'zoomDependent': instance.zoomDependent,
       'foreground': instance.foreground,
       'styleSheet': instance.styleSheet.toJson(),
+      'scale': instance.scale,
       'type': instance.$type,
     };
 
@@ -331,6 +333,7 @@ const _$ImportTypeEnumMap = {
   ImportType.svg: 'svg',
   ImportType.pdf: 'pdf',
   ImportType.document: 'document',
+  ImportType.markdown: 'markdown',
 };
 
 _$TextureTool _$$TextureToolFromJson(Map json) => _$TextureTool(

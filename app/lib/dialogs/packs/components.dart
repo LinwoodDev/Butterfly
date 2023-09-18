@@ -1,5 +1,6 @@
 import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ComponentsPackView extends StatelessWidget {
   final NoteData value;
@@ -24,11 +25,16 @@ class ComponentsPackView extends StatelessWidget {
                 (e) => Dismissible(
                   key: ValueKey(e),
                   onDismissed: (direction) {
-                    value.removeComponent(e);
-                    onChanged(value);
+                    onChanged(value.removeComponent(e));
                   },
                   child: ListTile(
                     title: Text(e),
+                    trailing: IconButton(
+                      icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                      onPressed: () async {
+                        onChanged(value.removeComponent(e));
+                      },
+                    ),
                   ),
                 ),
               )

@@ -224,7 +224,7 @@ class _EditToolbarState extends State<EditToolbar> {
                   if (widget.direction == Axis.horizontal) {
                     return Row(
                       mainAxisSize: MainAxisSize.min,
-                      key: const ValueKey('add'),
+                      key: const Key('add-horizontal'),
                       children: [
                         const VerticalDivider(),
                         add,
@@ -233,7 +233,7 @@ class _EditToolbarState extends State<EditToolbar> {
                   } else {
                     return Column(
                       mainAxisSize: MainAxisSize.min,
-                      key: const ValueKey('add'),
+                      key: const Key('add-vertical'),
                       children: [
                         const Divider(),
                         add,

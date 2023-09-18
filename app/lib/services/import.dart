@@ -170,7 +170,9 @@ class ImportService {
     String loadAsset(Uri source, String fileExtension) {
       final data = source.data?.contentAsBytes();
       if (data == null) return source.toString();
-      return document.addImage(data, fileExtension);
+      final result = document.addImage(data, fileExtension);
+      document = result.$1;
+      return result.$2;
     }
 
     final content = page.content
@@ -234,8 +236,7 @@ class ImportService {
       String dataPath;
       if (newBytes == null) return null;
       final newData = newBytes.buffer.asUint8List();
-      final assetPath = document.addImage(newData, 'png');
-      dataPath = Uri.file(assetPath, windows: false).toString();
+      dataPath = Uri.dataFromBytes(newData).toString();
       final height = image.height.toDouble(), width = image.width.toDouble();
       image.dispose();
       final settingsScale = getSettingsCubit().state.imageScale;
@@ -282,8 +283,7 @@ class ImportService {
         final state = _getState();
         String dataPath;
         if (state != null) {
-          final assetPath = state.data.addImage(bytes, 'svg');
-          dataPath = Uri.file(assetPath, windows: false).toString();
+          dataPath = Uri.dataFromBytes(bytes).toString();
         } else {
           dataPath = UriData.fromBytes(
             bytes,
@@ -385,8 +385,7 @@ class ImportService {
           final scale = 1 / callback.quality;
           final height = page.height;
           final width = page.width;
-          final assetPath = document.addImage(png, 'png');
-          final dataPath = Uri.file(assetPath, windows: false).toString();
+          final dataPath = Uri.dataFromBytes(png).toString();
           selectedElements.add(ImageElement(
               height: height.toDouble(),
               width: width.toDouble(),
@@ -490,7 +489,7 @@ class ImportService {
       content: [...page.content, ...elements],
       areas: [...page.areas, ...areas],
     );
-    document.setPage(page);
+    document = document.setPage(page);
     return document;
   }
 }

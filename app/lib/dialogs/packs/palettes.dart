@@ -30,8 +30,7 @@ class PalettesPackView extends StatelessWidget {
                     (e) => Dismissible(
                       key: ValueKey(e),
                       onDismissed: (direction) {
-                        value.removePalette(e);
-                        onChanged(value);
+                        onChanged(value.removePalette(e));
                       },
                       child: ListTile(
                         title: Text(e),
@@ -42,12 +41,17 @@ class PalettesPackView extends StatelessWidget {
                               palette: value.getPalette(e),
                               viewMode: true,
                               onChanged: (palette) {
-                                value.setPalette(palette);
-                                onChanged(value);
+                                onChanged(value.setPalette(palette));
                               },
                             ),
                           );
                         },
+                        trailing: IconButton(
+                          icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                          onPressed: () async {
+                            onChanged(value.removePalette(e));
+                          },
+                        ),
                       ),
                     ),
                   )
@@ -67,8 +71,7 @@ class PalettesPackView extends StatelessWidget {
                 ),
               );
               if (name == null) return;
-              value.setPalette(ColorPalette(name: name));
-              onChanged(value);
+              onChanged(value.setPalette(ColorPalette(name: name)));
             },
             icon: const PhosphorIcon(PhosphorIconsLight.plus),
             label: Text(AppLocalizations.of(context).create),

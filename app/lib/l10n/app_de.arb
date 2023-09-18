@@ -178,7 +178,7 @@
   "templates": "Vorlagen",
   "untitled": "Ohne Titel",
   "createTemplate": "Vorlage erstellen",
-  "createTemplateContent": "Möchten Sie wirklich eine Vorlage aus den ausgewählten Elementen erstellen? Die ursprüngliche Datei wird gelöscht.",
+  "createTemplateContent": "Möchten Sie wirklich eine Vorlage aus diesem Dokument erstellen? Das Originaldokument wird gelöscht.",
   "replace": "Ersetzen",
   "reallyReplace": "Wollen Sie wirklich die Vorlage ersetzen? Dieser Vorgang kann nicht rückgängig gemacht werden!",
   "defaultTemplate": "Standardvorlage",
@@ -517,6 +517,8 @@
   "cut": "Schneide",
   "insertBefore": "Vorher einfügen",
   "insertAfter": "Einfügen nach",
+  "insertFirst": "Zuerst einfügen",
+  "insertLast": "Insert last",
   "paste": "Einfügen",
   "ascending": "Aufsteigend",
   "descending": "Absteigend",
@@ -529,5 +531,9 @@
   "mobile": "Mobil",
   "pdfQuality": "PDF-Qualität",
   "surface": "Oberfläche",
-  "pattern": "Muster"
+  "pattern": "Muster",
+  "sureClose": "Sind Sie sicher, dass Sie das Dokument schließen möchten?",
+  "thereAreUnsavedChanges": "Es gibt ungespeicherte Änderungen",
+  "page": "Seite",
+  "switchView": "Ansicht wechseln"
 }

@@ -18,6 +18,21 @@ class ShapeElementSelection extends ElementSelection<ShapeElement> {
                     property: e.property.copyWith(color: color.value)))
                 .toList()),
       ),
+      ExactSlider(
+        value: Color(element.property.color).alpha.toDouble(),
+        header: Text(AppLocalizations.of(context).alpha),
+        fractionDigits: 0,
+        max: 255,
+        min: 0,
+        defaultValue: 255,
+        onChangeEnd: (value) => updateElements(
+            context,
+            elements
+                .map((e) => e.copyWith(
+                    property: e.property.copyWith(
+                        color: convertColor(e.property.color, value.toInt()))))
+                .toList()),
+      ),
       ShapeView(
         shape: element.property.shape,
         onChanged: (value) => updateElements(

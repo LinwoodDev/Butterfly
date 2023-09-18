@@ -178,7 +178,7 @@
   "templates": "Modèles",
   "untitled": "Sans titre",
   "createTemplate": "Créer un modèle",
-  "createTemplateContent": "Voulez-vous vraiment créer un modèle à partir des éléments sélectionnés ? Le fichier original sera supprimé.",
+  "createTemplateContent": "Voulez-vous vraiment créer un modèle à partir de ce document ? Le document original sera supprimé.",
   "replace": "Remplacer",
   "reallyReplace": "Voulez-vous vraiment remplacer le modèle ? Cette opération ne peut pas être annulée !",
   "defaultTemplate": "Modèle par défaut",
@@ -517,6 +517,8 @@
   "cut": "Couper",
   "insertBefore": "Insérer avant",
   "insertAfter": "Insérer après",
+  "insertFirst": "Insérer d'abord",
+  "insertLast": "Insert last",
   "paste": "Coller",
   "ascending": "Ascendant",
   "descending": "Descendant",
@@ -529,5 +531,9 @@
   "mobile": "Téléphone mobile",
   "pdfQuality": "Qualité PDF",
   "surface": "Surface",
-  "pattern": "Schéma"
+  "pattern": "Schéma",
+  "sureClose": "Êtes-vous sûr de vouloir fermer le document ?",
+  "thereAreUnsavedChanges": "Il y a des modifications non enregistrées",
+  "page": "Page",
+  "switchView": "Changer de vue"
 }

@@ -22,6 +22,15 @@ class LabelToolSelection extends ToolSelection<LabelTool> {
                   .map((e) => e.copyWith(
                       zoomDependent: value ?? selected.first.zoomDependent))
                   .toList())),
+      ExactSlider(
+        header: Text(AppLocalizations.of(context).scale),
+        min: 0.1,
+        max: 5,
+        value: selected.first.scale,
+        defaultValue: 1,
+        onChangeEnd: (value) => update(
+            context, selected.map((e) => e.copyWith(scale: value)).toList()),
+      ),
       ColorField(
         value: Color(selected.first.foreground),
         onChanged: (value) => update(context,
@@ -81,8 +90,8 @@ class LabelToolSelection extends ToolSelection<LabelTool> {
                       key: ValueKey(style),
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
-                        currentPack.removeStyle(style);
-                        bloc.add(PackUpdated(packName, currentPack));
+                        bloc.add(PackUpdated(
+                            packName, currentPack.removeStyle(style)));
                       },
                       child: ListTile(
                         title: Text(style),

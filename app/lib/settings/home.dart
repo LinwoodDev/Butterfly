@@ -94,7 +94,7 @@ class _SettingsPageState extends State<SettingsPage> {
           var navigation = Column(children: [
             Header(
               title: Text(AppLocalizations.of(context).settings),
-              leading: IconButton(
+              leading: IconButton.outlined(
                 icon: const PhosphorIcon(PhosphorIconsLight.x),
                 onPressed: () => Navigator.of(context).pop(),
               ),

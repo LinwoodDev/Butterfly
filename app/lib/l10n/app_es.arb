@@ -178,7 +178,7 @@
   "templates": "Plantillas",
   "untitled": "Sin título",
   "createTemplate": "Crear plantilla",
-  "createTemplateContent": "¿Realmente desea crear una plantilla de los elementos seleccionados? El archivo original se eliminará.",
+  "createTemplateContent": "¿Realmente desea crear una plantilla de este documento? Se eliminará el documento original.",
   "replace": "Reemplazar",
   "reallyReplace": "¿Realmente desea reemplazar la plantilla? ¡Esta operación no se puede deshacer!",
   "defaultTemplate": "Plantilla por defecto",
@@ -517,6 +517,8 @@
   "cut": "Cortar",
   "insertBefore": "Insertar antes",
   "insertAfter": "Insertar después",
+  "insertFirst": "Insertar primero",
+  "insertLast": "Insert last",
   "paste": "Pegar",
   "ascending": "Ascendente",
   "descending": "Descendente",
@@ -529,5 +531,9 @@
   "mobile": "Móvil",
   "pdfQuality": "Calidad PDF",
   "surface": "Superficie",
-  "pattern": "Patrón"
+  "pattern": "Patrón",
+  "sureClose": "¿Está seguro que desea cerrar el documento?",
+  "thereAreUnsavedChanges": "Hay cambios sin guardar",
+  "page": "Pgina",
+  "switchView": "Cambiar vista"
 }

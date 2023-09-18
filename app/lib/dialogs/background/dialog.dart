@@ -33,7 +33,7 @@ class BackgroundDialog extends StatelessWidget {
       return AlertDialog(
         content: SizedBox(
           width: 600,
-          height: 800,
+          height: 600,
           child: DefaultTabController(
             length: 2,
             child: Column(
@@ -73,7 +73,7 @@ class BackgroundDialog extends StatelessWidget {
                           ))
                       .toList(),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 Expanded(
                   child: StatefulBuilder(builder: (context, setState) {
                     return TabBarView(

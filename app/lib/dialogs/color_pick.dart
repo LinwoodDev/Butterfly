@@ -69,10 +69,9 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
     } else {
       final state = widget.bloc?.state;
       if (state is! DocumentLoaded) return;
-      final pack =
-          _selected == null ? null : state.data.getPack(_selected!.name);
+      var pack = _selected == null ? null : state.data.getPack(_selected!.name);
       if (pack == null) return;
-      pack.setPalette(palette);
+      pack = pack.setPalette(palette);
       widget.bloc?.add(PackUpdated(pack.name!, pack));
     }
   }
@@ -81,55 +80,63 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
     showModalBottomSheet(
         context: context,
         constraints: const BoxConstraints(maxWidth: 640),
+        showDragHandle: true,
         builder: (ctx) {
           final palette = _getPalette();
           if (palette == null) return Container();
           if ((palette.colors.length) <= index) return Container();
           final color = palette.colors[index];
-          return SizedBox(
-              height: 300,
-              child: Column(children: [
-                SizedBox(
-                  height: 125,
-                  child: Center(
-                      child: Container(
-                          color: Color(color), height: 75, width: 75)),
-                ),
-                const Divider(thickness: 1),
-                Expanded(
-                    child: ListView(children: [
-                  ListTile(
-                      leading: const PhosphorIcon(PhosphorIconsLight.pen),
-                      title: Text(AppLocalizations.of(context).edit),
-                      onTap: () async {
-                        final value = await showDialog<ColorPickerResponse>(
-                            context: context,
-                            builder: (context) =>
-                                ColorPicker(value: Color(color)));
-                        if (value != null) {
-                          _changePalette(palette.copyWith(
-                              colors: List.from(palette.colors)
-                                ..[index] = value.color));
-                        }
-                      }),
-                  ListTile(
-                    leading: const PhosphorIcon(PhosphorIconsLight.trash),
-                    title: Text(AppLocalizations.of(context).delete),
-                    onTap: () async {
-                      final result = await showDialog<bool>(
-                          context: context,
-                          builder: (ctx) => const DeleteDialog());
-                      if (result != true) return;
-                      if (context.mounted) {
-                        Navigator.of(context).pop();
-                        _changePalette(palette.copyWith(
-                            colors: List.from(palette.colors)
-                              ..removeAt(index)));
-                      }
-                    },
-                  )
-                ]))
-              ]));
+          return Column(mainAxisSize: MainAxisSize.min, children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color(color),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    height: 75,
+                    width: 75,
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                      child: Text(
+                    color.toHexColor(alpha: false),
+                    style: Theme.of(context).textTheme.headlineLarge,
+                  ))
+                ],
+              ),
+            ),
+            const Divider(thickness: 1),
+            ListTile(
+                leading: const PhosphorIcon(PhosphorIconsLight.pen),
+                title: Text(AppLocalizations.of(context).edit),
+                onTap: () async {
+                  final value = await showDialog<ColorPickerResponse>(
+                      context: context,
+                      builder: (context) => ColorPicker(value: Color(color)));
+                  if (value != null) {
+                    _changePalette(palette.copyWith(
+                        colors: List.from(palette.colors)
+                          ..[index] = value.color));
+                  }
+                }),
+            ListTile(
+              leading: const PhosphorIcon(PhosphorIconsLight.trash),
+              title: Text(AppLocalizations.of(context).delete),
+              onTap: () async {
+                final result = await showDialog<bool>(
+                    context: context, builder: (ctx) => const DeleteDialog());
+                if (result != true) return;
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                  _changePalette(palette.copyWith(
+                      colors: List.from(palette.colors)..removeAt(index)));
+                }
+              },
+            )
+          ]);
         });
   }
 
@@ -220,6 +227,8 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(32)),
                                 onLongPress: () => _showColorOperation(index),
+                                onSecondaryTap: () =>
+                                    _showColorOperation(index),
                                 onTap: () => Navigator.of(context)
                                     .pop(palette.colors[index]),
                                 child: Container(

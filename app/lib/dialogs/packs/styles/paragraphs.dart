@@ -73,7 +73,7 @@ class _ParagraphsStyleViewState extends State<ParagraphsStyleView> {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      IconButton(
+                      IconButton.filledTonal(
                         icon: const PhosphorIcon(PhosphorIconsLight.plus),
                         onPressed: () async {
                           final name = await showDialog<String>(

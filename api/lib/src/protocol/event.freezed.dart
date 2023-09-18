@@ -16,8 +16,18 @@ final _privateConstructorUsedError = UnsupportedError(
 
 DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
+    case 'pageAdded':
+      return PageAdded.fromJson(json);
     case 'pageChanged':
       return PageChanged.fromJson(json);
+    case 'pageReordered':
+      return PageReordered.fromJson(json);
+    case 'pageRenamed':
+      return PageRenamed.fromJson(json);
+    case 'pageRemoved':
+      return PageRemoved.fromJson(json);
+    case 'thumbnailCaptured':
+      return ThumbnailCaptured.fromJson(json);
     case 'viewChanged':
       return ViewChanged.fromJson(json);
     case 'utilitiesChanged':
@@ -109,7 +119,13 @@ DocumentEvent _$DocumentEventFromJson(Map<String, dynamic> json) {
 mixin _$DocumentEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -165,7 +181,13 @@ mixin _$DocumentEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -214,7 +236,13 @@ mixin _$DocumentEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -264,7 +292,12 @@ mixin _$DocumentEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -314,7 +347,12 @@ mixin _$DocumentEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -361,7 +399,12 @@ mixin _$DocumentEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -426,6 +469,473 @@ class _$DocumentEventCopyWithImpl<$Res, $Val extends DocumentEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$PageAddedCopyWith<$Res> {
+  factory _$$PageAddedCopyWith(
+          _$PageAdded value, $Res Function(_$PageAdded) then) =
+      __$$PageAddedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({DocumentPage page, int? index});
+
+  $DocumentPageCopyWith<$Res> get page;
+}
+
+/// @nodoc
+class __$$PageAddedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PageAdded>
+    implements _$$PageAddedCopyWith<$Res> {
+  __$$PageAddedCopyWithImpl(
+      _$PageAdded _value, $Res Function(_$PageAdded) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? page = null,
+    Object? index = freezed,
+  }) {
+    return _then(_$PageAdded(
+      null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as DocumentPage,
+      freezed == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DocumentPageCopyWith<$Res> get page {
+    return $DocumentPageCopyWith<$Res>(_value.page, (value) {
+      return _then(_value.copyWith(page: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PageAdded extends PageAdded {
+  const _$PageAdded(this.page, [this.index, final String? $type])
+      : $type = $type ?? 'pageAdded',
+        super._();
+
+  factory _$PageAdded.fromJson(Map<String, dynamic> json) =>
+      _$$PageAddedFromJson(json);
+
+  @override
+  final DocumentPage page;
+  @override
+  final int? index;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.pageAdded(page: $page, index: $index)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PageAdded &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, page, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PageAddedCopyWith<_$PageAdded> get copyWith =>
+      __$$PageAddedCopyWithImpl<_$PageAdded>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
+    required TResult Function(List<PadElement> elements) elementsCreated,
+    required TResult Function(Map<int, List<PadElement>> elements)
+        elementsChanged,
+    required TResult Function(List<int> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<int> elements)
+        elementsArranged,
+    required TResult Function(String? name, String? description)
+        documentDescriptionChanged,
+    required TResult Function(String path) documentPathChanged,
+    required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
+    required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
+    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String oldName, String newName) layerRenamed,
+    required TResult Function(String name) layerRemoved,
+    required TResult Function(String name) layerElementsRemoved,
+    required TResult Function(String name) layerVisibilityChanged,
+    required TResult Function(String name) currentLayerChanged,
+    required TResult Function(String layer, List<int> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
+    required TResult Function(List<Area> areas) areasCreated,
+    required TResult Function(List<String> areas) areasRemoved,
+    required TResult Function(String name, Area area) areaChanged,
+    required TResult Function(String name) currentAreaChanged,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetUpdated,
+    required TResult Function(String name) exportPresetRemoved,
+    required TResult Function(NoteData pack) packAdded,
+    required TResult Function(String name, NoteData pack) packUpdated,
+    required TResult Function(String name) packRemoved,
+    required TResult Function(AnimationTrack animation) animationAdded,
+    required TResult Function(String name, AnimationTrack animation)
+        animationUpdated,
+    required TResult Function(String name) animationRemoved,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
+    required TResult Function() presentationModeExited,
+    required TResult Function(int tick) presentationTick,
+  }) {
+    return pageAdded(page, index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
+    TResult? Function(List<PadElement> elements)? elementsCreated,
+    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<int> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<int> elements)?
+        elementsArranged,
+    TResult? Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult? Function(String path)? documentPathChanged,
+    TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
+    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String oldName, String newName)? layerRenamed,
+    TResult? Function(String name)? layerRemoved,
+    TResult? Function(String name)? layerElementsRemoved,
+    TResult? Function(String name)? layerVisibilityChanged,
+    TResult? Function(String name)? currentLayerChanged,
+    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult? Function(List<Area> areas)? areasCreated,
+    TResult? Function(List<String> areas)? areasRemoved,
+    TResult? Function(String name, Area area)? areaChanged,
+    TResult? Function(String name)? currentAreaChanged,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult? Function(String name)? exportPresetRemoved,
+    TResult? Function(NoteData pack)? packAdded,
+    TResult? Function(String name, NoteData pack)? packUpdated,
+    TResult? Function(String name)? packRemoved,
+    TResult? Function(AnimationTrack animation)? animationAdded,
+    TResult? Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult? Function(String name)? animationRemoved,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult? Function()? presentationModeExited,
+    TResult? Function(int tick)? presentationTick,
+  }) {
+    return pageAdded?.call(page, index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
+    TResult Function(List<PadElement> elements)? elementsCreated,
+    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<int> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<int> elements)?
+        elementsArranged,
+    TResult Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult Function(String path)? documentPathChanged,
+    TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
+    TResult Function(int index)? waypointRemoved,
+    TResult Function(String oldName, String newName)? layerRenamed,
+    TResult Function(String name)? layerRemoved,
+    TResult Function(String name)? layerElementsRemoved,
+    TResult Function(String name)? layerVisibilityChanged,
+    TResult Function(String name)? currentLayerChanged,
+    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult Function(List<Area> areas)? areasCreated,
+    TResult Function(List<String> areas)? areasRemoved,
+    TResult Function(String name, Area area)? areaChanged,
+    TResult Function(String name)? currentAreaChanged,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult Function(String name)? exportPresetRemoved,
+    TResult Function(NoteData pack)? packAdded,
+    TResult Function(String name, NoteData pack)? packUpdated,
+    TResult Function(String name)? packRemoved,
+    TResult Function(AnimationTrack animation)? animationAdded,
+    TResult Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult Function(String name)? animationRemoved,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult Function()? presentationModeExited,
+    TResult Function(int tick)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (pageAdded != null) {
+      return pageAdded(page, index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
+    required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
+    required TResult Function(ElementsCreated value) elementsCreated,
+    required TResult Function(ElementsChanged value) elementsChanged,
+    required TResult Function(ElementsRemoved value) elementsRemoved,
+    required TResult Function(ElementsArranged value) elementsArranged,
+    required TResult Function(DocumentDescriptionChanged value)
+        documentDescriptionChanged,
+    required TResult Function(DocumentPathChanged value) documentPathChanged,
+    required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
+    required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(LayerRenamed value) layerRenamed,
+    required TResult Function(LayerRemoved value) layerRemoved,
+    required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
+    required TResult Function(LayerVisibilityChanged value)
+        layerVisibilityChanged,
+    required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
+    required TResult Function(TemplateCreated value) templateCreated,
+    required TResult Function(AreasCreated value) areasCreated,
+    required TResult Function(AreasRemoved value) areasRemoved,
+    required TResult Function(AreaChanged value) areaChanged,
+    required TResult Function(CurrentAreaChanged value) currentAreaChanged,
+    required TResult Function(ExportPresetCreated value) exportPresetCreated,
+    required TResult Function(ExportPresetUpdated value) exportPresetUpdated,
+    required TResult Function(ExportPresetRemoved value) exportPresetRemoved,
+    required TResult Function(PackAdded value) packAdded,
+    required TResult Function(PackUpdated value) packUpdated,
+    required TResult Function(PackRemoved value) packRemoved,
+    required TResult Function(AnimationAdded value) animationAdded,
+    required TResult Function(AnimationUpdated value) animationUpdated,
+    required TResult Function(AnimationRemoved value) animationRemoved,
+    required TResult Function(PresentationModeEntered value)
+        presentationModeEntered,
+    required TResult Function(PresentationModeExited value)
+        presentationModeExited,
+    required TResult Function(PresentationTick value) presentationTick,
+  }) {
+    return pageAdded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
+    TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult? Function(ElementsCreated value)? elementsCreated,
+    TResult? Function(ElementsChanged value)? elementsChanged,
+    TResult? Function(ElementsRemoved value)? elementsRemoved,
+    TResult? Function(ElementsArranged value)? elementsArranged,
+    TResult? Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult? Function(DocumentPathChanged value)? documentPathChanged,
+    TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(LayerRenamed value)? layerRenamed,
+    TResult? Function(LayerRemoved value)? layerRemoved,
+    TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult? Function(TemplateCreated value)? templateCreated,
+    TResult? Function(AreasCreated value)? areasCreated,
+    TResult? Function(AreasRemoved value)? areasRemoved,
+    TResult? Function(AreaChanged value)? areaChanged,
+    TResult? Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult? Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult? Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult? Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult? Function(PackAdded value)? packAdded,
+    TResult? Function(PackUpdated value)? packUpdated,
+    TResult? Function(PackRemoved value)? packRemoved,
+    TResult? Function(AnimationAdded value)? animationAdded,
+    TResult? Function(AnimationUpdated value)? animationUpdated,
+    TResult? Function(AnimationRemoved value)? animationRemoved,
+    TResult? Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult? Function(PresentationModeExited value)? presentationModeExited,
+    TResult? Function(PresentationTick value)? presentationTick,
+  }) {
+    return pageAdded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
+    TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult Function(ElementsCreated value)? elementsCreated,
+    TResult Function(ElementsChanged value)? elementsChanged,
+    TResult Function(ElementsRemoved value)? elementsRemoved,
+    TResult Function(ElementsArranged value)? elementsArranged,
+    TResult Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult Function(DocumentPathChanged value)? documentPathChanged,
+    TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(LayerRenamed value)? layerRenamed,
+    TResult Function(LayerRemoved value)? layerRemoved,
+    TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult Function(TemplateCreated value)? templateCreated,
+    TResult Function(AreasCreated value)? areasCreated,
+    TResult Function(AreasRemoved value)? areasRemoved,
+    TResult Function(AreaChanged value)? areaChanged,
+    TResult Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult Function(PackAdded value)? packAdded,
+    TResult Function(PackUpdated value)? packUpdated,
+    TResult Function(PackRemoved value)? packRemoved,
+    TResult Function(AnimationAdded value)? animationAdded,
+    TResult Function(AnimationUpdated value)? animationUpdated,
+    TResult Function(AnimationRemoved value)? animationRemoved,
+    TResult Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult Function(PresentationModeExited value)? presentationModeExited,
+    TResult Function(PresentationTick value)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (pageAdded != null) {
+      return pageAdded(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PageAddedToJson(
+      this,
+    );
+  }
+}
+
+abstract class PageAdded extends DocumentEvent {
+  const factory PageAdded(final DocumentPage page, [final int? index]) =
+      _$PageAdded;
+  const PageAdded._() : super._();
+
+  factory PageAdded.fromJson(Map<String, dynamic> json) = _$PageAdded.fromJson;
+
+  DocumentPage get page;
+  int? get index;
+  @JsonKey(ignore: true)
+  _$$PageAddedCopyWith<_$PageAdded> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -502,7 +1012,13 @@ class _$PageChanged extends PageChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -561,7 +1077,13 @@ class _$PageChanged extends PageChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -613,7 +1135,13 @@ class _$PageChanged extends PageChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -669,7 +1197,12 @@ class _$PageChanged extends PageChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -722,7 +1255,12 @@ class _$PageChanged extends PageChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -772,7 +1310,12 @@ class _$PageChanged extends PageChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -841,6 +1384,1824 @@ abstract class PageChanged extends DocumentEvent {
   String get pageName;
   @JsonKey(ignore: true)
   _$$PageChangedCopyWith<_$PageChanged> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PageReorderedCopyWith<$Res> {
+  factory _$$PageReorderedCopyWith(
+          _$PageReordered value, $Res Function(_$PageReordered) then) =
+      __$$PageReorderedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String page, int? newIndex});
+}
+
+/// @nodoc
+class __$$PageReorderedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PageReordered>
+    implements _$$PageReorderedCopyWith<$Res> {
+  __$$PageReorderedCopyWithImpl(
+      _$PageReordered _value, $Res Function(_$PageReordered) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? page = null,
+    Object? newIndex = freezed,
+  }) {
+    return _then(_$PageReordered(
+      null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as String,
+      freezed == newIndex
+          ? _value.newIndex
+          : newIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PageReordered extends PageReordered {
+  const _$PageReordered(this.page, [this.newIndex, final String? $type])
+      : $type = $type ?? 'pageReordered',
+        super._();
+
+  factory _$PageReordered.fromJson(Map<String, dynamic> json) =>
+      _$$PageReorderedFromJson(json);
+
+  @override
+  final String page;
+  @override
+  final int? newIndex;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.pageReordered(page: $page, newIndex: $newIndex)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PageReordered &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.newIndex, newIndex) ||
+                other.newIndex == newIndex));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, page, newIndex);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PageReorderedCopyWith<_$PageReordered> get copyWith =>
+      __$$PageReorderedCopyWithImpl<_$PageReordered>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
+    required TResult Function(List<PadElement> elements) elementsCreated,
+    required TResult Function(Map<int, List<PadElement>> elements)
+        elementsChanged,
+    required TResult Function(List<int> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<int> elements)
+        elementsArranged,
+    required TResult Function(String? name, String? description)
+        documentDescriptionChanged,
+    required TResult Function(String path) documentPathChanged,
+    required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
+    required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
+    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String oldName, String newName) layerRenamed,
+    required TResult Function(String name) layerRemoved,
+    required TResult Function(String name) layerElementsRemoved,
+    required TResult Function(String name) layerVisibilityChanged,
+    required TResult Function(String name) currentLayerChanged,
+    required TResult Function(String layer, List<int> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
+    required TResult Function(List<Area> areas) areasCreated,
+    required TResult Function(List<String> areas) areasRemoved,
+    required TResult Function(String name, Area area) areaChanged,
+    required TResult Function(String name) currentAreaChanged,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetUpdated,
+    required TResult Function(String name) exportPresetRemoved,
+    required TResult Function(NoteData pack) packAdded,
+    required TResult Function(String name, NoteData pack) packUpdated,
+    required TResult Function(String name) packRemoved,
+    required TResult Function(AnimationTrack animation) animationAdded,
+    required TResult Function(String name, AnimationTrack animation)
+        animationUpdated,
+    required TResult Function(String name) animationRemoved,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
+    required TResult Function() presentationModeExited,
+    required TResult Function(int tick) presentationTick,
+  }) {
+    return pageReordered(page, newIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
+    TResult? Function(List<PadElement> elements)? elementsCreated,
+    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<int> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<int> elements)?
+        elementsArranged,
+    TResult? Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult? Function(String path)? documentPathChanged,
+    TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
+    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String oldName, String newName)? layerRenamed,
+    TResult? Function(String name)? layerRemoved,
+    TResult? Function(String name)? layerElementsRemoved,
+    TResult? Function(String name)? layerVisibilityChanged,
+    TResult? Function(String name)? currentLayerChanged,
+    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult? Function(List<Area> areas)? areasCreated,
+    TResult? Function(List<String> areas)? areasRemoved,
+    TResult? Function(String name, Area area)? areaChanged,
+    TResult? Function(String name)? currentAreaChanged,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult? Function(String name)? exportPresetRemoved,
+    TResult? Function(NoteData pack)? packAdded,
+    TResult? Function(String name, NoteData pack)? packUpdated,
+    TResult? Function(String name)? packRemoved,
+    TResult? Function(AnimationTrack animation)? animationAdded,
+    TResult? Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult? Function(String name)? animationRemoved,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult? Function()? presentationModeExited,
+    TResult? Function(int tick)? presentationTick,
+  }) {
+    return pageReordered?.call(page, newIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
+    TResult Function(List<PadElement> elements)? elementsCreated,
+    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<int> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<int> elements)?
+        elementsArranged,
+    TResult Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult Function(String path)? documentPathChanged,
+    TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
+    TResult Function(int index)? waypointRemoved,
+    TResult Function(String oldName, String newName)? layerRenamed,
+    TResult Function(String name)? layerRemoved,
+    TResult Function(String name)? layerElementsRemoved,
+    TResult Function(String name)? layerVisibilityChanged,
+    TResult Function(String name)? currentLayerChanged,
+    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult Function(List<Area> areas)? areasCreated,
+    TResult Function(List<String> areas)? areasRemoved,
+    TResult Function(String name, Area area)? areaChanged,
+    TResult Function(String name)? currentAreaChanged,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult Function(String name)? exportPresetRemoved,
+    TResult Function(NoteData pack)? packAdded,
+    TResult Function(String name, NoteData pack)? packUpdated,
+    TResult Function(String name)? packRemoved,
+    TResult Function(AnimationTrack animation)? animationAdded,
+    TResult Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult Function(String name)? animationRemoved,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult Function()? presentationModeExited,
+    TResult Function(int tick)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (pageReordered != null) {
+      return pageReordered(page, newIndex);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
+    required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
+    required TResult Function(ElementsCreated value) elementsCreated,
+    required TResult Function(ElementsChanged value) elementsChanged,
+    required TResult Function(ElementsRemoved value) elementsRemoved,
+    required TResult Function(ElementsArranged value) elementsArranged,
+    required TResult Function(DocumentDescriptionChanged value)
+        documentDescriptionChanged,
+    required TResult Function(DocumentPathChanged value) documentPathChanged,
+    required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
+    required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(LayerRenamed value) layerRenamed,
+    required TResult Function(LayerRemoved value) layerRemoved,
+    required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
+    required TResult Function(LayerVisibilityChanged value)
+        layerVisibilityChanged,
+    required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
+    required TResult Function(TemplateCreated value) templateCreated,
+    required TResult Function(AreasCreated value) areasCreated,
+    required TResult Function(AreasRemoved value) areasRemoved,
+    required TResult Function(AreaChanged value) areaChanged,
+    required TResult Function(CurrentAreaChanged value) currentAreaChanged,
+    required TResult Function(ExportPresetCreated value) exportPresetCreated,
+    required TResult Function(ExportPresetUpdated value) exportPresetUpdated,
+    required TResult Function(ExportPresetRemoved value) exportPresetRemoved,
+    required TResult Function(PackAdded value) packAdded,
+    required TResult Function(PackUpdated value) packUpdated,
+    required TResult Function(PackRemoved value) packRemoved,
+    required TResult Function(AnimationAdded value) animationAdded,
+    required TResult Function(AnimationUpdated value) animationUpdated,
+    required TResult Function(AnimationRemoved value) animationRemoved,
+    required TResult Function(PresentationModeEntered value)
+        presentationModeEntered,
+    required TResult Function(PresentationModeExited value)
+        presentationModeExited,
+    required TResult Function(PresentationTick value) presentationTick,
+  }) {
+    return pageReordered(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
+    TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult? Function(ElementsCreated value)? elementsCreated,
+    TResult? Function(ElementsChanged value)? elementsChanged,
+    TResult? Function(ElementsRemoved value)? elementsRemoved,
+    TResult? Function(ElementsArranged value)? elementsArranged,
+    TResult? Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult? Function(DocumentPathChanged value)? documentPathChanged,
+    TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(LayerRenamed value)? layerRenamed,
+    TResult? Function(LayerRemoved value)? layerRemoved,
+    TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult? Function(TemplateCreated value)? templateCreated,
+    TResult? Function(AreasCreated value)? areasCreated,
+    TResult? Function(AreasRemoved value)? areasRemoved,
+    TResult? Function(AreaChanged value)? areaChanged,
+    TResult? Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult? Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult? Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult? Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult? Function(PackAdded value)? packAdded,
+    TResult? Function(PackUpdated value)? packUpdated,
+    TResult? Function(PackRemoved value)? packRemoved,
+    TResult? Function(AnimationAdded value)? animationAdded,
+    TResult? Function(AnimationUpdated value)? animationUpdated,
+    TResult? Function(AnimationRemoved value)? animationRemoved,
+    TResult? Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult? Function(PresentationModeExited value)? presentationModeExited,
+    TResult? Function(PresentationTick value)? presentationTick,
+  }) {
+    return pageReordered?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
+    TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult Function(ElementsCreated value)? elementsCreated,
+    TResult Function(ElementsChanged value)? elementsChanged,
+    TResult Function(ElementsRemoved value)? elementsRemoved,
+    TResult Function(ElementsArranged value)? elementsArranged,
+    TResult Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult Function(DocumentPathChanged value)? documentPathChanged,
+    TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(LayerRenamed value)? layerRenamed,
+    TResult Function(LayerRemoved value)? layerRemoved,
+    TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult Function(TemplateCreated value)? templateCreated,
+    TResult Function(AreasCreated value)? areasCreated,
+    TResult Function(AreasRemoved value)? areasRemoved,
+    TResult Function(AreaChanged value)? areaChanged,
+    TResult Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult Function(PackAdded value)? packAdded,
+    TResult Function(PackUpdated value)? packUpdated,
+    TResult Function(PackRemoved value)? packRemoved,
+    TResult Function(AnimationAdded value)? animationAdded,
+    TResult Function(AnimationUpdated value)? animationUpdated,
+    TResult Function(AnimationRemoved value)? animationRemoved,
+    TResult Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult Function(PresentationModeExited value)? presentationModeExited,
+    TResult Function(PresentationTick value)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (pageReordered != null) {
+      return pageReordered(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PageReorderedToJson(
+      this,
+    );
+  }
+}
+
+abstract class PageReordered extends DocumentEvent {
+  const factory PageReordered(final String page, [final int? newIndex]) =
+      _$PageReordered;
+  const PageReordered._() : super._();
+
+  factory PageReordered.fromJson(Map<String, dynamic> json) =
+      _$PageReordered.fromJson;
+
+  String get page;
+  int? get newIndex;
+  @JsonKey(ignore: true)
+  _$$PageReorderedCopyWith<_$PageReordered> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PageRenamedCopyWith<$Res> {
+  factory _$$PageRenamedCopyWith(
+          _$PageRenamed value, $Res Function(_$PageRenamed) then) =
+      __$$PageRenamedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String oldName, String newName});
+}
+
+/// @nodoc
+class __$$PageRenamedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PageRenamed>
+    implements _$$PageRenamedCopyWith<$Res> {
+  __$$PageRenamedCopyWithImpl(
+      _$PageRenamed _value, $Res Function(_$PageRenamed) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? oldName = null,
+    Object? newName = null,
+  }) {
+    return _then(_$PageRenamed(
+      null == oldName
+          ? _value.oldName
+          : oldName // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == newName
+          ? _value.newName
+          : newName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PageRenamed extends PageRenamed {
+  const _$PageRenamed(this.oldName, this.newName, {final String? $type})
+      : $type = $type ?? 'pageRenamed',
+        super._();
+
+  factory _$PageRenamed.fromJson(Map<String, dynamic> json) =>
+      _$$PageRenamedFromJson(json);
+
+  @override
+  final String oldName;
+  @override
+  final String newName;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.pageRenamed(oldName: $oldName, newName: $newName)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PageRenamed &&
+            (identical(other.oldName, oldName) || other.oldName == oldName) &&
+            (identical(other.newName, newName) || other.newName == newName));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, oldName, newName);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PageRenamedCopyWith<_$PageRenamed> get copyWith =>
+      __$$PageRenamedCopyWithImpl<_$PageRenamed>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
+    required TResult Function(List<PadElement> elements) elementsCreated,
+    required TResult Function(Map<int, List<PadElement>> elements)
+        elementsChanged,
+    required TResult Function(List<int> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<int> elements)
+        elementsArranged,
+    required TResult Function(String? name, String? description)
+        documentDescriptionChanged,
+    required TResult Function(String path) documentPathChanged,
+    required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
+    required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
+    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String oldName, String newName) layerRenamed,
+    required TResult Function(String name) layerRemoved,
+    required TResult Function(String name) layerElementsRemoved,
+    required TResult Function(String name) layerVisibilityChanged,
+    required TResult Function(String name) currentLayerChanged,
+    required TResult Function(String layer, List<int> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
+    required TResult Function(List<Area> areas) areasCreated,
+    required TResult Function(List<String> areas) areasRemoved,
+    required TResult Function(String name, Area area) areaChanged,
+    required TResult Function(String name) currentAreaChanged,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetUpdated,
+    required TResult Function(String name) exportPresetRemoved,
+    required TResult Function(NoteData pack) packAdded,
+    required TResult Function(String name, NoteData pack) packUpdated,
+    required TResult Function(String name) packRemoved,
+    required TResult Function(AnimationTrack animation) animationAdded,
+    required TResult Function(String name, AnimationTrack animation)
+        animationUpdated,
+    required TResult Function(String name) animationRemoved,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
+    required TResult Function() presentationModeExited,
+    required TResult Function(int tick) presentationTick,
+  }) {
+    return pageRenamed(oldName, newName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
+    TResult? Function(List<PadElement> elements)? elementsCreated,
+    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<int> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<int> elements)?
+        elementsArranged,
+    TResult? Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult? Function(String path)? documentPathChanged,
+    TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
+    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String oldName, String newName)? layerRenamed,
+    TResult? Function(String name)? layerRemoved,
+    TResult? Function(String name)? layerElementsRemoved,
+    TResult? Function(String name)? layerVisibilityChanged,
+    TResult? Function(String name)? currentLayerChanged,
+    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult? Function(List<Area> areas)? areasCreated,
+    TResult? Function(List<String> areas)? areasRemoved,
+    TResult? Function(String name, Area area)? areaChanged,
+    TResult? Function(String name)? currentAreaChanged,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult? Function(String name)? exportPresetRemoved,
+    TResult? Function(NoteData pack)? packAdded,
+    TResult? Function(String name, NoteData pack)? packUpdated,
+    TResult? Function(String name)? packRemoved,
+    TResult? Function(AnimationTrack animation)? animationAdded,
+    TResult? Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult? Function(String name)? animationRemoved,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult? Function()? presentationModeExited,
+    TResult? Function(int tick)? presentationTick,
+  }) {
+    return pageRenamed?.call(oldName, newName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
+    TResult Function(List<PadElement> elements)? elementsCreated,
+    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<int> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<int> elements)?
+        elementsArranged,
+    TResult Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult Function(String path)? documentPathChanged,
+    TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
+    TResult Function(int index)? waypointRemoved,
+    TResult Function(String oldName, String newName)? layerRenamed,
+    TResult Function(String name)? layerRemoved,
+    TResult Function(String name)? layerElementsRemoved,
+    TResult Function(String name)? layerVisibilityChanged,
+    TResult Function(String name)? currentLayerChanged,
+    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult Function(List<Area> areas)? areasCreated,
+    TResult Function(List<String> areas)? areasRemoved,
+    TResult Function(String name, Area area)? areaChanged,
+    TResult Function(String name)? currentAreaChanged,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult Function(String name)? exportPresetRemoved,
+    TResult Function(NoteData pack)? packAdded,
+    TResult Function(String name, NoteData pack)? packUpdated,
+    TResult Function(String name)? packRemoved,
+    TResult Function(AnimationTrack animation)? animationAdded,
+    TResult Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult Function(String name)? animationRemoved,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult Function()? presentationModeExited,
+    TResult Function(int tick)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (pageRenamed != null) {
+      return pageRenamed(oldName, newName);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
+    required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
+    required TResult Function(ElementsCreated value) elementsCreated,
+    required TResult Function(ElementsChanged value) elementsChanged,
+    required TResult Function(ElementsRemoved value) elementsRemoved,
+    required TResult Function(ElementsArranged value) elementsArranged,
+    required TResult Function(DocumentDescriptionChanged value)
+        documentDescriptionChanged,
+    required TResult Function(DocumentPathChanged value) documentPathChanged,
+    required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
+    required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(LayerRenamed value) layerRenamed,
+    required TResult Function(LayerRemoved value) layerRemoved,
+    required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
+    required TResult Function(LayerVisibilityChanged value)
+        layerVisibilityChanged,
+    required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
+    required TResult Function(TemplateCreated value) templateCreated,
+    required TResult Function(AreasCreated value) areasCreated,
+    required TResult Function(AreasRemoved value) areasRemoved,
+    required TResult Function(AreaChanged value) areaChanged,
+    required TResult Function(CurrentAreaChanged value) currentAreaChanged,
+    required TResult Function(ExportPresetCreated value) exportPresetCreated,
+    required TResult Function(ExportPresetUpdated value) exportPresetUpdated,
+    required TResult Function(ExportPresetRemoved value) exportPresetRemoved,
+    required TResult Function(PackAdded value) packAdded,
+    required TResult Function(PackUpdated value) packUpdated,
+    required TResult Function(PackRemoved value) packRemoved,
+    required TResult Function(AnimationAdded value) animationAdded,
+    required TResult Function(AnimationUpdated value) animationUpdated,
+    required TResult Function(AnimationRemoved value) animationRemoved,
+    required TResult Function(PresentationModeEntered value)
+        presentationModeEntered,
+    required TResult Function(PresentationModeExited value)
+        presentationModeExited,
+    required TResult Function(PresentationTick value) presentationTick,
+  }) {
+    return pageRenamed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
+    TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult? Function(ElementsCreated value)? elementsCreated,
+    TResult? Function(ElementsChanged value)? elementsChanged,
+    TResult? Function(ElementsRemoved value)? elementsRemoved,
+    TResult? Function(ElementsArranged value)? elementsArranged,
+    TResult? Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult? Function(DocumentPathChanged value)? documentPathChanged,
+    TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(LayerRenamed value)? layerRenamed,
+    TResult? Function(LayerRemoved value)? layerRemoved,
+    TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult? Function(TemplateCreated value)? templateCreated,
+    TResult? Function(AreasCreated value)? areasCreated,
+    TResult? Function(AreasRemoved value)? areasRemoved,
+    TResult? Function(AreaChanged value)? areaChanged,
+    TResult? Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult? Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult? Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult? Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult? Function(PackAdded value)? packAdded,
+    TResult? Function(PackUpdated value)? packUpdated,
+    TResult? Function(PackRemoved value)? packRemoved,
+    TResult? Function(AnimationAdded value)? animationAdded,
+    TResult? Function(AnimationUpdated value)? animationUpdated,
+    TResult? Function(AnimationRemoved value)? animationRemoved,
+    TResult? Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult? Function(PresentationModeExited value)? presentationModeExited,
+    TResult? Function(PresentationTick value)? presentationTick,
+  }) {
+    return pageRenamed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
+    TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult Function(ElementsCreated value)? elementsCreated,
+    TResult Function(ElementsChanged value)? elementsChanged,
+    TResult Function(ElementsRemoved value)? elementsRemoved,
+    TResult Function(ElementsArranged value)? elementsArranged,
+    TResult Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult Function(DocumentPathChanged value)? documentPathChanged,
+    TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(LayerRenamed value)? layerRenamed,
+    TResult Function(LayerRemoved value)? layerRemoved,
+    TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult Function(TemplateCreated value)? templateCreated,
+    TResult Function(AreasCreated value)? areasCreated,
+    TResult Function(AreasRemoved value)? areasRemoved,
+    TResult Function(AreaChanged value)? areaChanged,
+    TResult Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult Function(PackAdded value)? packAdded,
+    TResult Function(PackUpdated value)? packUpdated,
+    TResult Function(PackRemoved value)? packRemoved,
+    TResult Function(AnimationAdded value)? animationAdded,
+    TResult Function(AnimationUpdated value)? animationUpdated,
+    TResult Function(AnimationRemoved value)? animationRemoved,
+    TResult Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult Function(PresentationModeExited value)? presentationModeExited,
+    TResult Function(PresentationTick value)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (pageRenamed != null) {
+      return pageRenamed(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PageRenamedToJson(
+      this,
+    );
+  }
+}
+
+abstract class PageRenamed extends DocumentEvent {
+  const factory PageRenamed(final String oldName, final String newName) =
+      _$PageRenamed;
+  const PageRenamed._() : super._();
+
+  factory PageRenamed.fromJson(Map<String, dynamic> json) =
+      _$PageRenamed.fromJson;
+
+  String get oldName;
+  String get newName;
+  @JsonKey(ignore: true)
+  _$$PageRenamedCopyWith<_$PageRenamed> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PageRemovedCopyWith<$Res> {
+  factory _$$PageRemovedCopyWith(
+          _$PageRemoved value, $Res Function(_$PageRemoved) then) =
+      __$$PageRemovedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String page});
+}
+
+/// @nodoc
+class __$$PageRemovedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$PageRemoved>
+    implements _$$PageRemovedCopyWith<$Res> {
+  __$$PageRemovedCopyWithImpl(
+      _$PageRemoved _value, $Res Function(_$PageRemoved) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? page = null,
+  }) {
+    return _then(_$PageRemoved(
+      null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PageRemoved extends PageRemoved {
+  const _$PageRemoved(this.page, {final String? $type})
+      : $type = $type ?? 'pageRemoved',
+        super._();
+
+  factory _$PageRemoved.fromJson(Map<String, dynamic> json) =>
+      _$$PageRemovedFromJson(json);
+
+  @override
+  final String page;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.pageRemoved(page: $page)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PageRemoved &&
+            (identical(other.page, page) || other.page == page));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, page);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PageRemovedCopyWith<_$PageRemoved> get copyWith =>
+      __$$PageRemovedCopyWithImpl<_$PageRemoved>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
+    required TResult Function(List<PadElement> elements) elementsCreated,
+    required TResult Function(Map<int, List<PadElement>> elements)
+        elementsChanged,
+    required TResult Function(List<int> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<int> elements)
+        elementsArranged,
+    required TResult Function(String? name, String? description)
+        documentDescriptionChanged,
+    required TResult Function(String path) documentPathChanged,
+    required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
+    required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
+    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String oldName, String newName) layerRenamed,
+    required TResult Function(String name) layerRemoved,
+    required TResult Function(String name) layerElementsRemoved,
+    required TResult Function(String name) layerVisibilityChanged,
+    required TResult Function(String name) currentLayerChanged,
+    required TResult Function(String layer, List<int> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
+    required TResult Function(List<Area> areas) areasCreated,
+    required TResult Function(List<String> areas) areasRemoved,
+    required TResult Function(String name, Area area) areaChanged,
+    required TResult Function(String name) currentAreaChanged,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetUpdated,
+    required TResult Function(String name) exportPresetRemoved,
+    required TResult Function(NoteData pack) packAdded,
+    required TResult Function(String name, NoteData pack) packUpdated,
+    required TResult Function(String name) packRemoved,
+    required TResult Function(AnimationTrack animation) animationAdded,
+    required TResult Function(String name, AnimationTrack animation)
+        animationUpdated,
+    required TResult Function(String name) animationRemoved,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
+    required TResult Function() presentationModeExited,
+    required TResult Function(int tick) presentationTick,
+  }) {
+    return pageRemoved(page);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
+    TResult? Function(List<PadElement> elements)? elementsCreated,
+    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<int> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<int> elements)?
+        elementsArranged,
+    TResult? Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult? Function(String path)? documentPathChanged,
+    TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
+    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String oldName, String newName)? layerRenamed,
+    TResult? Function(String name)? layerRemoved,
+    TResult? Function(String name)? layerElementsRemoved,
+    TResult? Function(String name)? layerVisibilityChanged,
+    TResult? Function(String name)? currentLayerChanged,
+    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult? Function(List<Area> areas)? areasCreated,
+    TResult? Function(List<String> areas)? areasRemoved,
+    TResult? Function(String name, Area area)? areaChanged,
+    TResult? Function(String name)? currentAreaChanged,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult? Function(String name)? exportPresetRemoved,
+    TResult? Function(NoteData pack)? packAdded,
+    TResult? Function(String name, NoteData pack)? packUpdated,
+    TResult? Function(String name)? packRemoved,
+    TResult? Function(AnimationTrack animation)? animationAdded,
+    TResult? Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult? Function(String name)? animationRemoved,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult? Function()? presentationModeExited,
+    TResult? Function(int tick)? presentationTick,
+  }) {
+    return pageRemoved?.call(page);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
+    TResult Function(List<PadElement> elements)? elementsCreated,
+    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<int> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<int> elements)?
+        elementsArranged,
+    TResult Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult Function(String path)? documentPathChanged,
+    TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
+    TResult Function(int index)? waypointRemoved,
+    TResult Function(String oldName, String newName)? layerRenamed,
+    TResult Function(String name)? layerRemoved,
+    TResult Function(String name)? layerElementsRemoved,
+    TResult Function(String name)? layerVisibilityChanged,
+    TResult Function(String name)? currentLayerChanged,
+    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult Function(List<Area> areas)? areasCreated,
+    TResult Function(List<String> areas)? areasRemoved,
+    TResult Function(String name, Area area)? areaChanged,
+    TResult Function(String name)? currentAreaChanged,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult Function(String name)? exportPresetRemoved,
+    TResult Function(NoteData pack)? packAdded,
+    TResult Function(String name, NoteData pack)? packUpdated,
+    TResult Function(String name)? packRemoved,
+    TResult Function(AnimationTrack animation)? animationAdded,
+    TResult Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult Function(String name)? animationRemoved,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult Function()? presentationModeExited,
+    TResult Function(int tick)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (pageRemoved != null) {
+      return pageRemoved(page);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
+    required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
+    required TResult Function(ElementsCreated value) elementsCreated,
+    required TResult Function(ElementsChanged value) elementsChanged,
+    required TResult Function(ElementsRemoved value) elementsRemoved,
+    required TResult Function(ElementsArranged value) elementsArranged,
+    required TResult Function(DocumentDescriptionChanged value)
+        documentDescriptionChanged,
+    required TResult Function(DocumentPathChanged value) documentPathChanged,
+    required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
+    required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(LayerRenamed value) layerRenamed,
+    required TResult Function(LayerRemoved value) layerRemoved,
+    required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
+    required TResult Function(LayerVisibilityChanged value)
+        layerVisibilityChanged,
+    required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
+    required TResult Function(TemplateCreated value) templateCreated,
+    required TResult Function(AreasCreated value) areasCreated,
+    required TResult Function(AreasRemoved value) areasRemoved,
+    required TResult Function(AreaChanged value) areaChanged,
+    required TResult Function(CurrentAreaChanged value) currentAreaChanged,
+    required TResult Function(ExportPresetCreated value) exportPresetCreated,
+    required TResult Function(ExportPresetUpdated value) exportPresetUpdated,
+    required TResult Function(ExportPresetRemoved value) exportPresetRemoved,
+    required TResult Function(PackAdded value) packAdded,
+    required TResult Function(PackUpdated value) packUpdated,
+    required TResult Function(PackRemoved value) packRemoved,
+    required TResult Function(AnimationAdded value) animationAdded,
+    required TResult Function(AnimationUpdated value) animationUpdated,
+    required TResult Function(AnimationRemoved value) animationRemoved,
+    required TResult Function(PresentationModeEntered value)
+        presentationModeEntered,
+    required TResult Function(PresentationModeExited value)
+        presentationModeExited,
+    required TResult Function(PresentationTick value) presentationTick,
+  }) {
+    return pageRemoved(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
+    TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult? Function(ElementsCreated value)? elementsCreated,
+    TResult? Function(ElementsChanged value)? elementsChanged,
+    TResult? Function(ElementsRemoved value)? elementsRemoved,
+    TResult? Function(ElementsArranged value)? elementsArranged,
+    TResult? Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult? Function(DocumentPathChanged value)? documentPathChanged,
+    TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(LayerRenamed value)? layerRenamed,
+    TResult? Function(LayerRemoved value)? layerRemoved,
+    TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult? Function(TemplateCreated value)? templateCreated,
+    TResult? Function(AreasCreated value)? areasCreated,
+    TResult? Function(AreasRemoved value)? areasRemoved,
+    TResult? Function(AreaChanged value)? areaChanged,
+    TResult? Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult? Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult? Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult? Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult? Function(PackAdded value)? packAdded,
+    TResult? Function(PackUpdated value)? packUpdated,
+    TResult? Function(PackRemoved value)? packRemoved,
+    TResult? Function(AnimationAdded value)? animationAdded,
+    TResult? Function(AnimationUpdated value)? animationUpdated,
+    TResult? Function(AnimationRemoved value)? animationRemoved,
+    TResult? Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult? Function(PresentationModeExited value)? presentationModeExited,
+    TResult? Function(PresentationTick value)? presentationTick,
+  }) {
+    return pageRemoved?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
+    TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult Function(ElementsCreated value)? elementsCreated,
+    TResult Function(ElementsChanged value)? elementsChanged,
+    TResult Function(ElementsRemoved value)? elementsRemoved,
+    TResult Function(ElementsArranged value)? elementsArranged,
+    TResult Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult Function(DocumentPathChanged value)? documentPathChanged,
+    TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(LayerRenamed value)? layerRenamed,
+    TResult Function(LayerRemoved value)? layerRemoved,
+    TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult Function(TemplateCreated value)? templateCreated,
+    TResult Function(AreasCreated value)? areasCreated,
+    TResult Function(AreasRemoved value)? areasRemoved,
+    TResult Function(AreaChanged value)? areaChanged,
+    TResult Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult Function(PackAdded value)? packAdded,
+    TResult Function(PackUpdated value)? packUpdated,
+    TResult Function(PackRemoved value)? packRemoved,
+    TResult Function(AnimationAdded value)? animationAdded,
+    TResult Function(AnimationUpdated value)? animationUpdated,
+    TResult Function(AnimationRemoved value)? animationRemoved,
+    TResult Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult Function(PresentationModeExited value)? presentationModeExited,
+    TResult Function(PresentationTick value)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (pageRemoved != null) {
+      return pageRemoved(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PageRemovedToJson(
+      this,
+    );
+  }
+}
+
+abstract class PageRemoved extends DocumentEvent {
+  const factory PageRemoved(final String page) = _$PageRemoved;
+  const PageRemoved._() : super._();
+
+  factory PageRemoved.fromJson(Map<String, dynamic> json) =
+      _$PageRemoved.fromJson;
+
+  String get page;
+  @JsonKey(ignore: true)
+  _$$PageRemovedCopyWith<_$PageRemoved> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ThumbnailCapturedCopyWith<$Res> {
+  factory _$$ThumbnailCapturedCopyWith(
+          _$ThumbnailCaptured value, $Res Function(_$ThumbnailCaptured) then) =
+      __$$ThumbnailCapturedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({@Uint8ListJsonConverter() Uint8List data});
+}
+
+/// @nodoc
+class __$$ThumbnailCapturedCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$ThumbnailCaptured>
+    implements _$$ThumbnailCapturedCopyWith<$Res> {
+  __$$ThumbnailCapturedCopyWithImpl(
+      _$ThumbnailCaptured _value, $Res Function(_$ThumbnailCaptured) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? data = null,
+  }) {
+    return _then(_$ThumbnailCaptured(
+      null == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ThumbnailCaptured extends ThumbnailCaptured {
+  const _$ThumbnailCaptured(@Uint8ListJsonConverter() this.data,
+      {final String? $type})
+      : $type = $type ?? 'thumbnailCaptured',
+        super._();
+
+  factory _$ThumbnailCaptured.fromJson(Map<String, dynamic> json) =>
+      _$$ThumbnailCapturedFromJson(json);
+
+  @override
+  @Uint8ListJsonConverter()
+  final Uint8List data;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.thumbnailCaptured(data: $data)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ThumbnailCaptured &&
+            const DeepCollectionEquality().equals(other.data, data));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ThumbnailCapturedCopyWith<_$ThumbnailCaptured> get copyWith =>
+      __$$ThumbnailCapturedCopyWithImpl<_$ThumbnailCaptured>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
+    required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
+    required TResult Function(ViewOption view) viewChanged,
+    required TResult Function(UtilitiesState state) utilitiesChanged,
+    required TResult Function(List<PadElement> elements) elementsCreated,
+    required TResult Function(Map<int, List<PadElement>> elements)
+        elementsChanged,
+    required TResult Function(List<int> elements) elementsRemoved,
+    required TResult Function(Arrangement arrangement, List<int> elements)
+        elementsArranged,
+    required TResult Function(String? name, String? description)
+        documentDescriptionChanged,
+    required TResult Function(String path) documentPathChanged,
+    required TResult Function(AssetLocation? location) documentSaved,
+    required TResult Function(Tool tool) toolCreated,
+    required TResult Function(Map<int, Tool> tools) toolsChanged,
+    required TResult Function(List<int> tools) toolsRemoved,
+    required TResult Function(int oldIndex, int newIndex) toolReordered,
+    required TResult Function(List<Background> backgrounds)
+        documentBackgroundsChanged,
+    required TResult Function(Waypoint waypoint) waypointCreated,
+    required TResult Function(int index, String name) waypointRenamed,
+    required TResult Function(int index) waypointRemoved,
+    required TResult Function(String oldName, String newName) layerRenamed,
+    required TResult Function(String name) layerRemoved,
+    required TResult Function(String name) layerElementsRemoved,
+    required TResult Function(String name) layerVisibilityChanged,
+    required TResult Function(String name) currentLayerChanged,
+    required TResult Function(String layer, List<int> elements)
+        elementsLayerChanged,
+    required TResult Function(
+            String directory, String? remote, bool deleteDocument)
+        templateCreated,
+    required TResult Function(List<Area> areas) areasCreated,
+    required TResult Function(List<String> areas) areasRemoved,
+    required TResult Function(String name, Area area) areaChanged,
+    required TResult Function(String name) currentAreaChanged,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetCreated,
+    required TResult Function(String name, List<AreaPreset> areas)
+        exportPresetUpdated,
+    required TResult Function(String name) exportPresetRemoved,
+    required TResult Function(NoteData pack) packAdded,
+    required TResult Function(String name, NoteData pack) packUpdated,
+    required TResult Function(String name) packRemoved,
+    required TResult Function(AnimationTrack animation) animationAdded,
+    required TResult Function(String name, AnimationTrack animation)
+        animationUpdated,
+    required TResult Function(String name) animationRemoved,
+    required TResult Function(AnimationTrack track, bool fullScreen)
+        presentationModeEntered,
+    required TResult Function() presentationModeExited,
+    required TResult Function(int tick) presentationTick,
+  }) {
+    return thumbnailCaptured(data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
+    TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult? Function(ViewOption view)? viewChanged,
+    TResult? Function(UtilitiesState state)? utilitiesChanged,
+    TResult? Function(List<PadElement> elements)? elementsCreated,
+    TResult? Function(Map<int, List<PadElement>> elements)? elementsChanged,
+    TResult? Function(List<int> elements)? elementsRemoved,
+    TResult? Function(Arrangement arrangement, List<int> elements)?
+        elementsArranged,
+    TResult? Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult? Function(String path)? documentPathChanged,
+    TResult? Function(AssetLocation? location)? documentSaved,
+    TResult? Function(Tool tool)? toolCreated,
+    TResult? Function(Map<int, Tool> tools)? toolsChanged,
+    TResult? Function(List<int> tools)? toolsRemoved,
+    TResult? Function(int oldIndex, int newIndex)? toolReordered,
+    TResult? Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult? Function(Waypoint waypoint)? waypointCreated,
+    TResult? Function(int index, String name)? waypointRenamed,
+    TResult? Function(int index)? waypointRemoved,
+    TResult? Function(String oldName, String newName)? layerRenamed,
+    TResult? Function(String name)? layerRemoved,
+    TResult? Function(String name)? layerElementsRemoved,
+    TResult? Function(String name)? layerVisibilityChanged,
+    TResult? Function(String name)? currentLayerChanged,
+    TResult? Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult? Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult? Function(List<Area> areas)? areasCreated,
+    TResult? Function(List<String> areas)? areasRemoved,
+    TResult? Function(String name, Area area)? areaChanged,
+    TResult? Function(String name)? currentAreaChanged,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult? Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult? Function(String name)? exportPresetRemoved,
+    TResult? Function(NoteData pack)? packAdded,
+    TResult? Function(String name, NoteData pack)? packUpdated,
+    TResult? Function(String name)? packRemoved,
+    TResult? Function(AnimationTrack animation)? animationAdded,
+    TResult? Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult? Function(String name)? animationRemoved,
+    TResult? Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult? Function()? presentationModeExited,
+    TResult? Function(int tick)? presentationTick,
+  }) {
+    return thumbnailCaptured?.call(data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
+    TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
+    TResult Function(ViewOption view)? viewChanged,
+    TResult Function(UtilitiesState state)? utilitiesChanged,
+    TResult Function(List<PadElement> elements)? elementsCreated,
+    TResult Function(Map<int, List<PadElement>> elements)? elementsChanged,
+    TResult Function(List<int> elements)? elementsRemoved,
+    TResult Function(Arrangement arrangement, List<int> elements)?
+        elementsArranged,
+    TResult Function(String? name, String? description)?
+        documentDescriptionChanged,
+    TResult Function(String path)? documentPathChanged,
+    TResult Function(AssetLocation? location)? documentSaved,
+    TResult Function(Tool tool)? toolCreated,
+    TResult Function(Map<int, Tool> tools)? toolsChanged,
+    TResult Function(List<int> tools)? toolsRemoved,
+    TResult Function(int oldIndex, int newIndex)? toolReordered,
+    TResult Function(List<Background> backgrounds)? documentBackgroundsChanged,
+    TResult Function(Waypoint waypoint)? waypointCreated,
+    TResult Function(int index, String name)? waypointRenamed,
+    TResult Function(int index)? waypointRemoved,
+    TResult Function(String oldName, String newName)? layerRenamed,
+    TResult Function(String name)? layerRemoved,
+    TResult Function(String name)? layerElementsRemoved,
+    TResult Function(String name)? layerVisibilityChanged,
+    TResult Function(String name)? currentLayerChanged,
+    TResult Function(String layer, List<int> elements)? elementsLayerChanged,
+    TResult Function(String directory, String? remote, bool deleteDocument)?
+        templateCreated,
+    TResult Function(List<Area> areas)? areasCreated,
+    TResult Function(List<String> areas)? areasRemoved,
+    TResult Function(String name, Area area)? areaChanged,
+    TResult Function(String name)? currentAreaChanged,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetCreated,
+    TResult Function(String name, List<AreaPreset> areas)? exportPresetUpdated,
+    TResult Function(String name)? exportPresetRemoved,
+    TResult Function(NoteData pack)? packAdded,
+    TResult Function(String name, NoteData pack)? packUpdated,
+    TResult Function(String name)? packRemoved,
+    TResult Function(AnimationTrack animation)? animationAdded,
+    TResult Function(String name, AnimationTrack animation)? animationUpdated,
+    TResult Function(String name)? animationRemoved,
+    TResult Function(AnimationTrack track, bool fullScreen)?
+        presentationModeEntered,
+    TResult Function()? presentationModeExited,
+    TResult Function(int tick)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (thumbnailCaptured != null) {
+      return thumbnailCaptured(data);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
+    required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
+    required TResult Function(ViewChanged value) viewChanged,
+    required TResult Function(UtilitiesChanged value) utilitiesChanged,
+    required TResult Function(ElementsCreated value) elementsCreated,
+    required TResult Function(ElementsChanged value) elementsChanged,
+    required TResult Function(ElementsRemoved value) elementsRemoved,
+    required TResult Function(ElementsArranged value) elementsArranged,
+    required TResult Function(DocumentDescriptionChanged value)
+        documentDescriptionChanged,
+    required TResult Function(DocumentPathChanged value) documentPathChanged,
+    required TResult Function(DocumentSaved value) documentSaved,
+    required TResult Function(ToolCreated value) toolCreated,
+    required TResult Function(ToolsChanged value) toolsChanged,
+    required TResult Function(ToolsRemoved value) toolsRemoved,
+    required TResult Function(ToolReordered value) toolReordered,
+    required TResult Function(DocumentBackgroundsChanged value)
+        documentBackgroundsChanged,
+    required TResult Function(WaypointCreated value) waypointCreated,
+    required TResult Function(WaypointRenamed value) waypointRenamed,
+    required TResult Function(WaypointRemoved value) waypointRemoved,
+    required TResult Function(LayerRenamed value) layerRenamed,
+    required TResult Function(LayerRemoved value) layerRemoved,
+    required TResult Function(LayerElementsRemoved value) layerElementsRemoved,
+    required TResult Function(LayerVisibilityChanged value)
+        layerVisibilityChanged,
+    required TResult Function(CurrentLayerChanged value) currentLayerChanged,
+    required TResult Function(ElementsLayerChanged value) elementsLayerChanged,
+    required TResult Function(TemplateCreated value) templateCreated,
+    required TResult Function(AreasCreated value) areasCreated,
+    required TResult Function(AreasRemoved value) areasRemoved,
+    required TResult Function(AreaChanged value) areaChanged,
+    required TResult Function(CurrentAreaChanged value) currentAreaChanged,
+    required TResult Function(ExportPresetCreated value) exportPresetCreated,
+    required TResult Function(ExportPresetUpdated value) exportPresetUpdated,
+    required TResult Function(ExportPresetRemoved value) exportPresetRemoved,
+    required TResult Function(PackAdded value) packAdded,
+    required TResult Function(PackUpdated value) packUpdated,
+    required TResult Function(PackRemoved value) packRemoved,
+    required TResult Function(AnimationAdded value) animationAdded,
+    required TResult Function(AnimationUpdated value) animationUpdated,
+    required TResult Function(AnimationRemoved value) animationRemoved,
+    required TResult Function(PresentationModeEntered value)
+        presentationModeEntered,
+    required TResult Function(PresentationModeExited value)
+        presentationModeExited,
+    required TResult Function(PresentationTick value) presentationTick,
+  }) {
+    return thumbnailCaptured(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
+    TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult? Function(ViewChanged value)? viewChanged,
+    TResult? Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult? Function(ElementsCreated value)? elementsCreated,
+    TResult? Function(ElementsChanged value)? elementsChanged,
+    TResult? Function(ElementsRemoved value)? elementsRemoved,
+    TResult? Function(ElementsArranged value)? elementsArranged,
+    TResult? Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult? Function(DocumentPathChanged value)? documentPathChanged,
+    TResult? Function(DocumentSaved value)? documentSaved,
+    TResult? Function(ToolCreated value)? toolCreated,
+    TResult? Function(ToolsChanged value)? toolsChanged,
+    TResult? Function(ToolsRemoved value)? toolsRemoved,
+    TResult? Function(ToolReordered value)? toolReordered,
+    TResult? Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult? Function(WaypointCreated value)? waypointCreated,
+    TResult? Function(WaypointRenamed value)? waypointRenamed,
+    TResult? Function(WaypointRemoved value)? waypointRemoved,
+    TResult? Function(LayerRenamed value)? layerRenamed,
+    TResult? Function(LayerRemoved value)? layerRemoved,
+    TResult? Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult? Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult? Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult? Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult? Function(TemplateCreated value)? templateCreated,
+    TResult? Function(AreasCreated value)? areasCreated,
+    TResult? Function(AreasRemoved value)? areasRemoved,
+    TResult? Function(AreaChanged value)? areaChanged,
+    TResult? Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult? Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult? Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult? Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult? Function(PackAdded value)? packAdded,
+    TResult? Function(PackUpdated value)? packUpdated,
+    TResult? Function(PackRemoved value)? packRemoved,
+    TResult? Function(AnimationAdded value)? animationAdded,
+    TResult? Function(AnimationUpdated value)? animationUpdated,
+    TResult? Function(AnimationRemoved value)? animationRemoved,
+    TResult? Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult? Function(PresentationModeExited value)? presentationModeExited,
+    TResult? Function(PresentationTick value)? presentationTick,
+  }) {
+    return thumbnailCaptured?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
+    TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
+    TResult Function(ViewChanged value)? viewChanged,
+    TResult Function(UtilitiesChanged value)? utilitiesChanged,
+    TResult Function(ElementsCreated value)? elementsCreated,
+    TResult Function(ElementsChanged value)? elementsChanged,
+    TResult Function(ElementsRemoved value)? elementsRemoved,
+    TResult Function(ElementsArranged value)? elementsArranged,
+    TResult Function(DocumentDescriptionChanged value)?
+        documentDescriptionChanged,
+    TResult Function(DocumentPathChanged value)? documentPathChanged,
+    TResult Function(DocumentSaved value)? documentSaved,
+    TResult Function(ToolCreated value)? toolCreated,
+    TResult Function(ToolsChanged value)? toolsChanged,
+    TResult Function(ToolsRemoved value)? toolsRemoved,
+    TResult Function(ToolReordered value)? toolReordered,
+    TResult Function(DocumentBackgroundsChanged value)?
+        documentBackgroundsChanged,
+    TResult Function(WaypointCreated value)? waypointCreated,
+    TResult Function(WaypointRenamed value)? waypointRenamed,
+    TResult Function(WaypointRemoved value)? waypointRemoved,
+    TResult Function(LayerRenamed value)? layerRenamed,
+    TResult Function(LayerRemoved value)? layerRemoved,
+    TResult Function(LayerElementsRemoved value)? layerElementsRemoved,
+    TResult Function(LayerVisibilityChanged value)? layerVisibilityChanged,
+    TResult Function(CurrentLayerChanged value)? currentLayerChanged,
+    TResult Function(ElementsLayerChanged value)? elementsLayerChanged,
+    TResult Function(TemplateCreated value)? templateCreated,
+    TResult Function(AreasCreated value)? areasCreated,
+    TResult Function(AreasRemoved value)? areasRemoved,
+    TResult Function(AreaChanged value)? areaChanged,
+    TResult Function(CurrentAreaChanged value)? currentAreaChanged,
+    TResult Function(ExportPresetCreated value)? exportPresetCreated,
+    TResult Function(ExportPresetUpdated value)? exportPresetUpdated,
+    TResult Function(ExportPresetRemoved value)? exportPresetRemoved,
+    TResult Function(PackAdded value)? packAdded,
+    TResult Function(PackUpdated value)? packUpdated,
+    TResult Function(PackRemoved value)? packRemoved,
+    TResult Function(AnimationAdded value)? animationAdded,
+    TResult Function(AnimationUpdated value)? animationUpdated,
+    TResult Function(AnimationRemoved value)? animationRemoved,
+    TResult Function(PresentationModeEntered value)? presentationModeEntered,
+    TResult Function(PresentationModeExited value)? presentationModeExited,
+    TResult Function(PresentationTick value)? presentationTick,
+    required TResult orElse(),
+  }) {
+    if (thumbnailCaptured != null) {
+      return thumbnailCaptured(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ThumbnailCapturedToJson(
+      this,
+    );
+  }
+}
+
+abstract class ThumbnailCaptured extends DocumentEvent {
+  const factory ThumbnailCaptured(
+      @Uint8ListJsonConverter() final Uint8List data) = _$ThumbnailCaptured;
+  const ThumbnailCaptured._() : super._();
+
+  factory ThumbnailCaptured.fromJson(Map<String, dynamic> json) =
+      _$ThumbnailCaptured.fromJson;
+
+  @Uint8ListJsonConverter()
+  Uint8List get data;
+  @JsonKey(ignore: true)
+  _$$ThumbnailCapturedCopyWith<_$ThumbnailCaptured> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -927,7 +3288,13 @@ class _$ViewChanged extends ViewChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -986,7 +3353,13 @@ class _$ViewChanged extends ViewChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -1038,7 +3411,13 @@ class _$ViewChanged extends ViewChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -1094,7 +3473,12 @@ class _$ViewChanged extends ViewChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -1147,7 +3531,12 @@ class _$ViewChanged extends ViewChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -1197,7 +3586,12 @@ class _$ViewChanged extends ViewChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -1352,7 +3746,13 @@ class _$UtilitiesChanged extends UtilitiesChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -1411,7 +3811,13 @@ class _$UtilitiesChanged extends UtilitiesChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -1463,7 +3869,13 @@ class _$UtilitiesChanged extends UtilitiesChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -1519,7 +3931,12 @@ class _$UtilitiesChanged extends UtilitiesChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -1572,7 +3989,12 @@ class _$UtilitiesChanged extends UtilitiesChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -1622,7 +4044,12 @@ class _$UtilitiesChanged extends UtilitiesChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -1776,7 +4203,13 @@ class _$ElementsCreated extends ElementsCreated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -1835,7 +4268,13 @@ class _$ElementsCreated extends ElementsCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -1887,7 +4326,13 @@ class _$ElementsCreated extends ElementsCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -1943,7 +4388,12 @@ class _$ElementsCreated extends ElementsCreated {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -1996,7 +4446,12 @@ class _$ElementsCreated extends ElementsCreated {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -2046,7 +4501,12 @@ class _$ElementsCreated extends ElementsCreated {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -2200,7 +4660,13 @@ class _$ElementsChanged extends ElementsChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -2259,7 +4725,13 @@ class _$ElementsChanged extends ElementsChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -2311,7 +4783,13 @@ class _$ElementsChanged extends ElementsChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -2367,7 +4845,12 @@ class _$ElementsChanged extends ElementsChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -2420,7 +4903,12 @@ class _$ElementsChanged extends ElementsChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -2470,7 +4958,12 @@ class _$ElementsChanged extends ElementsChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -2623,7 +5116,13 @@ class _$ElementsRemoved extends ElementsRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -2682,7 +5181,13 @@ class _$ElementsRemoved extends ElementsRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -2734,7 +5239,13 @@ class _$ElementsRemoved extends ElementsRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -2790,7 +5301,12 @@ class _$ElementsRemoved extends ElementsRemoved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -2843,7 +5359,12 @@ class _$ElementsRemoved extends ElementsRemoved {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -2893,7 +5414,12 @@ class _$ElementsRemoved extends ElementsRemoved {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -3055,7 +5581,13 @@ class _$ElementsArranged extends ElementsArranged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -3114,7 +5646,13 @@ class _$ElementsArranged extends ElementsArranged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -3166,7 +5704,13 @@ class _$ElementsArranged extends ElementsArranged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -3222,7 +5766,12 @@ class _$ElementsArranged extends ElementsArranged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -3275,7 +5824,12 @@ class _$ElementsArranged extends ElementsArranged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -3325,7 +5879,12 @@ class _$ElementsArranged extends ElementsArranged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -3486,7 +6045,13 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -3545,7 +6110,13 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -3597,7 +6168,13 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -3653,7 +6230,12 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -3706,7 +6288,12 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -3756,7 +6343,12 @@ class _$DocumentDescriptionChanged extends DocumentDescriptionChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -3905,7 +6497,13 @@ class _$DocumentPathChanged extends DocumentPathChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -3964,7 +6562,13 @@ class _$DocumentPathChanged extends DocumentPathChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -4016,7 +6620,13 @@ class _$DocumentPathChanged extends DocumentPathChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -4072,7 +6682,12 @@ class _$DocumentPathChanged extends DocumentPathChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -4125,7 +6740,12 @@ class _$DocumentPathChanged extends DocumentPathChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -4175,7 +6795,12 @@ class _$DocumentPathChanged extends DocumentPathChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -4335,7 +6960,13 @@ class _$DocumentSaved extends DocumentSaved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -4394,7 +7025,13 @@ class _$DocumentSaved extends DocumentSaved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -4446,7 +7083,13 @@ class _$DocumentSaved extends DocumentSaved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -4502,7 +7145,12 @@ class _$DocumentSaved extends DocumentSaved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -4555,7 +7203,12 @@ class _$DocumentSaved extends DocumentSaved {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -4605,7 +7258,12 @@ class _$DocumentSaved extends DocumentSaved {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -4761,7 +7419,13 @@ class _$ToolCreated extends ToolCreated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -4820,7 +7484,13 @@ class _$ToolCreated extends ToolCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -4872,7 +7542,13 @@ class _$ToolCreated extends ToolCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -4928,7 +7604,12 @@ class _$ToolCreated extends ToolCreated {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -4981,7 +7662,12 @@ class _$ToolCreated extends ToolCreated {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -5031,7 +7717,12 @@ class _$ToolCreated extends ToolCreated {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -5183,7 +7874,13 @@ class _$ToolsChanged extends ToolsChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -5242,7 +7939,13 @@ class _$ToolsChanged extends ToolsChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -5294,7 +7997,13 @@ class _$ToolsChanged extends ToolsChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -5350,7 +8059,12 @@ class _$ToolsChanged extends ToolsChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -5403,7 +8117,12 @@ class _$ToolsChanged extends ToolsChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -5453,7 +8172,12 @@ class _$ToolsChanged extends ToolsChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -5605,7 +8329,13 @@ class _$ToolsRemoved extends ToolsRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -5664,7 +8394,13 @@ class _$ToolsRemoved extends ToolsRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -5716,7 +8452,13 @@ class _$ToolsRemoved extends ToolsRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -5772,7 +8514,12 @@ class _$ToolsRemoved extends ToolsRemoved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -5825,7 +8572,12 @@ class _$ToolsRemoved extends ToolsRemoved {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -5875,7 +8627,12 @@ class _$ToolsRemoved extends ToolsRemoved {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -6030,7 +8787,13 @@ class _$ToolReordered extends ToolReordered {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -6089,7 +8852,13 @@ class _$ToolReordered extends ToolReordered {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -6141,7 +8910,13 @@ class _$ToolReordered extends ToolReordered {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -6197,7 +8972,12 @@ class _$ToolReordered extends ToolReordered {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -6250,7 +9030,12 @@ class _$ToolReordered extends ToolReordered {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -6300,7 +9085,12 @@ class _$ToolReordered extends ToolReordered {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -6459,7 +9249,13 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -6518,7 +9314,13 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -6570,7 +9372,13 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -6626,7 +9434,12 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -6679,7 +9492,12 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -6729,7 +9547,12 @@ class _$DocumentBackgroundsChanged extends DocumentBackgroundsChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -6886,7 +9709,13 @@ class _$WaypointCreated extends WaypointCreated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -6945,7 +9774,13 @@ class _$WaypointCreated extends WaypointCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -6997,7 +9832,13 @@ class _$WaypointCreated extends WaypointCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -7053,7 +9894,12 @@ class _$WaypointCreated extends WaypointCreated {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -7106,7 +9952,12 @@ class _$WaypointCreated extends WaypointCreated {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -7156,7 +10007,12 @@ class _$WaypointCreated extends WaypointCreated {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -7309,7 +10165,13 @@ class _$WaypointRenamed extends WaypointRenamed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -7368,7 +10230,13 @@ class _$WaypointRenamed extends WaypointRenamed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -7420,7 +10288,13 @@ class _$WaypointRenamed extends WaypointRenamed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -7476,7 +10350,12 @@ class _$WaypointRenamed extends WaypointRenamed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -7529,7 +10408,12 @@ class _$WaypointRenamed extends WaypointRenamed {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -7579,7 +10463,12 @@ class _$WaypointRenamed extends WaypointRenamed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -7726,7 +10615,13 @@ class _$WaypointRemoved extends WaypointRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -7785,7 +10680,13 @@ class _$WaypointRemoved extends WaypointRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -7837,7 +10738,13 @@ class _$WaypointRemoved extends WaypointRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -7893,7 +10800,12 @@ class _$WaypointRemoved extends WaypointRemoved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -7946,7 +10858,12 @@ class _$WaypointRemoved extends WaypointRemoved {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -7996,7 +10913,12 @@ class _$WaypointRemoved extends WaypointRemoved {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -8149,7 +11071,13 @@ class _$LayerRenamed extends LayerRenamed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -8208,7 +11136,13 @@ class _$LayerRenamed extends LayerRenamed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -8260,7 +11194,13 @@ class _$LayerRenamed extends LayerRenamed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -8316,7 +11256,12 @@ class _$LayerRenamed extends LayerRenamed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -8369,7 +11314,12 @@ class _$LayerRenamed extends LayerRenamed {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -8419,7 +11369,12 @@ class _$LayerRenamed extends LayerRenamed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -8566,7 +11521,13 @@ class _$LayerRemoved extends LayerRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -8625,7 +11586,13 @@ class _$LayerRemoved extends LayerRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -8677,7 +11644,13 @@ class _$LayerRemoved extends LayerRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -8733,7 +11706,12 @@ class _$LayerRemoved extends LayerRemoved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -8786,7 +11764,12 @@ class _$LayerRemoved extends LayerRemoved {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -8836,7 +11819,12 @@ class _$LayerRemoved extends LayerRemoved {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -8982,7 +11970,13 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -9041,7 +12035,13 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -9093,7 +12093,13 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -9149,7 +12155,12 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -9202,7 +12213,12 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -9252,7 +12268,12 @@ class _$LayerElementsRemoved extends LayerElementsRemoved {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -9399,7 +12420,13 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -9458,7 +12485,13 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -9510,7 +12543,13 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -9566,7 +12605,12 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -9619,7 +12663,12 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -9669,7 +12718,12 @@ class _$LayerVisibilityChanged extends LayerVisibilityChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -9816,7 +12870,13 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -9875,7 +12935,13 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -9927,7 +12993,13 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -9983,7 +13055,12 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -10036,7 +13113,12 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -10086,7 +13168,12 @@ class _$CurrentLayerChanged extends CurrentLayerChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -10248,7 +13335,13 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -10307,7 +13400,13 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -10359,7 +13458,13 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -10415,7 +13520,12 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -10468,7 +13578,12 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -10518,7 +13633,12 @@ class _$ElementsLayerChanged extends ElementsLayerChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -10686,7 +13806,13 @@ class _$TemplateCreated extends TemplateCreated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -10745,7 +13871,13 @@ class _$TemplateCreated extends TemplateCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -10797,7 +13929,13 @@ class _$TemplateCreated extends TemplateCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -10853,7 +13991,12 @@ class _$TemplateCreated extends TemplateCreated {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -10906,7 +14049,12 @@ class _$TemplateCreated extends TemplateCreated {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -10956,7 +14104,12 @@ class _$TemplateCreated extends TemplateCreated {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -11111,7 +14264,13 @@ class _$AreasCreated extends AreasCreated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -11170,7 +14329,13 @@ class _$AreasCreated extends AreasCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -11222,7 +14387,13 @@ class _$AreasCreated extends AreasCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -11278,7 +14449,12 @@ class _$AreasCreated extends AreasCreated {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -11331,7 +14507,12 @@ class _$AreasCreated extends AreasCreated {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -11381,7 +14562,12 @@ class _$AreasCreated extends AreasCreated {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -11533,7 +14719,13 @@ class _$AreasRemoved extends AreasRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -11592,7 +14784,13 @@ class _$AreasRemoved extends AreasRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -11644,7 +14842,13 @@ class _$AreasRemoved extends AreasRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -11700,7 +14904,12 @@ class _$AreasRemoved extends AreasRemoved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -11753,7 +14962,12 @@ class _$AreasRemoved extends AreasRemoved {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -11803,7 +15017,12 @@ class _$AreasRemoved extends AreasRemoved {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -11966,7 +15185,13 @@ class _$AreaChanged extends AreaChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -12025,7 +15250,13 @@ class _$AreaChanged extends AreaChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -12077,7 +15308,13 @@ class _$AreaChanged extends AreaChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -12133,7 +15370,12 @@ class _$AreaChanged extends AreaChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -12186,7 +15428,12 @@ class _$AreaChanged extends AreaChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -12236,7 +15483,12 @@ class _$AreaChanged extends AreaChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -12383,7 +15635,13 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -12442,7 +15700,13 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -12494,7 +15758,13 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -12550,7 +15820,12 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -12603,7 +15878,12 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -12653,7 +15933,12 @@ class _$CurrentAreaChanged extends CurrentAreaChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -12816,7 +16101,13 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -12875,7 +16166,13 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -12927,7 +16224,13 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -12983,7 +16286,12 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -13036,7 +16344,12 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -13086,7 +16399,12 @@ class _$ExportPresetCreated extends ExportPresetCreated {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -13250,7 +16568,13 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -13309,7 +16633,13 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -13361,7 +16691,13 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -13417,7 +16753,12 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -13470,7 +16811,12 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -13520,7 +16866,12 @@ class _$ExportPresetUpdated extends ExportPresetUpdated {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -13668,7 +17019,13 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -13727,7 +17084,13 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -13779,7 +17142,13 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -13835,7 +17204,12 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -13888,7 +17262,12 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -13938,7 +17317,12 @@ class _$ExportPresetRemoved extends ExportPresetRemoved {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -14083,7 +17467,13 @@ class _$PackAdded extends PackAdded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -14142,7 +17532,13 @@ class _$PackAdded extends PackAdded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -14194,7 +17590,13 @@ class _$PackAdded extends PackAdded {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -14250,7 +17652,12 @@ class _$PackAdded extends PackAdded {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -14303,7 +17710,12 @@ class _$PackAdded extends PackAdded {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -14353,7 +17765,12 @@ class _$PackAdded extends PackAdded {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -14505,7 +17922,13 @@ class _$PackUpdated extends PackUpdated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -14564,7 +17987,13 @@ class _$PackUpdated extends PackUpdated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -14616,7 +18045,13 @@ class _$PackUpdated extends PackUpdated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -14672,7 +18107,12 @@ class _$PackUpdated extends PackUpdated {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -14725,7 +18165,12 @@ class _$PackUpdated extends PackUpdated {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -14775,7 +18220,12 @@ class _$PackUpdated extends PackUpdated {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -14922,7 +18372,13 @@ class _$PackRemoved extends PackRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -14981,7 +18437,13 @@ class _$PackRemoved extends PackRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -15033,7 +18495,13 @@ class _$PackRemoved extends PackRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -15089,7 +18557,12 @@ class _$PackRemoved extends PackRemoved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -15142,7 +18615,12 @@ class _$PackRemoved extends PackRemoved {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -15192,7 +18670,12 @@ class _$PackRemoved extends PackRemoved {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -15348,7 +18831,13 @@ class _$AnimationAdded extends AnimationAdded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -15407,7 +18896,13 @@ class _$AnimationAdded extends AnimationAdded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -15459,7 +18954,13 @@ class _$AnimationAdded extends AnimationAdded {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -15515,7 +19016,12 @@ class _$AnimationAdded extends AnimationAdded {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -15568,7 +19074,12 @@ class _$AnimationAdded extends AnimationAdded {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -15618,7 +19129,12 @@ class _$AnimationAdded extends AnimationAdded {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -15783,7 +19299,13 @@ class _$AnimationUpdated extends AnimationUpdated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -15842,7 +19364,13 @@ class _$AnimationUpdated extends AnimationUpdated {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -15894,7 +19422,13 @@ class _$AnimationUpdated extends AnimationUpdated {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -15950,7 +19484,12 @@ class _$AnimationUpdated extends AnimationUpdated {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -16003,7 +19542,12 @@ class _$AnimationUpdated extends AnimationUpdated {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -16053,7 +19597,12 @@ class _$AnimationUpdated extends AnimationUpdated {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -16200,7 +19749,13 @@ class _$AnimationRemoved extends AnimationRemoved {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -16259,7 +19814,13 @@ class _$AnimationRemoved extends AnimationRemoved {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -16311,7 +19872,13 @@ class _$AnimationRemoved extends AnimationRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -16367,7 +19934,12 @@ class _$AnimationRemoved extends AnimationRemoved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -16420,7 +19992,12 @@ class _$AnimationRemoved extends AnimationRemoved {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -16470,7 +20047,12 @@ class _$AnimationRemoved extends AnimationRemoved {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -16636,7 +20218,13 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -16695,7 +20283,13 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -16747,7 +20341,13 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -16803,7 +20403,12 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -16856,7 +20461,12 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -16906,7 +20516,12 @@ class _$PresentationModeEntered extends PresentationModeEntered {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -17028,7 +20643,13 @@ class _$PresentationModeExited extends PresentationModeExited {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -17087,7 +20708,13 @@ class _$PresentationModeExited extends PresentationModeExited {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -17139,7 +20766,13 @@ class _$PresentationModeExited extends PresentationModeExited {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -17195,7 +20828,12 @@ class _$PresentationModeExited extends PresentationModeExited {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -17248,7 +20886,12 @@ class _$PresentationModeExited extends PresentationModeExited {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -17298,7 +20941,12 @@ class _$PresentationModeExited extends PresentationModeExited {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
@@ -17438,7 +21086,13 @@ class _$PresentationTick extends PresentationTick {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(DocumentPage page, int? index) pageAdded,
     required TResult Function(String pageName) pageChanged,
+    required TResult Function(String page, int? newIndex) pageReordered,
+    required TResult Function(String oldName, String newName) pageRenamed,
+    required TResult Function(String page) pageRemoved,
+    required TResult Function(@Uint8ListJsonConverter() Uint8List data)
+        thumbnailCaptured,
     required TResult Function(ViewOption view) viewChanged,
     required TResult Function(UtilitiesState state) utilitiesChanged,
     required TResult Function(List<PadElement> elements) elementsCreated,
@@ -17497,7 +21151,13 @@ class _$PresentationTick extends PresentationTick {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(DocumentPage page, int? index)? pageAdded,
     TResult? Function(String pageName)? pageChanged,
+    TResult? Function(String page, int? newIndex)? pageReordered,
+    TResult? Function(String oldName, String newName)? pageRenamed,
+    TResult? Function(String page)? pageRemoved,
+    TResult? Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult? Function(ViewOption view)? viewChanged,
     TResult? Function(UtilitiesState state)? utilitiesChanged,
     TResult? Function(List<PadElement> elements)? elementsCreated,
@@ -17549,7 +21209,13 @@ class _$PresentationTick extends PresentationTick {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(DocumentPage page, int? index)? pageAdded,
     TResult Function(String pageName)? pageChanged,
+    TResult Function(String page, int? newIndex)? pageReordered,
+    TResult Function(String oldName, String newName)? pageRenamed,
+    TResult Function(String page)? pageRemoved,
+    TResult Function(@Uint8ListJsonConverter() Uint8List data)?
+        thumbnailCaptured,
     TResult Function(ViewOption view)? viewChanged,
     TResult Function(UtilitiesState state)? utilitiesChanged,
     TResult Function(List<PadElement> elements)? elementsCreated,
@@ -17605,7 +21271,12 @@ class _$PresentationTick extends PresentationTick {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(PageAdded value) pageAdded,
     required TResult Function(PageChanged value) pageChanged,
+    required TResult Function(PageReordered value) pageReordered,
+    required TResult Function(PageRenamed value) pageRenamed,
+    required TResult Function(PageRemoved value) pageRemoved,
+    required TResult Function(ThumbnailCaptured value) thumbnailCaptured,
     required TResult Function(ViewChanged value) viewChanged,
     required TResult Function(UtilitiesChanged value) utilitiesChanged,
     required TResult Function(ElementsCreated value) elementsCreated,
@@ -17658,7 +21329,12 @@ class _$PresentationTick extends PresentationTick {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PageAdded value)? pageAdded,
     TResult? Function(PageChanged value)? pageChanged,
+    TResult? Function(PageReordered value)? pageReordered,
+    TResult? Function(PageRenamed value)? pageRenamed,
+    TResult? Function(PageRemoved value)? pageRemoved,
+    TResult? Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult? Function(ViewChanged value)? viewChanged,
     TResult? Function(UtilitiesChanged value)? utilitiesChanged,
     TResult? Function(ElementsCreated value)? elementsCreated,
@@ -17708,7 +21384,12 @@ class _$PresentationTick extends PresentationTick {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(PageAdded value)? pageAdded,
     TResult Function(PageChanged value)? pageChanged,
+    TResult Function(PageReordered value)? pageReordered,
+    TResult Function(PageRenamed value)? pageRenamed,
+    TResult Function(PageRemoved value)? pageRemoved,
+    TResult Function(ThumbnailCaptured value)? thumbnailCaptured,
     TResult Function(ViewChanged value)? viewChanged,
     TResult Function(UtilitiesChanged value)? utilitiesChanged,
     TResult Function(ElementsCreated value)? elementsCreated,
