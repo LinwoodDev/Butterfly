@@ -10,9 +10,12 @@ mkdir -p build/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 # Copy files
 cp linux/linwood-butterfly.spec build/SPECS/linwood-butterfly.spec
 cp -r build/linux/x64/release/bundle build/SOURCES/linwood-butterfly-$RPM_VERSION
+chmod +x build/SOURCES/linwood-butterfly-$RPM_VERSION/butterfly
 cp linux/debian/usr/share/applications/dev.linwood.butterfly.desktop build/SOURCES/linwood-butterfly-$RPM_VERSION/linwood-butterfly.desktop
 # Change second line of spec file Version: to match version
 sed -i "2s/.*/Version: $RPM_VERSION/" build/SPECS/linwood-butterfly.spec
+# Change fourth line of desktop file Exec=butterfly %f to Exec=linwood-butterfly %f
+sed -i "4s/.*/Exec=linwood-butterfly %f/" build/SOURCES/linwood-butterfly-$RPM_VERSION/linwood-butterfly.desktop
 # Create tar
 cd build/SOURCES/
 # Fix .so files using patchelf
