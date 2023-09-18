@@ -178,7 +178,7 @@
   "templates": "Szablony",
   "untitled": "Bez tytułu",
   "createTemplate": "Utwórz szablon",
-  "createTemplateContent": "Czy na pewno chcesz utworzyć szablon z zaznaczonych elementów? Oryginalny plik zostanie usunięty.",
+  "createTemplateContent": "Czy na pewno chcesz utworzyć szablon z tego dokumentu? Oryginalny dokument zostanie usunięty.",
   "replace": "Zamień",
   "reallyReplace": "Czy na pewno chcesz zastąpić szablon? Tej operacji nie można cofnąć!",
   "defaultTemplate": "Domyślny szablon",
@@ -517,6 +517,8 @@
   "cut": "Wytnij",
   "insertBefore": "Wstaw przed",
   "insertAfter": "Wstaw po",
+  "insertFirst": "Wstaw najpierw",
+  "insertLast": "Insert last",
   "paste": "Wklej",
   "ascending": "Rosnąco",
   "descending": "Malejąco",
@@ -529,5 +531,9 @@
   "mobile": "Komórka",
   "pdfQuality": "Jakość PDF",
   "surface": "Powierzchnia",
-  "pattern": "Wzorzec"
+  "pattern": "Wzorzec",
+  "sureClose": "Czy na pewno chcesz zamknąć dokument?",
+  "thereAreUnsavedChanges": "Istnieją niezapisane zmiany",
+  "page": "Strona",
+  "switchView": "Przełącz widok"
 }

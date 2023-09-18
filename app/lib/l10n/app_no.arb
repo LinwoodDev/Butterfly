@@ -178,7 +178,7 @@
   "templates": "Maler",
   "untitled": "Navnløs",
   "createTemplate": "Opprett mal",
-  "createTemplateContent": "Vil du virkelig opprette en mal fra de valgte elementene? Den opprinnelige filen vil bli slettet.",
+  "createTemplateContent": "Vil du virkelig opprette en mal fra dette dokumentet? Det opprinnelige dokumentet vil bli slettet.",
   "replace": "Erstatt",
   "reallyReplace": "Er du sikker på at du vil erstatte malen? Den kan ikke bli reversert!",
   "defaultTemplate": "Standard mal",
@@ -517,6 +517,8 @@
   "cut": "Klipp",
   "insertBefore": "Innsett før",
   "insertAfter": "Innsett etter",
+  "insertFirst": "Sett inn først",
+  "insertLast": "Insert last",
   "paste": "Lim",
   "ascending": "Stigende",
   "descending": "Synkende",
@@ -529,5 +531,9 @@
   "mobile": "Mobil",
   "pdfQuality": "PDF kvalitet",
   "surface": "Overflate",
-  "pattern": "Mønster"
+  "pattern": "Mønster",
+  "sureClose": "Er du sikker på at du vil lukke dokumentet?",
+  "thereAreUnsavedChanges": "Det er ulagrede endringer",
+  "page": "Side",
+  "switchView": "Bytt visning"
 }

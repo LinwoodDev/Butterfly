@@ -178,7 +178,7 @@
   "templates": "Şabloane",
   "untitled": "Fără titlu",
   "createTemplate": "Creează șablon",
-  "createTemplateContent": "Sigur doriți să creați un șablon din elementele selectate? Fișierul original va fi șters.",
+  "createTemplateContent": "Sigur doriți să creați un șablon din acest document? Documentul original va fi șters.",
   "replace": "Înlocuiește",
   "reallyReplace": "Sigur doriți să înlocuiți șablonul? Această operațiune nu poate fi anulată!",
   "defaultTemplate": "Șablon implicit",
@@ -517,6 +517,8 @@
   "cut": "Taie",
   "insertBefore": "Inserare înainte",
   "insertAfter": "Inserare după",
+  "insertFirst": "Inserare prima",
+  "insertLast": "Insert last",
   "paste": "Lipește",
   "ascending": "Crescător",
   "descending": "Descrescător",
@@ -529,5 +531,9 @@
   "mobile": "Mobil",
   "pdfQuality": "Calitate PDF",
   "surface": "Suprafață",
-  "pattern": "Model"
+  "pattern": "Model",
+  "sureClose": "Ești sigur că vrei să închizi documentul?",
+  "thereAreUnsavedChanges": "Există modificări nesalvate",
+  "page": "Pagină",
+  "switchView": "Comutare vizualizare"
 }

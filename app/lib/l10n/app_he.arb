@@ -178,7 +178,7 @@
   "templates": "Templates",
   "untitled": "Untitled",
   "createTemplate": "Create template",
-  "createTemplateContent": "Do you really want to create a template from the selected elements? The original file will get deleted.",
+  "createTemplateContent": "Do you really want to create a template from this document? The original document will get deleted.",
   "replace": "Replace",
   "reallyReplace": "Do you really want to replace the template? This operation can be not undone!",
   "defaultTemplate": "Default template",
@@ -517,6 +517,8 @@
   "cut": "Cut",
   "insertBefore": "Insert before",
   "insertAfter": "Insert after",
+  "insertFirst": "Insert first",
+  "insertLast": "Insert last",
   "paste": "Paste",
   "ascending": "Ascending",
   "descending": "Descending",
@@ -529,5 +531,9 @@
   "mobile": "Mobile",
   "pdfQuality": "PDF quality",
   "surface": "Surface",
-  "pattern": "Pattern"
+  "pattern": "Pattern",
+  "sureClose": "Are you sure you want to close the document?",
+  "thereAreUnsavedChanges": "There are unsaved changes",
+  "page": "Page",
+  "switchView": "Switch View"
 }

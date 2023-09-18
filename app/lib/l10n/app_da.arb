@@ -178,7 +178,7 @@
   "templates": "Skabeloner",
   "untitled": "Unavngivet",
   "createTemplate": "Opret skabelon",
-  "createTemplateContent": "Vil du virkelig oprette en skabelon fra de valgte elementer? Den oprindelige fil vil blive slettet.",
+  "createTemplateContent": "Vil du virkelig oprette en skabelon fra dette dokument? Originaldokumentet vil blive slettet.",
   "replace": "Erstat",
   "reallyReplace": "Vil du virkelig erstatte skabelonen? Denne handling kan ikke fortrydes!",
   "defaultTemplate": "Standard skabelon",
@@ -517,6 +517,8 @@
   "cut": "Klip",
   "insertBefore": "Indsæt før",
   "insertAfter": "Indsæt efter",
+  "insertFirst": "Indsæt først",
+  "insertLast": "Insert last",
   "paste": "Indsæt",
   "ascending": "Stigende",
   "descending": "Faldende",
@@ -529,5 +531,9 @@
   "mobile": "Mobil",
   "pdfQuality": "PDF kvalitet",
   "surface": "Overflade",
-  "pattern": "Mønster"
+  "pattern": "Mønster",
+  "sureClose": "Er du sikker på, at du vil lukke dokumentet?",
+  "thereAreUnsavedChanges": "Der er ikke-gemte ændringer",
+  "page": "Side",
+  "switchView": "Skift Visning"
 }

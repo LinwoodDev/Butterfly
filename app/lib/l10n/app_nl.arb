@@ -178,7 +178,7 @@
   "templates": "Sjablonen",
   "untitled": "Naamloos",
   "createTemplate": "Sjabloon aanmaken",
-  "createTemplateContent": "Wil je echt een sjabloon maken van de geselecteerde elementen? Het oorspronkelijke bestand wordt verwijderd.",
+  "createTemplateContent": "Wilt u echt een template van dit document aanmaken? Het oorspronkelijke document zal worden verwijderd.",
   "replace": "Vervangen",
   "reallyReplace": "Wilt u echt de template vervangen? Deze actie kan niet ongedaan worden gemaakt!",
   "defaultTemplate": "Standaard sjabloon",
@@ -517,6 +517,8 @@
   "cut": "Knippen",
   "insertBefore": "Voordat invoegen",
   "insertAfter": "Voeg toe na",
+  "insertFirst": "Eerst invoegen",
+  "insertLast": "Insert last",
   "paste": "Plakken",
   "ascending": "Oplopend",
   "descending": "Aflopend",
@@ -529,5 +531,9 @@
   "mobile": "Mobiel",
   "pdfQuality": "PDF kwaliteit",
   "surface": "Oppervlak",
-  "pattern": "Patroon"
+  "pattern": "Patroon",
+  "sureClose": "Weet u zeker dat u het document wilt sluiten?",
+  "thereAreUnsavedChanges": "Er zijn niet-opgeslagen wijzigingen",
+  "page": "Pagina",
+  "switchView": "Wissel weergave"
 }
