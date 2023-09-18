@@ -1,6 +1,6 @@
 {
   "title": "Linwood Butterfly",
-  "icon": "build/macos/Build/Products/Release/butterfly.app/Resources/AppIcon.icns",
+  "icon": "build/macos/Build/Products/Release/butterfly.app/Contents/Resources/AppIcon.icns",
   "background-color": "#1b1b1d",
   "contents": [
     { "x": 448, "y": 344, "type": "link", "path": "/Applications" },
