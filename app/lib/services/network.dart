@@ -1,9 +1,23 @@
+import 'dart:io';
+
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly_api/butterfly_api.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 
 enum NetworkSide { server, client }
 
-enum NetworkType { webSocket, webRtc }
+enum NetworkType {
+  webSocket,
+  webRtc;
+
+  Future<bool> isCompatible() async => switch (this) {
+        NetworkType.webRtc => kIsWeb ||
+            !Platform.isAndroid ||
+            (await DeviceInfoPlugin().androidInfo).version.sdkInt >= 28,
+        NetworkType.webSocket => !kIsWeb,
+      };
+}
 
 class NetworkService {
   DocumentBloc? bloc;

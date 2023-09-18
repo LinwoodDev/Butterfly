@@ -1,6 +1,7 @@
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/collaboration/start.dart';
 import 'package:butterfly/services/network.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,7 +13,7 @@ class ViewCollaborationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const side = NetworkSide.client;
-    const type = NetworkType.webRtc;
+    const type = kIsWeb ? NetworkType.webRtc : NetworkType.webSocket;
     return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
