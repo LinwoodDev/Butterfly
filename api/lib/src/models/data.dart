@@ -98,6 +98,7 @@ class NoteData {
             ...state.added,
             path: Uint8List.fromList(data),
           },
+          removed: state.removed.where((element) => element != path).toList(),
         ),
       );
 
@@ -142,10 +143,10 @@ class NoteData {
   }
 
   @useResult
-  Iterable<String> getAssets(String path, [bool removeExtension = false]) => [
+  Iterable<String> getAssets(String path, [bool removeExtension = false]) => {
         ...archive.files.map((e) => e.name),
         ...state.added.keys,
-      ]
+      }
           .where((e) => e.startsWith(path) && !state.removed.contains(e))
           .map((e) => e.substring(path.length))
           .map((e) {
@@ -334,9 +335,10 @@ class NoteData {
   @useResult
   NoteData renamePage(String oldName, String newName) {
     final page = getPage(oldName);
+    final index = getPageIndex(oldName);
     if (page == null) return this;
     final noteData = removePage(oldName);
-    return noteData.setPage(page, newName);
+    return noteData.setPage(page, newName, index);
   }
 
   @useResult

@@ -49,6 +49,7 @@
 * Fix duplication position issues
 * Fix template creation message text
 * Fix page ordering
+* Fix page index when renaming
 * Fix packs dialog closes after action
 * Fix layer remove button not working
 * Disable gestures on mouse input

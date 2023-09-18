@@ -61,7 +61,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PageAdded>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      var (newData, pageName) = current.data.addPage(event.page, event.index);
+      final (newData, pageName) = current.data.addPage(event.page, event.index);
       return _saveState(
         emit,
         current.copyWith(data: newData, pageName: pageName),
@@ -90,7 +90,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PageReordered>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      var newData = current.data.reorderPage(event.page, event.newIndex);
+      final newData = current.data.reorderPage(event.page, event.newIndex);
       return _saveState(
         emit,
         current.copyWith(data: newData),
@@ -100,7 +100,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PageRenamed>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      var newData = current.data.renamePage(event.oldName, event.newName);
+      final newData = current.data.renamePage(event.oldName, event.newName);
       return _saveState(
         emit,
         current.copyWith(data: newData),
@@ -110,7 +110,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PageRemoved>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      var newData = current.data.removePage(event.page);
+      final newData = current.data.removePage(event.page);
       return _saveState(
         emit,
         current.copyWith(data: newData),
@@ -120,7 +120,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<ThumbnailCaptured>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      var newData = current.data.setThumbnail(event.data);
+      final newData = current.data.setThumbnail(event.data);
       return _saveState(
         emit,
         current.copyWith(data: newData),
