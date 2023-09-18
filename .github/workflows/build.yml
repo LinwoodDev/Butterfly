@@ -334,13 +334,15 @@ jobs:
           flutter doctor -v
       - name: 🏭 Build
         run: |
-          flutter build macos -v
+          flutter build macos -v --release
+      - name: Zip file
+        run: zip --symlinks -qr linwood-butterfly-macos.zip build/macos/Build/Products/Release/butterfly.app
       - name: Archive
         uses: actions/upload-artifact@v3
         with:
           name: macos-build
           path: |
-            app/build/macos/Build/Products/Release/butterfly.app
+            app/linwood-butterfly-macos.zip
   # build-snap:
   #   name: Build Snap
   #   runs-on: ubuntu-latest
