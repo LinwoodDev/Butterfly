@@ -30,7 +30,7 @@ class _PackDialogState extends State<PackDialog> {
 
   void _onChanged(NoteData pack) {
     setState(() {
-      pack.setMetadata(pack.getMetadata()!.copyWith(
+      this.pack = pack.setMetadata(pack.getMetadata()!.copyWith(
             updatedAt: DateTime.now().toUtc(),
           ));
     });

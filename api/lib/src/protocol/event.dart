@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:replay_bloc/replay_bloc.dart';
 
@@ -14,9 +16,24 @@ enum DocumentPermission { read, write, admin }
 class DocumentEvent extends ReplayEvent with _$DocumentEvent {
   const DocumentEvent._();
 
+  const factory DocumentEvent.pageAdded(DocumentPage page, [int? index]) =
+      PageAdded;
+
   const factory DocumentEvent.pageChanged(
     String pageName,
   ) = PageChanged;
+
+  const factory DocumentEvent.pageReordered(String page, [int? newIndex]) =
+      PageReordered;
+
+  const factory DocumentEvent.pageRenamed(String oldName, String newName) =
+      PageRenamed;
+
+  const factory DocumentEvent.pageRemoved(String page) = PageRemoved;
+
+  const factory DocumentEvent.thumbnailCaptured(
+    @Uint8ListJsonConverter() Uint8List data,
+  ) = ThumbnailCaptured;
 
   const factory DocumentEvent.viewChanged(ViewOption view) = ViewChanged;
 

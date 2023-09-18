@@ -58,10 +58,20 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
 
   void _init() {
     (state as DocumentLoaded).networkService.setup(this);
+    on<PageAdded>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      final (newData, pageName) = current.data.addPage(event.page, event.index);
+      return _saveState(
+        emit,
+        current.copyWith(data: newData, pageName: pageName),
+        null,
+      );
+    });
     on<PageChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      current.data.setPage(current.page, current.pageName);
+      final data = current.data.setPage(current.page, current.pageName);
       final page = current.data.getPage(event.pageName);
       if (page == null) return;
       current.currentIndexCubit
@@ -71,8 +81,49 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         emit,
         current.copyWith(
           page: page,
+          data: data,
           pageName: event.pageName,
         ),
+        null,
+      );
+    });
+    on<PageReordered>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      final newData = current.data.reorderPage(event.page, event.newIndex);
+      return _saveState(
+        emit,
+        current.copyWith(data: newData),
+        null,
+      );
+    });
+    on<PageRenamed>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      final newData = current.data.renamePage(event.oldName, event.newName);
+      return _saveState(
+        emit,
+        current.copyWith(data: newData),
+        null,
+      );
+    });
+    on<PageRemoved>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      final newData = current.data.removePage(event.page);
+      return _saveState(
+        emit,
+        current.copyWith(data: newData),
+        null,
+      );
+    });
+    on<ThumbnailCaptured>((event, emit) async {
+      final current = state;
+      if (current is! DocumentLoadSuccess) return;
+      final newData = current.data.setThumbnail(event.data);
+      return _saveState(
+        emit,
+        current.copyWith(data: newData),
         null,
       );
     });
@@ -80,8 +131,23 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      final renderers =
-          event.elements.map((e) => Renderer.fromInstance(e)).toList();
+      var data = current.data;
+      String importImage(String source, String fileExtension) {
+        final uriData = Uri.tryParse(source)?.data;
+        if (uriData == null) return source;
+        final result = data.addImage(uriData.contentAsBytes(), fileExtension);
+        data = result.$1;
+        return result.$2;
+      }
+
+      final elements = event.elements.map((e) => e.maybeMap(
+            image: (value) =>
+                value.copyWith(source: importImage(value.source, 'png')),
+            svg: (value) =>
+                value.copyWith(source: importImage(value.source, 'svg')),
+            orElse: () => e,
+          ));
+      final renderers = elements.map((e) => Renderer.fromInstance(e)).toList();
       if (renderers.isEmpty) return;
       if (current.currentIndexCubit
           .getHandler()
@@ -93,7 +159,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           current.copyWith(
               page: current.page.copyWith(
                   content: (List.from(current.page.content)
-                    ..addAll(renderers.map((e) => e.element))))),
+                    ..addAll(elements)))),
           renderers);
     }, transformer: sequential());
     on<ElementsChanged>((event, emit) async {
@@ -247,12 +313,8 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           unusedAssets.add(element.source);
         }
       });
-      for (var asset in unusedAssets) {
-        current.data.removeAsset(asset);
-        current.assetService.removeImage(asset);
-      }
-
-      await _saveState(emit, current.copyWith(page: newPage), null);
+      final data = current.data.removeAssets(unusedAssets.toList());
+      await _saveState(emit, current.copyWith(page: newPage, data: data), null);
     }, transformer: sequential());
     on<DocumentDescriptionChanged>((event, emit) async {
       final current = state;
@@ -676,23 +738,29 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         name = '${event.pack.name} ($i)';
         i++;
       }
-      event.pack.name = name;
-      current.data.setPack(event.pack);
-      _saveState(emit);
+      final pack = event.pack.setName(name);
+      _saveState(
+        emit,
+        current.copyWith(data: current.data.setPack(pack)),
+      );
     });
     on<PackUpdated>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      current.data.setPack(event.pack);
-      _saveState(emit);
+      _saveState(
+        emit,
+        current.copyWith(data: current.data.setPack(event.pack)),
+      );
     });
     on<PackRemoved>((event, emit) {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
-      current.data.removePack(event.name);
-      _saveState(emit);
+      _saveState(
+        emit,
+        current.copyWith(data: current.data.removePack(event.name)),
+      );
     });
     on<AnimationAdded>((event, emit) {
       final current = state;
@@ -835,5 +903,9 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     currentIndexCubit.unbake(tool: tool);
     currentIndexCubit.loadElements(document, assetService, page);
     currentIndexCubit.init(this);
+  }
+
+  void dispose() {
+    state.assetService?.dispose();
   }
 }

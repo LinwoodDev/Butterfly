@@ -25,16 +25,14 @@ class ComponentsPackView extends StatelessWidget {
                 (e) => Dismissible(
                   key: ValueKey(e),
                   onDismissed: (direction) {
-                    value.removeComponent(e);
-                    onChanged(value);
+                    onChanged(value.removeComponent(e));
                   },
                   child: ListTile(
                     title: Text(e),
                     trailing: IconButton(
                       icon: const PhosphorIcon(PhosphorIconsLight.trash),
                       onPressed: () async {
-                        value.removeComponent(e);
-                        onChanged(value);
+                        onChanged(value.removeComponent(e));
                       },
                     ),
                   ),

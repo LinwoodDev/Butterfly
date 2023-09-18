@@ -55,10 +55,13 @@ abstract class DocumentLoaded extends DocumentState {
   final AssetService assetService;
   final NetworkService networkService;
 
-  void _updatePage() => data.setPage(page, pageName);
-  void _updateMetadata() => data.setMetadata(metadata);
-  void _updateInfo() =>
-      data.setInfo(info.copyWith(view: currentIndexCubit.state.viewOption));
+  NoteData _updatePage(NoteData current) => current.setPage(page, pageName);
+  NoteData _updateMetadata(NoteData current) =>
+      current.setMetadata(metadata.copyWith(
+        updatedAt: DateTime.now().toUtc(),
+      ));
+  NoteData _updateInfo(NoteData current) =>
+      current.setInfo(info.copyWith(view: currentIndexCubit.state.viewOption));
 
   DocumentLoaded(this.data,
       {DocumentPage? page,
@@ -87,11 +90,12 @@ abstract class DocumentLoaded extends DocumentState {
 
   TransformCubit get transformCubit => currentIndexCubit.state.transformCubit;
 
-  NoteData saveData() {
-    _updatePage();
-    _updateMetadata();
-    _updateInfo();
-    return data;
+  NoteData saveData([NoteData? current]) {
+    current ??= data;
+    current = _updatePage(current);
+    current = _updateMetadata(current);
+    current = _updateInfo(current);
+    return current;
   }
 
   Future<void> bake(
@@ -154,6 +158,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
   List<Renderer<PadElement>> get renderers => currentIndexCubit.renderers;
 
   DocumentLoadSuccess copyWith({
+    NoteData? data,
     DocumentPage? page,
     String? pageName,
     FileMetadata? metadata,
@@ -164,7 +169,7 @@ class DocumentLoadSuccess extends DocumentLoaded {
     List<String>? invisibleLayers,
   }) =>
       DocumentLoadSuccess(
-        data,
+        data ?? this.data,
         assetService: assetService,
         networkService: networkService,
         page: page ?? this.page,
@@ -195,22 +200,21 @@ class DocumentLoadSuccess extends DocumentLoaded {
 
   Future<AssetLocation> save() {
     currentIndexCubit.setSaveState(saved: SaveState.saving);
-    final newMeta = metadata.copyWith(updatedAt: DateTime.now().toUtc());
-    data.setMetadata(newMeta);
+    final currentData = saveData();
     final storage = getRemoteStorage();
     if (embedding != null) return Future.value(AssetLocation.local(''));
     if (!location.path.endsWith('.bfly') ||
         location.absolute ||
         location.fileType != AssetFileType.note) {
       return DocumentFileSystem.fromPlatform(remote: storage)
-          .importDocument(saveData())
+          .importDocument(currentData)
           .then((value) => value.location)
         ..then(settingsCubit.addRecentHistory)
         ..then((value) => currentIndexCubit.setSaveState(
             location: value, saved: SaveState.saved));
     }
     return DocumentFileSystem.fromPlatform(remote: storage)
-        .updateDocument(location.path, saveData())
+        .updateDocument(location.path, currentData)
         .then((value) => value.location)
       ..then(settingsCubit.addRecentHistory)
       ..then((value) => currentIndexCubit.setSaveState(

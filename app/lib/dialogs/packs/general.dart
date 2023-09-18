@@ -20,8 +20,7 @@ class GeneralPackView extends StatelessWidget {
       return const SizedBox();
     }
     void changeMetadata(FileMetadata metadata) {
-      value.setMetadata(metadata);
-      onChanged(value);
+      onChanged(value.setMetadata(metadata));
     }
 
     return ListView(

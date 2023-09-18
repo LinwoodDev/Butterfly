@@ -13,8 +13,8 @@ Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
     ...legacyNoteDataJsonMigrator(data),
   };
   final archive = Archive();
-  final reader = NoteData(archive);
-  reader.setAsset(kMetaArchiveFile, utf8.encode(jsonEncode(data)));
+  var reader = NoteData(archive);
+  reader = reader.setAsset(kMetaArchiveFile, utf8.encode(jsonEncode(data)));
   NoteFileType type = NoteFileType.document;
   try {
     type = NoteFileType.values.byName(data['type'] as String);
@@ -22,21 +22,23 @@ Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
   switch (type) {
     case NoteFileType.pack:
       for (final palette in data['palettes'] ?? []) {
-        reader.setAsset('$kPalettesArchiveDirectory/${palette.name}.json',
+        reader = reader.setAsset(
+            '$kPalettesArchiveDirectory/${palette.name}.json',
             utf8.encode((palette)));
       }
       for (final style in data['styles'] ?? []) {
-        reader.setAsset('$kStylesArchiveDirectory/${style.name}.json',
+        reader = reader.setAsset('$kStylesArchiveDirectory/${style.name}.json',
             utf8.encode((style)));
       }
       for (final component in data['components'] ?? []) {
-        reader.setAsset('$kComponentsArchiveDirectory/${component.name}.json',
+        reader = reader.setAsset(
+            '$kComponentsArchiveDirectory/${component.name}.json',
             utf8.encode((component)));
       }
       break;
     case NoteFileType.template:
     case NoteFileType.document:
-      reader.setAsset(
+      reader = reader.setAsset(
           '$kPagesArchiveDirectory/default.json',
           utf8.encode(jsonEncode(
               type == NoteFileType.document ? data : data['document'])));
@@ -45,12 +47,12 @@ Archive convertLegacyDataToArchive(Map<String, dynamic> data) {
               utf8.encode(jsonEncode({'type': 'pack', ...e})))))
           .toList();
       for (final pack in packs) {
-        reader.setPack(pack);
+        reader = reader.setPack(pack);
       }
       final thumbnail = data['thumbnail'] as String?;
       if (thumbnail?.isNotEmpty == true) {
         final data = UriData.parse(thumbnail!).contentAsBytes();
-        reader.setThumbnail(data);
+        reader = reader.setThumbnail(data);
       }
   }
   return archive;

@@ -196,7 +196,7 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
     final metadata = template.getMetadata();
     if (metadata == null) return template;
     final name = await findAvailableName(metadata.name);
-    template.setMetadata(metadata.copyWith(name: name));
+    template = template.setMetadata(metadata.copyWith(name: name));
     await updateTemplate(template);
     return template;
   }
@@ -211,11 +211,11 @@ abstract class TemplateFileSystem extends GeneralFileSystem {
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
-    final template = await getTemplate(path);
+    var template = await getTemplate(path);
     if (template == null) return null;
     final metadata = template.getMetadata()?.copyWith(name: newName);
     if (metadata == null) return null;
-    template.setMetadata(metadata);
+    template = template.setMetadata(metadata);
     final newTemplate = await createTemplate(template);
     await deleteTemplate(path);
     return newTemplate;
@@ -263,7 +263,7 @@ abstract class PackFileSystem extends GeneralFileSystem {
     final metadata = pack.getMetadata();
     if (metadata == null) return pack;
     final newName = await findAvailableName(metadata.name);
-    pack.setMetadata(metadata.copyWith(name: newName));
+    pack = pack.setMetadata(metadata.copyWith(name: newName));
     updatePack(pack);
     return pack;
   }
@@ -278,11 +278,11 @@ abstract class PackFileSystem extends GeneralFileSystem {
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
-    final pack = await getPack(path);
+    var pack = await getPack(path);
     final metadata = pack?.getMetadata();
     if (pack == null || metadata == null) return null;
     await deletePack(path);
-    pack.setMetadata(metadata.copyWith(name: newName));
+    pack = pack.setMetadata(metadata.copyWith(name: newName));
     await updatePack(pack);
     return pack;
   }

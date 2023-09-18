@@ -90,8 +90,8 @@ class LabelToolSelection extends ToolSelection<LabelTool> {
                       key: ValueKey(style),
                       background: Container(color: Colors.red),
                       onDismissed: (direction) {
-                        currentPack.removeStyle(style);
-                        bloc.add(PackUpdated(packName, currentPack));
+                        bloc.add(PackUpdated(
+                            packName, currentPack.removeStyle(style)));
                       },
                       child: ListTile(
                         title: Text(style),

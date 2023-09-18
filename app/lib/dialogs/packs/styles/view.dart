@@ -35,8 +35,7 @@ class StylesPackView extends StatelessWidget {
                       (e) => Dismissible(
                         key: ValueKey(e),
                         onDismissed: (direction) {
-                          value.removeStyle(e);
-                          onChanged(value);
+                          onChanged(value.removeStyle(e));
                         },
                         child: ListTile(
                           title: Text(e),
@@ -56,14 +55,12 @@ class StylesPackView extends StatelessWidget {
                               ),
                             );
                             if (result != true) return;
-                            value.setStyle(styleSheet!);
-                            onChanged(value);
+                            onChanged(value.setStyle(styleSheet!));
                           },
                           trailing: IconButton(
                             icon: const PhosphorIcon(PhosphorIconsLight.trash),
                             onPressed: () async {
-                              value.removeStyle(e);
-                              onChanged(value);
+                              onChanged(value.removeStyle(e));
                             },
                           ),
                         ),
@@ -88,8 +85,7 @@ class StylesPackView extends StatelessWidget {
                   ),
                 );
                 if (result != true) return;
-                value.setStyle(styleSheet);
-                onChanged(value);
+                onChanged(value.setStyle(styleSheet));
               },
               icon: const PhosphorIcon(PhosphorIconsLight.plus),
               label: Text(AppLocalizations.of(context).create),

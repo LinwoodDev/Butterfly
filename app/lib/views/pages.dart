@@ -28,17 +28,14 @@ class PagesView extends StatelessWidget {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
         final currentName = state.pageName;
         final current = state.page;
-        return StreamBuilder<NoteData>(
-            stream: state.data.onChange,
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) return const SizedBox.shrink();
-              final pages = snapshot.data!.getPages();
-              final index = snapshot.data?.getPageIndex(state.pageName);
-              void addPage([int? index]) {
-                final name = snapshot.data?.addPage(current, index);
-                if (name == null) return;
-                context.read<DocumentBloc>().add(PageChanged(name));
-              }
+        return BlocBuilder<DocumentBloc, DocumentState>(
+            buildWhen: (previous, current) => previous.data != current.data,
+            builder: (context, state) {
+              if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
+              final pages = state.data.getPages();
+              final index = state.data.getPageIndex(state.pageName);
+              void addPage([int? index]) =>
+                  context.read<DocumentBloc>().add(PageAdded(current, index));
 
               return Column(
                 children: [
@@ -104,14 +101,15 @@ class PagesView extends StatelessWidget {
                                 final next =
                                     all[newIndex.clamp(0, all.length - 1)];
                                 var nextIndex =
-                                    snapshot.data?.getPageIndex(next.name);
+                                    state.data.getPageIndex(next.name);
                                 if (newIndex >= all.length &&
                                     nextIndex != null) {
                                   nextIndex++;
                                 }
                                 if (!next.isFile || nextIndex == null) return;
-                                snapshot.data?.reoderPage(name, nextIndex);
-                                state.save();
+                                context
+                                    .read<DocumentBloc>()
+                                    .add(PageReordered(name, nextIndex));
                               },
                               itemBuilder: (BuildContext context, int index) {
                                 final entity = all[index];
@@ -119,7 +117,7 @@ class PagesView extends StatelessWidget {
                                   entity: entity,
                                   selected: entity.path == currentName,
                                   locationController: locationController,
-                                  data: snapshot.data!,
+                                  data: state.data,
                                   key: ValueKey(entity.path),
                                 );
                               }),
@@ -211,7 +209,10 @@ class _PageEntityListTile extends StatelessWidget {
           locationController.text = entity.path;
         }
       },
-      onSaved: editable ? (value) => data.renamePage(entity.path, value) : null,
+      onSaved: editable
+          ? (value) =>
+              context.read<DocumentBloc>().add(PageRenamed(entity.path, value))
+          : null,
       actions: editable
           ? [
               MenuItemButton(
@@ -223,7 +224,7 @@ class _PageEntityListTile extends StatelessWidget {
                   if (result != true) {
                     return;
                   }
-                  data.removePage(entity.path);
+                  context.read<DocumentBloc>().add(PageRemoved(entity.path));
                 },
                 child: Text(AppLocalizations.of(context).delete),
               )

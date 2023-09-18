@@ -37,67 +37,64 @@ class _ComponentsViewState extends State<ComponentsView> {
       builder: (context, state) {
         if (state is! DocumentLoadSuccess) return const SizedBox.shrink();
         return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
-            buildWhen: (previous, current) =>
-                previous.temporaryHandler != current.temporaryHandler,
-            builder: (context, currentIndex) => StreamBuilder<NoteData>(
-                stream: state.data.onChange,
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) return const SizedBox.shrink();
-                  final data = snapshot.data!;
-                  final pack =
-                      currentPack == null ? null : data.getPack(currentPack!);
-                  final handler = currentIndex.temporaryHandler;
-                  return Column(
-                    children: [
-                      const SizedBox(height: 8),
-                      DropdownMenu(
-                        dropdownMenuEntries: data
-                            .getPacks()
-                            .map((e) => DropdownMenuEntry(
-                                  value: e,
-                                  label: e,
-                                ))
-                            .toList(),
-                        onSelected: (value) =>
-                            setState(() => currentPack = value),
-                        initialSelection: currentPack,
-                        label: Text(AppLocalizations.of(context).pack),
-                      ),
-                      const SizedBox(height: 8),
-                      Expanded(
-                        child: Material(
-                          color: Colors.transparent,
-                          child: Wrap(
-                            children: pack
-                                    ?.getComponents()
-                                    .map((e) {
-                                      final component = pack.getComponent(e);
-                                      if (component == null) return null;
-                                      return (e, component);
-                                    })
-                                    .whereNotNull()
-                                    .map((e) {
-                                      final location = PackAssetLocation(
-                                        currentPack!,
-                                        e.$1,
-                                      );
-                                      return _ComponentCard(
-                                        component: e.$2,
-                                        pack: pack,
-                                        selected: handler is StampHandler &&
-                                            handler.data.component == location,
-                                        location: location,
-                                        key: ValueKey(e.$1),
-                                      );
-                                    })
-                                    .toList() ??
-                                [],
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                }));
+          buildWhen: (previous, current) =>
+              previous.temporaryHandler != current.temporaryHandler,
+          builder: (context, currentIndex) {
+            final data = state.data;
+            final pack =
+                currentPack == null ? null : data.getPack(currentPack!);
+            final handler = currentIndex.temporaryHandler;
+            return Column(
+              children: [
+                const SizedBox(height: 8),
+                DropdownMenu(
+                  dropdownMenuEntries: data
+                      .getPacks()
+                      .map((e) => DropdownMenuEntry(
+                            value: e,
+                            label: e,
+                          ))
+                      .toList(),
+                  onSelected: (value) => setState(() => currentPack = value),
+                  initialSelection: currentPack,
+                  label: Text(AppLocalizations.of(context).pack),
+                ),
+                const SizedBox(height: 8),
+                Expanded(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Wrap(
+                      children: pack
+                              ?.getComponents()
+                              .map((e) {
+                                final component = pack.getComponent(e);
+                                if (component == null) return null;
+                                return (e, component);
+                              })
+                              .whereNotNull()
+                              .map((e) {
+                                final location = PackAssetLocation(
+                                  currentPack!,
+                                  e.$1,
+                                );
+                                return _ComponentCard(
+                                  component: e.$2,
+                                  pack: pack,
+                                  selected: handler is StampHandler &&
+                                      handler.data.component == location,
+                                  location: location,
+                                  key: ValueKey(e.$1),
+                                );
+                              })
+                              .toList() ??
+                          [],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
       },
     );
   }
