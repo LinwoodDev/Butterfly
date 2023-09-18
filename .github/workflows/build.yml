@@ -176,7 +176,6 @@ jobs:
           cp linux/*.deb linwood-butterfly-linux.deb
       - name: Build .rpm executable
         run: |
-          cd app
           bash scripts/build-rpm.sh
       - name: Build .AppImage executable
         run: |
