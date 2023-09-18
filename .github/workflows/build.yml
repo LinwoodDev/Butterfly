@@ -309,38 +309,38 @@ jobs:
         with:
           name: linux-alternative-portable
           path: app/build/linux/x64/release/bundle
-  #build-macos:
-  #  runs-on: macos-latest
-  #  defaults:
-  #    run:
-  #      working-directory: app
-  #  steps:
-  #    - name: ⬆️ Checkout
-  #      uses: actions/checkout@v4
-  #    - name: Get flutter version
-  #      run: |
-  #        FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
-  #        echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-  #    - uses: subosito/flutter-action@v2
-  #      with:
-  #        flutter-version: ${{ env.FLUTTER_VERSION }}
-  #        channel: 'any'
-  #    - name: ✅ Enable platforms
-  #      run: flutter config --enable-macos-desktop
-  #    - name: 📦 Get dependencies
-  #      run: |
-  #        flutter clean
-  #        flutter pub get
-  #        flutter doctor -v
-  #    - name: 🏭 Build
-  #      run: |
-  #        flutter build macos -v
-  #    - name: Archive
-  #      uses: actions/upload-artifact@v3
-  #      with:
-  #        name: macos-build
-  #        path: |
-  #          app/build/macos/Build/Products/Release/butterfly.app
+  build-macos:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v4
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'any'
+      - name: ✅ Enable platforms
+        run: flutter config --enable-macos-desktop
+      - name: 📦 Get dependencies
+        run: |
+          flutter clean
+          flutter pub get
+          flutter doctor -v
+      - name: 🏭 Build
+        run: |
+          flutter build macos -v
+      - name: Archive
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-build
+          path: |
+            app/build/macos/Build/Products/Release/butterfly.app
   # build-snap:
   #   name: Build Snap
   #   runs-on: ubuntu-latest
