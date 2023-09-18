@@ -309,38 +309,56 @@ jobs:
         with:
           name: linux-alternative-portable
           path: app/build/linux/x64/release/bundle
-  #build-macos:
-  #  runs-on: macos-latest
-  #  defaults:
-  #    run:
-  #      working-directory: app
-  #  steps:
-  #    - name: ⬆️ Checkout
-  #      uses: actions/checkout@v4
-  #    - name: Get flutter version
-  #      run: |
-  #        FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
-  #        echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-  #    - uses: subosito/flutter-action@v2
-  #      with:
-  #        flutter-version: ${{ env.FLUTTER_VERSION }}
-  #        channel: 'any'
-  #    - name: ✅ Enable platforms
-  #      run: flutter config --enable-macos-desktop
-  #    - name: 📦 Get dependencies
-  #      run: |
-  #        flutter clean
-  #        flutter pub get
-  #        flutter doctor -v
-  #    - name: 🏭 Build
-  #      run: |
-  #        flutter build macos -v
-  #    - name: Archive
-  #      uses: actions/upload-artifact@v3
-  #      with:
-  #        name: macos-build
-  #        path: |
-  #          app/build/macos/Build/Products/Release/butterfly.app
+  build-macos:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: ⬆️ Checkout
+        uses: actions/checkout@v4
+      - name: Get flutter version
+        run: |
+          FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
+          echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: 'any'
+      - name: ✅ Enable platforms
+        run: flutter config --enable-macos-desktop
+      - name: 📦 Get dependencies
+        run: |
+          flutter clean
+          flutter pub get
+          flutter doctor -v
+      - name: 🏭 Build
+        run: |
+          flutter build macos -v --release
+      - name: Zip file
+        working-directory: app/build/macos/Build/Products/Release
+        run: zip --symlinks -qr linwood-butterfly-macos.zip butterfly.app
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install appdmg
+        run: npm install -g appdmg
+      - name: Create dmg
+        run: |
+          appdmg DmgSetup.json linwood-butterfly-macos.dmg
+      - name: Archive
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-build
+          path: |
+            app/build/macos/Build/Products/Release/linwood-butterfly-macos.zip
+      - name: Archive
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-dmg
+          path: |
+            app/linwood-butterfly-macos.dmg
   # build-snap:
   #   name: Build Snap
   #   runs-on: ubuntu-latest
@@ -372,7 +390,7 @@ jobs:
       - build-windows
       - build-linux
       - build-flatpak
-      #- build-macos
+      - build-macos
     steps:
       - name: ⬆️ Checkout
         uses: actions/checkout@v4
@@ -413,9 +431,6 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: linux-appimage
-      #- uses: actions/download-artifact@v3
-      #  with:
-      #    name: linux-flatpak
       - uses: actions/download-artifact@v3
         with:
           name: linux-alternative-portable
@@ -423,10 +438,12 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: windows-setup
-      #- uses: actions/download-artifact@v3
-      #  with:
-      #    name: macos-build
-      #    path: macos-build/
+      - uses: actions/download-artifact@v3
+        with:
+          name: macos-build
+      - uses: actions/download-artifact@v3
+        with:
+          name: macos-dmg
       - name: 📦 Zip artifacts
         run: |
           zip -r linwood-butterfly-windows.zip windows-build/*
@@ -455,7 +472,8 @@ jobs:
             linwood-butterfly-linux-alternative.tar.gz
             linwood-butterfly-linux.deb
             linwood-butterfly-linux.AppImage
-          #  linwood-butterfly-macos.tar.gz
+            linwood-butterfly-macos.zip
+            linwood-butterfly-macos.dmg
           #  linwood-butterfly-linux.flatpak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
