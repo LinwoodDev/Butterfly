@@ -301,18 +301,21 @@ class ButterflyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final cubit = SettingsCubit(prefs, isFullScreen);
-    if (!kIsWeb && isWindow) {
-      windowManager.waitUntilReadyToShow().then((_) async {
-        cubit.setFullScreen(cubit.state.startInFullScreen);
-        cubit.setTheme(MediaQuery.of(context));
-        cubit.setNativeTitleBar();
-        windowManager.show();
-      });
-    }
     return DynamicColorBuilder(
-      builder: (lightDynamic, darkDynamic) => BlocProvider.value(
-        value: cubit,
+      builder: (lightDynamic, darkDynamic) => BlocProvider(
+        create: (context) {
+          final cubit = SettingsCubit(prefs, isFullScreen);
+          if (!kIsWeb && isWindow) {
+            windowManager.waitUntilReadyToShow().then((_) async {
+              cubit.setFullScreen(cubit.state.startInFullScreen);
+              cubit.setTheme(MediaQuery.of(context));
+              cubit.setNativeTitleBar();
+              windowManager.show();
+            });
+          }
+          return cubit;
+        },
+        lazy: false,
         child: RepositoryProvider(
           create: (context) =>
               SyncService(context, context.read<SettingsCubit>()),

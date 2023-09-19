@@ -175,9 +175,9 @@ class _FileEntityListTile extends StatelessWidget {
                             onPressed: () {
                               settingsCubit.toggleStarred(entity.location);
                             },
-                            icon: starred
-                                ? const PhosphorIcon(PhosphorIconsFill.star)
-                                : const PhosphorIcon(PhosphorIconsLight.star),
+                            selectedIcon:
+                                const PhosphorIcon(PhosphorIconsFill.star),
+                            icon: const PhosphorIcon(PhosphorIconsLight.star),
                             isSelected: starred,
                             tooltip: starred
                                 ? AppLocalizations.of(context).unstar

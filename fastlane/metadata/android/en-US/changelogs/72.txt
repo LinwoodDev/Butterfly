@@ -25,6 +25,7 @@
 * Add delete buttons in pack dialog
 * Add size transition to property view
 * Add animation for tool change
+* Add selected state to utilities button
 * Move export button from selection view to context menu
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
 * Improve clipboard system to include image and svg source as data uri
@@ -35,6 +36,7 @@
 * Prevent window of closing when there are unsaved changes ([#403](https://github.com/LinwoodDev/Butterfly/issues/403))
 * Change file search to not case sensitive
 * Change expansion panels in background dialog to tabs
+* Change selected icons to fill variant
 * Fix expansion panel list in corner radius shape, texture property, shapes and constraints view
 * Fix bfly mimetype
 * Fix property view playing open animation when opening navigator
