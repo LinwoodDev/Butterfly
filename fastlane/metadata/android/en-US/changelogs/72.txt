@@ -24,6 +24,7 @@
 * Add alpha slider to shape element
 * Add delete buttons in pack dialog
 * Add size transition to property view
+* Add animation for tool change
 * Move export button from selection view to context menu
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
 * Improve clipboard system to include image and svg source as data uri
@@ -56,5 +57,7 @@
 * Remove view options from undo
 * Remove reload after clicking on star
 * Upgrade to agb 8
+* Add macos zip and dmg release builds
+* Add linux rpm release build
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8
