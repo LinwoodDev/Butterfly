@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Linwood Butterfly
 Comment=Powerful, minimalistic, cross-platform, opensource note-taking app
-Exec=butterfly %f
-Icon=dev.linwood.butterfly
+Exec=/usr/bin/linwood-butterfly %f
+Icon=/usr/share/linwood-butterfly/data/flutter_assets/images/logo.svg
 Terminal=false
 Type=Application
 Categories=Office;
