@@ -17,11 +17,13 @@ Butterfly is a note app where your ideas come first. You can paint, add texts an
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/%{_bindir}/%{name}
-cp butterfly $RPM_BUILD_ROOT/%{_bindir}/%{name}
-cp -R lib $RPM_BUILD_ROOT/%{_bindir}/%{name}
-cp -R data $RPM_BUILD_ROOT/%{_bindir}/%{name}
-
+mkdir -p $RPM_BUILD_ROOT/%{_bindir}
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/pixmaps
+cp %{name} $RPM_BUILD_ROOT/%{_datadir}/%{name}
+cp -R lib $RPM_BUILD_ROOT/%{_datadir}/%{name}
+cp -R data $RPM_BUILD_ROOT/%{_datadir}/%{name}
+ln -s %{_datadir}/%{name}/%{name} $RPM_BUILD_ROOT/%{_bindir}/%{name}
 desktop-file-install %{name}.desktop
 
 %clean
@@ -29,4 +31,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %{_bindir}/%{name}
+%{_datadir}/%{name}
 /usr/share/applications/
