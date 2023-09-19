@@ -52,6 +52,11 @@ Vennligst bruk flatpak versjonen hvis det er mulig. Ellers må du installere `li
       </DownloadButton>
     </li>
     <li>
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.rpm">
+        RPM
+      </DownloadButton>
+    </li>
+    <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.AppImage">
         AppImage
       </DownloadButton>
