@@ -52,6 +52,11 @@ Vă rugăm să folosiți versiunea netedă, dacă este posibil. Altfel trebuie s
       </DownloadButton>
     </li>
     <li>
+      <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.rpm">
+        RPM
+      </DownloadButton>
+    </li>
+    <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.AppImage">
         AppImage
       </DownloadButton>
