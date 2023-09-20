@@ -53,7 +53,7 @@ import DownloadButton from '@site/src/components/DownloadButton.tsx';
     </li>
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.rpm">
-        RPM
+        遥控器
       </DownloadButton>
     </li>
     <li>
