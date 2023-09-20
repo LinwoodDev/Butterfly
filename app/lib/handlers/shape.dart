@@ -20,7 +20,12 @@ class ShapeHandler extends PastingHandler<ShapeTool> {
 
   @override
   List<PadElement> transformElements(Rect rect, String layer) {
-    if (rect.isEmpty) return [];
+    if (rect.top == 0 &&
+        rect.left == 0 &&
+        rect.right == 0 &&
+        rect.bottom == 0) {
+      return [];
+    }
 
     return [
       ShapeElement(
@@ -31,6 +36,9 @@ class ShapeHandler extends PastingHandler<ShapeTool> {
       ),
     ];
   }
+
+  @override
+  bool get shouldNormalize => data.property.shape is! LineShape;
 
   @override
   double get constraintedAspectRatio => data.constrainedAspectRatio;

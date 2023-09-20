@@ -371,16 +371,26 @@ abstract class PastingHandler<T> extends Handler<T> {
 
   List<PadElement> transformElements(Rect rect, String layer);
 
+  bool get shouldNormalize => true;
+
   List<PadElement> getTransformed() {
     final first = _firstPos;
     final second = _secondPos;
     if (first == null || second == null) return [];
-    var top = min(first.dy, second.dy);
-    var left = min(first.dx, second.dx);
-    var bottom = max(first.dy, second.dy);
-    var right = max(first.dx, second.dx);
-    var width = right - left;
-    var height = bottom - top;
+    double top, left, bottom, right;
+    if (shouldNormalize) {
+      top = min(first.dy, second.dy);
+      left = min(first.dx, second.dx);
+      bottom = max(first.dy, second.dy);
+      right = max(first.dx, second.dx);
+    } else {
+      top = first.dy;
+      left = first.dx;
+      bottom = second.dy;
+      right = second.dx;
+    }
+    var width = (right - left).abs();
+    var height = (bottom - top).abs();
     if (_aspectRatio) {
       final largest = max(width, height);
       width = largest;
