@@ -53,7 +53,7 @@ Vänligen använd flatpak versionen om möjligt. Annars behöver du installera `
     </li>
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.rpm">
-        RPM
+        Varvtal
       </DownloadButton>
     </li>
     <li>
