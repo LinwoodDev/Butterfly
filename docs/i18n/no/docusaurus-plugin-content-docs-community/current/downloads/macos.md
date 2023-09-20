@@ -8,7 +8,21 @@ sidebar_position: 5
 ## Lenker
 
 <div className="row margin-bottom--lg padding--sm">
-<a className="button button--outline button--danger button--lg margin--sm" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-macos.tar.gz">
-  Nightly
-</a>
+<div className="dropdown dropdown--hoverable margin--sm">
+  <button className="button button--outline button--info button--lg">Nightly</button>
+  <ul className="dropdown__menu">
+    <li>
+      <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-macos.dmg">
+        MGM
+      </DownloadButton>
+    </li>
+    <li>
+      <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-macos.zip">
+        Portabel
+      </DownloadButton>
+    </li>
+  </ul>
 </div>
+</div>
+
+Les mer om den nattlige versjonen av Butterfly [her](/nightly).
