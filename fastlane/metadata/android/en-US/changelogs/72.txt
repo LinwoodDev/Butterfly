@@ -9,7 +9,7 @@
 * Recode event system to include collaboration in the future
 * Redesign document properties
 * Redesign color operation bottom sheet
-* Add texture element ([#406](https://github.com/LinwoodDev/Butterfly/issues/406))
+* Add texture tool ([#406](https://github.com/LinwoodDev/Butterfly/issues/406))
 * Add search to add dialog
 * Add mobile context menu ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
 * Add setting to set default pdf quality
@@ -26,6 +26,7 @@
 * Add size transition to property view
 * Add animation for tool change
 * Add selected state to utilities button
+* Fallback to first stylesheet if no stylesheet is selected
 * Move export button from selection view to context menu
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
 * Improve clipboard system to include image and svg source as data uri
@@ -37,6 +38,7 @@
 * Change file search to not case sensitive
 * Change expansion panels in background dialog to tabs
 * Change selected icons to fill variant
+* Change image and svg export dialog position and size to row
 * Fix expansion panel list in corner radius shape, texture property, shapes and constraints view
 * Fix bfly mimetype
 * Fix property view playing open animation when opening navigator
@@ -61,5 +63,8 @@
 * Upgrade to agb 8
 * Add macos zip and dmg release builds
 * Add linux rpm release build
+
+Please make a backup of your documents before opening them with this version.
+This version is not compatible with older versions of Butterfly.
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8

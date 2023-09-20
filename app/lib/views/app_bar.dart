@@ -109,7 +109,7 @@ class _AppBarTitle extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             ConstrainedBox(
               constraints: BoxConstraints(
-                  maxWidth: min(250.0, constraints.maxWidth - 16)),
+                  maxWidth: min(275.0, constraints.maxWidth - 16)),
               child: Row(
                 children: [
                   Flexible(
@@ -166,6 +166,7 @@ class _AppBarTitle extends StatelessWidget {
                       return title;
                     }),
                   ),
+                  const SizedBox(width: 8),
                   if (state is DocumentLoadSuccess) ...[
                     if (!state.hasAutosave())
                       SizedBox(

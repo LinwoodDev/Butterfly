@@ -37,7 +37,10 @@ class _TemplateDialogState extends State<TemplateDialog> {
       var templates = await _fileSystem.getTemplates();
       templates = templates
           .where((element) =>
-              element.name?.contains(_searchController.text) ?? true)
+              element.name
+                  ?.toLowerCase()
+                  .contains(_searchController.text.toLowerCase()) ??
+              true)
           .toList();
       return templates;
     });
@@ -134,23 +137,18 @@ class _TemplateDialogState extends State<TemplateDialog> {
                         }
                         var templates = snapshot.data!;
                         return Column(children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                                decoration: const InputDecoration(
-                                  filled: true,
-                                  prefixIcon: PhosphorIcon(
-                                      PhosphorIconsLight.magnifyingGlass),
-                                ),
-                                textAlignVertical: TextAlignVertical.center,
-                                controller: _searchController,
-                                autofocus: true,
-                                onChanged: (value) async {
-                                  load();
-                                  setState(() {});
-                                }),
+                          SearchBar(
+                            leading: const PhosphorIcon(
+                                PhosphorIconsLight.magnifyingGlass),
+                            constraints: const BoxConstraints(
+                                maxWidth: 500, minHeight: 50),
+                            controller: _searchController,
+                            onChanged: (value) async {
+                              load();
+                              setState(() {});
+                            },
                           ),
-                          const Divider(),
+                          const SizedBox(height: 16),
                           Expanded(
                               child: Padding(
                                   padding: const EdgeInsets.symmetric(
