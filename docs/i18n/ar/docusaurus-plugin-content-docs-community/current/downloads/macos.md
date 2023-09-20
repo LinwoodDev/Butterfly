@@ -13,7 +13,7 @@ sidebar_position: 5
   <ul className="dropdown__menu">
     <li>
       <DownloadButton after="/downloads/post-windows" className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-macos.dmg">
-        Dmg
+        دميغ
       </DownloadButton>
     </li>
     <li>
