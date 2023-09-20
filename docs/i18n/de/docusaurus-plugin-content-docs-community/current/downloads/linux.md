@@ -53,7 +53,7 @@ Bitte verwenden Sie nach Möglichkeit die flatpak Version. Ansonsten müssen Sie
     </li>
     <li>
       <DownloadButton className="dropdown__link" href="https://github.com/LinwoodDev/butterfly/releases/download/nightly/linwood-butterfly-linux.rpm">
-        RPM
+        U/min
       </DownloadButton>
     </li>
     <li>
