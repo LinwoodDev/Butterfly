@@ -218,4 +218,37 @@ class ShapeHitCalculator extends HitCalculator {
           return rect.containsLine(firstPos, secondPos);
         });
   }
+
+  @override
+  bool hitPolygon(List<ui.Offset> polygon) {
+    // use isPointInPolygon
+    return element.property.shape.map(
+      circle: (shape) {
+        final center = rect.center;
+        final top = Offset(center.dx, rect.top);
+        final right = Offset(rect.right, center.dy);
+        final bottom = Offset(center.dx, rect.bottom);
+        final left = Offset(rect.left, center.dy);
+        return isPointInPolygon(polygon, top) &&
+            isPointInPolygon(polygon, right) &&
+            isPointInPolygon(polygon, bottom) &&
+            isPointInPolygon(polygon, left);
+      },
+      line: (value) =>
+          isPointInPolygon(polygon, element.firstPosition.toOffset()) &&
+          isPointInPolygon(polygon, element.secondPosition.toOffset()),
+      rectangle: (value) {
+        final topLeft = rect.topLeft;
+        final topRight = rect.topRight;
+        final bottomLeft = rect.bottomLeft;
+        final bottomRight = rect.bottomRight;
+        final center = rect.center;
+        return isPointInPolygon(polygon, topLeft) &&
+            isPointInPolygon(polygon, topRight) &&
+            isPointInPolygon(polygon, bottomLeft) &&
+            isPointInPolygon(polygon, bottomRight) &&
+            isPointInPolygon(polygon, center);
+      },
+    );
+  }
 }

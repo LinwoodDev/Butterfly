@@ -670,9 +670,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
 
   void setNativeTitleBar([bool? value]) {
     if (kIsWeb || !isWindow) return;
-    windowManager.setTitleBarStyle((value ?? state.nativeTitleBar)
-        ? TitleBarStyle.normal
-        : TitleBarStyle.hidden);
+    windowManager.setTitleBarStyle(
+        (value ?? state.nativeTitleBar)
+            ? TitleBarStyle.normal
+            : TitleBarStyle.hidden,
+        windowButtonVisibility: state.nativeTitleBar);
   }
 
   Future<void> changeNativeTitleBar(bool value, [bool modify = true]) {

@@ -45,10 +45,40 @@ class DefaultHitCalculator extends HitCalculator {
 
   @override
   bool hit(Rect rect) => this.rect?.overlaps(rect) ?? false;
+
+  @override
+  bool hitPolygon(List<ui.Offset> polygon) {
+    return rect != null &&
+        isPointInPolygon(polygon, rect!.center) &&
+        isPointInPolygon(polygon, rect!.topLeft) &&
+        isPointInPolygon(polygon, rect!.topRight) &&
+        isPointInPolygon(polygon, rect!.bottomLeft) &&
+        isPointInPolygon(polygon, rect!.bottomRight);
+  }
 }
 
 abstract class HitCalculator {
   bool hit(Rect rect);
+  bool hitPolygon(List<Offset> polygon);
+
+  bool isPointInPolygon(List<Offset> polygon, Offset testPoint) {
+    bool result = false;
+    int j = polygon.length - 1;
+    for (int i = 0; i < polygon.length; i++) {
+      if ((polygon[i].dy < testPoint.dy && polygon[j].dy >= testPoint.dy) ||
+          (polygon[j].dy < testPoint.dy && polygon[i].dy >= testPoint.dy)) {
+        if (polygon[i].dx +
+                (testPoint.dy - polygon[i].dy) /
+                    (polygon[j].dy - polygon[i].dy) *
+                    (polygon[j].dx - polygon[i].dx) <
+            testPoint.dx) {
+          result = !result;
+        }
+      }
+      j = i;
+    }
+    return result;
+  }
 }
 
 abstract class Renderer<T> {

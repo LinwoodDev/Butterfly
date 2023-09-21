@@ -26,6 +26,7 @@
 * Add size transition to property view
 * Add animation for tool change
 * Add selected state to utilities button
+* Add lasso selection mode to select tool ([#409](https://github.com/LinwoodDev/Butterfly/issues/409))
 * Fallback to first stylesheet if no stylesheet is selected
 * Move export button from selection view to context menu
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))

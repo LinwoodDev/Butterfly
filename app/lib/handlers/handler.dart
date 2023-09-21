@@ -352,6 +352,42 @@ Set<int> _executeRayCast(_RayCastParams params) {
       .toSet();
 }
 
+class _RayCastPolygonParams {
+  final List<String> invisibleLayers;
+  final List<_SmallRenderer> renderers;
+  final List<Offset> polygon;
+  final double size;
+
+  const _RayCastPolygonParams(
+      this.invisibleLayers, this.renderers, this.polygon, this.size);
+}
+
+Future<Set<Renderer<PadElement>>> rayCastPolygon(
+    List<Offset> points, DocumentBloc bloc, CameraTransform transform) async {
+  final state = bloc.state;
+  if (state is! DocumentLoadSuccess) return {};
+  final renderers = state.cameraViewport.visibleElements;
+  return compute(
+    _executeRayCastPolygon,
+    _RayCastPolygonParams(
+      state.invisibleLayers,
+      renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
+      points,
+      transform.size,
+    ),
+  ).then((value) => value.map((e) => renderers[e]).toSet());
+}
+
+Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
+  return params.renderers
+      .asMap()
+      .entries
+      .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
+      .where((e) => e.value.hitCalc.hitPolygon(params.polygon))
+      .map((e) => e.key)
+      .toSet();
+}
+
 abstract class PastingHandler<T> extends Handler<T> {
   Offset? _firstPos;
   Offset? _secondPos;

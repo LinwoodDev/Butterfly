@@ -48,7 +48,6 @@ Future<void> main([List<String> args = const []]) async {
 
   await setup();
   final prefs = await SharedPreferences.getInstance();
-  final isFullscreen = await isFullScreen();
   var initialLocation = '/';
   if (args.isNotEmpty && !kIsWeb) {
     var path = args[0].replaceAll('\\', '/');
@@ -110,6 +109,7 @@ Future<void> main([List<String> args = const []]) async {
   final result = argParser.parse(args);
   final clipboardManager = await SysInfo.getClipboardManager();
   GeneralFileSystem.dataPath = result['path'];
+  final isFullscreen = await isFullScreen();
   runApp(
     MultiRepositoryProvider(
         providers: [
