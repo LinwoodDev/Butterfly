@@ -535,5 +535,6 @@
   "sureClose": "¿Está seguro que desea cerrar el documento?",
   "thereAreUnsavedChanges": "Hay cambios sin guardar",
   "page": "Pgina",
-  "switchView": "Cambiar vista"
+  "switchView": "Cambiar vista",
+  "lasso": "Lasso"
 }
