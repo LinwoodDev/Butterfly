@@ -535,5 +535,6 @@
   "sureClose": "您确定要关闭文档吗？",
   "thereAreUnsavedChanges": "有未保存的更改",
   "page": "页",
-  "switchView": "切换视图"
+  "switchView": "切换视图",
+  "lasso": "Lasso"
 }
