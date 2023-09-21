@@ -236,7 +236,7 @@ class ImportService {
       String dataPath;
       if (newBytes == null) return null;
       final newData = newBytes.buffer.asUint8List();
-      dataPath = Uri.dataFromBytes(newData).toString();
+      dataPath = Uri.dataFromBytes(newData, mimeType: 'image/png').toString();
       final height = image.height.toDouble(), width = image.width.toDouble();
       image.dispose();
       final settingsScale = getSettingsCubit().state.imageScale;
@@ -283,7 +283,8 @@ class ImportService {
         final state = _getState();
         String dataPath;
         if (state != null) {
-          dataPath = Uri.dataFromBytes(bytes).toString();
+          dataPath =
+              Uri.dataFromBytes(bytes, mimeType: 'image/svg+xml').toString();
         } else {
           dataPath = UriData.fromBytes(
             bytes,

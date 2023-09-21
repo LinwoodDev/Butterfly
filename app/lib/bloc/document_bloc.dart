@@ -133,8 +133,14 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       var data = current.data;
       String importImage(String source, String fileExtension) {
-        final uriData = Uri.tryParse(source)?.data;
-        if (uriData == null) return source;
+        final uri = Uri.tryParse(source);
+        final uriData = uri?.data;
+        if (uriData == null) {
+          if (uri?.isScheme('file') ?? false) {
+            data = data.undoDelete(uri!.path);
+          }
+          return source;
+        }
         final result = data.addImage(uriData.contentAsBytes(), fileExtension);
         data = result.$1;
         return result.$2;
@@ -157,6 +163,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       return _saveState(
           emit,
           current.copyWith(
+              data: data,
               page: current.page.copyWith(
                   content: (List.from(current.page.content)
                     ..addAll(elements)))),

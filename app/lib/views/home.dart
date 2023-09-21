@@ -382,9 +382,9 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
   void initState() {
     _templateFileSystem =
         TemplateFileSystem.fromPlatform(remote: widget.remote);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _templatesFuture = _fetchTemplates();
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+          _templatesFuture = _fetchTemplates();
+        }));
     super.initState();
   }
 

@@ -10,10 +10,11 @@ class AssetService {
 
   AssetService(this.document);
 
-  Future<ui.Image?> getImage(String path) async {
+  Future<ui.Image?> getImage(String path, [NoteData? document]) async {
     if (_images.containsKey(path)) {
       return _images[path]!.clone();
     }
+    document ??= this.document;
     var data = await getDataFromSource(document, path);
     if (data == null) return null;
     final codec = await ui.instantiateImageCodec(data);
