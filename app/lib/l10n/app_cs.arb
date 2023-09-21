@@ -535,5 +535,6 @@
   "sureClose": "Opravdu chcete dokument zavřít?",
   "thereAreUnsavedChanges": "Existují neuložené změny",
   "page": "Stránka",
-  "switchView": "Přepnout zobrazení"
+  "switchView": "Přepnout zobrazení",
+  "lasso": "Lasso"
 }
