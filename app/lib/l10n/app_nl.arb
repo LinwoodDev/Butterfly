@@ -535,5 +535,6 @@
   "sureClose": "Weet u zeker dat u het document wilt sluiten?",
   "thereAreUnsavedChanges": "Er zijn niet-opgeslagen wijzigingen",
   "page": "Pagina",
-  "switchView": "Wissel weergave"
+  "switchView": "Wissel weergave",
+  "lasso": "Lasso"
 }
