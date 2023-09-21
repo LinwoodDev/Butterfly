@@ -535,5 +535,6 @@
   "sureClose": "Ви впевнені, що хочете закрити документ?",
   "thereAreUnsavedChanges": "Є незбережені зміни",
   "page": "Сторінка",
-  "switchView": "Перемкнути у вигляд"
+  "switchView": "Перемкнути у вигляд",
+  "lasso": "Lasso"
 }
