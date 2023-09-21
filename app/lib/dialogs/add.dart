@@ -31,14 +31,18 @@ class AddDialog extends StatelessWidget {
       Navigator.of(context).pop();
     }
 
-    Widget buildTool(Tool tool) => BoxTile(
-          title: Text(
-            tool.getLocalizedName(context),
-            textAlign: TextAlign.center,
-          ),
-          icon: PhosphorIcon(tool.icon(PhosphorIconsStyle.light)),
-          onTap: () => addTool(tool),
-        );
+    Widget buildTool(Tool tool) {
+      final caption = tool.getLocalizedCaption(context);
+      return BoxTile(
+        title: Text(
+          tool.getLocalizedName(context),
+          textAlign: TextAlign.center,
+        ),
+        subtitle: caption.isEmpty ? null : Text(caption),
+        icon: PhosphorIcon(tool.icon(PhosphorIconsStyle.light)),
+        onTap: () => addTool(tool),
+      );
+    }
 
     return AlertDialog(
       title: Row(
@@ -82,7 +86,8 @@ class AddDialog extends StatelessWidget {
                     .toList();
                 final tools = [
                   Tool.hand,
-                  Tool.select,
+                  () => Tool.select(mode: SelectMode.lasso),
+                  () => Tool.select(mode: SelectMode.rectangle),
                   Tool.pen,
                   Tool.stamp,
                   Tool.laser,

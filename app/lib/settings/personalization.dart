@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly/theme.dart';
@@ -106,7 +104,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
+                        if (!kIsWeb && isWindow)
                           SwitchListTile(
                             value: state.nativeTitleBar,
                             title: Text(

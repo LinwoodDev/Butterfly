@@ -135,8 +135,20 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           const SizedBox(height: 64),
-                          if (showBanner)
-                            _HeaderHomeView(hasNewerVersion: hasNewerVersion),
+                          AnimatedContainer(
+                            height: showBanner ? 100 : 0,
+                            duration: const Duration(milliseconds: 300),
+                            clipBehavior: Clip.antiAlias,
+                            decoration: const BoxDecoration(),
+                            child: OverflowBox(
+                              alignment: Alignment.topCenter,
+                              maxHeight: 100,
+                              minHeight: 100,
+                              child: _HeaderHomeView(
+                                hasNewerVersion: hasNewerVersion,
+                              ),
+                            ),
+                          ),
                           const SizedBox(height: 64),
                           LayoutBuilder(
                             builder: (context, constraints) {
@@ -359,26 +371,18 @@ class _QuickstartHomeView extends StatefulWidget {
   State<_QuickstartHomeView> createState() => _QuickstartHomeViewState();
 }
 
-class _QuickstartHomeViewState extends State<_QuickstartHomeView>
-    with WidgetsBindingObserver {
+class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
   late final TemplateFileSystem _templateFileSystem;
   Future<List<NoteData>>? _templatesFuture;
 
   @override
   void initState() {
-    super.initState();
     _templateFileSystem =
         TemplateFileSystem.fromPlatform(remote: widget.remote);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _templatesFuture = _fetchTemplates();
     });
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
+    super.initState();
   }
 
   @override
@@ -417,8 +421,10 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView>
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 }
-                if (snapshot.connectionState == ConnectionState.waiting ||
-                    snapshot.connectionState == ConnectionState.none) {
+                if (snapshot.connectionState == ConnectionState.none) {
+                  return const SizedBox();
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Align(
                     alignment: Alignment.center,
                     child: CircularProgressIndicator(),

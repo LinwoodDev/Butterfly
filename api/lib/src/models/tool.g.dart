@@ -9,6 +9,8 @@ part of 'tool.dart';
 _$SelectTool _$$SelectToolFromJson(Map json) => _$SelectTool(
       name: json['name'] as String? ?? '',
       displayIcon: json['displayIcon'] as String? ?? '',
+      mode: $enumDecodeNullable(_$SelectModeEnumMap, json['mode']) ??
+          SelectMode.rectangle,
       $type: json['type'] as String?,
     );
 
@@ -16,8 +18,14 @@ Map<String, dynamic> _$$SelectToolToJson(_$SelectTool instance) =>
     <String, dynamic>{
       'name': instance.name,
       'displayIcon': instance.displayIcon,
+      'mode': _$SelectModeEnumMap[instance.mode]!,
       'type': instance.$type,
     };
+
+const _$SelectModeEnumMap = {
+  SelectMode.rectangle: 'rectangle',
+  SelectMode.lasso: 'lasso',
+};
 
 _$HandTool _$$HandToolFromJson(Map json) => _$HandTool(
       name: json['name'] as String? ?? '',

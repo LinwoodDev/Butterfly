@@ -189,4 +189,8 @@ class PathHitCalculator extends HitCalculator {
     return _getInterpolatedPoints(points)
         .any((point) => rect.contains(point.toOffset()));
   }
+
+  @override
+  bool hitPolygon(List<ui.Offset> polygon) => _getInterpolatedPoints(points)
+      .any((point) => isPointInPolygon(polygon, point.toOffset()));
 }

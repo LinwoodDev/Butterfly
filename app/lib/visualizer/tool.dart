@@ -38,9 +38,22 @@ extension ToolVisualizer on Tool {
     );
   }
 
+  String getLocalizedCaption(BuildContext context) {
+    final loc = AppLocalizations.of(context);
+    return maybeMap(
+      spacer: (value) =>
+          value.axis == Axis2D.horizontal ? loc.horizontal : loc.vertical,
+      select: (value) =>
+          value.mode == SelectMode.lasso ? loc.lasso : loc.rectangle,
+      orElse: () => '',
+    );
+  }
+
   IconGetter get icon => map(
         hand: (_) => PhosphorIcons.hand,
-        select: (_) => PhosphorIcons.selection,
+        select: (tool) => tool.mode == SelectMode.lasso
+            ? PhosphorIcons.scribbleLoop
+            : PhosphorIcons.selection,
         import: (_) => PhosphorIcons.arrowSquareIn,
         undo: (_) => PhosphorIcons.arrowCounterClockwise,
         redo: (_) => PhosphorIcons.arrowClockwise,
