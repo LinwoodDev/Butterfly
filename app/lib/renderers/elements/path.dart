@@ -153,7 +153,7 @@ class PathHitCalculator extends HitCalculator {
     final distanceY = b.y - a.y;
     final distance = sqrt(pow(distanceX, 2) + pow(distanceY, 2));
 
-    result.add(a);
+    result.add(a.rotate(elementRect.center, rotation));
 
     for (int i = 1; i <= distance; i++) {
       result.add(PathPoint(a.x + (distanceX / distance * i).floor(),
@@ -164,7 +164,7 @@ class PathHitCalculator extends HitCalculator {
       ));
     }
 
-    result.add(b);
+    result.add(b.rotate(elementRect.center, rotation));
     return result;
   }
 

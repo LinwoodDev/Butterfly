@@ -40,20 +40,22 @@ part 'utilities.dart';
 
 class DefaultHitCalculator extends HitCalculator {
   final Rect? rect;
+  final double rotation;
 
-  DefaultHitCalculator(this.rect);
+  DefaultHitCalculator(this.rect, this.rotation);
 
   @override
   bool hit(Rect rect) => this.rect?.overlaps(rect) ?? false;
 
   @override
   bool hitPolygon(List<ui.Offset> polygon) {
-    return rect != null &&
-        isPointInPolygon(polygon, rect!.center) &&
-        isPointInPolygon(polygon, rect!.topLeft) &&
-        isPointInPolygon(polygon, rect!.topRight) &&
-        isPointInPolygon(polygon, rect!.bottomLeft) &&
-        isPointInPolygon(polygon, rect!.bottomRight);
+    if (rect == null) return false;
+    final center = rect!.center;
+    return isPointInPolygon(polygon, center) ||
+        isPointInPolygon(polygon, rect!.topLeft.rotate(center, rotation)) ||
+        isPointInPolygon(polygon, rect!.topRight.rotate(center, rotation)) ||
+        isPointInPolygon(polygon, rect!.bottomLeft.rotate(center, rotation)) ||
+        isPointInPolygon(polygon, rect!.bottomRight.rotate(center, rotation));
   }
 }
 
@@ -133,7 +135,8 @@ abstract class Renderer<T> {
   void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
       DocumentInfo info, CameraTransform transform,
       [ColorScheme? colorScheme, bool foreground = false]);
-  HitCalculator getHitCalculator() => DefaultHitCalculator(expandedRect);
+  HitCalculator getHitCalculator() =>
+      DefaultHitCalculator(rect, this.rotation * (pi / 180));
   void buildSvg(XmlDocument xml, NoteData document, DocumentPage page,
       Rect viewportRect) {}
   factory Renderer.fromInstance(T element) {

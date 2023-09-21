@@ -59,6 +59,7 @@
 * Fix packs dialog closes after action
 * Fix layer remove button not working
 * Fix line shape transforming
+* Fix hit calculation on rotation in shape element
 * Disable gestures on mouse input
 * Remove view options from undo
 * Remove reload after clicking on star
