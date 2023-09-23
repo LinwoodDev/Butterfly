@@ -537,5 +537,9 @@
   "page": "ページ",
   "switchView": "ビューの切り替え",
   "lasso": "Lasso",
-  "hideUI": "Hide UI"
+  "hideUI": "Hide UI",
+  "density": "Density",
+  "compact": "Compact",
+  "comfortable": "Comfortable",
+  "standard": "Standard"
 }
