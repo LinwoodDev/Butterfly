@@ -537,9 +537,9 @@
   "page": "Sida",
   "switchView": "Växla vy",
   "lasso": "Lasso",
-  "hideUI": "Hide UI",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
+  "hideUI": "Dölj gränssnitt",
+  "density": "Densitet",
+  "compact": "Kompakt",
+  "comfortable": "Bekväm",
   "standard": "Standard"
 }
