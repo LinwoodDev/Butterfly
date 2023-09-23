@@ -537,9 +537,9 @@
   "page": "Side",
   "switchView": "Skift Visning",
   "lasso": "Lasso",
-  "hideUI": "Hide UI",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
+  "hideUI": "Skjul Brugerflade",
+  "density": "Tæthed",
+  "compact": "Kompakt",
+  "comfortable": "Behageligt",
   "standard": "Standard"
 }
