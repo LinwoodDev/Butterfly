@@ -146,13 +146,15 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
         return result.$2;
       }
 
-      final elements = event.elements.map((e) => e.maybeMap(
-            image: (value) =>
-                value.copyWith(source: importImage(value.source, 'png')),
-            svg: (value) =>
-                value.copyWith(source: importImage(value.source, 'svg')),
-            orElse: () => e,
-          ));
+      final elements = event.elements
+          .map((e) => e.maybeMap(
+                image: (value) =>
+                    value.copyWith(source: importImage(value.source, 'png')),
+                svg: (value) =>
+                    value.copyWith(source: importImage(value.source, 'svg')),
+                orElse: () => e,
+              ))
+          .toList();
       final renderers = elements.map((e) => Renderer.fromInstance(e)).toList();
       if (renderers.isEmpty) return;
       if (current.currentIndexCubit

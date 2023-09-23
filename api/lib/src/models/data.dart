@@ -112,9 +112,8 @@ class NoteData {
             ...state.removed,
             ...path,
           ],
-          added: {
-            ...state.added,
-          }..removeWhere((key, value) => path.contains(key)),
+          added: Map.of(state.added)
+            ..removeWhere((key, value) => path.contains(key)),
         ),
       );
 

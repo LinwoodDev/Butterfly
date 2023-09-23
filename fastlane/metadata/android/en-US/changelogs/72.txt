@@ -27,6 +27,8 @@
 * Add animation for tool change
 * Add selected state to utilities button
 * Add lasso selection mode to select tool ([#409](https://github.com/LinwoodDev/Butterfly/issues/409))
+* Add share to label context menu
+* Add animation when changing homepage header
 * Fallback to first stylesheet if no stylesheet is selected
 * Move export button from selection view to context menu
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
@@ -60,10 +62,12 @@
 * Fix layer remove button not working
 * Fix line shape transforming
 * Fix hit calculation on rotation in shape element
+* Fix importing of assets
 * Disable gestures on mouse input
 * Remove view options from undo
 * Remove reload after clicking on star
 * Upgrade to agb 8
+
 * Add macos zip and dmg release builds
 * Add linux rpm release build
 

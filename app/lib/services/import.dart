@@ -167,13 +167,6 @@ class ImportService {
     final areas = page.areas
         .map((e) => e.copyWith(position: e.position + firstPos.toPoint()))
         .toList();
-    String loadAsset(Uri source, String fileExtension) {
-      final data = source.data?.contentAsBytes();
-      if (data == null) return source.toString();
-      final result = document.addImage(data, fileExtension);
-      document = result.$1;
-      return result.$2;
-    }
 
     final content = page.content
         .map((e) =>
@@ -181,13 +174,6 @@ class ImportService {
                 .transform(position: firstPos, relative: true)
                 ?.element ??
             e)
-        .map((e) => e.maybeMap(
-              image: (e) =>
-                  e.copyWith(source: loadAsset(Uri.parse(e.source), 'png')),
-              svg: (e) =>
-                  e.copyWith(source: loadAsset(Uri.parse(e.source), 'svg')),
-              orElse: () => e,
-            ))
         .toList();
     return _submit(document,
         elements: content, areas: areas, choosePosition: position == null);
@@ -486,10 +472,6 @@ class ImportService {
         ?..add(ElementsCreated(elements))
         ..add(AreasCreated(areas));
     }
-    page = page.copyWith(
-      content: [...page.content, ...elements],
-      areas: [...page.areas, ...areas],
-    );
     document = document.setPage(page);
     return document;
   }
