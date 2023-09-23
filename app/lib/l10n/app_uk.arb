@@ -536,5 +536,6 @@
   "thereAreUnsavedChanges": "Є незбережені зміни",
   "page": "Сторінка",
   "switchView": "Перемкнути у вигляд",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI"
 }
