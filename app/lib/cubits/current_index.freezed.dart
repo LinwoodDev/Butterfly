@@ -38,6 +38,7 @@ mixin _$CurrentIndex {
   PreferredSizeWidget? get temporaryToolbar =>
       throw _privateConstructorUsedError;
   ViewOption get viewOption => throw _privateConstructorUsedError;
+  HideState get hideUi => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CurrentIndexCopyWith<CurrentIndex> get copyWith =>
@@ -70,7 +71,8 @@ abstract class $CurrentIndexCopyWith<$Res> {
       SaveState saved,
       PreferredSizeWidget? toolbar,
       PreferredSizeWidget? temporaryToolbar,
-      ViewOption viewOption});
+      ViewOption viewOption,
+      HideState hideUi});
 
   $AssetLocationCopyWith<$Res> get location;
   $ViewOptionCopyWith<$Res> get viewOption;
@@ -109,6 +111,7 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? toolbar = freezed,
     Object? temporaryToolbar = freezed,
     Object? viewOption = null,
+    Object? hideUi = null,
   }) {
     return _then(_value.copyWith(
       index: freezed == index
@@ -191,6 +194,10 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.viewOption
           : viewOption // ignore: cast_nullable_to_non_nullable
               as ViewOption,
+      hideUi: null == hideUi
+          ? _value.hideUi
+          : hideUi // ignore: cast_nullable_to_non_nullable
+              as HideState,
     ) as $Val);
   }
 
@@ -239,7 +246,8 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
       SaveState saved,
       PreferredSizeWidget? toolbar,
       PreferredSizeWidget? temporaryToolbar,
-      ViewOption viewOption});
+      ViewOption viewOption,
+      HideState hideUi});
 
   @override
   $AssetLocationCopyWith<$Res> get location;
@@ -278,6 +286,7 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
     Object? toolbar = freezed,
     Object? temporaryToolbar = freezed,
     Object? viewOption = null,
+    Object? hideUi = null,
   }) {
     return _then(_$_CurrentIndex(
       freezed == index
@@ -360,6 +369,10 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
           ? _value.viewOption
           : viewOption // ignore: cast_nullable_to_non_nullable
               as ViewOption,
+      hideUi: null == hideUi
+          ? _value.hideUi
+          : hideUi // ignore: cast_nullable_to_non_nullable
+              as HideState,
     ));
   }
 }
@@ -383,7 +396,8 @@ class _$_CurrentIndex extends _CurrentIndex {
       this.saved = SaveState.unsaved,
       this.toolbar,
       this.temporaryToolbar,
-      this.viewOption = const ViewOption()})
+      this.viewOption = const ViewOption(),
+      this.hideUi = HideState.visible})
       : _foregrounds = foregrounds,
         _temporaryForegrounds = temporaryForegrounds,
         _pointers = pointers,
@@ -457,10 +471,13 @@ class _$_CurrentIndex extends _CurrentIndex {
   @override
   @JsonKey()
   final ViewOption viewOption;
+  @override
+  @JsonKey()
+  final HideState hideUi;
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, viewOption: $viewOption)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, viewOption: $viewOption, hideUi: $hideUi)';
   }
 
   @JsonKey(ignore: true)
@@ -491,7 +508,8 @@ abstract class _CurrentIndex extends CurrentIndex {
       final SaveState saved,
       final PreferredSizeWidget? toolbar,
       final PreferredSizeWidget? temporaryToolbar,
-      final ViewOption viewOption}) = _$_CurrentIndex;
+      final ViewOption viewOption,
+      final HideState hideUi}) = _$_CurrentIndex;
   const _CurrentIndex._() : super._();
 
   @override
@@ -534,6 +552,8 @@ abstract class _CurrentIndex extends CurrentIndex {
   PreferredSizeWidget? get temporaryToolbar;
   @override
   ViewOption get viewOption;
+  @override
+  HideState get hideUi;
   @override
   @JsonKey(ignore: true)
   _$$_CurrentIndexCopyWith<_$_CurrentIndex> get copyWith =>

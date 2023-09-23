@@ -28,6 +28,8 @@ part 'current_index.freezed.dart';
 
 enum SaveState { saved, saving, unsaved }
 
+enum HideState { visible, keyboard, touch }
+
 @Freezed(equal: false)
 class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
@@ -52,6 +54,7 @@ class CurrentIndex with _$CurrentIndex {
     PreferredSizeWidget? toolbar,
     PreferredSizeWidget? temporaryToolbar,
     @Default(ViewOption()) ViewOption viewOption,
+    @Default(HideState.visible) HideState hideUi,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -663,4 +666,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     state.transformCubit.zoom(delta, cursor);
   }
+
+  void toggleKeyboardHideUI() => emit(state.copyWith(
+      hideUi: state.hideUi == HideState.visible
+          ? HideState.keyboard
+          : HideState.visible));
+  void enterTouchHideUI() => emit(state.copyWith(hideUi: HideState.touch));
+  void exitHideUI() => emit(state.copyWith(hideUi: HideState.visible));
 }

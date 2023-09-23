@@ -424,6 +424,14 @@ class _MainPopupMenu extends StatelessWidget {
             ),
           ],
           if (state.embedding == null) ...[
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.eyeSlash),
+              shortcut: const SingleActivator(LogicalKeyboardKey.f12),
+              onPressed: () {
+                context.read<CurrentIndexCubit>().enterTouchHideUI();
+              },
+              child: Text(AppLocalizations.of(context).hideUI),
+            ),
             BlocBuilder<SettingsCubit, ButterflySettings>(
                 buildWhen: (previous, current) =>
                     previous.fullScreen != current.fullScreen,
