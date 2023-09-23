@@ -536,5 +536,6 @@
   "thereAreUnsavedChanges": "Ci sono modifiche non salvate",
   "page": "Pagina",
   "switchView": "Cambia Vista",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI"
 }
