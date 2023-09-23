@@ -537,5 +537,9 @@
   "page": "Pagină",
   "switchView": "Comutare vizualizare",
   "lasso": "Lasso",
-  "hideUI": "Hide UI"
+  "hideUI": "Ascunde UI",
+  "density": "Densitate",
+  "compact": "Compact",
+  "comfortable": "Comfortable",
+  "standard": "Standard"
 }
