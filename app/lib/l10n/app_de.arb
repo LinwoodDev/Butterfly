@@ -536,5 +536,6 @@
   "thereAreUnsavedChanges": "Es gibt ungespeicherte Änderungen",
   "page": "Seite",
   "switchView": "Ansicht wechseln",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI"
 }
