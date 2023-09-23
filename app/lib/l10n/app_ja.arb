@@ -537,9 +537,9 @@
   "page": "ページ",
   "switchView": "ビューの切り替え",
   "lasso": "Lasso",
-  "hideUI": "Hide UI",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
-  "standard": "Standard"
+  "hideUI": "UI を隠す",
+  "density": "解像度:",
+  "compact": "コンパクト化",
+  "comfortable": "快適さ",
+  "standard": "標準"
 }
