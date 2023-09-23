@@ -536,5 +536,6 @@
   "thereAreUnsavedChanges": "Er zijn niet-opgeslagen wijzigingen",
   "page": "Pagina",
   "switchView": "Wissel weergave",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI"
 }
