@@ -537,9 +537,9 @@
   "page": "Sivu",
   "switchView": "Vaihda Näkymää",
   "lasso": "Lasso",
-  "hideUI": "Hide UI",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
-  "standard": "Standard"
+  "hideUI": "Piilota Käyttöliittymä",
+  "density": "Tiheys",
+  "compact": "Kompakti",
+  "comfortable": "Mukava",
+  "standard": "Normaali"
 }
