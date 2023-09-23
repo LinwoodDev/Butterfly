@@ -536,5 +536,6 @@
   "thereAreUnsavedChanges": "保存されていない変更があります",
   "page": "ページ",
   "switchView": "ビューの切り替え",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI"
 }
