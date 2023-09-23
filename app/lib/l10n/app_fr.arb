@@ -537,9 +537,9 @@
   "page": "Page",
   "switchView": "Changer de vue",
   "lasso": "Lasso",
-  "hideUI": "Hide UI",
-  "density": "Density",
+  "hideUI": "Cacher l'interface utilisateur",
+  "density": "Densité",
   "compact": "Compact",
-  "comfortable": "Comfortable",
+  "comfortable": "Confortable",
   "standard": "Standard"
 }
