@@ -537,9 +537,9 @@
   "page": "页",
   "switchView": "切换视图",
   "lasso": "Lasso",
-  "hideUI": "Hide UI",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
-  "standard": "Standard"
+  "hideUI": "隐藏界面",
+  "density": "密度",
+  "compact": "紧凑的",
+  "comfortable": "舒适的",
+  "standard": "标准的"
 }
