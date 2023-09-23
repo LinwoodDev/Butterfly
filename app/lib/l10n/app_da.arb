@@ -536,5 +536,6 @@
   "thereAreUnsavedChanges": "Der er ikke-gemte ændringer",
   "page": "Side",
   "switchView": "Skift Visning",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI"
 }
