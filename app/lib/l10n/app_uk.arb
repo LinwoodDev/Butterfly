@@ -537,9 +537,9 @@
   "page": "Сторінка",
   "switchView": "Перемкнути у вигляд",
   "lasso": "Lasso",
-  "hideUI": "Hide UI",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
-  "standard": "Standard"
+  "hideUI": "Приховати інтерфейс",
+  "density": "Густина",
+  "compact": "Компактний",
+  "comfortable": "Комфортний",
+  "standard": "Стандартна"
 }
