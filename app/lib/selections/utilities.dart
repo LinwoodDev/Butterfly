@@ -91,6 +91,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
       TabBar(
         controller: _tabController,
         isScrollable: true,
+        tabAlignment: TabAlignment.center,
         tabs: <List<dynamic>>[
           [PhosphorIconsLight.file, AppLocalizations.of(context).project],
           [PhosphorIconsLight.book, AppLocalizations.of(context).page],
@@ -99,7 +100,7 @@ class _UtilitiesViewState extends State<_UtilitiesView>
         ]
             .map((e) => Tab(
                     child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                       PhosphorIcon(e[0]),

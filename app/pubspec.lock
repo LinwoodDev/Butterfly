@@ -29,10 +29,10 @@ packages:
     dependency: "direct main"
     description:
       name: archive
-      sha256: "1227dc3efc4ea571eebb2dfb814506ed2cfb1d4b1b89fb918abdddde617ead3c"
+      sha256: e44ad5bbb3bbe88ae8809c2eb1682c099c2e13c471aed13a5b7e67572f7b57ae
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.0"
+    version: "3.4.1"
   args:
     dependency: "direct main"
     description:

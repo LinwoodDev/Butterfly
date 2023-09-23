@@ -76,8 +76,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     changeTool(bloc, state.index ?? 0, null, true, false);
   }
 
-  ThemeData getTheme(bool dark, [ColorScheme? overridden]) =>
-      getThemeData(state.settingsCubit.state.design, dark, overridden);
+  ThemeData getTheme(bool dark,
+          [VisualDensity? density, ColorScheme? overridden]) =>
+      getThemeData(state.settingsCubit.state.design, dark, density, overridden);
 
   Handler getHandler({bool disableTemporary = false}) {
     if (disableTemporary) {

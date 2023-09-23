@@ -836,6 +836,7 @@ abstract class _InputConfiguration extends InputConfiguration {
 /// @nodoc
 mixin _$ButterflySettings {
   ThemeMode get theme => throw _privateConstructorUsedError;
+  ThemeDensity get density => throw _privateConstructorUsedError;
   String get localeTag => throw _privateConstructorUsedError;
   String get documentPath => throw _privateConstructorUsedError;
   double get touchSensitivity => throw _privateConstructorUsedError;
@@ -883,6 +884,7 @@ abstract class $ButterflySettingsCopyWith<$Res> {
   @useResult
   $Res call(
       {ThemeMode theme,
+      ThemeDensity density,
       String localeTag,
       String documentPath,
       double touchSensitivity,
@@ -933,6 +935,7 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
   @override
   $Res call({
     Object? theme = null,
+    Object? density = null,
     Object? localeTag = null,
     Object? documentPath = null,
     Object? touchSensitivity = null,
@@ -971,6 +974,10 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
               as ThemeMode,
+      density: null == density
+          ? _value.density
+          : density // ignore: cast_nullable_to_non_nullable
+              as ThemeDensity,
       localeTag: null == localeTag
           ? _value.localeTag
           : localeTag // ignore: cast_nullable_to_non_nullable
@@ -1122,6 +1129,7 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
   @useResult
   $Res call(
       {ThemeMode theme,
+      ThemeDensity density,
       String localeTag,
       String documentPath,
       double touchSensitivity,
@@ -1171,6 +1179,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
   @override
   $Res call({
     Object? theme = null,
+    Object? density = null,
     Object? localeTag = null,
     Object? documentPath = null,
     Object? touchSensitivity = null,
@@ -1209,6 +1218,10 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
               as ThemeMode,
+      density: null == density
+          ? _value.density
+          : density // ignore: cast_nullable_to_non_nullable
+              as ThemeDensity,
       localeTag: null == localeTag
           ? _value.localeTag
           : localeTag // ignore: cast_nullable_to_non_nullable
@@ -1347,6 +1360,7 @@ class _$_ButterflySettings extends _ButterflySettings
     with DiagnosticableTreeMixin {
   const _$_ButterflySettings(
       {this.theme = ThemeMode.system,
+      this.density = ThemeDensity.system,
       this.localeTag = '',
       this.documentPath = '',
       this.touchSensitivity = 1,
@@ -1387,6 +1401,9 @@ class _$_ButterflySettings extends _ButterflySettings
   @override
   @JsonKey()
   final ThemeMode theme;
+  @override
+  @JsonKey()
+  final ThemeDensity density;
   @override
   @JsonKey()
   final String localeTag;
@@ -1502,7 +1519,7 @@ class _$_ButterflySettings extends _ButterflySettings
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ButterflySettings(theme: $theme, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme)';
+    return 'ButterflySettings(theme: $theme, density: $density, localeTag: $localeTag, documentPath: $documentPath, touchSensitivity: $touchSensitivity, mouseSensitivity: $mouseSensitivity, penSensitivity: $penSensitivity, selectSensitivity: $selectSensitivity, penOnlyInput: $penOnlyInput, inputGestures: $inputGestures, design: $design, bannerVisibility: $bannerVisibility, history: $history, navigatorEnabled: $navigatorEnabled, zoomEnabled: $zoomEnabled, lastVersion: $lastVersion, remotes: $remotes, defaultRemote: $defaultRemote, nativeTitleBar: $nativeTitleBar, startInFullScreen: $startInFullScreen, navigationRail: $navigationRail, fullScreen: $fullScreen, syncMode: $syncMode, inputConfiguration: $inputConfiguration, fallbackPack: $fallbackPack, starred: $starred, defaultTemplate: $defaultTemplate, navigatorPage: $navigatorPage, toolbarPosition: $toolbarPosition, sortBy: $sortBy, sortOrder: $sortOrder, imageScale: $imageScale, pdfQuality: $pdfQuality, platformTheme: $platformTheme)';
   }
 
   @override
@@ -1511,6 +1528,7 @@ class _$_ButterflySettings extends _ButterflySettings
     properties
       ..add(DiagnosticsProperty('type', 'ButterflySettings'))
       ..add(DiagnosticsProperty('theme', theme))
+      ..add(DiagnosticsProperty('density', density))
       ..add(DiagnosticsProperty('localeTag', localeTag))
       ..add(DiagnosticsProperty('documentPath', documentPath))
       ..add(DiagnosticsProperty('touchSensitivity', touchSensitivity))
@@ -1551,6 +1569,7 @@ class _$_ButterflySettings extends _ButterflySettings
         (other.runtimeType == runtimeType &&
             other is _$_ButterflySettings &&
             (identical(other.theme, theme) || other.theme == theme) &&
+            (identical(other.density, density) || other.density == density) &&
             (identical(other.localeTag, localeTag) ||
                 other.localeTag == localeTag) &&
             (identical(other.documentPath, documentPath) ||
@@ -1616,6 +1635,7 @@ class _$_ButterflySettings extends _ButterflySettings
   int get hashCode => Object.hashAll([
         runtimeType,
         theme,
+        density,
         localeTag,
         documentPath,
         touchSensitivity,
@@ -1661,6 +1681,7 @@ class _$_ButterflySettings extends _ButterflySettings
 abstract class _ButterflySettings extends ButterflySettings {
   const factory _ButterflySettings(
       {final ThemeMode theme,
+      final ThemeDensity density,
       final String localeTag,
       final String documentPath,
       final double touchSensitivity,
@@ -1697,6 +1718,8 @@ abstract class _ButterflySettings extends ButterflySettings {
 
   @override
   ThemeMode get theme;
+  @override
+  ThemeDensity get density;
   @override
   String get localeTag;
   @override

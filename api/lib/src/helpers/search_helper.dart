@@ -25,7 +25,7 @@ extension ElementSearchHelper on PadElement {
         if (!value.area.paragraph.text.contains(query)) return null;
         return SearchResult(
           value.area.paragraph.text,
-          value.position,
+          -value.position,
           this,
         );
       },
@@ -38,7 +38,7 @@ extension AreaSearchHelper on Area {
     if (!name.contains(query)) return null;
     return SearchResult(
       name,
-      Point(0, 0),
+      -position,
       this,
     );
   }
