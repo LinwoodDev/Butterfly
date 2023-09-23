@@ -536,5 +536,6 @@
   "thereAreUnsavedChanges": "هناك تغييرات غير محفوظة",
   "page": "الصفحة",
   "switchView": "تبديل طريقة العرض",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI"
 }
