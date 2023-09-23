@@ -537,9 +537,9 @@
   "page": "Σελίδα",
   "switchView": "Εναλλαγή Προβολής",
   "lasso": "Lasso",
-  "hideUI": "Hide UI",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
-  "standard": "Standard"
+  "hideUI": "Απόκρυψη UI",
+  "density": "Πυκνότητα",
+  "compact": "Συμπαγής",
+  "comfortable": "Άνετο",
+  "standard": "Τυπικό"
 }
