@@ -537,9 +537,9 @@
   "page": "الصفحة",
   "switchView": "تبديل طريقة العرض",
   "lasso": "Lasso",
-  "hideUI": "Hide UI",
-  "density": "Density",
-  "compact": "Compact",
-  "comfortable": "Comfortable",
-  "standard": "Standard"
+  "hideUI": "إخفاء واجهة المستخدم",
+  "density": "الكثافة",
+  "compact": "مدمج",
+  "comfortable": "مريح",
+  "standard": "قياسي"
 }
