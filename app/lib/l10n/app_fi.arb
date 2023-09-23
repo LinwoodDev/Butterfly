@@ -536,5 +536,6 @@
   "thereAreUnsavedChanges": "Muutoksia ei ole tallennettu",
   "page": "Sivu",
   "switchView": "Vaihda Näkymää",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI"
 }
