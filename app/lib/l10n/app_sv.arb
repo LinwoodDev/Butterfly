@@ -536,5 +536,6 @@
   "thereAreUnsavedChanges": "Det finns osparade ändringar",
   "page": "Sida",
   "switchView": "Växla vy",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI"
 }
