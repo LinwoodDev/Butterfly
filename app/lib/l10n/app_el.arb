@@ -536,5 +536,6 @@
   "thereAreUnsavedChanges": "Υπάρχουν αλλαγές που δεν έχουν αποθηκευτεί",
   "page": "Σελίδα",
   "switchView": "Εναλλαγή Προβολής",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI"
 }
