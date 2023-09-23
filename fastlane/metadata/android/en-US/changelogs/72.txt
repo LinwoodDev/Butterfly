@@ -31,6 +31,7 @@
 * Add animation when changing homepage header
 * Fallback to first stylesheet if no stylesheet is selected
 * Move export button from selection view to context menu
+* Replace most dropdown buttons (material 2) with dropdown menus (material 3)
 * Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
 * Improve clipboard system to include image and svg source as data uri
 * Improve export system
