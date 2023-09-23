@@ -536,5 +536,6 @@
   "thereAreUnsavedChanges": "Имеются несохраненные изменения",
   "page": "Страница",
   "switchView": "Переключить вид",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI"
 }
