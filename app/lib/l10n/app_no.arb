@@ -536,5 +536,6 @@
   "thereAreUnsavedChanges": "Det er ulagrede endringer",
   "page": "Side",
   "switchView": "Bytt visning",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI"
 }
