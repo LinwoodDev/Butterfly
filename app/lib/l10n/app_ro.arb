@@ -536,5 +536,6 @@
   "thereAreUnsavedChanges": "Există modificări nesalvate",
   "page": "Pagină",
   "switchView": "Comutare vizualizare",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI"
 }
