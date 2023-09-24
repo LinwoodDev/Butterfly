@@ -32,6 +32,7 @@
 * Add hide ui ([#458](https://github.com/LinwoodDev/Butterfly/issues/458))
 * Add ability to teleport to area in search
 * Add setting to configure visual density
+* Add export to elements context menu
 * Fallback to first stylesheet if no stylesheet is selected
 * Move export button from selection view to context menu
 * Replace most dropdown buttons (material 2) with dropdown menus (material 3)
@@ -41,6 +42,7 @@
 * Improve version info in setting if not connected to the internet
 * Improve spacing in background dialog
 * Improve icon buttons to match material 3
+* Improve export menu in area context menu
 * Prevent window of closing when there are unsaved changes ([#403](https://github.com/LinwoodDev/Butterfly/issues/403))
 * Change file search to not case sensitive
 * Change expansion panels in background dialog to tabs

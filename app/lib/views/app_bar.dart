@@ -331,17 +331,7 @@ class _MainPopupMenu extends StatelessWidget {
             SubmenuButton(
               menuChildren: [
                 MenuItemButton(
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
-                  shortcut: const SingleActivator(LogicalKeyboardKey.keyE,
-                      alt: true, control: true),
-                  onPressed: () async {
-                    Actions.maybeInvoke<SvgExportIntent>(
-                        context, SvgExportIntent(context));
-                  },
-                  child: Text(AppLocalizations.of(context).svg),
-                ),
-                MenuItemButton(
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.database),
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
                   shortcut: const SingleActivator(
                     LogicalKeyboardKey.keyE,
                     control: true,
@@ -353,7 +343,17 @@ class _MainPopupMenu extends StatelessWidget {
                   child: Text(AppLocalizations.of(context).document),
                 ),
                 MenuItemButton(
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
+                  shortcut: const SingleActivator(LogicalKeyboardKey.keyE,
+                      alt: true, control: true),
+                  onPressed: () async {
+                    Actions.maybeInvoke<SvgExportIntent>(
+                        context, SvgExportIntent(context));
+                  },
+                  child: Text(AppLocalizations.of(context).svg),
+                ),
+                MenuItemButton(
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileImage),
                   shortcut: const SingleActivator(
                     LogicalKeyboardKey.keyE,
                     shift: true,
