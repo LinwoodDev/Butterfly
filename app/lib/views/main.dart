@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:butterfly/actions/hide_ui.dart';
 import 'package:butterfly/api/close.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
@@ -34,6 +33,8 @@ import '../actions/change_path.dart';
 import '../actions/color_palette.dart';
 import '../actions/exit.dart';
 import '../actions/export.dart';
+import '../actions/full_screen.dart';
+import '../actions/hide_ui.dart';
 import '../actions/image_export.dart';
 import '../actions/new.dart';
 import '../actions/next.dart';
@@ -94,6 +95,7 @@ class _ProjectPageState extends State<ProjectPage> {
     ChangeToolIntent: ChangeToolAction(),
     PacksIntent: PacksAction(),
     ExitIntent: ExitAction(),
+    FullScreenIntent: FullScreenAction(),
     HideUIIntent: HideUIAction(),
     NextIntent: NextAction(),
     PreviousIntent: PreviousAction(),
@@ -327,6 +329,8 @@ class _ProjectPageState extends State<ProjectPage> {
                                       AreasIntent(context),
                                   LogicalKeySet(LogicalKeyboardKey.escape):
                                       ExitIntent(context),
+                                  LogicalKeySet(LogicalKeyboardKey.f11):
+                                      FullScreenIntent(context),
                                   LogicalKeySet(LogicalKeyboardKey.f12):
                                       HideUIIntent(context),
                                   LogicalKeySet(LogicalKeyboardKey.arrowRight):
