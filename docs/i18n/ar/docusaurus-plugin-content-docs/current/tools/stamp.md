@@ -1,5 +1,5 @@
 ---
-title: "وسام"
+title: "Stamp tool"
 sidebar_label: "وسام"
 sidebar_position: 3
 ---
