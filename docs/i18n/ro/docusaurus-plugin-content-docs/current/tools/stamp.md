@@ -1,5 +1,5 @@
 ---
-title: "Timbru"
+title: "Stamp tool"
 sidebar_label: "Timbru"
 sidebar_position: 3
 ---
