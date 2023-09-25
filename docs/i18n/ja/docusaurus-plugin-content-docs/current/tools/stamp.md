@@ -1,5 +1,5 @@
 ---
-title: "切手（スタンプ）"
+title: "スタンプツール"
 sidebar_label: "切手（スタンプ）"
 sidebar_position: 3
 ---
