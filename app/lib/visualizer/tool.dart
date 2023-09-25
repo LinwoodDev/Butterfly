@@ -88,6 +88,8 @@ extension ToolVisualizer on Tool {
       label: (_) => 'label',
       area: (_) => 'area',
       hand: (_) => 'hand',
+      select: (_) => 'select',
+      texture: (_) => 'texture',
       layer: (_) => 'layer',
       presentation: (_) => 'presentation',
       fullSceen: (_) => 'full_screen',
