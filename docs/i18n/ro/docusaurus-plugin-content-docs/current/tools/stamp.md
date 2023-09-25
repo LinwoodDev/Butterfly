@@ -1,5 +1,5 @@
 ---
-title: "Stamp tool"
+title: "Timbru unealtă"
 sidebar_label: "Timbru"
 sidebar_position: 3
 ---
