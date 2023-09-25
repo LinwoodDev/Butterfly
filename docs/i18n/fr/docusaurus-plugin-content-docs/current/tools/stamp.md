@@ -1,5 +1,5 @@
 ---
-title: "Médaille"
+title: "Stamp tool"
 sidebar_label: "Médaille"
 sidebar_position: 3
 ---
