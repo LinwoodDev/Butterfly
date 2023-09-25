@@ -1,5 +1,5 @@
 ---
-title: "Stamp tool"
+title: "أداة الختم"
 sidebar_label: "وسام"
 sidebar_position: 3
 ---
