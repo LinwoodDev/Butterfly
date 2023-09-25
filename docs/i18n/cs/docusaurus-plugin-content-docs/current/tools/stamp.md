@@ -1,5 +1,5 @@
 ---
-title: "Stamp tool"
+title: "Nástroj pro razítko"
 sidebar_label: "Razítko"
 sidebar_position: 3
 ---
