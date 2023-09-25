@@ -1,5 +1,5 @@
 ---
-title: "Leima"
+title: "Stamp tool"
 sidebar_label: "Leima"
 sidebar_position: 3
 ---
