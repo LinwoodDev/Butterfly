@@ -1,5 +1,5 @@
 ---
-title: "Σφραγίδα"
+title: "Stamp tool"
 sidebar_label: "Σφραγίδα"
 sidebar_position: 3
 ---
