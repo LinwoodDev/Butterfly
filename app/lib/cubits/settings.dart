@@ -217,11 +217,26 @@ enum ToolbarPosition {
       };
 }
 
+enum ThemeDensity {
+  compact,
+  comfortable,
+  standard,
+  system;
+
+  VisualDensity toFlutter() => switch (this) {
+        ThemeDensity.comfortable => VisualDensity.comfortable,
+        ThemeDensity.compact => VisualDensity.compact,
+        ThemeDensity.standard => VisualDensity.standard,
+        ThemeDensity.system => VisualDensity.adaptivePlatformDensity,
+      };
+}
+
 @freezed
 class ButterflySettings with _$ButterflySettings {
   const ButterflySettings._();
   const factory ButterflySettings({
     @Default(ThemeMode.system) ThemeMode theme,
+    @Default(ThemeDensity.system) ThemeDensity density,
     @Default('') String localeTag,
     @Default('') String documentPath,
     @Default(1) double touchSensitivity,
@@ -275,6 +290,9 @@ class ButterflySettings with _$ButterflySettings {
       theme: prefs.containsKey('theme_mode')
           ? ThemeMode.values.byName(prefs.getString('theme_mode')!)
           : ThemeMode.system,
+      density: prefs.containsKey('theme_density')
+          ? ThemeDensity.values.byName(prefs.getString('theme_density')!)
+          : ThemeDensity.system,
       touchSensitivity: prefs.getDouble('touch_sensitivity') ?? 1,
       mouseSensitivity: prefs.getDouble('mouse_sensitivity') ?? 1,
       penSensitivity: prefs.getDouble('pen_sensitivity') ?? 1,
@@ -342,6 +360,7 @@ class ButterflySettings with _$ButterflySettings {
   Future<void> save() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('theme_mode', theme.name);
+    await prefs.setString('theme_density', density.name);
     await prefs.setString('locale', localeTag);
     await prefs.setBool('input_pen_only', penOnlyInput);
     await prefs.setBool('move_with_two_fingers', inputGestures);
@@ -425,6 +444,11 @@ class SettingsCubit extends Cubit<ButterflySettings> {
       setTheme(modify, theme);
     }
     emit(state.copyWith(theme: theme));
+    return save();
+  }
+
+  Future<void> changeDensity(ThemeDensity density) async {
+    emit(state.copyWith(density: density));
     return save();
   }
 

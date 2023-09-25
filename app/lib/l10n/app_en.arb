@@ -536,5 +536,10 @@
   "thereAreUnsavedChanges": "There are unsaved changes",
   "page": "Page",
   "switchView": "Switch View",
-  "lasso": "Lasso"
+  "lasso": "Lasso",
+  "hideUI": "Hide UI",
+  "density": "Density",
+  "compact": "Compact",
+  "comfortable": "Comfortable",
+  "standard": "Standard"
 }

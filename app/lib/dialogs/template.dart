@@ -143,6 +143,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                             constraints: const BoxConstraints(
                                 maxWidth: 500, minHeight: 50),
                             controller: _searchController,
+                            hintText: AppLocalizations.of(context).search,
                             onChanged: (value) async {
                               load();
                               setState(() {});

@@ -28,6 +28,8 @@ part 'current_index.freezed.dart';
 
 enum SaveState { saved, saving, unsaved }
 
+enum HideState { visible, keyboard, touch }
+
 @Freezed(equal: false)
 class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
@@ -52,6 +54,7 @@ class CurrentIndex with _$CurrentIndex {
     PreferredSizeWidget? toolbar,
     PreferredSizeWidget? temporaryToolbar,
     @Default(ViewOption()) ViewOption viewOption,
+    @Default(HideState.visible) HideState hideUi,
   }) = _CurrentIndex;
 
   bool get moveEnabled =>
@@ -73,8 +76,9 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     changeTool(bloc, state.index ?? 0, null, true, false);
   }
 
-  ThemeData getTheme(bool dark, [ColorScheme? overridden]) =>
-      getThemeData(state.settingsCubit.state.design, dark, overridden);
+  ThemeData getTheme(bool dark,
+          [VisualDensity? density, ColorScheme? overridden]) =>
+      getThemeData(state.settingsCubit.state.design, dark, density, overridden);
 
   Handler getHandler({bool disableTemporary = false}) {
     if (disableTemporary) {
@@ -483,12 +487,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         page.content.map((e) => Renderer.fromInstance(e)).toList();
     await Future.wait(renderers
         .map((e) async => await e.setup(document, assetService, page)));
-    final background = page.backgrounds.map(Renderer.fromInstance).toList();
-    await Future.wait(background
+    final backgrounds = page.backgrounds.map(Renderer.fromInstance).toList();
+    await Future.wait(backgrounds
         .map((e) async => await e.setup(document, assetService, page)));
     emit(state.copyWith(
-        cameraViewport:
-            state.cameraViewport.withUnbaked(renderers, background)));
+        cameraViewport: state.cameraViewport
+            .unbake(unbakedElements: renderers, backgrounds: backgrounds)));
   }
 
   void withUnbaked(List<Renderer<PadElement>> unbakedElements) {
@@ -663,4 +667,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
     }
     state.transformCubit.zoom(delta, cursor);
   }
+
+  void toggleKeyboardHideUI() => emit(state.copyWith(
+      hideUi: state.hideUi == HideState.visible
+          ? HideState.keyboard
+          : HideState.visible));
+  void enterTouchHideUI() => emit(state.copyWith(hideUi: HideState.touch));
+  void exitHideUI() => emit(state.copyWith(hideUi: HideState.visible));
 }

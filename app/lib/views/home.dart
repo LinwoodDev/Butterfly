@@ -135,20 +135,25 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           const SizedBox(height: 64),
-                          AnimatedContainer(
-                            height: showBanner ? 100 : 0,
-                            duration: const Duration(milliseconds: 300),
-                            clipBehavior: Clip.antiAlias,
-                            decoration: const BoxDecoration(),
-                            child: OverflowBox(
-                              alignment: Alignment.topCenter,
-                              maxHeight: 100,
-                              minHeight: 100,
-                              child: _HeaderHomeView(
-                                hasNewerVersion: hasNewerVersion,
+                          LayoutBuilder(builder: (context, constraints) {
+                            final isDesktop = constraints.maxWidth > 1000;
+                            final height = isDesktop ? 100.0 : 300.0;
+                            return AnimatedContainer(
+                              height: showBanner ? height : 0,
+                              duration: const Duration(milliseconds: 300),
+                              clipBehavior: Clip.antiAlias,
+                              decoration: const BoxDecoration(),
+                              child: OverflowBox(
+                                alignment: Alignment.topCenter,
+                                maxHeight: height,
+                                minHeight: height,
+                                child: _HeaderHomeView(
+                                  hasNewerVersion: hasNewerVersion,
+                                  isDesktop: isDesktop,
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          }),
                           const SizedBox(height: 64),
                           LayoutBuilder(
                             builder: (context, constraints) {
@@ -201,160 +206,158 @@ class _HomePageState extends State<HomePage> {
 }
 
 class _HeaderHomeView extends StatelessWidget {
-  final bool hasNewerVersion;
-  const _HeaderHomeView({this.hasNewerVersion = false});
+  final bool hasNewerVersion, isDesktop;
+  const _HeaderHomeView(
+      {this.hasNewerVersion = false, required this.isDesktop});
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return LayoutBuilder(builder: (context, constraints) {
-      final actions = Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextButton.icon(
-            onPressed: () => openHelp(['intro']),
-            icon: const PhosphorIcon(PhosphorIconsLight.bookOpen),
-            label: Text(AppLocalizations.of(context).documentation),
-          ),
-          IconButton(
-            onPressed: () => openSettings(context),
-            icon: const PhosphorIcon(PhosphorIconsLight.gear),
-            tooltip: AppLocalizations.of(context).settings,
-          ),
-          _getBannerVisibilityWidget(
-              context, context.read<SettingsCubit>().state),
-        ],
-      );
-      final isDesktop = constraints.maxWidth > 1000;
-      final settingsCubit = context.read<SettingsCubit>();
-      final style = FilledButton.styleFrom(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 32,
-          vertical: 20,
+    final actions = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        TextButton.icon(
+          onPressed: () => openHelp(['intro']),
+          icon: const PhosphorIcon(PhosphorIconsLight.bookOpen),
+          label: Text(AppLocalizations.of(context).documentation),
         ),
-        textStyle: const TextStyle(fontSize: 20),
-      );
-      void openNew() {
-        openReleaseNotes();
-        settingsCubit.updateLastVersion();
-      }
+        IconButton(
+          onPressed: () => openSettings(context),
+          icon: const PhosphorIcon(PhosphorIconsLight.gear),
+          tooltip: AppLocalizations.of(context).settings,
+        ),
+        _getBannerVisibilityWidget(
+            context, context.read<SettingsCubit>().state),
+      ],
+    );
+    final settingsCubit = context.read<SettingsCubit>();
+    final style = FilledButton.styleFrom(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 32,
+        vertical: 20,
+      ),
+      textStyle: const TextStyle(fontSize: 20),
+    );
+    void openNew() {
+      openReleaseNotes();
+      settingsCubit.updateLastVersion();
+    }
 
-      final whatsNew = Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          hasNewerVersion
-              ? FilledButton(
-                  onPressed: openNew,
-                  style: style,
-                  child: Text(AppLocalizations.of(context).whatsNew),
-                )
-              : ElevatedButton(
-                  onPressed: openNew,
-                  style: style,
-                  child: Text(AppLocalizations.of(context).whatsNew),
-                ),
-          if (hasNewerVersion)
-            const SizedBox(
-              height: 0,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: PhosphorIcon(PhosphorIconsLight.caretUp),
-                  ),
-                ],
+    final whatsNew = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        hasNewerVersion
+            ? FilledButton(
+                onPressed: openNew,
+                style: style,
+                child: Text(AppLocalizations.of(context).whatsNew),
+              )
+            : ElevatedButton(
+                onPressed: openNew,
+                style: style,
+                child: Text(AppLocalizations.of(context).whatsNew),
               ),
-            ),
-        ],
-      );
-      final logo = Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Image.asset(
-            'images/logo.png',
-            width: 64,
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+        if (hasNewerVersion)
+          const SizedBox(
+            height: 0,
+            child: Stack(
               children: [
-                Text(
-                  AppLocalizations.of(context).welcome,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: colorScheme.onInverseSurface,
-                      ),
-                  overflow: TextOverflow.clip,
-                ),
-                Text(
-                  AppLocalizations.of(context).welcomeContent,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onInverseSurface,
-                      ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: PhosphorIcon(PhosphorIconsLight.caretUp),
                 ),
               ],
             ),
           ),
-        ],
-      );
-      final innerCard = isDesktop
-          ? Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(child: logo),
-                const SizedBox(width: 32),
-                whatsNew,
-              ],
-            )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                logo,
-                const SizedBox(height: 32),
-                whatsNew,
-              ],
-            );
-      final card = Material(
-        elevation: 10,
-        borderRadius: BorderRadius.circular(24),
-        child: Container(
-          padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.alphaBlend(colorScheme.inverseSurface.withOpacity(0.3),
-                    colorScheme.surface),
-                colorScheme.primary,
-              ],
-              stops: const [0, 0.8],
-            ),
-          ),
-          child: innerCard,
+      ],
+    );
+    final logo = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset(
+          'images/logo.png',
+          width: 64,
         ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                AppLocalizations.of(context).welcome,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: colorScheme.onInverseSurface,
+                    ),
+                overflow: TextOverflow.clip,
+              ),
+              Text(
+                AppLocalizations.of(context).welcomeContent,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onInverseSurface,
+                    ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+    final innerCard = isDesktop
+        ? Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(child: logo),
+              const SizedBox(width: 32),
+              whatsNew,
+            ],
+          )
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              logo,
+              const SizedBox(height: 32),
+              whatsNew,
+            ],
+          );
+    final card = Material(
+      elevation: 10,
+      borderRadius: BorderRadius.circular(24),
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.alphaBlend(colorScheme.inverseSurface.withOpacity(0.3),
+                  colorScheme.surface),
+              colorScheme.primary,
+            ],
+            stops: const [0, 0.8],
+          ),
+        ),
+        child: innerCard,
+      ),
+    );
+    if (isDesktop) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(child: card),
+          const SizedBox(width: 32),
+          actions,
+        ],
       );
-      if (isDesktop) {
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(child: card),
-            const SizedBox(width: 32),
-            actions,
-          ],
-        );
-      } else {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            card,
-            const SizedBox(height: 32),
-            actions,
-          ],
-        );
-      }
-    });
+    } else {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          card,
+          const SizedBox(height: 32),
+          actions,
+        ],
+      );
+    }
   }
 }
 
@@ -379,9 +382,9 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
   void initState() {
     _templateFileSystem =
         TemplateFileSystem.fromPlatform(remote: widget.remote);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _templatesFuture = _fetchTemplates();
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+          _templatesFuture = _fetchTemplates();
+        }));
     super.initState();
   }
 
@@ -422,7 +425,12 @@ class _QuickstartHomeViewState extends State<_QuickstartHomeView> {
                   return Text(snapshot.error.toString());
                 }
                 if (snapshot.connectionState == ConnectionState.none) {
-                  return const SizedBox();
+                  return ElevatedButton(
+                    child: Text(AppLocalizations.of(context).view),
+                    onPressed: () => setState(() {
+                      _templatesFuture = _fetchTemplates();
+                    }),
+                  );
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Align(

@@ -332,7 +332,8 @@ class ButterflyApp extends StatelessWidget {
         buildWhen: (previous, current) =>
             previous.theme != current.theme ||
             previous.localeTag != current.localeTag ||
-            previous.design != current.design,
+            previous.design != current.design ||
+            previous.density != current.density,
         builder: (context, state) => MaterialApp.router(
               locale: state.locale,
               title: applicationName,
@@ -352,8 +353,10 @@ class ButterflyApp extends StatelessWidget {
               },
               supportedLocales: getLocales(),
               themeMode: state.theme,
-              theme: getThemeData(state.design, false, lightDynamic),
-              darkTheme: getThemeData(state.design, true, darkDynamic),
+              theme: getThemeData(
+                  state.design, false, state.density.toFlutter(), lightDynamic),
+              darkTheme: getThemeData(
+                  state.design, true, state.density.toFlutter(), darkDynamic),
             ));
   }
 

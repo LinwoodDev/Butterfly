@@ -29,6 +29,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../actions/paste.dart';
 import '../actions/select.dart';

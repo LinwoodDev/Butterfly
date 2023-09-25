@@ -49,35 +49,81 @@ class _TextsStyleViewState extends State<TextsStyleView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 64,
-          child: Row(
-            children: [
-              Flexible(
-                child: DropdownButtonFormField<String?>(
-                  items: [
-                    ...widget.value.spanProperties.entries.map(
-                      (style) => DropdownMenuItem(
-                        value: style.key,
-                        child: Text(style.key),
-                      ),
+        Row(
+          children: [
+            Expanded(
+              child: DropdownMenu<String?>(
+                expandedInsets: const EdgeInsets.all(4),
+                dropdownMenuEntries: [
+                  ...widget.value.spanProperties.entries.map(
+                    (style) => DropdownMenuEntry(
+                      value: style.key,
+                      label: style.key,
                     ),
-                  ],
-                  value: _currentStyle,
-                  onChanged: (value) {
-                    setState(() {
-                      _currentStyle = value;
-                    });
-                  },
-                ),
+                  ),
+                ],
+                initialSelection: _currentStyle,
+                onSelected: (value) {
+                  setState(() {
+                    _currentStyle = value;
+                  });
+                },
               ),
-              const SizedBox(width: 8),
-              IconButton.filledTonal(
-                icon: const PhosphorIcon(PhosphorIconsLight.plus),
+            ),
+            const SizedBox(width: 8),
+            IconButton.filledTonal(
+              icon: const PhosphorIcon(PhosphorIconsLight.plus),
+              onPressed: () async {
+                final name = await showDialog<String>(
+                  context: context,
+                  builder: (context) => NameDialog(
+                    validator: defaultFileNameValidator(
+                      context,
+                      widget.value.spanProperties.keys.toList(),
+                    ),
+                  ),
+                );
+                if (name == null) {
+                  return;
+                }
+                widget.onChanged(widget.value.copyWith(
+                  spanProperties: {
+                    ...widget.value.spanProperties,
+                    name: const text.DefinedSpanProperty(),
+                  },
+                ));
+              },
+            ),
+            MenuAnchor(
+              builder: defaultMenuButton(),
+              menuChildren: DocumentDefaults.getSpanTranslations(context)
+                  .entries
+                  .where((element) =>
+                      !widget.value.spanProperties.containsKey(element.key))
+                  .map(
+                    (e) => MenuItemButton(
+                      child: Text(e.value),
+                      onPressed: () {
+                        widget.onChanged(widget.value.copyWith(
+                          spanProperties: {
+                            ...widget.value.spanProperties,
+                            e.key: const text.DefinedSpanProperty(),
+                          },
+                        ));
+                      },
+                    ),
+                  )
+                  .toList(),
+            ),
+            if (_currentStyle != null) ...[
+              const VerticalDivider(),
+              IconButton(
+                icon: const PhosphorIcon(PhosphorIconsLight.pencil),
                 onPressed: () async {
                   final name = await showDialog<String>(
                     context: context,
                     builder: (context) => NameDialog(
+                      value: _currentStyle,
                       validator: defaultFileNameValidator(
                         context,
                         widget.value.spanProperties.keys.toList(),
@@ -87,87 +133,38 @@ class _TextsStyleViewState extends State<TextsStyleView> {
                   if (name == null) {
                     return;
                   }
+                  final lastStyle = _currentStyle;
+                  _currentStyle = name;
                   widget.onChanged(widget.value.copyWith(
-                    spanProperties: {
-                      ...widget.value.spanProperties,
-                      name: const text.DefinedSpanProperty(),
-                    },
+                    spanProperties: Map<String, text.DefinedSpanProperty>.from(
+                        widget.value.spanProperties)
+                      ..remove(lastStyle)
+                      ..[name] = widget.value.spanProperties[lastStyle]!,
                   ));
                 },
               ),
-              MenuAnchor(
-                builder: defaultMenuButton(),
-                menuChildren: DocumentDefaults.getSpanTranslations(context)
-                    .entries
-                    .where((element) =>
-                        !widget.value.spanProperties.containsKey(element.key))
-                    .map(
-                      (e) => MenuItemButton(
-                        child: Text(e.value),
-                        onPressed: () {
-                          widget.onChanged(widget.value.copyWith(
-                            spanProperties: {
-                              ...widget.value.spanProperties,
-                              e.key: const text.DefinedSpanProperty(),
-                            },
-                          ));
-                        },
-                      ),
-                    )
-                    .toList(),
-              ),
-              if (_currentStyle != null) ...[
-                const VerticalDivider(),
-                IconButton(
-                  icon: const PhosphorIcon(PhosphorIconsLight.pencil),
-                  onPressed: () async {
-                    final name = await showDialog<String>(
-                      context: context,
-                      builder: (context) => NameDialog(
-                        value: _currentStyle,
-                        validator: defaultFileNameValidator(
-                          context,
-                          widget.value.spanProperties.keys.toList(),
-                        ),
-                      ),
-                    );
-                    if (name == null) {
-                      return;
-                    }
+              IconButton(
+                icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                onPressed: () async {
+                  final result = await showDialog<bool>(
+                      context: context, builder: (ctx) => const DeleteDialog());
+                  if (result != true) return;
+                  if (context.mounted) {
                     final lastStyle = _currentStyle;
-                    _currentStyle = name;
+                    _currentStyle = null;
                     widget.onChanged(widget.value.copyWith(
                       spanProperties:
                           Map<String, text.DefinedSpanProperty>.from(
                               widget.value.spanProperties)
-                            ..remove(lastStyle)
-                            ..[name] = widget.value.spanProperties[lastStyle]!,
+                            ..remove(lastStyle),
                     ));
-                  },
-                ),
-                IconButton(
-                  icon: const PhosphorIcon(PhosphorIconsLight.trash),
-                  onPressed: () async {
-                    final result = await showDialog<bool>(
-                        context: context,
-                        builder: (ctx) => const DeleteDialog());
-                    if (result != true) return;
-                    if (context.mounted) {
-                      final lastStyle = _currentStyle;
-                      _currentStyle = null;
-                      widget.onChanged(widget.value.copyWith(
-                        spanProperties:
-                            Map<String, text.DefinedSpanProperty>.from(
-                                widget.value.spanProperties)
-                              ..remove(lastStyle),
-                      ));
-                    }
-                  },
-                ),
-              ]
-            ],
-          ),
+                  }
+                },
+              ),
+            ]
+          ],
         ),
+        const SizedBox(height: 8),
         Flexible(
           child: Builder(
             builder: (context) {

@@ -94,6 +94,35 @@ class PersonalizationSettingsPage extends StatelessWidget {
                               context, state.platformTheme)),
                           onTap: () => _openPlatformThemeModal(context),
                         ),
+                        ListTile(
+                          leading:
+                              const PhosphorIcon(PhosphorIconsLight.gridNine),
+                          title: Text(AppLocalizations.of(context).density),
+                          trailing: DropdownMenu<ThemeDensity>(
+                            width: 200,
+                            dropdownMenuEntries: ThemeDensity.values
+                                .map((e) => DropdownMenuEntry(
+                                      label: switch (e) {
+                                        ThemeDensity.system =>
+                                          AppLocalizations.of(context)
+                                              .systemTheme,
+                                        ThemeDensity.comfortable =>
+                                          AppLocalizations.of(context)
+                                              .comfortable,
+                                        ThemeDensity.compact =>
+                                          AppLocalizations.of(context).compact,
+                                        ThemeDensity.standard =>
+                                          AppLocalizations.of(context).standard,
+                                      },
+                                      value: e,
+                                    ))
+                                .toList(),
+                            initialSelection: state.density,
+                            onSelected: (value) => context
+                                .read<SettingsCubit>()
+                                .changeDensity(value ?? ThemeDensity.system),
+                          ),
+                        ),
                       ]),
                 ),
               ),

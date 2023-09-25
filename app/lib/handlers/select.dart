@@ -393,14 +393,16 @@ class SelectHandler extends Handler<SelectTool> {
     final selectionRect = getSelectionRect();
 
     if (selectionRect == null) return null;
-    return HandTransformCorner.values.firstWhereOrNull((element) {
+    final hits = HandTransformCorner.values.where((element) {
       final corner = element.getFromRect(selectionRect);
       return Rect.fromCenter(
               center: corner,
               width: cornerSize / _scale,
               height: cornerSize / _scale)
           .contains(position);
-    });
+    }).toList();
+    if (hits.length == HandTransformCorner.values.length) return null;
+    return hits.firstOrNull;
   }
 
   Future<void> _onSelectionAdd(EventContext context, Offset localPosition,

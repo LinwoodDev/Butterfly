@@ -14,25 +14,22 @@ class StampToolSelection extends ToolSelection<StampTool> {
     return [
       ...super.buildProperties(context),
       const SizedBox(height: 16),
-      DropdownButtonFormField<String>(
-        items: packs
-            .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
+      DropdownMenu<String>(
+        expandedInsets: const EdgeInsets.all(4),
+        dropdownMenuEntries: packs
+            .map((e) => DropdownMenuEntry<String>(value: e, label: e))
             .toList(),
-        decoration: InputDecoration(
-          labelText: AppLocalizations.of(context).pack,
-          filled: true,
-          counterText:
-              packs.isEmpty ? AppLocalizations.of(context).noPacks : null,
-          suffixIcon: IconButton(
-            icon: const PhosphorIcon(PhosphorIconsLight.package),
-            tooltip: AppLocalizations.of(context).packs,
-            onPressed: () {
-              Actions.maybeInvoke<PacksIntent>(context, PacksIntent(context));
-            },
-          ),
+        label: Text(AppLocalizations.of(context).pack),
+        helperText: packs.isEmpty ? AppLocalizations.of(context).noPacks : null,
+        trailingIcon: IconButton(
+          icon: const PhosphorIcon(PhosphorIconsLight.package),
+          tooltip: AppLocalizations.of(context).packs,
+          onPressed: () {
+            Actions.maybeInvoke<PacksIntent>(context, PacksIntent(context));
+          },
         ),
-        value: currentPack?.name,
-        onChanged: (pack) {
+        initialSelection: currentPack?.name,
+        onSelected: (pack) {
           if (pack == null) return;
           update(
               context,
