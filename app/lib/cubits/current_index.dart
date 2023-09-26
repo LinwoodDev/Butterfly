@@ -126,7 +126,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         foregrounds: handler.createForegrounds(
             this, document, blocState.page, info, blocState.currentArea),
         toolbar: handler.getToolbar(bloc),
-        rendererStates: handler.getRendererStates(bloc),
+        rendererStates: handler.rendererStates,
         temporaryForegrounds: null,
         temporaryHandler: null,
         temporaryToolbar: null,
@@ -154,7 +154,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       handler: handler,
       foregrounds: foregrounds,
       toolbar: handler.getToolbar(bloc),
-      rendererStates: handler.getRendererStates(bloc),
+      rendererStates: handler.rendererStates,
       cursor: handler.cursor ?? MouseCursor.defer,
     ));
   }
@@ -173,7 +173,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       temporaryHandler: handler,
       temporaryForegrounds: temporaryForegrounds,
       temporaryToolbar: handler.getToolbar(bloc),
-      temporaryRendererStates: handler.getRendererStates(bloc),
+      temporaryRendererStates: handler.rendererStates,
       temporaryCursor: handler.cursor,
     ));
   }
@@ -214,12 +214,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           .createForegrounds(this, document, page, info, currentArea);
       await Future.wait(foregrounds
           .map((e) async => await e.setup(document, assetService, page)));
+      final rendererStates = state.handler.rendererStates;
+      final temporaryRendererStates = state.temporaryHandler?.rendererStates;
+      final shouldBake = state.rendererStates != rendererStates ||
+          state.temporaryRendererStates != temporaryRendererStates;
       emit(state.copyWith(
         temporaryForegrounds: temporaryForegrounds,
         foregrounds: foregrounds,
         cursor: state.handler.cursor ?? MouseCursor.defer,
         temporaryCursor: state.temporaryHandler?.cursor,
+        rendererStates: rendererStates,
+        temporaryRendererStates: temporaryRendererStates,
       ));
+      if (shouldBake) {
+        bake(document, page, info, reset: true);
+      }
     }
   }
 
@@ -313,7 +322,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         temporaryForegrounds: temporaryForegrounds,
         temporaryToolbar: handler.getToolbar(bloc),
         temporaryCursor: handler.cursor,
-        temporaryRendererStates: handler.getRendererStates(bloc),
+        temporaryRendererStates: handler.rendererStates,
       ));
     }
     return handler;
@@ -387,6 +396,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       page,
       info,
       transform: state.transformCubit.state,
+      states: state.allRendererStates,
       cameraViewport: reset
           ? cameraViewport.unbake(
               unbakedElements: visibleElements,

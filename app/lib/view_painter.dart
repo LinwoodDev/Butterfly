@@ -154,7 +154,7 @@ class ViewPainter extends CustomPainter {
     }
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
-    for (var renderer in cameraViewport.unbakedElements) {
+    for (final renderer in cameraViewport.unbakedElements) {
       final state = states[renderer];
       if (!invisibleLayers.contains(renderer.element.layer) &&
           state != RendererState.hidden) {
@@ -187,6 +187,7 @@ class ViewPainter extends CustomPainter {
         renderBackground != oldDelegate.renderBackground ||
         transform != oldDelegate.transform ||
         cameraViewport != oldDelegate.cameraViewport ||
-        colorScheme != oldDelegate.colorScheme;
+        colorScheme != oldDelegate.colorScheme ||
+        states != oldDelegate.states;
   }
 }
