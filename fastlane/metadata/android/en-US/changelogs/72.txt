@@ -76,7 +76,7 @@
 * Disable gestures on mouse input
 * Remove view options from undo
 * Remove reload after clicking on star
-* Upgrade to agb 8
+* Upgrade to agp 8
 * Upgrade to flutter 3.15
 
 * Add macos zip and dmg release builds
