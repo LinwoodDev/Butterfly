@@ -37,6 +37,10 @@ mixin _$CurrentIndex {
   PreferredSizeWidget? get toolbar => throw _privateConstructorUsedError;
   PreferredSizeWidget? get temporaryToolbar =>
       throw _privateConstructorUsedError;
+  Map<Renderer, RendererState> get rendererStates =>
+      throw _privateConstructorUsedError;
+  Map<Renderer, RendererState>? get temporaryRendererStates =>
+      throw _privateConstructorUsedError;
   ViewOption get viewOption => throw _privateConstructorUsedError;
   HideState get hideUi => throw _privateConstructorUsedError;
 
@@ -71,6 +75,8 @@ abstract class $CurrentIndexCopyWith<$Res> {
       SaveState saved,
       PreferredSizeWidget? toolbar,
       PreferredSizeWidget? temporaryToolbar,
+      Map<Renderer, RendererState> rendererStates,
+      Map<Renderer, RendererState>? temporaryRendererStates,
       ViewOption viewOption,
       HideState hideUi});
 
@@ -110,6 +116,8 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
     Object? saved = null,
     Object? toolbar = freezed,
     Object? temporaryToolbar = freezed,
+    Object? rendererStates = null,
+    Object? temporaryRendererStates = freezed,
     Object? viewOption = null,
     Object? hideUi = null,
   }) {
@@ -190,6 +198,14 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
           ? _value.temporaryToolbar
           : temporaryToolbar // ignore: cast_nullable_to_non_nullable
               as PreferredSizeWidget?,
+      rendererStates: null == rendererStates
+          ? _value.rendererStates
+          : rendererStates // ignore: cast_nullable_to_non_nullable
+              as Map<Renderer, RendererState>,
+      temporaryRendererStates: freezed == temporaryRendererStates
+          ? _value.temporaryRendererStates
+          : temporaryRendererStates // ignore: cast_nullable_to_non_nullable
+              as Map<Renderer, RendererState>?,
       viewOption: null == viewOption
           ? _value.viewOption
           : viewOption // ignore: cast_nullable_to_non_nullable
@@ -246,6 +262,8 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
       SaveState saved,
       PreferredSizeWidget? toolbar,
       PreferredSizeWidget? temporaryToolbar,
+      Map<Renderer, RendererState> rendererStates,
+      Map<Renderer, RendererState>? temporaryRendererStates,
       ViewOption viewOption,
       HideState hideUi});
 
@@ -285,6 +303,8 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
     Object? saved = null,
     Object? toolbar = freezed,
     Object? temporaryToolbar = freezed,
+    Object? rendererStates = null,
+    Object? temporaryRendererStates = freezed,
     Object? viewOption = null,
     Object? hideUi = null,
   }) {
@@ -365,6 +385,14 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
           ? _value.temporaryToolbar
           : temporaryToolbar // ignore: cast_nullable_to_non_nullable
               as PreferredSizeWidget?,
+      rendererStates: null == rendererStates
+          ? _value._rendererStates
+          : rendererStates // ignore: cast_nullable_to_non_nullable
+              as Map<Renderer, RendererState>,
+      temporaryRendererStates: freezed == temporaryRendererStates
+          ? _value._temporaryRendererStates
+          : temporaryRendererStates // ignore: cast_nullable_to_non_nullable
+              as Map<Renderer, RendererState>?,
       viewOption: null == viewOption
           ? _value.viewOption
           : viewOption // ignore: cast_nullable_to_non_nullable
@@ -396,11 +424,16 @@ class _$_CurrentIndex extends _CurrentIndex {
       this.saved = SaveState.unsaved,
       this.toolbar,
       this.temporaryToolbar,
+      final Map<Renderer, RendererState> rendererStates =
+          const <Renderer, RendererState>{},
+      final Map<Renderer, RendererState>? temporaryRendererStates,
       this.viewOption = const ViewOption(),
       this.hideUi = HideState.visible})
       : _foregrounds = foregrounds,
         _temporaryForegrounds = temporaryForegrounds,
         _pointers = pointers,
+        _rendererStates = rendererStates,
+        _temporaryRendererStates = temporaryRendererStates,
         super._();
 
   @override
@@ -468,6 +501,26 @@ class _$_CurrentIndex extends _CurrentIndex {
   final PreferredSizeWidget? toolbar;
   @override
   final PreferredSizeWidget? temporaryToolbar;
+  final Map<Renderer, RendererState> _rendererStates;
+  @override
+  @JsonKey()
+  Map<Renderer, RendererState> get rendererStates {
+    if (_rendererStates is EqualUnmodifiableMapView) return _rendererStates;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_rendererStates);
+  }
+
+  final Map<Renderer, RendererState>? _temporaryRendererStates;
+  @override
+  Map<Renderer, RendererState>? get temporaryRendererStates {
+    final value = _temporaryRendererStates;
+    if (value == null) return null;
+    if (_temporaryRendererStates is EqualUnmodifiableMapView)
+      return _temporaryRendererStates;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   @JsonKey()
   final ViewOption viewOption;
@@ -477,7 +530,7 @@ class _$_CurrentIndex extends _CurrentIndex {
 
   @override
   String toString() {
-    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, viewOption: $viewOption, hideUi: $hideUi)';
+    return 'CurrentIndex(index: $index, handler: $handler, cameraViewport: $cameraViewport, settingsCubit: $settingsCubit, transformCubit: $transformCubit, temporaryHandler: $temporaryHandler, foregrounds: $foregrounds, selection: $selection, pinned: $pinned, temporaryForegrounds: $temporaryForegrounds, cursor: $cursor, temporaryCursor: $temporaryCursor, pointers: $pointers, buttons: $buttons, location: $location, embedding: $embedding, saved: $saved, toolbar: $toolbar, temporaryToolbar: $temporaryToolbar, rendererStates: $rendererStates, temporaryRendererStates: $temporaryRendererStates, viewOption: $viewOption, hideUi: $hideUi)';
   }
 
   @JsonKey(ignore: true)
@@ -508,6 +561,8 @@ abstract class _CurrentIndex extends CurrentIndex {
       final SaveState saved,
       final PreferredSizeWidget? toolbar,
       final PreferredSizeWidget? temporaryToolbar,
+      final Map<Renderer, RendererState> rendererStates,
+      final Map<Renderer, RendererState>? temporaryRendererStates,
       final ViewOption viewOption,
       final HideState hideUi}) = _$_CurrentIndex;
   const _CurrentIndex._() : super._();
@@ -550,6 +605,10 @@ abstract class _CurrentIndex extends CurrentIndex {
   PreferredSizeWidget? get toolbar;
   @override
   PreferredSizeWidget? get temporaryToolbar;
+  @override
+  Map<Renderer, RendererState> get rendererStates;
+  @override
+  Map<Renderer, RendererState>? get temporaryRendererStates;
   @override
   ViewOption get viewOption;
   @override
