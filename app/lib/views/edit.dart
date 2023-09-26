@@ -323,6 +323,10 @@ class _EditToolbarState extends State<EditToolbar> {
             IconButton(
               icon: const PhosphorIcon(PhosphorIconsLight.wrench),
               tooltip: AppLocalizations.of(context).tools,
+              selectedIcon: const PhosphorIcon(PhosphorIconsFill.wrench),
+              isSelected: currentIndex.selection?.selected
+                      .any((element) => element is UtilitiesState) ??
+                  false,
               onPressed: () {
                 final cubit = context.read<CurrentIndexCubit>();
                 final state = cubit.state.cameraViewport.utilities.element;

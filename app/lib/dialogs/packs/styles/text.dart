@@ -110,11 +110,11 @@ class _TextStyleViewState extends State<TextStyleView> {
         const SizedBox(height: 16),
         ListTile(
             title: Text(AppLocalizations.of(context).fontWeight),
-            trailing: DropdownButton<FontWeight?>(
-                value: widget.value.fontWeight == null
+            trailing: DropdownMenu<FontWeight?>(
+                initialSelection: widget.value.fontWeight == null
                     ? null
                     : FontWeight.values[widget.value.fontWeight!],
-                items: [
+                dropdownMenuEntries: [
                   ...List.generate(FontWeight.values.length, (index) {
                     var current = ((index + 1) * 100).toString();
                     if (index == text.kFontWeightNormal) {
@@ -122,15 +122,15 @@ class _TextStyleViewState extends State<TextStyleView> {
                     } else if (index == text.kFontWeightBold) {
                       current = AppLocalizations.of(context).bold;
                     }
-                    return DropdownMenuItem(
-                        value: FontWeight.values[index], child: Text(current));
+                    return DropdownMenuEntry(
+                        value: FontWeight.values[index], label: current);
                   }),
-                  DropdownMenuItem(
+                  DropdownMenuEntry(
                     value: null,
-                    child: Text(AppLocalizations.of(context).notSet),
+                    label: AppLocalizations.of(context).notSet,
                   ),
                 ],
-                onChanged: (weight) => widget.onChanged(
+                onSelected: (weight) => widget.onChanged(
                     widget.value.copyWith(fontWeight: weight?.index)))),
         CheckboxListTile(
             title: Text(AppLocalizations.of(context).italic),
@@ -173,9 +173,9 @@ class _TextStyleViewState extends State<TextStyleView> {
                                 widget.value.copyWith(overline: overline))),
                         ListTile(
                             title: Text(AppLocalizations.of(context).style),
-                            trailing: DropdownButton<text.TextDecorationStyle?>(
-                                value: widget.value.decorationStyle,
-                                items: [
+                            trailing: DropdownMenu<text.TextDecorationStyle?>(
+                                initialSelection: widget.value.decorationStyle,
+                                dropdownMenuEntries: [
                                   ...text.TextDecorationStyle.values
                                       .map((style) {
                                     String name;
@@ -200,16 +200,15 @@ class _TextStyleViewState extends State<TextStyleView> {
                                         name =
                                             AppLocalizations.of(context).wavy;
                                     }
-                                    return DropdownMenuItem(
-                                        value: style, child: Text(name));
+                                    return DropdownMenuEntry(
+                                        value: style, label: name);
                                   }).toList(),
-                                  DropdownMenuItem(
+                                  DropdownMenuEntry(
                                     value: null,
-                                    child: Text(
-                                        AppLocalizations.of(context).notSet),
+                                    label: AppLocalizations.of(context).notSet,
                                   ),
                                 ],
-                                onChanged: (decorationStyle) =>
+                                onSelected: (decorationStyle) =>
                                     widget.onChanged(widget.value.copyWith(
                                         decorationStyle: decorationStyle)))),
                         ColorField(

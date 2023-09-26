@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:butterfly/cubits/settings.dart';
 import 'package:butterfly/main.dart';
 import 'package:butterfly/theme.dart';
@@ -96,6 +94,35 @@ class PersonalizationSettingsPage extends StatelessWidget {
                               context, state.platformTheme)),
                           onTap: () => _openPlatformThemeModal(context),
                         ),
+                        ListTile(
+                          leading:
+                              const PhosphorIcon(PhosphorIconsLight.gridNine),
+                          title: Text(AppLocalizations.of(context).density),
+                          trailing: DropdownMenu<ThemeDensity>(
+                            width: 200,
+                            dropdownMenuEntries: ThemeDensity.values
+                                .map((e) => DropdownMenuEntry(
+                                      label: switch (e) {
+                                        ThemeDensity.system =>
+                                          AppLocalizations.of(context)
+                                              .systemTheme,
+                                        ThemeDensity.comfortable =>
+                                          AppLocalizations.of(context)
+                                              .comfortable,
+                                        ThemeDensity.compact =>
+                                          AppLocalizations.of(context).compact,
+                                        ThemeDensity.standard =>
+                                          AppLocalizations.of(context).standard,
+                                      },
+                                      value: e,
+                                    ))
+                                .toList(),
+                            initialSelection: state.density,
+                            onSelected: (value) => context
+                                .read<SettingsCubit>()
+                                .changeDensity(value ?? ThemeDensity.system),
+                          ),
+                        ),
                       ]),
                 ),
               ),
@@ -106,7 +133,7 @@ class PersonalizationSettingsPage extends StatelessWidget {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        if (!kIsWeb && (Platform.isWindows || Platform.isLinux))
+                        if (!kIsWeb && isWindow)
                           SwitchListTile(
                             value: state.nativeTitleBar,
                             title: Text(

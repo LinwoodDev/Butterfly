@@ -29,6 +29,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lw_sysinfo/lw_sysinfo.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../actions/paste.dart';
 import '../actions/select.dart';
@@ -352,6 +353,42 @@ Set<int> _executeRayCast(_RayCastParams params) {
       .toSet();
 }
 
+class _RayCastPolygonParams {
+  final List<String> invisibleLayers;
+  final List<_SmallRenderer> renderers;
+  final List<Offset> polygon;
+  final double size;
+
+  const _RayCastPolygonParams(
+      this.invisibleLayers, this.renderers, this.polygon, this.size);
+}
+
+Future<Set<Renderer<PadElement>>> rayCastPolygon(
+    List<Offset> points, DocumentBloc bloc, CameraTransform transform) async {
+  final state = bloc.state;
+  if (state is! DocumentLoadSuccess) return {};
+  final renderers = state.cameraViewport.visibleElements;
+  return compute(
+    _executeRayCastPolygon,
+    _RayCastPolygonParams(
+      state.invisibleLayers,
+      renderers.map((e) => _SmallRenderer.fromRenderer(e)).toList(),
+      points,
+      transform.size,
+    ),
+  ).then((value) => value.map((e) => renderers[e]).toSet());
+}
+
+Set<int> _executeRayCastPolygon(_RayCastPolygonParams params) {
+  return params.renderers
+      .asMap()
+      .entries
+      .where((e) => !params.invisibleLayers.contains(e.value.element.layer))
+      .where((e) => e.value.hitCalc.hitPolygon(params.polygon))
+      .map((e) => e.key)
+      .toSet();
+}
+
 abstract class PastingHandler<T> extends Handler<T> {
   Offset? _firstPos;
   Offset? _secondPos;
@@ -371,16 +408,26 @@ abstract class PastingHandler<T> extends Handler<T> {
 
   List<PadElement> transformElements(Rect rect, String layer);
 
+  bool get shouldNormalize => true;
+
   List<PadElement> getTransformed() {
     final first = _firstPos;
     final second = _secondPos;
     if (first == null || second == null) return [];
-    var top = min(first.dy, second.dy);
-    var left = min(first.dx, second.dx);
-    var bottom = max(first.dy, second.dy);
-    var right = max(first.dx, second.dx);
-    var width = right - left;
-    var height = bottom - top;
+    double top, left, bottom, right;
+    if (shouldNormalize) {
+      top = min(first.dy, second.dy);
+      left = min(first.dx, second.dx);
+      bottom = max(first.dy, second.dy);
+      right = max(first.dx, second.dx);
+    } else {
+      top = first.dy;
+      left = first.dx;
+      bottom = second.dy;
+      right = second.dx;
+    }
+    var width = (right - left).abs();
+    var height = (bottom - top).abs();
     if (_aspectRatio) {
       final largest = max(width, height);
       width = largest;

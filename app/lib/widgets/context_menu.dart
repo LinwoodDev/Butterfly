@@ -142,7 +142,7 @@ class _ContextMenuState extends State<ContextMenu>
                           menuChildren: item.children,
                           leadingIcon: item.icon,
                           menuStyle: const MenuStyle(
-                            alignment: Alignment.bottomLeft,
+                            alignment: Alignment.bottomRight,
                           ),
                           child: Text(item.label),
                         ),

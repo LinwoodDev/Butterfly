@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Linwood Butterfly
+Comment=Powerful, minimalistic, cross-platform, opensource note-taking app
+Exec=/usr/bin/linwood-butterfly %f
+Icon=/usr/share/linwood-butterfly/data/flutter_assets/images/logo.svg
+Terminal=false
+Type=Application
+Categories=Office;
+MimeType=application/x-butterfly;image/bmp;image/gif;image/jpeg;image/jpg;image/png;image/svg+xml;image/svg+xml-compressed;image/x-ico;application/pdf;

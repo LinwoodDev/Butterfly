@@ -14,7 +14,8 @@ const kClassicTheme = FlexSchemeColor(
 const kClassicThemeData = FlexSchemeData(
     name: '', description: '', light: kClassicTheme, dark: kClassicTheme);
 
-ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
+ThemeData getThemeData(String name, bool dark,
+    [VisualDensity? density, ColorScheme? overridden]) {
   final color = getFlexThemeColor(name, dark);
   final override = overridden != null && name.isEmpty;
   ThemeData theme;
@@ -25,7 +26,7 @@ ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
       useMaterial3: true,
       appBarElevation: 2,
       fontFamily: 'Comfortaa',
-      visualDensity: VisualDensity.compact,
+      visualDensity: density,
     );
   } else {
     theme = FlexThemeData.light(
@@ -34,7 +35,7 @@ ThemeData getThemeData(String name, bool dark, [ColorScheme? overridden]) {
       useMaterial3: true,
       appBarElevation: 0.5,
       fontFamily: 'Comfortaa',
-      visualDensity: VisualDensity.compact,
+      visualDensity: density,
     );
   }
   return theme.copyWith(

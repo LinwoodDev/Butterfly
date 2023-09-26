@@ -168,14 +168,16 @@ class ShapeRenderer extends Renderer<ShapeElement> {
   }
 
   @override
-  HitCalculator getHitCalculator() => ShapeHitCalculator(element, rect);
+  HitCalculator getHitCalculator() =>
+      ShapeHitCalculator(element, rect, rotation * pi / 180);
 }
 
 class ShapeHitCalculator extends HitCalculator {
   final ShapeElement element;
   final Rect rect;
+  final double rotation;
 
-  ShapeHitCalculator(this.element, this.rect);
+  ShapeHitCalculator(this.element, this.rect, this.rotation);
 
   @override
   bool hit(Rect rect) {
@@ -183,22 +185,27 @@ class ShapeHitCalculator extends HitCalculator {
       return false;
     }
     final shape = element.property.shape;
+    final center = this.rect.center;
+    final tl = this.rect.topLeft.rotate(center, rotation);
+    final tr = this.rect.topRight.rotate(center, rotation);
+    final bl = this.rect.bottomLeft.rotate(center, rotation);
+    final br = this.rect.bottomRight.rotate(center, rotation);
     bool containsRect() {
       final lrt = rect.containsLine(
-        Offset(this.rect.left, this.rect.top),
-        Offset(this.rect.right, this.rect.top),
+        tl,
+        tr,
       );
       final tbr = rect.containsLine(
-        Offset(this.rect.right, this.rect.top),
-        Offset(this.rect.right, this.rect.bottom),
+        tr,
+        br,
       );
       final lrb = rect.containsLine(
-        Offset(this.rect.left, this.rect.bottom),
-        Offset(this.rect.right, this.rect.bottom),
+        bl,
+        br,
       );
       final tbl = rect.containsLine(
-        Offset(this.rect.left, this.rect.top),
-        Offset(this.rect.left, this.rect.bottom),
+        tl,
+        bl,
       );
       return lrt || tbr || lrb || tbl;
     }
@@ -215,7 +222,43 @@ class ShapeHitCalculator extends HitCalculator {
               max(element.firstPosition.y, element.secondPosition.y);
           final firstPos = Offset(firstX, firstY);
           final secondPos = Offset(secondX, secondY);
-          return rect.containsLine(firstPos, secondPos);
+          return rect.containsLine(firstPos.rotate(center, rotation),
+              secondPos.rotate(center, rotation));
         });
+  }
+
+  @override
+  bool hitPolygon(List<ui.Offset> polygon) {
+    final center = rect.center;
+    // use isPointInPolygon
+    return element.property.shape.map(
+      circle: (shape) {
+        final top = Offset(center.dx, rect.top).rotate(center, rotation);
+        final right = Offset(rect.right, center.dy).rotate(center, rotation);
+        final bottom = Offset(center.dx, rect.bottom).rotate(center, rotation);
+        final left = Offset(rect.left, center.dy).rotate(center, rotation);
+        return isPointInPolygon(polygon, top) ||
+            isPointInPolygon(polygon, right) ||
+            isPointInPolygon(polygon, bottom) ||
+            isPointInPolygon(polygon, left) ||
+            isPointInPolygon(polygon, center);
+      },
+      line: (value) =>
+          isPointInPolygon(polygon,
+              element.firstPosition.toOffset().rotate(center, rotation)) ||
+          isPointInPolygon(polygon,
+              element.secondPosition.toOffset().rotate(center, rotation)),
+      rectangle: (value) {
+        final topLeft = rect.topLeft.rotate(center, rotation);
+        final topRight = rect.topRight.rotate(center, rotation);
+        final bottomLeft = rect.bottomLeft.rotate(center, rotation);
+        final bottomRight = rect.bottomRight.rotate(center, rotation);
+        return isPointInPolygon(polygon, topLeft) ||
+            isPointInPolygon(polygon, topRight) ||
+            isPointInPolygon(polygon, bottomLeft) ||
+            isPointInPolygon(polygon, bottomRight) ||
+            isPointInPolygon(polygon, center);
+      },
+    );
   }
 }

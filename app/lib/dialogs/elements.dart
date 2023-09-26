@@ -1,6 +1,7 @@
 import 'package:butterfly/cubits/settings.dart';
-import 'package:butterfly/dialogs/packs/asset.dart';
+import 'package:butterfly/dialogs/area/context.dart';
 import 'package:butterfly/handlers/handler.dart';
+import 'package:butterfly/helpers/offset_helper.dart';
 import 'package:butterfly/services/export.dart';
 import 'package:butterfly/visualizer/event.dart';
 import 'package:butterfly/widgets/context_menu.dart';
@@ -137,26 +138,16 @@ ContextMenuBuilder buildElementsContextMenu(
             icon: const PhosphorIcon(PhosphorIconsLight.faders),
             label: AppLocalizations.of(context).properties,
           ),
-          ContextMenuItem(
-            icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
-            label: AppLocalizations.of(context).addToPack,
-            onPressed: () async {
-              Navigator.of(context).pop();
-              addToPack(
-                context,
-                bloc,
-                settingsCubit,
-                renderers
-                    .map((e) =>
-                        e
-                            .transform(position: -rect.topLeft, relative: true)
-                            ?.element ??
-                        e.element)
-                    .toList(),
-                rect,
-              );
-            },
-          ),
+          ...buildGeneralAreaContextMenu(
+            bloc,
+            Area(
+              width: rect.width,
+              height: rect.height,
+              position: rect.topLeft.toPoint(),
+            ),
+            settingsCubit,
+            renderers.map((e) => e.element).toList(),
+          )(context)
         ],
       ];
 }

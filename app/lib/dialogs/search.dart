@@ -102,6 +102,8 @@ class _SearchDialogState extends State<SearchDialog> {
                           child: SearchBar(
                             controller: _searchController,
                             focusNode: _focusNode,
+                            leading: const PhosphorIcon(
+                                PhosphorIconsLight.magnifyingGlass),
                             onChanged: (value) {
                               final state = context.read<DocumentBloc>().state;
                               if (state is DocumentLoaded) {

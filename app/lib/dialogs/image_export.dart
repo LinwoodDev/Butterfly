@@ -196,32 +196,63 @@ class _ImageExportDialogState extends State<ImageExportDialog> {
         }),
       );
 
-  Widget _buildProperties() => Column(children: [
-        TextField(
-            controller: _xController,
-            decoration: const InputDecoration(labelText: 'X', filled: true),
-            onChanged: (value) => _x = double.tryParse(value) ?? _x,
-            onSubmitted: (value) => _regeneratePreviewImage()),
-        const SizedBox(height: 8),
-        TextField(
-            controller: _yController,
-            decoration: const InputDecoration(labelText: 'Y', filled: true),
-            onChanged: (value) => y = double.tryParse(value) ?? y,
-            onSubmitted: (value) => _regeneratePreviewImage()),
-        const SizedBox(height: 8),
-        TextField(
-            controller: _widthController,
-            decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).width, filled: true),
-            onChanged: (value) => width = double.tryParse(value) ?? width,
-            onSubmitted: (value) => _regeneratePreviewImage()),
-        const SizedBox(height: 8),
-        TextField(
-            controller: _heightController,
-            decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).height, filled: true),
-            onChanged: (value) => height = double.tryParse(value) ?? height,
-            onSubmitted: (value) => _regeneratePreviewImage()),
+  Widget _buildProperties() =>
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(
+          AppLocalizations.of(context).position,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _xController,
+                decoration: const InputDecoration(labelText: 'X', filled: true),
+                onChanged: (value) => _x = double.tryParse(value) ?? _x,
+                onSubmitted: (value) => _regeneratePreviewImage(),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: TextField(
+                controller: _yController,
+                decoration: const InputDecoration(labelText: 'Y', filled: true),
+                onChanged: (value) => y = double.tryParse(value) ?? y,
+                onSubmitted: (value) => _regeneratePreviewImage(),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Text(
+          AppLocalizations.of(context).size,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _widthController,
+                decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context).width,
+                    filled: true),
+                onChanged: (value) => width = double.tryParse(value) ?? width,
+                onSubmitted: (value) => _regeneratePreviewImage(),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: TextField(
+                controller: _heightController,
+                decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context).height,
+                    filled: true),
+                onChanged: (value) => height = double.tryParse(value) ?? height,
+                onSubmitted: (value) => _regeneratePreviewImage(),
+              ),
+            ),
+          ],
+        ),
         const SizedBox(height: 8),
         ExactSlider(
             header: Text(AppLocalizations.of(context).scale),

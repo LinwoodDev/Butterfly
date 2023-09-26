@@ -312,30 +312,36 @@ class LabelHandler extends Handler<LabelTool>
         context: context.buildContext,
         useRootNavigator: true,
         builder: (context) => AdaptiveTextSelectionToolbar.editable(
-            clipboardStatus: ClipboardStatus.pasteable,
-            onLiveTextInput: () {
-              _connection?.show();
-              Navigator.of(context).pop();
-            },
-            onCopy: () {
-              _copyText(false);
-              Navigator.of(context).pop();
-            },
-            onCut: () {
-              _copyText(true);
-              Navigator.of(context).pop();
-            },
-            onPaste: () {
-              _pasteText();
-              Navigator.of(context).pop();
-            },
-            onSelectAll: () {
-              _selectAllText();
-              Navigator.of(context).pop();
-            },
-            anchors: TextSelectionToolbarAnchors(
-              primaryAnchor: localPosition,
-            )));
+              clipboardStatus: ClipboardStatus.pasteable,
+              onLiveTextInput: () {
+                _connection?.show();
+                Navigator.of(context).pop();
+              },
+              onCopy: () {
+                _copyText(false);
+                Navigator.of(context).pop();
+              },
+              onCut: () {
+                _copyText(true);
+                Navigator.of(context).pop();
+              },
+              onPaste: () {
+                _pasteText();
+                Navigator.of(context).pop();
+              },
+              onSelectAll: () {
+                _selectAllText();
+                Navigator.of(context).pop();
+              },
+              anchors: TextSelectionToolbarAnchors(
+                primaryAnchor: localPosition,
+              ),
+              onLookUp: null,
+              onSearchWeb: null,
+              onShare: () {
+                Share.share(_context?.text ?? '');
+              },
+            ));
   }
 
   @override

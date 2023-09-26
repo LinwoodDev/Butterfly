@@ -3,6 +3,31 @@ part of 'handler.dart';
 const cornerSize = 32.0;
 const visibleSize = cornerSize / 2;
 
+class LassoHandSelectionRenderer extends Renderer<List<Offset>> {
+  final ColorScheme scheme;
+  LassoHandSelectionRenderer(super.element, this.scheme);
+
+  @override
+  void build(Canvas canvas, Size size, NoteData document, DocumentPage page,
+      DocumentInfo info, CameraTransform transform,
+      [ColorScheme? colorScheme, bool foreground = false]) {
+    final paint = Paint()
+      ..color = scheme.primaryContainer
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4 / transform.size
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round
+      ..isAntiAlias = true;
+    final fillPaint = Paint()
+      ..color = scheme.primaryContainer.withOpacity(0.2)
+      ..style = PaintingStyle.fill;
+    final path = Path();
+    path.addPolygon(element, true);
+    canvas.drawPath(path, fillPaint);
+    canvas.drawPath(path, paint);
+  }
+}
+
 class HandSelectionRenderer extends Renderer<Rect> {
   final ColorScheme scheme;
   final HandTransformMode? transformMode;
@@ -126,7 +151,8 @@ class SelectHandler extends Handler<SelectTool> {
   List<Renderer<PadElement>> _transformed = [];
   Offset? _transformStartOffset;
   Offset? _contextMenuOffset;
-  Rect? _freeSelection;
+  Rect? _rectangleFreeSelection;
+  List<Offset>? _lassoFreeSelection;
   Offset? _currentMousePosition;
   double _scale = 1.0;
 
@@ -161,7 +187,8 @@ class SelectHandler extends Handler<SelectTool> {
     _resetTransform();
     _submitTransform(bloc);
     _selected.clear();
-    _freeSelection = null;
+    _rectangleFreeSelection = null;
+    _lassoFreeSelection = null;
     _currentMousePosition = null;
     _transformStartOffset = null;
     _transformed = [];
@@ -317,8 +344,11 @@ class SelectHandler extends Handler<SelectTool> {
       foregrounds.add(HandSelectionRenderer(
           selectionRect, scheme, _transformMode, _transformCorner));
     }
-    if (_freeSelection != null) {
-      foregrounds.add(HandSelectionRenderer(_freeSelection!, scheme));
+    if (_rectangleFreeSelection != null) {
+      foregrounds.add(HandSelectionRenderer(_rectangleFreeSelection!, scheme));
+    }
+    if (_lassoFreeSelection != null) {
+      foregrounds.add(LassoHandSelectionRenderer(_lassoFreeSelection!, scheme));
     }
     return foregrounds;
   }
@@ -363,14 +393,16 @@ class SelectHandler extends Handler<SelectTool> {
     final selectionRect = getSelectionRect();
 
     if (selectionRect == null) return null;
-    return HandTransformCorner.values.firstWhereOrNull((element) {
+    final hits = HandTransformCorner.values.where((element) {
       final corner = element.getFromRect(selectionRect);
       return Rect.fromCenter(
               center: corner,
               width: cornerSize / _scale,
               height: cornerSize / _scale)
           .contains(position);
-    });
+    }).toList();
+    if (hits.length == HandTransformCorner.values.length) return null;
+    return hits.firstOrNull;
   }
 
   Future<void> _onSelectionAdd(EventContext context, Offset localPosition,
@@ -554,9 +586,16 @@ class SelectHandler extends Handler<SelectTool> {
     }
     if (currentIndex.buttons != kSecondaryMouseButton && _transformed.isEmpty) {
       if (details.scale == 1.0) {
-        final topLeft = _freeSelection?.topLeft ?? globalPos;
-        _freeSelection =
-            Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy);
+        final topLeft = _rectangleFreeSelection?.topLeft ?? globalPos;
+        _rectangleFreeSelection = data.mode == SelectMode.rectangle
+            ? Rect.fromLTRB(topLeft.dx, topLeft.dy, globalPos.dx, globalPos.dy)
+            : null;
+        if (data.mode == SelectMode.lasso) {
+          _lassoFreeSelection ??= [];
+          _lassoFreeSelection!.add(globalPos);
+        } else {
+          _lassoFreeSelection = null;
+        }
         context.refresh();
       }
       return;
@@ -571,22 +610,30 @@ class SelectHandler extends Handler<SelectTool> {
 
   @override
   void onScaleEnd(ScaleEndDetails details, EventContext context) async {
-    final freeSelection = _freeSelection?.normalized();
+    final rectangleSelection = _rectangleFreeSelection?.normalized();
+    final lassoSelection = _lassoFreeSelection;
     if (_rulerRotation != null) {
       _rulerRotation = null;
       return;
     }
     if (await _submitTransform(context.getDocumentBloc())) return;
-    if (freeSelection != null && !freeSelection.isEmpty) {
-      _freeSelection = null;
-      if (!context.isCtrlPressed) {
-        _selected.clear();
-      }
-      final hits = await rayCastRect(freeSelection, context.getDocumentBloc(),
-          context.getCameraTransform());
-      _selected.addAll(hits);
-      context.refresh();
+    _lassoFreeSelection = null;
+    _rectangleFreeSelection = null;
+    if (!context.isCtrlPressed) {
+      _selected.clear();
     }
+    if (rectangleSelection != null && !rectangleSelection.isEmpty) {
+      final hits = await rayCastRect(rectangleSelection,
+          context.getDocumentBloc(), context.getCameraTransform());
+      _selected.addAll(hits);
+    } else if (lassoSelection != null && lassoSelection.isNotEmpty) {
+      final hits = await rayCastPolygon(lassoSelection,
+          context.getDocumentBloc(), context.getCameraTransform());
+      _selected.addAll(hits);
+    } else {
+      return;
+    }
+    context.refresh();
   }
 
   @override

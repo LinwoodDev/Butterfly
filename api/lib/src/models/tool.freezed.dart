@@ -67,7 +67,8 @@ mixin _$Tool {
   String get displayIcon => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -138,7 +139,7 @@ mixin _$Tool {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -204,7 +205,7 @@ mixin _$Tool {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -388,7 +389,7 @@ abstract class _$$SelectToolCopyWith<$Res> implements $ToolCopyWith<$Res> {
       __$$SelectToolCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String displayIcon});
+  $Res call({String name, String displayIcon, SelectMode mode});
 }
 
 /// @nodoc
@@ -404,6 +405,7 @@ class __$$SelectToolCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? displayIcon = null,
+    Object? mode = null,
   }) {
     return _then(_$SelectTool(
       name: null == name
@@ -414,6 +416,10 @@ class __$$SelectToolCopyWithImpl<$Res>
           ? _value.displayIcon
           : displayIcon // ignore: cast_nullable_to_non_nullable
               as String,
+      mode: null == mode
+          ? _value.mode
+          : mode // ignore: cast_nullable_to_non_nullable
+              as SelectMode,
     ));
   }
 }
@@ -421,7 +427,11 @@ class __$$SelectToolCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SelectTool extends SelectTool {
-  _$SelectTool({this.name = '', this.displayIcon = '', final String? $type})
+  _$SelectTool(
+      {this.name = '',
+      this.displayIcon = '',
+      this.mode = SelectMode.rectangle,
+      final String? $type})
       : $type = $type ?? 'select',
         super._();
 
@@ -434,13 +444,16 @@ class _$SelectTool extends SelectTool {
   @override
   @JsonKey()
   final String displayIcon;
+  @override
+  @JsonKey()
+  final SelectMode mode;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Tool.select(name: $name, displayIcon: $displayIcon)';
+    return 'Tool.select(name: $name, displayIcon: $displayIcon, mode: $mode)';
   }
 
   @JsonKey(ignore: true)
@@ -452,7 +465,8 @@ class _$SelectTool extends SelectTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -520,13 +534,13 @@ class _$SelectTool extends SelectTool {
             SurfaceTexture texture)
         texture,
   }) {
-    return select(name, displayIcon);
+    return select(name, displayIcon, mode);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -589,13 +603,13 @@ class _$SelectTool extends SelectTool {
             SurfaceTexture texture)?
         texture,
   }) {
-    return select?.call(name, displayIcon);
+    return select?.call(name, displayIcon, mode);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -660,7 +674,7 @@ class _$SelectTool extends SelectTool {
     required TResult orElse(),
   }) {
     if (select != null) {
-      return select(name, displayIcon);
+      return select(name, displayIcon, mode);
     }
     return orElse();
   }
@@ -756,8 +770,10 @@ class _$SelectTool extends SelectTool {
 }
 
 abstract class SelectTool extends Tool {
-  factory SelectTool({final String name, final String displayIcon}) =
-      _$SelectTool;
+  factory SelectTool(
+      {final String name,
+      final String displayIcon,
+      final SelectMode mode}) = _$SelectTool;
   SelectTool._() : super._();
 
   factory SelectTool.fromJson(Map<String, dynamic> json) =
@@ -767,6 +783,7 @@ abstract class SelectTool extends Tool {
   String get name;
   @override
   String get displayIcon;
+  SelectMode get mode;
   @override
   @JsonKey(ignore: true)
   _$$SelectToolCopyWith<_$SelectTool> get copyWith =>
@@ -843,7 +860,8 @@ class _$HandTool extends HandTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -917,7 +935,7 @@ class _$HandTool extends HandTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -986,7 +1004,7 @@ class _$HandTool extends HandTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -1269,7 +1287,8 @@ class _$ImportTool extends ImportTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -1343,7 +1362,7 @@ class _$ImportTool extends ImportTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -1412,7 +1431,7 @@ class _$ImportTool extends ImportTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -1665,7 +1684,8 @@ class _$UndoTool extends UndoTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -1739,7 +1759,7 @@ class _$UndoTool extends UndoTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -1808,7 +1828,7 @@ class _$UndoTool extends UndoTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -2054,7 +2074,8 @@ class _$RedoTool extends RedoTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -2128,7 +2149,7 @@ class _$RedoTool extends RedoTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -2197,7 +2218,7 @@ class _$RedoTool extends RedoTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -2509,7 +2530,8 @@ class _$LabelTool extends LabelTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -2584,7 +2606,7 @@ class _$LabelTool extends LabelTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -2654,7 +2676,7 @@ class _$LabelTool extends LabelTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -2936,7 +2958,8 @@ class _$PenTool extends PenTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -3010,7 +3033,7 @@ class _$PenTool extends PenTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -3079,7 +3102,7 @@ class _$PenTool extends PenTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -3344,7 +3367,8 @@ class _$EraserTool extends EraserTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -3418,7 +3442,7 @@ class _$EraserTool extends EraserTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -3487,7 +3511,7 @@ class _$EraserTool extends EraserTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -3751,7 +3775,8 @@ class _$PathEraserTool extends PathEraserTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -3825,7 +3850,7 @@ class _$PathEraserTool extends PathEraserTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -3894,7 +3919,7 @@ class _$PathEraserTool extends PathEraserTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -4158,7 +4183,8 @@ class _$LayerTool extends LayerTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -4232,7 +4258,7 @@ class _$LayerTool extends LayerTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -4301,7 +4327,7 @@ class _$LayerTool extends LayerTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -4596,7 +4622,8 @@ class _$AreaTool extends AreaTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -4671,7 +4698,7 @@ class _$AreaTool extends AreaTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -4741,7 +4768,7 @@ class _$AreaTool extends AreaTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -5044,7 +5071,8 @@ class _$LaserTool extends LaserTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -5118,7 +5146,7 @@ class _$LaserTool extends LaserTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -5188,7 +5216,7 @@ class _$LaserTool extends LaserTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -5500,7 +5528,8 @@ class _$ShapeTool extends ShapeTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -5575,7 +5604,7 @@ class _$ShapeTool extends ShapeTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -5645,7 +5674,7 @@ class _$ShapeTool extends ShapeTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -5927,7 +5956,8 @@ class _$StampTool extends StampTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -6001,7 +6031,7 @@ class _$StampTool extends StampTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -6070,7 +6100,7 @@ class _$StampTool extends StampTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -6323,7 +6353,8 @@ class _$PresentationTool extends PresentationTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -6397,7 +6428,7 @@ class _$PresentationTool extends PresentationTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -6466,7 +6497,7 @@ class _$PresentationTool extends PresentationTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -6727,7 +6758,8 @@ class _$SpacerTool extends SpacerTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -6801,7 +6833,7 @@ class _$SpacerTool extends SpacerTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -6870,7 +6902,7 @@ class _$SpacerTool extends SpacerTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -7122,7 +7154,8 @@ class _$FullScreenTool extends FullScreenTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -7196,7 +7229,7 @@ class _$FullScreenTool extends FullScreenTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -7265,7 +7298,7 @@ class _$FullScreenTool extends FullScreenTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -7526,7 +7559,8 @@ class _$AssetTool extends AssetTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -7600,7 +7634,7 @@ class _$AssetTool extends AssetTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -7669,7 +7703,7 @@ class _$AssetTool extends AssetTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?
@@ -7985,7 +8019,8 @@ class _$TextureTool extends TextureTool {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name, String displayIcon) select,
+    required TResult Function(String name, String displayIcon, SelectMode mode)
+        select,
     required TResult Function(String name, String displayIcon) hand,
     required TResult Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)
@@ -8060,7 +8095,7 @@ class _$TextureTool extends TextureTool {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name, String displayIcon)? select,
+    TResult? Function(String name, String displayIcon, SelectMode mode)? select,
     TResult? Function(String name, String displayIcon)? hand,
     TResult? Function(String name, String displayIcon,
             List<PadElement> elements, List<Area> areas)?
@@ -8130,7 +8165,7 @@ class _$TextureTool extends TextureTool {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name, String displayIcon)? select,
+    TResult Function(String name, String displayIcon, SelectMode mode)? select,
     TResult Function(String name, String displayIcon)? hand,
     TResult Function(String name, String displayIcon, List<PadElement> elements,
             List<Area> areas)?

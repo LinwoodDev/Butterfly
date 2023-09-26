@@ -25,7 +25,7 @@ const minSize = 500.0;
 class _PropertyViewState extends State<PropertyView>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 200),
+    duration: const Duration(milliseconds: 300),
     vsync: this,
   );
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(

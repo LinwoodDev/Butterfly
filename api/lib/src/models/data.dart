@@ -112,9 +112,8 @@ class NoteData {
             ...state.removed,
             ...path,
           ],
-          added: {
-            ...state.added,
-          }..removeWhere((key, value) => path.contains(key)),
+          added: Map.of(state.added)
+            ..removeWhere((key, value) => path.contains(key)),
         ),
       );
 
@@ -502,5 +501,10 @@ class NoteData {
           index),
       name
     );
+  }
+
+  NoteData undoDelete(String path) {
+    final removed = state.removed.where((element) => element != path).toList();
+    return _updateState(state.copyWith(removed: removed));
   }
 }

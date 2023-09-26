@@ -48,7 +48,6 @@ Future<void> main([List<String> args = const []]) async {
 
   await setup();
   final prefs = await SharedPreferences.getInstance();
-  final isFullscreen = await isFullScreen();
   var initialLocation = '/';
   if (args.isNotEmpty && !kIsWeb) {
     var path = args[0].replaceAll('\\', '/');
@@ -110,6 +109,7 @@ Future<void> main([List<String> args = const []]) async {
   final result = argParser.parse(args);
   final clipboardManager = await SysInfo.getClipboardManager();
   GeneralFileSystem.dataPath = result['path'];
+  final isFullscreen = await isFullScreen();
   runApp(
     MultiRepositoryProvider(
         providers: [
@@ -303,13 +303,15 @@ class ButterflyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) => BlocProvider(
-        create: (_) {
+        create: (context) {
           final cubit = SettingsCubit(prefs, isFullScreen);
-          cubit.setFullScreen(cubit.state.startInFullScreen);
-          cubit.setTheme(MediaQuery.of(context));
-          cubit.setNativeTitleBar();
           if (!kIsWeb && isWindow) {
-            windowManager.show();
+            windowManager.waitUntilReadyToShow().then((_) async {
+              cubit.setFullScreen(cubit.state.startInFullScreen);
+              cubit.setTheme(MediaQuery.of(context));
+              cubit.setNativeTitleBar();
+              windowManager.show();
+            });
           }
           return cubit;
         },
@@ -330,7 +332,8 @@ class ButterflyApp extends StatelessWidget {
         buildWhen: (previous, current) =>
             previous.theme != current.theme ||
             previous.localeTag != current.localeTag ||
-            previous.design != current.design,
+            previous.design != current.design ||
+            previous.density != current.density,
         builder: (context, state) => MaterialApp.router(
               locale: state.locale,
               title: applicationName,
@@ -350,8 +353,10 @@ class ButterflyApp extends StatelessWidget {
               },
               supportedLocales: getLocales(),
               themeMode: state.theme,
-              theme: getThemeData(state.design, false, lightDynamic),
-              darkTheme: getThemeData(state.design, true, darkDynamic),
+              theme: getThemeData(
+                  state.design, false, state.density.toFlutter(), lightDynamic),
+              darkTheme: getThemeData(
+                  state.design, true, state.density.toFlutter(), darkDynamic),
             ));
   }
 

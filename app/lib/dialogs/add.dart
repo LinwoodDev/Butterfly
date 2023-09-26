@@ -1,3 +1,4 @@
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/handlers/handler.dart';
 import 'package:butterfly/helpers/color_helper.dart';
 import 'package:butterfly/visualizer/element.dart';
@@ -20,8 +21,9 @@ class AddDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<DocumentBloc>();
+    final currentIndexCubit = context.read<CurrentIndexCubit>();
     void addTool(Tool tool) {
-      final bloc = context.read<DocumentBloc>();
       final state = bloc.state;
       if (state is! DocumentLoaded) return;
       final background =
@@ -31,14 +33,39 @@ class AddDialog extends StatelessWidget {
       Navigator.of(context).pop();
     }
 
-    Widget buildTool(Tool tool) => BoxTile(
-          title: Text(
-            tool.getLocalizedName(context),
-            textAlign: TextAlign.center,
-          ),
-          icon: PhosphorIcon(tool.icon(PhosphorIconsStyle.light)),
-          onTap: () => addTool(tool),
-        );
+    Widget buildTool(Tool tool) {
+      final caption = tool.getLocalizedCaption(context);
+      final handler = Handler.fromTool(tool);
+      final color =
+          handler.getStatus(context.read<DocumentBloc>()) == ToolStatus.disabled
+              ? Theme.of(context).disabledColor
+              : null;
+      return BoxTile(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              tool.getLocalizedName(context),
+              textAlign: TextAlign.center,
+            ),
+            if (tool.isAction()) ...[
+              const SizedBox(width: 8),
+              IconButton(
+                onPressed: () =>
+                    handler.onSelected(bloc, currentIndexCubit, false),
+                icon: const PhosphorIcon(PhosphorIconsLight.playCircle),
+              ),
+            ],
+          ],
+        ),
+        subtitle: caption.isEmpty ? null : Text(caption),
+        icon: PhosphorIcon(
+          tool.icon(PhosphorIconsStyle.light),
+          color: color,
+        ),
+        onTap: () => addTool(tool),
+      );
+    }
 
     return AlertDialog(
       title: Row(
@@ -82,7 +109,8 @@ class AddDialog extends StatelessWidget {
                     .toList();
                 final tools = [
                   Tool.hand,
-                  Tool.select,
+                  () => Tool.select(mode: SelectMode.lasso),
+                  () => Tool.select(mode: SelectMode.rectangle),
                   Tool.pen,
                   Tool.stamp,
                   Tool.laser,
@@ -130,106 +158,112 @@ class AddDialog extends StatelessWidget {
                         .toLowerCase()
                         .contains(search.toLowerCase()))
                     .toList();
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    if (imports.isNotEmpty) ...[
-                      Text(
-                        AppLocalizations.of(context).import,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      const SizedBox(height: 16),
-                      Wrap(
-                        alignment: WrapAlignment.start,
-                        children: imports
-                            .map(
-                              (e) => BoxTile(
-                                size: 128,
-                                title: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      e.getLocalizedName(context),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(width: 8),
-                                    IconButton(
-                                      onPressed: () =>
-                                          addTool(Tool.asset(importType: e)),
-                                      icon: const PhosphorIcon(
-                                          PhosphorIconsLight.pushPin),
-                                    ),
-                                  ],
-                                ),
-                                icon: PhosphorIcon(
-                                    e.icon(PhosphorIconsStyle.light)),
-                                onTap: () async {
-                                  await showImportAssetWizard(e, context);
-                                  if (context.mounted) {
-                                    Navigator.of(context).pop();
-                                  }
-                                },
+                return BlocBuilder<DocumentBloc, DocumentState>(
+                    builder: (context, state) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            if (imports.isNotEmpty) ...[
+                              Text(
+                                AppLocalizations.of(context).import,
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
-                            )
-                            .toList(),
-                      ),
-                      const SizedBox(height: 32),
-                    ],
-                    if (tools.isNotEmpty) ...[
-                      Text(
-                        AppLocalizations.of(context).tools,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      const SizedBox(height: 16),
-                      Wrap(
-                        alignment: WrapAlignment.start,
-                        children: tools.map(buildTool).toList(),
-                      ),
-                      const SizedBox(height: 32),
-                    ],
-                    if (shapes.isNotEmpty || textures.isNotEmpty) ...[
-                      Text(
-                        AppLocalizations.of(context).surface,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      const SizedBox(height: 16),
-                      Wrap(
-                        alignment: WrapAlignment.start,
-                        children: [
-                          ...shapes.map((e) => BoxTile(
-                                title: Text(
-                                  e.getLocalizedName(context),
-                                  textAlign: TextAlign.center,
-                                ),
-                                icon: Icon(e.icon(PhosphorIconsStyle.light)),
-                                onTap: () => addTool(ShapeTool(
-                                    property: ShapeProperty(shape: e))),
-                              )),
-                          ...textures.map((e) => BoxTile(
-                                title: Text(
-                                  e.getLocalizedName(context),
-                                  textAlign: TextAlign.center,
-                                ),
-                                icon: Icon(e.icon(PhosphorIconsStyle.light)),
-                                onTap: () => addTool(TextureTool(texture: e)),
-                              )),
-                        ],
-                      ),
-                      const SizedBox(height: 32),
-                    ],
-                    if (actions.isNotEmpty) ...[
-                      Text(
-                        AppLocalizations.of(context).actions,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      const SizedBox(height: 16),
-                      Wrap(
-                        alignment: WrapAlignment.start,
-                        children: actions.map(buildTool).toList(),
-                      ),
-                    ],
-                  ],
-                );
+                              const SizedBox(height: 16),
+                              Wrap(
+                                alignment: WrapAlignment.start,
+                                children: imports
+                                    .map(
+                                      (e) => BoxTile(
+                                        size: 128,
+                                        title: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              e.getLocalizedName(context),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            const SizedBox(width: 8),
+                                            IconButton(
+                                              onPressed: () => addTool(
+                                                  Tool.asset(importType: e)),
+                                              icon: const PhosphorIcon(
+                                                  PhosphorIconsLight.pushPin),
+                                            ),
+                                          ],
+                                        ),
+                                        icon: PhosphorIcon(
+                                            e.icon(PhosphorIconsStyle.light)),
+                                        onTap: () async {
+                                          await showImportAssetWizard(
+                                              e, context);
+                                          if (context.mounted) {
+                                            Navigator.of(context).pop();
+                                          }
+                                        },
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                              const SizedBox(height: 32),
+                            ],
+                            if (tools.isNotEmpty) ...[
+                              Text(
+                                AppLocalizations.of(context).tools,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                              const SizedBox(height: 16),
+                              Wrap(
+                                alignment: WrapAlignment.start,
+                                children: tools.map(buildTool).toList(),
+                              ),
+                              const SizedBox(height: 32),
+                            ],
+                            if (shapes.isNotEmpty || textures.isNotEmpty) ...[
+                              Text(
+                                AppLocalizations.of(context).surface,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                              const SizedBox(height: 16),
+                              Wrap(
+                                alignment: WrapAlignment.start,
+                                children: [
+                                  ...shapes.map((e) => BoxTile(
+                                        title: Text(
+                                          e.getLocalizedName(context),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        icon: Icon(
+                                            e.icon(PhosphorIconsStyle.light)),
+                                        onTap: () => addTool(ShapeTool(
+                                            property: ShapeProperty(shape: e))),
+                                      )),
+                                  ...textures.map((e) => BoxTile(
+                                        title: Text(
+                                          e.getLocalizedName(context),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        icon: Icon(
+                                            e.icon(PhosphorIconsStyle.light)),
+                                        onTap: () =>
+                                            addTool(TextureTool(texture: e)),
+                                      )),
+                                ],
+                              ),
+                              const SizedBox(height: 32),
+                            ],
+                            if (actions.isNotEmpty) ...[
+                              Text(
+                                AppLocalizations.of(context).actions,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                              const SizedBox(height: 16),
+                              Wrap(
+                                alignment: WrapAlignment.start,
+                                children: actions.map(buildTool).toList(),
+                              ),
+                            ],
+                          ],
+                        ));
               }),
         ),
       ),

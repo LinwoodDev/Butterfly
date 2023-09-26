@@ -205,32 +205,63 @@ class _SvgExportDialogState extends State<SvgExportDialog> {
         }),
       );
 
-  Widget _buildProperties() => Column(children: [
-        TextField(
-            controller: _xController,
-            decoration: const InputDecoration(labelText: 'X', filled: true),
-            onChanged: (value) => x = double.tryParse(value) ?? x,
-            onSubmitted: (value) => _regeneratePreviewImage()),
-        const SizedBox(height: 8),
-        TextField(
-            controller: _yController,
-            decoration: const InputDecoration(labelText: 'Y', filled: true),
-            onChanged: (value) => y = double.tryParse(value) ?? y,
-            onSubmitted: (value) => _regeneratePreviewImage()),
-        const SizedBox(height: 8),
-        TextField(
-            controller: _widthController,
-            decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).width, filled: true),
-            onChanged: (value) => width = int.tryParse(value) ?? width,
-            onSubmitted: (value) => _regeneratePreviewImage()),
-        const SizedBox(height: 8),
-        TextField(
-            controller: _heightController,
-            decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).height, filled: true),
-            onChanged: (value) => height = int.tryParse(value) ?? height,
-            onSubmitted: (value) => _regeneratePreviewImage()),
+  Widget _buildProperties() =>
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(
+          AppLocalizations.of(context).position,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _xController,
+                decoration: const InputDecoration(labelText: 'X', filled: true),
+                onChanged: (value) => x = double.tryParse(value) ?? x,
+                onSubmitted: (value) => _regeneratePreviewImage(),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: TextField(
+                controller: _yController,
+                decoration: const InputDecoration(labelText: 'Y', filled: true),
+                onChanged: (value) => y = double.tryParse(value) ?? y,
+                onSubmitted: (value) => _regeneratePreviewImage(),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Text(
+          AppLocalizations.of(context).size,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _widthController,
+                decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context).width,
+                    filled: true),
+                onChanged: (value) => width = int.tryParse(value) ?? width,
+                onSubmitted: (value) => _regeneratePreviewImage(),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: TextField(
+                controller: _heightController,
+                decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context).height,
+                    filled: true),
+                onChanged: (value) => height = int.tryParse(value) ?? height,
+                onSubmitted: (value) => _regeneratePreviewImage(),
+              ),
+            ),
+          ],
+        ),
         const SizedBox(height: 8),
         CheckboxListTile(
             value: _renderBackground,

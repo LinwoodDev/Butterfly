@@ -15,7 +15,7 @@ abstract class GenericTextRenderer<T extends LabelElement> extends Renderer<T> {
   void _createTool(NoteData document, DocumentPage page) {
     _tp ??= context?.textPainter ?? TextPainter();
     _tp?.textDirection = TextDirection.ltr;
-    _tp?.textScaleFactor = scale;
+    _tp?.textScaler = TextScaler.linear(scale);
     final paragraph = getParagraph(document);
     final styleSheet = element.styleSheet.resolveStyle(document);
     final style = styleSheet.resolveParagraphProperty(paragraph.property) ??

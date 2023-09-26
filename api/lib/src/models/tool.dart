@@ -41,6 +41,8 @@ enum Axis2D { horizontal, vertical }
 
 enum ImportType { image, camera, svg, pdf, document, markdown }
 
+enum SelectMode { rectangle, lasso }
+
 @Freezed(equal: false)
 sealed class Tool with _$Tool {
   Tool._();
@@ -48,6 +50,7 @@ sealed class Tool with _$Tool {
   factory Tool.select({
     @Default('') String name,
     @Default('') String displayIcon,
+    @Default(SelectMode.rectangle) SelectMode mode,
   }) = SelectTool;
 
   factory Tool.hand({

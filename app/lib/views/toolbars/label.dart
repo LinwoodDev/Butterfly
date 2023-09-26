@@ -221,6 +221,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                         IconButton(
                           icon: const PhosphorIcon(
                               PhosphorIconsLight.magnifyingGlass),
+                          selectedIcon: const PhosphorIcon(
+                              PhosphorIconsFill.magnifyingGlass),
                           isSelected: value.tool.zoomDependent,
                           tooltip: AppLocalizations.of(context).zoomDependent,
                           onPressed: () => widget.onChanged(value.copyWith(
@@ -259,6 +261,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           IconButton(
                             icon:
                                 const PhosphorIcon(PhosphorIconsLight.article),
+                            selectedIcon:
+                                const PhosphorIcon(PhosphorIconsFill.article),
                             isSelected: value.isParagraph(),
                             onPressed: value.area == null
                                 ? null
@@ -338,6 +342,8 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                           const SizedBox(width: 8),
                           IconButton(
                             icon: const PhosphorIcon(PhosphorIconsLight.eraser),
+                            selectedIcon:
+                                const PhosphorIcon(PhosphorIconsFill.eraser),
                             tooltip: AppLocalizations.of(context).clearStyle,
                             isSelected: value.isParagraph()
                                 ? value.getProperty().maybeMap(

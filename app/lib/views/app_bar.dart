@@ -111,7 +111,7 @@ class _AppBarTitle extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             ConstrainedBox(
               constraints: BoxConstraints(
-                  maxWidth: min(250.0, constraints.maxWidth - 16)),
+                  maxWidth: min(275.0, constraints.maxWidth - 16)),
               child: Row(
                 children: [
                   Flexible(
@@ -168,6 +168,7 @@ class _AppBarTitle extends StatelessWidget {
                       return title;
                     }),
                   ),
+                  const SizedBox(width: 8),
                   if (state is DocumentLoadSuccess) ...[
                     if (!state.hasAutosave())
                       SizedBox(
@@ -333,17 +334,7 @@ class _MainPopupMenu extends StatelessWidget {
             SubmenuButton(
               menuChildren: [
                 MenuItemButton(
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
-                  shortcut: const SingleActivator(LogicalKeyboardKey.keyE,
-                      alt: true, control: true),
-                  onPressed: () async {
-                    Actions.maybeInvoke<SvgExportIntent>(
-                        context, SvgExportIntent(context));
-                  },
-                  child: Text(AppLocalizations.of(context).svg),
-                ),
-                MenuItemButton(
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.database),
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.file),
                   shortcut: const SingleActivator(
                     LogicalKeyboardKey.keyE,
                     control: true,
@@ -355,7 +346,17 @@ class _MainPopupMenu extends StatelessWidget {
                   child: Text(AppLocalizations.of(context).document),
                 ),
                 MenuItemButton(
-                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.image),
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileSvg),
+                  shortcut: const SingleActivator(LogicalKeyboardKey.keyE,
+                      alt: true, control: true),
+                  onPressed: () async {
+                    Actions.maybeInvoke<SvgExportIntent>(
+                        context, SvgExportIntent(context));
+                  },
+                  child: Text(AppLocalizations.of(context).svg),
+                ),
+                MenuItemButton(
+                  leadingIcon: const PhosphorIcon(PhosphorIconsLight.fileImage),
                   shortcut: const SingleActivator(
                     LogicalKeyboardKey.keyE,
                     shift: true,
@@ -426,6 +427,14 @@ class _MainPopupMenu extends StatelessWidget {
             ),
           ],
           if (state.embedding == null) ...[
+            MenuItemButton(
+              leadingIcon: const PhosphorIcon(PhosphorIconsLight.eyeSlash),
+              shortcut: const SingleActivator(LogicalKeyboardKey.f12),
+              onPressed: () {
+                context.read<CurrentIndexCubit>().enterTouchHideUI();
+              },
+              child: Text(AppLocalizations.of(context).hideUI),
+            ),
             BlocBuilder<SettingsCubit, ButterflySettings>(
                 buildWhen: (previous, current) =>
                     previous.fullScreen != current.fullScreen,
