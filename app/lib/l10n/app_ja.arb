@@ -535,5 +535,11 @@
   "sureClose": "ドキュメントを閉じてもよろしいですか？",
   "thereAreUnsavedChanges": "保存されていない変更があります",
   "page": "ページ",
-  "switchView": "ビューの切り替え"
+  "switchView": "ビューの切り替え",
+  "lasso": "Lasso",
+  "hideUI": "UI を隠す",
+  "density": "解像度:",
+  "compact": "コンパクト化",
+  "comfortable": "快適さ",
+  "standard": "標準"
 }

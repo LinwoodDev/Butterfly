@@ -1,5 +1,5 @@
 ---
-title: "وسام"
+title: "أداة الختم"
 sidebar_label: "وسام"
 sidebar_position: 3
 ---

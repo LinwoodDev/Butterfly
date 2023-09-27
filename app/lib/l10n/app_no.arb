@@ -535,5 +535,11 @@
   "sureClose": "Er du sikker på at du vil lukke dokumentet?",
   "thereAreUnsavedChanges": "Det er ulagrede endringer",
   "page": "Side",
-  "switchView": "Bytt visning"
+  "switchView": "Bytt visning",
+  "lasso": "Lasso",
+  "hideUI": "Skjul brukergrensesnitt",
+  "density": "Tetthet",
+  "compact": "Kompakt",
+  "comfortable": "Komfortabel",
+  "standard": "Vanlig"
 }

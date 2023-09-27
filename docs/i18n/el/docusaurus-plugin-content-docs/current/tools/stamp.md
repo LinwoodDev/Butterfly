@@ -1,5 +1,5 @@
 ---
-title: "Σφραγίδα"
+title: "Εργαλείο σφραγίδας"
 sidebar_label: "Σφραγίδα"
 sidebar_position: 3
 ---

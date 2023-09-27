@@ -535,5 +535,11 @@
   "sureClose": "Ești sigur că vrei să închizi documentul?",
   "thereAreUnsavedChanges": "Există modificări nesalvate",
   "page": "Pagină",
-  "switchView": "Comutare vizualizare"
+  "switchView": "Comutare vizualizare",
+  "lasso": "Lasso",
+  "hideUI": "Ascunde UI",
+  "density": "Densitate",
+  "compact": "Compact",
+  "comfortable": "Comfortable",
+  "standard": "Standard"
 }

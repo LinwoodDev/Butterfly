@@ -535,5 +535,11 @@
   "sureClose": "Sind Sie sicher, dass Sie das Dokument schließen möchten?",
   "thereAreUnsavedChanges": "Es gibt ungespeicherte Änderungen",
   "page": "Seite",
-  "switchView": "Ansicht wechseln"
+  "switchView": "Ansicht wechseln",
+  "lasso": "Lasso",
+  "hideUI": "UI ausblenden",
+  "density": "Dichte",
+  "compact": "Kompakt",
+  "comfortable": "Bequemer",
+  "standard": "Standard"
 }

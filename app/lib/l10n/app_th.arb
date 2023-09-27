@@ -535,5 +535,11 @@
   "sureClose": "Are you sure you want to close the document?",
   "thereAreUnsavedChanges": "There are unsaved changes",
   "page": "Page",
-  "switchView": "Switch View"
+  "switchView": "Switch View",
+  "lasso": "Lasso",
+  "hideUI": "Hide UI",
+  "density": "Density",
+  "compact": "Compact",
+  "comfortable": "Comfortable",
+  "standard": "Standard"
 }

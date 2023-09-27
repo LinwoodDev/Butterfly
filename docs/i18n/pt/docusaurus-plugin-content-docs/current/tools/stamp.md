@@ -1,5 +1,5 @@
 ---
-title: "Selo"
+title: "Ferramenta de selo"
 sidebar_label: "Selo"
 sidebar_position: 3
 ---

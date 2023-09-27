@@ -1,5 +1,5 @@
 ---
-title: "印章"
+title: "印章工具"
 sidebar_label: "印章"
 sidebar_position: 3
 ---

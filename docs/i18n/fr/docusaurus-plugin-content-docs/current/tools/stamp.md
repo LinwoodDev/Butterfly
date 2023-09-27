@@ -1,5 +1,5 @@
 ---
-title: "Médaille"
+title: "Outil tampon"
 sidebar_label: "Médaille"
 sidebar_position: 3
 ---

@@ -535,5 +535,11 @@
   "sureClose": "Είστε βέβαιοι ότι θέλετε να κλείσετε το έγγραφο?",
   "thereAreUnsavedChanges": "Υπάρχουν αλλαγές που δεν έχουν αποθηκευτεί",
   "page": "Σελίδα",
-  "switchView": "Εναλλαγή Προβολής"
+  "switchView": "Εναλλαγή Προβολής",
+  "lasso": "Lasso",
+  "hideUI": "Απόκρυψη UI",
+  "density": "Πυκνότητα",
+  "compact": "Συμπαγής",
+  "comfortable": "Άνετο",
+  "standard": "Τυπικό"
 }

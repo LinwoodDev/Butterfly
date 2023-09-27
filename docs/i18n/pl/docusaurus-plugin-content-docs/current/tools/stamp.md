@@ -1,5 +1,5 @@
 ---
-title: "Pieczęć"
+title: "Narzędzie stempla"
 sidebar_label: "Pieczęć"
 sidebar_position: 3
 ---
