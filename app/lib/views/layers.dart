@@ -115,6 +115,8 @@ class LayersView extends StatelessWidget {
                 child: FloatingActionButton.extended(
                     label: Text(AppLocalizations.of(context).selectCustomLayer),
                     icon: const PhosphorIcon(PhosphorIconsLight.selection),
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    foregroundColor: Theme.of(context).colorScheme.onSecondary,
                     onPressed: () async {
                       final bloc = context.read<DocumentBloc>();
                       final state = bloc.state;

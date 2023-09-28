@@ -81,6 +81,10 @@ class WaypointsView extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FloatingActionButton.extended(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onSecondary,
                         label: Text(AppLocalizations.of(context).add),
                         icon: const PhosphorIcon(PhosphorIconsLight.plus),
                         onPressed: () {

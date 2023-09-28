@@ -1,0 +1,4 @@
+* Add classic theme to theme selection
+* Change secondary color of classic theme to red
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8
