@@ -29,10 +29,10 @@ packages:
     dependency: "direct main"
     description:
       name: archive
-      sha256: "20071638cbe4e5964a427cfa0e86dce55d060bc7d82d56f3554095d7239a8765"
+      sha256: d4dc11707abb32ef756ab95678c0d6df54003d98277f7c9aeda14c48e7a38c2f
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.2"
+    version: "3.4.3"
   args:
     dependency: "direct main"
     description:
@@ -172,10 +172,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android
-      sha256: "796438641b13bc26f6d9fe07e183b708e856db21ddeb9ec99de5591286e1910c"
+      sha256: c978373b41a463c9edda3fea0a06966299f55db63232cd0f0d4efc21a59a0006
       url: "https://pub.dev"
     source: hosted
-    version: "0.10.8+10"
+    version: "0.10.8+12"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -725,10 +725,10 @@ packages:
     dependency: transitive
     description:
       name: meta
-      sha256: "3c74dbf8763d36539f114c799d8a2d87343b5067e9d796ca22b5eb8437090ee3"
+      sha256: a6e590c838b18133bb482a2745ad77c5bb7715fb0451209e1a7567d416678b8e
       url: "https://pub.dev"
     source: hosted
-    version: "1.9.1"
+    version: "1.10.0"
   mime:
     dependency: transitive
     description:
@@ -879,10 +879,10 @@ packages:
     dependency: transitive
     description:
       name: platform
-      sha256: "57c07bf82207aee366dfaa3867b3164e4f03a238a461a11b0e8a3a510d51203d"
+      sha256: ae68c7bfcd7383af3629daafb32fb4e8681c7154428da4febcff06200585f102
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.1"
+    version: "3.1.2"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -1332,10 +1332,10 @@ packages:
     dependency: transitive
     description:
       name: web
-      sha256: dc8ccd225a2005c1be616fe02951e2e342092edf968cf0844220383757ef8f10
+      sha256: "14f1f70c51119012600c5f1f60ca68efda5a9b6077748163c6af2893ec5df8fc"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.4-beta"
+    version: "0.2.1-beta"
   web_socket_channel:
     dependency: transitive
     description:
@@ -1393,5 +1393,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.1.0 <4.0.0"
+  dart: ">=3.2.0-157.0.dev <4.0.0"
   flutter: ">=3.13.0"
