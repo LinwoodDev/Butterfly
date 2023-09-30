@@ -1,4 +1,5 @@
 * Add classic theme to theme selection
 * Change secondary color of classic theme to red
+* Fix markdown newlines ([#501](https://github.com/LinwoodDev/Butterfly/issues/501))
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8
