@@ -2,6 +2,7 @@ part of 'handler.dart';
 
 class SpacerHandler extends Handler<SpacerTool> {
   Offset? _startPosition;
+  Set<Renderer<PadElement>>? _renderers;
   double _spacing = 0.0;
 
   SpacerHandler(super.data);
@@ -17,12 +18,37 @@ class SpacerHandler extends Handler<SpacerTool> {
             _spacing,
             data.axis,
           ),
+        ...?_renderers?.map((e) =>
+            e.transform(
+              position: (data.axis == Axis2D.horizontal
+                  ? Offset(_spacing, 0)
+                  : Offset(0, _spacing)),
+            ) ??
+            e),
       ];
+
+  @override
+  Map<Renderer, RendererState> get rendererStates => Map.fromEntries(
+      _renderers?.map((e) => MapEntry(e, RendererState.hidden)) ?? []);
+
+  Rect? _lastRect;
+
+  Future<void> _refreshRenderers(Offset position, EventContext context) async {
+    final rect = _getRect(position, _spacing);
+    if (rect == _lastRect) return;
+    _lastRect = rect;
+    final renderers = await rayCastRect(
+        rect, context.getDocumentBloc(), context.getCameraTransform());
+    if (rect != _lastRect) return;
+    _renderers = renderers;
+    context.refresh();
+  }
 
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final transform = context.getCameraTransform();
     _startPosition = transform.localToGlobal(details.localFocalPoint);
+    _refreshRenderers(_startPosition!, context);
     return false;
   }
 
@@ -37,14 +63,17 @@ class SpacerHandler extends Handler<SpacerTool> {
     _startPosition = (data.axis == Axis2D.horizontal
         ? Offset(_startPosition!.dx, globalPos.dy)
         : Offset(globalPos.dx, _startPosition!.dy));
-    context.refresh();
+    _refreshRenderers(_startPosition!, context);
   }
 
   @override
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
+    await _refreshRenderers(_startPosition!, context);
     await _submit(context);
     _startPosition = null;
     _spacing = 0.0;
+    _renderers = null;
+    _lastRect = null;
     context.refresh();
   }
 
@@ -70,25 +99,25 @@ class SpacerHandler extends Handler<SpacerTool> {
   }
 
   Future<void> _submit(EventContext context) async {
-    final rect = _getRect(_startPosition!, _spacing);
-    if (rect.isEmpty) {
-      return;
-    }
-    final renderers = await rayCastRect(
-        rect, context.getDocumentBloc(), context.getCameraTransform());
     final content = context.getPage()?.content;
-    if (content == null) return;
-    final elements = Map.fromEntries(renderers
-        .map((e) => MapEntry(content.indexOf(e.element), [
-              e
-                      .transform(
-                          position: (data.axis == Axis2D.horizontal
-                              ? Offset(_spacing, 0)
-                              : Offset(0, _spacing)))
-                      ?.element ??
-                  e.element
-            ]))
-        .toList());
+    final elements = Map<int, List<PadElement>>.fromEntries(_renderers
+            ?.map(
+              (e) => MapEntry(
+                content?.indexOf(e.element) ?? -1,
+                [
+                  e
+                          .transform(
+                              position: (data.axis == Axis2D.horizontal
+                                  ? Offset(_spacing, 0)
+                                  : Offset(0, _spacing)))
+                          ?.element ??
+                      e.element
+                ],
+              ),
+            )
+            .where((e) => e.key >= 0)
+            .toList() ??
+        []);
     context.getDocumentBloc().add(ElementsChanged(elements));
   }
 }

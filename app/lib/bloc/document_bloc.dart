@@ -177,20 +177,19 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       if (!(current.embedding?.editable ?? true)) return;
       final renderers = <Renderer<PadElement>>[];
       var selection = current.currentIndexCubit.state.selection;
-      Renderer<PadElement>? oldRenderer, newRenderer;
       final page = current.page;
+      bool shouldRefresh = false;
       for (final renderer in current.renderers) {
         final index = page.content.indexOf(renderer.element);
         final updated = event.elements[index];
         if (updated != null) {
           for (final element in updated) {
-            newRenderer = Renderer.fromInstance(element);
+            final newRenderer = Renderer.fromInstance(element);
             await newRenderer.setup(
                 current.data, current.assetService, current.page);
-            oldRenderer = renderer;
-            oldRenderer.dispose();
+            renderer.dispose();
             renderers.add(newRenderer);
-            var newSelection = selection?.remove(oldRenderer);
+            var newSelection = selection?.remove(renderer);
             if (newSelection != selection && selection != null) {
               if (newSelection == null) {
                 newSelection = Selection.from(newRenderer);
@@ -199,23 +198,22 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
               }
               selection = newSelection;
             }
+            shouldRefresh = shouldRefresh ||
+                current.currentIndexCubit
+                    .getHandler()
+                    .onRendererUpdated(current.page, renderer, newRenderer);
           }
         } else {
           renderers.add(renderer);
         }
       }
-      current.currentIndexCubit.unbake(unbakedElements: renderers);
-      if (oldRenderer == null || newRenderer == null) return;
-      if (current.currentIndexCubit
-          .getHandler()
-          .onRendererUpdated(current.page, oldRenderer, newRenderer)) {
+      current.currentIndexCubit.withUnbaked(renderers);
+      final content = List.of(page.content);
+      if (shouldRefresh) {
         refresh();
       }
-      if (selection != null) {
-        current.currentIndexCubit.changeSelection(selection);
-      }
-      final content = List.of(page.content);
       for (final updated in event.elements.entries) {
+        if (updated.key >= content.length || updated.key < 0) continue;
         content.removeAt(updated.key);
         content.insertAll(updated.key, updated.value);
       }
