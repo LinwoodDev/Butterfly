@@ -52,14 +52,13 @@ class EraserHandler extends Handler<EraserTool> {
         List<List<PathPoint>> paths = [[]];
         for (final point in element.points) {
           if ((point.toOffset() - globalPos).distance > size) {
-            // If so, add to last path
             paths.last.add(point);
             continue;
           } else if (paths.last.isNotEmpty) {
             paths.add([]);
           }
         }
-        if (paths.length == 1) continue;
+        if (paths.length <= 1) continue;
         final index = page.content.indexOf(element);
         modified[index] = paths
             .where((element) => element.isNotEmpty)

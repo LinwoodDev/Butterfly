@@ -358,16 +358,17 @@ class SelectHandler extends Handler<SelectTool> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return false;
     final current = _getTransformed();
-    _selected = current ?? _transformed;
+    _selected = _transformed;
     _transformCorner = null;
     _transformMode = HandTransformMode.scale;
+    final transformed = _transformed;
+    _transformed = [];
+    await bloc.refresh();
     await Future.sync(() => bloc.add(_duplicate
         ? ElementsCreated(current!.map((e) => e.element).toList())
         : ElementsChanged(Map.fromEntries(current!.mapIndexed((i, e) =>
-            MapEntry(state.page.content.indexOf(_transformed[i].element),
+            MapEntry(state.page.content.indexOf(transformed[i].element),
                 [e.element]))))));
-    _transformed = [];
-    bloc.refresh();
     return true;
   }
 
