@@ -1,5 +1,5 @@
 ---
-title: "Stamp"
+title: "Stamp tool"
 sidebar_label: "Stamp"
 sidebar_position: 3
 ---

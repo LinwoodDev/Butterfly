@@ -535,5 +535,11 @@
   "sureClose": "Êtes-vous sûr de vouloir fermer le document ?",
   "thereAreUnsavedChanges": "Il y a des modifications non enregistrées",
   "page": "Page",
-  "switchView": "Changer de vue"
+  "switchView": "Changer de vue",
+  "lasso": "Lasso",
+  "hideUI": "Cacher l'interface utilisateur",
+  "density": "Densité",
+  "compact": "Compact",
+  "comfortable": "Confortable",
+  "standard": "Standard"
 }

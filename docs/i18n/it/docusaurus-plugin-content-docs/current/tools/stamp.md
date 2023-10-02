@@ -1,5 +1,5 @@
 ---
-title: "Timbro"
+title: "Strumento timbro"
 sidebar_label: "Timbro"
 sidebar_position: 3
 ---

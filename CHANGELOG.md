@@ -2,6 +2,97 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.8 (2023-09-28)
+
+* Bump file version to 10
+  * Move box background properties to own Texture.pattern class
+  * Rename box background to pattern background
+  * Change page.background to page.backgrounds and allow a list of backgrounds
+  * Rename painters to tools
+  * Rename hand painter to select tool
+  * Rename move painter to hand tool
+  * Rename tool to utilities
+* Recode event system to include collaboration in the future
+* Redesign document properties
+* Redesign color operation bottom sheet
+* Add texture tool ([#406](https://github.com/LinwoodDev/Butterfly/issues/406))
+* Add search to add dialog
+* Add mobile context menu ([#410](https://github.com/LinwoodDev/Butterfly/issues/410))
+* Add setting to set default pdf quality
+* Add texture element ([#406](https://github.com/LinwoodDev/Butterfly/issues/406))
+* Add add to pack for selection
+* Add svg export for text elements ([#488](https://github.com/LinwoodDev/Butterfly/issues/488))
+* Add thumbnail to templates dialog
+* Add markdown importing
+* Add export functionality to markdown elements
+* Add animation to search dialog
+* Add scale property to label tool
+* Add alpha slider to shape element
+* Add delete buttons in pack dialog
+* Add size transition to property view
+* Add animation for tool change
+* Add selected state to utilities button
+* Add lasso selection mode to select tool ([#409](https://github.com/LinwoodDev/Butterfly/issues/409))
+* Add share to label context menu
+* Add animation when changing homepage header
+* Add hide ui ([#458](https://github.com/LinwoodDev/Butterfly/issues/458))
+* Add ability to teleport to area in search
+* Add setting to configure visual density
+* Add export to elements context menu
+* Add full screen f11 shortcut
+* Add play button to add dialog for action tools
+* Add tool status to add dialog
+* Fallback to first stylesheet if no stylesheet is selected
+* Move export button from selection view to context menu
+* Replace most dropdown buttons (material 2) with dropdown menus (material 3)
+* Improve performance on home page ([#459](https://github.com/LinwoodDev/Butterfly/issues/459))
+* Improve clipboard system to include image and svg source as data uri
+* Improve export system
+* Improve version info in setting if not connected to the internet
+* Improve spacing in background dialog
+* Improve icon buttons to match material 3
+* Improve export menu in area context menu
+* Prevent window of closing when there are unsaved changes ([#403](https://github.com/LinwoodDev/Butterfly/issues/403))
+* Change file search to not case sensitive
+* Change expansion panels in background dialog to tabs
+* Change selected icons to fill variant
+* Change image and svg export dialog position and size to row
+* Fix expansion panel list in corner radius shape, texture property, shapes and constraints view
+* Fix bfly mimetype
+* Fix property view playing open animation when opening navigator
+* Fix colors in svg export
+* Fix grid not updating when changing values
+* Fix pack dialog version text field
+* Fix changing styles of label in selection
+* Fix open with for bfly documents on android
+* Fix insert first and last tooltip in pages navigator view
+* Fix background not changed after page change
+* Fix missing localization for switch view
+* Fix transforming shape element
+* Fix duplication position issues
+* Fix template creation message text
+* Fix page ordering
+* Fix page index when renaming
+* Fix packs dialog closes after action
+* Fix layer remove button not working
+* Fix line shape transforming
+* Fix hit calculation on rotation in shape element
+* Fix importing of assets
+* Fix teleport position of text element in search
+* Disable gestures on mouse input
+* Remove view options from undo
+* Remove reload after clicking on star
+* Upgrade to agp 8
+* Upgrade to flutter 3.15
+
+* Add macos zip and dmg release builds
+* Add linux rpm release build
+
+Please make a backup of your documents before opening them with this version.
+This version is not compatible with older versions of Butterfly.
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8
+
 ## 2.0.0-beta.7 (2023-08-18)
 
 * Add pen painter icon customisation ([#467](https://github.com/LinwoodDev/Butterfly/issues/467))

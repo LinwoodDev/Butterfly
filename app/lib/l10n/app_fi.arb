@@ -535,5 +535,11 @@
   "sureClose": "Oletko varma, että haluat sulkea asiakirjan?",
   "thereAreUnsavedChanges": "Muutoksia ei ole tallennettu",
   "page": "Sivu",
-  "switchView": "Vaihda Näkymää"
+  "switchView": "Vaihda Näkymää",
+  "lasso": "Lasso",
+  "hideUI": "Piilota Käyttöliittymä",
+  "density": "Tiheys",
+  "compact": "Kompakti",
+  "comfortable": "Mukava",
+  "standard": "Normaali"
 }

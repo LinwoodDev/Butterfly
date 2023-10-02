@@ -535,5 +535,11 @@
   "sureClose": "Är du säker på att du vill stänga dokumentet?",
   "thereAreUnsavedChanges": "Det finns osparade ändringar",
   "page": "Sida",
-  "switchView": "Växla vy"
+  "switchView": "Växla vy",
+  "lasso": "Lasso",
+  "hideUI": "Dölj gränssnitt",
+  "density": "Densitet",
+  "compact": "Kompakt",
+  "comfortable": "Bekväm",
+  "standard": "Standard"
 }

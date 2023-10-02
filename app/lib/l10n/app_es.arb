@@ -535,5 +535,11 @@
   "sureClose": "¿Está seguro que desea cerrar el documento?",
   "thereAreUnsavedChanges": "Hay cambios sin guardar",
   "page": "Pgina",
-  "switchView": "Cambiar vista"
+  "switchView": "Cambiar vista",
+  "lasso": "Lasso",
+  "hideUI": "Ocultar IU",
+  "density": "Densidad",
+  "compact": "Compacto",
+  "comfortable": "Confortable",
+  "standard": "Estándar"
 }

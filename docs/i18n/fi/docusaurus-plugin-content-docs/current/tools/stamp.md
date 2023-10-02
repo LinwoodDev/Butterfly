@@ -1,5 +1,5 @@
 ---
-title: "Leima"
+title: "Leima työkalu"
 sidebar_label: "Leima"
 sidebar_position: 3
 ---

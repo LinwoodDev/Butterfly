@@ -1,5 +1,5 @@
 ---
-title: "Timbru"
+title: "Timbru unealtă"
 sidebar_label: "Timbru"
 sidebar_position: 3
 ---

@@ -535,5 +535,11 @@
   "sureClose": "您确定要关闭文档吗？",
   "thereAreUnsavedChanges": "有未保存的更改",
   "page": "页",
-  "switchView": "切换视图"
+  "switchView": "切换视图",
+  "lasso": "Lasso",
+  "hideUI": "隐藏界面",
+  "density": "密度",
+  "compact": "紧凑的",
+  "comfortable": "舒适的",
+  "standard": "标准的"
 }

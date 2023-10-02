@@ -234,6 +234,14 @@ class PersonalizationSettingsPage extends StatelessWidget {
                 theme: getThemeData('', false),
               ),
             ),
+            ListTile(
+              title: const Text('Classic'),
+              selected: design == 'classic',
+              onTap: () => changeDesign('classic'),
+              leading: ThemeBox(
+                theme: getThemeData('classic', false),
+              ),
+            ),
             ...getThemes().map(
               (e) {
                 final theme = getThemeData(e, false);

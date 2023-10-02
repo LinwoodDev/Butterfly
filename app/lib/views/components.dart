@@ -48,6 +48,7 @@ class _ComponentsViewState extends State<ComponentsView> {
               children: [
                 const SizedBox(height: 8),
                 DropdownMenu(
+                  expandedInsets: const EdgeInsets.all(4),
                   dropdownMenuEntries: data
                       .getPacks()
                       .map((e) => DropdownMenuEntry(

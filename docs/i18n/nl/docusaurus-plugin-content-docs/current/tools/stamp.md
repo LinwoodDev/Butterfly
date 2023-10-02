@@ -1,5 +1,5 @@
 ---
-title: "Zegel"
+title: "Stempel gereedschap"
 sidebar_label: "Zegel"
 sidebar_position: 3
 ---

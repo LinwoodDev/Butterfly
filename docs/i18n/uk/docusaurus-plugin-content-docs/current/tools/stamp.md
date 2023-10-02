@@ -1,5 +1,5 @@
 ---
-title: "Відзнака"
+title: "Інструмент штампу"
 sidebar_label: "Відзнака"
 sidebar_position: 3
 ---

@@ -535,5 +535,11 @@
   "sureClose": "هل أنت متأكد من أنك تريد إغلاق الوثيقة؟",
   "thereAreUnsavedChanges": "هناك تغييرات غير محفوظة",
   "page": "الصفحة",
-  "switchView": "تبديل طريقة العرض"
+  "switchView": "تبديل طريقة العرض",
+  "lasso": "Lasso",
+  "hideUI": "إخفاء واجهة المستخدم",
+  "density": "الكثافة",
+  "compact": "مدمج",
+  "comfortable": "مريح",
+  "standard": "قياسي"
 }

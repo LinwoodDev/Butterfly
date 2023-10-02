@@ -1,5 +1,5 @@
 ---
-title: "Damga"
+title: "Stamp tool"
 sidebar_label: "Damga"
 sidebar_position: 3
 ---

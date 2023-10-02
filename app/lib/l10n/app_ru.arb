@@ -535,5 +535,11 @@
   "sureClose": "Вы уверены, что хотите закрыть документ?",
   "thereAreUnsavedChanges": "Имеются несохраненные изменения",
   "page": "Страница",
-  "switchView": "Переключить вид"
+  "switchView": "Переключить вид",
+  "lasso": "Lasso",
+  "hideUI": "Скрыть UI",
+  "density": "Плотность",
+  "compact": "Компактный",
+  "comfortable": "Удобный",
+  "standard": "Стандартный"
 }

@@ -18,10 +18,10 @@ jobs:
         run: |
           FLUTTER_VERSION=$(cat ../FLUTTER_VERSION)
           echo "FLUTTER_VERSION=${FLUTTER_VERSION}" >> $GITHUB_ENV
-      - uses: subosito/flutter-action@v2
+      - uses: Gustl22/flutter-action@2f0634408872bc0e035f45a38c84c012441d000b
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'any'
+          channel: 'master'
       - uses: actions/checkout@v4
       - name: Print Dart SDK version
         run: |
