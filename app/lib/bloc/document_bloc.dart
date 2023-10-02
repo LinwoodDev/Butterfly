@@ -207,7 +207,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           renderers.add(renderer);
         }
       }
-      current.currentIndexCubit.withUnbaked(renderers);
+      current.currentIndexCubit.unbake(unbakedElements: renderers);
       final content = List.of(page.content);
       if (shouldRefresh) {
         refresh();
@@ -882,10 +882,10 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     current.currentIndexCubit.unbake();
   }
 
-  void refresh() {
+  Future<void> refresh() async {
     final current = state;
     if (current is! DocumentLoadSuccess) return;
-    current.currentIndexCubit.refresh(
+    return current.currentIndexCubit.refresh(
         current.data, current.assetService, current.page, current.info);
   }
 

@@ -110,7 +110,7 @@ class EventContext {
 
   CurrentIndex getCurrentIndex() => getCurrentIndexCubit().state;
 
-  void refresh() => getDocumentBloc().refresh();
+  Future<void> refresh() => getDocumentBloc().refresh();
 
   SettingsCubit getSettingsCubit() =>
       BlocProvider.of<SettingsCubit>(buildContext);

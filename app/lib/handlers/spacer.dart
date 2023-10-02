@@ -41,14 +41,13 @@ class SpacerHandler extends Handler<SpacerTool> {
         rect, context.getDocumentBloc(), context.getCameraTransform());
     if (rect != _lastRect) return;
     _renderers = renderers;
-    context.refresh();
   }
 
   @override
   bool onScaleStart(ScaleStartDetails details, EventContext context) {
     final transform = context.getCameraTransform();
     _startPosition = transform.localToGlobal(details.localFocalPoint);
-    _refreshRenderers(_startPosition!, context);
+    _refreshRenderers(_startPosition!, context).whenComplete(context.refresh);
     return false;
   }
 
@@ -63,18 +62,38 @@ class SpacerHandler extends Handler<SpacerTool> {
     _startPosition = (data.axis == Axis2D.horizontal
         ? Offset(_startPosition!.dx, globalPos.dy)
         : Offset(globalPos.dx, _startPosition!.dy));
-    _refreshRenderers(_startPosition!, context);
+    _refreshRenderers(_startPosition!, context).whenComplete(context.refresh);
   }
 
   @override
   Future<void> onScaleEnd(ScaleEndDetails details, EventContext context) async {
     await _refreshRenderers(_startPosition!, context);
-    await _submit(context);
+
+    final content = context.getPage()?.content;
+    final elements = Map<int, List<PadElement>>.fromEntries(_renderers
+            ?.map(
+              (e) => MapEntry(
+                content?.indexOf(e.element) ?? -1,
+                [
+                  e
+                          .transform(
+                              position: (data.axis == Axis2D.horizontal
+                                  ? Offset(_spacing, 0)
+                                  : Offset(0, _spacing)))
+                          ?.element ??
+                      e.element
+                ],
+              ),
+            )
+            .where((e) => e.key >= 0)
+            .toList() ??
+        []);
     _startPosition = null;
     _spacing = 0.0;
     _renderers = null;
     _lastRect = null;
-    context.refresh();
+    await context.refresh();
+    context.getDocumentBloc().add(ElementsChanged(elements));
   }
 
   Rect _getRect(Offset position, double spacing) {
@@ -96,29 +115,6 @@ class SpacerHandler extends Handler<SpacerTool> {
         spacing < 0 ? _startPosition!.dy : double.infinity,
       );
     }
-  }
-
-  Future<void> _submit(EventContext context) async {
-    final content = context.getPage()?.content;
-    final elements = Map<int, List<PadElement>>.fromEntries(_renderers
-            ?.map(
-              (e) => MapEntry(
-                content?.indexOf(e.element) ?? -1,
-                [
-                  e
-                          .transform(
-                              position: (data.axis == Axis2D.horizontal
-                                  ? Offset(_spacing, 0)
-                                  : Offset(0, _spacing)))
-                          ?.element ??
-                      e.element
-                ],
-              ),
-            )
-            .where((e) => e.key >= 0)
-            .toList() ??
-        []);
-    context.getDocumentBloc().add(ElementsChanged(elements));
   }
 }
 

@@ -227,7 +227,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         temporaryRendererStates: temporaryRendererStates,
       ));
       if (shouldBake) {
-        bake(document, page, info, reset: true);
+        return bake(document, page, info, reset: true);
       }
     }
   }
