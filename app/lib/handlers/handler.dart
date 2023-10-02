@@ -110,7 +110,7 @@ class EventContext {
 
   CurrentIndex getCurrentIndex() => getCurrentIndexCubit().state;
 
-  void refresh() => getDocumentBloc().refresh();
+  Future<void> refresh() => getDocumentBloc().refresh();
 
   SettingsCubit getSettingsCubit() =>
       BlocProvider.of<SettingsCubit>(buildContext);
@@ -239,6 +239,8 @@ abstract class Handler<T> {
   }
 
   PreferredSizeWidget? getToolbar(DocumentBloc bloc) => null;
+
+  Map<Renderer, RendererState> get rendererStates => const {};
 
   void dispose(DocumentBloc bloc) {}
 

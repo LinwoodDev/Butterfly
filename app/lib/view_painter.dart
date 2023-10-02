@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/helpers/rect_helper.dart';
 import 'package:butterfly/models/viewport.dart';
 import 'package:butterfly/renderers/renderer.dart';
@@ -95,6 +96,7 @@ class ViewPainter extends CustomPainter {
   final CameraTransform transform;
   final ColorScheme? colorScheme;
   final List<String> invisibleLayers;
+  final Map<Renderer, RendererState> states;
 
   const ViewPainter(
     this.document,
@@ -102,6 +104,7 @@ class ViewPainter extends CustomPainter {
     this.info, {
     this.currentArea,
     this.invisibleLayers = const [],
+    this.states = const {},
     this.renderBackground = true,
     this.renderBaked = true,
     required this.cameraViewport,
@@ -151,8 +154,10 @@ class ViewPainter extends CustomPainter {
     }
     canvas.scale(transform.size, transform.size);
     canvas.translate(transform.position.dx, transform.position.dy);
-    for (var renderer in cameraViewport.unbakedElements) {
-      if (!invisibleLayers.contains(renderer.element.layer)) {
+    for (final renderer in cameraViewport.unbakedElements) {
+      final state = states[renderer];
+      if (!invisibleLayers.contains(renderer.element.layer) &&
+          state != RendererState.hidden) {
         final center = renderer.rect?.center;
         final radian = renderer.rotation * (pi / 180);
         if (center != null) {
@@ -182,6 +187,7 @@ class ViewPainter extends CustomPainter {
         renderBackground != oldDelegate.renderBackground ||
         transform != oldDelegate.transform ||
         cameraViewport != oldDelegate.cameraViewport ||
-        colorScheme != oldDelegate.colorScheme;
+        colorScheme != oldDelegate.colorScheme ||
+        states != oldDelegate.states;
   }
 }

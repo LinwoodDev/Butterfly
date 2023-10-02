@@ -149,6 +149,7 @@ class SelectHandler extends Handler<SelectTool> {
   HandTransformCorner? _transformCorner;
   List<Renderer<PadElement>> _selected = [];
   List<Renderer<PadElement>> _transformed = [];
+  bool _duplicate = false;
   Offset? _transformStartOffset;
   Offset? _contextMenuOffset;
   Rect? _rectangleFreeSelection;
@@ -173,14 +174,13 @@ class SelectHandler extends Handler<SelectTool> {
     _selected = [];
     _transformCorner = corner;
     _transformStartOffset = _currentMousePosition;
-    if (!duplicate) {
-      final state = bloc.state;
-      if (state is! DocumentLoaded) return;
-      bloc.add(ElementsRemoved(
-          next.map((e) => state.page.content.indexOf(e.element)).toList()));
-    }
+    _duplicate = duplicate;
     bloc.refresh();
   }
+
+  @override
+  Map<Renderer, RendererState> get rendererStates => Map.fromEntries(
+      _transformed.map((e) => MapEntry(e, RendererState.hidden)));
 
   @override
   void resetInput(DocumentBloc bloc) {
@@ -358,13 +358,17 @@ class SelectHandler extends Handler<SelectTool> {
     final state = bloc.state;
     if (state is! DocumentLoadSuccess) return false;
     final current = _getTransformed();
-    _selected = current ?? _transformed;
+    _selected = _transformed;
     _transformCorner = null;
-    _transformed = [];
     _transformMode = HandTransformMode.scale;
-    await Future.sync(() =>
-        bloc.add(ElementsCreated(current!.map((e) => e.element).toList())));
-    bloc.refresh();
+    final transformed = _transformed;
+    _transformed = [];
+    await bloc.refresh();
+    await Future.sync(() => bloc.add(_duplicate
+        ? ElementsCreated(current!.map((e) => e.element).toList())
+        : ElementsChanged(Map.fromEntries(current!.mapIndexed((i, e) =>
+            MapEntry(state.page.content.indexOf(transformed[i].element),
+                [e.element]))))));
     return true;
   }
 

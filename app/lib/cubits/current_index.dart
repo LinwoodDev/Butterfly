@@ -30,6 +30,8 @@ enum SaveState { saved, saving, unsaved }
 
 enum HideState { visible, keyboard, touch }
 
+enum RendererState { visible, temporary, hidden }
+
 @Freezed(equal: false)
 class CurrentIndex with _$CurrentIndex {
   const CurrentIndex._();
@@ -53,6 +55,9 @@ class CurrentIndex with _$CurrentIndex {
     @Default(SaveState.unsaved) SaveState saved,
     PreferredSizeWidget? toolbar,
     PreferredSizeWidget? temporaryToolbar,
+    @Default(<Renderer, RendererState>{})
+    Map<Renderer, RendererState> rendererStates,
+    Map<Renderer, RendererState>? temporaryRendererStates,
     @Default(ViewOption()) ViewOption viewOption,
     @Default(HideState.visible) HideState hideUi,
   }) = _CurrentIndex;
@@ -63,6 +68,11 @@ class CurrentIndex with _$CurrentIndex {
   MouseCursor get currentCursor => temporaryCursor ?? cursor;
 
   UtilitiesState get utilitiesState => cameraViewport.utilities.element;
+
+  Map<Renderer, RendererState> get allRendererStates => {
+        ...rendererStates,
+        ...?temporaryRendererStates,
+      };
 }
 
 class CurrentIndexCubit extends Cubit<CurrentIndex> {
@@ -116,10 +126,12 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         foregrounds: handler.createForegrounds(
             this, document, blocState.page, info, blocState.currentArea),
         toolbar: handler.getToolbar(bloc),
+        rendererStates: handler.rendererStates,
         temporaryForegrounds: null,
         temporaryHandler: null,
         temporaryToolbar: null,
         temporaryCursor: null,
+        temporaryRendererStates: null,
       ));
     }
     return handler;
@@ -142,6 +154,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       handler: handler,
       foregrounds: foregrounds,
       toolbar: handler.getToolbar(bloc),
+      rendererStates: handler.rendererStates,
       cursor: handler.cursor ?? MouseCursor.defer,
     ));
   }
@@ -160,6 +173,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       temporaryHandler: handler,
       temporaryForegrounds: temporaryForegrounds,
       temporaryToolbar: handler.getToolbar(bloc),
+      temporaryRendererStates: handler.rendererStates,
       temporaryCursor: handler.cursor,
     ));
   }
@@ -200,12 +214,21 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           .createForegrounds(this, document, page, info, currentArea);
       await Future.wait(foregrounds
           .map((e) async => await e.setup(document, assetService, page)));
+      final rendererStates = state.handler.rendererStates;
+      final temporaryRendererStates = state.temporaryHandler?.rendererStates;
+      final shouldBake = state.rendererStates != rendererStates ||
+          state.temporaryRendererStates != temporaryRendererStates;
       emit(state.copyWith(
         temporaryForegrounds: temporaryForegrounds,
         foregrounds: foregrounds,
         cursor: state.handler.cursor ?? MouseCursor.defer,
         temporaryCursor: state.temporaryHandler?.cursor,
+        rendererStates: rendererStates,
+        temporaryRendererStates: temporaryRendererStates,
       ));
+      if (shouldBake) {
+        return bake(document, page, info, reset: true);
+      }
     }
   }
 
@@ -252,6 +275,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       temporaryHandler: null,
       temporaryForegrounds: null,
       temporaryCursor: null,
+      temporaryRendererStates: null,
       cameraViewport: CameraViewport.unbaked(UtilitiesRenderer()),
     ));
   }
@@ -298,6 +322,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         temporaryForegrounds: temporaryForegrounds,
         temporaryToolbar: handler.getToolbar(bloc),
         temporaryCursor: handler.cursor,
+        temporaryRendererStates: handler.rendererStates,
       ));
     }
     return handler;
@@ -317,6 +342,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       temporaryForegrounds: null,
       temporaryToolbar: null,
       temporaryCursor: null,
+      temporaryRendererStates: null,
     ));
   }
 
@@ -370,6 +396,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
       page,
       info,
       transform: state.transformCubit.state,
+      states: state.allRendererStates,
       cameraViewport: reset
           ? cameraViewport.unbake(
               unbakedElements: visibleElements,

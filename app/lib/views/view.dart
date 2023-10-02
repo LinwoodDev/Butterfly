@@ -184,7 +184,10 @@ class _MainViewViewportState extends State<MainViewViewport>
                 previous.foregrounds != current.foregrounds ||
                 previous.handler != current.handler ||
                 previous.temporaryHandler != current.temporaryHandler ||
-                previous.temporaryForegrounds != current.temporaryForegrounds,
+                previous.temporaryForegrounds != current.temporaryForegrounds ||
+                previous.rendererStates != current.rendererStates ||
+                previous.temporaryRendererStates !=
+                    current.temporaryRendererStates,
             builder: (context, currentIndex) => Actions(
                 actions: getHandler().getActions(context),
                 child: DefaultTextEditingShortcuts(
@@ -342,6 +345,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                                     cameraViewport: currentIndex.cameraViewport,
                                     transform: transform,
                                     invisibleLayers: state.invisibleLayers,
+                                    states: currentIndex.allRendererStates,
                                     currentArea: state.currentArea,
                                     colorScheme: Theme.of(context).colorScheme,
                                   ),
