@@ -4,7 +4,9 @@
 * Use center tab alignment
 * Make spacer tool realtime
 * Fix markdown newlines ([#501](https://github.com/LinwoodDev/Butterfly/issues/501))
+* Fix home page header on low density
 * Update to flutter master (Fix windows issues)
 * Unify tabs
+* Remove content copy on page creation
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8

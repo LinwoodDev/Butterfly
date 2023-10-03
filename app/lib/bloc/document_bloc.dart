@@ -61,12 +61,17 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
     on<PageAdded>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
-      final (newData, pageName) = current.data.addPage(event.page, event.index);
+      final page = DocumentPage(backgrounds: current.page.backgrounds);
+      final (newData, pageName) = current.data.addPage(page, event.index);
       return _saveState(
         emit,
-        current.copyWith(data: newData, pageName: pageName),
+        current.copyWith(data: newData, page: page, pageName: pageName),
         null,
-      );
+      ).then((value) {
+        current.currentIndexCubit
+            .loadElements(current.data, current.assetService, page);
+        refresh();
+      });
     });
     on<PageChanged>((event, emit) async {
       final current = state;
@@ -74,9 +79,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       final data = current.data.setPage(current.page, current.pageName);
       final page = current.data.getPage(event.pageName);
       if (page == null) return;
-      current.currentIndexCubit
-          .loadElements(current.data, current.assetService, page);
-      refresh();
       return _saveState(
         emit,
         current.copyWith(
@@ -85,7 +87,11 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           pageName: event.pageName,
         ),
         null,
-      );
+      ).then((value) {
+        current.currentIndexCubit
+            .loadElements(current.data, current.assetService, page);
+        refresh();
+      });
     });
     on<PageReordered>((event, emit) async {
       final current = state;

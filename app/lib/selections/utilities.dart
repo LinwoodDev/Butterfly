@@ -97,7 +97,8 @@ class _UtilitiesViewState extends State<_UtilitiesView>
           [PhosphorIconsLight.eye, AppLocalizations.of(context).view],
           [PhosphorIconsLight.camera, AppLocalizations.of(context).camera],
         ]
-            .map((e) => HorizontalTab(icon: PhosphorIcon(e[0]), label: Text(e[1])))
+            .map((e) =>
+                HorizontalTab(icon: PhosphorIcon(e[0]), label: Text(e[1])))
             .toList(),
       ),
       const SizedBox(height: 8),

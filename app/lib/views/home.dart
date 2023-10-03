@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(height: 64),
                           LayoutBuilder(builder: (context, constraints) {
                             final isDesktop = constraints.maxWidth > 1000;
-                            final height = isDesktop ? 100.0 : 300.0;
+                            final height = isDesktop ? 120.0 : 300.0;
                             return AnimatedContainer(
                               height: showBanner ? height : 0,
                               duration: const Duration(milliseconds: 300),
@@ -282,6 +282,7 @@ class _HeaderHomeView extends StatelessWidget {
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 AppLocalizations.of(context).welcome,
