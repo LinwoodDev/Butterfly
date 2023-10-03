@@ -1,6 +1,7 @@
 * Add classic theme to theme selection
 * Change secondary color of classic theme to red
 * Use elements changed event for transformation
+* Use center tab alignment
 * Make spacer tool realtime
 * Fix markdown newlines ([#501](https://github.com/LinwoodDev/Butterfly/issues/501))
 * Update to flutter master (Fix windows issues)

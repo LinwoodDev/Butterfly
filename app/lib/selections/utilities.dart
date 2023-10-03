@@ -91,7 +91,6 @@ class _UtilitiesViewState extends State<_UtilitiesView>
       TabBar(
         controller: _tabController,
         isScrollable: true,
-        tabAlignment: TabAlignment.center,
         tabs: <List<dynamic>>[
           [PhosphorIconsLight.file, AppLocalizations.of(context).project],
           [PhosphorIconsLight.book, AppLocalizations.of(context).page],
