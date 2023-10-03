@@ -50,7 +50,7 @@ class BackgroundDialog extends StatelessWidget {
                   ],
                 ),
                 TabBar(
-                  isScrollable: true,
+                  tabAlignment: TabAlignment.fill,
                   tabs: [
                     (
                       PhosphorIconsLight.globe,
@@ -61,15 +61,9 @@ class BackgroundDialog extends StatelessWidget {
                       AppLocalizations.of(context).properties,
                     ),
                   ]
-                      .map((e) => Tab(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                PhosphorIcon(e.$1),
-                                const SizedBox(width: 8),
-                                Text(e.$2),
-                              ],
-                            ),
+                      .map((e) => HorizontalTab(
+                            icon: PhosphorIcon(e.$1),
+                            label: Text(e.$2),
                           ))
                       .toList(),
                 ),

@@ -19,8 +19,8 @@ enum NavigatorPage {
   waypoints,
   layers,
   pages,
-  files,
-  components;
+  components,
+  files;
 
   String getLocalizedName(BuildContext context) => switch (this) {
         NavigatorPage.waypoints => AppLocalizations.of(context).waypoints,

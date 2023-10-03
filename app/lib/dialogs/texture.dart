@@ -3,6 +3,7 @@ import 'package:butterfly_api/butterfly_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class TextureView extends StatefulWidget {
   final SurfaceTexture value;
@@ -43,8 +44,14 @@ class _TextureViewState extends State<TextureView> {
           ),
           const SizedBox(height: 16),
           TabBar.secondary(tabs: [
-            Tab(child: Text(AppLocalizations.of(context).horizontal)),
-            Tab(child: Text(AppLocalizations.of(context).vertical)),
+            HorizontalTab(
+              label: Text(AppLocalizations.of(context).horizontal),
+              icon: const PhosphorIcon(PhosphorIconsLight.arrowsHorizontal),
+            ),
+            HorizontalTab(
+              label: Text(AppLocalizations.of(context).vertical),
+              icon: const PhosphorIcon(PhosphorIconsLight.arrowsVertical),
+            ),
           ]),
           Expanded(
             child: TabBarView(children: [

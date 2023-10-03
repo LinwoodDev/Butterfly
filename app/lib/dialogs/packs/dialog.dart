@@ -69,16 +69,17 @@ class _PacksDialogState extends State<PacksDialog>
                     ),
                     if (!widget.globalOnly)
                       TabBar(
+                        tabAlignment: TabAlignment.fill,
                         controller: _controller,
                         tabs: [
-                          Tab(
+                          HorizontalTab(
                             icon: const PhosphorIcon(PhosphorIconsLight.file),
-                            text: AppLocalizations.of(context).document,
+                            label: Text(AppLocalizations.of(context).document),
                           ),
-                          Tab(
+                          HorizontalTab(
                             icon: const PhosphorIcon(
                                 PhosphorIconsLight.appWindow),
-                            text: AppLocalizations.of(context).local,
+                            label: Text(AppLocalizations.of(context).local),
                           ),
                         ],
                       ),
