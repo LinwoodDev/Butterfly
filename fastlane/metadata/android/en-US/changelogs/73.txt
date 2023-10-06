@@ -1,4 +1,5 @@
 * Add classic theme to theme selection
+* Add indication for opened menu on top left corner menu
 * Change secondary color of classic theme to red
 * Use elements changed event for transformation
 * Use center tab alignment
@@ -9,4 +10,4 @@
 * Unify tabs
 * Remove content copy on page creation
 
-View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.8
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.9

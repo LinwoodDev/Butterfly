@@ -472,6 +472,12 @@ class _MainPopupMenu extends StatelessWidget {
               icon: Image.asset(
                 'images/logo.png',
               ),
+              style: IconButton.styleFrom(
+                backgroundColor: controller.isOpen
+                    ? Theme.of(context).colorScheme.surfaceVariant
+                    : null,
+              ),
+              isSelected: controller.isOpen,
               onPressed: () {
                 if (controller.isOpen) {
                   controller.close();
