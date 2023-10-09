@@ -73,7 +73,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
             final hideZoom = !settings.zoomEnabled ||
                 settings.fullScreen ||
                 currentIndexCubit.state.hideUi != HideState.visible;
-            void zoom(double value) {
+            void zoom(double value, [bool bake = true]) {
               final state = context.read<DocumentBloc>().state;
               if (state is! DocumentLoaded) {
                 return;
@@ -85,7 +85,9 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                 (viewport.height ?? 0) / 2,
               );
               context.read<TransformCubit>().size(value, center);
-              currentIndexCubit.bake(state.data, state.page, state.info);
+              if (bake) {
+                currentIndexCubit.bake(state.data, state.page, state.info);
+              }
               if ((!_focusNode.hasFocus && widget.isMobile) || hideZoom) {
                 _controller.reverse();
               }
@@ -129,8 +131,7 @@ class _ZoomViewState extends State<ZoomView> with TickerProviderStateMixin {
                                   value: scale.clamp(kMinZoom, 10),
                                   min: kMinZoom,
                                   max: 10,
-                                  onChanged: (value) =>
-                                      setState(() => scale = value),
+                                  onChanged: (value) => zoom(value, false),
                                   onChangeEnd: zoom,
                                 ),
                               ),
