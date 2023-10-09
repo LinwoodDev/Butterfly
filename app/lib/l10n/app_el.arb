@@ -541,5 +541,14 @@
   "density": "Πυκνότητα",
   "compact": "Συμπαγής",
   "comfortable": "Άνετο",
-  "standard": "Τυπικό"
+  "standard": "Τυπικό",
+  "lock": "Lock",
+  "addElement": "Add element",
+  "notDefaultConnection": "Not default connection",
+  "defaultConnection": "Default connection",
+  "hide": "Hide",
+  "show": "Show",
+  "pause": "Pause",
+  "stop": "Stop",
+  "refresh": "Ανανέωση"
 }
