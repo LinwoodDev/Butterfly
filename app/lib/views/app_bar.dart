@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
+import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
@@ -114,9 +115,22 @@ class _AppBarTitle extends StatelessWidget {
                 children: [
                   Flexible(
                     child: StatefulBuilder(builder: (context, setState) {
-                      void submit(String? value) {
+                      Future<void> submit(String? value) async {
                         if (value == null) return;
                         if (area == null || areaName == null) {
+                          final cubit = context.read<CurrentIndexCubit>();
+                          final settings = context.read<SettingsCubit>().state;
+                          final location = cubit.state.location;
+
+                          await DocumentFileSystem.fromPlatform(
+                                  remote: settings.getRemote(location.remote))
+                              .deleteAsset(location.path);
+
+                          cubit.setSaveState(
+                              location: location.copyWith(
+                            path: '${location.parent}/$value.bfly',
+                          ));
+                          if (state is DocumentLoadSuccess) await state.save();
                           bloc.add(DocumentDescriptionChanged(name: value));
                         } else {
                           bloc.add(AreaChanged(

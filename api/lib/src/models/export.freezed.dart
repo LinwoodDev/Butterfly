@@ -68,22 +68,22 @@ class _$ExportPresetCopyWithImpl<$Res, $Val extends ExportPreset>
 }
 
 /// @nodoc
-abstract class _$$_ExportPresetCopyWith<$Res>
+abstract class _$$ExportPresetImplCopyWith<$Res>
     implements $ExportPresetCopyWith<$Res> {
-  factory _$$_ExportPresetCopyWith(
-          _$_ExportPreset value, $Res Function(_$_ExportPreset) then) =
-      __$$_ExportPresetCopyWithImpl<$Res>;
+  factory _$$ExportPresetImplCopyWith(
+          _$ExportPresetImpl value, $Res Function(_$ExportPresetImpl) then) =
+      __$$ExportPresetImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, List<AreaPreset> areas});
 }
 
 /// @nodoc
-class __$$_ExportPresetCopyWithImpl<$Res>
-    extends _$ExportPresetCopyWithImpl<$Res, _$_ExportPreset>
-    implements _$$_ExportPresetCopyWith<$Res> {
-  __$$_ExportPresetCopyWithImpl(
-      _$_ExportPreset _value, $Res Function(_$_ExportPreset) _then)
+class __$$ExportPresetImplCopyWithImpl<$Res>
+    extends _$ExportPresetCopyWithImpl<$Res, _$ExportPresetImpl>
+    implements _$$ExportPresetImplCopyWith<$Res> {
+  __$$ExportPresetImplCopyWithImpl(
+      _$ExportPresetImpl _value, $Res Function(_$ExportPresetImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$_ExportPresetCopyWithImpl<$Res>
     Object? name = null,
     Object? areas = null,
   }) {
-    return _then(_$_ExportPreset(
+    return _then(_$ExportPresetImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -107,13 +107,13 @@ class __$$_ExportPresetCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ExportPreset implements _ExportPreset {
-  const _$_ExportPreset(
+class _$ExportPresetImpl implements _ExportPreset {
+  const _$ExportPresetImpl(
       {this.name = '', final List<AreaPreset> areas = const []})
       : _areas = areas;
 
-  factory _$_ExportPreset.fromJson(Map<String, dynamic> json) =>
-      _$$_ExportPresetFromJson(json);
+  factory _$ExportPresetImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ExportPresetImplFromJson(json);
 
   @override
   @JsonKey()
@@ -136,7 +136,7 @@ class _$_ExportPreset implements _ExportPreset {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ExportPreset &&
+            other is _$ExportPresetImpl &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._areas, _areas));
   }
@@ -149,12 +149,12 @@ class _$_ExportPreset implements _ExportPreset {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ExportPresetCopyWith<_$_ExportPreset> get copyWith =>
-      __$$_ExportPresetCopyWithImpl<_$_ExportPreset>(this, _$identity);
+  _$$ExportPresetImplCopyWith<_$ExportPresetImpl> get copyWith =>
+      __$$ExportPresetImplCopyWithImpl<_$ExportPresetImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ExportPresetToJson(
+    return _$$ExportPresetImplToJson(
       this,
     );
   }
@@ -162,10 +162,10 @@ class _$_ExportPreset implements _ExportPreset {
 
 abstract class _ExportPreset implements ExportPreset {
   const factory _ExportPreset(
-      {final String name, final List<AreaPreset> areas}) = _$_ExportPreset;
+      {final String name, final List<AreaPreset> areas}) = _$ExportPresetImpl;
 
   factory _ExportPreset.fromJson(Map<String, dynamic> json) =
-      _$_ExportPreset.fromJson;
+      _$ExportPresetImpl.fromJson;
 
   @override
   String get name;
@@ -173,7 +173,7 @@ abstract class _ExportPreset implements ExportPreset {
   List<AreaPreset> get areas;
   @override
   @JsonKey(ignore: true)
-  _$$_ExportPresetCopyWith<_$_ExportPreset> get copyWith =>
+  _$$ExportPresetImplCopyWith<_$ExportPresetImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -257,11 +257,11 @@ class _$AreaPresetCopyWithImpl<$Res, $Val extends AreaPreset>
 }
 
 /// @nodoc
-abstract class _$$_AreaPresetCopyWith<$Res>
+abstract class _$$AreaPresetImplCopyWith<$Res>
     implements $AreaPresetCopyWith<$Res> {
-  factory _$$_AreaPresetCopyWith(
-          _$_AreaPreset value, $Res Function(_$_AreaPreset) then) =
-      __$$_AreaPresetCopyWithImpl<$Res>;
+  factory _$$AreaPresetImplCopyWith(
+          _$AreaPresetImpl value, $Res Function(_$AreaPresetImpl) then) =
+      __$$AreaPresetImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String page, String name, double quality, Area? area});
@@ -271,11 +271,11 @@ abstract class _$$_AreaPresetCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AreaPresetCopyWithImpl<$Res>
-    extends _$AreaPresetCopyWithImpl<$Res, _$_AreaPreset>
-    implements _$$_AreaPresetCopyWith<$Res> {
-  __$$_AreaPresetCopyWithImpl(
-      _$_AreaPreset _value, $Res Function(_$_AreaPreset) _then)
+class __$$AreaPresetImplCopyWithImpl<$Res>
+    extends _$AreaPresetCopyWithImpl<$Res, _$AreaPresetImpl>
+    implements _$$AreaPresetImplCopyWith<$Res> {
+  __$$AreaPresetImplCopyWithImpl(
+      _$AreaPresetImpl _value, $Res Function(_$AreaPresetImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -286,7 +286,7 @@ class __$$_AreaPresetCopyWithImpl<$Res>
     Object? quality = null,
     Object? area = freezed,
   }) {
-    return _then(_$_AreaPreset(
+    return _then(_$AreaPresetImpl(
       page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
@@ -309,12 +309,12 @@ class __$$_AreaPresetCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AreaPreset implements _AreaPreset {
-  const _$_AreaPreset(
+class _$AreaPresetImpl implements _AreaPreset {
+  const _$AreaPresetImpl(
       {this.page = 'default', this.name = '', this.quality = 1, this.area});
 
-  factory _$_AreaPreset.fromJson(Map<String, dynamic> json) =>
-      _$$_AreaPresetFromJson(json);
+  factory _$AreaPresetImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AreaPresetImplFromJson(json);
 
   @override
   @JsonKey()
@@ -337,7 +337,7 @@ class _$_AreaPreset implements _AreaPreset {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AreaPreset &&
+            other is _$AreaPresetImpl &&
             (identical(other.page, page) || other.page == page) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.quality, quality) || other.quality == quality) &&
@@ -351,12 +351,12 @@ class _$_AreaPreset implements _AreaPreset {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AreaPresetCopyWith<_$_AreaPreset> get copyWith =>
-      __$$_AreaPresetCopyWithImpl<_$_AreaPreset>(this, _$identity);
+  _$$AreaPresetImplCopyWith<_$AreaPresetImpl> get copyWith =>
+      __$$AreaPresetImplCopyWithImpl<_$AreaPresetImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AreaPresetToJson(
+    return _$$AreaPresetImplToJson(
       this,
     );
   }
@@ -367,10 +367,10 @@ abstract class _AreaPreset implements AreaPreset {
       {final String page,
       final String name,
       final double quality,
-      final Area? area}) = _$_AreaPreset;
+      final Area? area}) = _$AreaPresetImpl;
 
   factory _AreaPreset.fromJson(Map<String, dynamic> json) =
-      _$_AreaPreset.fromJson;
+      _$AreaPresetImpl.fromJson;
 
   @override
   String get page;
@@ -382,6 +382,6 @@ abstract class _AreaPreset implements AreaPreset {
   Area? get area;
   @override
   @JsonKey(ignore: true)
-  _$$_AreaPresetCopyWith<_$_AreaPreset> get copyWith =>
+  _$$AreaPresetImplCopyWith<_$AreaPresetImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

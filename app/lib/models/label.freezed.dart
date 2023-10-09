@@ -176,11 +176,11 @@ class _$LabelContextCopyWithImpl<$Res, $Val extends LabelContext>
 }
 
 /// @nodoc
-abstract class _$$TextContextCopyWith<$Res>
+abstract class _$$TextContextImplCopyWith<$Res>
     implements $LabelContextCopyWith<$Res> {
-  factory _$$TextContextCopyWith(
-          _$TextContext value, $Res Function(_$TextContext) then) =
-      __$$TextContextCopyWithImpl<$Res>;
+  factory _$$TextContextImplCopyWith(
+          _$TextContextImpl value, $Res Function(_$TextContextImpl) then) =
+      __$$TextContextImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -199,11 +199,11 @@ abstract class _$$TextContextCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$TextContextCopyWithImpl<$Res>
-    extends _$LabelContextCopyWithImpl<$Res, _$TextContext>
-    implements _$$TextContextCopyWith<$Res> {
-  __$$TextContextCopyWithImpl(
-      _$TextContext _value, $Res Function(_$TextContext) _then)
+class __$$TextContextImplCopyWithImpl<$Res>
+    extends _$LabelContextCopyWithImpl<$Res, _$TextContextImpl>
+    implements _$$TextContextImplCopyWith<$Res> {
+  __$$TextContextImplCopyWithImpl(
+      _$TextContextImpl _value, $Res Function(_$TextContextImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -219,7 +219,7 @@ class __$$TextContextCopyWithImpl<$Res>
     Object? forcedSpanProperty = freezed,
     Object? forceParagraph = freezed,
   }) {
-    return _then(_$TextContext(
+    return _then(_$TextContextImpl(
       tool: null == tool
           ? _value.tool
           : tool // ignore: cast_nullable_to_non_nullable
@@ -286,8 +286,8 @@ class __$$TextContextCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$TextContext extends TextContext {
-  const _$TextContext(
+class _$TextContextImpl extends TextContext {
+  const _$TextContextImpl(
       {required this.tool,
       required this.textPainter,
       this.element,
@@ -330,7 +330,7 @@ class _$TextContext extends TextContext {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TextContext &&
+            other is _$TextContextImpl &&
             (identical(other.tool, tool) || other.tool == tool) &&
             (identical(other.textPainter, textPainter) ||
                 other.textPainter == textPainter) &&
@@ -364,8 +364,8 @@ class _$TextContext extends TextContext {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TextContextCopyWith<_$TextContext> get copyWith =>
-      __$$TextContextCopyWithImpl<_$TextContext>(this, _$identity);
+  _$$TextContextImplCopyWith<_$TextContextImpl> get copyWith =>
+      __$$TextContextImplCopyWithImpl<_$TextContextImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -494,7 +494,7 @@ abstract class TextContext extends LabelContext {
       final TextSelection selection,
       final txt.ParagraphProperty? forcedProperty,
       final txt.SpanProperty? forcedSpanProperty,
-      final bool? forceParagraph}) = _$TextContext;
+      final bool? forceParagraph}) = _$TextContextImpl;
   const TextContext._() : super._();
 
   @override
@@ -514,16 +514,16 @@ abstract class TextContext extends LabelContext {
   bool? get forceParagraph;
   @override
   @JsonKey(ignore: true)
-  _$$TextContextCopyWith<_$TextContext> get copyWith =>
+  _$$TextContextImplCopyWith<_$TextContextImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MarkdownContextCopyWith<$Res>
+abstract class _$$MarkdownContextImplCopyWith<$Res>
     implements $LabelContextCopyWith<$Res> {
-  factory _$$MarkdownContextCopyWith(
-          _$MarkdownContext value, $Res Function(_$MarkdownContext) then) =
-      __$$MarkdownContextCopyWithImpl<$Res>;
+  factory _$$MarkdownContextImplCopyWith(_$MarkdownContextImpl value,
+          $Res Function(_$MarkdownContextImpl) then) =
+      __$$MarkdownContextImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -536,11 +536,11 @@ abstract class _$$MarkdownContextCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$MarkdownContextCopyWithImpl<$Res>
-    extends _$LabelContextCopyWithImpl<$Res, _$MarkdownContext>
-    implements _$$MarkdownContextCopyWith<$Res> {
-  __$$MarkdownContextCopyWithImpl(
-      _$MarkdownContext _value, $Res Function(_$MarkdownContext) _then)
+class __$$MarkdownContextImplCopyWithImpl<$Res>
+    extends _$LabelContextCopyWithImpl<$Res, _$MarkdownContextImpl>
+    implements _$$MarkdownContextImplCopyWith<$Res> {
+  __$$MarkdownContextImplCopyWithImpl(
+      _$MarkdownContextImpl _value, $Res Function(_$MarkdownContextImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -553,7 +553,7 @@ class __$$MarkdownContextCopyWithImpl<$Res>
     Object? zoom = null,
     Object? selection = null,
   }) {
-    return _then(_$MarkdownContext(
+    return _then(_$MarkdownContextImpl(
       tool: null == tool
           ? _value.tool
           : tool // ignore: cast_nullable_to_non_nullable
@@ -584,8 +584,8 @@ class __$$MarkdownContextCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$MarkdownContext extends MarkdownContext {
-  const _$MarkdownContext(
+class _$MarkdownContextImpl extends MarkdownContext {
+  const _$MarkdownContextImpl(
       {required this.tool,
       required this.textPainter,
       this.element,
@@ -619,7 +619,7 @@ class _$MarkdownContext extends MarkdownContext {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MarkdownContext &&
+            other is _$MarkdownContextImpl &&
             (identical(other.tool, tool) || other.tool == tool) &&
             (identical(other.textPainter, textPainter) ||
                 other.textPainter == textPainter) &&
@@ -638,8 +638,9 @@ class _$MarkdownContext extends MarkdownContext {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MarkdownContextCopyWith<_$MarkdownContext> get copyWith =>
-      __$$MarkdownContextCopyWithImpl<_$MarkdownContext>(this, _$identity);
+  _$$MarkdownContextImplCopyWith<_$MarkdownContextImpl> get copyWith =>
+      __$$MarkdownContextImplCopyWithImpl<_$MarkdownContextImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -763,7 +764,7 @@ abstract class MarkdownContext extends LabelContext {
       final MarkdownElement? element,
       final bool isCreating,
       final double zoom,
-      final TextSelection selection}) = _$MarkdownContext;
+      final TextSelection selection}) = _$MarkdownContextImpl;
   const MarkdownContext._() : super._();
 
   @override
@@ -780,6 +781,6 @@ abstract class MarkdownContext extends LabelContext {
   TextSelection get selection;
   @override
   @JsonKey(ignore: true)
-  _$$MarkdownContextCopyWith<_$MarkdownContext> get copyWith =>
+  _$$MarkdownContextImplCopyWith<_$MarkdownContextImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -6,7 +6,7 @@ part of 'area.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Area _$$_AreaFromJson(Map json) => _$_Area(
+_$AreaImpl _$$AreaImplFromJson(Map json) => _$AreaImpl(
       name: json['name'] as String? ?? '',
       width: (json['width'] as num).toDouble(),
       height: (json['height'] as num).toDouble(),
@@ -14,7 +14,8 @@ _$_Area _$$_AreaFromJson(Map json) => _$_Area(
           const DoublePointJsonConverter().fromJson(json['position'] as Map),
     );
 
-Map<String, dynamic> _$$_AreaToJson(_$_Area instance) => <String, dynamic>{
+Map<String, dynamic> _$$AreaImplToJson(_$AreaImpl instance) =>
+    <String, dynamic>{
       'name': instance.name,
       'width': instance.width,
       'height': instance.height,

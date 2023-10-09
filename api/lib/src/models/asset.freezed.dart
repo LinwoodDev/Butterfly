@@ -74,22 +74,22 @@ class _$AssetLocationCopyWithImpl<$Res, $Val extends AssetLocation>
 }
 
 /// @nodoc
-abstract class _$$_AssetLocationCopyWith<$Res>
+abstract class _$$AssetLocationImplCopyWith<$Res>
     implements $AssetLocationCopyWith<$Res> {
-  factory _$$_AssetLocationCopyWith(
-          _$_AssetLocation value, $Res Function(_$_AssetLocation) then) =
-      __$$_AssetLocationCopyWithImpl<$Res>;
+  factory _$$AssetLocationImplCopyWith(
+          _$AssetLocationImpl value, $Res Function(_$AssetLocationImpl) then) =
+      __$$AssetLocationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String remote, String path, bool absolute});
 }
 
 /// @nodoc
-class __$$_AssetLocationCopyWithImpl<$Res>
-    extends _$AssetLocationCopyWithImpl<$Res, _$_AssetLocation>
-    implements _$$_AssetLocationCopyWith<$Res> {
-  __$$_AssetLocationCopyWithImpl(
-      _$_AssetLocation _value, $Res Function(_$_AssetLocation) _then)
+class __$$AssetLocationImplCopyWithImpl<$Res>
+    extends _$AssetLocationCopyWithImpl<$Res, _$AssetLocationImpl>
+    implements _$$AssetLocationImplCopyWith<$Res> {
+  __$$AssetLocationImplCopyWithImpl(
+      _$AssetLocationImpl _value, $Res Function(_$AssetLocationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_AssetLocationCopyWithImpl<$Res>
     Object? path = null,
     Object? absolute = null,
   }) {
-    return _then(_$_AssetLocation(
+    return _then(_$AssetLocationImpl(
       remote: null == remote
           ? _value.remote
           : remote // ignore: cast_nullable_to_non_nullable
@@ -118,13 +118,13 @@ class __$$_AssetLocationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AssetLocation extends _AssetLocation {
-  const _$_AssetLocation(
+class _$AssetLocationImpl extends _AssetLocation {
+  const _$AssetLocationImpl(
       {this.remote = '', required this.path, this.absolute = false})
       : super._();
 
-  factory _$_AssetLocation.fromJson(Map<String, dynamic> json) =>
-      _$$_AssetLocationFromJson(json);
+  factory _$AssetLocationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AssetLocationImplFromJson(json);
 
   @override
   @JsonKey()
@@ -144,7 +144,7 @@ class _$_AssetLocation extends _AssetLocation {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AssetLocation &&
+            other is _$AssetLocationImpl &&
             (identical(other.remote, remote) || other.remote == remote) &&
             (identical(other.path, path) || other.path == path) &&
             (identical(other.absolute, absolute) ||
@@ -158,12 +158,12 @@ class _$_AssetLocation extends _AssetLocation {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AssetLocationCopyWith<_$_AssetLocation> get copyWith =>
-      __$$_AssetLocationCopyWithImpl<_$_AssetLocation>(this, _$identity);
+  _$$AssetLocationImplCopyWith<_$AssetLocationImpl> get copyWith =>
+      __$$AssetLocationImplCopyWithImpl<_$AssetLocationImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AssetLocationToJson(
+    return _$$AssetLocationImplToJson(
       this,
     );
   }
@@ -173,11 +173,11 @@ abstract class _AssetLocation extends AssetLocation {
   const factory _AssetLocation(
       {final String remote,
       required final String path,
-      final bool absolute}) = _$_AssetLocation;
+      final bool absolute}) = _$AssetLocationImpl;
   const _AssetLocation._() : super._();
 
   factory _AssetLocation.fromJson(Map<String, dynamic> json) =
-      _$_AssetLocation.fromJson;
+      _$AssetLocationImpl.fromJson;
 
   @override
   String get remote;
@@ -187,7 +187,7 @@ abstract class _AssetLocation extends AssetLocation {
   bool get absolute;
   @override
   @JsonKey(ignore: true)
-  _$$_AssetLocationCopyWith<_$_AssetLocation> get copyWith =>
+  _$$AssetLocationImplCopyWith<_$AssetLocationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -292,11 +292,11 @@ class _$AppDocumentEntityCopyWithImpl<$Res, $Val extends AppDocumentEntity>
 }
 
 /// @nodoc
-abstract class _$$AppDocumentFileCopyWith<$Res>
+abstract class _$$AppDocumentFileImplCopyWith<$Res>
     implements $AppDocumentEntityCopyWith<$Res> {
-  factory _$$AppDocumentFileCopyWith(
-          _$AppDocumentFile value, $Res Function(_$AppDocumentFile) then) =
-      __$$AppDocumentFileCopyWithImpl<$Res>;
+  factory _$$AppDocumentFileImplCopyWith(_$AppDocumentFileImpl value,
+          $Res Function(_$AppDocumentFileImpl) then) =
+      __$$AppDocumentFileImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -312,11 +312,11 @@ abstract class _$$AppDocumentFileCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AppDocumentFileCopyWithImpl<$Res>
-    extends _$AppDocumentEntityCopyWithImpl<$Res, _$AppDocumentFile>
-    implements _$$AppDocumentFileCopyWith<$Res> {
-  __$$AppDocumentFileCopyWithImpl(
-      _$AppDocumentFile _value, $Res Function(_$AppDocumentFile) _then)
+class __$$AppDocumentFileImplCopyWithImpl<$Res>
+    extends _$AppDocumentEntityCopyWithImpl<$Res, _$AppDocumentFileImpl>
+    implements _$$AppDocumentFileImplCopyWith<$Res> {
+  __$$AppDocumentFileImplCopyWithImpl(
+      _$AppDocumentFileImpl _value, $Res Function(_$AppDocumentFileImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -328,7 +328,7 @@ class __$$AppDocumentFileCopyWithImpl<$Res>
     Object? metadata = freezed,
     Object? thumbnail = freezed,
   }) {
-    return _then(_$AppDocumentFile(
+    return _then(_$AppDocumentFileImpl(
       null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -367,8 +367,8 @@ class __$$AppDocumentFileCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AppDocumentFile extends AppDocumentFile {
-  const _$AppDocumentFile(this.location, final List<int> data,
+class _$AppDocumentFileImpl extends AppDocumentFile {
+  const _$AppDocumentFileImpl(this.location, final List<int> data,
       {this.cached = false, this.metadata, this.thumbnail})
       : _data = data,
         super._();
@@ -400,7 +400,7 @@ class _$AppDocumentFile extends AppDocumentFile {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AppDocumentFile &&
+            other is _$AppDocumentFileImpl &&
             (identical(other.location, location) ||
                 other.location == location) &&
             const DeepCollectionEquality().equals(other._data, _data) &&
@@ -422,8 +422,9 @@ class _$AppDocumentFile extends AppDocumentFile {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AppDocumentFileCopyWith<_$AppDocumentFile> get copyWith =>
-      __$$AppDocumentFileCopyWithImpl<_$AppDocumentFile>(this, _$identity);
+  _$$AppDocumentFileImplCopyWith<_$AppDocumentFileImpl> get copyWith =>
+      __$$AppDocumentFileImplCopyWithImpl<_$AppDocumentFileImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -503,7 +504,7 @@ abstract class AppDocumentFile extends AppDocumentEntity {
       final AssetLocation location, final List<int> data,
       {final bool cached,
       final FileMetadata? metadata,
-      final Uint8List? thumbnail}) = _$AppDocumentFile;
+      final Uint8List? thumbnail}) = _$AppDocumentFileImpl;
   const AppDocumentFile._() : super._();
 
   @override
@@ -514,16 +515,16 @@ abstract class AppDocumentFile extends AppDocumentEntity {
   Uint8List? get thumbnail;
   @override
   @JsonKey(ignore: true)
-  _$$AppDocumentFileCopyWith<_$AppDocumentFile> get copyWith =>
+  _$$AppDocumentFileImplCopyWith<_$AppDocumentFileImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AppDocumentDirectoryCopyWith<$Res>
+abstract class _$$AppDocumentDirectoryImplCopyWith<$Res>
     implements $AppDocumentEntityCopyWith<$Res> {
-  factory _$$AppDocumentDirectoryCopyWith(_$AppDocumentDirectory value,
-          $Res Function(_$AppDocumentDirectory) then) =
-      __$$AppDocumentDirectoryCopyWithImpl<$Res>;
+  factory _$$AppDocumentDirectoryImplCopyWith(_$AppDocumentDirectoryImpl value,
+          $Res Function(_$AppDocumentDirectoryImpl) then) =
+      __$$AppDocumentDirectoryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({AssetLocation location, List<AppDocumentEntity> assets});
@@ -533,11 +534,11 @@ abstract class _$$AppDocumentDirectoryCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AppDocumentDirectoryCopyWithImpl<$Res>
-    extends _$AppDocumentEntityCopyWithImpl<$Res, _$AppDocumentDirectory>
-    implements _$$AppDocumentDirectoryCopyWith<$Res> {
-  __$$AppDocumentDirectoryCopyWithImpl(_$AppDocumentDirectory _value,
-      $Res Function(_$AppDocumentDirectory) _then)
+class __$$AppDocumentDirectoryImplCopyWithImpl<$Res>
+    extends _$AppDocumentEntityCopyWithImpl<$Res, _$AppDocumentDirectoryImpl>
+    implements _$$AppDocumentDirectoryImplCopyWith<$Res> {
+  __$$AppDocumentDirectoryImplCopyWithImpl(_$AppDocumentDirectoryImpl _value,
+      $Res Function(_$AppDocumentDirectoryImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -546,7 +547,7 @@ class __$$AppDocumentDirectoryCopyWithImpl<$Res>
     Object? location = null,
     Object? assets = null,
   }) {
-    return _then(_$AppDocumentDirectory(
+    return _then(_$AppDocumentDirectoryImpl(
       null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -561,8 +562,8 @@ class __$$AppDocumentDirectoryCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AppDocumentDirectory extends AppDocumentDirectory {
-  const _$AppDocumentDirectory(
+class _$AppDocumentDirectoryImpl extends AppDocumentDirectory {
+  const _$AppDocumentDirectoryImpl(
       this.location, final List<AppDocumentEntity> assets)
       : _assets = assets,
         super._();
@@ -586,7 +587,7 @@ class _$AppDocumentDirectory extends AppDocumentDirectory {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AppDocumentDirectory &&
+            other is _$AppDocumentDirectoryImpl &&
             (identical(other.location, location) ||
                 other.location == location) &&
             const DeepCollectionEquality().equals(other._assets, _assets));
@@ -599,9 +600,10 @@ class _$AppDocumentDirectory extends AppDocumentDirectory {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AppDocumentDirectoryCopyWith<_$AppDocumentDirectory> get copyWith =>
-      __$$AppDocumentDirectoryCopyWithImpl<_$AppDocumentDirectory>(
-          this, _$identity);
+  _$$AppDocumentDirectoryImplCopyWith<_$AppDocumentDirectoryImpl>
+      get copyWith =>
+          __$$AppDocumentDirectoryImplCopyWithImpl<_$AppDocumentDirectoryImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -679,7 +681,7 @@ class _$AppDocumentDirectory extends AppDocumentDirectory {
 abstract class AppDocumentDirectory extends AppDocumentEntity {
   const factory AppDocumentDirectory(
           final AssetLocation location, final List<AppDocumentEntity> assets) =
-      _$AppDocumentDirectory;
+      _$AppDocumentDirectoryImpl;
   const AppDocumentDirectory._() : super._();
 
   @override
@@ -687,6 +689,6 @@ abstract class AppDocumentDirectory extends AppDocumentEntity {
   List<AppDocumentEntity> get assets;
   @override
   @JsonKey(ignore: true)
-  _$$AppDocumentDirectoryCopyWith<_$AppDocumentDirectory> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$AppDocumentDirectoryImplCopyWith<_$AppDocumentDirectoryImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

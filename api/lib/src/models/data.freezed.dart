@@ -71,11 +71,11 @@ class _$NoteDataStateCopyWithImpl<$Res, $Val extends NoteDataState>
 }
 
 /// @nodoc
-abstract class _$$_NoteDataStateCopyWith<$Res>
+abstract class _$$NoteDataStateImplCopyWith<$Res>
     implements $NoteDataStateCopyWith<$Res> {
-  factory _$$_NoteDataStateCopyWith(
-          _$_NoteDataState value, $Res Function(_$_NoteDataState) then) =
-      __$$_NoteDataStateCopyWithImpl<$Res>;
+  factory _$$NoteDataStateImplCopyWith(
+          _$NoteDataStateImpl value, $Res Function(_$NoteDataStateImpl) then) =
+      __$$NoteDataStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -84,11 +84,11 @@ abstract class _$$_NoteDataStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_NoteDataStateCopyWithImpl<$Res>
-    extends _$NoteDataStateCopyWithImpl<$Res, _$_NoteDataState>
-    implements _$$_NoteDataStateCopyWith<$Res> {
-  __$$_NoteDataStateCopyWithImpl(
-      _$_NoteDataState _value, $Res Function(_$_NoteDataState) _then)
+class __$$NoteDataStateImplCopyWithImpl<$Res>
+    extends _$NoteDataStateCopyWithImpl<$Res, _$NoteDataStateImpl>
+    implements _$$NoteDataStateImplCopyWith<$Res> {
+  __$$NoteDataStateImplCopyWithImpl(
+      _$NoteDataStateImpl _value, $Res Function(_$NoteDataStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -97,7 +97,7 @@ class __$$_NoteDataStateCopyWithImpl<$Res>
     Object? added = null,
     Object? removed = null,
   }) {
-    return _then(_$_NoteDataState(
+    return _then(_$NoteDataStateImpl(
       null == added
           ? _value._added
           : added // ignore: cast_nullable_to_non_nullable
@@ -112,16 +112,16 @@ class __$$_NoteDataStateCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_NoteDataState implements _NoteDataState {
-  const _$_NoteDataState(
+class _$NoteDataStateImpl implements _NoteDataState {
+  const _$NoteDataStateImpl(
       [@Uint8ListJsonConverter()
       final Map<String, Uint8List> added = const <String, Uint8List>{},
       final List<String> removed = const <String>[]])
       : _added = added,
         _removed = removed;
 
-  factory _$_NoteDataState.fromJson(Map<String, dynamic> json) =>
-      _$$_NoteDataStateFromJson(json);
+  factory _$NoteDataStateImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NoteDataStateImplFromJson(json);
 
   final Map<String, Uint8List> _added;
   @override
@@ -151,7 +151,7 @@ class _$_NoteDataState implements _NoteDataState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_NoteDataState &&
+            other is _$NoteDataStateImpl &&
             const DeepCollectionEquality().equals(other._added, _added) &&
             const DeepCollectionEquality().equals(other._removed, _removed));
   }
@@ -166,12 +166,12 @@ class _$_NoteDataState implements _NoteDataState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NoteDataStateCopyWith<_$_NoteDataState> get copyWith =>
-      __$$_NoteDataStateCopyWithImpl<_$_NoteDataState>(this, _$identity);
+  _$$NoteDataStateImplCopyWith<_$NoteDataStateImpl> get copyWith =>
+      __$$NoteDataStateImplCopyWithImpl<_$NoteDataStateImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_NoteDataStateToJson(
+    return _$$NoteDataStateImplToJson(
       this,
     );
   }
@@ -180,10 +180,10 @@ class _$_NoteDataState implements _NoteDataState {
 abstract class _NoteDataState implements NoteDataState {
   const factory _NoteDataState(
       [@Uint8ListJsonConverter() final Map<String, Uint8List> added,
-      final List<String> removed]) = _$_NoteDataState;
+      final List<String> removed]) = _$NoteDataStateImpl;
 
   factory _NoteDataState.fromJson(Map<String, dynamic> json) =
-      _$_NoteDataState.fromJson;
+      _$NoteDataStateImpl.fromJson;
 
   @override
   @Uint8ListJsonConverter()
@@ -192,6 +192,6 @@ abstract class _NoteDataState implements NoteDataState {
   List<String> get removed;
   @override
   @JsonKey(ignore: true)
-  _$$_NoteDataStateCopyWith<_$_NoteDataState> get copyWith =>
+  _$$NoteDataStateImplCopyWith<_$NoteDataStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

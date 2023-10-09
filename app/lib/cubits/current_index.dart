@@ -527,10 +527,11 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
         cameraViewport: state.cameraViewport.withUnbaked(unbakedElements)));
   }
 
-  void setSaveState({AssetLocation? location, SaveState? saved}) {
-    emit(state.copyWith(
-        location: location ?? state.location, saved: saved ?? state.saved));
-  }
+  void setSaveState({AssetLocation? location, SaveState? saved}) =>
+      emit(state.copyWith(
+          location: location ?? state.location,
+          saved:
+              saved ?? (location != null ? SaveState.unsaved : state.saved)));
 
   Future<pw.Document> renderPDF(
     NoteData document,

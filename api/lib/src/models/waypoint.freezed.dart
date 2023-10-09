@@ -77,10 +77,11 @@ class _$WaypointCopyWithImpl<$Res, $Val extends Waypoint>
 }
 
 /// @nodoc
-abstract class _$$_WaypointCopyWith<$Res> implements $WaypointCopyWith<$Res> {
-  factory _$$_WaypointCopyWith(
-          _$_Waypoint value, $Res Function(_$_Waypoint) then) =
-      __$$_WaypointCopyWithImpl<$Res>;
+abstract class _$$WaypointImplCopyWith<$Res>
+    implements $WaypointCopyWith<$Res> {
+  factory _$$WaypointImplCopyWith(
+          _$WaypointImpl value, $Res Function(_$WaypointImpl) then) =
+      __$$WaypointImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -90,11 +91,11 @@ abstract class _$$_WaypointCopyWith<$Res> implements $WaypointCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_WaypointCopyWithImpl<$Res>
-    extends _$WaypointCopyWithImpl<$Res, _$_Waypoint>
-    implements _$$_WaypointCopyWith<$Res> {
-  __$$_WaypointCopyWithImpl(
-      _$_Waypoint _value, $Res Function(_$_Waypoint) _then)
+class __$$WaypointImplCopyWithImpl<$Res>
+    extends _$WaypointCopyWithImpl<$Res, _$WaypointImpl>
+    implements _$$WaypointImplCopyWith<$Res> {
+  __$$WaypointImplCopyWithImpl(
+      _$WaypointImpl _value, $Res Function(_$WaypointImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -104,7 +105,7 @@ class __$$_WaypointCopyWithImpl<$Res>
     Object? position = null,
     Object? scale = freezed,
   }) {
-    return _then(_$_Waypoint(
+    return _then(_$WaypointImpl(
       null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -123,12 +124,12 @@ class __$$_WaypointCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Waypoint implements _Waypoint {
-  const _$_Waypoint(this.name, @DoublePointJsonConverter() this.position,
+class _$WaypointImpl implements _Waypoint {
+  const _$WaypointImpl(this.name, @DoublePointJsonConverter() this.position,
       [this.scale]);
 
-  factory _$_Waypoint.fromJson(Map<String, dynamic> json) =>
-      _$$_WaypointFromJson(json);
+  factory _$WaypointImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WaypointImplFromJson(json);
 
   @override
   final String name;
@@ -147,7 +148,7 @@ class _$_Waypoint implements _Waypoint {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Waypoint &&
+            other is _$WaypointImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.position, position) ||
                 other.position == position) &&
@@ -161,12 +162,12 @@ class _$_Waypoint implements _Waypoint {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_WaypointCopyWith<_$_Waypoint> get copyWith =>
-      __$$_WaypointCopyWithImpl<_$_Waypoint>(this, _$identity);
+  _$$WaypointImplCopyWith<_$WaypointImpl> get copyWith =>
+      __$$WaypointImplCopyWithImpl<_$WaypointImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_WaypointToJson(
+    return _$$WaypointImplToJson(
       this,
     );
   }
@@ -175,9 +176,10 @@ class _$_Waypoint implements _Waypoint {
 abstract class _Waypoint implements Waypoint {
   const factory _Waypoint(final String name,
       @DoublePointJsonConverter() final Point<double> position,
-      [final double? scale]) = _$_Waypoint;
+      [final double? scale]) = _$WaypointImpl;
 
-  factory _Waypoint.fromJson(Map<String, dynamic> json) = _$_Waypoint.fromJson;
+  factory _Waypoint.fromJson(Map<String, dynamic> json) =
+      _$WaypointImpl.fromJson;
 
   @override
   String get name;
@@ -188,6 +190,6 @@ abstract class _Waypoint implements Waypoint {
   double? get scale;
   @override
   @JsonKey(ignore: true)
-  _$$_WaypointCopyWith<_$_Waypoint> get copyWith =>
+  _$$WaypointImplCopyWith<_$WaypointImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

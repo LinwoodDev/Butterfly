@@ -29,10 +29,10 @@ packages:
     dependency: "direct main"
     description:
       name: archive
-      sha256: "06a96f1249f38a00435b3b0c9a3246d934d7dbc8183fc7c9e56989860edb99d4"
+      sha256: ca12e6c9ac022f33fd89128e7007fb5e97ab6e814d4fa05dd8d4f2db1e3c69cb
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.4"
+    version: "3.4.5"
   args:
     dependency: "direct main"
     description:
@@ -716,8 +716,8 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/material_leap"
-      ref: d14a72b45c56e0177cf1e2b6127feac2e4ac0764
-      resolved-ref: d14a72b45c56e0177cf1e2b6127feac2e4ac0764
+      ref: "12bce31b6065429757f4a0768acf659e045749fc"
+      resolved-ref: "12bce31b6065429757f4a0768acf659e045749fc"
       url: "https://github.com/LinwoodDev/dart_pkgs.git"
     source: git
     version: "0.0.1"
@@ -1364,10 +1364,10 @@ packages:
     dependency: "direct main"
     description:
       name: window_manager
-      sha256: "6ee795be9124f90660ea9d05e581a466de19e1c89ee74fc4bf528f60c8600edd"
+      sha256: dcc865277f26a7dad263a47d0e405d77e21f12cb71f30333a52710a408690bd7
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.6"
+    version: "0.3.7"
   xdg_directories:
     dependency: transitive
     description:

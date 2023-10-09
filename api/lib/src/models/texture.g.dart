@@ -6,7 +6,8 @@ part of 'texture.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatternTexture _$$PatternTextureFromJson(Map json) => _$PatternTexture(
+_$PatternTextureImpl _$$PatternTextureImplFromJson(Map json) =>
+    _$PatternTextureImpl(
       boxWidth: (json['boxWidth'] as num?)?.toDouble() ?? 0,
       boxHeight: (json['boxHeight'] as num?)?.toDouble() ?? 0,
       boxXCount: json['boxXCount'] as int? ?? 1,
@@ -20,7 +21,8 @@ _$PatternTexture _$$PatternTextureFromJson(Map json) => _$PatternTexture(
       boxYStroke: (json['boxYStroke'] as num?)?.toDouble() ?? 0.5,
     );
 
-Map<String, dynamic> _$$PatternTextureToJson(_$PatternTexture instance) =>
+Map<String, dynamic> _$$PatternTextureImplToJson(
+        _$PatternTextureImpl instance) =>
     <String, dynamic>{
       'boxWidth': instance.boxWidth,
       'boxHeight': instance.boxHeight,

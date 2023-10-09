@@ -641,14 +641,6 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                 AssetLocation(remote: remote?.identifier ?? '', path: ''));
       }
     });
-    on<DocumentPathChanged>((event, emit) {
-      final current = state;
-      if (current is! DocumentLoadSuccess) return;
-      if (!(current.embedding?.editable ?? true)) return;
-      current.currentIndexCubit.setSaveState(
-          location:
-              AssetLocation(remote: current.location.remote, path: event.path));
-    });
     on<AreasCreated>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;

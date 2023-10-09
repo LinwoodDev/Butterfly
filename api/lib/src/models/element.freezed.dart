@@ -74,22 +74,22 @@ class _$ElementConstraintCopyWithImpl<$Res, $Val extends ElementConstraint>
 }
 
 /// @nodoc
-abstract class _$$_ElementConstraintCopyWith<$Res>
+abstract class _$$ElementConstraintImplCopyWith<$Res>
     implements $ElementConstraintCopyWith<$Res> {
-  factory _$$_ElementConstraintCopyWith(_$_ElementConstraint value,
-          $Res Function(_$_ElementConstraint) then) =
-      __$$_ElementConstraintCopyWithImpl<$Res>;
+  factory _$$ElementConstraintImplCopyWith(_$ElementConstraintImpl value,
+          $Res Function(_$ElementConstraintImpl) then) =
+      __$$ElementConstraintImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({double size, double length, bool includeArea});
 }
 
 /// @nodoc
-class __$$_ElementConstraintCopyWithImpl<$Res>
-    extends _$ElementConstraintCopyWithImpl<$Res, _$_ElementConstraint>
-    implements _$$_ElementConstraintCopyWith<$Res> {
-  __$$_ElementConstraintCopyWithImpl(
-      _$_ElementConstraint _value, $Res Function(_$_ElementConstraint) _then)
+class __$$ElementConstraintImplCopyWithImpl<$Res>
+    extends _$ElementConstraintCopyWithImpl<$Res, _$ElementConstraintImpl>
+    implements _$$ElementConstraintImplCopyWith<$Res> {
+  __$$ElementConstraintImplCopyWithImpl(_$ElementConstraintImpl _value,
+      $Res Function(_$ElementConstraintImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_ElementConstraintCopyWithImpl<$Res>
     Object? length = null,
     Object? includeArea = null,
   }) {
-    return _then(_$_ElementConstraint(
+    return _then(_$ElementConstraintImpl(
       size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
@@ -118,12 +118,12 @@ class __$$_ElementConstraintCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ElementConstraint implements _ElementConstraint {
-  const _$_ElementConstraint(
+class _$ElementConstraintImpl implements _ElementConstraint {
+  const _$ElementConstraintImpl(
       {this.size = 0, this.length = 0, this.includeArea = true});
 
-  factory _$_ElementConstraint.fromJson(Map<String, dynamic> json) =>
-      _$$_ElementConstraintFromJson(json);
+  factory _$ElementConstraintImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ElementConstraintImplFromJson(json);
 
   @override
   @JsonKey()
@@ -144,7 +144,7 @@ class _$_ElementConstraint implements _ElementConstraint {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ElementConstraint &&
+            other is _$ElementConstraintImpl &&
             (identical(other.size, size) || other.size == size) &&
             (identical(other.length, length) || other.length == length) &&
             (identical(other.includeArea, includeArea) ||
@@ -158,13 +158,13 @@ class _$_ElementConstraint implements _ElementConstraint {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ElementConstraintCopyWith<_$_ElementConstraint> get copyWith =>
-      __$$_ElementConstraintCopyWithImpl<_$_ElementConstraint>(
+  _$$ElementConstraintImplCopyWith<_$ElementConstraintImpl> get copyWith =>
+      __$$ElementConstraintImplCopyWithImpl<_$ElementConstraintImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ElementConstraintToJson(
+    return _$$ElementConstraintImplToJson(
       this,
     );
   }
@@ -174,10 +174,10 @@ abstract class _ElementConstraint implements ElementConstraint {
   const factory _ElementConstraint(
       {final double size,
       final double length,
-      final bool includeArea}) = _$_ElementConstraint;
+      final bool includeArea}) = _$ElementConstraintImpl;
 
   factory _ElementConstraint.fromJson(Map<String, dynamic> json) =
-      _$_ElementConstraint.fromJson;
+      _$ElementConstraintImpl.fromJson;
 
   @override
   double get size;
@@ -187,7 +187,7 @@ abstract class _ElementConstraint implements ElementConstraint {
   bool get includeArea;
   @override
   @JsonKey(ignore: true)
-  _$$_ElementConstraintCopyWith<_$_ElementConstraint> get copyWith =>
+  _$$ElementConstraintImplCopyWith<_$ElementConstraintImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -280,20 +280,23 @@ class _$ElementConstraintsCopyWithImpl<$Res, $Val extends ElementConstraints>
 }
 
 /// @nodoc
-abstract class _$$ScaledElementConstraintsCopyWith<$Res> {
-  factory _$$ScaledElementConstraintsCopyWith(_$ScaledElementConstraints value,
-          $Res Function(_$ScaledElementConstraints) then) =
-      __$$ScaledElementConstraintsCopyWithImpl<$Res>;
+abstract class _$$ScaledElementConstraintsImplCopyWith<$Res> {
+  factory _$$ScaledElementConstraintsImplCopyWith(
+          _$ScaledElementConstraintsImpl value,
+          $Res Function(_$ScaledElementConstraintsImpl) then) =
+      __$$ScaledElementConstraintsImplCopyWithImpl<$Res>;
   @useResult
   $Res call({double scaleX, double scaleY});
 }
 
 /// @nodoc
-class __$$ScaledElementConstraintsCopyWithImpl<$Res>
-    extends _$ElementConstraintsCopyWithImpl<$Res, _$ScaledElementConstraints>
-    implements _$$ScaledElementConstraintsCopyWith<$Res> {
-  __$$ScaledElementConstraintsCopyWithImpl(_$ScaledElementConstraints _value,
-      $Res Function(_$ScaledElementConstraints) _then)
+class __$$ScaledElementConstraintsImplCopyWithImpl<$Res>
+    extends _$ElementConstraintsCopyWithImpl<$Res,
+        _$ScaledElementConstraintsImpl>
+    implements _$$ScaledElementConstraintsImplCopyWith<$Res> {
+  __$$ScaledElementConstraintsImplCopyWithImpl(
+      _$ScaledElementConstraintsImpl _value,
+      $Res Function(_$ScaledElementConstraintsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -302,7 +305,7 @@ class __$$ScaledElementConstraintsCopyWithImpl<$Res>
     Object? scaleX = null,
     Object? scaleY = null,
   }) {
-    return _then(_$ScaledElementConstraints(
+    return _then(_$ScaledElementConstraintsImpl(
       scaleX: null == scaleX
           ? _value.scaleX
           : scaleX // ignore: cast_nullable_to_non_nullable
@@ -317,13 +320,13 @@ class __$$ScaledElementConstraintsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ScaledElementConstraints implements ScaledElementConstraints {
-  const _$ScaledElementConstraints(
+class _$ScaledElementConstraintsImpl implements ScaledElementConstraints {
+  const _$ScaledElementConstraintsImpl(
       {this.scaleX = 1, this.scaleY = 1, final String? $type})
       : $type = $type ?? 'scaled';
 
-  factory _$ScaledElementConstraints.fromJson(Map<String, dynamic> json) =>
-      _$$ScaledElementConstraintsFromJson(json);
+  factory _$ScaledElementConstraintsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ScaledElementConstraintsImplFromJson(json);
 
   @override
   @JsonKey()
@@ -344,7 +347,7 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ScaledElementConstraints &&
+            other is _$ScaledElementConstraintsImpl &&
             (identical(other.scaleX, scaleX) || other.scaleX == scaleX) &&
             (identical(other.scaleY, scaleY) || other.scaleY == scaleY));
   }
@@ -356,10 +359,9 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ScaledElementConstraintsCopyWith<_$ScaledElementConstraints>
-      get copyWith =>
-          __$$ScaledElementConstraintsCopyWithImpl<_$ScaledElementConstraints>(
-              this, _$identity);
+  _$$ScaledElementConstraintsImplCopyWith<_$ScaledElementConstraintsImpl>
+      get copyWith => __$$ScaledElementConstraintsImplCopyWithImpl<
+          _$ScaledElementConstraintsImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -437,7 +439,7 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ScaledElementConstraintsToJson(
+    return _$$ScaledElementConstraintsImplToJson(
       this,
     );
   }
@@ -445,33 +447,37 @@ class _$ScaledElementConstraints implements ScaledElementConstraints {
 
 abstract class ScaledElementConstraints implements ElementConstraints {
   const factory ScaledElementConstraints(
-      {final double scaleX, final double scaleY}) = _$ScaledElementConstraints;
+      {final double scaleX,
+      final double scaleY}) = _$ScaledElementConstraintsImpl;
 
   factory ScaledElementConstraints.fromJson(Map<String, dynamic> json) =
-      _$ScaledElementConstraints.fromJson;
+      _$ScaledElementConstraintsImpl.fromJson;
 
   double get scaleX;
   double get scaleY;
   @JsonKey(ignore: true)
-  _$$ScaledElementConstraintsCopyWith<_$ScaledElementConstraints>
+  _$$ScaledElementConstraintsImplCopyWith<_$ScaledElementConstraintsImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$FixedElementConstraintsCopyWith<$Res> {
-  factory _$$FixedElementConstraintsCopyWith(_$FixedElementConstraints value,
-          $Res Function(_$FixedElementConstraints) then) =
-      __$$FixedElementConstraintsCopyWithImpl<$Res>;
+abstract class _$$FixedElementConstraintsImplCopyWith<$Res> {
+  factory _$$FixedElementConstraintsImplCopyWith(
+          _$FixedElementConstraintsImpl value,
+          $Res Function(_$FixedElementConstraintsImpl) then) =
+      __$$FixedElementConstraintsImplCopyWithImpl<$Res>;
   @useResult
   $Res call({double height, double width});
 }
 
 /// @nodoc
-class __$$FixedElementConstraintsCopyWithImpl<$Res>
-    extends _$ElementConstraintsCopyWithImpl<$Res, _$FixedElementConstraints>
-    implements _$$FixedElementConstraintsCopyWith<$Res> {
-  __$$FixedElementConstraintsCopyWithImpl(_$FixedElementConstraints _value,
-      $Res Function(_$FixedElementConstraints) _then)
+class __$$FixedElementConstraintsImplCopyWithImpl<$Res>
+    extends _$ElementConstraintsCopyWithImpl<$Res,
+        _$FixedElementConstraintsImpl>
+    implements _$$FixedElementConstraintsImplCopyWith<$Res> {
+  __$$FixedElementConstraintsImplCopyWithImpl(
+      _$FixedElementConstraintsImpl _value,
+      $Res Function(_$FixedElementConstraintsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -480,7 +486,7 @@ class __$$FixedElementConstraintsCopyWithImpl<$Res>
     Object? height = null,
     Object? width = null,
   }) {
-    return _then(_$FixedElementConstraints(
+    return _then(_$FixedElementConstraintsImpl(
       null == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
@@ -495,13 +501,13 @@ class __$$FixedElementConstraintsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FixedElementConstraints implements FixedElementConstraints {
-  const _$FixedElementConstraints(this.height, this.width,
+class _$FixedElementConstraintsImpl implements FixedElementConstraints {
+  const _$FixedElementConstraintsImpl(this.height, this.width,
       {final String? $type})
       : $type = $type ?? 'fixed';
 
-  factory _$FixedElementConstraints.fromJson(Map<String, dynamic> json) =>
-      _$$FixedElementConstraintsFromJson(json);
+  factory _$FixedElementConstraintsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FixedElementConstraintsImplFromJson(json);
 
   @override
   final double height;
@@ -520,7 +526,7 @@ class _$FixedElementConstraints implements FixedElementConstraints {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FixedElementConstraints &&
+            other is _$FixedElementConstraintsImpl &&
             (identical(other.height, height) || other.height == height) &&
             (identical(other.width, width) || other.width == width));
   }
@@ -532,9 +538,9 @@ class _$FixedElementConstraints implements FixedElementConstraints {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$FixedElementConstraintsCopyWith<_$FixedElementConstraints> get copyWith =>
-      __$$FixedElementConstraintsCopyWithImpl<_$FixedElementConstraints>(
-          this, _$identity);
+  _$$FixedElementConstraintsImplCopyWith<_$FixedElementConstraintsImpl>
+      get copyWith => __$$FixedElementConstraintsImplCopyWithImpl<
+          _$FixedElementConstraintsImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -612,7 +618,7 @@ class _$FixedElementConstraints implements FixedElementConstraints {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FixedElementConstraintsToJson(
+    return _$$FixedElementConstraintsImplToJson(
       this,
     );
   }
@@ -620,35 +626,37 @@ class _$FixedElementConstraints implements FixedElementConstraints {
 
 abstract class FixedElementConstraints implements ElementConstraints {
   const factory FixedElementConstraints(
-      final double height, final double width) = _$FixedElementConstraints;
+      final double height, final double width) = _$FixedElementConstraintsImpl;
 
   factory FixedElementConstraints.fromJson(Map<String, dynamic> json) =
-      _$FixedElementConstraints.fromJson;
+      _$FixedElementConstraintsImpl.fromJson;
 
   double get height;
   double get width;
   @JsonKey(ignore: true)
-  _$$FixedElementConstraintsCopyWith<_$FixedElementConstraints> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$FixedElementConstraintsImplCopyWith<_$FixedElementConstraintsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DynamicElementConstraintsCopyWith<$Res> {
-  factory _$$DynamicElementConstraintsCopyWith(
-          _$DynamicElementConstraints value,
-          $Res Function(_$DynamicElementConstraints) then) =
-      __$$DynamicElementConstraintsCopyWithImpl<$Res>;
+abstract class _$$DynamicElementConstraintsImplCopyWith<$Res> {
+  factory _$$DynamicElementConstraintsImplCopyWith(
+          _$DynamicElementConstraintsImpl value,
+          $Res Function(_$DynamicElementConstraintsImpl) then) =
+      __$$DynamicElementConstraintsImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {double height, double width, double aspectRatio, bool includeArea});
 }
 
 /// @nodoc
-class __$$DynamicElementConstraintsCopyWithImpl<$Res>
-    extends _$ElementConstraintsCopyWithImpl<$Res, _$DynamicElementConstraints>
-    implements _$$DynamicElementConstraintsCopyWith<$Res> {
-  __$$DynamicElementConstraintsCopyWithImpl(_$DynamicElementConstraints _value,
-      $Res Function(_$DynamicElementConstraints) _then)
+class __$$DynamicElementConstraintsImplCopyWithImpl<$Res>
+    extends _$ElementConstraintsCopyWithImpl<$Res,
+        _$DynamicElementConstraintsImpl>
+    implements _$$DynamicElementConstraintsImplCopyWith<$Res> {
+  __$$DynamicElementConstraintsImplCopyWithImpl(
+      _$DynamicElementConstraintsImpl _value,
+      $Res Function(_$DynamicElementConstraintsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -659,7 +667,7 @@ class __$$DynamicElementConstraintsCopyWithImpl<$Res>
     Object? aspectRatio = null,
     Object? includeArea = null,
   }) {
-    return _then(_$DynamicElementConstraints(
+    return _then(_$DynamicElementConstraintsImpl(
       height: null == height
           ? _value.height
           : height // ignore: cast_nullable_to_non_nullable
@@ -682,8 +690,8 @@ class __$$DynamicElementConstraintsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DynamicElementConstraints implements DynamicElementConstraints {
-  const _$DynamicElementConstraints(
+class _$DynamicElementConstraintsImpl implements DynamicElementConstraints {
+  const _$DynamicElementConstraintsImpl(
       {this.height = 0,
       this.width = 0,
       this.aspectRatio = 0,
@@ -691,8 +699,8 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
       final String? $type})
       : $type = $type ?? 'dynamic';
 
-  factory _$DynamicElementConstraints.fromJson(Map<String, dynamic> json) =>
-      _$$DynamicElementConstraintsFromJson(json);
+  factory _$DynamicElementConstraintsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DynamicElementConstraintsImplFromJson(json);
 
   @override
   @JsonKey()
@@ -719,7 +727,7 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DynamicElementConstraints &&
+            other is _$DynamicElementConstraintsImpl &&
             (identical(other.height, height) || other.height == height) &&
             (identical(other.width, width) || other.width == width) &&
             (identical(other.aspectRatio, aspectRatio) ||
@@ -736,9 +744,9 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DynamicElementConstraintsCopyWith<_$DynamicElementConstraints>
-      get copyWith => __$$DynamicElementConstraintsCopyWithImpl<
-          _$DynamicElementConstraints>(this, _$identity);
+  _$$DynamicElementConstraintsImplCopyWith<_$DynamicElementConstraintsImpl>
+      get copyWith => __$$DynamicElementConstraintsImplCopyWithImpl<
+          _$DynamicElementConstraintsImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -816,7 +824,7 @@ class _$DynamicElementConstraints implements DynamicElementConstraints {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DynamicElementConstraintsToJson(
+    return _$$DynamicElementConstraintsImplToJson(
       this,
     );
   }
@@ -827,17 +835,17 @@ abstract class DynamicElementConstraints implements ElementConstraints {
       {final double height,
       final double width,
       final double aspectRatio,
-      final bool includeArea}) = _$DynamicElementConstraints;
+      final bool includeArea}) = _$DynamicElementConstraintsImpl;
 
   factory DynamicElementConstraints.fromJson(Map<String, dynamic> json) =
-      _$DynamicElementConstraints.fromJson;
+      _$DynamicElementConstraintsImpl.fromJson;
 
   double get height;
   double get width;
   double get aspectRatio;
   bool get includeArea;
   @JsonKey(ignore: true)
-  _$$DynamicElementConstraintsCopyWith<_$DynamicElementConstraints>
+  _$$DynamicElementConstraintsImplCopyWith<_$DynamicElementConstraintsImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1128,11 +1136,11 @@ class _$PadElementCopyWithImpl<$Res, $Val extends PadElement>
 }
 
 /// @nodoc
-abstract class _$$PenElementCopyWith<$Res>
+abstract class _$$PenElementImplCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory _$$PenElementCopyWith(
-          _$PenElement value, $Res Function(_$PenElement) then) =
-      __$$PenElementCopyWithImpl<$Res>;
+  factory _$$PenElementImplCopyWith(
+          _$PenElementImpl value, $Res Function(_$PenElementImpl) then) =
+      __$$PenElementImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1144,11 +1152,11 @@ abstract class _$$PenElementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$PenElementCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$PenElement>
-    implements _$$PenElementCopyWith<$Res> {
-  __$$PenElementCopyWithImpl(
-      _$PenElement _value, $Res Function(_$PenElement) _then)
+class __$$PenElementImplCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$PenElementImpl>
+    implements _$$PenElementImplCopyWith<$Res> {
+  __$$PenElementImplCopyWithImpl(
+      _$PenElementImpl _value, $Res Function(_$PenElementImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1160,7 +1168,7 @@ class __$$PenElementCopyWithImpl<$Res>
     Object? points = null,
     Object? property = freezed,
   }) {
-    return _then(_$PenElement(
+    return _then(_$PenElementImpl(
       rotation: null == rotation
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
@@ -1187,8 +1195,8 @@ class __$$PenElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PenElement implements PenElement {
-  _$PenElement(
+class _$PenElementImpl implements PenElement {
+  _$PenElementImpl(
       {this.rotation = 0,
       this.layer = '',
       this.zoom,
@@ -1198,8 +1206,8 @@ class _$PenElement implements PenElement {
       : _points = points,
         $type = $type ?? 'pen';
 
-  factory _$PenElement.fromJson(Map<String, dynamic> json) =>
-      _$$PenElementFromJson(json);
+  factory _$PenElementImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PenElementImplFromJson(json);
 
   @override
   @JsonKey()
@@ -1233,8 +1241,8 @@ class _$PenElement implements PenElement {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PenElementCopyWith<_$PenElement> get copyWith =>
-      __$$PenElementCopyWithImpl<_$PenElement>(this, _$identity);
+  _$$PenElementImplCopyWith<_$PenElementImpl> get copyWith =>
+      __$$PenElementImplCopyWithImpl<_$PenElementImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1477,7 +1485,7 @@ class _$PenElement implements PenElement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PenElementToJson(
+    return _$$PenElementImplToJson(
       this,
     );
   }
@@ -1489,10 +1497,10 @@ abstract class PenElement implements PadElement, PathElement {
       final String layer,
       final double? zoom,
       final List<PathPoint> points,
-      final PenProperty property}) = _$PenElement;
+      final PenProperty property}) = _$PenElementImpl;
 
   factory PenElement.fromJson(Map<String, dynamic> json) =
-      _$PenElement.fromJson;
+      _$PenElementImpl.fromJson;
 
   @override
   double get rotation;
@@ -1503,16 +1511,16 @@ abstract class PenElement implements PadElement, PathElement {
   PenProperty get property;
   @override
   @JsonKey(ignore: true)
-  _$$PenElementCopyWith<_$PenElement> get copyWith =>
+  _$$PenElementImplCopyWith<_$PenElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TextElementCopyWith<$Res>
+abstract class _$$TextElementImplCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory _$$TextElementCopyWith(
-          _$TextElement value, $Res Function(_$TextElement) then) =
-      __$$TextElementCopyWithImpl<$Res>;
+  factory _$$TextElementImplCopyWith(
+          _$TextElementImpl value, $Res Function(_$TextElementImpl) then) =
+      __$$TextElementImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1531,11 +1539,11 @@ abstract class _$$TextElementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$TextElementCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$TextElement>
-    implements _$$TextElementCopyWith<$Res> {
-  __$$TextElementCopyWithImpl(
-      _$TextElement _value, $Res Function(_$TextElement) _then)
+class __$$TextElementImplCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$TextElementImpl>
+    implements _$$TextElementImplCopyWith<$Res> {
+  __$$TextElementImplCopyWithImpl(
+      _$TextElementImpl _value, $Res Function(_$TextElementImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1550,7 +1558,7 @@ class __$$TextElementCopyWithImpl<$Res>
     Object? constraint = null,
     Object? foreground = null,
   }) {
-    return _then(_$TextElement(
+    return _then(_$TextElementImpl(
       rotation: null == rotation
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
@@ -1613,8 +1621,8 @@ class __$$TextElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TextElement with LabelElement implements TextElement {
-  _$TextElement(
+class _$TextElementImpl with LabelElement implements TextElement {
+  _$TextElementImpl(
       {this.rotation = 0,
       this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
@@ -1626,8 +1634,8 @@ class _$TextElement with LabelElement implements TextElement {
       final String? $type})
       : $type = $type ?? 'text';
 
-  factory _$TextElement.fromJson(Map<String, dynamic> json) =>
-      _$$TextElementFromJson(json);
+  factory _$TextElementImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TextElementImplFromJson(json);
 
   @override
   @JsonKey()
@@ -1665,8 +1673,8 @@ class _$TextElement with LabelElement implements TextElement {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TextElementCopyWith<_$TextElement> get copyWith =>
-      __$$TextElementCopyWithImpl<_$TextElement>(this, _$identity);
+  _$$TextElementImplCopyWith<_$TextElementImpl> get copyWith =>
+      __$$TextElementImplCopyWithImpl<_$TextElementImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1912,7 +1920,7 @@ class _$TextElement with LabelElement implements TextElement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TextElementToJson(
+    return _$$TextElementImplToJson(
       this,
     );
   }
@@ -1927,10 +1935,10 @@ abstract class TextElement implements PadElement, LabelElement {
       final PackAssetLocation styleSheet,
       required final TextArea area,
       final ElementConstraint constraint,
-      final int foreground}) = _$TextElement;
+      final int foreground}) = _$TextElementImpl;
 
   factory TextElement.fromJson(Map<String, dynamic> json) =
-      _$TextElement.fromJson;
+      _$TextElementImpl.fromJson;
 
   @override
   double get rotation;
@@ -1945,16 +1953,16 @@ abstract class TextElement implements PadElement, LabelElement {
   int get foreground;
   @override
   @JsonKey(ignore: true)
-  _$$TextElementCopyWith<_$TextElement> get copyWith =>
+  _$$TextElementImplCopyWith<_$TextElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MarkdownElementCopyWith<$Res>
+abstract class _$$MarkdownElementImplCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory _$$MarkdownElementCopyWith(
-          _$MarkdownElement value, $Res Function(_$MarkdownElement) then) =
-      __$$MarkdownElementCopyWithImpl<$Res>;
+  factory _$$MarkdownElementImplCopyWith(_$MarkdownElementImpl value,
+          $Res Function(_$MarkdownElementImpl) then) =
+      __$$MarkdownElementImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1974,11 +1982,11 @@ abstract class _$$MarkdownElementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$MarkdownElementCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$MarkdownElement>
-    implements _$$MarkdownElementCopyWith<$Res> {
-  __$$MarkdownElementCopyWithImpl(
-      _$MarkdownElement _value, $Res Function(_$MarkdownElement) _then)
+class __$$MarkdownElementImplCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$MarkdownElementImpl>
+    implements _$$MarkdownElementImplCopyWith<$Res> {
+  __$$MarkdownElementImplCopyWithImpl(
+      _$MarkdownElementImpl _value, $Res Function(_$MarkdownElementImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1994,7 +2002,7 @@ class __$$MarkdownElementCopyWithImpl<$Res>
     Object? constraint = null,
     Object? foreground = null,
   }) {
-    return _then(_$MarkdownElement(
+    return _then(_$MarkdownElementImpl(
       rotation: null == rotation
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
@@ -2061,8 +2069,8 @@ class __$$MarkdownElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$MarkdownElement with LabelElement implements MarkdownElement {
-  _$MarkdownElement(
+class _$MarkdownElementImpl with LabelElement implements MarkdownElement {
+  _$MarkdownElementImpl(
       {this.rotation = 0,
       this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
@@ -2075,8 +2083,8 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
       final String? $type})
       : $type = $type ?? 'markdown';
 
-  factory _$MarkdownElement.fromJson(Map<String, dynamic> json) =>
-      _$$MarkdownElementFromJson(json);
+  factory _$MarkdownElementImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MarkdownElementImplFromJson(json);
 
   @override
   @JsonKey()
@@ -2117,8 +2125,9 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MarkdownElementCopyWith<_$MarkdownElement> get copyWith =>
-      __$$MarkdownElementCopyWithImpl<_$MarkdownElement>(this, _$identity);
+  _$$MarkdownElementImplCopyWith<_$MarkdownElementImpl> get copyWith =>
+      __$$MarkdownElementImplCopyWithImpl<_$MarkdownElementImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2364,7 +2373,7 @@ class _$MarkdownElement with LabelElement implements MarkdownElement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MarkdownElementToJson(
+    return _$$MarkdownElementImplToJson(
       this,
     );
   }
@@ -2380,10 +2389,10 @@ abstract class MarkdownElement implements PadElement, LabelElement {
       final AreaProperty areaProperty,
       required final String text,
       final ElementConstraint constraint,
-      final int foreground}) = _$MarkdownElement;
+      final int foreground}) = _$MarkdownElementImpl;
 
   factory MarkdownElement.fromJson(Map<String, dynamic> json) =
-      _$MarkdownElement.fromJson;
+      _$MarkdownElementImpl.fromJson;
 
   @override
   double get rotation;
@@ -2399,16 +2408,16 @@ abstract class MarkdownElement implements PadElement, LabelElement {
   int get foreground;
   @override
   @JsonKey(ignore: true)
-  _$$MarkdownElementCopyWith<_$MarkdownElement> get copyWith =>
+  _$$MarkdownElementImplCopyWith<_$MarkdownElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ImageElementCopyWith<$Res>
+abstract class _$$ImageElementImplCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory _$$ImageElementCopyWith(
-          _$ImageElement value, $Res Function(_$ImageElement) then) =
-      __$$ImageElementCopyWithImpl<$Res>;
+  factory _$$ImageElementImplCopyWith(
+          _$ImageElementImpl value, $Res Function(_$ImageElementImpl) then) =
+      __$$ImageElementImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2424,11 +2433,11 @@ abstract class _$$ImageElementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ImageElementCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$ImageElement>
-    implements _$$ImageElementCopyWith<$Res> {
-  __$$ImageElementCopyWithImpl(
-      _$ImageElement _value, $Res Function(_$ImageElement) _then)
+class __$$ImageElementImplCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$ImageElementImpl>
+    implements _$$ImageElementImplCopyWith<$Res> {
+  __$$ImageElementImplCopyWithImpl(
+      _$ImageElementImpl _value, $Res Function(_$ImageElementImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2442,7 +2451,7 @@ class __$$ImageElementCopyWithImpl<$Res>
     Object? width = null,
     Object? height = null,
   }) {
-    return _then(_$ImageElement(
+    return _then(_$ImageElementImpl(
       rotation: null == rotation
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
@@ -2489,8 +2498,8 @@ class __$$ImageElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ImageElement implements ImageElement {
-  _$ImageElement(
+class _$ImageElementImpl implements ImageElement {
+  _$ImageElementImpl(
       {this.rotation = 0,
       this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
@@ -2501,8 +2510,8 @@ class _$ImageElement implements ImageElement {
       final String? $type})
       : $type = $type ?? 'image';
 
-  factory _$ImageElement.fromJson(Map<String, dynamic> json) =>
-      _$$ImageElementFromJson(json);
+  factory _$ImageElementImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ImageElementImplFromJson(json);
 
   @override
   @JsonKey()
@@ -2535,8 +2544,8 @@ class _$ImageElement implements ImageElement {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ImageElementCopyWith<_$ImageElement> get copyWith =>
-      __$$ImageElementCopyWithImpl<_$ImageElement>(this, _$identity);
+  _$$ImageElementImplCopyWith<_$ImageElementImpl> get copyWith =>
+      __$$ImageElementImplCopyWithImpl<_$ImageElementImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2781,7 +2790,7 @@ class _$ImageElement implements ImageElement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ImageElementToJson(
+    return _$$ImageElementImplToJson(
       this,
     );
   }
@@ -2795,10 +2804,10 @@ abstract class ImageElement implements PadElement, SourcedElement {
       final ElementConstraints? constraints,
       required final String source,
       required final double width,
-      required final double height}) = _$ImageElement;
+      required final double height}) = _$ImageElementImpl;
 
   factory ImageElement.fromJson(Map<String, dynamic> json) =
-      _$ImageElement.fromJson;
+      _$ImageElementImpl.fromJson;
 
   @override
   double get rotation;
@@ -2812,16 +2821,16 @@ abstract class ImageElement implements PadElement, SourcedElement {
   double get height;
   @override
   @JsonKey(ignore: true)
-  _$$ImageElementCopyWith<_$ImageElement> get copyWith =>
+  _$$ImageElementImplCopyWith<_$ImageElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SvgElementCopyWith<$Res>
+abstract class _$$SvgElementImplCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory _$$SvgElementCopyWith(
-          _$SvgElement value, $Res Function(_$SvgElement) then) =
-      __$$SvgElementCopyWithImpl<$Res>;
+  factory _$$SvgElementImplCopyWith(
+          _$SvgElementImpl value, $Res Function(_$SvgElementImpl) then) =
+      __$$SvgElementImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -2837,11 +2846,11 @@ abstract class _$$SvgElementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$SvgElementCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$SvgElement>
-    implements _$$SvgElementCopyWith<$Res> {
-  __$$SvgElementCopyWithImpl(
-      _$SvgElement _value, $Res Function(_$SvgElement) _then)
+class __$$SvgElementImplCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$SvgElementImpl>
+    implements _$$SvgElementImplCopyWith<$Res> {
+  __$$SvgElementImplCopyWithImpl(
+      _$SvgElementImpl _value, $Res Function(_$SvgElementImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2855,7 +2864,7 @@ class __$$SvgElementCopyWithImpl<$Res>
     Object? width = null,
     Object? height = null,
   }) {
-    return _then(_$SvgElement(
+    return _then(_$SvgElementImpl(
       rotation: null == rotation
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
@@ -2902,8 +2911,8 @@ class __$$SvgElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SvgElement implements SvgElement {
-  _$SvgElement(
+class _$SvgElementImpl implements SvgElement {
+  _$SvgElementImpl(
       {this.rotation = 0,
       this.layer = '',
       @DoublePointJsonConverter() this.position = const Point(0.0, 0.0),
@@ -2914,8 +2923,8 @@ class _$SvgElement implements SvgElement {
       final String? $type})
       : $type = $type ?? 'svg';
 
-  factory _$SvgElement.fromJson(Map<String, dynamic> json) =>
-      _$$SvgElementFromJson(json);
+  factory _$SvgElementImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SvgElementImplFromJson(json);
 
   @override
   @JsonKey()
@@ -2948,8 +2957,8 @@ class _$SvgElement implements SvgElement {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SvgElementCopyWith<_$SvgElement> get copyWith =>
-      __$$SvgElementCopyWithImpl<_$SvgElement>(this, _$identity);
+  _$$SvgElementImplCopyWith<_$SvgElementImpl> get copyWith =>
+      __$$SvgElementImplCopyWithImpl<_$SvgElementImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3193,7 +3202,7 @@ class _$SvgElement implements SvgElement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SvgElementToJson(
+    return _$$SvgElementImplToJson(
       this,
     );
   }
@@ -3207,10 +3216,10 @@ abstract class SvgElement implements PadElement, SourcedElement {
       final ElementConstraints? constraints,
       required final String source,
       required final double width,
-      required final double height}) = _$SvgElement;
+      required final double height}) = _$SvgElementImpl;
 
   factory SvgElement.fromJson(Map<String, dynamic> json) =
-      _$SvgElement.fromJson;
+      _$SvgElementImpl.fromJson;
 
   @override
   double get rotation;
@@ -3224,16 +3233,16 @@ abstract class SvgElement implements PadElement, SourcedElement {
   double get height;
   @override
   @JsonKey(ignore: true)
-  _$$SvgElementCopyWith<_$SvgElement> get copyWith =>
+  _$$SvgElementImplCopyWith<_$SvgElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ShapeElementCopyWith<$Res>
+abstract class _$$ShapeElementImplCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory _$$ShapeElementCopyWith(
-          _$ShapeElement value, $Res Function(_$ShapeElement) then) =
-      __$$ShapeElementCopyWithImpl<$Res>;
+  factory _$$ShapeElementImplCopyWith(
+          _$ShapeElementImpl value, $Res Function(_$ShapeElementImpl) then) =
+      __$$ShapeElementImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -3245,11 +3254,11 @@ abstract class _$$ShapeElementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ShapeElementCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$ShapeElement>
-    implements _$$ShapeElementCopyWith<$Res> {
-  __$$ShapeElementCopyWithImpl(
-      _$ShapeElement _value, $Res Function(_$ShapeElement) _then)
+class __$$ShapeElementImplCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$ShapeElementImpl>
+    implements _$$ShapeElementImplCopyWith<$Res> {
+  __$$ShapeElementImplCopyWithImpl(
+      _$ShapeElementImpl _value, $Res Function(_$ShapeElementImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3261,7 +3270,7 @@ class __$$ShapeElementCopyWithImpl<$Res>
     Object? secondPosition = null,
     Object? property = freezed,
   }) {
-    return _then(_$ShapeElement(
+    return _then(_$ShapeElementImpl(
       rotation: null == rotation
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
@@ -3288,8 +3297,8 @@ class __$$ShapeElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ShapeElement implements ShapeElement {
-  _$ShapeElement(
+class _$ShapeElementImpl implements ShapeElement {
+  _$ShapeElementImpl(
       {this.rotation = 0,
       this.layer = '',
       @DoublePointJsonConverter() this.firstPosition = const Point(0.0, 0.0),
@@ -3298,8 +3307,8 @@ class _$ShapeElement implements ShapeElement {
       final String? $type})
       : $type = $type ?? 'shape';
 
-  factory _$ShapeElement.fromJson(Map<String, dynamic> json) =>
-      _$$ShapeElementFromJson(json);
+  factory _$ShapeElementImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ShapeElementImplFromJson(json);
 
   @override
   @JsonKey()
@@ -3330,8 +3339,8 @@ class _$ShapeElement implements ShapeElement {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ShapeElementCopyWith<_$ShapeElement> get copyWith =>
-      __$$ShapeElementCopyWithImpl<_$ShapeElement>(this, _$identity);
+  _$$ShapeElementImplCopyWith<_$ShapeElementImpl> get copyWith =>
+      __$$ShapeElementImplCopyWithImpl<_$ShapeElementImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3575,7 +3584,7 @@ class _$ShapeElement implements ShapeElement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ShapeElementToJson(
+    return _$$ShapeElementImplToJson(
       this,
     );
   }
@@ -3587,10 +3596,10 @@ abstract class ShapeElement implements PadElement {
       final String layer,
       @DoublePointJsonConverter() final Point<double> firstPosition,
       @DoublePointJsonConverter() final Point<double> secondPosition,
-      final ShapeProperty property}) = _$ShapeElement;
+      final ShapeProperty property}) = _$ShapeElementImpl;
 
   factory ShapeElement.fromJson(Map<String, dynamic> json) =
-      _$ShapeElement.fromJson;
+      _$ShapeElementImpl.fromJson;
 
   @override
   double get rotation;
@@ -3603,16 +3612,16 @@ abstract class ShapeElement implements PadElement {
   ShapeProperty get property;
   @override
   @JsonKey(ignore: true)
-  _$$ShapeElementCopyWith<_$ShapeElement> get copyWith =>
+  _$$ShapeElementImplCopyWith<_$ShapeElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TextureElementCopyWith<$Res>
+abstract class _$$TextureElementImplCopyWith<$Res>
     implements $PadElementCopyWith<$Res> {
-  factory _$$TextureElementCopyWith(
-          _$TextureElement value, $Res Function(_$TextureElement) then) =
-      __$$TextureElementCopyWithImpl<$Res>;
+  factory _$$TextureElementImplCopyWith(_$TextureElementImpl value,
+          $Res Function(_$TextureElementImpl) then) =
+      __$$TextureElementImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -3626,11 +3635,11 @@ abstract class _$$TextureElementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$TextureElementCopyWithImpl<$Res>
-    extends _$PadElementCopyWithImpl<$Res, _$TextureElement>
-    implements _$$TextureElementCopyWith<$Res> {
-  __$$TextureElementCopyWithImpl(
-      _$TextureElement _value, $Res Function(_$TextureElement) _then)
+class __$$TextureElementImplCopyWithImpl<$Res>
+    extends _$PadElementCopyWithImpl<$Res, _$TextureElementImpl>
+    implements _$$TextureElementImplCopyWith<$Res> {
+  __$$TextureElementImplCopyWithImpl(
+      _$TextureElementImpl _value, $Res Function(_$TextureElementImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3642,7 +3651,7 @@ class __$$TextureElementCopyWithImpl<$Res>
     Object? firstPosition = null,
     Object? secondPosition = null,
   }) {
-    return _then(_$TextureElement(
+    return _then(_$TextureElementImpl(
       rotation: null == rotation
           ? _value.rotation
           : rotation // ignore: cast_nullable_to_non_nullable
@@ -3677,8 +3686,8 @@ class __$$TextureElementCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TextureElement implements TextureElement {
-  _$TextureElement(
+class _$TextureElementImpl implements TextureElement {
+  _$TextureElementImpl(
       {this.rotation = 0,
       this.layer = '',
       this.texture = const SurfaceTexture.pattern(),
@@ -3687,8 +3696,8 @@ class _$TextureElement implements TextureElement {
       final String? $type})
       : $type = $type ?? 'texture';
 
-  factory _$TextureElement.fromJson(Map<String, dynamic> json) =>
-      _$$TextureElementFromJson(json);
+  factory _$TextureElementImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TextureElementImplFromJson(json);
 
   @override
   @JsonKey()
@@ -3719,8 +3728,9 @@ class _$TextureElement implements TextureElement {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TextureElementCopyWith<_$TextureElement> get copyWith =>
-      __$$TextureElementCopyWithImpl<_$TextureElement>(this, _$identity);
+  _$$TextureElementImplCopyWith<_$TextureElementImpl> get copyWith =>
+      __$$TextureElementImplCopyWithImpl<_$TextureElementImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -3966,7 +3976,7 @@ class _$TextureElement implements TextureElement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TextureElementToJson(
+    return _$$TextureElementImplToJson(
       this,
     );
   }
@@ -3979,10 +3989,10 @@ abstract class TextureElement implements PadElement {
           final SurfaceTexture texture,
           @DoublePointJsonConverter() final Point<double> firstPosition,
           @DoublePointJsonConverter() final Point<double> secondPosition}) =
-      _$TextureElement;
+      _$TextureElementImpl;
 
   factory TextureElement.fromJson(Map<String, dynamic> json) =
-      _$TextureElement.fromJson;
+      _$TextureElementImpl.fromJson;
 
   @override
   double get rotation;
@@ -3995,6 +4005,6 @@ abstract class TextureElement implements PadElement {
   Point<double> get secondPosition;
   @override
   @JsonKey(ignore: true)
-  _$$TextureElementCopyWith<_$TextureElement> get copyWith =>
+  _$$TextureElementImplCopyWith<_$TextureElementImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

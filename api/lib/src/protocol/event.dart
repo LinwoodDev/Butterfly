@@ -62,9 +62,6 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
     String? description,
   }) = DocumentDescriptionChanged;
 
-  const factory DocumentEvent.documentPathChanged(String path) =
-      DocumentPathChanged;
-
   const factory DocumentEvent.documentSaved([AssetLocation? location]) =
       DocumentSaved;
 
@@ -202,7 +199,6 @@ class DocumentEvent extends ReplayEvent with _$DocumentEvent {
         currentLayerChanged: (_) => false,
         templateCreated: (_) => false,
         documentSaved: (_) => false,
-        documentPathChanged: (_) => false,
         currentAreaChanged: (_) => false,
         layerVisibilityChanged: (_) => false,
         utilitiesChanged: (_) => false,

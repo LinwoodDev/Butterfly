@@ -46,7 +46,7 @@ dependencies:
   bloc_concurrency: ^0.2.2
   camera: ^0.10.5+5
   camera_windows: ^0.2.1+8
-  window_manager: ^0.3.6
+  window_manager: ^0.3.7
   flex_color_scheme: ^7.3.1
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
@@ -58,7 +58,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   equatable: ^2.0.5
   rxdart: ^0.27.7
-  archive: ^3.4.4
+  archive: ^3.4.5
   animations: ^2.0.8
   connectivity_plus: ^4.0.2
   cross_file: ^0.3.3+5
@@ -70,7 +70,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: d14a72b45c56e0177cf1e2b6127feac2e4ac0764
+      ref: 12bce31b6065429757f4a0768acf659e045749fc
       path: packages/material_leap
   lw_sysinfo:
     git:

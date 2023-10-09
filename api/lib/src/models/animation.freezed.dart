@@ -80,22 +80,22 @@ class _$AnimationTrackCopyWithImpl<$Res, $Val extends AnimationTrack>
 }
 
 /// @nodoc
-abstract class _$$_AnimationTrackCopyWith<$Res>
+abstract class _$$AnimationTrackImplCopyWith<$Res>
     implements $AnimationTrackCopyWith<$Res> {
-  factory _$$_AnimationTrackCopyWith(
-          _$_AnimationTrack value, $Res Function(_$_AnimationTrack) then) =
-      __$$_AnimationTrackCopyWithImpl<$Res>;
+  factory _$$AnimationTrackImplCopyWith(_$AnimationTrackImpl value,
+          $Res Function(_$AnimationTrackImpl) then) =
+      __$$AnimationTrackImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, Map<int, AnimationKey> keys, int duration, int fps});
 }
 
 /// @nodoc
-class __$$_AnimationTrackCopyWithImpl<$Res>
-    extends _$AnimationTrackCopyWithImpl<$Res, _$_AnimationTrack>
-    implements _$$_AnimationTrackCopyWith<$Res> {
-  __$$_AnimationTrackCopyWithImpl(
-      _$_AnimationTrack _value, $Res Function(_$_AnimationTrack) _then)
+class __$$AnimationTrackImplCopyWithImpl<$Res>
+    extends _$AnimationTrackCopyWithImpl<$Res, _$AnimationTrackImpl>
+    implements _$$AnimationTrackImplCopyWith<$Res> {
+  __$$AnimationTrackImplCopyWithImpl(
+      _$AnimationTrackImpl _value, $Res Function(_$AnimationTrackImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -106,7 +106,7 @@ class __$$_AnimationTrackCopyWithImpl<$Res>
     Object? duration = null,
     Object? fps = null,
   }) {
-    return _then(_$_AnimationTrack(
+    return _then(_$AnimationTrackImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -129,8 +129,8 @@ class __$$_AnimationTrackCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AnimationTrack extends _AnimationTrack {
-  const _$_AnimationTrack(
+class _$AnimationTrackImpl extends _AnimationTrack {
+  const _$AnimationTrackImpl(
       {this.name = '',
       final Map<int, AnimationKey> keys = const <int, AnimationKey>{},
       this.duration = 250,
@@ -138,8 +138,8 @@ class _$_AnimationTrack extends _AnimationTrack {
       : _keys = keys,
         super._();
 
-  factory _$_AnimationTrack.fromJson(Map<String, dynamic> json) =>
-      _$$_AnimationTrackFromJson(json);
+  factory _$AnimationTrackImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AnimationTrackImplFromJson(json);
 
   @override
   @JsonKey()
@@ -169,7 +169,7 @@ class _$_AnimationTrack extends _AnimationTrack {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AnimationTrack &&
+            other is _$AnimationTrackImpl &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._keys, _keys) &&
             (identical(other.duration, duration) ||
@@ -185,12 +185,13 @@ class _$_AnimationTrack extends _AnimationTrack {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AnimationTrackCopyWith<_$_AnimationTrack> get copyWith =>
-      __$$_AnimationTrackCopyWithImpl<_$_AnimationTrack>(this, _$identity);
+  _$$AnimationTrackImplCopyWith<_$AnimationTrackImpl> get copyWith =>
+      __$$AnimationTrackImplCopyWithImpl<_$AnimationTrackImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AnimationTrackToJson(
+    return _$$AnimationTrackImplToJson(
       this,
     );
   }
@@ -201,11 +202,11 @@ abstract class _AnimationTrack extends AnimationTrack {
       {final String name,
       final Map<int, AnimationKey> keys,
       final int duration,
-      final int fps}) = _$_AnimationTrack;
+      final int fps}) = _$AnimationTrackImpl;
   const _AnimationTrack._() : super._();
 
   factory _AnimationTrack.fromJson(Map<String, dynamic> json) =
-      _$_AnimationTrack.fromJson;
+      _$AnimationTrackImpl.fromJson;
 
   @override
   String get name;
@@ -217,7 +218,7 @@ abstract class _AnimationTrack extends AnimationTrack {
   int get fps;
   @override
   @JsonKey(ignore: true)
-  _$$_AnimationTrackCopyWith<_$_AnimationTrack> get copyWith =>
+  _$$AnimationTrackImplCopyWith<_$AnimationTrackImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -285,11 +286,11 @@ class _$AnimationKeyCopyWithImpl<$Res, $Val extends AnimationKey>
 }
 
 /// @nodoc
-abstract class _$$_AnimationKeyCopyWith<$Res>
+abstract class _$$AnimationKeyImplCopyWith<$Res>
     implements $AnimationKeyCopyWith<$Res> {
-  factory _$$_AnimationKeyCopyWith(
-          _$_AnimationKey value, $Res Function(_$_AnimationKey) then) =
-      __$$_AnimationKeyCopyWithImpl<$Res>;
+  factory _$$AnimationKeyImplCopyWith(
+          _$AnimationKeyImpl value, $Res Function(_$AnimationKeyImpl) then) =
+      __$$AnimationKeyImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -299,11 +300,11 @@ abstract class _$$_AnimationKeyCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AnimationKeyCopyWithImpl<$Res>
-    extends _$AnimationKeyCopyWithImpl<$Res, _$_AnimationKey>
-    implements _$$_AnimationKeyCopyWith<$Res> {
-  __$$_AnimationKeyCopyWithImpl(
-      _$_AnimationKey _value, $Res Function(_$_AnimationKey) _then)
+class __$$AnimationKeyImplCopyWithImpl<$Res>
+    extends _$AnimationKeyCopyWithImpl<$Res, _$AnimationKeyImpl>
+    implements _$$AnimationKeyImplCopyWith<$Res> {
+  __$$AnimationKeyImplCopyWithImpl(
+      _$AnimationKeyImpl _value, $Res Function(_$AnimationKeyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -313,7 +314,7 @@ class __$$_AnimationKeyCopyWithImpl<$Res>
     Object? cameraZoom = freezed,
     Object? breakpoint = null,
   }) {
-    return _then(_$_AnimationKey(
+    return _then(_$AnimationKeyImpl(
       cameraPosition: freezed == cameraPosition
           ? _value.cameraPosition
           : cameraPosition // ignore: cast_nullable_to_non_nullable
@@ -332,15 +333,15 @@ class __$$_AnimationKeyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AnimationKey extends _AnimationKey {
-  const _$_AnimationKey(
+class _$AnimationKeyImpl extends _AnimationKey {
+  const _$AnimationKeyImpl(
       {@DoublePointJsonConverter() this.cameraPosition,
       this.cameraZoom,
       this.breakpoint = false})
       : super._();
 
-  factory _$_AnimationKey.fromJson(Map<String, dynamic> json) =>
-      _$$_AnimationKeyFromJson(json);
+  factory _$AnimationKeyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AnimationKeyImplFromJson(json);
 
   @override
   @DoublePointJsonConverter()
@@ -360,7 +361,7 @@ class _$_AnimationKey extends _AnimationKey {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AnimationKey &&
+            other is _$AnimationKeyImpl &&
             (identical(other.cameraPosition, cameraPosition) ||
                 other.cameraPosition == cameraPosition) &&
             (identical(other.cameraZoom, cameraZoom) ||
@@ -377,12 +378,12 @@ class _$_AnimationKey extends _AnimationKey {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AnimationKeyCopyWith<_$_AnimationKey> get copyWith =>
-      __$$_AnimationKeyCopyWithImpl<_$_AnimationKey>(this, _$identity);
+  _$$AnimationKeyImplCopyWith<_$AnimationKeyImpl> get copyWith =>
+      __$$AnimationKeyImplCopyWithImpl<_$AnimationKeyImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AnimationKeyToJson(
+    return _$$AnimationKeyImplToJson(
       this,
     );
   }
@@ -392,11 +393,11 @@ abstract class _AnimationKey extends AnimationKey {
   const factory _AnimationKey(
       {@DoublePointJsonConverter() final Point<double>? cameraPosition,
       final double? cameraZoom,
-      final bool breakpoint}) = _$_AnimationKey;
+      final bool breakpoint}) = _$AnimationKeyImpl;
   const _AnimationKey._() : super._();
 
   factory _AnimationKey.fromJson(Map<String, dynamic> json) =
-      _$_AnimationKey.fromJson;
+      _$AnimationKeyImpl.fromJson;
 
   @override
   @DoublePointJsonConverter()
@@ -407,6 +408,6 @@ abstract class _AnimationKey extends AnimationKey {
   bool get breakpoint;
   @override
   @JsonKey(ignore: true)
-  _$$_AnimationKeyCopyWith<_$_AnimationKey> get copyWith =>
+  _$$AnimationKeyImplCopyWith<_$AnimationKeyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -6,7 +6,8 @@ part of 'data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_NoteDataState _$$_NoteDataStateFromJson(Map json) => _$_NoteDataState(
+_$NoteDataStateImpl _$$NoteDataStateImplFromJson(Map json) =>
+    _$NoteDataStateImpl(
       (json['added'] as Map?)?.map(
             (k, e) => MapEntry(k as String,
                 const Uint8ListJsonConverter().fromJson(e as String)),
@@ -16,7 +17,7 @@ _$_NoteDataState _$$_NoteDataStateFromJson(Map json) => _$_NoteDataState(
           const <String>[],
     );
 
-Map<String, dynamic> _$$_NoteDataStateToJson(_$_NoteDataState instance) =>
+Map<String, dynamic> _$$NoteDataStateImplToJson(_$NoteDataStateImpl instance) =>
     <String, dynamic>{
       'added': instance.added
           .map((k, e) => MapEntry(k, const Uint8ListJsonConverter().toJson(e))),

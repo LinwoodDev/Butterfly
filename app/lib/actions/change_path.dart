@@ -1,4 +1,3 @@
-import 'package:butterfly_api/butterfly_api.dart';
 import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/bloc/document_bloc.dart';
 import 'package:butterfly/dialogs/file_system/move.dart';
@@ -36,7 +35,10 @@ class ChangePathAction extends Action<ChangePathIntent> {
                 fileSystem: fileSystem,
               ));
       if (newPath == null) return;
-      bloc.add(DocumentPathChanged(newPath));
+      state.currentIndexCubit.setSaveState(
+        location: location.copyWith(path: newPath),
+      );
+      state.save();
     }
   }
 }

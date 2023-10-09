@@ -17,6 +17,7 @@ abstract class DocumentState extends Equatable {
   String? get pageName => null;
   FileMetadata? get metadata => null;
   AssetService? get assetService => null;
+  CurrentIndexCubit? get currentIndexCubit => null;
   SettingsCubit get settingsCubit;
 }
 
@@ -84,6 +85,7 @@ abstract class DocumentLoaded extends DocumentState {
   SaveState get saved =>
       location.absolute ? SaveState.unsaved : currentIndexCubit.state.saved;
 
+  @override
   CurrentIndexCubit get currentIndexCubit;
 
   Embedding? get embedding => currentIndexCubit.state.embedding;

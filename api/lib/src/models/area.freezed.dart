@@ -83,9 +83,10 @@ class _$AreaCopyWithImpl<$Res, $Val extends Area>
 }
 
 /// @nodoc
-abstract class _$$_AreaCopyWith<$Res> implements $AreaCopyWith<$Res> {
-  factory _$$_AreaCopyWith(_$_Area value, $Res Function(_$_Area) then) =
-      __$$_AreaCopyWithImpl<$Res>;
+abstract class _$$AreaImplCopyWith<$Res> implements $AreaCopyWith<$Res> {
+  factory _$$AreaImplCopyWith(
+          _$AreaImpl value, $Res Function(_$AreaImpl) then) =
+      __$$AreaImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -96,9 +97,10 @@ abstract class _$$_AreaCopyWith<$Res> implements $AreaCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res, _$_Area>
-    implements _$$_AreaCopyWith<$Res> {
-  __$$_AreaCopyWithImpl(_$_Area _value, $Res Function(_$_Area) _then)
+class __$$AreaImplCopyWithImpl<$Res>
+    extends _$AreaCopyWithImpl<$Res, _$AreaImpl>
+    implements _$$AreaImplCopyWith<$Res> {
+  __$$AreaImplCopyWithImpl(_$AreaImpl _value, $Res Function(_$AreaImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -109,7 +111,7 @@ class __$$_AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res, _$_Area>
     Object? height = null,
     Object? position = null,
   }) {
-    return _then(_$_Area(
+    return _then(_$AreaImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -132,15 +134,16 @@ class __$$_AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res, _$_Area>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Area extends _Area {
-  const _$_Area(
+class _$AreaImpl extends _Area {
+  const _$AreaImpl(
       {this.name = '',
       required this.width,
       required this.height,
       @DoublePointJsonConverter() required this.position})
       : super._();
 
-  factory _$_Area.fromJson(Map<String, dynamic> json) => _$$_AreaFromJson(json);
+  factory _$AreaImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AreaImplFromJson(json);
 
   @override
   @JsonKey()
@@ -162,7 +165,7 @@ class _$_Area extends _Area {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Area &&
+            other is _$AreaImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.width, width) || other.width == width) &&
             (identical(other.height, height) || other.height == height) &&
@@ -177,12 +180,12 @@ class _$_Area extends _Area {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AreaCopyWith<_$_Area> get copyWith =>
-      __$$_AreaCopyWithImpl<_$_Area>(this, _$identity);
+  _$$AreaImplCopyWith<_$AreaImpl> get copyWith =>
+      __$$AreaImplCopyWithImpl<_$AreaImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AreaToJson(
+    return _$$AreaImplToJson(
       this,
     );
   }
@@ -194,10 +197,10 @@ abstract class _Area extends Area {
           required final double width,
           required final double height,
           @DoublePointJsonConverter() required final Point<double> position}) =
-      _$_Area;
+      _$AreaImpl;
   const _Area._() : super._();
 
-  factory _Area.fromJson(Map<String, dynamic> json) = _$_Area.fromJson;
+  factory _Area.fromJson(Map<String, dynamic> json) = _$AreaImpl.fromJson;
 
   @override
   String get name;
@@ -210,5 +213,6 @@ abstract class _Area extends Area {
   Point<double> get position;
   @override
   @JsonKey(ignore: true)
-  _$$_AreaCopyWith<_$_Area> get copyWith => throw _privateConstructorUsedError;
+  _$$AreaImplCopyWith<_$AreaImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -85,11 +85,11 @@ class _$DocumentInfoCopyWithImpl<$Res, $Val extends DocumentInfo>
 }
 
 /// @nodoc
-abstract class _$$_DocumentInfoCopyWith<$Res>
+abstract class _$$DocumentInfoImplCopyWith<$Res>
     implements $DocumentInfoCopyWith<$Res> {
-  factory _$$_DocumentInfoCopyWith(
-          _$_DocumentInfo value, $Res Function(_$_DocumentInfo) then) =
-      __$$_DocumentInfoCopyWithImpl<$Res>;
+  factory _$$DocumentInfoImplCopyWith(
+          _$DocumentInfoImpl value, $Res Function(_$DocumentInfoImpl) then) =
+      __$$DocumentInfoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -100,11 +100,11 @@ abstract class _$$_DocumentInfoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DocumentInfoCopyWithImpl<$Res>
-    extends _$DocumentInfoCopyWithImpl<$Res, _$_DocumentInfo>
-    implements _$$_DocumentInfoCopyWith<$Res> {
-  __$$_DocumentInfoCopyWithImpl(
-      _$_DocumentInfo _value, $Res Function(_$_DocumentInfo) _then)
+class __$$DocumentInfoImplCopyWithImpl<$Res>
+    extends _$DocumentInfoCopyWithImpl<$Res, _$DocumentInfoImpl>
+    implements _$$DocumentInfoImplCopyWith<$Res> {
+  __$$DocumentInfoImplCopyWithImpl(
+      _$DocumentInfoImpl _value, $Res Function(_$DocumentInfoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -114,7 +114,7 @@ class __$$_DocumentInfoCopyWithImpl<$Res>
     Object? exportPresets = null,
     Object? view = null,
   }) {
-    return _then(_$_DocumentInfo(
+    return _then(_$DocumentInfoImpl(
       tools: null == tools
           ? _value._tools
           : tools // ignore: cast_nullable_to_non_nullable
@@ -133,16 +133,16 @@ class __$$_DocumentInfoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DocumentInfo implements _DocumentInfo {
-  const _$_DocumentInfo(
+class _$DocumentInfoImpl implements _DocumentInfo {
+  const _$DocumentInfoImpl(
       {final List<Tool> tools = const [],
       final List<ExportPreset> exportPresets = const [],
       this.view = const ViewOption()})
       : _tools = tools,
         _exportPresets = exportPresets;
 
-  factory _$_DocumentInfo.fromJson(Map<String, dynamic> json) =>
-      _$$_DocumentInfoFromJson(json);
+  factory _$DocumentInfoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DocumentInfoImplFromJson(json);
 
   final List<Tool> _tools;
   @override
@@ -175,7 +175,7 @@ class _$_DocumentInfo implements _DocumentInfo {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DocumentInfo &&
+            other is _$DocumentInfoImpl &&
             const DeepCollectionEquality().equals(other._tools, _tools) &&
             const DeepCollectionEquality()
                 .equals(other._exportPresets, _exportPresets) &&
@@ -193,12 +193,12 @@ class _$_DocumentInfo implements _DocumentInfo {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DocumentInfoCopyWith<_$_DocumentInfo> get copyWith =>
-      __$$_DocumentInfoCopyWithImpl<_$_DocumentInfo>(this, _$identity);
+  _$$DocumentInfoImplCopyWith<_$DocumentInfoImpl> get copyWith =>
+      __$$DocumentInfoImplCopyWithImpl<_$DocumentInfoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DocumentInfoToJson(
+    return _$$DocumentInfoImplToJson(
       this,
     );
   }
@@ -208,10 +208,10 @@ abstract class _DocumentInfo implements DocumentInfo {
   const factory _DocumentInfo(
       {final List<Tool> tools,
       final List<ExportPreset> exportPresets,
-      final ViewOption view}) = _$_DocumentInfo;
+      final ViewOption view}) = _$DocumentInfoImpl;
 
   factory _DocumentInfo.fromJson(Map<String, dynamic> json) =
-      _$_DocumentInfo.fromJson;
+      _$DocumentInfoImpl.fromJson;
 
   @override
   List<Tool> get tools;
@@ -221,6 +221,6 @@ abstract class _DocumentInfo implements DocumentInfo {
   ViewOption get view;
   @override
   @JsonKey(ignore: true)
-  _$$_DocumentInfoCopyWith<_$_DocumentInfo> get copyWith =>
+  _$$DocumentInfoImplCopyWith<_$DocumentInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

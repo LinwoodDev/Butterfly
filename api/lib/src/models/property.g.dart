@@ -6,7 +6,7 @@ part of 'property.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PenProperty _$$PenPropertyFromJson(Map json) => _$PenProperty(
+_$PenPropertyImpl _$$PenPropertyImplFromJson(Map json) => _$PenPropertyImpl(
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       thinning: (json['thinning'] as num?)?.toDouble() ?? 0.4,
       color: json['color'] as int? ?? kColorBlack,
@@ -16,7 +16,7 @@ _$PenProperty _$$PenPropertyFromJson(Map json) => _$PenProperty(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$PenPropertyToJson(_$PenProperty instance) =>
+Map<String, dynamic> _$$PenPropertyImplToJson(_$PenPropertyImpl instance) =>
     <String, dynamic>{
       'strokeWidth': instance.strokeWidth,
       'thinning': instance.thinning,
@@ -27,7 +27,8 @@ Map<String, dynamic> _$$PenPropertyToJson(_$PenProperty instance) =>
       'type': instance.$type,
     };
 
-_$ShapeProperty _$$ShapePropertyFromJson(Map json) => _$ShapeProperty(
+_$ShapePropertyImpl _$$ShapePropertyImplFromJson(Map json) =>
+    _$ShapePropertyImpl(
       strokeWidth: (json['strokeWidth'] as num?)?.toDouble() ?? 5,
       shape:
           PathShape.fromJson(Map<String, dynamic>.from(json['shape'] as Map)),
@@ -35,7 +36,7 @@ _$ShapeProperty _$$ShapePropertyFromJson(Map json) => _$ShapeProperty(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$ShapePropertyToJson(_$ShapeProperty instance) =>
+Map<String, dynamic> _$$ShapePropertyImplToJson(_$ShapePropertyImpl instance) =>
     <String, dynamic>{
       'strokeWidth': instance.strokeWidth,
       'shape': instance.shape.toJson(),
@@ -43,18 +44,19 @@ Map<String, dynamic> _$$ShapePropertyToJson(_$ShapeProperty instance) =>
       'type': instance.$type,
     };
 
-_$CircleShape _$$CircleShapeFromJson(Map json) => _$CircleShape(
+_$CircleShapeImpl _$$CircleShapeImplFromJson(Map json) => _$CircleShapeImpl(
       fillColor: json['fillColor'] as int? ?? kColorTransparent,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$CircleShapeToJson(_$CircleShape instance) =>
+Map<String, dynamic> _$$CircleShapeImplToJson(_$CircleShapeImpl instance) =>
     <String, dynamic>{
       'fillColor': instance.fillColor,
       'type': instance.$type,
     };
 
-_$RectangleShape _$$RectangleShapeFromJson(Map json) => _$RectangleShape(
+_$RectangleShapeImpl _$$RectangleShapeImplFromJson(Map json) =>
+    _$RectangleShapeImpl(
       fillColor: json['fillColor'] as int? ?? kColorTransparent,
       topLeftCornerRadius:
           (json['topLeftCornerRadius'] as num?)?.toDouble() ?? 0,
@@ -67,7 +69,8 @@ _$RectangleShape _$$RectangleShapeFromJson(Map json) => _$RectangleShape(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$RectangleShapeToJson(_$RectangleShape instance) =>
+Map<String, dynamic> _$$RectangleShapeImplToJson(
+        _$RectangleShapeImpl instance) =>
     <String, dynamic>{
       'fillColor': instance.fillColor,
       'topLeftCornerRadius': instance.topLeftCornerRadius,
@@ -77,11 +80,11 @@ Map<String, dynamic> _$$RectangleShapeToJson(_$RectangleShape instance) =>
       'type': instance.$type,
     };
 
-_$LineShape _$$LineShapeFromJson(Map json) => _$LineShape(
+_$LineShapeImpl _$$LineShapeImplFromJson(Map json) => _$LineShapeImpl(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$LineShapeToJson(_$LineShape instance) =>
+Map<String, dynamic> _$$LineShapeImplToJson(_$LineShapeImpl instance) =>
     <String, dynamic>{
       'type': instance.$type,
     };

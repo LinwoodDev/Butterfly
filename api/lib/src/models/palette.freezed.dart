@@ -68,22 +68,22 @@ class _$ColorPaletteCopyWithImpl<$Res, $Val extends ColorPalette>
 }
 
 /// @nodoc
-abstract class _$$_ColorPaletteCopyWith<$Res>
+abstract class _$$ColorPaletteImplCopyWith<$Res>
     implements $ColorPaletteCopyWith<$Res> {
-  factory _$$_ColorPaletteCopyWith(
-          _$_ColorPalette value, $Res Function(_$_ColorPalette) then) =
-      __$$_ColorPaletteCopyWithImpl<$Res>;
+  factory _$$ColorPaletteImplCopyWith(
+          _$ColorPaletteImpl value, $Res Function(_$ColorPaletteImpl) then) =
+      __$$ColorPaletteImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, List<int> colors});
 }
 
 /// @nodoc
-class __$$_ColorPaletteCopyWithImpl<$Res>
-    extends _$ColorPaletteCopyWithImpl<$Res, _$_ColorPalette>
-    implements _$$_ColorPaletteCopyWith<$Res> {
-  __$$_ColorPaletteCopyWithImpl(
-      _$_ColorPalette _value, $Res Function(_$_ColorPalette) _then)
+class __$$ColorPaletteImplCopyWithImpl<$Res>
+    extends _$ColorPaletteCopyWithImpl<$Res, _$ColorPaletteImpl>
+    implements _$$ColorPaletteImplCopyWith<$Res> {
+  __$$ColorPaletteImplCopyWithImpl(
+      _$ColorPaletteImpl _value, $Res Function(_$ColorPaletteImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$_ColorPaletteCopyWithImpl<$Res>
     Object? name = null,
     Object? colors = null,
   }) {
-    return _then(_$_ColorPalette(
+    return _then(_$ColorPaletteImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -107,12 +107,13 @@ class __$$_ColorPaletteCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ColorPalette implements _ColorPalette {
-  const _$_ColorPalette({required this.name, final List<int> colors = const []})
+class _$ColorPaletteImpl implements _ColorPalette {
+  const _$ColorPaletteImpl(
+      {required this.name, final List<int> colors = const []})
       : _colors = colors;
 
-  factory _$_ColorPalette.fromJson(Map<String, dynamic> json) =>
-      _$$_ColorPaletteFromJson(json);
+  factory _$ColorPaletteImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ColorPaletteImplFromJson(json);
 
   @override
   final String name;
@@ -134,7 +135,7 @@ class _$_ColorPalette implements _ColorPalette {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ColorPalette &&
+            other is _$ColorPaletteImpl &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._colors, _colors));
   }
@@ -147,12 +148,12 @@ class _$_ColorPalette implements _ColorPalette {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ColorPaletteCopyWith<_$_ColorPalette> get copyWith =>
-      __$$_ColorPaletteCopyWithImpl<_$_ColorPalette>(this, _$identity);
+  _$$ColorPaletteImplCopyWith<_$ColorPaletteImpl> get copyWith =>
+      __$$ColorPaletteImplCopyWithImpl<_$ColorPaletteImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ColorPaletteToJson(
+    return _$$ColorPaletteImplToJson(
       this,
     );
   }
@@ -160,10 +161,11 @@ class _$_ColorPalette implements _ColorPalette {
 
 abstract class _ColorPalette implements ColorPalette {
   const factory _ColorPalette(
-      {required final String name, final List<int> colors}) = _$_ColorPalette;
+      {required final String name,
+      final List<int> colors}) = _$ColorPaletteImpl;
 
   factory _ColorPalette.fromJson(Map<String, dynamic> json) =
-      _$_ColorPalette.fromJson;
+      _$ColorPaletteImpl.fromJson;
 
   @override
   String get name;
@@ -171,6 +173,6 @@ abstract class _ColorPalette implements ColorPalette {
   List<int> get colors;
   @override
   @JsonKey(ignore: true)
-  _$$_ColorPaletteCopyWith<_$_ColorPalette> get copyWith =>
+  _$$ColorPaletteImplCopyWith<_$ColorPaletteImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
