@@ -541,5 +541,14 @@
   "density": "Densitate",
   "compact": "Compact",
   "comfortable": "Comfortable",
-  "standard": "Standard"
+  "standard": "Standard",
+  "lock": "Lock",
+  "addElement": "Add element",
+  "notDefaultConnection": "Not default connection",
+  "defaultConnection": "Default connection",
+  "hide": "Hide",
+  "show": "Show",
+  "pause": "Pause",
+  "stop": "Stop",
+  "refresh": "Împrospătează"
 }
