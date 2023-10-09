@@ -541,5 +541,14 @@
   "density": "解像度:",
   "compact": "コンパクト化",
   "comfortable": "快適さ",
-  "standard": "標準"
+  "standard": "標準",
+  "lock": "Lock",
+  "addElement": "Add element",
+  "notDefaultConnection": "Not default connection",
+  "defaultConnection": "Default connection",
+  "hide": "Hide",
+  "show": "Show",
+  "pause": "Pause",
+  "stop": "Stop",
+  "refresh": "更新"
 }
