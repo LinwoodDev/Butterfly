@@ -541,5 +541,14 @@
   "density": "密度",
   "compact": "紧凑的",
   "comfortable": "舒适的",
-  "standard": "标准的"
+  "standard": "标准的",
+  "lock": "Lock",
+  "addElement": "Add element",
+  "notDefaultConnection": "Not default connection",
+  "defaultConnection": "Default connection",
+  "hide": "Hide",
+  "show": "Show",
+  "pause": "Pause",
+  "stop": "Stop",
+  "refresh": "刷新"
 }
