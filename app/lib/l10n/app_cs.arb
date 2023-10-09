@@ -541,5 +541,14 @@
   "density": "Hustota",
   "compact": "Kompaktní",
   "comfortable": "Komfortní",
-  "standard": "Standardní"
+  "standard": "Standardní",
+  "lock": "Lock",
+  "addElement": "Add element",
+  "notDefaultConnection": "Not default connection",
+  "defaultConnection": "Default connection",
+  "hide": "Hide",
+  "show": "Show",
+  "pause": "Pause",
+  "stop": "Stop",
+  "refresh": "Aktualizovat"
 }
