@@ -168,7 +168,9 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           initialSelection: _selected,
                         ),
                         MenuAnchor(
-                          builder: defaultMenuButton(),
+                          builder: defaultMenuButton(
+                            tooltip: AppLocalizations.of(context).presentation,
+                          ),
                           menuChildren: [
                             MenuItemButton(
                               leadingIcon:
@@ -268,6 +270,10 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                   PresentationRunningState.running
                               ? const PhosphorIcon(PhosphorIconsLight.play)
                               : const PhosphorIcon(PhosphorIconsLight.pause),
+                          tooltip: widget.runningState !=
+                                  PresentationRunningState.running
+                              ? AppLocalizations.of(context).play
+                              : AppLocalizations.of(context).pause,
                           onPressed: animation == null
                               ? null
                               : () {
@@ -286,6 +292,7 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                         ),
                         IconButton(
                           icon: const PhosphorIcon(PhosphorIconsLight.stop),
+                          tooltip: AppLocalizations.of(context).stop,
                           onPressed: animation == null
                               ? null
                               : () {
@@ -295,17 +302,9 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                                 },
                         ),
                         MenuAnchor(
-                          builder: (context, controller, child) => IconButton(
+                          builder: defaultMenuButton(
                             icon: const PhosphorIcon(PhosphorIconsLight.record),
-                            onPressed: animation == null
-                                ? null
-                                : () {
-                                    if (controller.isOpen) {
-                                      controller.close();
-                                    } else {
-                                      controller.open();
-                                    }
-                                  },
+                            tooltip: AppLocalizations.of(context).keyframe,
                           ),
                           menuChildren: [
                             MenuItemButton(
@@ -503,7 +502,10 @@ class _PresentationToolbarViewState extends State<PresentationToolbarView> {
                           const SizedBox(width: 8),
                           MenuAnchor(
                             builder: defaultMenuButton(
-                                PhosphorIconsLight.presentation),
+                              icon: const PhosphorIcon(
+                                  PhosphorIconsLight.presentation),
+                              tooltip: AppLocalizations.of(context).export,
+                            ),
                             menuChildren: [
                               MenuItemButton(
                                 leadingIcon: const PhosphorIcon(

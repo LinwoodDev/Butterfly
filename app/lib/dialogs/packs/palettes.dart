@@ -51,6 +51,7 @@ class PalettesPackView extends StatelessWidget {
                           onPressed: () async {
                             onChanged(value.removePalette(e));
                           },
+                          tooltip: AppLocalizations.of(context).delete,
                         ),
                       ),
                     ),

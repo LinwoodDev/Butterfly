@@ -46,6 +46,7 @@ class PagesView extends StatelessWidget {
                       labelText: AppLocalizations.of(context).location,
                       suffixIcon: IconButton(
                         icon: const PhosphorIcon(PhosphorIconsLight.arrowUp),
+                        tooltip: AppLocalizations.of(context).goUp,
                         onPressed: () {
                           final paths = locationController.text.split('/');
                           if (paths.length <= 1) {

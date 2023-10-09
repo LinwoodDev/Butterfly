@@ -54,6 +54,7 @@ class AddDialog extends StatelessWidget {
                 onPressed: () =>
                     handler.onSelected(bloc, currentIndexCubit, false),
                 icon: const PhosphorIcon(PhosphorIconsLight.playCircle),
+                tooltip: AppLocalizations.of(context).play,
               ),
             ],
           ],
@@ -82,6 +83,7 @@ class AddDialog extends StatelessWidget {
           IconButton(
             onPressed: () => openHelp(['tools']),
             icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+            tooltip: AppLocalizations.of(context).help,
           ),
         ],
       ),
@@ -186,6 +188,9 @@ class AddDialog extends StatelessWidget {
                                             IconButton(
                                               onPressed: () => addTool(
                                                   Tool.asset(importType: e)),
+                                              tooltip:
+                                                  AppLocalizations.of(context)
+                                                      .pin,
                                               icon: const PhosphorIcon(
                                                   PhosphorIconsLight.pushPin),
                                             ),

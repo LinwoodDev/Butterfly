@@ -24,6 +24,7 @@ class AreasDialog extends StatelessWidget {
                   leading: IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.x),
                     onPressed: () => Navigator.of(context).pop(),
+                    tooltip: AppLocalizations.of(context).close,
                   ),
                 ),
                 Flexible(

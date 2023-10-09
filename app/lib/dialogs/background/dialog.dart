@@ -43,10 +43,10 @@ class BackgroundDialog extends StatelessWidget {
                   leading: const PhosphorIcon(PhosphorIconsLight.image),
                   actions: [
                     IconButton(
-                        tooltip: AppLocalizations.of(context).help,
-                        icon:
-                            const PhosphorIcon(PhosphorIconsLight.sealQuestion),
-                        onPressed: () => openHelp(['background', 'intro'])),
+                      tooltip: AppLocalizations.of(context).help,
+                      icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+                      onPressed: () => openHelp(['background', 'intro']),
+                    ),
                   ],
                 ),
                 TabBar(

@@ -138,7 +138,10 @@ class _PacksDialogState extends State<PacksDialog>
                                           PackUpdated(metadata.name, newPack));
                                     },
                                     trailing: MenuAnchor(
-                                      builder: defaultMenuButton(),
+                                      builder: defaultMenuButton(
+                                        tooltip:
+                                            AppLocalizations.of(context).copy,
+                                      ),
                                       menuChildren: [
                                         MenuItemButton(
                                           leadingIcon: const PhosphorIcon(
@@ -257,7 +260,10 @@ class _PacksDialogState extends State<PacksDialog>
                                         setState(() {});
                                       },
                                       trailing: MenuAnchor(
-                                        builder: defaultMenuButton(),
+                                        builder: defaultMenuButton(
+                                          tooltip:
+                                              AppLocalizations.of(context).copy,
+                                        ),
                                         menuChildren: [
                                           if (!widget.globalOnly)
                                             MenuItemButton(

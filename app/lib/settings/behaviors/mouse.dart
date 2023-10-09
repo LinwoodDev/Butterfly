@@ -71,6 +71,7 @@ class MouseBehaviorSettings extends StatelessWidget {
                               IconButton(
                                 icon: const PhosphorIcon(
                                     PhosphorIconsLight.sealQuestion),
+                                tooltip: AppLocalizations.of(context).help,
                                 onPressed: () =>
                                     openHelp(['shortcuts'], 'configure'),
                               ),

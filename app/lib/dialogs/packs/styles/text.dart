@@ -47,6 +47,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                 ? null
                 : IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.eraser),
+                    tooltip: AppLocalizations.of(context).remove,
                     onPressed: () =>
                         widget.onChanged(widget.value.copyWith(color: null))),
             defaultColor: null,
@@ -65,6 +66,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                 ? null
                 : IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.eraser),
+                    tooltip: AppLocalizations.of(context).remove,
                     onPressed: () => widget.onChanged(
                         widget.value.copyWith(backgroundColor: null))),
             defaultColor: null,
@@ -79,6 +81,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                 ? null
                 : IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.eraser),
+                    tooltip: AppLocalizations.of(context).remove,
                     onPressed: () =>
                         widget.onChanged(widget.value.copyWith(size: null)),
                   ),
@@ -97,6 +100,7 @@ class _TextStyleViewState extends State<TextStyleView> {
                 ? null
                 : IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.eraser),
+                    tooltip: AppLocalizations.of(context).remove,
                     onPressed: () => widget
                         .onChanged(widget.value.copyWith(letterSpacing: null)),
                   ),
@@ -225,6 +229,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                                 : IconButton(
                                     icon: const PhosphorIcon(
                                         PhosphorIconsLight.eraser),
+                                    tooltip:
+                                        AppLocalizations.of(context).remove,
                                     onPressed: () => widget.onChanged(widget
                                         .value
                                         .copyWith(decorationColor: null))),
@@ -246,6 +252,8 @@ class _TextStyleViewState extends State<TextStyleView> {
                                   : IconButton(
                                       icon: const PhosphorIcon(
                                           PhosphorIconsLight.eraser),
+                                      tooltip:
+                                          AppLocalizations.of(context).remove,
                                       onPressed: () => widget.onChanged(widget
                                           .value
                                           .copyWith(decorationThickness: null)),

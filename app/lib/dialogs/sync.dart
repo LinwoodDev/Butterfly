@@ -36,11 +36,13 @@ class _SyncDialogState extends State<SyncDialog> {
                     leading: IconButton(
                       icon: PhosphorIcon(status.getIcon()),
                       onPressed: () => service.sync(),
+                      tooltip: status.getLocalizedName(context),
                     ),
                     actions: [
                       IconButton(
                         icon: const PhosphorIcon(PhosphorIconsLight.x),
                         onPressed: () => Navigator.pop(context),
+                        tooltip: AppLocalizations.of(context).close,
                       ),
                     ],
                   ),

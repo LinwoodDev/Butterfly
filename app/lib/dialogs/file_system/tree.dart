@@ -83,6 +83,7 @@ class FileSystemDirectoryTreeViewState
                 trailing: IconButton(
                   icon: const PhosphorIcon(PhosphorIconsLight.folderPlus),
                   onPressed: _newFolder,
+                  tooltip: AppLocalizations.of(context).newFolder,
                 ),
                 onTap: () {
                   if (_selected == widget.path) {

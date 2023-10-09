@@ -43,7 +43,9 @@ class ShapeToolSelection extends ToolSelection<ShapeTool> {
                 ),
               ),
               MenuAnchor(
-                builder: defaultMenuButton(),
+                builder: defaultMenuButton(
+                  tooltip: AppLocalizations.of(context).aspectRatio,
+                ),
                 menuChildren: AspectRatioPreset.values
                     .map((e) => MenuItemButton(
                           child: Text(e.getLocalizedName(context)),

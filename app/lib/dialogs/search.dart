@@ -116,6 +116,7 @@ class _SearchDialogState extends State<SearchDialog> {
                         IconButton(
                           icon: const PhosphorIcon(PhosphorIconsLight.x),
                           onPressed: () => Navigator.pop(context),
+                          tooltip: AppLocalizations.of(context).close,
                         ),
                       ],
                     ),
