@@ -541,5 +541,14 @@
   "density": "Gęstość",
   "compact": "Kompaktowy",
   "comfortable": "Komfortowalne",
-  "standard": "Standardowy"
+  "standard": "Standardowy",
+  "lock": "Lock",
+  "addElement": "Add element",
+  "notDefaultConnection": "Not default connection",
+  "defaultConnection": "Default connection",
+  "hide": "Hide",
+  "show": "Show",
+  "pause": "Pause",
+  "stop": "Stop",
+  "refresh": "Odśwież"
 }
