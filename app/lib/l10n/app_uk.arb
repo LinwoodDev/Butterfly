@@ -541,5 +541,14 @@
   "density": "Густина",
   "compact": "Компактний",
   "comfortable": "Комфортний",
-  "standard": "Стандартна"
+  "standard": "Стандартна",
+  "lock": "Lock",
+  "addElement": "Add element",
+  "notDefaultConnection": "Not default connection",
+  "defaultConnection": "Default connection",
+  "hide": "Hide",
+  "show": "Show",
+  "pause": "Pause",
+  "stop": "Stop",
+  "refresh": "Оновити"
 }
