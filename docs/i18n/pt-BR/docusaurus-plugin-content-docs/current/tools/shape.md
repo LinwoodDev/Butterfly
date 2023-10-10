@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Use esta ferramenta para desenhar formas no papel. Você pode desenhar retângulos, círculos e outras formas.
 
+Use `ctrl` to have the same height and width and `shift` to draw from the center.
+
 ## Configuração
 
 |         Propriedade |  Padrão   | Descrição:                                                                                                                                       |
