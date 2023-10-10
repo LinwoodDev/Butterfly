@@ -4,7 +4,7 @@ sidebar_label: "Valitse"
 ---
 
 
-Tällä työkalulla voit valita elementtejä ja käyttää taustan kontekstivalikkoa päästäksesi [lisää valikkoon](../insert).
+With this tool you can select elements.
 
 ## Asetukset
 
