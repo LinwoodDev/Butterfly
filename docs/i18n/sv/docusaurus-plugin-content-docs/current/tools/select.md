@@ -4,7 +4,7 @@ sidebar_label: "Välj"
 ---
 
 
-Med det här verktyget kan du välja element och komma åt bakgrundsmenyn för att komma åt [infoga menyn](../insert).
+With this tool you can select elements.
 
 ## Konfiguration
 
