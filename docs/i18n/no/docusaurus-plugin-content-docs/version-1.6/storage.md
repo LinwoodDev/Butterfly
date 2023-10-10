@@ -5,11 +5,11 @@ sidebar_position: 2
 
 ## Nett
 
-Applikasjonsdata er lagret i nettleseren din. Det oppbevares i lokal lagring. Åpne utviklerverktøyene i nettleseren din og du vil se dataene.
+The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
 
 ## Native plattformer
 
-Som standard lagrer programmet data i dokumentmappen i en undermappe kalt "Linwood/Butterfly". Denne mappen blir opprettet når du lagrer de første dataene. Denne mappen kan endres i innstillingene.
+As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
 
 ## Ekstern lagring {#remote}
 
@@ -19,9 +19,9 @@ Denne funksjonen er ikke tilgjengelig på nettet.
 
 :::
 
-Programmet kan lagres på en ekstern server. Dette er nyttig hvis du vil dele dataene med andre personer, eller hvis du har flere datamaskiner. For tiden er bare `WebDAV` -protokollen støttet.
+The application can be saved in a remote server. This is useful if you want to share the data with other people or if you have multiple computers. Currently only the `WebDAV` protocol is supported.
 
-For å legge til en ekstern server, gå til innstillingene og klikk på `Remotes`. Klikk deretter `Legg til fjernkontroll`. Legg til URL-adressen for den eksterne serveren og brukernavnet og passordet. Deretter kan du spesifisere mappen hvor dataene er lagret.
+To add a remote server, go to the settings and click on `Remotes`. Then click on `Add remote`. Add the URL of the remote server and the username and password. After that you can specify the folder where the data is stored.
 
 For å få nettadressen, vennligst besøk dokumentasjonen:
 
@@ -29,7 +29,7 @@ For å få nettadressen, vennligst besøk dokumentasjonen:
 
 ### Frakoblet synkronisering {#offline}
 
-Denne funksjonen lar deg redigere dine filer på eksterne servere mens du er frakoblet. Åpne popup-menyen på en fil eller mappe og klikk på `Synkroniser`. Dette laster ned fil eller mappe og lagrer det lokalt. Å synkronisere hele rotmappen, klikk på haken i dialogboksen for opprette eller klikk på fjernkontrollen i innstillingen og klikk på haken i administrasjonen
+This feature allows you to edit your files on remote servers while you are offline. Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
 
 Det finnes noen begrensninger:
 
