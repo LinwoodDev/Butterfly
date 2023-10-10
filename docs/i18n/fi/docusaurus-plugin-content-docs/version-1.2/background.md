@@ -3,7 +3,7 @@ title: "Tausta"
 sidebar_label: "Tausta"
 ---
 
-Voit muokata taustan paperin sisältöä. Klikkaa taustakuvaketta näkymäikkunassa ja lisää se. @ info: whatsthis Saatavilla on 8 erilaista taustamallia.
+You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
 
 ## Asetukset
 
