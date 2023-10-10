@@ -4,7 +4,7 @@ sidebar_position: 2
 title: Фон
 ---
 
-Ви можете налаштувати фон паперу. Натисніть на фоновий значок у діалоговому вікні перегляду щоб додати його. Доступно 8 різних фонових шаблонів.
+You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
 
 ## Конфігурація
 
