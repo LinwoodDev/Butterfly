@@ -5,13 +5,13 @@ sidebar_position: 2
 
 ## Ιστός
 
-Τα δεδομένα εφαρμογής αποθηκεύονται στον περιηγητή σας. Αποθηκεύεται σε τοπικό χώρο αποθήκευσης. Ανοίξτε τα εργαλεία προγραμματιστή στο πρόγραμμα περιήγησης και θα δείτε τα δεδομένα.
+The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
 
 ## Εγχώριες πλατφόρμες
 
-Ως προεπιλογή, η εφαρμογή αποθηκεύει τα δεδομένα στο φάκελο εγγράφων σας σε έναν υποφάκελο που ονομάζεται "Linwood/Butterfly". Αυτός ο φάκελος δημιουργείται όταν αποθηκεύετε τα πρώτα δεδομένα. Αυτός ο φάκελος μπορεί να αλλάξει στις ρυθμίσεις.
+As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
 
-## Απομακρυσμένος αποθ. χώρος {#remote}
+## Remote storage {#remote}
 
 :::note
 
@@ -19,9 +19,9 @@ sidebar_position: 2
 
 :::
 
-Η εφαρμογή μπορεί να αποθηκευτεί σε έναν απομακρυσμένο διακομιστή. Αυτό είναι χρήσιμο αν θέλετε να μοιραστείτε τα δεδομένα με άλλα άτομα ή αν έχετε πολλαπλούς υπολογιστές. Προς το παρόν υποστηρίζεται μόνο το πρωτόκολλο `WebDAV`.
+The application can be saved in a remote server. This is useful if you want to share the data with other people or if you have multiple computers. Currently only the `WebDAV` protocol is supported.
 
-Για να προσθέσετε έναν απομακρυσμένο διακομιστή, μεταβείτε στις ρυθμίσεις και κάντε κλικ στο `Απομακρυσμένα`. Στη συνέχεια, κάντε κλικ στο `Προσθήκη απομακρυσμένου`. Προσθέστε τη διεύθυνση URL του απομακρυσμένου διακομιστή και το όνομα χρήστη και τον κωδικό πρόσβασης. Μετά από αυτό μπορείτε να καθορίσετε το φάκελο όπου αποθηκεύονται τα δεδομένα.
+To add a remote server, go to the settings and click on `Remotes`. Then click on `Add remote`. Add the URL of the remote server and the username and password. After that you can specify the folder where the data is stored.
 
 Για να πάρετε το webdav url, επισκεφθείτε την τεκμηρίωση:
 
@@ -29,7 +29,7 @@ sidebar_position: 2
 
 ### Συγχρονισμός εκτός σύνδεσης {#offline}
 
-Αυτή η δυνατότητα σας επιτρέπει να επεξεργαστείτε τα αρχεία σας σε απομακρυσμένους διακομιστές ενώ είστε εκτός σύνδεσης. Ανοίξτε το αναδυόμενο μενού σε ένα αρχείο ή φάκελο και κάντε κλικ στο `Sync`. Αυτό θα κατεβάσει το αρχείο ή το φάκελο και θα το αποθηκεύσει τοπικά. Για να συγχρονίσετε ολόκληρο το ριζικό κατάλογο, κάντε κλικ στο σημάδι ελέγχου στο διάλογο δημιουργίας ή κάντε κλικ στο απομακρυσμένο στη ρύθμιση και κάντε κλικ στο σημάδι ελέγχου στην ενότητα διαχείριση.
+This feature allows you to edit your files on remote servers while you are offline. Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
 
 Υπάρχουν μερικοί περιορισμοί:
 
