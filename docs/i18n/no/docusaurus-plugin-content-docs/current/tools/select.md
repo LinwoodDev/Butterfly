@@ -4,7 +4,7 @@ sidebar_label: "Velg"
 ---
 
 
-Med dette verktøyet kan du velge elementer og få tilgang til menyen [sett inn menyen](../insert).
+With this tool you can select elements.
 
 ## Konfigurasjon
 
