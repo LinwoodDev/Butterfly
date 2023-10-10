@@ -120,7 +120,7 @@
   "copyVersion": "バージョンをコピー",
   "input": "Input",
   "behaviors": "ビヘイビア",
-  "documentDirectory": "ドキュメントディレクトリ",
+  "dataDirectory": "Data directory",
   "defaultPath": "デフォルトのパス",
   "dateFormat": "日付の形式",
   "updatedAt": "更新日時: {dateTime}",
