@@ -46,7 +46,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                         if (!kIsWeb)
                           ListTile(
                             title: Text(
-                                AppLocalizations.of(context).documentDirectory),
+                                AppLocalizations.of(context).dataDirectory),
                             leading:
                                 const PhosphorIcon(PhosphorIconsLight.folder),
                             subtitle: state.documentPath.isNotEmpty
@@ -77,7 +77,7 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                             trailing: state.documentPath.isNotEmpty
                                 ? IconButton(
                                     icon: const PhosphorIcon(
-                                        PhosphorIconsLight.trash),
+                                        PhosphorIconsLight.clockClockwise),
                                     tooltip: AppLocalizations.of(context)
                                         .defaultPath,
                                     onPressed: () => _changePath(

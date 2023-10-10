@@ -4,5 +4,6 @@
 * Change dropdown in text and paragraph style view to disable if no elements are to be added
 * Change the zoom slider to operate in realtime in style view
 * Change reload button icon in remote button
+* Rename document directory to data directory
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.10
