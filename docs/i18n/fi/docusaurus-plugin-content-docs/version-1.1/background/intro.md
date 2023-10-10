@@ -4,7 +4,7 @@ sidebar_label: "Johdanto"
 ---
 
 
-Voit muokata taustan paperin sisältöä. Napsauta näytön kuvaketta ja lisää se näkymällä.
+You can customize the background of the paper. Napsauta näytön kuvaketta ja lisää se näkymällä.
 
 ## Asetukset
 
