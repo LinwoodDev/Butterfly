@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Utilice esta herramienta para dibujar formas sobre el papel. Puedes dibujar rectángulos, círculos y otras formas.
 
+Use `ctrl` to have the same height and width and `shift` to draw from the center.
+
 ## Configuración
 
 |           Propiedad | Por defecto | Descripción                                                                                                                                                               |
