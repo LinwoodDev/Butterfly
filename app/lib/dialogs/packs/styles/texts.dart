@@ -2,6 +2,7 @@ import 'package:butterfly/dialogs/name.dart';
 import 'package:butterfly_api/butterfly_text.dart' as text;
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -47,6 +48,10 @@ class _TextsStyleViewState extends State<TextsStyleView> {
 
   @override
   Widget build(BuildContext context) {
+    final translations = DocumentDefaults.getSpanTranslations(context)
+        .entries
+        .where(
+            (element) => !widget.value.spanProperties.containsKey(element.key));
     return Column(
       children: [
         Row(
@@ -73,6 +78,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
             const SizedBox(width: 8),
             IconButton.filledTonal(
               icon: const PhosphorIcon(PhosphorIconsLight.plus),
+              tooltip: AppLocalizations.of(context).add,
               onPressed: () async {
                 final name = await showDialog<String>(
                   context: context,
@@ -95,11 +101,11 @@ class _TextsStyleViewState extends State<TextsStyleView> {
               },
             ),
             MenuAnchor(
-              builder: defaultMenuButton(),
-              menuChildren: DocumentDefaults.getSpanTranslations(context)
-                  .entries
-                  .where((element) =>
-                      !widget.value.spanProperties.containsKey(element.key))
+              builder: defaultMenuButton(
+                tooltip: AppLocalizations.of(context).addElement,
+                enabled: translations.isNotEmpty,
+              ),
+              menuChildren: translations
                   .map(
                     (e) => MenuItemButton(
                       child: Text(e.value),
@@ -119,6 +125,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
               const VerticalDivider(),
               IconButton(
                 icon: const PhosphorIcon(PhosphorIconsLight.pencil),
+                tooltip: AppLocalizations.of(context).rename,
                 onPressed: () async {
                   final name = await showDialog<String>(
                     context: context,
@@ -145,6 +152,7 @@ class _TextsStyleViewState extends State<TextsStyleView> {
               ),
               IconButton(
                 icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                tooltip: AppLocalizations.of(context).delete,
                 onPressed: () async {
                   final result = await showDialog<bool>(
                       context: context, builder: (ctx) => const DeleteDialog());

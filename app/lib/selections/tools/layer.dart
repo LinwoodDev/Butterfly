@@ -120,6 +120,8 @@ class LayerToolSelection extends ToolSelection<LayerTool> {
                                 icon: PhosphorIcon(state.isLayerVisible('')
                                     ? PhosphorIconsLight.eye
                                     : PhosphorIconsLight.eyeSlash),
+                                tooltip:
+                                    AppLocalizations.of(context).visibility,
                                 onPressed: () {
                                   context
                                       .read<DocumentBloc>()
@@ -152,6 +154,8 @@ class LayerToolSelection extends ToolSelection<LayerTool> {
                                                   .isLayerVisible(layers[index])
                                               ? PhosphorIconsLight.eye
                                               : PhosphorIconsLight.eyeSlash),
+                                          tooltip: AppLocalizations.of(context)
+                                              .visibility,
                                           onPressed: () {
                                             context.read<DocumentBloc>().add(
                                                 LayerVisibilityChanged(

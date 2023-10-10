@@ -66,6 +66,7 @@ class SelectPackAssetDialog extends StatelessWidget {
             const SizedBox(width: 8),
             IconButton(
               icon: const PhosphorIcon(PhosphorIconsLight.plusCircle),
+              tooltip: AppLocalizations.of(context).addAsset,
               onPressed: () async {
                 final result = await showDialog<PackAssetLocation>(
                   context: context,

@@ -28,6 +28,7 @@ class LayersView extends StatelessWidget {
               ..add(currentLayer)
               ..remove(''))
             .toList();
+        final defaultVisble = state.isLayerVisible('');
         return Stack(
           children: [
             ListView(children: [
@@ -39,9 +40,12 @@ class LayersView extends StatelessWidget {
                   },
                   selected: state.currentLayer.isEmpty,
                   leading: IconButton(
-                    icon: PhosphorIcon(state.isLayerVisible('')
+                    icon: PhosphorIcon(defaultVisble
                         ? PhosphorIconsLight.eye
                         : PhosphorIconsLight.eyeSlash),
+                    tooltip: defaultVisble
+                        ? AppLocalizations.of(context).hide
+                        : AppLocalizations.of(context).show,
                     onPressed: () {
                       context
                           .read<DocumentBloc>()
@@ -67,6 +71,7 @@ class LayersView extends StatelessWidget {
                   itemCount: layers.length,
                   itemBuilder: (BuildContext context, int index) {
                     final layer = layers[index];
+                    final visible = state.isLayerVisible(layer);
                     return EditableListTile(
                       initialValue: layer,
                       selected: layer == currentLayer,
@@ -74,9 +79,12 @@ class LayersView extends StatelessWidget {
                           .read<DocumentBloc>()
                           .add(CurrentLayerChanged(layer)),
                       leading: IconButton(
-                        icon: PhosphorIcon(state.isLayerVisible(layer)
+                        icon: PhosphorIcon(visible
                             ? PhosphorIconsLight.eye
                             : PhosphorIconsLight.eyeSlash),
+                        tooltip: visible
+                            ? AppLocalizations.of(context).hide
+                            : AppLocalizations.of(context).show,
                         onPressed: () {
                           context
                               .read<DocumentBloc>()

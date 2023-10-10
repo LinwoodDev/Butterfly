@@ -70,6 +70,7 @@ class AssetDialog extends StatelessWidget {
                     if (pack == null) return;
                     bloc.add(PackAdded(pack));
                   },
+                  tooltip: AppLocalizations.of(context).createPack,
                 ),
               ],
             ),

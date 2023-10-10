@@ -491,6 +491,7 @@ class _MainPopupMenu extends StatelessWidget {
                     ? Theme.of(context).colorScheme.surfaceVariant
                     : null,
               ),
+              tooltip: AppLocalizations.of(context).actions,
               isSelected: controller.isOpen,
               onPressed: () {
                 if (controller.isOpen) {

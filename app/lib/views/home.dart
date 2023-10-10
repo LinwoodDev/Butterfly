@@ -120,6 +120,7 @@ class _HomePageState extends State<HomePage> {
                       _getBannerVisibilityWidget(context, settings),
                       IconButton(
                         icon: const PhosphorIcon(PhosphorIconsLight.gear),
+                        tooltip: AppLocalizations.of(context).settings,
                         onPressed: () => openSettings(context),
                       ),
                     ],

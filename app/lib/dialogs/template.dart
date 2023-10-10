@@ -59,6 +59,7 @@ class _TemplateDialogState extends State<TemplateDialog> {
                   leading: IconButton(
                     icon: const PhosphorIcon(PhosphorIconsLight.x),
                     onPressed: () => Navigator.of(context).pop(),
+                    tooltip: AppLocalizations.of(context).close,
                   ),
                   actions: [
                     RemoteButton(

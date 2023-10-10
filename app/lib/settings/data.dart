@@ -78,6 +78,8 @@ class _DataSettingsPageState extends State<DataSettingsPage> {
                                 ? IconButton(
                                     icon: const PhosphorIcon(
                                         PhosphorIconsLight.trash),
+                                    tooltip: AppLocalizations.of(context)
+                                        .defaultPath,
                                     onPressed: () => _changePath(
                                         context.read<SettingsCubit>(), ''),
                                   )

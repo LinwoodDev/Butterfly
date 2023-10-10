@@ -181,6 +181,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                       children: [
                         IconButton(
                           icon: const PhosphorIcon(PhosphorIconsLight.package),
+                          tooltip: AppLocalizations.of(context).selectAsset,
                           onPressed: () async {
                             final bloc = context.read<DocumentBloc>();
                             final result = await showDialog<PackAssetLocation>(
@@ -263,6 +264,7 @@ class _LabelToolbarViewState extends State<LabelToolbarView> {
                                 const PhosphorIcon(PhosphorIconsLight.article),
                             selectedIcon:
                                 const PhosphorIcon(PhosphorIconsFill.article),
+                            tooltip: AppLocalizations.of(context).paragraph,
                             isSelected: value.isParagraph(),
                             onPressed: value.area == null
                                 ? null

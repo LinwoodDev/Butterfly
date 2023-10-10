@@ -27,14 +27,19 @@ class ConnectionsSettingsPage extends StatelessWidget {
           inView: inView,
           actions: [
             IconButton(
-                icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
-                onPressed: () => openHelp(['storage'], 'remote')),
+              icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
+              tooltip: AppLocalizations.of(context).help,
+              onPressed: () => openHelp(['storage'], 'remote'),
+            ),
             BlocBuilder<SettingsCubit, ButterflySettings>(
                 builder: (context, settings) {
               return IconButton(
                 icon: settings.defaultRemote.isEmpty
                     ? const PhosphorIcon(PhosphorIconsFill.house)
                     : const PhosphorIcon(PhosphorIconsLight.house),
+                tooltip: settings.defaultRemote.isEmpty
+                    ? AppLocalizations.of(context).defaultConnection
+                    : AppLocalizations.of(context).notDefaultConnection,
                 onPressed: () {
                   BlocProvider.of<SettingsCubit>(context).setDefaultRemote('');
                 },
@@ -83,6 +88,10 @@ class ConnectionsSettingsPage extends StatelessWidget {
                           icon: remote.identifier == state.defaultRemote
                               ? const PhosphorIcon(PhosphorIconsFill.cloud)
                               : const PhosphorIcon(PhosphorIconsLight.cloud),
+                          tooltip: remote.identifier == state.defaultRemote
+                              ? AppLocalizations.of(context).defaultConnection
+                              : AppLocalizations.of(context)
+                                  .notDefaultConnection,
                           onPressed: () {
                             BlocProvider.of<SettingsCubit>(context)
                                 .setDefaultRemote(remote.identifier);
@@ -287,6 +296,9 @@ class __AddRemoteDialogState extends State<_AddRemoteDialog> {
                               ? PhosphorIconsLight.eye
                               : PhosphorIconsLight.eyeSlash,
                         ),
+                        tooltip: _showPassword
+                            ? AppLocalizations.of(context).hide
+                            : AppLocalizations.of(context).show,
                         onPressed: () =>
                             setState(() => _showPassword = !_showPassword),
                       ),
