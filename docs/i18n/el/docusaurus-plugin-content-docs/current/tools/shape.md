@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Χρησιμοποιήστε αυτό το εργαλείο για τη σχεδίαση σχημάτων στο χαρτί. Μπορείτε να σχεδιάσετε ορθογώνια, κύκλους, και άλλα σχήματα.
 
+Use `ctrl` to have the same height and width and `shift` to draw from the center.
+
 ## Διαμόρφωση
 
 |             Ιδιότητα | Προεπιλογή | Περιγραφή                                                                                                                                                       |
