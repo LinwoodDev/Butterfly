@@ -3,7 +3,7 @@ title: "Bakgrund"
 sidebar_label: "Bakgrund"
 ---
 
-Du kan anpassa bakgrunden till pappret. Klicka på bakgrundsikonen i dialogrutan för att lägga till den. Det finns 8 olika bakgrundsmallar tillgängliga.
+You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
 
 ## Konfiguration
 
