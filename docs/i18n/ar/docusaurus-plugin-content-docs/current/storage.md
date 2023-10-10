@@ -3,6 +3,12 @@ title: "التخزين"
 sidebar_position: 2
 ---
 
+## Data directory
+
+The data directory is the directory where documents, templates and packs are stored. On the desktop you can found it in `~/Documents/Linwood/Butterfly`. On mobile it's in `getExternalFilesDir(null)/Linwood/Butterfly`. You can also change it in the settings under `Data`.
+
+In this directory you will find a folder `Documents`, `Templates` and `Packs`.
+
 ## ويب
 
 بيانات التطبيق مخزنة في المتصفح الخاص بك. يتم تخزينها في مخزن محلي. افتح أدوات المطور في المتصفح الخاص بك وسوف ترى البيانات.
