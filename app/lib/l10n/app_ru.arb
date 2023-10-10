@@ -120,7 +120,7 @@
   "copyVersion": "Скопировать версию",
   "input": "Input",
   "behaviors": "Поведение",
-  "documentDirectory": "Каталог документов",
+  "dataDirectory": "Data directory",
   "defaultPath": "Путь по умолчанию",
   "dateFormat": "Формат даты",
   "updatedAt": "Обновлено: {dateTime}",
