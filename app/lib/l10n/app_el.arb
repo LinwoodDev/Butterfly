@@ -120,7 +120,7 @@
   "copyVersion": "Αντιγραφή έκδοσης",
   "input": "Input",
   "behaviors": "Συμπεριφορές",
-  "documentDirectory": "Κατάλογος εγγράφου",
+  "dataDirectory": "Data directory",
   "defaultPath": "Προεπιλεγμένη διαδρομή",
   "dateFormat": "Μορφή ημερομηνίας",
   "updatedAt": "Ενημερώθηκε στο: {dateTime}",
