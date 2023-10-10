@@ -7,6 +7,8 @@ sidebar_position: 3
 
 このツールを使って紙に図形を描きましょう。 長方形、円、その他の図形を描画できます。
 
+Use `ctrl` to have the same height and width and `shift` to draw from the center.
+
 ## 設定
 
 |       属性 | デフォルト | 説明                                                                |
