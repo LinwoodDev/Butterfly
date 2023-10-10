@@ -7,6 +7,8 @@ sidebar_position: 3
 
 استخدم هذه الأداة لرسم الأشكال على الورق. يمكنك رسم المستطيلات، الدوائر والأشكال الأخرى.
 
+Use `ctrl` to have the same height and width and `shift` to draw from the center.
+
 ## الإعدادات
 
 |      الممتلكات | الافتراضي | الوصف                                                                                                                       |
