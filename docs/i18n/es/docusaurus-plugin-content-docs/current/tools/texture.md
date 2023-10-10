@@ -4,7 +4,7 @@ sidebar_label: "Sello"
 sidebar_position: 3
 ---
 
-La herramienta de textura permite añadir el fondo a una pequeña zona del lienzo.
+The texture tool allows you to add the background to a small area of the canvas.
 
 ## Configuración
 
@@ -15,3 +15,7 @@ La herramienta de textura permite añadir el fondo a una pequeña zona del lienz
 |               Width |      0      | El ancho fijo del área. Si se establece en 0, el ancho se calculará automáticamente.                                                                                      |
 |              Altura |      0      | La altura fija del área. Si se establece en 0, la altura se calculará automáticamente.                                                                                    |
 | Relación de aspecto |      0      | La relación de aspecto fijo del área. Si se establece en 0, la relación de aspecto se calculará automáticamente. Una relación de aspecto se define como anchura / altura. |
+
+Valid types for texture are:
+
+* [Patrón](../background#pattern)
