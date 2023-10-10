@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Utilisez cet outil pour dessiner des formes sur le papier. Tu peux dessiner des rectangles, des cercles et d'autres formes.
 
+Use `ctrl` to have the same height and width and `shift` to draw from the center.
+
 ## Configuration
 
 |         Propriété | Par défaut | Libellé                                                                                                                                                   |
