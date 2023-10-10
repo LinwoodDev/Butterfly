@@ -120,7 +120,7 @@
   "copyVersion": "نسخ الإصدار",
   "input": "Input",
   "behaviors": "السلوكيات",
-  "documentDirectory": "دليل المستند",
+  "dataDirectory": "Data directory",
   "defaultPath": "المسار الافتراضي",
   "dateFormat": "تنسيق التاريخ",
   "updatedAt": "تم التحديث في: {dateTime}",
