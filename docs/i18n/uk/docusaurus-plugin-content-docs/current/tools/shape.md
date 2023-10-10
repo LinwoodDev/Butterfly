@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Використовуйте цей інструмент для малювання фігур на папері. Намалюйте прямокутники, колі та інші форми.
 
+Use `ctrl` to have the same height and width and `shift` to draw from the center.
+
 ## Конфігурація
 
 |         Властивість |    Типово    | Опис                                                                                                                                                                         |
