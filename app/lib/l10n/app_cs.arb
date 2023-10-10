@@ -120,7 +120,7 @@
   "copyVersion": "Kopírovat verzi",
   "input": "Input",
   "behaviors": "Chování",
-  "documentDirectory": "Složka dokumentu",
+  "dataDirectory": "Data directory",
   "defaultPath": "Výchozí cesta",
   "dateFormat": "Formát data",
   "updatedAt": "Aktualizováno na: {dateTime}",
