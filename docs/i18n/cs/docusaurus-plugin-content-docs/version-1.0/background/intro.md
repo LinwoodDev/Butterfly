@@ -4,7 +4,7 @@ sidebar_label: "Úvod"
 ---
 
 
-Pozadí dokumentu si můžete přizpůsobit. Klikněte na ikonu pozadí v zobrazovacím nástroji pro její přidání.
+You can customize the background of the paper. Klikněte na ikonu pozadí v zobrazovacím nástroji pro její přidání.
 
 ## Konfigurace
 
