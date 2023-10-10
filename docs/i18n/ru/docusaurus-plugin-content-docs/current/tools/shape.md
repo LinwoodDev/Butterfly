@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Используйте этот инструмент, чтобы нарисовать фигуры на бумаге. Можно рисовать прямоугольники, круги и другие фигуры.
 
+Use `ctrl` to have the same height and width and `shift` to draw from the center.
+
 ## Конфигурация
 
 |                Свойства | По умолчанию  | Описание                                                                                                                                                                           |
