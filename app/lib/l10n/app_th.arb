@@ -120,7 +120,7 @@
   "copyVersion": "คัดลอกรุ่น",
   "input": "นำเข้าข้อมูล",
   "behaviors": "พฤติกรรม",
-  "documentDirectory": "Document directory",
+  "dataDirectory": "Data directory",
   "defaultPath": "Default path",
   "dateFormat": "รูปแบบวันที่",
   "updatedAt": "Updated at: {dateTime}",
