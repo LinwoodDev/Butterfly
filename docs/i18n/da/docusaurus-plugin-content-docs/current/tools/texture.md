@@ -4,7 +4,7 @@ sidebar_label: "Stempel"
 sidebar_position: 3
 ---
 
-Tekstur værktøjet giver dig mulighed for at tilføje baggrunden til et lille område af lærredet.
+The texture tool allows you to add the background to a small area of the canvas.
 
 ## Konfiguration
 
@@ -15,3 +15,7 @@ Tekstur værktøjet giver dig mulighed for at tilføje baggrunden til et lille o
 |          Width |     0     | Den faste bredde af området. Hvis sat til 0, beregnes bredden automatisk.                                                                |
 |          Højde |     0     | Den faste højde af området. Hvis sat til 0, beregnes højden automatisk.                                                                  |
 | Aspekt forhold |     0     | Det faste aspektforhold for området. Hvis sat til 0, beregnes aspektforholdet automatisk. Et aspektforhold defineres som bredde / højde. |
+
+Valid types for texture are:
+
+* [Mønster](../background#pattern)
