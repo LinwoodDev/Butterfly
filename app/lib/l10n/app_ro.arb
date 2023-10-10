@@ -120,7 +120,7 @@
   "copyVersion": "Copiază versiunea",
   "input": "Input",
   "behaviors": "Comportamente",
-  "documentDirectory": "Dosar documente",
+  "dataDirectory": "Data directory",
   "defaultPath": "Calea implicită",
   "dateFormat": "Formatul datei",
   "updatedAt": "Actualizat la: {dateTime}",
