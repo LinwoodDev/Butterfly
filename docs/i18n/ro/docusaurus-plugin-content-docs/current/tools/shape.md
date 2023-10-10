@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Utilizați această unealtă pentru a desena forme pe hârtie. Poți desena dreptunghiuri, cercuri și alte forme.
 
+Use `ctrl` to have the same height and width and `shift` to draw from the center.
+
 ## Configurare
 
 |        Proprietate |  Implicit  | Descriere                                                                                                                                              |
