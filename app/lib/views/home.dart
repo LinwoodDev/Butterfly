@@ -165,6 +165,7 @@ class _HomePageState extends State<HomePage> {
                                         child: FilesView(
                                       selectedAsset: widget.selectedAsset,
                                       remote: _remote,
+                                      isMobile: false,
                                       onRemoteChanged: (value) =>
                                           setState(() => _remote = value),
                                     )),
@@ -183,6 +184,7 @@ class _HomePageState extends State<HomePage> {
                                     FilesView(
                                       selectedAsset: widget.selectedAsset,
                                       remote: _remote,
+                                      isMobile: true,
                                       onRemoteChanged: (value) =>
                                           setState(() => _remote = value),
                                     ),
