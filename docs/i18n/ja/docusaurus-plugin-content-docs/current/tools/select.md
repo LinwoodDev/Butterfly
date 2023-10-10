@@ -4,7 +4,7 @@ sidebar_label: "選択"
 ---
 
 
-このツールを使用すると、要素を選択し、 [挿入メニュー](../insert) にアクセスするための背景コンテキストメニューにアクセスできます。
+With this tool you can select elements.
 
 ## 設定
 
