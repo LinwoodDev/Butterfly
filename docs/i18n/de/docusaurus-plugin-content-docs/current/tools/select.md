@@ -4,7 +4,7 @@ sidebar_label: "Auswählen"
 ---
 
 
-Mit diesem Tool können Sie Elemente auswählen und auf das Hintergrund-Kontextmenü zugreifen, um das [Einfügemenü](../insert) aufzurufen.
+With this tool you can select elements.
 
 ## Konfiguration
 
