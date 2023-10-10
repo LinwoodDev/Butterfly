@@ -4,7 +4,7 @@ sidebar_position: 2
 title: Bakgrunn
 ---
 
-Du kan tilpasse bakgrunnen til papiret. Klikk på bakgrunnsikonet i visning for å legge det til. Det er 8 forskjellige bakgrunnmaler tilgjengelig.
+You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
 
 ## Konfigurasjon
 
