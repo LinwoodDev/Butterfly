@@ -11,6 +11,9 @@ class UtilitiesSelection extends Selection<UtilitiesState> {
       AppLocalizations.of(context).document;
 
   @override
+  List<String> get help => ['utilities'];
+
+  @override
   List<Widget> buildProperties(BuildContext context) {
     final cubit = context.read<CurrentIndexCubit>();
     final currentIndex = cubit.state;
