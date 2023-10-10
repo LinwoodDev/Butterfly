@@ -3,13 +3,19 @@ title: "Tallennustila"
 sidebar_position: 2
 ---
 
+## Data directory
+
+The data directory is the directory where documents, templates and packs are stored. On the desktop you can found it in `~/Documents/Linwood/Butterfly`. On mobile it's in `getExternalFilesDir(null)/Linwood/Butterfly`. You can also change it in the settings under `Data`.
+
+In this directory you will find a folder `Documents`, `Templates` and `Packs`.
+
 ## Verkko
 
-Sovelluksen tiedot on tallennettu selaimeesi. Se on tallennettu paikalliseen tallennustilaan. Avaa kehittäjän työkalut selaimessasi ja näet niiden tiedot.
+The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
 
 ## Natiivi alustat
 
-Oletuksena sovellus tallentaa asiakirjojesi kansiossa olevat tiedot "Linwood/Butterfly" -kansion alikansioon. Tämä kansio on luotu, kun tallennat ensimmäiset tiedot. Tätä kansiota voidaan muuttaa asetuksissa.
+As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
 
 ## Etätallennus {#remote}
 
@@ -19,9 +25,9 @@ Tämä ominaisuus ei ole käytettävissä verkossa.
 
 :::
 
-Sovellus voidaan tallentaa myös etäpalvelimelle. Tämä on hyödyllistä, jos haluat jakaa tietoja muiden ihmisten kanssa tai jos sinulla on useita tietokoneita. Tällä hetkellä tuetaan vain `WebDAV` -protokollaa.
+The application can be saved in a remote server. This is useful if you want to share the data with other people or if you have multiple computers. Currently only the `WebDAV` protocol is supported.
 
-Jos haluat lisätä etäpalvelimen, mene asetuksiin ja napsauta `Remotes`. Klikkaa sitten `Lisää kaukosäädin`. Lisää etäpalvelimen URL ja käyttäjätunnus ja salasana. Sen jälkeen voit määrittää kansion, jossa tiedot tallennetaan.
+To add a remote server, go to the settings and click on `Remotes`. Then click on `Add remote`. Add the URL of the remote server and the username and password. After that you can specify the folder where the data is stored.
 
 Jos haluat saada webdav url, käy dokumentaatio:
 
@@ -29,7 +35,7 @@ Jos haluat saada webdav url, käy dokumentaatio:
 
 ### Offline-synkronointi {#offline}
 
-Tämän ominaisuuden avulla voit muokata tiedostoja etäpalvelimilla ollessasi offline-tilassa. Avaa ponnahdusikkunavalikko tiedostossa tai kansiossa ja napsauta `Synkronoi`. Tämä lataa tiedoston tai kansion ja tallentaa sen paikallisesti. Synkronoidaksesi koko juurihakemiston, klikkaa valintaruutua luomalla valintaikkunassa tai klikkaa kaukosäätimen asetusta ja klikkaa valintaruutua sen hallinta-osiossa. @ info: whatsthis
+This feature allows you to edit your files on remote servers while you are offline. Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
 
 On olemassa muutamia rajoituksia:
 
