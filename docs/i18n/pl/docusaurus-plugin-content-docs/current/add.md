@@ -1,14 +1,24 @@
 ---
-title: "Insert"
-id: "add"
-slug: "/add"
+title: "Dodaj"
+id: "dodaj"
+slug: "/dodaj"
 sidebar_position: 3
 ---
 
-Możesz wstawić różne rzeczy w notatkach:
+Tutaj możesz dodać rzeczy do notatek.
 
-* Obrazy (z galerii lub aparatu)
-* PDF
-* SVG
+## Importuj
 
-Aby uzyskać dostęp do menu użyj narzędzia ręcznego i dwukrotnie dotknij miejsca, w którym chcesz coś wstawić. Kliknij na "Insert", aby otworzyć menu.
+Tutaj możesz zaimportować istniejące pliki w swoich dokumentach. Wspierane są dokumenty motyli, markdown, png, svg i pdf.
+
+## Narzędzia
+
+Aby dodać więcej narzędzi do paska narzędzi, kliknij na nią. Dowiedz się więcej o nich [tutaj](tools).
+
+## Powierzchnie
+
+Są to specjalne narzędzia do tworzenia powierzchni.
+
+## Akcje
+
+Są to narzędzia, które będą wykonywane klikając na nie. Możesz użyć przycisku odtwarzania, aby je wykonać bez dodawania ich do paska narzędzi.
