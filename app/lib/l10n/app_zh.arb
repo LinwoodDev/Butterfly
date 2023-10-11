@@ -120,7 +120,7 @@
   "copyVersion": "复制版本",
   "input": "Input",
   "behaviors": "行为",
-  "dataDirectory": "Data directory",
+  "dataDirectory": "数据目录",
   "defaultPath": "默认路径",
   "dateFormat": "日期格式",
   "updatedAt": "更新于： {dateTime}",
