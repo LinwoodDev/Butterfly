@@ -3,11 +3,11 @@ title: "Opslagruimte"
 sidebar_position: 2
 ---
 
-## Data directory
+## Data map
 
-The data directory is the directory where documents, templates and packs are stored. On the desktop you can found it in `~/Documents/Linwood/Butterfly`. On mobile it's in `getExternalFilesDir(null)/Linwood/Butterfly`. You can also change it in the settings under `Data`.
+De gegevensmap is de map waar documenten, sjablonen en pakketten worden opgeslagen. Op het bureaublad vindt u het in `~/Documenten/Linwood/Butterfly`. Op mobiel is het in `getExternalFilesDir(null)/Linwood/Butterfly`. Je kunt het ook wijzigen in de instellingen onder `Gegevens`.
 
-In this directory you will find a folder `Documents`, `Templates` and `Packs`.
+In deze map vindt u een map `Documenten`, `Templates` en `Pakketten`.
 
 ## Internet
 
