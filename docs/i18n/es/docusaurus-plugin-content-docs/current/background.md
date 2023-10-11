@@ -4,7 +4,7 @@ sidebar_position: 2
 title: Fondo
 ---
 
-There are two different types of backgrounds.
+Hay dos tipos diferentes de fondos.
 
 ### Patrón
 
@@ -16,12 +16,12 @@ Ancho y altura son los ajustes generales de la caja.
 
 Además, puede personalizar el color del fondo.
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+La propiedad de conteo y espaciado le permite crear papel musical. Para el papel musical, ajuste el recuento a 5 y el espaciado a más de la anchura.
 
 ## Imagen
 
-The image background type allows you to use an image as background.
+El tipo de fondo de la imagen le permite usar una imagen como fondo.
 
 ### Configuración
 
-The scale in x and y direction can be changed if this image to small or big.
+La escala en la dirección x e y se puede cambiar si esta imagen es pequeña o grande.
