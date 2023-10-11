@@ -4,7 +4,7 @@ sidebar_label: "Σφραγίδα"
 sidebar_position: 3
 ---
 
-The texture tool allows you to add the background to a small area of the canvas.
+Το εργαλείο υφής σας επιτρέπει να προσθέσετε το φόντο σε μια μικρή περιοχή του καμβά.
 
 ## Διαμόρφωση
 
@@ -16,6 +16,6 @@ The texture tool allows you to add the background to a small area of the canvas.
 |                Ύψος |     0      | Το σταθερό ύψος της περιοχής. Εάν οριστεί σε 0, το ύψος θα υπολογίζεται αυτόματα.                                                                               |
 | Αναλογία διαστάσεων |     0      | Η καθορισμένη αναλογία διαστάσεων της περιοχής. Εάν οριστεί σε 0, η αναλογία διαστάσεων θα υπολογίζεται αυτόματα. Ο λόγος διαστάσεων ορίζεται ως πλάτος / ύψος. |
 
-Valid types for texture are:
+Έγκυροι τύποι υφής είναι:
 
 * [Μοτίβο](../background#pattern)
