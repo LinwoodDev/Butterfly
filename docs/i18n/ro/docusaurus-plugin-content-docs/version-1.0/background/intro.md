@@ -4,7 +4,7 @@ sidebar_label: "Introducere"
 ---
 
 
-You can customize the background of the paper. Faceți clic pe pictograma de fundal din instrumentul de vizualizare pentru a o adăuga.
+Puteți personaliza fundalul hârtiei. Faceți clic pe pictograma de fundal din instrumentul de vizualizare pentru a o adăuga.
 
 ## Configurare
 
