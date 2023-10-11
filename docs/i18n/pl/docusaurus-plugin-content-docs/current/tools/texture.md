@@ -4,7 +4,7 @@ sidebar_label: "Pieczęć"
 sidebar_position: 3
 ---
 
-The texture tool allows you to add the background to a small area of the canvas.
+Narzędzie tekstury pozwala na dodanie tła do małej powierzchni płótna.
 
 ## Konfiguracja
 
@@ -16,6 +16,6 @@ The texture tool allows you to add the background to a small area of the canvas.
 |                Wysokość |    0     | Stała wysokość obszaru. Jeśli ustawione na 0, wysokość zostanie obliczona automatycznie.                                                                                              |
 |  Współczynnik proporcji |    0     | Ustalony współczynnik kształtu obszaru. Jeśli ustawione na 0, współczynnik proporcji zostanie obliczony automatycznie. Stosunek kształtu jest zdefiniowany jako szerokość / wysokość. |
 
-Valid types for texture are:
+Prawidłowe typy tekstury to:
 
 * [Wzorzec](../background#pattern)
