@@ -4,7 +4,7 @@ sidebar_label: "Selo"
 sidebar_position: 3
 ---
 
-The texture tool allows you to add the background to a small area of the canvas.
+A ferramenta de textura permite que você adicione o plano de fundo a uma pequena área da tela.
 
 ## Configuração
 
@@ -16,6 +16,6 @@ The texture tool allows you to add the background to a small area of the canvas.
 |              Altura |    0     | A altura fixa da área. Se definido como 0, a altura será calculada automaticamente.                                                              |
 | Proporção da imagem |    0     | O rácio de aspecto fixo da área. Se definido para 0, a proporção será calculada automaticamente. Uma proporção é definida como largura / altura. |
 
-Valid types for texture are:
+Os tipos válidos para textura são:
 
 * [Padrão](../background#pattern)
