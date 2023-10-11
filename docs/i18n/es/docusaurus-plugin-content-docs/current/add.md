@@ -1,14 +1,24 @@
 ---
-title: "Insert"
-id: "add"
-slug: "/add"
+title: "Añadir"
+id: "añadir"
+slug: "/añadir"
 sidebar_position: 3
 ---
 
-Puedes insertar diferentes cosas en tus notas:
+Aquí puede añadir cosas a sus notas.
 
-* Imágenes (de la galería o de la cámara)
-* PDFs
-* SVG
+## Importar
 
-Para acceder al menú de inserción, utilice la herramienta manual y pulse dos veces en el lugar donde desea insertar algo. Haga clic en "Insertar" para abrir el menú.
+Aquí puede importar archivos existentes dentro de sus documentos. Se admiten documentos de mariposa, markdown, png, svg y pdf.
+
+## Herramientas
+
+Para añadir más herramientas a tu barra de herramientas, haz clic en ellas. Lea más sobre ellos [aquí](tools).
+
+## Superficies
+
+Estas son herramientas especiales para crear superficies.
+
+## Acciones
+
+Estas son herramientas que se ejecutarán haciendo clic en ellas. Puede utilizar el botón de reproducción para ejecutarlos sin añadirlos a la barra de herramientas.
