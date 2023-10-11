@@ -4,10 +4,10 @@ sidebar_label: "Seleccionar"
 ---
 
 
-With this tool you can select elements.
+Con esta herramienta puede seleccionar elementos.
 
 ## Configuración
 
-| Propiedad |       Por defecto       | Descripción                                                                           |
-| ---------:|:-----------------------:|:------------------------------------------------------------------------------------- |
-|       eje | (horizontal o vertical) | Dirección donde debe añadirse el espacio. Sólo seleccionable al añadir la herramienta |
+| Propiedad | Por defecto | Descripción                                           |
+| ---------:|:-----------:|:----------------------------------------------------- |
+|      modo | rectángulo  | Modo de selección. Válido son el rectángulo y el lazo |
