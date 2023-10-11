@@ -120,7 +120,7 @@
   "copyVersion": "Kopier versjon",
   "input": "Input",
   "behaviors": "Oppførsler",
-  "dataDirectory": "Data directory",
+  "dataDirectory": "Datamaskin katalog",
   "defaultPath": "Standard sti",
   "dateFormat": "Dato format",
   "updatedAt": "Oppdatert kl: {dateTime}",
