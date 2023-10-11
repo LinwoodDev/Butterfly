@@ -4,7 +4,7 @@ sidebar_position: 2
 title: Φόντο
 ---
 
-You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+Μπορείτε να προσαρμόσετε το φόντο του χαρτιού. Κάντε κλικ στο εικονίδιο φόντου στο διάλογο προβολής για να το προσθέσετε. Υπάρχουν 8 διαφορετικά πρότυπα φόντου διαθέσιμα.
 
 ## Διαμόρφωση
 
