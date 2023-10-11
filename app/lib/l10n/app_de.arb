@@ -120,7 +120,7 @@
   "copyVersion": "Version kopieren",
   "input": "Input",
   "behaviors": "Verhalten",
-  "dataDirectory": "Data directory",
+  "dataDirectory": "Datenverzeichnis",
   "defaultPath": "Standardpfad",
   "dateFormat": "Datumsformat",
   "updatedAt": "Aktualisiert am: {dateTime}",
