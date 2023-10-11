@@ -4,7 +4,7 @@ sidebar_position: 2
 title: Sfondo
 ---
 
-There are two different types of backgrounds.
+Ci sono due tipi diversi di sfondi.
 
 ### Sequenza
 
@@ -16,12 +16,12 @@ Larghezza e altezza sono le impostazioni generali della scatola.
 
 Inoltre, è possibile personalizzare il colore dello sfondo.
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+La proprietà conteggio e spaziatura consente di creare carta musicale. Per la carta musicale, impostare il conteggio a 5 e la spaziatura a più della larghezza.
 
 ## Immagine
 
-The image background type allows you to use an image as background.
+Il tipo di sfondo dell'immagine consente di usare un'immagine come sfondo.
 
 ### Configurazione
 
-The scale in x and y direction can be changed if this image to small or big.
+La scala in direzione x e y può essere cambiata se l'immagine è piccola o grande.
