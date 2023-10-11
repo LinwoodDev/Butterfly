@@ -7,7 +7,7 @@ sidebar_position: 3
 
 Użyj tego narzędzia, aby narysować kształty na papierze. Możesz narysować prostokąty, koła i inne kształty.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Użyj `ctrl` , aby mieć tę samą wysokość i szerokość oraz `shift` aby rysować z środka.
 
 ## Konfiguracja
 
