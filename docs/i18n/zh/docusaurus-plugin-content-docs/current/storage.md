@@ -3,11 +3,11 @@ title: "存储"
 sidebar_position: 2
 ---
 
-## Data directory
+## 数据目录
 
-The data directory is the directory where documents, templates and packs are stored. On the desktop you can found it in `~/Documents/Linwood/Butterfly`. On mobile it's in `getExternalFilesDir(null)/Linwood/Butterfly`. You can also change it in the settings under `Data`.
+数据目录是存储文档、模板和包的目录。 在桌面上你可以在 `~/Documents/Linwood/Butterfare` 中找到它。 移动时在 `getExternalFilesDir(null)/Linwood/Butterfare`。 您也可以在 `数据` 下更改设置。
 
-In this directory you will find a folder `Documents`, `Templates` and `Packs`.
+在此目录中，您将会找到一个文件夹 `文档`、 `模板` 和 `包`。
 
 ## Web
 
