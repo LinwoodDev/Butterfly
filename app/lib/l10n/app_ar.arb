@@ -120,7 +120,7 @@
   "copyVersion": "نسخ الإصدار",
   "input": "Input",
   "behaviors": "السلوكيات",
-  "dataDirectory": "Data directory",
+  "dataDirectory": "دليل البيانات",
   "defaultPath": "المسار الافتراضي",
   "dateFormat": "تنسيق التاريخ",
   "updatedAt": "تم التحديث في: {dateTime}",
