@@ -4,7 +4,7 @@ sidebar_label: "Indledning"
 ---
 
 
-You can customize the background of the paper. Klik på baggrundsikonet i visningsværktøjet for at tilføje det.
+Du kan tilpasse baggrunden for papiret. Klik på baggrundsikonet i visningsværktøjet for at tilføje det.
 
 ## Konfiguration
 
