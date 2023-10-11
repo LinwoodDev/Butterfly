@@ -3,11 +3,11 @@ title: "Speicher"
 sidebar_position: 2
 ---
 
-## Data directory
+## Datenverzeichnis
 
-The data directory is the directory where documents, templates and packs are stored. On the desktop you can found it in `~/Documents/Linwood/Butterfly`. On mobile it's in `getExternalFilesDir(null)/Linwood/Butterfly`. You can also change it in the settings under `Data`.
+Das Datenverzeichnis ist das Verzeichnis, in dem Dokumente, Vorlagen und Pakete gespeichert werden. Auf dem Desktop können Sie es in `~/Documents/Linwood/Butterfly` finden. Auf dem Handy ist es in `getExternalFilesDir(null)/Linwood/Butterfly`. Sie können es auch in den Einstellungen unter `Daten` ändern.
 
-In this directory you will find a folder `Documents`, `Templates` and `Packs`.
+In diesem Verzeichnis finden Sie einen Ordner `Dokumente`, `Vorlagen` und `Pakete`.
 
 ## Web
 
@@ -17,7 +17,7 @@ Die Anwendungsdaten werden in Ihrem Browser gespeichert. Es wird in einem lokale
 
 Standardmäßig speichert die Anwendung die Daten in Ihrem Dokumentenordner in einem Unterordner namens "Linwood/Butterfly". Dieser Ordner wird beim Speichern der ersten Daten erstellt. Dieser Ordner kann in den Einstellungen geändert werden.
 
-## Remote storage {#remote}
+## Entfernter Speicher {#remote}
 
 :::note
 
