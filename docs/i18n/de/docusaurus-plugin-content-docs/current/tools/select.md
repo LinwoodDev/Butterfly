@@ -4,10 +4,10 @@ sidebar_label: "Auswählen"
 ---
 
 
-With this tool you can select elements.
+Mit diesem Tool können Sie Elemente auswählen.
 
 ## Konfiguration
 
-| Objekt |  Standard  | Beschreibung                                     |
-| ------:|:----------:|:------------------------------------------------ |
-|   mode | rechteckig | Mode of selection. Valid are rectangle and lasso |
+| Objekt |  Standard  | Beschreibung                                      |
+| ------:|:----------:|:------------------------------------------------- |
+|   mode | rechteckig | Modus der Auswahl. Gültig sind Rechteck und Lasso |
