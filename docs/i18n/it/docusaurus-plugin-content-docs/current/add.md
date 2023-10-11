@@ -1,14 +1,24 @@
 ---
-title: "Inserisci"
-id: "add"
+title: "Aggiungi"
+id: "aggiungi"
 slug: "/add"
 sidebar_position: 3
 ---
 
-Puoi inserire cose diverse nelle tue note:
+Qui puoi aggiungere cose alle tue note.
 
-* Immagini (dalla galleria o dalla fotocamera)
-* PDF
-* SVG
+## Importa
 
-Per accedere al menu di inserimento, utilizzare lo strumento a mano e toccare due volte il luogo in cui si desidera inserire qualcosa. Fare clic su "Inserisci" per aprire il menu.
+Qui puoi importare file esistenti all'interno dei tuoi documenti. Supportati sono documenti di farfalla, markdown, png, svg e pdf.
+
+## Strumenti
+
+Per aggiungere altri strumenti alla barra degli strumenti, fare clic su di essi. Per saperne di più su di loro [qui](tools).
+
+## Superfici
+
+Questi sono strumenti speciali per creare superfici.
+
+## Azioni
+
+Questi sono strumenti che verranno eseguiti facendo clic su di essi. È possibile utilizzare il pulsante play per eseguirli senza aggiungerli alla barra degli strumenti.
