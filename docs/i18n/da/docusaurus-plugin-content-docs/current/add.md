@@ -1,7 +1,7 @@
 ---
 title: "Tilføj"
 id: "tilføj"
-slug: "/tilføj"
+slug: "/add"
 sidebar_position: 3
 ---
 
