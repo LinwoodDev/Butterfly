@@ -4,7 +4,7 @@ sidebar_label: "وسام"
 sidebar_position: 3
 ---
 
-The texture tool allows you to add the background to a small area of the canvas.
+أداة النسيج تسمح لك بإضافة الخلفية إلى منطقة صغيرة من الكانفاس.
 
 ## الإعدادات
 
@@ -16,6 +16,6 @@ The texture tool allows you to add the background to a small area of the canvas.
 |       الارتفاع |     0     | 2 - الارتفاع الثابت للمنطقة. العرض الثابت للمنطقة إذا تم تعيين إلى 0، سيتم حساب العرض تلقائياً.                             |
 |   نسبة الجوانب |     0     | نسبة الجانب الثابت في المنطقة. إذا تم تعيين إلى 0، سيتم حساب نسبة العرض تلقائياً. وتُعرَّف نسبة العرض على أنها العرض/الطول. |
 
-Valid types for texture are:
+الأنواع الصالحة للنسيج هي:
 
 * [النمط](../background#pattern)
