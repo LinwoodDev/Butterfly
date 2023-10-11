@@ -1,7 +1,7 @@
 ---
 title: "Toevoegen"
 id: "toevoegen"
-slug: "/toevoegen"
+slug: "/add"
 sidebar_position: 3
 ---
 
