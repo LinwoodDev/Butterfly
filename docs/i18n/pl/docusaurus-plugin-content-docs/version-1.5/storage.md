@@ -11,7 +11,7 @@ Dane aplikacji są przechowywane w przeglądarce. Lek jest przechowywany w miejs
 
 Domyślnie aplikacja zapisuje dane w folderze dokumentów w podfolderze o nazwie "Linwood/Butterfly". Ten folder jest tworzony podczas zapisywania pierwszych danych. Ten folder może zostać zmieniony w ustawieniach.
 
-## Remote storage {#remote}
+## Zdalna pamięć {#remote}
 
 :::note
 
