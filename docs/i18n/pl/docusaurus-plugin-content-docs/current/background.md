@@ -4,7 +4,7 @@ sidebar_position: 2
 title: Kontekst
 ---
 
-There are two different types of backgrounds.
+Istnieją dwa różne rodzaje tła.
 
 ### Wzorzec
 
@@ -16,12 +16,12 @@ Szerokość i wysokość są ogólnymi ustawieniami pola.
 
 Dodatkowo, możesz dostosować kolor tła.
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+Właściwość licznika i odstępów pozwala na tworzenie arkusza muzycznego. Dla papieru muzycznego, ustaw liczbę na 5 i odstępy na więcej niż szerokość.
 
 ## Obraz
 
-The image background type allows you to use an image as background.
+Typ tła obrazu pozwala na użycie obrazu jako tła.
 
 ### Konfiguracja
 
-The scale in x and y direction can be changed if this image to small or big.
+Skala w kierunku x i y może zostać zmieniona, jeśli ten obraz jest mały lub duży.
