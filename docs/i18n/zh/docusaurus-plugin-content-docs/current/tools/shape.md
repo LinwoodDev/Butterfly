@@ -7,7 +7,7 @@ sidebar_position: 3
 
 使用此工具在纸上绘制形状。 你可以绘制矩形、圆圈和其他形状。
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+使用 `ctrl` 具有相同的高度和宽度， `切换` 从中心绘制。
 
 ## 配置
 
