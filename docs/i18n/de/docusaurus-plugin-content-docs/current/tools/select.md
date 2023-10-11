@@ -8,6 +8,6 @@ With this tool you can select elements.
 
 ## Konfiguration
 
-| Objekt |          Standard          | Beschreibung                                                                             |
-| ------:|:--------------------------:|:---------------------------------------------------------------------------------------- |
-|  achse | (horizontal oder vertikal) | Richtung, wo der Raum hinzugefügt werden soll. Nur beim Hinzufügen des Werkzeugs wählbar |
+| Objekt |  Standard  | Beschreibung                                     |
+| ------:|:----------:|:------------------------------------------------ |
+|   mode | rechteckig | Mode of selection. Valid are rectangle and lasso |
