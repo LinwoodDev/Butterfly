@@ -4,7 +4,7 @@ sidebar_position: 2
 title: 二. 背景
 ---
 
-There are two different types of backgrounds.
+有两种不同的背景。
 
 ### 图案
 
@@ -16,12 +16,12 @@ There are two different types of backgrounds.
 
 此外，您可以自定义背景的颜色。
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+计数和间距属性允许您创建音乐纸。 对于音乐纸，设置计数为5，间隔超过宽度。
 
 ## 图片
 
-The image background type allows you to use an image as background.
+图像背景类型允许您使用图像作为背景。
 
 ### 配置
 
-The scale in x and y direction can be changed if this image to small or big.
+x和y方向的缩放可以更改，如果这个图像大小或大小。
