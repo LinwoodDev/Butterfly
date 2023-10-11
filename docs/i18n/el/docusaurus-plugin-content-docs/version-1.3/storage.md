@@ -5,8 +5,8 @@ sidebar_position: 2
 
 ## Ιστός
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+Τα δεδομένα εφαρμογής αποθηκεύονται στον περιηγητή σας. Αποθηκεύεται σε τοπικό χώρο αποθήκευσης. Ανοίξτε τα εργαλεία προγραμματιστή στο πρόγραμμα περιήγησης και θα δείτε τα δεδομένα.
 
 ## Εγχώριες πλατφόρμες
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+Ως προεπιλογή, η εφαρμογή αποθηκεύει τα δεδομένα στο φάκελο εγγράφων σας σε έναν υποφάκελο που ονομάζεται "Linwood/Butterfly". Αυτός ο φάκελος δημιουργείται όταν αποθηκεύετε τα πρώτα δεδομένα. Αυτός ο φάκελος μπορεί να αλλάξει στις ρυθμίσεις.
