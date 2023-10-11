@@ -4,7 +4,7 @@ sidebar_position: 2
 title: Pozadí
 ---
 
-You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+Pozadí dokumentu si můžete přizpůsobit. Klikněte na ikonu pozadí v dialogovém okně pro její přidání. K dispozici je 8 různých šablon na pozadí.
 
 ## Konfigurace
 
