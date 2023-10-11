@@ -3,19 +3,19 @@ title: "Lagring"
 sidebar_position: 2
 ---
 
-## Data directory
+## Datakatalog
 
-The data directory is the directory where documents, templates and packs are stored. On the desktop you can found it in `~/Documents/Linwood/Butterfly`. On mobile it's in `getExternalFilesDir(null)/Linwood/Butterfly`. You can also change it in the settings under `Data`.
+Datakatalogen är den katalog där dokument, mallar och paket lagras. På skrivbordet hittar du den i `~/Documents/Linwood/Butterfly`. På mobilen finns den i `getExternalFilesDir(null)/Linwood/Butterfly`. Du kan också ändra det i inställningarna under `Data`.
 
-In this directory you will find a folder `Documents`, `Templates` and `Packs`.
+I den här katalogen hittar du en mapp `Dokument`, `Mallar` och `Paket`.
 
 ## Webb
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+Applikationsdata lagras i din webbläsare. Den lagras i en lokal lagring. Öppna utvecklarverktygen i din webbläsare och du kommer att se uppgifterna.
 
 ## Inhemska plattformar
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+Som standard sparar programmet data i din dokumentmapp i en undermapp som heter "Linwood/Butterfly". Den här mappen skapas när du sparar den första datan. Denna mapp kan ändras i inställningarna.
 
 ## Fjärrlagring {#remote}
 
@@ -25,9 +25,9 @@ Denna funktion är inte tillgänglig på webben.
 
 :::
 
-The application can be saved in a remote server. This is useful if you want to share the data with other people or if you have multiple computers. Currently only the `WebDAV` protocol is supported.
+Applikationen kan sparas på en fjärrserver. Detta är användbart om du vill dela data med andra människor eller om du har flera datorer. För närvarande stöds endast `WebDAV` protokollet.
 
-To add a remote server, go to the settings and click on `Remotes`. Then click on `Add remote`. Add the URL of the remote server and the username and password. After that you can specify the folder where the data is stored.
+För att lägga till en fjärrserver, gå till inställningarna och klicka på `Remotes`. Klicka sedan på `Add remote`. Lägg till URL till fjärrservern och användarnamn och lösenord. Därefter kan du ange den mapp där data lagras.
 
 Gå till dokumentationen för att få webbav-urlen:
 
@@ -35,7 +35,7 @@ Gå till dokumentationen för att få webbav-urlen:
 
 ### Synkronisering offline {#offline}
 
-This feature allows you to edit your files on remote servers while you are offline. Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
+Den här funktionen låter dig redigera dina filer på fjärrservrar medan du är offline. Öppna popup-menyn på en fil eller mapp och klicka på `Sync`. Detta kommer att ladda ner filen eller mappen och spara den lokalt. Synkronisera hela rotkatalogen, Klicka på bocken i dialogrutan skapa eller klicka på fjärrkontrollen i inställningen och klicka på bocken i avsnittet hantering.
 
 Det finns några begränsningar:
 
