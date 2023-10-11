@@ -5,8 +5,8 @@ sidebar_position: 2
 
 ## Веб
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+Дані додатку зберігаються в вашому браузері. Він зберігається у локальному сховищі. Відкрийте інструменти розробника в браузері і ви побачите дані.
 
 ## Самородні платформи
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+Як за замовчуванням програма зберігає дані у папці ваших документів у підпапці під назвою "Linwood/Butterfly". Ця папка створюється під час збереження перших даних. Цю папку можна змінити в налаштуваннях.
