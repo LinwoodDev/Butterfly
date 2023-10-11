@@ -4,11 +4,11 @@ sidebar_position: 2
 title: Pozadí
 ---
 
-There are two different types of backgrounds.
+Existují dva různé typy pozadí.
 
 ### Vzor
 
-You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+Pozadí dokumentu si můžete přizpůsobit. Klikněte na ikonu pozadí v dialogovém okně pro její přidání. K dispozici je 8 různých šablon na pozadí.
 
 ### Konfigurace
 
@@ -16,12 +16,12 @@ You can customize the background of the paper. Click on the background icon in t
 
 Navíc si můžete přizpůsobit barvu pozadí.
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+Vlastnost počtu a mezery vám umožní vytvořit hudební papír. Pro hudební papír nastavte počet na 5 a mezeru na více než šířku.
 
 ## Obrázek
 
-The image background type allows you to use an image as background.
+Typ pozadí obrázku umožňuje použít obrázek jako pozadí.
 
 ### Konfigurace
 
-The scale in x and y direction can be changed if this image to small or big.
+Měřítko ve směru x a y lze změnit, pokud je tento obrázek malý nebo velký.
