@@ -1,7 +1,7 @@
 ---
 title: "Einfügen"
-id: "insert"
-slug: "/insert"
+id: "add"
+slug: "/add"
 sidebar_position: 3
 ---
 
