@@ -4,7 +4,7 @@ sidebar_label: "Selecteren"
 ---
 
 
-Met dit hulpprogramma kunt u elementen selecteren en toegang krijgen tot het achtergrondcontextmenu voor toegang tot [voeg menu](../insert).
+Met dit hulpprogramma kunt u elementen selecteren en toegang krijgen tot het achtergrondcontextmenu voor toegang tot [voeg menu](../add).
 
 ## Configuratie
 

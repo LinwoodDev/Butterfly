@@ -4,7 +4,7 @@ sidebar_label: "Seleziona"
 ---
 
 
-Con questo strumento è possibile selezionare gli elementi e accedere al menu contestuale di sfondo per accedere al [inserire menu](../insert).
+Con questo strumento è possibile selezionare gli elementi e accedere al menu contestuale di sfondo per accedere al [inserire menu](../add).
 
 ## Configurazione
 

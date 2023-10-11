@@ -4,7 +4,7 @@ sidebar_label: "Seleccionar"
 ---
 
 
-Con esta herramienta puede seleccionar elementos y acceder al menú contextual de fondo para acceder al [menú de inserción](../insert).
+Con esta herramienta puede seleccionar elementos y acceder al menú contextual de fondo para acceder al [menú de inserción](../add).
 
 ## Configuración
 
