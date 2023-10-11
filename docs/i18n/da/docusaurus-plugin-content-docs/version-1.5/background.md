@@ -4,7 +4,7 @@ sidebar_position: 2
 title: Baggrund
 ---
 
-You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+Du kan tilpasse baggrunden for papiret. Klik på baggrundsikonen i visningsdialogen for at tilføje den. Der er 8 forskellige baggrundsskabeloner tilgængelige.
 
 ## Konfiguration
 
