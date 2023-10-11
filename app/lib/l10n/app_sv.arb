@@ -120,7 +120,7 @@
   "copyVersion": "Kopiera version",
   "input": "Input",
   "behaviors": "Beteenden",
-  "dataDirectory": "Data directory",
+  "dataDirectory": "Datakatalog",
   "defaultPath": "Standard sökväg",
   "dateFormat": "Datumformat",
   "updatedAt": "Uppdaterad den: {dateTime}",
