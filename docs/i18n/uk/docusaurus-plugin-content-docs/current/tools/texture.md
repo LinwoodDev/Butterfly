@@ -4,7 +4,7 @@ sidebar_label: "Відзнака"
 sidebar_position: 3
 ---
 
-The texture tool allows you to add the background to a small area of the canvas.
+Інструмент текстури дозволяє додавати фон в невелику площу полотна.
 
 ## Конфігурація
 
@@ -16,6 +16,6 @@ The texture tool allows you to add the background to a small area of the canvas.
 |              Висота |    0     | Фіксована висота зони. Якщо встановити значення 0, висота буде розрахована автоматично.                                                                                      |
 |   Відношення сторін |    0     | Постійне співвідношення сторін області. Якщо встановити значення 0, співвідношення сторін буде розраховано автоматично. Співвідношення сторін визначається як ширина/висота. |
 
-Valid types for texture are:
+Припустимі типи текстур:
 
 * [Графічний ключ](../background#pattern)
