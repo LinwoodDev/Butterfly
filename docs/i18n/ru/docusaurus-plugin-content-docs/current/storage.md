@@ -3,11 +3,11 @@ title: "Хранилище"
 sidebar_position: 2
 ---
 
-## Data directory
+## Каталог данных
 
-The data directory is the directory where documents, templates and packs are stored. On the desktop you can found it in `~/Documents/Linwood/Butterfly`. On mobile it's in `getExternalFilesDir(null)/Linwood/Butterfly`. You can also change it in the settings under `Data`.
+Каталог данных - это каталог, в котором хранятся документы, шаблоны и пакеты. На рабочем столе вы можете найти его в `~/Documents/Linwood/Butterfly`. На мобильном устройстве находится в `getExternalFilesDir(null)/Linwood/Butterfly`. Вы также можете изменить его в настройках в разделе `Data`.
 
-In this directory you will find a folder `Documents`, `Templates` and `Packs`.
+В этой директории вы найдете папку `Documents`, `Шаблоны` и `Пакеты`.
 
 ## Веб
 
