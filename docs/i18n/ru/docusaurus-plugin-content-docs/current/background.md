@@ -4,7 +4,7 @@ sidebar_position: 2
 title: Фон
 ---
 
-There are two different types of backgrounds.
+Существует два типа фонов.
 
 ### Шаблон
 
@@ -16,12 +16,12 @@ There are two different types of backgrounds.
 
 Кроме того, можно настроить цвет фона.
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+Свойство подсчета и интервала позволяет создать музыкальную бумагу. Для музыкальной бумаги установите значение 5 и интервал больше ширины.
 
 ## Изображение
 
-The image background type allows you to use an image as background.
+Тип фона изображения позволяет использовать изображение в качестве фона.
 
 ### Конфигурация
 
-The scale in x and y direction can be changed if this image to small or big.
+Масштаб в направлении x и y можно изменить, если это изображение будет малым или большим.
