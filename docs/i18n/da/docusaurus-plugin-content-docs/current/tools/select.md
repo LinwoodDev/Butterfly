@@ -8,6 +8,6 @@ With this tool you can select elements.
 
 ## Konfiguration
 
-| Egenskab |        Standard        | Varebeskrivelse                                                       |
-| --------:|:----------------------:|:--------------------------------------------------------------------- |
-|     akse | (vandret eller lodret) | Retning hvor rummet skal tilføjes. Vælg kun når du tilføjer værktøjet |
+| Egenskab | Standard  | Varebeskrivelse                                  |
+| --------:|:---------:|:------------------------------------------------ |
+|     mode | rektangel | Mode of selection. Valid are rectangle and lasso |
