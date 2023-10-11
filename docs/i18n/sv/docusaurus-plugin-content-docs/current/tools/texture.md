@@ -4,7 +4,7 @@ sidebar_label: "Stämpel"
 sidebar_position: 3
 ---
 
-The texture tool allows you to add the background to a small area of the canvas.
+Texturen verktyg kan du lägga till bakgrunden till en liten del av duken.
 
 ## Konfiguration
 
@@ -16,6 +16,6 @@ The texture tool allows you to add the background to a small area of the canvas.
 |            Höjd |     0     | Den fasta höjden på området. Om satt till 0, kommer höjden att beräknas automatiskt.                                                         |
 | Bildförhållande |     0     | Det fasta bildförhållandet av området. Om satt till 0, beräknas bildförhållandet automatiskt. Ett bildförhållande definieras som bredd/höjd. |
 
-Valid types for texture are:
+Giltiga typer för textur är:
 
 * [Mönster](../background#pattern)
