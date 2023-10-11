@@ -4,7 +4,7 @@ sidebar_position: 2
 title: الخلفية
 ---
 
-There are two different types of backgrounds.
+وهناك نوعان مختلفان من الخلفية.
 
 ### النمط
 
@@ -16,12 +16,12 @@ There are two different types of backgrounds.
 
 بالإضافة إلى ذلك، يمكنك تخصيص لون الخلفية.
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+تسمح لك خاصية العد والفاصل بإنشاء ورقة موسيقية. بالنسبة لورقة الموسيقى، قم بتعيين العد إلى 5 والفاصل إلى أكثر من العرض.
 
 ## صورة
 
-The image background type allows you to use an image as background.
+نوع خلفية الصورة يسمح لك باستخدام صورة كخلفية.
 
 ### الإعدادات
 
-The scale in x and y direction can be changed if this image to small or big.
+يمكن تغيير المقياس في x و y إذا كانت هذه الصورة صغيرة أو كبيرة.
