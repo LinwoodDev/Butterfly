@@ -120,7 +120,7 @@
   "copyVersion": "Versie kopiëren",
   "input": "Input",
   "behaviors": "Gedrag",
-  "dataDirectory": "Data directory",
+  "dataDirectory": "Data map",
   "defaultPath": "Standaard pad",
   "dateFormat": "Datum formaat",
   "updatedAt": "Bijgewerkt op: {dateTime}",
