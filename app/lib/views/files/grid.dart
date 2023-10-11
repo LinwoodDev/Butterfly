@@ -191,7 +191,9 @@ class _FileEntityGridItem extends StatelessWidget {
                           ),
                         ),
                         MenuAnchor(
-                          builder: defaultMenuButton(),
+                          builder: defaultMenuButton(
+                            tooltip: AppLocalizations.of(context).actions,
+                          ),
                           menuChildren: [
                             if (remote != null)
                               StreamBuilder<List<SyncFile>>(

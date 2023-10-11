@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:butterfly/actions/change_path.dart';
 import 'package:butterfly/actions/settings.dart';
 import 'package:butterfly/actions/svg_export.dart';
+import 'package:butterfly/api/file_system/file_system.dart';
 import 'package:butterfly/cubits/current_index.dart';
 import 'package:butterfly/services/import.dart';
 import 'package:butterfly/views/edit.dart';
@@ -114,9 +115,23 @@ class _AppBarTitle extends StatelessWidget {
                 children: [
                   Flexible(
                     child: StatefulBuilder(builder: (context, setState) {
-                      void submit(String? value) {
+                      Future<void> submit(String? value) async {
                         if (value == null) return;
                         if (area == null || areaName == null) {
+                          final cubit = context.read<CurrentIndexCubit>();
+                          final settings = context.read<SettingsCubit>().state;
+                          final location = cubit.state.location;
+                          final fileSystem = DocumentFileSystem.fromPlatform(
+                              remote: settings.getRemote(location.remote));
+
+                          await fileSystem.deleteAsset(location.path);
+
+                          cubit.setSaveState(
+                              location: location.copyWith(
+                            path:
+                                '${location.parent}/${fileSystem.convertNameToFile(value)}.bfly',
+                          ));
+                          if (state is DocumentLoadSuccess) await state.save();
                           bloc.add(DocumentDescriptionChanged(name: value));
                         } else {
                           bloc.add(AreaChanged(
@@ -472,6 +487,13 @@ class _MainPopupMenu extends StatelessWidget {
               icon: Image.asset(
                 'images/logo.png',
               ),
+              style: IconButton.styleFrom(
+                backgroundColor: controller.isOpen
+                    ? Theme.of(context).colorScheme.surfaceVariant
+                    : null,
+              ),
+              tooltip: AppLocalizations.of(context).actions,
+              isSelected: controller.isOpen,
               onPressed: () {
                 if (controller.isOpen) {
                   controller.close();

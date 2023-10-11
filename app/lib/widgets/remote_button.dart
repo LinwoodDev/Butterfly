@@ -32,8 +32,10 @@ class _RemoteButtonState extends State<RemoteButton> {
         builder: (context, settings) {
       if (settings.remotes.isEmpty || kIsWeb) {
         return IconButton(
-            onPressed: () => widget.onChanged(null),
-            icon: const PhosphorIcon(PhosphorIconsLight.house));
+          onPressed: () => widget.onChanged(null),
+          icon: const PhosphorIcon(PhosphorIconsLight.arrowClockwise),
+          tooltip: AppLocalizations.of(context).refresh,
+        );
       }
       return PopupMenuButton<RemoteStorage?>(
         initialValue: _currentRemote,

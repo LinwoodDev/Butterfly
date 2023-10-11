@@ -74,22 +74,22 @@ class _$ButterflyComponentCopyWithImpl<$Res, $Val extends ButterflyComponent>
 }
 
 /// @nodoc
-abstract class _$$_ButterflyComponentCopyWith<$Res>
+abstract class _$$ButterflyComponentImplCopyWith<$Res>
     implements $ButterflyComponentCopyWith<$Res> {
-  factory _$$_ButterflyComponentCopyWith(_$_ButterflyComponent value,
-          $Res Function(_$_ButterflyComponent) then) =
-      __$$_ButterflyComponentCopyWithImpl<$Res>;
+  factory _$$ButterflyComponentImplCopyWith(_$ButterflyComponentImpl value,
+          $Res Function(_$ButterflyComponentImpl) then) =
+      __$$ButterflyComponentImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String? thumbnail, List<PadElement> elements});
 }
 
 /// @nodoc
-class __$$_ButterflyComponentCopyWithImpl<$Res>
-    extends _$ButterflyComponentCopyWithImpl<$Res, _$_ButterflyComponent>
-    implements _$$_ButterflyComponentCopyWith<$Res> {
-  __$$_ButterflyComponentCopyWithImpl(
-      _$_ButterflyComponent _value, $Res Function(_$_ButterflyComponent) _then)
+class __$$ButterflyComponentImplCopyWithImpl<$Res>
+    extends _$ButterflyComponentCopyWithImpl<$Res, _$ButterflyComponentImpl>
+    implements _$$ButterflyComponentImplCopyWith<$Res> {
+  __$$ButterflyComponentImplCopyWithImpl(_$ButterflyComponentImpl _value,
+      $Res Function(_$ButterflyComponentImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_ButterflyComponentCopyWithImpl<$Res>
     Object? thumbnail = freezed,
     Object? elements = null,
   }) {
-    return _then(_$_ButterflyComponent(
+    return _then(_$ButterflyComponentImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -118,15 +118,15 @@ class __$$_ButterflyComponentCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ButterflyComponent implements _ButterflyComponent {
-  const _$_ButterflyComponent(
+class _$ButterflyComponentImpl implements _ButterflyComponent {
+  const _$ButterflyComponentImpl(
       {required this.name,
       this.thumbnail,
       final List<PadElement> elements = const <PadElement>[]})
       : _elements = elements;
 
-  factory _$_ButterflyComponent.fromJson(Map<String, dynamic> json) =>
-      _$$_ButterflyComponentFromJson(json);
+  factory _$ButterflyComponentImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ButterflyComponentImplFromJson(json);
 
   @override
   final String name;
@@ -149,13 +149,13 @@ class _$_ButterflyComponent implements _ButterflyComponent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ButterflyComponentCopyWith<_$_ButterflyComponent> get copyWith =>
-      __$$_ButterflyComponentCopyWithImpl<_$_ButterflyComponent>(
+  _$$ButterflyComponentImplCopyWith<_$ButterflyComponentImpl> get copyWith =>
+      __$$ButterflyComponentImplCopyWithImpl<_$ButterflyComponentImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ButterflyComponentToJson(
+    return _$$ButterflyComponentImplToJson(
       this,
     );
   }
@@ -165,10 +165,10 @@ abstract class _ButterflyComponent implements ButterflyComponent {
   const factory _ButterflyComponent(
       {required final String name,
       final String? thumbnail,
-      final List<PadElement> elements}) = _$_ButterflyComponent;
+      final List<PadElement> elements}) = _$ButterflyComponentImpl;
 
   factory _ButterflyComponent.fromJson(Map<String, dynamic> json) =
-      _$_ButterflyComponent.fromJson;
+      _$ButterflyComponentImpl.fromJson;
 
   @override
   String get name;
@@ -178,7 +178,7 @@ abstract class _ButterflyComponent implements ButterflyComponent {
   List<PadElement> get elements;
   @override
   @JsonKey(ignore: true)
-  _$$_ButterflyComponentCopyWith<_$_ButterflyComponent> get copyWith =>
+  _$$ButterflyComponentImplCopyWith<_$ButterflyComponentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -307,22 +307,22 @@ class _$ButterflyParameterCopyWithImpl<$Res, $Val extends ButterflyParameter>
 }
 
 /// @nodoc
-abstract class _$$TextParameterCopyWith<$Res>
+abstract class _$$TextParameterImplCopyWith<$Res>
     implements $ButterflyParameterCopyWith<$Res> {
-  factory _$$TextParameterCopyWith(
-          _$TextParameter value, $Res Function(_$TextParameter) then) =
-      __$$TextParameterCopyWithImpl<$Res>;
+  factory _$$TextParameterImplCopyWith(
+          _$TextParameterImpl value, $Res Function(_$TextParameterImpl) then) =
+      __$$TextParameterImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int child, String name, String value});
 }
 
 /// @nodoc
-class __$$TextParameterCopyWithImpl<$Res>
-    extends _$ButterflyParameterCopyWithImpl<$Res, _$TextParameter>
-    implements _$$TextParameterCopyWith<$Res> {
-  __$$TextParameterCopyWithImpl(
-      _$TextParameter _value, $Res Function(_$TextParameter) _then)
+class __$$TextParameterImplCopyWithImpl<$Res>
+    extends _$ButterflyParameterCopyWithImpl<$Res, _$TextParameterImpl>
+    implements _$$TextParameterImplCopyWith<$Res> {
+  __$$TextParameterImplCopyWithImpl(
+      _$TextParameterImpl _value, $Res Function(_$TextParameterImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -332,7 +332,7 @@ class __$$TextParameterCopyWithImpl<$Res>
     Object? name = null,
     Object? value = null,
   }) {
-    return _then(_$TextParameter(
+    return _then(_$TextParameterImpl(
       child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
@@ -351,16 +351,16 @@ class __$$TextParameterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TextParameter implements TextParameter {
-  const _$TextParameter(
+class _$TextParameterImpl implements TextParameter {
+  const _$TextParameterImpl(
       {required this.child,
       required this.name,
       required this.value,
       final String? $type})
       : $type = $type ?? 'text';
 
-  factory _$TextParameter.fromJson(Map<String, dynamic> json) =>
-      _$$TextParameterFromJson(json);
+  factory _$TextParameterImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TextParameterImplFromJson(json);
 
   @override
   final int child;
@@ -380,8 +380,8 @@ class _$TextParameter implements TextParameter {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TextParameterCopyWith<_$TextParameter> get copyWith =>
-      __$$TextParameterCopyWithImpl<_$TextParameter>(this, _$identity);
+  _$$TextParameterImplCopyWith<_$TextParameterImpl> get copyWith =>
+      __$$TextParameterImplCopyWithImpl<_$TextParameterImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -465,7 +465,7 @@ class _$TextParameter implements TextParameter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TextParameterToJson(
+    return _$$TextParameterImplToJson(
       this,
     );
   }
@@ -475,10 +475,10 @@ abstract class TextParameter implements ButterflyParameter {
   const factory TextParameter(
       {required final int child,
       required final String name,
-      required final String value}) = _$TextParameter;
+      required final String value}) = _$TextParameterImpl;
 
   factory TextParameter.fromJson(Map<String, dynamic> json) =
-      _$TextParameter.fromJson;
+      _$TextParameterImpl.fromJson;
 
   @override
   int get child;
@@ -488,27 +488,27 @@ abstract class TextParameter implements ButterflyParameter {
   String get value;
   @override
   @JsonKey(ignore: true)
-  _$$TextParameterCopyWith<_$TextParameter> get copyWith =>
+  _$$TextParameterImplCopyWith<_$TextParameterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ColorParameterCopyWith<$Res>
+abstract class _$$ColorParameterImplCopyWith<$Res>
     implements $ButterflyParameterCopyWith<$Res> {
-  factory _$$ColorParameterCopyWith(
-          _$ColorParameter value, $Res Function(_$ColorParameter) then) =
-      __$$ColorParameterCopyWithImpl<$Res>;
+  factory _$$ColorParameterImplCopyWith(_$ColorParameterImpl value,
+          $Res Function(_$ColorParameterImpl) then) =
+      __$$ColorParameterImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int child, String name, int value});
 }
 
 /// @nodoc
-class __$$ColorParameterCopyWithImpl<$Res>
-    extends _$ButterflyParameterCopyWithImpl<$Res, _$ColorParameter>
-    implements _$$ColorParameterCopyWith<$Res> {
-  __$$ColorParameterCopyWithImpl(
-      _$ColorParameter _value, $Res Function(_$ColorParameter) _then)
+class __$$ColorParameterImplCopyWithImpl<$Res>
+    extends _$ButterflyParameterCopyWithImpl<$Res, _$ColorParameterImpl>
+    implements _$$ColorParameterImplCopyWith<$Res> {
+  __$$ColorParameterImplCopyWithImpl(
+      _$ColorParameterImpl _value, $Res Function(_$ColorParameterImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -518,7 +518,7 @@ class __$$ColorParameterCopyWithImpl<$Res>
     Object? name = null,
     Object? value = null,
   }) {
-    return _then(_$ColorParameter(
+    return _then(_$ColorParameterImpl(
       child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
@@ -537,16 +537,16 @@ class __$$ColorParameterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ColorParameter implements ColorParameter {
-  const _$ColorParameter(
+class _$ColorParameterImpl implements ColorParameter {
+  const _$ColorParameterImpl(
       {required this.child,
       required this.name,
       required this.value,
       final String? $type})
       : $type = $type ?? 'color';
 
-  factory _$ColorParameter.fromJson(Map<String, dynamic> json) =>
-      _$$ColorParameterFromJson(json);
+  factory _$ColorParameterImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ColorParameterImplFromJson(json);
 
   @override
   final int child;
@@ -566,8 +566,9 @@ class _$ColorParameter implements ColorParameter {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ColorParameterCopyWith<_$ColorParameter> get copyWith =>
-      __$$ColorParameterCopyWithImpl<_$ColorParameter>(this, _$identity);
+  _$$ColorParameterImplCopyWith<_$ColorParameterImpl> get copyWith =>
+      __$$ColorParameterImplCopyWithImpl<_$ColorParameterImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -651,7 +652,7 @@ class _$ColorParameter implements ColorParameter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ColorParameterToJson(
+    return _$$ColorParameterImplToJson(
       this,
     );
   }
@@ -661,10 +662,10 @@ abstract class ColorParameter implements ButterflyParameter {
   const factory ColorParameter(
       {required final int child,
       required final String name,
-      required final int value}) = _$ColorParameter;
+      required final int value}) = _$ColorParameterImpl;
 
   factory ColorParameter.fromJson(Map<String, dynamic> json) =
-      _$ColorParameter.fromJson;
+      _$ColorParameterImpl.fromJson;
 
   @override
   int get child;
@@ -674,27 +675,27 @@ abstract class ColorParameter implements ButterflyParameter {
   int get value;
   @override
   @JsonKey(ignore: true)
-  _$$ColorParameterCopyWith<_$ColorParameter> get copyWith =>
+  _$$ColorParameterImplCopyWith<_$ColorParameterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$BoolParameterCopyWith<$Res>
+abstract class _$$BoolParameterImplCopyWith<$Res>
     implements $ButterflyParameterCopyWith<$Res> {
-  factory _$$BoolParameterCopyWith(
-          _$BoolParameter value, $Res Function(_$BoolParameter) then) =
-      __$$BoolParameterCopyWithImpl<$Res>;
+  factory _$$BoolParameterImplCopyWith(
+          _$BoolParameterImpl value, $Res Function(_$BoolParameterImpl) then) =
+      __$$BoolParameterImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int child, String name, bool value});
 }
 
 /// @nodoc
-class __$$BoolParameterCopyWithImpl<$Res>
-    extends _$ButterflyParameterCopyWithImpl<$Res, _$BoolParameter>
-    implements _$$BoolParameterCopyWith<$Res> {
-  __$$BoolParameterCopyWithImpl(
-      _$BoolParameter _value, $Res Function(_$BoolParameter) _then)
+class __$$BoolParameterImplCopyWithImpl<$Res>
+    extends _$ButterflyParameterCopyWithImpl<$Res, _$BoolParameterImpl>
+    implements _$$BoolParameterImplCopyWith<$Res> {
+  __$$BoolParameterImplCopyWithImpl(
+      _$BoolParameterImpl _value, $Res Function(_$BoolParameterImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -704,7 +705,7 @@ class __$$BoolParameterCopyWithImpl<$Res>
     Object? name = null,
     Object? value = null,
   }) {
-    return _then(_$BoolParameter(
+    return _then(_$BoolParameterImpl(
       child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
@@ -723,16 +724,16 @@ class __$$BoolParameterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$BoolParameter implements BoolParameter {
-  const _$BoolParameter(
+class _$BoolParameterImpl implements BoolParameter {
+  const _$BoolParameterImpl(
       {required this.child,
       required this.name,
       required this.value,
       final String? $type})
       : $type = $type ?? 'bool';
 
-  factory _$BoolParameter.fromJson(Map<String, dynamic> json) =>
-      _$$BoolParameterFromJson(json);
+  factory _$BoolParameterImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BoolParameterImplFromJson(json);
 
   @override
   final int child;
@@ -752,8 +753,8 @@ class _$BoolParameter implements BoolParameter {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BoolParameterCopyWith<_$BoolParameter> get copyWith =>
-      __$$BoolParameterCopyWithImpl<_$BoolParameter>(this, _$identity);
+  _$$BoolParameterImplCopyWith<_$BoolParameterImpl> get copyWith =>
+      __$$BoolParameterImplCopyWithImpl<_$BoolParameterImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -837,7 +838,7 @@ class _$BoolParameter implements BoolParameter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BoolParameterToJson(
+    return _$$BoolParameterImplToJson(
       this,
     );
   }
@@ -847,10 +848,10 @@ abstract class BoolParameter implements ButterflyParameter {
   const factory BoolParameter(
       {required final int child,
       required final String name,
-      required final bool value}) = _$BoolParameter;
+      required final bool value}) = _$BoolParameterImpl;
 
   factory BoolParameter.fromJson(Map<String, dynamic> json) =
-      _$BoolParameter.fromJson;
+      _$BoolParameterImpl.fromJson;
 
   @override
   int get child;
@@ -860,27 +861,27 @@ abstract class BoolParameter implements ButterflyParameter {
   bool get value;
   @override
   @JsonKey(ignore: true)
-  _$$BoolParameterCopyWith<_$BoolParameter> get copyWith =>
+  _$$BoolParameterImplCopyWith<_$BoolParameterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$IntParameterCopyWith<$Res>
+abstract class _$$IntParameterImplCopyWith<$Res>
     implements $ButterflyParameterCopyWith<$Res> {
-  factory _$$IntParameterCopyWith(
-          _$IntParameter value, $Res Function(_$IntParameter) then) =
-      __$$IntParameterCopyWithImpl<$Res>;
+  factory _$$IntParameterImplCopyWith(
+          _$IntParameterImpl value, $Res Function(_$IntParameterImpl) then) =
+      __$$IntParameterImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int child, String name, int value});
 }
 
 /// @nodoc
-class __$$IntParameterCopyWithImpl<$Res>
-    extends _$ButterflyParameterCopyWithImpl<$Res, _$IntParameter>
-    implements _$$IntParameterCopyWith<$Res> {
-  __$$IntParameterCopyWithImpl(
-      _$IntParameter _value, $Res Function(_$IntParameter) _then)
+class __$$IntParameterImplCopyWithImpl<$Res>
+    extends _$ButterflyParameterCopyWithImpl<$Res, _$IntParameterImpl>
+    implements _$$IntParameterImplCopyWith<$Res> {
+  __$$IntParameterImplCopyWithImpl(
+      _$IntParameterImpl _value, $Res Function(_$IntParameterImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -890,7 +891,7 @@ class __$$IntParameterCopyWithImpl<$Res>
     Object? name = null,
     Object? value = null,
   }) {
-    return _then(_$IntParameter(
+    return _then(_$IntParameterImpl(
       child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
@@ -909,16 +910,16 @@ class __$$IntParameterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$IntParameter implements IntParameter {
-  const _$IntParameter(
+class _$IntParameterImpl implements IntParameter {
+  const _$IntParameterImpl(
       {required this.child,
       required this.name,
       required this.value,
       final String? $type})
       : $type = $type ?? 'int';
 
-  factory _$IntParameter.fromJson(Map<String, dynamic> json) =>
-      _$$IntParameterFromJson(json);
+  factory _$IntParameterImpl.fromJson(Map<String, dynamic> json) =>
+      _$$IntParameterImplFromJson(json);
 
   @override
   final int child;
@@ -938,8 +939,8 @@ class _$IntParameter implements IntParameter {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$IntParameterCopyWith<_$IntParameter> get copyWith =>
-      __$$IntParameterCopyWithImpl<_$IntParameter>(this, _$identity);
+  _$$IntParameterImplCopyWith<_$IntParameterImpl> get copyWith =>
+      __$$IntParameterImplCopyWithImpl<_$IntParameterImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1023,7 +1024,7 @@ class _$IntParameter implements IntParameter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$IntParameterToJson(
+    return _$$IntParameterImplToJson(
       this,
     );
   }
@@ -1033,10 +1034,10 @@ abstract class IntParameter implements ButterflyParameter {
   const factory IntParameter(
       {required final int child,
       required final String name,
-      required final int value}) = _$IntParameter;
+      required final int value}) = _$IntParameterImpl;
 
   factory IntParameter.fromJson(Map<String, dynamic> json) =
-      _$IntParameter.fromJson;
+      _$IntParameterImpl.fromJson;
 
   @override
   int get child;
@@ -1046,27 +1047,27 @@ abstract class IntParameter implements ButterflyParameter {
   int get value;
   @override
   @JsonKey(ignore: true)
-  _$$IntParameterCopyWith<_$IntParameter> get copyWith =>
+  _$$IntParameterImplCopyWith<_$IntParameterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DoubleParameterCopyWith<$Res>
+abstract class _$$DoubleParameterImplCopyWith<$Res>
     implements $ButterflyParameterCopyWith<$Res> {
-  factory _$$DoubleParameterCopyWith(
-          _$DoubleParameter value, $Res Function(_$DoubleParameter) then) =
-      __$$DoubleParameterCopyWithImpl<$Res>;
+  factory _$$DoubleParameterImplCopyWith(_$DoubleParameterImpl value,
+          $Res Function(_$DoubleParameterImpl) then) =
+      __$$DoubleParameterImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int child, String name, double value});
 }
 
 /// @nodoc
-class __$$DoubleParameterCopyWithImpl<$Res>
-    extends _$ButterflyParameterCopyWithImpl<$Res, _$DoubleParameter>
-    implements _$$DoubleParameterCopyWith<$Res> {
-  __$$DoubleParameterCopyWithImpl(
-      _$DoubleParameter _value, $Res Function(_$DoubleParameter) _then)
+class __$$DoubleParameterImplCopyWithImpl<$Res>
+    extends _$ButterflyParameterCopyWithImpl<$Res, _$DoubleParameterImpl>
+    implements _$$DoubleParameterImplCopyWith<$Res> {
+  __$$DoubleParameterImplCopyWithImpl(
+      _$DoubleParameterImpl _value, $Res Function(_$DoubleParameterImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1076,7 +1077,7 @@ class __$$DoubleParameterCopyWithImpl<$Res>
     Object? name = null,
     Object? value = null,
   }) {
-    return _then(_$DoubleParameter(
+    return _then(_$DoubleParameterImpl(
       child: null == child
           ? _value.child
           : child // ignore: cast_nullable_to_non_nullable
@@ -1095,16 +1096,16 @@ class __$$DoubleParameterCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DoubleParameter implements DoubleParameter {
-  const _$DoubleParameter(
+class _$DoubleParameterImpl implements DoubleParameter {
+  const _$DoubleParameterImpl(
       {required this.child,
       required this.name,
       required this.value,
       final String? $type})
       : $type = $type ?? 'double';
 
-  factory _$DoubleParameter.fromJson(Map<String, dynamic> json) =>
-      _$$DoubleParameterFromJson(json);
+  factory _$DoubleParameterImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DoubleParameterImplFromJson(json);
 
   @override
   final int child;
@@ -1124,8 +1125,9 @@ class _$DoubleParameter implements DoubleParameter {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DoubleParameterCopyWith<_$DoubleParameter> get copyWith =>
-      __$$DoubleParameterCopyWithImpl<_$DoubleParameter>(this, _$identity);
+  _$$DoubleParameterImplCopyWith<_$DoubleParameterImpl> get copyWith =>
+      __$$DoubleParameterImplCopyWithImpl<_$DoubleParameterImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1209,7 +1211,7 @@ class _$DoubleParameter implements DoubleParameter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DoubleParameterToJson(
+    return _$$DoubleParameterImplToJson(
       this,
     );
   }
@@ -1219,10 +1221,10 @@ abstract class DoubleParameter implements ButterflyParameter {
   const factory DoubleParameter(
       {required final int child,
       required final String name,
-      required final double value}) = _$DoubleParameter;
+      required final double value}) = _$DoubleParameterImpl;
 
   factory DoubleParameter.fromJson(Map<String, dynamic> json) =
-      _$DoubleParameter.fromJson;
+      _$DoubleParameterImpl.fromJson;
 
   @override
   int get child;
@@ -1232,7 +1234,7 @@ abstract class DoubleParameter implements ButterflyParameter {
   double get value;
   @override
   @JsonKey(ignore: true)
-  _$$DoubleParameterCopyWith<_$DoubleParameter> get copyWith =>
+  _$$DoubleParameterImplCopyWith<_$DoubleParameterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1290,22 +1292,22 @@ class _$PackAssetLocationCopyWithImpl<$Res, $Val extends PackAssetLocation>
 }
 
 /// @nodoc
-abstract class _$$_PackAssetLocationCopyWith<$Res>
+abstract class _$$PackAssetLocationImplCopyWith<$Res>
     implements $PackAssetLocationCopyWith<$Res> {
-  factory _$$_PackAssetLocationCopyWith(_$_PackAssetLocation value,
-          $Res Function(_$_PackAssetLocation) then) =
-      __$$_PackAssetLocationCopyWithImpl<$Res>;
+  factory _$$PackAssetLocationImplCopyWith(_$PackAssetLocationImpl value,
+          $Res Function(_$PackAssetLocationImpl) then) =
+      __$$PackAssetLocationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String pack, String name});
 }
 
 /// @nodoc
-class __$$_PackAssetLocationCopyWithImpl<$Res>
-    extends _$PackAssetLocationCopyWithImpl<$Res, _$_PackAssetLocation>
-    implements _$$_PackAssetLocationCopyWith<$Res> {
-  __$$_PackAssetLocationCopyWithImpl(
-      _$_PackAssetLocation _value, $Res Function(_$_PackAssetLocation) _then)
+class __$$PackAssetLocationImplCopyWithImpl<$Res>
+    extends _$PackAssetLocationCopyWithImpl<$Res, _$PackAssetLocationImpl>
+    implements _$$PackAssetLocationImplCopyWith<$Res> {
+  __$$PackAssetLocationImplCopyWithImpl(_$PackAssetLocationImpl _value,
+      $Res Function(_$PackAssetLocationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1314,7 +1316,7 @@ class __$$_PackAssetLocationCopyWithImpl<$Res>
     Object? pack = null,
     Object? name = null,
   }) {
-    return _then(_$_PackAssetLocation(
+    return _then(_$PackAssetLocationImpl(
       null == pack
           ? _value.pack
           : pack // ignore: cast_nullable_to_non_nullable
@@ -1329,11 +1331,11 @@ class __$$_PackAssetLocationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PackAssetLocation extends _PackAssetLocation {
-  const _$_PackAssetLocation([this.pack = '', this.name = '']) : super._();
+class _$PackAssetLocationImpl extends _PackAssetLocation {
+  const _$PackAssetLocationImpl([this.pack = '', this.name = '']) : super._();
 
-  factory _$_PackAssetLocation.fromJson(Map<String, dynamic> json) =>
-      _$$_PackAssetLocationFromJson(json);
+  factory _$PackAssetLocationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PackAssetLocationImplFromJson(json);
 
   @override
   @JsonKey()
@@ -1351,7 +1353,7 @@ class _$_PackAssetLocation extends _PackAssetLocation {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PackAssetLocation &&
+            other is _$PackAssetLocationImpl &&
             (identical(other.pack, pack) || other.pack == pack) &&
             (identical(other.name, name) || other.name == name));
   }
@@ -1363,13 +1365,13 @@ class _$_PackAssetLocation extends _PackAssetLocation {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PackAssetLocationCopyWith<_$_PackAssetLocation> get copyWith =>
-      __$$_PackAssetLocationCopyWithImpl<_$_PackAssetLocation>(
+  _$$PackAssetLocationImplCopyWith<_$PackAssetLocationImpl> get copyWith =>
+      __$$PackAssetLocationImplCopyWithImpl<_$PackAssetLocationImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PackAssetLocationToJson(
+    return _$$PackAssetLocationImplToJson(
       this,
     );
   }
@@ -1377,11 +1379,11 @@ class _$_PackAssetLocation extends _PackAssetLocation {
 
 abstract class _PackAssetLocation extends PackAssetLocation {
   const factory _PackAssetLocation([final String pack, final String name]) =
-      _$_PackAssetLocation;
+      _$PackAssetLocationImpl;
   const _PackAssetLocation._() : super._();
 
   factory _PackAssetLocation.fromJson(Map<String, dynamic> json) =
-      _$_PackAssetLocation.fromJson;
+      _$PackAssetLocationImpl.fromJson;
 
   @override
   String get pack;
@@ -1389,6 +1391,6 @@ abstract class _PackAssetLocation extends PackAssetLocation {
   String get name;
   @override
   @JsonKey(ignore: true)
-  _$$_PackAssetLocationCopyWith<_$_PackAssetLocation> get copyWith =>
+  _$$PackAssetLocationImplCopyWith<_$PackAssetLocationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

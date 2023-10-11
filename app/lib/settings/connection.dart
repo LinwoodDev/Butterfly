@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_leap/material_leap.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ConnectionSettingsPage extends StatefulWidget {
@@ -51,19 +52,13 @@ class _ConnectionSettingsPageState extends State<ConnectionSettingsPage>
               controller: _tabController,
               onTap: (_) => setState(() {}),
               tabs: [
-                Tab(
-                  child: Row(children: [
-                    const PhosphorIcon(PhosphorIconsLight.gear),
-                    const SizedBox(width: 8),
-                    Text(AppLocalizations.of(context).general),
-                  ]),
+                HorizontalTab(
+                  icon: const PhosphorIcon(PhosphorIconsLight.gear),
+                  label: Text(AppLocalizations.of(context).general),
                 ),
-                Tab(
-                  child: Row(children: [
-                    const PhosphorIcon(PhosphorIconsLight.files),
-                    const SizedBox(width: 8),
-                    Text(AppLocalizations.of(context).caches),
-                  ]),
+                HorizontalTab(
+                  icon: const PhosphorIcon(PhosphorIconsLight.files),
+                  label: Text(AppLocalizations.of(context).caches),
                 ),
               ],
               isScrollable: true,

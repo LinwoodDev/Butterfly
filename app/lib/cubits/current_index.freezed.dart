@@ -235,11 +235,11 @@ class _$CurrentIndexCopyWithImpl<$Res, $Val extends CurrentIndex>
 }
 
 /// @nodoc
-abstract class _$$_CurrentIndexCopyWith<$Res>
+abstract class _$$CurrentIndexImplCopyWith<$Res>
     implements $CurrentIndexCopyWith<$Res> {
-  factory _$$_CurrentIndexCopyWith(
-          _$_CurrentIndex value, $Res Function(_$_CurrentIndex) then) =
-      __$$_CurrentIndexCopyWithImpl<$Res>;
+  factory _$$CurrentIndexImplCopyWith(
+          _$CurrentIndexImpl value, $Res Function(_$CurrentIndexImpl) then) =
+      __$$CurrentIndexImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -274,11 +274,11 @@ abstract class _$$_CurrentIndexCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CurrentIndexCopyWithImpl<$Res>
-    extends _$CurrentIndexCopyWithImpl<$Res, _$_CurrentIndex>
-    implements _$$_CurrentIndexCopyWith<$Res> {
-  __$$_CurrentIndexCopyWithImpl(
-      _$_CurrentIndex _value, $Res Function(_$_CurrentIndex) _then)
+class __$$CurrentIndexImplCopyWithImpl<$Res>
+    extends _$CurrentIndexCopyWithImpl<$Res, _$CurrentIndexImpl>
+    implements _$$CurrentIndexImplCopyWith<$Res> {
+  __$$CurrentIndexImplCopyWithImpl(
+      _$CurrentIndexImpl _value, $Res Function(_$CurrentIndexImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -308,7 +308,7 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
     Object? viewOption = null,
     Object? hideUi = null,
   }) {
-    return _then(_$_CurrentIndex(
+    return _then(_$CurrentIndexImpl(
       freezed == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -407,8 +407,8 @@ class __$$_CurrentIndexCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_CurrentIndex extends _CurrentIndex {
-  const _$_CurrentIndex(this.index, this.handler, this.cameraViewport,
+class _$CurrentIndexImpl extends _CurrentIndex {
+  const _$CurrentIndexImpl(this.index, this.handler, this.cameraViewport,
       this.settingsCubit, this.transformCubit,
       {this.temporaryHandler,
       final List<Renderer> foregrounds = const [],
@@ -536,8 +536,8 @@ class _$_CurrentIndex extends _CurrentIndex {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CurrentIndexCopyWith<_$_CurrentIndex> get copyWith =>
-      __$$_CurrentIndexCopyWithImpl<_$_CurrentIndex>(this, _$identity);
+  _$$CurrentIndexImplCopyWith<_$CurrentIndexImpl> get copyWith =>
+      __$$CurrentIndexImplCopyWithImpl<_$CurrentIndexImpl>(this, _$identity);
 }
 
 abstract class _CurrentIndex extends CurrentIndex {
@@ -564,7 +564,7 @@ abstract class _CurrentIndex extends CurrentIndex {
       final Map<Renderer, RendererState> rendererStates,
       final Map<Renderer, RendererState>? temporaryRendererStates,
       final ViewOption viewOption,
-      final HideState hideUi}) = _$_CurrentIndex;
+      final HideState hideUi}) = _$CurrentIndexImpl;
   const _CurrentIndex._() : super._();
 
   @override
@@ -615,6 +615,6 @@ abstract class _CurrentIndex extends CurrentIndex {
   HideState get hideUi;
   @override
   @JsonKey(ignore: true)
-  _$$_CurrentIndexCopyWith<_$_CurrentIndex> get copyWith =>
+  _$$CurrentIndexImplCopyWith<_$CurrentIndexImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

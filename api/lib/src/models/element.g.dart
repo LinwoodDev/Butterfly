@@ -6,53 +6,56 @@ part of 'element.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ElementConstraint _$$_ElementConstraintFromJson(Map json) =>
-    _$_ElementConstraint(
+_$ElementConstraintImpl _$$ElementConstraintImplFromJson(Map json) =>
+    _$ElementConstraintImpl(
       size: (json['size'] as num?)?.toDouble() ?? 0,
       length: (json['length'] as num?)?.toDouble() ?? 0,
       includeArea: json['includeArea'] as bool? ?? true,
     );
 
-Map<String, dynamic> _$$_ElementConstraintToJson(
-        _$_ElementConstraint instance) =>
+Map<String, dynamic> _$$ElementConstraintImplToJson(
+        _$ElementConstraintImpl instance) =>
     <String, dynamic>{
       'size': instance.size,
       'length': instance.length,
       'includeArea': instance.includeArea,
     };
 
-_$ScaledElementConstraints _$$ScaledElementConstraintsFromJson(Map json) =>
-    _$ScaledElementConstraints(
+_$ScaledElementConstraintsImpl _$$ScaledElementConstraintsImplFromJson(
+        Map json) =>
+    _$ScaledElementConstraintsImpl(
       scaleX: (json['scaleX'] as num?)?.toDouble() ?? 1,
       scaleY: (json['scaleY'] as num?)?.toDouble() ?? 1,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$ScaledElementConstraintsToJson(
-        _$ScaledElementConstraints instance) =>
+Map<String, dynamic> _$$ScaledElementConstraintsImplToJson(
+        _$ScaledElementConstraintsImpl instance) =>
     <String, dynamic>{
       'scaleX': instance.scaleX,
       'scaleY': instance.scaleY,
       'type': instance.$type,
     };
 
-_$FixedElementConstraints _$$FixedElementConstraintsFromJson(Map json) =>
-    _$FixedElementConstraints(
+_$FixedElementConstraintsImpl _$$FixedElementConstraintsImplFromJson(
+        Map json) =>
+    _$FixedElementConstraintsImpl(
       (json['height'] as num).toDouble(),
       (json['width'] as num).toDouble(),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$FixedElementConstraintsToJson(
-        _$FixedElementConstraints instance) =>
+Map<String, dynamic> _$$FixedElementConstraintsImplToJson(
+        _$FixedElementConstraintsImpl instance) =>
     <String, dynamic>{
       'height': instance.height,
       'width': instance.width,
       'type': instance.$type,
     };
 
-_$DynamicElementConstraints _$$DynamicElementConstraintsFromJson(Map json) =>
-    _$DynamicElementConstraints(
+_$DynamicElementConstraintsImpl _$$DynamicElementConstraintsImplFromJson(
+        Map json) =>
+    _$DynamicElementConstraintsImpl(
       height: (json['height'] as num?)?.toDouble() ?? 0,
       width: (json['width'] as num?)?.toDouble() ?? 0,
       aspectRatio: (json['aspectRatio'] as num?)?.toDouble() ?? 0,
@@ -60,8 +63,8 @@ _$DynamicElementConstraints _$$DynamicElementConstraintsFromJson(Map json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$DynamicElementConstraintsToJson(
-        _$DynamicElementConstraints instance) =>
+Map<String, dynamic> _$$DynamicElementConstraintsImplToJson(
+        _$DynamicElementConstraintsImpl instance) =>
     <String, dynamic>{
       'height': instance.height,
       'width': instance.width,
@@ -70,7 +73,7 @@ Map<String, dynamic> _$$DynamicElementConstraintsToJson(
       'type': instance.$type,
     };
 
-_$PenElement _$$PenElementFromJson(Map json) => _$PenElement(
+_$PenElementImpl _$$PenElementImplFromJson(Map json) => _$PenElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
       zoom: (json['zoom'] as num?)?.toDouble(),
@@ -86,7 +89,7 @@ _$PenElement _$$PenElementFromJson(Map json) => _$PenElement(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$PenElementToJson(_$PenElement instance) =>
+Map<String, dynamic> _$$PenElementImplToJson(_$PenElementImpl instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,
@@ -96,7 +99,7 @@ Map<String, dynamic> _$$PenElementToJson(_$PenElement instance) =>
       'type': instance.$type,
     };
 
-_$TextElement _$$TextElementFromJson(Map json) => _$TextElement(
+_$TextElementImpl _$$TextElementImplFromJson(Map json) => _$TextElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
       position: json['position'] == null
@@ -116,7 +119,7 @@ _$TextElement _$$TextElementFromJson(Map json) => _$TextElement(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$TextElementToJson(_$TextElement instance) =>
+Map<String, dynamic> _$$TextElementImplToJson(_$TextElementImpl instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,
@@ -129,7 +132,8 @@ Map<String, dynamic> _$$TextElementToJson(_$TextElement instance) =>
       'type': instance.$type,
     };
 
-_$MarkdownElement _$$MarkdownElementFromJson(Map json) => _$MarkdownElement(
+_$MarkdownElementImpl _$$MarkdownElementImplFromJson(Map json) =>
+    _$MarkdownElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
       position: json['position'] == null
@@ -153,7 +157,8 @@ _$MarkdownElement _$$MarkdownElementFromJson(Map json) => _$MarkdownElement(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$MarkdownElementToJson(_$MarkdownElement instance) =>
+Map<String, dynamic> _$$MarkdownElementImplToJson(
+        _$MarkdownElementImpl instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,
@@ -167,7 +172,7 @@ Map<String, dynamic> _$$MarkdownElementToJson(_$MarkdownElement instance) =>
       'type': instance.$type,
     };
 
-_$ImageElement _$$ImageElementFromJson(Map json) => _$ImageElement(
+_$ImageElementImpl _$$ImageElementImplFromJson(Map json) => _$ImageElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
       position: json['position'] == null
@@ -183,7 +188,7 @@ _$ImageElement _$$ImageElementFromJson(Map json) => _$ImageElement(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$ImageElementToJson(_$ImageElement instance) =>
+Map<String, dynamic> _$$ImageElementImplToJson(_$ImageElementImpl instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,
@@ -195,7 +200,7 @@ Map<String, dynamic> _$$ImageElementToJson(_$ImageElement instance) =>
       'type': instance.$type,
     };
 
-_$SvgElement _$$SvgElementFromJson(Map json) => _$SvgElement(
+_$SvgElementImpl _$$SvgElementImplFromJson(Map json) => _$SvgElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
       position: json['position'] == null
@@ -211,7 +216,7 @@ _$SvgElement _$$SvgElementFromJson(Map json) => _$SvgElement(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SvgElementToJson(_$SvgElement instance) =>
+Map<String, dynamic> _$$SvgElementImplToJson(_$SvgElementImpl instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,
@@ -223,7 +228,7 @@ Map<String, dynamic> _$$SvgElementToJson(_$SvgElement instance) =>
       'type': instance.$type,
     };
 
-_$ShapeElement _$$ShapeElementFromJson(Map json) => _$ShapeElement(
+_$ShapeElementImpl _$$ShapeElementImplFromJson(Map json) => _$ShapeElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
       firstPosition: json['firstPosition'] == null
@@ -241,7 +246,7 @@ _$ShapeElement _$$ShapeElementFromJson(Map json) => _$ShapeElement(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$ShapeElementToJson(_$ShapeElement instance) =>
+Map<String, dynamic> _$$ShapeElementImplToJson(_$ShapeElementImpl instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,
@@ -253,7 +258,8 @@ Map<String, dynamic> _$$ShapeElementToJson(_$ShapeElement instance) =>
       'type': instance.$type,
     };
 
-_$TextureElement _$$TextureElementFromJson(Map json) => _$TextureElement(
+_$TextureElementImpl _$$TextureElementImplFromJson(Map json) =>
+    _$TextureElementImpl(
       rotation: (json['rotation'] as num?)?.toDouble() ?? 0,
       layer: json['layer'] as String? ?? '',
       texture: json['texture'] == null
@@ -271,7 +277,8 @@ _$TextureElement _$$TextureElementFromJson(Map json) => _$TextureElement(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$TextureElementToJson(_$TextureElement instance) =>
+Map<String, dynamic> _$$TextureElementImplToJson(
+        _$TextureElementImpl instance) =>
     <String, dynamic>{
       'rotation': instance.rotation,
       'layer': instance.layer,

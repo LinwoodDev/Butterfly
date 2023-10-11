@@ -6,7 +6,8 @@ part of 'settings.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DavRemoteStorage _$$DavRemoteStorageFromJson(Map json) => _$DavRemoteStorage(
+_$DavRemoteStorageImpl _$$DavRemoteStorageImplFromJson(Map json) =>
+    _$DavRemoteStorageImpl(
       username: json['username'] as String,
       url: json['url'] as String,
       path: json['path'] as String,
@@ -27,7 +28,8 @@ _$DavRemoteStorage _$$DavRemoteStorageFromJson(Map json) => _$DavRemoteStorage(
           : DateTime.parse(json['lastSynced'] as String),
     );
 
-Map<String, dynamic> _$$DavRemoteStorageToJson(_$DavRemoteStorage instance) =>
+Map<String, dynamic> _$$DavRemoteStorageImplToJson(
+        _$DavRemoteStorageImpl instance) =>
     <String, dynamic>{
       'username': instance.username,
       'url': instance.url,
@@ -41,8 +43,8 @@ Map<String, dynamic> _$$DavRemoteStorageToJson(_$DavRemoteStorage instance) =>
       'lastSynced': instance.lastSynced?.toIso8601String(),
     };
 
-_$_InputConfiguration _$$_InputConfigurationFromJson(Map json) =>
-    _$_InputConfiguration(
+_$InputConfigurationImpl _$$InputConfigurationImplFromJson(Map json) =>
+    _$InputConfigurationImpl(
       leftMouse: json['leftMouse'] as int?,
       middleMouse: json['middleMouse'] as int? ?? -1,
       rightMouse: json['rightMouse'] as int? ?? 1,
@@ -52,8 +54,8 @@ _$_InputConfiguration _$$_InputConfigurationFromJson(Map json) =>
       touch: json['touch'] as int?,
     );
 
-Map<String, dynamic> _$$_InputConfigurationToJson(
-        _$_InputConfiguration instance) =>
+Map<String, dynamic> _$$InputConfigurationImplToJson(
+        _$InputConfigurationImpl instance) =>
     <String, dynamic>{
       'leftMouse': instance.leftMouse,
       'middleMouse': instance.middleMouse,

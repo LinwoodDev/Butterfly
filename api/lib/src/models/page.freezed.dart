@@ -91,11 +91,11 @@ class _$DocumentPageCopyWithImpl<$Res, $Val extends DocumentPage>
 }
 
 /// @nodoc
-abstract class _$$_DocumentPageCopyWith<$Res>
+abstract class _$$DocumentPageImplCopyWith<$Res>
     implements $DocumentPageCopyWith<$Res> {
-  factory _$$_DocumentPageCopyWith(
-          _$_DocumentPage value, $Res Function(_$_DocumentPage) then) =
-      __$$_DocumentPageCopyWithImpl<$Res>;
+  factory _$$DocumentPageImplCopyWith(
+          _$DocumentPageImpl value, $Res Function(_$DocumentPageImpl) then) =
+      __$$DocumentPageImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -107,11 +107,11 @@ abstract class _$$_DocumentPageCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_DocumentPageCopyWithImpl<$Res>
-    extends _$DocumentPageCopyWithImpl<$Res, _$_DocumentPage>
-    implements _$$_DocumentPageCopyWith<$Res> {
-  __$$_DocumentPageCopyWithImpl(
-      _$_DocumentPage _value, $Res Function(_$_DocumentPage) _then)
+class __$$DocumentPageImplCopyWithImpl<$Res>
+    extends _$DocumentPageCopyWithImpl<$Res, _$DocumentPageImpl>
+    implements _$$DocumentPageImplCopyWith<$Res> {
+  __$$DocumentPageImplCopyWithImpl(
+      _$DocumentPageImpl _value, $Res Function(_$DocumentPageImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -123,7 +123,7 @@ class __$$_DocumentPageCopyWithImpl<$Res>
     Object? waypoints = null,
     Object? areas = null,
   }) {
-    return _then(_$_DocumentPage(
+    return _then(_$DocumentPageImpl(
       animations: null == animations
           ? _value._animations
           : animations // ignore: cast_nullable_to_non_nullable
@@ -150,8 +150,8 @@ class __$$_DocumentPageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DocumentPage extends _DocumentPage {
-  const _$_DocumentPage(
+class _$DocumentPageImpl extends _DocumentPage {
+  const _$DocumentPageImpl(
       {final List<AnimationTrack> animations = const [],
       final List<PadElement> content = const [],
       final List<Background> backgrounds = const [],
@@ -164,8 +164,8 @@ class _$_DocumentPage extends _DocumentPage {
         _areas = areas,
         super._();
 
-  factory _$_DocumentPage.fromJson(Map<String, dynamic> json) =>
-      _$$_DocumentPageFromJson(json);
+  factory _$DocumentPageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DocumentPageImplFromJson(json);
 
   final List<AnimationTrack> _animations;
   @override
@@ -221,7 +221,7 @@ class _$_DocumentPage extends _DocumentPage {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DocumentPage &&
+            other is _$DocumentPageImpl &&
             const DeepCollectionEquality()
                 .equals(other._animations, _animations) &&
             const DeepCollectionEquality().equals(other._content, _content) &&
@@ -245,12 +245,12 @@ class _$_DocumentPage extends _DocumentPage {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DocumentPageCopyWith<_$_DocumentPage> get copyWith =>
-      __$$_DocumentPageCopyWithImpl<_$_DocumentPage>(this, _$identity);
+  _$$DocumentPageImplCopyWith<_$DocumentPageImpl> get copyWith =>
+      __$$DocumentPageImplCopyWithImpl<_$DocumentPageImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DocumentPageToJson(
+    return _$$DocumentPageImplToJson(
       this,
     );
   }
@@ -262,11 +262,11 @@ abstract class _DocumentPage extends DocumentPage {
       final List<PadElement> content,
       final List<Background> backgrounds,
       final List<Waypoint> waypoints,
-      final List<Area> areas}) = _$_DocumentPage;
+      final List<Area> areas}) = _$DocumentPageImpl;
   const _DocumentPage._() : super._();
 
   factory _DocumentPage.fromJson(Map<String, dynamic> json) =
-      _$_DocumentPage.fromJson;
+      _$DocumentPageImpl.fromJson;
 
   @override
   List<AnimationTrack> get animations;
@@ -280,6 +280,6 @@ abstract class _DocumentPage extends DocumentPage {
   List<Area> get areas;
   @override
   @JsonKey(ignore: true)
-  _$$_DocumentPageCopyWith<_$_DocumentPage> get copyWith =>
+  _$$DocumentPageImplCopyWith<_$DocumentPageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

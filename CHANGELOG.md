@@ -2,6 +2,22 @@
 
 <!--ENTER CHANGELOG HERE-->
 
+## 2.0.0-beta.9 (2023-10-06)
+
+* Add classic theme to theme selection
+* Add indication for opened menu on top left corner menu
+* Change secondary color of classic theme to red
+* Use elements changed event for transformation
+* Use center tab alignment
+* Make spacer tool realtime
+* Fix markdown newlines ([#501](https://github.com/LinwoodDev/Butterfly/issues/501))
+* Fix home page header on low density
+* Update to flutter master (Fix windows issues)
+* Unify tabs
+* Remove content copy on page creation
+
+View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.9
+
 ## 2.0.0-beta.8 (2023-09-28)
 
 * Bump file version to 10

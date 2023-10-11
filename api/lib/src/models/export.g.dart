@@ -6,7 +6,7 @@ part of 'export.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ExportPreset _$$_ExportPresetFromJson(Map json) => _$_ExportPreset(
+_$ExportPresetImpl _$$ExportPresetImplFromJson(Map json) => _$ExportPresetImpl(
       name: json['name'] as String? ?? '',
       areas: (json['areas'] as List<dynamic>?)
               ?.map((e) =>
@@ -15,13 +15,13 @@ _$_ExportPreset _$$_ExportPresetFromJson(Map json) => _$_ExportPreset(
           const [],
     );
 
-Map<String, dynamic> _$$_ExportPresetToJson(_$_ExportPreset instance) =>
+Map<String, dynamic> _$$ExportPresetImplToJson(_$ExportPresetImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'areas': instance.areas.map((e) => e.toJson()).toList(),
     };
 
-_$_AreaPreset _$$_AreaPresetFromJson(Map json) => _$_AreaPreset(
+_$AreaPresetImpl _$$AreaPresetImplFromJson(Map json) => _$AreaPresetImpl(
       page: json['page'] as String? ?? 'default',
       name: json['name'] as String? ?? '',
       quality: (json['quality'] as num?)?.toDouble() ?? 1,
@@ -30,7 +30,7 @@ _$_AreaPreset _$$_AreaPresetFromJson(Map json) => _$_AreaPreset(
           : Area.fromJson(Map<String, dynamic>.from(json['area'] as Map)),
     );
 
-Map<String, dynamic> _$$_AreaPresetToJson(_$_AreaPreset instance) =>
+Map<String, dynamic> _$$AreaPresetImplToJson(_$AreaPresetImpl instance) =>
     <String, dynamic>{
       'page': instance.page,
       'name': instance.name,

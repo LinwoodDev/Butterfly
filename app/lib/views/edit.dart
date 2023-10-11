@@ -388,7 +388,10 @@ class _EditToolbarState extends State<EditToolbar> {
                   style: const MenuStyle(
                     alignment: Alignment.bottomRight,
                   ),
-                  builder: defaultMenuButton(PhosphorIconsLight.lockKey),
+                  builder: defaultMenuButton(
+                    icon: const PhosphorIcon(PhosphorIconsLight.lockKey),
+                    tooltip: AppLocalizations.of(context).lock,
+                  ),
                 );
               },
             ),

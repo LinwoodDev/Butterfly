@@ -43,6 +43,11 @@ sealed class AssetLocation with _$AssetLocation {
       AssetFileTypeHelper.fromFileExtension(fileExtension);
 
   String get fileName => path.split('/').last;
+  String get parent {
+    final lastSlash = path.lastIndexOf('/');
+    if (lastSlash < 0) return '';
+    return path.substring(0, lastSlash);
+  }
 
   bool isSame(AssetLocation other) =>
       pathWithLeadingSlash == other.pathWithLeadingSlash &&

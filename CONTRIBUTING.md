@@ -27,14 +27,14 @@ Read more about it [here](https://docs.butterfly.linwood.dev/nightly).
 Documentation is important for users to understand the program and its features.
 The documentation is written in markdown, a simple markup language. It can be found in the `docs` folder.
 
-To start, please install yarn (<https://yarnpkg.com/getting-started/install>).
+To start, please install pnpm (<https://pnpm.io/installation>).
 
 Get started by running:
 
 ```bash
 cd docs
-yarn install
-yarn start
+pnpm install
+pnpm start
 ```
 
 All stable documentation can be found in the `versioned_docs` folder.

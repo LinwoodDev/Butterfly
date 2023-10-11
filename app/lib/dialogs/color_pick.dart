@@ -192,6 +192,8 @@ class _ColorPalettePickerDialogState extends State<ColorPalettePickerDialog> {
                                             _selected = result;
                                           });
                                         },
+                                        tooltip:
+                                            AppLocalizations.of(context).select,
                                         icon: const PhosphorIcon(
                                             PhosphorIconsLight.package),
                                       )

@@ -6,7 +6,7 @@ part of 'info.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DocumentInfo _$$_DocumentInfoFromJson(Map json) => _$_DocumentInfo(
+_$DocumentInfoImpl _$$DocumentInfoImplFromJson(Map json) => _$DocumentInfoImpl(
       tools: (json['tools'] as List<dynamic>?)
               ?.map((e) => Tool.fromJson(Map<String, dynamic>.from(e as Map)))
               .toList() ??
@@ -21,7 +21,7 @@ _$_DocumentInfo _$$_DocumentInfoFromJson(Map json) => _$_DocumentInfo(
           : ViewOption.fromJson(Map<String, dynamic>.from(json['view'] as Map)),
     );
 
-Map<String, dynamic> _$$_DocumentInfoToJson(_$_DocumentInfo instance) =>
+Map<String, dynamic> _$$DocumentInfoImplToJson(_$DocumentInfoImpl instance) =>
     <String, dynamic>{
       'tools': instance.tools.map((e) => e.toJson()).toList(),
       'exportPresets': instance.exportPresets.map((e) => e.toJson()).toList(),

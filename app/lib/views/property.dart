@@ -141,19 +141,14 @@ class _PropertyViewState extends State<PropertyView>
                                     Text(selection.getLocalizedName(context)),
                                 leading: MenuAnchor(
                                   controller: controller,
-                                  builder: (context, controller, child) =>
-                                      IconButton(
+                                  builder: defaultMenuButton(
                                     icon: PhosphorIcon(
-                                      selection!.icon(multi
+                                      selection.icon(multi
                                           ? PhosphorIconsStyle.fill
                                           : PhosphorIconsStyle.light),
                                       color: Theme.of(context).iconTheme.color,
                                     ),
-                                    onPressed: menuChildren.isEmpty
-                                        ? null
-                                        : () => controller.isOpen
-                                            ? controller.close()
-                                            : controller.open(),
+                                    tooltip: AppLocalizations.of(context).icon,
                                   ),
                                   menuChildren: menuChildren,
                                 ),
@@ -162,6 +157,8 @@ class _PropertyViewState extends State<PropertyView>
                                     IconButton(
                                         icon: const PhosphorIcon(
                                             PhosphorIconsLight.trash),
+                                        tooltip:
+                                            AppLocalizations.of(context).delete,
                                         onPressed: () {
                                           selection?.onDelete(context);
                                           context

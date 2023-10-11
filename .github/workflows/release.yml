@@ -28,7 +28,7 @@ jobs:
       - uses: Gustl22/flutter-action@2f0634408872bc0e035f45a38c84c012441d000b
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "any"
+          channel: 'master'
       - name: Setup git
         id: setup
         run: |
@@ -77,7 +77,7 @@ jobs:
       - uses: Gustl22/flutter-action@2f0634408872bc0e035f45a38c84c012441d000b
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "any"
+          channel: 'master'
       - name: Setup git
         id: setup
         shell: bash
@@ -144,7 +144,7 @@ jobs:
       - uses: Gustl22/flutter-action@2f0634408872bc0e035f45a38c84c012441d000b
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "any"
+          channel: 'master'
       - name: Setup git
         id: setup
         run: |
@@ -218,7 +218,7 @@ jobs:
       - uses: Gustl22/flutter-action@2f0634408872bc0e035f45a38c84c012441d000b
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "any"
+          channel: 'master'
       - name: Bump version
         run: |
           git fetch

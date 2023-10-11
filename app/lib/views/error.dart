@@ -44,6 +44,7 @@ class ErrorPage extends StatelessWidget {
                           ),
                           IconButton(
                             icon: const PhosphorIcon(PhosphorIconsLight.copy),
+                            tooltip: AppLocalizations.of(context).copy,
                             onPressed: () {
                               Clipboard.setData(
                                 ClipboardData(text: message),
@@ -65,6 +66,7 @@ class ErrorPage extends StatelessWidget {
                           ),
                           IconButton(
                             icon: const PhosphorIcon(PhosphorIconsLight.copy),
+                            tooltip: AppLocalizations.of(context).copy,
                             onPressed: () {
                               Clipboard.setData(
                                 ClipboardData(text: stackTrace.toString()),

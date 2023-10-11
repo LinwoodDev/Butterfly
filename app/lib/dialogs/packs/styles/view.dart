@@ -59,6 +59,7 @@ class StylesPackView extends StatelessWidget {
                           },
                           trailing: IconButton(
                             icon: const PhosphorIcon(PhosphorIconsLight.trash),
+                            tooltip: AppLocalizations.of(context).delete,
                             onPressed: () async {
                               onChanged(value.removeStyle(e));
                             },

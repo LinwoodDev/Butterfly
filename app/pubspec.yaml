@@ -13,7 +13,7 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.0.0-beta.9+73
+version: 2.0.0-beta.10+74
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -29,7 +29,7 @@ dependencies:
   flutter_bloc: ^8.1.3
   intl: ^0.18.0
   path_provider: ^2.1.1
-  shared_preferences: ^2.2.1
+  shared_preferences: ^2.2.2
   url_launcher: ^6.1.14
   file_picker: ^5.5.0
   phosphor_flutter:
@@ -37,16 +37,16 @@ dependencies:
       url: https://github.com/CodeDoctorDE/phosphor-flutter
       ref: f370dd2c25d3ea51ffb8f1c7c183bc9f33889c82
   replay_bloc: ^0.2.4
-  share_plus: ^7.1.0
-  package_info_plus: ^4.1.0
+  share_plus: ^8.0.0
+  package_info_plus: ^5.0.0
   idb_shim: ^2.3.1
-  go_router: ^11.1.2
+  go_router: ^11.1.3
   xml: ^6.4.2
   collection: ^1.18.0
   bloc_concurrency: ^0.2.2
   camera: ^0.10.5+5
   camera_windows: ^0.2.1+8
-  window_manager: ^0.3.6
+  window_manager: ^0.3.7
   flex_color_scheme: ^7.3.1
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
@@ -58,9 +58,9 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   equatable: ^2.0.5
   rxdart: ^0.27.7
-  archive: ^3.4.4
+  archive: ^3.4.6
   animations: ^2.0.8
-  connectivity_plus: ^4.0.2
+  connectivity_plus: ^5.0.0
   cross_file: ^0.3.3+5
   args: ^2.4.2
   perfect_freehand:
@@ -70,7 +70,7 @@ dependencies:
   material_leap:
     git:
       url: https://github.com/LinwoodDev/dart_pkgs.git
-      ref: e588c68a2e5a2f197a403005324d0ebd3ca1873a
+      ref: b60256a90e83bacb76066c341dd44c338e759227
       path: packages/material_leap
   lw_sysinfo:
     git:
@@ -89,7 +89,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  freezed: ^2.4.3
+  freezed: ^2.4.5
   build_runner: ^2.4.6
   json_serializable: ^6.7.1
   espresso: ^0.3.0+6

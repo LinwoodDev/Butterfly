@@ -105,7 +105,9 @@ class _EditableListTileState extends State<EditableListTile> {
       ),
       trailing: widget.actions != null
           ? MenuAnchor(
-              builder: defaultMenuButton(),
+              builder: defaultMenuButton(
+                tooltip: AppLocalizations.of(context).actions,
+              ),
               menuChildren: [
                 MenuItemButton(
                   leadingIcon: const PhosphorIcon(PhosphorIconsLight.textT),

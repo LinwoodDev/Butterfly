@@ -34,6 +34,7 @@ class FilesView extends StatefulWidget {
   final RemoteStorage? remote;
   final ValueChanged<RemoteStorage?>? onRemoteChanged;
   final bool collapsed;
+  final bool isMobile;
 
   const FilesView({
     super.key,
@@ -41,6 +42,7 @@ class FilesView extends StatefulWidget {
     this.remote,
     this.onRemoteChanged,
     this.collapsed = false,
+    this.isMobile = false,
   });
 
   @override
@@ -434,6 +436,7 @@ class _FilesViewState extends State<FilesView> {
                           widget.selectedAsset?.isSame(e.location) ?? false;
                       return _FileEntityItem(
                         entity: e,
+                        isMobile: widget.isMobile,
                         selected: selected,
                         collapsed: widget.collapsed,
                         onTap: () => _onFileTap(e),
@@ -459,6 +462,7 @@ class _FilesViewState extends State<FilesView> {
                     onTap: () => _onFileTap(entity),
                     onReload: _reloadFileSystem,
                     gridView: false,
+                    isMobile: widget.isMobile,
                   );
                 },
               );

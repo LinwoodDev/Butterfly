@@ -17,7 +17,9 @@ class LayerDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     if (popupMenu) {
       return MenuAnchor(
-          builder: defaultMenuButton(),
+          builder: defaultMenuButton(
+            tooltip: AppLocalizations.of(context).actions,
+          ),
           menuChildren: _buildMenuItems(context).toList());
     }
     return AlertDialog(

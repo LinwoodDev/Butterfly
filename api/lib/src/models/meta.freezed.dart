@@ -121,11 +121,11 @@ class _$FileMetadataCopyWithImpl<$Res, $Val extends FileMetadata>
 }
 
 /// @nodoc
-abstract class _$$_FileMetadataCopyWith<$Res>
+abstract class _$$FileMetadataImplCopyWith<$Res>
     implements $FileMetadataCopyWith<$Res> {
-  factory _$$_FileMetadataCopyWith(
-          _$_FileMetadata value, $Res Function(_$_FileMetadata) then) =
-      __$$_FileMetadataCopyWithImpl<$Res>;
+  factory _$$FileMetadataImplCopyWith(
+          _$FileMetadataImpl value, $Res Function(_$FileMetadataImpl) then) =
+      __$$FileMetadataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -141,11 +141,11 @@ abstract class _$$_FileMetadataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_FileMetadataCopyWithImpl<$Res>
-    extends _$FileMetadataCopyWithImpl<$Res, _$_FileMetadata>
-    implements _$$_FileMetadataCopyWith<$Res> {
-  __$$_FileMetadataCopyWithImpl(
-      _$_FileMetadata _value, $Res Function(_$_FileMetadata) _then)
+class __$$FileMetadataImplCopyWithImpl<$Res>
+    extends _$FileMetadataCopyWithImpl<$Res, _$FileMetadataImpl>
+    implements _$$FileMetadataImplCopyWith<$Res> {
+  __$$FileMetadataImplCopyWithImpl(
+      _$FileMetadataImpl _value, $Res Function(_$FileMetadataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -161,7 +161,7 @@ class __$$_FileMetadataCopyWithImpl<$Res>
     Object? directory = null,
     Object? version = null,
   }) {
-    return _then(_$_FileMetadata(
+    return _then(_$FileMetadataImpl(
       fileVersion: freezed == fileVersion
           ? _value.fileVersion
           : fileVersion // ignore: cast_nullable_to_non_nullable
@@ -204,8 +204,8 @@ class __$$_FileMetadataCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_FileMetadata implements _FileMetadata {
-  const _$_FileMetadata(
+class _$FileMetadataImpl implements _FileMetadata {
+  const _$FileMetadataImpl(
       {this.fileVersion,
       required this.type,
       @DateTimeJsonConverter() this.createdAt,
@@ -216,8 +216,8 @@ class _$_FileMetadata implements _FileMetadata {
       this.directory = '',
       this.version = ''});
 
-  factory _$_FileMetadata.fromJson(Map<String, dynamic> json) =>
-      _$$_FileMetadataFromJson(json);
+  factory _$FileMetadataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FileMetadataImplFromJson(json);
 
   @override
   final int? fileVersion;
@@ -254,7 +254,7 @@ class _$_FileMetadata implements _FileMetadata {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FileMetadata &&
+            other is _$FileMetadataImpl &&
             (identical(other.fileVersion, fileVersion) ||
                 other.fileVersion == fileVersion) &&
             (identical(other.type, type) || other.type == type) &&
@@ -279,12 +279,12 @@ class _$_FileMetadata implements _FileMetadata {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FileMetadataCopyWith<_$_FileMetadata> get copyWith =>
-      __$$_FileMetadataCopyWithImpl<_$_FileMetadata>(this, _$identity);
+  _$$FileMetadataImplCopyWith<_$FileMetadataImpl> get copyWith =>
+      __$$FileMetadataImplCopyWithImpl<_$FileMetadataImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_FileMetadataToJson(
+    return _$$FileMetadataImplToJson(
       this,
     );
   }
@@ -300,10 +300,10 @@ abstract class _FileMetadata implements FileMetadata {
       final String description,
       final String author,
       final String directory,
-      final String version}) = _$_FileMetadata;
+      final String version}) = _$FileMetadataImpl;
 
   factory _FileMetadata.fromJson(Map<String, dynamic> json) =
-      _$_FileMetadata.fromJson;
+      _$FileMetadataImpl.fromJson;
 
   @override
   int? get fileVersion;
@@ -327,6 +327,6 @@ abstract class _FileMetadata implements FileMetadata {
   String get version;
   @override
   @JsonKey(ignore: true)
-  _$$_FileMetadataCopyWith<_$_FileMetadata> get copyWith =>
+  _$$FileMetadataImplCopyWith<_$FileMetadataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

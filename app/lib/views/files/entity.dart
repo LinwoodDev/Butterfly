@@ -4,12 +4,14 @@ class _FileEntityItem extends StatefulWidget {
   final AppDocumentEntity entity;
   final bool selected, collapsed, gridView;
   final VoidCallback onTap, onReload;
+  final bool isMobile;
 
   const _FileEntityItem({
     required this.entity,
     this.selected = false,
     this.collapsed = false,
     this.gridView = false,
+    required this.isMobile,
     required this.onTap,
     required this.onReload,
   });
@@ -52,21 +54,24 @@ class _FileEntityItemState extends State<_FileEntityItem> {
     void onEdit(bool value) => setState(() => _editable = value);
     void onDelete() {
       final colorScheme = Theme.of(context).colorScheme;
-
       showPopover(
-        backgroundColor: colorScheme.inverseSurface,
+        backgroundColor: colorScheme.surface,
         context: context,
+        direction:
+            widget.isMobile ? PopoverDirection.top : PopoverDirection.right,
+        radius: 16,
+        width: 180,
+        height: 130,
+        arrowHeight: 15,
+        arrowWidth: 20,
         bodyBuilder: (ctx) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 AppLocalizations.of(context).areYouSure,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: colorScheme.onInverseSurface,
-                    ),
               ),
               const SizedBox(height: 16),
               Row(
@@ -91,11 +96,6 @@ class _FileEntityItemState extends State<_FileEntityItem> {
             ],
           ),
         ),
-        direction: PopoverDirection.bottom,
-        width: 200,
-        height: 130,
-        arrowHeight: 15,
-        arrowWidth: 20,
       );
     }
 

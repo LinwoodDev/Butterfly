@@ -120,10 +120,11 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
 }
 
 /// @nodoc
-abstract class _$$PenPropertyCopyWith<$Res> implements $PropertyCopyWith<$Res> {
-  factory _$$PenPropertyCopyWith(
-          _$PenProperty value, $Res Function(_$PenProperty) then) =
-      __$$PenPropertyCopyWithImpl<$Res>;
+abstract class _$$PenPropertyImplCopyWith<$Res>
+    implements $PropertyCopyWith<$Res> {
+  factory _$$PenPropertyImplCopyWith(
+          _$PenPropertyImpl value, $Res Function(_$PenPropertyImpl) then) =
+      __$$PenPropertyImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -136,11 +137,11 @@ abstract class _$$PenPropertyCopyWith<$Res> implements $PropertyCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$PenPropertyCopyWithImpl<$Res>
-    extends _$PropertyCopyWithImpl<$Res, _$PenProperty>
-    implements _$$PenPropertyCopyWith<$Res> {
-  __$$PenPropertyCopyWithImpl(
-      _$PenProperty _value, $Res Function(_$PenProperty) _then)
+class __$$PenPropertyImplCopyWithImpl<$Res>
+    extends _$PropertyCopyWithImpl<$Res, _$PenPropertyImpl>
+    implements _$$PenPropertyImplCopyWith<$Res> {
+  __$$PenPropertyImplCopyWithImpl(
+      _$PenPropertyImpl _value, $Res Function(_$PenPropertyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -153,7 +154,7 @@ class __$$PenPropertyCopyWithImpl<$Res>
     Object? smoothing = null,
     Object? streamline = null,
   }) {
-    return _then(_$PenProperty(
+    return _then(_$PenPropertyImpl(
       strokeWidth: null == strokeWidth
           ? _value.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
@@ -184,8 +185,8 @@ class __$$PenPropertyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PenProperty implements PenProperty {
-  const _$PenProperty(
+class _$PenPropertyImpl implements PenProperty {
+  const _$PenPropertyImpl(
       {this.strokeWidth = 5,
       this.thinning = 0.4,
       this.color = kColorBlack,
@@ -195,8 +196,8 @@ class _$PenProperty implements PenProperty {
       final String? $type})
       : $type = $type ?? 'pen';
 
-  factory _$PenProperty.fromJson(Map<String, dynamic> json) =>
-      _$$PenPropertyFromJson(json);
+  factory _$PenPropertyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PenPropertyImplFromJson(json);
 
   @override
   @JsonKey()
@@ -229,7 +230,7 @@ class _$PenProperty implements PenProperty {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PenProperty &&
+            other is _$PenPropertyImpl &&
             (identical(other.strokeWidth, strokeWidth) ||
                 other.strokeWidth == strokeWidth) &&
             (identical(other.thinning, thinning) ||
@@ -250,8 +251,8 @@ class _$PenProperty implements PenProperty {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PenPropertyCopyWith<_$PenProperty> get copyWith =>
-      __$$PenPropertyCopyWithImpl<_$PenProperty>(this, _$identity);
+  _$$PenPropertyImplCopyWith<_$PenPropertyImpl> get copyWith =>
+      __$$PenPropertyImplCopyWithImpl<_$PenPropertyImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -324,7 +325,7 @@ class _$PenProperty implements PenProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PenPropertyToJson(
+    return _$$PenPropertyImplToJson(
       this,
     );
   }
@@ -337,10 +338,10 @@ abstract class PenProperty implements Property, PathProperty {
       final int color,
       final bool fill,
       final double smoothing,
-      final double streamline}) = _$PenProperty;
+      final double streamline}) = _$PenPropertyImpl;
 
   factory PenProperty.fromJson(Map<String, dynamic> json) =
-      _$PenProperty.fromJson;
+      _$PenPropertyImpl.fromJson;
 
   @override
   double get strokeWidth;
@@ -352,16 +353,16 @@ abstract class PenProperty implements Property, PathProperty {
   double get streamline;
   @override
   @JsonKey(ignore: true)
-  _$$PenPropertyCopyWith<_$PenProperty> get copyWith =>
+  _$$PenPropertyImplCopyWith<_$PenPropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ShapePropertyCopyWith<$Res>
+abstract class _$$ShapePropertyImplCopyWith<$Res>
     implements $PropertyCopyWith<$Res> {
-  factory _$$ShapePropertyCopyWith(
-          _$ShapeProperty value, $Res Function(_$ShapeProperty) then) =
-      __$$ShapePropertyCopyWithImpl<$Res>;
+  factory _$$ShapePropertyImplCopyWith(
+          _$ShapePropertyImpl value, $Res Function(_$ShapePropertyImpl) then) =
+      __$$ShapePropertyImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({double strokeWidth, PathShape shape, int color});
@@ -370,11 +371,11 @@ abstract class _$$ShapePropertyCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ShapePropertyCopyWithImpl<$Res>
-    extends _$PropertyCopyWithImpl<$Res, _$ShapeProperty>
-    implements _$$ShapePropertyCopyWith<$Res> {
-  __$$ShapePropertyCopyWithImpl(
-      _$ShapeProperty _value, $Res Function(_$ShapeProperty) _then)
+class __$$ShapePropertyImplCopyWithImpl<$Res>
+    extends _$PropertyCopyWithImpl<$Res, _$ShapePropertyImpl>
+    implements _$$ShapePropertyImplCopyWith<$Res> {
+  __$$ShapePropertyImplCopyWithImpl(
+      _$ShapePropertyImpl _value, $Res Function(_$ShapePropertyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -384,7 +385,7 @@ class __$$ShapePropertyCopyWithImpl<$Res>
     Object? shape = null,
     Object? color = null,
   }) {
-    return _then(_$ShapeProperty(
+    return _then(_$ShapePropertyImpl(
       strokeWidth: null == strokeWidth
           ? _value.strokeWidth
           : strokeWidth // ignore: cast_nullable_to_non_nullable
@@ -411,16 +412,16 @@ class __$$ShapePropertyCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ShapeProperty implements ShapeProperty {
-  const _$ShapeProperty(
+class _$ShapePropertyImpl implements ShapeProperty {
+  const _$ShapePropertyImpl(
       {this.strokeWidth = 5,
       required this.shape,
       this.color = kColorBlack,
       final String? $type})
       : $type = $type ?? 'shape';
 
-  factory _$ShapeProperty.fromJson(Map<String, dynamic> json) =>
-      _$$ShapePropertyFromJson(json);
+  factory _$ShapePropertyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ShapePropertyImplFromJson(json);
 
   @override
   @JsonKey()
@@ -443,7 +444,7 @@ class _$ShapeProperty implements ShapeProperty {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ShapeProperty &&
+            other is _$ShapePropertyImpl &&
             (identical(other.strokeWidth, strokeWidth) ||
                 other.strokeWidth == strokeWidth) &&
             (identical(other.shape, shape) || other.shape == shape) &&
@@ -457,8 +458,8 @@ class _$ShapeProperty implements ShapeProperty {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ShapePropertyCopyWith<_$ShapeProperty> get copyWith =>
-      __$$ShapePropertyCopyWithImpl<_$ShapeProperty>(this, _$identity);
+  _$$ShapePropertyImplCopyWith<_$ShapePropertyImpl> get copyWith =>
+      __$$ShapePropertyImplCopyWithImpl<_$ShapePropertyImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -531,7 +532,7 @@ class _$ShapeProperty implements ShapeProperty {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ShapePropertyToJson(
+    return _$$ShapePropertyImplToJson(
       this,
     );
   }
@@ -541,10 +542,10 @@ abstract class ShapeProperty implements Property {
   const factory ShapeProperty(
       {final double strokeWidth,
       required final PathShape shape,
-      final int color}) = _$ShapeProperty;
+      final int color}) = _$ShapePropertyImpl;
 
   factory ShapeProperty.fromJson(Map<String, dynamic> json) =
-      _$ShapeProperty.fromJson;
+      _$ShapePropertyImpl.fromJson;
 
   @override
   double get strokeWidth;
@@ -553,7 +554,7 @@ abstract class ShapeProperty implements Property {
   int get color;
   @override
   @JsonKey(ignore: true)
-  _$$ShapePropertyCopyWith<_$ShapeProperty> get copyWith =>
+  _$$ShapePropertyImplCopyWith<_$ShapePropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -657,20 +658,20 @@ class _$PathShapeCopyWithImpl<$Res, $Val extends PathShape>
 }
 
 /// @nodoc
-abstract class _$$CircleShapeCopyWith<$Res> {
-  factory _$$CircleShapeCopyWith(
-          _$CircleShape value, $Res Function(_$CircleShape) then) =
-      __$$CircleShapeCopyWithImpl<$Res>;
+abstract class _$$CircleShapeImplCopyWith<$Res> {
+  factory _$$CircleShapeImplCopyWith(
+          _$CircleShapeImpl value, $Res Function(_$CircleShapeImpl) then) =
+      __$$CircleShapeImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int fillColor});
 }
 
 /// @nodoc
-class __$$CircleShapeCopyWithImpl<$Res>
-    extends _$PathShapeCopyWithImpl<$Res, _$CircleShape>
-    implements _$$CircleShapeCopyWith<$Res> {
-  __$$CircleShapeCopyWithImpl(
-      _$CircleShape _value, $Res Function(_$CircleShape) _then)
+class __$$CircleShapeImplCopyWithImpl<$Res>
+    extends _$PathShapeCopyWithImpl<$Res, _$CircleShapeImpl>
+    implements _$$CircleShapeImplCopyWith<$Res> {
+  __$$CircleShapeImplCopyWithImpl(
+      _$CircleShapeImpl _value, $Res Function(_$CircleShapeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -678,7 +679,7 @@ class __$$CircleShapeCopyWithImpl<$Res>
   $Res call({
     Object? fillColor = null,
   }) {
-    return _then(_$CircleShape(
+    return _then(_$CircleShapeImpl(
       fillColor: null == fillColor
           ? _value.fillColor
           : fillColor // ignore: cast_nullable_to_non_nullable
@@ -689,13 +690,14 @@ class __$$CircleShapeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CircleShape extends CircleShape {
-  const _$CircleShape({this.fillColor = kColorTransparent, final String? $type})
+class _$CircleShapeImpl extends CircleShape {
+  const _$CircleShapeImpl(
+      {this.fillColor = kColorTransparent, final String? $type})
       : $type = $type ?? 'circle',
         super._();
 
-  factory _$CircleShape.fromJson(Map<String, dynamic> json) =>
-      _$$CircleShapeFromJson(json);
+  factory _$CircleShapeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CircleShapeImplFromJson(json);
 
   @override
   @JsonKey()
@@ -713,7 +715,7 @@ class _$CircleShape extends CircleShape {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CircleShape &&
+            other is _$CircleShapeImpl &&
             (identical(other.fillColor, fillColor) ||
                 other.fillColor == fillColor));
   }
@@ -725,8 +727,8 @@ class _$CircleShape extends CircleShape {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CircleShapeCopyWith<_$CircleShape> get copyWith =>
-      __$$CircleShapeCopyWithImpl<_$CircleShape>(this, _$identity);
+  _$$CircleShapeImplCopyWith<_$CircleShapeImpl> get copyWith =>
+      __$$CircleShapeImplCopyWithImpl<_$CircleShapeImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -816,30 +818,30 @@ class _$CircleShape extends CircleShape {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CircleShapeToJson(
+    return _$$CircleShapeImplToJson(
       this,
     );
   }
 }
 
 abstract class CircleShape extends PathShape {
-  const factory CircleShape({final int fillColor}) = _$CircleShape;
+  const factory CircleShape({final int fillColor}) = _$CircleShapeImpl;
   const CircleShape._() : super._();
 
   factory CircleShape.fromJson(Map<String, dynamic> json) =
-      _$CircleShape.fromJson;
+      _$CircleShapeImpl.fromJson;
 
   int get fillColor;
   @JsonKey(ignore: true)
-  _$$CircleShapeCopyWith<_$CircleShape> get copyWith =>
+  _$$CircleShapeImplCopyWith<_$CircleShapeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RectangleShapeCopyWith<$Res> {
-  factory _$$RectangleShapeCopyWith(
-          _$RectangleShape value, $Res Function(_$RectangleShape) then) =
-      __$$RectangleShapeCopyWithImpl<$Res>;
+abstract class _$$RectangleShapeImplCopyWith<$Res> {
+  factory _$$RectangleShapeImplCopyWith(_$RectangleShapeImpl value,
+          $Res Function(_$RectangleShapeImpl) then) =
+      __$$RectangleShapeImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {int fillColor,
@@ -850,11 +852,11 @@ abstract class _$$RectangleShapeCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$RectangleShapeCopyWithImpl<$Res>
-    extends _$PathShapeCopyWithImpl<$Res, _$RectangleShape>
-    implements _$$RectangleShapeCopyWith<$Res> {
-  __$$RectangleShapeCopyWithImpl(
-      _$RectangleShape _value, $Res Function(_$RectangleShape) _then)
+class __$$RectangleShapeImplCopyWithImpl<$Res>
+    extends _$PathShapeCopyWithImpl<$Res, _$RectangleShapeImpl>
+    implements _$$RectangleShapeImplCopyWith<$Res> {
+  __$$RectangleShapeImplCopyWithImpl(
+      _$RectangleShapeImpl _value, $Res Function(_$RectangleShapeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -866,7 +868,7 @@ class __$$RectangleShapeCopyWithImpl<$Res>
     Object? bottomLeftCornerRadius = null,
     Object? bottomRightCornerRadius = null,
   }) {
-    return _then(_$RectangleShape(
+    return _then(_$RectangleShapeImpl(
       fillColor: null == fillColor
           ? _value.fillColor
           : fillColor // ignore: cast_nullable_to_non_nullable
@@ -893,8 +895,8 @@ class __$$RectangleShapeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$RectangleShape extends RectangleShape {
-  const _$RectangleShape(
+class _$RectangleShapeImpl extends RectangleShape {
+  const _$RectangleShapeImpl(
       {this.fillColor = kColorTransparent,
       this.topLeftCornerRadius = 0,
       this.topRightCornerRadius = 0,
@@ -904,8 +906,8 @@ class _$RectangleShape extends RectangleShape {
       : $type = $type ?? 'rectangle',
         super._();
 
-  factory _$RectangleShape.fromJson(Map<String, dynamic> json) =>
-      _$$RectangleShapeFromJson(json);
+  factory _$RectangleShapeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RectangleShapeImplFromJson(json);
 
   @override
   @JsonKey()
@@ -935,7 +937,7 @@ class _$RectangleShape extends RectangleShape {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RectangleShape &&
+            other is _$RectangleShapeImpl &&
             (identical(other.fillColor, fillColor) ||
                 other.fillColor == fillColor) &&
             (identical(other.topLeftCornerRadius, topLeftCornerRadius) ||
@@ -957,8 +959,9 @@ class _$RectangleShape extends RectangleShape {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RectangleShapeCopyWith<_$RectangleShape> get copyWith =>
-      __$$RectangleShapeCopyWithImpl<_$RectangleShape>(this, _$identity);
+  _$$RectangleShapeImplCopyWith<_$RectangleShapeImpl> get copyWith =>
+      __$$RectangleShapeImplCopyWithImpl<_$RectangleShapeImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1051,7 +1054,7 @@ class _$RectangleShape extends RectangleShape {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$RectangleShapeToJson(
+    return _$$RectangleShapeImplToJson(
       this,
     );
   }
@@ -1063,11 +1066,11 @@ abstract class RectangleShape extends PathShape {
       final double topLeftCornerRadius,
       final double topRightCornerRadius,
       final double bottomLeftCornerRadius,
-      final double bottomRightCornerRadius}) = _$RectangleShape;
+      final double bottomRightCornerRadius}) = _$RectangleShapeImpl;
   const RectangleShape._() : super._();
 
   factory RectangleShape.fromJson(Map<String, dynamic> json) =
-      _$RectangleShape.fromJson;
+      _$RectangleShapeImpl.fromJson;
 
   int get fillColor;
   double get topLeftCornerRadius;
@@ -1075,35 +1078,35 @@ abstract class RectangleShape extends PathShape {
   double get bottomLeftCornerRadius;
   double get bottomRightCornerRadius;
   @JsonKey(ignore: true)
-  _$$RectangleShapeCopyWith<_$RectangleShape> get copyWith =>
+  _$$RectangleShapeImplCopyWith<_$RectangleShapeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LineShapeCopyWith<$Res> {
-  factory _$$LineShapeCopyWith(
-          _$LineShape value, $Res Function(_$LineShape) then) =
-      __$$LineShapeCopyWithImpl<$Res>;
+abstract class _$$LineShapeImplCopyWith<$Res> {
+  factory _$$LineShapeImplCopyWith(
+          _$LineShapeImpl value, $Res Function(_$LineShapeImpl) then) =
+      __$$LineShapeImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LineShapeCopyWithImpl<$Res>
-    extends _$PathShapeCopyWithImpl<$Res, _$LineShape>
-    implements _$$LineShapeCopyWith<$Res> {
-  __$$LineShapeCopyWithImpl(
-      _$LineShape _value, $Res Function(_$LineShape) _then)
+class __$$LineShapeImplCopyWithImpl<$Res>
+    extends _$PathShapeCopyWithImpl<$Res, _$LineShapeImpl>
+    implements _$$LineShapeImplCopyWith<$Res> {
+  __$$LineShapeImplCopyWithImpl(
+      _$LineShapeImpl _value, $Res Function(_$LineShapeImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$LineShape extends LineShape {
-  const _$LineShape({final String? $type})
+class _$LineShapeImpl extends LineShape {
+  const _$LineShapeImpl({final String? $type})
       : $type = $type ?? 'line',
         super._();
 
-  factory _$LineShape.fromJson(Map<String, dynamic> json) =>
-      _$$LineShapeFromJson(json);
+  factory _$LineShapeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LineShapeImplFromJson(json);
 
   @JsonKey(name: 'type')
   final String $type;
@@ -1116,7 +1119,7 @@ class _$LineShape extends LineShape {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LineShape);
+        (other.runtimeType == runtimeType && other is _$LineShapeImpl);
   }
 
   @JsonKey(ignore: true)
@@ -1211,15 +1214,16 @@ class _$LineShape extends LineShape {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LineShapeToJson(
+    return _$$LineShapeImplToJson(
       this,
     );
   }
 }
 
 abstract class LineShape extends PathShape {
-  const factory LineShape() = _$LineShape;
+  const factory LineShape() = _$LineShapeImpl;
   const LineShape._() : super._();
 
-  factory LineShape.fromJson(Map<String, dynamic> json) = _$LineShape.fromJson;
+  factory LineShape.fromJson(Map<String, dynamic> json) =
+      _$LineShapeImpl.fromJson;
 }

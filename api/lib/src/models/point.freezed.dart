@@ -73,21 +73,22 @@ class _$PathPointCopyWithImpl<$Res, $Val extends PathPoint>
 }
 
 /// @nodoc
-abstract class _$$_PathPointCopyWith<$Res> implements $PathPointCopyWith<$Res> {
-  factory _$$_PathPointCopyWith(
-          _$_PathPoint value, $Res Function(_$_PathPoint) then) =
-      __$$_PathPointCopyWithImpl<$Res>;
+abstract class _$$PathPointImplCopyWith<$Res>
+    implements $PathPointCopyWith<$Res> {
+  factory _$$PathPointImplCopyWith(
+          _$PathPointImpl value, $Res Function(_$PathPointImpl) then) =
+      __$$PathPointImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({double x, double y, double pressure});
 }
 
 /// @nodoc
-class __$$_PathPointCopyWithImpl<$Res>
-    extends _$PathPointCopyWithImpl<$Res, _$_PathPoint>
-    implements _$$_PathPointCopyWith<$Res> {
-  __$$_PathPointCopyWithImpl(
-      _$_PathPoint _value, $Res Function(_$_PathPoint) _then)
+class __$$PathPointImplCopyWithImpl<$Res>
+    extends _$PathPointCopyWithImpl<$Res, _$PathPointImpl>
+    implements _$$PathPointImplCopyWith<$Res> {
+  __$$PathPointImplCopyWithImpl(
+      _$PathPointImpl _value, $Res Function(_$PathPointImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -97,7 +98,7 @@ class __$$_PathPointCopyWithImpl<$Res>
     Object? y = null,
     Object? pressure = null,
   }) {
-    return _then(_$_PathPoint(
+    return _then(_$PathPointImpl(
       null == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
@@ -116,11 +117,11 @@ class __$$_PathPointCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PathPoint extends _PathPoint {
-  const _$_PathPoint(this.x, this.y, [this.pressure = 1]) : super._();
+class _$PathPointImpl extends _PathPoint {
+  const _$PathPointImpl(this.x, this.y, [this.pressure = 1]) : super._();
 
-  factory _$_PathPoint.fromJson(Map<String, dynamic> json) =>
-      _$$_PathPointFromJson(json);
+  factory _$PathPointImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PathPointImplFromJson(json);
 
   @override
   final double x;
@@ -139,7 +140,7 @@ class _$_PathPoint extends _PathPoint {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PathPoint &&
+            other is _$PathPointImpl &&
             (identical(other.x, x) || other.x == x) &&
             (identical(other.y, y) || other.y == y) &&
             (identical(other.pressure, pressure) ||
@@ -153,12 +154,12 @@ class _$_PathPoint extends _PathPoint {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PathPointCopyWith<_$_PathPoint> get copyWith =>
-      __$$_PathPointCopyWithImpl<_$_PathPoint>(this, _$identity);
+  _$$PathPointImplCopyWith<_$PathPointImpl> get copyWith =>
+      __$$PathPointImplCopyWithImpl<_$PathPointImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PathPointToJson(
+    return _$$PathPointImplToJson(
       this,
     );
   }
@@ -166,11 +167,11 @@ class _$_PathPoint extends _PathPoint {
 
 abstract class _PathPoint extends PathPoint {
   const factory _PathPoint(final double x, final double y,
-      [final double pressure]) = _$_PathPoint;
+      [final double pressure]) = _$PathPointImpl;
   const _PathPoint._() : super._();
 
   factory _PathPoint.fromJson(Map<String, dynamic> json) =
-      _$_PathPoint.fromJson;
+      _$PathPointImpl.fromJson;
 
   @override
   double get x;
@@ -180,6 +181,6 @@ abstract class _PathPoint extends PathPoint {
   double get pressure;
   @override
   @JsonKey(ignore: true)
-  _$$_PathPointCopyWith<_$_PathPoint> get copyWith =>
+  _$$PathPointImplCopyWith<_$PathPointImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

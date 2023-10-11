@@ -191,11 +191,11 @@ class _$RemoteStorageCopyWithImpl<$Res, $Val extends RemoteStorage>
 }
 
 /// @nodoc
-abstract class _$$DavRemoteStorageCopyWith<$Res>
+abstract class _$$DavRemoteStorageImplCopyWith<$Res>
     implements $RemoteStorageCopyWith<$Res> {
-  factory _$$DavRemoteStorageCopyWith(
-          _$DavRemoteStorage value, $Res Function(_$DavRemoteStorage) then) =
-      __$$DavRemoteStorageCopyWithImpl<$Res>;
+  factory _$$DavRemoteStorageImplCopyWith(_$DavRemoteStorageImpl value,
+          $Res Function(_$DavRemoteStorageImpl) then) =
+      __$$DavRemoteStorageImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -212,11 +212,11 @@ abstract class _$$DavRemoteStorageCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$DavRemoteStorageCopyWithImpl<$Res>
-    extends _$RemoteStorageCopyWithImpl<$Res, _$DavRemoteStorage>
-    implements _$$DavRemoteStorageCopyWith<$Res> {
-  __$$DavRemoteStorageCopyWithImpl(
-      _$DavRemoteStorage _value, $Res Function(_$DavRemoteStorage) _then)
+class __$$DavRemoteStorageImplCopyWithImpl<$Res>
+    extends _$RemoteStorageCopyWithImpl<$Res, _$DavRemoteStorageImpl>
+    implements _$$DavRemoteStorageImplCopyWith<$Res> {
+  __$$DavRemoteStorageImplCopyWithImpl(_$DavRemoteStorageImpl _value,
+      $Res Function(_$DavRemoteStorageImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -233,7 +233,7 @@ class __$$DavRemoteStorageCopyWithImpl<$Res>
     Object? icon = null,
     Object? lastSynced = freezed,
   }) {
-    return _then(_$DavRemoteStorage(
+    return _then(_$DavRemoteStorageImpl(
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -280,8 +280,9 @@ class __$$DavRemoteStorageCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DavRemoteStorage extends DavRemoteStorage with DiagnosticableTreeMixin {
-  const _$DavRemoteStorage(
+class _$DavRemoteStorageImpl extends DavRemoteStorage
+    with DiagnosticableTreeMixin {
+  const _$DavRemoteStorageImpl(
       {required this.username,
       required this.url,
       required this.path,
@@ -296,8 +297,8 @@ class _$DavRemoteStorage extends DavRemoteStorage with DiagnosticableTreeMixin {
         _starred = starred,
         super._();
 
-  factory _$DavRemoteStorage.fromJson(Map<String, dynamic> json) =>
-      _$$DavRemoteStorageFromJson(json);
+  factory _$DavRemoteStorageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DavRemoteStorageImplFromJson(json);
 
   @override
   final String username;
@@ -361,7 +362,7 @@ class _$DavRemoteStorage extends DavRemoteStorage with DiagnosticableTreeMixin {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DavRemoteStorage &&
+            other is _$DavRemoteStorageImpl &&
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.url, url) || other.url == url) &&
@@ -398,8 +399,9 @@ class _$DavRemoteStorage extends DavRemoteStorage with DiagnosticableTreeMixin {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DavRemoteStorageCopyWith<_$DavRemoteStorage> get copyWith =>
-      __$$DavRemoteStorageCopyWithImpl<_$DavRemoteStorage>(this, _$identity);
+  _$$DavRemoteStorageImplCopyWith<_$DavRemoteStorageImpl> get copyWith =>
+      __$$DavRemoteStorageImplCopyWithImpl<_$DavRemoteStorageImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -495,7 +497,7 @@ class _$DavRemoteStorage extends DavRemoteStorage with DiagnosticableTreeMixin {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DavRemoteStorageToJson(
+    return _$$DavRemoteStorageImplToJson(
       this,
     );
   }
@@ -512,11 +514,11 @@ abstract class DavRemoteStorage extends RemoteStorage {
       final List<String> cachedDocuments,
       final List<String> starred,
       @Uint8ListJsonConverter() required final Uint8List icon,
-      final DateTime? lastSynced}) = _$DavRemoteStorage;
+      final DateTime? lastSynced}) = _$DavRemoteStorageImpl;
   const DavRemoteStorage._() : super._();
 
   factory DavRemoteStorage.fromJson(Map<String, dynamic> json) =
-      _$DavRemoteStorage.fromJson;
+      _$DavRemoteStorageImpl.fromJson;
 
   @override
   String get username;
@@ -541,7 +543,7 @@ abstract class DavRemoteStorage extends RemoteStorage {
   DateTime? get lastSynced;
   @override
   @JsonKey(ignore: true)
-  _$$DavRemoteStorageCopyWith<_$DavRemoteStorage> get copyWith =>
+  _$$DavRemoteStorageImplCopyWith<_$DavRemoteStorageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -636,11 +638,11 @@ class _$InputConfigurationCopyWithImpl<$Res, $Val extends InputConfiguration>
 }
 
 /// @nodoc
-abstract class _$$_InputConfigurationCopyWith<$Res>
+abstract class _$$InputConfigurationImplCopyWith<$Res>
     implements $InputConfigurationCopyWith<$Res> {
-  factory _$$_InputConfigurationCopyWith(_$_InputConfiguration value,
-          $Res Function(_$_InputConfiguration) then) =
-      __$$_InputConfigurationCopyWithImpl<$Res>;
+  factory _$$InputConfigurationImplCopyWith(_$InputConfigurationImpl value,
+          $Res Function(_$InputConfigurationImpl) then) =
+      __$$InputConfigurationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -654,11 +656,11 @@ abstract class _$$_InputConfigurationCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_InputConfigurationCopyWithImpl<$Res>
-    extends _$InputConfigurationCopyWithImpl<$Res, _$_InputConfiguration>
-    implements _$$_InputConfigurationCopyWith<$Res> {
-  __$$_InputConfigurationCopyWithImpl(
-      _$_InputConfiguration _value, $Res Function(_$_InputConfiguration) _then)
+class __$$InputConfigurationImplCopyWithImpl<$Res>
+    extends _$InputConfigurationCopyWithImpl<$Res, _$InputConfigurationImpl>
+    implements _$$InputConfigurationImplCopyWith<$Res> {
+  __$$InputConfigurationImplCopyWithImpl(_$InputConfigurationImpl _value,
+      $Res Function(_$InputConfigurationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -672,7 +674,7 @@ class __$$_InputConfigurationCopyWithImpl<$Res>
     Object? secondPenButton = freezed,
     Object? touch = freezed,
   }) {
-    return _then(_$_InputConfiguration(
+    return _then(_$InputConfigurationImpl(
       leftMouse: freezed == leftMouse
           ? _value.leftMouse
           : leftMouse // ignore: cast_nullable_to_non_nullable
@@ -707,9 +709,9 @@ class __$$_InputConfigurationCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_InputConfiguration extends _InputConfiguration
+class _$InputConfigurationImpl extends _InputConfiguration
     with DiagnosticableTreeMixin {
-  const _$_InputConfiguration(
+  const _$InputConfigurationImpl(
       {this.leftMouse,
       this.middleMouse = -1,
       this.rightMouse = 1,
@@ -719,8 +721,8 @@ class _$_InputConfiguration extends _InputConfiguration
       this.touch})
       : super._();
 
-  factory _$_InputConfiguration.fromJson(Map<String, dynamic> json) =>
-      _$$_InputConfigurationFromJson(json);
+  factory _$InputConfigurationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$InputConfigurationImplFromJson(json);
 
   @override
   final int? leftMouse;
@@ -764,7 +766,7 @@ class _$_InputConfiguration extends _InputConfiguration
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_InputConfiguration &&
+            other is _$InputConfigurationImpl &&
             (identical(other.leftMouse, leftMouse) ||
                 other.leftMouse == leftMouse) &&
             (identical(other.middleMouse, middleMouse) ||
@@ -787,13 +789,13 @@ class _$_InputConfiguration extends _InputConfiguration
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_InputConfigurationCopyWith<_$_InputConfiguration> get copyWith =>
-      __$$_InputConfigurationCopyWithImpl<_$_InputConfiguration>(
+  _$$InputConfigurationImplCopyWith<_$InputConfigurationImpl> get copyWith =>
+      __$$InputConfigurationImplCopyWithImpl<_$InputConfigurationImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_InputConfigurationToJson(
+    return _$$InputConfigurationImplToJson(
       this,
     );
   }
@@ -807,11 +809,11 @@ abstract class _InputConfiguration extends InputConfiguration {
       final int? pen,
       final int? firstPenButton,
       final int? secondPenButton,
-      final int? touch}) = _$_InputConfiguration;
+      final int? touch}) = _$InputConfigurationImpl;
   const _InputConfiguration._() : super._();
 
   factory _InputConfiguration.fromJson(Map<String, dynamic> json) =
-      _$_InputConfiguration.fromJson;
+      _$InputConfigurationImpl.fromJson;
 
   @override
   int? get leftMouse;
@@ -829,7 +831,7 @@ abstract class _InputConfiguration extends InputConfiguration {
   int? get touch;
   @override
   @JsonKey(ignore: true)
-  _$$_InputConfigurationCopyWith<_$_InputConfiguration> get copyWith =>
+  _$$InputConfigurationImplCopyWith<_$InputConfigurationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1120,11 +1122,11 @@ class _$ButterflySettingsCopyWithImpl<$Res, $Val extends ButterflySettings>
 }
 
 /// @nodoc
-abstract class _$$_ButterflySettingsCopyWith<$Res>
+abstract class _$$ButterflySettingsImplCopyWith<$Res>
     implements $ButterflySettingsCopyWith<$Res> {
-  factory _$$_ButterflySettingsCopyWith(_$_ButterflySettings value,
-          $Res Function(_$_ButterflySettings) then) =
-      __$$_ButterflySettingsCopyWithImpl<$Res>;
+  factory _$$ButterflySettingsImplCopyWith(_$ButterflySettingsImpl value,
+          $Res Function(_$ButterflySettingsImpl) then) =
+      __$$ButterflySettingsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1168,11 +1170,11 @@ abstract class _$$_ButterflySettingsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ButterflySettingsCopyWithImpl<$Res>
-    extends _$ButterflySettingsCopyWithImpl<$Res, _$_ButterflySettings>
-    implements _$$_ButterflySettingsCopyWith<$Res> {
-  __$$_ButterflySettingsCopyWithImpl(
-      _$_ButterflySettings _value, $Res Function(_$_ButterflySettings) _then)
+class __$$ButterflySettingsImplCopyWithImpl<$Res>
+    extends _$ButterflySettingsCopyWithImpl<$Res, _$ButterflySettingsImpl>
+    implements _$$ButterflySettingsImplCopyWith<$Res> {
+  __$$ButterflySettingsImplCopyWithImpl(_$ButterflySettingsImpl _value,
+      $Res Function(_$ButterflySettingsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1213,7 +1215,7 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
     Object? pdfQuality = null,
     Object? platformTheme = null,
   }) {
-    return _then(_$_ButterflySettings(
+    return _then(_$ButterflySettingsImpl(
       theme: null == theme
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
@@ -1356,9 +1358,9 @@ class __$$_ButterflySettingsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ButterflySettings extends _ButterflySettings
+class _$ButterflySettingsImpl extends _ButterflySettings
     with DiagnosticableTreeMixin {
-  const _$_ButterflySettings(
+  const _$ButterflySettingsImpl(
       {this.theme = ThemeMode.system,
       this.density = ThemeDensity.system,
       this.localeTag = '',
@@ -1567,7 +1569,7 @@ class _$_ButterflySettings extends _ButterflySettings
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ButterflySettings &&
+            other is _$ButterflySettingsImpl &&
             (identical(other.theme, theme) || other.theme == theme) &&
             (identical(other.density, density) || other.density == density) &&
             (identical(other.localeTag, localeTag) ||
@@ -1673,8 +1675,8 @@ class _$_ButterflySettings extends _ButterflySettings
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>
-      __$$_ButterflySettingsCopyWithImpl<_$_ButterflySettings>(
+  _$$ButterflySettingsImplCopyWith<_$ButterflySettingsImpl> get copyWith =>
+      __$$ButterflySettingsImplCopyWithImpl<_$ButterflySettingsImpl>(
           this, _$identity);
 }
 
@@ -1713,7 +1715,7 @@ abstract class _ButterflySettings extends ButterflySettings {
       final SortOrder sortOrder,
       final double imageScale,
       final double pdfQuality,
-      final PlatformTheme platformTheme}) = _$_ButterflySettings;
+      final PlatformTheme platformTheme}) = _$ButterflySettingsImpl;
   const _ButterflySettings._() : super._();
 
   @override
@@ -1786,6 +1788,6 @@ abstract class _ButterflySettings extends ButterflySettings {
   PlatformTheme get platformTheme;
   @override
   @JsonKey(ignore: true)
-  _$$_ButterflySettingsCopyWith<_$_ButterflySettings> get copyWith =>
+  _$$ButterflySettingsImplCopyWith<_$ButterflySettingsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
