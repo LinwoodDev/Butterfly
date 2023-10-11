@@ -4,11 +4,11 @@ sidebar_position: 2
 title: Φόντο
 ---
 
-There are two different types of backgrounds.
+Υπάρχουν δύο διαφορετικοί τύποι φόντων.
 
 ### Μοτίβο
 
-You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+Μπορείτε να προσαρμόσετε το φόντο του χαρτιού. Κάντε κλικ στο εικονίδιο φόντου στο διάλογο προβολής για να το προσθέσετε. Υπάρχουν 8 διαφορετικά πρότυπα φόντου διαθέσιμα.
 
 ### Διαμόρφωση
 
@@ -16,12 +16,12 @@ You can customize the background of the paper. Click on the background icon in t
 
 Επιπλέον, μπορείτε να προσαρμόσετε το χρώμα του φόντου.
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+Η ιδιότητα καταμέτρησης και διαστήματος σας επιτρέπει να δημιουργήσετε ένα μουσικό χαρτί. Για χαρτί μουσικής, που μετράει σε 5 και το διάστημα σε περισσότερο από το πλάτος.
 
 ## Εικόνα
 
-The image background type allows you to use an image as background.
+Ο τύπος φόντου εικόνας σας επιτρέπει να χρησιμοποιήσετε μια εικόνα ως φόντο.
 
 ### Διαμόρφωση
 
-The scale in x and y direction can be changed if this image to small or big.
+Η κλίμακα στην κατεύθυνση x και y μπορεί να αλλάξει αν αυτή η εικόνα σε μικρή ή μεγάλη.
