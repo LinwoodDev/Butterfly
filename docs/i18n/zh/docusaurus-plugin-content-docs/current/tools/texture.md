@@ -4,7 +4,7 @@ sidebar_label: "印章"
 sidebar_position: 3
 ---
 
-The texture tool allows you to add the background to a small area of the canvas.
+纹理工具允许您将背景添加到画布的一小块区域。
 
 ## 配置
 
@@ -16,6 +16,6 @@ The texture tool allows you to add the background to a small area of the canvas.
 |    高度 |   0   | 区域的固定高度 区域的固定高度 如果设置为 0，高度将自动计算。       |
 |   纵横比 |   0   | 面积的固定宽比。 如果设置为 0，宽高比将自动计算。 宽度比定义为宽度/高度 |
 
-Valid types for texture are:
+纹理的有效类型是：
 
 * [图案](../background#pattern)
