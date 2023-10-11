@@ -4,10 +4,10 @@ sidebar_label: "Selectare"
 ---
 
 
-With this tool you can select elements.
+Cu acest instrument puteţi selecta elemente.
 
 ## Configurare
 
-| Proprietate |  Implicit  | Descriere                                        |
-| -----------:|:----------:|:------------------------------------------------ |
-|        mode | dreptunghi | Mode of selection. Valid are rectangle and lasso |
+| Proprietate |  Implicit  | Descriere                                       |
+| -----------:|:----------:|:----------------------------------------------- |
+|         mod | dreptunghi | Mod de selecție. Valid este dreptunghi şi lasso |
