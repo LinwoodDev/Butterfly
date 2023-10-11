@@ -1,14 +1,24 @@
 ---
-title: "Insert"
-id: "add"
-slug: "/add"
+title: "Ajouter"
+id: "Ajouter"
+slug: "/ajouter"
 sidebar_position: 3
 ---
 
-Vous pouvez insérer différentes choses dans vos notes :
+Ici vous pouvez ajouter des choses à vos notes.
 
-* Images (à partir de la galerie ou de la caméra)
-* FPS
-* SVG
+## Importation
 
-Pour accéder au menu d'insertion, utilisez l'outil main et appuyez deux fois sur l'endroit où vous voulez insérer quelque chose. Cliquez sur "Insert" pour ouvrir le menu.
+Ici, vous pouvez importer des fichiers existants à l'intérieur de vos documents. Les documents supportés sont les documents papillons, markdown, png, svg et pdf.
+
+## Outils
+
+Pour ajouter plus d'outils à votre barre d'outils, cliquez dessus. En savoir plus à leur sujet [ici](tools).
+
+## Surfaces
+
+Ce sont des outils spéciaux pour créer des surfaces.
+
+## Actions
+
+Ce sont des outils qui seront exécutés en cliquant dessus. Vous pouvez utiliser le bouton de lecture pour les exécuter sans les ajouter à la barre d'outils.
