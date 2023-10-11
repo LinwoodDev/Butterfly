@@ -5,6 +5,7 @@
 * Change the zoom slider to operate in realtime in style view
 * Change reload button icon in remote button
 * Rename document directory to data directory
+* Fix adding template instead of document when clicking create file in files view
 * Improve documentation
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.10

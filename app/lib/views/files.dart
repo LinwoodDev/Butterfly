@@ -298,7 +298,7 @@ class _FilesViewState extends State<FilesView> {
                       if (!newPath.endsWith('.bfly')) {
                         newPath += '.bfly';
                       }
-                      await _fileSystem.updateDocument(newPath, asset);
+                      await _fileSystem.updateDocument(newPath, asset.createDocument());
                       _reloadFileSystem();
                     }
                   },
