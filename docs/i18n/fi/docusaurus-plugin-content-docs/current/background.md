@@ -4,11 +4,11 @@ sidebar_position: 2
 title: Tausta
 ---
 
-There are two different types of backgrounds.
+On olemassa kaksi erilaista taustaa.
 
 ### Kuvio
 
-You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+Voit muokata taustan paperin sisältöä. Klikkaa taustakuvaketta näkymäikkunassa ja lisää se. @ info: whatsthis Saatavilla on 8 erilaista taustamallia.
 
 ### Asetukset
 
@@ -16,12 +16,12 @@ Leveys ja korkeus ovat laatikon yleiset asetukset.
 
 Lisäksi voit muokata taustan väriä.
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+Laskenta ja väli ominaisuus voit luoda musiikkipaperia. Musiikkipaperille asetettu määrä 5 ja väli enemmän kuin leveys.
 
 ## Kuva
 
-The image background type allows you to use an image as background.
+Kuvan taustatyypin avulla voit käyttää kuvaa taustakuvaksi.
 
 ### Asetukset
 
-The scale in x and y direction can be changed if this image to small or big.
+Mittakaavassa x ja y suuntaan voidaan muuttaa, jos tämä kuva on pieni tai suuri.
