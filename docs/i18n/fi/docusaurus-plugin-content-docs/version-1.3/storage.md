@@ -5,8 +5,8 @@ sidebar_position: 2
 
 ## Verkko
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+Sovelluksen tiedot on tallennettu selaimeesi. Se on tallennettu paikalliseen tallennustilaan. Avaa kehittäjän työkalut selaimessasi ja näet niiden tiedot.
 
 ## Natiivi alustat
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+Oletuksena sovellus tallentaa asiakirjojesi kansiossa olevat tiedot "Linwood/Butterfly" -kansion alikansioon. Tämä kansio on luotu, kun tallennat ensimmäiset tiedot. Tätä kansiota voidaan muuttaa asetuksissa.
