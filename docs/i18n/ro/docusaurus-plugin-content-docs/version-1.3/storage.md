@@ -5,8 +5,8 @@ sidebar_position: 2
 
 ## Web
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+Datele aplicației sunt stocate în browser-ul tău. Este stocat într-un spaţiu de stocare local. Deschideți instrumentele de dezvoltare din browser și veți vedea datele.
 
 ## Platforme native
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+În mod implicit, aplicația salvează datele din dosarul documente într-un subdosar numit "Linwood/Butterfly". Acest folder este creat atunci când salvați primele date. Acest dosar poate fi modificat în setări.
