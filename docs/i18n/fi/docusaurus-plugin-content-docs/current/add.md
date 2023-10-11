@@ -1,6 +1,6 @@
 ---
 title: "Lisää"
-id: "lisää"
+id: "add"
 slug: "/add"
 sidebar_position: 3
 ---
