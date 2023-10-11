@@ -8,6 +8,6 @@ With this tool you can select elements.
 
 ## Asetukset
 
-| Ominaisuus |           Oletus            | Kuvaus                                                                      |
-| ----------:|:---------------------------:|:--------------------------------------------------------------------------- |
-|     akseli | (vaakasuora tai pystysuora) | Suunta, johon tila olisi lisättävä. Valittavissa vain kun työkalua lisätään |
+| Ominaisuus |   Oletus    | Kuvaus                                           |
+| ----------:|:-----------:|:------------------------------------------------ |
+|       mode | suorakulmio | Mode of selection. Valid are rectangle and lasso |
