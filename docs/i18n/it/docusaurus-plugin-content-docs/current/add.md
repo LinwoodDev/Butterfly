@@ -1,6 +1,6 @@
 ---
 title: "Aggiungi"
-id: "aggiungi"
+id: "add"
 slug: "/add"
 sidebar_position: 3
 ---
