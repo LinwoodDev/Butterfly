@@ -1,7 +1,7 @@
 ---
 title: "Añadir"
-id: "añadir"
-slug: "/añadir"
+id: "add"
+slug: "/add"
 sidebar_position: 3
 ---
 
