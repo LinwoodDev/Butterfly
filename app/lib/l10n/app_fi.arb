@@ -120,7 +120,7 @@
   "copyVersion": "Kopioi versio",
   "input": "Input",
   "behaviors": "Käyttäytymiset",
-  "dataDirectory": "Data directory",
+  "dataDirectory": "Datakansio",
   "defaultPath": "Oletus polku",
   "dateFormat": "Päivämäärän muoto",
   "updatedAt": "Päivitetty: {dateTime}",
