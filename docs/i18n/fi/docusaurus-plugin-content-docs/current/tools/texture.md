@@ -4,7 +4,7 @@ sidebar_label: "Leima"
 sidebar_position: 3
 ---
 
-The texture tool allows you to add the background to a small area of the canvas.
+Tekstuuri työkalun avulla voit lisätä taustan pienelle alueelle kankaalla.
 
 ## Asetukset
 
@@ -16,6 +16,6 @@ The texture tool allows you to add the background to a small area of the canvas.
 |               Korkeus |    0    | Alueen kiinteä korkeus. Jos arvo on 0, korkeus lasketaan automaattisesti.                                                              |
 |             Kuvasuhde |    0    | Alueen kiinteä kuvasuhde on sama. Jos arvo on 0, kuvasuhde lasketaan automaattisesti. Kuvasuhde määritellään leveydeksi / korkeudeksi. |
 
-Valid types for texture are:
+Voimassa olevat tekstuurin tyypit ovat:
 
 * [Kuvio](../background#pattern)
