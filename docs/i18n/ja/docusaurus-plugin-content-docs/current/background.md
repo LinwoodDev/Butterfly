@@ -4,7 +4,7 @@ sidebar_position: 2
 title: 背景
 ---
 
-There are two different types of backgrounds.
+背景には二つの異なる種類があります。
 
 ### パターン
 
@@ -16,12 +16,12 @@ There are two different types of backgrounds.
 
 また、背景の色をカスタマイズすることもできます。
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+countとspacing プロパティを使用すると、ミュージックペーパーを作成できます。 音楽用紙の場合、数を5に設定し、間隔を幅以上に設定します。
 
 ## 画像
 
-The image background type allows you to use an image as background.
+背景画像の種類では、画像を背景として使用できます。
 
 ### 設定
 
-The scale in x and y direction can be changed if this image to small or big.
+この画像が小さい場合や大きい場合は、x 方向と y 方向のスケールを変更できます。
