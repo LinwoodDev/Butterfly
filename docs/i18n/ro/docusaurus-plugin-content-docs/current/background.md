@@ -4,11 +4,11 @@ sidebar_position: 2
 title: Context
 ---
 
-There are two different types of backgrounds.
+Există două tipuri diferite de fundaluri.
 
 ### Model
 
-You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+Puteți personaliza fundalul hârtiei. Faceţi clic pe pictograma de fundal din dialogul de vizualizare pentru a-l adăuga. Există 8 șabloane de fundal diferite.
 
 ### Configurare
 
@@ -16,12 +16,12 @@ Lățimea și înălțimea sunt setările generale ale cutiei.
 
 Adițional, poți personaliza culoarea fundalului.
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+Proprietatea de numărare și spațiere vă permite să creați hârtie muzicală. Pentru hârtia muzicală, setează numărul la 5 şi distanţează mai mult decât lăţimea.
 
 ## Imagine
 
-The image background type allows you to use an image as background.
+Tipul de fundal al imaginii vă permite să utilizaţi o imagine ca fundal.
 
 ### Configurare
 
-The scale in x and y direction can be changed if this image to small or big.
+Scara in directia x si y poate fi schimbata daca aceasta imagine este mica sau mare.
