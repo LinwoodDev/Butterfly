@@ -4,7 +4,7 @@ sidebar_position: 2
 title: Hintergrund
 ---
 
-There are two different types of backgrounds.
+Es gibt zwei verschiedene Arten von Hintergründen.
 
 ### Muster
 
@@ -16,12 +16,12 @@ Breite und Höhe sind die allgemeinen Einstellungen der Box.
 
 Zusätzlich können Sie die Farbe des Hintergrunds anpassen.
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+Mit der Zähler- und Abstandseigenschaft können Sie Musikpapier erstellen. Für Musikpapier setzen Sie die Anzahl auf 5 und den Abstand auf mehr als die Breite.
 
 ## Bild
 
-The image background type allows you to use an image as background.
+Der Bildhintergrundtyp erlaubt es, ein Bild als Hintergrund zu verwenden.
 
 ### Konfiguration
 
-The scale in x and y direction can be changed if this image to small or big.
+Die Skalierung in x und y Richtung kann geändert werden, wenn dieses Bild klein oder groß ist.
