@@ -4,10 +4,10 @@ sidebar_label: "Selecionar"
 ---
 
 
-With this tool you can select elements.
+Com esta ferramenta você pode selecionar elementos.
 
 ## Configuração
 
 | Propriedade |  Padrão   | Descrição:                                       |
 | -----------:|:---------:|:------------------------------------------------ |
-|        mode | retângulo | Mode of selection. Valid are rectangle and lasso |
+|        Modo | retângulo | Modo de seleção. Válido são o retângulo e o laço |
