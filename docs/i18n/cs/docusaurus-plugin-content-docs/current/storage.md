@@ -3,19 +3,19 @@ title: "Úložiště"
 sidebar_position: 2
 ---
 
-## Data directory
+## Datový adresář
 
-The data directory is the directory where documents, templates and packs are stored. On the desktop you can found it in `~/Documents/Linwood/Butterfly`. On mobile it's in `getExternalFilesDir(null)/Linwood/Butterfly`. You can also change it in the settings under `Data`.
+Datový adresář je adresář, kde jsou uloženy dokumenty, šablony a balíčky. Na ploše najdete ho v `~/Documents/Linwood/Butterfly`. Na mobilu je v `getExternalFilesDir(null)/Linwood/Butterfly`. Můžete to také změnit v nastavení pod `Data`.
 
-In this directory you will find a folder `Documents`, `Templates` and `Packs`.
+V tomto adresáři najdete složku `Dokumenty`, `Šablony` a `balíčky`.
 
 ## Webová
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+Data aplikace jsou uložena ve vašem prohlížeči. Je uložen v místním úložišti. Otevřete nástroje vývojáře ve vašem prohlížeči a uvidíte data.
 
 ## Domácí nástupiště
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+Jako výchozí nastavení aplikace ukládá data ve složce dokumentů do podsložky nazvané "Linwood/Butterfly". Tato složka je vytvořena, když uložíte první data. Tuto složku lze změnit v nastavení.
 
 ## Vzdálené úložiště {#remote}
 
@@ -25,9 +25,9 @@ Tato funkce není dostupná na webu.
 
 :::
 
-The application can be saved in a remote server. This is useful if you want to share the data with other people or if you have multiple computers. Currently only the `WebDAV` protocol is supported.
+Aplikaci lze uložit na vzdálený server. To je užitečné, pokud chcete sdílet data s ostatními lidmi nebo pokud máte více počítačů. V současné době je podporován pouze `WebDAV`.
 
-To add a remote server, go to the settings and click on `Remotes`. Then click on `Add remote`. Add the URL of the remote server and the username and password. After that you can specify the folder where the data is stored.
+Chcete-li přidat vzdálený server, přejděte do nastavení a klikněte na `Remotes`. Poté klikněte na `Přidat vzdálené`. Přidejte URL vzdáleného serveru a uživatelské jméno a heslo. Poté můžete specifikovat složku, kde jsou data uložena.
 
 Chcete-li získat webdav url, navštivte dokumentaci:
 
@@ -35,7 +35,7 @@ Chcete-li získat webdav url, navštivte dokumentaci:
 
 ### Offline synchronizace {#offline}
 
-This feature allows you to edit your files on remote servers while you are offline. Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
+Tato funkce umožňuje upravit soubory na vzdálených serverech, když jste v režimu offline. Otevřete vyskakovací menu v souboru nebo složce a klikněte na `Sync`. Toto stáhne soubor nebo složku a uloží ji lokálně. Synchronizovat celý kořenový adresář, klikněte na zaškrtávací značku v dialogovém okně pro vytvoření nebo klikněte na ovladač v nastavení a klikněte na zaškrtávací značku v sekci Správa záznamů.
 
 Existuje několik omezení:
 
