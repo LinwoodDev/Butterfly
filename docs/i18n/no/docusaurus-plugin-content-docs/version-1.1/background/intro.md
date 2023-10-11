@@ -4,7 +4,7 @@ sidebar_label: "Introduksjon"
 ---
 
 
-You can customize the background of the paper. Klikk på bakgrunnsikonet i visningsverktøyet for å legge det til.
+Du kan tilpasse bakgrunnen til papiret. Klikk på bakgrunnsikonet i visningsverktøyet for å legge det til.
 
 ## Konfigurasjon
 
