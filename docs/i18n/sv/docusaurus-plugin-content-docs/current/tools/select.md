@@ -4,10 +4,10 @@ sidebar_label: "Välj"
 ---
 
 
-With this tool you can select elements.
+Med detta verktyg kan du välja element.
 
 ## Konfiguration
 
-| Egenskap | Standard  | Beskrivning                                      |
-| --------:|:---------:|:------------------------------------------------ |
-|     mode | rektangel | Mode of selection. Valid are rectangle and lasso |
+| Egenskap | Standard  | Beskrivning                                |
+| --------:|:---------:|:------------------------------------------ |
+|     läge | rektangel | Val av typ. Giltiga är rektangel och lasso |
