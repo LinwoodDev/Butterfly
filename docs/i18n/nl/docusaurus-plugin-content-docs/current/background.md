@@ -4,7 +4,7 @@ sidebar_position: 2
 title: Achtergrond
 ---
 
-There are two different types of backgrounds.
+Er zijn twee verschillende soorten achtergronden.
 
 ### Patroon
 
@@ -16,12 +16,12 @@ Breedte en hoogte zijn de algemene instellingen van het vak.
 
 Daarnaast kunt u de kleur van de achtergrond aanpassen.
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+De eigenschap teller en afstand maakt het mogelijk om muziekpapier te maken. Voor muziekpapier, stel het aantal in op 5 en afstand naar meer dan de breedte.
 
 ## Afbeelding
 
-The image background type allows you to use an image as background.
+Het achtergrondafype stelt u in staat een afbeelding als achtergrond te gebruiken.
 
 ### Configuratie
 
-The scale in x and y direction can be changed if this image to small or big.
+De schaal in x en y richting kan worden gewijzigd als deze afbeelding klein of groot is.
