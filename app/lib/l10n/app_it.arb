@@ -120,7 +120,7 @@
   "copyVersion": "Copia versione",
   "input": "Input",
   "behaviors": "Comportamenti",
-  "dataDirectory": "Data directory",
+  "dataDirectory": "Cartella dati",
   "defaultPath": "Percorso predefinito",
   "dateFormat": "Formato data",
   "updatedAt": "Aggiornato a: {dateTime}",
