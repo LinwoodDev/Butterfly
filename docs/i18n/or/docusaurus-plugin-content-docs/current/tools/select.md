@@ -8,6 +8,6 @@ With this tool you can select elements.
 
 ## Configuration
 
-| Property |         Default          | ଵର୍ଣ୍ଣନା                                                                        |
-| --------:|:------------------------:|:------------------------------------------------------------------------------- |
-|     axis | (horizontal or vertical) | Direction where the space should be added. Only selectable when adding the tool |
+| Property |  Default  | ଵର୍ଣ୍ଣନା                                         |
+| --------:|:---------:|:------------------------------------------------ |
+|     mode | rectangle | Mode of selection. Valid are rectangle and lasso |
