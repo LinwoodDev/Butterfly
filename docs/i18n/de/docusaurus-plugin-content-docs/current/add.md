@@ -1,7 +1,7 @@
 ---
 title: "Neu"
-id: "hinzufügen"
-slug: "/hinzufügen"
+id: "add"
+slug: "/add"
 sidebar_position: 3
 ---
 
