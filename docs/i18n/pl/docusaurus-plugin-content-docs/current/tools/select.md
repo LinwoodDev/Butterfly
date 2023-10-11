@@ -8,6 +8,6 @@ With this tool you can select elements.
 
 ## Konfiguracja
 
-| Własność |       Domyślny        | Opis                                                                                  |
-| --------:|:---------------------:|:------------------------------------------------------------------------------------- |
-|       oś | (poziome lub pionowe) | Kierunek, w którym należy dodać miejsce. Zaznaczone tylko podczas dodawania narzędzia |
+| Własność | Domyślny  | Opis                                             |
+| --------:|:---------:|:------------------------------------------------ |
+|     mode | prostokąt | Mode of selection. Valid are rectangle and lasso |
