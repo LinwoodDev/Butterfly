@@ -120,7 +120,7 @@
   "copyVersion": "Kopier version",
   "input": "Input",
   "behaviors": "Opførsel",
-  "dataDirectory": "Data directory",
+  "dataDirectory": "Data mappe",
   "defaultPath": "Standard sti",
   "dateFormat": "Dato format",
   "updatedAt": "Opdateret på: {dateTime}",
