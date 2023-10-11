@@ -5,8 +5,8 @@ sidebar_position: 2
 
 ## Web
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+Applikationsdataene er gemt i din browser. Det opbevares på et lokalt lager. Åbn udviklerværktøjerne i din browser, og du vil se data.
 
 ## Indfødte platforme
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+Som standard gemmer programmet data i dine dokumenter mappe i en undermappe kaldet "Linwood/Butterfly". Denne mappe oprettes, når du gemmer de første data. Denne mappe kan ændres i indstillingerne.
