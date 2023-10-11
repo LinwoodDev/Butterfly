@@ -3,19 +3,19 @@ title: "Depozitare"
 sidebar_position: 2
 ---
 
-## Data directory
+## Director de date
 
-The data directory is the directory where documents, templates and packs are stored. On the desktop you can found it in `~/Documents/Linwood/Butterfly`. On mobile it's in `getExternalFilesDir(null)/Linwood/Butterfly`. You can also change it in the settings under `Data`.
+Dosarul cu date este directorul unde sunt stocate documentele, șabloanele și pachetele. Pe desktop îl poți găsi în `~/Documents/Linwood/Butterfly`. Pe mobil este în `getExternalFilesDir(null)/Linwood/Butterfly`. De asemenea, îl puteți modifica în setările de la `Data`.
 
-In this directory you will find a folder `Documents`, `Templates` and `Packs`.
+În acest director veţi găsi un folder `Documents`, `Templates` şi `Pachete`.
 
 ## Web
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+Datele aplicației sunt stocate în browser-ul tău. Este stocat într-un spaţiu de stocare local. Deschideți instrumentele de dezvoltare din browser și veți vedea datele.
 
 ## Platforme native
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+În mod implicit, aplicația salvează datele din dosarul documente într-un subdosar numit "Linwood/Butterfly". Acest folder este creat atunci când salvați primele date. Acest dosar poate fi modificat în setări.
 
 ## Stocare la distanță {#remote}
 
@@ -25,9 +25,9 @@ Această caracteristică nu este disponibilă pe web.
 
 :::
 
-The application can be saved in a remote server. This is useful if you want to share the data with other people or if you have multiple computers. Currently only the `WebDAV` protocol is supported.
+Aplicația poate fi salvată pe un server de la distanță. Acest lucru este util dacă doriți să partajați datele cu alte persoane sau dacă aveți mai multe computere. În prezent, numai protocolul `WebDAV` este acceptat.
 
-To add a remote server, go to the settings and click on `Remotes`. Then click on `Add remote`. Add the URL of the remote server and the username and password. After that you can specify the folder where the data is stored.
+Pentru a adăuga un server de la distanţă, accesaţi setările şi faceţi clic pe `Remotes`. Apoi apasă pe `Adaugă la distanță`. Adăugați adresa URL a serverului remote și numele de utilizator și parola. După aceasta, puteți specifica folderul în care sunt stocate datele.
 
 Pentru a obține url-ul webdac, vă rugăm să vizitați documentația:
 
@@ -35,7 +35,7 @@ Pentru a obține url-ul webdac, vă rugăm să vizitați documentația:
 
 ### Sincronizare offline {#offline}
 
-This feature allows you to edit your files on remote servers while you are offline. Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
+Această funcție vă permite să editați fișierele pe serverele la distanță în timp ce sunteți offline. Deschideți meniul popup într-un fișier sau folder și faceți clic pe `Sync`. Acest lucru va descărca fișierul sau dosarul și îl va salva local. Pentru a sincroniza întregul director rădăcină, faceţi clic pe bifa din dialogul de creare sau faceţi clic pe telecomanda din setare şi faceţi clic pe bifa din secţiunea de gestionare.
 
 Există câteva limitări:
 
