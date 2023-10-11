@@ -5,11 +5,11 @@ sidebar_position: 2
 
 ## Веб
 
-The application data is stored in your browser. It is stored in a local storage. Open the developer tools in your browser and you will see the data.
+Дані додатку зберігаються в вашому браузері. Він зберігається у локальному сховищі. Відкрийте інструменти розробника в браузері і ви побачите дані.
 
 ## Самородні платформи
 
-As default the application saves the data in your documents folder in a subfolder called "Linwood/Butterfly". This folder is created when you save the first data. This folder can be changed in the settings.
+Як за замовчуванням програма зберігає дані у папці ваших документів у підпапці під назвою "Linwood/Butterfly". Ця папка створюється під час збереження перших даних. Цю папку можна змінити в налаштуваннях.
 
 ## Віддалене сховище {#remote}
 
@@ -19,9 +19,9 @@ As default the application saves the data in your documents folder in a subfolde
 
 :::
 
-The application can be saved in a remote server. This is useful if you want to share the data with other people or if you have multiple computers. Currently only the `WebDAV` protocol is supported.
+Програму можна зберегти на віддаленому сервері. Це корисно, якщо ви хочете поділитись даними з іншими людьми або якщо у вас є декілька комп'ютерів. На даний час підтримується тільки `WebDAV` протокол.
 
-To add a remote server, go to the settings and click on `Remotes`. Then click on `Add remote`. Add the URL of the remote server and the username and password. After that you can specify the folder where the data is stored.
+To add a remote server, go to the settings and click on `Remotes`. Then click on `Add remote`. Додайте URL-адресу віддаленого сервера, ім'я користувача і пароль. Після цього ви можете вказати папку, де зберігаються дані.
 
 Щоб отримати адресу webdav url, будь ласка, відвідайте документацію:
 
@@ -29,7 +29,7 @@ To add a remote server, go to the settings and click on `Remotes`. Then click on
 
 ### Оффлайн синхронізація {#offline}
 
-This feature allows you to edit your files on remote servers while you are offline. Open the popup menu on a file or folder and click on `Sync`. This will download the file or folder and save it locally. To sync the whole root directory, click on the checkmark in the create dialog or click on the remote in the setting and click on the checkmark in the manage section.
+Ця функція дозволяє редагувати файли на віддалених серверах у автономному режимі. Відкрийте спливаюче меню для файлу чи папки та натисніть кнопку `Синхронізувати`. Це завантажить файл або папку і збереже їх локально. Щоб синхронізувати весь кореневий каталог, клікніть на галочку у діалоговому вікні «Створити» або клацніть на віддаленому екрані в розділі «Керувати».
 
 Є кілька обмежень:
 
