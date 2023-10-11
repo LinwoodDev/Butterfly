@@ -4,11 +4,11 @@ sidebar_position: 2
 title: Bakgrund
 ---
 
-There are two different types of backgrounds.
+Det finns två olika typer av bakgrunder.
 
 ### Mönster
 
-You can customize the background of the paper. Click on the background icon in the view dialog to add it. There are 8 different background templates available.
+Du kan anpassa bakgrunden till pappret. Klicka på bakgrundsikonen i dialogrutan för att lägga till den. Det finns 8 olika bakgrundsmallar tillgängliga.
 
 ### Konfiguration
 
@@ -16,12 +16,12 @@ Bredd och höjd är de allmänna inställningarna i lådan.
 
 Dessutom kan du anpassa färgen på bakgrunden.
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+Räkna och avstånd egenskapen kan du skapa musik papper. För musik papper, ange räkna till 5 och avstånd till mer än bredden.
 
 ## Bild
 
-The image background type allows you to use an image as background.
+Bakgrundstypen låter dig använda en bild som bakgrund.
 
 ### Konfiguration
 
-The scale in x and y direction can be changed if this image to small or big.
+Skalan i x och y riktning kan ändras om denna bild till liten eller stor.
