@@ -1,14 +1,24 @@
 ---
-title: "Insert"
+title: "Add"
 id: "add"
 slug: "/add"
 sidebar_position: 3
 ---
 
-You can insert different things in your notes:
+Here you can add things to your notes.
 
-* Images (from the gallery or the camera)
-* PDFs
-* SVGs
+## Import
 
-To access the insert menu, use the hand tool and double tap on the place where you want to insert something. Click on "Insert" to open the menu.
+Here you can import existing files inside your documents. Supported are butterfly documents, markdown, png, svg and pdf.
+
+## Tools
+
+To add more tools to your toolbar, click on them. Read more about them [here](tools).
+
+## Surfaces
+
+These are special tools to create surfaces.
+
+## Actions
+
+These are tools that will be executed by clicking on them. You can use the play button to execute them without adding them to the toolbar.
