@@ -4,10 +4,10 @@ sidebar_label: "选择"
 ---
 
 
-With this tool you can select elements.
+使用此工具您可以选择元素。
 
 ## 配置
 
-|   财产 | 默认设置 | 描述                                               |
-| ----:|:----:|:------------------------------------------------ |
-| mode |  矩形  | Mode of selection. Valid are rectangle and lasso |
+| 财产 | 默认设置 | 描述                  |
+| --:|:----:|:------------------- |
+| 模式 |  矩形  | 5. 选择方式。 有效的长方形和长方形 |
