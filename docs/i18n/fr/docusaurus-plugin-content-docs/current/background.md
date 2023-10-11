@@ -4,7 +4,7 @@ sidebar_position: 2
 title: Arrière-plan
 ---
 
-There are two different types of backgrounds.
+Il existe deux types de fonds différents.
 
 ### Schéma
 
@@ -16,12 +16,12 @@ Largeur et hauteur sont les paramètres généraux de la boîte.
 
 De plus, vous pouvez personnaliser la couleur de l'arrière-plan.
 
-The count and spacing property allows you to create music paper. For music paper, set count to 5 and spacing to more than the width.
+La propriété comptage et espacement vous permet de créer du papier musical. Pour le papier de musique, réglez le nombre à 5 et l'espacement à plus de la largeur.
 
 ## Image
 
-The image background type allows you to use an image as background.
+Le type d'arrière-plan de l'image vous permet d'utiliser une image comme arrière-plan.
 
 ### Configuration
 
-The scale in x and y direction can be changed if this image to small or big.
+L'échelle dans la direction x et y peut être modifiée si cette image est petite ou grande.
