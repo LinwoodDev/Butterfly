@@ -4,7 +4,7 @@ sidebar_label: "Médaille"
 sidebar_position: 3
 ---
 
-The texture tool allows you to add the background to a small area of the canvas.
+L'outil de texture vous permet d'ajouter l'arrière-plan à une petite zone de la toile.
 
 ## Configuration
 
@@ -16,6 +16,6 @@ The texture tool allows you to add the background to a small area of the canvas.
 |           Hauteur |     0      | La hauteur fixe de la zone. Si défini à 0, la hauteur sera calculée automatiquement.                                                                      |
 |    Ratio d'aspect |     0      | Le rapport d'aspect fixe de la zone. Si défini à 0, le ratio d'aspect sera calculé automatiquement. Un ratio d'aspect est défini comme largeur / hauteur. |
 
-Valid types for texture are:
+Les types de texture valides sont :
 
 * [Schéma](../background#pattern)
