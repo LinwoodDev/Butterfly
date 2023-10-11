@@ -120,7 +120,7 @@
   "copyVersion": "Kopiuj wersję",
   "input": "Input",
   "behaviors": "Zachowania",
-  "dataDirectory": "Data directory",
+  "dataDirectory": "Katalog danych",
   "defaultPath": "Domyślna ścieżka",
   "dateFormat": "Format daty",
   "updatedAt": "Zaktualizowano: {dateTime}",
