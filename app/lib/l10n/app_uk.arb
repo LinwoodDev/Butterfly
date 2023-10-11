@@ -120,7 +120,7 @@
   "copyVersion": "Копіювати версію",
   "input": "Input",
   "behaviors": "Поведінка",
-  "dataDirectory": "Data directory",
+  "dataDirectory": "Каталог даних",
   "defaultPath": "Типовий шлях",
   "dateFormat": "Формат дати",
   "updatedAt": "Оновлено на: {dateTime}",
