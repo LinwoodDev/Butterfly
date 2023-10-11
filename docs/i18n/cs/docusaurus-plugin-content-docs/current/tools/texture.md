@@ -4,7 +4,7 @@ sidebar_label: "Razítko"
 sidebar_position: 3
 ---
 
-The texture tool allows you to add the background to a small area of the canvas.
+Nástroj textury vám umožní přidat pozadí do malé oblasti plátna.
 
 ## Konfigurace
 
@@ -16,6 +16,6 @@ The texture tool allows you to add the background to a small area of the canvas.
 |              Výška |    0     | Pevná výška plochy. Je-li nastaveno na 0, bude výška vypočtena automaticky.                                                     |
 |        Poměr stran |    0     | Pevný poměr stran plochy. Je-li nastaveno na 0, poměr stran se vypočítá automaticky. Poměr stran je definován jako šířka/výška. |
 
-Valid types for texture are:
+Platné typy textury jsou:
 
 * [Vzor](../background#pattern)
