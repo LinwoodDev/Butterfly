@@ -3,11 +3,11 @@ title: "ストレージ"
 sidebar_position: 2
 ---
 
-## Data directory
+## データディレクトリ
 
-The data directory is the directory where documents, templates and packs are stored. On the desktop you can found it in `~/Documents/Linwood/Butterfly`. On mobile it's in `getExternalFilesDir(null)/Linwood/Butterfly`. You can also change it in the settings under `Data`.
+データディレクトリは、ドキュメント、テンプレート、パックが格納されているディレクトリです。 デスクトップでは、 `~/Documents/Linwood/Butterfly` で見つけることができます。 モバイルでは、 `getExternalFilesDir(null)/Linwood/Butterfly` にあります。 `データ` の設定でも変更できます。
 
-In this directory you will find a folder `Documents`, `Templates` and `Packs`.
+このディレクトリには、フォルダ `ドキュメント`, `テンプレート` と `パック` があります。
 
 ## ウェブ
 
