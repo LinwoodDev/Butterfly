@@ -7,7 +7,7 @@ sidebar_position: 3
 
 Använd detta verktyg för att rita former på pappret. Du kan rita rektanglar, cirklar och andra former.
 
-Use `ctrl` to have the same height and width and `shift` to draw from the center.
+Använd `ctrl` för att ha samma höjd och bredd och `flytta` för att rita från mitten.
 
 ## Konfiguration
 
