@@ -4,10 +4,10 @@ sidebar_label: "Selecteren"
 ---
 
 
-With this tool you can select elements.
+Met deze tool kun je elementen selecteren.
 
 ## Configuratie
 
-| Eigenschap | Standaard | Beschrijving                                     |
-| ----------:|:---------:|:------------------------------------------------ |
-|       mode | rechthoek | Mode of selection. Valid are rectangle and lasso |
+| Eigenschap | Standaard | Beschrijving                                  |
+| ----------:|:---------:|:--------------------------------------------- |
+|      modus | rechthoek | Selectiemodus. Geldig zijn rechthoek en lasso |
