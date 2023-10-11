@@ -8,6 +8,6 @@ With this tool you can select elements.
 
 ## Configurazione
 
-| Proprietà |        Predefinito        | Descrizione                                                                                       |
-| ---------:|:-------------------------:|:------------------------------------------------------------------------------------------------- |
-|      asse | (orizzontale o verticale) | Direzione dove lo spazio deve essere aggiunto. Selezionabile solo quando si aggiunge lo strumento |
+| Proprietà | Predefinito | Descrizione                                      |
+| ---------:|:-----------:|:------------------------------------------------ |
+|      mode | rettangolo  | Mode of selection. Valid are rectangle and lasso |
