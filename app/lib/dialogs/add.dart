@@ -81,7 +81,7 @@ class AddDialog extends StatelessWidget {
             controller: _searchController,
           )),
           IconButton(
-            onPressed: () => openHelp(['tools']),
+            onPressed: () => openHelp(['add']),
             icon: const PhosphorIcon(PhosphorIconsLight.sealQuestion),
             tooltip: AppLocalizations.of(context).help,
           ),

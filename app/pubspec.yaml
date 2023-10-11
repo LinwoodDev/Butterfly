@@ -29,7 +29,7 @@ dependencies:
   flutter_bloc: ^8.1.3
   intl: ^0.18.0
   path_provider: ^2.1.1
-  shared_preferences: ^2.2.1
+  shared_preferences: ^2.2.2
   url_launcher: ^6.1.14
   file_picker: ^5.5.0
   phosphor_flutter:
@@ -58,7 +58,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   equatable: ^2.0.5
   rxdart: ^0.27.7
-  archive: ^3.4.5
+  archive: ^3.4.6
   animations: ^2.0.8
   connectivity_plus: ^5.0.0
   cross_file: ^0.3.3+5
@@ -89,7 +89,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  freezed: ^2.4.3
+  freezed: ^2.4.5
   build_runner: ^2.4.6
   json_serializable: ^6.7.1
   espresso: ^0.3.0+6
