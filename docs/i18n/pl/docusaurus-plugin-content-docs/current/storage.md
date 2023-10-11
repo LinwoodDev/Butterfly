@@ -3,11 +3,11 @@ title: "Pamięć"
 sidebar_position: 2
 ---
 
-## Data directory
+## Katalog danych
 
-The data directory is the directory where documents, templates and packs are stored. On the desktop you can found it in `~/Documents/Linwood/Butterfly`. On mobile it's in `getExternalFilesDir(null)/Linwood/Butterfly`. You can also change it in the settings under `Data`.
+Katalog danych jest katalogiem, w którym przechowywane są dokumenty, szablony i paczki. Na pulpicie możesz go znaleźć w `~/Documents/Linwood/Butterfly`. Na urządzeniu mobilnym jest w `getExternalFilesDir(null)/Linwood/Butterfly`. Możesz to również zmienić w ustawieniach w sekcji `Data`.
 
-In this directory you will find a folder `Documents`, `Templates` and `Packs`.
+W tym katalogu znajdziesz folder `Dokumenty`, `Szablony` i `Pakiety`.
 
 ## Web
 
@@ -17,7 +17,7 @@ Dane aplikacji są przechowywane w przeglądarce. Lek jest przechowywany w miejs
 
 Domyślnie aplikacja zapisuje dane w folderze dokumentów w podfolderze o nazwie "Linwood/Butterfly". Ten folder jest tworzony podczas zapisywania pierwszych danych. Ten folder może zostać zmieniony w ustawieniach.
 
-## Remote storage {#remote}
+## Zdalna pamięć {#remote}
 
 :::note
 
