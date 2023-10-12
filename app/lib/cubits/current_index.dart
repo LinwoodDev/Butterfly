@@ -202,6 +202,7 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
   Future<void> refresh(NoteData document, AssetService assetService,
       DocumentPage page, DocumentInfo info,
       [Area? currentArea]) async {
+    const mapEq = MapEquality();
     if (!isClosed) {
       _disposeForegrounds();
       final temporaryForegrounds = state.temporaryHandler
@@ -216,8 +217,8 @@ class CurrentIndexCubit extends Cubit<CurrentIndex> {
           .map((e) async => await e.setup(document, assetService, page)));
       final rendererStates = state.handler.rendererStates;
       final temporaryRendererStates = state.temporaryHandler?.rendererStates;
-      final shouldBake = state.rendererStates != rendererStates ||
-          state.temporaryRendererStates != temporaryRendererStates;
+      final shouldBake = !mapEq.equals(state.rendererStates, rendererStates) ||
+          !mapEq.equals(state.temporaryRendererStates, temporaryRendererStates);
       emit(state.copyWith(
         temporaryForegrounds: temporaryForegrounds,
         foregrounds: foregrounds,

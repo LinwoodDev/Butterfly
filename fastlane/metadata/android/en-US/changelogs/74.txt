@@ -6,6 +6,7 @@
 * Change reload button icon in remote button
 * Rename document directory to data directory
 * Fix adding template instead of document when clicking create file in files view
+* Fix unnessesary baking of canvas on every change ([#503](https://github.com/LinwoodDev/Butterfly/issues/503))
 * Improve documentation
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.10
