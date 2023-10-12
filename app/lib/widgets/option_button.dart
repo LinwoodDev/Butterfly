@@ -49,10 +49,12 @@ class _OptionButtonState extends State<OptionButton> {
         radius: 12,
         borderRadius: BorderRadius.circular(12),
         onTap: widget.onPressed,
-        onLongPress: () {
-          _tooltipKey.currentState?.ensureTooltipVisible();
-          widget.onLongPressed?.call();
-        },
+        onLongPress: widget.onLongPressed == null
+            ? null
+            : () {
+                _tooltipKey.currentState?.ensureTooltipVisible();
+                widget.onLongPressed?.call();
+              },
         child: Container(
           decoration: widget.highlighted
               ? BoxDecoration(
