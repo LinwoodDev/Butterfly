@@ -33,15 +33,20 @@ class PenHandler extends Handler<PenTool> {
     submitElement(context.viewportSize, context.buildContext, event.pointer);
   }
 
+  bool _currentlyBaking = false;
+
   Future<void> submitElement(
       Size viewportSize, BuildContext context, int index) async {
     final bloc = context.read<DocumentBloc>();
-    var element = elements.remove(index);
+    final element = elements.remove(index);
     if (element == null) return;
     lastPosition.remove(index);
     bloc.add(ElementsCreated([element]));
-    bloc.refresh();
+    if (_currentlyBaking) return;
+    _currentlyBaking = true;
     await bloc.bake();
+    _currentlyBaking = false;
+    bloc.refresh();
   }
 
   void addPoint(BuildContext context, int pointer, Offset localPosition,

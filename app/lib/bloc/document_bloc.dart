@@ -134,7 +134,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
       );
     });
     on<ElementsCreated>((event, emit) async {
-      final current = state;
+      var current = state;
       if (current is! DocumentLoadSuccess) return;
       if (!(current.embedding?.editable ?? true)) return;
       var data = current.data;
@@ -168,6 +168,12 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
           .onRenderersCreated(current.page, renderers)) {
         refresh();
       }
+      if (current != state) {
+        final next = state;
+        if (next is! DocumentLoadSuccess) return;
+        data = next.data;
+        current = next;
+      }
       return _saveState(
           emit,
           current.copyWith(
@@ -176,7 +182,7 @@ class DocumentBloc extends ReplayBloc<DocumentEvent, DocumentState> {
                   content: (List.from(current.page.content)
                     ..addAll(elements)))),
           renderers);
-    }, transformer: sequential());
+    });
     on<ElementsChanged>((event, emit) async {
       final current = state;
       if (current is! DocumentLoadSuccess) return;
