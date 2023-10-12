@@ -15,3 +15,7 @@ La herramienta de textura permite añadir el fondo a una pequeña zona del lienz
 |               Width |      0      | El ancho fijo del área. Si se establece en 0, el ancho se calculará automáticamente.                                                                                      |
 |              Altura |      0      | La altura fija del área. Si se establece en 0, la altura se calculará automáticamente.                                                                                    |
 | Relación de aspecto |      0      | La relación de aspecto fijo del área. Si se establece en 0, la relación de aspecto se calculará automáticamente. Una relación de aspecto se define como anchura / altura. |
+
+Los tipos válidos para la textura son:
+
+* [Patrón](../background#pattern)

@@ -15,3 +15,7 @@ A ferramenta de textura permite que você adicione o plano de fundo a uma pequen
 |               Width |    0     | A largura fixa da área. Se definido como 0, a largura será calculada automaticamente.                                                            |
 |              Altura |    0     | A altura fixa da área. Se definido como 0, a altura será calculada automaticamente.                                                              |
 | Proporção da imagem |    0     | O rácio de aspecto fixo da área. Se definido para 0, a proporção será calculada automaticamente. Uma proporção é definida como largura / altura. |
+
+Os tipos válidos para textura são:
+
+* [Padrão](../background#pattern)

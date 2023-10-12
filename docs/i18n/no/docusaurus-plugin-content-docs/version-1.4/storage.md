@@ -19,9 +19,9 @@ Denne funksjonen er ikke tilgjengelig på nettet.
 
 :::
 
-Programmet kan lagres på en ekstern server. Dette er nyttig hvis du vil dele dataene med andre personer, eller hvis du har flere datamaskiner. For tiden er bare `WebDAV` -protokollen støttet.
+Programmet kan lagres på en ekstern server. Dette er nyttig hvis du vil dele dataene med andre personer, eller hvis du har flere datamaskiner. For øyeblikket støttes bare `WebDAV` -protokollen.
 
-For å legge til en ekstern server, gå til innstillingene og klikk på `Remotes`. Klikk deretter `Legg til fjernkontroll`. Legg til URL-adressen for den eksterne serveren og brukernavnet og passordet. Deretter kan du spesifisere mappen hvor dataene er lagret.
+For å legge til en ekstern server, gå til innstillingene og klikk på `Remotes`. Klikk deretter på `Legg til fjernkontroll`. Legg til URL-adressen for den eksterne serveren og brukernavnet og passordet. Deretter kan du spesifisere mappen hvor dataene er lagret.
 
 For å få nettadressen, vennligst besøk dokumentasjonen:
 
@@ -29,7 +29,7 @@ For å få nettadressen, vennligst besøk dokumentasjonen:
 
 ### Frakoblet synkronisering {#offline}
 
-Denne funksjonen lar deg redigere dine filer på eksterne servere mens du er frakoblet. Åpne popup-menyen på en fil eller mappe og klikk på `Synkroniser`. Dette laster ned fil eller mappe og lagrer det lokalt. Å synkronisere hele rotmappen, klikk på haken i dialogboksen for opprette eller klikk på fjernkontrollen i innstillingen og klikk på haken i administrasjonen
+Denne funksjonen lar deg redigere dine filer på eksterne servere mens du er frakoblet. Åpne popup-menyen på en fil eller mappe og klikk på `Sync`. Dette laster ned fil eller mappe og lagrer det lokalt. Å synkronisere hele rotmappen, klikk på haken i dialogboksen for opprette eller klikk på fjernkontrollen i innstillingen og klikk på haken i administrasjonen
 
 Det finnes noen begrensninger:
 

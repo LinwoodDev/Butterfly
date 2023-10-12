@@ -3,6 +3,12 @@ title: "Pamięć"
 sidebar_position: 2
 ---
 
+## Katalog danych
+
+Katalog danych jest katalogiem, w którym przechowywane są dokumenty, szablony i paczki. Na pulpicie możesz go znaleźć w `~/Documents/Linwood/Butterfly`. Na urządzeniu mobilnym jest w `getExternalFilesDir(null)/Linwood/Butterfly`. Możesz to również zmienić w ustawieniach w sekcji `Data`.
+
+W tym katalogu znajdziesz folder `Dokumenty`, `Szablony` i `Pakiety`.
+
 ## Web
 
 Dane aplikacji są przechowywane w przeglądarce. Lek jest przechowywany w miejscu przechowywania. Otwórz narzędzia deweloperskie w przeglądarce i zobaczysz dane.

@@ -120,7 +120,7 @@
   "copyVersion": "Kopírovat verzi",
   "input": "Input",
   "behaviors": "Chování",
-  "documentDirectory": "Složka dokumentu",
+  "dataDirectory": "Datový adresář",
   "defaultPath": "Výchozí cesta",
   "dateFormat": "Formát data",
   "updatedAt": "Aktualizováno na: {dateTime}",
@@ -541,5 +541,14 @@
   "density": "Hustota",
   "compact": "Kompaktní",
   "comfortable": "Komfortní",
-  "standard": "Standardní"
+  "standard": "Standardní",
+  "lock": "Zamknout",
+  "addElement": "Přidat prvek",
+  "notDefaultConnection": "Není výchozí připojení",
+  "defaultConnection": "Výchozí připojení",
+  "hide": "Skrýt",
+  "show": "Zobrazit",
+  "pause": "Pozastavit",
+  "stop": "Zastavit",
+  "refresh": "Aktualizovat"
 }

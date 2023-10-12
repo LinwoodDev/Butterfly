@@ -120,7 +120,7 @@
   "copyVersion": "نسخ الإصدار",
   "input": "Input",
   "behaviors": "السلوكيات",
-  "documentDirectory": "دليل المستند",
+  "dataDirectory": "دليل البيانات",
   "defaultPath": "المسار الافتراضي",
   "dateFormat": "تنسيق التاريخ",
   "updatedAt": "تم التحديث في: {dateTime}",
@@ -541,5 +541,14 @@
   "density": "الكثافة",
   "compact": "مدمج",
   "comfortable": "مريح",
-  "standard": "قياسي"
+  "standard": "قياسي",
+  "lock": "قفل",
+  "addElement": "إضافة عنصر",
+  "notDefaultConnection": "ليس الإتصال الافتراضي",
+  "defaultConnection": "الاتصال الافتراضي",
+  "hide": "إخفاء",
+  "show": "إظهار",
+  "pause": "إيقاف",
+  "stop": "توقف",
+  "refresh": "تحديث"
 }

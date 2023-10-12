@@ -120,7 +120,7 @@
   "copyVersion": "Versie kopiëren",
   "input": "Input",
   "behaviors": "Gedrag",
-  "documentDirectory": "Document map",
+  "dataDirectory": "Data map",
   "defaultPath": "Standaard pad",
   "dateFormat": "Datum formaat",
   "updatedAt": "Bijgewerkt op: {dateTime}",
@@ -541,5 +541,14 @@
   "density": "Dichtheid",
   "compact": "Compacte",
   "comfortable": "Comfortabel",
-  "standard": "Standaard"
+  "standard": "Standaard",
+  "lock": "Vergrendelen",
+  "addElement": "Element toevoegen",
+  "notDefaultConnection": "Niet standaard verbinding",
+  "defaultConnection": "Standaard connectie",
+  "hide": "Verbergen",
+  "show": "Weergeven",
+  "pause": "Onderbreken",
+  "stop": "Stoppen",
+  "refresh": "Vernieuwen"
 }

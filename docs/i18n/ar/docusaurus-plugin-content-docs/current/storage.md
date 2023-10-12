@@ -3,6 +3,12 @@ title: "التخزين"
 sidebar_position: 2
 ---
 
+## دليل البيانات
+
+دليل البيانات هو الدليل الذي يتم فيه تخزين الوثائق والقوالب والحزم. على سطح المكتب يمكنك العثور عليه في `~/Documents/Linwood/Butterfly` على الهاتف المحمول في `getExternalFilesDir(null)/Linwood/Butterfly`. You can also change it in the settings under `Data`.
+
+في هذا الدليل سوف تجد مجلد `Documents`و `Templates` و `Pack`.
+
 ## ويب
 
 بيانات التطبيق مخزنة في المتصفح الخاص بك. يتم تخزينها في مخزن محلي. افتح أدوات المطور في المتصفح الخاص بك وسوف ترى البيانات.

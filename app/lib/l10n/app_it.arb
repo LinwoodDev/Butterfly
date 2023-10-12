@@ -120,7 +120,7 @@
   "copyVersion": "Copia versione",
   "input": "Input",
   "behaviors": "Comportamenti",
-  "documentDirectory": "Directory del documento",
+  "dataDirectory": "Cartella dati",
   "defaultPath": "Percorso predefinito",
   "dateFormat": "Formato data",
   "updatedAt": "Aggiornato a: {dateTime}",
@@ -541,5 +541,14 @@
   "density": "Densità",
   "compact": "Compatto",
   "comfortable": "Confortevole",
-  "standard": "Standard"
+  "standard": "Standard",
+  "lock": "Blocca",
+  "addElement": "Aggiungi elemento",
+  "notDefaultConnection": "Connessione non predefinita",
+  "defaultConnection": "Connessione predefinita",
+  "hide": "Nascondi",
+  "show": "Mostra",
+  "pause": "Pausa",
+  "stop": "Ferma",
+  "refresh": "Aggiorna"
 }

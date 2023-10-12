@@ -1,14 +1,24 @@
 ---
-title: "Einfügen"
+title: "Neu"
 id: "add"
 slug: "/add"
 sidebar_position: 3
 ---
 
-Sie können verschiedene Dinge in Ihre Notizen einfügen:
+Hier können Sie Dinge zu Ihren Notizen hinzufügen.
 
-* Bilder (von der Galerie oder der Kamera)
-* PDFs
-* SVGs
+## Importieren
 
-Um das Einfügemenü aufzurufen, verwenden Sie das Handwerkszeug und doppeltippen Sie auf den Ort, an dem Sie etwas einfügen möchten. Klicken Sie auf "Einfügen", um das Menü zu öffnen.
+Hier können Sie vorhandene Dateien in Ihren Dokumenten importieren. Unterstützt werden Schmetterlingsdokumente, Markdown, png, svg und pdf.
+
+## Werkzeuge
+
+Um weitere Werkzeuge zu Ihrer Symbolleiste hinzuzufügen, klicken Sie auf sie. Lesen Sie mehr über sie [hier](tools).
+
+## Oberflächen
+
+Dies sind spezielle Werkzeuge, um Oberflächen zu erzeugen.
+
+## Aktionen
+
+Dies sind Werkzeuge, die durch einen Klick ausgeführt werden. Mit dem Play-Knopf können Sie sie ausführen, ohne sie in die Symbolleiste hinzuzufügen.

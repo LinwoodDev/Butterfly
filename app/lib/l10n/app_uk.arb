@@ -120,7 +120,7 @@
   "copyVersion": "Копіювати версію",
   "input": "Input",
   "behaviors": "Поведінка",
-  "documentDirectory": "Каталог документів",
+  "dataDirectory": "Каталог даних",
   "defaultPath": "Типовий шлях",
   "dateFormat": "Формат дати",
   "updatedAt": "Оновлено на: {dateTime}",
@@ -541,5 +541,14 @@
   "density": "Густина",
   "compact": "Компактний",
   "comfortable": "Комфортний",
-  "standard": "Стандартна"
+  "standard": "Стандартна",
+  "lock": "Зачинити",
+  "addElement": "Додати елемент",
+  "notDefaultConnection": "Не з'єднатися за замовчуванням",
+  "defaultConnection": "З'єднання за замовчуванням",
+  "hide": "Приховати",
+  "show": "Показати",
+  "pause": "Пауза",
+  "stop": "Зупинити",
+  "refresh": "Оновити"
 }

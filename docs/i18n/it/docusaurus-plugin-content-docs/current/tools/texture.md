@@ -15,3 +15,7 @@ Lo strumento texture consente di aggiungere lo sfondo a una piccola area della t
 |             Larghezza |      0      | La larghezza fissa dell'area. Se impostato a 0, la larghezza verrà calcolata automaticamente.                                                                         |
 |               Altezza |      0      | L'altezza fissa dell'area. Se impostata a 0, l'altezza verrà calcolata automaticamente.                                                                               |
 |   Rapporto dimensioni |      0      | Il rapporto di aspetto fisso dell'area. Se impostato a 0, le proporzioni saranno calcolate automaticamente. Un rapporto di aspetto è definito come larghezza/altezza. |
+
+Tipi validi per la texture sono:
+
+* [Sequenza](../background#pattern)

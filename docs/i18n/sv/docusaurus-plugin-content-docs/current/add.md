@@ -1,14 +1,24 @@
 ---
-title: "Insert"
-id: "add"
-slug: "/add"
+title: "Lägg till"
+id: "lägg till"
+slug: "/lägg till"
 sidebar_position: 3
 ---
 
-Du kan infoga olika saker i dina anteckningar:
+Här kan du lägga till saker till dina anteckningar.
 
-* Bilder (från galleriet eller kameran)
-* PDF-filer
-* SVGs
+## Importera
 
-För att komma åt insatsmenyn, använd handverktyget och dubbeltryck på den plats där du vill infoga något. Klicka på "Infoga" för att öppna menyn.
+Här kan du importera befintliga filer i dina dokument. Stöds är fjärilsdokument, markdown, png, svg och pdf.
+
+## Verktyg
+
+För att lägga till fler verktyg i verktygsfältet, klicka på dem. Läs mer om dem [här](tools).
+
+## Ytor
+
+Dessa är speciella verktyg för att skapa ytor.
+
+## Åtgärder
+
+Dessa är verktyg som kommer att utföras genom att klicka på dem. Du kan använda play-knappen för att köra dem utan att lägga till dem i verktygsfältet.

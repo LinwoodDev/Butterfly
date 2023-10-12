@@ -120,7 +120,7 @@
   "copyVersion": "Copiază versiunea",
   "input": "Input",
   "behaviors": "Comportamente",
-  "documentDirectory": "Dosar documente",
+  "dataDirectory": "Director de date",
   "defaultPath": "Calea implicită",
   "dateFormat": "Formatul datei",
   "updatedAt": "Actualizat la: {dateTime}",
@@ -541,5 +541,14 @@
   "density": "Densitate",
   "compact": "Compact",
   "comfortable": "Comfortable",
-  "standard": "Standard"
+  "standard": "Standard",
+  "lock": "Blocare",
+  "addElement": "Adaugă element",
+  "notDefaultConnection": "Conexiune neimplicită",
+  "defaultConnection": "Conexiune implicită",
+  "hide": "Ascunde",
+  "show": "Afișare",
+  "pause": "Întrerupeți",
+  "stop": "Oprește",
+  "refresh": "Împrospătează"
 }

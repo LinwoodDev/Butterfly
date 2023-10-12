@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Bruk dette verktøyet til å tegne figurer på papiret. Du kan tegne rektangler, sirkler og andre former.
 
+Bruk `ctrl` for å ha samme høyde og bredde og `skift` for å tegne fra midten.
+
 ## Konfigurasjon
 
 |                Egenskap | Standard  | Beskrivelse                                                                                                                                                |

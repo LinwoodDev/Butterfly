@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Benutzen Sie dieses Werkzeug, um Formen auf dem Papier zu zeichnen. Sie können Rechtecke, Kreise und andere Formen zeichnen.
 
+Verwenden Sie `Strg` um die gleiche Höhe und Breite und `Shift` vom Zentrum zu ziehen.
+
 ## Konfiguration
 
 |           Objekt |  Standard  | Beschreibung                                                                                                                                                         |

@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Utilizzare questo strumento per disegnare forme sulla carta. È possibile disegnare rettangoli, cerchi e altre forme.
 
+Usa `ctrl` per avere la stessa altezza e larghezza e `spostamento` per disegnare dal centro.
+
 ## Configurazione
 
 |             Proprietà | Predefinito | Descrizione                                                                                                                                                           |

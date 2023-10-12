@@ -1,14 +1,24 @@
 ---
-title: "Insert"
-id: "add"
+title: "Tilføj"
+id: "tilføj"
 slug: "/add"
 sidebar_position: 3
 ---
 
-Du kan indsætte forskellige ting i dine noter:
+Her kan du tilføje ting til dine noter.
 
-* Billeder (fra galleriet eller kameraet)
-* PDF-filer
-* SVG'er
+## Importér
 
-Brug håndværktøjet og dobbelttryk på det sted, hvor du vil indsætte noget, for at få adgang til indsætningsmenuen. Klik på "Indsæt" for at åbne menuen.
+Her kan du importere eksisterende filer i dine dokumenter. Understøttede er sommerfugl dokumenter, markdown, png, svg og pdf.
+
+## Værktøjer
+
+Klik på dem for at tilføje flere værktøjer til værktøjslinjen. Læs mere om dem [her](tools).
+
+## Overflader
+
+Disse er specielle værktøjer til at skabe overflader.
+
+## Handlinger
+
+Det er værktøjer, der vil blive udført ved at klikke på dem. Du kan bruge afspilningsknappen til at udføre dem uden at tilføje dem til værktøjslinjen.

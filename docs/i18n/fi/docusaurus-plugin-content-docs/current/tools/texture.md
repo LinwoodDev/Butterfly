@@ -15,3 +15,7 @@ Tekstuuri työkalun avulla voit lisätä taustan pienelle alueelle kankaalla.
 |                 Width |    0    | Alueen kiinteä leveys. Jos arvo on 0, leveys lasketaan automaattisesti.                                                                |
 |               Korkeus |    0    | Alueen kiinteä korkeus. Jos arvo on 0, korkeus lasketaan automaattisesti.                                                              |
 |             Kuvasuhde |    0    | Alueen kiinteä kuvasuhde on sama. Jos arvo on 0, kuvasuhde lasketaan automaattisesti. Kuvasuhde määritellään leveydeksi / korkeudeksi. |
+
+Voimassa olevat tekstuurin tyypit ovat:
+
+* [Kuvio](../background#pattern)

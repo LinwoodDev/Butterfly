@@ -7,6 +7,8 @@ sidebar_position: 3
 
 Käytä tätä työkalua piirtääksesi muotoja paperille. Voit piirtää suorakulmioita, piirejä ja muita muotoja.
 
+Käytä `ctrl` samaa korkeutta ja leveyttä ja `vaihtaa` piirtääksesi keskustasta.
+
 ## Asetukset
 
 |            Ominaisuus |   Oletus    | Kuvaus                                                                                                                                 |

@@ -120,7 +120,7 @@
   "copyVersion": "Kopiera version",
   "input": "Input",
   "behaviors": "Beteenden",
-  "documentDirectory": "Dokumentets katalog",
+  "dataDirectory": "Datakatalog",
   "defaultPath": "Standard sökväg",
   "dateFormat": "Datumformat",
   "updatedAt": "Uppdaterad den: {dateTime}",
@@ -541,5 +541,14 @@
   "density": "Densitet",
   "compact": "Kompakt",
   "comfortable": "Bekväm",
-  "standard": "Standard"
+  "standard": "Standard",
+  "lock": "Lås",
+  "addElement": "Lägg till element",
+  "notDefaultConnection": "Inte standardanslutning",
+  "defaultConnection": "Förvald kontakt",
+  "hide": "Dölj",
+  "show": "Visa",
+  "pause": "Pausa",
+  "stop": "Stoppa",
+  "refresh": "Uppdatera"
 }

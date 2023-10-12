@@ -15,3 +15,7 @@ Tekstur værktøjet giver dig mulighed for at tilføje baggrunden til et lille o
 |          Width |     0     | Den faste bredde af området. Hvis sat til 0, beregnes bredden automatisk.                                                                |
 |          Højde |     0     | Den faste højde af området. Hvis sat til 0, beregnes højden automatisk.                                                                  |
 | Aspekt forhold |     0     | Det faste aspektforhold for området. Hvis sat til 0, beregnes aspektforholdet automatisk. Et aspektforhold defineres som bredde / højde. |
+
+Gyldige typer for tekstur er:
+
+* [Mønster](../background#pattern)
