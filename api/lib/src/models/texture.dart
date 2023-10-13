@@ -37,39 +37,39 @@ extension PatternTemplateExtension on PatternTemplate {
       case PatternTemplate.ruled:
         return const PatternTexture(
           boxColor: kColorLight,
-          boxHeight: 20,
+          boxHeight: 40,
         );
       case PatternTemplate.quad:
         return const PatternTexture(
           boxColor: kColorLight,
-          boxHeight: 20,
-          boxWidth: 20,
+          boxHeight: 40,
+          boxWidth: 40,
         );
       case PatternTemplate.music:
         return const PatternTexture(
             boxColor: kColorLight,
-            boxHeight: 20,
+            boxHeight: 40,
             boxYColor: kColorBlack,
-            boxYSpace: 30,
+            boxYSpace: 80,
             boxYCount: 5);
       case PatternTemplate.plainDark:
         return const PatternTexture(
           boxColor: kColorDark,
         );
       case PatternTemplate.ruledDark:
-        return const PatternTexture(boxColor: kColorDark, boxHeight: 20);
+        return const PatternTexture(boxColor: kColorDark, boxHeight: 40);
       case PatternTemplate.quadDark:
         return const PatternTexture(
           boxColor: kColorDark,
-          boxWidth: 20,
-          boxHeight: 20,
+          boxWidth: 40,
+          boxHeight: 40,
         );
       case PatternTemplate.musicDark:
         return const PatternTexture(
             boxColor: kColorDark,
             boxYColor: kColorWhite,
-            boxHeight: 20,
-            boxYSpace: 30,
+            boxHeight: 40,
+            boxYSpace: 80,
             boxYCount: 5);
     }
   }

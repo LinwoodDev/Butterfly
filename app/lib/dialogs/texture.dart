@@ -69,8 +69,9 @@ class _TextureViewState extends State<TextureView> {
                     header: Text(AppLocalizations.of(context).width,
                         style: Theme.of(context).textTheme.titleLarge),
                     value: widget.value.boxWidth,
+                    defaultValue: 0,
                     min: 0,
-                    max: 100),
+                    max: 500),
                 const SizedBox(height: 16),
                 ExactSlider(
                     onChanged: (value) => widget.onChanged(
@@ -79,8 +80,9 @@ class _TextureViewState extends State<TextureView> {
                         style: Theme.of(context).textTheme.titleLarge),
                     value: widget.value.boxXCount.toDouble(),
                     fractionDigits: 0,
+                    defaultValue: 0,
                     min: 0,
-                    max: 100),
+                    max: 500),
                 const SizedBox(height: 16),
                 ExactSlider(
                     onChanged: (value) => widget
@@ -88,8 +90,9 @@ class _TextureViewState extends State<TextureView> {
                     header: Text(AppLocalizations.of(context).space,
                         style: Theme.of(context).textTheme.titleLarge),
                     value: widget.value.boxXSpace,
+                    defaultValue: 0,
                     min: 0,
-                    max: 100),
+                    max: 500),
               ]),
               ListView(children: [
                 ColorField(
@@ -105,8 +108,9 @@ class _TextureViewState extends State<TextureView> {
                     header: Text(AppLocalizations.of(context).width,
                         style: Theme.of(context).textTheme.titleLarge),
                     value: widget.value.boxHeight,
+                    defaultValue: 0,
                     min: 0,
-                    max: 100),
+                    max: 500),
                 const SizedBox(height: 16),
                 ExactSlider(
                     onChanged: (value) => widget.onChanged(
@@ -114,9 +118,10 @@ class _TextureViewState extends State<TextureView> {
                     header: Text(AppLocalizations.of(context).count,
                         style: Theme.of(context).textTheme.titleLarge),
                     value: widget.value.boxYCount.toDouble(),
+                    defaultValue: 0,
                     fractionDigits: 0,
                     min: 0,
-                    max: 100),
+                    max: 500),
                 const SizedBox(height: 16),
                 ExactSlider(
                     onChanged: (value) => widget
@@ -124,8 +129,9 @@ class _TextureViewState extends State<TextureView> {
                     header: Text(AppLocalizations.of(context).space,
                         style: Theme.of(context).textTheme.titleLarge),
                     value: widget.value.boxYSpace,
+                    defaultValue: 0,
                     min: 0,
-                    max: 100),
+                    max: 500),
               ]),
             ]),
           ),
