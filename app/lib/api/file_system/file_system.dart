@@ -19,7 +19,7 @@ abstract class GeneralFileSystem {
   RemoteStorage? get remote => null;
 
   String convertNameToFile(String name) {
-    return '${name.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_')}.bfly';
+    return name.replaceAll(RegExp(r'[^a-zA-Z0-9\-_() ,]'), '_');
   }
 
   Future<String> _findAvailableName(
@@ -180,7 +180,8 @@ abstract class DocumentFileSystem extends GeneralFileSystem {
     if (path.endsWith('/')) {
       path = path.substring(0, path.length - 1);
     }
-    return createFile('$path/${document.name}.bfly', document.save());
+    return createFile('$path/${convertNameToFile(document.name ?? '')}.bfly',
+        document.save());
   }
 }
 

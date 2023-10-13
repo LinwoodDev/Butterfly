@@ -295,10 +295,7 @@ class _FilesViewState extends State<FilesView> {
                       if (asset == null) return;
                       final path = _locationController.text;
                       var newPath =
-                          '$path/${_fileSystem.convertNameToFile(name!)}';
-                      if (!newPath.endsWith('.bfly')) {
-                        newPath += '.bfly';
-                      }
+                          '$path/${_fileSystem.convertNameToFile(name!)}.bfly';
                       await _fileSystem.updateDocument(
                           newPath,
                           asset.createDocument(

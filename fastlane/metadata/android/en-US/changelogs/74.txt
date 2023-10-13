@@ -12,6 +12,7 @@
 * Fix tool reordering
 * Improve default pattern templates values
 * Improve documentation
+* Improve file name validator to support -, (, ), comma and space
 * Switch back to flutter beta
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.10
