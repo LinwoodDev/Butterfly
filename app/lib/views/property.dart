@@ -25,13 +25,13 @@ const minSize = 500.0;
 class _PropertyViewState extends State<PropertyView>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 300),
+    duration: const Duration(milliseconds: 200),
     vsync: this,
   );
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
     begin: Offset.zero,
     end: const Offset(1.5, 0.0),
-  ).animate(CurvedAnimation(parent: _controller, curve: Curves.bounceInOut));
+  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic));
   final _scrollController = ScrollController();
 
   double _size = minSize;

@@ -10,9 +10,11 @@
 * Fix unnessesary baking of canvas on every change ([#503](https://github.com/LinwoodDev/Butterfly/issues/503))
 * Fix performance of pen tool
 * Fix tool reordering
+* Fix pattern background rendering
 * Improve default pattern templates values
 * Improve documentation
 * Improve file name validator to support -, (, ), comma and space
+* Improve open animation in property view
 * Switch back to flutter beta
 
 View all changes in the blog: https://linwood.dev/butterfly/2.0.0-beta.10

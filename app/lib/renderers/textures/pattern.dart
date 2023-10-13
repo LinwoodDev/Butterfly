@@ -11,12 +11,9 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
   if (texture.boxWidth > 0 && texture.boxXCount > 0) {
     var relativeWidth = texture.boxWidth * scale;
     var relativeSpace = texture.boxXSpace * scale;
-    int xCount =
-        (offset.dx / (texture.boxWidth * texture.boxXCount + texture.boxXSpace))
-            .floor();
-    double x =
-        -xCount * (texture.boxWidth * texture.boxXCount + texture.boxXSpace) +
-            offset.dx;
+    final part = texture.boxWidth * texture.boxXCount + texture.boxXSpace;
+    int xCount = (offset.dx / part).floor() + 1;
+    double x = -xCount * part + offset.dx;
     x *= scale;
 
     int count = 0;
@@ -38,12 +35,9 @@ void drawPatternTextureOnCanvas(PatternTexture texture, Canvas canvas,
   if (texture.boxHeight > 0 && texture.boxYCount > 0) {
     var relativeHeight = texture.boxHeight * scale;
     var relativeSpace = texture.boxYSpace * scale;
-    int yCount = (offset.dy /
-            (texture.boxHeight * texture.boxYCount + texture.boxYSpace))
-        .floor();
-    double y =
-        -yCount * (texture.boxHeight * texture.boxYCount + texture.boxYSpace) +
-            offset.dy;
+    final part = texture.boxHeight * texture.boxYCount + texture.boxYSpace;
+    int yCount = (offset.dy / part).floor() + 1;
+    double y = -yCount * part + offset.dy;
     y *= scale;
 
     int count = 0;

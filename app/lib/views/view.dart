@@ -32,10 +32,8 @@ class _MainViewViewportState extends State<MainViewViewport>
   double size = 1.0;
   GlobalKey paintKey = GlobalKey();
   _MouseState _mouseState = _MouseState.normal;
-  bool _isShiftPressed = false,
-      _isAltPressed = false,
-      _isCtrlPressed = false,
-      _isScalingDisabled = false;
+  bool _isShiftPressed = false, _isAltPressed = false, _isCtrlPressed = false;
+  bool? _isScalingDisabled;
 
   @override
   void initState() {
@@ -93,7 +91,7 @@ class _MainViewViewportState extends State<MainViewViewport>
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
-        child: ClipRRect(child: LayoutBuilder(builder: (context, constraints) {
+        child: LayoutBuilder(builder: (context, constraints) {
       void bake() {
         context.read<DocumentBloc>().bake(
             viewportSize: constraints.biggest,
@@ -171,6 +169,7 @@ class _MainViewViewportState extends State<MainViewViewport>
         }
 
         var openView = false;
+        var point = Offset.zero;
         final CurrentIndexCubit cubit = context.read<CurrentIndexCubit>();
 
         Handler getHandler() {
@@ -208,7 +207,7 @@ class _MainViewViewportState extends State<MainViewViewport>
                         onScaleUpdate: (details) {
                           final handler = getHandler();
                           handler.onScaleUpdate(details, getEventContext());
-                          if (_isScalingDisabled) return;
+                          if (_isScalingDisabled ?? true) return;
                           final cubit = context.read<CurrentIndexCubit>();
                           if (details.scale == 1) {
                             return;
@@ -223,21 +222,21 @@ class _MainViewViewportState extends State<MainViewViewport>
                               .read<SettingsCubit>()
                               .state
                               .touchSensitivity;
-                          cubit.zoom(current / sensitivity + 1,
-                              details.localFocalPoint);
+                          cubit.zoom(current / sensitivity + 1, point);
                           size = details.scale;
                         },
                         onLongPressEnd: (details) => getHandler()
                             .onLongPressEnd(details, getEventContext()),
                         onScaleEnd: (details) {
                           getHandler().onScaleEnd(details, getEventContext());
-                          if (!_isScalingDisabled) delayBake();
-                          _isScalingDisabled = false;
+                          if (!(_isScalingDisabled ?? true)) delayBake();
+                          _isScalingDisabled = null;
                         },
                         onScaleStart: (details) {
                           _isScalingDisabled = cubit
                               .getHandler()
                               .onScaleStart(details, getEventContext());
+                          point = details.localFocalPoint;
                           size = 1;
                         },
                         onDoubleTapDown: (details) => getHandler()
@@ -322,37 +321,41 @@ class _MainViewViewportState extends State<MainViewViewport>
                           child: BlocBuilder<TransformCubit, CameraTransform>(
                             builder: (context, transform) => MouseRegion(
                               cursor: currentIndex.currentCursor,
-                              child: Stack(children: [
-                                Container(color: Colors.white),
-                                CustomPaint(
-                                  size: Size.infinite,
-                                  foregroundPainter: ForegroundPainter(
-                                    [
-                                      ...cubit.foregrounds,
-                                    ],
-                                    state.data,
-                                    state.page,
-                                    state.info,
-                                    Theme.of(context).colorScheme,
-                                    transform,
-                                    cubit.state.selection,
-                                    currentIndex.cameraViewport.utilities,
-                                  ),
-                                  painter: ViewPainter(
-                                    state.data,
-                                    state.page,
-                                    state.info,
-                                    cameraViewport: currentIndex.cameraViewport,
-                                    transform: transform,
-                                    invisibleLayers: state.invisibleLayers,
-                                    states: currentIndex.allRendererStates,
-                                    currentArea: state.currentArea,
-                                    colorScheme: Theme.of(context).colorScheme,
-                                  ),
-                                  isComplex: true,
-                                  willChange: true,
-                                )
-                              ]),
+                              child: ClipRRect(
+                                child: Stack(children: [
+                                  Container(color: Colors.white),
+                                  CustomPaint(
+                                    size: Size.infinite,
+                                    foregroundPainter: ForegroundPainter(
+                                      [
+                                        ...cubit.foregrounds,
+                                      ],
+                                      state.data,
+                                      state.page,
+                                      state.info,
+                                      Theme.of(context).colorScheme,
+                                      transform,
+                                      cubit.state.selection,
+                                      currentIndex.cameraViewport.utilities,
+                                    ),
+                                    painter: ViewPainter(
+                                      state.data,
+                                      state.page,
+                                      state.info,
+                                      cameraViewport:
+                                          currentIndex.cameraViewport,
+                                      transform: transform,
+                                      invisibleLayers: state.invisibleLayers,
+                                      states: currentIndex.allRendererStates,
+                                      currentArea: state.currentArea,
+                                      colorScheme:
+                                          Theme.of(context).colorScheme,
+                                    ),
+                                    isComplex: true,
+                                    willChange: true,
+                                  )
+                                ]),
+                              ),
                             ),
                           ),
                         ),
@@ -361,6 +364,6 @@ class _MainViewViewportState extends State<MainViewViewport>
                   ),
                 )));
       });
-    })));
+    }));
   }
 }
