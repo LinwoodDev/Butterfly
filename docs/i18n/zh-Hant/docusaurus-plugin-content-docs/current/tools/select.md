@@ -4,10 +4,10 @@ sidebar_label: "Select"
 ---
 
 
-With this tool you can select elements and access the background context menu to access the [insert menu](../add).
+With this tool you can select elements.
 
 ## Configuration
 
-| Property |         Default          | 說明                                                                              |
-| --------:|:------------------------:|:------------------------------------------------------------------------------- |
-|     axis | (horizontal or vertical) | Direction where the space should be added. Only selectable when adding the tool |
+| Property |  Default  | 說明                                               |
+| --------:|:---------:|:------------------------------------------------ |
+|     mode | rectangle | Mode of selection. Valid are rectangle and lasso |

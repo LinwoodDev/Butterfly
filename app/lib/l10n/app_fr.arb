@@ -120,7 +120,7 @@
   "copyVersion": "Copier la version",
   "input": "Input",
   "behaviors": "Comportements",
-  "documentDirectory": "Répertoire des documents",
+  "dataDirectory": "Répertoire des données",
   "defaultPath": "Chemin par défaut",
   "dateFormat": "Format de la date",
   "updatedAt": "Mis à jour le : {dateTime}",
@@ -541,5 +541,14 @@
   "density": "Densité",
   "compact": "Compact",
   "comfortable": "Confortable",
-  "standard": "Standard"
+  "standard": "Standard",
+  "lock": "Verrouiller",
+  "addElement": "Ajouter un élément",
+  "notDefaultConnection": "Pas de connexion par défaut",
+  "defaultConnection": "Connexion par défaut",
+  "hide": "Cacher",
+  "show": "Afficher",
+  "pause": "Mettre en pause",
+  "stop": "Arrêter",
+  "refresh": "Rafraîchir"
 }

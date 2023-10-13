@@ -120,7 +120,7 @@
   "copyVersion": "Скопировать версию",
   "input": "Input",
   "behaviors": "Поведение",
-  "documentDirectory": "Каталог документов",
+  "dataDirectory": "Каталог данных",
   "defaultPath": "Путь по умолчанию",
   "dateFormat": "Формат даты",
   "updatedAt": "Обновлено: {dateTime}",
@@ -541,5 +541,14 @@
   "density": "Плотность",
   "compact": "Компактный",
   "comfortable": "Удобный",
-  "standard": "Стандартный"
+  "standard": "Стандартный",
+  "lock": "Заблокировать",
+  "addElement": "Добавить элемент",
+  "notDefaultConnection": "Соединение не по умолчанию",
+  "defaultConnection": "Соединение по умолчанию",
+  "hide": "Скрыть",
+  "show": "Показать",
+  "pause": "Пауза",
+  "stop": "Остановить",
+  "refresh": "Обновить"
 }

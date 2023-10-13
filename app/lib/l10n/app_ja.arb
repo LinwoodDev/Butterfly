@@ -120,7 +120,7 @@
   "copyVersion": "バージョンをコピー",
   "input": "Input",
   "behaviors": "ビヘイビア",
-  "documentDirectory": "ドキュメントディレクトリ",
+  "dataDirectory": "データディレクトリ",
   "defaultPath": "デフォルトのパス",
   "dateFormat": "日付の形式",
   "updatedAt": "更新日時: {dateTime}",
@@ -541,5 +541,14 @@
   "density": "解像度:",
   "compact": "コンパクト化",
   "comfortable": "快適さ",
-  "standard": "標準"
+  "standard": "標準",
+  "lock": "ロック",
+  "addElement": "要素を追加",
+  "notDefaultConnection": "デフォルトの接続ではありません",
+  "defaultConnection": "既定の接続",
+  "hide": "非表示",
+  "show": "表示",
+  "pause": "一時停止",
+  "stop": "停止",
+  "refresh": "更新"
 }

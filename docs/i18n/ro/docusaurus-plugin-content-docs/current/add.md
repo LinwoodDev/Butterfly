@@ -1,14 +1,24 @@
 ---
-title: "Insert"
-id: "add"
-slug: "/add"
+title: "Adăugare"
+id: "adaugă"
+slug: "/adaugă"
 sidebar_position: 3
 ---
 
-Puteți insera diferite lucruri în notele dvs.:
+Aici poți adăuga lucruri notelor tale.
 
-* Imagini (din galerie sau cameră)
-* PDF-uri
-* SVG
+## Importă
 
-Pentru a accesa meniul de inserare, utilizaţi unealta de mână şi atingeţi de două ori locul unde doriţi să inseraţi ceva. Faceţi clic pe "Insert" pentru a deschide meniul.
+Aici puteţi importa fişiere existente în documentele dvs. Sunt acceptate documente fluture, marcaj, png, svg şi pdf.
+
+## Unelte
+
+Pentru a adăuga mai multe instrumente în bara de instrumente, apăsați pe ele. Citește mai multe despre ele [aici](tools).
+
+## Suprafeţe
+
+Acestea sunt unelte speciale pentru a crea suprafeţe.
+
+## Acțiuni
+
+Acestea sunt instrumente care vor fi executate făcând clic pe ele. Poți folosi butonul de redare pentru a le executa fără a le adăuga la bara de instrumente.

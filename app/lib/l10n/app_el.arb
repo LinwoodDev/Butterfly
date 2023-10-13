@@ -120,7 +120,7 @@
   "copyVersion": "Αντιγραφή έκδοσης",
   "input": "Input",
   "behaviors": "Συμπεριφορές",
-  "documentDirectory": "Κατάλογος εγγράφου",
+  "dataDirectory": "Κατάλογος δεδομένων",
   "defaultPath": "Προεπιλεγμένη διαδρομή",
   "dateFormat": "Μορφή ημερομηνίας",
   "updatedAt": "Ενημερώθηκε στο: {dateTime}",
@@ -541,5 +541,14 @@
   "density": "Πυκνότητα",
   "compact": "Συμπαγής",
   "comfortable": "Άνετο",
-  "standard": "Τυπικό"
+  "standard": "Τυπικό",
+  "lock": "Κλείδωμα",
+  "addElement": "Προσθήκη στοιχείου",
+  "notDefaultConnection": "Μη προεπιλεγμένη σύνδεση",
+  "defaultConnection": "Προεπιλεγμένη σύνδεση",
+  "hide": "Απόκρυψη",
+  "show": "Εμφάνιση",
+  "pause": "Παύση",
+  "stop": "Διακοπή",
+  "refresh": "Ανανέωση"
 }

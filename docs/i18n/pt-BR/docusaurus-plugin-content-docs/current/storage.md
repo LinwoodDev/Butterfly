@@ -3,6 +3,12 @@ title: "Armazenamento"
 sidebar_position: 2
 ---
 
+## Diretório de dados
+
+O diretório de dados é o diretório onde documentos, modelos e pacotes são armazenados. No desktop você pode encontrá-lo em `~/Documents/Linwood/Butterfly`. Em mobile é em `getExternalFilesDir(null)/Linwood/Butterfly`. Você também pode alterá-lo nas configurações em `Dados`.
+
+Neste diretório, você encontrará uma pasta `Documents`, `Templates` e `Packs`.
+
 ## Web
 
 Os dados do aplicativo são armazenados no seu navegador. Ele é armazenado em um armazenamento local. Abra as ferramentas de desenvolvedor no seu navegador e você verá os dados.

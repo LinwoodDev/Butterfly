@@ -120,7 +120,7 @@
   "copyVersion": "复制版本",
   "input": "Input",
   "behaviors": "行为",
-  "documentDirectory": "文档目录",
+  "dataDirectory": "数据目录",
   "defaultPath": "默认路径",
   "dateFormat": "日期格式",
   "updatedAt": "更新于： {dateTime}",
@@ -541,5 +541,14 @@
   "density": "密度",
   "compact": "紧凑的",
   "comfortable": "舒适的",
-  "standard": "标准的"
+  "standard": "标准的",
+  "lock": "锁定",
+  "addElement": "添加元素",
+  "notDefaultConnection": "不是默认连接",
+  "defaultConnection": "默认连接",
+  "hide": "隐藏",
+  "show": "显示",
+  "pause": "暂停",
+  "stop": "停止",
+  "refresh": "刷新"
 }

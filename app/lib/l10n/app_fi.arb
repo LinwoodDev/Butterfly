@@ -120,7 +120,7 @@
   "copyVersion": "Kopioi versio",
   "input": "Input",
   "behaviors": "Käyttäytymiset",
-  "documentDirectory": "Asiakirjan hakemisto",
+  "dataDirectory": "Datakansio",
   "defaultPath": "Oletus polku",
   "dateFormat": "Päivämäärän muoto",
   "updatedAt": "Päivitetty: {dateTime}",
@@ -541,5 +541,14 @@
   "density": "Tiheys",
   "compact": "Kompakti",
   "comfortable": "Mukava",
-  "standard": "Normaali"
+  "standard": "Normaali",
+  "lock": "Lukitse",
+  "addElement": "Lisää elementti",
+  "notDefaultConnection": "Ei oletusyhteyttä",
+  "defaultConnection": "Oletus yhteys",
+  "hide": "Piilota",
+  "show": "Näytä",
+  "pause": "Tauko",
+  "stop": "Pysäytä",
+  "refresh": "Päivitä"
 }

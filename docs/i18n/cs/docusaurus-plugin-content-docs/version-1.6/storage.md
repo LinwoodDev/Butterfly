@@ -19,9 +19,9 @@ Tato funkce není dostupná na webu.
 
 :::
 
-Aplikaci lze uložit na vzdálený server. To je užitečné, pokud chcete sdílet data s ostatními lidmi nebo pokud máte více počítačů. V současné době je podporován pouze protokol `WebDAV`.
+Aplikaci lze uložit na vzdálený server. To je užitečné, pokud chcete sdílet data s ostatními lidmi nebo pokud máte více počítačů. V současné době je podporován pouze `WebDAV`.
 
-Chcete-li přidat vzdálený server, přejděte do nastavení a klikněte na `Odstraní`. Poté klikněte na `Přidat vzdálené`. Přidejte URL vzdáleného serveru a uživatelské jméno a heslo. Poté můžete specifikovat složku, kde jsou data uložena.
+Chcete-li přidat vzdálený server, přejděte do nastavení a klikněte na `Remotes`. Poté klikněte na `Přidat vzdálené`. Přidejte URL vzdáleného serveru a uživatelské jméno a heslo. Poté můžete specifikovat složku, kde jsou data uložena.
 
 Chcete-li získat webdav url, navštivte dokumentaci:
 
@@ -29,7 +29,7 @@ Chcete-li získat webdav url, navštivte dokumentaci:
 
 ### Offline synchronizace {#offline}
 
-Tato funkce umožňuje upravit soubory na vzdálených serverech, když jste v režimu offline. Otevřete vyskakovací menu v souboru nebo složce a klikněte na `Synchronizovat`. Toto stáhne soubor nebo složku a uloží ji lokálně. Synchronizovat celý kořenový adresář, klikněte na zaškrtávací značku v dialogovém okně pro vytvoření nebo klikněte na ovladač v nastavení a klikněte na zaškrtávací značku v sekci Správa záznamů.
+Tato funkce umožňuje upravit soubory na vzdálených serverech, když jste v režimu offline. Otevřete vyskakovací menu v souboru nebo složce a klikněte na `Sync`. Toto stáhne soubor nebo složku a uloží ji lokálně. Synchronizovat celý kořenový adresář, klikněte na zaškrtávací značku v dialogovém okně pro vytvoření nebo klikněte na ovladač v nastavení a klikněte na zaškrtávací značku v sekci Správa záznamů.
 
 Existuje několik omezení:
 

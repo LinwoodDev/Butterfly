@@ -19,9 +19,9 @@ Tämä ominaisuus ei ole käytettävissä verkossa.
 
 :::
 
-Sovellus voidaan tallentaa myös etäpalvelimelle. Tämä on hyödyllistä, jos haluat jakaa tietoja muiden ihmisten kanssa tai jos sinulla on useita tietokoneita. Tällä hetkellä tuetaan vain `WebDAV` -protokollaa.
+Sovellus voidaan tallentaa myös etäpalvelimelle. Tämä on hyödyllistä, jos haluat jakaa tietoja muiden ihmisten kanssa tai jos sinulla on useita tietokoneita. Tällä hetkellä vain `WebDAV` -protokolla.
 
-Jos haluat lisätä etäpalvelimen, mene asetuksiin ja napsauta `Remotes`. Klikkaa sitten `Lisää kaukosäädin`. Lisää etäpalvelimen URL ja käyttäjätunnus ja salasana. Sen jälkeen voit määrittää kansion, jossa tiedot tallennetaan.
+Jos haluat lisätä etäpalvelimen, mene asetuksiin ja napsauta `Remotes`. Klikkaa sitten `Lisää etä-`. Lisää etäpalvelimen URL ja käyttäjätunnus ja salasana. Sen jälkeen voit määrittää kansion, jossa tiedot tallennetaan.
 
 Jos haluat saada webdav url, käy dokumentaatio:
 
@@ -29,7 +29,7 @@ Jos haluat saada webdav url, käy dokumentaatio:
 
 ### Offline-synkronointi {#offline}
 
-Tämän ominaisuuden avulla voit muokata tiedostoja etäpalvelimilla ollessasi offline-tilassa. Avaa ponnahdusikkunavalikko tiedostossa tai kansiossa ja napsauta `Synkronoi`. Tämä lataa tiedoston tai kansion ja tallentaa sen paikallisesti. Synkronoidaksesi koko juurihakemiston, klikkaa valintaruutua luomalla valintaikkunassa tai klikkaa kaukosäätimen asetusta ja klikkaa valintaruutua sen hallinta-osiossa. @ info: whatsthis
+Tämän ominaisuuden avulla voit muokata tiedostoja etäpalvelimilla ollessasi offline-tilassa. Avaa ponnahdusikkunavalikko tiedostossa tai kansiossa ja napsauta `Sync`. Tämä lataa tiedoston tai kansion ja tallentaa sen paikallisesti. Synkronoidaksesi koko juurihakemiston, klikkaa valintaruutua luomalla valintaikkunassa tai klikkaa kaukosäätimen asetusta ja klikkaa valintaruutua sen hallinta-osiossa. @ info: whatsthis
 
 On olemassa muutamia rajoituksia:
 

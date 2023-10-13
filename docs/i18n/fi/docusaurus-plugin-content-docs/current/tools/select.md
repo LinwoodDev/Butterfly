@@ -4,10 +4,10 @@ sidebar_label: "Valitse"
 ---
 
 
-Tällä työkalulla voit valita elementtejä ja käyttää taustan kontekstivalikkoa päästäksesi [lisää valikkoon](../add).
+Tällä työkalulla voit valita elementtejä.
 
 ## Asetukset
 
-| Ominaisuus |           Oletus            | Kuvaus                                                                      |
-| ----------:|:---------------------------:|:--------------------------------------------------------------------------- |
-|     akseli | (vaakasuora tai pystysuora) | Suunta, johon tila olisi lisättävä. Valittavissa vain kun työkalua lisätään |
+| Ominaisuus |   Oletus    | Kuvaus                                                |
+| ----------:|:-----------:|:----------------------------------------------------- |
+|       tila | suorakulmio | Valinnan muoto. Kelvolliset ovat suorakulmio ja lasso |

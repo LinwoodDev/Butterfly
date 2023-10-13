@@ -84,6 +84,7 @@ class _EditToolbarState extends State<EditToolbar> {
 
                     return BlocBuilder<CurrentIndexCubit, CurrentIndex>(
                       buildWhen: (previous, current) =>
+                          previous.index != current.index ||
                           previous.handler != current.handler ||
                           previous.temporaryHandler !=
                               current.temporaryHandler ||
@@ -267,9 +268,11 @@ class _EditToolbarState extends State<EditToolbar> {
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: OptionButton(
                         tooltip: tooltip,
-                        onLongPressed: () => context
-                            .read<CurrentIndexCubit>()
-                            .insertSelection(e, true),
+                        onLongPressed: selected
+                            ? null
+                            : () => context
+                                .read<CurrentIndexCubit>()
+                                .insertSelection(e, true),
                         focussed: shortcuts.contains(i),
                         selected: selected,
                         highlighted: highlighted,

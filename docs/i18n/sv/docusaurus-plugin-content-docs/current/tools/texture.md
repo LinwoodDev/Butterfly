@@ -15,3 +15,7 @@ Texturen verktyg kan du lägga till bakgrunden till en liten del av duken.
 |           Width |     0     | Den fasta bredden på området. Om satt till 0, kommer bredden att beräknas automatiskt.                                                       |
 |            Höjd |     0     | Den fasta höjden på området. Om satt till 0, kommer höjden att beräknas automatiskt.                                                         |
 | Bildförhållande |     0     | Det fasta bildförhållandet av området. Om satt till 0, beräknas bildförhållandet automatiskt. Ett bildförhållande definieras som bredd/höjd. |
+
+Giltiga typer för textur är:
+
+* [Mönster](../background#pattern)

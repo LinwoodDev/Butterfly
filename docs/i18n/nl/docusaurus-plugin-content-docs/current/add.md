@@ -1,14 +1,24 @@
 ---
-title: "Insert"
-id: "add"
+title: "Toevoegen"
+id: "toevoegen"
 slug: "/add"
 sidebar_position: 3
 ---
 
-Je kunt verschillende dingen in je notities toevoegen:
+Hier kunt u dingen aan uw notities toevoegen.
 
-* Afbeeldingen (uit de galerij of de camera)
-* PDF's
-* SVG's
+## Importeren
 
-Voor toegang tot het invoegen menu, gebruik de handgereedschap en dubbeltik op de plek waar je iets wilt invoegen. Klik op "Insert" om het menu te openen.
+Hier kunt u bestaande bestanden in uw documenten importeren. Ondersteunde vlinderdocumenten, markdown, png, svg en pdf.
+
+## Hulpmiddelen
+
+Klik op de toolbar om meer gereedschappen toe te voegen. Lees meer over ze [hier](tools).
+
+## Oppervlakken
+
+Dit zijn speciale gereedschappen om oppervlakten te maken.
+
+## acties
+
+Dit zijn functies die zullen worden uitgevoerd door erop te klikken. Je kunt de afspeelknop gebruiken om ze uit te voeren zonder ze toe te voegen aan de werkbalk.

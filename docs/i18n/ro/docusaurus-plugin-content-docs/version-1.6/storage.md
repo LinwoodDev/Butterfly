@@ -21,7 +21,7 @@ Această caracteristică nu este disponibilă pe web.
 
 Aplicația poate fi salvată pe un server de la distanță. Acest lucru este util dacă doriți să partajați datele cu alte persoane sau dacă aveți mai multe computere. În prezent, numai protocolul `WebDAV` este acceptat.
 
-Pentru a adăuga un server de la distanţă, accesaţi setările şi faceţi clic pe `Remotes`. Apoi faceţi clic pe `Adăugare la distanţă`. Adăugați adresa URL a serverului remote și numele de utilizator și parola. După aceasta, puteți specifica folderul în care sunt stocate datele.
+Pentru a adăuga un server de la distanţă, accesaţi setările şi faceţi clic pe `Remotes`. Apoi apasă pe `Adaugă la distanță`. Adăugați adresa URL a serverului remote și numele de utilizator și parola. După aceasta, puteți specifica folderul în care sunt stocate datele.
 
 Pentru a obține url-ul webdac, vă rugăm să vizitați documentația:
 
